@@ -4,11 +4,11 @@
 
 [http://quimeraengine.googlecode.com/svn/wiki/images/ProcesoTrabajo.png]
 
-   1. Autoasignarse la tarea con más prioridad / Ser asignado a una tarea
-   2. Cambiar el estado de la tarea a Starterd
-   3. Obtener la última versión del código (Checkout / Update)
-   4. Realizar la tarea
-   5. Cambiar el estado de la tarea a ReadyForReview
-   6. Crear parche y enviar al reviewer (Create Patch...), incluyendo el ID de la tarea en el asunto del correo
-   7. [Correcto, estado de la tarea es Done]: Update y Commit
-   8. [Incorrecto, estado de la tarea Started]: Vuelta al paso 3
+ # Autoasignarse la tarea con más prioridad / Ser asignado a una tarea
+ # Cambiar el estado de la tarea a Starterd
+ # Obtener la última versión del código (Checkout / Update)
+ # Realizar la tarea
+ # Cambiar el estado de la tarea a `ReadyForReview`
+ # Crear parche y enviar al reviewer (Create Patch...), incluyendo el ID de la tarea en el asunto del correo
+ # [Correcto, estado de la tarea es Done]: Update y Commit
+ # [Incorrecto, estado de la tarea Started]: Vuelta al paso 3
