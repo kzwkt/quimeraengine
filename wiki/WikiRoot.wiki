@@ -1,0 +1,5 @@
+#summary Nodo raíz de la wiki.
+
+= Quimera Engine Wiki =
+
+[https://code.google.com/p/quimeraengine/w/list Editar Wiki]
