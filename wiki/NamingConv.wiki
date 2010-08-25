@@ -78,4 +78,5 @@ Ejemplo: enum EQObjectType { Camera = 0, Mesh = 1 }.
 
 Ejemplo: strNewConventionName.
 
+
 Esta lista está sujeta a cambios derivados de propuestas del equipo, bien justificadas, y así como de improbables efectos negativos en la legibilidad y productividad. Está basada en parte en la experiencia personal y en parte en estándares de facto.
