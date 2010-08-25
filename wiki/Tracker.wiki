@@ -4,6 +4,6 @@
 
 [https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Development+status%3ANew+-has%3Aowner New Development Tasks]
 
-Pending Reviews
+[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Development+status%3AReadyForReview Pending Reviews]
 
-Pending Bug Fixes
+[[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Bug+status%3ANew+-has%3Aowner Pending Bug Fixes]
