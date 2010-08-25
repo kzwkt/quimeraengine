@@ -1,5 +1,9 @@
 = Hoja de Ruta =
 
+
+
+
+
 == Gestación ==
 
     * *Idea:* Todo proyecto surge a partir de una idea, una visión, la imaginación de una obra. A su vez, la idea nace fundamentada en unos conocimientos previos y en una vaga previsión de su factibilidad. En nuestro caso la idea es una librería que actúa como motor o núcleo sobre el que edificar videojuegos de forma mucho más sencilla que si dicho motor no existiera.
@@ -11,7 +15,7 @@
     * *Ensayos:* Para comprobar que el sistema de trabajo funciona antes de empezar con el desarrollo puro y duro, se harán unas jornadas de prueba en la que intervendrán todos los elementos posibles, incluyendo pruebas de carga. Quizá nos demos cuenta en ese momento que hay cosas inviables, inútiles o sin definir.
 
 
-Fase 0
+== Fase 0 ==
 
     * *Diseño General:* Primeros diagramas UML de la "carcasa" de la API. Es un diseño concreto pero escueto, presentando las clases principales del sistema y definiendo a grandes rasgos el estilo de la interfaz.
     * *Registro de las Primeras Tareas:* Dará comienzo oficialmente el desarrollo de Quimera Engine, registrando las primeras tareas relacionadas con pruebas de concepto necesarias para desarrollar la infraestructura del sistema, abriendo el repositorio de código y haciendo pública la existencia del proyectp.
@@ -19,7 +23,7 @@ Fase 0
     * *Pruebas Intensivas:* Antes de continuar a la siguiente fase es imprescindible haber testeado al máximo todo lo desarrollado, que constituye no sólo los cimientos, sino también los ladrillos y el cemento. Se creará una batería de unit tests para todas las clases auxiliares y se realizarán exploratory, stress y endurance tests para las secciones del motor implementadas. No se pueden permitir errores.
 
 
-Fase 1
+== Fase 1 ==
 
     * *Diseño API Gráfica:* Contando con las herramientas y los materiales fabricados en la fase anterior, ya se puede acometer la sección del motor más interesante. Se diseñarán ciertas partes básicas para que sea posible representar un texto en pantalla.
     * *Desarrollo Inicialización:* Implementación de las clases que permitan la inicialización de la sección gráfica.
