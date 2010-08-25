@@ -4,6 +4,6 @@
 
 [NamingConv Naming Convention]
 
-[OrderConv Order Convention]
+[OrderConv Code Order Convention]
 
 [GoodPracConv Good practices and Non-classified conventions]
