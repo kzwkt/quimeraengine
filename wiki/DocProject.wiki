@@ -1,9 +1,9 @@
-= Documentación del Proyecto =
+= Project Documentation =
 
-[Roadmap Hoja de ruta]
+[Roadmap Roadmap]
 
-[CurrentState Estado actual]
+[CurrentState Current state]
 
-[Phase0 Fase 0]
+[Phase0 Phase 0]
 
-[Phase1 Fase 1]
+[Phase1 Phase 1]
