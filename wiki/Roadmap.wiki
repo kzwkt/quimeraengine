@@ -1,6 +1,6 @@
 = Hoja de Ruta =
 
-[http://quimeraengine.googlecode.com/svn/wiki/images/Roadmap.png]
+<p align="center>"[http://quimeraengine.googlecode.com/svn/wiki/images/Roadmap.png]</p>
 
 == Gestación ==
 
