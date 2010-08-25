@@ -2,7 +2,7 @@
 
 *Archivos de cabecera y de implementación:* Se llaman igual que la clase o interfaz que esté declarada en su interior. Las extensiones de archivo serán .h para los de cabecera y .cpp para los de implementación.
 
-Ejemplo: NombreClase.h / NombreClase.cpp.
+Ejemplo: `NombreClase`.h / NombreClase.cpp.
 
 *Definiciones para evitar inclusiones múltiples (#ifndef ... #define ... [código] #endif):* Se compondrá de 2 guiones bajos al principio, el nombre de la clase o interfaz que se declare en el archivo, en mayúsculas, y por último otros 2 guiones bajos.
 
