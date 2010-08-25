@@ -2,7 +2,7 @@
 
 == Tarea de Desarrollo ==
 
-[http://quimeraengine.googlecode.com/svn/wiki/images/ProcesoTrabajo.png]
+<p align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/ProcesoTrabajo.png]</p>
 
  # Autoasignarse la tarea con más prioridad / Ser asignado a una tarea
  # Cambiar el estado de la tarea a _Started_
