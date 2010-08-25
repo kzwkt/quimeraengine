@@ -10,5 +10,5 @@
  # Realizar la tarea
  # Cambiar el estado de la tarea a `ReadyForReview`
  # Crear parche y enviar al reviewer (Create Patch...), incluyendo el ID de la tarea en el asunto del correo
- # `[`Correcto, estado de la tarea es _Done_`]`: _Update_ y _Commit_
- # `[`Incorrecto, estado de la tarea _Started_`]`: Vuelta al paso 3
+ #a `[`Correcto, estado de la tarea es _Done_`]`: _Update_ y _Commit_
+ #b `[`Incorrecto, estado de la tarea _Started_`]`: Vuelta al paso 3
