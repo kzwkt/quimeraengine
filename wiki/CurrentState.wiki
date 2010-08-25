@@ -1,6 +1,6 @@
 = Estado actual =
 
-[http://quimeraengine.googlecode.com/svn/wiki/images/RoadmapCurrent.png]
+<p align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/RoadmapCurrent.png]</p>
 
 El equipo se encuentra al final de su periodo de formación en C++ y DirectX en general.
 
