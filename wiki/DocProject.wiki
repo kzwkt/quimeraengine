@@ -1,5 +1,7 @@
 = Project Documentation =
 
+== Planning ==
+
 [Roadmap Roadmap]
 
 [CurrentState Current state]
@@ -7,3 +9,9 @@
 [Phase0 Phase 0]
 
 [Phase1 Phase 1]
+
+== Development ==
+
+[Conventions Conventions]
+
+[Workflow Work flow]
