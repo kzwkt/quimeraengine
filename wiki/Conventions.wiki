@@ -1,0 +1,9 @@
+= Conventions =
+
+[PatternsConv Patterns Convention]
+
+[NamingConv Naming Convention]
+
+[OrderConv Order Convention]
+
+[GoodPracConv Good practices and Non-classified conventions]
