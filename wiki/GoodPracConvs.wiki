@@ -14,25 +14,25 @@
     * Cuando se lancen excepciones, usar la más concreta disponible.
     * Inicializar siempre al declarar.
     * Poner el tipo de excepciones que lanza un método en su declaración.
-    * No usar nunca ZeroMemory, memcpy, etc. con tipos polimórficos.
+    * No usar nunca `ZeroMemory`, memcpy, etc. con tipos polimórficos.
     * Meter valores constantes en constantes, salvo casos concretos como el número cero, cadenas que sólo existen en un sitio (y jamás vayan a estar en más) o valores booleanos.
     * Se permiten bloques if sin llaves a menos que induzca a errores.
     * Se permiten condiciones sin signo de igualación, como los punteros nulos o los bool.
     * Los punteros se anulan con una constante para null, no con cero.
     * No usar breaks en bucles for, salvo casos excepcionales.
     * Después de usar delete, anular el puntero.
-    * Evitar los tipos void* siempre que sea posible.
+    * Evitar los tipos void`*` siempre que sea posible.
     * No pasar estructuras de la STL como parámetros por valor.
-    * Usar etiquetas [TODO], [HACK] y [REVIEW] en comentarios para indicar cosas por hacer, rodeos obligatorios que se han tomado y que seguramente se puedan mejorar en el futuro, y trozos de código que por desconocimiento o por prisas se han hecho peor de lo debido, respectivamente.
-    * Usar la etiqueta [DOC] para indicar que falta completar la documentación de algún elemento del código.
+    * Usar etiquetas `[TODO]`, `[HACK]` y `[REVIEW]` en comentarios para indicar cosas por hacer, rodeos obligatorios que se han tomado y que seguramente se puedan mejorar en el futuro, y trozos de código que por desconocimiento o por prisas se han hecho peor de lo debido, respectivamente.
+    * Usar la etiqueta `[DOC]` para indicar que falta completar la documentación de algún elemento del código.
     * Comentar código y documentación con //, no con /* */. El código inservible, si fue anteriormente subido al repositorio, debe ser borrado.
     * Si el cuerpo de un método ocupa demasiado a lo alto, partirlo en 2 como mínimo, salvo pérdida de eficiencia en lugares críticos.
     * No hay límite establecido a lo ancho para una línea de código, aunque sería preferible que no se saliera de un monitor de 1024. En casos en los que se perjudique la legibilidad por partir la línea, se dejará en una, aunque sobrepase la recomendación.
     * Cuando se llame a un método, siempre debería ir precedido por su clase/interfaz, aunque se esté llamando desde su propia clase, en cuyo caso se usaría this.
-    * Salvo estructuras especiales, todos los atributos no constantes de una clase que queiran hacerse públicos deben estar encapsulados por sus respectivas propiedades (Get / Set).
-    * Preferir el uso del operador de multiplicación al de división. Motivos de eficiencia. Ejemplo: 1.0f * 0.5f en lugar de 1.0f / 2.0f.
+    * Salvo estructuras especiales, todos los atributos no constantes de una clase que quieran hacerse públicos deben estar encapsulados por sus respectivas propiedades (Get / Set).
+    * Preferir el uso del operador de multiplicación al de división. Motivos de eficiencia. Ejemplo: 1.0f `*` 0.5f en lugar de 1.0f / 2.0f.
     * Guardar la condición de un bucle antes de que éste empiece, cuando se pueda. Un ejemplo de esto es el típico .Count() de una lista.
-    * Usar string en lugar de char* siempre que se pueda, se asume la pérdida de rendimiento.
+    * Usar string en lugar de char`*` siempre que se pueda, se asume la pérdida de rendimiento.
     * Usar vector en lugar de un array, siempre que se pueda. Se asume la pérdida de rendimiento. Aprovechar la dualidad de comportamiento de vector.
     * No usar myMap["clave"] == null. Usar el método find().
     * Cuidado con el orden de preferencia de los operadores lógicos y los de bit.
