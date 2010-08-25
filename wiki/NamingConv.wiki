@@ -12,11 +12,11 @@ Ejemplo: `__`NOMBRECLASE`__`.
 
 Ejemplo: `<`string`>`.
 
-*Namespaces:* Se usará PascalCase. Se dividirá en: Nombre del equipo, punto, Nombre del proyecto, punto, Nombre del Dominio.
+*Namespaces:* Se usará `PascalCase`. Se dividirá en: Nombre del equipo, punto, Nombre del proyecto, punto, Nombre del Dominio.
 
-Ejemplo: KinesisTeam.QuimeraEngine.Core.
+Ejemplo: `KinesisTeam`.`QuimeraEngine`.Core.
 
-*Clases:* Se usará PascalCase, poniendo como prefijo una Q, de Quimera, mayúscula. 
+*Clases:* Se usará `PascalCase`, poniendo como prefijo una Q, de Quimera, mayúscula. 
 
 Ejemplo: QSceneElement.
 
@@ -44,7 +44,7 @@ Ejemplo: QTreeNode.
 
 Pueden añadirse otros prefijos opcionalmente, siempre que no induzcan a confusión.
 
-Ejemplo: int nNumero; float arFloats[[ 8 ]];.
+Ejemplo: int nNumero; float `arFloats[8]`;.
 
 *Variables miembro no-estáticas:* Igual que las no-miembro locales pero anteponiendo un guión bajo delante.
 
@@ -62,15 +62,15 @@ Ejemplo: static_nCount.
 
 Ejemplo: s_pMember.
 
-*Métodos y propiedades, de instancia o estáticos:* Usarán PascalCase, sin ningún tipo de prefijo o postfijo.
+*Métodos y propiedades, de instancia o estáticos:* Usarán `PascalCase`, sin ningún tipo de prefijo o postfijo.
 
-Ejemplo: GetMethod().
+Ejemplo: `GetMethod`().
 
 *Typedef:* Si es a nivel de librería, entonces se nombra siguiendo las reglas del original. Si su ámbito se reduce a un sitio concreto, se usa como prefijo TQ.
 
 Ejemplo: typedef std::vector`<`int`>`::iterator TQVectorIterator.
 
-*Enumerados:* El nombre del enumerado se escribirá con PascalCase, en singular, precedido por EQ. Los nombres de los valores no tendrán prefijo, y usarán PascalCase.
+*Enumerados:* El nombre del enumerado se escribirá con `PascalCase`, en singular, precedido por EQ. Los nombres de los valores no tendrán prefijo, y usarán `PascalCase`.
 
 Ejemplo: enum EQObjectType { Camera = 0, Mesh = 1 }.
 
