@@ -1,14 +1,14 @@
 = Quimera Engine Wiki =                            
 
-[DocProject Documentación del Proyecto]
+[DocProject Project Documentation]
 
-[Doc3rdParty Documentación de terceras partes]
+[Doc3rdParty 3rd Party Documentation]
 
-[PoC Pruebas de concepto]
+[PoC Proofs of Concept]
 
-[RefAPI Referencia de la API]
-
-
+[RefAPI API Reference]
 
 
-[https://code.google.com/p/quimeraengine/w/list Editar Wiki]
+
+
+[https://code.google.com/p/quimeraengine/w/list Edit Wiki]
