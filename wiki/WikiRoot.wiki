@@ -1,6 +1,6 @@
 = Quimera Engine Wiki =                            
 
-=[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png][DocProject Project Documentation]=
+==[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png][DocProject Project Documentation]==
 
 [http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png][Doc3rdParty 3rd Party Documentation]
 
