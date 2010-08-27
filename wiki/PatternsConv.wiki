@@ -1,7 +1,7 @@
 = Convención de Patrones =
 
- # [Enumeradores]
- # [Interfaces]
+ # [PatternsConv#Enumeradores Enumeradores]
+ # [PatternsConv#Interfaces Interfaces]
 
 == Enumeradores ==
 Por motivos de legibilidad y usabilidad, usaremos una estructura especial para declarar los enumerados. Como sabemos, C++ trata los valores de los enumerados como constantes globales, lo cual provoca que a la hora de utilizar el Intellisense quede todo guarreado con un montón de valores no relacionados entre sí. Además, cuando se lee el código, no se sabe si lo que se está usando en un determinado lugar es una constante declarada en alguna parte o un enumerado. Para evitar todo esto, haremos lo siguiente:
