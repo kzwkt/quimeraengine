@@ -1,6 +1,6 @@
 = Tracker =
 
-[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.jpg] [Workflow Work Flow]
+[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png] [Workflow Work Flow]
 
 == Phase 0 ==
 
