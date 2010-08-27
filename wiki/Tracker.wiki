@@ -2,7 +2,7 @@
 
 <table>
 <tr>
-<td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[Workflow Work Flow]</td>
 </tr>
 </table>
