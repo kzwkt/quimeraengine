@@ -4,11 +4,11 @@
 
 <table>
 <tr>
-<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/tasks.jpg]</td>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
 <td>[fgdfgr All Tasks]</td>
 </tr>
 <tr>
-<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/tasks.jpg]</td>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
 <td>dhdh My Tasks]</td>
 </tr>
 <tr>
