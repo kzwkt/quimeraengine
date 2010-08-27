@@ -1,4 +1,4 @@
-[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png] = Project Documentation =
+[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png] =Project Documentation=
 
 == Planning ==
 
