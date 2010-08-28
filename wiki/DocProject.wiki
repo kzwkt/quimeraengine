@@ -2,16 +2,34 @@
 
 == Planning ==
 
-[Roadmap Roadmap]
+<table>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/roadmap.jpg]</td>
+<td>[Roadmap Roadmap]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/currentstate.jpg]</td>
+<td>[CurrentState Current state]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/phase.jpg]</td>
+<td>[Phase0 Phase 0]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/phase.jpg]</td>
+<td>[Phase1 Phase 1]</td>
+</tr>
+</table>
 
-[CurrentState Current state]
-
-[Phase0 Phase 0]
-
-[Phase1 Phase 1]
 
 == Development ==
-
-[Conventions Conventions]
-
-[Workflow Work flow]
+<table>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[Conventions Conventions]</td>
+</tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/workflow.jpg]</td>
+<td>[Workflow Work flow]</td>
+</tr>
+</table>
