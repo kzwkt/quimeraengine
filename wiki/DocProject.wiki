@@ -4,6 +4,10 @@
 
 <table>
 <tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/orgchart.jpg]</td>
+<td>[OrgChart Organization Chart]</td>
+</tr>
+<tr>
 <td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/roadmap.jpg]</td>
 <td>[Roadmap Roadmap]</td>
 </tr>
