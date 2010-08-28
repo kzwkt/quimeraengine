@@ -1,16 +1,16 @@
 = Quimera Engine Wiki =                            
 <table>
-<tr>
-<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
+<tr height="56">
+<td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[DocProject Project Documentation]</td>
 </tr>
-<tr>
+<tr height="56">
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[Doc3rdParty 3rd Party Documentation]</td>
 </tr>
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[RefAPI API Reference]</td>
-<tr>
+<tr height="56">
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/avionpapel.png]</td>
 <td>[PoC Proofs of Concept]</td>
 </tr>
