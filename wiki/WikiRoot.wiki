@@ -8,8 +8,10 @@
 <td align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[Doc3rdParty 3rd Party Documentation]</td>
 </tr>
+<tr height="56">
 <td align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[RefAPI API Reference]</td>
+</tr>
 <tr height="56">
 <td align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/avionpapel.png]</td>
 <td>[PoC Proofs of Concept]</td>
