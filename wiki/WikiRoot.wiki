@@ -4,17 +4,17 @@
 <td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[DocProject Project Documentation]</td>
 </tr>
-<tr height="56" align="center>
+<tr height="56" align="center">
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[Doc3rdParty 3rd Party Documentation]</td>
 </tr>
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[RefAPI API Reference]</td>
-<tr height="56" align="center>
+<tr height="56" align="center">
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/avionpapel.png]</td>
 <td>[PoC Proofs of Concept]</td>
 </tr>
-<tr height="100" align="center>
+<tr height="100" align="center">
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/editwiki.gif]</td>
 <td>[https://code.google.com/p/quimeraengine/w/list Edit Wiki]</td>
 </tr>
