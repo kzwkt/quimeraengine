@@ -1,0 +1,10 @@
+<VSContent xmlns="http://schemas.microsoft.com/developer/vscontent/2005"> 
+    <Content>
+        <FileName>MyAddin4.Addin</FileName>
+        <FileName>MyAddin4.dll</FileName>
+        <DisplayName>XMLComment</DisplayName>
+        <Description>Add-in para crear comentarios XML.</Description>
+        <FileContentType>Addin</FileContentType>
+        <ContentVersion>2.0</ContentVersion>
+    </Content>
+</VSContent>

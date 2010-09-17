@@ -1,0 +1,51 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+MyAddin4
+</name>
+</assembly>
+<members>
+<member name="M:MyAddin4.Connect.#ctor">
+	<summary>Implementa el constructor del objeto Add-in. Ponga el código de inicialización en este método.</summary>
+</member><member name="M:MyAddin4.Connect.OnConnection(System.Object,Extensibility.ext_ConnectMode,System.Object,System.Array@)">
+	<summary>Implementa el método OnConnection de la interfaz IDTExtensibility2. Recibe notificación de que se va a cargar el objeto Add-in.</summary>
+	<param name="application">Objeto raíz de la aplicación host.</param>
+	<param name="connectMode">Describe cómo se va a cargar el objeto Add-in.</param>
+	<param name="addInInst">Objeto que representa este complemento.</param>
+	<remarks></remarks>
+</member><member name="M:MyAddin4.Connect.OnDisconnection(Extensibility.ext_DisconnectMode,System.Array@)">
+	<summary>Implementa el método OnDisconnection de la interfaz IDTExtensibility2. Recibe notificación de que se va a descargar el objeto Add-in.</summary>
+	<param name="disconnectMode">Describe cómo se va a cargar el objeto Add-in.</param>
+	<param name="custom">Matriz de parámetros que son específicos de la aplicación host.</param>
+	<remarks></remarks>
+</member><member name="M:MyAddin4.Connect.OnAddInsUpdate(System.Array@)">
+	<summary>Implementa el método OnAddInsUpdate de la interfaz IDTExtensibility2. Recibe notificación de que ha cambiado la colección de complementos.</summary>
+	<param name="custom">Matriz de parámetros que son específicos de la aplicación host.</param>
+	<remarks></remarks>
+</member><member name="M:MyAddin4.Connect.OnStartupComplete(System.Array@)">
+	<summary>Implementa el método OnStartupComplete de la interfaz IDTExtensibility2. Recibe notificación de que se completó la carga de la aplicación host.</summary>
+	<param name="custom">Matriz de parámetros que son específicos de la aplicación host.</param>
+	<remarks></remarks>
+</member><member name="M:MyAddin4.Connect.OnBeginShutdown(System.Array@)">
+	<summary>Implementa el método OnBeginShutdown de la interfaz IDTExtensibility2. Recibe notificación de que se va a descargar la aplicación host.</summary>
+	<param name="custom">Matriz de parámetros que son específicos de la aplicación host.</param>
+	<remarks></remarks>
+</member><member name="M:MyAddin4.Connect.QueryStatus(System.String,EnvDTE.vsCommandStatusTextWanted,EnvDTE.vsCommandStatus@,System.Object@)">
+	<summary>Implementa el método QueryStatus de la interfaz IDTCommandTarget. Se le llama cuando se actualiza la disponibilidad del comando</summary>
+	<param name="commandName">Nombre del comando del que se va a determinar el estado.</param>
+	<param name="neededText">Texto necesario para el comando.</param>
+	<param name="status">Estado del comando de la interfaz de usuario.</param>
+	<param name="commandText">Texto solicitado por el parámetro neededText.</param>
+	<remarks></remarks>
+</member><member name="M:MyAddin4.Connect.Exec(System.String,EnvDTE.vsCommandExecOption,System.Object@,System.Object@,System.Boolean@)">
+	<summary>Implementa el método Exec de la interfaz IDTCommandTarget. Se le llama cuando se invoca el comando.</summary>
+	<param name="commandName">Nombre del comando que se va a ejecutar.</param>
+	<param name="executeOption">Describe cómo se debe ejecutar el comando.</param>
+	<param name="varIn">Parámetros pasados desde el llamador al controlador de comandos.</param>
+	<param name="varOut">Parámetros pasados desde el controlador de comandos al llamador.</param>
+	<param name="handled">Comunica al llamador si se controló el comando o no.</param>
+	<remarks></remarks>
+</member>
+</members>
+</doc>
