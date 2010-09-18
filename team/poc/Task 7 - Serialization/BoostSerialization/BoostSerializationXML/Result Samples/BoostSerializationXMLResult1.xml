@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <!DOCTYPE boost_serialization>
 <boost_serialization signature="serialization::archive" version="7">
-<root1 class_id="0" tracking_level="1" version="0" object_id="_0">
-	<RootObjectBase class_id="1" tracking_level="0" version="0">
+<pThis class_id="0" tracking_level="1" version="0" object_id="_0">
+	<RootObjectBase class_id="1" tracking_level="1" version="0" object_id="_1">
 		<_nBaseClassValue>16</_nBaseClassValue>
 	</RootObjectBase>
 	<_nBasicAttribute>0</_nBasicAttribute>
@@ -12,7 +12,7 @@
 		<item_version>0</item_version>
 		<item class_id="3" tracking_level="0" version="0">
 			<first>Key1</first>
-			<second class_id="4" tracking_level="1" version="0" object_id="_1">
+			<second class_id="4" tracking_level="1" version="0" object_id="_2">
 				<_strStlString>&lt;\invalid_symbols?&quot;&apos;&gt;</_strStlString>
 				<_stlVector class_id="5" tracking_level="0" version="0">
 					<count>2</count>
@@ -38,7 +38,7 @@
 		</item>
 		<item>
 			<first>Key2</first>
-			<second class_id_reference="4" object_id="_2">
+			<second class_id_reference="4" object_id="_3">
 				<_strStlString>.ñ_______               </_strStlString>
 				<_stlVector>
 					<count>2</count>
@@ -63,4 +63,4 @@
 			</second>
 		</item>
 	</_stlMap>
-</root1>
+</pThis>

@@ -35,6 +35,20 @@ class RootObjectBase
 public:
 
     int _nBaseClassValue;// Works fine.
+    
+    // A way to make template method "serialize" virtual
+    // There is a loss of type abstraction, but it is worth
+    virtual void SerializeImplementation(binary_oarchive & ar)
+    {
+        RootObjectBase* pThis = this;
+        ar << BOOST_SERIALIZATION_NVP(pThis);
+    }
+
+    virtual void DeserializeImplementation(binary_iarchive & ar)
+    {
+        RootObjectBase* pThis = this;
+        ar >> BOOST_SERIALIZATION_NVP(pThis);
+    }
 
 protected:
     
@@ -57,6 +71,20 @@ public:
     float _fAttributePrecission;
     std::map<std::string, LeafObject*> _stlMap;
     char* _arInHeap;
+    
+    // A way to make template method "serialize" virtual
+    // There is a loss of type abstraction, but it is worth
+    virtual void SerializeImplementation(binary_oarchive & ar)
+    {
+        RootObject* pThis = this;
+        ar << BOOST_SERIALIZATION_NVP(pThis);
+    }
+
+    virtual void DeserializeImplementation(binary_iarchive & ar)
+    {
+        RootObject* pThis = this;
+        ar >> BOOST_SERIALIZATION_NVP(pThis);
+    }
 
 protected:
 
@@ -85,6 +113,20 @@ public:
     std::vector<std::string> _stlVector;
     char _arLetters[10];
     RootObject* _pCircularReference;
+    
+    // A way to make template method "serialize" virtual
+    // There is a loss of type abstraction, but it is worth
+    virtual void SerializeImplementation(binary_oarchive & ar)
+    {
+        LeafObject* pThis = this;
+        ar << BOOST_SERIALIZATION_NVP(pThis);
+    }
+
+    virtual void DeserializeImplementation(binary_iarchive & ar)
+    {
+        LeafObject* pThis = this;
+        ar >> BOOST_SERIALIZATION_NVP(pThis);
+    }
 
 protected:
 
@@ -105,28 +147,28 @@ void TreeDestroyer(RootObject* pRoot);
 int _tmain(int argc, _TCHAR* argv[])
 {
     // Roots
-    RootObject* root1 = new RootObject();
-    RootObject* root2 = new RootObject();
+    RootObjectBase* root1 = new RootObject();
+    RootObjectBase* root2 = new RootObject();
 
     // Builds both trees
-    TreeBuilder(root1, root2);
+    TreeBuilder(dynamic_cast<RootObject*>(root1), dynamic_cast<RootObject*>(root2));
 
     // Writes the binary file
     std::ofstream output1("BoostSerializationBinaryResult1");
     std::ofstream output2("BoostSerializationBinaryResult2");
 
     binary_oarchive archiveOUT1(output1);
-    archiveOUT1 << root1;
+    root1->SerializeImplementation(archiveOUT1);
 
     binary_oarchive archiveOUT2(output2);
-    archiveOUT2 << root2;
+    root2->SerializeImplementation(archiveOUT2);
 
     // The file stream must be closed in order to physically write the file
     output1.close();
     output2.close();
 
-    TreeDestroyer(root1);
-    TreeDestroyer(root2);
+    TreeDestroyer(dynamic_cast<RootObject*>(root1));
+    TreeDestroyer(dynamic_cast<RootObject*>(root2));
     
     // Reads the binary file
     root1 = new RootObject();
@@ -134,16 +176,16 @@ int _tmain(int argc, _TCHAR* argv[])
 
     std::ifstream input1("BoostSerializationBinaryResult1");
     binary_iarchive archiveIN1(input1);
-    archiveIN1 >> root1;
-    root1->_arInHeap = 0; // Not serialized
+    root1->DeserializeImplementation(archiveIN1);
+    dynamic_cast<RootObject*>(root1)->_arInHeap = 0; // Not serialized
 
     std::ifstream input2("BoostSerializationBinaryResult2");
     binary_iarchive archiveIN2(input2);
-    archiveIN2 >> root2;
-    root2->_arInHeap = 0; // Not serialized
+    root2->DeserializeImplementation(archiveIN2);
+    dynamic_cast<RootObject*>(root2)->_arInHeap = 0; // Not serialized
 
-    TreeDestroyer(root1);
-    TreeDestroyer(root2);
+    TreeDestroyer(dynamic_cast<RootObject*>(root1));
+    TreeDestroyer(dynamic_cast<RootObject*>(root2));
 
 	return 0;
 }
