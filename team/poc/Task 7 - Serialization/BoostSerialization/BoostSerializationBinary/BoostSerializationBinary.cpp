@@ -34,7 +34,7 @@ class RootObjectBase
 
 public:
 
-    int _nBaseClassValue;
+    int _nBaseClassValue;// Works fine.
 
 protected:
     
@@ -63,7 +63,7 @@ protected:
     template<class Archive>
     void serialize(Archive & ar, const unsigned int version)
     {
-        boost::serialization::base_object<RootObjectBase>(*this);
+        ar & boost::serialization::base_object<RootObjectBase>(*this); // Use this, dont call base class' serialize method directly
 
         ar & _nBasicAttribute;      // Works fine.
         ar & _fAttributePrecission; // Doesn't seem to be very accurate.
@@ -135,10 +135,12 @@ int _tmain(int argc, _TCHAR* argv[])
     std::ifstream input1("BoostSerializationBinaryResult1");
     binary_iarchive archiveIN1(input1);
     archiveIN1 >> root1;
+    root1->_arInHeap = 0; // Not serialized
 
     std::ifstream input2("BoostSerializationBinaryResult2");
     binary_iarchive archiveIN2(input2);
     archiveIN2 >> root2;
+    root2->_arInHeap = 0; // Not serialized
 
     TreeDestroyer(root1);
     TreeDestroyer(root2);
@@ -179,10 +181,10 @@ void TreeBuilder(RootObject* root1, RootObject* root2)
     pair2.first = "Key2";
     pair2.second = leaf2b;
     root2->_stlMap.insert(pair2);
-    root1->_arInHeap = new char[2];
-    root1->_arInHeap[0] = 'Y';
-    root1->_arInHeap[1] = 'Z';
-    root1->_nBaseClassValue = 32;
+    root2->_arInHeap = new char[2];
+    root2->_arInHeap[0] = 'Y';
+    root2->_arInHeap[1] = 'Z';
+    root2->_nBaseClassValue = 32;
 
     // Leafs 1 building
     leaf1a->_pCircularReference = root1;
