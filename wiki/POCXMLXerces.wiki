@@ -30,12 +30,13 @@ Se proporcionan distibuciones tanto de codigo fuente como precompiladas, para la
 Inicialización:
 En su página viene un ejemplo de inicialización y terminación, que deben ser hechas siempre antes y después de utilizar la librería. Se pueden hacer inicializaciones y terminaciones anidadas, cuidando que cada inicialización lleve su terminación asociada:
 
-`#include <xercesc/util/PlatformUtils.hpp>
+{{{
+#include <xercesc/util/PlatformUtils.hpp>
 // Other include files, declarations, and non-Xerces-C++ initializations.
 
 using namespace xercesc;
 
-int main(int argc, char* argv[])
+int main(int argc, char`*` argv[])
 {
   try {
     XMLPlatformUtils::Initialize();
@@ -51,7 +52,8 @@ int main(int argc, char* argv[])
 
   // Other terminations and cleanup.
   return 0;
-}`
+}
+}}}
 
 
 Desgraciadamente, no vienen más ejemplos en su página, parece que vienen incluidos en las distribuciones.
