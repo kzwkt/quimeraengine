@@ -4,7 +4,7 @@
 
 [http://xerces.apache.org/xerces-c/ Página oficial]
 
-Xerces-C++ es un parser XML con validación, escrito en un subconjunto portable de C++, que facilita que tus aplicaciones tengan la capacidad de leer y escribir datos XML. La (shared) biblioteca proporcionada puede analizar, generar, manipular y validar documentos XML usando las APIS DOM, SAX y SAX2. Se puede encontrar una introducción a la programación con Xerces-C++ en la Guía de programación .
+Xerces-C++ es un parser XML con validación, escrito en un subconjunto portable de C++, que facilita que tus aplicaciones tengan la capacidad de leer y escribir datos XML. La (shared) biblioteca proporcionada puede analizar, generar, manipular y validar documentos XML usando las APIS DOM, SAX y SAX2. Se puede encontrar una introducción a la programación con Xerces-C++ en la [http://xerces.apache.org/xerces-c/program-3.html Guía de programación].
 
 Xerces-C++ es fiel a las recomendaciones de XML 1.0 y muchos estándares asociados:
  * XML 1.0 (Third Edition), W3C Recommendation
