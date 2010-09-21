@@ -18,8 +18,7 @@ Xerces-C++ es fiel a las recomendaciones de XML 1.0 y muchos estándares asociad
  * XML Schema Part 1: Structure, W3C Recommendation 2 May 2001
  * XML Schema Part 2: Datatypes, W3C Recommendation 2 May 2001
  * DOM Level 3.0 Core Specification, W3C Recommendation 7 April 2004
- * DOM Level 3.0 Load and Save Specification, W3C Recommendation 7 April 2004
-See DOM Level 3 Support for detail.
+ * DOM Level 3.0 Load and Save Specification, W3C Recommendation 7 April 2004 (See DOM Level 3 Support for detail)
  * XML Inclusions (XInclude) 1.0 (Second Edition), W3C Recommendation 15 November 2006
 
 El parser proporciona un alto rendimiento, modularidad y escalabilidad. Con el parser, se proporcionan también el código fuente, ejemplos y documentación de la API. Por razones de portabilidad, se ha tenido cuidado de hacer un uso mínimo de templates y de IFDEFs#.
