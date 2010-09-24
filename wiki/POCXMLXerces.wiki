@@ -56,4 +56,6 @@ int main(int argc, char`*` argv[])
 Desgraciadamente, no vienen más ejemplos en su página, parece que vienen incluidos en las distribuciones.
 
 ===Pruebas de Concepto===
-[http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%205%20-%20XML%20Parsing/PruebaXercesDOM POC Xerces DOM]
+  * [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%205%20-%20XML%20Parsing/PruebaXercesDOM POC Xerces DOM]
+
+  * [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%205%20-%20XML%20Parsing/POCXercesSAX2 POC Xerces SAX2]
