@@ -78,7 +78,7 @@ int main (void)
    // AbstractDOMParser::Val_Never; (0)
    // AbstractDOMParser::Val_Always; (1)
    // AbstractDOMParser::Val_Auto; (2)
-   AbstractDOMParser::ValSchemes valScheme = AbstractDOMParser::Val_Auto;
+   AbstractDOMParser::ValSchemes valScheme = AbstractDOMParser::Val_Always;
    // Variable que indica si sacar por pantalla los nodos o no
    bool printOutEncounteredEles = true;
    // Control de errores
@@ -109,9 +109,9 @@ int main (void)
     DOMConfiguration  *config = parser->getDomConfig();
 
    // Si se quiere que procese namespaces
-    config->setParameter(XMLUni::fgDOMNamespaces, false);
+    config->setParameter(XMLUni::fgDOMNamespaces, true);
    // Si se quiere que procese schema
-    config->setParameter(XMLUni::fgXercesSchema, false);
+    config->setParameter(XMLUni::fgXercesSchema, true);
    // ?
     config->setParameter(XMLUni::fgXercesHandleMultipleImports, true);
    // full schema constraint checking ?
@@ -132,7 +132,9 @@ int main (void)
     DOMCountErrorHandler errorHandler;
     config->setParameter(XMLUni::fgDOMErrorHandler, &errorHandler);
 
-   
+    // Cambiar entre estas 2 lineas para ver un archivo que falle a la validación.
+	// Tiene únicamente un nombre de tag cambiado que no aparece en el Schema
+	//xmlFile = "arena_invalid.xml";
     xmlFile = "arena.xml";
    
     //reset error count first
