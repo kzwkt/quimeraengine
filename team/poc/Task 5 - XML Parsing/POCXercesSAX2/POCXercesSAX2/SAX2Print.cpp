@@ -31,8 +31,10 @@
 static const char*              encodingName    = "LATIN1";
 static SAX2XMLReader::ValSchemes valScheme      = SAX2XMLReader::Val_Auto;
 static bool					    expandNamespaces= false ;
+// Para que use el schema han de estar a true estas 2 variables:
 static bool                     doNamespaces    = true;
 static bool                     doSchema        = true;
+//
 static bool                     schemaFullChecking = false;
 static bool                     namespacePrefixes = false;
 static bool                     sortAttributes  = false;
@@ -133,7 +135,13 @@ int main(void)
     {
 
 		// Decidimos el archivo que parseará y el nodo que buscamos
+
+		// Se añade linea para parsear un archivo invalido respecto al XSD. 
+		// Se ha eliminado un atributo etiquetado como required
+		
+		//XMLCh *xmlFile= XMLString::transcode("attrib_invalid.xml");
 		XMLCh *xmlFile= XMLString::transcode("attrib.xml");
+		
 		std::string MiNodo = "ThemeInfo";
 
 		// Instanciamos nuestra clase manejadora

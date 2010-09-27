@@ -3,7 +3,7 @@
 <Theme version="2.0" magnet="9" alpha="255" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="attrib.xsd">
     <ThemeInfo name="Winamp2" author="See README.txt in the skin file"/>
     <Bitmap id="main" file="main.bmp" alphacolor="#FF0001"/>
-    <Bitmap id="cbuttons" file="cbuttons.bmp" alphacolor="#FF0001">
+    <Bitmap id="cbuttons" alphacolor="#FF0001">
         <SubBitmap id="previous_up" x="0" y="0" width="23" height="18"/>
         <SubBitmap id="previous_down" x="0" y="18" width="23" height="18"/>
         <SubBitmap id="play_up" x="23" y="0" width="23" height="18"/>
@@ -33,4 +33,5 @@
         </Layout>
     </Window>
 </Theme>
+
 
