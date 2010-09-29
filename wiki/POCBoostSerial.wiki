@@ -100,8 +100,9 @@ _Extraído de: [http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/impl
 
 == Código fuente de la prueba de concepto ==
 
-_https://quimeraengine.googlecode.com/svn/team/poc/Task 7 - Serialization/BoostSerialization_
+_`https://quimeraengine.googlecode.com/svn/team/poc/Task 7 - Serialization/BoostSerialization`_
 
 == Páginas web de interés ==
-[http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Serialization]
-[http://www.boost.org/ Boost]
+  * [http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Serialization]
+
+  * [http://www.boost.org/ Boost]
