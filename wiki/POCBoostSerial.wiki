@@ -5,10 +5,10 @@
 Boost es un conjunto de bibliotecas de software libre y revisión por pares preparadas para extender las capacidades del lenguaje de programación C++. Su licencia, de tipo BSD, permite que sea utilizada en cualquier tipo de proyectos, ya sean comerciales o no.
 _Wikipedia_
 
-La librería que nos interesa se llama Serialization, y aparece bajo el namespace *boost::serialization*. Dentro de la carpeta de los fuentes de Boost, las cabeceras se encuentran en la carpeta *boost/serialization*. También se utilizan clases que simbolizan archivos, bajo el *namespace boost::archive* y en el directorio *boost/archive*.
+La librería que nos interesa se llama *Serialization*, y aparece bajo el namespace *boost::serialization*. Dentro de la carpeta de los fuentes de Boost, las cabeceras se encuentran en la carpeta *boost/serialization*. También se utilizan clases que simbolizan archivos, bajo el *namespace boost::archive* y en el directorio *boost/archive*.
 
 == Instalación ==
 
 Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera que no necesitan ser compilados, al estilo de la STL. Sin embargo, la parte de *Serialization*, junto a otros, sí que tienen que ser compilados a parte. Para ello, ir a la carpeta donde se tenga la librería de Boost y poner _en la consola de VS2010_:
-# bootstrap (prepara los archivos de configuración).
-# .\bjam (realiza la compilación de todas las librerías que lo necesitan).
+  # bootstrap (prepara los archivos de configuración).
+  # .\bjam (realiza la compilación de todas las librerías que lo necesitan).
