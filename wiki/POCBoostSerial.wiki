@@ -9,6 +9,10 @@ La librería que nos interesa se llama *Serialization*, y aparece bajo el namesp
 
 == Instalación ==
 
-Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera que no necesitan ser compilados, al estilo de la STL. Sin embargo, la parte de *Serialization*, junto a otros, sí que tienen que ser compilados a parte. Para ello, ir a la carpeta donde se tenga la librería de Boost y poner _en la consola de VS2010_:
-  # bootstrap (prepara los archivos de configuración).
-  # .\bjam (realiza la compilación de todas las librerías que lo necesitan).
+Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera que no necesitan ser compilados, al estilo de la STL. Sin embargo, la parte de *Serialization*, junto a otros, sí que tienen que ser compilados a parte. Para ello:
+  # Abre la consola de VS2010.
+  # Navega hasta la carpeta donde se tenga la librería de Boost.
+  # Escribir: _bootstrap_ . Esto prepara los archivos de configuración.
+  # Escribir: _.\bjam_ . Realiza la compilación de todas las librerías que lo necesitan.
+  # Se habrán generado una serie de archivos .lib en la carpeta *stage/lib*, dentro del directorio de Boost.
+  # En la configuración del linker para nuestro proyecto de VS2010, incluimos tal carpeta y el archivo *libboost_serialization-vc100-mt-gd.lib*.
