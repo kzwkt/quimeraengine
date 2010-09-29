@@ -16,3 +16,24 @@ Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera qu
   # Escribir: _.\bjam_ . Realiza la compilación de todas las librerías que lo necesitan.
   # Se habrán generado una serie de archivos .lib en la carpeta *stage/lib*, dentro del directorio de Boost.
   # En la configuración del linker para nuestro proyecto de VS2010, incluimos tal carpeta y el archivo *libboost_serialization-vc100-mt-gd.lib*.
+
+== Codificación para serialización en texto (secuencial y XML)==
+
+  *  All text archives (i.e. text`_`?archive) will produce text output in the current stream locale. Generally this will produce no changes in string data.
+  * To produce binary output with Microsoft compilers, the stream will have to be opened with mode ios::binary. Failure to do so will result in 0x0d characters (carriage-return) characters being removed from the input stream if they are followed by a 0x0a character (line-feed). This could corrupt the input and make the file unreadable. On UNIX systems the ios::binary is not required and is ignored if used.
+  * character XML archives (i.e. xml_oarchive) will produce XML output with characters encoded according to the current stream locale.
+  * wide character XML archives (i.e. xml_woarchive) will produce files encoded in UTF-8. 
+
+This character encoding is implemented by changing the locale of the i/o stream used by an archive when the archive is constructed, the stream local is changed back to its original value. This action can be overridden by specifying boost::archive::no_codecvt when the archive is opened. In this case, the stream locale will not be changed by the serialization library.
+
+Note that the code conversion included for wide character text and XML archives could alter std::string data stored in archives. Suppose a normal (multi-byte) character string is written to a wide character stream. Our system uses the current locale to translate it to a wide character string before writing it out. Upon reading, it is translated back to a (multi-byte)string. If the locale on the platform that reads the archive is different than the locale on the platform that wrote the stream, the actual string data may be altered by the serialization process. To avoid this, either avoid usage of locale dependent multi-byte strings or be sure that the locale is set correctly before reading the archive.
+
+To produce wide character text output (i.e. 16 bit characters on Win32 systems), do the following.
+
+  * Open a wide character stream.
+  * Alter the stream locale to use boost::archive::codecvt_null<OStream::char_type>
+  * Create the archive with the flag no_codecvt. 
+
+Naturally, the input process has to be symmetrical. 
+
+[http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Documentación de Boost]
