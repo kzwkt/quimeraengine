@@ -19,6 +19,8 @@ Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera qu
 
 == Codificación para serialización en texto (secuencial y XML)==
 
+Preferentemente, se usará la codificación UTF-8.
+
   *  All text archives (i.e. text`_`?archive) will produce text output in the current stream locale. Generally this will produce no changes in string data.
   * To produce binary output with Microsoft compilers, the stream will have to be opened with mode ios::binary. Failure to do so will result in 0x0d characters (carriage-return) characters being removed from the input stream if they are followed by a 0x0a character (line-feed). This could corrupt the input and make the file unreadable. On UNIX systems the ios::binary is not required and is ignored if used.
   * character XML archives (i.e. xml_oarchive) will produce XML output with characters encoded according to the current stream locale.
@@ -36,4 +38,4 @@ To produce wide character text output (i.e. 16 bit characters on Win32 systems),
 
 Naturally, the input process has to be symmetrical. 
 
-[http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Documentación de Boost]
+_[http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Documentación de Boost]_
