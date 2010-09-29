@@ -32,10 +32,44 @@ Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera qu
 Cuando definimos un proceso de serialización y generamos archivos en base a éste, tenemos que asegurarnos de que tales archivos sigan siendo compatibles con la aplicación a pesar de que el proceso cambie. Por ejemplo, si la clase que serializábamos ahora contiene un atributo más, y queremos cargar un archivo que habíamos generado cuando la clase aún no contenía tal atributo, tenemos que distinguir de alguna manera la versión del archivo, para evitar, en este caso, que el deserializador busque en el archivo un atributo que, cuando entonces, no existía.
 En el método *serialize* recibimos siempre un número de versión, obtenido del archivo. Para especificar cuál es la versión de nuestro proceso, utilizamos en el ámbito global la macro *BOOST_CLASS_VERSION(class, version)*, donde el primer parámetro es el nombre de la clase y el segundo su versión actual.
 
-
 == Metodología intrusiva VS no-intrusiva ==
 
+Existen dos maneras de implementar nuestra serialización, una calificada como "intrusiva", que requiere que modifiquemos la clase para añadir un método de plantilla de nombre fijo "serialize", que acepta un objeto archivo y el número de versión; y otra no-intrusiva, que consiste en declarar una función de plantilla global que acepta un archivo, una instancia de nuestra clase y el número de versión.
+
+{{{
+#include <boost/archive/text_oarchive.hpp>
+#include <boost/archive/text_iarchive.hpp>
+
+class gps_position
+{
+public:
+int degrees;
+int minutes;
+float seconds;
+gps_position(){};
+gps_position(int d, int m, float s) :
+degrees(d), minutes(m), seconds(s)
+{}
+};
+
+namespace boost {
+namespace serialization {
+
+template<class Archive>
+void serialize(Archive & ar, gps_position & g, const unsigned int version)
+{
+ar & g.degrees;
+ar & g.minutes;
+ar & g.seconds;
+}
+
+} // namespace serialization
+} // namespace boost
+}}}
+
 == Pares nombre-valor en la serialización a XML ==
+
+
 
 == Codificación para serialización en texto (secuencial y XML)==
 
