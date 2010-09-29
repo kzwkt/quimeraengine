@@ -27,7 +27,11 @@ Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera qu
   # Se habrán generado una serie de archivos .lib en la carpeta *stage/lib*, dentro del directorio de Boost.
   # En la configuración del linker para nuestro proyecto de VS2010, incluimos tal carpeta y el archivo *libboost_serialization-vc100-mt-gd.lib*.
 
-== ==
+== Versionado ==
+
+== Metodología intrusiva VS no-intrusiva ==
+
+== Pares nombre-valor en la serialización a XML ==
 
 == Codificación para serialización en texto (secuencial y XML)==
 
