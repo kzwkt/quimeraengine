@@ -6,7 +6,7 @@ Boost es un conjunto de bibliotecas de software libre y revisión por pares prep
 _Extraído de: [http://es.wikipedia.org/wiki/Bibliotecas_Boost Wikipedia]_
 
 La librería que nos interesa se llama *Serialization*, y aparece bajo el namespace *boost::serialization*. Dentro de la carpeta de los fuentes de Boost, las cabeceras se encuentran en la carpeta *boost/serialization*. También se utilizan clases que simbolizan archivos, bajo el *namespace boost::archive* y en el directorio *boost/archive*.
-El autor es Robert Ramey.
+El autor es Robert Ramey y la versión usada en ésta prueba de concepto es la 1.44.
 
 === Características ===
   * Permite serializar grafos.
@@ -71,7 +71,7 @@ namespace boost {
 == Pares nombre-valor en la serialización a XML ==
 
 Para de/serializar de/hacia un archivo XML, es necesario realizar una correspondencia atributo de clase <`==`> elemento de XML. Los elementos de XML están representados por pares nombre-valor, donde se pretende que el nombre sea el del atributo de la clase, y el valor su contenido en forma de cadena de caracteres. Por éste motivo, cuando se usen los tipos de archivo xml_oarchive y xml_iarchive, hay que envolver los atributos en la macro *BOOST_SERIALIZATION_NVP( atributo )* en la llamada a los operadores << y >>.
-Cuando tratamos con herencia, serializaremos la clase base como si fuera un atributo más, pero usando la macro *BOOST_SERIALIZATION_BASE_OBJECT_NVP( NombreDeClaseBase )*.
+Cuando tratamos con herencia, serializaremos la clase base como si fuera un atributo más, pero usando la macro *BOOST_SERIALIZATION_BASE_OBJECT_NVP( `NombreDeClaseBase` )*.
 No se debe llamar al método serialize de la clase base.
 No se pueden serializar arrays alojados en el heap (no se conoce su tamaño y tampoco son reconocidos por el sistema de Boost).
 
@@ -96,4 +96,12 @@ To produce wide character text output (i.e. 16 bit characters on Win32 systems),
 
 Naturally, the input process has to be symmetrical. 
 
-_Extraído de: [http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Documentación de Boost]_
+_Extraído de: [http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/implementation.html#charencoding Documentación de Boost]_
+
+== Código fuente de la prueba de concepto ==
+
+_https://quimeraengine.googlecode.com/svn/team/poc/Task 7 - Serialization/BoostSerialization_
+
+== Páginas web de interés ==
+[http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Serialization]
+[http://www.boost.org/ Boost]
