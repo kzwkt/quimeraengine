@@ -6,6 +6,16 @@ Boost es un conjunto de bibliotecas de software libre y revisión por pares prep
 _Wikipedia_
 
 La librería que nos interesa se llama *Serialization*, y aparece bajo el namespace *boost::serialization*. Dentro de la carpeta de los fuentes de Boost, las cabeceras se encuentran en la carpeta *boost/serialization*. También se utilizan clases que simbolizan archivos, bajo el *namespace boost::archive* y en el directorio *boost/archive*.
+El autor es Robert Ramey.
+
+=== Características ===
+  * Permite serializar grafos.
+  * Requiere RTTI.
+  * Ofrece serialización a archivos binarios, XML y texto plano.
+  * Ofrece serialización automática de estructuras de la STL.
+  * Ofrece versionado.
+  * Ofrece 2 metodologías para serializar, una intrusiva y otra no-intrusiva.
+  * Serialización profunda.
 
 == Instalación ==
 
@@ -16,6 +26,8 @@ Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera qu
   # Escribir: _.\bjam_ . Realiza la compilación de todas las librerías que lo necesitan.
   # Se habrán generado una serie de archivos .lib en la carpeta *stage/lib*, dentro del directorio de Boost.
   # En la configuración del linker para nuestro proyecto de VS2010, incluimos tal carpeta y el archivo *libboost_serialization-vc100-mt-gd.lib*.
+
+== ==
 
 == Codificación para serialización en texto (secuencial y XML)==
 
