@@ -3,7 +3,7 @@
 == Descripción ==
 
 Boost es un conjunto de bibliotecas de software libre y revisión por pares preparadas para extender las capacidades del lenguaje de programación C++. Su licencia, de tipo BSD, permite que sea utilizada en cualquier tipo de proyectos, ya sean comerciales o no.
-_Wikipedia_
+_Extraído de: [http://es.wikipedia.org/wiki/Bibliotecas_Boost Wikipedia]_
 
 La librería que nos interesa se llama *Serialization*, y aparece bajo el namespace *boost::serialization*. Dentro de la carpeta de los fuentes de Boost, las cabeceras se encuentran en la carpeta *boost/serialization*. También se utilizan clases que simbolizan archivos, bajo el *namespace boost::archive* y en el directorio *boost/archive*.
 El autor es Robert Ramey.
@@ -28,6 +28,10 @@ Las librerías de Boost actualmente son, en su mayoría, archivos de cabecera qu
   # En la configuración del linker para nuestro proyecto de VS2010, incluimos tal carpeta y el archivo *libboost_serialization-vc100-mt-gd.lib*.
 
 == Versionado ==
+
+Cuando definimos un proceso de serialización y generamos archivos en base a éste, tenemos que asegurarnos de que tales archivos sigan siendo compatibles con la aplicación a pesar de que el proceso cambie. Por ejemplo, si la clase que serializábamos ahora contiene un atributo más, y queremos cargar un archivo que habíamos generado cuando la clase aún no contenía tal atributo, tenemos que distinguir de alguna manera la versión del archivo, para evitar, en este caso, que el deserializador busque en el archivo un atributo que, cuando entonces, no existía.
+En el método *serialize* recibimos siempre un número de versión, obtenido del archivo. Para especificar cuál es la versión de nuestro proceso, utilizamos en el ámbito global la macro *BOOST_CLASS_VERSION(class, version)*, donde el primer parámetro es el nombre de la clase y el segundo su versión actual.
+
 
 == Metodología intrusiva VS no-intrusiva ==
 
@@ -54,4 +58,4 @@ To produce wide character text output (i.e. 16 bit characters on Win32 systems),
 
 Naturally, the input process has to be symmetrical. 
 
-_[http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Documentación de Boost]_
+_Extraído de: [http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Documentación de Boost]_
