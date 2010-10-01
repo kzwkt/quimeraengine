@@ -2,6 +2,6 @@
 
 <p align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/RoadmapCurrent.png]</p>
 
-El equipo se encuentra al final de su periodo de formación en C++ y DirectX en general.
+Se han creado las primeras tareas de investigación. El equipo está dedicado actualmente a la búsqueda de las tecnologías que más se adecúen a las necesidadesd el proyecto.
 
-La dirección, en éstos momentos, se dedica a preparar el entorno de trabajo (Wiki, repositorio, tracker y foro) y la información útil para facilitar el mismo.
+La dirección participa en este momento en las tareas de investigación, además de una tarea más prioritaria como es la autoformación en materia de diseño de motores de videojuegos.
