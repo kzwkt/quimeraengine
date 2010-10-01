@@ -1,3 +1,4 @@
+#sidebar TOCPOC
 = PugiXML =
 
 Página oficial: [http://code.google.com/p/pugixml/ pugixml]
