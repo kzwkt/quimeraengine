@@ -16,4 +16,8 @@
 <td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
 <td>[GoodPracConv Good practices and Non-classified conventions]</td>
 </tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[DocConv Documentation convention]</td>
+</tr>
 </table>
