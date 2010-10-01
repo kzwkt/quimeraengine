@@ -1,17 +1,16 @@
-
 = PugiXML =
 
   Página oficial: [http://code.google.com/p/pugixml/ puixml]
 
-pugixml es una pequeña librería escrita en C++ para el proceso de documentos XML.
+  Pugixml es una pequeña librería escrita en C++ para el proceso de documentos XML.
 
-Implementa:
+  Implementa:
 
-  * Interface DOM con posibilidad de modificación del árbol.
-  * Parser sin validación extremadamente rápido.
-  * XPath 1.0.
-  * Soporte completo Unicode.
+    * Interface DOM con posibilidad de modificación del árbol.
+    * Parser sin validación extremadamente rápido.
+    * XPath 1.0.
+    * Soporte completo Unicode.
 
-Es una librería muy portable y fácil de integrar. Se distribuye bajo licencia MIT, que permite su uso libremente tanto en aplicaciones open-source como propietarias.
+  Es una librería muy portable y fácil de integrar. Se distribuye bajo licencia MIT, que permite su uso libremente tanto en aplicaciones open-source como propietarias.
 
-La versión actual es la 0.9.
+  La versión actual es la 0.9.
