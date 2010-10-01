@@ -1,3 +1,4 @@
+#sidebar TOCPOC
 = Xerces-c Library =
 
 [http://xerces.apache.org/xerces-c/ Página oficial]
