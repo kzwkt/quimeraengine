@@ -1,5 +1,5 @@
 = Lectura / Escritura XML (XML parsing) =
 
   * ==[POCXMLXerces Xerces-c]==
-  * ==[POCXMLplugixml PlugiXML]==
+  * ==[POCXMLplugixml PugiXML]==
   * ==[POCXMLtinyxml TinyXML]==
