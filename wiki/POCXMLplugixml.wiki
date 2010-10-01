@@ -1,13 +1,17 @@
-#summary One-sentence summary of this page.
 
-= Introduction =
+= PugiXML =
 
-Add your content here.
+  Página oficial: [http://code.google.com/p/pugixml/ puixml]
 
+pugixml es una pequeña librería escrita en C++ para el proceso de documentos XML.
 
-= Details =
+Implementa:
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+  * Interface DOM con posibilidad de modificación del árbol.
+  * Parser sin validación extremadamente rápido.
+  * XPath 1.0.
+  * Soporte completo Unicode.
+
+Es una librería muy portable y fácil de integrar. Se distribuye bajo licencia MIT, que permite su uso libremente tanto en aplicaciones open-source como propietarias.
+
+La versión actual es la 0.9.
