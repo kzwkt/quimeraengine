@@ -1,0 +1,6 @@
+#sidebar TOCPOC
+= s11n =
+
+Página oficial: [http://s11n.net/ s11n]
+
+Librería de código abierto para serialización. Su autor, 
