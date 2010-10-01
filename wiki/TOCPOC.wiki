@@ -1,4 +1,4 @@
-* [Poc Pruebas de Concepto]
+* [PoC Pruebas de Concepto]
 
   * [POCXMLParsing Lectura/Escritura XML]
 
