@@ -15,7 +15,7 @@ La librería ofrece diversas opciones de serialización, siempre en modo texto:
   * simplexml
   * wesnoth
 
-No serializa en forma binaria. La serialización puede hacerse tanto de forma intrusiva (declarando dos operadores dentro de la clase, uno para serializar y otro para deserializar) o de forma no intrusiva.
+No serializa en forma binaria. La serialización puede hacerse tanto de forma intrusiva (declarando dos operadores dentro de la clase, uno para serializar y otro para deserializar) como de forma no intrusiva.
 
 Diseñada para entornos Linux, tiene bastantes problemas para ejecutarse en windows. Se ha extractado [POCs11nPorta Aquí] el apartado de Windows de su [http://s11n.net/download/libs11n-porting-guide-20070207.pdf manual de portabilidad].
 
