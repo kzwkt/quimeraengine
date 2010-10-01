@@ -3,8 +3,18 @@
 Dado que la documentación será generada mediante la herramienta para C++ Doxygen, tendremos que adoptar un patrón que pueda analizar. Para hacerlo más estándar, utilizaremos notación XML, utilizada ampliamente en proyectos .Net, con algunas excepciones.
 
 == Etiqueta summary ==
+Descripción del elemento a documentar. Puede ser desde un par de palabras a unos cuantos párrafos, según el caso.
+{{{
+/// <summary>
+/// _Descripción_
+/// </summary>
+}}}
 
 == Etiqueta param ==
+Descripción de un parámetro de un método o función.Puede ser desde un par de palabras a unos cuantos párrafos, según el caso. No se especificará el tipo, aunque sí se hará saber si es opcional mediante una etiqueta `[Opcional]`, y si es de entrada o salida, con `[IN]`, `[OUT]` ó `[IN/OUT`].
+{{{
+/// <param name=" _Nombre del parámetro_ "> _Descripción_ </param>
+}}}
 
 == Etiqueta returns ==
 
