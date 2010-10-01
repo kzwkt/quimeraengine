@@ -62,37 +62,37 @@ class gps_position
 // Operador de serialización. 
 bool gps_position::operator()( s11nlite::node_type & node ) const
 {
-    typedef s11n::node_traits<s11nlite::node_type> NT;
-    NT::class_name( node, "gps_position" );
+        typedef s11n::node_traits<s11nlite::node_type> NT;
+        NT::class_name( node, "gps_position" );
 	NT::set( node, "Degrees", this->degrees );
 	NT::set( node, "Minutes", this->minutes );
 	NT::set( node, "Seconds", this->seconds );
 	
 	//Para serializar listas o vectores
-    //s11n::list::serialize_list( node, "vector", this->m_vec );
+        //s11n::list::serialize_list( node, "vector", this->m_vec );
     
 	// Para serializar mapas
-    //s11n::map::serialize_map( node, "themap", this->m_map );
+        //s11n::map::serialize_map( node, "themap", this->m_map );
     
-    return true;
+        return true;
 }
 
 // Operador de deserialización
 bool gps_position::operator()( const s11nlite::node_type & node )
 {
-    // now get our data:
-    typedef s11n::node_traits<s11nlite::node_type> NT;
-    this->degrees = NT::get( node, "Degrees", this->degrees);
-    this->minutes = NT::get( node, "Minutes", this->minutes);
+        // now get our data:
+        typedef s11n::node_traits<s11nlite::node_type> NT;
+        this->degrees = NT::get( node, "Degrees", this->degrees);
+        this->minutes = NT::get( node, "Minutes", this->minutes);
 	this->seconds = NT::get( node, "Seconds", this->seconds);
 
 	// Deserializar un vector o una lista
 	//s11n::list::deserialize_list( node,  "vector", this->m_vec );
     
 	//Deserializar un map
-    //s11n::map::deserialize_map( node,  "themap", this->m_map );
+        //s11n::map::deserialize_map( node,  "themap", this->m_map );
 
-    return true;
+        return true;
 }
 }}}
 
@@ -112,9 +112,9 @@ bool gps_position::operator()( const s11nlite::node_type & node )
 int main( void )
 {
    
-   s11nlite::serializer_class( "simplexml" ); // define output format
-   try
-   {
+        s11nlite::serializer_class( "simplexml" ); // define output format
+        try
+        {
 		gps_position p(25, 3, 35.6f);
 		std::string myfile = "gps.s11n";
 
@@ -125,12 +125,12 @@ int main( void )
 		// Deserialización
 		gps_position * q = s11nlite::load_serializable<gps_position>( myfile );
      
-   }
-   catch( const std::exception & ex )
-   {
-      std::cerr << "EXCEPTION: " << ex.what() << "\n";
-      return 1;
-   }
-   return 0;
+        }
+        catch( const std::exception & ex )
+        {
+                std::cerr << "EXCEPTION: " << ex.what() << "\n";
+                return 1;
+        }
+        return 0;
 }
 }}}
