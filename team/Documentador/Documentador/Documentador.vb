@@ -1,5 +1,4 @@
-﻿Option Strict Off
-Imports System
+﻿Imports System
 Imports EnvDTE
 Imports EnvDTE80
 Imports EnvDTE90
@@ -7,7 +6,7 @@ Imports EnvDTE90a
 Imports EnvDTE100
 Imports System.Diagnostics
 
-Public Module Documentar
+Public Module Documentador
 
     Public DTE As EnvDTE80.DTE2
 
@@ -85,7 +84,9 @@ Public Module Documentar
         ' de cierre final (cuando sólo quede 1 por cerrar)
         While posChar < textoMetodo.Length And _
               Not (textoMetodo.Chars(posChar) = ")" And _
-              parentesisAbiertos = AlgunParentesisAbierto)
+                    parentesisAbiertos = AlgunParentesisAbierto) And _
+              Not (textoMetodo.Chars(posChar) = ";" Or _
+                    textoMetodo.Chars(posChar) = "{")
 
             Dim currentChar As Char = textoMetodo.Chars(posChar)
 
@@ -108,7 +109,7 @@ Public Module Documentar
             End If
 
             ' Si se llega a una coma
-            If (currentChar = "," And angulosAbiertos = NingunAnguloAbierto) Or currentChar = "=" Then
+            If (currentChar = "," And angulosAbiertos = NingunAnguloAbierto) Or (currentChar = "=" And posPrimerParentesis > -1) Then
 
                 ' La condición evita que se tomen como nombre de parámetro a los valores
                 ' por defecto de tales parámetros
@@ -152,54 +153,21 @@ Public Module Documentar
 
         End While
 
-        ' Último parámetro, si lo hay
-        If textoMetodo.Chars(posChar) = ")" Then
-            ' La condición evita que se tomen como nombre de parámetro a los valores
-            ' por defecto de tales parámetros
-            If (paramOpcional = False) Then
-
-                Dim posAtras As Integer
-                Dim posFinParam As Integer
-
-                posAtras = posChar - 1
-                While Not Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
-                      posAtras > 0
-                    posAtras = posAtras - 1
-                End While
-
-                posFinParam = posAtras
-
-                While Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
-                      posAtras > 0
-                    posAtras = posAtras - 1
-                End While
-
-                ' Nombre de parámetro encontrado
-                arrayNombres.Add(textoMetodo.Substring(posAtras + 1, posFinParam - posAtras).Trim())
-
-                paramOpcional = False
-            End If
-        End If
-
-        ' Busca las excepciones que tira el método
+        Dim devuelveValor As Boolean = False
         Dim arrayExcepciones As Collection
         arrayExcepciones = New Collection
 
-        ' Actualmente, se supone que está en el paréntesis de cierre ")"
-        posChar = posChar + 1
+        ' Si se trata de un método, buscar el resto de información
+        If posPrimerParentesis > -1 Then
 
-        If textoMetodo.IndexOf("throw", posChar) > -1 Then
-
-            While posChar < textoMetodo.Length And _
-              Not (textoMetodo.Chars(posChar) = ")")
-
-                Dim currentChar As Char = textoMetodo.Chars(posChar)
-
-                ' Si se llega a una coma
-                If currentChar = "," Then
+            ' Último parámetro, si lo hay
+            If textoMetodo.Chars(posChar) = ")" Then
+                ' La condición evita que se tomen como nombre de parámetro a los valores
+                ' por defecto de tales parámetros
+                If (paramOpcional = False) Then
 
                     Dim posAtras As Integer
-                    Dim posFinTipo As Integer
+                    Dim posFinParam As Integer
 
                     posAtras = posChar - 1
                     While Not Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
@@ -207,51 +175,88 @@ Public Module Documentar
                         posAtras = posAtras - 1
                     End While
 
-                    posFinTipo = posAtras
+                    posFinParam = posAtras
 
                     While Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
                           posAtras > 0
                         posAtras = posAtras - 1
                     End While
 
-                    ' Nombre de tipo de excepción encontrado
-                    arrayExcepciones.Add(textoMetodo.Substring(posAtras + 1, posFinTipo - posAtras).Trim())
+                    ' Nombre de parámetro encontrado
+                    arrayNombres.Add(textoMetodo.Substring(posAtras + 1, posFinParam - posAtras).Trim())
 
+                    paramOpcional = False
                 End If
+            End If
 
-                posChar = posChar + 1
+            ' Busca las excepciones que tira el método
+            ' Actualmente, se supone que está en el paréntesis de cierre ")"
+            posChar = posChar + 1
 
-            End While
+            If textoMetodo.IndexOf("throw", posChar) > -1 Then
 
-        End If
+                While posChar < textoMetodo.Length And _
+                  Not (textoMetodo.Chars(posChar) = ")")
 
-        ' Último tipo de excepción, si lo hay
-        If textoMetodo.Chars(posChar) = ")" Then
-            Dim posAtras As Integer
-            Dim posFinTipo As Integer
+                    Dim currentChar As Char = textoMetodo.Chars(posChar)
 
-            posAtras = posChar - 1
-            While Not Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
-                  posAtras > 0
-                posAtras = posAtras - 1
-            End While
+                    ' Si se llega a una coma
+                    If currentChar = "," Then
 
-            posFinTipo = posAtras
+                        Dim posAtras As Integer
+                        Dim posFinTipo As Integer
 
-            While Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
-                  posAtras > 0
-                posAtras = posAtras - 1
-            End While
+                        posAtras = posChar - 1
+                        While Not Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
+                              posAtras > 0
+                            posAtras = posAtras - 1
+                        End While
 
-            ' Nombre de tipo de excepción encontrado
-            arrayExcepciones.Add(textoMetodo.Substring(posAtras + 1, posFinTipo - posAtras).Trim())
+                        posFinTipo = posAtras
 
-        End If
+                        While Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
+                              posAtras > 0
+                            posAtras = posAtras - 1
+                        End While
 
-        ' Verifica si la función devuelve un valor o no
-        Dim devuelveValor As Boolean = False
-        If textoMetodo.IndexOf("void", 1, posPrimerParentesis) = -1 Then
-            devuelveValor = True
+                        ' Nombre de tipo de excepción encontrado
+                        arrayExcepciones.Add(textoMetodo.Substring(posAtras + 1, posFinTipo - posAtras).Trim())
+
+                    End If
+
+                    posChar = posChar + 1
+
+                End While
+
+            End If
+
+            ' Último tipo de excepción, si lo hay
+            If textoMetodo.Chars(posChar) = ")" Then
+                Dim posAtras As Integer
+                Dim posFinTipo As Integer
+
+                posAtras = posChar - 1
+                While Not Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
+                      posAtras > 0
+                    posAtras = posAtras - 1
+                End While
+
+                posFinTipo = posAtras
+
+                While Char.IsLetterOrDigit(textoMetodo.Chars(posAtras)) And _
+                      posAtras > 0
+                    posAtras = posAtras - 1
+                End While
+
+                ' Nombre de tipo de excepción encontrado
+                arrayExcepciones.Add(textoMetodo.Substring(posAtras + 1, posFinTipo - posAtras).Trim())
+
+            End If
+
+            ' Verifica si la función devuelve un valor o no
+            If textoMetodo.IndexOf("void", 1, posPrimerParentesis) = -1 Then
+                devuelveValor = True
+            End If
         End If
 
         textSelection.GotoLine(lineaDocumentacion, True)
@@ -294,5 +299,4 @@ Public Module Documentar
         Return output
 
     End Function
-
 End Module
