@@ -9,7 +9,7 @@ Página oficial: www.winghands.it
 
 Se deja un extracto de la guía oficial, clara y concisa, en esta [POCEternityManual página].
 
-La Prueba de Concepto consiste en la de/serialización de una clase sencilla:
+La [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%207%20-%20Serialization/POCEternity Prueba de Concepto] consiste en la de/serialización de una clase sencilla:
 
 ====Declaración de la clase:====
 {{{
