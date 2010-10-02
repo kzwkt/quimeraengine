@@ -5,7 +5,7 @@ Sencilla librería para serialización. Admite serialización binaria, xml y MFC
 
 Está sin soporte desde hace en torno a un año.
 
-Página oficial: www.winghands.it
+Página oficial: [www.winghands.it www.winghands.it]
 
 Se deja un extracto de la guía oficial, clara y concisa, en esta [POCEternityManual página].
 
