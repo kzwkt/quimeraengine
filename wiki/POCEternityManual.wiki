@@ -6,110 +6,113 @@
 This chapter explains how to install Eternity framework and use it inside your own application.
 
 ===Introduction===
-Eternity is a little framework that is comp atible with Standard C++ and is
-tested to run on several platforms with different IDE (like Microsoft Visual
-Studio 6 and .NET, KDevelop, Anjuta, C++ Builder, gcc and others).
-The instructions in this chapter explain how to use Eternity, beginning with
-the installation of library and finishing with the distribution of your own
-application.
-Installation
-From the web site of Eternity (http://www.winghands.it) is possible to
-download the framework in various formats:
-· ZIP download: all of Eternity as a single compressed archive file,
-the .zip format is widely supported on Windows systems;
-· TAR.GZ download: all of Eternity as a single compressed
-archive file , the .tar.gz format is widely supported on Unix
-systems;
-Decompress Eternity library in any position on your hard disk: at the end of
-the work what you have is a simply directory named eternity that holds
-subdirectories. In the rest of this chapter we’ll call INSTALLDIR the main
-directory (e.g. c:\eternity or /usr/lib/eternity).
-Now could be useful to add INSTALLDIR/include (e.g. c:\eternity\include
-or /usr/lib/eternity/include ) to the PATH environment variable or to the
-include path of your IDE.
-That’s all for installation: there is nothing else to configure or to
-compile.
-Directories contents
+
+Eternity is a little framework that is comp atible with Standard C++ and is tested to run on several platforms with different IDE (like Microsoft Visual Studio 6 and .NET, KDevelop, Anjuta, C++ Builder, gcc and others).
+The instructions in this chapter explain how to use Eternity, beginning with the installation of library and finishing with the distribution of your own application.
+
+===Installation===
+
+From the web site of Eternity (http://www.winghands.it) is possible to download the framework in various formats:
+
+  * ZIP download: all of Eternity as a single compressed archive file, the .zip format is widely supported on Windows systems;
+  * TAR.GZ download: all of Eternity as a single compressed archive file , the .tar.gz format is widely supported on Unix systems;
+
+Decompress Eternity library in any position on your hard disk: at the end of the work what you have is a simply directory named eternity that holds subdirectories. In the rest of this chapter we’ll call INSTALLDIR the main directory (e.g. c:\eternity or /usr/lib/eternity).
+
+Now could be useful to add INSTALLDIR/include (e.g. c:\eternity\include or /usr/lib/eternity/include ) to the PATH environment variable or to the include path of your IDE.
+That’s all for installation: there is nothing else to configure or to compile.
+
+===Directories contents===
+
 The directories installed in INSTALLDIR are the follow ones:
-· src : where the source file are stored;
-· include: the folder to add to your include path
-· examples: where you could found several examples
-WingHands 7
-· doc : where this manual lies together with the reference handbook
+  * src : where the source file are stored;
+  * include: the folder to add to your include path
+  * examples: where you could found several examples 
+  * doc : where this manual lies together with the reference handbook 
+
 The main directory contains change logs files and license document.
-Configure your project
-You could enable the use of Eternity in your application following the three
-steps below (remember to add an include path pointing do
-INSTALLDIR/include like explain in the previous chapter):
-Step Description
-1 #include "eternity/eternity.hpp"
-add the following line to every compile unit in witch
-you want to use Eternity:
-2 add to your project the file with path:
-INSTALLDIR/src/eternity.cpp
+
+===Configure your project===
+
+You could enable the use of Eternity in your application following the three steps below (remember to add an include path pointing do INSTALLDIR/include like explain in the previous chapter):
+
+*Step Description*
+
+  # add the following line to every compile unit in witch you want to use Eternity:
+`#include "eternity/eternity.hpp"`
+
+  # add to your project the file with path:
+`INSTALLDIR/src/eternity.cpp`
 make sure this file is compiled by your environment
-3 remember to enable the RTTI on your compiler
-Dynamic creation
-Create an object with dynamic creation means instance it in the heap, like
-the operator new does, but specifying its class only at run-time, for
-example using a string variable.
-Before use dynamic creation you need register the class in the eternity
-engine using the Factory<> object like in the follow example:
+
+  # remember to enable the RTTI on your compiler
+
+===Dynamic creation===
+
+Create an object with dynamic creation means instance it in the heap, like the operator new does, but specifying its class only at run-time, for example using a string variable.
+Before use dynamic creation you need register the class in the eternity engine using the Factory<> object like in the follow example:
+
+{{{
 //register the class MyObject
 factory<MyObject> AFactory;
+
 //instance an empty pointer
 MyObject *myObject = NULL;
+
 //dynamic create an object from class MyObject
 //and store it in myObject pointer
 string className = “MyObject”
 create(className, & myObject);
-In short dynamic creation is like the new operator but you could pass a
-string to it.
-Remember that the factory object used for the registration (in the example
-AFactory) need to be instanced for all the time that you need dynamic
-creation although it is not necessary that it could be visible (in the scope)
-of code that invoke Create() method.
-When you have finished dynamic create a class let you feel free to delete
-the factory object or let it goes out of scope (and so deleted from the stack
-by compiler).
-Enable your class to binary persistence
-To make your class ready to be managed by Eternity binary persistence
-system you have to add a single method and one include.
-WingHands 8
+}}}
+
+In short dynamic creation is like the new operator but you could pass a string to it.
+Remember that the factory object used for the registration (in the example AFactory) need to be instanced for all the time that you need dynamic creation although it is not necessary that it could be visible (in the scope) of code that invoke Create() method.
+When you have finished dynamic create a class let you feel free to delete the factory object or let it goes out of scope (and so deleted from the stack by compiler).
+
+===Enable your class to binary persistence===
+
+To make your class ready to be managed by Eternity binary persistence system you have to add a single method and one include.
+
 Step Description
-1 #include "eternity/eternity.hpp"
-add the following line at the begin of your class
-definition (if you do not have already added it like
-show first step of previous paragraph).
-2 add a single method to your class:
-void serialize( bin_archive &stream) ;
-please note that this method does not need to be
-virtual like in other persistence framework.
-3 implement the method at step 2 specifying which
-fields to serialize like in the follow example:
+
+  # add the following line at the begin of your class definition (if you do not have already added it like show first step of previous paragraph).
+
+`#include "eternity/eternity.hpp"`
+
+  # add a single method to your class:
+
+`void serialize( bin_archive &stream) ;`
+
+please note that this method does not need to be virtual like in other persistence framework.
+
+  # implement the method at step 2 specifying which fields to serialize like in the follow example:
+
+{{{
 void AClass::serialize( bin_archive &stream)
 {
-if (stream.is_loading())
-{
-stream >> m_nField1;
-stream >> m_fField2;
-stream >> m_nField3;
+    if (stream.is_loading())
+    {
+        stream >> m_nField1;
+        stream >> m_fField2;
+        stream >> m_nField3;
+    }
+    else
+    {
+        stream << m_nField1;
+        stream << m_fField2;
+        stream << m_nField3;
+    }
 }
-else
-{
-stream << m_nField1;
-stream << m_fField2;
-stream << m_nField3;
-}
-}
-(you could find the complete source code in the
-directory INSTALLDIR/examples)
-The implementation is quite simple, you have only to passing the field you
-want to serialize to the stream object using the insertion operator (<<) when
-you are storing and the extraction operator (>>) when you are reading
-information from a precedent stored archive.
+}}}
+
+(you could find the complete source code in the directory INSTALLDIR/examples)
+
+The implementation is quite simple, you have only to passing the field you want to serialize to the stream object using the insertion operator (<<) when you are storing and the extraction operator (>>) when you are reading information from a precedent stored archive.
+
 Remember to store and retrieve field in the same order.
-Exceptions handling
+
+===Exceptions handling===
+
 Eternity system throws exceptions when something goes wrong so is a
 good practice to enclose the segment of your code that use eternity inside a
 try catch block, like in the follow example.
