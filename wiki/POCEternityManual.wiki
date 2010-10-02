@@ -250,7 +250,7 @@ Again there is only one thing to remember: if your class is a pointer to object,
 
 To have an idea of the way eternity stored C++ classes using xml files you could take a look at the follow diagram:
 
-We focus only on template class TClass<int> and suppose the xml_serialize() method look like that:
+We focus only on template class `TClass<int>` and suppose the xml_serialize() method look like that:
 
 {{{
 template <class T>
@@ -275,9 +275,9 @@ void TClass<T>::xml_serialize( xml_archive &xml)
 }
 }}}
 
-Note the method use to store and retrieve respectively primitive type (m_TMember), stack allocated object (m_Derived ) and heap allocated object (m_pDerived).
+Note the method use to store and retrieve respectively primitive type (m_TMember), stack allocated object (m_Derived) and heap allocated object (m_pDerived).
 
-The xml archive in storing and object from class TClass<int> is quite similar to this one:
+The xml archive in storing and object from class `TClass<int>` is quite similar to this one:
 {{{
 <?xml version="1.0"?>
 <!-- eternity persistence framework -->
