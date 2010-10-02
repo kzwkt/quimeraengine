@@ -12,3 +12,9 @@
  # Crear parche y enviar al reviewer (Create Patch...), incluyendo el ID de la tarea en el asunto del correo
  # a `[`Correcto, estado de la tarea es _Done_`]`: _Update_ y _Commit_
  # b `[`Incorrecto, estado de la tarea _Started_`]`: Vuelta al paso 3
+
+== Nota ==
+
+En las subidas, añadid a la "ignore list" los archivos con las siguientes extensiones: suo, filters, sdf, opensdf. Y las siguientes carpetas: Debug, Release, obj, ipch.
+Para hacerlo, pulsar botón derecho sobre el archivo (que debe estar dentro de una carpeta ya subida al repositorio) y en las opciones de Tortoise seleccionar "Add to ignore list". Aparecerán varios comandos: Para las carpetas elegid "Ignore items by name" o el nombre de la carpeta; para archivos elegid "Ignore items by extension" o la extensión del archivo.
+Este paso puede hacerse antes del commit, añadiendo los archivos y luego ignorándolos, o después, subiendo sólo los archivos que nos interesan y posteriormente ir añadiendo los que no a la lista de ignorados.
