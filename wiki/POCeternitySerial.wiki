@@ -1,4 +1,4 @@
-
+#sidebar TOCPOC
 = Eternity 4.0 =
 
 Sencilla librería para serialización. Admite serialización binaria, xml y MFC, solamente intrusiva.
