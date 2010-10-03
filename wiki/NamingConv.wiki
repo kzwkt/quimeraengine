@@ -30,7 +30,8 @@ Ejemplo: QTreeNode.
 
 *Variables no-miembro, locales y no-estáticas:* Se usará camelCase. Los siguientes prefijos serán obligatorios para cada tipo:
 
-    * n --> int con o sin signo.
+    * n --> int con signo.
+    * u --> int sin signo.
     * i --> iterador, salvo enteros nombrados como i, j, k, etc.
     * f --> float.
     * dw --> DWORD.
