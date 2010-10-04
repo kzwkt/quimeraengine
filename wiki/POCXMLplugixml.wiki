@@ -62,3 +62,5 @@ A esta función se la llama desde nuestro código de la siguiente manera:
 
 std::cout << "Encontrado: " << players.find_node(buscanombre).name() << std::endl;
 }}}
+
+===Prueba de Concepto: [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%205%20-%20XML%20Parsing/POCpugiXML POCpugiXML]===
