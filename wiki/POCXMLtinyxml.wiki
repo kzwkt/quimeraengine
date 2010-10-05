@@ -1,13 +1,19 @@
 #sidebar TOCPOC
 
-= Introduction =
+=TinyXML=
+==v. 2.6.0==
 
-Add your content here.
+TinyXML es un pequeño parser XML fácilmente integrable en otros programas.
 
+TinyXML parsea un documento XML y contruye un árbol DOM que puede ser recorrido, modificado y guardado en disco u otro stream de salida. Se puede también construir un árbol con objetos C++ o desde un string y escribirlo a disco como documento XML.
 
-= Details =
+TinyXML está diseñado para ser rápido y fácil de aprender. Tiene dos archivos ".h" y cuatro archivos ".cpp". No depende de excepciones ni de RTTI, y puede ser compilado con soporte STL o sin él. Soporta completamente UTF-8.
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+Está desarrollado bajo licencia Zlib, que permite su uso en código open source y comercial.
+
+No soporta DTD ni XSL.
+
+Hay dos proyectos relacionados con TinyXML:
+
+  * [http://tinyxpath.sourceforge.net TinyXPath]: es un pequeño parser xPath
+  * [http://code.google.com/p/ticpp/ TinyXML++]: una nueva interfaz de TinyXML más puramente c++, con templates, excepciones y mejor control de errores.
