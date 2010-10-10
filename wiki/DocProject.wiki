@@ -36,4 +36,8 @@
 <td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/workflow.jpg]</td>
 <td>[Workflow Work flow]</td>
 </tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Tools.png]</td>
+<td>[InTools Indispensable tools]</td>
+</tr>
 </table>
