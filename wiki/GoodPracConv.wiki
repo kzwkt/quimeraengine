@@ -1,3 +1,4 @@
+#sidebar TOCConventions
 = Buenas prácticas y convenciones no clasificadas =
 
     * Poner el mínimo de inclusiones de cabeceras en archivos de implementación (.cpp).
