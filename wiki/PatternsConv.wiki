@@ -1,3 +1,4 @@
+#sidebar TOCConventions
 = Convención de Patrones =
 
  * [#Enumeradores Enumeradores]
