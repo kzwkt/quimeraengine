@@ -13,7 +13,7 @@
     * En los casos en que se pueda usar polimorfismo, hacer virtual siempre el destructor.
     * Por defecto, los miembros no públicos serán protected.
     * Cuando se lancen excepciones, usar la más concreta disponible.
-    * Inicializar siempre al declarar.
+    * Inicializar siempre al declarar (RAII: Resource Acquisition Is Initialization).
     * Poner el tipo de excepciones que lanza un método en su declaración.
     * No usar nunca `ZeroMemory`, memcpy, etc. con tipos polimórficos.
     * Meter valores constantes en constantes, salvo casos concretos como el número cero, cadenas que sólo existen en un sitio (y jamás vayan a estar en más) o valores booleanos.
