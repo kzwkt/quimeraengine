@@ -1,37 +1,63 @@
 ||[WikiRoot Inicio]||[http://code.google.com/p/quimeraengine/wiki/Tracker?tm=3 Issues]||[http://kinesisforum.elalumbramiento.org/index.php Forum]||
 
 ----
+<pre>
+[DocProject Project Documentation]
 
-  * [DocProject Project Documentation]
-    * Planning
-      * [OrgChart Organization Chart]
-      * [Roadmap Roadmap]
-      * [CurrentState Current state]
-      * [Phase0 Phase 0]
-      * [Phase1 Phase 1]
-    * Development
-      * [Conventions Conventions]
-        * [PatternsConv Patterns]
-        * [NamingConv Naming]
-        * [OrderConv Code Order]
-        * [GoodPracConv Good Practices]
-        * [DocConv Documentation]
-      * [Workflow Work flow]
-      * [InTools Indispensable tools]
-  * [Doc3rdParty 3rd Party Documentation]
-  * [RefAPI API Reference]
-  * [PoC Proofs of Content]
-    * [POCXMLParsing Lectura/Escritura XML]
-      * [POCXMLXerces Xerces-c]
-      * [POCXMLplugixml PugiXML]
-      * [POCXMLtinyxml TinyXML]
-    * [POCLogging Escritura de logs]
-    * [POCS11n Serialización]
-      * [POCBoostSerial Boost]
-      * [POCs11nSerial s11n]
-      * [POCeternitySerial Eternity]
-    * [POCMulti Multihilo]
- 
+   Planning
+      [OrgChart Organization Chart]
+
+         [Roadmap Roadmap]
+
+         [CurrentState Current state]
+
+         [Phase0 Phase 0]
+
+         [Phase1 Phase 1]
+
+   Development
+      [Conventions Conventions]
+
+         [PatternsConv Patterns]
+
+         [NamingConv Naming]
+
+         [OrderConv Code Order]
+
+         [GoodPracConv Good Practices]
+
+         [DocConv Documentation]
+
+      [Workflow Work flow]
+
+      [InTools Indispensable tools]
+
+[Doc3rdParty 3rd Party Documentation]
+
+[RefAPI API Reference]
+
+[PoC Proofs of Content]
+
+   [POCXMLParsing Lectura/Escritura XML]
+
+      [POCXMLXerces Xerces-c]
+
+      [POCXMLplugixml PugiXML]
+
+      [POCXMLtinyxml TinyXML]
+
+   [POCLogging Escritura de logs]
+
+   [POCS11n Serialización]
+
+      [POCBoostSerial Boost]
+
+      [POCs11nSerial s11n]
+
+      [POCeternitySerial Eternity]
+
+   [POCMulti Multihilo]
+</pre>
  
  
  
