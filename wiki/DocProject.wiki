@@ -1,4 +1,3 @@
-#sidebar TOCWiki
 = Project Documentation =
 
 == Planning ==
