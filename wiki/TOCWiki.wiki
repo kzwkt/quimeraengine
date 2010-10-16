@@ -1,5 +1,6 @@
 [WikiRoot Inicio]
 ----
+
   * [DocProject Project Documentation]
     * Planning
       * [OrgChart Organization Chart]
@@ -17,10 +18,13 @@
       * [Workflow Work flow]
       * [InTools Indispensable tools]
 ----
+
   * [Doc3rdParty 3rd Party Documentation]
 ----
+
   * [RefAPI API Reference]
 ----
+
   * [PoC Proofs of Content]
     * [POCXMLParsing Lectura/Escritura XML]
       * [POCXMLXerces Xerces-c]
@@ -33,4 +37,5 @@
       * [POCeternitySerial Eternity]
     * [POCMulti Multihilo]
 ----
+
 [http://kinesisforum.elalumbramiento.org/index.php Forum]
