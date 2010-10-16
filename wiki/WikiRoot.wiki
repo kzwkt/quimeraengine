@@ -1,3 +1,4 @@
+#sidebar TOCWiki
 = Quimera Engine Wiki =                            
 <table>
 <tr height="56">
