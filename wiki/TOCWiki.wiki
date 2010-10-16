@@ -1,14 +1,14 @@
-[WikiRoot Inicio]
+* [WikiRoot Inicio]
 ----
- [DocProject Project Documentation]
-  Planning
+ * [DocProject Project Documentation]
+  * Planning
    * [OrgChart Organization Chart]
    * [Roadmap Roadmap]
    * [CurrentState Current state]
    * [Phase0 Phase 0]
    * [Phase1 Phase 1]
-  Development
-   [Conventions Conventions]
+  * Development
+   * [Conventions Conventions]
     * [PatternsConv Patterns]
     * [NamingConv Naming]
     * [OrderConv Code Order]
@@ -17,11 +17,11 @@
     * [Workflow Work flow]
     * [InTools Indispensable tools]
 ----
- [Doc3rdParty 3rd Party Documentation]
+ * [Doc3rdParty 3rd Party Documentation]
 ----
- [RefAPI API Reference]
+ * [RefAPI API Reference]
 ----
- [PoC Proofs of Content]
+ * [PoC Proofs of Content]
   * [POCXMLParsing Lectura/Escritura XML]
    * [POCXMLXerces Xerces-c]
    * [POCXMLplugixml PugiXML]
@@ -33,4 +33,4 @@
    * [POCeternitySerial Eternity]
   * [POCMulti Multihilo]
 ----
- [http://kinesisforum.elalumbramiento.org/index.php Forum]
+ * [http://kinesisforum.elalumbramiento.org/index.php Forum]
