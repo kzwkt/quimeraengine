@@ -1,6 +1,6 @@
 [WikiRoot Quimera Engine]
 
-<img source="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="12px" height="12px"/>
+<img src="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="12px" height="12px"/>
 
   * [DocProject Project Documentation]
     * Planning
