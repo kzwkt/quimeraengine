@@ -10,6 +10,21 @@
 
 #endif
 
+class ClassWithDestructor
+{
+public:
+
+    static bool DestructorCalled;
+
+    ~ClassWithDestructor()
+    {
+        ClassWithDestructor::DestructorCalled = true;
+    }
+};
+
+bool ClassWithDestructor::DestructorCalled = false;
+
+
 unsigned long GetMillisecondsNow()
 {
 #ifdef WIN32
@@ -26,27 +41,41 @@ unsigned long GetMillisecondsNow()
 
 void funcThrowException()
 {
+    ClassWithDestructor thisObjectDestructorShouldBeCalled;
     #ifdef WITH_EXCEPTIONS
         throw int();
     #endif
+    return;
 }
 
 int funcReturnCode()
 {
+    ClassWithDestructor thisObjectDestructorShouldBeCalled;
     return 0;
 }
 
 void funcDoesntThrowException()
 {
+    ClassWithDestructor thisObjectDestructorShouldBeCalled;
     return;
 }
 
 void funcWithExceptionsNotThrown()
 {
+    ClassWithDestructor thisObjectDestructorShouldBeCalled;
     #ifdef WITH_EXCEPTIONS
         if(false)
             throw int();
     #endif
+    return;
+}
+
+void funcWithUnexpectedExcention()
+{
+    ClassWithDestructor thisObjectDestructorShouldBeCalled;
+    int j = 0;
+    int i = 1 / j;
+    return;
 }
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -54,7 +83,7 @@ int _tmain(int argc, _TCHAR* argv[])
     unsigned long milliseconds = 0;
 
     milliseconds = GetMillisecondsNow();
-    for(unsigned int i = 0; i < 10000000; ++i)
+    for(unsigned int i = 0; i < 1000000000; ++i)
     {
         funcDoesntThrowException();
     }
@@ -63,9 +92,11 @@ int _tmain(int argc, _TCHAR* argv[])
     
     std::cout << "funcDoesntThrowException:" << milliseconds << "\n";
 
+    //----------------------------------------------------------------------------------------------------------------
+
     milliseconds = GetMillisecondsNow();
     
-    for(unsigned int i = 0; i < 10000000; ++i)
+    for(unsigned int i = 0; i < 1000000000; ++i)
     {
         funcReturnCode();
     }
@@ -74,7 +105,12 @@ int _tmain(int argc, _TCHAR* argv[])
     
     std::cout << "funcReturnCode:" << milliseconds << "\n";
 
+    //----------------------------------------------------------------------------------------------------------------
+
     milliseconds = GetMillisecondsNow();
+
+    bool bExecuted = false;
+    ClassWithDestructor::DestructorCalled = false;
 
     for(unsigned int i = 0; i < 10000; ++i)
     {
@@ -87,18 +123,29 @@ int _tmain(int argc, _TCHAR* argv[])
             }
             catch(int)
             {
-            
+                bExecuted = true;
             }
         #endif
     }
 
     milliseconds = GetMillisecondsNow() - milliseconds;
     
-    std::cout << "funcThrowException (catch specific):" << milliseconds << " x 1000\n";
+    std::cout << "funcThrowException (catch specific):" << milliseconds << " x 100000\n";
+
+    if(bExecuted)
+        std::cout << "** Catch executed **\n";
+
+    if(ClassWithDestructor::DestructorCalled)
+        std::cout << "** Destructor Called **\n";
+
+    //----------------------------------------------------------------------------------------------------------------
 
     milliseconds = GetMillisecondsNow();
 
-    for(unsigned int i = 0; i < 10000000; ++i)
+    bExecuted = false;
+    ClassWithDestructor::DestructorCalled = false;
+
+    for(unsigned int i = 0; i < 1000000000; ++i)
     {
         #ifdef WITH_EXCEPTIONS
             try
@@ -109,7 +156,7 @@ int _tmain(int argc, _TCHAR* argv[])
             }
             catch(int)
             {
-            
+                bExecuted = true;
             }
         #endif
 
@@ -119,7 +166,18 @@ int _tmain(int argc, _TCHAR* argv[])
     
     std::cout << "funcWithExceptionsNotThrown (catch specific):" << milliseconds << "\n";
 
+    if(bExecuted)
+        std::cout << "** Catch executed **\n";
+
+    if(ClassWithDestructor::DestructorCalled)
+        std::cout << "** Destructor Called **\n";
+
+    //----------------------------------------------------------------------------------------------------------------
+
     milliseconds = GetMillisecondsNow();
+
+    bExecuted = false;
+    ClassWithDestructor::DestructorCalled = false;
 
     for(unsigned int i = 0; i < 10000; ++i)
     {
@@ -132,18 +190,29 @@ int _tmain(int argc, _TCHAR* argv[])
             }
             catch(...)
             {
-            
+                bExecuted = true;
             }
         #endif
     }
 
     milliseconds = GetMillisecondsNow() - milliseconds;
     
-    std::cout << "funcThrowException (catch all):" << milliseconds << " x 1000\n";
+    std::cout << "funcThrowException (catch all):" << milliseconds << " x 100000\n";
+
+    if(bExecuted)
+        std::cout << "** Catch executed **\n";
+
+    if(ClassWithDestructor::DestructorCalled)
+        std::cout << "** Destructor Called **\n";
+
+    //----------------------------------------------------------------------------------------------------------------
 
     milliseconds = GetMillisecondsNow();
 
-    for(unsigned int i = 0; i < 10000000; ++i)
+    bExecuted = false;
+    ClassWithDestructor::DestructorCalled = false;
+
+    for(unsigned int i = 0; i < 1000000000; ++i)
     {
         #ifdef WITH_EXCEPTIONS
             try
@@ -154,7 +223,7 @@ int _tmain(int argc, _TCHAR* argv[])
             }
             catch(...)
             {
-            
+                bExecuted = true;
             }
         #endif
 
@@ -163,6 +232,45 @@ int _tmain(int argc, _TCHAR* argv[])
     milliseconds = GetMillisecondsNow() - milliseconds;
     
     std::cout << "funcWithExceptionsNotThrown (catch all):" << milliseconds << "\n";
+
+    if(bExecuted)
+        std::cout << "** Catch executed **\n";
+
+    if(ClassWithDestructor::DestructorCalled)
+        std::cout << "** Destructor Called **\n";
+
+    //----------------------------------------------------------------------------------------------------------------
+
+    milliseconds = GetMillisecondsNow();
+
+    bExecuted = false;
+    ClassWithDestructor::DestructorCalled = false;
+
+    for(unsigned int i = 0; i < 10000; ++i)
+    {
+        #ifdef WITH_EXCEPTIONS
+            try
+            {
+        #endif
+                funcWithUnexpectedExcention();
+        #ifdef WITH_EXCEPTIONS
+            }
+            catch(...)
+            {
+                bExecuted = true;
+            }
+        #endif
+    }
+
+    milliseconds = GetMillisecondsNow() - milliseconds;
+    
+    std::cout << "funcWithUnexpectedExcention (catch all):" << milliseconds << " x 100000\n";
+
+    if(bExecuted)
+        std::cout << "** Catch executed **\n";
+
+    if(ClassWithDestructor::DestructorCalled)
+        std::cout << "** Destructor Called **\n";
 
     std::system("pause");
 
