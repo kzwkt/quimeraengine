@@ -2,7 +2,7 @@
 
 ----
 
-  * [DocProject Project Documentation]
+  * ||[DocProject Project Documentation]||
     * Planning
       * [OrgChart Organization Chart]
       * [Roadmap Roadmap]
