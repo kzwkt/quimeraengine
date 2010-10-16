@@ -2,7 +2,7 @@
 
 
 
-  <img src="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="24px" height="24px"/> [DocProject Project Documentation]
+<img src="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="24px" height="24px"/> [DocProject Project Documentation]
     * Planning
       * [OrgChart Organization Chart]
       * [Roadmap Roadmap]
