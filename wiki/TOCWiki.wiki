@@ -4,11 +4,11 @@
 
   * [DocProject Project Documentation]
     * Planning
-      * ||[OrgChart Organization Chart]||
-      * ||[Roadmap Roadmap]||
-      * ||[CurrentState Current state]||
-      * ||[Phase0 Phase 0]||
-      * ||[Phase1 Phase 1]||
+      * [OrgChart Organization Chart]
+      * [Roadmap Roadmap]
+      * [CurrentState Current state]
+      * [Phase0 Phase 0]
+      * [Phase1 Phase 1]
     * Development
       * [Conventions Conventions]
         * [PatternsConv Patterns]
