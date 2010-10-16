@@ -1,4 +1,5 @@
-[WikiRoot Inicio]
+||[WikiRoot Inicio]||
+
 ----
 
   * [DocProject Project Documentation]
@@ -32,4 +33,4 @@
     * [POCMulti Multihilo]
 ----
 
-[http://kinesisforum.elalumbramiento.org/index.php Forum]
+||[http://kinesisforum.elalumbramiento.org/index.php Forum]||
