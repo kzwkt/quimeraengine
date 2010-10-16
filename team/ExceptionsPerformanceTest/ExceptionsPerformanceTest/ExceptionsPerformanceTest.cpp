@@ -22,9 +22,13 @@ unsigned long GetMillisecondsNow()
 #endif
 }
 
+#define WITH_EXCEPTIONS
+
 void funcThrowException()
 {
-    throw int();
+    #ifdef WITH_EXCEPTIONS
+        throw int();
+    #endif
 }
 
 int funcReturnCode()
@@ -39,8 +43,10 @@ void funcDoesntThrowException()
 
 void funcWithExceptionsNotThrown()
 {
-    if(false)
-        throw int();
+    #ifdef WITH_EXCEPTIONS
+        if(false)
+            throw int();
+    #endif
 }
 
 int _tmain(int argc, _TCHAR* argv[])
@@ -53,9 +59,9 @@ int _tmain(int argc, _TCHAR* argv[])
         funcDoesntThrowException();
     }
 
-    milliseconds -= GetMillisecondsNow();
+    milliseconds = GetMillisecondsNow() - milliseconds;
     
-    std::cout << "funcDoesntThrowException:" << milliseconds * -1Ul << "\n";
+    std::cout << "funcDoesntThrowException:" << milliseconds << "\n";
 
     milliseconds = GetMillisecondsNow();
     
@@ -64,89 +70,99 @@ int _tmain(int argc, _TCHAR* argv[])
         funcReturnCode();
     }
 
-    milliseconds -= GetMillisecondsNow();
+    milliseconds = GetMillisecondsNow() - milliseconds;
     
-    std::cout << "funcReturnCode:" << milliseconds * -1Ul << "\n";
+    std::cout << "funcReturnCode:" << milliseconds << "\n";
 
     milliseconds = GetMillisecondsNow();
 
     for(unsigned int i = 0; i < 10000; ++i)
     {
-
-        try
-        {
-            funcThrowException();
-        }
-        catch(int)
-        {
+        #ifdef WITH_EXCEPTIONS
+            try
+            {
+        #endif
+                funcThrowException();
+        #ifdef WITH_EXCEPTIONS
+            }
+            catch(int)
+            {
             
-        }
-
+            }
+        #endif
     }
 
-    milliseconds -= GetMillisecondsNow();
+    milliseconds = GetMillisecondsNow() - milliseconds;
     
-    std::cout << "funcThrowException (catch specific):" << milliseconds * -1Ul << " x 1000\n";
+    std::cout << "funcThrowException (catch specific):" << milliseconds << " x 1000\n";
 
     milliseconds = GetMillisecondsNow();
 
     for(unsigned int i = 0; i < 10000000; ++i)
     {
-
-        try
-        {
-            funcWithExceptionsNotThrown();
-        }
-        catch(int)
-        {
+        #ifdef WITH_EXCEPTIONS
+            try
+            {
+        #endif
+                funcWithExceptionsNotThrown();
+        #ifdef WITH_EXCEPTIONS
+            }
+            catch(int)
+            {
             
-        }
+            }
+        #endif
 
     }
 
-    milliseconds -= GetMillisecondsNow();
+    milliseconds = GetMillisecondsNow() - milliseconds;
     
-    std::cout << "funcWithExceptionsNotThrown (catch specific):" << milliseconds * -1Ul << "\n";
+    std::cout << "funcWithExceptionsNotThrown (catch specific):" << milliseconds << "\n";
 
     milliseconds = GetMillisecondsNow();
 
     for(unsigned int i = 0; i < 10000; ++i)
     {
-
-        try
-        {
-            funcThrowException();
-        }
-        catch(...)
-        {
+        #ifdef WITH_EXCEPTIONS
+            try
+            {
+        #endif
+                funcThrowException();
+        #ifdef WITH_EXCEPTIONS
+            }
+            catch(...)
+            {
             
-        }
-
+            }
+        #endif
     }
 
-    milliseconds -= GetMillisecondsNow();
+    milliseconds = GetMillisecondsNow() - milliseconds;
     
-    std::cout << "funcThrowException (catch all):" << milliseconds * -1Ul << " x 1000\n";
+    std::cout << "funcThrowException (catch all):" << milliseconds << " x 1000\n";
 
     milliseconds = GetMillisecondsNow();
 
     for(unsigned int i = 0; i < 10000000; ++i)
     {
-
-        try
-        {
-            funcWithExceptionsNotThrown();
-        }
-        catch(...)
-        {
+        #ifdef WITH_EXCEPTIONS
+            try
+            {
+        #endif
+                funcWithExceptionsNotThrown();
+        #ifdef WITH_EXCEPTIONS
+            }
+            catch(...)
+            {
             
-        }
+            }
+        #endif
 
     }
 
-    milliseconds -= GetMillisecondsNow();
+    milliseconds = GetMillisecondsNow() - milliseconds;
     
-    std::cout << "funcWithExceptionsNotThrown (catch all):" << milliseconds * -1Ul << "\n";
+    std::cout << "funcWithExceptionsNotThrown (catch all):" << milliseconds << "\n";
 
     std::system("pause");
 
