@@ -1,39 +1,36 @@
 ||[WikiRoot Inicio]||[http://code.google.com/p/quimeraengine/wiki/Tracker?tm=3 Issues]||[http://kinesisforum.elalumbramiento.org/index.php Forum]||
 
 ----
-<table>
-<tr><td width="1px"></td><td>[DocProject Project Documentation]</td></tr>
-<tr><td width="10px"></td><td>   Planning</td></tr>
-<tr><td width="20px"></td><td>      [OrgChart Organization Chart]</td></tr>
-<tr><td width="30px"></td><td>         [Roadmap Roadmap]</td></tr>
-<tr><td width="30px"></td><td>         [CurrentState Current state]</td></tr>
-<tr><td width="30px"></td><td>         [Phase0 Phase 0]</td></tr>
-<tr><td width="30px"></td><td>         [Phase1 Phase 1]</td></tr>
-<tr><td width="10px"></td><td>   Development</td></tr>
-<tr><td width="20px"></td><td>      [Conventions Conventions]</td></tr>
-<tr><td width="30px"></td><td>         [PatternsConv Patterns]</td></tr>
-<tr><td width="30px"></td><td>         [NamingConv Naming]</td></tr>
-<tr><td width="30px"></td><td>         [OrderConv Code Order]</td></tr>
-<tr><td width="30px"></td><td>         [GoodPracConv Good Practices]</td></tr>
-<tr><td width="30px"></td><td>         [DocConv Documentation]</td></tr>
-<tr><td width="20px"></td><td>      [Workflow Work flow]</td></tr>
-<tr><td width="20px"></td><td>      [InTools Indispensable tools]</td></tr>
-<tr><td width="1px"></td><td>[Doc3rdParty 3rd Party Documentation]</td></tr>
-<tr><td width="1px"></td><td>[RefAPI API Reference]</td></tr>
-<tr><td width="1px"></td><td>[PoC Proofs of Content]</td></tr>
-<tr><td width="10px"></td><td>   [POCXMLParsing Lectura/Escritura XML]</td></tr>
-<tr><td width="20px"></td><td>      [POCXMLXerces Xerces-c]</td></tr>
-<tr><td width="20px"></td><td>      [POCXMLplugixml PugiXML]</td></tr>
-<tr><td width="20px"></td><td>      [POCXMLtinyxml TinyXML]</td></tr>
-<tr><td width="10px"></td><td>   [POCLogging Escritura de logs]</td></tr>
-<tr><td width="10px"></td><td>   [POCS11n Serialización]</td></tr>
-<tr><td width="20px"></td><td>      [POCBoostSerial Boost]</td></tr>
-<tr><td width="20px"></td><td>      [POCs11nSerial s11n]</td></tr>
-<tr><td width="20px"></td><td>      [POCeternitySerial Eternity]</td></tr>
-<tr><td width="10px"></td><td>   [POCMulti Multihilo]</td></tr>
-</table>
- 
- 
+
+  * [DocProject Project Documentation]
+    * Planning
+      * [OrgChart Organization Chart]
+      * [Roadmap Roadmap]
+      * [CurrentState Current state]
+      * [Phase0 Phase 0]
+      * [Phase1 Phase 1]
+    * Development
+      * [Conventions Conventions]
+        * [PatternsConv Patterns]
+        * [NamingConv Naming]
+        * [OrderConv Code Order]
+        * [GoodPracConv Good Practices]
+        * [DocConv Documentation]
+      * [Workflow Work flow]
+      * [InTools Indispensable tools]
+  * [Doc3rdParty 3rd Party Documentation]
+  * [RefAPI API Reference]
+  * [PoC Proofs of Content]
+    * [POCXMLParsing Lectura/Escritura XML]
+      * [POCXMLXerces Xerces-c]
+      * [POCXMLplugixml PugiXML]
+      * [POCXMLtinyxml TinyXML]
+    * [POCLogging Escritura de logs]
+    * [POCS11n Serialización]
+      * [POCBoostSerial Boost]
+      * [POCs11nSerial s11n]
+      * [POCeternitySerial Eternity]
+    * [POCMulti Multihilo]
  
  
  
