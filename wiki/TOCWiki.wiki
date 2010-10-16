@@ -1,4 +1,4 @@
-||[WikiRoot Inicio]||
+||[WikiRoot Inicio]||[http://code.google.com/p/quimeraengine/wiki/Tracker?tm=3 Issues]||[http://kinesisforum.elalumbramiento.org/index.php Forum]||
 
 ----
 
@@ -31,6 +31,3 @@
       * [POCs11nSerial s11n]
       * [POCeternitySerial Eternity]
     * [POCMulti Multihilo]
-----
-
-||[http://kinesisforum.elalumbramiento.org/index.php Forum]||
