@@ -1,4 +1,4 @@
-<img  src="http://quimeraengine.googlecode.com/svn/wiki/images/LogoQuimeraEngine.png" width="24px" height="24px"/> [WikiRoot Quimera Engine]
+<img  src="http://quimeraengine.googlecode.com/svn/wiki/images/LogoQuimeraEngine.png" width="32px" height="32px"/> [WikiRoot Quimera Engine]
 
 <img src="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="24px" height="24px"/> [DocProject Project Documentation]
   * Planning
