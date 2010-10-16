@@ -1,5 +1,8 @@
 [WikiRoot Quimera Engine]
-  * <img source="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="12px" height="12px"/>[DocProject Project Documentation]
+
+<img source="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="12px" height="12px"/>
+
+  * [DocProject Project Documentation]
     * Planning
       * [OrgChart Organization Chart]
       * [Roadmap Roadmap]
