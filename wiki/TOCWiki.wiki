@@ -1,6 +1,4 @@
-[WikiRoot Quimera Engine]
-
-
+<img  src="https://code.google.com/p/quimeraengine/logo?cct=1283632927" width="24px" height="24px"/> [WikiRoot Quimera Engine]
 
 <img src="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="24px" height="24px"/> [DocProject Project Documentation]
     * Planning
@@ -18,9 +16,11 @@
         * [DocConv Documentation]
       * [Workflow Work flow]
       * [InTools Indispensable tools]
-  * [Doc3rdParty 3rd Party Documentation]
-  * [RefAPI API Reference]
-  * [PoC Proofs of Content]
+<img  src="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="24px" height="24px"/> [Doc3rdParty 3rd Party Documentation]
+
+<img  src="http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png" width="24px" height="24px"/> [RefAPI API Reference]
+
+<img  src="http://quimeraengine.googlecode.com/svn/wiki/images/avionpapel.png" width="24px" height="24px"/> [PoC Proofs of Content]
     * [POCXMLParsing Lectura/Escritura XML]
       * [POCXMLXerces Xerces-c]
       * [POCXMLplugixml PugiXML]
@@ -31,5 +31,5 @@
       * [POCs11nSerial s11n]
       * [POCeternitySerial Eternity]
     * [POCMulti Multihilo]
-  * [http://kinesisforum.elalumbramiento.org/index.php Forum]
+<img  src="http://quimeraengine.googlecode.com/svn/wiki/images/forum.jpg" width="24px" height="24px"/> [http://kinesisforum.elalumbramiento.org/index.php Forum]
  
