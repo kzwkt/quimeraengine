@@ -15,3 +15,10 @@
   * [PoC Proofs of Content]
   * [http://kinesisforum.elalumbramiento.org/index.php Forum]
  
+
+<table>
+<tr>
+<td width="12px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/orgchart.jpg]</td>
+<td>[OrgChart Organization Chart]</td>
+</tr>
+</table>
