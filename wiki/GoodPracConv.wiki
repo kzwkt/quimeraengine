@@ -27,6 +27,7 @@
     * Usar etiquetas `[TODO]`, `[HACK]` y `[REVIEW]` en comentarios para indicar cosas por hacer, rodeos obligatorios que se han tomado y que seguramente se puedan mejorar en el futuro, y trozos de código que por desconocimiento o por prisas se han hecho peor de lo debido, respectivamente.
     * Usar la etiqueta `[DOC]` para indicar que falta completar la documentación de algún elemento del código.
     * Comentar código y documentación con //, no con /`*` `*`/. El código inservible, si fue anteriormente subido al repositorio, debe ser borrado.
+    * En los comentarios con //, hay que dejar un espacio antes de empezar la frase.
     * Si el cuerpo de un método ocupa demasiado a lo alto, partirlo en 2 como mínimo, salvo pérdida de eficiencia en lugares críticos.
     * No hay límite establecido a lo ancho para una línea de código, aunque sería preferible que no se saliera de un monitor de 1024. En casos en los que se perjudique la legibilidad por partir la línea, se dejará en una, aunque sobrepase la recomendación.
     * Cuando se llame a un método, siempre debería ir precedido por su clase/interfaz, aunque se esté llamando desde su propia clase, en cuyo caso se usaría this.
