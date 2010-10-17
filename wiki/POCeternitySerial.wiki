@@ -1,6 +1,7 @@
 #sidebar TOCPOC
 = Eternity 4.0 =
-
+<wiki:toc max_depth="2" />
+==Descripción==
 Sencilla librería para serialización. Admite serialización binaria, xml y MFC, solamente intrusiva.
 
 Está sin soporte desde hace en torno a un año.
@@ -11,7 +12,7 @@ Se deja un extracto de la guía oficial, clara y concisa, en esta [POCEternityMa
 
 La [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%207%20-%20Serialization/POCEternity Prueba de Concepto] consiste en la de/serialización de una clase sencilla:
 
-====Declaración de la clase:====
+==Declaración de la clase==
 {{{
 #include "eternity\eternity.hpp"
 
@@ -36,7 +37,7 @@ class gps_position
 };
 }}}
 
-====Implementación de la clase:====
+==Implementación de la clase==
 {{{
 #include "gps_position.h"
 
@@ -74,7 +75,7 @@ void gps_position::bin_serialize( eternity::bin_archive &stream)
 }
 }}}
 
-====Utilización:====
+==Utilización==
 {{{
 #include "gps_position.h"
 
