@@ -2,3 +2,5 @@
 = Serialización =
 
 [POCBoostSerial Serialización con Boost]
+[POCS11nSerial Serialización con S11n]
+[POCEternitySerial Serialización con Eternity]
