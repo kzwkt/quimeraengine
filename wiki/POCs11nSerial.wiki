@@ -1,6 +1,7 @@
 #sidebar TOCPOC
 = s11n =
-
+<wiki:toc max_depth="2" />
+==Descripción==
 Página oficial: [http://s11n.net/ s11n]
 
 Librería de código abierto para serialización. Su autor, debido a una enfermedad, parece que ha abandonado el proyecto, por lo que de momento parece que está sin soporte.
@@ -23,7 +24,7 @@ Aunque no se ha conseguido generar una DLL que funcione para Windows, sí se ha 
 
 La Prueba de Concepto consiste en la serialización intrusiva de una clase sencilla:
 
-=== Declaración de la clase===
+==Declaración de la clase==
 {{{
 #include <s11n.net/s11n/s11nlite.hpp> // s11nlite framework
 
@@ -55,7 +56,7 @@ class gps_position
 #include <s11n.net/s11n/reg_s11n_traits.hpp>
 }}}
 
-===Implementación de la clase===
+==Implementación de la clase==
 {{{
 #include "gps_position.h"
 
@@ -96,7 +97,7 @@ bool gps_position::operator()( const s11nlite::node_type & node )
 }
 }}}
 
-===Utilización===
+==Utilización==
 {{{
 #include <s11n.net/s11n/s11nlite.hpp> // s11nlite framework
 #include <s11n.net/s11n/micro_api.hpp> // minimalistic s11n API
