@@ -137,7 +137,7 @@ detail::find_spacer
 }}}
 
 
-== Logging por prioridades ==
+== Logging por prioridades (thx jwladi :) )== 
 
 {{{
 /*******************  POC de Logging por prioridades **************************
@@ -246,3 +246,62 @@ int main() {
     test_mul_levels_one_logger();
 }
 }}}
+
+== Logging personalizado derivando una clase de la librería. ==
+{{{
+Creating your own formatter and/or destination class(es)
+To create your formatter class, you need to derive from formatter::class_. You will need to implement operator()(arg_type)
+(arg_type is the argument from your formatter base class)
+
+// milliseconds since start of the program
+struct ms_since_start : formatter::class_<ms_since_start, formatter::implement_op_equal::no_context> {
+    time_t m_start;
+    ms_since_start : m_start( time(0) ) {}
+
+    // param = std::string& 
+    // (in other words, it's the arg_type from your formatter base class)
+    void operator()(param msg) const {
+        std::ostringstream out;
+        time_t now = time(0);
+        out << "[" << (now-start) << "] ";
+        msg = out.str() + msg;
+    }
+};
+
+To create your destination class, you need to derive from destination::class_. You will need to implement operator()(arg_type)
+(arg_type is the argument from your destination base class)
+
+struct to_hwnd : destination::class_<to_hwnd, destination::implement_op_equal::has_context> {
+    HWND h;
+    to_hwnd(HWND h) : h(h) {}
+
+    bool operator==(const to_hwnd& other) { return h == other.h; }
+
+    // param = const std::string& 
+    // (in other words, it's the arg_type from your destination base class)
+    void operator()(param msg) const {
+        ::SetWindowText(h, msg.c_str());
+    }
+};
+}}}
+
+
+== Niveles de log ==
+Nos indican la prioridad con la que se mostrarán los errores predominando el más restrictivo. Se muestra su definición:
+{{{
+namespace level {
+    /** the higher the level , the more critical the error */
+    typedef unsigned int type;
+
+    enum {
+        disable_all = (type)-1,
+        enable_all = 0,
+        debug = 1000,
+        info = 2000,
+        warning = 3000,
+        error = 4000,
+        fatal = 5000
+    };
+}}}
+
+
