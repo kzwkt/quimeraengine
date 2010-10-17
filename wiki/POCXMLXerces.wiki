@@ -1,10 +1,12 @@
 #sidebar TOCPOC
 = Xerces-c Library =
-
+<wiki:toc max_depth=2" />
+==Descripción==
 [http://xerces.apache.org/xerces-c/ Página oficial]
 
 Xerces-C++ es un parser XML con validación, escrito en un subconjunto portable de C++, que facilita que tus aplicaciones tengan la capacidad de leer y escribir datos XML. La (shared) biblioteca proporcionada puede analizar, generar, manipular y validar documentos XML usando las APIS DOM, SAX y SAX2. Se puede encontrar una introducción a la programación con Xerces-C++ en la [http://xerces.apache.org/xerces-c/program-3.html Guía de programación].
 
+==Estándares==
 Xerces-C++ es fiel a las recomendaciones de XML 1.0 y muchos estándares asociados:
  * XML 1.0 (Third Edition), W3C Recommendation
  * XML 1.1 (First Edition), W3C Recommendation (Note: section 2.13 Normalization Checking has not been implemented)
@@ -22,10 +24,10 @@ Xerces-C++ es fiel a las recomendaciones de XML 1.0 y muchos estándares asociad
 
 El parser proporciona un alto rendimiento, modularidad y escalabilidad. Con el parser, se proporcionan también el código fuente, ejemplos y documentación de la API. Por razones de portabilidad, se ha tenido cuidado de hacer un uso mínimo de templates y de IFDEFs#.
 
-Licencia:
+==Licencia==
 Se proporcionan distibuciones tanto de codigo fuente como precompiladas, para la mayoría de plataformas, y todas bajo licencia Apache Software License, Version 2.0.
 
-Inicialización:
+==Inicialización==
 En su página viene un ejemplo de inicialización y terminación, que deben ser hechas siempre antes y después de utilizar la librería. Se pueden hacer inicializaciones y terminaciones anidadas, cuidando que cada inicialización lleve su terminación asociada:
 
 {{{
@@ -56,7 +58,7 @@ int main(int argc, char`*` argv[])
 
 Desgraciadamente, no vienen más ejemplos en su página, parece que vienen incluidos en las distribuciones.
 
-===Pruebas de Concepto===
+==Pruebas de Concepto==
   * [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%205%20-%20XML%20Parsing/PruebaXercesDOM POC Xerces DOM]
 
   * [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%205%20-%20XML%20Parsing/POCXercesSAX2 POC Xerces SAX2]
