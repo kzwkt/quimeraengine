@@ -137,7 +137,9 @@ detail::find_spacer
 }}}
 
 
-== Logging por prioridades (thx jwladi :) )== 
+== Logging por prioridades == 
+
+(thx jwladi :) )
 
 {{{
 /*******************  POC de Logging por prioridades **************************
@@ -307,13 +309,13 @@ namespace level {
 
 == Creación de niveles ==
 {{{
-Yes, you can create your own levels. From what I understand, you don't actually want levels, you want some sort of flag that is just on or off.
+/*Yes, you can create your own levels. From what I understand, you don't actually want levels, you want some sort of flag that is just on or off.
 If for a given value, the flag matches that value, you want to do logging.
 
 First, you can create your own filter class to do whatever you want.
 
 In your case, I guess you want something like this:
-
+*/
 struct flag_filter {
 int flag;
 flag_filter(int flag = 0) : flag(flag) {}
