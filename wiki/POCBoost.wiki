@@ -1,13 +1,14 @@
 #summary One-sentence summary of this page.
-
-= Descripción =
+= Loogging con Boost =
+<wiki:toc max_depth="1" />
+==Descripción==
 
 Boost es un conjunto de bibliotecas de software libre y revisión por pares preparadas para extender las capacidades del lenguaje de programación C++. Su licencia, de tipo BSD, permite que sea utilizada en cualquier tipo de proyectos, ya sean comerciales o no. Extraído de: Wikipedia.
 
 La librería que nos interesa se llama Logging, y aparece bajo el namespace boost::logging.
 
 
-= Declaración =
+==Declaración==
 
 Declaración de un log, sin niveles, para una aplicación simple sin usar un thread separado para el logging:
 {{{
@@ -37,7 +38,7 @@ void initialize_logs();
 }}}
 
 
-= Inicialización =
+==Inicialización==
 {{{
 #include "logging.hpp"
 #include <boost/logging/format_ts.hpp>
@@ -69,7 +70,7 @@ void initialize_logs()
 }}}
 
 
-== Formatos de salida y definiciones ==
+==Formatos de salida y definiciones==
 Namespace: boost::logging::formatter Namespace Reference => Formatter is a manipulator. It allows you to format the message before writing it to the destination(s).
 {{{
 struct      msg_type
@@ -137,7 +138,7 @@ detail::find_spacer
 }}}
 
 
-== Logging por prioridades == 
+==Logging por prioridades== 
 
 (thx jwladi :) )
 
@@ -249,7 +250,7 @@ int main() {
 }
 }}}
 
-== Logging personalizado derivando una clase de la librería. ==
+==Logging personalizado derivando una clase de la librería.==
 {{{
 Creating your own formatter and/or destination class(es)
 To create your formatter class, you need to derive from formatter::class_. You will need to implement operator()(arg_type)
@@ -288,7 +289,7 @@ struct to_hwnd : destination::class_<to_hwnd, destination::implement_op_equal::h
 }}}
 
 
-== Niveles de log ==
+==Niveles de log==
 Nos indican la prioridad con la que se mostrarán los errores predominando el más restrictivo. Se muestra su definición:
 {{{
 namespace level {
@@ -307,7 +308,7 @@ namespace level {
 }}}
 
 
-== Creación de niveles ==
+==Creación de niveles==
 {{{
 /*Yes, you can create your own levels. From what I understand, you don't actually want levels, you want some sort of flag that is just on or off.
 If for a given value, the flag matches that value, you want to do logging.
