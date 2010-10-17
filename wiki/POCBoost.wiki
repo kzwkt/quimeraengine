@@ -305,3 +305,37 @@ namespace level {
 }}}
 
 
+== Creación de niveles ==
+{{{
+Yes, you can create your own levels. From what I understand, you don't actually want levels, you want some sort of flag that is just on or off.
+If for a given value, the flag matches that value, you want to do logging.
+
+First, you can create your own filter class to do whatever you want.
+
+In your case, I guess you want something like this:
+
+struct flag_filter {
+int flag;
+flag_filter(int flag = 0) : flag(flag) {}
+bool is_enabled(int f) { return f == flag; }
+};
+
+// in your code, some constants
+const int request = 1;
+const int session = 2;
+const int answer = 3;
+...
+
+// your macro
+
+... whatever log_type might be
+BOOST_DEFINE_LOG(g_l, log_type)
+BOOST_DEFINE_LOG_FILTER(g_log_filter, flag_filter )
+
+#define L_(f) BOOST_LOG_USE_LOG_IF_FILTER(g_l(), g_log_filter()->is_enabled(f) )
+
+// in your code
+L_(request) << "new request"...;
+L_(session) << "new user" << username << ...
+L_(answer) << "answering to user" << ...
+}}}
