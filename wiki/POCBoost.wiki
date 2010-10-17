@@ -1,14 +1,37 @@
 #summary One-sentence summary of this page.
 
-= Introduction =
+= Descripción =
 
-Add your content here.aaa
+Boost es un conjunto de bibliotecas de software libre y revisión por pares preparadas para extender las capacidades del lenguaje de programación C++. Su licencia, de tipo BSD, permite que sea utilizada en cualquier tipo de proyectos, ya sean comerciales o no. Extraído de: Wikipedia.
+
+La librería que nos interesa se llama Logging, y aparece bajo el namespace boost::logging.
 
 
-= Details =
+= Inicialización =
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
-aa
+Declaración de un log, sin niveles, para una aplicación simple sin usar un thread separado para el logging:
+{{{
+#ifndef __LOGGING_HPP__
+#define __LOGGING_HPP__
+
+#include <boost/logging/format_fwd.hpp>
+
+using namespace boost::logging;
+using namespace boost::logging::scenario::usage;
+
+typedef use<
+    filter_::change::single_thread, // how often does the filter change?
+    filter_::level::no_levels,      // does the filter use levels?
+    logger_::change::single_thread, // how often does the logger change?
+    logger_::favor::correctness     // what does the logger favor?
+  > finder;
+
+BOOST_DECLARE_LOG_FILTER( g_log_filter, finder::filter )
+BOOST_DECLARE_LOG( g_log, finder::logger )
+
+#define L_ BOOST_LOG_USE_LOG_IF_FILTER( g_log(), g_log_filter()->is_enabled() )
+
+void initialize_logs();
+
+#endif // __LOGGING_HPP__
+}}}
