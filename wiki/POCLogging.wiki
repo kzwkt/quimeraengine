@@ -1,4 +1,2 @@
 #sidebar TOCPOC
 = Escritura de logs (logging) =
-
-  * ==[POCBoostSerial Boost]==
