@@ -1,10 +1,8 @@
 #sidebar TOCPOC
 
 =TinyXML=
-==v. 2.6.0==
-
-
-===Descripción===
+<wiki:toc max_depth="2" />
+==Descripción==
 
 TinyXML es un pequeño parser XML fácilmente integrable en otros programas.
 
@@ -21,7 +19,7 @@ Hay dos proyectos relacionados con TinyXML:
   * [http://tinyxpath.sourceforge.net TinyXPath]: es un pequeño parser xPath
   * [http://code.google.com/p/ticpp/ TinyXML++]: una nueva interfaz de TinyXML más puramente c++, con templates, excepciones y mejor control de errores.
 
-===Utilización===
+==Utilización==
 
 Vamos a trabajar sobre este xml:
 {{{
