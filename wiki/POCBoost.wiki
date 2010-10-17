@@ -1,6 +1,6 @@
 #summary One-sentence summary of this page.
 = Loogging con Boost =
-<wiki:toc max_depth="1" />
+<wiki:toc max_depth="2" />
 ==Descripción==
 
 Boost es un conjunto de bibliotecas de software libre y revisión por pares preparadas para extender las capacidades del lenguaje de programación C++. Su licencia, de tipo BSD, permite que sea utilizada en cualquier tipo de proyectos, ya sean comerciales o no. Extraído de: Wikipedia.
