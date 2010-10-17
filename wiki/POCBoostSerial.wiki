@@ -1,6 +1,6 @@
 #sidebar TOCPOC
 = Serialización con Boost =
-
+<wiki:toc max_depth="3" />
 == Descripción ==
 
 Boost es un conjunto de bibliotecas de software libre y revisión por pares preparadas para extender las capacidades del lenguaje de programación C++. Su licencia, de tipo BSD, permite que sea utilizada en cualquier tipo de proyectos, ya sean comerciales o no.
@@ -9,7 +9,7 @@ _Extraído de: [http://es.wikipedia.org/wiki/Bibliotecas_Boost Wikipedia]_
 La librería que nos interesa se llama *Serialization*, y aparece bajo el namespace *boost::serialization*. Dentro de la carpeta de los fuentes de Boost, las cabeceras se encuentran en la carpeta *boost/serialization*. También se utilizan clases que simbolizan archivos, bajo el *namespace boost::archive* y en el directorio *boost/archive*.
 El autor es Robert Ramey y la versión usada en ésta prueba de concepto es la 1.44.
 
-=== Características ===
+== Características ==
   * Permite serializar grafos.
   * Requiere RTTI.
   * Ofrece serialización a archivos binarios, XML y texto plano.
