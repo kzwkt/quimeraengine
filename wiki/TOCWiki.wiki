@@ -26,7 +26,7 @@
       * [POCXMLplugixml PugiXML]
       * [POCXMLtinyxml TinyXML]
     * [POCLogging Escritura de logs]
-      * Logging con Boost
+      * [POCBoost Logging con Boost]
     * [POCS11n Serialización]
       * [POCBoostSerial Boost]
       * [POCs11nSerial s11n]
