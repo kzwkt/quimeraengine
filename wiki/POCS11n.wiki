@@ -1,8 +1,8 @@
 #sidebar TOCPOC
 = Serialización =
 
- [POCBoostSerial Serialización con Boost]
+  * ==[POCBoostSerial Boost]==
 
- [POCs11nSerial Serialización con S11n]
+  * ==[POCs11nSerial S11n]==
 
- [POCeternitySerial Serialización con Eternity]
+  * ==[POCeternitySerial Eternity]==
