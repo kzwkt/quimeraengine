@@ -1,6 +1,7 @@
 #sidebar TOCPOC
 = PugiXML =
-
+<wiki:toc max_depth="2" />
+==Descripción==
 Página oficial: [http://code.google.com/p/pugixml/ pugixml]
 
 Pugixml es una pequeña librería escrita en C++ para el proceso de documentos XML.
@@ -16,6 +17,7 @@ Es una librería muy portable y fácil de integrar. Se distribuye bajo licencia 
 
 La versión actual es la 0.9.
 
+==Utilización==
 Para utilizarla, lo único que hay que hacer es agregar los siguientes archivos a nuestro proyecto (van incluidos en la prueba de concepto):
 
 {{{
@@ -63,4 +65,5 @@ A esta función se la llama desde nuestro código de la siguiente manera:
 std::cout << "Encontrado: " << players.find_node(buscanombre).name() << std::endl;
 }}}
 
-===Prueba de Concepto: [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%205%20-%20XML%20Parsing/POCpugiXML POCpugiXML]===
+==Prueba de Concepto==
+  [http://code.google.com/p/quimeraengine/source/browse/#svn/team/poc/Task%205%20-%20XML%20Parsing/POCpugiXML POCpugiXML]
