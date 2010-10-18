@@ -7,29 +7,6 @@
 </tr>
 </table>
 
-== Pre-Development Phase ==
-
-<table>
-<tr>
-<td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3APhase--1 All Tasks]</td>
-</tr>
-<tr>
-<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3APhase--1%20owner%3Aowner%2Cme My Tasks]</td>
-</tr>
-<tr>
-<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/tasks.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Development+status%3ANew+-has%3Aowner+label%3APhase--1 New Development Tasks]</td>
-</tr>
-<tr>
-<td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Development+status%3AReadyForReview+label%3APhase--1 Pending Reviews]</td>
-</tr>
-<td>[http://quimeraengine.googlecode.com/svn/wiki/images/bugs.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Bug+status%3ANew+-has%3Aowner+label%3APhase--1 Pending Bug Fixes]</td>
-</table>
-
 == Phase 0 ==
 
 <table>
@@ -51,4 +28,27 @@
 </tr>
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/bugs.jpg]</td>
 <td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Bug+status%3ANew+-has%3Aowner+label%3APhase-0 Pending Bug Fixes]</td>
+</table>
+
+== Pre-Development Phase ==
+
+<table>
+<tr>
+<td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3APhase--1 All Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3APhase--1%20owner%3Aowner%2Cme My Tasks]</td>
+</tr>
+<tr>
+<td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/tasks.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Development+status%3ANew+-has%3Aowner+label%3APhase--1 New Development Tasks]</td>
+</tr>
+<tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Development+status%3AReadyForReview+label%3APhase--1 Pending Reviews]</td>
+</tr>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/bugs.jpg]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Bug+status%3ANew+-has%3Aowner+label%3APhase--1 Pending Bug Fixes]</td>
 </table>
