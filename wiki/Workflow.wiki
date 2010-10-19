@@ -1,5 +1,14 @@
 = Flujo de Trabajo =
 
+== Gestión ==
+
+La gestión y orden de tareas seguirá un patrón de micro-waterfall, esto es, se llevará a cabo la siguiente secuencia de tareas por cada nueva funcionalidad a añadir, en lugar de esperar a completar el mapa completo de funcionalidades del sistema:
+ # Propuesta
+ # Diseño
+ # Desarrollo
+ # Revisión
+ # Incorporación a la release
+
 == Tarea de Desarrollo ==
 
 <p align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/ProcesoTrabajo.png]</p>
