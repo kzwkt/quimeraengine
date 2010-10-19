@@ -31,7 +31,7 @@
 <td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Bug+status%3ANew+-has%3Aowner+label%3APhase-0 Pending Bug Fixes]</td>
 </tr>
 <tr>
-<td>[Subir imagen]</td>
+<td>[http://quimeraengine.googlecode.com/svn/wiki/images/management.jpg]</td>
 <td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=Type-Management%20label%3APhase-0 Management]</td>
 </tr>
 </table>
