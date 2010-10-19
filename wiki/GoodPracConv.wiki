@@ -42,4 +42,5 @@
     * Realizar comprobaciones de parámetros nulos y lanzar excepciones en los casos pertinentes. Por lo general se usarán Asserts.
     * Usar la notación de sufijos / prefijos de tipos constantes para evitar conversiones implícitas. Float: 1.0f; Long: 1L; Wchar_t: L"String"; Unsigned: 1U...
     * Cada llave { } ocupará por sí sola una línea. Esto quiere decir que no se empezarán los bloques con una llave de apertura al final de una sentencia, se pondrá en la línea siguiente.
+    * Especificar las rutas de los includes con barras (/) y no contrabarras (\).
     * El código más rápido es el que no se ejecuta.
