@@ -1,6 +1,6 @@
 = Multihilo con POCO C++ =
 
-POCO C++ dedica una sección de su librería Foundation, bajo el nombre de Threading, a la manipulación de hilos, haciendo muy sencillo el trabajo con los mismos y permitiendo la abstracción del sistema operativo. La sección puede dividirse en:
+POCO C++ dedica una sección de su librería Foundation, bajo el nombre de Threading, a la manipulación de hilos, haciendo muy sencillo el trabajo con los mismos y permitiendo la abstracción del sistema operativo. Soporta el sistema de hilos tradicional de Windows y el estándar [http://es.wikipedia.org/wiki/POSIX POSIX], seguido por Linux, Mac OS X y Windows NT en adelante.
 
 == Encapsulación de hilos ==
 
@@ -12,27 +12,29 @@ La clase principal que simboliza un hilo es *Thread*. Está compuesta por:
  * Un objeto que encapsula una función asignada al hilo.
 
 No es posible asignar la referencia de una función directamente al Thread, sino que hay que encapsularla. Para ello hay distintas formas de proceder:
- * Runnable:
- * RunnableAdapter:
- * RunnableActive:
+ * *Runnable:*
+ * *RunnableAdapter:*
+ * *RunnableActive:*
 
 == Mecanismos de sincronización ==
 
 Para evitar problemas de concurrencia en el acceso a recursos por parte de varios hilos de ejecución, se utilizan ciertos mecanismos:
- * Mutex:
- * FastMutex:
- * Semaphore:
- * ScopedMutex:
- * Condition:
+ * *Mutex:*
+ * *FastMutex:*
+ * *Semaphore:*
+ * *ScopedMutex:*
+ * *Condition:*
 
 == Gestión de hilos ==
- * ThreadPool:
+ * *ThreadPool:*
 
 == Métodos estáticos de hilo ==
- * current:
- * sleep:
- * yield:
- * currentTid:
+
+La clase Thread expone varios métodos estáticos que nos sirven para manipular el hilo desde del cual los llamamos:
+ * *current:* Devuelve un Thread que encapsula el hilo actual.
+ * *sleep:* Pausa la ejecución del hilo actual durante un tiempo determinado.
+ * *yield:* Permite que la CPU en uso por el hilo actual sea usada por otros hilos.
+ * *currentTid:* El identificador otorgado por el sistema operativo al hilo actual.
 
 == Clases de ayuda ==
  * ErrorHandler:
