@@ -1,0 +1,40 @@
+= Multihilo con POCO C++ =
+
+POCO C++ dedica una sección de su librería Foundation, bajo el nombre de Threading, a la manipulación de hilos, haciendo muy sencillo el trabajo con los mismos y permitiendo la abstracción del sistema operativo. La sección puede dividirse en:
+
+== Encapsulación de hilos ==
+
+La clase principal que simboliza un hilo es *Thread*. Está compuesta por:
+ * Un nombre opcional.
+ * La prioridad en el sistema operativo.
+ * Un ID único en la aplicación (no confundir con el otorgado por el sistema operativo).
+ * Una pila, cuyo tamaño es configurable.
+ * Un objeto que encapsula una función asignada al hilo.
+
+No es posible asignar la referencia de una función directamente al Thread, sino que hay que encapsularla. Para ello hay distintas formas de proceder:
+ * Runnable:
+ * RunnableAdapter:
+ * RunnableActive:
+
+== Mecanismos de sincronización ==
+
+Para evitar problemas de concurrencia en el acceso a recursos por parte de varios hilos de ejecución, se utilizan ciertos mecanismos:
+ * Mutex:
+ * FastMutex:
+ * Semaphore:
+ * ScopedMutex:
+ * Condition:
+
+== Gestión de hilos ==
+ * ThreadPool:
+
+== Métodos estáticos de hilo ==
+ * current:
+ * sleep:
+ * yield:
+ * currentTid:
+
+== Clases de ayuda ==
+ * ErrorHandler:
+
+*Nota:* Todas las clases descritas residen en el namespace "Poco".
