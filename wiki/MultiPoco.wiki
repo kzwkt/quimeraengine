@@ -37,6 +37,6 @@ La clase Thread expone varios métodos estáticos que nos sirven para manipular 
  * *currentTid:* El identificador otorgado por el sistema operativo al hilo actual.
 
 == Clases de ayuda ==
- * ErrorHandler:
+ * *ErrorHandler:*
 
 *Nota:* Todas las clases descritas residen en el namespace "Poco".
