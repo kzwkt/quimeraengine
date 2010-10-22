@@ -21,13 +21,13 @@ No es posible asignar la referencia de una función directamente al Thread, sino
 
 Para evitar problemas de concurrencia en el acceso a recursos por parte de varios hilos de ejecución, se utilizan ciertos mecanismos:
  * *`Mutex`:* Es el típico candado de dos estados: abierto / cerrado.
- * *`FastMutex`:* 
+ * *`FastMutex`:* Igual que Mutex, pero no recomendado para uso en funciones recursivas.
  * *`Semaphore`:* Implementa un semáforo, que limita la cantidad de hilos que acceden a una zona de código determinada. Cada vez que se llama a "wait", se decrementa un contador interno y cuando se llama a "set" se incrementa. Si el contador es inferior a cero, el hilo espera a que vuelva a ser positivo.
  * *`ScopedMutex`:* Se usa en conjunto con un Mutex. Cuando se crea, bloquea el mutex y cuando se destruye lo desbloquea. Es ideal debido a que siempre liberará el mutex, aunque ocurra un error en la función. Se deduce que en la gran mayoría de los casos se declarará como variable local.
- * *`Condition`:*
+ * *`Condition`:* Dado un conjunto de hilos paralelos, es posible su sincronización de la siguiente manera: Un hilo crea un Mutex y lo introduce en la Condition (que utiliza una pila en su interior) mediante el método "wait"; con esto el mutex queda bloqueado y espera a que otro hilo lo desbloquee; cuando otro hilo llama al método "sygnal", el último mutex introducido se desbloquea, y el hilo que lo declaró puede continuar. Es posible desbloquear todos los mutex de la pila con el método "broadcast".
 
 == Gestión de hilos ==
- * *ThreadPool:*
+ * *ThreadPool:* Se trata de un depósito de instancias de Thread ya alojadas en memoria, al cual se le pide la ejecución de objetos Runnable y derivados, de manera que, internamente, utiliza el primer Thread que encuentre libre para lanzar el hilo de ejecución.
 
 == Métodos estáticos de hilo ==
 
@@ -38,6 +38,6 @@ La clase Thread expone varios métodos estáticos que nos sirven para manipular 
  * *`currentTid`:* El identificador otorgado por el sistema operativo al hilo actual.
 
 == Clases de ayuda ==
- * *`ErrorHandler`:*
+ * *`ErrorHandler`:* Actúa como un repositorio común de excepciones al que enviar información de errores ocurridos en todos los hilos (las excepciones ocurridas en un hilo no saltan al principal, el hilo muere y nada más), de manera que pueda ser gestionado por el hilo principal o por cualquier otro.
 
 *Nota:* Todas las clases descritas residen en el namespace "Poco".
