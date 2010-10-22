@@ -13,7 +13,7 @@ La clase principal que simboliza un hilo es *Thread*. Está compuesta por:
 
 No es posible asignar la referencia de una función directamente al Thread, sino que hay que encapsularla. Para ello hay distintas formas de proceder:
  * *Runnable:* Se trata de una clase que encapsula la llamada a una función en otro hilo. Para utilizarla hay que heredar de ella e implementar el método "run", que será ejecutado en otro hilo cuando se usen las instancias de la clase como parámetros de Thread:start.
- * *RunnableAdapter:* Es la versión no-intrusiva para encapsular un método de una clase ya implementada. Durante su creación especificamos la instancia de un objeto y una refrencia a uno de sus métodos, que será invocado en otro hilo mediante Thread::start.
+ * *`RunnableAdapter´:* Es la versión no-intrusiva para encapsular un método de una clase ya implementada. Durante su creación especificamos la instancia de un objeto y una refrencia a uno de sus métodos, que será invocado en otro hilo mediante Thread::start.
  * *ActiveMethod / ActiveResult:* Se usan conjuntamente para encapsular la llamada a un método con un parámetro y que devuelva un resultado. ActiveResult contendrá el resultado o la excepción, según el caso, en cuanto el hilo lanzado termine. Normalemnte se espera a que ello ocurra antes de proseguir mediante el método "wait".
  * *Activity:* En lugar de utilizar Thread::start para invocar un determinado método en otro hilo, ofrece su propio método, de manera que es la clase misma quien ordena la ejecución. No necesita ser heredada.
 
