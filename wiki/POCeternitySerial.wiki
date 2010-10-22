@@ -1,4 +1,3 @@
-#sidebar TOCPOC
 = Eternity 4.0 =
 <wiki:toc max_depth="2" />
 ==Descripción==
