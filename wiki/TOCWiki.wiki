@@ -32,7 +32,7 @@
       * [POCs11nSerial s11n]
       * [POCeternitySerial Eternity]
     * [POCMulti Multihilo] 
-      * [MultiPOCO POCO]
+      * [MultiPoco POCO]
  
 ----
 Kinesis Group
