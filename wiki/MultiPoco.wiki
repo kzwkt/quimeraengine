@@ -27,7 +27,7 @@ Para evitar problemas de concurrencia en el acceso a recursos por parte de vario
  * *`Condition`:* Dado un conjunto de hilos paralelos, es posible su sincronización de la siguiente manera: Un hilo crea un Mutex y lo introduce en la Condition (que utiliza una pila en su interior) mediante el método "wait"; con esto el mutex queda bloqueado y espera a que otro hilo lo desbloquee; cuando otro hilo llama al método "sygnal", el último mutex introducido se desbloquea, y el hilo que lo declaró puede continuar. Es posible desbloquear todos los mutex de la pila con el método "broadcast".
 
 == Gestión de hilos ==
- * *ThreadPool:* Se trata de un depósito de instancias de Thread ya alojadas en memoria, al cual se le pide la ejecución de objetos Runnable y derivados, de manera que, internamente, utiliza el primer Thread que encuentre libre para lanzar el hilo de ejecución.
+ * *`ThreadPool`:* Se trata de un depósito de instancias de Thread ya alojadas en memoria, al cual se le pide la ejecución de objetos Runnable y derivados, de manera que, internamente, utiliza el primer Thread que encuentre libre para lanzar el hilo de ejecución.
 
 == Métodos estáticos de hilo ==
 
