@@ -1,4 +1,3 @@
-#sidebar TOCConventions
 = Convención de Patrones =
 
 <wiki:toc max_depth="2" />
