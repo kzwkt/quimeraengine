@@ -1,4 +1,3 @@
-#sidebar TOCConventions
 = Convención de Nombres =
 
 *Archivos de cabecera y de implementación:* Se llaman igual que la clase o interfaz que esté declarada en su interior. Las extensiones de archivo serán .h para los de cabecera y .cpp para los de implementación.
