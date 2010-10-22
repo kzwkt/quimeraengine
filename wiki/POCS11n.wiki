@@ -1,4 +1,3 @@
-#sidebar TOCPOC
 = Serialización =
 
   * ==[POCBoostSerial Boost]==
