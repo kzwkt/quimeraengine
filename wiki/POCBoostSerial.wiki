@@ -1,4 +1,3 @@
-#sidebar TOCPOC
 = Serialización con Boost =
 <wiki:toc max_depth="3" />
 == Descripción ==
