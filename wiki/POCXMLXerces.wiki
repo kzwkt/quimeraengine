@@ -1,4 +1,3 @@
-#sidebar TOCPOC
 = Xerces-c Library =
 <wiki:toc max_depth=2" />
 ==Descripción==
