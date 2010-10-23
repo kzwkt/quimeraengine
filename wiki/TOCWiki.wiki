@@ -16,6 +16,7 @@
         * [OrderConv Code Order]
         * [GoodPracConv Good Practices]
         * [DocConv Documentation]
+        * [ErrorConv Error Handling]
       * [Workflow Work flow]
       * [InTools Indispensable tools]
   * [Doc3rdParty 3rd Party Documentation]
