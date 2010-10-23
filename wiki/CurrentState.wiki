@@ -5,3 +5,4 @@
 Se han creado las primeras tareas de investigación. El equipo está dedicado actualmente a la búsqueda de las tecnologías que más se adecúen a las necesidadesd el proyecto.
 
 La dirección participa en este momento en las tareas de investigación, además de una tarea más prioritaria como es la autoformación en materia de diseño de motores de videojuegos.
+Además, durante esta semana deberá tomar decisiones acerca de cuál de las tecnologías investigadas formarán parte del proyecto.
