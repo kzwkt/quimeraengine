@@ -20,4 +20,8 @@
 <td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
 <td>[DocConv Documentation convention]</td>
 </tr>
+<tr>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/conventions.jpg]</td>
+<td>[ErrorConv Error Handling convention]</td>
+</tr>
 </table>
