@@ -43,7 +43,7 @@ La clase Thread expone varios métodos estáticos que nos sirven para manipular 
 *Nota:* Todas las clases descritas residen en el namespace "Poco".
 
 == Prueba de concepto ==
-["https://quimeraengine.googlecode.com/svn/team/poc/Task 8 - Multithreading"]
+[https://quimeraengine.googlecode.com/svn/team/poc/Task%208%20-%20Multithreading]
 
 == Enlaces de interés ==
 [http://pocoproject.org/ Web oficial de POCO]
