@@ -41,3 +41,10 @@ La clase Thread expone varios métodos estáticos que nos sirven para manipular 
  * *`ErrorHandler`:* Actúa como un repositorio común de excepciones al que enviar información de errores ocurridos en todos los hilos (las excepciones ocurridas en un hilo no saltan al principal, el hilo muere y nada más), de manera que pueda ser gestionado por el hilo principal o por cualquier otro.
 
 *Nota:* Todas las clases descritas residen en el namespace "Poco".
+
+== Prueba de concepto ==
+["https://quimeraengine.googlecode.com/svn/team/poc/Task 8 - Multithreading"]
+
+== Enlaces de interés ==
+[http://pocoproject.org/ Web oficial de POCO]
+[http://pocoproject.org/slides/130-Threads.pdf Documentación de la sección de Threading]
