@@ -1,4 +1,4 @@
-#sidebar TOCPOC
+
 = PugiXML =
 <wiki:toc max_depth="2" />
 ==Descripción==
