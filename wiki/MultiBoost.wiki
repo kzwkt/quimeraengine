@@ -23,9 +23,16 @@ void funcion_a_ejecutar()
 }
 
 boost::thread  func_thread (funcion_a_ejecutar);
-
 }}}
 
+ * *`Function with Arguments`* Si queremos pasar parámetros a la función que se ejecutará en un hilo aparte. Se consigue añadiendo los parámetros al constructor del hilo.
+{{{
+void funcion_a_ejecutar(param_1, param_2)
+{
+}
+
+boost::thread func_thread (funcion_a_ejecutar, param_1, param_2);
+}}}
 
 
 == Encapsulación de hilos ==
