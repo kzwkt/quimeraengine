@@ -1,5 +1,5 @@
 = Multihilo con POCO C++ =
-
+<wiki:toc max_depth="3" />
 == Descripción ==
 
 POCO C++ dedica una sección de su librería Foundation, bajo el nombre de Threading, a la manipulación de hilos, haciendo muy sencillo el trabajo con los mismos y permitiendo la abstracción del sistema operativo. Soporta el sistema de hilos tradicional de Windows y el estándar [http://es.wikipedia.org/wiki/POSIX POSIX], seguido por Linux, Mac OS X y Windows NT en adelante.
