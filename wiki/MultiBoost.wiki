@@ -1,5 +1,5 @@
 = Multihilo con Boost C++ =
-
+<wiki:toc max_depth="3" />
 == Descripción ==
 
 Boost es un conjunto de bibliotecas de software libre y revisión por pares preparadas para extender las capacidades del lenguaje de programación C++. Su licencia, de tipo BSD, permite que sea utilizada en cualquier tipo de proyectos, ya sean comerciales o no. Extraído de: Wikipedia
