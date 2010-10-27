@@ -30,7 +30,6 @@ boost::thread func_thread (funcion_a_ejecutar, param_1, param_2);
 }}}
 
  * *`Functor`* Un functor sirve para encapsular una función que será llamada en el hilo en un objeto. La clase define un metodo especial sobrecargando la función *`operator()`* que será llamada cuando el functor sea llamada.
-
 {{{
 class Worker
 {
@@ -51,8 +50,8 @@ int main ()
   .....
 }
 }}}
- * *`Object method `* Con frecuencia es conveniente definir un objeto con un método de instancia que se ejecuta en su propio hilo. En primer lugar, tenemos que especificar el método que vamos a utilizar y através del operador & para pasar la dirección del método. El segundo parámetro tiene que ser el puntero del objeto en si. Detrás vendrá todos los parámetros necesarios para invocar al método. 
- 
+
+ * *`Object method `* Con frecuencia es conveniente definir un objeto con un método de instancia que se ejecuta en su propio hilo. En primer lugar, tenemos que especificar el método que vamos a utilizar y através del operador & para pasar la dirección del método. El segundo parámetro tiene que ser el puntero del objeto en si. Detrás vendrá todos los parámetros necesarios para invocar al método.  
 {{{
   //Objeto Worker 
   Worker w(param1); 
@@ -65,14 +64,7 @@ int main ()
 Para evitar problemas de concurrencia en el acceso a recursos por parte de varios hilos de ejecución, se utilizan ciertos mecanismos:
 
  * *`Mutex`:* Es el típico candado de dos estados: abierto / cerrado.
- * *`FastMutex`:* Igual que Mutex, pero no recomendado para uso en funciones recursivas.
- * *`Semaphore`:* Implementa un semáforo, que limita la cantidad de hilos que acceden a una zona de código determinada. Cada vez que se llama a "wait", se decrementa un contador interno y cuando se llama a "set" se incrementa. Si el contador es inferior a cero, el hilo espera a que vuelva a ser positivo.
- * *`ScopedMutex`:* Se usa en conjunto con un Mutex. Cuando se crea, bloquea el mutex y cuando se destruye lo desbloquea. Es ideal debido a que siempre liberará el mutex, aunque ocurra un error en la función. Se deduce que en la gran mayoría de los casos se declarará como variable local.
- * *`Condition`:* Dado un conjunto de hilos paralelos, es posible su sincronización de la siguiente manera: Un hilo crea un Mutex y lo introduce en la Condition (que utiliza una pila en su interior) mediante el método "wait"; con esto el mutex queda bloqueado y espera a que otro hilo lo desbloquee; cuando otro hilo llama al método "sygnal", el último mutex introducido se desbloquea, y el hilo que lo declaró puede continuar. Es posible desbloquear todos los mutex de la pila con el método "broadcast".
-
-== Gestión de hilos ==
-
- * *`ThreadPool`:* Se trata de un depósito de instancias de Thread ya alojadas en memoria, al cual se le pide la ejecución de objetos Runnable y derivados, de manera que, internamente, utiliza el primer Thread que encuentre libre para lanzar el hilo de ejecución.
+ * *`Condition Variables`:* Proviene un mecanismo para que un thread espere la notificación por otro thread que una condición particular sea cierto. Un hilo crea un Mutex y luego llama a wait. Si la condición no es cierta sigue llamando a wait hasta que se cumpla la condición.
 
 == Métodos estáticos de hilo ==
 
