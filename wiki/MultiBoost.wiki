@@ -86,7 +86,7 @@ La clase Thread expone varios métodos estáticos que nos sirven para manipular 
 
 == Grupo de thread ==
 
- * *`thread_group`:* thread_group proporciona una coleción de thread que están relacionados de alguna manera. Nuevo thread se pueden agregar al grupo con funciones miembro add_thread y create_thread. 
+ * *`thread_group`:* thread_group prevé una coleción de thread que están relacionados de alguna manera. Nuevo thread se pueden agregar al grupo con funciones miembro add_thread y create_thread. 
 
 == Código fuente de la Prueba de concepto ==
 [https://quimeraengine.googlecode.com/svn/team/poc/Task%208%20-%20Multithreading]
