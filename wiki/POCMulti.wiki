@@ -1,5 +1,5 @@
 =Multihilo=
 
-[MultiPoco BOOST C++]
+[MultiBoost BOOST C++]
 
 [MultiPoco POCO C++]
