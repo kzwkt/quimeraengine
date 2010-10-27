@@ -4,10 +4,29 @@
 
 Boost es un conjunto de bibliotecas de software libre y revisión por pares preparadas para extender las capacidades del lenguaje de programación C++. Su licencia, de tipo BSD, permite que sea utilizada en cualquier tipo de proyectos, ya sean comerciales o no. Extraído de: Wikipedia
 
-La librería que nos interese se llama Thread, y aparece bajo el namespace boost::thread.
+La librería que nos interese se llama Thread, y aparece bajo el namespace boost::thread. La librería originalmente fue escrito y diseñado por William E. Kempf y actualmente lo lleva Anthony Williams. La versión usada en ésta prueba de concepto es la 1.44.
 
-La librería que nos interesa se llama Serialization, y aparece bajo el namespace boost::serialization. Dentro de la carpeta de los fuentes de Boost, las cabeceras se encuentran en la carpeta boost/serialization. También se utilizan clases que simbolizan archivos, bajo el namespace boost::archive y en el directorio boost/archive. El autor es Robert Ramey y la versión usada en ésta prueba de concepto es la 1.44. 
-POCO C++ dedica una sección de su librería Foundation, bajo el nombre de Threading, a la manipulación de hilos, haciendo muy sencillo el trabajo con los mismos y permitiendo la abstracción del sistema operativo. Soporta el sistema de hilos tradicional de Windows y el estándar [http://es.wikipedia.org/wiki/POSIX POSIX], seguido por Linux, Mac OS X y Windows NT en adelante.
+La clase boost::thread es el responsable de lanzar y manejar los threads. Cada objeto boost::thread representa un hilo simple de ejecución. Los objetos boost::thread no es copiable. Usa los interfaces que le proporciona el S.O. para la creación y el manejo. 
+
+
+
+
+A boost::thread object is normally constructed by passing the threading function or method it is to run. There are actually a number of different ways to do so. I cover the main thread creation approaches below.
+
+== Creación de hilo == 
+
+Un objteto boost::thread se crea pasandle una función o método que queremos ejecutarlo en un hilo. Existe varios método para ello que lo vamos a ver:
+ * *`A Thread Function`* Estamos en el caso cuando queremos ejecutar una función en un hilo separado, para ello solamente es necesario pasar la función a lanzar en el constructor del hilo. 
+{{{
+void funcion_a_ejecutar()
+{
+}
+
+boost::thread  func_thread (funcion_a_ejecutar);
+
+}}}
+
+
 
 == Encapsulación de hilos ==
 
