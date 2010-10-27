@@ -74,12 +74,19 @@ La clase Thread expone varios métodos estáticos que nos sirven para manipular 
  * *`sleep`:* Pausa la ejecución del hilo actual durante un tiempo determinado.
  * *`yield`:* Permite que la CPU en uso por el hilo actual sea usada por otros hilos.
  * *`currentTid`:* El identificador otorgado por el sistema operativo al hilo actual.
+ * *`get_id`:* Devuelve el id del thread que se esta ejecutando.
+ * *`interruption_point()`:* Verifica si el thread actual ha tenido alguna interrupción.
+ * *`interruption_requested()`:* Devuelve true si la interrupción ha sido capturado en el thread actual, en otro caso falso.
+ * *`interruption_enabled()`:* Devuelve true si la interrupción esta activada en el thread actual.
+ * *`sleep()`:* Pausa la ejecución del hilo actual durante un tiempo determinado.
+ * *`yield()`:* Permite que la CPU en uso por el hilo actual sea usada por otros hilos.
+ * *`disable_interruption`:* Desactiva las interrupciones en el constructor y lo vuelve a activar en el destructor del thread.
+ * *`restore_interruption`:* Devuelve el estado de las interrupciones que se guardó en el constructor.
 
-== Clases de ayuda ==
 
- * *`ErrorHandler`:* Actúa como un repositorio común de excepciones al que enviar información de errores ocurridos en todos los hilos (las excepciones ocurridas en un hilo no saltan al principal, el hilo muere y nada más), de manera que pueda ser gestionado por el hilo principal o por cualquier otro.
+== Grupo de thread ==
 
-*Nota:* Todas las clases descritas residen en el namespace "Poco".
+ * *`thread_group`:* thread_group proporciona una coleción de thread que están relacionados de alguna manera. Nuevo thread se pueden agregar al grupo con funciones miembro add_thread y create_thread. 
 
 == Código fuente de la Prueba de concepto ==
 [https://quimeraengine.googlecode.com/svn/team/poc/Task%208%20-%20Multithreading]
