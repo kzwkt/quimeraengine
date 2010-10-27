@@ -33,6 +33,7 @@
       * [POCs11nSerial s11n]
       * [POCeternitySerial Eternity]
     * [POCMulti Multihilo] 
+      * [MultiBoost Boost]
       * [MultiPoco POCO]
  
 ----
