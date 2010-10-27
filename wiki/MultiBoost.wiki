@@ -8,11 +8,6 @@ La librería que nos interese se llama Thread, y aparece bajo el namespace boost
 
 La clase boost::thread es el responsable de lanzar y manejar los threads. Cada objeto boost::thread representa un hilo simple de ejecución. Los objetos boost::thread no es copiable. Usa los interfaces que le proporciona el S.O. para la creación y el manejo. 
 
-
-
-
-A boost::thread object is normally constructed by passing the threading function or method it is to run. There are actually a number of different ways to do so. I cover the main thread creation approaches below.
-
 == Creación de hilo == 
 
 Un objteto boost::thread se crea pasandle una función o método que queremos ejecutarlo en un hilo. Existe varios método para ello que lo vamos a ver:
@@ -34,23 +29,36 @@ void funcion_a_ejecutar(param_1, param_2)
 boost::thread func_thread (funcion_a_ejecutar, param_1, param_2);
 }}}
 
+ * *`Functor`* Un functor sirve para encapsular una función que será llamada en el hilo en un objeto. La clase define un metodo especial sobrecargando la función *`operator()`* que será llamada cuando el functor sea llamada.
 
-== Encapsulación de hilos ==
+{{{
+class Worker
+{
+ ..... // El constructor
+  
+ void operator() ()
+ {
+   // Tareas a realizar por la función
+ }
+ 
+}
 
-La clase principal que simboliza un hilo es *Thread*. Está compuesta por:
+int main ()
+{
+  Worker w(); 
 
- * Un nombre opcional.
- * La prioridad en el sistema operativo.
- * Un ID único en la aplicación (no confundir con el otorgado por el sistema operativo).
- * Una pila, cuyo tamaño es configurable.
- * Un objeto que encapsula una función asignada al hilo.
+  boost::thread workerThread(w);
+  .....
+}
+}}}
+ * *`Object method `* Con frecuencia es conveniente definir un objeto con un método de instancia que se ejecuta en su propio hilo. En primer lugar, tenemos que especificar el método que vamos a utilizar y através del operador & para pasar la dirección del método. El segundo parámetro tiene que ser el puntero del objeto en si. Detrás vendrá todos los parámetros necesarios para invocar al método. 
+ 
+{{{
+  //Objeto Worker 
+  Worker w(param1); 
 
-No es posible asignar la referencia de una función directamente al Thread, sino que hay que encapsularla. Para ello hay distintas formas de proceder:
-
- * *`Runnable`:* Se trata de una clase que encapsula la llamada a una función en otro hilo. Para utilizarla hay que heredar de ella e implementar el método "run", que será ejecutado en otro hilo cuando se usen las instancias de la clase como parámetros de Thread:start.
- * *`RunnableAdapter`:* Es la versión no-intrusiva para encapsular un método de una clase ya implementada. Durante su creación especificamos la instancia de un objeto y una refrencia a uno de sus métodos, que será invocado en otro hilo mediante Thread::start.
- * *`ActiveMethod / ActiveResult`:* Se usan conjuntamente para encapsular la llamada a un método con un parámetro y que devuelva un resultado. `ActiveResult` contendrá el resultado o la excepción, según el caso, en cuanto el hilo lanzado termine. Normalemnte se espera a que ello ocurra antes de proseguir mediante el método "wait".
- * *`Activity`:* En lugar de utilizar Thread::start para invocar un determinado método en otro hilo, ofrece su propio método, de manera que es la clase misma quien ordena la ejecución. No necesita ser heredada.
+  boost::thread workerThread (&Worker::metodo_a_invocar, &w, param1);
+}}}
 
 == Mecanismos de sincronización ==
 
