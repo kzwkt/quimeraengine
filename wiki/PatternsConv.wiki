@@ -36,7 +36,8 @@ public:
     {
         Value1,
         Value2,
-        Value3
+        Value3,
+        NotEnumValue = FORCE_DWORD // Fuerza al compilador a tratar el enum como un DWORD (32 bits en Windows-32 y 64 bits en Windows-64).
     };
 
     EQEnumeration(const int &nValue);
