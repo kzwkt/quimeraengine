@@ -31,6 +31,7 @@
     * Cuando se llame a un método, siempre debería ir precedido por su clase/interfaz, aunque se esté llamando desde su propia clase, en cuyo caso se usaría this.
     * Salvo estructuras especiales, todos los atributos no constantes de una clase que quieran hacerse públicos deben estar encapsulados por sus respectivas propiedades (Get / Set).
     * Preferir el uso del operador de multiplicación al de división. Motivos de eficiencia. Ejemplo: 1.0f `*` 0.5f en lugar de 1.0f / 2.0f.
+    * En casos donde la velocidad sea extremadamente crítica, usar n >> 1 en lugar de n / 2 y n << 1 en lugar de n * 2, cuando se usen números enteros.
     * Guardar la condición de un bucle antes de que éste empiece, cuando se pueda. Un ejemplo de esto es el típico .Count() de una lista.
     * Usar string en lugar de char`*` siempre que se pueda, se asume la pérdida de rendimiento.
     * Usar vector en lugar de un array, siempre que se pueda. Se asume la pérdida de rendimiento. Aprovechar la dualidad de comportamiento de vector.
