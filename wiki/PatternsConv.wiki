@@ -29,6 +29,8 @@ Versión modificada
 #include <vector>
 #include <map>
 
+const int FORCE_DWORD = 0xFFFFFFFF;
+
 class EQEnumeration
 {
 public:
