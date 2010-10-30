@@ -1,6 +1,6 @@
   = Conventions =
-  * [PatternsConv Patterns]
-  * [NamingConv Naming]
-  * [OrderConv Code Order]
-  * [GoodPracConv Good Practices]
-  * [DocConv Documentation]
+  * ==[PatternsConv Patterns]==
+  * ==[NamingConv Naming]==
+  * ==[OrderConv Code Order]==
+  * ==[GoodPracConv Good Practices]==
+  * ==[DocConv Documentation]==
