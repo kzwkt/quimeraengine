@@ -1,5 +1,3 @@
-[WikiRoot Inicio]
-
 [Conventions Conventions]
   * [PatternsConv Patterns]
   * [NamingConv Naming]
