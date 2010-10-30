@@ -1,5 +1,5 @@
-  * ==[PatternsConv Patterns]==
-  * ==[NamingConv Naming]==
-  * ==[OrderConv Code Order]==
-  * ==[GoodPracConv Good Practices]==
-  * ==[DocConv Documentation]==
+  * ==[SummPatterns Patterns]==
+  * ==[SummNaming Naming]==
+  * ==[SummOrder Code Order]==
+  * ==[SummGoodPrac Good Practices]==
+  * ==[SummDoc Documentation]==
