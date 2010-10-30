@@ -15,7 +15,9 @@
 #include <boost/serialization/map.hpp>
 #include <boost/serialization/vector.hpp>
 #include <boost/serialization/array.hpp>
-
+ó
+    ñ
+    Á
 // Additional Boost include, only to illustrate its usage
 #include <boost/foreach.hpp>
 
