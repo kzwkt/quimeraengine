@@ -28,6 +28,7 @@
       * [POCXMLtinyxml TinyXML]
     * [POCLogging Escritura de logs]
       * [POCBoostLog Logging con Boost]
+      * [POCPOCOLog Logging con POCO]
     * [POCS11n Serialización]
       * [POCBoostSerial Boost]
       * [POCs11nSerial s11n]
