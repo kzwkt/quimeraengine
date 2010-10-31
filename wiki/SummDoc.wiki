@@ -1,3 +1,4 @@
+#sidebar TOCConventions
 = Convenciones de Documentación =
 <wiki:toc max_depth="2" />
 Dado que la documentación será generada mediante la herramienta para C++ Doxygen, tendremos que adoptar un patrón que pueda analizar. Para hacerlo más estándar, utilizaremos notación XML, utilizada ampliamente en proyectos .Net, con algunas excepciones.
