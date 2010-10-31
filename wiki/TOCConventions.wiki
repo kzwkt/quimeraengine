@@ -1,6 +1,6 @@
   * ==[SummPatterns Patterns]==
   * ==[SummNaming Naming]==
-  * ==[SummOrder Code Order]==
+  * ==[SummCodeOrd Code Order]==
   * ==[SummGoodPrac Good Practices]==
   * ==[SummDoc Documentation]==
   * ==[SummError Error Handling]==
