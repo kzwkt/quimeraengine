@@ -101,7 +101,7 @@ struct      time_strf_t
 
 Namespaces
 namespace      convert
-     Allows format convertions - In case you're using a formatter that does not match your string type.
+     Allows format convertions - In case you`'`re using a formatter that does not match your string type.
 namespace      tag
      Classes that process the tags coming with the library.
 
