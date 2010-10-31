@@ -4,9 +4,9 @@
   * *Archivos de cabecera y de implementación*: `NombreClase.h` / `NombreClase.cpp`
   * *Definiciones* `#ifndef ... #define ... [código] ... #endif`: `__NOMBRECLASE__`
   * *STL*: `<string>`
-  * *Namespaces*: (PascalCase, Equipo.Proyecto.Dominio) `KinesisTeam.QuimeraEngine.Core`
-  * *Clases, Clases anidadas*: (PascalCase, Prefijo Q) `QSceneElement`
-  * *Interfaces*: (PascalCase, Prefijo IQ) `IQSceneObject`
+  * *Namespaces*: (`PascalCase`, Equipo.Proyecto.Dominio) `KinesisTeam.QuimeraEngine.Core`
+  * *Clases, Clases anidadas*: (`PascalCase`, Prefijo Q) `QSceneElement`
+  * *Interfaces*: (`PascalCase`, Prefijo IQ) `IQSceneObject`
   * *Variables*:
     * *Prefijos generales*:
       * *int* (Prefijo n): `int nNumero`
@@ -20,7 +20,7 @@
       * *string* (Prefijo str): `std::string strCadena`
       * *bool* (Prefijo b): `bool bEsCierto`
       * *array y std::vector* (Prefijo ar): `float arNuemro[8]` (no resto estructuras)
-    * *no-miembro, locales y no-estáticas* (CamelCase, Prefijo general) : `int nNumero`
+    * *no-miembro, locales y no-estáticas* (`CamelCase`, Prefijo general) : `int nNumero`
     * *no-miembro, locales y estáticas* (`static_` + Prefijo general): `static_nNumero`
     * *miembro no-estáticas* (`_` + Prefijo general): `_nNumero`
     * *miembro estáticas* (`s_` + Prefijo general): `s_nNumero`
@@ -30,5 +30,5 @@
     * *A nivel de librería*: Como el original
     * *Ámbito concreto* (Prefijo TQ): `typedef std::vector<int>::iterator TQVectorIterator`.
   * *Enumerados*
-    * *Nombre* (PascalCase, singular, Prefijo EQ): `enum EQObjectType`
-    * *Valores* (PascalCase, Sin Prefijo): `enum EQObjectType { Camera = 0, Mesh = 1 }`
+    * *Nombre* (`PascalCase`, singular, Prefijo EQ): `enum EQObjectType`
+    * *Valores* (`PascalCase`, Sin Prefijo): `enum EQObjectType { Camera = 0, Mesh = 1 }`
