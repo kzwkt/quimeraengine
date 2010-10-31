@@ -32,7 +32,7 @@ Un mensaje está compuesto por:
 
 = Declaración =
 
-_ POCO:: Logger _ será nuestra clase de partida para el control de logging una vez añadida la cabecera correspondiente: #include "Poco/Logger.h". Caga _logger_ tiene un canal asociado, mediante el cual ofrece el mensaje al destino (un archivo, por ejemplo).
+_ POCO:: Logger _ será nuestra clase de partida para el control de logging una vez añadida la cabecera correspondiente: #include "Poco/Logger.h". Cada _logger_ tiene un canal asociado, mediante el cual ofrece el mensaje al destino (un archivo, por ejemplo).
 
 Declarando un loger:
 {{{
@@ -56,19 +56,25 @@ Declaración de un log para escritura en un archivo:
 #include "Poco/Logger.h"
 #include "Poco/FileChannel.h"
 #include "Poco/AutoPtr.h"
+
 using Poco::Logger;
 using Poco::FileChannel;
 using Poco::AutoPtr;
+
 int main(int argc, char** argv)
 {
-AutoPtr<FileChannel> pChannel(new FileChannel);
-pChannel->setProperty("path", "sample.log");
-pChannel->setProperty("rotation", "2 K");
-pChannel->setProperty("archive", "timestamp");
-Logger::root().setChannel(pChannel);
-Logger& logger = Logger::get("TestLogger"); // inherits root channel
-for (int i = 0; i < 100; ++i)
-logger.information("Testing FileChannel");
+   AutoPtr<FileChannel> pChannel(new FileChannel);
+   pChannel->setProperty("path", "sample.log");
+   pChannel->setProperty("rotation", "2 K");
+   pChannel->setProperty("archive", "timestamp");
+
+   Logger::root().setChannel(pChannel);
+
+   Logger& logger = Logger::get("TestLogger"); // inherits root channel
+
+   for (int i = 0; i < 100; ++i)
+      logger.information("Testing FileChannel");
+
 return 0;
 }
 }}}
