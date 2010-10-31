@@ -1,5 +1,5 @@
 = Convenciones de Orden del Código =
-
+<wiki:toc max_depth="2" />
 == Archivos de cabecera ==
  # Pancarta con la licencia y la autoría.
  # Sentencias #Ifndef y #define para evitar inclusiones múltiples.
