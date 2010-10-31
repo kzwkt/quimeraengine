@@ -8,7 +8,7 @@ Bajo el core Foundation de POCO C++, nos encontramos el framework de Logging. É
 *Message*:
 Se trata del mensaje a enviar mediante el objeto Logger a través de un canal con destino, por ejemplo, un fichero.
 Namespace : _POCO:Message_
-Include: #include "Poco/Message.h"
+Include: _#include "Poco/Message.h"_
 
 Un mensaje está compuesto por:
   * *Prioridad* (Priority): Consta de varios niveles:
