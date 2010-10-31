@@ -188,7 +188,7 @@ int main(int argc, char** argv)
 }}}
 
 
- = Rendimiento =
+= Rendimiento =
    * El nombre del Logger es una clave, de modo que cuanto más largo sea éste, más afectará a las operaciones de búsqueda.
    * Evitar llamar frecuentemente Logger::get(). Es mucho mejor llamarlo una vez por cada logger que se vaya a utilizar y, a continuación, almacenar la referencia al registro para su uso posterior.
    * El rendimiento del logging depende de la cantidad de canales a utilizar. El rendimiento de éstos es altamente dependiente del sistema.
@@ -197,7 +197,9 @@ Para más detalles de rendimiento consultar el manual de referencia.
 
 
 
-Add your content here.  Format your content with:
-  * Text in *bold* or _italic_
-  * Headings, paragraphs, and lists
-  * Automatic links to other wiki pages
+== Páginas web de interés ==
+  * [http://sourceforge.net/projects/poco/files/sources/poco-1.3.6/poco-1.3.6p2.zip/download Descarga de POCO]
+
+  * [http://pocoproject.org/slides/110-Logging.pdf POCO Logging]
+
+  * [http://pocoproject.org/index.html POCO]
