@@ -24,7 +24,7 @@
 </tr>
 <tr>
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Development+status%3AReadyForReview+label%3APhase-0 Pending Reviews]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=status%3AReadyForReview+label%3APhase-0 Pending Reviews]</td>
 </tr>
 <tr>
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/bugs.jpg]</td>
@@ -49,6 +49,6 @@
 </tr>
 <tr>
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3AType-Development+status%3AReadyForReview+label%3APhase--1 Pending Reviews]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=status%3AReadyForReview+label%3APhase--1 Pending Reviews]</td>
 </tr>
 </table>
