@@ -1,4 +1,4 @@
-= Logging con Boost =
+= Logging con POCO =
 <wiki:toc max_depth="2" />
 
 = Introducción =
