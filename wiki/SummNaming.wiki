@@ -1,47 +1,25 @@
 #sidebar TOCConventions
 = Convención de Nombres =
 
-*Archivos de cabecera y de implementación:* Se llaman igual que la clase o interfaz que esté declarada en su interior. Las extensiones de archivo serán .h para los de cabecera y .cpp para los de implementación.
-
-Ejemplo: `NombreClase`.h / `NombreClase`.cpp.
-
-*Definiciones para evitar inclusiones múltiples (#ifndef ... #define ... [código] #endif):* Se compondrá de 2 guiones bajos al principio, el nombre de la clase o interfaz que se declare en el archivo, en mayúsculas, y por último otros 2 guiones bajos.
-
-Ejemplo: `__`NOMBRECLASE`__`.
-
-*Las inclusiones de librerías de la STL:* Siempre van entre ángulos.
-
-Ejemplo: `<`string`>`.
-
-*Namespaces:* Se usará `PascalCase`. Se dividirá en: Nombre del equipo, punto, Nombre del proyecto, punto, Nombre del Dominio.
-
-Ejemplo: `KinesisTeam`.`QuimeraEngine`.Core.
-
-*Clases:* Se usará `PascalCase`, poniendo como prefijo una Q, de Quimera, mayúscula. 
-
-Ejemplo: QSceneElement.
-
-*Interfaces:* Igual que las clases, pero anteponiendo, además, una I mayúscula.
-
-Ejemplo: IQSceneObject.
-
-*Clases anidadas:* Igual que las clases normales.
-
-Ejemplo: QTreeNode.
-
-*Variables no-miembro, locales y no-estáticas:* Se usará camelCase. Los siguientes prefijos serán obligatorios para cada tipo:
-
-    * n --> int con signo.
-    * u --> int sin signo.
-    * i --> iterador, salvo enteros nombrados como i, j, k, etc.
-    * f --> float.
-    * dw --> DWORD.
-    * w --> WORD
-    * sz --> Char`*`.
-    * p --> punteros en general.
-    * str --> std::string.
-    * b --> bool.
-    * ar --> arrays y std::vector, no para el resto de estructuras.
+  * Archivos de cabecera y de implementación: `NombreClase.h` / `NombreClase.cpp`
+  * `#ifndef ... #define ... [código] ... #endif`: `__`NOMBRECLASE`__`
+  * STL: `<string>`
+  * Namespaces: (`PascalCase`, Equipo.Proyecto.Dominio) `KinesisTeam.QuimeraEngine.Core`
+  * Clases, Clases anidadas: (`PascalCase`, Prefijo Q) `QSceneElement`
+  * Interfaces: (`PascalCase`, Prefijo IQ) `IQSceneObject`
+  * Variables:
+    * no-miembro, locales y no-estáticas: (CamelCase). Prefijos:
+      * int (Prefijo n): `int nNumero`
+      * unsigned int (Prefijo u): `unsigned int uNumero`
+      * iterator (Prefijo i): `interator ivueltas` (salvo i, j, k, etc.)
+      * float (Prefijo f): `float fNumero`
+      * DWORD (Prefijo dw): `DWORD dwPalabra`
+      * WORD (Prefijo w): `WORD wPalabra`
+      * Cadenas (Prefijo sz): `Char`*` szCadena`
+      * Puntero (Prefijo p): `int *pNumero`
+      * string (Prefijo str): `std::string strCadena`
+      * bool (Prefijo b): `bool bEsCierto`
+      * array y std::vector (Prefijo ar): `float arNuemro[8]` (no resto estructuras)
 
 
 Pueden añadirse otros prefijos opcionalmente, siempre que no induzcan a confusión.
