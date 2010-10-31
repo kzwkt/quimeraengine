@@ -27,7 +27,7 @@
   * *Constantes* (Sin prefijo, mayusculas, palabras separadas): GRAPHIC_DEVICE_FLAG.
   * *Métodos y propiedades, de instancia o estáticos* (`PascalCase`): `GetMethod()`.
   * *Typedef:* 
-    * *A nivel de librería*: Mismas normal que siga el original.
+    * *A nivel de librería*: Mismas normas que siga el original.
     * *Ámbito concreto* (Prefijo TQ): `typedef std::vector<int>::iterator TQVectorIterator`.
   * *Enumerados*
     * *Nombre* (`PascalCase`, singular, Prefijo EQ): `enum EQObjectType`.
