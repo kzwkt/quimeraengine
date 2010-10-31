@@ -135,7 +135,7 @@ int main(int argc, char** argv)
 }
 }}}
 
-_Poco::LogStream_ proporciona una interfaz ostream a Logger, mediante la cabecera _#include "Poco/LogStream.h"_. Tambíen consta de prioridades al igual que Message (ver documentación para detalles).
+_Poco::LogStream_ proporciona una interfaz ostream a Logger, mediante la cabecera _#include "Poco/LogStream.h"_. También consta de prioridades al igual que Message (ver documentación para detalles).
 
 {{{
 #include "Poco/LogStream.h"
