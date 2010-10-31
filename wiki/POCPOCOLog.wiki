@@ -1,0 +1,13 @@
+#summary One-sentence summary of this page.
+
+= Introducción =
+
+Bajo el core Foundation de POCO C++, nos encontramos el framework de Logging. Éste nos permite el control de logs de nuestra aplicación estableciendo prioridades, estrategias y formatos de salida para los mismos.
+
+
+= Details =
+
+Add your content here.  Format your content with:
+  * Text in *bold* or _italic_
+  * Headings, paragraphs, and lists
+  * Automatic links to other wiki pages
