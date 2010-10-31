@@ -1,62 +1,34 @@
 #sidebar TOCConventions
 = Convención de Nombres =
 
-  * Archivos de cabecera y de implementación: `NombreClase.h` / `NombreClase.cpp`
-  * `#ifndef ... #define ... [código] ... #endif`: `__`NOMBRECLASE`__`
-  * STL: `<string>`
-  * Namespaces: (`PascalCase`, Equipo.Proyecto.Dominio) `KinesisTeam.QuimeraEngine.Core`
-  * Clases, Clases anidadas: (`PascalCase`, Prefijo Q) `QSceneElement`
-  * Interfaces: (`PascalCase`, Prefijo IQ) `IQSceneObject`
-  * Variables:
-    * no-miembro, locales y no-estáticas: (CamelCase). Prefijos:
-      * int (Prefijo n): `int nNumero`
-      * unsigned int (Prefijo u): `unsigned int uNumero`
-      * iterator (Prefijo i): `interator ivueltas` (salvo i, j, k, etc.)
-      * float (Prefijo f): `float fNumero`
-      * DWORD (Prefijo dw): `DWORD dwPalabra`
-      * WORD (Prefijo w): `WORD wPalabra`
-      * Cadenas (Prefijo sz): `Char`*` szCadena`
-      * Puntero (Prefijo p): `int *pNumero`
-      * string (Prefijo str): `std::string strCadena`
-      * bool (Prefijo b): `bool bEsCierto`
-      * array y std::vector (Prefijo ar): `float arNuemro[8]` (no resto estructuras)
-
-
-Pueden añadirse otros prefijos opcionalmente, siempre que no induzcan a confusión.
-
-Ejemplo: int nNumero; float `arFloats[8]`;.
-
-*Variables miembro no-estáticas:* Igual que las no-miembro locales pero anteponiendo un guión bajo delante.
-
-Ejemplo: `_`nCount.
-
-*Constantes:* Sin prefijos, todo en mayúscula y separando palabras con guiones bajos.
-
-Ejemplo: GRAPHIC_DEVICE_FLAG.
-
-*Variables no-miembro locales estáticas:* Igual que cualquier variable local pero anteponiendo el prefijo static_.
-
-Ejemplo: static_nCount.
-
-*Variables miembro estáticas:* Igual que las variables miembro pero anteponeindo además una s.
-
-Ejemplo: s_pMember.
-
-*Métodos y propiedades, de instancia o estáticos:* Usarán `PascalCase`, sin ningún tipo de prefijo o postfijo.
-
-Ejemplo: `GetMethod`().
-
-*Typedef:* Si es a nivel de librería, entonces se nombra siguiendo las reglas del original. Si su ámbito se reduce a un sitio concreto, se usa como prefijo TQ.
-
-Ejemplo: typedef std::vector`<`int`>`::iterator TQVectorIterator.
-
-*Enumerados:* El nombre del enumerado se escribirá con `PascalCase`, en singular, precedido por EQ. Los nombres de los valores no tendrán prefijo, y usarán `PascalCase`.
-
-Ejemplo: enum EQObjectType { Camera = 0, Mesh = 1 }.
-
-*General:* Nombres descriptivos, aunque sean algo largos. En casos obvios, acortarlos lo máximo posible.
-
-Ejemplo: strNewConventionName.
-
-
-Esta lista está sujeta a cambios derivados de propuestas del equipo, bien justificadas, y así como de improbables efectos negativos en la legibilidad y productividad. Está basada en parte en la experiencia personal y en parte en estándares de facto.
+  * *Archivos de cabecera y de implementación*: `NombreClase.h` / `NombreClase.cpp`
+  * *Definiciones* `#ifndef ... #define ... [código] ... #endif`: `__NOMBRECLASE__`
+  * *STL*: `<string>`
+  * *Namespaces*: (PascalCase, Equipo.Proyecto.Dominio) `KinesisTeam.QuimeraEngine.Core`
+  * *Clases, Clases anidadas*: (PascalCase, Prefijo Q) `QSceneElement`
+  * *Interfaces*: (PascalCase, Prefijo IQ) `IQSceneObject`
+  * *Variables*:
+    * *Prefijos generales*:
+      * *int* (Prefijo n): `int nNumero`
+      * *unsigned int* (Prefijo u): `unsigned int uNumero`
+      * *iterator* (Prefijo i): `interator ivueltas` (salvo i, j, k, etc.)
+      * *float* (Prefijo f): `float fNumero`
+      * *DWORD* (Prefijo dw): `DWORD dwPalabra`
+      * *WORD* (Prefijo w): `WORD wPalabra`
+      * *Cadenas* (Prefijo sz): `Char* szCadena`
+      * *Puntero* (Prefijo p): `int *pNumero`
+      * *string* (Prefijo str): `std::string strCadena`
+      * *bool* (Prefijo b): `bool bEsCierto`
+      * *array y std::vector* (Prefijo ar): `float arNuemro[8]` (no resto estructuras)
+    * *no-miembro, locales y no-estáticas* (CamelCase, Prefijo general) : `int nNumero`
+    * *no-miembro, locales y estáticas* (`static_` + Prefijo general): `static_nNumero`
+    * *miembro no-estáticas* (`_` + Prefijo general): `_nNumero`
+    * *miembro estáticas* (`s_` + Prefijo general): `s_nNumero`
+  * *Constantes* (Sin prefijo, mayusculas, palabras separadas): GRAPHIC_DEVICE_FLAG.
+  * *Métodos y propiedades, de instancia o estáticos* (`PascalCase`): `GetMethod()`
+  * *Typedef:* 
+    * *A nivel de librería*: Como el original
+    * *Ámbito concreto* (Prefijo TQ): `typedef std::vector<int>::iterator TQVectorIterator`.
+  * *Enumerados*
+    * *Nombre* (PascalCase, singular, Prefijo EQ): `enum EQObjectType`
+    * *Valores* (PascalCase, Sin Prefijo): `enum EQObjectType { Camera = 0, Mesh = 1 }`
