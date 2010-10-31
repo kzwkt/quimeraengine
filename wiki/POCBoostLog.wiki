@@ -139,8 +139,6 @@ detail::find_spacer
 
 ==Logging por prioridades== 
 
-(thx jwladi :) )
-
 {{{
 /*******************  POC de Logging por prioridades **************************
 
