@@ -32,7 +32,128 @@ Un mensaje está compuesto por:
 
 = Declaración =
 
-_POCO:Logger_ será nuestra clase de partida para el control de logging una vez añadida la cabecera correspondiente: #include "Poco/Logger.h"
+_POCO:Logger_ será nuestra clase de partida para el control de logging una vez añadida la cabecera correspondiente: #include "Poco/Logger.h". Caga _logger_ tiene un canal asociado, mediante el cual ofrece el mensaje al destino (un archivo, por ejemplo).
+
+Declarando un loger:
+{{{
+#include "Poco/Logger.h"
+using Poco::Logger;
+int main(int argc, char** argv)
+{
+Logger& logger = Logger::get("TestLogger");
+logger.information("This is an informational message");
+logger.warning("This is a warning message");
+return 0;
+}
+}}}
+
+Cada _logger_ está conectado a un _channel_, el cual está encargado de entregar el mensaje a su destino.
+Namespace: Poco::ConsoleChannel
+Archivo de cabecera: #include "Poco/ConsoleChannel.h"
+
+Declaración de un log para escritura en un archivo:
+{{{
+#include "Poco/Logger.h"
+#include "Poco/FileChannel.h"
+#include "Poco/AutoPtr.h"
+using Poco::Logger;
+using Poco::FileChannel;
+using Poco::AutoPtr;
+int main(int argc, char** argv)
+{
+AutoPtr<FileChannel> pChannel(new FileChannel);
+pChannel->setProperty("path", "sample.log");
+pChannel->setProperty("rotation", "2 K");
+pChannel->setProperty("archive", "timestamp");
+Logger::root().setChannel(pChannel);
+Logger& logger = Logger::get("TestLogger"); // inherits root channel
+for (int i = 0; i < 100; ++i)
+logger.information("Testing FileChannel");
+return 0;
+}
+}}}
+
+
+  * *Canales asíncronos.*
+_Poco::AsyncChannel_ permite ejecutar un canal en un hilo distinto. Los mensajes son almacenados en una cola FIFO, a dónde los irá a extraer cada hilo para enviarlos a otro canal.
+
+{{{
+#include "Poco/Logger.h"
+#include "Poco/AsyncChannel.h"
+#include "Poco/ConsoleChannel.h"
+#include "Poco/AutoPtr.h"
+
+using Poco::Logger;
+using Poco::AsyncChannel;
+using Poco::ConsoleChannel;
+using Poco::AutoPtr;
+
+int main(int argc, char** argv)
+{
+   AutoPtr<ConsoleChannel> pCons(new ConsoleChannel);
+   AutoPtr<AsyncChannel> pAsync(new AsyncChannel(pCons));
+
+   Logger::root().setChannel(pAsync);
+
+   Logger& logger = Logger::get("TestLogger");
+
+   for (int i = 0; i < 10; ++i)
+      logger.information("This is a test");
+
+   return 0;
+}
+}}}
+
+
+_Poco::SplitterChannel_ reenvía un mensaje a uno o varios de los demás canales.
+{{{
+
+#include "Poco/Logger.h"
+#include "Poco/SplitterChannel.h"
+#include "Poco/ConsoleChannel.h"
+#include "Poco/SimpleFileChannel.h"
+#include "Poco/AutoPtr.h"
+
+using Poco::Logger;
+using Poco::SplitterChannel;
+using Poco::ConsoleChannel;
+using Poco::SimpleFileChannel;
+using Poco::AutoPtr;
+
+int main(int argc, char** argv)
+{
+   AutoPtr<ConsoleChannel> pCons(new ConsoleChannel);
+   AutoPtr<SimpleFileChannel> pFile(new SimpleFileChannel("test.log"));
+   AutoPtr<SplitterChannel> pSplitter(new SplitterChannel);
+   pSplitter->addChannel(pCons);
+   pSplitter->addChannel(pFile);
+
+   Logger::root().setChannel(pSplitter);
+   Logger::root().information("This is a test");
+
+   return 0;
+}
+}}}
+
+_Poco::LogStream_ proporciona una interfaz ostream a Logger, mediante la cabecera _#include "Poco/LogStream.h"_. Tambíen consta de prioridades al igual que Message (ver documentación para detalles).
+
+{{{
+#include "Poco/LogStream.h"
+#include "Poco/Logger.h"
+
+using Poco::Logger;
+using Poco::LogStream;
+
+int main(int argc, char** argv)
+{
+   Logger& logger = Logger::get("TestLogger");
+   LogStream lstr(logger);
+
+   lstr << "This is a test" << std::endl;
+
+   return 0;
+}
+}}}
 
 
 Add your content here.  Format your content with:
