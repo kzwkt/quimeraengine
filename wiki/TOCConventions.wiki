@@ -3,3 +3,4 @@
   * ==[SummOrder Code Order]==
   * ==[SummGoodPrac Good Practices]==
   * ==[SummDoc Documentation]==
+  * ==[SummError Error Handling]==
