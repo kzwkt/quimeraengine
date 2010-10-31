@@ -188,6 +188,13 @@ int main(int argc, char** argv)
 }}}
 
 
+ = Rendimiento =
+   * El nombre del Logger es una clave, de modo que cuanto más largo sea éste, más afectará a las operaciones de búsqueda.
+   * Evitar llamar frecuentemente Logger::get(). Es mucho mejor llamarlo una vez por cada logger que se vaya a utilizar y, a continuación, almacenar la referencia al registro para su uso posterior.
+   * El rendimiento del logging depende de la cantidad de canales a utilizar. El rendimiento de éstos es altamente dependiente del sistema.
+
+Para más detalles de rendimiento consultar el manual de referencia.
+
 
 
 Add your content here.  Format your content with:
