@@ -4,7 +4,7 @@
   * *Archivos de cabecera y de implementación*: `NombreClase.h` / `NombreClase.cpp`.
   * *Definiciones #ifndef ... #define ... [código] ... #endif*: `__NOMBRECLASE__`.
   * *Inclusiones STL*: `<string>`.
-  * *Namespaces*: (`PascalCase`, Equipo.Proyecto.Dominio) `KinesisTeam.QuimeraEngine.Core`.
+  * *Namespaces*: (`PascalCase`, Equipo::Proyecto::Dominio) `KinesisTeam.QuimeraEngine.Core`.
   * *Clases, Clases anidadas*: (`PascalCase`, Prefijo Q) `QSceneElement`.
   * *Interfaces*: (`PascalCase`, Prefijo IQ) `IQSceneObject`.
   * *Variables*:
