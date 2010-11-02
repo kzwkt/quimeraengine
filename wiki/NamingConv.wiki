@@ -12,9 +12,9 @@ Ejemplo: `__`NOMBRECLASE`__`.
 
 Ejemplo: `<`string`>`.
 
-*Namespaces:* Se usará `PascalCase`. Se dividirá en: Nombre del equipo, punto, Nombre del proyecto, punto, Nombre del Dominio.
+*Namespaces:* Se usará `PascalCase`. Se dividirá en: Nombre del equipo, Nombre del proyecto, Nombre del Dominio.
 
-Ejemplo: `KinesisTeam`.`QuimeraEngine`.Core.
+Ejemplo: `KinesisTeam`::`QuimeraEngine`::Core.
 
 *Clases:* Se usará `PascalCase`, poniendo como prefijo una Q, de Quimera, mayúscula. 
 
