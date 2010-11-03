@@ -1,0 +1,120 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32md_static|Win32">
+      <Configuration>DebugWin32md_static</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="DebugWin32md_static|x64">
+      <Configuration>DebugWin32md_static</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C6C25664-23A3-43D3-9A35-08CC3CACDFA7}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+    <RootNamespace>Tools</RootNamespace>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32md_static|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md_static|Win32'">
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <TargetExt>.lib</TargetExt>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md_static|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>true</MinimalRebuild>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <StringPooling>true</StringPooling>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>boost_thread-vc100-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <ImportLibrary>$(SolutionDir)..\..\..\lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\DebugWin32md_static;$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCore.lib</AdditionalDependencies>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <CompileAsManaged>false</CompileAsManaged>
+      <WarningLevel>Level3</WarningLevel>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <StringPooling>true</StringPooling>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <RuntimeTypeInfo>true</RuntimeTypeInfo>
+    </ClCompile>
+    <Lib>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>G:\Users\Animal\Desktop\QE SVN\trunk\bin\DebugWin32md;G:\Users\Animal\Desktop\QE SVN\trunk\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\Prueba.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\Prueba.cpp" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>
