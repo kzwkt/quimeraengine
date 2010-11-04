@@ -27,3 +27,16 @@ La gestión y orden de tareas seguirá un patrón de micro-waterfall, esto es, s
 En las subidas, añadid a la "ignore list" los archivos con las siguientes extensiones: suo, sdf, opensdf. Y las siguientes carpetas: Debug, Release, obj, ipch.
 Para hacerlo, pulsar botón derecho sobre el archivo (que debe estar dentro de una carpeta ya subida al repositorio) y en las opciones de Tortoise seleccionar "Add to ignore list". Aparecerán varios comandos: Para las carpetas elegid "Ignore items by name" o el nombre de la carpeta; para archivos elegid "Ignore items by extension" o la extensión del archivo.
 Este paso puede hacerse antes del commit, añadiendo los archivos y luego ignorándolos, o después, subiendo sólo los archivos que nos interesan y posteriormente ir añadiendo los que no a la lista de ignorados.
+
+== Etapas por cada fase ==
+
+Cada fase tiene un propósito determinado o se dedica a un campo del proyecto concreto (infraestructura, gráficos, comunicaciones, integración, rencimiento, etc.) y, a su vez, atraviesa varias etapas de producción siguiendo la siguiente secuencia:
+
+<p align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/PhaseStages.png]</p>
+
+ # Initialization: Los responsables ultiman los diseños e insertan las tareas. Los miembros del equipo las ojean y se las asignan. Se aclara de dónde sacar la información, se solucionan carencias de comunicación y otros aspectos no identificados durante el diseño.
+ # Development: Se acometen las tareas hasta que cada miembro del equipo estima que ha acabado según lo que su tarea requería, tal y como muestra el esquema del flujo de tabajo para una tarea de desarrollo.
+ # Unit tests: Cada vez que se añada código al repositorio hay que comprobar que no se rompe ninguna otra funcionalidad, ejecutando los unit tests o creándolos en caso de que no existan aún.
+ # General Review: Los responsables revisarán el código procurando la coherencia, buscando partes no testeadas, que falten o sean incorrectas en el contexto actual.
+ # Performance Tests: Sobre todo en la fase 0, se tendrá en cuenta el rendimiento, realizándose tests intensivos para medir los tiempos de ejecución del código.
+ # Optimization: Si los datos arrojados por los tests de rendimiento no son satisfactorios (porque hayan empeorado o porque suonga un obstáculo para la escalabilidad dado el hardware actual), se procederá a una optimización puntual o general.
