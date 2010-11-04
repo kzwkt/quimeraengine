@@ -39,4 +39,4 @@ Cada fase tiene un propósito determinado o se dedica a un campo del proyecto co
  # Unit tests: Cada vez que se añada código al repositorio hay que comprobar que no se rompe ninguna otra funcionalidad, ejecutando los unit tests o creándolos en caso de que no existan aún.
  # General Review: Los responsables revisarán el código procurando la coherencia, buscando partes no testeadas, que falten o sean incorrectas en el contexto actual.
  # Performance Tests: Sobre todo en la fase 0, se tendrá en cuenta el rendimiento, realizándose tests intensivos para medir los tiempos de ejecución del código.
- # Optimization: Si los datos arrojados por los tests de rendimiento no son satisfactorios (porque hayan empeorado o porque suonga un obstáculo para la escalabilidad dado el hardware actual), se procederá a una optimización puntual o general.
+ # Optimization: Si los datos arrojados por los tests de rendimiento no son satisfactorios (porque hayan empeorado o porque suponga un obstáculo para la escalabilidad, dado el hardware actual), se procederá a una optimización puntual o general.
