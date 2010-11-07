@@ -43,4 +43,5 @@
     * Cada llave { } ocupará por sí sola una línea. Esto quiere decir que no se empezarán los bloques con una llave de apertura al final de una sentencia, se pondrá en la línea siguiente.
     * Especificar las rutas de los includes con barras (/) y no contrabarras (\).
     * Usar smart pointers siempre que se reserve un recurso. Evaluar si merece la pena su uso en cada vez que se necesite alojar memoria en el _heap_.
+    * Usar explicit en los constructores de un solo parámetro de entrada.
     * El código más rápido es el que no se ejecuta.
