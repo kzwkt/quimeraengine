@@ -196,11 +196,11 @@ int main(int argc, char** argv)
 
 = Multithreading = 
 El logging de Boost nos permite el multithreading, a continuación se detallan espacios de nombres y su función:
-  * _boost::logging::scenario::usage::logger_::favor::correctness_: All messages will be logged. This is the default for multi-threaded application.
-  * _boost::logging::scenario::usage::logger_::change::often< cache_period_secs >_: Optimize for often change. Does per-thread caching. At a given period, it re-synchronizes. This is the default, for multi-threaded applications.
-  * _boost::logging::scenario::usage::logger_::change::set_once_when_multiple_threads_: Set only once, when there could be multiple thread running.
-  * _boost::logging::scenario::usage::filter_::change::set_once_when_multiple_threads_: Set only once, when there could be multiple thread running.
-  * _boost::logging::lock_resource_finder::tss_once_init< mutex >_: Allows you to initialize this resource once even if multiple threads are running. Then, all threads will use the initialized value.
+  * boost::logging::scenario::usage::logger_::favor::correctness: All messages will be logged. This is the default for multi-threaded application.
+  * boost::logging::scenario::usage::logger_::change::often< cache_period_secs >: Optimize for often change. Does per-thread caching. At a given period, it re-synchronizes. This is the default, for multi-threaded applications.
+  * boost::logging::scenario::usage::logger_::change::set_once_when_multiple_threads: Set only once, when there could be multiple thread running.
+  * boost::logging::scenario::usage::filter_::change::set_once_when_multiple_threads: Set only once, when there could be multiple thread running.
+  * boost::logging::lock_resource_finder::tss_once_init< mutex >: Allows you to initialize this resource once even if multiple threads are running. Then, all threads will use the initialized value.
 
 = Rendimiento =
    * El nombre del Logger es una clave, de modo que cuanto más largo sea éste, más afectará a las operaciones de búsqueda.
