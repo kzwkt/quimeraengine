@@ -78,6 +78,7 @@
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\DebugWin32md_static;$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCore.lib</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <ProjectReference>
       <LinkLibraryDependencies>true</LinkLibraryDependencies>

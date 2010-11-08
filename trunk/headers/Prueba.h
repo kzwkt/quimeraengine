@@ -2,6 +2,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/thread.hpp>
+#include "Configuration.h"
 
 class __declspec( dllexport ) Prueba
 {
