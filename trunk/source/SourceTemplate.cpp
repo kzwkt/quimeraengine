@@ -72,5 +72,6 @@ ClassName::~ClassName()
 
 
 
-} //namespace Libreria
-} //namespace LINCE3D
+} //namespace NAMESPACE
+} //namespace QuimeraEngine
+} //namespace Kinesis
