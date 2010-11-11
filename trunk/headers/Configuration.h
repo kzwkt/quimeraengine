@@ -49,14 +49,32 @@ namespace Configuration
 // according to the configured precission.
 // --------------------------------------------------------------------------------------------------------
 #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
-    const float EPSILON = 1e-6f;
+    const float EPSILON_Q = 1e-6f;
 #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
-    const double EPSILON = 1e-12;
+    const double EPSILON_Q = 1e-12;
 #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
-    const long double EPSILON = 1e-18;
+    const long double EPSILON_Q = 1e-18;
 #else
-    const float EPSILON = 1e-6f;
+    const float EPSILON_Q = 1e-6f;
 #endif
+
+// --------------------------------------------------------------------------------------------------------
+// Pi: Defines how much accurate the mathematical Pi value is.
+// --------------------------------------------------------------------------------------------------------
+#if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+    const float PI_Q = 3.141592654f;
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+    const double PI_Q = 3.14159265358979323846;
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
+    const long double PI_Q = 3.141592653589793238462643383279;
+#else
+    const float PI_Q = 3.141592654f;
+#endif
+
+// --------------------------------------------------------------------------------------------------------
+// 1/Pi: Defines how much accurate the mathematical Pi value is to calculate its inverse.
+// --------------------------------------------------------------------------------------------------------
+const float INVERSE_PI_Q = 1.0f / PI_Q; // [TODO] Thund: To take the constant value.
 
 // --------------------------------------------------------------------------------------------------------
 // Basic types: Defines all basic types used by some engine components, whose size is assured to be 
@@ -75,9 +93,9 @@ typedef float               f32_q;  // 32-bits floating point number
     typedef __m128          vf32_q; // 4 x 32-bits packed floating point numbers
 #endif
 
-}
-}
-}
-}
+}//namespace Configuration
+}//namespace Core
+}//namespace QuimeraEngine
+}//namespace Kinesis
 
 #endif // __QUIMERAENGINE_CONFIGURATION__
