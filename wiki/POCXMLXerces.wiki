@@ -1,5 +1,13 @@
 = Xerces-c Library =
 <wiki:toc max_depth=2" />
+
+==Instalación==
+ # Descargar el código fuente desde [http://xerces.apache.org/xerces-c/download.cgi]
+ # Abrir la solución para VS2010 que hay en la carpeta \projects\Win32\VC10.
+ # La configuración por defecto es /MT, con optimización de tamaño.
+ # Compilar el único proyecto de librería: XercesLib.
+ # Si se compiló en forma de librería estática, cuando se añada al proyecto cliente hay que especificar la macro siguiente en el preprocesador: XERCES_STATIC_LIBRARY.
+
 ==Descripción==
 [http://xerces.apache.org/xerces-c/ Página oficial]
 
