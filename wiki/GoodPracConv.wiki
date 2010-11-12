@@ -45,3 +45,4 @@
     * Usar smart pointers siempre que se reserve un recurso. Evaluar si merece la pena su uso en cada vez que se necesite alojar memoria en el _heap_.
     * Usar explicit en los constructores de un solo parámetro de entrada.
     * El código más rápido es el que no se ejecuta.
+    * Añadir la macro *QDllExport* después de la palabra clave *class*, al declarar una clase.
