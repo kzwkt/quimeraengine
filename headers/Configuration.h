@@ -93,6 +93,17 @@ typedef float               f32_q;  // 32-bits floating point number
     typedef __m128          vf32_q; // 4 x 32-bits packed floating point numbers
 #endif
 
+// --------------------------------------------------------------------------------------------------------
+// Null Pointer: Defines the value that identifies a null pointer, depending on the compiler.
+// --------------------------------------------------------------------------------------------------------
+#ifdef QE_COMPILER_MSVC
+    #if QE_COMPILER_MSVC >= 10
+        #define null_q nullptr // Microsoft Visual C++ 2010 definition for null pointers
+    #else
+        #define null_q 0
+    #endif
+#endif
+
 }//namespace Configuration
 }//namespace Core
 }//namespace QuimeraEngine
