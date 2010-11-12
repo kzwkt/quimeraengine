@@ -19,7 +19,7 @@ namespace NAMESPACE
 {
 
 /// <summary>
-/// 
+/// [DOC]
 /// </summary>
 class QDllExport ClassName
 {
