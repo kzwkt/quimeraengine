@@ -21,7 +21,7 @@ namespace NAMESPACE
 /// <summary>
 /// 
 /// </summary>
-class ClassName
+class QDllExport ClassName
 {
     friends
 

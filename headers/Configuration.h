@@ -104,6 +104,23 @@ typedef float               f32_q;  // 32-bits floating point number
     #endif
 #endif
 
+// --------------------------------------------------------------------------------------------------------
+// Dll Export Specifier: Defines which compiler keywords will be used to export symbols when compiling as 
+// a DLL. Their values are "empty" when compiling the library as static.
+// --------------------------------------------------------------------------------------------------------
+#ifdef QE_COMPILER_DLL // QE_COMPILER_DLL is specified as a preprocessor definition [TODO] Thund: Add that definition when configuration is ready
+    #ifdef QE_COMPILER_MSVC // [TODO] Thund: There must be one per compatible compiler.
+        #define QDllExport __declspec( dllexport )
+        #define QDllImport __declspec( dllimport )
+    #else
+        #define QDllExport
+        #define QDllImport
+    #endif
+#else
+    #define QDllExport
+    #define QDllImport
+#endif
+
 }//namespace Configuration
 }//namespace Core
 }//namespace QuimeraEngine
