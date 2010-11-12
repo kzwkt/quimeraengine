@@ -20,6 +20,15 @@ namespace Configuration
 {
 
 // --------------------------------------------------------------------------------------------------------
+// Version: Defines the Quimera Engine's current version.
+// How to use it: Version format is Major version + Minor version + Revision ("##.####.####").
+// --------------------------------------------------------------------------------------------------------
+const char QE_VERSION[13] = "0.0.0";
+const unsigned int QE_VERSION_MAJOR = 0;
+const unsigned int QE_VERSION_MINOR = 0;
+const unsigned int QE_VERSION_REVISION = 0;
+
+// --------------------------------------------------------------------------------------------------------
 // Precission: This block defines the engine's operations precission, this means, how accurate the 
 // mathematical operations are. Take on account that more precission decreases performance.
 // How to use it: Write a precission definition value as the default precission definition.
@@ -108,7 +117,7 @@ typedef float               f32_q;  // 32-bits floating point number
 // Dll Export Specifier: Defines which compiler keywords will be used to export symbols when compiling as 
 // a DLL. Their values are "empty" when compiling the library as static.
 // --------------------------------------------------------------------------------------------------------
-#ifdef QE_COMPILER_DLL // QE_COMPILER_DLL is specified as a preprocessor definition [TODO] Thund: Add that definition when configuration is ready
+#ifdef QE_CONFIG_COMPILER_DLL // QE_CONFIG_COMPILER_DLL is specified as a preprocessor definition [TODO] Thund: Add that definition when configuration is ready
     #ifdef QE_COMPILER_MSVC // [TODO] Thund: There must be one per compatible compiler.
         #define QDllExport __declspec( dllexport )
         #define QDllImport __declspec( dllimport )
@@ -120,6 +129,7 @@ typedef float               f32_q;  // 32-bits floating point number
     #define QDllExport
     #define QDllImport
 #endif
+
 
 }//namespace Configuration
 }//namespace Core
