@@ -19,7 +19,7 @@ namespace Math
 /// <summary>
 /// It represents the basic form of a quaternion with its four components: x, y, z and w.
 /// </summary>
-class QBaseQuaternion
+class QDllExport QBaseQuaternion
 {
 	// ATTRIBUTES
 	// ---------------
