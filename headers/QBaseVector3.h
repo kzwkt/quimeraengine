@@ -19,7 +19,7 @@ namespace Math
 /// <summary>
 /// It represents the basic form of a three-dimensional vector with three components: x, y and z.
 /// </summary>
-class QBaseVector3
+class QDllExport QBaseVector3
 {
 	// ATTRIBUTES
 	// ---------------
