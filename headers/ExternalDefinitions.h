@@ -51,4 +51,16 @@
     #define __TIME__    // Microsoft Visual C++ macro
 #endif
 
+// --------------------------------------------------------------------------------------------------------
+// Boost wrappers: Defines some Boost macro wrappers.
+// --------------------------------------------------------------------------------------------------------
+#include <boost/assert.hpp>
+
+#ifdef BOOST_ASSERT
+    #define QE_ASSERT(expr) BOOST_ASSERT(expr)
+#else
+    #define QE_ASSERT(expr)
+#endif
+
+
 #endif // __EXTERNALDEFINITIONS__
