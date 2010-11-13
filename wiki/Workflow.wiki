@@ -28,6 +28,8 @@ En las subidas, añadid a la "ignore list" los archivos con las siguientes exten
 Para hacerlo, pulsar botón derecho sobre el archivo (que debe estar dentro de una carpeta ya subida al repositorio) y en las opciones de Tortoise seleccionar "Add to ignore list". Aparecerán varios comandos: Para las carpetas elegid "Ignore items by name" o el nombre de la carpeta; para archivos elegid "Ignore items by extension" o la extensión del archivo.
 Este paso puede hacerse antes del commit, añadiendo los archivos y luego ignorándolos, o después, subiendo sólo los archivos que nos interesan y posteriormente ir añadiendo los que no a la lista de ignorados.
 
+El *comentario de las subidas* tendrá el formato siguiente: _Nº de tarea - Título de la tarea <salto de línea> Descripción breve de lo que se ha hecho._
+
 == Etapas por cada fase ==
 
 Cada fase tiene un propósito determinado o se dedica a un campo del proyecto concreto (infraestructura, gráficos, comunicaciones, integración, rencimiento, etc.) y, a su vez, atraviesa varias etapas de producción siguiendo la siguiente secuencia:
