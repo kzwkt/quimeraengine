@@ -92,6 +92,15 @@ const unsigned int QE_VERSION_REVISION = 0;
 #else
     const float INVERSE_PI_Q = 0.318309886f;
 #endif
+    
+// --------------------------------------------------------------------------------------------------------
+// Angle Notation: Defines whether the entire engine will work using Degrees or Radians.
+// How to use it: Write an angle notation definition value as the default angle notation definition.
+// --------------------------------------------------------------------------------------------------------
+#define QE_CONFIG_ANGLENOTATION_RADIANS 0x0 // Degrees notation: Angles are represented using degrees, from 0º to 360º.
+#define QE_CONFIG_ANGLENOTATION_DEGREES 0x1 // Radians notation: Angles are represented using radians, from 0 to 2*Pi.
+
+#define QE_CONFIG_ANGLENOTATION_DEFAULT QE_CONFIG_ANGLENOTATION_RADIANS // [Configurable]
 
 // --------------------------------------------------------------------------------------------------------
 // Basic types: Defines all basic types used by some engine components, whose size is assured to be 
