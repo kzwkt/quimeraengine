@@ -83,7 +83,15 @@ const unsigned int QE_VERSION_REVISION = 0;
 // --------------------------------------------------------------------------------------------------------
 // 1/Pi: Defines how much accurate the mathematical Pi value is to calculate its inverse.
 // --------------------------------------------------------------------------------------------------------
-const float INVERSE_PI_Q = 1.0f / PI_Q; // [TODO] Thund: To take the constant value.
+#if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+    const float INVERSE_PI_Q = 0.318309886f;
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+    const double INVERSE_PI_Q = 0.31830988618379067153;
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
+    const long double INVERSE_PI_Q = 0.318309886183790671537767526745;
+#else
+    const float INVERSE_PI_Q = 0.318309886f;
+#endif
 
 // --------------------------------------------------------------------------------------------------------
 // Basic types: Defines all basic types used by some engine components, whose size is assured to be 
