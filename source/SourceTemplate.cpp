@@ -2,6 +2,10 @@
 
 #include "ClassName.h"
 
+#include <StlHeaders>
+#include <3rdPartyHeaders>
+#include "QEHeaders"
+
 usings
 
 namespace Kinesis
