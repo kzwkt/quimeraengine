@@ -17,5 +17,8 @@
     <ClInclude Include="..\..\..\..\headers\QBaseQuaternion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QBaseMatrix2x2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
