@@ -46,3 +46,4 @@
     * Usar explicit en los constructores de un solo parámetro de entrada.
     * El código más rápido es el que no se ejecuta.
     * Marcar las clases como exportables, para que sean añadidas a librerías de importación cuando se generen las DLLs. Añadir la macro *QDllExport* después de la palabra clave *class*, al declarar una clase.
+    * Siempre que se usen las funciones acos, atan o asin, comprobar que el resultado no es un float en estado NaN.
