@@ -84,15 +84,42 @@ const unsigned int QE_VERSION_REVISION = 0;
 // 1/Pi: Defines how much accurate the mathematical Pi value is to calculate its inverse.
 // --------------------------------------------------------------------------------------------------------
 #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
-    const float INVERSE_PI_Q = PI_Q * 0.5f;
+    const float INVERSE_PI_Q = 1.0f / PI_Q;
 #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
-    const double INVERSE_PI_Q = PI_Q * 0.5;
+    const double INVERSE_PI_Q = 1.0 / PI_Q;
 #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
-    const long double INVERSE_PI_Q = PI_Q * 0.5;
+    const long double INVERSE_PI_Q = 1.0 / PI_Q;
 #else
-    const float INVERSE_PI_Q = PI_Q * 0.5f;
+    const float INVERSE_PI_Q = 1.0f / PI_Q;
 #endif
     
+// --------------------------------------------------------------------------------------------------------
+// Radians per degree: Defines how many radians are equivalent to 1 degree, and how much accurate is that value.
+// --------------------------------------------------------------------------------------------------------
+#if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+    const float RADIANS_PER_DEGREE_Q = PI_Q / 180.0f;
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+    const double RADIANS_PER_DEGREE_Q = PI_Q / 180.0;
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
+    const long double RADIANS_PER_DEGREE_Q = PI_Q / 180.0;
+#else
+    const float RADIANS_PER_DEGREE_Q = PI_Q / 180.0f;
+#endif
+        
+// --------------------------------------------------------------------------------------------------------
+// Degrees per unit, in radians: Defines how many degrees are equivalent to the unit (1) in radians, and how much 
+// accurate is that value.
+// --------------------------------------------------------------------------------------------------------
+#if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+    const float DEGREES_PER_UNIT_INRADIANS_Q = 180.0f / PI_Q;
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+    const double DEGREES_PER_UNIT_INRADIANS_Q = 180.0 / PI_Q;
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
+    const long double DEGREES_PER_UNIT_INRADIANS_Q = 180.0 / PI_Q;
+#else
+    const float DEGREES_PER_UNIT_INRADIANS_Q = 180.0f / PI_Q;
+#endif
+
 // --------------------------------------------------------------------------------------------------------
 // Angle Notation: Defines whether the entire engine will work using Degrees or Radians.
 // How to use it: Write an angle notation definition value as the default angle notation definition.
@@ -117,6 +144,14 @@ typedef float               f32_q;  // 32-bits floating point number
 
 #ifdef QE_COMPILER_MSVC
     typedef __m128          vf32_q; // 4 x 32-bits packed floating point numbers
+#else
+    struct vf32_q
+    {
+        f32_q x;
+        f32_q y;
+        f32_q z;
+        f32_q w;
+    };
 #endif
 
 // --------------------------------------------------------------------------------------------------------
@@ -147,6 +182,11 @@ typedef float               f32_q;  // 32-bits floating point number
     #define QDllImport
 #endif
 
+    // [TODO] Thund: Remove these constants when QV4x32Flota class is implemented!!!!!!
+    const int QE_X_POSITION_IN_4x32FLOAT_PACK = 1;
+    const int QE_Y_POSITION_IN_4x32FLOAT_PACK = 2;
+    const int QE_Z_POSITION_IN_4x32FLOAT_PACK = 3;
+    const int QE_W_POSITION_IN_4x32FLOAT_PACK = 4;
 
 }//namespace Configuration
 }//namespace Core
