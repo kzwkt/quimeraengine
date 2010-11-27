@@ -415,6 +415,18 @@ public:
 		vOut.z = z*fFactor + v.z*(1.0f-fFactor); 
 	}
 
+	/// <summary>
+	/// Calculates the distance between two vector heads (or two points). It computes the difference of two vectors and returns its length.
+	/// </summary>
+	/// <param name="v">Vector we want to calculate the distance from current vector.</param>
+	/// <returns>
+	/// A positive floating point value containing the distance between both vectors.
+	/// </returns>
+	inline float_q Distance(const QVector3 &v) const
+	{
+		return sqrt( (x-v.x)*(x-v.x) + (y-v.y)*(y-v.y) + (z-v.z)*(z-v.z) );
+	}
+
 	inline std::string ToString() 
 	{
 		// [TODO]
