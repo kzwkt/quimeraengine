@@ -39,13 +39,15 @@ public:
 	/// <summary>
 	/// Constructor that receives a pointer to 4 floating point values.
 	/// </summary>
-	/// </remarks>
+	/// <remarks>
 	/// Keeps the convention rows x columns, so each chunck of 2 elements consecutive 
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
 	/// <param name="pfMatrix">Pointer to a 4 length array of floating point values.</param>
 	inline QBaseMatrix2x2(const float_q *pfMatrix)
 	{
+		QE_ASSERT(pfMatrix != null_q);
+
 		m[0][0] = pfMatrix[0];
 		m[0][1] = pfMatrix[1];
 		m[1][0] = pfMatrix[2];
