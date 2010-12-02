@@ -111,6 +111,7 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\MathDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QAngle.h" />
@@ -119,9 +120,11 @@
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x4.h" />
     <ClInclude Include="..\..\..\..\headers\QBasePlane.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseQuaternion.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseVector2.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QFloat.h" />
     <ClInclude Include="..\..\..\..\headers\QQuaternion.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseVector4.h" />
     <ClInclude Include="..\..\..\..\headers\QVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QVF32.h" />
   </ItemGroup>

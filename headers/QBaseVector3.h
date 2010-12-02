@@ -35,13 +35,13 @@ public:
 	/// <param name="fValueX">[IN] Value for x component</param>
 	/// <param name="fValueY">[IN] Value for y component</param>
 	/// <param name="fValueZ">[IN] Value for z component</param>
-	inline QBaseVector3(float_q fValueX, float_q fValueY, float_q fValueZ) : x(fValueX), y(fValueY), z(fValueZ) { }
+	inline QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) : x(fValueX), y(fValueY), z(fValueZ) { }
 
 	/// <summary>
 	/// Constructor from a floating point value for all components.
 	/// </summary>
 	/// <param name="fValue">[IN] Value for all components</param>
-	inline explicit QBaseVector3(float_q fValue) : x(fValue), y(fValue), z(fValue) { }
+	inline explicit QBaseVector3(const float_q &fValue) : x(fValue), y(fValue), z(fValue) { }
 
 	/// <summary>
 	/// Constructor from a three floating point components array.
