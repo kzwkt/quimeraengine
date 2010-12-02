@@ -3,9 +3,10 @@
 #ifndef __QBASEMATRIX4X4__
 #define __QBASEMATRIX4X4__
 
-#include "Configuration.h"
+#include "QFloat.h"
+#include "QVF32.h"
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -30,10 +31,64 @@ public:
 	/// </summary>
 	inline QBaseMatrix4x4()
 	{
-		ij[0][0] = ij[0][1] = ij[0][2] = ij[0][3] = 0.0f;
-		ij[1][0] = ij[1][1] = ij[1][2] = ij[1][3] = 0.0f;
-		ij[2][0] = ij[2][1] = ij[2][2] = ij[2][3] = 0.0f;
-		ij[3][0] = ij[3][1] = ij[3][2] = ij[3][3] = 0.0f;
+		ij[0][0] = ij[0][1] = ij[0][2] = ij[0][3] = 
+		ij[1][0] = ij[1][1] = ij[1][2] = ij[1][3] = 
+		ij[2][0] = ij[2][1] = ij[2][2] = ij[2][3] = 
+		ij[3][0] = ij[3][1] = ij[3][2] = ij[3][3] = QFloat::_0;
+	}
+
+	/// <summary>
+	/// Constructor that receives a floating point value for all elements of the matrix.
+	/// </summary>
+	/// <param name="fValue">[IN] Floating point value with which fills the matrix.</param>
+	inline explicit QBaseMatrix4x4(const float_q &fValue)
+	{
+		ij[0][0] = ij[0][1] = ij[0][2] = ij[0][3] = 
+		ij[1][0] = ij[1][1] = ij[1][2] = ij[1][3] = 
+		ij[2][0] = ij[2][1] = ij[2][2] = ij[2][3] = 
+		ij[3][0] = ij[3][1] = ij[3][2] = ij[3][3] = fValue;
+	}
+
+	/// <summary>
+	/// Constructor from a floating point value for each element of the matrix.
+	/// </summary>
+	/// <param name="f00">[IN] Floating point value for element 00 (row x column).</param>
+	/// <param name="f01">[IN] Floating point value for element 01 (row x column).</param>
+	/// <param name="f02">[IN] Floating point value for element 02 (row x column).</param>
+	/// <param name="f03">[IN] Floating point value for element 03 (row x column).</param>
+	/// <param name="f10">[IN] Floating point value for element 10 (row x column).</param>
+	/// <param name="f11">[IN] Floating point value for element 11 (row x column).</param>
+	/// <param name="f12">[IN] Floating point value for element 12 (row x column).</param>
+	/// <param name="f13">[IN] Floating point value for element 13 (row x column).</param>
+	/// <param name="f20">[IN] Floating point value for element 20 (row x column).</param>
+	/// <param name="f21">[IN] Floating point value for element 21 (row x column).</param>
+	/// <param name="f22">[IN] Floating point value for element 22 (row x column).</param>
+	/// <param name="f23">[IN] Floating point value for element 23 (row x column).</param>
+	/// <param name="f30">[IN] Floating point value for element 30 (row x column).</param>
+	/// <param name="f31">[IN] Floating point value for element 31 (row x column).</param>
+	/// <param name="f32">[IN] Floating point value for element 32 (row x column).</param>
+	/// <param name="f33">[IN] Floating point value for element 33 (row x column).</param>
+	inline QBaseMatrix4x4(	const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03, 
+							const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13, 
+							const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23, 
+							const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33)
+	{
+		ij[0][0] = f00;
+		ij[0][1] = f01; 
+		ij[0][2] = f02;
+		ij[0][3] = f03; 
+		ij[1][0] = f10;
+		ij[1][1] = f11;
+		ij[1][2] = f12;
+		ij[1][3] = f13;
+		ij[2][0] = f20;
+		ij[2][1] = f21;
+		ij[2][2] = f22;
+		ij[2][3] = f23;
+		ij[3][0] = f30;
+		ij[3][1] = f31;
+		ij[3][2] = f32;
+		ij[3][3] = f33;
 	}
 
 	/// <summary>
@@ -44,7 +99,7 @@ public:
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
 	/// <param name="pfMatrix">Pointer to a 16 length array of floating point values.</param>
-	inline QBaseMatrix4x4(const float_q *pfMatrix)
+	inline explicit QBaseMatrix4x4(const float_q *pfMatrix)
 	{
 		QE_ASSERT(pfMatrix != null_q);
 
@@ -69,13 +124,16 @@ public:
 	/// <summary>
 	/// Constructor from four 4x32 floating point packed values. Each param contains a row of the matrix.
 	/// </summary>
-	/// <param name="row0">4x32 values for row 0.</param>
-	/// <param name="row1">4x32 values for row 1.</param>
-	/// <param name="row2">4x32 values for row 2.</param>
-	/// <param name="row3">4x32 values for row 3.</param>
+	/// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3, parsed in this order.</param>
+	/// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3, parsed in this order.</param>
+	/// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3, parsed in this order.</param>
+	/// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3, parsed in this order.</param>
 	inline QBaseMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3)
 	{
-		//[TODO]
+		QVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], this->ij[0][3]);
+		QVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], this->ij[1][3]);
+		QVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], this->ij[2][3]);
+		QVF32::Unpack(row3, this->ij[3][0], this->ij[3][1], this->ij[3][2], this->ij[3][3]);
 	}
 
 	/// <summary>
