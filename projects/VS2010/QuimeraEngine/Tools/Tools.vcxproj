@@ -111,16 +111,26 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\MathDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\QAngle.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix2x2.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x3.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x4.h" />
     <ClInclude Include="..\..\..\..\headers\QBasePlane.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
+    <ClInclude Include="..\..\..\..\headers\QFloat.h" />
+    <ClInclude Include="..\..\..\..\headers\QQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QVector3.h" />
+    <ClInclude Include="..\..\..\..\headers\QVF32.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\QAngle.cpp" />
+    <ClCompile Include="..\..\..\..\source\QFloat.cpp" />
+    <ClCompile Include="..\..\..\..\source\QQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QVF32.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

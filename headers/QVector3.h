@@ -5,10 +5,10 @@
 
 #include <string>
 
-#include "Configuration.h"
+#include "QFloat.h"
 #include "QBaseVector3.h"
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -151,7 +151,7 @@ public:
 	/// </returns>
 	inline bool operator == (const QBaseVector3 &v) const
 	{
-		return ( (abs(v.x - x) < EPSILON_Q) && (abs(v.y - y) < EPSILON_Q) && (abs(v.z - z) < EPSILON_Q) );
+        return ( QFloat::AreEquals(v.x, x) && QFloat::AreEquals(v.y, y) && QFloat::AreEquals(v.z, z) );
 	}
 
 	/// <summary>
@@ -163,7 +163,7 @@ public:
 	/// </returns>
     inline bool operator != (const QBaseVector3 &v) const
 	{
-		return ( (abs(v.x - x) >= EPSILON_Q) && (abs(v.y - y) >= EPSILON_Q) && (abs(v.z - z) >= EPSILON_Q) );
+        return QFloat::AreNotEquals(v.x, x) || QFloat::AreNotEquals(v.y, y) || QFloat::AreNotEquals(v.z, z);
 	}
 
 	// assignment operators
@@ -316,9 +316,9 @@ public:
 	/// </summary>
 	inline void ResetToOne() 
 	{ 
-		x = 1.0f; 
-		y = 1.0f; 
-		z = 1.0f; 
+		x = QFloat::_1; 
+		y = QFloat::_1; 
+		z = QFloat::_1; 
 	}
 
 	/// <summary>
@@ -326,9 +326,9 @@ public:
 	/// </summary>
 	inline void ResetToZero() 
 	{ 
-		x = 0.0f; 
-		y = 0.0f; 
-		z = 0.0f; 
+		x = QFloat::_0; 
+		y = QFloat::_0; 
+		z = QFloat::_0; 
 	}
 
 	/// <summary>
@@ -339,7 +339,7 @@ public:
 	/// </returns>
 	inline bool IsZero() 
 	{ 
-		return ( (abs(x) < EPSILON_Q) && (abs(y) < EPSILON_Q) && (abs(z) < EPSILON_Q) ); 
+        return QFloat::IsZero(this->x) && QFloat::IsZero(this->y) && QFloat::IsZero(this->z); 
 	}
 
 	/// <summary>
@@ -350,7 +350,7 @@ public:
 	/// </returns>
 	inline bool IsVectorOfOnes() 
 	{ 
-		return ( (abs(x - 1.0f) < EPSILON_Q) && (abs(y - 1.0f) < EPSILON_Q) && (abs(z - 1.0f) < EPSILON_Q) ); 
+        return QFloat::AreEquals(this->x, QFloat::_1) && QFloat::AreEquals(this->y, QFloat::_1) && QFloat::AreEquals(this->z, QFloat::_1); 
 	}
 
 	/// <summary>
@@ -397,9 +397,9 @@ public:
 	/// <param name="v">[IN] Vector with which to interpolate.</param>
 	inline void Lerp(const float_q &fFactor, const QVector3 &v)
 	{ 
-		x = x*fFactor + v.x*(1.0f-fFactor);
-		y = y*fFactor + v.y*(1.0f-fFactor);
-		z = z*fFactor + v.z*(1.0f-fFactor); 
+		x = x*fFactor + v.x*(QFloat::_1-fFactor);
+		y = y*fFactor + v.y*(QFloat::_1-fFactor);
+		z = z*fFactor + v.z*(QFloat::_1-fFactor); 
 	}
 
 	/// <summary>
@@ -410,9 +410,9 @@ public:
 	/// <param name="vOut">[OUT] Vector to stores results of Interpolation</param>
 	inline void Lerp(const float_q &fFactor, const QVector3 &v, QVector3 &vOut) const
 	{
-		vOut.x = x*fFactor + v.x*(1.0f-fFactor);
-		vOut.y = y*fFactor + v.y*(1.0f-fFactor); 
-		vOut.z = z*fFactor + v.z*(1.0f-fFactor); 
+		vOut.x = x*fFactor + v.x*(QFloat::_1-fFactor);
+		vOut.y = y*fFactor + v.y*(QFloat::_1-fFactor); 
+		vOut.z = z*fFactor + v.z*(QFloat::_1-fFactor); 
 	}
 
 	/// <summary>

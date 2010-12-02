@@ -5,6 +5,9 @@
 #include "QuimeraEngineTestApp.h"
 
 #include <Prueba.h>
+#include <QQuaternion.h>
+
+using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
 #define MAX_LOADSTRING 100
 
@@ -26,13 +29,16 @@ int APIENTRY _tWinMain(HINSTANCE hInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+    QQuaternion quat(90, 180, 0);
+    QQuaternion::yeah;
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);
 
  	// TODO: Place code here.
 	MSG msg;
 	HACCEL hAccelTable;
-
+    float u = -6;
+    float w = +u;
     ppp.i = 10;
     ppp.func(100);
     

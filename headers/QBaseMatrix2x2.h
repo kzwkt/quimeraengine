@@ -3,9 +3,9 @@
 #ifndef __QBASEMATRIX2X2__
 #define __QBASEMATRIX2X2__
 
-#include "Configuration.h"
+#include "QFloat.h"
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -21,7 +21,7 @@ namespace Math
 /// </summary>
 class QDllExport QBaseMatrix2x2
 {
-	// ATTRIBUTES
+	// CONSTRUCTORS
 	// ---------------
 public:
 
@@ -30,10 +30,10 @@ public:
 	/// </summary>
 	inline QBaseMatrix2x2()
 	{
-		m[0][0] = 0.0f;
-		m[0][1] = 0.0f;
-		m[1][0] = 0.0f;
-		m[1][1] = 0.0f;
+		m[0][0] = QFloat::_0;
+		m[0][1] = QFloat::_0;
+		m[1][0] = QFloat::_0;
+		m[1][1] = QFloat::_0;
 	}
 
 	/// <summary>
@@ -53,6 +53,9 @@ public:
 		m[1][0] = pfMatrix[2];
 		m[1][1] = pfMatrix[3];
 	}
+
+    // ATTRIBUTES
+    // ---------------
 
 	/// <summary>
 	/// Array that holds the matrix.

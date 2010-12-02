@@ -14,6 +14,9 @@
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\Prueba.cpp" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{5BD44DA1-3EF6-438F-A7E6-4FCC02190AE3}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
