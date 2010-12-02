@@ -4,6 +4,7 @@
 #define __QBASEVECTOR3__
 
 #include "QFloat.h"
+#include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -32,15 +33,15 @@ public:
 	/// <summary>
 	/// Constructor from a floating point value for each component.
 	/// </summary>
-	/// <param name="fValueX">[IN] Value for x component</param>
-	/// <param name="fValueY">[IN] Value for y component</param>
-	/// <param name="fValueZ">[IN] Value for z component</param>
+	/// <param name="fValueX">[IN] Value for x component.</param>
+	/// <param name="fValueY">[IN] Value for y component.</param>
+	/// <param name="fValueZ">[IN] Value for z component.</param>
 	inline QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) : x(fValueX), y(fValueY), z(fValueZ) { }
 
 	/// <summary>
 	/// Constructor from a floating point value for all components.
 	/// </summary>
-	/// <param name="fValue">[IN] Value for all components</param>
+	/// <param name="fValue">[IN] Value for all components.</param>
 	inline explicit QBaseVector3(const float_q &fValue) : x(fValue), y(fValue), z(fValue) { }
 
 	/// <summary>
@@ -53,18 +54,21 @@ public:
 		QE_ASSERT(pValue != null_q);
 
 		// Assignments
-		x = pValue[0]; 
-		y = pValue[1]; 
-		z = pValue[2];
+		this->x = pValue[0]; 
+		this->y = pValue[1]; 
+		this->z = pValue[2];
 	}
 
 	/// <summary>
 	/// Constructor from a 4x32 packed floating point value.
 	/// </summary>
-	/// <param name="fValue">[IN] 4x32 packed floating point containing the three components.</param>
+	/// <param name="fValue">[IN] 4x32 packed floating point containing the three components.
+	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (Ignored).</param>
 	inline explicit QBaseVector3(const vf32_q fValue) 
 	{
-		//[TODO]
+		float_q aux;
+
+		QVF32::Unpack(fValue, this->x, this->y, this->z, aux);
 	}
 	
 	// ATTRIBUTES

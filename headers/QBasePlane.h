@@ -4,6 +4,7 @@
 #define __QBASEPLANE__
 
 #include "QFloat.h"
+#include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -56,19 +57,21 @@ public:
 		QE_ASSERT(pValue != null_q);
 
 		// Assignments
-		a = pValue[0]; 
-		b = pValue[1]; 
-		c = pValue[2];
-		d = pValue[3];
+		this->a = pValue[0]; 
+		this->b = pValue[1]; 
+		this->c = pValue[2];
+		this->d = pValue[3];
 	}
 
 	/// <summary>
 	/// Constructor from a 4x32 packed float value.
 	/// </summary>
-	/// <param name="fValue">[IN] 4x32 packed float containing the four components.</param>
+	/// <param name="fValue">[IN] 4x32 packed float containing the four components.
+	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient), 
+	/// 3rd value (c coefficient), 4th value (d independent term).</param>
 	inline explicit QBasePlane(const vf32_q fValue)
 	{ 
-		//[TODO]
+		QVF32::Unpack(fValue, this->a, this->b, this->c, this->d);
 	}
 
 	// ATTRIBUTES

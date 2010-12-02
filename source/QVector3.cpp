@@ -40,22 +40,22 @@ const QVector3 QVector3::UnitVectorInvZ( QFloat::_0,  QFloat::_0, -QFloat::_1);
 
 QVector3 QVector3::operator + (const QVector3 &v) const 
 { 
-	return QVector3(x + v.x, y + v.y, z + v.z); 
+	return QVector3(this->x + v.x, this->y + v.y, this->z + v.z); 
 }
 
 QVector3 QVector3::operator - (const QVector3 &v) const 
 { 
-	return QVector3(x - v.x, y - v.y, z - v.z); 
+	return QVector3(this->x - v.x, this->y - v.y, this->z - v.z); 
 }
 
 QVector3 QVector3::operator * (const float_q &fValue) const 
 { 
-	return QVector3(x*fValue, y*fValue, z*fValue); 
+	return QVector3(this->x*fValue, this->y*fValue, this->z*fValue); 
 } 
 
 QVector3 QVector3::operator * (const QBaseVector3 &v) const 
 { 
-	return QVector3(x*v.x, y*v.y, z*v.z); 
+	return QVector3(this->x*v.x, this->y*v.y, this->z*v.z); 
 }
 
 QVector3 QVector3::operator / (const float_q &fValue) const
@@ -63,7 +63,7 @@ QVector3 QVector3::operator / (const float_q &fValue) const
 	// Checkout to avoid division by 0
 	QE_ASSERT (fValue);
 
-	return QVector3(x/fValue, y/fValue, z/fValue);
+	return QVector3(this->x/fValue, this->y/fValue, this->z/fValue);
 }
 	
 QVector3 QVector3::operator / (const QBaseVector3 &v) const
@@ -71,7 +71,7 @@ QVector3 QVector3::operator / (const QBaseVector3 &v) const
 	// Checkout to avoid division by 0
 	QE_ASSERT (v.x && v.y && v.z);
 
-	return QVector3(x/v.x, y/v.y, z/v.z);
+	return QVector3(this->x/v.x, this->y/v.y, this->z/v.z);
 }
 
 // Left float product 

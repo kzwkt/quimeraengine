@@ -3,8 +3,6 @@
 #ifndef __QVECTOR3__
 #define __QVECTOR3__
 
-#include <string>
-
 #include "QFloat.h"
 #include "QBaseVector3.h"
 
@@ -65,17 +63,13 @@ public:
 	/// Constructor from a 4x32 packed floating point value.
 	/// </summary>
 	/// <param name="fValue">[IN] 4x32 packed floating point value containing the three components.</param>
-	inline QVector3(const vf32_q fPackComps) : QBaseVector3 (fPackComps) 
-	{
-		// [TODO]
-	}
+	inline QVector3(const vf32_q fPackComps) : QBaseVector3 (fPackComps) { }
 
 	// METHODS
 	// ---------------
 public:
 
 	// binary operators
-
 
 	/// <summary>
 	/// Vectors addition: it's performed component by component.
@@ -151,7 +145,7 @@ public:
 	/// </returns>
 	inline bool operator == (const QBaseVector3 &v) const
 	{
-        return ( QFloat::AreEquals(v.x, x) && QFloat::AreEquals(v.y, y) && QFloat::AreEquals(v.z, z) );
+        return ( QFloat::AreEquals(v.x, this->x) && QFloat::AreEquals(v.y, this->y) && QFloat::AreEquals(v.z, this->z) );
 	}
 
 	/// <summary>
@@ -163,7 +157,7 @@ public:
 	/// </returns>
     inline bool operator != (const QBaseVector3 &v) const
 	{
-        return QFloat::AreNotEquals(v.x, x) || QFloat::AreNotEquals(v.y, y) || QFloat::AreNotEquals(v.z, z);
+        return QFloat::AreNotEquals(v.x, this->x) || QFloat::AreNotEquals(v.y, this->y) || QFloat::AreNotEquals(v.z, this->z);
 	}
 
 	// assignment operators
@@ -177,9 +171,9 @@ public:
 	/// </returns>
 	inline QVector3& operator += (const QVector3 &v) 
 	{ 
-		x += v.x;
-		y += v.y;
-		z += v.z; 
+		this->x += v.x;
+		this->y += v.y;
+		this->z += v.z; 
 		
 		return *this; 
 	}
@@ -193,9 +187,9 @@ public:
 	/// </returns>
 	inline QVector3& operator -= (const QVector3 &v) 
 	{ 
-		x -= v.x; 
-		y -= v.y; 
-		z -= v.z; 
+		this->x -= v.x; 
+		this->y -= v.y; 
+		this->z -= v.z; 
 		
 		return *this; 
 	}
@@ -209,9 +203,9 @@ public:
 	/// </returns>
 	inline QVector3& operator *= (const float_q &fValue) 
 	{ 
-		x *= fValue; 
-		y *= fValue; 
-		z *= fValue; 
+		this->x *= fValue; 
+		this->y *= fValue; 
+		this->z *= fValue; 
 		
 		return *this;
 	}
@@ -225,9 +219,9 @@ public:
 	/// </returns>
 	inline QVector3& operator *= (const QBaseVector3 &v) 
 	{ 
-		x *= v.x; 
-		y *= v.y; 
-		z *= v.z; 
+		this->x *= v.x; 
+		this->y *= v.y; 
+		this->z *= v.z; 
 		
 		return *this; 
 	}
@@ -244,9 +238,9 @@ public:
 		// Checkout to avoid division by 0
 		QE_ASSERT(fValue);
 
-		x /= fValue; 
-		y /= fValue; 
-		z /= fValue; 
+		this->x /= fValue; 
+		this->y /= fValue; 
+		this->z /= fValue; 
 		
 		return *this; 
 	}
@@ -263,9 +257,9 @@ public:
 		// Checkout to avoid division by 0
 		QE_ASSERT (v.x && v.y && v.z);
 
-		x /= v.x; 
-		y /= v.y; 
-		z /= v.z; 
+		this->x /= v.x; 
+		this->y /= v.y; 
+		this->z /= v.z; 
 		
 		return *this;
 	}
@@ -280,7 +274,7 @@ public:
 	/// </returns>
 	inline float_q GetLength() 
 	{ 
-		return sqrt(x*x + y*y + z*z); 
+		return sqrt(this->x*this->x + this->y*this->y + this->z*this->z); 
 	}
 
 
@@ -296,9 +290,9 @@ public:
 		QE_ASSERT(fLength);
 
 		//Normalize
-		x /= fLength; 
-		y /= fLength;	
-		z /= fLength;
+		this->x /= fLength; 
+		this->y /= fLength;	
+		this->z /= fLength;
 	}
 
 	/// <summary>
@@ -306,9 +300,9 @@ public:
 	/// </summary>
 	inline void Reverse() 
 	{ 
-		x = -x; 
-		y = -y; 
-		z = -z; 
+		this->x = -this->x; 
+		this->y = -this->y; 
+		this->z = -this->z; 
 	}
 
 	/// <summary>
@@ -316,9 +310,9 @@ public:
 	/// </summary>
 	inline void ResetToOne() 
 	{ 
-		x = QFloat::_1; 
-		y = QFloat::_1; 
-		z = QFloat::_1; 
+		this->x = QFloat::_1; 
+		this->y = QFloat::_1; 
+		this->z = QFloat::_1; 
 	}
 
 	/// <summary>
@@ -326,9 +320,9 @@ public:
 	/// </summary>
 	inline void ResetToZero() 
 	{ 
-		x = QFloat::_0; 
-		y = QFloat::_0; 
-		z = QFloat::_0; 
+		this->x = QFloat::_0; 
+		this->y = QFloat::_0; 
+		this->z = QFloat::_0; 
 	}
 
 	/// <summary>
@@ -362,7 +356,7 @@ public:
 	/// </returns>
 	inline float_q DotProduct(const QVector3 &v) 
 	{ 
-		return(x*v.x + y*v.y + z*v.z); 
+		return(this->x*v.x + this->y*v.y + this->z*v.z); 
 	}
 
 	/// <summary>
@@ -372,9 +366,9 @@ public:
 	/// <param name="vOut">[OUT] Vector to store the resul of Cross Product.</param>
 	inline void CrossProduct(const QVector3 &v, QVector3 &vOut) const 
 	{ 
-		vOut.x = v.y*z - v.z*y;
-		vOut.y = v.z*x - v.x*z;
-		vOut.z = v.x*y - v.y*x; 
+		vOut.x = v.y*this->z - v.z*this->y;
+		vOut.y = v.z*this->x - v.x*this->z;
+		vOut.z = v.x*this->y - v.y*this->x; 
 	}
 
 	/// <summary>
@@ -385,9 +379,9 @@ public:
 	{ 
 		QVector3 aux = *this;
 
-		x = v.y*aux.z - v.z*aux.y;
-		y = v.z*aux.x - v.x*aux.z;
-		z = v.x*aux.y - v.y*aux.x; 
+		this->x = v.y*aux.z - v.z*aux.y;
+		this->y = v.z*aux.x - v.x*aux.z;
+		this->z = v.x*aux.y - v.y*aux.x; 
 	}
 
 	/// <summary>
@@ -397,9 +391,9 @@ public:
 	/// <param name="v">[IN] Vector with which to interpolate.</param>
 	inline void Lerp(const float_q &fFactor, const QVector3 &v)
 	{ 
-		x = x*fFactor + v.x*(QFloat::_1-fFactor);
-		y = y*fFactor + v.y*(QFloat::_1-fFactor);
-		z = z*fFactor + v.z*(QFloat::_1-fFactor); 
+		this->x = this->x*fFactor + v.x*(QFloat::_1 - fFactor);
+		this->y = this->y*fFactor + v.y*(QFloat::_1 - fFactor);
+		this->z = this->z*fFactor + v.z*(QFloat::_1 - fFactor); 
 	}
 
 	/// <summary>
@@ -407,29 +401,29 @@ public:
 	/// </summary>
 	/// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
 	/// <param name="v">[IN] Vector with which to interpolate.</param>
-	/// <param name="vOut">[OUT] Vector to stores results of Interpolation</param>
+	/// <param name="vOut">[OUT] Vector to store results of Interpolation.</param>
 	inline void Lerp(const float_q &fFactor, const QVector3 &v, QVector3 &vOut) const
 	{
-		vOut.x = x*fFactor + v.x*(QFloat::_1-fFactor);
-		vOut.y = y*fFactor + v.y*(QFloat::_1-fFactor); 
-		vOut.z = z*fFactor + v.z*(QFloat::_1-fFactor); 
+		vOut.x = this->x*fFactor + v.x*(QFloat::_1 - fFactor);
+		vOut.y = this->y*fFactor + v.y*(QFloat::_1 - fFactor); 
+		vOut.z = this->z*fFactor + v.z*(QFloat::_1 - fFactor); 
 	}
 
 	/// <summary>
 	/// Calculates the distance between two vector heads (or two points). It computes the difference of two vectors and returns its length.
 	/// </summary>
-	/// <param name="v">Vector we want to calculate the distance from current vector.</param>
+	/// <param name="v">[IN] Vector we want to calculate the distance from current vector.</param>
 	/// <returns>
 	/// A positive floating point value containing the distance between both vectors.
 	/// </returns>
 	inline float_q Distance(const QVector3 &v) const
 	{
-		return sqrt( (x-v.x)*(x-v.x) + (y-v.y)*(y-v.y) + (z-v.z)*(z-v.z) );
+		return sqrt( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) + (this->z-v.z)*(this->z-v.z) );
 	}
 
 	inline std::string ToString() 
 	{
-		// [TODO]
+		return "V3(" + QFloat::ToString(this->x) + ", " + QFloat::ToString(this->y) + ", " + QFloat::ToString(this->z) + ")";
 	}
 
 	// ATTRIBUTES
