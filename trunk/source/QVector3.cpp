@@ -20,14 +20,14 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-const QVector3 QVector3::ZeroVector(0.0f, 0.0f, 0.0f);
-const QVector3 QVector3::VectorOfOnes(1.0f, 1.0f, 1.0f);
-const QVector3 QVector3::UnitVectorX(1.0f, 0.0f, 0.0f);
-const QVector3 QVector3::UnitVectorY(0.0f, 1.0f, 0.0f);
-const QVector3 QVector3::UnitVectorZ(0.0f, 0.0f, 1.0f);
-const QVector3 QVector3::UnitVectorInvX(-1.0f, 0.0f, 0.0f);
-const QVector3 QVector3::UnitVectorInvY(0.0f, -1.0f, 0.0f);
-const QVector3 QVector3::UnitVectorInvZ(0.0f, 0.0f, -1.0f);
+const QVector3 QVector3::ZeroVector    ( QFloat::_0,  QFloat::_0,  QFloat::_0);
+const QVector3 QVector3::VectorOfOnes  ( QFloat::_1,  QFloat::_1,  QFloat::_1);
+const QVector3 QVector3::UnitVectorX   ( QFloat::_1,  QFloat::_0,  QFloat::_0);
+const QVector3 QVector3::UnitVectorY   ( QFloat::_0,  QFloat::_1,  QFloat::_0);
+const QVector3 QVector3::UnitVectorZ   ( QFloat::_0,  QFloat::_0,  QFloat::_1);
+const QVector3 QVector3::UnitVectorInvX(-QFloat::_1,  QFloat::_0,  QFloat::_0);
+const QVector3 QVector3::UnitVectorInvY( QFloat::_0, -QFloat::_1,  QFloat::_0);
+const QVector3 QVector3::UnitVectorInvZ( QFloat::_0,  QFloat::_0, -QFloat::_1);
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

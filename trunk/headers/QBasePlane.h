@@ -3,9 +3,9 @@
 #ifndef __QBASEPLANE__
 #define __QBASEPLANE__
 
-#include "Configuration.h"
+#include "QFloat.h"
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -29,7 +29,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBasePlane() : a(0.0f), b(0.0f), c(0.0f), d(0.0f) { }
+	inline QBasePlane() : a(QFloat::_0), b(QFloat::_0), c(QFloat::_0), d(QFloat::_0) { }
 
 	/// <summary>
 	/// Constructor from a floating point value for each coefficient.

@@ -3,9 +3,9 @@
 #ifndef __QBASEVECTOR3__
 #define __QBASEVECTOR3__
 
-#include "Configuration.h"
+#include "QFloat.h"
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -27,7 +27,7 @@ public:
 	/// <summary>
 	/// Default constructor. Initializes vector to (0,0,0)
 	/// </summary>
-	inline QBaseVector3() : x(0.0f), y(0.0f), z(0.0f) { }
+	inline QBaseVector3() : x(QFloat::_0), y(QFloat::_0), z(QFloat::_0) { }
 
 	/// <summary>
 	/// Constructor from a floating point value for each component.
