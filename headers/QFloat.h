@@ -120,7 +120,7 @@ public:
     inline static bool IsNaN(const float_q &fValue)
     {
         // [REVIEW] Thund: Boost provides functions to check this
-        return fValue == fValue;
+        return fValue != fValue;
     }
 
     /// <summary>
