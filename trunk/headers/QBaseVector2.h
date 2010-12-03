@@ -28,22 +28,33 @@ public:
 	/// <summary>
 	/// Override default constructor. Sets attributes to zero.
 	/// </summary>
-	inline QBaseVector2 () : x(0), y(0) {}
+	inline QBaseVector2 () : x(0.0f), y(0.0f) {}
 
 	/// <summary>
 	/// Constructor that receives 2 FloatTypes, one for each vector components.
 	/// </summary>
-	inline QBaseVector2 (const float_q &mx, const float_q &my) : x(mx), y(my) {}
+	/// <param name="fValueX">[IN] Value for x component</param>
+	/// <param name="fValueY">[IN] Value for y component</param>
+	inline QBaseVector2 (const float_q &fValueX, const float_q &fValueY) : x(fValueX), y(fValueY) {}
 
 	/// <summary>
 	/// Constructor that receives only 1 FloatType. Set all attributes to that value.
 	/// </summary>
-	inline explicit QBaseVector2 (const float_q &mxy) : x(mxy), y(mxy) {}
+	/// <param name="fValueAll">[IN] Value for all components</param>
+	inline explicit QBaseVector2 (const float_q &fValueAll) : x(fValueAll), y(fValueAll) {}
 
 	/// <summary>
 	/// Constructor that receives a pointer-to-FloatType. The pointer should point to a dynamically allocated 2-FloatTypes array.
 	/// </summary>
-	inline explicit QBaseVector2 (const float_q *pxy) : x(pxy[0]), y(pxy[1]) {}
+	/// <param name="pValue">[IN] Pointer to array of floating point values. It must have at least two elements.</param>		
+	inline explicit QBaseVector2 (const float_q *pValues) 
+	{ 
+		// Null pointer checkout
+		QE_ASSERT(pValues != null_q);
+		// Assignments
+		x = pValues[0]; 
+		y = pValues[1]; 
+	}
 
 	// ATTRIBUTES
 	// ---------------
