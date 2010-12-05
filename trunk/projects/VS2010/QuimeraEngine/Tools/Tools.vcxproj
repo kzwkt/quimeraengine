@@ -111,7 +111,6 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\MathDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QAngle.h" />

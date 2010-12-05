@@ -71,6 +71,24 @@ namespace DataTypes
 
 #endif
 
+// Max / Min constants
+#if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+
+    const float_q QFloat::MaxFloat_Q = 3.4028234e+38f; // 2 ^ 128
+    const float_q QFloat::MinFloat_Q = 1.7014118346046923173168730371588e-38f; // 2 ^ -127
+
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+
+    const float_q QFloat::MaxFloat_Q = 1.797693134862315907729305190789e+308; // 2 ^ 1024
+    const float_q QFloat::MinFloat_Q = 8.9884656743115795386465259539451e-307; // 2 ^ -1023
+
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
+
+    const float_q QFloat::MaxFloat_Q = 1.189731495357231765085759326628e+4932; // 2 ^ 16384
+    const float_q QFloat::MinFloat_Q = 5.94865747678615882542879663314e-4931; // 2 ^ -16383
+
+#endif
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################

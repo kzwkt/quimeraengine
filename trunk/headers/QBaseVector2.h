@@ -3,9 +3,9 @@
 #ifndef __QBASEVECTOR2__
 #define __QBASEVECTOR2__
 
-#include "Configuration.h"
+#include "QFloat.h"
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -28,7 +28,7 @@ public:
 	/// <summary>
 	/// Override default constructor. Sets attributes to zero.
 	/// </summary>
-	inline QBaseVector2 () : x(0.0f), y(0.0f) {}
+	inline QBaseVector2 () : x(QFloat::_0), y(QFloat::_0) {}
 
 	/// <summary>
 	/// Constructor that receives 2 FloatTypes, one for each vector components.
@@ -51,6 +51,7 @@ public:
 	{ 
 		// Null pointer checkout
 		QE_ASSERT(pValues != null_q);
+
 		// Assignments
 		x = pValues[0]; 
 		y = pValues[1]; 

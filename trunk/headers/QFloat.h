@@ -92,6 +92,16 @@ public:
     /// </summary>
     static const float_q Epsilon;
 
+    /// <summary>
+    /// Maximum floating point value (farthest to zero positive real number).
+    /// </summary>
+    static const float_q MaxFloat_Q;
+
+    /// <summary>
+    /// Minimum floating point value (closest to zero positive real number).
+    /// </summary>
+    static const float_q MinFloat_Q;
+
 
 	// CONSTRUCTORS
 	// ---------------
@@ -108,9 +118,8 @@ private:
 public:
 
     /// <summary>
-    /// Checks if the floating point value's state is one of the special ones described in IEEE745 specification.
-    /// That kind of values are undefined or non-representable (like infinite), and it's said they aren't numbers
-    /// (NaN = Not a Number). Every time you use functions like acos, asin or atan, you should check the result 
+    /// Checks if the floating point value's state is NaN. That kind of value is undefined or non-representable, and it's said 
+    /// it isn't a number (NaN = Not a Number). Every time you use functions like acos, asin or atan2, you should check the result 
     /// value.
     /// </summary>
     /// <param name="fValue">[IN] A floating point number.</param>
@@ -121,6 +130,34 @@ public:
     {
         // [REVIEW] Thund: Boost provides functions to check this
         return fValue != fValue;
+    }
+
+    /// <summary>
+    /// Checks if the floating point value's state is Infinite. That kind of value is non-representable and appears as an arithmetic 
+    /// operation result that overflows the floating point type bounds. Every time you use functions like tan, you should check the result 
+    /// value.
+    /// </summary>
+    /// <param name="fValue">[IN] A floating point number.</param>
+    /// <returns>
+    /// If the value is infinite, then returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsInfinite(const float_q &fValue)
+    {
+        // [REVIEW] Thund: Boost provides functions to check this
+        return (fValue > -QFloat::MaxFloat_Q) && (fValue < QFloat::MaxFloat_Q);
+    }
+
+    /// <summary>
+    /// Checks if the floating point value's state is one of the special ones described in IEEE specification.
+    /// That kind of values are undefined or non-representable (like infinite).
+    /// </summary>
+    /// <param name="fValue">[IN] A floating point number.</param>
+    /// <returns>
+    /// If the value is infinite or is not a number, then returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsNanOrInfinite(const float_q &fValue)
+    {
+        return QFloat::IsNaN(fValue) || QFloat::IsInfinite(fValue);
     }
 
     /// <summary>
