@@ -3,9 +3,10 @@
 #ifndef __QBASEVECTOR4__
 #define __QBASEVECTOR4__
 
-#include "Configuration.h"
+#include "QFloat.h"
+#include "QVF32.h"
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -28,16 +29,16 @@ public:
 	/// <summary>
 	/// Override default constructor. Sets attributes to zero.
 	/// </summary>	
-	inline QBaseVector4 () : x(0.0f), y(0.0f), z(0.0f), w (0.0f) {}
+	inline QBaseVector4 () : x(QFloat::_0), y(QFloat::_0), z(QFloat::_0), w(QFloat::_0) {}
 
 	/// <summary>
 	/// Constructor that receives 4 FloatTypes, one for each vector components.
 	/// </summary>
-	/// <param name="fX">[IN] Value for x component</param>
-	/// <param name="fY">[IN] Value for y component</param>
-	/// <param name="fZ">[IN] Value for z component</param>
-	/// <param name="fW">[IN] Value for w component</param>
-	inline QBaseVector4 (const float_q &fX, const float_q &fY, const float_q &fZ, const float_q &fW) : x(fX), y(fY), z(fZ), w (fW) {}
+	/// <param name="fX">[IN] Value for x component.</param>
+	/// <param name="fY">[IN] Value for y component.</param>
+	/// <param name="fZ">[IN] Value for z component.</param>
+	/// <param name="fW">[IN] Value for w component.</param>
+	inline QBaseVector4 (const float_q &fX, const float_q &fY, const float_q &fZ, const float_q &fW) : x(fX), y(fY), z(fZ), w(fW) {}
 
 	/// <summary>
 	/// Constructor that receives only 1 FloatType. Set all attributes to that value
@@ -62,13 +63,15 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor that receives a V4x32-FLOAT.
+	/// Constructor from a 4x32 packed floating point value.
 	/// </summary>
-	/// <param name="fValue">[IN] 4x32 packed floating point containing the three components.</param>
-	inline explicit QBaseVector4 (const vf32_q fValue) 
+	/// <param name="fValue">[IN] 4x32 packed floating point containing the three components.
+	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (W).</param>
+	inline explicit QBaseVector4(const vf32_q &fValue) 
 	{
-		//TODO
+        QVF32::Unpack(fValue, this->x, this->y, this->z, this->w);
 	}
+
 
 	// ATTRIBUTES
 	// ---------------
