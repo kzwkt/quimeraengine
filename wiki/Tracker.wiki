@@ -12,11 +12,11 @@
 <table>
 <tr>
 <td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3APhase-0 All Tasks]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase-0 All Tasks]</td>
 </tr>
 <tr>
 <td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3APhase-0%20owner%3Aowner%2Cme My Tasks]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase-0%20owner%3Aowner%2Cme My Tasks]</td>
 </tr>
 <tr>
 <td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/tasks.jpg]</td>
@@ -41,11 +41,11 @@
 <table>
 <tr>
 <td width="56px">[http://quimeraengine.googlecode.com/svn/wiki/images/alltasks.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3APhase--1 All Tasks]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase--1 All Tasks]</td>
 </tr>
 <tr>
 <td width="40px">[http://quimeraengine.googlecode.com/svn/wiki/images/usertasks.jpg]</td>
-<td>[https://code.google.com/p/quimeraengine/issues/list?can=2&q=label%3APhase--1%20owner%3Aowner%2Cme My Tasks]</td>
+<td>[https://code.google.com/p/quimeraengine/issues/list?can=1&q=label%3APhase--1%20owner%3Aowner%2Cme My Tasks]</td>
 </tr>
 <tr>
 <td>[http://quimeraengine.googlecode.com/svn/wiki/images/review.jpg]</td>
