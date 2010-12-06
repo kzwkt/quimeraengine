@@ -80,6 +80,11 @@ QVector3 operator * (const float_q &fValue, const QVector3 &v)
 	return QVector3(v.x*fValue, v.y*fValue, v.z*fValue);
 }
 
+std::string QVector3::ToString() 
+{
+	return "V3(" + QFloat::ToString(this->x) + ", " + QFloat::ToString(this->y) + ", " + QFloat::ToString(this->z) + ")";
+}
+
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine

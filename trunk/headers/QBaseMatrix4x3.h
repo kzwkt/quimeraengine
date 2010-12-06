@@ -31,9 +31,9 @@ public:
 	/// </summary>
 	inline QBaseMatrix4x3()
 	{
-		ij[0][0] = ij[0][1] = ij[0][2] = QFloat::_0;
-		ij[1][0] = ij[1][1] = ij[1][2] = QFloat::_0;
-		ij[2][0] = ij[2][1] = ij[2][2] = QFloat::_0;
+		ij[0][0] = ij[0][1] = ij[0][2] = 
+		ij[1][0] = ij[1][1] = ij[1][2] = 
+		ij[2][0] = ij[2][1] = ij[2][2] = 
 		ij[3][0] = ij[3][1] = ij[3][2] = QFloat::_0;
 	}
 
@@ -52,18 +52,18 @@ public:
 	/// <summary>
 	/// Constructor from a floating point value for each element of the matrix.
 	/// </summary>
-	/// <param name="f00">[IN] Floating point value for element 00 (row x column).</param>
-	/// <param name="f01">[IN] Floating point value for element 01 (row x column).</param>
-	/// <param name="f02">[IN] Floating point value for element 02 (row x column).</param>
-	/// <param name="f10">[IN] Floating point value for element 10 (row x column).</param>
-	/// <param name="f11">[IN] Floating point value for element 11 (row x column).</param>
-	/// <param name="f12">[IN] Floating point value for element 12 (row x column).</param>
-	/// <param name="f20">[IN] Floating point value for element 20 (row x column).</param>
-	/// <param name="f21">[IN] Floating point value for element 21 (row x column).</param>
-	/// <param name="f22">[IN] Floating point value for element 22 (row x column).</param>
-	/// <param name="f30">[IN] Floating point value for element 30 (row x column).</param>
-	/// <param name="f31">[IN] Floating point value for element 31 (row x column).</param>
-	/// <param name="f32">[IN] Floating point value for element 32 (row x column).</param>
+	/// <param name="f00">[IN] Floating point value for element of row 0, column 0.</param>
+	/// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
+	/// <param name="f02">[IN] Floating point value for element of row 0, column 2.</param>
+	/// <param name="f10">[IN] Floating point value for element of row 1, column 0.</param>
+	/// <param name="f11">[IN] Floating point value for element of row 1, column 1.</param>
+	/// <param name="f12">[IN] Floating point value for element of row 1, column 2.</param>
+	/// <param name="f20">[IN] Floating point value for element of row 2, column 0.</param>
+	/// <param name="f21">[IN] Floating point value for element of row 2, column 1.</param>
+	/// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
+	/// <param name="f30">[IN] Floating point value for element of row 3, column 0.</param>
+	/// <param name="f31">[IN] Floating point value for element of row 3, column 1.</param>
+	/// <param name="f32">[IN] Floating point value for element of row 3, column 2.</param>
 	inline explicit QBaseMatrix4x3(	const float_q &f00, const float_q &f01, const float_q &f02, 
 									const float_q &f10, const float_q &f11, const float_q &f12,
 									const float_q &f20, const float_q &f21, const float_q &f22,
