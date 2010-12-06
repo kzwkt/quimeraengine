@@ -421,11 +421,13 @@ public:
 		return sqrt( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) + (this->z-v.z)*(this->z-v.z) );
 	}
 
-	inline std::string ToString() 
-	{
-		return "V3(" + QFloat::ToString(this->x) + ", " + QFloat::ToString(this->y) + ", " + QFloat::ToString(this->z) + ")";
-	}
-
+	/// <summary>
+	/// Converts vector into a string with the following format:
+	/// “V3(x, y, z)”.
+	/// </summary>
+	/// <returns>The std::string with the format specified.</returns>
+	std::string ToString();
+	
 	// ATTRIBUTES
 	// ---------------
 public:
