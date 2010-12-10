@@ -2,8 +2,4 @@
 
 <p align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/RoadmapCurrent.png]</p>
 
-Quedan algunos flecos por cerrar de la fase anterior por parte de algunos miembros del equipo (su prioridad es máxima antes de continuar).
-Se han introducido las primeras tareas de desarrollo.
-Se han realizado diseños a alto nivel del motor.
-La dirección sigue autoformándose en el diseño mientras genera diagramas UML e introduce tareas y sus descripciones.
-Por el momento, se pondrá a prueba el flujo de trabajo estipulado con tareas sencillas.
+Actualmente desarrollando la infraestructura referente a operaciones matemáticas, tipos de datos y mediciones de tiempo (40% completado). La forma de trabajo parece ser suficiente para el ritmo actual.
