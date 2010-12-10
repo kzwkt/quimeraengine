@@ -35,12 +35,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBaseTriangle ()
-	{
-		A.ResetToZero();
-		B.ResetToZero();
-		C.ResetToZero();
-	}
+	inline QBaseTriangle () : A(QFloat::_0), B(QFloat::_0), C(QFloat::_0)	{ }
 
 	/// <summary>
 	/// Constructor from three vectors.
@@ -48,12 +43,7 @@ public:
 	/// <param name="vA">[IN] Vector to define vertex A.</param>
 	/// <param name="vB">[IN] Vector to define vertex B.</param>
 	/// <param name="vC">[IN] Vector to define vertex C.</param>
-	inline QBaseTriangle (const VectorType &vA, const VectorType &vB, const VectorType &vC)
-	{
-		A = vA;
-		B = vB;
-		C = vC;
-	}
+	inline QBaseTriangle (const VectorType &vA, const VectorType &vB, const VectorType &vC) : A(vA), B(vB), C(vC) { }
 
 	/// <summary>
 	/// Constructor from a pointer to floating point values to define each vertex.
@@ -78,12 +68,7 @@ public:
 	/// <param name="fValueA">[IN] 4x32 packed value which defines vertex A.</param>
 	/// <param name="fValueB">[IN] 4x32 packed value which defines vertex B.</param>
 	/// <param name="fValueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QBaseTriangle (const vf32_q &fValueA, const vf32_q &fValueB, const &vf32_q fValueC)
-	{
-		A = VectorType(fValueA);
-		B = VectorType(fValueB);
-		C = VectorType(fValueC);
-	}
+	inline QBaseTriangle (const vf32_q &fValueA, const vf32_q &fValueB, const &vf32_q fValueC) : A(fValueA), B(fValueB), C(fValueC)	{ }
 
 	// ATTRIBUTES
 	// ---------------
