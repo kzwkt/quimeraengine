@@ -4,6 +4,7 @@
 #define __QUIMERAENGINE_CONFIGURATION__
 
 #include "ExternalDefinitions.h"
+#include "InternalDefinitions.h"
 
 namespace Kinesis
 {
@@ -13,16 +14,6 @@ namespace Core
 {
 namespace Configuration
 {
-
-// --------------------------------------------------------------------------------------------------------
-// Version: Defines the Quimera Engine's current version.
-// How to use it: Version format is Major version + Minor version + Revision ("##.####.####").
-// --------------------------------------------------------------------------------------------------------
-const char QE_VERSION[13] = "0.0.0";
-const unsigned int QE_VERSION_MAJOR = 0;
-const unsigned int QE_VERSION_MINOR = 0;
-const unsigned int QE_VERSION_REVISION = 0;
-
 
 // --------------------------------------------------------------------------------------------------------
 // Precission: This block defines the engine's operations precission, this means, how accurate the 
@@ -37,21 +28,6 @@ const unsigned int QE_VERSION_REVISION = 0;
 
 
 // --------------------------------------------------------------------------------------------------------
-// Float type: Defines which floating point type will be used by the whole engine, according to the
-// configured precission.
-// --------------------------------------------------------------------------------------------------------
-#if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
-    typedef float float_q;
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
-    typedef double float_q;
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
-    typedef long double float_q;
-#else
-    typedef float float_q;
-#endif
-
-
-// --------------------------------------------------------------------------------------------------------
 // Angle Notation: Defines whether the entire engine will work using Degrees or Radians.
 // How to use it: Write an angle notation definition value as the default angle notation definition.
 // --------------------------------------------------------------------------------------------------------
@@ -59,43 +35,6 @@ const unsigned int QE_VERSION_REVISION = 0;
 #define QE_CONFIG_ANGLENOTATION_DEGREES 0x1 // Degrees notation: Angles are represented using degrees, from 0º to 360º.
 
 #define QE_CONFIG_ANGLENOTATION_DEFAULT QE_CONFIG_ANGLENOTATION_RADIANS // [Configurable]
-
-
-// --------------------------------------------------------------------------------------------------------
-// Null Pointer: Defines the value that identifies a null pointer, depending on the compiler.
-// --------------------------------------------------------------------------------------------------------
-#ifdef QE_COMPILER_MSVC
-    #if QE_COMPILER_MSVC >= 10
-        #define null_q nullptr // Microsoft Visual C++ 2010 definition for null pointers
-    #else
-        #define null_q 0
-    #endif
-#endif
-
-
-// --------------------------------------------------------------------------------------------------------
-// String type: [DOC].
-// --------------------------------------------------------------------------------------------------------
-#define QE_CONFIG_STRINGCHARSET_ANSI 0x0
-#define QE_CONFIG_STRINGCHARSET_UTF8 0x1
-
-
-// --------------------------------------------------------------------------------------------------------
-// Dll Export Specifier: Defines which compiler keywords will be used to export symbols when compiling as 
-// a DLL. Their values are "empty" when compiling the library as static.
-// --------------------------------------------------------------------------------------------------------
-#ifdef QE_CONFIG_COMPILER_DLL // QE_CONFIG_COMPILER_DLL is specified as a preprocessor definition [TODO] Thund: Add that definition when configuration is ready
-    #ifdef QE_COMPILER_MSVC // [TODO] Thund: There must be one per compatible compiler.
-        #define QDllExport __declspec( dllexport )
-        #define QDllImport __declspec( dllimport )
-    #else
-        #define QDllExport
-        #define QDllImport
-    #endif
-#else
-    #define QDllExport
-    #define QDllImport
-#endif
 
 
 // --------------------------------------------------------------------------------------------------------
@@ -115,9 +54,24 @@ const unsigned int QE_VERSION_REVISION = 0;
 // --------------------------------------------------------------------------------------------------------
 #define QE_CONFIG_MACHINEENDIANESS_LITTLEENDIAN 0x0 // Little-endian
 #define QE_CONFIG_MACHINEENDIANESS_BIGENDIAN    0x1 // Big-endian
+
 #define QE_CONFIG_MACHINEENDIANESS_DEFAULT QE_CONFIG_MACHINEENDIANESS_LITTLEENDIAN // [Configurable]
 
 
+// --------------------------------------------------------------------------------------------------------
+// Character Set: Specifies the character set used throughout the engine. It can be single-byte: 8 bits, 
+// to represente ANSI characteres; multi-byte: 8 and 16 bits mixed, used by Windows systems (aka DBCS) to represent
+// any existent alphabets; or Unicode: 16-bits characteres to also represent all existent alphabets.
+//
+// How to use it: Write a char width definition value as the default width definition.
+// --------------------------------------------------------------------------------------------------------
+#define QE_CONFIG_CHARACTERSET_SBCS 0x0    // Single-Byte Character Set
+#define QE_CONFIG_CHARACTERSET_MBCS 0x1    // Multi-Byte Character Set [TODO] Thund: Not supported yet, will be available only for Windows OS.
+#define QE_CONFIG_CHARACTERSET_UNICODE 0x2 // Unicode (2-bytes character set)
+
+#define QE_CONFIG_CHARACTERSET_DEFAULT QE_CONFIG_CHARACTERSET_UNICODE // [Configurable]
+
+    
 }//namespace Configuration
 }//namespace Core
 }//namespace QuimeraEngine

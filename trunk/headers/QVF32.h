@@ -135,7 +135,7 @@ public:
     /// <returns>
     /// The packet represented as a character string. The format is: VF( First, Second, Third, Fourth ).
     /// </returns>
-    static std::string ToString(const vf32_q &inPack);
+    static string_q ToString(const vf32_q &inPack);
 
 };
 

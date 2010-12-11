@@ -553,8 +553,8 @@ public:
 	/// Converts matrix into a string with the following format:
 	/// “M4x4( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 ) ( 41, 42, 43, 44 )”.
 	/// </summary>
-	/// <returns>The std::string with the format specified.</returns>
-	std::string ToString() const;
+	/// <returns>The string with the format specified.</returns>
+	string_q ToString() const;
 	
 	// ATTRIBUTES
 	// ---------------

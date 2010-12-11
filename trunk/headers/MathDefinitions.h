@@ -7,7 +7,7 @@
 #include "QFloat.h"
 
 using namespace Kinesis::QuimeraEngine::Core::Configuration;
-using Kinesis::QuimeraEngine::Tools::DataTypes::QFloat;
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {

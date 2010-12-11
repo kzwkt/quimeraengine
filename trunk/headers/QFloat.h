@@ -221,7 +221,7 @@ public:
     /// <returns>
     /// The string that represents the number (using a dot as decimal separator).
     /// </returns>
-    static std::string ToString(const float_q &fValue);
+    static string_q ToString(const float_q &fValue);
 };
 
 } //namespace DataTypes

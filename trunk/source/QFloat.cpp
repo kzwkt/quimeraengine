@@ -98,9 +98,9 @@ namespace DataTypes
 //##################													   ##################
 //##################=======================================================##################
 
-std::string QFloat::ToString(const float_q &fValue)
+string_q QFloat::ToString(const float_q &fValue)
 {
-    std::ostringstream ostr;
+    std::basic_ostringstream<char_q> ostr;
 	ostr << fValue;
 	return ostr.str();
 }

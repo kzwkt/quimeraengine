@@ -212,10 +212,9 @@ void QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProportion, QQ
     qOutQuat /= fDivisor;
 }
 
-std::string QQuaternion::ToString() const
+string_q QQuaternion::ToString() const
 {
-    const std::string strQ = "Q(";
-    return strQ + QFloat::ToString(this->x) + ", " + QFloat::ToString(this->y) + ", " + QFloat::ToString(this->z) + ", " + QFloat::ToString(this->w) + ")";
+    return QE_L("Q(") + QFloat::ToString(this->x) + QE_L(", ") + QFloat::ToString(this->y) + QE_L(", ") + QFloat::ToString(this->z) + QE_L(", ") + QFloat::ToString(this->w) + QE_L(")");
 }
 
 

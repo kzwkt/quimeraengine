@@ -425,8 +425,8 @@ public:
 	/// Converts vector into a string with the following format:
 	/// “V3(x, y, z)”.
 	/// </summary>
-	/// <returns>The std::string with the format specified.</returns>
-	std::string ToString();
+	/// <returns>The string with the format specified.</returns>
+	string_q ToString();
 	
 	// ATTRIBUTES
 	// ---------------

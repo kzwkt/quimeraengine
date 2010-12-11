@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\Prueba.cpp" />
