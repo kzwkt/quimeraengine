@@ -121,7 +121,7 @@ QMatrix4x4::QMatrix4x4(const float_q &fAngleX, const float_q &fAngleY, const flo
 		return aux;
 	}
 
-	QMatrix4x4 operator*(const float_q &fScalar, const QMatrix4x4 &m) 
+	QMatrix4x4 operator*(const float_q &fScalar, const QBaseMatrix4x4 &m) 
 	{
 		QMatrix4x4 aux;
 
@@ -145,7 +145,7 @@ QMatrix4x4::QMatrix4x4(const float_q &fAngleX, const float_q &fAngleY, const flo
 		return aux;
 	}
 
-	QMatrix4x4 QMatrix4x4::operator*(const QMatrix4x4 &m) const
+	QMatrix4x4 QMatrix4x4::operator*(const QBaseMatrix4x4 &m) const
 	{
 		QMatrix4x4 aux;
 
@@ -199,7 +199,7 @@ QMatrix4x4::QMatrix4x4(const float_q &fAngleX, const float_q &fAngleY, const flo
 		return aux;
 	}
 
-	QMatrix4x4 QMatrix4x4::operator+(const QMatrix4x4 &m) const
+	QMatrix4x4 QMatrix4x4::operator+(const QBaseMatrix4x4 &m) const
 	{
 		QMatrix4x4 aux;
 		
@@ -223,7 +223,7 @@ QMatrix4x4::QMatrix4x4(const float_q &fAngleX, const float_q &fAngleY, const flo
 		return aux;
 	}
 
-	QMatrix4x4 QMatrix4x4::operator-(const QMatrix4x4 &m) const
+	QMatrix4x4 QMatrix4x4::operator-(const QBaseMatrix4x4 &m) const
 	{
 		QMatrix4x4 aux;
 		
@@ -247,7 +247,7 @@ QMatrix4x4::QMatrix4x4(const float_q &fAngleX, const float_q &fAngleY, const flo
 		return aux;
 	}
 
-	QMatrix4x4& QMatrix4x4::operator*=(const QMatrix4x4 &m)
+	QMatrix4x4& QMatrix4x4::operator*=(const QBaseMatrix4x4 &m)
 	{
 		QMatrix4x4 aux;
 
