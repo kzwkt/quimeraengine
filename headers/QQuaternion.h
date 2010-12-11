@@ -3,8 +3,6 @@
 #ifndef __QQUATERNION__
 #define __QQUATERNION__
 
-#include <string>
-
 #include "QBaseQuaternion.h"
 
 namespace Kinesis
@@ -613,7 +611,7 @@ public:
     /// <returns>
     /// A character string, following this pattern: "Q( x, y, z, w)".
     /// </returns>
-    inline std::string ToString() const;
+    string_q ToString() const;
 
     /// <summary>
     /// Calculates the quaternion's length, this means, the square root of the squared components sum.

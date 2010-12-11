@@ -19,8 +19,8 @@ namespace Math
 
 /// <summary>
 /// Class which represents a sphere in the space, defined by its center point and radius. 
-/// Center point may be expresed as 2D or 3D point or vector, depending on the parameter, which may be
-/// 2D vector, 3D vector or 4D vector.
+/// Center point may be expressed as 2D or 3D point or vector, depending on the parameter of the template, 
+/// which may be 2D vector, 3D vector or 4D vector.
 /// Radius is expressed as a floating point value. 
 /// Remember that a sphere is the locus of points equidistant from a given one.
 /// </summary>

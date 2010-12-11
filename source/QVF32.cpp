@@ -20,7 +20,7 @@ namespace DataTypes
 //##################													   ##################
 //##################=======================================================##################
 
-std::string QVF32::ToString(const vf32_q &inPack)
+string_q QVF32::ToString(const vf32_q &inPack)
 {
     float_q fFirst  = QFloat::_0;
     float_q fSecond = QFloat::_0;
@@ -29,12 +29,10 @@ std::string QVF32::ToString(const vf32_q &inPack)
 
     QVF32::Unpack(inPack, fFirst, fSecond, fThird, fFourth);
 
-    std::string strHead = "VF(";
-
-    return strHead + QFloat::ToString(fFirst) + ", " + 
-                     QFloat::ToString(fSecond) + ", " +
-                     QFloat::ToString(fThird) + ", " +
-                     QFloat::ToString(fFourth) + ")";
+    return QE_L("VF(") + QFloat::ToString(fFirst)  + QE_L(", ") + 
+                         QFloat::ToString(fSecond) + QE_L(", ") +
+                         QFloat::ToString(fThird)  + QE_L(", ") +
+                         QFloat::ToString(fFourth) + QE_L(")");
 }
 
 

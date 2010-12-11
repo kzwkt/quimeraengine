@@ -80,9 +80,9 @@ QVector3 operator * (const float_q &fValue, const QVector3 &v)
 	return QVector3(v.x*fValue, v.y*fValue, v.z*fValue);
 }
 
-std::string QVector3::ToString() 
+string_q QVector3::ToString() 
 {
-	return "V3(" + QFloat::ToString(this->x) + ", " + QFloat::ToString(this->y) + ", " + QFloat::ToString(this->z) + ")";
+	return QE_L("V3(") + QFloat::ToString(this->x) + QE_L(", ") + QFloat::ToString(this->y) + QE_L(", ") + QFloat::ToString(this->z) + QE_L(")");
 }
 
 } //namespace Math
