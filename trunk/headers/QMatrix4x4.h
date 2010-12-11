@@ -46,7 +46,7 @@ public:
 	/// <returns>
 	/// The resultant matrix.
 	/// </returns>
-	friend QMatrix4x4 operator*(const float_q &fScalar, const QMatrix4x4 &m);
+	friend QMatrix4x4 operator*(const float_q &fScalar, const QBaseMatrix4x4 &m);
 
  	// CONSTRUCTORS
 	// ---------------
@@ -159,7 +159,7 @@ public:
 	/// <returns>
 	/// The resultant matrix.
 	/// </returns>
-	QMatrix4x4 operator*(const QMatrix4x4 &m) const;
+	QMatrix4x4 operator*(const QBaseMatrix4x4 &m) const;
 
 	/// <summary>
 	/// Divides current matrix by a floating point value.
@@ -177,7 +177,7 @@ public:
 	/// <returns>
 	/// The resultant matrix.
 	/// </returns>
-	QMatrix4x4 operator+(const QMatrix4x4 &m) const;
+	QMatrix4x4 operator+(const QBaseMatrix4x4 &m) const;
 
 	/// <summary>
 	/// Subtracts a QMatrix4x4 to the current matrix.
@@ -186,7 +186,7 @@ public:
 	/// <returns>
 	/// The resultant matrix.
 	/// </returns>
-	QMatrix4x4 operator-(const QMatrix4x4 &m) const;
+	QMatrix4x4 operator-(const QBaseMatrix4x4 &m) const;
 
 	/// <summary>
 	/// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -195,7 +195,7 @@ public:
 	/// <returns>
 	/// The modified matrix.
 	/// </returns>
-	QMatrix4x4& operator*=(const QMatrix4x4 &m);
+	QMatrix4x4& operator*=(const QBaseMatrix4x4 &m);
 
 	/// <summary>
 	/// Division and assign operator. Current matrix stores the result of the division.
@@ -235,7 +235,7 @@ public:
 	/// <returns>
 	/// The modified matrix.
 	/// </returns>
-	inline QMatrix4x4& operator+=(const QMatrix4x4 &m)
+	inline QMatrix4x4& operator+=(const QBaseMatrix4x4 &m)
 	{
 		this->ij[0][0] += m.ij[0][0];
 		this->ij[0][1] += m.ij[0][1];
@@ -264,7 +264,7 @@ public:
 	/// <returns>
 	/// The modified matrix.
 	/// </returns>
-	inline QMatrix4x4& operator-=(const QMatrix4x4 &m)
+	inline QMatrix4x4& operator-=(const QBaseMatrix4x4 &m)
 	{
 		this->ij[0][0] -= m.ij[0][0];
 		this->ij[0][1] -= m.ij[0][1];
@@ -293,7 +293,7 @@ public:
 	/// <returns>
 	/// If matrices are equal, then it returns true. Otherwise, it returns false.
 	/// </returns>
-	inline bool operator==(const QMatrix4x4 &m) const
+	inline bool operator==(const QBaseMatrix4x4 &m) const
 	{
 		return	QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
 				QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
@@ -321,7 +321,7 @@ public:
 	/// <returns>
 	/// If matrices are not equal, then it returns true. Otherwise, it returns false.
 	/// </returns>
-	inline bool operator!=(const QMatrix4x4 &m) const
+	inline bool operator!=(const QBaseMatrix4x4 &m) const
 	{
 		return	QFloat::AreNotEquals(this->ij[0][0], m.ij[0][0]) ||
 				QFloat::AreNotEquals(this->ij[0][1], m.ij[0][1]) ||
@@ -383,7 +383,7 @@ public:
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
 	/// <param name="m">[OUT] Stores the resultant trasposed matrix.</param>
-	inline void Transpose(QMatrix4x4 &m) const
+	inline void Transpose(QBaseMatrix4x4 &m) const
 	{
 		m.ij[0][0] = this->ij[0][0];
 		m.ij[0][1] = this->ij[1][0];
