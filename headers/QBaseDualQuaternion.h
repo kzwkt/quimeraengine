@@ -36,14 +36,15 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    QBaseDualQuaternion() : r(QQuaternion::Identity), d(QQuaternion::Identity) { } 
+    QBaseDualQuaternion() : r(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1)), 
+                            d(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1)) { } 
 
     /// <summary>
     /// Constructor from two quaternions, one to initialize the non-dual part and another to do it with the dual part.
     /// </summary>
     /// <param name="qR">[IN] Quaternion which is the non-dual part of the dual quaternion.</param>
     /// <param name="qD">[IN] Quaternion which is the dual part of the dual quaternion.</param>
-    QBaseDualQuaternion(const QQuaternion &qR, const QQuaternion &qD) : r(qR), d(qD) { }
+    QBaseDualQuaternion(const QBaseQuaternion &qR, const QBaseQuaternion &qD) : r(qR), d(qD) { }
 
 	// ATTRIBUTES
 	// ---------------
