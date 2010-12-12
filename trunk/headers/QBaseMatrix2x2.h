@@ -30,10 +30,10 @@ public:
 	/// </summary>
 	inline QBaseMatrix2x2()
 	{
-		m[0][0] = QFloat::_0;
-		m[0][1] = QFloat::_0;
-		m[1][0] = QFloat::_0;
-		m[1][1] = QFloat::_0;
+		ij[0][0] = QFloat::_0;
+		ij[0][1] = QFloat::_0;
+		ij[1][0] = QFloat::_0;
+		ij[1][1] = QFloat::_0;
 	}
 
 	/// <summary>
@@ -48,10 +48,10 @@ public:
 	{
 		QE_ASSERT(pfMatrix != null_q);
 
-		m[0][0] = pfMatrix[0];
-		m[0][1] = pfMatrix[1];
-		m[1][0] = pfMatrix[2];
-		m[1][1] = pfMatrix[3];
+		ij[0][0] = pfMatrix[0];
+		ij[0][1] = pfMatrix[1];
+		ij[1][0] = pfMatrix[2];
+		ij[1][1] = pfMatrix[3];
 	}
 
     // ATTRIBUTES
@@ -60,7 +60,7 @@ public:
 	/// <summary>
 	/// Array that holds the matrix.
 	/// </summary>
-	float_q m[2][2];
+	float_q ij[2][2];
 };
 
 } //namespace Math

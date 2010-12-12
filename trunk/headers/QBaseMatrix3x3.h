@@ -31,9 +31,9 @@ public:
 	/// </summary>
 	inline QBaseMatrix3x3()
 	{
-		m[0][0] = m[0][1] = m[0][2] = QFloat::_0;
-		m[1][0] = m[1][1] = m[1][2] = QFloat::_0;
-		m[2][0] = m[2][1] = m[2][2] = QFloat::_0;
+		ij[0][0] = ij[0][1] = ij[0][2] = QFloat::_0;
+		ij[1][0] = ij[1][1] = ij[1][2] = QFloat::_0;
+		ij[2][0] = ij[2][1] = ij[2][2] = QFloat::_0;
 	}
 
 	/// <summary>
@@ -48,15 +48,15 @@ public:
 	{
 		QE_ASSERT(pfMatrix != null_q);
 
-		m[0][0] = pfMatrix[0];
-		m[0][1] = pfMatrix[1];
-		m[0][2] = pfMatrix[2];
-		m[1][0] = pfMatrix[3];
-		m[1][1] = pfMatrix[4];
-		m[1][2] = pfMatrix[5];
-		m[2][0] = pfMatrix[6];
-		m[2][1] = pfMatrix[7];
-		m[2][2] = pfMatrix[8];
+		ij[0][0] = pfMatrix[0];
+		ij[0][1] = pfMatrix[1];
+		ij[0][2] = pfMatrix[2];
+		ij[1][0] = pfMatrix[3];
+		ij[1][1] = pfMatrix[4];
+		ij[1][2] = pfMatrix[5];
+		ij[2][0] = pfMatrix[6];
+		ij[2][1] = pfMatrix[7];
+		ij[2][2] = pfMatrix[8];
 	}
 
 	/// <summary>
@@ -72,15 +72,15 @@ public:
 	{
 		float_q aux;
 
-		QVF32::Unpack(row0, this->m[0][0], this->m[0][1], this->m[0][2], aux);
-		QVF32::Unpack(row1, this->m[1][0], this->m[1][1], this->m[1][2], aux);
-		QVF32::Unpack(row2, this->m[2][0], this->m[2][1], this->m[2][2], aux);
+		QVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], aux);
+		QVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], aux);
+		QVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], aux);
 	}
 
 	/// <summary>
 	/// Array that holds the matrix.
 	/// </summary>
-	float_q m[3][3];
+	float_q ij[3][3];
 };
 
 } //namespace Math
