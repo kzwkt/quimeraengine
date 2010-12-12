@@ -117,6 +117,7 @@
     <ClInclude Include="..\..\..\..\headers\QBaseBox.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix2x2.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x3.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x4.h" />
     <ClInclude Include="..\..\..\..\headers\QBasePlane.h" />
