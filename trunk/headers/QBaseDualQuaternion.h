@@ -36,7 +36,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    QBaseDualQuaternion() : r(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0)), 
+    inline QBaseDualQuaternion() : r(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0)), 
                             d(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0)) { } 
 
     /// <summary>
@@ -44,7 +44,7 @@ public:
     /// </summary>
     /// <param name="qR">[IN] Quaternion which is the non-dual part of the dual quaternion.</param>
     /// <param name="qD">[IN] Quaternion which is the dual part of the dual quaternion.</param>
-    QBaseDualQuaternion(const QBaseQuaternion &qR, const QBaseQuaternion &qD) : r(qR), d(qD) { }
+    inline QBaseDualQuaternion(const QBaseQuaternion &qR, const QBaseQuaternion &qD) : r(qR), d(qD) { }
 
 	// ATTRIBUTES
 	// ---------------

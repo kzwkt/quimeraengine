@@ -36,6 +36,44 @@ public:
 		ij[2][0] = ij[2][1] = ij[2][2] = QFloat::_0;
 	}
 
+    /// <summary>
+	/// Constructor that receives a floating point value for all elements of the matrix.
+	/// </summary>
+	/// <param name="fValue">[IN] Floating point value with which fills the matrix.</param>
+	inline explicit QBaseMatrix3x3(const float_q &fValue)
+	{
+		ij[0][0] = ij[0][1] = ij[0][2] =
+		ij[1][0] = ij[1][1] = ij[1][2] =
+		ij[2][0] = ij[2][1] = ij[2][2] = fValue;
+	}
+
+	/// <summary>
+	/// Constructor from a floating point value for each element of the matrix.
+	/// </summary>
+	/// <param name="f00">[IN] Floating point value for element of row 0, column 0.</param>
+	/// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
+	/// <param name="f02">[IN] Floating point value for element of row 0, column 2.</param>
+	/// <param name="f10">[IN] Floating point value for element of row 1, column 0.</param>
+	/// <param name="f11">[IN] Floating point value for element of row 1, column 1.</param>
+	/// <param name="f12">[IN] Floating point value for element of row 1, column 2.</param>
+	/// <param name="f20">[IN] Floating point value for element of row 2, column 0.</param>
+	/// <param name="f21">[IN] Floating point value for element of row 2, column 1.</param>
+	/// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
+	inline explicit QBaseMatrix3x3(	const float_q &f00, const float_q &f01, const float_q &f02, 
+									const float_q &f10, const float_q &f11, const float_q &f12,
+									const float_q &f20, const float_q &f21, const float_q &f22)
+	{
+		ij[0][0] = f00;
+		ij[0][1] = f01; 
+		ij[0][2] = f02;
+		ij[1][0] = f10;
+		ij[1][1] = f11;
+		ij[1][2] = f12;
+		ij[2][0] = f20;
+		ij[2][1] = f21;
+		ij[2][2] = f22;
+	}	
+
 	/// <summary>
 	/// Constructor that receives a pointer to 9 floating point values.
 	/// </summary>
