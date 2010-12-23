@@ -46,7 +46,7 @@ public:
 	/// <summary>
 	/// Constructor that receives a pointer-to-FloatType. The pointer should point to a dynamically allocated 2-FloatTypes array.
 	/// </summary>
-	/// <param name="pValue">[IN] Pointer to array of floating point values. It must have at least two elements.</param>		
+	/// <param name="pValues">[IN] Pointer to array of floating point values. It must have at least two elements.</param>		
 	inline explicit QBaseVector2 (const float_q *pValues) 
 	{ 
 		// Null pointer checkout

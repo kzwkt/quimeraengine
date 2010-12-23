@@ -100,7 +100,7 @@ public:
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged 
     /// into a 128 bits structure. The values order is: X, Y, Z and W.
     /// </summary>
-    /// <param name="packedValues">[IN] A four 32 bits floating point types pack.</param>
+    /// <param name="packagedValues">[IN] A four 32 bits floating point types pack.</param>
     inline explicit QQuaternion(const vf32_q &packagedValues) : QBaseQuaternion(packagedValues) {};
 
 
@@ -530,6 +530,7 @@ public:
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (Q2 in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from Q1 to Q2.</param>
+    /// <param name="qOutQuat">[OUT] The interpolation result.</param>
     void Slerp(const QQuaternion &qQuat, const float_q &fProportion, QQuaternion &qOutQuat) const;
     
     /// <summary>
