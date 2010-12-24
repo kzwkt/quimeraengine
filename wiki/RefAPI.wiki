@@ -1,3 +1,5 @@
 =Documentación de Referencia de la API=
 
-Sin contenido.
+Para acceder a la documentacio´n de referencia de la API sigue este enlace:
+
+[http://quimeraenginedoc.elalumbramiento.org]
