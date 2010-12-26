@@ -56,7 +56,7 @@ public:
     QQuaternion r;
 
     /// <summary>
-    /// Dual part of the dual quaternion. Generally it represents the traslation applied.
+    /// Dual part of the dual quaternion. Generally it represents the traslation applied (modified by the rotation).
     /// </summary>
     QQuaternion d;
 
