@@ -130,6 +130,7 @@
     <ClInclude Include="..\..\..\..\headers\QMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix4x4.h" />
     <ClInclude Include="..\..\..\..\headers\QFloat.h" />
+    <ClInclude Include="..\..\..\..\headers\QPlane.h" />
     <ClInclude Include="..\..\..\..\headers\QQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector4.h" />
     <ClInclude Include="..\..\..\..\headers\QVector3.h" />
@@ -140,6 +141,7 @@
     <ClCompile Include="..\..\..\..\source\QMatrix4x4.cpp" />
     <ClCompile Include="..\..\..\..\source\QAngle.cpp" />
     <ClCompile Include="..\..\..\..\source\QFloat.cpp" />
+    <ClCompile Include="..\..\..\..\source\QPlane.cpp" />
     <ClCompile Include="..\..\..\..\source\QQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector3.cpp" />
     <ClCompile Include="..\..\..\..\source\QVF32.cpp" />

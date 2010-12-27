@@ -459,9 +459,9 @@ public:
     
     /// <summary>
     /// Converts matrix into a string with the following format:
-    /// “M3x3( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 ) ( 41, 42, 43, 44 )”.
+    /// "M3x3( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 )( 41, 42, 43, 44 )".
     /// </summary>
-    /// <returns>The std::string with the format specified.</returns>
+    /// <returns>The string with the format specified.</returns>
     inline string_q ToString() const
     {
         return QE_L("M3x3(") + QFloat::ToString(this->ij[0][0]) + QE_L(",") +
