@@ -27,7 +27,7 @@ public:
 
     /// <summary>
     /// Product by a scalar: all coefficients are multiplied by the floating point value provided.
-    /// Shorcut to multiply on the left.
+    /// Shortcut to multiply on the left.
     /// </summary>
     /// <remarks>
     /// Note that it may be necessary re-normalize the plane after this operation!!
