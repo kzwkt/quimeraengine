@@ -33,7 +33,7 @@ public:
 
     /// <summary>
     /// Product by a scalar: all components are multiplied by the floating point value provided.
-    /// Shorcut to multiply on the left.
+    /// Shortcut to multiply on the left.
     /// </summary>
     /// <param name="fValue">[IN] Multiplying floating point value.</param>
     /// <param name="v">[IN] Vector to be multiplied.</param>
