@@ -23,7 +23,7 @@ namespace Math
 /// This class implements three components vector functionality. It inherits from QBaseVector3.
 /// A vector is a geometric object that has both a magnitude (or length) and direction. 
 /// It is frequently represented by a line segment with a definite direction, or graphically as an arrow, 
-/// connecting an initial point A with a terminal point B. The vector is then denoted by AB with a arrow hat.
+/// connecting an initial point A with a terminal point B. The vector is then denoted by AB with an arrow hat.
 /// </summary>
 class QDllExport QVector3 : public QBaseVector3
 {
