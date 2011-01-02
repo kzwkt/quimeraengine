@@ -65,9 +65,6 @@
     <ClInclude Include="..\..\..\..\headers\QBaseSphere.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\QBaseStraightLine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QBaseBox.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -84,6 +81,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QBaseRay.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QBaseLineSegment.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
