@@ -87,7 +87,7 @@ public:
 	/// Constructor that receives a pointer to 12 floating point values.
 	/// </summary>
 	/// <remarks>
-	/// Keeps the convention rows x columns, so each chunck of 3 elements consecutive 
+	/// Keeps the convention rows x columns, so each chunck of 3 consecutive elements 
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
 	/// <param name="pfMatrix">[IN] Pointer to a 12 length array of floating point values.</param>
