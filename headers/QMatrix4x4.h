@@ -110,7 +110,7 @@ public:
 	/// Constructor that receives a pointer to 16 floating point values.
 	/// </summary>
 	/// <remarks>
-	/// Keeps the convention rows x columns, so each chunck of 4 elements consecutive 
+	/// Keeps the convention rows x columns, so each chunck of 4 consecutive elements 
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
 	/// <param name="pfMatrix">[IN] Pointer to a 16 length array of floating point values.</param>
@@ -141,7 +141,8 @@ public:
 
 	/// <summary>
 	/// Multiplies a QMatrix4x4 by the current matrix.
-	/// Product: a matrix m x n can only be multiplied by a matrix n x p, being the resultant matrix m x p. 
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// So, left matrix must have same number of columns than rows have right matrix.
 	/// The product is not conmutative. To perform a product of matrices, each element is calculated as 
 	/// (being A(m x n), B(n x p), C (m x p) ):
 	/// 
@@ -367,8 +368,8 @@ public:
 	}
 
 	/// <summary>
-	/// Transpose: the transpose of a matrix m x n is a matrix n x m where each row becomes a column
-	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T
+	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
+	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T.
  	/// </summary>
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -377,12 +378,12 @@ public:
 
 	/// <summary>
 	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T
+	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T.
 	/// </summary>
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
-	/// <param name="m">[OUT] Stores the resultant trasposed matrix.</param>
+	/// <param name="m">[OUT] Stores the resultant transposed matrix.</param>
 	inline void Transpose(QBaseMatrix4x4 &m) const
 	{
 		m.ij[0][0] = this->ij[0][0];
@@ -457,26 +458,26 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates de determinant of the matrix.
-	/// It's only applicable to square matrices. A determinant is a real number obtained 
-	/// trough the addition of all possible products between elements of different 
-	/// row and column, where the sign of a product derives from de parity of the permutation involved.
-	/// In practice, we can calculate any determinant this way:
-	/// 
-	/// Order 1: |A| = a00
-	///  				
-	/// Order 2: |A| =	a00*a11 - a01*a10
-	/// 
-	/// Order 3: |A| = a00*a11*a22 + a01*a12*a20 + a02*a10*a21 - (a02*a11*a20 + a00*a12*a21 + a01*a10*a22)
-	/// 
-	/// Any other order can be solved developing determinant by a row or a column, reducing 
-	/// the problem to other of one order less. 
-	/// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
-	/// 
-	/// Cij = (-1)^(i+j) * |Mij|, 
-	///
-	/// where Mij is the submatrix obtained by deleting from the original matrix the i row and the j column. 
-	/// After that, we add all products to obtain the final value of the determinant.
+    /// Calculates the determinant of the matrix.
+    /// It's only applicable to square matrices. A determinant is a real number obtained 
+    /// through the addition of all possible products between elements of different 
+    /// row and column, where the sign of a product derives from the parity of the permutation involved.
+    /// In practice, we can calculate any determinant this way:
+    /// 
+    /// Order 1: |A| = a00
+    ///                  
+    /// Order 2: |A| = a00*a11 - a01*a10
+    /// 
+    /// Order 3: |A| = a00*a11*a22 + a01*a12*a20 + a02*a10*a21 - (a02*a11*a20 + a00*a12*a21 + a01*a10*a22)
+    /// 
+    /// Any other order can be solved developing determinant by a row or a column, reducing 
+    /// the problem to other of one order less. 
+    /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
+    /// 
+    /// Cij = (-1)^(i+j) * |Mij|, 
+    ///
+    /// where Mij is the submatrix obtained by deleting from the original matrix the i row and the j column. 
+    /// After that, we add all products to obtain the final value of the determinant.
 	/// </summary>
 	/// <returns>
 	/// Floating point value which is the result of the determinant.
@@ -561,7 +562,7 @@ public:
 public:
 
 	/// <summary>
-	/// Stores a matrix with all components setted to 0.
+	/// Stores a matrix with all components set to 0.
 	/// </summary>
 	static const QMatrix4x4 ZeroMatrix;
 	/// <summary>
