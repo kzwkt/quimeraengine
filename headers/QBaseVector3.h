@@ -22,7 +22,9 @@ namespace Math
 /// </summary>
 class QDllExport QBaseVector3
 {
-
+	
+    // CONSTRUCTORS
+	// ---------------
 public:
 
 	/// <summary>

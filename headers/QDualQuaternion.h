@@ -46,6 +46,7 @@ public:
     // CONSTANTS
     // ---------------
 public:
+
     /// <summary>
     /// Represents the identity dual quaternion. It's (0,0,0,1) (0,0,0,0).
     /// </summary>
@@ -272,7 +273,7 @@ public:
     inline QDualQuaternion& operator/=(const float_q fValue)
     {
         // Checkout to avoid division by zero.
-        QE_ASSERT(fValue);
+        QE_ASSERT(fValue != QFloat::_0);
 
         this->r /= fValue;
         this->d /= fValue;
@@ -455,7 +456,7 @@ public:
 
         float_q fLength = this->GetNonDualLength();
         
-        QE_ASSERT(fLength);
+        QE_ASSERT(fLength != QFloat::_0);
         
         *this /= fLength;
     }
@@ -488,13 +489,13 @@ public:
 
         float_q fLength = static_cast<QDualQuaternion>(dqOut).GetNonDualLength();
 
-        QE_ASSERT(fLength);
+        QE_ASSERT(fLength != QFloat::_0);
 
         dqOut.r /= fLength;
         dqOut.d /= fLength;
     }
 
-     /// <summary>
+    /// <summary>
     /// Converts dual quaternion into a string with the following format:
     /// "DQ(rX, rY, rZ, rW)(dX, dY, dZ, dW)".
     /// </summary>

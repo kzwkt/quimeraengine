@@ -48,6 +48,26 @@ public:
 	/// </returns>
 	friend QMatrix4x4 operator*(const float_q &fScalar, const QBaseMatrix4x4 &m);
 
+	// CONSTANTS
+	// ---------------
+public:
+
+	/// <summary>
+	/// Stores a matrix with all components set to 0.
+	/// </summary>
+	static const QMatrix4x4 ZeroMatrix;
+	/// <summary>
+	/// Stores an identity matrix.
+	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+	/// 
+	/// 	 _		 _
+	/// 	| 1 0 0 0 |
+	/// 	| 0 1 0 0 |
+	/// A = | 0 0 1 0 |
+	/// 	|_0 0 0 1_|
+	/// </summary>
+	static const QMatrix4x4 Identity;
+
  	// CONSTRUCTORS
 	// ---------------
 public:
@@ -556,27 +576,6 @@ public:
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>
 	string_q ToString() const;
-	
-	// ATTRIBUTES
-	// ---------------
-public:
-
-	/// <summary>
-	/// Stores a matrix with all components set to 0.
-	/// </summary>
-	static const QMatrix4x4 ZeroMatrix;
-	/// <summary>
-	/// Stores an identity matrix.
-	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-	/// 
-	/// 	 _		 _
-	/// 	| 1 0 0 0 |
-	/// 	| 0 1 0 0 |
-	/// A = | 0 0 1 0 |
-	/// 	|_0 0 0 1_|
-	/// </summary>
-	static const QMatrix4x4 Identity;
-
 };
 
 } //namespace Math

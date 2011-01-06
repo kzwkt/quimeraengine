@@ -102,7 +102,7 @@ QMatrix2x2 QMatrix2x2::operator*(const QBaseMatrix2x2 &m) const
 QMatrix2x2 QMatrix2x2::operator/(const float_q &fScalar) const
 {
         
-    QE_ASSERT(fScalar);
+    QE_ASSERT(fScalar != QFloat::_0);
 
     QMatrix2x2 aux;
         

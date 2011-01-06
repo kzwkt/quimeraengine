@@ -78,7 +78,6 @@ public:
 	// ---------------
 public:
 
-
 	/// <summary>
 	/// X coefficient of the plane equation.
 	/// </summary>
@@ -98,7 +97,6 @@ public:
 	/// Independent term of the plane equation.
 	/// </summary>
 	float_q d;
-
 };
 
 } //namespace Math

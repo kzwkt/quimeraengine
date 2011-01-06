@@ -110,12 +110,12 @@ QDualQuaternion QDualQuaternion::operator * (const QBaseVector4 &v) const
 
 QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar);
+    QE_ASSERT(fScalar != QFloat::_0);
 
     return QDualQuaternion(QBaseQuaternion(this->r / fScalar), QBaseQuaternion(this->d / fScalar));
 }
 
-void QDualQuaternion::Transform(QBaseDualQuaternion &dqTransf)
+void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf)
 {
     QDualQuaternion dqConj(dqTransf);
 
@@ -123,7 +123,7 @@ void QDualQuaternion::Transform(QBaseDualQuaternion &dqTransf)
     *this = ( static_cast<QDualQuaternion>(dqTransf) * (*this) ) * dqConj;
 }
 
-void QDualQuaternion::Transform(QBaseDualQuaternion &dqTransf, QBaseDualQuaternion &dqOut) const
+void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf, QBaseDualQuaternion &dqOut) const
 {
     QDualQuaternion dqConj(dqTransf);
 

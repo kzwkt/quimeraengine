@@ -33,6 +33,7 @@ class QDllExport QQuaternion : public QBaseQuaternion
 {
     // FRIENDS
     // ---------------
+public:
 
     // [REVIEW] Thund: Does Doxygen catch this documentation for global functions?
     /// <summary>
@@ -45,16 +46,14 @@ class QDllExport QQuaternion : public QBaseQuaternion
     /// </returns>
     friend QQuaternion operator*(const float_q &fScalar, const QQuaternion &qQuat);
 
-public:
-
     // CONSTANTS
     // ---------------
+public:
 
     /// <summary>
     /// Represents the identity quaternion.
     /// </summary>
     static const QQuaternion Identity;
-
 
 	// CONSTRUCTORS
 	// ---------------
@@ -102,7 +101,6 @@ public:
     /// </summary>
     /// <param name="packagedValues">[IN] A four 32 bits floating point types pack.</param>
     inline explicit QQuaternion(const vf32_q &packagedValues) : QBaseQuaternion(packagedValues) {};
-
 
 	// METHODS
 	// ---------------
@@ -280,7 +278,7 @@ public:
     /// </returns>
     inline QQuaternion& operator/=(const float_q &fScalar)
     {
-        QE_ASSERT(fScalar);
+        QE_ASSERT(fScalar != QFloat::_0);
 
         this->x /= fScalar;
         this->y /= fScalar;
@@ -328,7 +326,7 @@ public:
     {
         float_q fLength = this->GetLength();
 
-        QE_ASSERT(fLength);
+        QE_ASSERT(fLength != QFloat::_0);
 
         this->x /= fLength;
         this->y /= fLength;
@@ -345,7 +343,7 @@ public:
     {
         float_q fLength = this->GetLength();
 
-        QE_ASSERT(fLength);
+        QE_ASSERT(fLength != QFloat::_0);
 
         qQuat.x /= fLength;
         qQuat.y /= fLength;
@@ -367,7 +365,7 @@ public:
         // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
         float_q fSquaredLength = this->GetSquaredLength();
 
-        QE_ASSERT(fSquaredLength);
+        QE_ASSERT(fSquaredLength != QFloat::_0);
 
         this->x = -this->x / fSquaredLength;
         this->y = -this->y / fSquaredLength;
@@ -390,7 +388,7 @@ public:
         // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
         float_q fSquaredLength = this->GetSquaredLength();
 
-        QE_ASSERT(fSquaredLength);
+        QE_ASSERT(fSquaredLength != QFloat::_0);
 
         qQuat.x = -this->x / fSquaredLength;
         qQuat.y = -this->y / fSquaredLength;
@@ -566,7 +564,7 @@ public:
         if(fNorthAndSouthPoleCheckValue == QFloat::_0_5) // North pole
         {
             // The atan2 result is undefined when both parameters are equal to zero
-            QE_ASSERT(this->x || this->w);
+            QE_ASSERT(this->x != QFloat::_0 || this->w != QFloat::_0);
 
             fAngleX = QFloat::_2 * atan2(this->x, this->w);
             fAngleZ = QFloat::_0;
@@ -574,7 +572,7 @@ public:
         else if(fNorthAndSouthPoleCheckValue == -QFloat::_0_5) // South pole
         {
             // The atan2 result is undefined when both parameters are equal to zero
-            QE_ASSERT(this->x || this->w);
+            QE_ASSERT(this->x != QFloat::_0 || this->w != QFloat::_0);
 
             fAngleX = -QFloat::_2 * atan2(this->x, this->w);
             fAngleZ = QFloat::_0;
@@ -585,7 +583,7 @@ public:
             float_q fSecondParameter = QFloat::_1 - QFloat::_2 * this->y * this->y - QFloat::_2 * this->z * this->z;
 
             // The atan2 result is undefined when both parameters are equal to zero
-            QE_ASSERT(fFirstParameter || fSecondParameter);
+            QE_ASSERT(fFirstParameter != QFloat::_0 || fSecondParameter != QFloat::_0);
 
             fAngleX = atan2(fFirstParameter, fSecondParameter);
 
@@ -593,7 +591,7 @@ public:
             fSecondParameter = QFloat::_1 - QFloat::_2 * this->x * this->x - QFloat::_2 * this->z * this->z;
 
             // The atan2 result is undefined when both parameters are equal to zero
-            QE_ASSERT(fFirstParameter || fSecondParameter);
+            QE_ASSERT(fFirstParameter != QFloat::_0 || fSecondParameter != QFloat::_0);
 
             fAngleZ = atan2(fFirstParameter, fSecondParameter);
         }
@@ -645,7 +643,6 @@ public:
     }
 
 };
-
 
 } //namespace Math
 } //namespace Tools

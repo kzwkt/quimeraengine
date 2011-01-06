@@ -69,7 +69,7 @@ QVector3 QVector3::operator * (const QBaseMatrix3x3 &m) const
 QVector3 QVector3::operator / (const float_q &fValue) const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT (fValue);
+    QE_ASSERT (fValue != QFloat::_0);
 
     return QVector3(this->x/fValue, this->y/fValue, this->z/fValue);
 }
@@ -77,7 +77,7 @@ QVector3 QVector3::operator / (const float_q &fValue) const
 QVector3 QVector3::operator / (const QBaseVector3 &v) const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT (v.x && v.y && v.z);
+    QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0 && v.z != QFloat::_0);
 
     return QVector3(this->x/v.x, this->y/v.y, this->z/v.z);
 }

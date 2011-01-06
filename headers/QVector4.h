@@ -24,6 +24,21 @@ namespace Math
 /// </summary>
 class QDllExport QVector4 : public QBaseVector4
 {
+    // FRIENDS
+    // ---------------   
+public:
+
+    /// <summary>
+    /// Product by a scalar: all components are multiplied by the floating point value provided.
+    /// Shortcut to multiply on the left.
+    /// </summary>
+    /// <param name="fValue">[IN] Multiplying floating point value.</param>
+    /// <param name="v">[IN] Vector to be multiplied.</param>
+    /// <returns>
+    /// A vector that is the result of the product.
+    /// </returns>
+    friend QVector4 operator * (const float_q &fValue, const QBaseVector4 &v);
+
     // CONSTANTS
     // ---------------
 public:
@@ -60,21 +75,6 @@ public:
     /// Stores a unit vector in Z negative direction
     /// </summary>
     static const QVector4 UnitVectorInvZ;
-
-    // FRIENDS
-    // ---------------   
-public:
-
-    /// <summary>
-    /// Product by a scalar: all components are multiplied by the floating point value provided.
-    /// Shortcut to multiply on the left.
-    /// </summary>
-    /// <param name="fValue">[IN] Multiplying floating point value.</param>
-    /// <param name="v">[IN] Vector to be multiplied.</param>
-    /// <returns>
-    /// A vector that is the result of the product.
-    /// </returns>
-    friend QVector4 operator * (const float_q &fValue, const QBaseVector4 &v);
 
     // CONSTRUCTORS
     // ---------------   
@@ -292,7 +292,7 @@ public:
     inline QVector4& operator /= (const float_q &fValue) 
     { 
         // Checkout to avoid division by 0
-        QE_ASSERT(QFloat::IsNotZero(fValue));
+        QE_ASSERT(fValue != QFloat::_0);
 
         this->x /= fValue; 
         this->y /= fValue; 
@@ -312,8 +312,8 @@ public:
     inline QVector4& operator /= (const QBaseVector4 &v)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT (QFloat::IsNotZero(v.x) && QFloat::IsNotZero(v.y) &&
-            QFloat::IsNotZero(v.z) && QFloat::IsNotZero(v.w));
+        QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0 &&
+            v.z != QFloat::_0 && v.w != QFloat::_0);
 
         this->x /= v.x; 
         this->y /= v.y; 
@@ -347,7 +347,7 @@ public:
         float_q fLength = this->GetLength(); 
 
         // Checkout to avoid division by 0
-        QE_ASSERT(QFloat::IsNotZero(fLength));
+        QE_ASSERT(fLength != QFloat::_0);
 
         //Normalize
         this->x /= fLength; 

@@ -15,7 +15,7 @@ namespace Math
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
-//##################		    |  ATTRIBUTES INITIALIZATION |			   ##################
+//##################		    |  CONSTANTS INITIALIZATION  |			   ##################
 //##################		   /|							 |\			   ##################
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
@@ -99,7 +99,8 @@ QQuaternion QQuaternion::operator*(const float_q &fScalar) const
 
 QQuaternion QQuaternion::operator/(const QQuaternion &qQuat) const
 {
-    QE_ASSERT(qQuat.x && qQuat.y && qQuat.z && qQuat.w);
+    QE_ASSERT(qQuat.x != QFloat::_0 && qQuat.y != QFloat::_0 && 
+        qQuat.z != QFloat::_0 && qQuat.w != QFloat::_0);
 
     return QQuaternion(this->x / qQuat.x,
                        this->y / qQuat.y,
@@ -109,7 +110,7 @@ QQuaternion QQuaternion::operator/(const QQuaternion &qQuat) const
 
 QQuaternion QQuaternion::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar);
+    QE_ASSERT(fScalar != QFloat::_0);
 
     return QQuaternion( this->x / fScalar, 
                         this->y / fScalar, 
@@ -130,7 +131,7 @@ void QQuaternion::Lerp(const QQuaternion &qQuat, const float_q &fProportion)
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor);
+    QE_ASSERT(fDivisor != QFloat::_0);
 
     *this = qAuxSum;
     *this /= fDivisor;
@@ -144,7 +145,7 @@ void QQuaternion::Lerp(const QQuaternion &qQuat, const float_q &fProportion, QQu
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor);
+    QE_ASSERT(fDivisor != QFloat::_0);
 
     qOutQuat = qAuxSum;
     qOutQuat /= fDivisor;
@@ -164,7 +165,7 @@ void QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProportion)
         
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
     // [TODO] Thund: Should we return a null quaternion instead of let the application crash? In other words, "show must go on"?
-    QE_ASSERT( QFloat::IsNotZero(fAngleB) && QFloat::AreNotEquals(fAngleB, PI_Q) );
+    QE_ASSERT( fAngleB != QFloat::_0 && QFloat::AreNotEquals(fAngleB, PI_Q) );
 
     float_q fWeight1 = sin((QFloat::_1 - fProportion) * fAngleB) / sin(fAngleB);
     float_q fWeight2 = sin(fProportion * fAngleB) / sin(fAngleB);
@@ -175,7 +176,7 @@ void QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProportion)
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor);
+    QE_ASSERT(fDivisor != QFloat::_0);
 
     *this = qAuxSum;
     *this /= fDivisor;
@@ -195,7 +196,7 @@ void QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProportion, QQ
         
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
     // [TODO] Thund: Should we return a null quaternion instead of let the application crash? In other words, "show must go on"?
-    QE_ASSERT( QFloat::IsNotZero(fAngleB) && QFloat::AreNotEquals(fAngleB, PI_Q) );
+    QE_ASSERT( fAngleB != QFloat::_0 && QFloat::AreNotEquals(fAngleB, PI_Q) );
 
     float_q fWeight1 = sin((QFloat::_1 - fProportion) * fAngleB) / sin(fAngleB);
     float_q fWeight2 = sin(fProportion * fAngleB) / sin(fAngleB);
@@ -206,7 +207,7 @@ void QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProportion, QQ
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor);
+    QE_ASSERT(fDivisor != QFloat::_0);
 
     qOutQuat = qAuxSum;
     qOutQuat /= fDivisor;
@@ -216,7 +217,6 @@ string_q QQuaternion::ToString() const
 {
     return QE_L("Q(") + QFloat::ToString(this->x) + QE_L(", ") + QFloat::ToString(this->y) + QE_L(", ") + QFloat::ToString(this->z) + QE_L(", ") + QFloat::ToString(this->w) + QE_L(")");
 }
-
 
 } //namespace Math
 } //namespace Tools
