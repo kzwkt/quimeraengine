@@ -47,7 +47,7 @@ QPlane operator * (const float_q &fValue, const QBasePlane &p)
 
 QPlane QPlane::operator / (const float_q &fValue) const
 {
-    QE_ASSERT(fValue != QFloat::_0));
+    QE_ASSERT(fValue != QFloat::_0);
 
     return QPlane(this->a / fValue, this->b / fValue, this->c / fValue, this->d / fValue);
 }
