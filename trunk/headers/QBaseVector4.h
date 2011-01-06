@@ -96,8 +96,6 @@ public:
 	/// Vector's w coordinate.
 	/// </summary>
 	float_q w;
-
-	
 };
 
 } //namespace Math

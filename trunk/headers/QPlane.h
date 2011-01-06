@@ -39,6 +39,29 @@ public:
     /// </returns>
     friend QPlane operator * (const float_q &fValue, const QBasePlane &p);
 
+	// CONSTANTS
+	// ---------------
+public:
+    /// <summary>
+    /// Stores a plane with all components set to 0.
+    /// </summary>
+    static const QPlane ZeroPlane;
+
+    /// <summary>
+    /// Stores plane y = 0. This plane contains the Z and X axis, and its normal is in the Y axis.
+    /// </summary>
+    static const QPlane PlaneZX;
+
+    /// <summary>
+    /// Stores plane z = 0. This plane contains the X and Y axis, and its normal is in the Z axis.
+    /// </summary>
+    static const QPlane PlaneXY;
+
+    /// <summary>
+    /// Stores plane x = 0. This plane contains the Y and Z axis, and its normal is in the X axis.
+    /// </summary>
+    static const QPlane PlaneYZ;
+
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -138,7 +161,7 @@ public:
     inline QPlane& operator /= (const float_q &fValue) 
     { 
         // Checkout to avoid division by 0
-        QE_ASSERT(fValue);
+        QE_ASSERT(fValue != QFloat::_0);
 
         this->a /= fValue; 
         this->b /= fValue; 
@@ -206,7 +229,7 @@ public:
         float_q fDivisor = sqrt(this->a * this->a + this->b * this->b + this->c * this->c);
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fDivisor);
+        QE_ASSERT(fDivisor != QFloat::_0);
 
         fDivisor = QFloat::_1 / fDivisor;
 
@@ -234,29 +257,6 @@ public:
         return QE_L("PL(") + QFloat::ToString(this->a) + QE_L(", ") + QFloat::ToString(this->b) + 
                QE_L(", ")  + QFloat::ToString(this->c) + QE_L(", ") + QFloat::ToString(this->d) + QE_L(")");
     }
-
-	// ATTRIBUTES
-	// ---------------
-public:
-    /// <summary>
-    /// Stores a plane with all components set to 0.
-    /// </summary>
-    static const QPlane ZeroPlane;
-
-    /// <summary>
-    /// Stores plane y = 0. This plane contains the Z and X axis, and its normal is in the Y axis.
-    /// </summary>
-    static const QPlane PlaneZX;
-
-    /// <summary>
-    /// Stores plane z = 0. This plane contains the X and Y axis, and its normal is in the Z axis.
-    /// </summary>
-    static const QPlane PlaneXY;
-
-    /// <summary>
-    /// Stores plane x = 0. This plane contains the Y and Z axis, and its normal is in the X axis.
-    /// </summary>
-    static const QPlane PlaneYZ;
 };
 
 } //namespace Math

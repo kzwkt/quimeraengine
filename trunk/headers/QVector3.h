@@ -304,7 +304,7 @@ public:
     inline QVector3& operator /= (const float_q &fValue) 
     { 
         // Checkout to avoid division by 0
-        QE_ASSERT(fValue);
+        QE_ASSERT(fValue != QFloat::_0);
 
         this->x /= fValue; 
         this->y /= fValue; 
@@ -323,7 +323,7 @@ public:
     inline QVector3& operator /= (const QBaseVector3 &v)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT (v.x && v.y && v.z);
+        QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0 && v.z != QFloat::_0);
 
         this->x /= v.x; 
         this->y /= v.y; 
@@ -375,7 +375,7 @@ public:
         float_q fLength = this->GetLength(); 
 
         // Checkout to avoid division by 0
-        QE_ASSERT(fLength);
+        QE_ASSERT(fLength != QFloat::_0);
 
         //Normalize
         this->x /= fLength; 
@@ -479,7 +479,7 @@ public:
         float_q fLength = this->GetLength() * v.GetLength();
         
         // Checkout to avoid division by zero.
-        QE_ASSERT(fLength);
+        QE_ASSERT(fLength != QFloat::_0);
 
         float_q fDot = this->DotProduct(v)/fLength;
 

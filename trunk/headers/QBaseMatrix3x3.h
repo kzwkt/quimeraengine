@@ -22,7 +22,7 @@ namespace Math
 /// </summary>
 class QDllExport QBaseMatrix3x3
 {
-	// ATTRIBUTES
+	// CONSTRUCTORS
 	// ---------------
 public:
 
@@ -114,6 +114,10 @@ public:
 		QVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], aux);
 		QVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], aux);
 	}
+
+    // ATTRIBUTES
+    // ---------------
+public:
 
 	/// <summary>
 	/// Array that holds the matrix.

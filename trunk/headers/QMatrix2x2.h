@@ -36,6 +36,7 @@ class QDllExport QMatrix2x2 : public QBaseMatrix2x2
     // FRIENDS
     // ---------------
 public:
+
     /// <summary>
     /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
     /// </summary>
@@ -45,6 +46,26 @@ public:
     /// The resultant matrix.
     /// </returns>
     friend QMatrix2x2 operator*(const float_q &fScalar, const QBaseMatrix2x2 &m);
+
+    // CONSTANTS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Stores a matrix with all components set to 0.
+    /// </summary>
+    static const QMatrix2x2 ZeroMatrix;
+
+    /// <summary>
+    /// Stores an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    /// 
+    ///      _   _
+    ///     | 1 0 |
+    /// A = |_0 1_|
+    ///
+    /// </summary>
+    static const QMatrix2x2 Identity;
 
     // CONSTRUCTORS
     // ---------------
@@ -407,28 +428,7 @@ public:
                                QFloat::ToString(this->ij[0][1]) + QE_L(")(") +
                                QFloat::ToString(this->ij[1][0]) + QE_L(",") +
                                QFloat::ToString(this->ij[1][1]) + QE_L(")");  
-    }
-    
-    // ATTRIBUTES
-    // ---------------
-public:
-
-    /// <summary>
-    /// Stores a matrix with all components set to 0.
-    /// </summary>
-    static const QMatrix2x2 ZeroMatrix;
-
-    /// <summary>
-    /// Stores an identity matrix.
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    /// 
-    ///      _   _
-    ///     | 1 0 |
-    /// A = |_0 1_|
-    ///
-    /// </summary>
-    static const QMatrix2x2 Identity;
-
+    }   
 };
 
 } //namespace Math

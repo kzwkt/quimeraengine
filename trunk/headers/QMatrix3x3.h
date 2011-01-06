@@ -46,6 +46,26 @@ public:
     /// </returns>
     friend QMatrix3x3 operator*(const float_q &fScalar, const QBaseMatrix3x3 &m);
 
+    // CONSTANTS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Stores a matrix with all components set to 0.
+    /// </summary>
+    static const QMatrix3x3 ZeroMatrix;
+    /// <summary>
+    /// Stores an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    /// 
+    ///      _     _
+    ///     | 1 0 0 |
+    /// A = | 0 1 0 |
+    ///     |_0 0 1_|
+    ///
+    /// </summary>
+    static const QMatrix3x3 Identity;
+
     // CONSTRUCTORS
     // ---------------
 public:
@@ -478,27 +498,6 @@ public:
                                QFloat::ToString(this->ij[2][1]) + QE_L(",") +
                                QFloat::ToString(this->ij[2][2]) + QE_L(")");  
     }
-    
-    // ATTRIBUTES
-    // ---------------
-public:
-
-    /// <summary>
-    /// Stores a matrix with all components set to 0.
-    /// </summary>
-    static const QMatrix3x3 ZeroMatrix;
-    /// <summary>
-    /// Stores an identity matrix.
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    /// 
-    ///      _     _
-    ///     | 1 0 0 |
-    /// A = | 0 1 0 |
-    ///     |_0 0 1_|
-    ///
-    /// </summary>
-    static const QMatrix3x3 Identity;
-
 };
 
 } //namespace Math
