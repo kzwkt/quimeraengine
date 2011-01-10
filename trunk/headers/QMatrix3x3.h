@@ -479,7 +479,7 @@ public:
     /// <returns>
     /// True if the matrix is invertible, false otherwise.
     /// </returns>
-    bool Reverse(QMatrix3x3 &m) const;
+    bool Reverse(QBaseMatrix3x3 &m) const;
     
     /// <summary>
     /// Converts matrix into a string with the following format:

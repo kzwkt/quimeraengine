@@ -39,7 +39,7 @@ QMatrix2x2::QMatrix2x2(const float_q &fAngle)
     
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q &fAngleRad = DegreesToRadians(fAngle, fAngleRad);
+        float_q &fAngleRad = QAngle::DegreesToRadians(fAngle, fAngleRad);
 
         const float_q& A   = cos(fAngleRad);
         const float_q& B   = sin(fAngleRad);

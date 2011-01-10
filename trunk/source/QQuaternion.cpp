@@ -38,9 +38,9 @@ QQuaternion::QQuaternion(const float_q &fAngleX, const float_q &fAngleY, const f
     // Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q fHalfAngleXRad = DegreesToRadians(fAngleX, fHalfAngleXRad) * QFloat::_0_5;
-        float_q fHalfAngleYRad = DegreesToRadians(fAngleY, fHalfAngleYRad) * QFloat::_0_5;
-        float_q fHalfAngleZRad = DegreesToRadians(fAngleZ, fHalfAngleZRad) * QFloat::_0_5;
+        float_q fHalfAngleXRad = QAngle::DegreesToRadians(fAngleX, fHalfAngleXRad) * QFloat::_0_5;
+        float_q fHalfAngleYRad = QAngle::DegreesToRadians(fAngleY, fHalfAngleYRad) * QFloat::_0_5;
+        float_q fHalfAngleZRad = QAngle::DegreesToRadians(fAngleZ, fHalfAngleZRad) * QFloat::_0_5;
     #else
         const float_q& fHalfAngleXRad = fAngleX * QFloat::_0_5;
         const float_q& fHalfAngleYRad = fAngleY * QFloat::_0_5;
