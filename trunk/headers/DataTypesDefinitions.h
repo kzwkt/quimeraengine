@@ -21,48 +21,96 @@ namespace Tools
 {
 namespace DataTypes
 {
-    
+        
+// --------------------------------------------------------------------------------------------------------
+// Basic types: Defines all basic types used by some engine components, whose size is assured to be 
+// always the same.
+// --------------------------------------------------------------------------------------------------------
+
+#if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
+    #ifdef QE_COMPILER_MSVC
+        typedef unsigned char       u8_q;   // Unsigned 8-bits integer
+        typedef char                i8_q;   // Signed 8-bits integer
+        typedef short unsigned int  u16_q;  // Unsigned 16-bits integer
+        typedef short int           i16_q;  // Signed 16-bits integer
+        typedef unsigned int        u32_q;  // Unsigned 32-bits integer
+        typedef int                 i32_q;  // Signed 32-bits integer
+        typedef long long           i64_q;  // Signed 64-bits integer
+        typedef float               f32_q;  // 32-bits floating point number
+        typedef double              f64_q;  // 64-bits floating point number
+        typedef __m128              vf32_q; // 4 x 32-bits packed floating point numbers
+        // Note: There is no integer or float whose size is greater than 64 bits on Windows 32 bits
+    #else
+        // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
+        struct vf32_q
+        {
+            f32_q x;
+            f32_q y;
+            f32_q z;
+            f32_q w;
+        };
+    #endif
+#else
+    // [TODO] Thund: Test the system in another platform and write the basic types for that machine
+    // Win64, Linux 32, Mac OS 32
+#endif
+
 
 // --------------------------------------------------------------------------------------------------------
 // Float type: Defines which floating point type will be used by the whole engine, according to the
 // configured precission.
 // --------------------------------------------------------------------------------------------------------
+
 #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
-    typedef float float_q;
+    typedef f32_q float_q;
 #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
-    typedef double float_q;
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
-    typedef long double float_q;
+    typedef f64_q float_q;
 #else
-    typedef float float_q;
+    typedef f32_q float_q;
 #endif
 
-
 // --------------------------------------------------------------------------------------------------------
-// Basic types: Defines all basic types used by some engine components, whose size is assured to be 
-// always the same.
+// Float type size: Defines the floating point type size (in bytes), depending on the configured precission. 
+// The size depens on the operative system / compiler too.
 // --------------------------------------------------------------------------------------------------------
-// [TODO] Thund: Do these types' size depends on the compiler?
-typedef unsigned char       u8_q;   // Unsigned 8-bits integer
-typedef char                i8_q;   // Signed 8-bits integer
-typedef short unsigned int  u16_q;  // Unsigned 16-bits integer
-typedef short int           i16_q;  // Signed 16-bits integer
-typedef unsigned int        u32_q;  // Unsigned 32-bits integer
-typedef int                 i32_q;  // Signed 32-bits integer
-typedef float               f32_q;  // 32-bits floating point number
-
-#ifdef QE_COMPILER_MSVC
-    typedef __m128          vf32_q; // 4 x 32-bits packed floating point numbers
+#if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
+    #ifdef QE_COMPILER_MSVC
+        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+            #define QE_FLOAT_SIZE 4
+        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+            #define QE_FLOAT_SIZE 8
+        #else
+            #define QE_FLOAT_SIZE 4
+        #endif
+    #else
+        // [TODO] Thund: Test the system in another compiler and write the type sizes in that compiler
+    #endif
 #else
-    class vf32_q
-    {
-        f32_q x;
-        f32_q y;
-        f32_q z;
-        f32_q w;
-    };
+    // [TODO] Thund: Test the system in another platform and write the type sizes in that machine
+    // Win64, Linux 32, Mac OS 32
 #endif
-        
+
+// --------------------------------------------------------------------------------------------------------
+// Integer/Float type sizes equivalence: Defines the integer type whose size equals to the selected floating 
+// point type size.
+// --------------------------------------------------------------------------------------------------------
+#if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
+    #ifdef QE_COMPILER_MSVC
+        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+            typedef i32_q int_for_float_q;
+        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+            typedef i64_q int_for_float_q;
+        #else
+            typedef i32_q int_for_float_q;
+        #endif
+    #else
+        // [TODO] Thund: Test the system in another compiler and write the type sizes in that compiler
+    #endif
+#else
+    // [TODO] Thund: Test the system in another platform and write the type sizes in that machine
+    // Win64, Linux 32, Mac OS 32
+#endif
+    
 
 // --------------------------------------------------------------------------------------------------------
 // 4-components vector mapping to 4x32 floats pack: Defines all basic types used by some engine components, 

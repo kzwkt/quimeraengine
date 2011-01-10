@@ -194,34 +194,36 @@ public:
     /// </returns>
     inline static float_q CountRevolutions(const float_q &fAngle)
     {
-        const float_q CompleteRevolutionConst = 
+        const float_q COMPLETE_REVOLUTION = 
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
                 QAngle::_2Pi;
             #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
                 QAngle::_360;
             #endif
 
-        return fAngle / CompleteRevolutionConst;
+        return fAngle / COMPLETE_REVOLUTION;
     }
 
     /// <summary>
     /// Counts how many revolutions are represented by an angle, ignoring fractions.
     /// </summary>
-    /// <param name="fAngle">The angle value.</param>
+    /// <param name="fAngle">[IN] The angle value.</param>
     /// <returns>
     /// The number of revolutions (only complete).
     /// </returns>
     inline static float_q CountCompleteRevolutions(const float_q &fAngle)
     {
-        const float_q CompleteRevolutionConst = 
+        const float_q COMPLETE_REVOLUTION = 
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
                 QAngle::_2Pi;
             #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
                 QAngle::_360;
             #endif
-        // [HACK] Thund: Check if this returns what it should.
-        // [TODO] Thund: Boost has functions for truncation
-        return static_cast<long long>(fAngle / CompleteRevolutionConst);
+
+        float_q outValue = fAngle / COMPLETE_REVOLUTION;
+        QFloat::Truncate(outValue);
+
+        return outValue;
     }
 };
 

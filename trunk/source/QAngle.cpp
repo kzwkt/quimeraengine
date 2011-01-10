@@ -40,8 +40,7 @@ namespace Math
     const float_q QAngle::DegreesPerRadian  = 180.0f / PI_Q;
     const float_q QAngle::RadiansPerDegree  = PI_Q / 180.0f;
 
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE ||
-      QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
 
     const float_q QAngle::_15           = 15.0;
     const float_q QAngle::_30           = 30.0;
