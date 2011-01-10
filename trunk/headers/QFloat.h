@@ -19,7 +19,7 @@ namespace DataTypes
 {
 
 /// <summary>
-/// Helper class that offers functionality related to floating point types.
+/// Helper class that offers functionality related to floating point (IEEE 754) types.
 /// Use these constants and static methods extensively in your code, as far as you can.
 /// </summary>
 class QDllExport QFloat
@@ -115,9 +115,7 @@ public:
 	// ---------------
 private:
 
-	/// <summary>
-	/// Default constructor (hidden).
-	/// </summary>
+	// Default constructor (hidden).
     QFloat();
 
 
@@ -337,13 +335,14 @@ public:
     /// <param name="fSwappedValue">[OUT] The transformed value.</param>
     inline static void SwapEndianess(const float_q &fValue, float_q &fSwappedValue)
     {
+        const unsigned int FLOAT_SIZE = sizeof(float_q);
 
         // Ambiguous type to treat the same bit strip as byte array and floating point types
         // Note: The type change is not immediate, it has memory reading/writing cost
         union FloatOrBytesUnion
         {
             float_q _float;
-            u8_q    _bytes[QE_FLOAT_SIZE];
+            u8_q    _bytes[FLOAT_SIZE];
         };
 
         FloatOrBytesUnion srcValue;
@@ -351,8 +350,8 @@ public:
 
         FloatOrBytesUnion swappedValue;
 
-        // Float bytes are copied in inverse order to the output float
-        for(unsigned int i = 0, j = QE_FLOAT_SIZE - 1; i < QE_FLOAT_SIZE; ++i, --j)
+        // Float's bytes are copied in inverse order to the output float
+        for(unsigned int i = 0, j = FLOAT_SIZE - 1; i < FLOAT_SIZE; ++i, --j)
             swappedValue._bytes[i] = srcValue._bytes[j];
 
         fSwappedValue = swappedValue._float;

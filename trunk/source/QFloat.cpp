@@ -95,8 +95,7 @@ namespace DataTypes
 
 string_q QFloat::ToString(const float_q &fValue)
 {
-    string_q strOut;
-    boost::lexical_cast<string_q>(fValue);
+    string_q strOut = boost::lexical_cast<string_q>(fValue);
 	return strOut;
 }
 
