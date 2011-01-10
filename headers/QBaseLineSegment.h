@@ -18,7 +18,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a segment of straight line in the space, defined by the poins at both ends. 
+/// Class which represents a segment of straight line in the space, defined by the points at both ends. 
 /// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter, 
 /// which may be 2D vector, 3D vector or 4D vector.
 /// </summary>

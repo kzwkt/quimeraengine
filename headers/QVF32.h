@@ -55,16 +55,16 @@ public:
         const int SECOND_POS = 2;
         const int THIRD_POS  = 3;
         const int FOURTH_POS = 4;
-        const int F32SIZE = sizeof(f32_q);
-        const int FLOATQSIZE = sizeof(float_q);
 
-        #if F32SIZE != FLOATQSIZE
+        #define QE_4BYTES_SIZE 4 // We are working with a 32-bits floats pack
+
+        #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
             // Types are different so we need to use known-size types and then invoke
             // implicit casting when copying to auxiliar variables.
-            f32_q f_1 = fFirst;
-            f32_q f_2 = fSecond; 
-            f32_q f_3 = fThird; 
-            f32_q f_4 = fFourth;
+            f32_q f_1 = static_cast<f32_q>(fFirst);
+            f32_q f_2 = static_cast<f32_q>(fSecond); 
+            f32_q f_3 = static_cast<f32_q>(fThird); 
+            f32_q f_4 = static_cast<f32_q>(fFourth);
         #else
             // Types are the same, no casting is needed so we only use references to maintain names used below
             const f32_q& f_1 = fFirst;
@@ -73,10 +73,10 @@ public:
             const f32_q& f_4 = fFourth;
         #endif
 
-        memcpy((&outPack) + FIRST_POS  * F32SIZE, &f_1, F32SIZE);
-        memcpy((&outPack) + SECOND_POS * F32SIZE, &f_2, F32SIZE);
-        memcpy((&outPack) + THIRD_POS  * F32SIZE, &f_3, F32SIZE);
-        memcpy((&outPack) + FOURTH_POS * F32SIZE, &f_4, F32SIZE);
+        memcpy((&outPack) + FIRST_POS  * QE_4BYTES_SIZE, &f_1, QE_4BYTES_SIZE);
+        memcpy((&outPack) + SECOND_POS * QE_4BYTES_SIZE, &f_2, QE_4BYTES_SIZE);
+        memcpy((&outPack) + THIRD_POS  * QE_4BYTES_SIZE, &f_3, QE_4BYTES_SIZE);
+        memcpy((&outPack) + FOURTH_POS * QE_4BYTES_SIZE, &f_4, QE_4BYTES_SIZE);
     }
 
     /// <summary>
@@ -97,16 +97,16 @@ public:
         const int SECOND_POS = 2;
         const int THIRD_POS  = 3;
         const int FOURTH_POS = 4;
-        const int F32SIZE = sizeof(f32_q);
-        const int FLOATQSIZE = sizeof(float_q);
 
-        #if F32SIZE != FLOATQSIZE
+        #define QE_4BYTES_SIZE 4 // We are working with a 32-bits floats pack
+
+        #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
             // Types are different so we need to use known-size types and then invoke
             // implicit casting when copying to auxiliar variables.
-            f32_q f_1 = QFloat::_0;
-            f32_q f_2 = QFloat::_0;
-            f32_q f_3 = QFloat::_0;
-            f32_q f_4 = QFloat::_0;
+            f32_q f_1 = static_cast<f32_q>(QFloat::_0);
+            f32_q f_2 = static_cast<f32_q>(QFloat::_0);
+            f32_q f_3 = static_cast<f32_q>(QFloat::_0);
+            f32_q f_4 = static_cast<f32_q>(QFloat::_0);
         #else
             // Types are the same, no casting is needed so we only use references to maintain names used below
             f32_q& f_1 = fFirst;
@@ -115,16 +115,16 @@ public:
             f32_q& f_4 = fFourth;
         #endif
 
-        memcpy(&f_1, (&inPack) + FIRST_POS  * F32SIZE, F32SIZE);
-        memcpy(&f_2, (&inPack) + SECOND_POS * F32SIZE, F32SIZE);
-        memcpy(&f_3, (&inPack) + THIRD_POS  * F32SIZE, F32SIZE);
-        memcpy(&f_4, (&inPack) + FOURTH_POS * F32SIZE, F32SIZE);
+        memcpy(&f_1, (&inPack) + FIRST_POS  * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
+        memcpy(&f_2, (&inPack) + SECOND_POS * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
+        memcpy(&f_3, (&inPack) + THIRD_POS  * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
+        memcpy(&f_4, (&inPack) + FOURTH_POS * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
 
-        #if F32SIZE != FLOATQSIZE
-            fFirst  = f_1;
-            fSecond = f_2;
-            fThird  = f_3;
-            fFourth = f_4;
+        #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
+            fFirst  = static_cast<float_q>(f_1);
+            fSecond = static_cast<float_q>(f_2);
+            fThird  = static_cast<float_q>(f_3);
+            fFourth = static_cast<float_q>(f_4);
         #endif
     }
 

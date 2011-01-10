@@ -5,6 +5,8 @@
 
 #include <string>
 
+#include <boost/math/special_functions/trunc.hpp>
+
 #include "DataTypesDefinitions.h"
 
 namespace Kinesis
@@ -87,6 +89,11 @@ public:
     static const float_q _0_5;
 
     /// <summary>
+    /// The fraction 1/4, as a floating point type.
+    /// </summary>
+    static const float_q _0_25;
+
+    /// <summary>
     /// Defines the comparison tolerance, or how much different can be two floating point values 
     /// to be considered equals, according to the configured precission.
     /// </summary>
@@ -101,6 +108,7 @@ public:
     /// Minimum floating point value (closest to zero positive real number).
     /// </summary>
     static const float_q MinFloat_Q;
+
 
 
 	// CONSTRUCTORS
@@ -192,7 +200,7 @@ public:
     /// Checks whether a floating point number equals zero or is close to zero, taking into account the system tolerance 
     /// constant (Epsilon).
     /// </summary>
-    /// <param name="fValue">The floating point number to be compared.</param>
+    /// <param name="fValue">[IN] The floating point number to be compared.</param>
     /// <returns>
     /// If the value equals zero, then it returns True. Otherwise, it returns False.
     /// </returns>
@@ -205,7 +213,7 @@ public:
     /// Checks whether a floating point number doesn't equal zero or is close to zero, taking into account the system tolerance 
     /// constant (Epsilon).
     /// </summary>
-    /// <param name="fValue">The floating point number to be compared.</param>
+    /// <param name="fValue">[IN] The floating point number to be compared.</param>
     /// <returns>
     /// If the value doesn't equal zero, then it returns True. Otherwise, it returns False.
     /// </returns>
@@ -217,12 +225,193 @@ public:
     /// <summary>
     /// Converts the floating point number to a readable character string that represents it.
     /// </summary>
-    /// <param name="fValue">The floating point number to be converted.</param>
+    /// <param name="fValue">[IN] The floating point number to be converted.</param>
     /// <returns>
     /// The string that represents the number (using a dot as decimal separator).
     /// </returns>
     static string_q ToString(const float_q &fValue);
+
+    /// <summary>
+    /// Converts a floating point number type to an integer number type. The result will be rounded (0.5 -> 1.0). Expected 
+    /// template parameters are: unsigned int, int, long long, unsigned long long, u32_q, i32_q, u64_q, i64_q. Integer type 
+    /// size should equals floating point type size or unexpected behavior will occur.
+    /// </summary>
+    /// <remarks>
+    /// Depending on the configured precission, there is a performance overload due to standard conversion use when the value
+    /// is greater than the one representable by floating point type mantissa:
+    /// -For 32-bits floating point type values: Must be greater than or equals to -2^22 (-4194304) and lower than or equals 
+    /// to 2^23 (8388608).
+    /// -For 64-bits floating point type values: Must be greater than or equals to -2^51 (-2251799813685248l) and lower than or 
+    /// equals to 2^52 (4503599627370496l).
+    /// </remarks>
+    /// <param name="fValue">[IN] Floating point number to be converted.</param>
+    /// <param name="outInteger">[OUT] Integer value obtained.</param>
+    template<typename IntegerType>
+    inline static void ToInteger(const float_q &fValue, IntegerType &outInteger)
+    {
+        // Checks whether both input types have the same size
+        QE_ASSERT( sizeof(fValue) == sizeof(outInteger) );
+
+        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+
+            const IntegerType LOWEST_EXPONENT_BIT_POS = 23;
+            const IntegerType EXPONENT = 127 + LOWEST_EXPONENT_BIT_POS;
+            const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  8388608; // Maximum convertible integer value = 2^23
+            const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -4194304; // Maximum convertible integer negative value = 2^22
+
+        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+
+            const IntegerType LOWEST_EXPONENT_BIT_POS = 52;
+            const IntegerType EXPONENT = 1023 + LOWEST_EXPONENT_BIT_POS;
+            const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  4503599627370496l; // Maximum convertible integer value = 2^52
+            const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -2251799813685248l; // Maximum convertible integer negative value = 2^51
+
+        #endif
+        
+        if(fValue > MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED ||
+           fValue < MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED)
+        {
+            // Checks whether the value is too big to be converted this way
+            QE_ASSERT( fValue <= MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED );
+
+            // Checks whether the value is too big (when it's negative) to be converted this way
+            QE_ASSERT( fValue >= MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED );
+
+            // When the value is out of the convertible bounds (using fast conversion), standard conversion is used
+            outInteger = static_cast<IntegerType>(fValue);
+        }
+        else
+        {
+            // Ambiguous type to treat the same bit strip as integer and floating point types
+            // Note: The type change is not immediate, it has memory reading/writing cost
+            union IntegerOrFloatUnion
+            {
+                float_q _float;
+                IntegerType _integer;
+            };
+
+            IntegerOrFloatUnion biasValue;  // Used to manipulate the float mantissa
+            IntegerOrFloatUnion finalValue; // Used to store operations results
+
+            finalValue._float  = fValue;
+
+            if(finalValue._integer < 0)
+                biasValue._integer = (EXPONENT << LOWEST_EXPONENT_BIT_POS) + (IntegerType(1) << (LOWEST_EXPONENT_BIT_POS - IntegerType(1))); // Equivalent to 1 x 2 ^ LOWEST_MANTISSA_BIT_POS + 1 x 2 ^ (LOWEST_MANTISSA_BIT_POS - 1)
+            else
+                biasValue._integer = EXPONENT << LOWEST_EXPONENT_BIT_POS; // Equivalent to 1 x 2 ^ LOWEST_MANTISSA_BIT_POS
+
+            finalValue._float   += biasValue._float;
+            finalValue._integer -= biasValue._integer; // Removes the exponent bits
+
+            outInteger = finalValue._integer;
+        }
+        
+    }
+    
+    /// <summary>
+    /// Removes the fractional part of a floating point number and returns the result as output parameter.
+    /// No rounding is performed.
+    /// </summary>
+    /// <param name="fValue">[IN] Value to be truncated.</param>
+    /// <param name="fTruncatedValue">[OUT] Value without fractional part.</param>
+    inline static void Truncate(const float_q &fValue, float_q &fTruncatedValue)
+    {
+        fTruncatedValue = boost::math::trunc(fValue);
+    }
+    
+    /// <summary>
+    /// Removes the fractional part of a floating point number. No rounding is performed.
+    /// </summary>
+    /// <param name="fValue">[IN/OUT] Value to be truncated.</param>
+    inline static void Truncate(float_q &fValue)
+    {
+        fValue = boost::math::trunc(fValue);
+    }
+
+    /// <summary>
+    /// Inverts the order of bytes which compound a floating point number and returns the result as 
+    /// output parameter. A 32-bits floating point number whose value equals to 0xAABBCCDD will be 
+    /// transformed to 0xDDCCBBAA, for example.
+    /// </summary>
+    /// <param name="fValue">[IN] The value whose bytes are to be swapped.</param>
+    /// <param name="fSwappedValue">[OUT] The transformed value.</param>
+    inline static void SwapEndianess(const float_q &fValue, float_q &fSwappedValue)
+    {
+
+        // Ambiguous type to treat the same bit strip as byte array and floating point types
+        // Note: The type change is not immediate, it has memory reading/writing cost
+        union FloatOrBytesUnion
+        {
+            float_q _float;
+            u8_q    _bytes[QE_FLOAT_SIZE];
+        };
+
+        FloatOrBytesUnion srcValue;
+        srcValue._float = fValue;
+
+        FloatOrBytesUnion swappedValue;
+
+        // Float bytes are copied in inverse order to the output float
+        for(unsigned int i = 0, j = QE_FLOAT_SIZE - 1; i < QE_FLOAT_SIZE; ++i, --j)
+            swappedValue._bytes[i] = srcValue._bytes[j];
+
+        fSwappedValue = swappedValue._float;
+    }
+    
+    /// <summary>
+    /// Inverts the order of bytes which compound a floating point number. A 32-bits floating point number
+    /// whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
+    /// </summary>
+    /// <param name="fValue">[IN/OUT] The value whose bytes are to be swapped.</param>
+    inline static void SwapEndianess(float_q &fValue)
+    {
+        QFloat::SwapEndianess(fValue, fValue);
+    }
+
+    /// <summary>
+    /// Indicates whether the floating point number has negative sign.
+    /// </summary>
+    /// <param name="fValue">[IN] The value whose sign is going to be checked.</param>
+    /// <returns>
+    /// If the number is lower than zero, returns True. Otherwise, returns False.
+    /// </returns>
+    inline static bool IsNegative(const float_q &fValue)
+    {
+        return fValue < QFloat::_0;
+    }
+
+    /// <summary>
+    /// Indicates whether the floating point number has positive sign. Zero is cosidered as positive.
+    /// </summary>
+    /// <param name="fValue">[IN] The value whose sign is going to be checked.</param>
+    /// <returns>
+    /// If the number is greater than or equals to zero, returns True. Otherwise, returns False.
+    /// </returns>
+    inline static bool IsPositive(const float_q &fValue)
+    {
+        return fValue >= QFloat::_0;
+    }
+
+    /// <summary>
+    /// Copies a floating point number sign to another one.
+    /// </summary>
+    /// <param name="fSignedValue">[IN] A floating point number whose sign is to be copied.</param>
+    /// <param name="fValueToCopyTo">[OUT] A floating point number whose sign is to be replaced.</param>
+    inline static void CopySign(const float_q &fSignedValue, float_q &fValueToCopyTo)
+    {
+        // Negative source & Negative target = Keep negative
+        // Negative source & Positive target = Change sign
+        // Positive source & Negative target = Change sign
+        // Positive source & Positive target = Keep positive
+        fValueToCopyTo = QFloat::IsNegative(fSignedValue) 
+                            ?
+                            QFloat::IsNegative(fValueToCopyTo) ? fValueToCopyTo : -fValueToCopyTo
+                            :
+                            QFloat::IsNegative(fValueToCopyTo) ? -fValueToCopyTo : fValueToCopyTo;
+    }
+
 };
+
 
 } //namespace DataTypes
 } //namespace Tools

@@ -2,7 +2,10 @@
 
 #include <sstream>
 
+#include <boost/lexical_cast.hpp>
+
 #include "QFloat.h"
+
 
 namespace Kinesis
 {
@@ -37,9 +40,9 @@ namespace DataTypes
     const float_q QFloat::_9   = 9.0f;
     const float_q QFloat::_10  = 10.0f;
     const float_q QFloat::_0_5 = 0.5f;
+    const float_q QFloat::_0_25 = 0.25f;
 
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE ||
-      QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
 
     const float_q QFloat::_0   = 0.0;
     const float_q QFloat::_1   = 1.0;
@@ -53,6 +56,7 @@ namespace DataTypes
     const float_q QFloat::_9   = 9.0;
     const float_q QFloat::_10  = 10.0;
     const float_q QFloat::_0_5 = 0.5;
+    const float_q QFloat::_0_25 = 0.25f;
 
 #endif
 
@@ -65,10 +69,6 @@ namespace DataTypes
 
     const float_q QFloat::Epsilon = 1e-12;
 
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
-
-    const float_q QFloat::Epsilon = 1e-18;
-
 #endif
 
 // Max / Min constants
@@ -79,13 +79,8 @@ namespace DataTypes
 
 #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
 
-    const float_q QFloat::MaxFloat_Q = 1.797693134862315907729305190789e+308; // 2 ^ 1024
+    const float_q QFloat::MaxFloat_Q = 1.797693134862315e+308; // 2 ^ 1024
     const float_q QFloat::MinFloat_Q = 8.9884656743115795386465259539451e-307; // 2 ^ -1023
-
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_MAXIMUM
-
-    const float_q QFloat::MaxFloat_Q = 1.189731495357231765085759326628e+4932; // 2 ^ 16384
-    const float_q QFloat::MinFloat_Q = 5.94865747678615882542879663314e-4931; // 2 ^ -16383
 
 #endif
 
@@ -100,9 +95,9 @@ namespace DataTypes
 
 string_q QFloat::ToString(const float_q &fValue)
 {
-    std::basic_ostringstream<char_q> ostr;
-	ostr << fValue;
-	return ostr.str();
+    string_q strOut;
+    boost::lexical_cast<string_q>(fValue);
+	return strOut;
 }
 
 } //namespace DataTypes
