@@ -21,6 +21,7 @@ namespace Math
 //##################=======================================================##################
 
 const QVector4 QVector4::ZeroVector    ( QFloat::_0,  QFloat::_0,  QFloat::_0,  QFloat::_0);
+const QVector4 QVector4::ZeroPoint     ( QFloat::_0,  QFloat::_0,  QFloat::_0,  QFloat::_1);
 const QVector4 QVector4::VectorOfOnes  ( QFloat::_1,  QFloat::_1,  QFloat::_1,  QFloat::_1);
 const QVector4 QVector4::UnitVectorX   ( QFloat::_1,  QFloat::_0,  QFloat::_0,  QFloat::_0);
 const QVector4 QVector4::UnitVectorY   ( QFloat::_0,  QFloat::_1,  QFloat::_0,  QFloat::_0);
@@ -43,9 +44,19 @@ QVector4 QVector4::operator + (const QBaseVector4 &v) const
     return QVector4(this->x + v.x, this->y + v.y, this->z + v.z, this->w + v.w); 
 }
 
+QVector4 QVector4::operator + (const QBaseVector3 &v) const 
+{ 
+    return QVector4(this->x + v.x, this->y + v.y, this->z + v.z, this->w); 
+}
+
 QVector4 QVector4::operator - (const QBaseVector4 &v) const 
 { 
     return QVector4(this->x - v.x, this->y - v.y, this->z - v.z, this->w - v.w); 
+}
+
+QVector4 QVector4::operator - (const QBaseVector3 &v) const 
+{ 
+    return QVector4(this->x - v.x, this->y - v.y, this->z - v.z, this->w); 
 }
 
 QVector4 QVector4::operator * (const float_q &fValue) const 
@@ -56,6 +67,14 @@ QVector4 QVector4::operator * (const float_q &fValue) const
 QVector4 QVector4::operator * (const QBaseVector4 &v) const 
 { 
     return QVector4(this->x*v.x, this->y*v.y, this->z*v.z, this->w*v.w); 
+}
+
+QVector4 QVector4::operator * (const QBaseMatrix4x4 &m) const 
+{ 
+    return QVector4(this->x*m.ij[0][0] + this->y*m.ij[1][0] + this->z*m.ij[2][0] + this->w*m.ij[3][0],
+                    this->x*m.ij[0][1] + this->y*m.ij[1][1] + this->z*m.ij[2][1] + this->w*m.ij[3][1],
+                    this->x*m.ij[0][2] + this->y*m.ij[1][2] + this->z*m.ij[2][2] + this->w*m.ij[3][2],
+                    this->x*m.ij[0][3] + this->y*m.ij[1][3] + this->z*m.ij[2][3] + this->w*m.ij[3][3]); 
 }
 
 QVector4 QVector4::operator / (const float_q &fValue) const
@@ -75,6 +94,27 @@ QVector4 QVector4::operator / (const QBaseVector4 &v) const
     return QVector4(this->x/v.x, this->y/v.y, this->z/v.z, this->w/v.w);
 }
 
+// Asignment operators
+
+QVector4& QVector4::operator *= (const QBaseMatrix4x4 &m) 
+{ 
+    QVector4 vAux(*this);
+
+    this->x = vAux.x*m.ij[0][0] + vAux.y*m.ij[1][0] + vAux.z*m.ij[2][0] + vAux.w*m.ij[3][0];
+    this->y = vAux.x*m.ij[0][1] + vAux.y*m.ij[1][1] + vAux.z*m.ij[2][1] + vAux.w*m.ij[3][1];
+    this->z = vAux.x*m.ij[0][2] + vAux.y*m.ij[1][2] + vAux.z*m.ij[2][2] + vAux.w*m.ij[3][2];
+    this->w = vAux.x*m.ij[0][3] + vAux.y*m.ij[1][3] + vAux.z*m.ij[2][3] + vAux.w*m.ij[3][3];
+
+    return *this; 
+}
+
+//Unary operators
+
+QVector4 QVector4::operator- () const
+{
+    return QVector4(-this->x, -this->y, -this->z, -this->w);
+}
+
 // Left float product 
 QVector4 operator * (const float_q &fValue, const QBaseVector4 &v)
 {
@@ -90,6 +130,34 @@ void QVector4::CrossProduct(const QBaseVector4 &v)
     this->z = v.x*aux.y - v.y*aux.x; 
 }
 
+void QVector4::Transform(const QQuaternion &qR)
+{
+    QQuaternion qAux(this->x, this->y, this->z, QFloat::_0);
+    QQuaternion qConj;
+
+    qR.Conjugate(qConj);
+
+    qAux = (qR * qAux) * qConj;
+        
+    this->x = qAux.x;
+    this->y = qAux.y;
+    this->z = qAux.z;
+}
+
+void QVector4::Transform(const QDualQuaternion &dqTransf)
+{
+    QDualQuaternion dqAux(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
+                        QBaseQuaternion(this->x, this->y, this->z, QFloat::_0));
+    QDualQuaternion dqConj;
+    
+    dqTransf.DoubleConjugate(dqConj);
+    
+    dqAux = (dqTransf * dqAux ) * dqConj;
+      
+    this->x = dqAux.d.x;
+    this->y = dqAux.d.y;
+    this->z = dqAux.d.z;      
+}
 
 } //namespace Math
 } //namespace Tools

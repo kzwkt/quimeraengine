@@ -5,6 +5,9 @@
 
 #include "QBaseVector4.h"
 #include "QBaseVector3.h"
+#include "QBaseMatrix4x4.h"
+#include "QQuaternion.h"
+#include "QDualQuaternion.h"
 
 namespace Kinesis
 {
@@ -47,30 +50,42 @@ public:
     /// Stores a vector with all components set to 0
     /// </summary>
     static const QVector4 ZeroVector;
+
+    /// <summary>
+    /// Stores a vector with all components set to 0
+    /// </summary>
+    static const QVector4 ZeroPoint;
+    
     /// <summary>
     /// Stores a vector with all components set to 1
     /// </summary>
     static const QVector4 VectorOfOnes;
+    
     /// <summary>
     /// Stores a unit vector in X positive direction
     /// </summary>
     static const QVector4 UnitVectorX;
+    
     /// <summary>
     /// Stores a unit vector in Y positive direction
     /// </summary>
     static const QVector4 UnitVectorY;
+    
     /// <summary>
     /// Stores a unit vector in Z positive direction
     /// </summary>
     static const QVector4 UnitVectorZ;
+    
     /// <summary>
     /// Stores a unit vector in X negative direction
     /// </summary>
     static const QVector4 UnitVectorInvX;
+    
     /// <summary>
     /// Stores a unit vector in Y negative direction
     /// </summary>
     static const QVector4 UnitVectorInvY;
+    
     /// <summary>
     /// Stores a unit vector in Z negative direction
     /// </summary>
@@ -92,7 +107,7 @@ public:
     inline explicit QVector4(const QBaseVector4 &v) : QBaseVector4(v) { }
 
     /// <summary>
-    /// Constructor from a QBaseVector3.
+    /// Constructor from a QBaseVector3. It's initialized as vector (w = 0).
     /// </summary>
     /// <param name="v">[IN] The 3D vector in which we want resident vector to be based.</param>
     inline explicit QVector4(const QBaseVector3 &v) : QBaseVector4(v.x, v.y, v.z, QFloat::_0) { }
@@ -141,6 +156,15 @@ public:
     QVector4 operator + (const QBaseVector4 &v) const;
 
     /// <summary>
+    /// Vectors addition: it's performed component by component, keeping constant the w component.
+    /// </summary>
+    /// <param name="v">[IN] Adding vector.</param>
+    /// <returns>
+    /// A vector that is the result of the addition.
+    /// </returns>
+    QVector4 operator + (const QBaseVector3 &v) const;
+
+    /// <summary>
     /// Vectors subtraction: it's performed component by component.
     /// </summary>
     /// <param name="v">[IN] Subtracting vector.</param>
@@ -148,6 +172,15 @@ public:
     /// A vector that is the result of the subtraction.
     /// </returns>
     QVector4 operator - (const QBaseVector4 &v) const;
+
+    /// <summary>
+    /// Vectors subtraction: it's performed component by component, keeping constant the w component.
+    /// </summary>
+    /// <param name="v">[IN] Subtracting vector.</param>
+    /// <returns>
+    /// A vector that is the result of the subtraction.
+    /// </returns>
+    QVector4 operator - (const QBaseVector3 &v) const;
 
     /// <summary>
     /// Product by a scalar: all components are multiplied by the floating point value provided.
@@ -166,6 +199,16 @@ public:
     /// A vector that is the result of the product.
     /// </returns>
     QVector4 operator * (const QBaseVector4 &v) const;
+
+    /// <summary>
+    /// Product by a [4x4] matrix: it's performed as a matrix product between m[1x4] and n[4x4] 
+    /// resulting a [1x4] matrix
+    /// </summary>
+    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <returns>
+    /// A vector that is the result of the product.
+    /// </returns>
+    QVector4 operator * (const QBaseMatrix4x4 &m) const;
 
     /// <summary>
     /// Division by a scalar: all components are divided by the floating point value provided.
@@ -231,6 +274,23 @@ public:
     }
 
     /// <summary>
+    /// Adds a vector provided to current vector. It's performed component by component,
+    /// keeping constant the w component.
+    /// </summary>
+    /// <param name="v">[IN] Adding vector.</param>
+    /// <returns>
+    /// A reference to vector result of the addition.
+    /// </returns>
+    inline QVector4& operator += (const QBaseVector3 &v) 
+    { 
+        this->x += v.x;
+        this->y += v.y;
+        this->z += v.z; 
+
+        return *this; 
+    }
+
+    /// <summary>
     /// Subtracts a vector provided to current vector. It's performed component by component.
     /// </summary>
     /// <param name="v">[IN] Subtracting vector.</param>
@@ -243,6 +303,23 @@ public:
         this->y -= v.y; 
         this->z -= v.z; 
         this->w -= v.w;
+
+        return *this; 
+    }
+
+    /// <summary>
+    /// Subtracts a vector provided to current vector. It's performed component by component,
+    /// keeping constant the w component.
+    /// </summary>
+    /// <param name="v">[IN] Subtracting vector.</param>
+    /// <returns>
+    /// A reference to vector result of the subtraction.
+    /// </returns>
+    inline QVector4& operator -= (const QBaseVector3 &v) 
+    { 
+        this->x -= v.x; 
+        this->y -= v.y; 
+        this->z -= v.z; 
 
         return *this; 
     }
@@ -281,6 +358,16 @@ public:
 
         return *this; 
     }
+
+    /// <summary>
+    /// Product by a [4x4] matrix: it's performed as a matrix product between m[1x4] and n[4x4] 
+    /// resulting a [1x4] matrix
+    /// </summary>
+    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <returns>
+    /// A reference to vector result of the product.
+    /// </returns>
+    QVector4& operator *= (const QBaseMatrix4x4 &m);
 
     /// <summary>
     /// Divides current vector by a floating point value provided.
@@ -323,6 +410,15 @@ public:
         return *this;
     }
 
+    // Unary operators
+
+    /// <summary>
+    /// Opposite vector: multiplies each component by -1.
+    /// </summary>
+    /// <returns>
+    /// A vector that is the opposite of the resident vector.
+    /// </returns>
+    QVector4 operator- () const;
     
     //Methods
 
@@ -357,6 +453,16 @@ public:
     }
 
     /// <summary>
+    /// Calculates a normalized vector from the resident one and stores it in an output vector provided.
+    /// </summary>
+    /// <param name="vOut">[OUT] Vector where we want to store the normalized vector.</param>
+    inline void Normalize(QBaseVector4 &vOut) const
+    {
+        vOut = * this;
+        static_cast <QVector4>(vOut).Normalize();
+    }
+
+    /// <summary>
     /// Convert current vector in its opposite vector.
     /// </summary>
     inline void Reverse() 
@@ -365,6 +471,16 @@ public:
         this->y = -this->y; 
         this->z = -this->z; 
         this->w = -this->w; 
+    }
+
+    /// <summary>
+    /// Calculates the opposite to resident vector and stores it in an output vector provided.
+    /// </summary>
+    /// <param name="vOut">[OUT] Vector where we want store the opposite vector.</param>
+    inline void Reverse(QBaseVector4 &vOut) const
+    {
+        vOut = *this;
+        static_cast<QVector4> (vOut).Reverse();
     }
 
     /// <summary>
@@ -445,6 +561,19 @@ public:
     void CrossProduct(const QBaseVector4 &v);
 
     /// <summary>
+    /// Calculates cross product by a vector provided (left handed rules), and stores it in a vector provided.
+    /// Due to cross product between two 4D vectors isn't defined (is a ternary operation in 4D space),
+    /// we treat it as a cross product between two 3D vectors, maintaining the W component of the resident vector.
+    /// </summary>
+    /// <param name="v">[IN] Multiplying vector.</param>
+    /// <param name="vOut">[OUT] Vector where resultant product is stored.</param>
+    inline void CrossProduct(const QBaseVector4 &v, QBaseVector4 &vOut) const
+    {
+        vOut = *this;
+        static_cast <QVector4> (vOut).CrossProduct(v);
+    }
+
+    /// <summary>
     /// Makes a Linear Interpolation between current vector and other vector provided. It stores result in current vector.
     /// </summary>
     /// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
@@ -460,6 +589,18 @@ public:
     }
 
     /// <summary>
+    /// Makes a Linear Interpolation between current vector and other vector provided. It stores result in current vector.
+    /// </summary>
+    /// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
+    /// <param name="v">[IN] Vector with which to interpolate.</param>
+    /// <param name="vOut">[OUT] Vector where to store interpolation.</param>
+    inline void Lerp(const float_q &fFactor, const QBaseVector4 &v, QBaseVector4 &vOut) const
+    { 
+        vOut = *this;
+        static_cast <QVector4> (vOut).Lerp(fFactor, v);
+    }
+
+    /// <summary>
     /// Calculates the distance between two vector heads (or two points). It computes the difference of two vectors and returns its length.
     /// </summary>
     /// <param name="v">[IN] Vector we want to calculate the distance from current vector.</param>
@@ -470,6 +611,55 @@ public:
     {
         return sqrt( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) + 
                      (this->z-v.z)*(this->z-v.z) + (this->w-v.w)*(this->w-v.w) );
+    }
+
+    /// <summary>
+    /// Applies a rotation quaternion to resident vector. The rotation applied is following left-handed rules.
+    /// It's made by multiplying resident vector by the quaternion provided, as follows:
+    /// v' = Q * v * Qc, where v is the resident vector, Q the quaternion and Qc the conjugate of the quaternion.
+    /// The w component of original vector is not transformed.
+    /// [TODO] jwladi: probably it will be necessary verify if rotation follows left-handed rules or not.
+    /// </summary>
+    /// <param name="qR">[IN] The rotation quaternion.</param>
+    void Transform(const QQuaternion &qR);
+    
+    /// <summary>
+    /// Applies a rotation quaternion to resident vector, storing results in an out vector provided.
+    /// The rotation applied is following left-handed rules.
+    /// It's made by multiplying resident vector by the quaternion provided, as follows:
+    /// v' = Q * v * Qc, where v is the resident vector, Q the quaternion and Qc the conjugate of the quaternion.
+    /// The w component of original vector is not transformed.
+    /// [TODO] jwladi: probably it will be necessary verify if rotation follows left-handed rules or not.
+    /// </summary>
+    /// <param name="qR">[IN] The rotation quaternion.</param>
+    /// <param name="vOut">[OUT] The vector where the result of rotation is stored.</param>
+    inline void Transform(const QQuaternion &qR, QBaseVector4 &vOut) const
+    {
+        vOut = *this;
+        static_cast<QVector4> (vOut).Transform(qR);
+    }
+
+    /// <summary>
+    /// Applies a rigid transformation dual quaternion to resident vector.
+    /// It's made by multiplying resident vector by the dual quaternion provided, as follows:
+    /// v' = Q * v * Qc, where v is the resident vector, Q the dual quaternion and Qc the double conjugate of the dual quaternion.
+    /// The w component of original vector is not transformed.
+    /// </summary>
+    /// <param name="dqTransf">[IN] The dual quaternion which wears the transformation.</param>
+    void Transform(const QDualQuaternion &dqTransf);
+    
+    /// <summary>
+    /// Applies a rigid transformation dual quaternion to resident vector, storing results in an out vector provided.
+    /// It's made by multiplying resident vector by the dual quaternion provided, as follows:
+    /// v' = Q * v * Qc, where v is the resident vector, Q the dual quaternion and Qc the double conjugate of the dual quaternion.
+    /// The w component of original vector is not transformed.
+    /// </summary>
+    /// <param name="dqTransf">[IN] The dual quaternion which wears the transformation..</param>
+    /// <param name="vOut">[OUT] The vector where the result of rotation is stored.</param>
+    inline void Transform(const QDualQuaternion &dqTransf, QBaseVector4 &vOut) const
+    {
+        vOut = *this;
+        static_cast<QVector4> (vOut).Transform(dqTransf);
     }
     
     /// <summary>

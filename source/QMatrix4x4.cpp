@@ -48,9 +48,9 @@ QMatrix4x4::QMatrix4x4(const float_q &fAngleX, const float_q &fAngleY, const flo
 	
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
 		// If angles are specified in degrees, then converts it to radians
-		float_q &fAngleXRad = DegreesToRadians(fAngleX, fAngleXRad);
-		float_q &fAngleYRad = DegreesToRadians(fAngleY, fAngleYRad);
-		float_q &fAngleZRad = DegreesToRadians(fAngleZ, fAngleZRad);
+		float_q &fAngleXRad = QAngle::DegreesToRadians(fAngleX, fAngleXRad);
+		float_q &fAngleYRad = QAngle::DegreesToRadians(fAngleY, fAngleYRad);
+		float_q &fAngleZRad = QAngle::DegreesToRadians(fAngleZ, fAngleZRad);
 
 		const float_q& A   = cos(fAngleXRad);
 		const float_q& B   = sin(fAngleXRad);
