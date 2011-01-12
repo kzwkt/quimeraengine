@@ -23,34 +23,6 @@ namespace Math
 const QDualQuaternion QDualQuaternion::Identity(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
                                                 QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
 
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		  CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-template <class VectorType> 
-QDualQuaternion::QDualQuaternion(const QBaseQuaternion &qR, const VectorType &vD)
-{ 
-    QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-    QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                         QBaseQuaternion(vD.x, vD.y, vD.z, QFloat::_0)); 
-
-    *this = Desp * Rot;
-}
-
-template <class VectorType>
-QDualQuaternion::QDualQuaternion(const VectorType &vD, const QBaseQuaternion &qR) 
-{ 
-    QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-    QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                                QBaseQuaternion(vD.x, vD.y, vD.z, QFloat::_0)); 
-
-    *this = Rot * Desp;
-}
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -131,52 +103,16 @@ void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf, QBaseDualQu
     dqOut = ( static_cast<QDualQuaternion>(dqTransf) * (*this) ) * dqConj;
 }
 
-template <class VectorType>
-void QDualQuaternion::TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD) 
-{ 
-    QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-    QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                                QBaseQuaternion(vD.x, vD.y, vD.z, QFloat::_0)); 
-
-    QDualQuaternion dqTransf = Desp * Rot;
-
-    this->Transform(dqTransf);
-}
-
-template <class VectorType>
-void QDualQuaternion::TransformTranslationFirst(const VectorType &vD, const QBaseQuaternion &qR) 
-{ 
-    QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-    QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                                QBaseQuaternion(vD.x, vD.y, vD.z, QFloat::_0)); 
-
-    QDualQuaternion dqTransf = Rot * Desp;
-
-    this->Transform(dqTransf);
-}
-
-template <class VectorType>
-void QDualQuaternion::TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD, const QBaseDualQuaternion &dqOut) 
-{ 
-    QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-    QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                                QBaseQuaternion(vD.x, vD.y, vD.z, QFloat::_0)); 
-
-    QDualQuaternion dqTransf = Desp * Rot;
-
-    this->Transform(dqTransf, &dqOut);
-}
-
-template <class VectorType>
-void QDualQuaternion::TransformTranslationFirst(const VectorType &vD, const QBaseQuaternion &qR, const QBaseDualQuaternion &dqOut) 
-{ 
-    QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-    QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                                QBaseQuaternion(vD.x, vD.y, vD.z, QFloat::_0)); 
-
-    QDualQuaternion dqTransf = Rot * Desp;
-
-    this->Transform(dqTransf, &dqOut);
+string_q QDualQuaternion::ToString() const
+{
+    return QE_L("DQ(") + QFloat::ToString(this->r.x) + 
+            QE_L(", ")  + QFloat::ToString(this->r.y) + 
+            QE_L(", ")  + QFloat::ToString(this->r.z) +
+            QE_L(", ")  + QFloat::ToString(this->r.w) + QE_L(")") +
+            QE_L("(")   + QFloat::ToString(this->d.x) + 
+            QE_L(", ")  + QFloat::ToString(this->d.y) + 
+            QE_L(", ")  + QFloat::ToString(this->d.z) +
+            QE_L(", ")  + QFloat::ToString(this->d.w) + QE_L(")");
 }
 
 } //namespace Math
