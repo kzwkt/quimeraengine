@@ -183,7 +183,7 @@ public:
     /// <param name="fScaleX">[OUT] Resultant scale in X axis direction.</param>
     /// <param name="fScaleY">[OUT] Resultant scale in Y axis direction.</param>
     /// <param name="fScaleZ">[OUT] Resultant scale in Z axis direction.</param>
-    inline void Getscale(float_q &fScaleX, float_q &fScaleY, float_q &fScaleZ) const
+    inline void GetScale(float_q &fScaleX, float_q &fScaleY, float_q &fScaleZ) const
     {
         fScaleX = this->ij[0][0];
         fScaleY = this->ij[1][1];
@@ -194,7 +194,7 @@ public:
     /// Extracts the scale factors from the matrix.
     /// </summary>
     /// <param name="&vScale">[OUT] Vector where to store the scale factors.</param>
-    inline void Getscale(QBaseVector3 &vScale) const
+    inline void GetScale(QBaseVector3 &vScale) const
     {
         vScale.x = this->ij[0][0];
         vScale.y = this->ij[1][1];
