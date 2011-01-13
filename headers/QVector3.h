@@ -123,7 +123,7 @@ public:
     /// <summary>
     /// Constructor from a 4x32 packed floating point value.
     /// </summary>
-    /// <param name="fValue">[IN] 4x32 packed floating point value containing the three components.</param>
+    /// <param name="fPackComps">[IN] 4x32 packed floating point value containing the three components.</param>
     inline QVector3(const vf32_q fPackComps) : QBaseVector3 (fPackComps) { }
 
     // METHODS
