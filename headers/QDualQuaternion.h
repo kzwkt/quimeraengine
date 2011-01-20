@@ -455,7 +455,7 @@ public:
     /// <param name="vD">[IN] Vector which defines the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
     /// <param name="dqOut">[OUT] Dual quaternion where the result of transformation is stored.</param>
     template <class VectorType>
-    void TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD, const QBaseDualQuaternion &dqOut)
+    void TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD, QBaseDualQuaternion &dqOut) const
     { 
         QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
         QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
@@ -463,7 +463,7 @@ public:
 
         QDualQuaternion dqTransf = Desp * Rot;
 
-        this->Transform(dqTransf, &dqOut);
+        this->Transform(dqTransf, dqOut);
     }
 
     /// <summary>
@@ -473,7 +473,7 @@ public:
     /// <param name="qR">[IN] Regular quaternion which defines the rotation.</param>
     /// <param name="dqOut">[OUT] Dual quaternion where the result of transformation is stored.</param>
     template <class VectorType>
-    void TransformTranslationFirst(const VectorType &vD, const QBaseQuaternion &qR, const QBaseDualQuaternion &dqOut)
+    void TransformTranslationFirst(const VectorType &vD, const QBaseQuaternion &qR, QBaseDualQuaternion &dqOut) const
     { 
         QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
         QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
@@ -481,7 +481,7 @@ public:
 
         QDualQuaternion dqTransf = Rot * Desp;
 
-        this->Transform(dqTransf, &dqOut);
+        this->Transform(dqTransf, dqOut);
     }
 
     /// <summary>
@@ -505,7 +505,8 @@ public:
     inline void Lerp(const float_q &fProp, const QBaseDualQuaternion &dqQ2)
     {
         *this *= (1 - fProp);
-        *this += fProp * dqQ2;
+        this->r += fProp * dqQ2.r;
+        this->d += fProp * dqQ2.d;
 
         float_q fLength = this->GetNonDualLength();
         

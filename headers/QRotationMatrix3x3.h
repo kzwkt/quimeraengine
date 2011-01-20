@@ -55,7 +55,7 @@ public:
     /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a rotation matrix, 
-    /// otherwise unpredictable behaviour could be happen.
+    /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="m">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
     inline explicit QRotationMatrix3x3(const QBaseMatrix3x3 &m) : QMatrix3x3(m) { }
@@ -103,7 +103,7 @@ public:
     /// Keeps the convention rows x columns, so each chunck of 3 consecutive elements  
     /// corresponds to a row, where each element in the chunck is the column in the row.
     /// If you use this constructor, be sure that you are constructing a rotation matrix, 
-    /// otherwise unpredictable behaviour could be happen.
+    /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="pfMatrix">[IN] Pointer to a 9 length array of floating point values.</param>
     inline explicit QRotationMatrix3x3(const float_q *pfMatrix) : QMatrix3x3(pfMatrix) { }
@@ -114,7 +114,7 @@ public:
     /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a rotation matrix, 
-    /// otherwise unpredictable behaviour could be happen.
+    /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
@@ -126,7 +126,7 @@ public:
     /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a rotation matrix, 
-    /// otherwise unpredictable behaviour could be happen.
+    /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="f00">[IN] Floating point value for element of row 0, column 0.</param>
     /// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
