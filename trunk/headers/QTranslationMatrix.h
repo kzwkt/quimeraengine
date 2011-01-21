@@ -1,0 +1,279 @@
+// [TERMS&CONDITIONS]
+
+#ifndef __QTRANSLATIONMATRIX__
+#define __QTRANSLATIONMATRIX__
+
+#include "QBaseVector3.h"
+#include "QBaseVector4.h"
+#include "QMatrix4x4.h"
+//[TODO] jwladi: Uncomment this when QMatrix4x3 is implemented.
+//#include "QMatrix4x3.h"
+
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+
+namespace Kinesis
+{
+namespace QuimeraEngine
+{
+namespace Tools
+{
+namespace Math
+{
+
+/// <summary>
+/// Class to represent a matrix of floating point values with 4 rows and 3 or 4 columns, depending on template parameter,
+/// which contains a displacement in the direction of each coordinate axis that can be represented by a 3D or homogeneus 4D vector.
+/// It's a identity matrix with the elements (3,0), (3,1) and (3,2) replaced by the components of displacement.
+/// </summary>
+template <class MatrixType>
+class QDllExport QTranslationMatrix : public MatrixType
+{
+	// CONSTANTS
+	// ---------------
+public:
+
+    /// <summary>
+    /// Stores an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    /// 
+    ///      _     _
+    ///     | 1 0 0 |
+    /// A = | 0 1 0 |
+    ///     |_0 0 1_|
+    ///
+    /// </summary>
+    static const QTranslationMatrix<MatrixType> Identity;
+
+	// CONSTRUCTORS
+	// ---------------
+public:
+
+	/// <summary>
+	/// Default constructor. It's initialized to identity matrix.
+	/// </summary>
+	QTranslationMatrix()
+    {
+        this->ResetToIdentity();
+    }
+
+    /// <summary>
+    /// Constructor from a 4x4 or 4x3 matrix, depending on template parameter.
+    /// </summary>
+    /// <remarks>
+    /// If you use this constructor, be sure that you are constructing a translation matrix, 
+    /// otherwise unpredictable behavior could happen.
+    /// </remarks>
+    /// <param name="m">[IN] The matrix in which we want the resident matrix to be based.</param>
+    inline explicit QTranslationMatrix(const MatrixType &m) : MatrixType(m) { }
+
+    /// <summary>
+    /// Constructor that receives three floating point values, one for the displacement in each axis direction. 
+    /// </summary>
+    /// <param name="fDispX">[IN] Displacement in X direction.</param>
+    /// <param name="fDispY">[IN] Displacement in Y direction.</param>
+    /// <param name="fDispZ">[IN] Displacement in Z direction.</param>
+    inline QTranslationMatrix(const float_q &fDispX, const float_q &fDispY, const float_q &fDispZ) 
+    { 
+        this->ResetToIdentity();
+
+        this->ij[3][0] = fDispX;
+        this->ij[3][1] = fDispY;
+        this->ij[3][2] = fDispZ;
+    }
+
+    /// <summary>
+    /// Constructor from a 3D vector which stores the three displacement values, one for each axis direction.
+    /// </summary>
+    /// <param name="vDisp">[IN] Vector with the displacement values.</param>
+    inline explicit QTranslationMatrix (const QBaseVector3 &vDisp)
+    {
+        this->ResetToIdentity();
+
+        this->ij[3][0] = vDisp.x;
+        this->ij[3][1] = vDisp.y;
+        this->ij[3][2] = vDisp.z;
+    }
+
+    /// <summary>
+    /// Constructor from a 4D vector which stores the three scaling values, one for each axis direction.
+    /// </summary>
+    /// <param name="vDisp">[IN] Vector with the displacement values.</param>
+    inline explicit QTranslationMatrix (const QBaseVector4 &vDisp)
+    {
+        this->ResetToIdentity();
+
+        this->ij[3][0] = vDisp.x;
+        this->ij[3][1] = vDisp.y;
+        this->ij[3][2] = vDisp.z;
+     }
+
+    /// <summary>
+    /// Constructor that receives a pointer to a floating point array.
+    /// </summary>
+    /// <remarks>
+    /// Keeps the convention rows x columns, so the pointer must point to a 12 floating point array if
+    /// the template parameter is a 4x3 matrix and to a 16 floating point array if it is a 4x4 matrix. 
+    /// Each three or four consecutive values, depending on template parameter, is used to fill a row
+    /// of the matrix.
+    /// If you use this constructor, be sure that you are constructing a translation matrix, 
+    /// otherwise unpredictable behavior could happen.
+    /// </remarks>
+    /// <param name="pfMatrix">[IN] Pointer to a 12/16 length array of floating point values.</param>
+    inline explicit QTranslationMatrix(const float_q *pfMatrix) : MatrixType(pfMatrix) { }
+
+    /// <summary>
+    /// Constructor from four 4x32 floating point packed values. Each param contains a row of the matrix.
+    /// Last component of each pack will be ignored if the template parameter is a 4x3 matrix.
+    /// </summary>
+    /// <remarks>
+    /// If you use this constructor, be sure that you are constructing a translation matrix, 
+    /// otherwise unpredictable behavior could happen.
+    /// </remarks>
+    /// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
+    /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
+    /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
+    /// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
+    inline QTranslationMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) : 
+        MatrixType(row0, row1, row2, row3) { }
+
+
+    // METHODS
+	// ---------------
+public:
+
+    // Binary operators
+
+    /// <summary>
+    /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
+    /// [TODO] jwladi: insert formula of product via latex, if it works.
+    /// </summary>
+    /// <remarks>
+    /// This product is conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant matrix, with the same template parameter that resident matrix.
+    /// </returns>
+    template <class MatrixTypeParam>
+    QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<MatrixTypeParam> &m) const
+    {
+        QTranslationMatrix<MatrixType> aux;
+
+        aux.ij[3][0] = this->ij[3][0] + m.ij[3][0];
+        aux.ij[3][1] = this->ij[3][1] + m.ij[3][1];
+        aux.ij[3][2] = this->ij[3][2] + m.ij[3][2];
+
+        return aux;
+    }
+
+    // Assign operators
+
+    /// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
+    /// [TODO] jwladi: insert formula of product via latex, if it works.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be multiplied by.</param>
+    /// <returns>
+    /// The modified matrix.
+    /// </returns>
+    template <class MatrixTypeParam>
+    inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<MatrixTypeParam> &m) {
+      
+        this->ij[3][0] += m.ij[3][0];
+        this->ij[3][1] += m.ij[3][1];
+        this->ij[3][2] += m.ij[3][2];
+
+        return *this;
+    }
+
+    /// <summary>
+    /// Reverse of the matrix. In the case of translation matrices, the inverse is composed 
+    /// of the opposite of the elements which defines the displacement: (3,0), (3,1) and (3,2). 
+    /// So, it's faster than base class method.
+    /// </summary>
+    inline void Reverse()
+    {
+        this->ij[3][0] = -this->ij[3][0];
+        this->ij[3][1] = -this->ij[3][1];
+        this->ij[3][2] = -this->ij[3][2];
+    }
+
+    /// <summary>
+    /// Reverse of the matrix. In the case of translation matrices, the inverse is composed 
+    /// by the opposite of the elements which defines the displacement: (3,0), (3,1) and (3,2). 
+    /// So, it's faster than base class method.
+    /// </summary>
+    /// <param name="mOut">[OUT] A matrix where to store reverse matrix.</param>
+    inline void Reverse(MatrixType &mOut) const
+    {
+        mOut.ResetToIdentity();
+
+        mOut.ij[3][0] = -this->ij[3][0];
+        mOut.ij[3][1] = -this->ij[3][1];
+        mOut.ij[3][2] = -this->ij[3][2];
+    }
+
+    /// <summary>
+    /// Extracts the displacement components from the matrix.
+    /// </summary>
+    /// <param name="fDispX">[OUT] Displacement in X axis direction.</param>
+    /// <param name="fDispY">[OUT] Displacement in Y axis direction.</param>
+    /// <param name="fDispZ">[OUT] Displacement in Z axis direction.</param>
+    inline void GetTranslation(float_q &fDispX, float_q &fDispY, float_q &fDispZ) const
+    {
+        fDispX = this->ij[3][0];
+        fDispY = this->ij[3][1];
+        fDispZ = this->ij[3][2];
+    }
+
+    /// <summary>
+    /// Extracts the displacement components from the matrix.
+    /// </summary>
+    /// <param name="&vDisp">[OUT] Vector where to store the displacement.</param>
+    inline void GetTranslation(QBaseVector3 &vDisp) const
+    {
+        vDisp.x = this->ij[3][0];
+        vDisp.y = this->ij[3][1];
+        vDisp.z = this->ij[3][2];
+    }
+
+    /// <summary>
+    /// Extracts the displacement components from the matrix.
+    /// </summary>
+    /// <param name="&vDisp">[OUT] Vector where to store the displacement. W component of this vector will be set to 0.</param>
+    inline void GetTranslation(QBaseVector4 &vDisp) const
+    {
+        vDisp.x = this->ij[3][0];
+        vDisp.y = this->ij[3][1];
+        vDisp.z = this->ij[3][2];
+        vDisp.w = QFloat::_0;
+    }
+
+protected:
+    
+    // Hidden method to prevent it could be used.
+    void ResetToZero();
+};
+
+// TYPEDEFS
+// ---------------
+
+//[TODO] jwladi: Uncomment this when QMatrix4x3 is implemented.
+//typedef QTranslationMatrix<QMatrix4x3> QTranslationMatrix4x3;
+typedef QTranslationMatrix<QMatrix4x4> QTranslationMatrix4x4;
+
+// CONSTANTS INITIALIZATION
+// ----------------------------
+
+template <class MatrixType>
+const QTranslationMatrix<MatrixType> QTranslationMatrix<MatrixType>::Identity;
+
+} //namespace Math
+} //namespace Tools
+} //namespace QuimeraEngine
+} //namespace Kinesis
+
+#endif // __QTRANSLATIONMATRIX__
