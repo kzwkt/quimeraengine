@@ -7,6 +7,7 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/unit_test_log.hpp>
 
+#include "../common/CommonConfigDefinitions.h"
 #include "../common/QCommonTestConfig.h"
 using Kinesis::QuimeraEngine::Test::QCommonTestConfig;
 
@@ -18,10 +19,10 @@ const std::string TEST_MODULE_NAME("Tools");
 class TestModuleConfiguration
 {
 public:
-
+    
     TestModuleConfiguration()
     {
-        QCommonTestConfig config(TEST_MODULE_NAME);
+        QCommonTestConfig config(std::string(TEST_MODULE_NAME) + "_" + QE_TEST_CONFIG_NAME);
     }
 
     ~TestModuleConfiguration()

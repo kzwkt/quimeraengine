@@ -19,7 +19,7 @@ namespace Test
 //##################													   ##################
 //##################=======================================================##################
 
-const std::string QCommonTestConfig::TestConfigFileName("TestConfig.txt");
+const std::string QCommonTestConfig::TestConfigFileName("UnitTestConfig.txt");
 std::string QCommonTestConfig::s_strLogFilePath;
 std::ofstream QCommonTestConfig::s_resultsFileStream;
 
