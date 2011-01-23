@@ -20,8 +20,8 @@ namespace Math
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a scale factor
 /// in the direction of each coordinate axis.
-/// It's a diagonal matrix where element \F$ a_{00}\F$ stores the scaling value in X direction, element \F$ a_{11}\F$ stores it 
-/// in Y direction and element \F$ a_{22}\F$ does it in Z direction.
+/// It's a diagonal matrix where element \f$ a_{00}\f$ stores the scaling value in X direction, element \f$ a_{11}\f$ stores it 
+/// in Y direction and element \f$ a_{22}\f$ does it in Z direction.
 /// </summary>
 class QDllExport QScaleMatrix3x3 : public QMatrix3x3
 {
@@ -33,7 +33,7 @@ public:
     /// Stores an identity matrix.
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     /// 
-    /// \F$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\F$
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
     ///
     /// </summary>
     static const QScaleMatrix3x3 Identity;

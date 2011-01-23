@@ -67,32 +67,32 @@ public:
     static const float_q _360;
 
     /// <summary>
-    /// Half Pi radians angle (\F$ \frac{\pi}{2} \F$).
+    /// Half Pi radians angle (\f$ \frac{\pi}{2} \f$).
     /// </summary>
     static const float_q _HalfPi;
 
     /// <summary>
-    /// A quarter of Pi radians angle (\F$ \frac{\pi}{4} \F$).
+    /// A quarter of Pi radians angle (\f$ \frac{\pi}{4} \f$).
     /// </summary>
     static const float_q _QuarterPi;
 
     /// <summary>
-    /// Third part of Pi radians angle (\F$ \frac{\pi}{3} \F$).
+    /// Third part of Pi radians angle (\f$ \frac{\pi}{3} \f$).
     /// </summary>
     static const float_q _ThridPi;
 
     /// <summary>
-    /// 2 Pi radians angle (\F$ 2\pi \F$).
+    /// 2 Pi radians angle (\f$ 2\pi \f$).
     /// </summary>
     static const float_q _2Pi;
 
     /// <summary>
-    /// Pi radians angl (\F$ \pi \F$)e.
+    /// Pi radians angl (\f$ \pi \f$)e.
     /// </summary>
     static const float_q _Pi;
 
     /// <summary>
-    /// 3 halfs of Pi radians angle (\F$ \frac{3\pi}{2} \F$).
+    /// 3 halfs of Pi radians angle (\f$ \frac{3\pi}{2} \f$).
     /// </summary>
     static const float_q _3HalfsPi;
 

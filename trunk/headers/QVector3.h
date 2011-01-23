@@ -551,8 +551,8 @@ public:
     /// <summary>
     /// Applies a rotation quaternion to resident vector. The rotation applied is clockwise.
     /// It's made by multiplying resident vector by the quaternion provided, as follows:
-    /// \F$ v' = Q \cdot v \cdot Q^*\F$, 
-    /// where v is the resident vector, Q the quaternion and \F$ Q^*\F$ the conjugate of the quaternion.
+    /// \f$ v' = Q \cdot v \cdot Q^*\f$, 
+    /// where v is the resident vector, Q the quaternion and \f$ Q^*\f$ the conjugate of the quaternion.
     /// [TODO] jwladi: probably it will be necessary verify if rotation is clockwise or not.
     /// </summary>
     /// <param name="qR">[IN] The rotation quaternion.</param>
@@ -562,8 +562,8 @@ public:
     /// Applies a rotation quaternion to resident vector, storing results in an out vector provided.
     /// The rotation applied is clockwise.
     /// It's made by multiplying resident vector by the quaternion provided, as follows:
-    /// \F$ v' = Q \cdot v \cdot Q^*\F$, 
-    /// where v is the resident vector, Q the quaternion and \F$ Q^*\F$ the conjugate of the quaternion.
+    /// \f$ v' = Q \cdot v \cdot Q^*\f$, 
+    /// where v is the resident vector, Q the quaternion and \f$ Q^*\f$ the conjugate of the quaternion.
     /// </summary>
     /// <param name="qR">[IN] The rotation quaternion.</param>
     /// <param name="vOut">[OUT] The vector where the result of rotation is stored.</param>
@@ -576,8 +576,8 @@ public:
     /// <summary>
     /// Applies a rigid transformation dual quaternion to resident vector.
     /// It's made by multiplying resident vector by the dual quaternion provided, as follows:
-    /// \F$ v' = \hat{Q} \cdot v \cdot \hat{Q}^*\F$,
-    /// where v is the resident vector, \F$\hat{Q}\F$ the dual quaternion and \F$\hat{Q}^*\F$ the double conjugate of the dual quaternion.
+    /// \f$ v' = \hat{Q} \cdot v \cdot \hat{Q}^*\f$,
+    /// where v is the resident vector, \f$\hat{Q}\f$ the dual quaternion and \f$\hat{Q}^*\f$ the double conjugate of the dual quaternion.
     /// </summary>
     /// <param name="dqTransf">[IN] The dual quaternion which wears the transformation.</param>
     void Transform(const QDualQuaternion &dqTransf);
@@ -585,8 +585,8 @@ public:
     /// <summary>
     /// Applies a rigid transformation dual quaternion to resident vector, storing results in an out vector provided.
     /// It's made by multiplying resident vector by the dual quaternion provided, as follows:
-    /// \F$ v' = \hat{Q} \cdot v \cdot \hat{Q}^*\F$,
-    /// where v is the resident vector, \F$\hat{Q}\F$ the dual quaternion and \F$\hat{Q}^*\F$ the double conjugate of the dual quaternion.
+    /// \f$ v' = \hat{Q} \cdot v \cdot \hat{Q}^*\f$,
+    /// where v is the resident vector, \f$\hat{Q}\f$ the dual quaternion and \f$\hat{Q}^*\f$ the double conjugate of the dual quaternion.
     /// </summary>
     /// <param name="dqTransf">[IN] The dual quaternion which wears the transformation..</param>
     /// <param name="vOut">[OUT] The vector where the result of rotation is stored.</param>

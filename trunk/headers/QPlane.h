@@ -15,7 +15,7 @@ namespace Math
 {
 
 /// <summary>
-/// It represents the basic form of a 3D plane, defined by the equation \F$ ax + by + cz + d = 0\F$. 
+/// It represents the basic form of a 3D plane, defined by the equation \f$ ax + by + cz + d = 0\f$. 
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from 
 /// plane to the origin, when the normal is normalized.
 /// </summary>
@@ -176,7 +176,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Note that if any of the planes is not normalized, the result may be false, even if they are the same plane:
-    /// \F$ x + y + z + 1 = 0\F$ and \F$ 2x + 2y + 2z + 2 = 0\F$ are the same plane but its components are different.
+    /// \f$ x + y + z + 1 = 0\f$ and \f$ 2x + 2y + 2z + 2 = 0\f$ are the same plane but its components are different.
     /// </remarks>
     /// <param name="p">[IN] Plane with which to compare.</param>
     /// <returns>
@@ -193,7 +193,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Note that if any of the planes is not normalized, the result may be true, even if they are the same plane.
-    /// \F$ x + y + z + 1 = 0\F$ and \F$ 2x + 2y + 2z + 2 = 0\F$ are the same plane but its components are different.
+    /// \f$ x + y + z + 1 = 0\f$ and \f$ 2x + 2y + 2z + 2 = 0\f$ are the same plane but its components are different.
     /// </remarks>
     /// <param name="p">[IN] Plane with which to compare.</param>
     /// <returns>
