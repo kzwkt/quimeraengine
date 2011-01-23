@@ -26,10 +26,9 @@ namespace Math
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
 /// column: the element in the i row and the j column is denoted A_ij. In this case, we will work with 3x3 matrices, 
 /// therefore our matrix will be:
-///      _           _
-///     | a00 a01 a02 |
-/// A = | a10 a11 a12 |
-///     |_a20 a21 a22_|
+///
+/// \F$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\end{bmatrix}\F$
+///
 /// </summary>
 class QDllExport QMatrix3x3 : public QBaseMatrix3x3
 {
@@ -58,10 +57,7 @@ public:
     /// Stores an identity matrix.
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     /// 
-    ///      _     _
-    ///     | 1 0 0 |
-    /// A = | 0 1 0 |
-    ///     |_0 0 1_|
+    /// \F$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\F$
     ///
     /// </summary>
     static const QMatrix3x3 Identity;
@@ -76,9 +72,9 @@ public:
     inline QMatrix3x3() : QBaseMatrix3x3() { }
 
     /// <summary>
-    /// Constructor from a QBaseMatrix3x3.
+    /// Constructor from a 3x3 matrix.
     /// </summary>
-    /// <param name="m">[IN] The QBaseMatrix3x3 in which we want the QMatrix3x3 to be based.</param>
+    /// <param name="m">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
     inline explicit QMatrix3x3(const QBaseMatrix3x3 &m) : QBaseMatrix3x3(m) { }
 
     /// <summary>
@@ -153,14 +149,12 @@ public:
     /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
     /// So, left matrix must have same number of columns than rows have right matrix.
     /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
-    /// (being A(m x n), B(n x p), C (m x p) ):
+    /// (being \F$ A(m x n), B(n x p), C (m x p) \F$):
     /// 
-    /// A x B = C
+    /// \F$ A x B = C \F$
     /// 
-    ///         _n_
-    /// Cij =   \    Air*Brj
-    ///         /__
-    ///         r=1
+    /// \F$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \F$
+    ///
     /// </summary>
     /// <remarks>
     /// This product is not conmmutative.
@@ -327,8 +321,8 @@ public:
     }
 
     /// <summary>
-    /// Resets the matrix to a identity matrix. The element _ij is set to 0 if i != j, 
-    /// and it's set to 1 if i=j.
+    /// Resets the matrix to a identity matrix. The element \F$ A_{ij} \F$ is set to 0 if \F$ i\neq j \F$, 
+    /// and it's set to 1 if \F$ i=j\F$.
     /// </summary>
     inline void ResetToIdentity()
     {
@@ -341,7 +335,7 @@ public:
 
     /// <summary>
     /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T.
+    /// and each column becomes a row. Every element \F$ A_{ij} \F$  becomes \F$ A_{ji}\F$. It's noted \F$ A^T \F$.
     /// </summary>
     /// <remarks>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -350,7 +344,7 @@ public:
 
     /// <summary>
     /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T.
+    /// and each column becomes a row. Every element \F$ A_{ij} \F$  becomes \F$ A_{ji}\F$. It's noted \F$ A^T \F$.
     /// </summary>
     /// <remarks>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -415,19 +409,19 @@ public:
     /// row and column, where the sign of a product derives from the parity of the permutation involved.
     /// In practice, we can calculate any determinant this way:
     /// 
-    /// Order 1: |A| = a00
+    /// Order 1: \F$\left|A\right| = a_{00}\F$
     ///                  
-    /// Order 2: |A| = a00*a11 - a01*a10
+    /// Order 2: \F$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\F$
     /// 
-    /// Order 3: |A| = a00*a11*a22 + a01*a12*a20 + a02*a10*a21 - (a02*a11*a20 + a00*a12*a21 + a01*a10*a22)
+    /// Order 3: \F$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\F$
     /// 
     /// Any other order can be solved developing determinant by a row or a column, reducing 
     /// the problem to other of one order less. 
     /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
     /// 
-    /// Cij = (-1)^(i+j) * |Mij|, 
+    /// \F$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\F$, 
     ///
-    /// where Mij is the submatrix obtained by deleting from the original matrix the i row and the j column. 
+    /// where \F$ M_{ij}\F$ is the submatrix obtained by deleting from the original matrix the i row and the j column. 
     /// After that, we add all products to obtain the final value of the determinant.
     /// </summary>
     /// <returns>
@@ -447,13 +441,14 @@ public:
     /// Inverses the matrix.
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
     /// 
-    /// A * A^-1  = A^-1 * A = I
+    /// \F$ A\cdot A^{-1} = A^{-1}\cdot A = I\F$
     /// 
     /// We can calculate the inverse of any matrix by:
     /// 
-    ///         1
-    /// A^-1 = --- * (C^T)ij , where (C^T)ij is the matrix formed by each cofactor of each element of A, trasposed.
-    ///        |A|
+    /// \F$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\F$,
+    ///
+    /// where \F$ C^{T}_{ij}\F$ is the matrix formed by each cofactor of each element of A, trasposed.
+    ///        
     /// </summary>
     /// <returns>
     /// True if the matrix is invertible, false otherwise.
@@ -464,13 +459,14 @@ public:
     /// Calculates the inverse of the matrix and stores it in the matrix provided.
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
     /// 
-    /// A * A^-1  = A^-1 * A = I
+    /// \F$ A\cdot A^{-1} = A^{-1}\cdot A = I\F$
     /// 
     /// We can calculate the inverse of any matrix by:
     /// 
-    ///         1
-    /// A^-1 = --- * (C^T)ij , where (C^T)ij is the matrix formed by each cofactor of each element of A, trasposed.
-    ///        |A|
+    /// \F$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\F$,
+    ///
+    /// where \F$ C^{T}_{ij}\F$ is the matrix formed by each cofactor of each element of A, trasposed.
+    ///        
     /// </summary>
     /// <remarks>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.

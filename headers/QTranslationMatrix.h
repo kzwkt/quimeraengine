@@ -23,7 +23,9 @@ namespace Math
 /// <summary>
 /// Class to represent a matrix of floating point values with 4 rows and 3 or 4 columns, depending on template parameter,
 /// which contains a displacement in the direction of each coordinate axis that can be represented by a 3D or homogeneus 4D vector.
-/// It's a identity matrix with the elements (3,0), (3,1) and (3,2) replaced by the components of displacement.
+/// It's a identity matrix with the elements \F$ a_{30}\F$, \F$ a_{31}\F$ and \F$ a_{32}\F$ replaced by the components of displacement:
+///
+/// \F$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\F$
 /// </summary>
 template <class MatrixType>
 class QDllExport QTranslationMatrix : public MatrixType
@@ -36,11 +38,9 @@ public:
     /// Stores an identity matrix.
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     /// 
-    ///      _     _
-    ///     | 1 0 0 |
-    /// A = | 0 1 0 |
-    ///     |_0 0 1_|
+    /// \F$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\F$
     ///
+    /// If the matrix is 4x3, we simply remove fourth column.
     /// </summary>
     static const QTranslationMatrix<MatrixType> Identity;
 
@@ -146,7 +146,10 @@ public:
     /// <summary>
     /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
     /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
-    /// [TODO] jwladi: insert formula of product via latex, if it works.
+    /// 
+    /// \F$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix} 
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} = 
+    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\F$
     /// </summary>
     /// <remarks>
     /// This product is conmmutative.
@@ -173,7 +176,10 @@ public:
     /// Product and assign operator. Current matrix stores the result of the multiplication.
     /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
     /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
-    /// [TODO] jwladi: insert formula of product via latex, if it works.
+    /// 
+    /// \F$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix} 
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} = 
+    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\F$
     /// </summary>
     /// <param name="m">[IN] The matrix to be multiplied by.</param>
     /// <returns>
@@ -191,7 +197,10 @@ public:
 
     /// <summary>
     /// Reverse of the matrix. In the case of translation matrices, the inverse is composed 
-    /// of the opposite of the elements which defines the displacement: (3,0), (3,1) and (3,2). 
+    /// of the opposite of the elements which defines the displacement: 
+    ///
+    /// \F$ T^{-1}= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ -d_{x} & -d_{y} & -d_{z} & 1 \end{bmatrix}\F$
+    ///
     /// So, it's faster than base class method.
     /// </summary>
     inline void Reverse()
@@ -203,7 +212,10 @@ public:
 
     /// <summary>
     /// Reverse of the matrix. In the case of translation matrices, the inverse is composed 
-    /// by the opposite of the elements which defines the displacement: (3,0), (3,1) and (3,2). 
+    /// by the opposite of the elements which defines the displacement:
+    ///
+    /// \F$ T^{-1}= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ -d_{x} & -d_{y} & -d_{z} & 1 \end{bmatrix}\F$
+    ///
     /// So, it's faster than base class method.
     /// </summary>
     /// <param name="mOut">[OUT] A matrix where to store reverse matrix.</param>
