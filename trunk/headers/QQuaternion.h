@@ -128,10 +128,7 @@ public:
     /// Multiply operator. The quaternion is multipled by the input one and the result is returned.
     /// This is calculated as follows:
     ///
-    /// Q1 * Q2 = ( w1 w2 - x1 x2 - y1 y2 - z1 z2 ) +
-    ///           ( w1 x2 + x1 w2 + y1 z2 - z1 y2 ) i +
-    ///           ( w1 y2 + y1 w2 + z1 x2 - x1 z2 ) j +
-    ///           ( w1 z2 + z1 w2 + x1 y2 - y1 x2 ) k.
+    /// \F$ Q_1 \cdot Q_2=(w_1w_2-x_1x_2-y_1y_2-z_1z_2)+(w_1x_2+x_1w_2+y_1z_2-z_1y_2)i+(w_1y_2+y_1w_2+z_1x_2-x_1z_2)j+(w_1z_2+z_1w_2+xv1y_2-y_1x_2)k\F$
     ///
     /// Note that quaternion multiplication is not conmutative.
     /// </summary>
@@ -208,10 +205,7 @@ public:
     /// Multiply and assign operator. The quaternion is multipled by the input one.
     /// This is calculated as follows:
     ///
-    /// Q1 * Q2 = ( w1 w2 - x1 x2 - y1 y2 - z1 z2 ) +
-    ///           ( w1 x2 + x1 w2 + y1 z2 - z1 y2 ) i +
-    ///           ( w1 y2 + y1 w2 + z1 x2 - x1 z2 ) j +
-    ///           ( w1 z2 + z1 w2 + x1 y2 - y1 x2 ) k.
+    /// \F$ Q_1 \cdot Q_2=(w_1w_2-x_1x_2-y_1y_2-z_1z_2)+(w_1x_2+x_1w_2+y_1z_2-z_1y_2)i+(w_1y_2+y_1w_2+z_1x_2-x_1z_2)j+(w_1z_2+z_1w_2+xv1y_2-y_1x_2)k\F$
     ///
     /// Note that quaternion multiplication is not conmutative.
     /// </summary>
@@ -356,9 +350,7 @@ public:
     /// coincides with the conjugate (which is cheaper to calculate).
     /// Quaternion inverse is obtained by the following equation:
     ///
-    ///        w - xi - yj - zk
-    /// Q^-1 = ----------------
-    ///             |Q|^2
+    /// \F$ Q^{-1} = \frac{w - xi - yj - zk}{\left|Q\right|^2}\F$
     /// </summary>
     inline void Reverse()
     {
@@ -378,9 +370,7 @@ public:
     /// coincides with the conjugate (which is cheaper to calculate).
     /// Quaternion inverse is obtained by the following equation:
     ///
-    ///        w - xi - yj - zk
-    /// Q^-1 = ----------------
-    ///             |Q|^2
+    /// \F$ Q^{-1} = \frac{w - xi - yj - zk}{\left|Q\right|^2}\F$
     /// </summary>
     /// <param name="qQuat">[OUT] The reverted quaternion copy.</param>
     inline void Reverse(QBaseQuaternion &qQuat) const
@@ -415,11 +405,12 @@ public:
 
     /// <summary>
     /// Calculates the dot product between the quaternion and the input quaternion.
-    /// This is obtained using the equation: f(Q1, Q2) = x1 x2 + y1 y2 + z1 z2 + w1 w2.
+    /// This is obtained using the equation: \F$ f(Q_1, Q_2) = x_1x_2 + y_1y_2 + z_1z_2 + w_1w_2\F$.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to multiply by.</param>
     /// <returns>
-    /// A real number equals to: |Q1| |Q2| cos(B), where B = half the angle between quaternions, when using unit quaternions.
+    /// A real number equals to: \F$|Q_1|\cdot |Q_2| cos(\beta), where \F$\beta = \frac{\widehat{Q_1Q_2}}{2}\F$
+    /// (half the angle between quaternions, when using unit quaternions).
     /// </returns>
     inline float_q DotProduct(const QBaseQuaternion &qQuat) const
     {
@@ -427,7 +418,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the quaternion's conjugate. It's calculated this way: Q* = w - xi - yj - zk.
+    /// Calculates the quaternion's conjugate. It's calculated this way: \F$Q^* = w - xi - yj - zk\F$.
     /// </summary>
     inline void Conjugate()
     {
@@ -438,7 +429,7 @@ public:
     }
 
     /// <summary>
-    /// Gets a conjugated quaternion copy. It's calculated this way: Q* = w - xi - yj - zk.
+    /// Gets a conjugated quaternion copy. It's calculated this way: \F$Q^* = w - xi - yj - zk\F$.
     /// </summary>
     /// <param name="qQuat">[OUT] The conjugated quaternion copy.</param>
     inline void Conjugate(QBaseQuaternion &qQuat) const
@@ -453,29 +444,25 @@ public:
     /// Calculates the linear interpolation between the quaternion and the input quaternion. This is calculated
     /// by the following expression:
     ///
-    ///                  (1 - s)Q1 + sQ2
-    /// f(Q1, Q2, s) = -------------------
-    ///                 |(1 - s)Q1 + sQ2|
+    /// \F$ f(Q_1, Q_2, s) = \frac{(1 - s)Q_1 + sQ_2}{|(1 - s)Q_1 + sQ_2|}\F$
     ///
-    /// being Q1 and Q2 two quaternions and s the scalar proportion of distance from Q1 to Q2.
+    /// being \F$ Q_1\F$ and \F$ Q_2\F$ two quaternions and s the scalar proportion of distance from \F$ Q_1\F$ to \F$ Q_2\F$.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (Q2 in expression above).</param>
-    /// <param name="fProportion">[IN] The scalar proportion of distance from Q1 to Q2.</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\F$ Q_2\F$ in expression above).</param>
+    /// <param name="fProportion">[IN] The scalar proportion of distance from \F$ Q_1\F$ to \F$ Q_2\F$.</param>
     void Lerp(const QQuaternion &qQuat, const float_q &fProportion);
 
     /// <summary>
     /// Calculates the linear interpolation between the quaternion and the input quaternion. This is calculated
     /// by the following expression:
     ///
-    ///                  (1 - s)Q1 + sQ2
-    /// f(Q1, Q2, s) = -------------------
-    ///                 |(1 - s)Q1 + sQ2|
+    /// \F$ f(Q_1, Q_2, s) = \frac{(1 - s)Q_1 + sQ_2}{|(1 - s)Q_1 + sQ_2|}\F$
     ///
-    /// being Q1 and Q2 two quaternions and s the scalar proportion of distance from Q1 to Q2.
+    /// being \F$ Q_1\F$ and \F$ Q_2\F$ two quaternions and s the scalar proportion of distance from \F$ Q_1\F$ to \F$ Q_2\F$.
     /// The resultant quaternion is stored in an output quaternion.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (Q2 in expression above).</param>
-    /// <param name="fProportion">[IN] The scalar proportion of distance from Q1 to Q2.</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\F$ Q_2\F$ in expression above).</param>
+    /// <param name="fProportion">[IN] The scalar proportion of distance from \F$ Q_1\F$ to \F$ Q_2\F$.</param>
     /// <param name="qOutQuat">[OUT] The resultant quaternion.</param>
     void Lerp(const QQuaternion &qQuat, const float_q &fProportion, QQuaternion &qOutQuat) const;
 
@@ -483,51 +470,43 @@ public:
     /// Calculates the spherical linear interpolation between the quaternion and the input quaternion. This is
     /// calculated by the following expression:
     ///
-    /// f(Q1, Q2, s) = w1 Q1 + w2 Q2
+    /// \F$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2
     ///
     /// where
-    ///       sin( (1 - s) * B )
-    /// w1 = --------------------
-    ///             sin(B)
+    /// \F$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\F$
     ///
-    ///       sin(sB)
-    /// w2 = ---------
-    ///        sin(B)
+    /// \F$ w_2 = \frac{sin( s\beta)}{sin(\beta)})\F$
     ///
     /// where
     ///
-    /// B = arccos(Q1 · Q2)
+    /// \F$ \beta = \arccos(Q_1Q_2)\F$
     ///
-    /// being Q1 and Q2 two quaternions and s the scalar proportion of distance from Q1 to Q2.
+    /// being \F$ Q_1\F$ and \F$ Q_2\F$ two quaternions and s the scalar proportion of distance from \F$ Q_1\F$ to \F$ Q_2\F$.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (Q2 in expression above).</param>
-    /// <param name="fProportion">[IN] The scalar proportion of distance from Q1 to Q2.</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\F$ Q_2\F$ in expression above).</param>
+    /// <param name="fProportion">[IN] The scalar proportion of distance from \F$ Q_1\F$ to \F$ Q_2\F$.</param>
     void Slerp(const QQuaternion &qQuat, const float_q &fProportion);
     
     /// <summary>
     /// Calculates the spherical linear interpolation between the quaternion and the input quaternion. This is
     /// calculated by the following expression:
     ///
-    /// f(Q1, Q2, s) = w1 Q1 + w2 Q2
+    /// \F$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2
     ///
     /// where
-    ///       sin( (1 - s) * B )
-    /// w1 = --------------------
-    ///             sin(B)
+    /// \F$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\F$
     ///
-    ///       sin(sB)
-    /// w2 = ---------
-    ///        sin(B)
+    /// \F$ w_2 = \frac{sin( s\beta)}{sin(\beta)})\F$
     ///
     /// where
     ///
-    /// B = arccos(Q1 · Q2)
+    /// \F$ \beta = \arccos(Q_1Q_2)\F$
     ///
-    /// being Q1 and Q2 two quaternions and s the scalar proportion of distance from Q1 to Q2.
+    /// being \F$ Q_1\F$ and \F$ Q_2\F$ two quaternions and s the scalar proportion of distance from \F$ Q_1\F$ to \F$ Q_2\F$.
     /// The resultant quaternion is stored in an output quaternion.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (Q2 in expression above).</param>
-    /// <param name="fProportion">[IN] The scalar proportion of distance from Q1 to Q2.</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\F$ Q_2\F$ in expression above).</param>
+    /// <param name="fProportion">[IN] The scalar proportion of distance from \F$ Q_1\F$ to \F$ Q_2\F$.</param>
     /// <param name="qOutQuat">[OUT] The interpolation result.</param>
     void Slerp(const QQuaternion &qQuat, const float_q &fProportion, QQuaternion &qOutQuat) const;
     
@@ -536,19 +515,19 @@ public:
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
     /// To achieve this, the following equations are implemented:
     ///
-    /// X = atan2( 2xw - 2xz, 1 - 2y^2 - 2z^2 )
-    /// Y = asin(  2*xy + 2zw)
-    /// Z = atan2( 2xw - 2yz, 1 - 2x^2 - 2z^2 )
+    /// \F$ X = atan2( 2xw - 2xz, 1 - 2y^2 - 2z^2 )\F$
+    /// \F$ Y = asin(2xy + 2zw)\F$
+    /// \F$ Z = atan2( 2xw - 2yz, 1 - 2x^2 - 2z^2 )\F$ 
     ///
-    /// except when xy + zw = +0.5 (north pole)
+    /// except when \F$ xy + zw = +0.5\F$ (north pole)
     ///
-    /// X = 2atan2(x, w)
-    /// Z = 0
+    /// \F$ X = 2atan2(x, w)\F$ 
+    /// \F$ Z = 0\F$ 
     ///
-    /// or when xy + zw = -0.5 (south pole)
+    /// or when \F$ xy + zw = -0.5\F$ (south pole)
     ///
-    /// X = -2atan2(x, w)
-    /// Z = 0
+    /// \F$ X = -2atan2(x, w)\F$ 
+    /// \F$ Z = 0\F$ 
     ///
     /// See atan2 documentation for more interesting information.
     /// </summary>

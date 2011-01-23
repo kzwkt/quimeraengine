@@ -30,10 +30,7 @@ public:
     /// Stores an identity matrix.
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     /// 
-    ///      _     _
-    ///     | 1 0 0 |
-    /// A = | 0 1 0 |
-    ///     |_0 0 1_|
+    /// \F$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\F$
     ///
     /// </summary>
     static const QRotationMatrix3x3 Identity;
@@ -75,12 +72,11 @@ public:
     /// <summary>
     /// Constructor from an angle and a spin axis defined by a vector. It's computed as follows:
     ///
-    /// R = I3 * cos(angle) + (1-cos(angle))* e * e^t + [e]*sin(angle) , where
-    ///
-    /// I3: Identity matrix 3x3
-    /// e: Unit vector defining spin axis (ex, ey, ez)
-    /// e^t: e transposed
-    /// [e]: cross product matrix (0, -ez, ey)(ez, 0, -ex)(-ey, ex, 0)
+    /// \F$ R = \begin{bmatrix} \cos\theta & 0 & 0 \\ 0 & \cos\theta & 0 \\ 0 & 0 & \cos\theta \end{bmatrix} + (1- \cos\theta)\cdot 
+    /// \begin{bmatrix} e_x & e_y & e_z\end{bmatrix} \cdot \begin{bmatrix} e_x \\ e_y \\ e_z\end{bmatrix} + 
+    /// \begin{bmatrix} 0 & -e_z & e_y \\ e_z & 0 & -e_x \\ -e_y & e_x & 0 \end{bmatrix}\cdot \sin\thetaF$
+    /// 
+    /// where \F$ e=(e_x, e_y, e_z)\F$, is a unit vector defining spin axis.
     ///
     /// taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
     /// </summary>
@@ -176,7 +172,7 @@ public:
 
     /// <summary>
     /// Converts rotation matrix to a rotation quaternion.
-    /// Since rotation matrices are special orthogonal matrices, where A*A^T = A*A^-1 = I, it's always verified 
+    /// Since rotation matrices are special orthogonal matrices, where \F$ AA^T = AA^{-1} = I\F$, it's always verified 
     /// that (1 + trace) > 0. Then, we can calculate quaternion component from every matrix trace.
     ///
     /// Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/christian.htm
@@ -186,7 +182,7 @@ public:
 
     /// <summary>
     /// Converts rotation matrix to an angle and a spin axis. Since axis components depends on inverse of sin(angle)
-    /// it's necessary to take into account when angle is 0 or pi.
+    /// it's necessary to take into account when angle is 0 or \F$\pi\F$.
     /// Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
     /// Source: http://en.wikipedia.org/wiki/Rotation_representation_%28mathematics%29#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
     /// </summary>

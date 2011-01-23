@@ -33,9 +33,9 @@ public:
 	inline QVector2() : QBaseVector2() { }
 
 	/// <summary>
-	/// Constructor from a QBaseVector2.
+	/// Constructor from a 2D vector.
 	/// </summary>
-	/// <param name="v">[IN] The QBaseVector2 in which we want QVector2 to be based.</param>
+	/// <param name="v">[IN] The 2D vector  in which we want resident vector to be based.</param>
 	inline explicit QVector2(const QBaseVector2 &v) : QBaseVector2(v) { }
 
 	/// <summary>

@@ -19,10 +19,10 @@ namespace Math
 
 /// <summary>
 /// Base class which implements the basic functionality of a dual quaternion. 
-/// A dual quaternion is a complex number with two components, a non-dual component and a dual one, e.g. r + d€. 
+/// A dual quaternion is a complex number with two components, a non-dual component and a dual one, e.g. \F$ r + d\varepsilon \F$ 
 /// Both components (r and d) of a dual quaternion are (regular) quaternions.
-/// The dual unit, called epsilon (€), verifies €*€ = 0. Then, a full quaternion looks like:
-/// w1 + x1*i + y1*j + z1*k + (w2 + x2*i + y2*j + z2*k)*€
+/// The dual unit, called epsilon (\F$ \varepsilon \F$), verifies \F$ \varepsilon^2=0 \F$. Then, a full quaternion looks like:
+/// \F$ r_w + r_xi + r_yj + r_zk + (d_w + d_xi + d_yj + d_zk)\varepsilon\F$
 /// We'll normally employ it to represent and execute rigid transformations, that is, transformations which involves
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).
 /// </summary>

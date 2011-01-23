@@ -73,7 +73,7 @@ public:
     /// <param name="packagedValues">[IN] A four 32 bits floating point types pack.</param>
     inline explicit QBaseQuaternion(const vf32_q &packagedValues)
     {
-        // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information
+        // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
         QVF32::Unpack(packagedValues, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
     }
 
