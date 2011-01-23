@@ -27,7 +27,7 @@ namespace Math
 /// column: the element in the i row and the j column is denoted A_ij. In this case, we will work with 4x4 matrices, 
 /// therefore our matrix will be:
 /// 
-/// \F$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\\ a_{30} & a_{31} & a_{32} & a_{33}\end{bmatrix}\F$
+/// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\\ a_{30} & a_{31} & a_{32} & a_{33}\end{bmatrix}\f$
 ///
 /// </summary>
 class QDllExport QMatrix4x4 : public QBaseMatrix4x4
@@ -57,7 +57,7 @@ public:
 	/// Stores an identity matrix.
 	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     /// 
-    /// \F$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\F$
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
     ///
 	/// </summary>
 	static const QMatrix4x4 Identity;
@@ -158,11 +158,11 @@ public:
     /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
     /// So, left matrix must have same number of columns than rows have right matrix.
 	/// The product is not conmutative. To perform a product of matrices, each element is calculated as 
-    /// (being \F$ A(m x n), B(n x p), C (m x p) \F$):
+    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
     /// 
-    /// \F$ A x B = C \F$
+    /// \f$ A x B = C \f$
     /// 
-    /// \F$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \F$
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
 	/// </summary>
 	/// <remarks>
@@ -366,8 +366,8 @@ public:
 	}
 
 	/// <summary>
-	/// Resets the matrix to a identity matrix. The element \F$ A_{ij} \F$ is set to 0 if \F$ i\neq j \F$, 
-    /// and it's set to 1 if \F$ i=j\F$.
+	/// Resets the matrix to a identity matrix. The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, 
+    /// and it's set to 1 if \f$ i=j\f$.
 	/// </summary>
 	inline void ResetToIdentity()
 	{
@@ -381,7 +381,7 @@ public:
 
 	/// <summary>
 	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row. Every element \F$ A_{ij} \F$  becomes \F$ A_{ji}\F$. It's noted \F$ A^T \F$.
+    /// and each column becomes a row. Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$. It's noted \f$ A^T \f$.
  	/// </summary>
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -390,7 +390,7 @@ public:
 
 	/// <summary>
 	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row. Every element \F$ A_{ij} \F$  becomes \F$ A_{ji}\F$. It's noted \F$ A^T \F$.
+    /// and each column becomes a row. Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$. It's noted \f$ A^T \f$.
 	/// </summary>
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -476,19 +476,19 @@ public:
     /// row and column, where the sign of a product derives from the parity of the permutation involved.
     /// In practice, we can calculate any determinant this way:
     /// 
-    /// Order 1: \F$\left|A\right| = a_{00}\F$
+    /// Order 1: \f$\left|A\right| = a_{00}\f$
     ///                  
-    /// Order 2: \F$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\F$
+    /// Order 2: \f$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\f$
     /// 
-    /// Order 3: \F$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\F$
+    /// Order 3: \f$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$
     /// 
     /// Any other order can be solved developing determinant by a row or a column, reducing 
     /// the problem to other of one order less. 
     /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
     /// 
-    /// \F$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\F$, 
+    /// \f$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\f$, 
     ///
-    /// where \F$ M_{ij}\F$ is the submatrix obtained by deleting from the original matrix the i row and the j column. 
+    /// where \f$ M_{ij}\f$ is the submatrix obtained by deleting from the original matrix the i row and the j column. 
     /// After that, we add all products to obtain the final value of the determinant.
 	/// </summary>
 	/// <returns>
@@ -525,13 +525,13 @@ public:
 	/// Inverses the matrix.
 	/// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
 	/// 
-    /// \F$ A\cdot A^{-1} = A^{-1}\cdot A = I\F$
+    /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
     /// 
     /// We can calculate the inverse of any matrix by:
     /// 
-    /// \F$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\F$,
+    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,
     ///
-    /// where \F$ C^{T}_{ij}\F$ is the matrix formed by each cofactor of each element of A, trasposed.
+    /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
     ///
 	/// </summary>
 	/// <remarks>
@@ -546,13 +546,13 @@ public:
 	/// Calculates the inverse of the matrix and stores it in the matrix provided.
 	/// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
 	/// 
-    /// \F$ A\cdot A^{-1} = A^{-1}\cdot A = I\F$
+    /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
     /// 
     /// We can calculate the inverse of any matrix by:
     /// 
-    /// \F$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\F$,
+    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,
     ///
-    /// where \F$ C^{T}_{ij}\F$ is the matrix formed by each cofactor of each element of A, trasposed.
+    /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
     ///
 	/// </summary>
 	/// <remarks>
