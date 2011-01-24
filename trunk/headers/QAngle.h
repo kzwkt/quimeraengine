@@ -87,7 +87,7 @@ public:
     static const float_q _2Pi;
 
     /// <summary>
-    /// Pi radians angl (\f$ \pi \f$)e.
+    /// Pi radians angle (\f$ \pi \f$).
     /// </summary>
     static const float_q _Pi;
 

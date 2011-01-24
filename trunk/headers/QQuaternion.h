@@ -409,7 +409,7 @@ public:
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to multiply by.</param>
     /// <returns>
-    /// A real number equals to: \f$|Q_1|\cdot |Q_2| cos(\beta), where \f$\beta = \frac{\widehat{Q_1Q_2}}{2}\f$
+    /// A real number equals to: \f$|Q_1|\cdot |Q_2| cos(\beta)\f$, where \f$\beta = \frac{\widehat{Q_1Q_2}}{2}\f$
     /// (half the angle between quaternions, when using unit quaternions).
     /// </returns>
     inline float_q DotProduct(const QBaseQuaternion &qQuat) const
@@ -470,7 +470,7 @@ public:
     /// Calculates the spherical linear interpolation between the quaternion and the input quaternion. This is
     /// calculated by the following expression:
     ///
-    /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2
+    /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
     ///
     /// where
     /// \f$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\f$
@@ -491,7 +491,7 @@ public:
     /// Calculates the spherical linear interpolation between the quaternion and the input quaternion. This is
     /// calculated by the following expression:
     ///
-    /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2
+    /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
     ///
     /// where
     /// \f$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\f$

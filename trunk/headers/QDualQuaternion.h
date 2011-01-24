@@ -185,7 +185,7 @@ public:
     /// <summary>
     /// Product by a vector (multiplying to the dual quaternion by the right). The vector is transformed into a dual quaternion, 
     /// then is multiplied by the resident dual quaternion by the left and transformed back to a vector.
-    /// If vector is \f$ vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
+    /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
     /// </summary>
     /// <param name="v">[IN] Multiplying vector.</param>
     /// <returns>
@@ -196,7 +196,7 @@ public:
     /// <summary>
     /// Product by a vector (multiplying to the dual quaternion by the right). The vector is transformed into a dual quaternion, 
     /// then is multiplied by the resident dual quaternion by the left and transformed back to a vector.
-    /// If vector is \f$ vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
+    /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
     /// </summary>
     /// <param name="v">[IN] Multiplying vector.</param>
     /// <returns>
