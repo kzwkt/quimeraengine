@@ -237,10 +237,10 @@ public:
     /// <remarks>
     /// Depending on the configured precission, there is a performance overload due to standard conversion use when the value
     /// is greater than the one representable by floating point type mantissa:
-    /// -For 32-bits floating point type values: Must be greater than or equals to \f$ -2^22 \f$ (-4194304) and lower than or equals 
-    /// to \f$ 2^23 \f$ (8388608).
-    /// -For 64-bits floating point type values: Must be greater than or equals to \f$ -2^51 \f$ (-2251799813685248l) and lower than or 
-    /// equals to \f$ 2^52 \f$ (4503599627370496l).
+    /// -For 32-bits floating point type values: Must be greater than or equals to \f$ -2^{22} \f$ (-4194304) and lower than or equals 
+    /// to \f$ 2^{23} \f$ (8388608).
+    /// -For 64-bits floating point type values: Must be greater than or equals to \f$ -2^{51} \f$ (-2251799813685248l) and lower than or 
+    /// equals to \f$ 2^{52} \f$ (4503599627370496l).
     /// </remarks>
     /// <param name="fValue">[IN] Floating point number to be converted.</param>
     /// <param name="outInteger">[OUT] Integer value obtained.</param>

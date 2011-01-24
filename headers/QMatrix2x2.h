@@ -21,7 +21,7 @@ namespace Math
 ///
 /// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix 
 /// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.
-/// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m × n matrix, 
+/// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m x n matrix, 
 /// while m and n are called its dimensions. Every element is referenced by its position in the matrix.
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
 /// column: the element in the i row and the j column is denoted A_ij. In this case, we will work with 2x2 matrices, 
