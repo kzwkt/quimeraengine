@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __NOMBRECLASE__
-#define __NOMBRECLASE__
+#ifndef __CLASSNAME__
+#define __CLASSNAME__
 
 #include <StlHeaders>
 #include <3rdPartyHeaders>
@@ -72,4 +72,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __NOMBRECLASE__
+#endif // __CLASSNAME__

@@ -44,10 +44,7 @@ namespace DataTypes
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
         struct vf32_q
         {
-            f32_q x;
-            f32_q y;
-            f32_q z;
-            f32_q w;
+            f32_q v[4];
         };
     #endif
 #else
