@@ -93,6 +93,7 @@ public:
     /// <param name="fFourth">[OUT] Fourth value in the packet.</param>
     inline static void Unpack(const vf32_q &inPack, float_q &fFirst, float_q &fSecond, float_q &fThird, float_q &fFourth)
     {
+        // [TODO] Thund: ¿Mejorable con union?
         const int FIRST_POS  = 1;
         const int SECOND_POS = 2;
         const int THIRD_POS  = 3;

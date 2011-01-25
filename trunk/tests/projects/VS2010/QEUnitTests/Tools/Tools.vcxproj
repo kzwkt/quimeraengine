@@ -39,7 +39,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
     <TargetName>Unit_TestModule_$(ProjectName)</TargetName>
     <GenerateManifest>false</GenerateManifest>
@@ -62,7 +62,7 @@
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalDependencies>libboost_unit_test_framework-vc100-mt-gd.lib;QuimeraEngineTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\DebugWin32md_static;$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\DebugWin32md_static;$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <ShowProgress>NotSet</ShowProgress>

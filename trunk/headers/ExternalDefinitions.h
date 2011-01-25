@@ -52,15 +52,20 @@
 #endif
 
 // --------------------------------------------------------------------------------------------------------
-// Boost wrappers: Defines some Boost macro wrappers.
+// Assertions: Defines assertion statement behavior.
 // --------------------------------------------------------------------------------------------------------
-#include <boost/assert.hpp>
+#ifndef QE_DISABLE_ASSERTS // This definition must be included as client application's preprocessor definitions to disable assert statements
 
-#ifdef BOOST_ASSERT
-    #define QE_ASSERT(expr) BOOST_ASSERT(expr)
-#else
-    #define QE_ASSERT(expr)
+    #include <boost/assert.hpp>
+
+    #ifdef BOOST_ASSERT
+        #define QE_ASSERT(expr) BOOST_ASSERT(expr)
+    #endif
+
 #endif
 
+#ifndef QE_ASSERT
+    #define QE_ASSERT(expr)
+#endif
 
 #endif // __EXTERNALDEFINITIONS__

@@ -32,7 +32,7 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md_static|Win32'">
     <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)..\..\..\bin\$(Configuration)\</OutDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
     <LinkIncremental>true</LinkIncremental>
     <TargetName>QuimeraEngine$(ProjectName)</TargetName>
     <TargetExt>.lib</TargetExt>
@@ -57,7 +57,7 @@
     <ClCompile>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MinimalRebuild>true</MinimalRebuild>
@@ -76,7 +76,7 @@
       <ImportLibrary>$(SolutionDir)..\..\..\lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\DebugWin32md_static;$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\DebugWin32md_static;$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCore.lib</AdditionalDependencies>
       <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
