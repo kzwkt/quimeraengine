@@ -18,7 +18,7 @@ Descripción de un parámetro de un método o función. Puede ser desde un par d
 
 
 == Etiqueta returns ==
-Descripción del resultado de la función o método. Puede ser desde un par de palabras a unos cuantos párrafos, según el caso. Evidentemente, sólo aparece si el valor a devolver es de tipo _void_. Debe colocarse después de las etiquetas _summary_ y _param_.
+Descripción del resultado de la función o método. Puede ser desde un par de palabras a unos cuantos párrafos, según el caso. Evidentemente, sólo aparece si el valor a devolver no es de tipo _void_. Debe colocarse después de las etiquetas _summary_ y _param_.
 {{{
 /// <returns>
 /// 
