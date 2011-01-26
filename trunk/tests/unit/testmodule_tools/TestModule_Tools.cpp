@@ -22,7 +22,7 @@ public:
     
     TestModuleConfiguration()
     {
-        QCommonTestConfig config(std::string(TEST_MODULE_NAME) + "_" + QE_TEST_CONFIG_NAME);
+        QCommonTestConfig config(std::string(TEST_MODULE_NAME));
     }
 
     ~TestModuleConfiguration()
