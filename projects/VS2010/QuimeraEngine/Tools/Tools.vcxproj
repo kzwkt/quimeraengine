@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
-    <ProjectConfiguration Include="DebugWin32md_static|Win32">
-      <Configuration>DebugWin32md_static</Configuration>
+    <ProjectConfiguration Include="DebugWin32SharedrtStatic|Win32">
+      <Configuration>DebugWin32SharedrtStatic</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugWin32md_static|x64">
-      <Configuration>DebugWin32md_static</Configuration>
+    <ProjectConfiguration Include="DebugWin32SharedrtStatic|x64">
+      <Configuration>DebugWin32SharedrtStatic</Configuration>
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
@@ -16,7 +16,7 @@
     <RootNamespace>Tools</RootNamespace>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
-  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32md_static|Win32'">
+  <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
@@ -30,7 +30,7 @@
   <ImportGroup Label="ExtensionSettings">
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md_static|Win32'">
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
     <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
     <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
     <LinkIncremental>true</LinkIncremental>
@@ -44,7 +44,7 @@
     <TargetName>QuimeraEngine$(ProjectName)</TargetName>
     <TargetExt>.lib</TargetExt>
   </PropertyGroup>
-  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md_static|Win32'">
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
     <BuildLog>
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
@@ -76,7 +76,7 @@
       <ImportLibrary>$(SolutionDir)..\..\..\lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\DebugWin32md_static;$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCore.lib</AdditionalDependencies>
       <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
