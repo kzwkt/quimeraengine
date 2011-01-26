@@ -4,14 +4,17 @@
 #include <boost/test/unit_test_log.hpp>
 using namespace boost::unit_test;
 
-#include "../common/QuimeraEngineFixtures.h"
+/*#include "../common/QuimeraEngineFixtures.h"*/
 
 #include "QVector3.h"
 using Kinesis::QuimeraEngine::Tools::Math::QVector3;
-
+/*
 QE_TEST_SUITE_FIXTURE( QVector3_TestSuite_Fixture, "QVector3" )
 
 BOOST_FIXTURE_TEST_SUITE( QVector3_TestSuite, QVector3_TestSuite_Fixture )
+*/
+
+BOOST_AUTO_TEST_SUITE( QVector3_TestSuite )
 
 /// <summary>
 /// Verifies whether the default constructor set all components to zero.
