@@ -9,6 +9,13 @@
 #include "QBaseMatrix3x3.h"
 #include "QQuaternion.h"
 #include "QDualQuaternion.h"
+#include "QRotationMatrix3x3.h"
+#include "QScaleMatrix3x3.h"
+#include "QTranslationMatrix.h"
+#include "QTransformationMatrix.h"
+#include "QSpaceConversionMatrix.h"
+
+using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -125,6 +132,15 @@ public:
     /// </summary>
     /// <param name="fPackComps">[IN] 4x32 packed floating point value containing the three components.</param>
     inline QVector3(const vf32_q fPackComps) : QBaseVector3 (fPackComps) { }
+
+    /// <summary>
+    /// Constructor from a 4x4 or a 4x3 translation matrix. Takes translation components
+	/// from elements \f$ a_{30}\f$, \f$ a_{31}\f$ and \f$ a_{32}\f$ of the translation matrix.
+    /// </summary>
+    /// <param name="m">[IN] The translation matrix in which we want resident vector to be based.
+	/// It must be a 4x4 or 4x3 matrix.</param>
+	template <class MatrixType>
+	inline QVector3(const QTranslationMatrix<MatrixType> &m) : QBaseVector3(m.ij[3][0], m.ij[3][1], m.ij[3][2]) { }
 
     // METHODS
     // ---------------
@@ -546,6 +562,9 @@ public:
     inline float_q Distance(const QBaseVector3 &v) const
     {
         return sqrt( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) + (this->z-v.z)*(this->z-v.z) );
+
+        //[TODO] jwladi: it may be done as follows, with 3 substractions less:
+        // return QVector3(*this - v).GetLength();
     }
 
     /// <summary>
@@ -595,7 +614,145 @@ public:
         vOut = *this;
         static_cast<QVector3> (vOut).Transform(dqTransf);
     }
-    
+
+    /// <summary>
+    /// Applies a rotation to resident vector, multiplying the vector by a rotation matrix 
+    /// to transform it.
+    /// </summary>
+    /// <param name="mRot">[IN] The rotation matrix.</param>
+	inline void Transform(const QRotationMatrix3x3 &mRot)
+	{
+
+		*this *= static_cast<QBaseMatrix3x3>(mRot);
+	}
+ 
+    /// <summary>
+    /// Applies a rotation to resident vector, multiplying the vector by a rotation matrix 
+    /// to transform it. The rotated vector is stored into the provided one.
+    /// </summary>
+    /// <param name="mRot">[IN] The rotation matrix.</param>
+	/// <param name="vOut">[OUT] Vector where to store the result of rotation.</param>
+	inline void Transform(const QRotationMatrix3x3 &mRot, QBaseVector3 &vOut) const
+	{
+		vOut = *this;
+        static_cast<QVector3> (vOut).Transform(mRot);
+	}
+
+    /// <summary>
+    /// Applies a scale transformation to resident vector, multiplying the vector by a scale matrix 
+    /// to transform it.
+    /// </summary>
+    /// <param name="mScale">[IN] The scale matrix.</param>
+	inline void Transform(const QScaleMatrix3x3 &mScale)
+	{
+		this->x *= mScale.ij[0][0];
+		this->y *= mScale.ij[1][1];
+		this->z *= mScale.ij[2][2];
+	}
+
+    /// <summary>
+    /// Applies a scale transformation to resident vector, multiplying the vector by a scale matrix 
+    /// to transform it. The scaled vector is stored into the provided one.
+    /// </summary>
+    /// <param name="mScale">[IN] The scale matrix.</param>
+	/// <param name="vOut">[OUT] Vector where to store the result of scale.</param>
+	inline void Transform(const QScaleMatrix3x3 &mScale, QBaseVector3 &vOut) const
+	{
+        vOut = *this;
+        static_cast<QVector3> (vOut).Transform(mScale);
+	}
+
+    /// <summary>
+    /// Applies a translation to resident vector, multiplying the vector by a translation matrix 
+	/// to transform it. We assume that resident vector represents a 3D point
+	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+	/// since a 3D vector cannot be displaced.
+    /// </summary>
+    /// <param name="mDisp">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
+	template <class MatrixType>
+	inline void Transform(const QTranslationMatrix<MatrixType> &mDisp)
+	{
+		this->x += mDisp.ij[3][0];
+		this->y += mDisp.ij[3][1];
+		this->z += mDisp.ij[3][2];
+	}
+
+    /// <summary>
+    /// Applies a translation to resident vector, multiplying the vector by a translation matrix 
+	/// to transform it. We assume that resident vector represents a 3D point
+	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+	/// since a 3D vector cannot be displaced. The translated vector is stored into the provided one.
+    /// </summary>
+    /// <param name="mDisp">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
+	/// <param name="vOut">[OUT] Vector where to store the result of translation.</param>
+	template <class MatrixType>
+	inline void Transform(const QTranslationMatrix<MatrixType> &mDisp, QBaseVector3 &vOut) const
+	{
+        vOut = *this;
+        static_cast<QVector3> (vOut).Transform(mDisp);
+	}
+
+    /// <summary>
+    /// Applies a transformation composed of a scale, a rotation and a translation
+	/// to resident vector, multiplying the vector by a transformation matrix 
+	/// to transform it. We assume that resident vector represents a 3D point
+	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+	/// since a 3D vector cannot be displaced.
+    /// </summary>
+    /// <param name="mTransf">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
+    template <class MatrixType>
+	void Transform(const QTransformationMatrix<MatrixType> &mTransf)
+	{
+        QVector3 vAux;
+
+		vAux.x = this->x * mTransf.ij[0][0] + this->y * mTransf.ij[1][0] + this->z * mTransf.ij[2][0] + mTransf.ij[3][0];
+        vAux.y = this->x * mTransf.ij[0][1] + this->y * mTransf.ij[1][1] + this->z * mTransf.ij[2][1] + mTransf.ij[3][1];
+        vAux.z = this->x * mTransf.ij[0][2] + this->y * mTransf.ij[1][2] + this->z * mTransf.ij[2][2] + mTransf.ij[3][2];
+        
+        *this = vAux;
+    }
+
+    /// <summary>
+    /// Applies a transformation composed of a scale, a rotation and a translation
+	/// to resident vector, multiplying the vector by a transformation matrix 
+	/// to transform it. We assume that resident vector represents a 3D point
+	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+	/// since a 3D vector cannot be displaced. The transformed vector is stored into the provided one.
+    /// </summary>
+    /// <param name="mTransf">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
+	/// <param name="vOut">[OUT] Vector where to store the result of transformation.</param>
+	template <class MatrixType>
+	inline void Transform(const QTransformationMatrix<MatrixType> &mTransf, QBaseVector3 &vOut) const
+	{
+        vOut = *this;
+        static_cast<QVector3> (vOut).Transform(mTransf);
+	}
+
+    /// <summary>
+    /// Applies a transformation composed of a scale, a rotation and a translation
+	/// to resident vector, multiplying the vector by a space conversion matrix 
+	/// to transform it. We assume that resident vector represents a 3D point
+	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+	/// since a 3D vector cannot be displaced.
+    /// </summary>
+    /// <param name="mTransf">[IN] The space conversion matrix.</param>
+	void Transform(const QSpaceConversionMatrix &mTransf);
+
+	/// <summary>
+    /// Applies a transformation composed of a scale, a rotation and a translation
+	/// to resident vector, multiplying the vector by a space conversion matrix 
+	/// to transform it. We assume that resident vector represents a 3D point
+	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+	/// since a 3D vector cannot be displaced.
+    /// </summary>
+    /// <param name="mTransf">[IN] The space conversion matrix.</param>
+	/// <param name="vOut">[OUT] Vector where to store the result of transformation.</param>
+	inline void Transform(const QSpaceConversionMatrix &mTransf, QBaseVector3 &vOut) const
+	{
+		vOut = *this;
+        static_cast<QVector3>(vOut).Transform(mTransf);
+	}
+
     /// <summary>
     /// Converts vector into a string with the following format:
     /// "V3(x, y, z)".
