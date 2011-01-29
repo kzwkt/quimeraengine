@@ -147,6 +147,17 @@ void QVector3::Transform(const QDualQuaternion &dqTransf)
     this->z = dqAux.d.z;      
 }
 
+void QVector3::Transform(const QSpaceConversionMatrix &mTransf)
+{
+	QVector3 vAux;
+
+    vAux.x = this->x * mTransf.ij[0][0] + this->y * mTransf.ij[1][0] + this->z * mTransf.ij[2][0] + mTransf.ij[3][0];
+    vAux.y = this->x * mTransf.ij[0][1] + this->y * mTransf.ij[1][1] + this->z * mTransf.ij[2][1] + mTransf.ij[3][1];
+    vAux.z = this->x * mTransf.ij[0][2] + this->y * mTransf.ij[1][2] + this->z * mTransf.ij[2][2] + mTransf.ij[3][2];
+        
+    *this = vAux;
+}
+
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine
