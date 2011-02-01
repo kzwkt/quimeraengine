@@ -110,6 +110,27 @@ QRotationMatrix3x3::QRotationMatrix3x3(const QBaseQuaternion &qQuat)
 //##################													   ##################
 //##################=======================================================##################
 
+// Binary operators
+
+QRotationMatrix3x3 QRotationMatrix3x3::operator*(const QRotationMatrix3x3 &m) const
+{
+    QRotationMatrix3x3 aux;
+
+    aux.ij[0][0] = this->ij[0][0]*m.ij[0][0] + this->ij[0][1]*m.ij[1][0] + this->ij[0][2]*m.ij[2][0];
+    aux.ij[0][1] = this->ij[0][0]*m.ij[0][1] + this->ij[0][1]*m.ij[1][1] + this->ij[0][2]*m.ij[2][1];
+    aux.ij[0][2] = this->ij[0][0]*m.ij[0][2] + this->ij[0][1]*m.ij[1][2] + this->ij[0][2]*m.ij[2][2];
+
+    aux.ij[1][0] = this->ij[1][0]*m.ij[0][0] + this->ij[1][1]*m.ij[1][0] + this->ij[1][2]*m.ij[2][0];
+    aux.ij[1][1] = this->ij[1][0]*m.ij[0][1] + this->ij[1][1]*m.ij[1][1] + this->ij[1][2]*m.ij[2][1];
+    aux.ij[1][2] = this->ij[1][0]*m.ij[0][2] + this->ij[1][1]*m.ij[1][2] + this->ij[1][2]*m.ij[2][2];
+
+    aux.ij[2][0] = this->ij[2][0]*m.ij[0][0] + this->ij[2][1]*m.ij[1][0] + this->ij[2][2]*m.ij[2][0];
+    aux.ij[2][1] = this->ij[2][0]*m.ij[0][1] + this->ij[2][1]*m.ij[1][1] + this->ij[2][2]*m.ij[2][1];
+    aux.ij[2][2] = this->ij[2][0]*m.ij[0][2] + this->ij[2][1]*m.ij[1][2] + this->ij[2][2]*m.ij[2][2];
+
+    return aux;
+}
+
 void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q &fAngleZ) const
 {
     const float_q &diff = QFloat::_1 - QFloat::Epsilon;

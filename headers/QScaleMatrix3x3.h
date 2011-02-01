@@ -5,6 +5,9 @@
 
 #include "QMatrix3x3.h"
 #include "QBaseVector3.h"
+#include "QRotationMatrix3x3.h"
+#include "QTranslationMatrix.h"
+#include "QTransformationMatrix.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -142,11 +145,124 @@ public:
 	// ---------------
 public:
 
+    // Binary operators
+
+    /// <summary>
+    /// Multiplies a 3x3 scale matrix by the current matrix, following matrices product rules.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Scale matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+	QScaleMatrix3x3 operator*(const QScaleMatrix3x3 &m) const;
+
+    /// <summary>
+    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Rotation matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant 4x4 or 4x3 transformation matrix, depending on the method template parameter.
+    /// </returns>
+    template <class MatrixType>
+	QTransformationMatrix<MatrixType> operator*(const QRotationMatrix3x3 &m) const
+    {
+        QTransformationMatrix<MatrixType> aux;
+
+	    aux.ResetToIdentity();
+
+        aux.ij[0][0] = this->ij[0][0]*m.ij[0][0];
+        aux.ij[0][1] = this->ij[0][0]*m.ij[0][1];
+        aux.ij[0][2] = this->ij[0][0]*m.ij[0][2];
+
+        aux.ij[1][0] = this->ij[1][1]*m.ij[1][0];
+        aux.ij[1][1] = this->ij[1][1]*m.ij[1][1];
+        aux.ij[1][2] = this->ij[1][1]*m.ij[1][2];
+
+        aux.ij[2][0] = this->ij[2][2]*m.ij[2][0];
+        aux.ij[2][1] = this->ij[2][2]*m.ij[2][1];
+        aux.ij[2][2] = this->ij[2][2]*m.ij[2][2];
+
+        return aux;
+    }
+
+	/// <summary>
+    /// Multiplies a 4x4 or 4x3 translation matrix (depending on the method template parameter) 
+    /// by the current matrix, following matrices product rules.
+	/// Resident matrix is extended to a 4x4 matrix to allow this product.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Translation matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant 4x4 or 4x3 transformation matrix, depending on the method template parameter.
+    /// </returns>
+    template <class MatrixType>
+	QTransformationMatrix<MatrixType> operator*(const QTranslationMatrix<MatrixType> &m) const
+    {
+        QTransformationMatrix<MatrixType> aux;
+
+	    aux.ResetToIdentity();
+
+        aux.ij[0][0] = this->ij[0][0];
+        aux.ij[1][1] = this->ij[1][1];
+        aux.ij[2][2] = this->ij[2][2];
+
+        aux.ij[3][0] = m.ij[3][0];
+        aux.ij[3][1] = m.ij[3][1];
+        aux.ij[3][2] = m.ij[3][2];
+    
+        return aux;
+    }
+
+    /// <summary>
+    /// Multiplies a 4x4 or 4x3 transformation matrix (depending on the method template parameter) 
+    /// by the current matrix, following matrices product rules.
+	/// Resident matrix is extended to a 4x4 matrix to allow this product.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Transformation matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant 4x4 or 4x3 transformation matrix, depending on the method template parameter.
+    /// </returns>
+    template <class MatrixType>
+	QTransformationMatrix<MatrixType> operator*(const QTransformationMatrix<MatrixType> &m) const
+    {
+        QTransformationMatrix<MatrixType> aux;
+
+        aux.ResetToIdentity();
+
+	    aux.ij[3][0] = m.ij[3][0];
+	    aux.ij[3][1] = m.ij[3][1];
+	    aux.ij[3][2] = m.ij[3][2];
+
+        aux.ij[0][0] = this->ij[0][0]*m.ij[0][0];
+        aux.ij[0][1] = this->ij[0][0]*m.ij[0][1];
+        aux.ij[0][2] = this->ij[0][0]*m.ij[0][2];
+	
+        aux.ij[1][0] = this->ij[1][1]*m.ij[1][0];
+        aux.ij[1][1] = this->ij[1][1]*m.ij[1][1];
+        aux.ij[1][2] = this->ij[1][1]*m.ij[1][2];
+	
+        aux.ij[2][0] = this->ij[2][2]*m.ij[2][0];
+        aux.ij[2][1] = this->ij[2][2]*m.ij[2][1];
+        aux.ij[2][2] = this->ij[2][2]*m.ij[2][2];
+
+	    return aux;
+    }
+
     /// <summary>
     /// Reverse of the matrix. In the case of scale matrices, the inverse is composed 
     /// by the inverses of its non zero elements. So, it's faster than base class method.
     /// If one of the diagonal elements is 0, the matrix has not inverse.
-    /// 
     /// </summary>
     inline void Reverse()
     {
@@ -197,6 +313,18 @@ public:
         vScale.y = this->ij[1][1];
         vScale.z = this->ij[2][2];
     }
+
+    /// <summary>
+    /// Calculates the determinant of the matrix. Since this is a scale matrix, which is
+	/// a diagonal matrix, its determinant is the product of the elements of the main diagonal.
+    /// </summary>
+    /// <returns>
+    /// Floating point value which is the result of the determinant.
+    /// </returns>
+	inline float_q GetDeterminant()
+	{
+		return this->ij[0][0]*this->ij[1][1]*this->ij[2][2];
+	}
 
 protected:
     
