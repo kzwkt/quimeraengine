@@ -8,6 +8,7 @@
 #include "QMatrix4x4.h"
 //[TODO] jwladi: Uncomment this when QMatrix4x3 is implemented.
 //#include "QMatrix4x3.h"
+#include "QTransformationMatrix.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -51,7 +52,7 @@ public:
 	/// <summary>
 	/// Default constructor. It's initialized to identity matrix.
 	/// </summary>
-	QTranslationMatrix()
+	inline QTranslationMatrix()
     {
         this->ResetToIdentity();
     }
@@ -163,9 +164,112 @@ public:
     {
         QTranslationMatrix<MatrixType> aux;
 
+        aux.ResetToIdentity();
+
         aux.ij[3][0] = this->ij[3][0] + m.ij[3][0];
         aux.ij[3][1] = this->ij[3][1] + m.ij[3][1];
         aux.ij[3][2] = this->ij[3][2] + m.ij[3][2];
+
+        return aux;
+    }
+
+	/// <summary>
+    /// Multiplies a 3x3 scale matrix by the current matrix, following matrices product rules. Scale matrix is
+    /// extended to a 4x4 matrix to allow this product.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Scale matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant transformation matrix, with the same template parameter that resident matrix.
+    /// </returns>
+    QTransformationMatrix<MatrixType> operator*(const QScaleMatrix3x3 &m) const
+    {
+        QTransformationMatrix<MatrixType> aux;
+
+        aux.ResetToIdentity();
+
+        aux.ij[0][0] = m.ij[0][0];
+        aux.ij[1][1] = m.ij[1][1];
+        aux.ij[2][2] = m.ij[2][2];
+
+        aux.ij[3][0] = m.ij[0][0]*this->ij[3][0];
+        aux.ij[3][1] = m.ij[1][1]*this->ij[3][1];
+        aux.ij[3][2] = m.ij[2][2]*this->ij[3][2];
+
+        return aux;
+    }
+
+    /// <summary>
+    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules. Rotation matrix is
+    /// extended to a 4x4 matrix to allow this product.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Rotation matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant transformation matrix, with the same template parameter that resident matrix.
+    /// </returns>
+    QTransformationMatrix<MatrixType> operator*(const QRotationMatrix3x3 &m) const
+    {
+        QTransformationMatrix<MatrixType> aux;
+
+        aux.ij[0][3] = aux.ij[1][3] = aux.ij[2][3] = QFloat::_0;
+        aux.ij[3][3] = QFloat::_1;
+
+        aux.ij[0][0] = m.ij[0][0];
+        aux.ij[0][1] = m.ij[0][1];
+        aux.ij[0][2] = m.ij[0][2];
+
+        aux.ij[1][0] = m.ij[1][0];
+        aux.ij[1][1] = m.ij[1][1];
+        aux.ij[1][2] = m.ij[1][2];
+
+        aux.ij[2][0] = m.ij[2][0];
+        aux.ij[2][1] = m.ij[2][1];
+        aux.ij[2][2] = m.ij[2][2];
+
+        aux.ij[3][0] = this->ij[3][0]*m.ij[0][0] + this->ij[3][1]*m.ij[1][0] + this->ij[3][2]*m.ij[2][0];
+        aux.ij[3][1] = this->ij[3][0]*m.ij[0][1] + this->ij[3][1]*m.ij[1][1] + this->ij[3][2]*m.ij[2][1];
+        aux.ij[3][2] = this->ij[3][0]*m.ij[0][2] + this->ij[3][1]*m.ij[1][2] + this->ij[3][2]*m.ij[2][2];
+
+        return aux;
+    }
+
+    /// <summary>
+    /// Multiplies a transformation matrix by the current matrix, following matrices product rules.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Transformation matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant transformation matrix, with the same template parameter that resident matrix.
+    /// </returns>
+    QTransformationMatrix<MatrixType> operator*(const QTransformationMatrix<MatrixType> &m) const
+    {
+        QTransformationMatrix<MatrixType> aux;
+
+        aux.ij[0][3] = aux.ij[1][3] = aux.ij[2][3] = QFloat::_0;
+        aux.ij[3][3] = QFloat::_1;
+
+        aux.ij[0][0] = m.ij[0][0];
+        aux.ij[0][1] = m.ij[0][1];
+        aux.ij[0][2] = m.ij[0][2];
+
+        aux.ij[1][0] = m.ij[1][0];
+        aux.ij[1][1] = m.ij[1][1];
+        aux.ij[1][2] = m.ij[1][2];
+
+        aux.ij[2][0] = m.ij[2][0];
+        aux.ij[2][1] = m.ij[2][1];
+        aux.ij[2][2] = m.ij[2][2];
+
+        aux.ij[3][0] = this->ij[3][0]*m.ij[0][0] + this->ij[3][1]*m.ij[1][0] + this->ij[3][2]*m.ij[2][0] + m.ij[3][0];
+        aux.ij[3][1] = this->ij[3][0]*m.ij[0][1] + this->ij[3][1]*m.ij[1][1] + this->ij[3][2]*m.ij[2][1] + m.ij[3][1];
+        aux.ij[3][2] = this->ij[3][0]*m.ij[0][2] + this->ij[3][1]*m.ij[1][2] + this->ij[3][2]*m.ij[2][2] + m.ij[3][2];
 
         return aux;
     }
@@ -263,6 +367,18 @@ public:
         vDisp.z = this->ij[3][2];
         vDisp.w = QFloat::_0;
     }
+
+	/// <summary>
+    /// Calculates the determinant of the matrix. Since this is a translation matrix, 
+    /// which is a diagonal matrix with its main diagonal composed of 1s, its determinant is 1.
+    /// </summary>
+    /// <returns>
+    /// Floating point value which is the result of the determinant.
+    /// </returns>
+	inline float_q GetDeterminant()
+	{
+		return QFloat::_1;
+	}
 
 protected:
     
