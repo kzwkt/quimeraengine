@@ -4,8 +4,6 @@
 #define __QDUALQUATERNION__
 
 #include "QBaseDualQuaternion.h"
-#include "QBaseVector3.h"
-#include "QBaseVector4.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -17,6 +15,11 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QBaseVector3;
+class QBaseVector4;
+
 
 /// <summary>
 /// Class which implements the basic functionality of a dual quaternion. 

@@ -3,11 +3,10 @@
 #ifndef __QVECTOR4__
 #define __QVECTOR4__
 
-#include "QBaseVector4.h"
 #include "QBaseVector3.h"
+#include "QBaseVector4.h"
 #include "QBaseMatrix4x4.h"
-#include "QQuaternion.h"
-#include "QDualQuaternion.h"
+
 
 namespace Kinesis
 {
@@ -17,6 +16,11 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QQuaternion;
+class QDualQuaternion;
+
 
 /// <summary>
 /// This class implements a four components vector functionality. It inherits from QBaseVector4.

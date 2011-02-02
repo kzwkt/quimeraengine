@@ -2,6 +2,10 @@
 
 #include "QSpaceConversionMatrix.h"
 
+#include "QBaseQuaternion.h"
+#include "QVector3.h"
+#include "QTransformationMatrix.h"
+
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -26,14 +30,14 @@ QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionM
 {
     QSpaceConversionMatrix aux;
 
-    aux = *this * m;
+    aux = static_cast<QSpaceConversionMatrix>( static_cast<QMatrix4x4>(*this) * static_cast<QMatrix4x4>(m) );
 
     return aux;
 }
 
 QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &m) 
 {
-    *this *= m;
+    static_cast<QMatrix4x4>(*this) *= static_cast<QMatrix4x4>(m);
     return *this;
 }
 

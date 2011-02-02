@@ -3,8 +3,6 @@
 #ifndef __QBASETRIANGLE__
 #define __QBASETRIANGLE_
 
-
-
 #include "QFloat.h"
 #include "QVF32.h"
 

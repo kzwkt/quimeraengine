@@ -2,6 +2,10 @@
 
 #include "QDualQuaternion.h"
 
+#include "QBaseVector3.h"
+#include "QBaseVector4.h"
+
+
 namespace Kinesis
 {
 namespace QuimeraEngine
