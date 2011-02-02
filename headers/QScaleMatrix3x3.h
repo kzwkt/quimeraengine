@@ -3,11 +3,8 @@
 #ifndef __QSCALEMATRIX3X3__
 #define __QSCALEMATRIX3X3__
 
-#include "QMatrix3x3.h"
 #include "QBaseVector3.h"
-#include "QRotationMatrix3x3.h"
-#include "QTranslationMatrix.h"
-#include "QTransformationMatrix.h"
+#include "QMatrix3x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -19,6 +16,13 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QBaseVector3;
+template<class MatrixType> class QTranslationMatrix;
+class QRotationMatrix3x3;
+template<class MatrixType> class QTransformationMatrix;
+
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a scale factor

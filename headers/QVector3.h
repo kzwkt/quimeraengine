@@ -6,14 +6,7 @@
 #include "QAngle.h"
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
-#include "QBaseMatrix3x3.h"
-#include "QQuaternion.h"
-#include "QDualQuaternion.h"
-#include "QRotationMatrix3x3.h"
 #include "QScaleMatrix3x3.h"
-#include "QTranslationMatrix.h"
-#include "QTransformationMatrix.h"
-#include "QSpaceConversionMatrix.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -25,6 +18,15 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+template<class MatrixType> class QTranslationMatrix;
+class QQuaternion;
+class QDualQuaternion;
+class QRotationMatrix3x3;
+template<class MatrixType> class QTransformationMatrix;
+class QSpaceConversionMatrix;
+
 
 /// <summary>
 /// This class implements three components vector functionality. It inherits from QBaseVector3.
@@ -623,7 +625,7 @@ public:
 	inline void Transform(const QRotationMatrix3x3 &mRot)
 	{
 
-		*this *= static_cast<QBaseMatrix3x3>(mRot);
+//		*this *= static_cast<QBaseMatrix3x3>(mRot);
 	}
  
     /// <summary>

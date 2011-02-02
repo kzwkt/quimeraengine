@@ -4,11 +4,6 @@
 #define __QROTATIONMATRIX3X3__
 
 #include "QMatrix3x3.h"
-#include "QVector3.h"
-#include "QQuaternion.h"
-#include "QScaleMatrix3x3.h"
-#include "QTranslationMatrix.h"
-#include "QTransformationMatrix.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -20,6 +15,15 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QBaseVector3;
+class QBaseQuaternion;
+class QQuaternion;
+template<class MatrixType> class QTranslationMatrix;
+class QScaleMatrix3x3;
+template<class MatrixType> class QTransformationMatrix;
+
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a rotation.

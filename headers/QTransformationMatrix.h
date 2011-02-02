@@ -3,13 +3,8 @@
 #ifndef __QTRANSFORMATIONMATRIX__
 #define __QTRANSFORMATIONMATRIX__
 
-#include "QBaseVector3.h"
-#include "QBaseVector4.h"
-#include "QBaseQuaternion.h"
+#include "QQuaternion.h"
 #include "QRotationMatrix3x3.h"
-#include "QMatrix4x4.h"
-//[TODO] jwladi: Uncomment this when QMatrix4x3 is implemented.
-//#include "QMatrix4x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -21,6 +16,13 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QMatrix4x4;
+template<class MatrixType>
+class QTranslationMatrix;
+class QScaleMatrix3x3;
+
 
 /// <summary>
 /// Class which represents a transformation matrix. A transformation matrix is, in general, composed of a scale,

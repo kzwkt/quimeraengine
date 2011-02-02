@@ -3,6 +3,10 @@
 #ifndef __QSPACECONVERSIONMATRIX__
 #define __QSPACECONVERSIONMATRIX__
 
+#include "QBaseVector3.h"
+#include "QBaseVector4.h"
+#include "QBaseQuaternion.h"
+#include "QMatrix4x4.h"
 #include "QTransformationMatrix.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -15,6 +19,12 @@ namespace Tools
 {
 namespace Math
 {
+//    template<> class QTransformationMatrix<QMatrix4x4>;
+//    typedef QTransformationMatrix<QMatrix4x4> QTransformationMatrix4x4;
+
+//    template<class MatrixType>
+//    class QTransformationMatrix<MatrixType>;
+//    typedef QTransformationMatrix<QMatrix4x4> QTransformationMatrix4x4;
 
 /// <summary>
 /// Class representing a matrix which symbolizes coordinate system transformations. It adds functionality 
@@ -89,6 +99,7 @@ public:
     /// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
     inline QSpaceConversionMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) : 
         QMatrix4x4(row0, row1, row2, row3) { }
+
 
     // METHODS
     // ---------------
@@ -198,8 +209,9 @@ public:
     /// </summary>
     inline void SwitchHandConventionWorldSpaceMatrix()
     {
-        static_cast<QTransformationMatrix4x4>(*this).SwitchHandConvention();
+//        ((QTransformationMatrix4x4*)this)->SwitchHandConvention();
     }
+
     /// <summary>
     /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.
     /// Remember that Quimera Engine works with left-hand convention by default.

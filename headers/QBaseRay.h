@@ -3,8 +3,7 @@
 #ifndef __QBASERAY__
 #define __QBASERAY__
 
-#include "QVector3.h"
-#include "QVector4.h"
+#include "QFloat.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -20,6 +19,7 @@ namespace Math
 /// <summary>
 /// Implements the funcionality of a ray, which is a vector located at a point.
 /// </summary>
+template<class VectorTypePoint, class VectorTypeDirection>
 class QDllExport QBaseRay
 {
 
@@ -37,7 +37,7 @@ public:
 	/// </summary>
 	/// <param name="vPoint">[IN] Point where the vector is located.</param>
 	/// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
-	inline QBaseRay (const QBaseVector4 &vPoint, const QBaseVector3 &vDirection) : Point(vPoint), Direction(vDirection)	{ }
+	inline QBaseRay (const VectorTypePoint &vPoint, const VectorTypeDirection &vDirection) : Point(vPoint), Direction(vDirection)	{ }
 
 	// ATTRIBUTES
 	// ---------------
@@ -46,12 +46,12 @@ public:
 	/// <summary>
 	/// Point where the vector is located.
 	/// </summary>
-	QVector4 Point;
+	VectorTypePoint Point;
 
 	/// <summary>
 	/// Vector which defines the direction of the ray.
 	/// </summary>
-	QVector3 Direction;
+	VectorTypeDirection Direction;
 
 };
 

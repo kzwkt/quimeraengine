@@ -3,13 +3,6 @@
 #ifndef __QTRANSLATIONMATRIX__
 #define __QTRANSLATIONMATRIX__
 
-#include "QBaseVector3.h"
-#include "QBaseVector4.h"
-#include "QMatrix4x4.h"
-//[TODO] jwladi: Uncomment this when QMatrix4x3 is implemented.
-//#include "QMatrix4x3.h"
-#include "QTransformationMatrix.h"
-
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -20,6 +13,10 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QMatrix4x4;
+
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 4 rows and 3 or 4 columns, depending on template parameter,

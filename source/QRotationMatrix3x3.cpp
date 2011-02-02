@@ -2,6 +2,11 @@
 
 #include "QRotationMatrix3x3.h"
 
+#include "QVector3.h"
+#include "QTranslationMatrix.h"
+#include "QScaleMatrix3x3.h"
+#include "QTransformationMatrix.h"
+
 namespace Kinesis
 {
 namespace QuimeraEngine
