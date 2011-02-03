@@ -19,12 +19,6 @@ namespace Tools
 {
 namespace Math
 {
-//    template<> class QTransformationMatrix<QMatrix4x4>;
-//    typedef QTransformationMatrix<QMatrix4x4> QTransformationMatrix4x4;
-
-//    template<class MatrixType>
-//    class QTransformationMatrix<MatrixType>;
-//    typedef QTransformationMatrix<QMatrix4x4> QTransformationMatrix4x4;
 
 /// <summary>
 /// Class representing a matrix which symbolizes coordinate system transformations. It adds functionality 

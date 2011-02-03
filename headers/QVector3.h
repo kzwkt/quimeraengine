@@ -6,6 +6,7 @@
 #include "QAngle.h"
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
+#include "QRotationMatrix3x3.h"
 #include "QScaleMatrix3x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -23,7 +24,6 @@ namespace Math
 template<class MatrixType> class QTranslationMatrix;
 class QQuaternion;
 class QDualQuaternion;
-class QRotationMatrix3x3;
 template<class MatrixType> class QTransformationMatrix;
 class QSpaceConversionMatrix;
 
@@ -624,8 +624,7 @@ public:
     /// <param name="mRot">[IN] The rotation matrix.</param>
 	inline void Transform(const QRotationMatrix3x3 &mRot)
 	{
-
-//		*this *= static_cast<QBaseMatrix3x3>(mRot);
+		*this *= mRot;
 	}
  
     /// <summary>
