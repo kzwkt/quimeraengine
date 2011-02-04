@@ -4,6 +4,7 @@
 #define __QVECTOR2__
 
 #include "QBaseVector2.h"
+#include "QBaseMatrix2x2.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -35,7 +36,7 @@ public:
 	/// <summary>
 	/// Constructor from a 2D vector.
 	/// </summary>
-	/// <param name="v">[IN] The 2D vector  in which we want resident vector to be based.</param>
+	/// <param name="v">[IN] The 2D vector in which we want resident vector to be based.</param>
 	inline explicit QVector2(const QBaseVector2 &v) : QBaseVector2(v) { }
 
 	/// <summary>
@@ -63,7 +64,7 @@ public:
 	// unary operator
 
 	/// <summary>
-	/// Vectors negation: it's performed component by component.
+	/// Vector's negation: it's performed component by component.
 	/// </summary>
 	/// <returns>
 	/// A vector that is the result of the negation.
@@ -107,6 +108,15 @@ public:
 	/// A vector that is the result of the product.
 	/// </returns>
 	QVector2 operator * (const QBaseVector2 &v) const;
+
+    /// <summary>
+    /// Product by a matrix with 2 rows and 2 columns: it's performed following the matrices product rules.
+    /// </summary>
+    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <returns>
+    /// A vector that is the result of the product.
+    /// </returns>
+	QVector2 operator * (const QBaseMatrix2x2 &m) const;
 	
 	/// <summary>
 	/// Division by a scalar: all components are divided by the floating point value provided.
@@ -209,6 +219,25 @@ public:
 	}
 
 	/// <summary>
+    /// Multiplies resident vector by a matrix with 2 rows and 2 columns provided. It's performed with matrix product rules.
+    /// </summary>
+    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <returns>
+    /// A reference to vector result of the product.
+    /// </returns>
+    inline QVector2& operator *= (const QBaseMatrix2x2 &m)
+	{
+
+		float_q fValueX = this->x * m.ij[0][0] + this->y * m.ij[1][0];
+		float_q fValueY = this->x * m.ij[0][1] + this->y * m.ij[1][1];
+
+		this->x = fValueX;
+		this->y = fValueY;
+
+		return *this; 
+	}
+
+	/// <summary>
 	/// Multiplies current vector by a vector provided. It's performed component by component. It's not dot product or cross product!
 	/// </summary>
 	/// <param name="v">[IN] Multiplying vector.</param>
@@ -296,6 +325,16 @@ public:
 	}
 
 	/// <summary>
+    /// Calculates a normalized vector from the resident one and stores it in an output vector provided.
+    /// </summary>
+    /// <param name="vOut">[OUT] Vector where we want to store the normalized vector.</param>
+    inline void Normalize(QBaseVector2 &vOut) const
+    {
+        vOut = *this;
+        static_cast<QVector2> (vOut).Normalize();
+    }
+
+	/// <summary>
 	/// Convert current vector in its opposite vector.
 	/// </summary>
 	inline void Reverse() 
@@ -303,6 +342,16 @@ public:
 		this->x = -this->x; 
 		this->y = -this->y;  
 	}
+
+    /// <summary>
+    /// Calculates the opposite to resident vector and stores it in an output vector provided.
+    /// </summary>
+    /// <param name="vOut">[OUT] Vector where we want to store the opposite vector.</param>
+    inline void Reverse(QBaseVector2 &vOut) const
+    {
+        vOut = *this;
+        static_cast<QVector2> (vOut).Reverse();
+    }
 
 	/// <summary>
 	/// Resets all components of current vector to 1.
@@ -368,6 +417,17 @@ public:
 		this->y = this->y*fFactor + v.y*(QFloat::_1 - fFactor); 
 	}
 
+    /// <summary>
+    /// Makes a Linear Interpolation between resident vector and other vector provided. It stores result in a vector provided.
+    /// </summary>
+    /// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the resident vector (per one).</param>
+    /// <param name="v">[IN] Vector with which to interpolate.</param>
+    /// <param name="vOut">[OUT] Vector to store results of interpolation.</param>
+    inline void Lerp(const float_q &fFactor, const QBaseVector2 &v, QBaseVector2 &vOut) const
+    {
+        vOut = *this;
+        static_cast<QVector2> (vOut).Lerp(fFactor, v);
+    }
 
 	/// <summary>
 	/// Calculates the distance between two vector heads (or two points). It computes the difference of two vectors and returns its length.

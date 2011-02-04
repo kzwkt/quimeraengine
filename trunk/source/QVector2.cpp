@@ -35,6 +35,7 @@ const QVector2 QVector2::UnitVectorInvY( QFloat::_0, -QFloat::_1);
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
+
 QVector2 QVector2::operator - () const 
 { 
 	return QVector2(-this->x, -this->y); 
@@ -58,6 +59,12 @@ QVector2 QVector2::operator * (const float_q &fValue) const
 QVector2 QVector2::operator * (const QBaseVector2 &v) const 
 { 
 	return QVector2(this->x*v.x, this->y*v.y); 
+}
+
+QVector2 QVector2::operator * (const QBaseMatrix2x2 &m) const
+{
+	return QVector2(this->x * m.ij[0][0] + this->y * m.ij[1][0],
+                    this->x * m.ij[0][1] + this->y * m.ij[1][1]);
 }
 
 QVector2 QVector2::operator / (const float_q &fValue) const
