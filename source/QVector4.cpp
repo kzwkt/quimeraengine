@@ -163,6 +163,18 @@ void QVector4::Transform(const QDualQuaternion &dqTransf)
     this->z = dqAux.d.z;      
 }
 
+void QVector4::Transform(const QRotationMatrix3x3 &mRot)
+{
+    QVector4 vAux;
+
+    vAux.x = this->x * mRot.ij[0][0] + this->y * mRot.ij[1][0] + this->z * mRot.ij[2][0];
+    vAux.y = this->x * mRot.ij[0][1] + this->y * mRot.ij[1][1] + this->z * mRot.ij[2][1];
+    vAux.z = this->x * mRot.ij[0][2] + this->y * mRot.ij[1][2] + this->z * mRot.ij[2][2];
+    vAux.w = this->w;
+        
+    *this = vAux;
+}
+
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine

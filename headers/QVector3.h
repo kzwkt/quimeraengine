@@ -744,7 +744,7 @@ public:
 	/// to resident vector, multiplying the vector by a space conversion matrix 
 	/// to transform it. We assume that resident vector represents a 3D point
 	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
-	/// since a 3D vector cannot be displaced.
+	/// since a 3D vector cannot be displaced. The transformed vector is stored into the provided one.
     /// </summary>
     /// <param name="mTransf">[IN] The space conversion matrix.</param>
 	/// <param name="vOut">[OUT] Vector where to store the result of transformation.</param>
