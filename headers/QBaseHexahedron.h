@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QBASEBOX__
-#define __QBASEBOX_
+#ifndef __QBASEHEXAHEDRON__
+#define __QBASEHEXAHEDRON__
 
 #include "QFloat.h"
 #include "QVF32.h"
@@ -23,7 +23,7 @@ namespace Math
 /// EFGH defines the opposite face (eventually the bottom one).
 /// </summary>
 template <class VectorType> 
-class QDllExport QBaseBox
+class QDllExport QBaseHexahedron
 {
 
     // CONSTRUCTORS
@@ -33,8 +33,8 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseBox () : A(QFloat::_0), B(QFloat::_0), C(QFloat::_0), D(QFloat::_0), 
-                         E(QFloat::_0), F(QFloat::_0), G(QFloat::_0), H(QFloat::_0) { }
+    inline QBaseHexahedron () : A(QFloat::_0), B(QFloat::_0), C(QFloat::_0), D(QFloat::_0), 
+								E(QFloat::_0), F(QFloat::_0), G(QFloat::_0), H(QFloat::_0) { }
 
     /// <summary>
     /// Constructor from eight vectors, one for each vertex.
@@ -47,9 +47,9 @@ public:
     /// <param name="vF">[IN] Vector to define vertex F.</param>
     /// <param name="vG">[IN] Vector to define vertex G.</param>
     /// <param name="vH">[IN] Vector to define vertex H.</param>
-    inline QBaseBox (const VectorType &vA, const VectorType &vB, const VectorType &vC, const VectorType &vD,
-                     const VectorType &vE, const VectorType &vF, const VectorType &vG, const VectorType &vH) :
-                     A(vA), B(vB), C(vC), D(vD), E(vE), F(vF), G(vG), H(vH) { }
+    inline QBaseHexahedron (const VectorType &vA, const VectorType &vB, const VectorType &vC, const VectorType &vD,
+							const VectorType &vE, const VectorType &vF, const VectorType &vG, const VectorType &vH) :
+							A(vA), B(vB), C(vC), D(vD), E(vE), F(vF), G(vG), H(vH) { }
 
     /// <summary>
     /// Constructor from two vectors which defines two opposite vertices, with no common faces between them 
@@ -57,7 +57,7 @@ public:
     /// </summary>
     /// <param name="vA">[IN] Vector which defines one vertex of a inner diagonal (We'll call it A).</param>
     /// <param name="vG">[IN] Vector which defines the other vertex of the inner diagonal (We'll call it G).</param>
-    inline QBaseBox (const VectorType &vA, const VectorType &vG)
+    inline QBaseHexahedron (const VectorType &vA, const VectorType &vG)
     {
         A = B = D = E = vA;
         C = F = G = H = vG;
@@ -79,7 +79,7 @@ public:
     /// <param name="fLenX">[IN] Length of an edge parallel to X axis (width).</param>
     /// <param name="fLenY">[IN] Length of an edge parallel to Y axis (height).</param>
     /// <param name="fLenZ">[IN] Length of an edge parallel to Z axis (depth).</param>
-    inline QBaseBox (const VectorType &vCenter, float_q &fLenX, float_q &fLenY, float_q &fLenZ)
+    inline QBaseHexahedron (const VectorType &vCenter, float_q &fLenX, float_q &fLenY, float_q &fLenZ)
     {
         // Ensures that all vectors/points are in same coordinates format.
         A = vCenter;
@@ -161,4 +161,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QBASEBOX_
+#endif // __QBASEHEXAHEDRON__
