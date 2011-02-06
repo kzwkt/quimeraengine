@@ -79,7 +79,7 @@ public:
     /// <param name="fLenX">[IN] Length of an edge parallel to X axis (width).</param>
     /// <param name="fLenY">[IN] Length of an edge parallel to Y axis (height).</param>
     /// <param name="fLenZ">[IN] Length of an edge parallel to Z axis (depth).</param>
-    inline QBaseHexahedron (const VectorType &vCenter, float_q &fLenX, float_q &fLenY, float_q &fLenZ)
+    inline QBaseHexahedron (const VectorType &vCenter, const float_q &fLenX, const float_q &fLenY, const float_q &fLenZ)
     {
         // Ensures that all vectors/points are in same coordinates format.
         A = vCenter;
