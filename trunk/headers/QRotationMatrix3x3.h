@@ -74,8 +74,8 @@ public:
     /// <param name="fAngleX">[IN] Rotation angle about X global axis.</param>
     /// <param name="fAngleY">[IN] Rotation angle about Y global axis.</param>
     /// <param name="fAngleZ">[IN] Rotation angle about Z global axis.</param>
-    inline QRotationMatrix3x3(const float_q &fAngleX, const float_q &fAngleY, const float_q &fAngleZ) : 
-        QMatrix3x3(fAngleX, fAngleY, fAngleZ) { }
+    QRotationMatrix3x3(const float_q &fAngleX, const float_q &fAngleY, const float_q &fAngleZ);
+
 
     /// <summary>
     /// Constructor from an angle and a spin axis defined by a vector. It's computed as follows:

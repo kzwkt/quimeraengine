@@ -38,6 +38,46 @@ const QRotationMatrix3x3 QRotationMatrix3x3::Identity(  QFloat::_1, QFloat::_0, 
 //##################													   ##################
 //##################=======================================================##################
 
+QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fAngleX, const float_q &fAngleY, const float_q &fAngleZ)
+{
+    
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        // If angles are specified in degrees, then converts it to radians
+        float_q &fAngleXRad = QAngle::DegreesToRadians(fAngleX, fAngleXRad);
+        float_q &fAngleYRad = QAngle::DegreesToRadians(fAngleY, fAngleYRad);
+        float_q &fAngleZRad = QAngle::DegreesToRadians(fAngleZ, fAngleZRad);
+
+        const float_q& A   = cos(fAngleXRad);
+        const float_q& B   = sin(fAngleXRad);
+        const float_q& C   = cos(fAngleYRad);
+        const float_q& D   = sin(fAngleYRad);
+        const float_q& E   = cos(fAngleZRad);
+        const float_q& F   = sin(fAngleZRad);
+    #else
+        const float_q& A   = cos(fAngleX);
+        const float_q& B   = sin(fAngleX);
+        const float_q& C   = cos(fAngleY);
+        const float_q& D   = sin(fAngleY);
+        const float_q& E   = cos(fAngleZ);
+        const float_q& F   = sin(fAngleZ);
+    #endif
+
+    float_q BC  = B*C;
+    float_q BD  = B*D;
+    
+    ij[0][0]  =  E*C - F*BD;
+    ij[0][1]  = -A*F;
+    ij[0][2]  =  E*D + F*BC;
+  
+    ij[1][0]  =  F*C + E*BD;
+    ij[1][1]  =  A*E;
+    ij[1][2]  =  F*D - E*BC;
+    
+    ij[2][0]  =  -A*D;
+    ij[2][1]  =  B;
+    ij[2][2]  =  A*C;
+}
+
 QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vAxis, const float_q &fAngle)
 {
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES

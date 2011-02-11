@@ -78,17 +78,6 @@ public:
     inline explicit QMatrix3x3(const QBaseMatrix3x3 &m) : QBaseMatrix3x3(m) { }
 
     /// <summary>
-    /// Constructor that receives 3 angles, one for each Euler angle, to construct the rotation 
-    /// matrix of a specified rotation. 
-    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
-    /// This is a slow operation.
-    /// </summary>
-    /// <param name="fAngleX">[IN] Rotation angle about X global axis.</param>
-    /// <param name="fAngleY">[IN] Rotation angle about Y global axis.</param>
-    /// <param name="fAngleZ">[IN] Rotation angle about Z global axis.</param>
-    QMatrix3x3(const float_q &fAngleX, const float_q &fAngleY, const float_q &fAngleZ);
-
-    /// <summary>
     /// Constructor from a floating point value which with fill all matrix's elements.
     /// </summary>
     /// <param name="fValue">[IN] The floating point value used to fill the matrix.</param>
