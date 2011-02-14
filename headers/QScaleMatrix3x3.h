@@ -286,12 +286,8 @@ public:
     /// <param name="mOut">[OUT] A matrix where to store reverse matrix.</param>
     inline void Reverse(QBaseMatrix3x3 &mOut) const
     {
-        // If one of the diagonal elements is 0, the matrix has not inverse.
-        QE_ASSERT(this->ij[0][0] != QFloat::_0 && this->ij[1][1] != QFloat::_0 && this->ij[2][2] != QFloat::_0);
-
-        mOut.ij[0][0] = QFloat::_1 / this->ij[0][0];
-        mOut.ij[1][1] = QFloat::_1 / this->ij[1][1];
-        mOut.ij[2][2] = QFloat::_1 / this->ij[2][2];
+        mOut = *this;
+        reinterpret_cast<QScaleMatrix3x3&> (mOut).Reverse();
     }
 
     /// <summary>

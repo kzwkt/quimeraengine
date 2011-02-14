@@ -412,7 +412,11 @@ public:
     /// <returns>
     /// True if the matrix is invertible, false otherwise.
     /// </returns>
-    bool Reverse(QMatrix2x2 &m) const;
+    inline bool Reverse(QBaseMatrix2x2 &m) const
+    {
+        m = *this;
+        return reinterpret_cast<QMatrix2x2&> (m).Reverse();
+    }
     
     /// <summary>
     /// Converts matrix into a string with the following format:

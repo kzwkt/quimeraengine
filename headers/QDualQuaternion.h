@@ -416,7 +416,11 @@ public:
     /// </summary>
     /// <param name="dqTransf">[IN] Transformation to be applied.</param>
     /// <param name="dqOut">[OUT] Dual quaternion where the result of transformation is stored.</param>
-    void Transform(const QBaseDualQuaternion &dqTransf, QBaseDualQuaternion &dqOut) const;
+    inline void Transform(const QBaseDualQuaternion &dqTransf, QBaseDualQuaternion &dqOut) const
+    {
+        dqOut = *this;
+        reinterpret_cast<QDualQuaternion&> (dqOut).Transform(dqTransf);
+    }
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
@@ -436,6 +440,20 @@ public:
     }
 
     /// <summary>
+    /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
+    /// </summary>
+    /// <param name="qR">[IN] Regular quaternion which defines the rotation.</param>
+    /// <param name="vD">[IN] Vector which defines the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
+    /// <param name="dqOut">[OUT] Dual quaternion where the result of transformation is stored.</param>
+    template <class VectorType>
+    void TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD, QBaseDualQuaternion &dqOut) const
+    { 
+        dqOut = *this;
+        reinterpret_cast<QDualQuaternion&> (dqOut).TransformRotationFirst(dqR, vD);
+    }
+
+
+    /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
     /// </summary>
     /// <param name="vD">[IN] Vector which defines the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
@@ -453,24 +471,6 @@ public:
     }
 
     /// <summary>
-    /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
-    /// </summary>
-    /// <param name="qR">[IN] Regular quaternion which defines the rotation.</param>
-    /// <param name="vD">[IN] Vector which defines the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
-    /// <param name="dqOut">[OUT] Dual quaternion where the result of transformation is stored.</param>
-    template <class VectorType>
-    void TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD, QBaseDualQuaternion &dqOut) const
-    { 
-        QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                                    QBaseQuaternion(vD.x, vD.y, vD.z, QFloat::_0)); 
-
-        QDualQuaternion dqTransf = Desp * Rot;
-
-        this->Transform(dqTransf, dqOut);
-    }
-
-    /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
     /// </summary>
     /// <param name="vD">[IN] Vector which defines the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
@@ -479,13 +479,8 @@ public:
     template <class VectorType>
     void TransformTranslationFirst(const VectorType &vD, const QBaseQuaternion &qR, QBaseDualQuaternion &dqOut) const
     { 
-        QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                                    QBaseQuaternion(vD.x, vD.y, vD.z, QFloat::_0)); 
-
-        QDualQuaternion dqTransf = Rot * Desp;
-
-        this->Transform(dqTransf, dqOut);
+        dqOut = *this;
+        reinterpret_cast<QDualQuaternion&> (dqOut).TransformTranslationFirst(vD, qR);
     }
 
     /// <summary>
@@ -536,17 +531,8 @@ public:
     /// <param name="dqOut">[OUT] The dual quaternion where we want store the result of interpolation.</param>
     inline void Lerp(const float_q &fProp, const QBaseDualQuaternion &dqQ2, QBaseDualQuaternion &dqOut)
     {
-  	    
-        dqOut = *this * (1-fProp);
-        dqOut.r += fProp * dqQ2.r;
-        dqOut.d += fProp * dqQ2.d;
-
-        float_q fLength = static_cast<QDualQuaternion>(dqOut).GetNonDualLength();
-
-        QE_ASSERT(fLength != QFloat::_0);
-
-        dqOut.r /= fLength;
-        dqOut.d /= fLength;
+        dqOut = *this;
+        reinterpret_cast<QDualQuaternion&>(dqOut).Lerp(fProp, dqQ2);
     }
 
     /// <summary>

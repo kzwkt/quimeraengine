@@ -96,15 +96,7 @@ void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf)
     QDualQuaternion dqConj(dqTransf);
 
     dqConj.DoubleConjugate();
-    *this = ( static_cast<QDualQuaternion>(dqTransf) * (*this) ) * dqConj;
-}
-
-void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf, QBaseDualQuaternion &dqOut) const
-{
-    QDualQuaternion dqConj(dqTransf);
-
-    dqConj.DoubleConjugate();
-    dqOut = ( static_cast<QDualQuaternion>(dqTransf) * (*this) ) * dqConj;
+    *this = ( reinterpret_cast<const QDualQuaternion&>(dqTransf) * (*this) ) * dqConj;
 }
 
 string_q QDualQuaternion::ToString() const

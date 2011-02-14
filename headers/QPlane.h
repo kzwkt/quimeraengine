@@ -244,7 +244,7 @@ public:
     inline void Normalize(QBasePlane &pOut)
     {
         pOut = *this;
-        static_cast <QPlane> (pOut).Normalize();
+        reinterpret_cast <QPlane&> (pOut).Normalize();
     }
 
     /// <summary>

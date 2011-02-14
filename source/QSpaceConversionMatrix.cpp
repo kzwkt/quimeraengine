@@ -30,14 +30,14 @@ QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionM
 {
     QSpaceConversionMatrix aux;
 
-    aux = static_cast<QSpaceConversionMatrix>( static_cast<QMatrix4x4>(*this) * static_cast<QMatrix4x4>(m) );
+    aux = reinterpret_cast<QSpaceConversionMatrix&>( reinterpret_cast<const QMatrix4x4&> (*this) * reinterpret_cast<const QMatrix4x4&>(m) );
 
     return aux;
 }
 
 QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &m) 
 {
-    static_cast<QMatrix4x4>(*this) *= static_cast<QMatrix4x4>(m);
+    reinterpret_cast<QMatrix4x4&>(*this) *= reinterpret_cast<const QMatrix4x4 &>(m);
     return *this;
 }
 
@@ -45,14 +45,14 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector3 &vDisp, cons
 {
     QTransformationMatrix4x4 aux(vDisp, qRot, vScale);
 
-    *this = static_cast<QSpaceConversionMatrix>(aux);
+    *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
 }
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector4 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale)
 {
     QTransformationMatrix4x4 aux(vDisp, qRot, vScale);
 
-    *this = static_cast<QSpaceConversionMatrix>(aux);
+    *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
 }
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix4x4 &mDisp, const QTransformationMatrix4x4 &mRot, 

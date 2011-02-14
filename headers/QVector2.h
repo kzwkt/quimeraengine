@@ -331,7 +331,7 @@ public:
     inline void Normalize(QBaseVector2 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector2> (vOut).Normalize();
+        reinterpret_cast<QVector2&> (vOut).Normalize();
     }
 
 	/// <summary>
@@ -350,7 +350,7 @@ public:
     inline void Reverse(QBaseVector2 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector2> (vOut).Reverse();
+        reinterpret_cast<QVector2&> (vOut).Reverse();
     }
 
 	/// <summary>
@@ -426,7 +426,7 @@ public:
     inline void Lerp(const float_q &fFactor, const QBaseVector2 &v, QBaseVector2 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector2> (vOut).Lerp(fFactor, v);
+        reinterpret_cast<QVector2&> (vOut).Lerp(fFactor, v);
     }
 
 	/// <summary>

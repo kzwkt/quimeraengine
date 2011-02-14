@@ -464,7 +464,11 @@ public:
     /// <returns>
     /// True if the matrix is invertible, false otherwise.
     /// </returns>
-    bool Reverse(QBaseMatrix3x3 &m) const;
+    inline bool Reverse(QBaseMatrix3x3 &m) const
+    {
+        m = *this;
+        return reinterpret_cast<QMatrix3x3&> (m).Reverse();
+    }
     
     /// <summary>
     /// Converts matrix into a string with the following format:
