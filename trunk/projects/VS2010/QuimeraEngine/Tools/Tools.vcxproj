@@ -121,6 +121,7 @@
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x3.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix4x4.h" />
+    <ClInclude Include="..\..\..\..\headers\QBaseOrb.h" />
     <ClInclude Include="..\..\..\..\headers\QBasePlane.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseRay.h" />
