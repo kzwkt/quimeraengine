@@ -235,43 +235,6 @@ namespace Math
 
     }
 
-    bool QMatrix3x3::Reverse(QBaseMatrix3x3 &m) const
-    {
-        // Special case where matrix is identity. Then inverse of the matrix is itself.
-        if (this->IsIdentity())
-        {
-            m = *this;
-            return true;
-        }
-
-        // Gets Determinant.
-        float_q fDet = this->GetDeterminant();
-
-        // If Determinant is 0, this matrix has not inverse.
-        if (QFloat::IsZero(fDet)) 
-            return false;
-
-        // We need inverse of determinant in calculus.
-        fDet = QFloat::_1/fDet;
-        
-        // 1st column of inverse 
-        m.ij[0][0] =  fDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1]);
-        m.ij[1][0] = -fDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0]);
-        m.ij[2][0] =  fDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0]);
-
-        // 2nd column of inverse 
-        m.ij[0][1] = -fDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1]);
-        m.ij[1][1] =  fDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0]);
-        m.ij[2][1] = -fDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0]);
-
-        // 3rd column of inverse 
-        m.ij[0][2] =  fDet * (this->ij[0][1] * this->ij[1][2] - this->ij[0][2] * this->ij[1][1]);
-        m.ij[1][2] = -fDet * (this->ij[0][0] * this->ij[1][2] - this->ij[0][2] * this->ij[1][0]);
-        m.ij[2][2] =  fDet * (this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0]);
-
-        return true;
-    }
-
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine

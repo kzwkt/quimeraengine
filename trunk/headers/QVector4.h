@@ -476,7 +476,7 @@ public:
     inline void Normalize(QBaseVector4 &vOut) const
     {
         vOut = * this;
-        static_cast <QVector4>(vOut).Normalize();
+        reinterpret_cast<QVector4&> (vOut).Normalize();
     }
 
     /// <summary>
@@ -497,7 +497,7 @@ public:
     inline void Reverse(QBaseVector4 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector4> (vOut).Reverse();
+        reinterpret_cast<QVector4&> (vOut).Reverse();
     }
 
     /// <summary>
@@ -570,6 +570,37 @@ public:
     }
 
     /// <summary>
+    /// Calculates the angle between resident vector and the provided vector, via dot product.
+    /// Both vectors are treated as 3D vectors, ignoring W component.
+    /// </summary>
+    /// <param name="v">[IN] Multiplying vector.</param>
+    /// <returns>
+    /// A floating point value which is the smaller angle between vectors (less or equal to 180º).
+    /// </returns>
+    inline float_q DotProductAngle(const QBaseVector4 &v) const
+    { 
+        float_q fLength = sqrt( (this->x*this->x + this->y*this->y + this->z*this->z) *
+                                (v.x*v.x + v.y*v.y + v.z*v.z) );
+        
+        // Checkout to avoid division by zero.
+        QE_ASSERT(fLength != QFloat::_0);
+
+        float_q fDot = (this->x*v.x + this->y*v.y + this->z*v.z)/fLength;
+
+        // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
+        QE_ASSERT(abs(fDot) <= QFloat::_1);
+
+        float_q fAngle = acos(fDot);
+        
+        #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+            // If angles are specified in degrees, then converts angle to degrees
+            QAngle::RadiansToDegrees(fAngle, fAngle);
+        #endif
+
+        return fAngle;
+    }
+
+    /// <summary>
     /// Calculates cross product by a vector provided (left handed rules), and stores it in current vector.
     /// Due to cross product between two 4D vectors isn't defined (is a ternary operation in 4D space),
     /// we treat it as a cross product between two 3D vectors, maintaining the W component of the resident vector.
@@ -587,7 +618,7 @@ public:
     inline void CrossProduct(const QBaseVector4 &v, QBaseVector4 &vOut) const
     {
         vOut = *this;
-        static_cast <QVector4> (vOut).CrossProduct(v);
+        reinterpret_cast<QVector4&> (vOut).CrossProduct(v);
     }
 
     /// <summary>
@@ -614,7 +645,7 @@ public:
     inline void Lerp(const float_q &fFactor, const QBaseVector4 &v, QBaseVector4 &vOut) const
     { 
         vOut = *this;
-        static_cast <QVector4> (vOut).Lerp(fFactor, v);
+        reinterpret_cast<QVector4&> (vOut).Lerp(fFactor, v);
     }
 
     /// <summary>
@@ -655,7 +686,7 @@ public:
     inline void Transform(const QQuaternion &qR, QBaseVector4 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector4> (vOut).Transform(qR);
+        reinterpret_cast<QVector4&> (vOut).Transform(qR);
     }
 
     /// <summary>
@@ -680,7 +711,7 @@ public:
     inline void Transform(const QDualQuaternion &dqTransf, QBaseVector4 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector4> (vOut).Transform(dqTransf);
+        reinterpret_cast<QVector4&> (vOut).Transform(dqTransf);
     }
 
     /// <summary>
@@ -706,7 +737,7 @@ public:
     inline void Homogenize(QBaseVector4 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector4>(vOut).Homogenize();
+        reinterpret_cast<QVector4&> (vOut).Homogenize();
     }
 
     /// <summary>
@@ -725,7 +756,7 @@ public:
 	inline void Transform(const QRotationMatrix3x3 &mRot, QBaseVector4 &vOut) const
 	{
 		vOut = *this;
-        static_cast<QVector4> (vOut).Transform(mRot);
+        reinterpret_cast<QVector4&> (vOut).Transform(mRot);
 	}
 
     /// <summary>
@@ -749,7 +780,7 @@ public:
 	inline void Transform(const QScaleMatrix3x3 &mScale, QBaseVector4 &vOut) const
 	{
         vOut = *this;
-        static_cast<QVector4> (vOut).Transform(mScale);
+        reinterpret_cast<QVector4&> (vOut).Transform(mScale);
 	}
     
     /// <summary>
@@ -779,7 +810,7 @@ public:
 	inline void Transform(const QTranslationMatrix<MatrixType> &mDisp, QBaseVector4 &vOut) const
 	{
         vOut = *this;
-        static_cast<QVector4> (vOut).Transform(mDisp);
+        reinterpret_cast<QVector4&> (vOut).Transform(mDisp);
 	}
 
     /// <summary>
@@ -815,7 +846,7 @@ public:
 	inline void Transform(const QTransformationMatrix<MatrixType> &mTransf, QBaseVector4 &vOut) const
 	{
         vOut = *this;
-        static_cast<QVector4> (vOut).Transform(mTransf);
+        reinterpret_cast<QVector4&> (vOut).Transform(mTransf);
 	}
 
     /// <summary>
@@ -845,7 +876,7 @@ public:
 	inline void Transform(const QSpaceConversionMatrix &mTransf, QBaseVector4 &vOut) const
 	{
 		vOut = *this;
-        static_cast<QVector4>(vOut).Transform(mTransf);
+        reinterpret_cast<QVector4&> (vOut).Transform(mTransf);
 	}
 
     /// <summary>

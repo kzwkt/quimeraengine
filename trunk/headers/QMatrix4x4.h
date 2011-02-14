@@ -387,22 +387,8 @@ public:
 	/// <param name="m">[OUT] Stores the resultant transposed matrix.</param>
 	inline void Transpose(QBaseMatrix4x4 &m) const
 	{
-		m.ij[0][0] = this->ij[0][0];
-		m.ij[0][1] = this->ij[1][0];
-		m.ij[0][2] = this->ij[2][0];
-		m.ij[0][3] = this->ij[3][0];
-		m.ij[1][0] = this->ij[0][1];
-		m.ij[1][1] = this->ij[1][1];
-		m.ij[1][2] = this->ij[2][1];
-		m.ij[1][3] = this->ij[3][1];
-		m.ij[2][0] = this->ij[0][2];
-		m.ij[2][1] = this->ij[1][2];
-		m.ij[2][2] = this->ij[2][2];
-		m.ij[2][3] = this->ij[3][2];
-		m.ij[3][0] = this->ij[0][3];
-		m.ij[3][1] = this->ij[1][3];
-		m.ij[3][2] = this->ij[2][3];
-		m.ij[3][3] = this->ij[3][3];
+        m = *this;
+        reinterpret_cast<QMatrix4x4&> (m).Transpose();
 	}
 
 	/// <summary>
@@ -551,8 +537,11 @@ public:
 	/// <returns>
 	/// True if the matrix is invertible, false otherwise.
 	/// </returns>
-	bool Reverse(QMatrix4x4 &m) const;
-	
+	bool Reverse(QBaseMatrix4x4 &m) const
+    {
+        m = *this;
+        return reinterpret_cast<QMatrix4x4&> (m).Reverse();
+    }
 	/// <summary>
 	/// Converts matrix into a string with the following format:
 	/// "M4x4( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 )( 41, 42, 43, 44 )".

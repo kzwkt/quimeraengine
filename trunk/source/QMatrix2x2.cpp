@@ -180,33 +180,6 @@ bool QMatrix2x2::Reverse()
     return true;
 }
 
-bool QMatrix2x2::Reverse(QMatrix2x2 &m) const
-{
-    // Special case where matrix is identity. Then inverse of the matrix is itself.
-    if (this->IsIdentity())
-    {
-        m = *this;
-        return true;
-    }
-
-    // Gets Determinant.
-    float_q fDet = this->GetDeterminant();
-
-    // If Determinant is 0, this matrix has not inverse.
-    if (QFloat::IsZero(fDet)) 
-        return false;
-
-    // We need inverse of determinant in calculus.
-    fDet = QFloat::_1/fDet;
-        
-    m.ij[0][0] =  fDet * this->ij[1][1];
-    m.ij[1][0] = -fDet * this->ij[1][0];
-    m.ij[0][1] = -fDet * this->ij[0][1];
-    m.ij[1][1] =  fDet * this->ij[0][0];
-
-    return true;
-}
-
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine

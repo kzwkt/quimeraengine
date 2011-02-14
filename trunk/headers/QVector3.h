@@ -408,7 +408,7 @@ public:
     inline void Normalize(QBaseVector3 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector3> (vOut).Normalize();
+        reinterpret_cast<QVector3&> (vOut).Normalize();
     }
 
     /// <summary>
@@ -428,7 +428,7 @@ public:
     inline void Reverse(QBaseVector3 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector3> (vOut).Reverse();
+        reinterpret_cast<QVector3&> (vOut).Reverse();
     }
 
     /// <summary>
@@ -527,7 +527,7 @@ public:
     inline void CrossProduct(const QBaseVector3 &v, QBaseVector3 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector3> (vOut).CrossProduct(v);
+        reinterpret_cast<QVector3&> (vOut).CrossProduct(v);
     }
 
     /// <summary>
@@ -551,7 +551,7 @@ public:
     inline void Lerp(const float_q &fFactor, const QBaseVector3 &v, QBaseVector3 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector3> (vOut).Lerp(fFactor, v);
+        reinterpret_cast<QVector3&> (vOut).Lerp(fFactor, v);
     }
 
     /// <summary>
@@ -591,7 +591,7 @@ public:
     inline void Transform(const QQuaternion &qR, QBaseVector3 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector3> (vOut).Transform(qR);
+        reinterpret_cast<QVector3&> (vOut).Transform(qR);
     }
 
     /// <summary>
@@ -614,7 +614,7 @@ public:
     inline void Transform(const QDualQuaternion &dqTransf, QBaseVector3 &vOut) const
     {
         vOut = *this;
-        static_cast<QVector3> (vOut).Transform(dqTransf);
+        reinterpret_cast<QVector3&> (vOut).Transform(dqTransf);
     }
 
     /// <summary>
@@ -636,7 +636,7 @@ public:
 	inline void Transform(const QRotationMatrix3x3 &mRot, QBaseVector3 &vOut) const
 	{
 		vOut = *this;
-        static_cast<QVector3> (vOut).Transform(mRot);
+        reinterpret_cast<QVector3&> (vOut).Transform(mRot);
 	}
 
     /// <summary>
@@ -660,7 +660,7 @@ public:
 	inline void Transform(const QScaleMatrix3x3 &mScale, QBaseVector3 &vOut) const
 	{
         vOut = *this;
-        static_cast<QVector3> (vOut).Transform(mScale);
+        reinterpret_cast<QVector3&> (vOut).Transform(mScale);
 	}
 
     /// <summary>
@@ -690,7 +690,7 @@ public:
 	inline void Transform(const QTranslationMatrix<MatrixType> &mDisp, QBaseVector3 &vOut) const
 	{
         vOut = *this;
-        static_cast<QVector3> (vOut).Transform(mDisp);
+        reinterpret_cast<QVector3&> (vOut).Transform(mDisp);
 	}
 
     /// <summary>
@@ -726,7 +726,7 @@ public:
 	inline void Transform(const QTransformationMatrix<MatrixType> &mTransf, QBaseVector3 &vOut) const
 	{
         vOut = *this;
-        static_cast<QVector3> (vOut).Transform(mTransf);
+        reinterpret_cast<QVector3&> (vOut).Transform(mTransf);
 	}
 
     /// <summary>
@@ -751,7 +751,7 @@ public:
 	inline void Transform(const QSpaceConversionMatrix &mTransf, QBaseVector3 &vOut) const
 	{
 		vOut = *this;
-        static_cast<QVector3>(vOut).Transform(mTransf);
+        reinterpret_cast<QVector3&>(vOut).Transform(mTransf);
 	}
 
     /// <summary>
