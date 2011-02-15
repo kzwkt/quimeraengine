@@ -16,7 +16,7 @@ namespace Math
 
 // Forward declarations
 class QMatrix4x4;
-
+class QMatrix4x3;
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 4 rows and 3 or 4 columns, depending on template parameter,
@@ -386,8 +386,7 @@ protected:
 // TYPEDEFS
 // ---------------
 
-//[TODO] jwladi: Uncomment this when QMatrix4x3 is implemented.
-//typedef QTranslationMatrix<QMatrix4x3> QTranslationMatrix4x3;
+typedef QTranslationMatrix<QMatrix4x3> QTranslationMatrix4x3;
 typedef QTranslationMatrix<QMatrix4x4> QTranslationMatrix4x4;
 
 // CONSTANTS INITIALIZATION
