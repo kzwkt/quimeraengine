@@ -22,7 +22,7 @@ class QMatrix4x4;
 template<class MatrixType>
 class QTranslationMatrix;
 class QScaleMatrix3x3;
-
+class QMatrix4x3;
 
 /// <summary>
 /// Class which represents a transformation matrix. A transformation matrix is, in general, composed of a scale,
@@ -813,8 +813,7 @@ protected:
     // TYPEDEFS
 	// ---------------
 
-	//[TODO] jwladi: Uncomment this when QMatrix4x3 is implemented.
-    //typedef QTransformationMatrix<QMatrix4x3> QTransformationMatrix4x3;
+    typedef QTransformationMatrix<QMatrix4x3> QTransformationMatrix4x3;
     typedef QTransformationMatrix<QMatrix4x4> QTransformationMatrix4x4;
 
     // CONSTANTS INITIALIZATION
