@@ -161,15 +161,6 @@ public:
 	QMatrix4x3 operator-(const QBaseMatrix4x3 &m) const;
 
 	/// <summary>
-	/// Product and assign operator. Resident matrix stores the result of the multiplication.
-	/// </summary>
-	/// <param name="m">[IN] The matrix to be multiplied by.</param>
-	/// <returns>
-	/// The modified matrix.
-	/// </returns>
-	QMatrix4x3& operator*=(const QBaseMatrix4x3 &m);
-
-	/// <summary>
 	/// Division and assign operator. Resident matrix stores the result of the division.
 	/// </summary>
 	/// <param name="fScalar">[IN] The floating point value by which to divide.</param>
