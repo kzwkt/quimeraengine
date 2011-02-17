@@ -35,11 +35,6 @@ public:
     /// <summary>
     /// Constructor that receives 4 values, one per quaternion's component.
     /// </summary>
-    inline explicit QBaseQuaternion(const QBaseQuaternion &qQuat) : x(qQuat.x), y(qQuat.y), z(qQuat.z), w(qQuat.w) {};
-
-    /// <summary>
-    /// Constructor that receives 4 values, one per quaternion's component.
-    /// </summary>
     /// <param name="fValueX">[IN] X component value.</param>
     /// <param name="fValueY">[IN] Y component value.</param>
     /// <param name="fValueZ">[IN] Z component value.</param>
