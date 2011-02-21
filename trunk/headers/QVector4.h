@@ -6,6 +6,7 @@
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
 #include "QBaseMatrix4x4.h"
+#include "QBaseMatrix4x3.h"
 #include "QRotationMatrix3x3.h"
 #include "QScaleMatrix3x3.h"
 #include "QTranslationMatrix.h"
@@ -226,6 +227,16 @@ public:
     /// A vector that is the result of the product.
     /// </returns>
     QVector4 operator * (const QBaseMatrix4x4 &m) const;
+
+    /// <summary>
+    /// Product by a matrix with 4 rows and 3 columns: it's performed as a matrix product between m[1x4] and n[4x3] 
+    /// resulting a [1x3] matrix.
+    /// </summary>
+    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <returns>
+    /// A 3D vector that is the result of the product.
+    /// </returns>
+    QBaseVector3 operator * (const QBaseMatrix4x3 &m) const;
 
     /// <summary>
     /// Division by a scalar: all components are divided by the floating point value provided.
