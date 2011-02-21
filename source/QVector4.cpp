@@ -81,6 +81,14 @@ QVector4 QVector4::operator * (const QBaseMatrix4x4 &m) const
                     this->x*m.ij[0][3] + this->y*m.ij[1][3] + this->z*m.ij[2][3] + this->w*m.ij[3][3]); 
 }
 
+QBaseVector3 QVector4::operator * (const QBaseMatrix4x3 &m) const
+{
+    return QBaseVector3(this->x * m.ij[0][0] + this->y * m.ij[1][0] + this->z * m.ij[2][0] + this->w * m.ij[3][0],
+                        this->x * m.ij[0][1] + this->y * m.ij[1][1] + this->z * m.ij[2][1] + this->w * m.ij[3][1],
+                        this->x * m.ij[0][2] + this->y * m.ij[1][2] + this->z * m.ij[2][2] + this->w * m.ij[3][2]);
+
+}
+
 QVector4 QVector4::operator / (const float_q &fValue) const
 {
     // Checkout to avoid division by 0

@@ -70,6 +70,15 @@ QVector3 QVector3::operator * (const QBaseMatrix3x3 &m) const
 
 }
 
+QBaseVector4 QVector3::operator * (const QBaseMatrix3x4 &m) const
+{
+    return QBaseVector4(this->x * m.ij[0][0] + this->y * m.ij[1][0] + this->z * m.ij[2][0],
+                        this->x * m.ij[0][1] + this->y * m.ij[1][1] + this->z * m.ij[2][1],
+                        this->x * m.ij[0][2] + this->y * m.ij[1][2] + this->z * m.ij[2][2],
+                        this->x * m.ij[0][3] + this->y * m.ij[1][3] + this->z * m.ij[2][3]);
+
+}
+
 QVector3 QVector3::operator / (const float_q &fValue) const
 {
     // Checkout to avoid division by 0
