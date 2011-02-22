@@ -47,9 +47,9 @@ Pueden añadirse otros prefijos opcionalmente, siempre que no induzcan a confusi
 
 Ejemplo: int nNumero; float `arFloats[8]`;.
 
-*Variables miembro no-estáticas:* Igual que las no-miembro locales pero anteponiendo un guión bajo delante.
+*Variables miembro no-estáticas:* Igual que las no-miembro locales pero anteponiendo una "m" y un guión bajo delante.
 
-Ejemplo: `_`nCount.
+Ejemplo: `m_`nCount.
 
 *Constantes:* Sin prefijos, todo en mayúscula y separando palabras con guiones bajos.
 
@@ -61,7 +61,7 @@ Ejemplo: static_nCount.
 
 *Variables miembro estáticas:* Igual que las variables miembro pero anteponeindo además una s.
 
-Ejemplo: s_pMember.
+Ejemplo: sm_pMember.
 
 *Métodos y propiedades, de instancia o estáticos:* Usarán `PascalCase`, sin ningún tipo de prefijo o postfijo.
 
