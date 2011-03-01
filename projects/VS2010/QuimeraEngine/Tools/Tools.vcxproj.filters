@@ -125,6 +125,9 @@
     <ClInclude Include="..\..\..\..\headers\QBaseMatrix3x4.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QBaseQuadrilateral.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QQuaternion.cpp">
