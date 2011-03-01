@@ -4,6 +4,7 @@
 #define __QMATRIX4X4__
 
 #include "QBaseMatrix4x4.h"
+#include "QBaseMatrix4x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -164,6 +165,27 @@ public:
 	QMatrix4x4 operator*(const QBaseMatrix4x4 &m) const;
 
 	/// <summary>
+	/// Multiplies a 4x3 matrix by the current matrix.
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// So, left matrix must have same number of columns than rows have right matrix.
+	/// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// 
+    /// \f$ A x B = C \f$
+    /// 
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
+    ///
+	/// </summary>
+	/// <remarks>
+	/// This product is not conmmutative.
+	/// </remarks>
+	/// <param name="m">[IN] Matrix to be multiplied by.</param>
+	/// <returns>
+	/// The resultant matrix.
+	/// </returns>
+	QBaseMatrix4x3 operator*(const QBaseMatrix4x3 &m) const;
+
+	/// <summary>
 	/// Divides current matrix by a floating point value.
 	/// </summary>
 	/// <param name="fScalar">[IN] Floating point value to be divided by.</param>
@@ -198,6 +220,19 @@ public:
 	/// The modified matrix.
 	/// </returns>
 	QMatrix4x4& operator*=(const QBaseMatrix4x4 &m);
+
+    /// <summary>
+	/// Product by an scalar and assign operator. Current matrix stores the result of the multiplication.
+	/// </summary>
+	/// <param name="fScalar">[IN] The scalar to be multiplied by.</param>
+	/// <returns>
+	/// The modified matrix.
+	/// </returns>
+	inline QMatrix4x4& operator*=(const float_q &fScalar)
+    {
+        *this = fScalar * *this;
+        return *this;
+    }
 
 	/// <summary>
 	/// Division and assign operator. Current matrix stores the result of the division.
@@ -342,6 +377,32 @@ public:
 				QFloat::AreNotEquals(this->ij[3][2], m.ij[3][2]) ||
 				QFloat::AreNotEquals(this->ij[3][3], m.ij[3][3]);  
 	}
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QMatrix4x4& operator=(const QMatrix4x4 &m)
+    {
+        reinterpret_cast<QBaseMatrix4x4&>(*this) = m;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QMatrix4x4& operator=(const QBaseMatrix4x4 &m)
+    {
+        reinterpret_cast<QBaseMatrix4x4&>(*this) = m;    
+        return *this;
+    }
 
 	/// <summary>
 	/// Resets all matrix elements to 0.
