@@ -61,15 +61,6 @@ public:
 	// METHODS
 	// ---------------
 public:
-	// unary operator
-
-	/// <summary>
-	/// Vector's negation: it's performed component by component.
-	/// </summary>
-	/// <returns>
-	/// A vector that is the result of the negation.
-	/// </returns>
-	QVector2 operator - () const;
 
 	// binary operators
 
@@ -288,6 +279,42 @@ public:
 		
 		return *this;
 	}
+
+    // Unary operators
+
+    /// <summary>
+    /// Assign operator. Assigns the provided vector to the resident vector.
+    /// </summary>
+    /// <param name="v">[IN] The vector to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified vector.
+    /// </returns>
+    inline QVector2& operator=(const QVector2 &v)
+    {
+        reinterpret_cast<QBaseVector2&>(*this) = v;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided vector to the resident vector.
+    /// </summary>
+    /// <param name="v">[IN] The vector to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified vector.
+    /// </returns>
+    inline QVector2& operator=(const QBaseVector2 &v)
+    {
+        reinterpret_cast<QBaseVector2&>(*this) = v;    
+        return *this;
+    }
+
+   	/// <summary>
+	/// Vector's negation: it's performed component by component.
+	/// </summary>
+	/// <returns>
+	/// A vector that is the result of the negation.
+	/// </returns>
+	QVector2 operator - () const;
 	
 	/// <summary>
 	/// Calculates the length of current vector.

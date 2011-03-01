@@ -266,6 +266,32 @@ public:
     }
 
     /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QMatrix2x2& operator=(const QMatrix2x2 &m)
+    {
+        reinterpret_cast<QBaseMatrix2x2&>(*this) = m;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QMatrix2x2& operator=(const QBaseMatrix2x2 &m)
+    {
+        reinterpret_cast<QBaseMatrix2x2&>(*this) = m;    
+        return *this;
+    }
+
+    /// <summary>
     /// Resets all matrix elements to 0.
     /// </summary>
     inline void ResetToZero()
