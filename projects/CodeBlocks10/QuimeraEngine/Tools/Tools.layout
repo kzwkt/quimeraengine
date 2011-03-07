@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_layout_file>
+	<ActiveTarget name="DebugLinux32SharedrtStatic" />
+	<File name="../../../../headers/MathDefinitions.h" open="1" top="0" tabpos="6">
+		<Cursor position="352" topLine="2" />
+	</File>
+	<File name="../../../../headers/QDualQuaternion.h" open="1" top="0" tabpos="5">
+		<Cursor position="19118" topLine="432" />
+	</File>
+	<File name="../../../../headers/QQuaternion.h" open="1" top="0" tabpos="7">
+		<Cursor position="182" topLine="129" />
+	</File>
+	<File name="../../../../headers/QRotationMatrix3x3.h" open="1" top="0" tabpos="3">
+		<Cursor position="475" topLine="0" />
+	</File>
+	<File name="../../../../headers/QScaleMatrix3x3.h" open="1" top="0" tabpos="4">
+		<Cursor position="138" topLine="0" />
+	</File>
+	<File name="../../../../headers/QTransformationMatrix.h" open="1" top="1" tabpos="2">
+		<Cursor position="36845" topLine="762" />
+	</File>
+	<File name="../../../../headers/QVector3.h" open="1" top="0" tabpos="1">
+		<Cursor position="175" topLine="744" />
+	</File>
+	<File name="../../../../source/QRotationMatrix3x3.cpp" open="1" top="0" tabpos="8">
+		<Cursor position="25" topLine="0" />
+	</File>
+	<File name="../../../../source/QScaleMatrix3x3.cpp" open="1" top="0" tabpos="9">
+		<Cursor position="268" topLine="0" />
+	</File>
+</CodeBlocks_layout_file>
