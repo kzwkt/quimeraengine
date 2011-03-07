@@ -361,6 +361,32 @@ public:
     }
 
     /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QTransformationMatrix<MatrixType>& operator=(const QTransformationMatrix<MatrixType> &m)
+    {
+        reinterpret_cast<MatrixType&>(*this) = m;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QTransformationMatrix<MatrixType>& operator=(const MatrixType &m)
+    {
+        reinterpret_cast<MatrixType&>(*this) = m;    
+        return *this;
+    }
+
+    /// <summary>
     /// Calculates the determinant of the matrix. Since this is a transformation matrix,
     /// its determinant can be calculated as if it was a 3x3 matrix, removing fourth row and fourth column
     /// in calculus :
