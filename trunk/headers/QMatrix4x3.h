@@ -283,6 +283,32 @@ public:
 				QFloat::AreNotEquals(this->ij[3][2], m.ij[3][2]);  
 	}
 
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QMatrix4x3& operator=(const QMatrix4x3 &m)
+    {
+        reinterpret_cast<QBaseMatrix4x3&>(*this) = m;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QMatrix4x3& operator=(const QBaseMatrix4x3 &m)
+    {
+        reinterpret_cast<QBaseMatrix4x3&>(*this) = m;    
+        return *this;
+    }
+
 	/// <summary>
 	/// Resets all matrix elements to 0.
 	/// </summary>

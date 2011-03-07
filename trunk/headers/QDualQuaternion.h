@@ -327,6 +327,32 @@ public:
     }
 
     /// <summary>
+    /// Assign operator. Assigns the provided dual quaternion to the resident dual quaternion.
+    /// </summary>
+    /// <param name="dqQuat">[IN] The dual quaternion to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified dual quaternion.
+    /// </returns>
+    inline QDualQuaternion& operator=(const QDualQuaternion &dqQuat)
+    {
+        reinterpret_cast<QBaseDualQuaternion&>(*this) = dqQuat;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided dual quaternion to the resident dual quaternion.
+    /// </summary>
+    /// <param name="dqQuat">[IN] The dual quaternion to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified dual quaternion.
+    /// </returns>
+    inline QDualQuaternion& operator=(const QBaseDualQuaternion &dqQuat)
+    {
+        reinterpret_cast<QBaseDualQuaternion&>(*this) = dqQuat;    
+        return *this;
+    }
+
+    /// <summary>
     /// Resets to zero all components of both quaternions of the dual quaternion.
     /// </summary>
     inline void ResetToZero () 

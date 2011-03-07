@@ -415,6 +415,32 @@ public:
     }
 
     /// <summary>
+    /// Assign operator. Assigns the provided quaternion to the resident quaternion.
+    /// </summary>
+    /// <param name="q">[IN] The quaternion to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified quaternion.
+    /// </returns>
+    inline QQuaternion& operator=(const QQuaternion &q)
+    {
+        reinterpret_cast<QBaseQuaternion&>(*this) = q;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided quaternion to the resident quaternion.
+    /// </summary>
+    /// <param name="q">[IN] The quaternion to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified quaternion.
+    /// </returns>
+    inline QQuaternion& operator=(const QBaseQuaternion &q)
+    {
+        reinterpret_cast<QBaseQuaternion&>(*this) = q;    
+        return *this;
+    }
+
+    /// <summary>
     /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.
     /// A quaternion is normalized when its length is equal to 1.
     /// </summary>
