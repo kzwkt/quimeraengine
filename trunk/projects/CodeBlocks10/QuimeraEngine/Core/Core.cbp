@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Core" />
+		<Option execution_dir="/home/mar/Proyectos/C++/QuimeraEngine/projects/CodeBlocks10/QuimeraEngine/" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="DebugLinux32SharedrtStatic">
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCore" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+				</Compiler>
+				<Linker>
+					<Add library="libboost_thread.a" />
+					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrt" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="../../../../headers" />
+			<Add directory="../../../../3rdparty/Boost/include" />
+		</Compiler>
+		<Unit filename="../../../../headers/Configuration.h" />
+		<Unit filename="../../../../headers/ExternalDefinitions.h" />
+		<Unit filename="../../../../headers/InternalDefinitions.h" />
+		<Unit filename="../../../../source/Prueba.cpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>

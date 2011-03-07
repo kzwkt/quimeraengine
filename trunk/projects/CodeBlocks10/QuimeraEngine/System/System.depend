@@ -1,0 +1,19 @@
+# depslib dependency file v1.0
+1294951781 source:/home/mar/Proyectos/C++/QuimeraEngine/source/Prueba.cpp
+	"Prueba.h"
+
+1295990308 /home/mar/Proyectos/C++/QuimeraEngine/headers/Prueba.h
+	<vector>
+	<boost/foreach.hpp>
+	<boost/thread.hpp>
+	"Configuration.h"
+
+1294951956 /home/mar/Proyectos/C++/QuimeraEngine/headers/Configuration.h
+	"ExternalDefinitions.h"
+	"InternalDefinitions.h"
+
+1295525575 /home/mar/Proyectos/C++/QuimeraEngine/headers/ExternalDefinitions.h
+	<boost/assert.hpp>
+
+1295525822 /home/mar/Proyectos/C++/QuimeraEngine/headers/InternalDefinitions.h
+
