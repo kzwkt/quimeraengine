@@ -112,7 +112,7 @@ public:
 	/// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3, parsed in this order.</param>
 	/// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3, parsed in this order.</param>
 	/// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3, parsed in this order.</param>
-	inline QBaseMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3)
+	inline QBaseMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2)
 	{
 
 		QVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], this->ij[0][3]);
