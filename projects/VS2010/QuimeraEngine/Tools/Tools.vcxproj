@@ -133,6 +133,7 @@
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QInteger.h" />
+    <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix2x2.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix3x4.h" />
