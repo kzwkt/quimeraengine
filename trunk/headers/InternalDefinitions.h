@@ -22,11 +22,13 @@ const unsigned int QE_VERSION_REVISION = 0;
     #else
         #define null_q 0
     #endif
+#elif QE_COMPILER_GCC
+    #define null_q (void*)0 // GCC definition for null pointers
 #endif
 
 
 // --------------------------------------------------------------------------------------------------------
-// Dll Export Specifier: Defines which compiler keywords will be used to export symbols when compiling as 
+// Dll Export Specifier: Defines which compiler keywords will be used to export symbols when compiling as
 // a DLL. Their values are "empty" when compiling the library as static.
 // --------------------------------------------------------------------------------------------------------
 #ifdef QE_CONFIG_COMPILER_DLL // QE_CONFIG_COMPILER_DLL is specified as a preprocessor definition [TODO] Thund: Add that definition to preprocessor when configuration is ready

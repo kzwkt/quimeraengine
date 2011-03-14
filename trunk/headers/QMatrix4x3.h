@@ -19,14 +19,14 @@ namespace Math
 /// <summary>
 /// This class implements the functionality of a matrix with 4 rows and 3 columns.
 ///
-/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix 
+/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix
 /// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.
-/// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m x n matrix, 
+/// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m x n matrix,
 /// while m and n are called its dimensions. Every element is referenced by its position in the matrix.
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
-/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$. In this case, we will work with 4x3 matrices, 
+/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$. In this case, we will work with 4x3 matrices,
 /// therefore our matrix will be:
-/// 
+///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\\ a_{30} & a_{31} & a_{32}\end{bmatrix}\f$
 ///
 /// This allows us to compute the special case of transformatios, where 4th column has the values (0, 0, 0, 1), and
@@ -55,6 +55,17 @@ public:
 	/// Stores a matrix with all components setted to 0.
 	/// </summary>
 	static const QMatrix4x3 ZeroMatrix;
+
+	/// <summary>
+	/// Stores a pseudo-identity matrix.
+	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    ///
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}\f$
+    ///
+    /// In this case, as it's not a square matrix, it's not a real identity matrix. This constant exists
+    /// due to compatibility reasons only, as an exception.
+	/// </summary>
+	static const QMatrix4x3 Identity;
 
  	// CONSTRUCTORS
 	// ---------------
@@ -95,7 +106,7 @@ public:
 	inline QMatrix4x3(	const float_q &f00, const float_q &f01, const float_q &f02,
 						const float_q &f10, const float_q &f11, const float_q &f12,
 						const float_q &f20, const float_q &f21, const float_q &f22,
-						const float_q &f30, const float_q &f31, const float_q &f32) : 
+						const float_q &f30, const float_q &f31, const float_q &f32) :
 
 						QBaseMatrix4x3(f00, f01, f02, f10, f11, f12, f20, f21, f22, f30, f31, f32) { }
 
@@ -117,7 +128,7 @@ public:
 	/// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 2 unpacked in this order.</param>
 	/// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 2 unpacked in this order.</param>
 	/// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 2 unpacked in this order.</param>
-	inline QMatrix4x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) : 
+	inline QMatrix4x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
 		QBaseMatrix4x3(row0, row1, row2, row3) { }
 
 	// METHODS
@@ -170,7 +181,7 @@ public:
 	inline QMatrix4x3& operator/=(const float_q &fScalar)
 	{
 		QE_ASSERT(fScalar != QFloat::_0);
-				
+
 		this->ij[0][0] /= fScalar;
 		this->ij[0][1] /= fScalar;
 		this->ij[0][2] /= fScalar;
@@ -246,8 +257,8 @@ public:
 	/// </returns>
 	inline bool operator==(const QBaseMatrix4x3 &m) const
 	{
-		return	QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) && 
-				QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) && 
+		return	QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
+				QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
 				QFloat::AreEquals(this->ij[0][2], m.ij[0][2]) &&
 				QFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
 				QFloat::AreEquals(this->ij[1][1], m.ij[1][1]) &&
@@ -257,7 +268,7 @@ public:
 				QFloat::AreEquals(this->ij[2][2], m.ij[2][2]) &&
 				QFloat::AreEquals(this->ij[3][0], m.ij[3][0]) &&
 				QFloat::AreEquals(this->ij[3][1], m.ij[3][1]) &&
-				QFloat::AreEquals(this->ij[3][2], m.ij[3][2]);  
+				QFloat::AreEquals(this->ij[3][2], m.ij[3][2]);
 	}
 
 	/// <summary>
@@ -280,7 +291,7 @@ public:
 				QFloat::AreNotEquals(this->ij[2][2], m.ij[2][2]) ||
 				QFloat::AreNotEquals(this->ij[3][0], m.ij[3][0]) ||
 				QFloat::AreNotEquals(this->ij[3][1], m.ij[3][1]) ||
-				QFloat::AreNotEquals(this->ij[3][2], m.ij[3][2]);  
+				QFloat::AreNotEquals(this->ij[3][2], m.ij[3][2]);
 	}
 
     /// <summary>
@@ -305,7 +316,7 @@ public:
     /// </returns>
     inline QMatrix4x3& operator=(const QBaseMatrix4x3 &m)
     {
-        reinterpret_cast<QBaseMatrix4x3&>(*this) = m;    
+        reinterpret_cast<QBaseMatrix4x3&>(*this) = m;
         return *this;
     }
 
@@ -314,9 +325,9 @@ public:
 	/// </summary>
 	inline void ResetToZero()
 	{
-		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = 
-		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = 
-		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = 
+		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] =
+		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] =
+		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] =
 		this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = QFloat::_0;
 	}
 
@@ -368,7 +379,7 @@ public:
 				QFloat::IsZero(this->ij[2][2]) &&
 				QFloat::IsZero(this->ij[3][0]) &&
 				QFloat::IsZero(this->ij[3][1]) &&
-				QFloat::IsZero(this->ij[3][2]);  
+				QFloat::IsZero(this->ij[3][2]);
 	}
 
 	/// <summary>
@@ -389,7 +400,7 @@ public:
                                QFloat::ToString(this->ij[2][2]) + QE_L(")(") +
                                QFloat::ToString(this->ij[3][0]) + QE_L(",") +
                                QFloat::ToString(this->ij[3][1]) + QE_L(",") +
-                               QFloat::ToString(this->ij[3][2]) + QE_L(")"); 
+                               QFloat::ToString(this->ij[3][2]) + QE_L(")");
     }
 };
 

@@ -10,7 +10,7 @@ namespace Tools
 {
 namespace Math
 {
-    
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -25,6 +25,11 @@ const QMatrix4x3 QMatrix4x3::ZeroMatrix(QFloat::_0, QFloat::_0, QFloat::_0,
                                         QFloat::_0, QFloat::_0, QFloat::_0,
                                         QFloat::_0, QFloat::_0, QFloat::_0);
 
+const QMatrix4x3 QMatrix4x3::Identity(  QFloat::_1, QFloat::_0, QFloat::_0,
+                                        QFloat::_0, QFloat::_1, QFloat::_0,
+                                        QFloat::_0, QFloat::_0, QFloat::_1,
+                                        QFloat::_0, QFloat::_0, QFloat::_0);
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -33,8 +38,8 @@ const QMatrix4x3 QMatrix4x3::ZeroMatrix(QFloat::_0, QFloat::_0, QFloat::_0,
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
-	
-	
+
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -64,7 +69,7 @@ QMatrix4x3 QMatrix4x3::operator*(const float_q &fScalar) const
 	return aux;
 }
 
-QMatrix4x3 operator*(const float_q &fScalar, const QBaseMatrix4x3 &m) 
+QMatrix4x3 operator*(const float_q &fScalar, const QBaseMatrix4x3 &m)
 {
 	QMatrix4x3 aux;
 
@@ -80,17 +85,17 @@ QMatrix4x3 operator*(const float_q &fScalar, const QBaseMatrix4x3 &m)
 	aux.ij[3][0] = fScalar * m.ij[3][0];
 	aux.ij[3][1] = fScalar * m.ij[3][1];
 	aux.ij[3][2] = fScalar * m.ij[3][2];
-		
+
 	return aux;
 }
 
 QMatrix4x3 QMatrix4x3::operator/(const float_q &fScalar) const
 {
-		
+
 	QE_ASSERT(fScalar);
 
 	QMatrix4x3 aux;
-		
+
 	aux.ij[0][0] = this->ij[0][0] / fScalar;
 	aux.ij[0][1] = this->ij[0][1] / fScalar;
 	aux.ij[0][2] = this->ij[0][2] / fScalar;
@@ -110,7 +115,7 @@ QMatrix4x3 QMatrix4x3::operator/(const float_q &fScalar) const
 QMatrix4x3 QMatrix4x3::operator+(const QBaseMatrix4x3 &m) const
 {
 	QMatrix4x3 aux;
-		
+
 	aux.ij[0][0] = this->ij[0][0] + m.ij[0][0];
 	aux.ij[0][1] = this->ij[0][1] + m.ij[0][1];
 	aux.ij[0][2] = this->ij[0][2] + m.ij[0][2];
@@ -130,7 +135,7 @@ QMatrix4x3 QMatrix4x3::operator+(const QBaseMatrix4x3 &m) const
 QMatrix4x3 QMatrix4x3::operator-(const QBaseMatrix4x3 &m) const
 {
 	QMatrix4x3 aux;
-		
+
 	aux.ij[0][0] = this->ij[0][0] - m.ij[0][0];
 	aux.ij[0][1] = this->ij[0][1] - m.ij[0][1];
 	aux.ij[0][2] = this->ij[0][2] - m.ij[0][2];

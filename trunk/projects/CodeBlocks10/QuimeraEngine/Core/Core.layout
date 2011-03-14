@@ -1,10 +1,13 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="DebugLinux32SharedrtStatic" />
-	<File name="../../../../headers/ExternalDefinitions.h" open="1" top="0" tabpos="1">
-		<Cursor position="2686" topLine="32" />
+	<File name="..\..\..\..\headers\ExternalDefinitions.h" open="1" top="0" tabpos="1">
+		<Cursor position="1693" topLine="0" />
 	</File>
-	<File name="../../../../source/Prueba.cpp" open="0" top="0" tabpos="1">
+	<File name="..\..\..\..\headers\InternalDefinitions.h" open="1" top="0" tabpos="2">
+		<Cursor position="1195" topLine="0" />
+	</File>
+	<File name="..\..\..\..\source\Prueba.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="0" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

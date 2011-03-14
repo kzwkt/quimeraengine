@@ -33,6 +33,8 @@
     #else
         #define QE_COMPILER_MSVC 0  // Microsoft Visual C++ < 2010
     #endif
+#elif __GNUG__
+    #define QE_COMPILER_GCC __GNUG__ // GCC
 #endif
 
 // --------------------------------------------------------------------------------------------------------

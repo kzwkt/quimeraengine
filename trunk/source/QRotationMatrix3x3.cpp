@@ -40,7 +40,7 @@ const QRotationMatrix3x3 QRotationMatrix3x3::Identity(  QFloat::_1, QFloat::_0, 
 
 QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fAngleX, const float_q &fAngleY, const float_q &fAngleZ)
 {
-    
+
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
         float_q &fAngleXRad = QAngle::DegreesToRadians(fAngleX, fAngleXRad);
@@ -64,15 +64,15 @@ QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fAngleX, const float_q &fA
 
     float_q BC  = B*C;
     float_q BD  = B*D;
-    
+
     ij[0][0]  =  E*C - F*BD;
     ij[0][1]  = -A*F;
     ij[0][2]  =  E*D + F*BC;
-  
+
     ij[1][0]  =  F*C + E*BD;
     ij[1][1]  =  A*E;
     ij[1][2]  =  F*D - E*BC;
-    
+
     ij[2][0]  =  -A*D;
     ij[2][1]  =  B;
     ij[2][2]  =  A*C;
@@ -92,7 +92,7 @@ QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vAxis, const float_q
     #endif
 
     QVector3 vAux(vAxis);
-    
+
     vAux.Normalize();
 
     const float_q& C = vAux.x*vAux.y;
@@ -125,7 +125,7 @@ QRotationMatrix3x3::QRotationMatrix3x3(const QBaseQuaternion &qQuat)
     const float_q& A   = QFloat::_2 * qQuat.x * qQuat.x;
     const float_q& B   = QFloat::_2 * qQuat.y * qQuat.y;
     const float_q& C   = QFloat::_2 * qQuat.z * qQuat.z;
-        
+
     const float_q& D   = QFloat::_2 * qQuat.x * qQuat.y;
     const float_q& E   = QFloat::_2 * qQuat.x * qQuat.z;
     const float_q& F   = QFloat::_2 * qQuat.x * qQuat.w;
@@ -160,6 +160,119 @@ QRotationMatrix3x3::QRotationMatrix3x3(const QBaseQuaternion &qQuat)
 QRotationMatrix3x3 QRotationMatrix3x3::operator*(const QRotationMatrix3x3 &m) const
 {
     QRotationMatrix3x3 aux;
+
+    aux.ij[0][0] = this->ij[0][0]*m.ij[0][0] + this->ij[0][1]*m.ij[1][0] + this->ij[0][2]*m.ij[2][0];
+    aux.ij[0][1] = this->ij[0][0]*m.ij[0][1] + this->ij[0][1]*m.ij[1][1] + this->ij[0][2]*m.ij[2][1];
+    aux.ij[0][2] = this->ij[0][0]*m.ij[0][2] + this->ij[0][1]*m.ij[1][2] + this->ij[0][2]*m.ij[2][2];
+
+    aux.ij[1][0] = this->ij[1][0]*m.ij[0][0] + this->ij[1][1]*m.ij[1][0] + this->ij[1][2]*m.ij[2][0];
+    aux.ij[1][1] = this->ij[1][0]*m.ij[0][1] + this->ij[1][1]*m.ij[1][1] + this->ij[1][2]*m.ij[2][1];
+    aux.ij[1][2] = this->ij[1][0]*m.ij[0][2] + this->ij[1][1]*m.ij[1][2] + this->ij[1][2]*m.ij[2][2];
+
+    aux.ij[2][0] = this->ij[2][0]*m.ij[0][0] + this->ij[2][1]*m.ij[1][0] + this->ij[2][2]*m.ij[2][0];
+    aux.ij[2][1] = this->ij[2][0]*m.ij[0][1] + this->ij[2][1]*m.ij[1][1] + this->ij[2][2]*m.ij[2][1];
+    aux.ij[2][2] = this->ij[2][0]*m.ij[0][2] + this->ij[2][1]*m.ij[1][2] + this->ij[2][2]*m.ij[2][2];
+
+    return aux;
+}
+
+QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QTranslationMatrix4x4 &m) const
+{
+    QTransformationMatrix4x4 aux(QTransformationMatrix4x4::Identity);
+
+    aux.ij[3][0] = m.ij[3][0];
+    aux.ij[3][1] = m.ij[3][1];
+    aux.ij[3][2] = m.ij[3][2];
+
+    aux.ij[0][0] = this->ij[0][0];
+    aux.ij[0][1] = this->ij[0][1];
+    aux.ij[0][2] = this->ij[0][2];
+
+    aux.ij[1][0] = this->ij[1][0];
+    aux.ij[1][1] = this->ij[1][1];
+    aux.ij[1][2] = this->ij[1][2];
+
+    aux.ij[2][0] = this->ij[2][0];
+    aux.ij[2][1] = this->ij[2][1];
+    aux.ij[2][2] = this->ij[2][2];
+
+    return aux;
+}
+
+QTransformationMatrix4x3 QRotationMatrix3x3::operator*(const QTranslationMatrix4x3 &m) const
+{
+    QTransformationMatrix4x3 aux(QTransformationMatrix4x3::Identity);
+
+    aux.ij[3][0] = m.ij[3][0];
+    aux.ij[3][1] = m.ij[3][1];
+    aux.ij[3][2] = m.ij[3][2];
+
+    aux.ij[0][0] = this->ij[0][0];
+    aux.ij[0][1] = this->ij[0][1];
+    aux.ij[0][2] = this->ij[0][2];
+
+    aux.ij[1][0] = this->ij[1][0];
+    aux.ij[1][1] = this->ij[1][1];
+    aux.ij[1][2] = this->ij[1][2];
+
+    aux.ij[2][0] = this->ij[2][0];
+    aux.ij[2][1] = this->ij[2][1];
+    aux.ij[2][2] = this->ij[2][2];
+
+    return aux;
+}
+
+QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QScaleMatrix3x3 &m) const
+{
+    QTransformationMatrix4x4 aux;
+
+    aux.ResetToIdentity();
+
+    aux.ij[0][0] = m.ij[0][0]*this->ij[0][0] ;
+    aux.ij[0][1] = m.ij[1][1]*this->ij[0][1];
+    aux.ij[0][2] = m.ij[2][2]*this->ij[0][2];
+
+    aux.ij[1][0] = m.ij[0][0]*this->ij[1][0];
+    aux.ij[1][1] = m.ij[1][1]*this->ij[1][1];
+    aux.ij[1][2] = m.ij[2][2]*this->ij[1][2];
+
+    aux.ij[2][0] = m.ij[0][0]*this->ij[2][0];
+    aux.ij[2][1] = m.ij[1][1]*this->ij[2][1];
+    aux.ij[2][2] = m.ij[2][2]*this->ij[2][2];
+
+    return aux;
+}
+
+QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QTransformationMatrix4x4 &m) const
+{
+    QTransformationMatrix4x4 aux(QTransformationMatrix4x4::Identity);
+
+    aux.ij[3][0] = m.ij[3][0];
+    aux.ij[3][1] = m.ij[3][1];
+    aux.ij[3][2] = m.ij[3][2];
+
+    aux.ij[0][0] = this->ij[0][0]*m.ij[0][0] + this->ij[0][1]*m.ij[1][0] + this->ij[0][2]*m.ij[2][0];
+    aux.ij[0][1] = this->ij[0][0]*m.ij[0][1] + this->ij[0][1]*m.ij[1][1] + this->ij[0][2]*m.ij[2][1];
+    aux.ij[0][2] = this->ij[0][0]*m.ij[0][2] + this->ij[0][1]*m.ij[1][2] + this->ij[0][2]*m.ij[2][2];
+
+    aux.ij[1][0] = this->ij[1][0]*m.ij[0][0] + this->ij[1][1]*m.ij[1][0] + this->ij[1][2]*m.ij[2][0];
+    aux.ij[1][1] = this->ij[1][0]*m.ij[0][1] + this->ij[1][1]*m.ij[1][1] + this->ij[1][2]*m.ij[2][1];
+    aux.ij[1][2] = this->ij[1][0]*m.ij[0][2] + this->ij[1][1]*m.ij[1][2] + this->ij[1][2]*m.ij[2][2];
+
+    aux.ij[2][0] = this->ij[2][0]*m.ij[0][0] + this->ij[2][1]*m.ij[1][0] + this->ij[2][2]*m.ij[2][0];
+    aux.ij[2][1] = this->ij[2][0]*m.ij[0][1] + this->ij[2][1]*m.ij[1][1] + this->ij[2][2]*m.ij[2][1];
+    aux.ij[2][2] = this->ij[2][0]*m.ij[0][2] + this->ij[2][1]*m.ij[1][2] + this->ij[2][2]*m.ij[2][2];
+
+    return aux;
+}
+
+QTransformationMatrix4x3 QRotationMatrix3x3::operator*(const QTransformationMatrix4x3 &m) const
+{
+    QTransformationMatrix4x3 aux(QTransformationMatrix4x3::Identity);
+
+    aux.ij[3][0] = m.ij[3][0];
+    aux.ij[3][1] = m.ij[3][1];
+    aux.ij[3][2] = m.ij[3][2];
 
     aux.ij[0][0] = this->ij[0][0]*m.ij[0][0] + this->ij[0][1]*m.ij[1][0] + this->ij[0][2]*m.ij[2][0];
     aux.ij[0][1] = this->ij[0][0]*m.ij[0][1] + this->ij[0][1]*m.ij[1][1] + this->ij[0][2]*m.ij[2][1];
@@ -213,7 +326,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q
         // Checkout to avoid passing two zeros to atan2
         QE_ASSERT(this->ij[0][1] != QFloat::_0 || this->ij[0][2] != QFloat::_0);
         fAngleZ = atan2(-this->ij[0][1], -this->ij[0][2]);
-            
+
         fAngleX = QFloat::_0;
     }
 
@@ -234,7 +347,7 @@ void QRotationMatrix3x3::GetRotation(QQuaternion &qQuat) const
     qQuat.x = sqrt( std::max(QFloat::_0, QFloat::_1 + this->ij[0][0] - this->ij[1][1] - this->ij[2][2]) ) * QFloat::_0_5;
     qQuat.y = sqrt( std::max(QFloat::_0, QFloat::_1 - this->ij[0][0] + this->ij[1][1] - this->ij[2][2]) ) * QFloat::_0_5;
     qQuat.z = sqrt( std::max(QFloat::_0, QFloat::_1 - this->ij[0][0] - this->ij[1][1] + this->ij[2][2]) ) * QFloat::_0_5;
-        
+
     // [TODO] jwladi: it's necessary verify if this signs correspond to our conventions.
     QFloat::CopySign(this->ij[2][1] - this->ij[1][2], qQuat.x);
     QFloat::CopySign(this->ij[0][2] - this->ij[2][0], qQuat.y);
@@ -249,16 +362,16 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
     QE_ASSERT( abs(cosAux) <= QFloat::_1 );
 
     fAngle = acos(cosAux);
-                
+
     // Singularity 1: Angle = 0 -> we choose arbitrary axis.
-    if (QFloat::IsZero(fAngle)) 
+    if (QFloat::IsZero(fAngle))
     {
         vAxis.x = QFloat::_1;
         vAxis.y = QFloat::_0;
         vAxis.z = QFloat::_0;
     }
     // Singularity 2: Angle = PI -> we calculate axis.
-    else if ( QFloat::AreEquals(fAngle, QAngle::_Pi) ) 
+    else if ( QFloat::AreEquals(fAngle, QAngle::_Pi) )
     {
         const float_q &fHalfSqrt2 = sqrt(QFloat::_2) * QFloat::_0_5;
 
@@ -267,61 +380,61 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
 		const float_q &zz = (this->ij[2][2] + QFloat::_1) * QFloat::_0_5;
 
         // m[0][0] is the largest diagonal term
-		if ((xx > yy) && (xx > zz)) 
-        { 
+		if ((xx > yy) && (xx > zz))
+        {
 			if (QFloat::IsZero(xx))
             {
 				vAxis.x = QFloat::_0;
 				vAxis.y = fHalfSqrt2;
 				vAxis.z = fHalfSqrt2;
-			} 
+			}
             else
             {
                 QE_ASSERT(xx > QFloat::_0);
-                    
+
                 vAxis.x = sqrt(xx);
 
                 const float_q &fInvX = QFloat::_1 / vAxis.x;
                 const float_q &xy = (this->ij[0][1] + this->ij[1][0]) * QFloat::_0_25;
 		        const float_q &xz = (this->ij[0][2] + this->ij[2][0]) * QFloat::_0_25;
-				    
+
                 vAxis.y = xy * fInvX;
 				vAxis.z = xz * fInvX;
 			}
 		}
         // m[1][1] is the largest diagonal term
-        else if (yy > zz) 
-        { 
-			if (QFloat::IsZero(yy)) 
+        else if (yy > zz)
+        {
+			if (QFloat::IsZero(yy))
             {
 				vAxis.x = fHalfSqrt2;
 				vAxis.y = QFloat::_0;
 				vAxis.z = fHalfSqrt2;
-			} 
-            else 
+			}
+            else
             {
                 QE_ASSERT(yy > QFloat::_0);
 
 				vAxis.y = sqrt(yy);
-				    
+
                 const float_q &fInvY = QFloat::_1 / vAxis.y;
                 const float_q &xy = (this->ij[0][1] + this->ij[1][0]) * QFloat::_0_25;
 		        const float_q &yz = (this->ij[1][2] + this->ij[2][1]) * QFloat::_0_25;
-                
+
                 vAxis.x = xy * fInvY;
 				vAxis.z = yz * fInvY;
-			}	
-		} 
+			}
+		}
         // m[2][2] is the largest diagonal term so base result on this
         else
-        { 
-			if (QFloat::IsZero(zz)) 
+        {
+			if (QFloat::IsZero(zz))
             {
 				vAxis.x = fHalfSqrt2;
 				vAxis.y = fHalfSqrt2;
 				vAxis.z = QFloat::_0;
-			} 
-            else 
+			}
+            else
             {
                 QE_ASSERT(zz > QFloat::_0);
 

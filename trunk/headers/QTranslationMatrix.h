@@ -3,6 +3,9 @@
 #ifndef __QTRANSLATIONMATRIX__
 #define __QTRANSLATIONMATRIX__
 
+#include "QRotationMatrix3x3.h"
+#include "QScaleMatrix3x3.h"
+
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -17,6 +20,8 @@ namespace Math
 // Forward declarations
 class QMatrix4x4;
 class QMatrix4x3;
+template<class MatrixType> class QTransformationMatrix;
+
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 4 rows and 3 or 4 columns, depending on template parameter,
@@ -35,7 +40,7 @@ public:
     /// <summary>
     /// Stores an identity matrix.
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    /// 
+    ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
     ///
     /// If the matrix is 4x3, we simply remove fourth column.
@@ -58,20 +63,20 @@ public:
     /// Constructor from a 4x4 or 4x3 matrix, depending on template parameter.
     /// </summary>
     /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a translation matrix, 
+    /// If you use this constructor, be sure that you are constructing a translation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="m">[IN] The matrix in which we want the resident matrix to be based.</param>
     inline explicit QTranslationMatrix(const MatrixType &m) : MatrixType(m) { }
 
     /// <summary>
-    /// Constructor that receives three floating point values, one for the displacement in each axis direction. 
+    /// Constructor that receives three floating point values, one for the displacement in each axis direction.
     /// </summary>
     /// <param name="fDispX">[IN] Displacement in X direction.</param>
     /// <param name="fDispY">[IN] Displacement in Y direction.</param>
     /// <param name="fDispZ">[IN] Displacement in Z direction.</param>
-    inline QTranslationMatrix(const float_q &fDispX, const float_q &fDispY, const float_q &fDispZ) 
-    { 
+    inline QTranslationMatrix(const float_q &fDispX, const float_q &fDispY, const float_q &fDispZ)
+    {
         this->ResetToIdentity();
 
         this->ij[3][0] = fDispX;
@@ -110,10 +115,10 @@ public:
     /// </summary>
     /// <remarks>
     /// Keeps the convention rows x columns, so the pointer must point to a 12 floating point array if
-    /// the template parameter is a 4x3 matrix and to a 16 floating point array if it is a 4x4 matrix. 
+    /// the template parameter is a 4x3 matrix and to a 16 floating point array if it is a 4x4 matrix.
     /// Each three or four consecutive values, depending on template parameter, is used to fill a row
     /// of the matrix.
-    /// If you use this constructor, be sure that you are constructing a translation matrix, 
+    /// If you use this constructor, be sure that you are constructing a translation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="pfMatrix">[IN] Pointer to a 12/16 length array of floating point values.</param>
@@ -124,14 +129,14 @@ public:
     /// Last component of each pack will be ignored if the template parameter is a 4x3 matrix.
     /// </summary>
     /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a translation matrix, 
+    /// If you use this constructor, be sure that you are constructing a translation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
-    inline QTranslationMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) : 
+    inline QTranslationMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
         MatrixType(row0, row1, row2, row3) { }
 
 
@@ -144,9 +149,9 @@ public:
     /// <summary>
     /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
     /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
-    /// 
-    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix} 
-    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} = 
+    ///
+    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
     /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
     /// </summary>
     /// <remarks>
@@ -171,8 +176,7 @@ public:
     }
 
 	/// <summary>
-    /// Multiplies a 3x3 scale matrix by the current matrix, following matrices product rules. Scale matrix is
-    /// extended to a 4x4 matrix to allow this product.
+    /// Multiplies a 3x3 scale matrix by the current matrix.
     /// </summary>
     /// <remarks>
     /// This product is not conmmutative.
@@ -277,9 +281,9 @@ public:
     /// Product and assign operator. Current matrix stores the result of the multiplication.
     /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
     /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
-    /// 
-    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix} 
-    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} = 
+    ///
+    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
     /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
     /// </summary>
     /// <param name="m">[IN] The matrix to be multiplied by.</param>
@@ -288,7 +292,7 @@ public:
     /// </returns>
     template <class MatrixTypeParam>
     inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<MatrixTypeParam> &m) {
-      
+
         this->ij[3][0] += m.ij[3][0];
         this->ij[3][1] += m.ij[3][1];
         this->ij[3][2] += m.ij[3][2];
@@ -318,13 +322,13 @@ public:
     /// </returns>
     inline QTranslationMatrix<MatrixType>& operator=(const MatrixType &m)
     {
-        reinterpret_cast<MatrixType&>(*this) = m;    
+        reinterpret_cast<MatrixType&>(*this) = m;
         return *this;
     }
 
     /// <summary>
-    /// Reverse of the matrix. In the case of translation matrices, the inverse is composed 
-    /// of the opposite of the elements which defines the displacement: 
+    /// Reverse of the matrix. In the case of translation matrices, the inverse is composed
+    /// of the opposite of the elements which defines the displacement:
     ///
     /// \f$ T^{-1}= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ -d_{x} & -d_{y} & -d_{z} & 1 \end{bmatrix}\f$
     ///
@@ -338,7 +342,7 @@ public:
     }
 
     /// <summary>
-    /// Reverse of the matrix. In the case of translation matrices, the inverse is composed 
+    /// Reverse of the matrix. In the case of translation matrices, the inverse is composed
     /// by the opposite of the elements which defines the displacement:
     ///
     /// \f$ T^{-1}= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ -d_{x} & -d_{y} & -d_{z} & 1 \end{bmatrix}\f$
@@ -392,7 +396,7 @@ public:
     }
 
 	/// <summary>
-    /// Calculates the determinant of the matrix. Since this is a translation matrix, 
+    /// Calculates the determinant of the matrix. Since this is a translation matrix,
     /// which is a diagonal matrix with its main diagonal composed of 1s, its determinant is 1.
     /// </summary>
     /// <returns>
@@ -404,7 +408,7 @@ public:
 	}
 
 protected:
-    
+
     // Hidden method to prevent it could be used.
     void ResetToZero();
 };
@@ -419,7 +423,7 @@ typedef QTranslationMatrix<QMatrix4x4> QTranslationMatrix4x4;
 // ----------------------------
 
 template <class MatrixType>
-const QTranslationMatrix<MatrixType> QTranslationMatrix<MatrixType>::Identity;
+const QTranslationMatrix<MatrixType> QTranslationMatrix<MatrixType>::Identity(MatrixType::Identity);
 
 } //namespace Math
 } //namespace Tools
