@@ -3,8 +3,11 @@
 #ifndef __QTRANSFORMATIONMATRIX__
 #define __QTRANSFORMATIONMATRIX__
 
+#include "QMatrix4x3.h"
+#include "QMatrix4x4.h"
 #include "QQuaternion.h"
 #include "QRotationMatrix3x3.h"
+#include "QScaleMatrix3x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -18,24 +21,20 @@ namespace Math
 {
 
 // Forward declarations
-class QMatrix4x4;
-template<class MatrixType>
-class QTranslationMatrix;
-class QScaleMatrix3x3;
-class QMatrix4x3;
+template<class MatrixType> class QTranslationMatrix;
 
 /// <summary>
 /// Class which represents a transformation matrix. A transformation matrix is, in general, composed of a scale,
 /// a rotation and a translation (or any combination of them). If we note:
-/// \f$ S = \begin{bmatrix} s_x & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s_z & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$, 
+/// \f$ S = \begin{bmatrix} s_x & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s_z & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$,
 /// \f$ R = \begin{bmatrix} r_{00} & r_{01} & r_{02} & 0 \\ r_{10} & r_{11} & r_{12} & 0 \\ r_{20} & r_{21} & r_{22} & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$, and
-/// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$,\\ 
+/// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$,\\
 /// which are the scale matrix, the rotation matrix and the translation matrix respectively, we compose the transformation as follows:
-/// \f$ SRT = \begin{bmatrix} s_x\dot r_{00} & s_x\dot r_{01} & s_x\dot r_{02} & 0 \\ s_y\dot r_{10} & s_y\dot r_{11} & s_y\dot r_{12} & 0 \\ 
+/// \f$ SRT = \begin{bmatrix} s_x\dot r_{00} & s_x\dot r_{01} & s_x\dot r_{02} & 0 \\ s_y\dot r_{10} & s_y\dot r_{11} & s_y\dot r_{12} & 0 \\
 /// s_z\dot r_{20} & s_z\dot r_{21} & s_z\dot r_{22} & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
 /// Since this class is a template, we allow the use of a 4x4 matrix (QMatrix4x4) or a 4x3 one (QMatrix4x3) as parameter.
-/// When parameter is a 4x3 matrix, we treat it as a 4x4 matrix, assuming that fourth column 
-/// is \f$ \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}\f$. 
+/// When parameter is a 4x3 matrix, we treat it as a 4x4 matrix, assuming that fourth column
+/// is \f$ \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}\f$.
 /// </summary>
 template <class MatrixType>
 class QDllExport QTransformationMatrix : public MatrixType
@@ -47,7 +46,7 @@ public:
     /// <summary>
     /// Stores an identity matrix.
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    /// 
+    ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
     ///
     /// </summary>
@@ -60,23 +59,22 @@ public:
     /// <summary>
     /// Default constructor. It's initialized to identity matrix.
     /// </summary>
-    QTransformationMatrix()
+    QTransformationMatrix() : MatrixType(QTransformationMatrix::Identity)
     {
-        this->ResetToIdentity();
     }
 
     /// <summary>
     /// Constructor from a 4x4 or 4x3 matrix, depending on template parameter.
     /// </summary>
     /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a transformation matrix, 
+    /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="m">[IN] The matrix in which we want the resident matrix to be based.</param>
     inline explicit QTransformationMatrix(const MatrixType &m) : MatrixType(m) { }
 
     /// <summary>
-    /// Constructor from a 3D vector which stores the scale, a quaternion which stores the rotation 
+    /// Constructor from a 3D vector which stores the scale, a quaternion which stores the rotation
     /// and a 3D vector which stores the translation.
     /// </summary>
     /// <param name="vDisp">[IN] Vector with the displacement values.</param>
@@ -88,19 +86,19 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a 3D vector which stores the scale, a quaternion which stores the rotation 
+    /// Constructor from a 3D vector which stores the scale, a quaternion which stores the rotation
     /// and a 4D vector which stores the translation.
     /// </summary>
     /// <param name="vDisp">[IN] Vector with the displacement values.</param>
     /// <param name="qRot">[IN] Quaternion with the rotation values.</param>
     /// <param name="vScale">[IN] Vector with the scale values.</param>
     inline QTransformationMatrix (const QBaseVector4 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale)
-    { 
+    {
         this->Initialize(vDisp.x, vDisp.y, vDisp.z, vDisp.w, qRot.x, qRot.y, qRot.z, qRot.w, vScale.x, vScale.y, vScale.z);
     }
 
     /// <summary>
-    /// Constructor that receives three scaling values, one for each axis direction, four rotation values 
+    /// Constructor that receives three scaling values, one for each axis direction, four rotation values
     /// which define a rotation quaternion and four displacement values (like a 4D vector) which define a translation.
     /// </summary>
     /// <param name="fDispX">[IN] Displazament within X direction.</param>
@@ -116,8 +114,8 @@ public:
     /// <param name="fScaleZ">[IN] Scale within Z direction.</param>
     inline QTransformationMatrix(const float_q &fDispX, const float_q &fDispY, const float_q &fDispZ, const float_q &fDispW,
                                  const float_q &fRotX, const float_q &fRotY, const float_q &fRotZ, const float_q &fRotW,
-                                 const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) 
-    { 
+                                 const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+    {
         this->Initialize(fDispX, fDispY, fDispZ, fDispW, fRotX, fRotY, fRotZ, fRotW, fScaleX, fScaleY, fScaleZ);
     }
 
@@ -126,10 +124,10 @@ public:
     /// </summary>
     /// <remarks>
     /// Keeps the convention rows x columns, so the pointer must point to a 12 floating point array if
-    /// the template parameter is a 4x3 matrix and to a 16 floating point array if it is a 4x4 matrix. 
+    /// the template parameter is a 4x3 matrix and to a 16 floating point array if it is a 4x4 matrix.
     /// Each three or four consecutive values, depending on template parameter, is used to fill a row
     /// of the matrix.
-    /// If you use this constructor, be sure that you are constructing a translation matrix, 
+    /// If you use this constructor, be sure that you are constructing a translation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="pfMatrix">[IN] Pointer to a 12/16 length array of floating point values.</param>
@@ -140,18 +138,18 @@ public:
     /// Last component of each pack will be ignored if the template parameter is a 4x3 matrix.
     /// </summary>
     /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a translation matrix, 
+    /// If you use this constructor, be sure that you are constructing a translation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="row0">[IN] A 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row1">[IN] A 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row2">[IN] A 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row3">[IN] A 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
-    inline QTransformationMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) : 
+    inline QTransformationMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
         MatrixType(row0, row1, row2, row3) { }
 
     /// <summary>
-    /// Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and 
+    /// Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and
     /// a 3x3 scale matrix.
     /// </summary>
     /// <param name="mDisp">[IN] A 4x3 or 4x4 translation matrix.</param>
@@ -187,7 +185,7 @@ public:
 
     /// <summary>
     /// Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated 
+    /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
     /// knowing that fourth column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
     /// </summary>
     /// <remarks>
@@ -325,7 +323,7 @@ public:
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
     /// Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated 
+    /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
     /// knowing that last column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
     /// </summary>
     /// <param name="m">[IN] The matrix to be multiplied by.</param>
@@ -334,7 +332,7 @@ public:
     /// </returns>
     template <class MatrixTypeParam>
     inline QTransformationMatrix<MatrixType>& operator*=(const QTransformationMatrix<MatrixTypeParam> &m) {
-      
+
         QTransformationMatrix<MatrixType> aux;
 
         aux.ResetToIdentity();
@@ -382,7 +380,7 @@ public:
     /// </returns>
     inline QTransformationMatrix<MatrixType>& operator=(const MatrixType &m)
     {
-        reinterpret_cast<MatrixType&>(*this) = m;    
+        reinterpret_cast<MatrixType&>(*this) = m;
         return *this;
     }
 
@@ -390,10 +388,10 @@ public:
     /// Calculates the determinant of the matrix. Since this is a transformation matrix,
     /// its determinant can be calculated as if it was a 3x3 matrix, removing fourth row and fourth column
     /// in calculus :
-    /// 
-    /// \f$ \left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{10}\cdot a_{21} - 
+    ///
+    /// \f$ \left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{10}\cdot a_{21} -
     /// (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$
-    /// 
+    ///
      /// </summary>
     /// <returns>
     /// Floating point value which is the result of the determinant.
@@ -407,18 +405,18 @@ public:
                this->ij[0][0] * this->ij[1][2] * this->ij[2][1] -
                this->ij[0][1] * this->ij[1][0] * this->ij[2][2];
     }
-    
+
     /// <summary>
     /// Inverses the matrix.
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-    /// 
+    ///
     /// \f$ A\cdot A^{-1}  = A^{-1}\cdot A = I\f$
-    /// 
+    ///
     /// We can calculate the inverse of any matrix by:
-    ///         
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$ , where \f$ C^T_{ij}\f$ is the matrix 
+    ///
+    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$ , where \f$ C^T_{ij}\f$ is the matrix
     /// formed by each cofactor of each element of A, trasposed.
-    /// Since the matrix is a transformation matrix, then the inversion can be optimized avoiding all products by 
+    /// Since the matrix is a transformation matrix, then the inversion can be optimized avoiding all products by
     /// the elements of the fourth column.
     /// Inverse has this general form, expressed in function of the scale, the rotation and the translation:
     /// \f$ (SRT)^{-1} = T^{-1}\cdot R^{-1}\cdot S^{-1} = \begin{bmatrix} \frac{r_{00}}{S_x} & \frac{r_{10}}{S_y} & \frac{r_{20}}{S_z} & 0 \\ \frac{r_{01}}{S_x} & \frac{r_{11}}{S_y} & \frac{r_{21}}{S_z} & 0 \\ \frac{r_{02}}{S_x} & \frac{r_{12}}{S_y} & \frac{r_{22}}{S_z} & 0 \\ \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
@@ -438,13 +436,13 @@ public:
         float_q fDet = this->GetDeterminant();
 
         // If Determinant is 0, this matrix has not inverse.
-        if (QFloat::IsZero(fDet)) 
+        if (QFloat::IsZero(fDet))
             return false;
 
         // We need inverse of determinant in calculus.
         fDet = QFloat::_1/fDet;
-        
-        // Binary products are stored in vars to avoid unnecesary repetitions 
+
+        // Binary products are stored in vars to avoid unnecesary repetitions
         const float_q& A = this->ij[0][0] * this->ij[1][1];
         const float_q& D = this->ij[2][1] * this->ij[3][0];
         const float_q& E = this->ij[0][1] * this->ij[1][0];
@@ -462,22 +460,22 @@ public:
 
         aux.ResetToIdentity();
 
-        // 1st column of inverse 
-        aux.ij[0][0] =  fDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1] ); 
+        // 1st column of inverse
+        aux.ij[0][0] =  fDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1] );
         aux.ij[1][0] = -fDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0] );
         aux.ij[2][0] =  fDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0] );
         aux.ij[3][0] = -fDet * (this->ij[1][0] * J + this->ij[1][1] * O + this->ij[1][2] * H -
                                 this->ij[1][2] * D - this->ij[1][0] * K - this->ij[1][1] * N );
-        
-        // 2nd column of inverse 
-        aux.ij[0][1] = -fDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1] ); 
+
+        // 2nd column of inverse
+        aux.ij[0][1] = -fDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1] );
         aux.ij[1][1] =  fDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0] );
         aux.ij[2][1] = -fDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0] );
         aux.ij[3][1] =  fDet * (this->ij[0][0] * J + this->ij[0][1] * O + this->ij[0][2] * H -
                                 this->ij[0][2] * D - this->ij[0][0] * K - this->ij[0][1] * N );
 
-        // 3rd column of inverse 
-        aux.ij[0][2] =  fDet * (Q - T); 
+        // 3rd column of inverse
+        aux.ij[0][2] =  fDet * (Q - T);
         aux.ij[1][2] = -fDet * (U - X);
         aux.ij[2][2] =  fDet * (A - E);
         aux.ij[3][2] = -fDet * (A * this->ij[3][2] + Q * this->ij[3][0] + X * this->ij[3][1] -
@@ -491,14 +489,14 @@ public:
     /// <summary>
     /// Inverses the matrix and stores result in a matrix provided.
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-    /// 
+    ///
     /// \f$ A\cdot A^{-1}  = A^{-1}\cdot A = I\f$
-    /// 
+    ///
     /// We can calculate the inverse of any matrix by:
-    ///         
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$ , where \f$ C^T_{ij}\f$ is the matrix 
+    ///
+    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$ , where \f$ C^T_{ij}\f$ is the matrix
     /// formed by each cofactor of each element of A, trasposed.
-    /// Since the matrix is a transformation matrix, then the inversion can be optimized avoiding all products by 
+    /// Since the matrix is a transformation matrix, then the inversion can be optimized avoiding all products by
     /// the elements of the fourth column.
     /// Inverse has this general form, expressed in function of the scale, the rotation and the translation:
     /// \f$ (SRT)^{-1} = T^{-1}\cdot R^{-1}\cdot S^{-1} = \begin{bmatrix} \frac{r_{00}}{S_x} & \frac{r_{10}}{S_y} & \frac{r_{20}}{S_z} & 0 \\ \frac{r_{01}}{S_x} & \frac{r_{11}}{S_y} & \frac{r_{21}}{S_z} & 0 \\ \frac{r_{02}}{S_x} & \frac{r_{12}}{S_y} & \frac{r_{22}}{S_z} & 0 \\ \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
@@ -588,7 +586,7 @@ public:
     }
 
     /// <summary>
-    /// Extracts the rotation from the transformation matrix, obtaining a rotation quaternion. 
+    /// Extracts the rotation from the transformation matrix, obtaining a rotation quaternion.
     /// </summary>
     /// <param name="qRot">[OUT] Quaternion where to store the extracted rotation.</param>
     void GetRotation(QBaseQuaternion &qRot) const
@@ -596,7 +594,7 @@ public:
         QRotationMatrix3x3 mAux;
 
         this->ToRotationMatrix3x3(mAux);
-        mAux.GetRotation(qRot);
+        mAux.GetRotation(static_cast<QQuaternion&>(qRot));
     }
 
     /// <summary>
@@ -639,15 +637,15 @@ public:
     }
 
     /// <summary>
-    /// Extracts the scale, the rotation and the translation into separated transformation matrices. 
+    /// Extracts the scale, the rotation and the translation into separated transformation matrices.
     /// They can be 4x3 or 4x4 matrices, depending on the method template parameter.
     /// </summary>
     /// <param name="mDisp">[OUT] Matrix to store the translation.</param>
     /// <param name="mRot">[OUT] Matrix to store the rotation.</param>
     /// <param name="mScale">[OUT] Matrix to store the scale.</param>
     template <class MatrixTypeParam>
-    void Decompose(QTransformationMatrix<MatrixTypeParam> &mDisp, 
-                   QTransformationMatrix<MatrixTypeParam> &mRot, 
+    void Decompose(QTransformationMatrix<MatrixTypeParam> &mDisp,
+                   QTransformationMatrix<MatrixTypeParam> &mRot,
                    QTransformationMatrix<MatrixTypeParam> &mScale) const
     {
         QBaseVector3 vAux;
@@ -676,15 +674,15 @@ public:
     }
 
     /// <summary>
-    /// Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices. 
+    /// Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
     /// The translation matrix can be 4x3 or 4x4 matrix, depending on the method template parameter.
     /// </summary>
     /// <param name="mDisp">[OUT] Matrix to store the translation.</param>
     /// <param name="mRot">[OUT] Matrix to store the rotation.</param>
     /// <param name="mScale">[OUT] Matrix to store the scale.</param>
     template <class MatrixTypeParam>
-    void Decompose(QTranslationMatrix<MatrixTypeParam> &mDisp, 
-                   QRotationMatrix3x3 &mRot, 
+    void Decompose(QTranslationMatrix<MatrixTypeParam> &mDisp,
+                   QRotationMatrix3x3 &mRot,
                    QScaleMatrix3x3 &mScale) const
     {
         QBaseVector3 vAux;
@@ -720,7 +718,7 @@ public:
     {
         QBaseVector3 vScale, vInvScale(QFloat::_1, QFloat::_1, QFloat::_1);
         this->GetScale(vScale);
-       
+
         QE_ASSERT(vScale.x != QFloat::_0 && vScale.y != QFloat::_0 && vScale.z != QFloat::_0);
 
         vInvScale.x /= vScale.x;
@@ -766,9 +764,9 @@ protected:
     void ResetToZero();
 
     // Function to convert the 3x3 submatrix which contains the rotation and the scale into
-    // a 3x3 rotation matrix without the scale. It uses the fact that in a 3x3 rotation matrix, 
-    // the length of any row o column vector is 1, so current length of each row in the transformation matrix 
-    // is the scale factor (each row have a scale factor which matches with an axis). 
+    // a 3x3 rotation matrix without the scale. It uses the fact that in a 3x3 rotation matrix,
+    // the length of any row o column vector is 1, so current length of each row in the transformation matrix
+    // is the scale factor (each row have a scale factor which matches with an axis).
     // Dividing each row by its length we obtain the original rotation matrix.
     void ToRotationMatrix3x3(QRotationMatrix3x3 &m) const
     {
@@ -794,7 +792,7 @@ protected:
     }
 
     // <summary>
-    // Initializes the transformation matrix from the components of a scale vector, 
+    // Initializes the transformation matrix from the components of a scale vector,
     // a rotation quaternion and a translation vector.
     // </summary>
     // <param name="fDispX">[IN] Displazament within X direction.</param>
@@ -810,8 +808,8 @@ protected:
     // <param name="fScaleZ">[IN] Scale within Z direction.</param>
     void Initialize(const float_q &fDispX, const float_q &fDispY, const float_q &fDispZ, const float_q &fDispW,
                     const float_q &fRotX, const float_q &fRotY, const float_q &fRotZ, const float_q &fRotW,
-                    const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) 
-    { 
+                    const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+    {
         QQuaternion qRot(fRotX, fRotY, fRotZ, fRotW);
 
         QRotationMatrix3x3 mRot(qRot);
@@ -846,7 +844,7 @@ protected:
     // -----------------------------
 
     template <class MatrixType>
-    const QTransformationMatrix<MatrixType> QTransformationMatrix<MatrixType>::Identity;
+    const QTransformationMatrix<MatrixType> QTransformationMatrix<MatrixType>::Identity(MatrixType::Identity);
 
 } //namespace Math
 } //namespace Tools

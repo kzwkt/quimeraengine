@@ -21,9 +21,9 @@ namespace Tools
 {
 namespace DataTypes
 {
-        
+
 // --------------------------------------------------------------------------------------------------------
-// Basic types: Defines all basic types used by some engine components, whose size is assured to be 
+// Basic types: Defines all basic types used by some engine components, whose size is assured to be
 // always the same.
 // --------------------------------------------------------------------------------------------------------
 
@@ -39,6 +39,21 @@ namespace DataTypes
         typedef float               f32_q;  // 32-bits floating point number
         typedef double              f64_q;  // 64-bits floating point number
         typedef __m128              vf32_q; // 4 x 32-bits packed floating point numbers
+        // Note: There is no integer or float whose size is greater than 64 bits on Windows 32 bits
+    #elif QE_COMPILER_GCC
+        typedef unsigned char       u8_q;   // Unsigned 8-bits integer
+        typedef char                i8_q;   // Signed 8-bits integer
+        typedef short unsigned int  u16_q;  // Unsigned 16-bits integer
+        typedef short int           i16_q;  // Signed 16-bits integer
+        typedef unsigned int        u32_q;  // Unsigned 32-bits integer
+        typedef int                 i32_q;  // Signed 32-bits integer
+        typedef long long           i64_q;  // Signed 64-bits integer
+        typedef float               f32_q;  // 32-bits floating point number
+        typedef double              f64_q;  // 64-bits floating point number
+        struct vf32_q
+        {
+            f32_q v[4];
+        };
         // Note: There is no integer or float whose size is greater than 64 bits on Windows 32 bits
     #else
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
@@ -67,7 +82,7 @@ namespace DataTypes
 #endif
 
 // --------------------------------------------------------------------------------------------------------
-// Float type size: Defines the floating point type size (in bytes), depending on the configured precission. 
+// Float type size: Defines the floating point type size (in bytes), depending on the configured precission.
 // The size depens on the operative system / compiler too.
 // --------------------------------------------------------------------------------------------------------
 #if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
@@ -88,11 +103,19 @@ namespace DataTypes
 #endif
 
 // --------------------------------------------------------------------------------------------------------
-// Integer/Float type sizes equivalence: Defines the integer type whose size equals to the selected floating 
+// Integer/Float type sizes equivalence: Defines the integer type whose size equals to the selected floating
 // point type size.
 // --------------------------------------------------------------------------------------------------------
 #if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
     #ifdef QE_COMPILER_MSVC
+        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+            typedef i32_q int_for_float_q;
+        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+            typedef i64_q int_for_float_q;
+        #else
+            typedef i32_q int_for_float_q;
+        #endif
+    #elif QE_COMPILER_GCC
         #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
             typedef i32_q int_for_float_q;
         #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
@@ -107,10 +130,10 @@ namespace DataTypes
     // [TODO] Thund: Test the system in another platform and write the type sizes in that machine
     // Win64, Linux 32, Mac OS 32
 #endif
-    
+
 
 // --------------------------------------------------------------------------------------------------------
-// 4-components vector mapping to 4x32 floats pack: Defines all basic types used by some engine components, 
+// 4-components vector mapping to 4x32 floats pack: Defines all basic types used by some engine components,
 // whose size is assured to be always the same.
 // These definitions are used into many math classes that receives a 4x32-bits floating points pack.
 // --------------------------------------------------------------------------------------------------------
@@ -119,7 +142,7 @@ namespace DataTypes
 #define QE_VF32_THIRD_COMPONENT  this->z
 #define QE_VF32_FOURTH_COMPONENT this->w
 
-        
+
 // --------------------------------------------------------------------------------------------------------
 // Char type: Defines the char width used throughout the engine, depending on the selected character set.
 // --------------------------------------------------------------------------------------------------------

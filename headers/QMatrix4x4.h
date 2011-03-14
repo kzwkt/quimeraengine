@@ -20,14 +20,14 @@ namespace Math
 /// <summary>
 /// This class implements the functionality of a matrix with 4 rows and 4 columns.
 ///
-/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix 
+/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix
 /// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.
-/// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m × n matrix, 
+/// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m × n matrix,
 /// while m and n are called its dimensions. Every element is referenced by its position in the matrix.
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
-/// column: the element in the i row and the j column is denoted A_ij. In this case, we will work with 4x4 matrices, 
+/// column: the element in the i row and the j column is denoted A_ij. In this case, we will work with 4x4 matrices,
 /// therefore our matrix will be:
-/// 
+///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\\ a_{30} & a_{31} & a_{32} & a_{33}\end{bmatrix}\f$
 ///
 /// </summary>
@@ -36,6 +36,7 @@ class QDllExport QMatrix4x4 : public QBaseMatrix4x4
 	// FRIENDS
 	// ---------------
 public:
+
 	/// <summary>
 	/// Multiply by scalar operator. All matrix components are multiplied by the scalar.
 	/// </summary>
@@ -54,10 +55,11 @@ public:
 	/// Stores a matrix with all components set to 0.
 	/// </summary>
 	static const QMatrix4x4 ZeroMatrix;
+
 	/// <summary>
 	/// Stores an identity matrix.
 	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    /// 
+    ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
     ///
 	/// </summary>
@@ -103,10 +105,10 @@ public:
 	/// <param name="f31">[IN] Floating point value for element of row 3, column 1.</param>
 	/// <param name="f32">[IN] Floating point value for element of row 3, column 2.</param>
 	/// <param name="f33">[IN] Floating point value for element of row 3, column 3.</param>
-	inline QMatrix4x4(	const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03, 
-						const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13, 
-						const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23, 
-						const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33) : 
+	inline QMatrix4x4(	const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
+						const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
+						const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
+						const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33) :
 
 						QBaseMatrix4x4(f00, f01, f02, f03, f10, f11, f12, f13, f20, f21, f22, f23, f30, f31, f32, f33) { }
 
@@ -114,7 +116,7 @@ public:
 	/// Constructor that receives a pointer to 16 floating point values.
 	/// </summary>
 	/// <remarks>
-	/// Keeps the convention rows x columns, so each chunck of 4 consecutive elements 
+	/// Keeps the convention rows x columns, so each chunck of 4 consecutive elements
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
 	/// <param name="pfMatrix">[IN] Pointer to a 16 length array of floating point values.</param>
@@ -127,7 +129,7 @@ public:
 	/// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
 	/// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
 	/// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
-	inline QMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) : 
+	inline QMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
 		QBaseMatrix4x4(row0, row1, row2, row3) { }
 
 	// METHODS
@@ -145,13 +147,13 @@ public:
 
 	/// <summary>
 	/// Multiplies a QMatrix4x4 by the current matrix.
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
     /// So, left matrix must have same number of columns than rows have right matrix.
-	/// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+	/// The product is not conmutative. To perform a product of matrices, each element is calculated as
     /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
-    /// 
+    ///
     /// \f$ A x B = C \f$
-    /// 
+    ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
 	/// </summary>
@@ -166,13 +168,13 @@ public:
 
 	/// <summary>
 	/// Multiplies a 4x3 matrix by the current matrix.
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
     /// So, left matrix must have same number of columns than rows have right matrix.
-	/// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+	/// The product is not conmutative. To perform a product of matrices, each element is calculated as
     /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
-    /// 
+    ///
     /// \f$ A x B = C \f$
-    /// 
+    ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
 	/// </summary>
@@ -244,7 +246,7 @@ public:
 	inline QMatrix4x4& operator/=(const float_q &fScalar)
 	{
 		QE_ASSERT(fScalar != QFloat::_0);
-				
+
 		this->ij[0][0] /= fScalar;
 		this->ij[0][1] /= fScalar;
 		this->ij[0][2] /= fScalar;
@@ -347,11 +349,11 @@ public:
 				QFloat::AreEquals(this->ij[3][0], m.ij[3][0]) &&
 				QFloat::AreEquals(this->ij[3][1], m.ij[3][1]) &&
 				QFloat::AreEquals(this->ij[3][2], m.ij[3][2]) &&
-				QFloat::AreEquals(this->ij[3][3], m.ij[3][3]);  
+				QFloat::AreEquals(this->ij[3][3], m.ij[3][3]);
 	}
 
 	/// <summary>
-	/// Non-Equal operator. A tolerance value "Epsilon" is used for discriminate whether the 
+	/// Non-Equal operator. A tolerance value "Epsilon" is used for discriminate whether the
 	/// matrices are equal or not.
 	/// </summary>
 	/// <param name="m">[IN] The matrix to compare to.</param>
@@ -375,7 +377,7 @@ public:
 				QFloat::AreNotEquals(this->ij[3][0], m.ij[3][0]) ||
 				QFloat::AreNotEquals(this->ij[3][1], m.ij[3][1]) ||
 				QFloat::AreNotEquals(this->ij[3][2], m.ij[3][2]) ||
-				QFloat::AreNotEquals(this->ij[3][3], m.ij[3][3]);  
+				QFloat::AreNotEquals(this->ij[3][3], m.ij[3][3]);
 	}
 
     /// <summary>
@@ -400,7 +402,7 @@ public:
     /// </returns>
     inline QMatrix4x4& operator=(const QBaseMatrix4x4 &m)
     {
-        reinterpret_cast<QBaseMatrix4x4&>(*this) = m;    
+        reinterpret_cast<QBaseMatrix4x4&>(*this) = m;
         return *this;
     }
 
@@ -409,23 +411,23 @@ public:
 	/// </summary>
 	inline void ResetToZero()
 	{
-		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = this->ij[0][3] = 
-		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = this->ij[1][3] = 
-		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = this->ij[2][3] = 
+		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
+		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = this->ij[1][3] =
+		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = this->ij[2][3] =
 		this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = this->ij[3][3] = QFloat::_0;
 	}
 
 	/// <summary>
-	/// Resets the matrix to a identity matrix. The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, 
+	/// Resets the matrix to a identity matrix. The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$,
     /// and it's set to 1 if \f$ i=j\f$.
 	/// </summary>
 	inline void ResetToIdentity()
 	{
 		this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = this->ij[3][3] = QFloat::_1;
 
-		this->ij[0][1] = this->ij[0][2] = this->ij[0][3] = 
-		this->ij[1][0] = this->ij[1][2] = this->ij[1][3] = 
-		this->ij[2][0] = this->ij[2][1] = this->ij[2][3] = 
+		this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
+		this->ij[1][0] = this->ij[1][2] = this->ij[1][3] =
+		this->ij[2][0] = this->ij[2][1] = this->ij[2][3] =
 		this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = QFloat::_0;
 	}
 
@@ -475,11 +477,11 @@ public:
 				QFloat::IsZero(this->ij[3][0]) &&
 				QFloat::IsZero(this->ij[3][1]) &&
 				QFloat::IsZero(this->ij[3][2]) &&
-				QFloat::IsZero(this->ij[3][3]);  
+				QFloat::IsZero(this->ij[3][3]);
 	}
 
 	/// <summary>
-	/// Checks if all elements of the matrix are 0 or under tolerance (abs value) except 
+	/// Checks if all elements of the matrix are 0 or under tolerance (abs value) except
 	/// elements where i==j, which must be 1.
 	/// </summary>
 	/// <returns>
@@ -502,29 +504,29 @@ public:
 				QFloat::IsZero(this->ij[3][0]) &&
 				QFloat::IsZero(this->ij[3][1]) &&
 				QFloat::IsZero(this->ij[3][2]) &&
-				QFloat::AreEquals(this->ij[3][3], QFloat::_1);  
+				QFloat::AreEquals(this->ij[3][3], QFloat::_1);
 	}
 
 	/// <summary>
     /// Calculates the determinant of the matrix.
-    /// It's only applicable to square matrices. A determinant is a real number obtained 
-    /// through the addition of all possible products between elements of different 
+    /// It's only applicable to square matrices. A determinant is a real number obtained
+    /// through the addition of all possible products between elements of different
     /// row and column, where the sign of a product derives from the parity of the permutation involved.
     /// In practice, we can calculate any determinant this way:
-    /// 
-    /// Order 1: \f$\left|A\right| = a_{00}\f$
-    ///                  
-    /// Order 2: \f$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\f$
-    /// 
-    /// Order 3: \f$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$
-    /// 
-    /// Any other order can be solved developing determinant by a row or a column, reducing 
-    /// the problem to other of one order less. 
-    /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
-    /// 
-    /// \f$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\f$, 
     ///
-    /// where \f$ M_{ij}\f$ is the submatrix obtained by deleting from the original matrix the i row and the j column. 
+    /// Order 1: \f$\left|A\right| = a_{00}\f$
+    ///
+    /// Order 2: \f$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\f$
+    ///
+    /// Order 3: \f$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$
+    ///
+    /// Any other order can be solved developing determinant by a row or a column, reducing
+    /// the problem to other of one order less.
+    /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
+    ///
+    /// \f$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\f$,
+    ///
+    /// where \f$ M_{ij}\f$ is the submatrix obtained by deleting from the original matrix the i row and the j column.
     /// After that, we add all products to obtain the final value of the determinant.
 	/// </summary>
 	/// <returns>
@@ -532,7 +534,7 @@ public:
 	/// </returns>
 	inline float_q GetDeterminant() const
 	{
-		// Binary products are stored in vars to avoid unnecesary repetitions 
+		// Binary products are stored in vars to avoid unnecesary repetitions
 		// (each binary product appears 2 times in determinant expresion)
 		const float_q& A = this->ij[1][1] * this->ij[2][2];
 		const float_q& B = this->ij[1][2] * this->ij[2][3];
@@ -555,16 +557,16 @@ public:
 									C * this->ij[3][0] - I * this->ij[3][1] - L * this->ij[3][3] ) -
 			   this->ij[0][3] * (	K * this->ij[3][2] + A * this->ij[3][0] + J * this->ij[3][1] -
 									F * this->ij[3][0] - G * this->ij[3][1] - L * this->ij[3][2] );
-	}							
-	
+	}
+
 	/// <summary>
 	/// Inverses the matrix.
 	/// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-	/// 
+	///
     /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
-    /// 
+    ///
     /// We can calculate the inverse of any matrix by:
-    /// 
+    ///
     /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,
     ///
     /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
@@ -581,11 +583,11 @@ public:
 	/// <summary>
 	/// Calculates the inverse of the matrix and stores it in the matrix provided.
 	/// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-	/// 
+	///
     /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
-    /// 
+    ///
     /// We can calculate the inverse of any matrix by:
-    /// 
+    ///
     /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,
     ///
     /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
