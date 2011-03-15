@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="Tools" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Option virtualFolders="common\;Tests\;" />
+		<Build>
+			<Target title="DebugLinux32SharedrtStatic">
+				<Option output="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic" />
+				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugLinux32SharedrtStatic" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option use_console_runner="0" />
+				<Compiler>
+					<Add option="-Wall" />
+					<Add option="-g" />
+					<Add option="-DLINUX32" />
+				</Compiler>
+				<Linker>
+					<Add library="libboost_unit_test_framework-vc100-mt-gd.lib" />
+					<Add library="QuimeraEngineTools.a" />
+					<Add directory="..\..\..\..\..\3rdparty\Boost\bin\Linux32\DebugSharedrt" />
+					<Add directory="..\..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\" />
+				</Linker>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add directory="..\..\..\..\..\headers" />
+			<Add directory="..\..\..\..\..\3rdparty\Boost\include" />
+		</Compiler>
+		<Unit filename="..\..\..\..\unit\common\CommonConfigDefinitions.h">
+			<Option virtualFolder="common\" />
+		</Unit>
+		<Unit filename="..\..\..\..\unit\common\QCommonTestConfig.cpp">
+			<Option virtualFolder="common\" />
+		</Unit>
+		<Unit filename="..\..\..\..\unit\common\QCommonTestConfig.h">
+			<Option virtualFolder="common\" />
+		</Unit>
+		<Unit filename="..\..\..\..\unit\common\QSimpleConfigLoader.cpp">
+			<Option virtualFolder="common\" />
+		</Unit>
+		<Unit filename="..\..\..\..\unit\common\QSimpleConfigLoader.h">
+			<Option virtualFolder="common\" />
+		</Unit>
+		<Unit filename="..\..\..\..\unit\common\QuimeraEngineFixtures.h">
+			<Option virtualFolder="common\" />
+		</Unit>
+		<Unit filename="..\..\..\..\unit\testmodule_tools\QVector3_Test.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\unit\testmodule_tools\TestModule_Tools.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Extensions>
+			<code_completion />
+			<debugger />
+			<envvars />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
