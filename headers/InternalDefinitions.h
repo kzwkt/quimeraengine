@@ -31,7 +31,7 @@ const unsigned int QE_VERSION_REVISION = 0;
 // Dll Export Specifier: Defines which compiler keywords will be used to export symbols when compiling as
 // a DLL. Their values are "empty" when compiling the library as static.
 // --------------------------------------------------------------------------------------------------------
-#ifdef QE_CONFIG_COMPILER_DLL // QE_CONFIG_COMPILER_DLL is specified as a preprocessor definition [TODO] Thund: Add that definition to preprocessor when configuration is ready
+#ifdef QE_CONFIG_COMPILER_SHAREDLIB // QE_CONFIG_COMPILER_SHAREDLIB is specified as a preprocessor definition [TODO] Thund: Add that definition to preprocessor when configuration is ready
     #ifdef QE_OS_WINDOWS
         #define QDllExport __declspec( dllexport )
     #elif defined(QE_OS_LINUX)
@@ -39,9 +39,17 @@ const unsigned int QE_VERSION_REVISION = 0;
     #else
         #define QDllExport
     #endif
+#elif defined(QE_CONFIG_COMPILER_IMPORT) // QE_CONFIG_COMPILER_IMPORT is specified as a preprocessor definition when compiling the client system
+    #ifdef QE_OS_WINDOWS
+        #define QDllExport __declspec( dllimport )
+    #elif defined(QE_OS_LINUX)
+        #define QDllExport
+    #else
+        #define QDllExport
+    #endif
 #else // Static library
     #ifdef QE_OS_WINDOWS
-        #define QDllExport //__declspec( dllimport ) [TODO]: Repair this!!!!
+        #define QDllExport
     #elif defined(QE_OS_LINUX)
         #define QDllExport
     #else
