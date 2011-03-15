@@ -23,7 +23,7 @@ const unsigned int QE_VERSION_REVISION = 0;
         #define null_q 0
     #endif
 #elif QE_COMPILER_GCC
-    #define null_q (void*)0 // GCC definition for null pointers
+    #define null_q (void*)0
 #endif
 
 
@@ -32,16 +32,21 @@ const unsigned int QE_VERSION_REVISION = 0;
 // a DLL. Their values are "empty" when compiling the library as static.
 // --------------------------------------------------------------------------------------------------------
 #ifdef QE_CONFIG_COMPILER_DLL // QE_CONFIG_COMPILER_DLL is specified as a preprocessor definition [TODO] Thund: Add that definition to preprocessor when configuration is ready
-    #ifdef QE_COMPILER_MSVC // [TODO] Thund: There must be one per compatible compiler.
+    #ifdef QE_OS_WINDOWS
         #define QDllExport __declspec( dllexport )
-        #define QDllImport __declspec( dllimport )
+    #elif defined(QE_OS_LINUX)
+        #define QDllExport
     #else
         #define QDllExport
-        #define QDllImport
     #endif
-#else
-    #define QDllExport
-    #define QDllImport
+#else // Static library
+    #ifdef QE_OS_WINDOWS
+        #define QDllExport //__declspec( dllimport ) [TODO]: Repair this!!!!
+    #elif defined(QE_OS_LINUX)
+        #define QDllExport
+    #else
+        #define QDllExport
+    #endif
 #endif
 
 

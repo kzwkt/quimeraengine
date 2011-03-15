@@ -4,7 +4,7 @@
 #include <boost/thread.hpp>
 #include "Configuration.h"
 
-class __declspec( dllexport ) Prueba
+class QDllExport Prueba
 {
 public:
 
@@ -23,6 +23,6 @@ public:
     }
 
     void func(int x);
-    
+
     int i;
 };
