@@ -7,72 +7,73 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
-				<Option output="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools" prefix_auto="0" extension_auto="1" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineTools" prefix_auto="0" extension_auto="1" />
 				<Option working_dir="" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugLinux32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-DLINUX32" />
 				</Compiler>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add directory="..\..\..\..\headers" />
-			<Add directory="..\..\..\..\3rdparty\Boost\include" />
+			<Add directory="../../../../headers" />
+			<Add directory="../../../../3rdparty/Boost/include" />
 		</Compiler>
-		<Unit filename="..\..\..\..\headers\DataTypesDefinitions.h" />
-		<Unit filename="..\..\..\..\headers\MathDefinitions.h" />
-		<Unit filename="..\..\..\..\headers\QAngle.h" />
-		<Unit filename="..\..\..\..\headers\QBaseDualQuaternion.h" />
-		<Unit filename="..\..\..\..\headers\QBaseLineSegment.h" />
-		<Unit filename="..\..\..\..\headers\QBaseMatrix2x2.h" />
-		<Unit filename="..\..\..\..\headers\QBaseMatrix3x3.h" />
-		<Unit filename="..\..\..\..\headers\QBaseMatrix4x3.h" />
-		<Unit filename="..\..\..\..\headers\QBaseMatrix4x4.h" />
-		<Unit filename="..\..\..\..\headers\QBasePlane.h" />
-		<Unit filename="..\..\..\..\headers\QBaseQuadrilateral.h" />
-		<Unit filename="..\..\..\..\headers\QBaseQuaternion.h" />
-		<Unit filename="..\..\..\..\headers\QBaseRay.h" />
-		<Unit filename="..\..\..\..\headers\QBaseSphere.h" />
-		<Unit filename="..\..\..\..\headers\QBaseTriangle.h" />
-		<Unit filename="..\..\..\..\headers\QBaseVector2.h" />
-		<Unit filename="..\..\..\..\headers\QBaseVector3.h" />
-		<Unit filename="..\..\..\..\headers\QBaseVector4.h" />
-		<Unit filename="..\..\..\..\headers\QDualQuaternion.h" />
-		<Unit filename="..\..\..\..\headers\QFloat.h" />
-		<Unit filename="..\..\..\..\headers\QInteger.h" />
-		<Unit filename="..\..\..\..\headers\QMatrix2x2.h" />
-		<Unit filename="..\..\..\..\headers\QMatrix3x3.h" />
-		<Unit filename="..\..\..\..\headers\QMatrix4x3.h" />
-		<Unit filename="..\..\..\..\headers\QMatrix4x4.h" />
-		<Unit filename="..\..\..\..\headers\QPlane.h" />
-		<Unit filename="..\..\..\..\headers\QQuaternion.h" />
-		<Unit filename="..\..\..\..\headers\QRotationMatrix3x3.h" />
-		<Unit filename="..\..\..\..\headers\QScaleMatrix3x3.h" />
-		<Unit filename="..\..\..\..\headers\QTransformationMatrix.h" />
-		<Unit filename="..\..\..\..\headers\QTranslationMatrix.h" />
-		<Unit filename="..\..\..\..\headers\QVF32.h" />
-		<Unit filename="..\..\..\..\headers\QVector2.h" />
-		<Unit filename="..\..\..\..\headers\QVector3.h" />
-		<Unit filename="..\..\..\..\headers\QVector4.h" />
-		<Unit filename="..\..\..\..\source\QAngle.cpp" />
-		<Unit filename="..\..\..\..\source\QDualQuaternion.cpp" />
-		<Unit filename="..\..\..\..\source\QFloat.cpp" />
-		<Unit filename="..\..\..\..\source\QMatrix2x2.cpp" />
-		<Unit filename="..\..\..\..\source\QMatrix3x3.cpp" />
-		<Unit filename="..\..\..\..\source\QMatrix4x3.cpp" />
-		<Unit filename="..\..\..\..\source\QMatrix4x4.cpp" />
-		<Unit filename="..\..\..\..\source\QPlane.cpp" />
-		<Unit filename="..\..\..\..\source\QQuaternion.cpp" />
-		<Unit filename="..\..\..\..\source\QRotationMatrix3x3.cpp" />
-		<Unit filename="..\..\..\..\source\QScaleMatrix3x3.cpp" />
-		<Unit filename="..\..\..\..\source\QVF32.cpp" />
-		<Unit filename="..\..\..\..\source\QVector2.cpp" />
-		<Unit filename="..\..\..\..\source\QVector3.cpp" />
-		<Unit filename="..\..\..\..\source\QVector4.cpp" />
+		<Unit filename="../../../../headers/DataTypesDefinitions.h" />
+		<Unit filename="../../../../headers/MathDefinitions.h" />
+		<Unit filename="../../../../headers/QAngle.h" />
+		<Unit filename="../../../../headers/QBaseDualQuaternion.h" />
+		<Unit filename="../../../../headers/QBaseLineSegment.h" />
+		<Unit filename="../../../../headers/QBaseMatrix2x2.h" />
+		<Unit filename="../../../../headers/QBaseMatrix3x3.h" />
+		<Unit filename="../../../../headers/QBaseMatrix4x3.h" />
+		<Unit filename="../../../../headers/QBaseMatrix4x4.h" />
+		<Unit filename="../../../../headers/QBasePlane.h" />
+		<Unit filename="../../../../headers/QBaseQuadrilateral.h" />
+		<Unit filename="../../../../headers/QBaseQuaternion.h" />
+		<Unit filename="../../../../headers/QBaseRay.h" />
+		<Unit filename="../../../../headers/QBaseSphere.h" />
+		<Unit filename="../../../../headers/QBaseTriangle.h" />
+		<Unit filename="../../../../headers/QBaseVector2.h" />
+		<Unit filename="../../../../headers/QBaseVector3.h" />
+		<Unit filename="../../../../headers/QBaseVector4.h" />
+		<Unit filename="../../../../headers/QDualQuaternion.h" />
+		<Unit filename="../../../../headers/QFloat.h" />
+		<Unit filename="../../../../headers/QInteger.h" />
+		<Unit filename="../../../../headers/QMatrix2x2.h" />
+		<Unit filename="../../../../headers/QMatrix3x3.h" />
+		<Unit filename="../../../../headers/QMatrix4x3.h" />
+		<Unit filename="../../../../headers/QMatrix4x4.h" />
+		<Unit filename="../../../../headers/QPlane.h" />
+		<Unit filename="../../../../headers/QQuaternion.h" />
+		<Unit filename="../../../../headers/QRotationMatrix3x3.h" />
+		<Unit filename="../../../../headers/QScaleMatrix3x3.h" />
+		<Unit filename="../../../../headers/QTransformationMatrix.h" />
+		<Unit filename="../../../../headers/QTranslationMatrix.h" />
+		<Unit filename="../../../../headers/QVF32.h" />
+		<Unit filename="../../../../headers/QVector2.h" />
+		<Unit filename="../../../../headers/QVector3.h" />
+		<Unit filename="../../../../headers/QVector4.h" />
+		<Unit filename="../../../../source/QAngle.cpp" />
+		<Unit filename="../../../../source/QDualQuaternion.cpp" />
+		<Unit filename="../../../../source/QFloat.cpp" />
+		<Unit filename="../../../../source/QMatrix2x2.cpp" />
+		<Unit filename="../../../../source/QMatrix3x3.cpp" />
+		<Unit filename="../../../../source/QMatrix4x3.cpp" />
+		<Unit filename="../../../../source/QMatrix4x4.cpp" />
+		<Unit filename="../../../../source/QPlane.cpp" />
+		<Unit filename="../../../../source/QQuaternion.cpp" />
+		<Unit filename="../../../../source/QRotationMatrix3x3.cpp" />
+		<Unit filename="../../../../source/QScaleMatrix3x3.cpp" />
+		<Unit filename="../../../../source/QVF32.cpp" />
+		<Unit filename="../../../../source/QVector2.cpp" />
+		<Unit filename="../../../../source/QVector3.cpp" />
+		<Unit filename="../../../../source/QVector4.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

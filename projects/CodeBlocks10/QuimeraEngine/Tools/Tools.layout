@@ -1,106 +1,106 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="DebugLinux32SharedrtStatic" />
-	<File name="..\..\..\..\headers\DataTypesDefinitions.h" open="1" top="0" tabpos="9">
-		<Cursor position="7294" topLine="134" />
+	<File name="../../../../headers/DataTypesDefinitions.h" open="1" top="0" tabpos="9">
+		<Cursor position="883" topLine="19" />
 	</File>
-	<File name="..\..\..\..\headers\MathDefinitions.h" open="1" top="0" tabpos="7">
+	<File name="../../../../headers/MathDefinitions.h" open="1" top="0" tabpos="7">
 		<Cursor position="1002" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QAngle.h" open="1" top="0" tabpos="11">
+	<File name="../../../../headers/QAngle.h" open="1" top="0" tabpos="11">
 		<Cursor position="204" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseDualQuaternion.h" open="1" top="0" tabpos="12">
+	<File name="../../../../headers/QBaseDualQuaternion.h" open="1" top="0" tabpos="12">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseLineSegment.h" open="1" top="0" tabpos="13">
+	<File name="../../../../headers/QBaseLineSegment.h" open="1" top="0" tabpos="13">
 		<Cursor position="322" topLine="18" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseMatrix2x2.h" open="1" top="0" tabpos="14">
+	<File name="../../../../headers/QBaseMatrix2x2.h" open="1" top="0" tabpos="14">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseMatrix3x3.h" open="1" top="0" tabpos="17">
+	<File name="../../../../headers/QBaseMatrix3x3.h" open="1" top="0" tabpos="17">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseMatrix4x3.h" open="1" top="0" tabpos="18">
+	<File name="../../../../headers/QBaseMatrix4x3.h" open="1" top="0" tabpos="18">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseMatrix4x4.h" open="1" top="0" tabpos="19">
+	<File name="../../../../headers/QBaseMatrix4x4.h" open="1" top="0" tabpos="19">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBasePlane.h" open="1" top="0" tabpos="20">
+	<File name="../../../../headers/QBasePlane.h" open="1" top="0" tabpos="20">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseQuadrilateral.h" open="1" top="0" tabpos="21">
+	<File name="../../../../headers/QBaseQuadrilateral.h" open="1" top="0" tabpos="21">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseQuaternion.h" open="1" top="0" tabpos="10">
+	<File name="../../../../headers/QBaseQuaternion.h" open="1" top="0" tabpos="10">
 		<Cursor position="1828" topLine="32" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseRay.h" open="1" top="0" tabpos="22">
+	<File name="../../../../headers/QBaseRay.h" open="1" top="0" tabpos="22">
 		<Cursor position="1281" topLine="17" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseSphere.h" open="1" top="0" tabpos="23">
+	<File name="../../../../headers/QBaseSphere.h" open="1" top="0" tabpos="23">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QBaseTriangle.h" open="1" top="0" tabpos="24">
+	<File name="../../../../headers/QBaseTriangle.h" open="1" top="0" tabpos="24">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QDualQuaternion.h" open="1" top="0" tabpos="6">
+	<File name="../../../../headers/QDualQuaternion.h" open="1" top="0" tabpos="6">
 		<Cursor position="325" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QFloat.h" open="1" top="0" tabpos="25">
+	<File name="../../../../headers/QFloat.h" open="1" top="0" tabpos="25">
+		<Cursor position="651" topLine="20" />
+	</File>
+	<File name="../../../../headers/QInteger.h" open="1" top="0" tabpos="26">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QInteger.h" open="1" top="0" tabpos="26">
+	<File name="../../../../headers/QMatrix2x2.h" open="1" top="0" tabpos="27">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QMatrix2x2.h" open="1" top="0" tabpos="27">
+	<File name="../../../../headers/QMatrix3x3.h" open="1" top="0" tabpos="28">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QMatrix3x3.h" open="1" top="0" tabpos="28">
-		<Cursor position="0" topLine="0" />
-	</File>
-	<File name="..\..\..\..\headers\QMatrix4x3.h" open="1" top="0" tabpos="31">
+	<File name="../../../../headers/QMatrix4x3.h" open="1" top="0" tabpos="31">
 		<Cursor position="2522" topLine="36" />
 	</File>
-	<File name="..\..\..\..\headers\QMatrix4x4.h" open="1" top="0" tabpos="29">
+	<File name="../../../../headers/QMatrix4x4.h" open="1" top="0" tabpos="29">
 		<Cursor position="2321" topLine="36" />
 	</File>
-	<File name="..\..\..\..\headers\QPlane.h" open="1" top="0" tabpos="30">
+	<File name="../../../../headers/QPlane.h" open="1" top="0" tabpos="30">
 		<Cursor position="0" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QQuaternion.h" open="1" top="0" tabpos="8">
+	<File name="../../../../headers/QQuaternion.h" open="1" top="0" tabpos="8">
 		<Cursor position="182" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QRotationMatrix3x3.h" open="1" top="0" tabpos="2">
+	<File name="../../../../headers/QRotationMatrix3x3.h" open="1" top="0" tabpos="2">
 		<Cursor position="441" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QScaleMatrix3x3.h" open="1" top="0" tabpos="4">
+	<File name="../../../../headers/QScaleMatrix3x3.h" open="1" top="0" tabpos="4">
 		<Cursor position="157" topLine="0" />
 	</File>
-	<File name="..\..\..\..\headers\QTransformationMatrix.h" open="1" top="1" tabpos="15">
-		<Cursor position="469" topLine="11" />
+	<File name="../../../../headers/QTransformationMatrix.h" open="1" top="0" tabpos="15">
+		<Cursor position="454" topLine="11" />
 	</File>
-	<File name="..\..\..\..\headers\QTranslationMatrix.h" open="1" top="0" tabpos="16">
+	<File name="../../../../headers/QTranslationMatrix.h" open="1" top="0" tabpos="16">
 		<Cursor position="16230" topLine="395" />
 	</File>
-	<File name="..\..\..\..\headers\QVector3.h" open="1" top="0" tabpos="1">
+	<File name="../../../../headers/QVector3.h" open="1" top="1" tabpos="1">
 		<Cursor position="468" topLine="0" />
 	</File>
-	<File name="..\..\..\..\source\QMatrix4x3.cpp" open="1" top="0" tabpos="33">
+	<File name="../../../../source/QMatrix4x3.cpp" open="1" top="0" tabpos="33">
 		<Cursor position="1136" topLine="0" />
 	</File>
-	<File name="..\..\..\..\source\QMatrix4x4.cpp" open="1" top="0" tabpos="32">
+	<File name="../../../../source/QMatrix4x4.cpp" open="1" top="0" tabpos="32">
 		<Cursor position="1050" topLine="0" />
 	</File>
-	<File name="..\..\..\..\source\QRotationMatrix3x3.cpp" open="1" top="0" tabpos="3">
+	<File name="../../../../source/QRotationMatrix3x3.cpp" open="1" top="0" tabpos="3">
 		<Cursor position="9059" topLine="227" />
 	</File>
-	<File name="..\..\..\..\source\QScaleMatrix3x3.cpp" open="1" top="0" tabpos="5">
+	<File name="../../../../source/QScaleMatrix3x3.cpp" open="1" top="0" tabpos="5">
 		<Cursor position="835" topLine="0" />
 	</File>
-	<File name="..\..\..\..\source\QVector3.cpp" open="1" top="0" tabpos="34">
+	<File name="../../../../source/QVector3.cpp" open="1" top="0" tabpos="34">
 		<Cursor position="212" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

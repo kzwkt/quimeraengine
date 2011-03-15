@@ -57,12 +57,25 @@ namespace DataTypes
         // Note: There is no integer or float whose size is greater than 64 bits on Windows 32 bits
     #else
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
-        struct vf32_q
+    #endif
+#elif defined(QE_OS_LINUX) && (QE_OS_LINUX == 32)
+    #if QE_COMPILER_GCC
+        typedef unsigned char       u8_q;   // Unsigned 8-bits integer
+        typedef char                i8_q;   // Signed 8-bits integer
+        typedef short unsigned int  u16_q;  // Unsigned 16-bits integer
+        typedef short int           i16_q;  // Signed 16-bits integer
+        typedef unsigned int        u32_q;  // Unsigned 32-bits integer
+        typedef int                 i32_q;  // Signed 32-bits integer
+        typedef long long           i64_q;  // Signed 64-bits integer
+        typedef float               f32_q;  // 32-bits floating point number
+        typedef double              f64_q;  // 64-bits floating point number
+        struct vf32_q // [TODO] GCC has a 128bits type too, I think
         {
             f32_q v[4];
         };
+    #else
+        // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
     #endif
-#else
     // [TODO] Thund: Test the system in another platform and write the basic types for that machine
     // Win64, Linux 32, Mac OS 32
 #endif
@@ -88,6 +101,26 @@ namespace DataTypes
 #if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
     #ifdef QE_COMPILER_MSVC
         #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+            #define QE_FLOAT_SIZE 4
+        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+            #define QE_FLOAT_SIZE 8
+        #else
+            #define QE_FLOAT_SIZE 4
+        #endif
+    #elif QE_COMPILER_GCC
+         #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+            #define QE_FLOAT_SIZE 4
+        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+            #define QE_FLOAT_SIZE 8
+        #else
+            #define QE_FLOAT_SIZE 4
+        #endif
+    #else
+        // [TODO] Thund: Test the system in another compiler and write the type sizes in that compiler
+    #endif
+#elif defined(QE_OS_LINUX) && (QE_OS_LINUX == 32)
+    #if QE_COMPILER_GCC
+         #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
             #define QE_FLOAT_SIZE 4
         #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
             #define QE_FLOAT_SIZE 8
@@ -126,9 +159,21 @@ namespace DataTypes
     #else
         // [TODO] Thund: Test the system in another compiler and write the type sizes in that compiler
     #endif
+#elif defined(QE_OS_LINUX) && (QE_OS_LINUX == 32)
+    #if QE_COMPILER_GCC
+        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+            typedef i32_q int_for_float_q;
+        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+            typedef i64_q int_for_float_q;
+        #else
+            typedef i32_q int_for_float_q;
+        #endif
+    #else
+        // [TODO] Thund: Test the system in another compiler and write the type sizes in that compiler
+    #endif
 #else
     // [TODO] Thund: Test the system in another platform and write the type sizes in that machine
-    // Win64, Linux 32, Mac OS 32
+    // Win64, Linux64, Mac OS 32
 #endif
 
 

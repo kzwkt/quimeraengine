@@ -17,6 +17,7 @@
 				<Compiler>
 					<Add option="-Wall" />
 					<Add option="-g" />
+					<Add option="-DLINUX32" />
 				</Compiler>
 				<Linker>
 					<Add library="libboost_thread.a" />
