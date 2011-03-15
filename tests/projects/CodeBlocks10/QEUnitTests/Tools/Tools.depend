@@ -1,0 +1,9 @@
+# depslib dependency file v1.0
+1295785504 source:g:\users\animal\desktop\sandbox1\tests\unit\common\qsimpleconfigloader.cpp
+	<fstream>
+	"QSimpleConfigLoader.h"
+
+1295785504 g:\users\animal\desktop\sandbox1\tests\unit\common\qsimpleconfigloader.h
+	<string>
+	<vector>
+
