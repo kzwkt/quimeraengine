@@ -17,4 +17,4 @@ Librerías estáticas precompiladas de la versión 1.46.1 de Boost. En los paque
 [http://quimeraengine.googlecode.com/svn/wiki/images/MacLogo.png]*Mac 32-bits*
  * Quimera Engine no es portable para Macintosh todavía.
 
-Para *compilar Boost por cuenta propia*, quizás te sirva [http://www.google.es esta guía].
+Para *compilar Boost por cuenta propia*, quizás te sirva [CompBoost esta guía].
