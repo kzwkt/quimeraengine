@@ -1,0 +1,16 @@
+=Descargas=
+
+Aquí se encuentran todos aquellos recursos utilizados por la librería y que resultan imprescindibles para desarrollar.
+
+==Librerías de Boost==
+
+[http://quimeraengine.googlecode.com/svn/wiki/images/WindowsLogo.png]*Windows 32-bits*
+ * [www.google.es Versión Debug + Enlazado de runtime dinámico + Librería estática]
+ * [www.google.es Versión Release + Enlazado de runtime dinámico + Librería estática]
+
+[http://quimeraengine.googlecode.com/svn/wiki/images/LinuxLogo.png]*Linux 32-bits*
+ * [www.google.es Versión Debug + Enlazado de runtime dinámico + Librería estática]
+ * [www.google.es Versión Release + Enlazado de runtime dinámico + Librería estática]
+
+[http://quimeraengine.googlecode.com/svn/wiki/images/MacLogo.png]*Mac 32-bits*
+ * Quimera Engine no es portable para Macintosh todavía.
