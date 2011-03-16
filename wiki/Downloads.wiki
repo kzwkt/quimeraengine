@@ -7,8 +7,8 @@ Aquí se encuentran todos aquellos recursos utilizados por la librería y que re
 Librerías estáticas precompiladas de la versión 1.46.1 de Boost. En los paquetes sólo se encuentran aquellas utilizadas por Quimera Engine. Para obtener los archivos de cabecera de Boost (también requeridos), visita: [http://sourceforge.net/projects/boost/files/boost/1.46.1/].
 
 [http://quimeraengine.googlecode.com/svn/wiki/images/WindowsLogo.png]*Windows 32-bits*
- * [http://www.google.es Versión Debug + Enlazado de runtime dinámico + Librería estática]
- * [http://www.google.es Versión Release + Enlazado de runtime dinámico + Librería estática]
+ * [http://quimeraengine.googlecode.com/files/Boost1_46_1DebugWin32Sharedrt.zip Versión Debug + Enlazado de runtime dinámico + Librería estática]
+ * [http://quimeraengine.googlecode.com/files/Boost1_46_1ReleaseWin32Sharedrt.zip Versión Release + Enlazado de runtime dinámico + Librería estática]
 
 [http://quimeraengine.googlecode.com/svn/wiki/images/LinuxLogo.png]*Linux 32-bits*
  * [http://www.google.es Versión Debug + Enlazado de runtime dinámico + Librería estática]
