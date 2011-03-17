@@ -54,9 +54,9 @@ public:
 	inline QLineSegment (const VectorType &vA, const VectorType &vB) : QBaseLineSegment(vA,vB) { }
 
 	/// <summary>
-    /// Constructor from a QBaseLineSegment.
+    /// Constructor from a line segment.
     /// </summary>
-    /// <param name="BaseLineSegment">[IN] QBaseLine containing the two endpoints.</param>
+    /// <param name="BaseLineSegment">[IN] Line segment containing the two endpoints.</param>
 	inline explicit QLineSegment (const QBaseLineSegment<VectorType>& vBaseLineSegment) : A(vBaseLineSegment.A), B(vBaseLineSegment.B)  { }
 
 
