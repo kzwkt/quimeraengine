@@ -21,7 +21,7 @@
       * [InTools Indispensable tools]
   * [Doc3rdParty 3rd Party Documentation]
     * [DocBoost Boost]
-      * [CompBoost Compilación de las librerías de Boost]
+      * [CompBoost Compilación de las librerías]
   * [RefAPI API Reference]
   * [PoC Proofs of Content]
     * [POCXMLParsing Lectura/Escritura XML]
@@ -38,6 +38,6 @@
     * [POCMulti Multihilo] 
       * [MultiBoost Boost]
       * [MultiPoco POCO]
-   * [Downloads Downloads]
+  * [Downloads Downloads]
 ----
 Kinesis Group
