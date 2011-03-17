@@ -18,6 +18,10 @@
 <td>[PoC Proofs of Concept]</td>
 </tr>
 <tr height="56">
+<td align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Downloads.png]</td>
+<td>[Downloads Downloads]</td>
+</tr>
+<tr height="56">
 <td align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/forum.jpg]</td>
 <td>[http://kinesisforum.elalumbramiento.org/index.php Forum]</td>
 </tr>
