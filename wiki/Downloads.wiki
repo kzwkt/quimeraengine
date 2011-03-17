@@ -7,7 +7,7 @@ Aquí se encuentran todos aquellos recursos utilizados por la librería y que re
 Librerías estáticas precompiladas de la versión 1.46.1 de Boost. En los paquetes sólo se encuentran aquellas utilizadas por Quimera Engine.
 
 *Includes (cualquier S.O.)*
-* [http://quimeraengine.googlecode.com/files/Boost1_46_1Includes.zip Código fuente no compilado]
+ * [http://quimeraengine.googlecode.com/files/Boost1_46_1Includes.zip Código fuente no compilado]
 
 [http://quimeraengine.googlecode.com/svn/wiki/images/WindowsLogo.png]*Windows 32-bits*
  * [http://quimeraengine.googlecode.com/files/Boost1_46_1DebugWin32Sharedrt.zip Versión Debug + Enlazado de runtime dinámico + Librería estática]
