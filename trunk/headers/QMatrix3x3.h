@@ -4,6 +4,7 @@
 #define __QMATRIX3X3__
 
 #include "QBaseMatrix3x3.h"
+#include "QBaseMatrix3x4.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -153,6 +154,36 @@ public:
     /// The resultant matrix.
     /// </returns>
     QMatrix3x3 operator*(const QBaseMatrix3x3 &m) const;
+
+    /// <summary>
+    /// Multiplies a 3x4 matrix by the current matrix.
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// So, left matrix must have same number of columns than rows have right matrix.
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// 
+    /// \f$ A x B = C \f$
+    /// 
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
+    ///
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+	QBaseMatrix3x4 operator*(const QBaseMatrix3x4& m) const;
+
+    /// <summary>
+    /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar to multiply by.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+    QMatrix3x3& operator*=(const float_q& fScalar);
 
     /// <summary>
     /// Divides current matrix by a floating point value.
