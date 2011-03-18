@@ -21,7 +21,7 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_thread.a" />
-					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrt" />
+					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
 				</Linker>
 			</Target>
 		</Build>
