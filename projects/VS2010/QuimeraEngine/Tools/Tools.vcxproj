@@ -76,7 +76,7 @@
       <ImportLibrary>$(SolutionDir)..\..\..\lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
     </Link>
     <Lib>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCore.lib</AdditionalDependencies>
       <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
