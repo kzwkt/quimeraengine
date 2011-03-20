@@ -3,6 +3,8 @@
 #ifndef __QMATRIX3X4__
 #define __QMATRIX3X4__
 
+#include "QBaseMatrix3x3.h"
+#include "QBaseMatrix4x4.h"
 #include "QBaseMatrix3x4.h"
 #include "QBaseMatrix4x3.h"
 
@@ -140,6 +142,24 @@ public:
 	QMatrix3x4 operator*(const float_q &fScalar) const;
 
 	/// <summary>
+	/// Multiply the resident matrix by a 4x3 matrix.
+	/// </summary>
+	/// <param name="m">[IN] A 4x3 matrix to be multiplied by.</param>
+	/// <returns>
+	/// The resultant 3x3 matrix.
+	/// </returns>
+	QBaseMatrix3x3 operator*(const QBaseMatrix4x3& m) const;
+
+	/// <summary>
+	/// Multiply the resident matrix by a 4x4 matrix.
+	/// </summary>
+	/// <param name="m">[IN] A 4x4 matrix to be multiplied by.</param>
+	/// <returns>
+	/// The resultant 3x4 matrix.
+	/// </returns>
+	QBaseMatrix3x4 operator*(const QBaseMatrix4x4& m) const;
+
+	/// <summary>
 	/// Divides resident matrix by a floating point value.
 	/// </summary>
 	/// <param name="fScalar">[IN] Floating point value to be divided by.</param>
@@ -244,6 +264,37 @@ public:
 	}
 
 	/// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// </summary>
+    /// <param name="m">[IN] A 4x4 matrix to be multiplied by.</param>
+    /// <returns>
+    /// The modified matrix.
+    /// </returns>
+    inline QMatrix3x4& operator*=(const QBaseMatrix4x4 &m)
+	{
+		QMatrix3x4 aux;
+
+		aux.ij[0][0] = this->ij[0][0] * m.ij[0][0] + this->ij[0][1] * m.ij[1][0] + this->ij[0][2] * m.ij[2][0] + this->ij[0][3] * m.ij[3][0];
+		aux.ij[0][1] = this->ij[0][0] * m.ij[0][1] + this->ij[0][1] * m.ij[1][1] + this->ij[0][2] * m.ij[2][1] + this->ij[0][3] * m.ij[3][1];
+		aux.ij[0][2] = this->ij[0][0] * m.ij[0][2] + this->ij[0][1] * m.ij[1][2] + this->ij[0][2] * m.ij[2][2] + this->ij[0][3] * m.ij[3][2];
+		aux.ij[0][3] = this->ij[0][0] * m.ij[0][3] + this->ij[0][1] * m.ij[1][3] + this->ij[0][2] * m.ij[2][3] + this->ij[0][3] * m.ij[3][3];
+
+		aux.ij[1][0] = this->ij[1][0] * m.ij[0][0] + this->ij[1][1] * m.ij[1][0] + this->ij[1][2] * m.ij[2][0] + this->ij[1][3] * m.ij[3][0];
+		aux.ij[1][1] = this->ij[1][0] * m.ij[0][1] + this->ij[1][1] * m.ij[1][1] + this->ij[1][2] * m.ij[2][1] + this->ij[1][3] * m.ij[3][1];
+		aux.ij[1][2] = this->ij[1][0] * m.ij[0][2] + this->ij[1][1] * m.ij[1][2] + this->ij[1][2] * m.ij[2][2] + this->ij[1][3] * m.ij[3][2];
+		aux.ij[1][3] = this->ij[1][0] * m.ij[0][3] + this->ij[1][1] * m.ij[1][3] + this->ij[1][2] * m.ij[2][3] + this->ij[1][3] * m.ij[3][3];
+
+		aux.ij[2][0] = this->ij[2][0] * m.ij[0][0] + this->ij[2][1] * m.ij[1][0] + this->ij[2][2] * m.ij[2][0] + this->ij[2][3] * m.ij[3][0];
+		aux.ij[2][1] = this->ij[2][0] * m.ij[0][1] + this->ij[2][1] * m.ij[1][1] + this->ij[2][2] * m.ij[2][1] + this->ij[2][3] * m.ij[3][1];
+		aux.ij[2][2] = this->ij[2][0] * m.ij[0][2] + this->ij[2][1] * m.ij[1][2] + this->ij[2][2] * m.ij[2][2] + this->ij[2][3] * m.ij[3][2];
+		aux.ij[2][3] = this->ij[2][0] * m.ij[0][3] + this->ij[2][1] * m.ij[1][3] + this->ij[2][2] * m.ij[2][3] + this->ij[2][3] * m.ij[3][3];
+
+		*this = aux;
+		
+		return *this;
+	}
+
+	/// <summary>
 	/// Equal operator. A tolerance value "Epsilon" is used to discriminate whether the matrices are equal or not.
 	/// </summary>
 	/// <param name="m">[IN] The matrix to compare to.</param>
@@ -306,7 +357,7 @@ public:
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
-	/// <param name="m">[OUT] Stores the resultant trasposed matrix.</param>
+	/// <param name="m">[OUT] Stores the resultant trasposed matrix. Output matrix is 4x3</param>
 	inline void Transpose(QBaseMatrix4x3 &m) const
 	{
 		m.ij[0][0] = this->ij[0][0]; 
