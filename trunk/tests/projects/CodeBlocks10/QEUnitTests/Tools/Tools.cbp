@@ -22,7 +22,7 @@
 				<Linker>
 					<Add library="libboost_unit_test_framework.a" />
 					<Add library="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineTools.a" />
-					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrt/" />
+					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/" />
 				</Linker>
 			</Target>
