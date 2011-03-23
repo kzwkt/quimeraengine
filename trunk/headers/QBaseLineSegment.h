@@ -17,6 +17,12 @@ namespace Tools
 namespace Math
 {
 
+// Forward declarations
+// ----------------------
+class QVector2;
+class QVector3;
+class QVector4;
+
 /// <summary>
 /// Class which represents a segment of straight line in the space, defined by the points at both ends. 
 /// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter, 
@@ -58,10 +64,16 @@ public:
     VectorType B;
 };
 
+// TYPEDEFS
+// ---------------
+
+typedef QBaseLineSegment<QVector2> QBaseLineSegment2;
+typedef QBaseLineSegment<QVector3> QBaseLineSegment3;
+typedef QBaseLineSegment<QVector4> QBaseLineSegment4;
+
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
 #endif // __QBASELINESEGMENT__
-

@@ -17,6 +17,12 @@ namespace Tools
 namespace Math
 {
 
+// Forward declarations
+// ----------------------
+class QVector2;
+class QVector3;
+class QVector4;
+
 /// <summary>
 /// Class which represents a triangle in the space. The triangle may be represented in 2D or 3D, 
 ///	and using points or vectors, depending on the parameter of the template, which may be 
@@ -88,6 +94,13 @@ public:
 	VectorType C;
 
 };
+
+// TYPEDEFS
+// ---------------
+
+typedef QBaseTriangle<QVector2> QBaseTriangle2;
+typedef QBaseTriangle<QVector3> QBaseTriangle3;
+typedef QBaseTriangle<QVector4> QBaseTriangle4;
 
 } //namespace Math
 } //namespace Tools

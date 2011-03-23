@@ -17,6 +17,11 @@ namespace Tools
 namespace Math
 {
 
+// Forward declarations
+// ----------------------
+class QVector3;
+class QVector4;
+
 /// <summary>
 /// Class which represents a sphere in the space, defined by its center point and radius. 
 /// Center point may be expressed as 2D or 3D point or vector, depending on the parameter of the template, 
@@ -61,10 +66,15 @@ public:
     float_q Radius;
 };
 
+// TYPEDEFS
+// ---------------
+
+typedef QBaseSphere<QVector3> QBaseSphere3;
+typedef QBaseSphere<QVector4> QBaseSphere4;
+
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
 #endif // __QBASESPHERE__
-
