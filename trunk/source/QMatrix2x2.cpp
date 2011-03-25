@@ -34,25 +34,6 @@ const QMatrix2x2 QMatrix2x2::Identity  (QFloat::_1, QFloat::_0, QFloat::_0, QFlo
 //##################                                                       ##################
 //##################=======================================================##################
 
-QMatrix2x2::QMatrix2x2(const float_q &fAngle)
-{
-    
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        // If angles are specified in degrees, then converts it to radians
-        float_q &fAngleRad = QAngle::DegreesToRadians(fAngle, fAngleRad);
-
-        const float_q& A   = cos(fAngleRad);
-        const float_q& B   = sin(fAngleRad);
-    #else
-        const float_q& A   = cos(fAngle);
-        const float_q& B   = sin(fAngle);
-    #endif
-
-    ij[0][0]  =  A;
-    ij[0][1]  = -B;
-    ij[1][0]  =  B;
-    ij[1][1]  =  A;
-}
     
 //##################=======================================================##################
 //##################             ____________________________              ##################
