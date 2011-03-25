@@ -3,6 +3,10 @@
 #ifndef __QMATRIX4X3__
 #define __QMATRIX4X3__
 
+#include "QBaseMatrix3x3.h"
+#include "QBaseMatrix3x4.h"
+#include "QBaseMatrix4x4.h"
+
 #include "QBaseMatrix4x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -144,6 +148,82 @@ public:
 	/// </returns>
 	QMatrix4x3 operator*(const float_q &fScalar) const;
 
+    /// <summary>
+    /// Multiply resident matrix by a square 3x3 matrix.
+	///
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// So, left matrix must have same number of columns than rows have right matrix.
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// 
+    /// \f$ A x B = C \f$
+    /// 
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
+    ///
+    /// </summary>
+    /// <param name="fScalar">[IN] The square 3x3 matrix to multiply by.</param>
+	/// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <returns>
+    /// The resultant 4x3 matrix.
+    /// </returns>
+    QMatrix4x3 operator*(const QBaseMatrix3x3& m) const;
+
+    /// <summary>
+    /// Multiply resident matrix by a non-square 3x4 matrix.
+	///
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// So, left matrix must have same number of columns than rows have right matrix.
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// 
+    /// \f$ A x B = C \f$
+    /// 
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
+    ///
+    /// </summary>
+    /// <param name="fScalar">[IN] The 3x4 matrix to multiply by.</param>
+	/// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <returns>
+    /// The resultant square 4x4 matrix.
+    /// </returns>
+    QBaseMatrix4x4 operator*(const QBaseMatrix3x4& m) const;
+
+    /// <summary>
+    /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar to multiply by.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+    QMatrix4x3& operator*=(const float_q& fScalar);
+
+    /// <summary>
+    /// Multiply resident matrix by a square 3x3 matrix, being the resultant
+	/// matrix stored as well in the whole resident one.
+	///
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// So, left matrix must have same number of columns than rows have right matrix.
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// 
+    /// \f$ A x B = C \f$
+    /// 
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
+    ///
+    /// </summary>
+    /// <param name="fScalar">[IN] The square 3x3 matrix to multiply by.</param>
+	/// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <returns>
+    /// The modified matrix.
+    /// </returns>
+    QMatrix4x3& operator*=(const QBaseMatrix3x3& m);
+
 	/// <summary>
 	/// Divides resident matrix by a floating point value.
 	/// </summary>
@@ -163,7 +243,7 @@ public:
 	QMatrix4x3 operator+(const QBaseMatrix4x3 &m) const;
 
 	/// <summary>
-	/// Subtracts a QMatrix4x3 to the resident matrix.
+	/// Subtracts a 4x3 matrix to the resident matrix.
 	/// </summary>
 	/// <param name="m">[IN] The matrix to be subtracted to.</param>
 	/// <returns>
@@ -333,16 +413,13 @@ public:
 
 	/// <summary>
 	/// Transpose: the transpose of a matrix m x n is a matrix n x m where each row becomes a column
-	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T
+	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T.
  	/// </summary>
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
 	/// <param name="m">[OUT] Stores the resultant trasposed matrix.</param>
-
-    //[TODO] jwladi: Uncomment this when QBaseMatrix3x4 is implemented.
-
-	/*inline void Transpose(QBaseMatrix3x4 &m) const
+	inline void Transpose(QBaseMatrix3x4 &m) const
 	{
 		m.ij[0][0] = this->ij[0][0];
 		m.ij[0][1] = this->ij[1][0];
@@ -358,7 +435,7 @@ public:
 		m.ij[2][1] = this->ij[1][2];
 		m.ij[2][2] = this->ij[2][2];
         m.ij[2][3] = this->ij[3][2];
-	}*/
+	}
 
 	/// <summary>
 	/// Checks if all elements of the matrix are 0 or under tolerance (absolute value).
