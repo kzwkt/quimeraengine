@@ -79,11 +79,15 @@ public:
     /// <param name="m">[IN] The 2x2 matrix in which we want the resident matrix to be based.</param>
     inline explicit QMatrix2x2(const QBaseMatrix2x2 &m) : QBaseMatrix2x2(m) { }
 
-    /// <summary>
-    /// Constructor that receives an angle, to construct the rotation matrix of a specified 2D rotation. 
+	/// <summary>
+    /// Constructor from a floating point value which with fill all matrix's elements.
     /// </summary>
-    /// <param name="fAngle">[IN] Rotation angle about X global axis.</param>
-    explicit QMatrix2x2(const float_q &fAngle);
+    /// <param name="fValue">[IN] The floating point value used to fill the matrix.</param>
+    inline explicit QMatrix2x2(const float_q &fValue)
+	{
+		ij[0][0] = ij[0][1] = 
+		ij[1][0] = ij[1][1] = fValue; 
+	}
 
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
