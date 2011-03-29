@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\EQSpaceRelation.h" />
     <ClInclude Include="..\..\..\..\headers\MathDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QAngle.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseDualQuaternion.h" />
@@ -134,6 +135,7 @@
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QInteger.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
+    <ClInclude Include="..\..\..\..\headers\QLineSegment3D.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix2x2.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix3x4.h" />

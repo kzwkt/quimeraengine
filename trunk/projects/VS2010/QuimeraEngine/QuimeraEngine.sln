@@ -16,6 +16,7 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "System", "System\System.vcx
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Documentation", "Documentation", "{921FE793-EB7D-44A6-A400-425761F01CC6}"
 	ProjectSection(SolutionItems) = preProject
+		EnumTemplate.h = EnumTemplate.h
 		..\..\..\headers\HeaderTemplate.h = ..\..\..\headers\HeaderTemplate.h
 		..\..\..\source\SourceTemplate.cpp = ..\..\..\source\SourceTemplate.cpp
 	EndProjectSection
