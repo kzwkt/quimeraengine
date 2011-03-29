@@ -59,7 +59,7 @@ public:
     /// [DOC]
     /// </summary>
     /// <param name="eValue">[DOC]</param>
-    inline explicit EQSpaceRelation(const EQSpaceRelation::EnumType &eValue) : m_value(eValue) 
+    inline EQSpaceRelation(const EQSpaceRelation::EnumType &eValue) : m_value(eValue) 
     {}
 
 
@@ -68,7 +68,7 @@ public:
     /// </summary>
     /// <param name="nValue">[DOC]</param>
     template<typename IntegerType>
-    inline explicit EQSpaceRelation(const IntegerType &nValue) : m_value(static_cast<const EQSpaceRelation::EnumType>(nValue))
+    inline EQSpaceRelation(const IntegerType &nValue) : m_value(static_cast<const EQSpaceRelation::EnumType>(nValue))
     {}
 
 
@@ -76,7 +76,7 @@ public:
     /// [DOC]
     /// </summary>
     /// <param name="strValueName">[DOC]</param>
-    inline explicit EQSpaceRelation(const string_q &strValueName)
+    inline EQSpaceRelation(const string_q &strValueName)
     {
         *this = strValueName;
     }
