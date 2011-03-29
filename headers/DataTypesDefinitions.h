@@ -58,6 +58,7 @@ namespace DataTypes
     #else
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
     #endif
+
 #elif defined(QE_OS_LINUX) && (QE_OS_LINUX == 32)
     #if QE_COMPILER_GCC
         typedef unsigned char       u8_q;   // Unsigned 8-bits integer
@@ -78,6 +79,7 @@ namespace DataTypes
     #endif
     // [TODO] Thund: Test the system in another platform and write the basic types for that machine
     // Win64, Linux 32, Mac OS 32
+
 #endif
 
 
@@ -229,6 +231,19 @@ namespace DataTypes
     #define QE_L(str) L##str
 #else
     #define QE_L
+#endif
+
+
+// --------------------------------------------------------------------------------------------------------
+// Enumeration's limits: Concretes the maximum and minimum values an enumerated type can store.
+// --------------------------------------------------------------------------------------------------------
+#if (defined(QE_OS_WINDOWS) && QE_OS_WINDOWS == 32) || (defined(QE_OS_LINUX) && QE_OS_LINUX == 32)
+    #define QE_ENUMERATION_MIN_VALUE 0x0
+    #define QE_ENUMERATION_MAX_VALUE 0xFFFFFFFF
+#else if (defined(QE_OS_WINDOWS) && QE_OS_WINDOWS == 64) || (defined(QE_OS_LINUX) && QE_OS_LINUX == 64)
+    #define QE_ENUMERATION_MIN_VALUE 0x0
+    #define QE_ENUMERATION_MAX_VALUE 0xFFFFFFFFFFFFFFFF
+    // [TODO] Thund: Tener en cuenta también a MacOS
 #endif
 
 
