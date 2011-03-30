@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __EQSPACERELATION__
-#define __EQSPACERELATION__
+#ifndef __EQENUMERATION__
+#define __EQENUMERATION__
 
 #include <map>
 
@@ -159,4 +159,4 @@ EQEnumeration::TNameValueMap EQEnumeration::sm_mapValueName(
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __EQSPACERELATION__
+#endif // __EQENUMERATION__
