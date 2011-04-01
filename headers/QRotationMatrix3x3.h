@@ -83,19 +83,19 @@ public:
     QRotationMatrix3x3(const float_q &fAngleX, const float_q &fAngleY, const float_q &fAngleZ);
 
 
-    /// <summary>
-    /// Constructor from an angle and a spin axis defined by a vector. It's computed as follows:
-    ///
-    /// \f$ R = \begin{bmatrix} \cos\theta & 0 & 0 \\ 0 & \cos\theta & 0 \\ 0 & 0 & \cos\theta \end{bmatrix} + (1- \cos\theta)\cdot
-    /// \begin{bmatrix} e_x & e_y & e_z\end{bmatrix} \cdot \begin{bmatrix} e_x \\ e_y \\ e_z\end{bmatrix} +
-    /// \begin{bmatrix} 0 & -e_z & e_y \\ e_z & 0 & -e_x \\ -e_y & e_x & 0 \end{bmatrix}\cdot \sin\thetaF$
-    ///
-    /// where \f$ e=(e_x, e_y, e_z)\f$, is a unit vector defining spin axis.
-    ///
+	/// <summary>
+	/// Constructor from an angle and a spin axis defined by a vector. It's computed as follows:
+	///
+	/// \f$ R = \begin{bmatrix} \cos\theta & 0 & 0 \\ 0 & \cos\theta & 0 \\ 0 & 0 & \cos\theta \end{bmatrix} + (1- \cos\theta)\cdot
+	/// \begin{bmatrix} e_x & e_y & e_z\end{bmatrix} \cdot \begin{bmatrix} e_x \\ e_y \\ e_z\end{bmatrix} +
+	/// \begin{bmatrix} 0 & -e_z & e_y \\ e_z & 0 & -e_x \\ -e_y & e_x & 0 \end{bmatrix}\cdot \sin\theta \f$
+	///
+	/// where \f$ e=(e_x, e_y, e_z)\f$, is a unit vector defining spin axis.
+	///
     /// taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
-    /// </summary>
-    /// <param name="vAxis">[IN] Vector in the direction of the spin axis.</param>
-    /// <param name="fAngle">[IN] Angle of rotation.</param>
+	/// </summary>
+	/// <param name="vAxis">[IN] Vector in the direction of the spin axis.</param>
+	/// <param name="fAngle">[IN] Angle of rotation.</param>
     QRotationMatrix3x3 (const QBaseVector3 &vAxis, const float_q &fAngle);
 
 

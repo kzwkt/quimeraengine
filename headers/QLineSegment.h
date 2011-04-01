@@ -56,7 +56,7 @@ public:
 	/// <summary>
     /// Constructor from a line segment.
     /// </summary>
-    /// <param name="BaseLineSegment">[IN] Line segment containing the two endpoints.</param>
+    /// <param name="vBaseLineSegment">[IN] Line segment containing the two endpoints.</param>
 	inline explicit QLineSegment (const QBaseLineSegment<VectorType>& vBaseLineSegment) : A(vBaseLineSegment.A), B(vBaseLineSegment.B)  { }
 
 
@@ -256,7 +256,7 @@ public:
 			else
 			{
 				fDotProductv1v1 = v1.DotProduct(v1);
-				/// [TODO] Replace the expression with QFloat::IsGreaterOrEqualThan(fDotProductv1v2, fDotProductv1v1) when it's implemented.
+				// [TODO] Replace the expression with QFloat::IsGreaterOrEqualThan(fDotProductv1v2, fDotProductv1v1) when it's implemented.
 				if ( (fDotProductv1v2 - fDotProductv1v1) >= -QFloat::Epsilon )
 				{
 					return ( (vPoint - B).GetLength() );
@@ -299,7 +299,7 @@ public:
 		// STEP 3) Maximum distance between the segments = maximum distance between their farthest endpoints.
 		//												 = the longer distance between the maximum distances from endpoints
 		//												   of the segment passed by parameter to this segment.
-		/// [TODO] Replace the expression with QFloat::IsGreaterThan(fMaxDistance_vBLSA_This, fMaxDistance_vBLSB_This) when it's implemented.
+		// [TODO] Replace the expression with QFloat::IsGreaterThan(fMaxDistance_vBLSA_This, fMaxDistance_vBLSB_This) when it's implemented.
 		return ( (fMaxDistance_vBLSA_This - fMaxDistance_vBLSB_This) > QFloat::Epsilon )? fMaxDistance_vBLSA_This : fMaxDistance_vBLSB_This;
 	}
 
@@ -341,7 +341,7 @@ public:
 			else
 			{
 				fDotProductv1v1 = v1.DotProduct(v1);
-				/// [TODO] Replace the expression with QFloat::IsGreaterOrEqualThan(fDotProductv1v2, fDotProductv1v1) when it's implemented.
+				// [TODO] Replace the expression with QFloat::IsGreaterOrEqualThan(fDotProductv1v2, fDotProductv1v1) when it's implemented.
 				if ( (fDotProductv1v2 - fDotProductv1v1) >= -QFloat::Epsilon )
 				{			
 					return v2.GetLength();
@@ -354,7 +354,7 @@ public:
 					fDistancePointToA		  = v2.GetLength();
 					fDistancePointToB		  = v3.GetLength();
 
-					/// [TODO] Replace the expression with QFloat::IsGreaterThan(fDistancePointToA, fDistancePointToB) when it's implemented.
+					// [TODO] Replace the expression with QFloat::IsGreaterThan(fDistancePointToA, fDistancePointToB) when it's implemented.
 					return ( (fDistancePointToA - fDistancePointToB) > QFloat::Epsilon )? fDistancePointToA : fDistancePointToB;
 				}
 			}
@@ -462,7 +462,7 @@ public:
 
 protected:
 	/// <summary>
-	/// [TODO] Thund, put this method as a generic non-member function and delete it from here when it's done.
+	// [TODO] Thund, put this method as a generic non-member function and delete it from here when it's done.
 	///
 	/// This method clamps the input value to lie within the range [Min..Max]
 	/// </summary>
@@ -475,7 +475,7 @@ protected:
 	/// </returns>
 	float_q ClampFactor (const float_q& fFactor, const float_q& fMin, const float_q& fMax) const
 	{
-		/// [TODO] Replace the '>' ('<') expressions with QFloat::IsGreaterThan (QFloat::(IsLesserThan)) when they're implemented.
+		// [TODO] Replace the '>' ('<') expressions with QFloat::IsGreaterThan (QFloat::(IsLesserThan)) when they're implemented.
 		return ((fFactor - fMax) > QFloat::Epsilon)? fMax : (((fFactor - fMin) < -QFloat::Epsilon)? fMin : fFactor);
 	}
 
