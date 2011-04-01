@@ -14,7 +14,10 @@ namespace Tools
 {
 namespace Math
 {
-
+/// <summary>
+/// It represents a 3x3 matrix containing spatial transformations relating to translation, rotation and scaling,
+/// applying them to 2D space points.
+/// </summary>
 class QDllExport QTransformationMatrix3x3 : public QMatrix3x3
 {
     // CONSTANTS

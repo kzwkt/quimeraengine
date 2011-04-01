@@ -161,7 +161,7 @@ public:
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
     /// </summary>
-    /// <param name="fScalar">[IN] The square 3x3 matrix to multiply by.</param>
+    /// <param name="m">[IN] The square 3x3 matrix to multiply by.</param>
 	/// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
@@ -183,7 +183,7 @@ public:
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
     /// </summary>
-    /// <param name="fScalar">[IN] The 3x4 matrix to multiply by.</param>
+    /// <param name="m">[IN] The 3x4 matrix to multiply by.</param>
 	/// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
@@ -215,7 +215,7 @@ public:
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
     /// </summary>
-    /// <param name="fScalar">[IN] The square 3x3 matrix to multiply by.</param>
+    /// <param name="m">[IN] The square 3x3 matrix to multiply by.</param>
 	/// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
