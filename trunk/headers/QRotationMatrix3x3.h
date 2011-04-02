@@ -231,7 +231,33 @@ public:
 	QTransformationMatrix4x3 operator*(const QTransformationMatrix4x3 &m) const;
 
     /// <summary>
-    /// Reverse of the matrix. In the case of rotation matrices, the transpose is guaranteed
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QRotationMatrix3x3& operator=(const QRotationMatrix3x3 &m)
+    {
+        reinterpret_cast<QMatrix3x3&>(*this) = m;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QRotationMatrix3x3& operator=(const QMatrix3x3 &m)
+    {
+        reinterpret_cast<QMatrix3x3&>(*this) = m;    
+        return *this;
+    }
+
+    /// <summary>
+    /// Reverse of the matrix. In the case of rotation matrices, the transpose is guaranteed 
     /// to be the inverse of the matrix. So, it's faster than base class method.
     /// </summary>
     inline void Reverse()
@@ -270,7 +296,7 @@ public:
 
     /// <summary>
     /// Converts rotation matrix to an angle and a spin axis. Since axis components depends on inverse of sin(angle)
-    /// it's necessary to take into account when angle is 0 or \f$\pi\f$.
+    /// it's necessary to take into account when angle is 0 or \f$ \pi\f$.
     /// Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
     /// Source: http://en.wikipedia.org/wiki/Rotation_representation_%28mathematics%29#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
     /// </summary>

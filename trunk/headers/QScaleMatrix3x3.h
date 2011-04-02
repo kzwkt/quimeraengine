@@ -229,6 +229,33 @@ public:
 	QTransformationMatrix4x3 operator*(const QTransformationMatrix4x3 &m) const;
 
     /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QScaleMatrix3x3& operator=(const QScaleMatrix3x3 &m)
+    {
+        reinterpret_cast<QMatrix3x3&>(*this) = m;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QScaleMatrix3x3& operator=(const QMatrix3x3 &m)
+    {
+        reinterpret_cast<QMatrix3x3&>(*this) = m;    
+        return *this;
+    }
+
+
+    /// <summary>
     /// Reverse of the matrix. In the case of scale matrices, the inverse is composed
     /// by the inverses of its non zero elements. So, it's faster than base class method.
     /// If one of the diagonal elements is 0, the matrix has not inverse.

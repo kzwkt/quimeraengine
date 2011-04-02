@@ -125,6 +125,32 @@ public:
     QSpaceConversionMatrix& operator*=(const QSpaceConversionMatrix &m);
 
     /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QSpaceConversionMatrix& operator=(const QSpaceConversionMatrix &m)
+    {
+        reinterpret_cast<QMatrix4x4&>(*this) = m;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QSpaceConversionMatrix& operator=(const QMatrix4x4 &m)
+    {
+        reinterpret_cast<QMatrix4x4&>(*this) = m;    
+        return *this;
+    }
+
+    /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
     /// <param name="vDisp">[IN] Vector which contains the translation (position).</param>
@@ -146,12 +172,13 @@ public:
     /// <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
     /// <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="mScale">[IN] Matrix which contains the scale (size).</param>
-    //template <class MatrixType>
-    //void SetWorldSpaceMatrix(const QTranslationMatrix<MatrixType> &mDisp, const QRotationMatrix3x3 &mRot, 
-    //    const QScaleMatrix3x3 &mScale)
-    //{
-        // [TODO] jwladi: waiting for a constructor in QTransformationMatrix that receives the three matrices.
-    //}
+    template <class MatrixType>
+    void SetWorldSpaceMatrix(const QTranslationMatrix<MatrixType> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+    {
+        QTransformationMatrix4x4 aux(mDisp, mRot, mScale);
+
+        *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
+    }
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -203,7 +230,7 @@ public:
     /// </summary>
     inline void SwitchHandConventionWorldSpaceMatrix()
     {
-//        ((QTransformationMatrix4x4*)this)->SwitchHandConvention();
+        reinterpret_cast<QTransformationMatrix4x4 &>(*this).SwitchHandConvention();
     }
 
     /// <summary>
