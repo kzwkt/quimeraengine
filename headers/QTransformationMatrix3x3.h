@@ -68,6 +68,32 @@ public:
     // ---------------
 public:
 
+        /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QTransformationMatrix3x3& operator=(const QTransformationMatrix3x3 &m)
+    {
+        reinterpret_cast<QMatrix3x3&>(*this) = m;
+        return *this;
+    }
+
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QTransformationMatrix3x3& operator=(const QMatrix3x3 &m)
+    {
+        reinterpret_cast<QMatrix3x3&>(*this) = m;    
+        return *this;
+    }
+
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated variables.
     /// </summary>
