@@ -475,7 +475,7 @@ public:
     void TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD, QBaseDualQuaternion &dqOut) const
     { 
         dqOut = *this;
-        reinterpret_cast<QDualQuaternion&> (dqOut).TransformRotationFirst(dqR, vD);
+        reinterpret_cast<QDualQuaternion&> (dqOut).TransformRotationFirst(qR, vD);
     }
 
 
