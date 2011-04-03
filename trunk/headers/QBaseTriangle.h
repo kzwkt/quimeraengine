@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
 #ifndef __QBASETRIANGLE__
-#define __QBASETRIANGLE_
+#define __QBASETRIANGLE__
 
 #include "QFloat.h"
 #include "QVF32.h"
@@ -72,7 +72,7 @@ public:
 	/// <param name="fValueA">[IN] 4x32 packed value which defines vertex A.</param>
 	/// <param name="fValueB">[IN] 4x32 packed value which defines vertex B.</param>
 	/// <param name="fValueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QBaseTriangle (const vf32_q &fValueA, const vf32_q &fValueB, const &vf32_q fValueC) : A(fValueA), B(fValueB), C(fValueC)	{ }
+	inline QBaseTriangle (const vf32_q &fValueA, const vf32_q &fValueB, const vf32_q &fValueC) : A(fValueA), B(fValueB), C(fValueC)	{ }
 
 	// ATTRIBUTES
 	// ---------------
