@@ -17,6 +17,9 @@ namespace Tools
 namespace Math
 {
 
+// Forward declarations
+class QTransformationMatrix3x3;
+
 /// <summary>
 /// This class implements two components vector functionality. It inherits from QBaseVector2.
 ///	A vector is a geometric object that has both a magnitude (or length) and direction. 
@@ -397,6 +400,36 @@ public:
 		this->x = QFloat::_0; 
 		this->y = QFloat::_0; 
 	}
+
+	/// <summary>
+	/// Applies a transformation to resident vector, multiplying the vector by a transformation matrix
+	/// to transform it. The transformation can be a rotation, scaling or translation, or a combination of them.
+	/// </summary>
+	/// <param name="matrix">[IN] The transformation matrix.</param>
+	void Transform(const QTransformationMatrix3x3& matrix);
+
+	/// <summary>
+	/// Applies a transformation to resident vector, multiplying the vector by a transformation matrix
+	/// to transform it. The transformation can be a rotation, scaling or translation, or a combination of them.
+	/// The transformed vector is stored into the provided one. No change to the resident vector.
+	/// </summary>
+	/// <param name="matrix">[IN] The transformation matrix.</param>
+	/// <param name="vectorOut">[OUT] Vector where to store the result of transformation.</param>
+	void Transform(const QTransformationMatrix3x3& matrix, QBaseVector2& vectorOut);
+
+	/// <summary>
+	/// Apply a 2D rotation about the origin of the resident vector.
+	/// </summary>
+	/// <param name="fAngle">[IN] The rotation angle.</param>
+	void Transform(const float_q& fAngle);
+
+	/// <summary>
+	/// Apply a 2D rotation about the origin of the resident vector. The rotated vector is stored into the provided
+	/// one. No change to the resident vector.
+	/// </summary>
+	/// <param name="fAngle">[IN] The rotation angle.</param>
+	/// <param name="vectorOut">[OUT] Vector where to store the result of rotation.</param>
+	void Transform(const float_q& fAngle, QBaseVector2& vectorOut);
 
 	/// <summary>
 	/// Check if all components of current vector are 0.
