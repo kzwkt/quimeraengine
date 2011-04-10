@@ -20,26 +20,26 @@ namespace Math
 {
 
 /// <summary>
-/// [DOC]
+/// Enumerated type that represents a space relation between a geometric element (a point, a triangle, a line, etc.) and another one,
+/// normally a plane.
 /// </summary>
 class EQSpaceRelation
 {
     // ENUMERATIONS
     // ---------------
 public:
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// The encapsulated enumeration.
     /// </summary>
     enum EnumType
     {
-        E_Contained = QE_ENUMERATION_MIN_VALUE,
-        E_PositiveSide,
-        E_NegativeSide,
-        E_BothSides,
+        E_Contained = QE_ENUMERATION_MIN_VALUE, /*!< The geometric element is fully contained in the plane. */
+        E_PositiveSide, /*!< The geometric element is in front of the plane. */
+        E_NegativeSide, /*!< The geometric element is in behind the plane. */
+        E_BothSides, /*!< The geometric element intersects the plane. Part of the element is in front of the plane and other part is behind it. */
         
-        _NotEnumValue = QE_ENUMERATION_MAX_VALUE
+        _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };
 
     // TYPEDEFS
@@ -53,41 +53,38 @@ public:
 	// METHODS
 	// ---------------
 public:
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Constructor that receives a valid enumeration value.
     /// </summary>
-    /// <param name="eValue">[DOC]</param>
+    /// <param name="eValue">A valid enumeration value.</param>
     inline EQSpaceRelation(const EQSpaceRelation::EnumType &eValue) : m_value(eValue) 
     {}
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">[DOC]</param>
+    /// <param name="nValue">An integer number.</param>
     template<typename IntegerType>
     inline EQSpaceRelation(const IntegerType &nValue) : m_value(static_cast<const EQSpaceRelation::EnumType>(nValue))
     {}
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Constructor that receives the name of a valid enumeration value. Note that enumeration value names don't include
+    /// the enumeration prefix.
     /// </summary>
-    /// <param name="strValueName">[DOC]</param>
+    /// <param name="strValueName">The name of a valid enumeration value.</param>
     inline EQSpaceRelation(const string_q &strValueName)
     {
         *this = strValueName;
     }
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Assign operator that accepts an integer number that corresponds to a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">[DOC]</param>
+    /// <param name="nValue">An integer number.</param>
     /// <returns>
-    /// [DOC]
+    /// The enumerated type itself.
     /// </returns>
     template<typename IntegerType>
     inline EQSpaceRelation& operator=(const IntegerType &nValue)
@@ -95,14 +92,13 @@ public:
         m_value = static_cast<const EQSpaceRelation::EnumType>(nValue);
         return *this;
     }
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Assign operator that accepts a valid enumeration value name.
     /// </summary>
-    /// <param name="strValueName">[DOC]</param>
+    /// <param name="strValueName">The enumeration value name.</param>
     /// <returns>
-    /// [DOC]
+    /// The enumerated type itself.
     /// </returns>
     inline EQSpaceRelation& operator=(const string_q &strValueName)
     {
@@ -113,14 +109,13 @@ public:
 
         return *this;
     }
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Assign operator that accepts a valid enumeration value.
     /// </summary>
-    /// <param name="eValue">[DOC]</param>
+    /// <param name="nValue">A valid enumeration value.</param>
     /// <returns>
-    /// [DOC]
+    /// The enumerated type itself.
     /// </returns>
     inline EQSpaceRelation& operator=(const EQSpaceRelation::EnumType &eValue)
     {
@@ -128,13 +123,13 @@ public:
         return *this;
     }
     
-
     /// <summary>
-    /// [DOC]
+    /// Equality operator that accepts the name of a valid enumeration value. Note that enumeration value names don't include
+    /// the enumeration prefix.
     /// </summary>
-    /// <param name="strValueName">[DOC]</param>
+    /// <param name="strValueName">The enumeration value name.</param>
     /// <returns>
-    /// [DOC]
+    /// True if the name corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
     inline bool operator==(const string_q &strValueName) const
     {
@@ -143,65 +138,60 @@ public:
         else
             return false;
     }
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Equality operator that accepts an integer number which must correspond to a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">[DOC]</param>
+    /// <param name="strValueName">An integer number.</param>
     /// <returns>
-    /// [DOC]
+    /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
     template<typename IntegerType>
     inline bool operator==(const IntegerType &nValue) const
     {
         return m_value == static_cast<const EQSpaceRelation::EnumType>(nValue);
     }
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Equality operator that receives a valid enumeration value.
     /// </summary>
-    /// <param name="eValue">[DOC]</param>
+    /// <param name="eValue">The enumeration value.</param>
     /// <returns>
-    /// [DOC]
+    /// True if it equals the contained value. False otherwise.
     /// </returns>
     bool operator==(const EQSpaceRelation::EnumType &eValue) const
     {
         return m_value == eValue;
     }
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Casting operator that converts the class capsule into a valid enumeration value.
     /// </summary>
     /// <returns>
-    /// [DOC]
+    /// The contained enumeration value.
     /// </returns>
     inline operator EQSpaceRelation::EnumType() const
     {
         return m_value;
     }
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Casting operator that converts the enumerated type value into its corresponding integer number.
     /// </summary>
     /// <returns>
-    /// [DOC]
+    /// The integer number which corresponds to the contained enumeration value.
     /// </returns>
     template<typename IntegerType>
     operator IntegerType() const
     {
         return static_cast<IntegerType>(m_value);
     }
-
-
+    
     /// <summary>
-    /// [DOC]
+    /// Casting operator that converts the enumerated type value into its corresponding name.
     /// </summary>
     /// <returns>
-    /// [DOC]
+    /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
     operator const string_q&() const
     {
@@ -217,6 +207,17 @@ public:
             return QE_L(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
     }
 
+    /// <summary>
+    /// Converts the enumerated type value into its corresponding name.
+    /// </summary>
+    /// <returns>
+    /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
+    /// </returns>
+    const string_q& ToString()
+    {
+        return*this;
+    }
+
 
     // ATTRIBUTES
 	// ---------------
@@ -224,17 +225,17 @@ private:
 
 
     /// <summary>
-    /// [DOC]
+    /// A list of enumeration values with their names.
     /// </summary>
     static TNameValuePair sm_arValueName[];
     
     /// <summary>
-    /// [DOC]
+    /// The dictionary which contains each enumeration value by its name.
     /// </summary>
     static TNameValueMap  sm_mapValueName;
 
     /// <summary>
-    /// [DOC]
+    /// The contained enumeration value.
     /// </summary>
     EQSpaceRelation::EnumType m_value;
 
