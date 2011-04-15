@@ -106,8 +106,8 @@ public:
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged 
     /// into a 128 bits structure. The values order is: X, Y, Z and W.
     /// </summary>
-    /// <param name="packagedValues">[IN] A four 32 bits floating point types pack.</param>
-    inline explicit QQuaternion(const vf32_q &packagedValues) : QBaseQuaternion(packagedValues) {};
+    /// <param name="vfValue">[IN] A four 32 bits floating point types pack.</param>
+    inline explicit QQuaternion(const vf32_q &vfValue) : QBaseQuaternion(vfValue) {};
 
 	/// <summary>
 	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and 

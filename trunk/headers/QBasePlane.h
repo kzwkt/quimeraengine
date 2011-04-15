@@ -66,12 +66,12 @@ public:
 	/// <summary>
 	/// Constructor from a 4x32 packed float value.
 	/// </summary>
-	/// <param name="fValue">[IN] 4x32 packed float containing the four components.
+	/// <param name="vfValue">[IN] 4x32 packed float containing the four components.
 	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient), 
 	/// 3rd value (c coefficient), 4th value (d independent term).</param>
-	inline explicit QBasePlane(const vf32_q fValue)
+	inline explicit QBasePlane(const vf32_q vfValue)
 	{ 
-		QVF32::Unpack(fValue, this->a, this->b, this->c, this->d);
+		QVF32::Unpack(vfValue, this->a, this->b, this->c, this->d);
 	}
 
 	// ATTRIBUTES

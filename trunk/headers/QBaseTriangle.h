@@ -69,10 +69,10 @@ public:
 	/// <summary>
 	/// Constructor from three 4x32 packed floating point values to define each vertex.
 	/// </summary>
-	/// <param name="fValueA">[IN] 4x32 packed value which defines vertex A.</param>
-	/// <param name="fValueB">[IN] 4x32 packed value which defines vertex B.</param>
-	/// <param name="fValueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QBaseTriangle (const vf32_q &fValueA, const vf32_q &fValueB, const vf32_q &fValueC) : A(fValueA), B(fValueB), C(fValueC)	{ }
+	/// <param name="vfValueA">[IN] 4x32 packed value which defines vertex A.</param>
+	/// <param name="vfValueB">[IN] 4x32 packed value which defines vertex B.</param>
+	/// <param name="vfValueC">[IN] 4x32 packed value which defines vertex C.</param>
+	inline QBaseTriangle (const vf32_q &vfValueA, const vf32_q &vfValueB, const vf32_q &vfValueC) : A(vfValueA), B(vfValueB), C(vfValueC)	{ }
 
 	// ATTRIBUTES
 	// ---------------

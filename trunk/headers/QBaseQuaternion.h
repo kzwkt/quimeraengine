@@ -65,11 +65,11 @@ public:
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged 
     /// into a 128 bits structure. The values order is: X, Y, Z and W.
     /// </summary>
-    /// <param name="packagedValues">[IN] A four 32 bits floating point types pack.</param>
-    inline explicit QBaseQuaternion(const vf32_q &packagedValues)
+    /// <param name="vfValue">[IN] A four 32 bits floating point types pack.</param>
+    inline explicit QBaseQuaternion(const vf32_q &vfValue)
     {
         // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
-        QVF32::Unpack(packagedValues, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
+        QVF32::Unpack(vfValue, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
     }
 
 	// ATTRIBUTES
