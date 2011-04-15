@@ -133,8 +133,8 @@ public:
     /// <summary>
     /// Constructor from a 4x32 packed floating point value.
     /// </summary>
-    /// <param name="fPackComps">[IN] 4x32 packed floating point value containing the three components.</param>
-    inline QVector3(const vf32_q fPackComps) : QBaseVector3 (fPackComps) { }
+    /// <param name="vfValue">[IN] 4x32 packed floating point value containing the three components.</param>
+    inline QVector3(const vf32_q vfValue) : QBaseVector3 (vfValue) { }
 
     /// <summary>
     /// Constructor from a 4x4 or a 4x3 translation matrix. Takes translation components

@@ -147,8 +147,8 @@ public:
     /// <summary>
     /// Constructor from a 4x32 packed floating point value.
     /// </summary>
-    /// <param name="fPackComps">[IN] 4x32 packed floating point value containing the four components.</param>
-    inline explicit QVector4(const vf32_q fPackComps) : QBaseVector4 (fPackComps) { }
+    /// <param name="vfValue">[IN] 4x32 packed floating point value containing the four components.</param>
+    inline explicit QVector4(const vf32_q vfValue) : QBaseVector4 (vfValue) { }
 
     /// <summary>
     /// Constructor from a translation matrix. The x, y, z components are filled with the 
