@@ -195,6 +195,66 @@ public:
     }
 
     /// <summary>
+    /// Checks if a floating point value is greater than a reference value, taking into account the system tolerance 
+    /// constant (Epsilon).
+    /// </summary>
+    /// <param name="fGreaterValue">The value which is to be compared.</param>
+    /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
+    /// <returns>
+    /// If the first value is greater than the reference one, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue)
+    {
+        // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
+        return (fGreaterValue - fReferenceValue) > QFloat::Epsilon;
+    }
+
+    /// <summary>
+    /// Checks if a floating point value is lower than a reference value, taking into account the system tolerance 
+    /// constant (Epsilon).
+    /// </summary>
+    /// <param name="fGreaterValue">The value which is to be compared.</param>
+    /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
+    /// <returns>
+    /// If the first value is lower than the reference one, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsLowerThan(const float_q &fLowerValue, const float_q &fReferenceValue)
+    {
+        // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
+        return (fLowerValue - fReferenceValue) < -QFloat::Epsilon;
+    }
+
+    /// <summary>
+    /// Checks if a floating point value is greater than or equals to a reference value, taking into account the 
+    /// system tolerance constant (Epsilon).
+    /// </summary>
+    /// <param name="fGreaterValue">The value which is to be compared.</param>
+    /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
+    /// <returns>
+    /// If the first value is greater than or equals to the reference one, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue)
+    {
+        // If subtraction is greater or equals to -Epsilon, the value is greater or equals
+        return (fGreaterOrEqualsValue - fReferenceValue) >= -QFloat::Epsilon;
+    }
+
+    /// <summary>
+    /// Checks if a floating point value is lower than or equals to a reference value, taking into account the 
+    /// system tolerance constant (Epsilon).
+    /// </summary>
+    /// <param name="fGreaterValue">The value which is to be compared.</param>
+    /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
+    /// <returns>
+    /// If the first value is lower than or equals to the reference one, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsLowerOrEquals(const float_q &fLowerOrEqualsVaue, const float_q &fReferenceValue)
+    {
+        // If subtraction is lower or equals to Epsilon, the value is lower or equals
+        return (fLowerOrEqualsVaue - fReferenceValue) <= QFloat::Epsilon;
+    }
+
+    /// <summary>
     /// Checks whether a floating point number equals zero or is close to zero, taking into account the system tolerance 
     /// constant (Epsilon).
     /// </summary>
