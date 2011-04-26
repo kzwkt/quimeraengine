@@ -59,9 +59,6 @@
     <ClInclude Include="..\..\..\..\headers\QBaseTriangle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\QBaseSphere.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QBaseDualQuaternion.h">
       <Filter>Header Files</Filter>
     </ClInclude>
