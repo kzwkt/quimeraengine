@@ -159,12 +159,12 @@ public:
     /// </returns>
     inline static float_q TruncateDegrees(const float_q &fAngle)
     {
-        if(QFloat::AreEquals(fAngle, QFloat::_0) || fAngle > QFloat::_0) 
+        if( QFloat::IsPositive(fAngle) )
             // Positive angles
-            return (QFloat::AreNotEquals(abs(fAngle), QAngle::_360) && fAngle > QAngle::_360) ? QAngle::_360 : fAngle;
+            return QFloat::IsGreaterThan(fAngle, QAngle::_360) ? QAngle::_360 : fAngle;
         else
             // Negative angles
-            return (QFloat::AreNotEquals(fAngle, -QAngle::_360) && fAngle < -QAngle::_360) ? -QAngle::_360 : fAngle;
+            return QFloat::IsLowerThan(fAngle, -QAngle::_360) ? -QAngle::_360 : fAngle;
     }
 
     /// <summary>
@@ -177,12 +177,12 @@ public:
     /// </returns>
     inline static float_q TruncateRadians(const float_q &fAngle)
     {
-        if(QFloat::AreEquals(fAngle, QFloat::_0) || fAngle > QFloat::_0) 
+        if( QFloat::IsPositive(fAngle) ) 
             // Positive angles
-            return (QFloat::AreNotEquals(abs(fAngle), QAngle::_2Pi) && fAngle > QAngle::_2Pi) ? QAngle::_2Pi : fAngle;
+            return QFloat::IsGreaterThan(fAngle, QAngle::_2Pi) ? QAngle::_2Pi : fAngle;
         else
             // Negative angles
-            return (QFloat::AreNotEquals(abs(fAngle), -QAngle::_2Pi) && fAngle < -QAngle::_2Pi) ? -QAngle::_2Pi : fAngle;
+            return QFloat::IsLowerThan(fAngle, -QAngle::_2Pi) ? -QAngle::_2Pi : fAngle;
     }
 
     /// <summary>

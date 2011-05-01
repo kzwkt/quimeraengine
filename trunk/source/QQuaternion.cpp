@@ -160,8 +160,7 @@ QQuaternion QQuaternion::operator*(const QBaseVector4 &v) const
 }
 QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 {
-    QE_ASSERT(qQuat.x != QFloat::_0 && qQuat.y != QFloat::_0 && 
-        qQuat.z != QFloat::_0 && qQuat.w != QFloat::_0);
+    QE_ASSERT(qQuat.x != QFloat::_0 && qQuat.y != QFloat::_0 && qQuat.z != QFloat::_0 && qQuat.w != QFloat::_0);
 
     return QQuaternion(this->x / qQuat.x,
                        this->y / qQuat.y,

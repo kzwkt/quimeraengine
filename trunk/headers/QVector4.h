@@ -427,8 +427,7 @@ public:
     inline QVector4& operator /= (const QBaseVector4 &v)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0 &&
-            v.z != QFloat::_0 && v.w != QFloat::_0);
+        QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0 && v.z != QFloat::_0 && v.w != QFloat::_0);
 
         this->x /= v.x; 
         this->y /= v.y; 

@@ -765,7 +765,7 @@ public:
         const float_q fNorthAndSouthPoleCheckValue = this->x * this->y + this->z * this->w;
 
         // X (pitch or heading) and Z (roll or bank) checking
-        if(fNorthAndSouthPoleCheckValue == QFloat::_0_5) // North pole
+        if(QFloat::AreEquals(fNorthAndSouthPoleCheckValue, QFloat::_0_5)) // North pole
         {
             // The atan2 result is undefined when both parameters are equal to zero
             QE_ASSERT(this->x != QFloat::_0 || this->w != QFloat::_0);
@@ -773,7 +773,7 @@ public:
             fAngleX = QFloat::_2 * atan2(this->x, this->w);
             fAngleZ = QFloat::_0;
         }
-        else if(fNorthAndSouthPoleCheckValue == -QFloat::_0_5) // South pole
+        else if(QFloat::AreEquals(fNorthAndSouthPoleCheckValue, -QFloat::_0_5)) // South pole
         {
             // The atan2 result is undefined when both parameters are equal to zero
             QE_ASSERT(this->x != QFloat::_0 || this->w != QFloat::_0);
