@@ -117,8 +117,8 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
         const float_q &fAspectRatio, const float_q &fVerticalFOV)
 {
     QE_ASSERT(QFloat::AreNotEquals(fNearClipPlane, fFarClipPlane));
-    QE_ASSERT(fAspectRatio > QFloat::_0);
-    QE_ASSERT(fVerticalFOV > QFloat::_0);
+    QE_ASSERT(QFloat::IsGreaterThan(fAspectRatio, QFloat::_0));
+    QE_ASSERT(QFloat::IsGreaterThan(fVerticalFOV, QFloat::_0));
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
@@ -127,7 +127,7 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
         const float_q &fHalfVertFOV = fVerticalFOV * QFloat::_0_5;
     #endif
 
-    QE_ASSERT(fHalfVertFOV != QAngle::_HalfPi);
+    QE_ASSERT( QFloat::AreNotEquals(fHalfVertFOV, QAngle::_HalfPi) );
 
     const float_q &fScaleY  = QFloat::_1 / tan(fHalfVertFOV);
     const float_q &fScaleX  = fScaleY / fAspectRatio;

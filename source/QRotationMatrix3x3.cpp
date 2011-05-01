@@ -293,9 +293,10 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q
 {
     const float_q &diff = QFloat::_1 - QFloat::Epsilon;
 
-    if (this->ij[2][0] < diff)
+    if ( QFloat::IsLowerThan(this->ij[2][0], diff) )
     {
-        if (this->ij[2][0] > -diff) {
+        if ( QFloat::IsGreaterThan(this->ij[2][0], -diff )) 
+        {
 
             // Checkout ij[2][0] <= 1 not needed :)
             fAngleY = asin(-this->ij[2][0]);
@@ -380,7 +381,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
 		const float_q &zz = (this->ij[2][2] + QFloat::_1) * QFloat::_0_5;
 
         // m[0][0] is the largest diagonal term
-		if ((xx > yy) && (xx > zz))
+        if ( QFloat::IsGreaterThan(xx, yy) && QFloat::IsGreaterThan(xx, zz) )
         {
 			if (QFloat::IsZero(xx))
             {
@@ -390,7 +391,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
 			}
             else
             {
-                QE_ASSERT(xx > QFloat::_0);
+                QE_ASSERT( QFloat::IsGreaterThan(xx, QFloat::_0) );
 
                 vAxis.x = sqrt(xx);
 
@@ -403,7 +404,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
 			}
 		}
         // m[1][1] is the largest diagonal term
-        else if (yy > zz)
+        else if ( QFloat::IsGreaterThan(yy, zz) )
         {
 			if (QFloat::IsZero(yy))
             {
@@ -413,7 +414,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
 			}
             else
             {
-                QE_ASSERT(yy > QFloat::_0);
+                QE_ASSERT( QFloat::IsGreaterThan(yy, QFloat::_0) );
 
 				vAxis.y = sqrt(yy);
 
@@ -436,7 +437,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
 			}
             else
             {
-                QE_ASSERT(zz > QFloat::_0);
+                QE_ASSERT( QFloat::IsGreaterThan(zz, QFloat::_0) );
 
 				vAxis.z = sqrt(zz);
 

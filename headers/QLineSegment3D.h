@@ -107,8 +107,7 @@ public:
         if (QFloat::IsZero(distB)) 
             return true;
 
-        // [TODO] jwladi: This expresion must be replaced by a QFloat method when it exists.
-        else if (distA * distB < QFloat::_0) 
+        else if ( QFloat::IsLowerThan(distA * distB, QFloat::_0) )
             return true;
         else
             return false;
@@ -193,8 +192,7 @@ public:
         // to allow the use of QLineSegmet methods. It should be removed when QLineSegment was parameterized.
         QLineSegment3D<VectorTypeParam> lsAux(VectorTypeParam(this->A), VectorTypeParam(this->B));
 
-        // [TODO] jwladi: this expression must be changed by a QFLoat method.
-        if (lsAux.QLineSegment::MinDistance(orb.P) <= orb.Radius) 
+        if ( QFloat::IsLowerOrEquals(lsAux.QLineSegment::MinDistance(orb.P), orb.Radius) )
             return true;
         else
             return false;
@@ -466,10 +464,9 @@ public:
 
         if (QFloat::IsZero(distA) && QFloat::IsZero(distB)) 
             return EQSpaceRelation::E_Contained;
-        // [TODO] jwladi: these two comparations should be changed by other methods from QFloat class.
-        else if (distA >= -QFloat::_0 && distB >= -QFloat::_0) 
+        else if ( QFloat::IsGreaterOrEquals(distA, QFloat::_0) && QFloat::IsGreaterOrEquals(distB, QFloat::_0) ) 
             return EQSpaceRelation::E_PositiveSide;
-        else if (distA <= QFloat::_0 && distB <= QFloat::_0) 
+        else if ( QFloat::IsLowerOrEquals(distA, QFloat::_0) && QFloat::IsLowerOrEquals(distB, QFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
         else        
             return EQSpaceRelation::E_BothSides;
@@ -510,7 +507,7 @@ protected:
         vLine.CrossProduct(vP1 - vLine1, vCP1);
         vLine.CrossProduct(vP2 - vLine1, vCP2);
 
-        if (vCP1.DotProduct(vCP2) < QFloat::_0) 
+        if ( QFloat::IsLowerThan(vCP1.DotProduct(vCP2), QFloat::_0) )
             return false;
         else
             return true;
@@ -528,7 +525,7 @@ protected:
         const float_q &distP1 = p.a * vP1.x + p.b * vP1.y + p.c * vP1.z + p.d;
         const float_q &distP2 = p.a * vP2.x + p.b * vP2.y + p.c * vP2.z + p.d;
 
-        if (distP1 * distP2 > QFloat::_0) 
+        if ( QFloat::IsGreaterThan(distP1 * distP2, QFloat::_0) )
             return true;
         else
             return false;

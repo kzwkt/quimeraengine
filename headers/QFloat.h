@@ -150,7 +150,7 @@ public:
     inline static bool IsInfinite(const float_q &fValue)
     {
         // [REVIEW] Thund: Boost provides functions to check this
-        return (fValue > -QFloat::MaxFloat_Q) && (fValue < QFloat::MaxFloat_Q);
+        return QFloat::IsLowerThan(fValue, -QFloat::MaxFloat_Q) || QFloat::IsGreaterThan(fValue, QFloat::MaxFloat_Q);
     }
 
     /// <summary>
@@ -436,7 +436,7 @@ public:
     /// </returns>
     inline static bool IsNegative(const float_q &fValue)
     {
-        return fValue < QFloat::_0;
+        return QFloat::IsLowerThan(fValue, QFloat::_0);
     }
 
     /// <summary>
@@ -448,7 +448,7 @@ public:
     /// </returns>
     inline static bool IsPositive(const float_q &fValue)
     {
-        return fValue >= QFloat::_0;
+        return QFloat::IsGreaterOrEquals(fValue, QFloat::_0);
     }
 
     /// <summary>
