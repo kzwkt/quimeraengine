@@ -112,6 +112,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\EQIntersections.h" />
     <ClInclude Include="..\..\..\..\headers\EQSpaceRelation.h" />
     <ClInclude Include="..\..\..\..\headers\MathDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QAngle.h" />
