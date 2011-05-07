@@ -135,6 +135,7 @@
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QInteger.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
+    <ClInclude Include="..\..\..\..\headers\QLineSegment2D.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment3D.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix2x2.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix3x3.h" />
@@ -158,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QDualQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\source\QLineSegment2D.cpp" />
     <ClCompile Include="..\..\..\..\source\QMatrix2x2.cpp" />
     <ClCompile Include="..\..\..\..\source\QMatrix3x3.cpp" />
     <ClCompile Include="..\..\..\..\source\QMatrix3x4.cpp" />
