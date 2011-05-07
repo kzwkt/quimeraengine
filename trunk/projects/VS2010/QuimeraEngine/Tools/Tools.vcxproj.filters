@@ -143,6 +143,9 @@
     <ClInclude Include="..\..\..\..\headers\EQIntersections.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QLineSegment2D.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\QQuaternion.cpp">
@@ -197,6 +200,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QTransformationMatrix3x3.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QLineSegment2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
