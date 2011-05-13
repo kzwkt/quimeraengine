@@ -331,6 +331,17 @@ public:
 	}
 
 	/// <summary>
+    /// Calculates the squared length of resident vector.
+    /// </summary>
+    /// <returns>
+    /// A floating point value which is the squared length of the vector.
+    /// </returns>
+    inline float_q GetSquaredLength() const
+    { 
+        return this->x*this->x + this->y*this->y; 
+    }
+
+	/// <summary>
 	/// Calculates the vector which is perpendicular to the current vector.
 	/// </summary>
 	/// <returns>
