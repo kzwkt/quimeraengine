@@ -299,7 +299,7 @@ public:
 		// STEP 3) Maximum distance between the segments = maximum distance between their farthest endpoints.
 		//												 = the longer distance between the maximum distances from endpoints
 		//												   of the segment passed by parameter to this segment.
-        return QFloat::IsGreaterThan((fMaxDistance_vBLSA_This, fMaxDistance_vBLSB_This) ? fMaxDistance_vBLSA_This : fMaxDistance_vBLSB_This;
+        return QFloat::IsGreaterThan(fMaxDistance_vBLSA_This, fMaxDistance_vBLSB_This) ? fMaxDistance_vBLSA_This : fMaxDistance_vBLSB_This;
 	}
 
 	/// <summary>
