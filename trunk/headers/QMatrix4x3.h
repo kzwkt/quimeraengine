@@ -412,6 +412,19 @@ public:
 	}
 
 	/// <summary>
+	/// Resets main diagonal elements to 1 and any other element to 0. 
+    /// Since element [3][3] doesn't exists, it can not be initialized. 
+	/// </summary>
+	inline void ResetToIdentity()
+	{
+		this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = QFloat::_1;
+        this->ij[0][1] = this->ij[0][2] =
+		this->ij[1][0] = this->ij[1][2] =
+		this->ij[2][0] = this->ij[2][1] =
+		this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = QFloat::_0;
+	}
+
+	/// <summary>
 	/// Transpose: the transpose of a matrix m x n is a matrix n x m where each row becomes a column
 	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T.
  	/// </summary>
