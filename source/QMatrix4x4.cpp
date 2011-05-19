@@ -370,16 +370,16 @@ namespace Math
 
 		// 4rd column of inverse 
 
-		aux.ij[0][3] =  fDet * (Q * this->ij[2][3] + F * this->ij[2][1] + R * this->ij[2][2] -
+		aux.ij[0][3] = -fDet * (Q * this->ij[2][3] + F * this->ij[2][1] + R * this->ij[2][2] -
 								C * this->ij[2][1] - S * this->ij[2][2] - T * this->ij[2][3] ); 
 
-		aux.ij[1][3] = -fDet * (U * this->ij[2][3] + F * this->ij[2][0] + V * this->ij[2][2] -
+		aux.ij[1][3] =  fDet * (U * this->ij[2][3] + F * this->ij[2][0] + V * this->ij[2][2] -
 								C * this->ij[2][0] - W * this->ij[2][2] - X * this->ij[2][3] );
 
-		aux.ij[2][3] =  fDet * (A * this->ij[2][3] + S * this->ij[2][0] + V * this->ij[2][1] -
+		aux.ij[2][3] = -fDet * (A * this->ij[2][3] + S * this->ij[2][0] + V * this->ij[2][1] -
 								R * this->ij[2][0] - W * this->ij[2][1] - E * this->ij[2][3] );
 
-		aux.ij[3][3] = -fDet * (A * this->ij[2][2] + Q * this->ij[2][0] + X * this->ij[2][1] -
+		aux.ij[3][3] =  fDet * (A * this->ij[2][2] + Q * this->ij[2][0] + X * this->ij[2][1] -
 								T * this->ij[2][0] - U * this->ij[2][1] - E * this->ij[2][2] );
 
 		*this = aux;
