@@ -3,6 +3,15 @@
 #ifndef __QVECTOR2__
 #define __QVECTOR2__
 
+// [TODO] This two ranges may have to be deleted when a solution to
+//		  solve values out of range for 'acos' function has been planned.
+#ifndef __CURRENT_COS_MAX_RANGE__
+	#define __CURRENT_COS_MAX_RANGE__	(1.0000001f)
+#endif
+#ifndef __CURRENT_COS_MIN_RANGE__
+	#define __CURRENT_COS_MIN_RANGE__	(-1.0000001f)
+#endif
+
 #include "QBaseVector2.h"
 #include "QBaseMatrix2x2.h"
 
@@ -476,6 +485,60 @@ public:
 		return(this->x*v.x + this->y*v.y); 
 	}
 
+    /// <summary>
+    /// Calculates the angle between resident vector and the provided vector via Dot Product.
+    /// </summary>
+    /// <param name="v">[IN] Multiplying vector.</param>
+    /// <returns>
+    /// A floating point value which is the smaller angle between vectors (less or equal 180º).
+    /// </returns>
+    inline float_q DotProductAngle(const QVector2& v) const
+    { 
+        float_q fLengthProd = this->GetLength() * v.GetLength();
+        
+        // Checkout to avoid division by zero.
+        QE_ASSERT(fLengthProd != QFloat::_0);
+
+        float_q fDot = this->DotProduct(v) / fLengthProd;
+
+		// Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
+		//
+		// [TODO] This code block has to be reviewed when a solution to
+		//		  solve values out of range for 'acos' function has been planned, and then:
+		//
+		//				 1) Replace the current QE_ASSERT with one using QFloat::IsLowerOrEquals,
+		//					because something like QE_ASSERT( QFloat::IsLowerOrEquals(abs(fDot), QFloat::_1) )
+		//					or QE_ASSERT( QFloat::IsLowerOrEquals(abs(fDot), CURRENT_COS_MAX_RANGE) )
+		//				    actually doesn't make their work.
+		//
+		//				 2) Replace the two conditional branches and then use Clamp funcion, once this is defined
+		//					as a non-member function.
+		///////////////////////////////////////////////////////////////////
+        QE_ASSERT(abs(fDot) <= QFloat::_1);
+
+		if ( QFloat::IsGreaterOrEquals(fDot, __CURRENT_COS_MAX_RANGE__) )
+		{
+			fDot = 1.0000000f;
+		}
+		else if ( QFloat::IsLowerOrEquals(fDot, __CURRENT_COS_MIN_RANGE__) )
+		{
+			fDot = -1.0000000f;
+		}
+		///////////////////////////////////////////////////////////////////
+
+        float_q fAngle = acos(fDot);
+
+		// At this stage we have the angle stored in fAngle expressed in RADIANS.
+
+        #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+            // If angles are specified in degrees, then converts angle to degrees
+            fAngle = QAngle::RadiansToDegrees(fAngle, fAngle);
+
+			// At this stage we have the angle expressed in DEGREES.
+        #endif
+ 
+        return fAngle;
+    }
 
 	/// <summary>
 	/// Makes a Linear Interpolation between current vector and other vector provided. It stores result in current vector.
