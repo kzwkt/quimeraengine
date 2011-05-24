@@ -151,7 +151,7 @@ public:
     template<typename IntegerType>
     inline bool operator==(const IntegerType &nValue) const
     {
-        return m_value == static_cast<const EQSpaceRelation::EnumType>(nValue);
+        return m_value == static_cast<const EQIntersections::EnumType>(nValue);
     }
 
 
