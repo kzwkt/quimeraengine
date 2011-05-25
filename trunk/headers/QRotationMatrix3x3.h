@@ -231,6 +231,56 @@ public:
 	QTransformationMatrix4x3 operator*(const QTransformationMatrix4x3 &m) const;
 
     /// <summary>
+    /// Multiplies a 3x3 matrix by the current matrix.
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// So, left matrix must have same number of columns than rows have right matrix.
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// 
+    /// \f$ A x B = C \f$
+    /// 
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
+    ///
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+	inline QRotationMatrix3x3 operator*(const QBaseMatrix3x4& m) const
+	{
+		return reinterpret_cast<QRotationMatrix3x3&>(QMatrix3x3::operator*(m));
+	}
+
+    /// <summary>
+    /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar term of product.</param>
+    /// <param name="m">[IN] The matrix term of product.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+    inline QRotationMatrix3x3 operator*(const QBaseMatrix3x3 &m)
+	{
+		reinterpret_cast<QRotationMatrix3x3&>(QMatrix3x3::operator*(m));
+	}
+
+
+    /// <summary>
+    /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar to multiply by.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+    inline QRotationMatrix3x3 operator*(const float_q &fScalar) const
+	{
+		return reinterpret_cast<QRotationMatrix3x3&>(QMatrix3x3::operator*(fScalar));
+	}
+
+    /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
     /// <param name="m">[IN] The matrix to be assigned.</param>
