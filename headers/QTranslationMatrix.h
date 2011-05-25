@@ -275,6 +275,21 @@ public:
         return aux;
     }
 
+	/// <summary>
+    /// Multiplies a matrix of the same MatrixType of the current matrix by the current matrix, following matrices product rules.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Matrix of the same MatrixType to be multiplied by.</param>
+    /// <returns>
+    /// The resultant transformation matrix.
+    /// </returns>
+	inline QTranslationMatrix<MatrixType> operator*(MatrixType &m)
+	{
+		return reinterpret_cast<QTranslationMatrix<MatrixType>&>(MatrixType::operator*(m));
+	}
+
     // Assign operators
 
     /// <summary>
