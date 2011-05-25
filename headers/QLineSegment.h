@@ -533,84 +533,84 @@ public:
 	}
 
 	/// <summary>
-	/// Given a scale factor, this method computes the scaling of the segment; endpoints move away or approach to
-	/// to the center, depending of the scale factor value.
+	/// Given a lengthening factor, this method computes the lengthening of the segment; endpoints move away or approach
+	/// to the center, depending of the lengthening factor value.
 	/// </summary>
-	/// <param name="fScaleFactor">[IN] A floating point value that scales the segment.</param>
+	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	/// <remarks>
-	/// -If the scale factor is 0.0, the segment degenerates into a point (both endpoints become the center).
-	/// -If the scale factor is 1.0, the segment won't experiment any scale, as this represent a 100% scaling.
+	/// -If the lengthening factor is 0.0, the segment degenerates into a point (both endpoints become the center).
+	/// -If the lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
-	void Scale (const float_q& fScaleFactor)
+	void Lengthen (const float_q& fLengtheningFactor)
 	{
-		// if Factor Scale == 1 we just don't touch the segment.
-		if ( QFloat::AreNotEquals(fScaleFactor, QFloat::_1) )
+		// If Lengthening Factor == 1 we just don't touch the segment.
+		if ( QFloat::AreNotEquals(fLengtheningFactor, QFloat::_1) )
 		{
 			VectorType vCenter;
 			this->GetCenter(vCenter);
 
-			// if Factor Scale == 0, just reduce the endpoints to the center.
-			if (QFloat::AreEquals(fScaleFactor, QFloat::_0))
+			// If Lengthening Factor == 0, just reduce the endpoints to the center.
+			if (QFloat::AreEquals(fLengtheningFactor, QFloat::_0))
 			{
 				A = vCenter;
 				B = vCenter;
 			}
 			else // Compute the new segment endpoints from the center.
 			{
-				A = vCenter + (fScaleFactor * (A - vCenter) );
-				B = vCenter + (fScaleFactor * (B - vCenter) );
+				A = vCenter + (fLengtheningFactor * (A - vCenter) );
+				B = vCenter + (fLengtheningFactor * (B - vCenter) );
 			}
 		}
 	}
 
 	/// <summary>
-	/// Given a scale factor, this method computes the scaling of the segment; endpoint B move away or approach to A,
-	/// depending of the scale factor value. In any case, A stays the same.
+	/// Given a lengthening factor, this method computes the lengthening of the segment; endpoint B moves away or approaches to A,
+	/// depending of the lengthening factor value. In any case, A stays the same.
 	/// </summary>
-	/// <param name="fScaleFactor">[IN] A floating point value that scales the segment.</param>
+	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	/// <remarks>
-	/// -If the scale factor is 0.0, the segment degenerates into a point (both endpoints become A).
-	/// -If the scale factor is 1.0, the segment won't experiment any scale, as this represent a 100% scaling.
+	/// -If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become A).
+	/// -If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
-	void ScaleFromA (const float_q& fScaleFactor)
+	void LengthenFromA (const float_q& fLengtheningFactor)
 	{
-		// if Factor Scale == 1 we just don't touch the segment.
-		if ( QFloat::AreNotEquals(fScaleFactor, QFloat::_1) )
+		// If Lengthening Factor == 1 we just don't touch the segment.
+		if ( QFloat::AreNotEquals(fLengtheningFactor, QFloat::_1) )
 		{
-			// if Factor Scale == 0, just reduce the endpoints to A.
-			if ( QFloat::AreEquals(fScaleFactor, QFloat::_0) )
+			// If Lengthening Factor == 0, just reduce the endpoints to A.
+			if ( QFloat::AreEquals(fLengtheningFactor, QFloat::_0) )
 			{
 				B = A;
 			}
-			else // Scale from A --> Compute the new B.
+			else // Lengthen from A --> Compute the new B.
 			{
-				B = A + (fScaleFactor * (B - A));
+				B = A + (fLengtheningFactor * (B - A));
 			}
 		}
 	}
 
 	/// <summary>
-	/// Given a scale factor, this method computes the scaling of the segment; endpoint A move away or approach to B,
-	/// depending of the scale factor value. In any case, B stays the same.
+	/// Given a lengthening factor, this method computes the lengthening of the segment; endpoint A moves away or approaches to B,
+	/// depending of the lengthening factor value. In any case, B stays the same.
 	/// </summary>
-	/// <param name="fScaleFactor">[IN] A floating point value that scales the segment.</param>
+	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	/// <remarks>
-	/// -If the scale factor is 0.0, the segment degenerates into a point (both endpoints become B).
-	/// -If the scale factor is 1.0, the segment won't experiment any scale, as this represent a 100% scaling.
+	/// -If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become B).
+	/// -If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
-	void ScaleFromB (const float_q& fScaleFactor)
+	void LengthenFromB (const float_q& fLengtheningFactor)
 	{
-		// if Factor Scale == 1 we just don't touch the segment.
-		if ( QFloat::AreNotEquals(fScaleFactor, QFloat::_1) )
+		// If Lengthening Factor == 1 we just don't touch the segment.
+		if ( QFloat::AreNotEquals(fLengtheningFactor, QFloat::_1) )
 		{
-			// if Factor Scale == 0, just reduce the endpoints to B.
-			if ( QFloat::AreEquals(fScaleFactor, QFloat::_0) )
+			// If Lengthening Factor == 0, just reduce the endpoints to B.
+			if ( QFloat::AreEquals(fLengtheningFactor, QFloat::_0) )
 			{			
 				A = B;
 			}
-			else // Scale from B --> Compute the new A.
+			else // Lengthen from B --> Compute the new A.
 			{
-				A = B + (fScaleFactor * (A - B));
+				A = B + (fLengtheningFactor * (A - B));
 			}
 		}
 	}
