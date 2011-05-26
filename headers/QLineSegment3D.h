@@ -3,6 +3,7 @@
 #ifndef __QLINESEGMENT3D__
 #define __QLINESEGMENT3D__
 
+#include "QBaseLineSegment.h"
 #include "QLineSegment.h"
 #include "QBasePlane.h"
 #include "EQSpaceRelation.h"
@@ -236,6 +237,19 @@ public:
             return true;
     }
 
+	/// <summary>
+	/// This method receives another line segment, and computes wheter they intersect each other or not.
+	/// This method calls base class' implementation.
+	/// </summary>
+	/// <param name="vBaseLineSegment">[IN] The segment to be compared to.</param>
+	/// <returns>
+	/// True if they intersect each other (or if they were coincident), false if they don't.
+	/// </returns>
+	inline bool Intersection (const QBaseLineSegment<VectorType>& vBaseLineSegment) const
+	{
+		return QLineSegment<VectorType>::Intersection(vBaseLineSegment);
+	}
+
     /// <summary>
     /// Calculates the maximum distance between the resident line segment and a plane provided.
     /// </summary>
@@ -258,6 +272,37 @@ public:
     }
 
     /// <summary>
+	/// Given an input line segment, this method returns the maximum distance between this and the input one,
+	///	that is, the distance between their farthest points. 
+	/// This method calls base class' implementation.
+    /// </summary>
+    /// <param name="q">[IN] The line segment the distance will be measured to.</param>
+    /// <returns>
+    /// A floating point value containing the maximum distance between both line segments.
+    /// </returns>
+    inline float_q MaxDistance(const QBaseLineSegment<VectorType>& vBaseLineSegment) const
+    {
+		return QLineSegment<VectorType>::MaxDistance(vBaseLineSegment);
+    }
+
+    /// <summary>
+	/// Given an input vector (which represents a point), this method returns the maximum distance between this and
+	/// the segment, that is, the distance between the input point and the farthest point lying into the segment...
+	/// ...and this will be one of the segment endpoints!.
+	/// Please note the above is correct only when the point lies outside the segment; if it's inside the segment,
+	/// the maximum distance equals to 0.
+	/// This method calls base class' implementation.
+	/// </summary>
+	/// <param name="vPoint">[IN] The point the distance will be measured to.</param>
+    /// <returns>
+    /// A floating point value containing the maximum distance between the resident line segment and a point provided.
+    /// </returns>
+    inline float_q MaxDistance(const VectorType& vPoint) const
+    {
+		return QLineSegment<VectorType>::MaxDistance(vPoint);
+    }
+
+    /// <summary>
     /// Calculates the minimum distance between the resident line segment and a plane provided.
     /// </summary>
     /// <param name="q">[IN] The plane we want to know the minimum distance from the line segment.</param>
@@ -277,6 +322,34 @@ public:
 
         return std::min(distA, distB);
     }
+
+	/// <summary>
+	/// Given an input line segment, this method returns the minimum distance between this and the input one,
+	///	that is, the distance between their closest points.
+	/// This method calls base class' implementation.
+	/// </summary>
+	/// <param name="vBaseLineSegment">[IN] The line segment the distance will be measured to.</param>
+	/// <returns>
+	/// A floating point value (always nonnegative) which represents the minimum distance between the two segments.
+	/// </returns>
+	inline float_q MinDistance (const QBaseLineSegment<VectorType>& vBaseLineSegment) const
+	{
+		return QLineSegment<VectorType>::MinDistance(vBaseLineSegment);
+	}
+
+	/// <summary>
+	/// Given an input vector (which represents a point), this method returns the minimum distance between this and
+	/// the segment, that is, the distance between the input point and the closest point lying into the segment.
+	/// This method calls base class' implementation.
+	/// </summary>
+	/// <param name="vPoint">[IN] The point the distance will be measured to.</param>
+	/// <returns>
+	/// A floating point value (always nonnegative) which represents the minimum distance between point and segment.
+	/// </returns>
+	inline float_q MinDistance (const VectorType& vPoint) const
+	{
+		return QLineSegment<VectorType>::MinDistance(vPoint);
+	}
 
     /// <summary>
     /// Projects the resident line segment over the plane provided.

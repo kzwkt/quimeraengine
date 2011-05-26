@@ -128,6 +128,19 @@ public:
 	bool Intersection (const QBaseQuadrilateral& quadrl) const;
 
 	/// <summary>
+	/// This method receives another line segment, and computes wheter they intersect each other or not.
+	/// This method calls base class' implementation.
+	/// </summary>
+	/// <param name="vBaseLineSegment">[IN] The segment to be compared to.</param>
+	/// <returns>
+	/// True if they intersect each other (or if they were coincident), false if they don't.
+	/// </returns>
+	inline bool Intersection (const QBaseLineSegment<QVector2>& vBaseLineSegment) const
+	{
+		return QLineSegment<QVector2>::Intersection(vBaseLineSegment);
+	}
+
+	/// <summary>
 	/// This method transforms the 2D segment by rotating an amount defined by a rotation angle. 
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
