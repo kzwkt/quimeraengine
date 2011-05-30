@@ -164,7 +164,7 @@ public:
             return QFloat::IsGreaterThan(fAngle, QAngle::_360) ? QAngle::_360 : fAngle;
         else
             // Negative angles
-            return QFloat::IsLowerThan(fAngle, -QAngle::_360) ? -QAngle::_360 : fAngle;
+            return QFloat::IsLessThan(fAngle, -QAngle::_360) ? -QAngle::_360 : fAngle;
     }
 
     /// <summary>
@@ -182,7 +182,7 @@ public:
             return QFloat::IsGreaterThan(fAngle, QAngle::_2Pi) ? QAngle::_2Pi : fAngle;
         else
             // Negative angles
-            return QFloat::IsLowerThan(fAngle, -QAngle::_2Pi) ? -QAngle::_2Pi : fAngle;
+            return QFloat::IsLessThan(fAngle, -QAngle::_2Pi) ? -QAngle::_2Pi : fAngle;
     }
 
     /// <summary>

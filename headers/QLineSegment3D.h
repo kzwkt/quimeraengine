@@ -108,7 +108,7 @@ public:
         if (QFloat::IsZero(distB)) 
             return true;
 
-        else if ( QFloat::IsLowerThan(distA * distB, QFloat::_0) )
+        else if ( QFloat::IsLessThan(distA * distB, QFloat::_0) )
             return true;
         else
             return false;
@@ -580,7 +580,7 @@ protected:
         vLine.CrossProduct(vP1 - vLine1, vCP1);
         vLine.CrossProduct(vP2 - vLine1, vCP2);
 
-        if ( QFloat::IsLowerThan(vCP1.DotProduct(vCP2), QFloat::_0) )
+        if ( QFloat::IsLessThan(vCP1.DotProduct(vCP2), QFloat::_0) )
             return false;
         else
             return true;

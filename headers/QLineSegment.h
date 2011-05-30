@@ -642,7 +642,7 @@ protected:
 	{
         return QFloat::IsGreaterThan(fFactor, fMax) ? 
                                                     fMax : 
-                                                    QFloat::IsLowerThan(fFactor, fMin) ? 
+                                                    QFloat::IsLessThan(fFactor, fMin) ? 
                                                                                         fMin : 
                                                                                         fFactor;
 	}

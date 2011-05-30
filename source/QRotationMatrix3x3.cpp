@@ -293,7 +293,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q
 {
     const float_q &diff = QFloat::_1 - QFloat::Epsilon;
 
-    if ( QFloat::IsLowerThan(this->ij[2][0], diff) )
+    if ( QFloat::IsLessThan(this->ij[2][0], diff) )
     {
         if ( QFloat::IsGreaterThan(this->ij[2][0], -diff )) 
         {
