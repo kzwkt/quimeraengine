@@ -150,7 +150,7 @@ public:
     inline static bool IsInfinite(const float_q &fValue)
     {
         // [REVIEW] Thund: Boost provides functions to check this
-        return QFloat::IsLowerThan(fValue, -QFloat::MaxFloat_Q) || QFloat::IsGreaterThan(fValue, QFloat::MaxFloat_Q);
+        return QFloat::IsLessThan(fValue, -QFloat::MaxFloat_Q) || QFloat::IsGreaterThan(fValue, QFloat::MaxFloat_Q);
     }
 
     /// <summary>
@@ -218,7 +218,7 @@ public:
     /// <returns>
     /// If the first value is lower than the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsLowerThan(const float_q &fLowerValue, const float_q &fReferenceValue)
+    inline static bool IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue)
     {
         // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
         return (fLowerValue - fReferenceValue) < -QFloat::Epsilon;
@@ -436,7 +436,7 @@ public:
     /// </returns>
     inline static bool IsNegative(const float_q &fValue)
     {
-        return QFloat::IsLowerThan(fValue, QFloat::_0);
+        return QFloat::IsLessThan(fValue, QFloat::_0);
     }
 
     /// <summary>
