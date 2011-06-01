@@ -69,7 +69,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QQuaternion() : QBaseQuaternion() {};
+    inline QQuaternion() {};
 
     /// <summary>
     /// Constructor that receives a base quaternion.

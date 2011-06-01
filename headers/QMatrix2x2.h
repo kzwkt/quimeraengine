@@ -71,7 +71,7 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QMatrix2x2() : QBaseMatrix2x2() { }
+    inline QMatrix2x2() { }
 
     /// <summary>
     /// Constructor from a 2x2 matrix.

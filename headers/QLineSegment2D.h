@@ -59,7 +59,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QLineSegment2D() : QLineSegment<QVector2>() { };
+	inline QLineSegment2D() { };
 
 	/// <summary>
     /// Constructor from two vectors.

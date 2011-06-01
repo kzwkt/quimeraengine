@@ -70,7 +70,7 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QMatrix3x3() : QBaseMatrix3x3() { }
+    inline QMatrix3x3() { }
 
     /// <summary>
     /// Constructor from a 3x3 matrix.

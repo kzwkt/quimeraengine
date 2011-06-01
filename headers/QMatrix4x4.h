@@ -72,7 +72,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QMatrix4x4() : QBaseMatrix4x4() { }
+	inline QMatrix4x4() { }
 
 	/// <summary>
 	/// Constructor from a 4x4 matrix.

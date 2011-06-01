@@ -96,7 +96,7 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QVector3() : QBaseVector3() { }
+    inline QVector3() { }
 
     /// <summary>
     /// Constructor from a 3D vector.

@@ -40,7 +40,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QLineSegment3D() : QLineSegment<VectorType>() { }
+    inline QLineSegment3D() { }
 
     /// <summary>
     /// Constructor from two vectors.

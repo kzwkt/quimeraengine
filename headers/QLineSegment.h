@@ -51,7 +51,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QLineSegment() : QBaseLineSegment<VectorType>() { }
+	inline QLineSegment() { }
 
 	/// <summary>
     /// Constructor from two vectors.
