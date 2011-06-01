@@ -43,7 +43,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QVector2() : QBaseVector2() { }
+	inline QVector2() { }
 
 	/// <summary>
 	/// Constructor from a 2D vector.

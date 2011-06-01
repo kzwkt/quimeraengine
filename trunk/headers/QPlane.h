@@ -71,7 +71,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    QPlane() : QBasePlane() { }
+    QPlane() { }
 
     /// <summary>
     /// Constructor from a plane.

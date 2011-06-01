@@ -108,7 +108,7 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QVector4() : QBaseVector4() { }
+    inline QVector4() { }
 
     /// <summary>
     /// Constructor from a QBaseVector4.

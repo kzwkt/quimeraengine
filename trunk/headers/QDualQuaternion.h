@@ -64,7 +64,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QDualQuaternion() : QBaseDualQuaternion() { }
+    inline QDualQuaternion() { }
 
     /// <summary>
     /// Constructor that receives a base dual quaternion.
