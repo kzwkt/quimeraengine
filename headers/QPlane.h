@@ -6,6 +6,10 @@
 #include "EQIntersections.h"
 #include "EQSpaceRelation.h"
 #include "QBasePlane.h"
+#include "QTransformationMatrix.h"
+#include "QSpaceConversionMatrix.h"
+#include "QTranslationMatrix.h"
+#include "QVector3.h"
 
 namespace Kinesis
 {
@@ -326,7 +330,7 @@ public:
         const float_q &fDotLength = sqrt(this->GetSquaredLength() * v.GetSquaredLength());
       
         // Checkout to avoid division by zero.        
-        QE_ASSERT(fDotLength != QFloat::0);
+        QE_ASSERT(fDotLength != QFloat::_0);
 
         const float_q &fDot = this->DotProduct(v)/fDotLength;
 
@@ -378,7 +382,7 @@ public:
     {
         const float_q &fSquaredLength = this->GetSquaredLength();
 
-        QE_ASSERT(fSquaredLength != QFloat::0);
+        QE_ASSERT(fSquaredLength != QFloat::_0);
 
         const float_q &fProj = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d) / fSquaredLength;
 
@@ -447,7 +451,7 @@ public:
     {
         const float_q &fLength = this->GetLength();
 
-        QE_ASSERT(fLength != QFloat::0);
+        QE_ASSERT(fLength != QFloat::_0);
 
         return abs(this->a * v.x + this->b * v.y + this->c * v.z + this->d)/fLength;
     }
@@ -535,30 +539,235 @@ public:
     /// <returns>
     /// An enumerated value like follows: E_Contained, E_PositiveSide, E_NegativeSide.
     /// </returns>
-    EQSpaceRelation SpaceRelation(const QBasePlane &p) const
+    EQSpaceRelation SpaceRelation(const QBasePlane &p) const;
+    
+    /// <summary>
+    /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
+    /// remaining unchanged the distance from the plane to the origin.
+    /// </summary>
+    /// <param name="m">[IN] A [3x3] matrix containing the rotation to be applied.</param>
+    inline void Transform(const QRotationMatrix3x3 &m)
     {
-        // Cross product.
-        if (QFloat::IsZero(p.b*this->c - p.c*this->b) && 
-            QFloat::IsZero(p.c*this->a - p.a*this->c) && 
-            QFloat::IsZero(p.a*this->b - p.b*this->a))
-        {
+        QVector3 vAux;
 
-            QPlane plAux1(p), plAux2(*this);
+        this->GetNormal(vAux);
 
-            plAux1.Normalize();
-            plAux2.Normalize();
+        vAux.Transform(m);
 
-            // They are the same plane.
-            if (plAux1 == plAux2)
-                return EQSpaceRelation::E_Contained;
-            // They are parallel planes.
-            else if (QFloat::IsNegative(plAux1.d - plAux2.d))
-                return EQSpaceRelation::E_NegativeSide;
-            else
-                return EQSpaceRelation::E_PositiveSide;
-        }
-        else
-            return EQSpaceRelation::E_BothSides; 
+        this->a = vAux.x;
+        this->b = vAux.y;
+        this->c = vAux.z;
+    }
+
+    /// <summary>
+    /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
+    /// remaining unchanged the distance from the plane to the origin. 
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="m">[IN] A [3x3] matrix containing the rotation to be applied.</param>
+    /// <param name="pOut">[OUT] The rotated plane.</param>
+    inline void Transform(const QRotationMatrix3x3 &m, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Transform(m);
+    }
+
+    /// <summary>
+    /// Applies a scale to the resident plane. The direction vector may become denormalized.
+    /// </summary>
+    /// <param name="m">[IN] A [3x3] matrix containing the scale to be applied.</param>
+    inline void Transform(const QScaleMatrix3x3 &m)
+    {
+        QE_ASSERT(m.ij[0][0] != QFloat::_0 && m.ij[1][1] != QFloat::_0 && m.ij[2][2] != QFloat::_0);
+
+        this->a /= m.ij[0][0];
+        this->b /= m.ij[1][1];
+        this->c /= m.ij[2][2];
+    }
+
+    /// <summary>
+    /// Applies a scale to the resident plane. The direction vector may become denormalized.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="m">[IN] A [3x3] matrix containing the scale to be applied.</param>
+    /// <param name="pOut">[OUT] The scaled plane.</param>
+    inline void Transform(const QScaleMatrix3x3 &m, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Transform(m);
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the translation applied.
+    /// </summary>
+    /// <param name="m">[IN] A [4x3] matrix containing the translation to be applied.</param>
+    inline void Transform(const QTranslationMatrix4x3 &m)
+    {
+        this->d -= this->a*m.ij[3][0] + this->b*m.ij[3][1] + this->c*m.ij[3][2];     
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the translation applied.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="m">[IN] A [4x3] matrix containing the translation to be applied.</param>
+    /// <param name="pOut">[OUT] The translated plane.</param>
+    inline void Transform(const QTranslationMatrix4x3 &m, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Transform(m);
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the translation applied.
+    /// </summary>
+    /// <param name="m">[IN] A [4x4] matrix containing the translation to be applied.</param>
+    inline void Transform(const QTranslationMatrix4x4 &m)
+    {
+        this->d -= this->a*m.ij[3][0] + this->b*m.ij[3][1] + this->c*m.ij[3][2];     
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the translation applied.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="m">[IN] A [4x4] matrix containing the translation to be applied.</param>
+    /// <param name="pOut">[OUT] The translated plane.</param>
+    inline void Transform(const QTranslationMatrix4x4 &m, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Transform(m);
+    }
+
+    /// <summary>
+    /// Applies a transformation to the resident plane.
+    /// </summary>
+    /// <param name="m">[IN] A [4x3] matrix containing the transformation to be applied.</param>
+    inline void Transform(const QTransformationMatrix4x3 &m)
+    {
+        QMatrix4x4 mAux(m.ij[0][0], m.ij[0][1], m.ij[0][2], QFloat::_0,
+                        m.ij[1][0], m.ij[1][1], m.ij[1][2], QFloat::_0,
+                        m.ij[2][0], m.ij[2][1], m.ij[2][2], QFloat::_0,
+                        m.ij[3][0], m.ij[3][1], m.ij[3][2], QFloat::_1);
+               
+        reinterpret_cast <QTransformationMatrix4x4 &>(mAux).Reverse();
+       
+        // The product is implemented using the transpose of m
+        QBasePlane pAux(this->a*mAux.ij[0][0] + this->b*mAux.ij[0][1] + this->c*mAux.ij[0][2],
+                        this->a*mAux.ij[1][0] + this->b*mAux.ij[1][1] + this->c*mAux.ij[1][2],
+                        this->a*mAux.ij[2][0] + this->b*mAux.ij[2][1] + this->c*mAux.ij[2][2],
+                        this->a*mAux.ij[3][0] + this->b*mAux.ij[3][1] + this->c*mAux.ij[3][2] + this->d);
+
+        *this = pAux;
+    }
+
+    /// <summary>
+    /// Applies a transformation to the resident plane.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="m">[IN] A [4x3] transformation matrix.</param>
+    /// <param name="pOut">[OUT] The transformed plane.</param>
+    inline void Transform(const QTransformationMatrix4x3 &m, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Transform(m);
+    }
+
+    /// <summary>
+    /// Applies a transformation to the resident plane.
+    /// </summary>
+    /// <param name="m">[IN] A [4x4] matrix containing the transformation to be applied.</param>
+    inline void Transform(const QTransformationMatrix4x4 &m)
+    {
+        QTransformationMatrix4x4 mAux;
+
+        m.Reverse(mAux);
+
+        // The product is implemented using the transpose of m
+        QBasePlane pAux(this->a*mAux.ij[0][0] + this->b*mAux.ij[0][1] + this->c*mAux.ij[0][2],
+                        this->a*mAux.ij[1][0] + this->b*mAux.ij[1][1] + this->c*mAux.ij[1][2],
+                        this->a*mAux.ij[2][0] + this->b*mAux.ij[2][1] + this->c*mAux.ij[2][2],
+                        this->a*mAux.ij[3][0] + this->b*mAux.ij[3][1] + this->c*mAux.ij[3][2] + this->d);
+
+        *this = pAux;
+    }
+
+    /// <summary>
+    /// Applies a transformation to the resident plane.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="m">[IN] A [4x3] transformation matrix.</param>
+    /// <param name="pOut">[OUT] The transformed plane.</param>
+    inline void Transform(const QTransformationMatrix4x4 &m, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Transform(m);
+    }
+
+    /// <summary>
+    /// Applies the transformation contained in a space conversion matrix to the resident plane.
+    /// </summary>
+    /// <param name="m">[IN] A [4x4] space conversion matrix containing the transformation to be applied.</param>
+    inline void Transform(const QSpaceConversionMatrix &m)
+    {
+        QMatrix4x4 mAux;
+
+        reinterpret_cast<const QMatrix4x4 &>(m).Reverse(mAux);
+
+        // The product is implemented using the transpose of m
+        QBasePlane pAux(this->a*mAux.ij[0][0] + this->b*mAux.ij[0][1] + this->c*mAux.ij[0][2] + this->d*mAux.ij[0][3],
+                        this->a*mAux.ij[1][0] + this->b*mAux.ij[1][1] + this->c*mAux.ij[1][2] + this->d*mAux.ij[1][3],
+                        this->a*mAux.ij[2][0] + this->b*mAux.ij[2][1] + this->c*mAux.ij[2][2] + this->d*mAux.ij[2][3],
+                        this->a*mAux.ij[3][0] + this->b*mAux.ij[3][1] + this->c*mAux.ij[3][2] + this->d*mAux.ij[3][3]);
+
+        *this = pAux;
+    }
+
+    /// <summary>
+    /// Applies a transformation to the resident plane.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="m">[IN] A [4x4] transformation matrix.</param>
+    /// <param name="pOut">[OUT] The transformed plane.</param>
+    inline void Transform(const QSpaceConversionMatrix &m, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Transform(m);
+    }
+
+    /// <summary>
+    /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
+    /// remaining unchanged the distance from the plane to the origin.
+    /// </summary>
+    /// <param name="q">[IN] A quaternion containing the rotation to be applied.</param>
+    inline void Transform(const QQuaternion &q)
+    {
+        QVector3 vAux;
+
+        this->GetNormal(vAux);
+
+        vAux.Transform(q);
+
+        this->a = vAux.x;
+        this->b = vAux.y;
+        this->c = vAux.z;
+    }
+
+    /// <summary>
+    /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
+    /// remaining unchanged the distance from the plane to the origin.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="q">[IN] A quaternion containing the rotation to be applied.</param>
+    /// <param name="pOut">[OUT] The rotated plane.</param>
+    inline void Transform(const QQuaternion &q, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Transform(q);
     }
 
     /// <summary>
