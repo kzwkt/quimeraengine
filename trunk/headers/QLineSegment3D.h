@@ -394,7 +394,7 @@ public:
     /// <param name="q">[IN] The quaternion which contains the rotation.</param>
     inline void Transform(const QQuaternion &q)
     {
-        this->B -= This->A;
+        this->B -= this->A;
         
         this->B.Transform(q);
 
