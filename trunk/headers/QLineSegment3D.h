@@ -444,6 +444,34 @@ public:
     }
 
     /// <summary>
+    /// Transforms the resident line segment with a transformation of types rotation, scale, translation, 
+    /// generic transformation or space conversion transformation contained in the matrix provided, acting
+    /// the coordinate origin as pivot.
+    /// </summary>
+    /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
+    template <class MatrixType>
+    inline void Transform (const MatrixType &m)
+    {
+        this->A.Transform(m);
+        this->B.Transform(m);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment with a transformation of types rotation, scale, translation, 
+    /// generic transformation or space conversion transformation contained in the matrix provided, acting
+    /// the coordinate origin as pivot.
+    /// The resultant line segment is stored in the line segment provided.
+    /// </summary>
+    /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
+    /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
+    template <class MatrixType>
+    inline void Transform (const MatrixType &m, QBaseLineSegment<VectorType> &ls) const
+    {
+        ls = *this;
+        reinterpret_cast<QLineSegment3D<VectorType> &> (ls).Transform(m);
+    }
+
+    /// <summary>
     /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
     /// the center point of the line segment as pivot of rotation.
     /// </summary>
@@ -507,6 +535,42 @@ public:
     {
         ls = *this;
         ls.TransformFromCenter(dq);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment with a transformation of types rotation, scale, translation, 
+    /// generic transformation or space conversion transformation contained in the matrix provided, acting
+    /// the point provided as pivot.
+    /// </summary>
+    /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] A 3D or 4D point we want to act as pivot of transformation.</param>
+    template <class MatrixType>
+    inline void TransformFromPivot (const MatrixType &m, const VectorType &vPivot)
+    {
+        this->A -= vPivot;
+        this->B -= vPivot;
+
+        this->A.Transform(m);
+        this->B.Transform(m);
+
+        this->A += vPivot;
+        this->B += vPivot;
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment with a transformation of types rotation, scale, translation, 
+    /// generic transformation or space conversion transformation contained in the matrix provided, acting
+    /// the point provided as pivot.
+    /// The resultant line segment is stored in the line segment provided.
+    /// </summary>
+    /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] A 3D or 4D point we want to act as pivot of transformation.</param>
+    /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
+    template <class MatrixType>
+    inline void TransformFromPivot (const MatrixType &m, const VectorType &vPivot, QBaseLineSegment<VectorType> &ls) const
+    {
+        ls = *this;
+        reinterpret_cast<QLineSegment3D<VectorType> &> (ls).TransformFromPivot(m, vPivot);
     }
 
     /// <summary>
