@@ -13,7 +13,7 @@
 </tr>
 <tr>
 <td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/roadmap.jpg]</td>
-<td>[DetaildeRoadmap Detailed Roadmap]</td>
+<td>[DetailedRoadmap Detailed Roadmap]</td>
 </tr>
 <tr>
 <td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/currentstate.jpg]</td>
