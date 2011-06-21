@@ -30,6 +30,26 @@ Este paso puede hacerse antes del commit, añadiendo los archivos y luego ignor�
 
 El *comentario de las subidas* tendrá el formato siguiente: _Nº de tarea - Título de la tarea <salto de línea> Descripción breve de lo que se ha hecho._
 
+== Tratamiento de errores encontrados durante el Desarrollo ==
+
+<p align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/ProcesoTrabajoErrores.png]</p>
+<br/>
+ # Se identifica la causa del supuesto error.
+ # Se crea un hilo en el foro, en la sección _Errores encontrados durante el desarrollo_.
+ # Se discute si se trata efectivamente de un error y si, en tal caso, debe acometerse directamente o tendrá mayores efectos.
+ # a `[`Sí`]`: Se decide qué hacer con él.
+ # b `[`No`]`: Se cierra el hilo.
+ # Se corrige.
+ # Se comenta la solución dada y se confirma que es la debida y que no tendrá efectos colaterales.
+ # a `[`Correcto`]`: Se cierra el hilo. _Update_ y _Commit_.
+ # b `[`Incorrecto`]`: Se busca una solución correcta o alternativa.
+
+== Nota ==
+
+Cuando se identifique un error, es recomendable hacer un _Update_, por si ya ha sido corregido en la revisión actual.
+
+El *comentario de las subidas* tendrá el formato siguiente: _Error: Descripción muy corta <salto de línea> Descripción breve de lo que se ha hecho._
+
 == Etapas por cada fase ==
 
 Cada fase tiene un propósito determinado o se dedica a un campo del proyecto concreto (infraestructura, gráficos, comunicaciones, integración, rencimiento, etc.) y, a su vez, atraviesa varias etapas de producción siguiendo la siguiente secuencia:
