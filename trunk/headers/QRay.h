@@ -49,7 +49,7 @@ public:
     /// Constructor that receives a ray.
     /// </summary>
     /// <param name="baseRay">[IN] An existing ray.</param>
-    inline QRay(const QBaseRay<VectorTypePoint, VectorTypeDirection>& baseRay) : (baseRay)
+    inline QRay(const QBaseRay<VectorTypePoint, VectorTypeDirection>& baseRay) : QBaseRay<VectorTypePoint, VectorTypeDirection>(baseRay)
     {
     }
 
@@ -58,7 +58,7 @@ public:
     /// </summary>
     /// <param name="vPoint">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
-    inline QRay(const VectorTypePoint &vPoint, const VectorTypeDirection &vDirection) : (vPoint, vDirection)
+    inline QRay(const VectorTypePoint &vPoint, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypePoint, VectorTypeDirection>(vPoint, vDirection)
     {
     }
 
