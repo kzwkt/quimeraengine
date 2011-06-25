@@ -30,12 +30,13 @@ QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionM
 {
     QSpaceConversionMatrix aux;
 
-    aux = reinterpret_cast<QSpaceConversionMatrix&>( reinterpret_cast<const QMatrix4x4&> (*this) * reinterpret_cast<const QMatrix4x4&>(m) );
+    // [REVIEW] Thund: Esto debe mejorarse:
+    aux = *reinterpret_cast<QSpaceConversionMatrix*>( &(*reinterpret_cast<const QMatrix4x4*> (this) * *reinterpret_cast<const QMatrix4x4*>(&m)) );
 
     return aux;
 }
 
-QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &m) 
+QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &m)
 {
     reinterpret_cast<QMatrix4x4&>(*this) *= reinterpret_cast<const QMatrix4x4 &>(m);
     return *this;
@@ -55,7 +56,7 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector4 &vDisp, cons
     *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix4x4 &mDisp, const QTransformationMatrix4x4 &mRot, 
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix4x4 &mDisp, const QTransformationMatrix4x4 &mRot,
     const QTransformationMatrix4x4 &mScale)
 {
     this->ij[0][0] = mScale.ij[0][0]*mRot.ij[0][0];
@@ -79,7 +80,7 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix4x4 
     this->ij[3][3] = QFloat::_1;
 }
 
-void QSpaceConversionMatrix::SetViewSpaceMatrix(const QBaseVector3 &vPointOfView, const QBaseVector3 &vTarget, 
+void QSpaceConversionMatrix::SetViewSpaceMatrix(const QBaseVector3 &vPointOfView, const QBaseVector3 &vTarget,
     const QBaseVector3 &vUpDirection)
 {
     QVector3 vZAxis(vTarget.x - vPointOfView.x, vTarget.y - vPointOfView.y, vTarget.z - vPointOfView.z);
@@ -113,7 +114,7 @@ void QSpaceConversionMatrix::SetViewSpaceMatrix(const QBaseVector3 &vPointOfView
     this->ij[3][3] = QFloat::_1;
 }
 
-void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane, 
+void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
         const float_q &fAspectRatio, const float_q &fVerticalFOV)
 {
     QE_ASSERT(QFloat::AreNotEquals(fNearClipPlane, fFarClipPlane));
@@ -153,10 +154,10 @@ void QSpaceConversionMatrix::SwitchHandConventionViewSpaceMatrix()
     QVector3 vAux;
 
     QVector3 vZAxis(-this->ij[0][2], -this->ij[1][2], -this->ij[2][2]);
-        
+
     QVector3 vXAxis(vUp);
     vXAxis.CrossProduct(vZAxis);
-        
+
     QVector3 vYAxis(vZAxis);
     vYAxis.CrossProduct(vXAxis);
 
