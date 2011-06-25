@@ -232,13 +232,13 @@ public:
 
     /// <summary>
     /// Multiplies a 3x3 matrix by the current matrix.
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
     /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
     /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
-    /// 
+    ///
     /// \f$ A x B = C \f$
-    /// 
+    ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
     /// </summary>
@@ -251,7 +251,7 @@ public:
     /// </returns>
 	inline QRotationMatrix3x3 operator*(const QBaseMatrix3x4& m) const
 	{
-		return reinterpret_cast<QRotationMatrix3x3&>(QMatrix3x3::operator*(m));
+		return *reinterpret_cast<QRotationMatrix3x3*>(&QMatrix3x3::operator*(m));
 	}
 
     /// <summary>
@@ -264,7 +264,7 @@ public:
     /// </returns>
     inline QRotationMatrix3x3 operator*(const QBaseMatrix3x3 &m)
 	{
-		reinterpret_cast<QRotationMatrix3x3&>(QMatrix3x3::operator*(m));
+		return *reinterpret_cast<QRotationMatrix3x3*>(&QMatrix3x3::operator*(m));
 	}
 
 
@@ -277,7 +277,7 @@ public:
     /// </returns>
     inline QRotationMatrix3x3 operator*(const float_q &fScalar) const
 	{
-		return reinterpret_cast<QRotationMatrix3x3&>(QMatrix3x3::operator*(fScalar));
+		return *reinterpret_cast<QRotationMatrix3x3*>(&QMatrix3x3::operator*(fScalar));
 	}
 
     /// <summary>
@@ -302,12 +302,12 @@ public:
     /// </returns>
     inline QRotationMatrix3x3& operator=(const QMatrix3x3 &m)
     {
-        reinterpret_cast<QMatrix3x3&>(*this) = m;    
+        reinterpret_cast<QMatrix3x3&>(*this) = m;
         return *this;
     }
 
     /// <summary>
-    /// Reverse of the matrix. In the case of rotation matrices, the transpose is guaranteed 
+    /// Reverse of the matrix. In the case of rotation matrices, the transpose is guaranteed
     /// to be the inverse of the matrix. So, it's faster than base class method.
     /// </summary>
     inline void Reverse()

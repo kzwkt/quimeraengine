@@ -19,7 +19,7 @@ namespace Math
 
 /// <summary>
 /// Class which represents a chunk (segment) of straight line in the space, defined by two endpoints A and B.
-/// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter, 
+/// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter,
 /// which may be 2D vector, 3D vector or 4D vector.
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below).
@@ -27,6 +27,14 @@ namespace Math
 template <class VectorType>
 class QDllExport QLineSegment : public QBaseLineSegment<VectorType>
 {
+
+    // BASE CLASS USINGS
+    // -------------------
+public:
+
+    using QBaseLineSegment<VectorType>::A;
+    using QBaseLineSegment<VectorType>::B;
+
 
     // CONSTANTS
     // ---------------
@@ -64,7 +72,7 @@ public:
     /// Constructor from a line segment.
     /// </summary>
     /// <param name="segmt">[IN] Line segment containing the two endpoints.</param>
-	inline explicit QLineSegment (const QBaseLineSegment<VectorType>& segmt) : A(segmt.A), B(segmt.B) { }
+	inline explicit QLineSegment (const QBaseLineSegment<VectorType>& segmt) : QBaseLineSegment<VectorType>(segmt) { }
 
 
 	// METHODS
@@ -80,7 +88,7 @@ public:
 	/// </returns>
     inline QLineSegment& operator=(const QBaseLineSegment<VectorType>& segmt)
     {
-        reinterpret_cast<QBaseLineSegment<VectorType>&>(*this) = segmt;    
+        reinterpret_cast<QBaseLineSegment<VectorType>&>(*this) = segmt;
         return *this;
     }
 
@@ -138,7 +146,7 @@ public:
  	{
 		// Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
-		VectorType v1		   = B - A;									 
+		VectorType v1		   = B - A;
 	    VectorType v2		   = segmt.B - segmt.A;
 
         float_q fSqrLengthProd = v1.GetSquaredLength() * v2.GetSquaredLength();
@@ -147,11 +155,11 @@ public:
 		{
 			// CASE 1)
 			// Either S1 or S2 (or both) degenerates into a point --> Intersections: None or One.
-			// 
+			//
 			// In this case, just compute the closests points between the segments.
 			//	 -If they result to be the same point at last, there's
 			//    an intersection, and that point is the point of intersection.
-			// 
+			//
 			VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
 			this->GetClosestPoints(segmt, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
 
@@ -241,7 +249,7 @@ public:
 				// CASE 3)
 				// In this case, the situation is as follows:
 				//
-				//  -The lines containing the segments are PARALLEL between themselves, so do the segments --> NO intersections. 
+				//  -The lines containing the segments are PARALLEL between themselves, so do the segments --> NO intersections.
 				// OR
 				//  -Both segments lie on the SAME line, so there can be:
 				//
@@ -250,7 +258,7 @@ public:
 				//     -Infinite intersection points.
 				//
 				//   It may depend of the situation, more info provided below on the walk.
-				
+
 				float_q fMinDistance = this->MinDistance(segmt);
 
 				if ( QFloat::IsNotZero(fMinDistance) ) // fMinDistance always nonnegative --> fMinDistance > 0
@@ -261,7 +269,7 @@ public:
 					//
 					//						Anyway, NO intersections.
 
-					return EQIntersections::E_None; 
+					return EQIntersections::E_None;
 				}
 				else // 0 == fMinDistance, Intersection Points: One OR Infinite.
 				{
@@ -387,7 +395,7 @@ public:
 	{
 		// Just compute the closests points between the segments, and return
 		// the distance between them; that is the minimum distance.
-		// 
+		//
 		// Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
 		VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
@@ -405,7 +413,7 @@ public:
 	/// A floating point value (always nonnegative) which represents the minimum distance between point and segment.
 	/// </returns>
 	float_q MinDistance (const VectorType& vPoint) const
-	{	
+	{
 		if (A != B)
 		{
 			// STEP 0) v1 = B - A, v2 = vPoint - A
@@ -427,7 +435,7 @@ public:
 			else
 			{
 				fDotProductv1v1 = v1.DotProduct(v1);
-				
+
                 if ( QFloat::IsGreaterOrEquals(fDotProductv1v2, fDotProductv1v1) )
 				{
 					return ( (vPoint - B).GetLength() );
@@ -436,7 +444,7 @@ public:
 				{
 					// Checkout to avoid division by 0
 					QE_ASSERT (fDotProductv1v1 != QFloat::_0);
-					
+
 					return ((A + ((fDotProductv1v2 / fDotProductv1v1) * v1)) - vPoint).GetLength();
 				}
 
@@ -445,7 +453,7 @@ public:
 		else
 		{
 			return (vPoint - B).GetLength(); // (vPoint - A) could have been used as well.
-		}	
+		}
 	}
 
 	/// <summary>
@@ -456,7 +464,7 @@ public:
 	/// <returns>
 	/// A floating point value (always nonnegative) which represents the maximum distance between the two segments.
 	/// </returns>
-	inline float_q MaxDistance (const QBaseLineSegment& segmt) const
+	inline float_q MaxDistance (const QBaseLineSegment<VectorType>& segmt) const
 	{
 		// STEP 1) Compute Maximum distance from endpoint A (belonging to the parameter) to this segment.
 		// STEP 2) Compute Maximum distance from endpoint B (belonging to the parameter) to this segment.
@@ -466,11 +474,7 @@ public:
 		// STEP 3) Maximum distance between the segments = maximum distance between their farthest endpoints.
 		//												 = the longer distance between the maximum distances from endpoints
 		//												   of the segment passed by parameter to this segment.
-<<<<<<< .mine
         return QFloat::IsGreaterThan(fMaxDistance_segmtA_This, fMaxDistance_segmtB_This) ? fMaxDistance_segmtA_This : fMaxDistance_segmtB_This;
-=======
-        return QFloat::IsGreaterThan(fMaxDistance_vBLSA_This, fMaxDistance_vBLSB_This) ? fMaxDistance_vBLSA_This : fMaxDistance_vBLSB_This;
->>>>>>> .r716
 	}
 
 	/// <summary>
@@ -490,9 +494,9 @@ public:
 		//		   else
 		//		   STEP 1) v1 = B - A, v2 = vPoint - A
 		//		   STEP 2) if ( DotProduct(v1, v2) <= 0 ) --> Angle(v1, v2) >= (PI / 2) --> vPoint is closer to A, MaxDistance = Length(vPoint - B)
-		//				   else		
+		//				   else
 		//				   STEP 3) if ( DotProduct (v1, v2) >= DotProduct(v1, v1) ) --> vPoint is closer to B, MaxDistance = Length(v2)
-		//						   else		
+		//						   else
 		//						   STEP 4) ProjectionOverAB(vPoint) falls into the segment, so:
 		//								   MaxDistance = Biggest( Distance(vPoint,A) , Distance(vPoint,B) )
 		if ( QFloat::IsNotZero(this->MinDistance(vPoint)) )
@@ -510,14 +514,14 @@ public:
 			else
 			{
 				fDotProductv1v1 = v1.DotProduct(v1);
-				
+
                 if ( QFloat::IsGreaterOrEquals(fDotProductv1v2, fDotProductv1v1) )
 
-				{			
+				{
 					return v2.GetLength();
 				}
 				else
-				{	
+				{
 					float_q fDistancePointToA = v2.GetLength();
 					float_q fDistancePointToB = v3.GetLength();
 
@@ -605,7 +609,7 @@ public:
 		{
 			// If Lengthening Factor == 0, just reduce the endpoints to B.
 			if ( QFloat::AreEquals(fLengtheningFactor, QFloat::_0) )
-			{			
+			{
 				A = B;
 			}
 			else // Lengthen from B --> Compute the new A.
@@ -640,10 +644,10 @@ protected:
 	/// </returns>
 	float_q ClampFactor (const float_q& fFactor, const float_q& fMin, const float_q& fMax) const
 	{
-        return QFloat::IsGreaterThan(fFactor, fMax) ? 
-                                                    fMax : 
-                                                    QFloat::IsLessThan(fFactor, fMin) ? 
-                                                                                        fMin : 
+        return QFloat::IsGreaterThan(fFactor, fMax) ?
+                                                    fMax :
+                                                    QFloat::IsLessThan(fFactor, fMin) ?
+                                                                                        fMin :
                                                                                         fFactor;
 	}
 
@@ -671,7 +675,7 @@ protected:
 		//												S2(fSFactor2) = (segmt.A + (fSFactor2 * v2))
 		float_q	   fSFactor1  = QFloat::_0;
 		float_q	   fSFactor2  = QFloat::_0;
-		VectorType v1		  = B - A;									 
+		VectorType v1		  = B - A;
 	    VectorType v2		  = segmt.B - segmt.A;
 
 		// STEP 1) Precomputing intermediate values for solving s and t.
@@ -701,25 +705,25 @@ protected:
 				fSFactor2 = this->ClampFactor( (fDotProdv2vTails / fSqrLengthv2), QFloat::_0, QFloat::_1 );
 		    }
 			else
-			{	
+			{
 		        float_q fDotProdv1vTails = v1.DotProduct(vTails);
-	
+
 		        if (QFloat::IsZero(fSqrLengthv2))
 				{
 		            // S2 (the parameter) degenerates into a point;
 					// fSFactor2 = 0 --> fSFactor1 = (((fDotProdv1v2 * fSFactor2) - fDotProdv1vTails) / fSqrLengthv1) = (-fDotProdv1vTails / fSqrLengthv1)
-	
+
 					// Checkout to avoid division by 0
 					QE_ASSERT(fSqrLengthv1 != QFloat::_0);
 					fSFactor1 = this->ClampFactor( (-fDotProdv1vTails / fSqrLengthv1), QFloat::_0, QFloat::_1 );
 		        }
 				else
-				{		
+				{
 		            // Length of both segments are > 0;
 					// STEP 3) Compute values for fSFactor1 and fSFactor2
 					//
 		            float_q fDotProdv1v2 = v1.DotProduct(v2);
-		            float_q fDenom       = (fSqrLengthv1 * fSqrLengthv2) - (fDotProdv1v2 * fDotProdv1v2); // Always nonnegative: 
+		            float_q fDenom       = (fSqrLengthv1 * fSqrLengthv2) - (fDotProdv1v2 * fDotProdv1v2); // Always nonnegative:
 																								      //	fDenom == 0 --> S1 || S2;
 																								      //	fDenom >  0 --> S1 not || S2
 					// STEP 3.1)
@@ -749,16 +753,16 @@ protected:
 					if (QFloat::IsNegative(fNom))
 					{
 						fSFactor2 = QFloat::_0;
-	
+
 						// Checkout to avoid division by 0
 						QE_ASSERT(fSqrLengthv1 != QFloat::_0);
-	
+
 						fSFactor1 = this->ClampFactor( (-fDotProdv1vTails / fSqrLengthv1), QFloat::_0, QFloat::_1);
 					}
 					else if (fNom > fSqrLengthv2)
 					{
 						fSFactor2 = QFloat::_1;
-	
+
 						// Checkout to avoid division by 0
 						QE_ASSERT(fSqrLengthv1 != QFloat::_0);
 						fSFactor1 = this->ClampFactor( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), QFloat::_0, QFloat::_1);
@@ -767,9 +771,9 @@ protected:
 					{
 						// Checkout to avoid division by 0
 						QE_ASSERT(fSqrLengthv2 != QFloat::_0);
-	
+
 						fSFactor2 = fNom / fSqrLengthv2;
-					}			
+					}
 		        }
 		    }
 

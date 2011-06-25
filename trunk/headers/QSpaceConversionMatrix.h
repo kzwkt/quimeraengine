@@ -21,8 +21,8 @@ namespace Math
 {
 
 /// <summary>
-/// Class representing a matrix which symbolizes coordinate system transformations. It adds functionality 
-/// to change to view, projection and world spaces. 
+/// Class representing a matrix which symbolizes coordinate system transformations. It adds functionality
+/// to change to view, projection and world spaces.
 /// </summary>
 class QDllExport QSpaceConversionMatrix : public QMatrix4x4
 {
@@ -35,14 +35,14 @@ public:
     /// </summary>
     inline QSpaceConversionMatrix()
     {
-        this->ResetToIdentity();  
+        this->ResetToIdentity();
     }
 
     /// <summary>
     /// Constructor from a matrix.
     /// </summary>
     /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a transformation matrix, 
+    /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="m">[IN] The matrix in which we want the resident matrix to be based.</param>
@@ -67,10 +67,10 @@ public:
     /// <param name="f31">[IN] Floating point value for element of row 3, column 1.</param>
     /// <param name="f32">[IN] Floating point value for element of row 3, column 2.</param>
     /// <param name="f33">[IN] Floating point value for element of row 3, column 3.</param>
-    inline QSpaceConversionMatrix(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03, 
-                                  const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13, 
-                                  const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23, 
-                                  const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33) : 
+    inline QSpaceConversionMatrix(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
+                                  const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
+                                  const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
+                                  const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33) :
 
                         QMatrix4x4(f00, f01, f02, f03, f10, f11, f12, f13, f20, f21, f22, f23, f30, f31, f32, f33) { }
 
@@ -78,7 +78,7 @@ public:
     /// Constructor that receives a pointer to 16 floating point values.
     /// </summary>
     /// <remarks>
-    /// Keeps the convention rows x columns, so each chunck of 4 consecutive elements 
+    /// Keeps the convention rows x columns, so each chunck of 4 consecutive elements
     /// corresponds to a row, where each element in the chunck is the column in the row.
     /// </remarks>
     /// <param name="pfMatrix">[IN] Pointer to a 16 length array of floating point values.</param>
@@ -91,7 +91,7 @@ public:
     /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
-    inline QSpaceConversionMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) : 
+    inline QSpaceConversionMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
         QMatrix4x4(row0, row1, row2, row3) { }
 
 
@@ -112,7 +112,7 @@ public:
     /// The resultant matrix.
     /// </returns>
     QSpaceConversionMatrix operator*(const QSpaceConversionMatrix &m) const;
-    
+
     // Assign operators
 
     /// <summary>
@@ -136,7 +136,7 @@ public:
     /// </returns>
 	inline QSpaceConversionMatrix operator*(const QBaseMatrix4x4& m) const
 	{
-		return  reinterpret_cast<QSpaceConversionMatrix&>(QMatrix4x4::operator*(m));
+		return *reinterpret_cast<QSpaceConversionMatrix*>(&QMatrix4x4::operator*(m));
 	}
 
 	/// <summary>
@@ -151,7 +151,7 @@ public:
     /// </returns>
 	inline QSpaceConversionMatrix& operator*=(const QBaseMatrix4x4 &m)
 	{
-		return  reinterpret_cast<QSpaceConversionMatrix&>(QMatrix4x4::operator*=(m));
+		return *reinterpret_cast<QSpaceConversionMatrix*>(&QMatrix4x4::operator*=(m));
 	}
 
 	/// <summary>
@@ -163,7 +163,7 @@ public:
 	/// </returns>
 	inline QSpaceConversionMatrix& operator*=(const float_q &fScalar)
     {
-		return  reinterpret_cast<QSpaceConversionMatrix&>(QMatrix4x4::operator*=(fScalar));
+		return *reinterpret_cast<QSpaceConversionMatrix*>(&QMatrix4x4::operator*=(fScalar));
     }
 
 	/// <summary>
@@ -175,7 +175,7 @@ public:
 	/// </returns>
 	inline QSpaceConversionMatrix operator*(const float_q &fScalar) const
 	{
-		return reinterpret_cast<QSpaceConversionMatrix&>(QMatrix4x4::operator*(fScalar));
+		return *reinterpret_cast<QSpaceConversionMatrix*>(&QMatrix4x4::operator*(fScalar));
 	}
 
 	/// <summary>
@@ -199,7 +199,7 @@ public:
 	/// </returns>
 	inline QMatrix4x3 operator*(const QBaseMatrix4x3 &m) const
 	{
-		return reinterpret_cast<QMatrix4x3&>(QMatrix4x4::operator*(m));
+		return *reinterpret_cast<QMatrix4x3*>(&QMatrix4x4::operator*(m));
 	}
 
 	//Assing operators
@@ -226,7 +226,7 @@ public:
     /// </returns>
     inline QSpaceConversionMatrix& operator=(const QMatrix4x4 &m)
     {
-        reinterpret_cast<QMatrix4x4&>(*this) = m;    
+        reinterpret_cast<QMatrix4x4&>(*this) = m;
         return *this;
     }
 
@@ -237,7 +237,7 @@ public:
     /// <param name="qRot">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
     void SetWorldSpaceMatrix(const QBaseVector3 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale);
-    
+
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
@@ -266,7 +266,7 @@ public:
     /// <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
     /// <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="mScale">[IN] Matrix which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QTransformationMatrix4x4 &mDisp, const QTransformationMatrix4x4 &mRot, 
+    void SetWorldSpaceMatrix(const QTransformationMatrix4x4 &mDisp, const QTransformationMatrix4x4 &mRot,
         const QTransformationMatrix4x4 &mScale);
 
     /// <summary>
@@ -299,7 +299,7 @@ public:
     /// <param name="fFarClipPlane">[IN] Floating point value which defines the distance to the farthest clipping plane.</param>
     /// <param name="fAspectRatio">[IN] Floating point value which defines the frame width/height ratio.</param>
     /// <param name="fVerticalFOV">[IN] Floating point value which defines the vertical field of view.</param>
-    void SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane, 
+    void SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
         const float_q &fAspectRatio, const float_q &fVerticalFOV);
 
     /// <summary>
@@ -368,7 +368,7 @@ public:
     }
 
 protected:
-    
+
     // Hidden method to prevent it could be used.
     void ResetToZero();
 };

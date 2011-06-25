@@ -21,8 +21,8 @@ namespace Math
 {
 
 /// <summary>
-/// It represents the basic form of a 3D plane, defined by the equation \f$ ax + by + cz + d = 0\f$. 
-/// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from 
+/// It represents the basic form of a 3D plane, defined by the equation \f$ ax + by + cz + d = 0\f$.
+/// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from
 /// plane to the origin, when the normal is normalized.
 /// </summary>
 class QDllExport QPlane : public QBasePlane
@@ -102,7 +102,7 @@ public:
 	/// Constructor from a 4x32 packed float value.
 	/// </summary>
 	/// <param name="vfValues">[IN] 4x32 packed float containing the four components.
-	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient), 
+	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
 	/// 3rd value (c coefficient), 4th value (d independent term).</param>
     inline explicit QPlane(const vf32_q vfValues) : QBasePlane(vfValues) { }
 
@@ -117,7 +117,7 @@ public:
     {
         // Creates two vectors, to obtain the direction vector of the plane via cross product
         VectorType vAux1(vP2 - vP1);
-        
+
         vAux1.CrossProduct(vP3 - vP1);
 
         // Checkout to avoid the possibility of tree colineal points.
@@ -165,12 +165,12 @@ public:
     /// <returns>
     /// A reference to plane result of the product.
     /// </returns>
-    inline QPlane& operator *= (const float_q &fValue) 
-    { 
-        this->a *= fValue; 
-        this->b *= fValue; 
-        this->c *= fValue; 
-        this->d *= fValue; 
+    inline QPlane& operator *= (const float_q &fValue)
+    {
+        this->a *= fValue;
+        this->b *= fValue;
+        this->c *= fValue;
+        this->d *= fValue;
 
         return *this;
     }
@@ -185,17 +185,17 @@ public:
     /// <returns>
     /// A reference to plane result of the division.
     /// </returns>
-    inline QPlane& operator /= (const float_q &fValue) 
-    { 
+    inline QPlane& operator /= (const float_q &fValue)
+    {
         // Checkout to avoid division by 0
         QE_ASSERT(fValue != QFloat::_0);
 
-        this->a /= fValue; 
-        this->b /= fValue; 
-        this->c /= fValue; 
-        this->d /= fValue; 
+        this->a /= fValue;
+        this->b /= fValue;
+        this->c /= fValue;
+        this->d /= fValue;
 
-        return *this; 
+        return *this;
     }
 
     /// <summary>
@@ -211,7 +211,7 @@ public:
     /// </returns>
     inline bool operator == (const QBasePlane &p) const
     {
-        return ( QFloat::AreEquals(p.a, this->a) && QFloat::AreEquals(p.b, this->b) && 
+        return ( QFloat::AreEquals(p.a, this->a) && QFloat::AreEquals(p.b, this->b) &&
                  QFloat::AreEquals(p.c, this->c) && QFloat::AreEquals(p.d, this->d) );
     }
 
@@ -228,7 +228,7 @@ public:
     /// </returns>
     inline bool operator != (const QBasePlane &p) const
     {
-        return ( QFloat::AreNotEquals(p.a, this->a) || QFloat::AreNotEquals(p.b, this->b) || 
+        return ( QFloat::AreNotEquals(p.a, this->a) || QFloat::AreNotEquals(p.b, this->b) ||
                  QFloat::AreNotEquals(p.c, this->c) || QFloat::AreNotEquals(p.d, this->d) );
     }
 
@@ -267,7 +267,7 @@ public:
     /// </returns>
     inline QPlane& operator=(const QBasePlane &p)
     {
-        reinterpret_cast<QBasePlane&>(*this) = p;    
+        reinterpret_cast<QBasePlane&>(*this) = p;
         return *this;
     }
 
@@ -290,7 +290,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates a normalized plane from the resident one, storing it in an output plane provided. 
+    /// Calculates a normalized plane from the resident one, storing it in an output plane provided.
     /// This implies to divide all components of plane by the length of the normal.
     /// </summary>
     /// <param name="plOut">[OUT] The plane where we want to store the normalized plane.</param>
@@ -307,19 +307,20 @@ public:
     template <class VectorType>
     inline float_q DotProduct(const VectorType &v) const
     {
-        return v.x * this->a + v.y * this->b + v.z * this->c; 
+        return v.x * this->a + v.y * this->b + v.z * this->c;
     }
 
     /// <summary>
     /// Calculates the dot product between the direction vectors of the resident plane and the provided one.
     /// </summary>
     /// <param name="p">[IN] The plane which we want to calculate the dot product with.</param>
-    template <>
+    // [TODO] Thund: Cambiar diseño para poder usar el método de plantilla.
+ /*   template <>
     inline float_q DotProduct<QBasePlane>(const QBasePlane &p) const
     {
-        return p.a * this->a + p.b * this->b + p.c * this->c; 
+        return p.a * this->a + p.b * this->b + p.c * this->c;
     }
-
+*/
     /// <summary>
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
@@ -328,8 +329,8 @@ public:
     inline float_q DotProductAngle(const VectorType &v) const
     {
         const float_q &fDotLength = sqrt(this->GetSquaredLength() * v.GetSquaredLength());
-      
-        // Checkout to avoid division by zero.        
+
+        // Checkout to avoid division by zero.
         QE_ASSERT(fDotLength != QFloat::_0);
 
         const float_q &fDot = this->DotProduct(v)/fDotLength;
@@ -350,12 +351,13 @@ public:
     /// Calculates the angle between resident and provided planes via dot product between their direction vectors.
     /// </summary>
     /// <param name="p">[IN] The plane whose angle with the resident plane we want to calculate.</param>
-    template <>
+    // [TODO] Thund: Cambiar diseño para poder usar el método de plantilla.
+/*    template <>
     inline float_q DotProductAngle<QBasePlane>(const QBasePlane &p) const
     {
         const float_q fDotLength = sqrt(this->GetSquaredLength() * reinterpret_cast<const QPlane&>(p).GetSquaredLength());
 
-        // Checkout to avoid division by zero.        
+        // Checkout to avoid division by zero.
         QE_ASSERT(fDotLength != QFloat::_0);
 
         const float_q &fDot = this->DotProduct(p)/fDotLength;
@@ -371,7 +373,7 @@ public:
 
         return fAngle;
     }
-
+*/
     /// <summary>
     /// Calculates the orthogonal projection of a given point over the resident plane.
     /// </summary>
@@ -458,28 +460,28 @@ public:
 
 
     /// <summary>
-    /// Calculates the number of intersections between the resident plane and two planes provided, 
+    /// Calculates the number of intersections between the resident plane and two planes provided,
     /// and also calculates the intersection point if there is only one.
     /// </summary>
     /// <param name="pl1">[IN] The first plane we want to calculate the intersection with.</param>
     /// <param name="pl2">[IN] The second plane we want to calculate the intersection with.</param>
     /// <param name="vOut">[OUT] The intersection point of the three planes, if it exists.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the three planes, and can take 
+    /// An enumerated value which represents the number of intersections between the three planes, and can take
     /// the following values: E_None, E_One and E_Infinite.
     /// </returns>
     template <class VectorType>
     EQIntersections IntersectionPoint (const QBasePlane &pl1, const QBasePlane &pl2, VectorType &vOut) const
     {
         // Solved by Cramer method.
-        const float_q &fDetC = this->a*pl1.b*pl2.c + this->b*pl1.c*pl2.a + this->c*pl1.a*pl2.b - 
+        const float_q &fDetC = this->a*pl1.b*pl2.c + this->b*pl1.c*pl2.a + this->c*pl1.a*pl2.b -
                               (this->c*pl1.b*pl2.a + this->a*pl1.c*pl2.b + this->b*pl1.a*pl2.c);
 
-        const float_q &fDetX = this->c*pl1.b*pl2.d + this->d*pl1.c*pl2.b + this->b*pl1.d*pl2.c - 
+        const float_q &fDetX = this->c*pl1.b*pl2.d + this->d*pl1.c*pl2.b + this->b*pl1.d*pl2.c -
                               (this->d*pl1.b*pl2.c + this->b*pl1.c*pl2.d + this->c*pl1.d*pl2.b);
-        const float_q &fDetY = this->c*pl1.d*pl2.a + this->a*pl1.c*pl2.d + this->d*pl1.a*pl2.c - 
+        const float_q &fDetY = this->c*pl1.d*pl2.a + this->a*pl1.c*pl2.d + this->d*pl1.a*pl2.c -
                               (this->a*pl1.d*pl2.c + this->d*pl1.c*pl2.a + this->c*pl1.a*pl2.d);
-        const float_q &fDetZ = this->d*pl1.b*pl2.a + this->a*pl1.d*pl2.b + this->b*pl1.a*pl2.d - 
+        const float_q &fDetZ = this->d*pl1.b*pl2.a + this->a*pl1.d*pl2.b + this->b*pl1.a*pl2.d -
                               (this->a*pl1.b*pl2.d + this->b*pl1.d*pl2.a + this->d*pl1.a*pl2.b);
 
         // A range = 3, A* range = 3: Compatible system
@@ -492,9 +494,9 @@ public:
             vOut.z = fDetZ * fInvDetC;
 
             return EQIntersections::E_One;
-        } 
+        }
         // A range < 3, A* range < 3
-        else if (QFloat::IsZero(fDetX) && QFloat::IsZero(QfDetY) && QFloat::IsZero(fDetZ))
+        else if (QFloat::IsZero(fDetX) && QFloat::IsZero(fDetY) && QFloat::IsZero(fDetZ))
         {
             // A range = 2, A* range < 3: Undetermined compatible system
             if (QFloat::IsNotZero(this->a*pl1.b - this->b*pl1.a) ||
@@ -540,7 +542,7 @@ public:
     /// An enumerated value like follows: E_Contained, E_PositiveSide, E_NegativeSide.
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &p) const;
-    
+
     /// <summary>
     /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
     /// remaining unchanged the distance from the plane to the origin.
@@ -561,7 +563,7 @@ public:
 
     /// <summary>
     /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
-    /// remaining unchanged the distance from the plane to the origin. 
+    /// remaining unchanged the distance from the plane to the origin.
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the rotation to be applied.</param>
@@ -604,7 +606,7 @@ public:
     /// <param name="m">[IN] A [4x3] matrix containing the translation to be applied.</param>
     inline void Transform(const QTranslationMatrix4x3 &m)
     {
-        this->d -= this->a*m.ij[3][0] + this->b*m.ij[3][1] + this->c*m.ij[3][2];     
+        this->d -= this->a*m.ij[3][0] + this->b*m.ij[3][1] + this->c*m.ij[3][2];
     }
 
     /// <summary>
@@ -627,7 +629,7 @@ public:
     /// <param name="m">[IN] A [4x4] matrix containing the translation to be applied.</param>
     inline void Transform(const QTranslationMatrix4x4 &m)
     {
-        this->d -= this->a*m.ij[3][0] + this->b*m.ij[3][1] + this->c*m.ij[3][2];     
+        this->d -= this->a*m.ij[3][0] + this->b*m.ij[3][1] + this->c*m.ij[3][2];
     }
 
     /// <summary>
@@ -653,9 +655,9 @@ public:
                         m.ij[1][0], m.ij[1][1], m.ij[1][2], QFloat::_0,
                         m.ij[2][0], m.ij[2][1], m.ij[2][2], QFloat::_0,
                         m.ij[3][0], m.ij[3][1], m.ij[3][2], QFloat::_1);
-               
+
         reinterpret_cast <QTransformationMatrix4x4 &>(mAux).Reverse();
-       
+
         // The product is implemented using the transpose of m
         QBasePlane pAux(this->a*mAux.ij[0][0] + this->b*mAux.ij[0][1] + this->c*mAux.ij[0][2],
                         this->a*mAux.ij[1][0] + this->b*mAux.ij[1][1] + this->c*mAux.ij[1][2],
@@ -777,7 +779,7 @@ public:
     /// <returns>The string with the format specified.</returns>
     inline string_q ToString() const
     {
-        return QE_L("PL(") + QFloat::ToString(this->a) + QE_L(", ") + QFloat::ToString(this->b) + 
+        return QE_L("PL(") + QFloat::ToString(this->a) + QE_L(", ") + QFloat::ToString(this->b) +
                QE_L(", ")  + QFloat::ToString(this->c) + QE_L(", ") + QFloat::ToString(this->d) + QE_L(")");
     }
 
