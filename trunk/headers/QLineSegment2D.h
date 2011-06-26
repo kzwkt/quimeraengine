@@ -17,7 +17,7 @@ namespace Tools
 {
 namespace Math
 {
-
+		
 // Forward Declarations
 //-----------------------
 class QVector2;
@@ -188,6 +188,40 @@ public:
 	/// -The segment is NOT modified, it stays the same.
 	/// </remarks>
 	void TransformFromCenter (const float_q& fRotationAngle, QBaseLineSegment2& segmt) const;
+
+	/// <summary>
+	/// Receives a transformation matrix and applies the transformations to the resident
+	/// line segment. The transformation pivot is the origin of coordinates.
+	/// </summary>
+	/// <param name="tm33Matrix">[IN] matrix: Matrix that contains the transformation to apply.</param>
+	void Transform(const QTransformationMatrix3x3 & matrix);
+
+	/// <summary>
+	/// Receives a transformation matrix and an output line segment and applies the transformations 
+	/// to a copy of the resident line segment, storing the results in the output parameter. The transformation pivot is the 
+	/// origin of coordinates.
+	/// </summary>
+	/// <param name="tm33Matrix">[IN] matrix: Matrix that contains the transformation to apply.</param>
+	/// <param name="btOutputTriangle">[OUT] lsOutputLineSegment: Line segment that stores the result of the transformation.</param>
+	void Transform(const QTransformationMatrix3x3 & matrix, QBaseLineSegment<QVector2> & lsOutputLineSegment) const;
+
+	/// <summary>
+	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations to the resident line segment. 
+	/// The transformation pivot is the vector recieved as parameter.
+	/// </summary>
+	/// <param name="tm33Matrix">[IN] matrix: Matrix that contains the transformation to apply.</param>
+	/// <param name="bv2Pivot">[IN] v2Pivot: Pivot point used for the transformation.</param>
+	void TransformFromPivot(const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot);
+
+	/// <summary>
+	/// Receives a transformation matrix, a vector (transformation pivot) and an output line segment,
+	/// and applies the transformations to a copy of the resident line segment, storing the results in the output parameter.
+	/// The transformation pivot is the vector recieved as parameter.
+	/// </summary>
+	/// <param name="tm33Matrix">[IN] matrix: Matrix that contains the transformation to apply.</param>
+	/// <param name="bv2Pivot">[IN] v2Pivot: Pivot point used for the transformation.</param>
+	/// <param name="btOutputTriangle">[OUT] lsOutputLineSegment: Line segment that stores the result of the transformation.</param>
+	void TransformFromPivot(const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot, QBaseLineSegment<QVector2> & lsOutputLineSegment) const;
 };
 
 } //namespace Math
