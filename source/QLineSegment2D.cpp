@@ -47,7 +47,7 @@ bool QLineSegment2D::Intersection (const QBaseTriangle2& triangl) const
 	return     ( QLineSegment<QVector2>::Intersection(lsAB) )
 			|| ( QLineSegment<QVector2>::Intersection(lsBC) )
 			|| ( QLineSegment<QVector2>::Intersection(lsCA) );
-};
+}
 
 bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quadrl) const
 {
@@ -62,7 +62,7 @@ bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quadrl) const
 			|| ( QLineSegment<QVector2>::Intersection(lsBC) )
 			|| ( QLineSegment<QVector2>::Intersection(lsCD) )
 			|| ( QLineSegment<QVector2>::Intersection(lsDA) );
-};
+}
 
 void QLineSegment2D::Transform (const float_q& fRotationAngle)
 {
@@ -84,7 +84,7 @@ void QLineSegment2D::Transform (const float_q& fRotationAngle)
 
 	// After STEP 2) we have the segment rotated around A and expressed again in
 	// WORLD coordinates.
-};
+}
 
 void QLineSegment2D::Transform (const float_q& fRotationAngle, QBaseLineSegment<QVector2>& segmt) const
 {
@@ -109,7 +109,7 @@ void QLineSegment2D::Transform (const float_q& fRotationAngle, QBaseLineSegment<
 
 	// So after STEP 3) we have in the output parameter the segment rotated around A
 	//	and expressed again in WORLD coordinates.
-};
+}
 
 void QLineSegment2D::TransformFromCenter (const float_q& fRotationAngle)
 {
@@ -138,7 +138,7 @@ void QLineSegment2D::TransformFromCenter (const float_q& fRotationAngle)
 
 	// After STEP 3) we have the segment rotated around the center and expressed
 	// again in WORLD coordinates.
-};
+}
 
 void QLineSegment2D::TransformFromCenter (const float_q& fRotationAngle, QBaseLineSegment<QVector2>& segmt) const
 {
@@ -167,7 +167,63 @@ void QLineSegment2D::TransformFromCenter (const float_q& fRotationAngle, QBaseLi
 
 	// After STEP 3) we have the segment rotated around the center and expressed
 	// again in WORLD coordinates.
-};
+}
+
+void QLineSegment2D::Transform (const QTransformationMatrix3x3 & matrix)
+{
+	// STEP 1) Transform A and B.
+	A.Transform(matrix);
+	B.Transform(matrix);	
+}
+
+void QLineSegment2D::Transform (const QTransformationMatrix3x3 & matrix, QBaseLineSegment<QVector2> & lsOutputLineSegment) const
+{
+	// STEP 1) Transform A and B, storing them in the output line segment. Current line segment IS NOT transformated.
+	QVector2 vALocal(A);
+	QVector2 vBLocal(B);
+
+	vALocal.Transform(matrix, lsOutputLineSegment.A);
+	vBLocal.Transform(matrix, lsOutputLineSegment.B);
+}
+
+void QLineSegment2D::TransformFromPivot (const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot)
+{
+	// STEP 1) Substracting the pivot from B (A) we're expressing
+	//		   B (A) in LOCAL coordinates.
+	//         (** by the same way, if we substract the pivot from itself we'll
+	//			   have the pivot in the center of coordinates axis, as being
+	//			   the centre to become the pivot point **)
+	QVector2 vALocal;
+	QVector2 vBLocal;
+	QVector2 vPivot(v2Pivot);
+
+	vALocal = A - vPivot;
+	vBLocal = B - vPivot;
+
+	// STEP 2) Transform A and B
+	vALocal.Transform(matrix, A);
+	vBLocal.Transform(matrix, B);
+}
+
+void QLineSegment2D::TransformFromPivot (const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot, QBaseLineSegment<QVector2> & lsOutputLineSegment) const
+{
+	// STEP 1) Substracting the pivot from B (A) we're expressing
+	//		   B (A) in LOCAL coordinates.
+	//         (** by the same way, if we substract the pivot from itself we'll
+	//			   have the pivot in the center of coordinates axis, as being
+	//			   the centre to become the pivot point **)
+
+	QVector2 vALocal(A);
+	QVector2 vBLocal(B);
+	QVector2 vPivot(v2Pivot);
+
+	vALocal = vALocal - vPivot;
+	vBLocal = vBLocal - vPivot;
+
+	// STEP 2) Transform A and B, storing them in the output line segment. Current line segment IS NOT transformated.
+	vALocal.Transform(matrix, lsOutputLineSegment.A);
+	vBLocal.Transform(matrix, lsOutputLineSegment.B);
+}
 
 } //namespace Math
 } //namespace Tools
