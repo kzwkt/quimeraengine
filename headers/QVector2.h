@@ -70,6 +70,12 @@ public:
 	/// <param name="pValue">[IN] Pointer to array of floating point values. It must have at least two elements.</param>
 	inline explicit QVector2(const float_q *pValue) : QBaseVector2(pValue) { }
 
+	/// <summary>
+    /// Constructor from a 4x32 packed floating point value.
+    /// </summary>
+    /// <param name="vfValue">[IN] 4x32 packed floating point value containing the two components.</param>
+    inline explicit QVector2(const vf32_q vfValue) : QBaseVector2 (vfValue) { }
+
 	// METHODS
 	// ---------------
 public:
