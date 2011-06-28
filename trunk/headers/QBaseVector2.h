@@ -4,6 +4,7 @@
 #define __QBASEVECTOR2__
 
 #include "QFloat.h"
+#include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -55,6 +56,18 @@ public:
 		// Assignments
 		x = pValues[0]; 
 		y = pValues[1]; 
+	}
+
+	/// <summary>
+	/// Constructor that receives a 4x32 packed floating point value. The first two packed components are saved into the components of the vector.
+	/// </summary>
+	/// <param name="vfValues">[IN] 4x32 packed floating point containing the three components.
+	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Ignored), 4th value (Ignored)</param>
+	inline explicit QBaseVector2 (const vf32_q &vfValue)
+	{
+		float_q aux;
+
+		QVF32::Unpack(vfValue, this->x, this->y, aux, aux);
 	}
 
 	// ATTRIBUTES
