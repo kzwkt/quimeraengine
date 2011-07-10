@@ -3,6 +3,9 @@
 #include "QQuaternion.h"
 #include "MathDefinitions.h"
 
+#include "QVector3.h"
+#include "QVector4.h"
+
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -20,8 +23,8 @@ namespace Math
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
-
 const QQuaternion QQuaternion::Identity(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1);
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -53,15 +56,22 @@ QQuaternion::QQuaternion(const float_q &fAngleX, const float_q &fAngleY, const f
     float_q sy = sin(fHalfAngleYRad);
     float_q sz = sin(fHalfAngleZRad);
 
-    this->x = sx * sy * cz + cx * cy * sz;
-    this->y = sx * cy * cz + cx * sy * sz;
-    this->z = cx * sy * cz - sx * cy * sz;
-    this->w = cx * cy * cz - sx * sy * sz;
+	// These are the computing formulas once the following decisions have been taken for Quimera Engine:
+	//
+	// -Coordinate system axis: LEFT-Handed.
+	//       -Positive rotation: CLOCKWISE.
+	//			-Please note from user's perspective (-Z axis) rotation about Z axis may be seen
+	//			 as COUNTER-CLOCKWISE.
+	//		 -Matrices as ROW vectors.
+	//			-Transforming vectors: Vector * TransformationMatrix = TransformedVector
+	// -Convention: ZXY (roll, pitch, yaw).
+	//		 -Quaternion combination: from RIGHT to LEFT --> yaw * (pitch * roll)
 
-    this->Normalize();
+	this->w = cy * cx * cz - sy * sz * sx;
 
-    // Since Quimera Engine uses left-handed system, the quaternion must be reverted
-    this->UnitReverse();
+	this->x = cy * cz * sx + sy * cx * sz;
+	this->y = cy * sz * sx + cx * cz * sy;
+	this->z = cy * cx * sz - sy * cz * sx;
 }
 
 QQuaternion::QQuaternion(const QBaseVector3 &vAxis, const float_q &fAngle)
@@ -76,12 +86,13 @@ QQuaternion::QQuaternion(const QBaseVector3 &vAxis, const float_q &fAngle)
 
 	const float_q &fSin = sin(fHalfAngleRad);
 
+	// Please note the axis has to be normalized...
+
 	this->x = vAxis.x * fSin;
 	this->y = vAxis.y * fSin;
 	this->z = vAxis.z * fSin;
-	this->w = cos(fHalfAngleRad);
 
-	this->Normalize();
+	this->w = cos(fHalfAngleRad);
 }
 
 QQuaternion::QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle)
@@ -96,12 +107,13 @@ QQuaternion::QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle)
 
 	const float_q &fSin = sin(fHalfAngleRad);
 
+	// Please note the axis has to be normalized...
+
 	this->x = vAxis.x * fSin;
 	this->y = vAxis.y * fSin;
 	this->z = vAxis.z * fSin;
-	this->w = cos(fHalfAngleRad);
 
-	this->Normalize();
+	this->w = cos(fHalfAngleRad);
 }
 
 //##################=======================================================##################
@@ -131,10 +143,11 @@ QQuaternion QQuaternion::operator-(const QBaseQuaternion &qQuat) const
 
 QQuaternion QQuaternion::operator*(const QBaseQuaternion &qQuat) const
 {
-    return QQuaternion( this->w * qQuat.x + this->x * qQuat.w + this->y * qQuat.z - this->z * qQuat.y,
-                        this->w * qQuat.y + this->y * qQuat.w + this->z * qQuat.x - this->x * qQuat.z,
-                        this->w * qQuat.z + this->z * qQuat.w + this->x * qQuat.y - this->y * qQuat.x,
-                        this->w * qQuat.w - this->x * qQuat.x - this->y * qQuat.y - this->z * qQuat.z);
+
+    return QQuaternion( this->w * qQuat.x + qQuat.w * this->x + (this->y * qQuat.z - this->z * qQuat.y),	   // Vx
+                        this->w * qQuat.y + this->y * qQuat.w + (this->z * qQuat.x - this->x * qQuat.z),	   // Vy
+                        this->w * qQuat.z + this->z * qQuat.w + (this->x * qQuat.y - this->y * qQuat.x),	   // Vz
+                        this->w * qQuat.w - (this->x * qQuat.x + this->y * qQuat.y + this->z * qQuat.z) );	   // W
 }
 
 QQuaternion QQuaternion::operator*(const float_q &fScalar) const
