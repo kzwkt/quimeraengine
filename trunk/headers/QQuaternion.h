@@ -69,7 +69,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QQuaternion() {};
+    inline QQuaternion() : QBaseQuaternion() {};
 
     /// <summary>
     /// Constructor that receives a base quaternion.
@@ -111,21 +111,29 @@ public:
 
 	/// <summary>
 	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and 
-	/// a vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.
+	/// a normalized vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.
 	/// The resultant quaternion is \f$ (n_x sin(\frac{\theta}{2}), n_y sin(\frac{\theta}{2}), n_z sin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$
     /// </summary>
-    /// <param name="vAxis">[IN] Vector in the direction of the spin axis.</param>
+    /// <param name="vAxis">[IN] Normalined vector in the direction of the spin axis.</param>
 	/// <param name="fAngle">[IN] Angle of rotation.</param>
+	/// <remarks>
+	/// Please note it's a mandatory that the input vector representing the spin axis has to be normalized
+	/// in order to create the quaternion correctly.
+	/// </remarks>
 	QQuaternion(const QBaseVector3 &vAxis, const float_q &fAngle);
 
 	/// <summary>
 	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and 
-	/// a vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.
+	/// a normalized vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.
 	/// The resultant quaternion is \f$ (n_x sin(\frac{\theta}{2}), n_y sin(\frac{\theta}{2}), n_z sin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$
 	/// Fourth vector component is ignored.
     /// </summary>
-    /// <param name="vAxis">[IN] Vector in the direction of the spin axis.</param>
+    /// <param name="vAxis">[IN] Normalized vector in the direction of the spin axis.</param>
 	/// <param name="fAngle">[IN] Angle of rotation.</param>
+	/// <remarks>
+	/// Please note it's a mandatory that the input vector representing the spin axis has to be normalized
+	/// in order to create the quaternion correctly.
+	/// </remarks>
 	QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle);
 
 	/// <summary>
