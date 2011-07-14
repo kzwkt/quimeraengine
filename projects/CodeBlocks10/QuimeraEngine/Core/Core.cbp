@@ -8,31 +8,54 @@
 		<Option compiler="gcc" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
-				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCore" prefix_auto="0" extension_auto="1" />
+				<Option platforms="Unix;" />
+				<Option output="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineCore.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
+				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugLinux32SharedrtStatic" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
-					<Add option="-Wall" />
-					<Add option="-g" />
 					<Add option="-DLINUX32" />
+					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="libboost_thread.a" />
-					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
+					<Add directory="..\..\..\..\3rdparty\Boost\bin\Linux32\DebugSharedrtStatic" />
+				</Linker>
+			</Target>
+			<Target title="DebugWin32SharedrtStatic">
+				<Option platforms="Windows;" />
+				<Option output="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="" />
+				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugWin32SharedrtStatic" />
+				<Option type="2" />
+				<Option compiler="gcc" />
+				<Option createDefFile="1" />
+				<Compiler>
+					<Add option="-D_WIN32" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add directory="..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic" />
 				</Linker>
 			</Target>
 		</Build>
 		<Compiler>
-			<Add directory="../../../../headers" />
-			<Add directory="../../../../3rdparty/Boost/include" />
+			<Add option="-Wshadow" />
+			<Add option="-Wredundant-decls" />
+			<Add option="-Wcast-align" />
+			<Add option="-Winline" />
+			<Add option="-Wmissing-include-dirs" />
+			<Add option="-Wswitch-default" />
+			<Add option="-Wall" />
+			<Add option="-g" />
+			<Add directory="..\..\..\..\headers" />
+			<Add directory="..\..\..\..\3rdparty\Boost\include" />
 		</Compiler>
-		<Unit filename="../../../../headers/Configuration.h" />
-		<Unit filename="../../../../headers/ExternalDefinitions.h" />
-		<Unit filename="../../../../headers/InternalDefinitions.h" />
-		<Unit filename="../../../../source/Prueba.cpp" />
+		<Unit filename="..\..\..\..\headers\Configuration.h" />
+		<Unit filename="..\..\..\..\headers\ExternalDefinitions.h" />
+		<Unit filename="..\..\..\..\headers\InternalDefinitions.h" />
+		<Unit filename="..\..\..\..\source\Prueba.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

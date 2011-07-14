@@ -31,13 +31,13 @@ class QTransformationMatrix3x3;
 
 /// <summary>
 /// This class implements two components vector functionality. It inherits from QBaseVector2.
-///	A vector is a geometric object that has both a magnitude (or length) and direction. 
-///	It is frequently represented by a line segment with a definite direction, or graphically as an arrow, 
+///	A vector is a geometric object that has both a magnitude (or length) and direction.
+///	It is frequently represented by a line segment with a definite direction, or graphically as an arrow,
 ///	connecting an initial point A with a terminal point B. The vector is then denoted by AB with a arrow hat.
 /// </summary>
 class QDllExport QVector2 : public QBaseVector2
 {
-   
+
 public:
 
 	/// <summary>
@@ -63,7 +63,7 @@ public:
 	/// </summary>
 	/// <param name="fValue">[IN] Floating point value for all components.</param>
 	inline explicit QVector2(const float_q &fValue) : QBaseVector2(fValue) { }
-	
+
 	/// <summary>
 	/// Constructor from a two component array of floating point values.
 	/// </summary>
@@ -126,7 +126,7 @@ public:
     /// A vector that is the result of the product.
     /// </returns>
 	QVector2 operator * (const QBaseMatrix2x2 &m) const;
-	
+
 	/// <summary>
 	/// Division by a scalar: all components are divided by the floating point value provided.
 	/// </summary>
@@ -135,7 +135,7 @@ public:
 	/// A vector that is the result of the division.
 	/// </returns>
 	QVector2 operator / (const float_q &fValue) const;
-		
+
 	/// <summary>
 	/// Division by a vector: it's performed component by component.
 	/// </summary>
@@ -144,7 +144,7 @@ public:
 	/// A vector that is the result of the division.
 	/// </returns>
 	QVector2 operator / (const QBaseVector2 &v) const;
-	
+
 	/// <summary>
 	/// Product by a scalar: all components are multiplied by the floating point value provided.
 	/// Shorcut to multiply on the left.
@@ -189,12 +189,12 @@ public:
 	/// <returns>
 	/// A reference to vector result of the addition.
 	/// </returns>
-	inline QVector2& operator += (const QVector2 &v) 
-	{ 
+	inline QVector2& operator += (const QVector2 &v)
+	{
 		this->x += v.x;
 		this->y += v.y;
-	
-		return *this; 
+
+		return *this;
 	}
 
 	/// <summary>
@@ -204,12 +204,12 @@ public:
 	/// <returns>
 	/// A reference to vector result of the subtraction.
 	/// </returns>
-	inline QVector2& operator -= (const QVector2 &v) 
-	{ 
-		this->x -= v.x; 
-		this->y -= v.y;  
-		
-		return *this; 
+	inline QVector2& operator -= (const QVector2 &v)
+	{
+		this->x -= v.x;
+		this->y -= v.y;
+
+		return *this;
 	}
 
 	/// <summary>
@@ -219,11 +219,11 @@ public:
 	/// <returns>
 	/// A reference to vector result of the product.
 	/// </returns>
-	inline QVector2& operator *= (const float_q &fValue) 
-	{ 
-		this->x *= fValue; 
-		this->y *= fValue; 
-	
+	inline QVector2& operator *= (const float_q &fValue)
+	{
+		this->x *= fValue;
+		this->y *= fValue;
+
 		return *this;
 	}
 
@@ -243,7 +243,7 @@ public:
 		this->x = fValueX;
 		this->y = fValueY;
 
-		return *this; 
+		return *this;
 	}
 
 	/// <summary>
@@ -253,12 +253,12 @@ public:
 	/// <returns>
 	/// A reference to vector result of the product.
 	/// </returns>
-	inline QVector2& operator *= (const QBaseVector2 &v) 
-	{ 
-		this->x *= v.x; 
-		this->y *= v.y; 
-		
-		return *this; 
+	inline QVector2& operator *= (const QBaseVector2 &v)
+	{
+		this->x *= v.x;
+		this->y *= v.y;
+
+		return *this;
 	}
 
 	/// <summary>
@@ -268,17 +268,17 @@ public:
 	/// <returns>
 	/// A reference to vector result of the division.
 	/// </returns>
-	inline QVector2& operator /= (const float_q &fValue) 
-	{ 
+	inline QVector2& operator /= (const float_q &fValue)
+	{
 		// Checkout to avoid division by 0
-		QE_ASSERT(fValue);
+		QE_ASSERT(fValue != QFloat::_0);
 
-		this->x /= fValue; 
-		this->y /= fValue; 
-		
-		return *this; 
+		this->x /= fValue;
+		this->y /= fValue;
+
+		return *this;
 	}
-	
+
 	/// <summary>
 	/// Divides current vector by a vector provided. It's performed component by component.
 	/// </summary>
@@ -289,12 +289,12 @@ public:
 	inline QVector2& operator /= (const QBaseVector2 &v)
 	{
 		// Checkout to avoid division by 0
-		QE_ASSERT (v.x && v.y);
+		QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0);
 
-		this->x /= v.x; 
-		this->y /= v.y; 
- 
-		
+		this->x /= v.x;
+		this->y /= v.y;
+
+
 		return *this;
 	}
 
@@ -322,7 +322,7 @@ public:
     /// </returns>
     inline QVector2& operator=(const QBaseVector2 &v)
     {
-        reinterpret_cast<QBaseVector2&>(*this) = v;    
+        reinterpret_cast<QBaseVector2&>(*this) = v;
         return *this;
     }
 
@@ -333,7 +333,7 @@ public:
 	/// A vector that is the result of the negation.
 	/// </returns>
 	QVector2 operator - () const;
-	
+
 	/// <summary>
 	/// Calculates the length of current vector.
 	/// </summary>
@@ -341,8 +341,8 @@ public:
 	/// A floating point value which is the length of the vector.
 	/// </returns>
 	inline float_q GetLength() const
-	{ 
-		return sqrt(this->x*this->x + this->y*this->y); 
+	{
+		return sqrt(this->x*this->x + this->y*this->y);
 	}
 
 	/// <summary>
@@ -352,8 +352,8 @@ public:
     /// A floating point value which is the squared length of the vector.
     /// </returns>
     inline float_q GetSquaredLength() const
-    { 
-        return this->x*this->x + this->y*this->y; 
+    {
+        return this->x*this->x + this->y*this->y;
     }
 
 	/// <summary>
@@ -367,17 +367,17 @@ public:
 	/// <summary>
 	/// Makes current vector unitary
 	/// </summary>
-	inline void Normalize() 
+	inline void Normalize()
 	{
 		// Gets vector length
-		float_q fLength = this->GetLength(); 
+		float_q fLength = this->GetLength();
 
 		// Checkout to avoid division by 0
-		QE_ASSERT(fLength);
+		QE_ASSERT(fLength != QFloat::_0);
 
 		//Normalize
-		this->x /= fLength; 
-		this->y /= fLength;	
+		this->x /= fLength;
+		this->y /= fLength;
 	}
 
 	/// <summary>
@@ -393,10 +393,10 @@ public:
 	/// <summary>
 	/// Convert current vector in its opposite vector.
 	/// </summary>
-	inline void Reverse() 
-	{ 
-		this->x = -this->x; 
-		this->y = -this->y;  
+	inline void Reverse()
+	{
+		this->x = -this->x;
+		this->y = -this->y;
 	}
 
     /// <summary>
@@ -412,19 +412,19 @@ public:
 	/// <summary>
 	/// Resets all components of current vector to 1.
 	/// </summary>
-	inline void ResetToOne() 
-	{ 
-		this->x = QFloat::_1; 
-		this->y = QFloat::_1;  
+	inline void ResetToOne()
+	{
+		this->x = QFloat::_1;
+		this->y = QFloat::_1;
 	}
 
 	/// <summary>
 	/// Resets all components of current vector to 0.
 	/// </summary>
-	inline void ResetToZero() 
-	{ 
-		this->x = QFloat::_0; 
-		this->y = QFloat::_0; 
+	inline void ResetToZero()
+	{
+		this->x = QFloat::_0;
+		this->y = QFloat::_0;
 	}
 
 	/// <summary>
@@ -463,9 +463,9 @@ public:
 	/// <returns>
 	/// True if all components are 0. False otherwise.
 	/// </returns>
-	inline bool IsZero() 
-	{ 
-		return QFloat::IsZero(this->x) && QFloat::IsZero(this->y); 
+	inline bool IsZero()
+	{
+		return QFloat::IsZero(this->x) && QFloat::IsZero(this->y);
 	}
 
 	/// <summary>
@@ -474,9 +474,9 @@ public:
 	/// <returns>
 	/// True if all components are 1. False otherwise.
 	/// </returns>
-	inline bool IsVectorOfOnes() 
-	{ 
-		return QFloat::AreEquals(this->x, QFloat::_1) && QFloat::AreEquals(this->y, QFloat::_1); 
+	inline bool IsVectorOfOnes()
+	{
+		return QFloat::AreEquals(this->x, QFloat::_1) && QFloat::AreEquals(this->y, QFloat::_1);
 	}
 
 	/// <summary>
@@ -486,9 +486,9 @@ public:
 	/// <returns>
 	/// A floating point value which is the result of Dot Product.
 	/// </returns>
-	inline float_q DotProduct(const QVector2 &v) const 
-	{ 
-		return(this->x*v.x + this->y*v.y); 
+	inline float_q DotProduct(const QVector2 &v) const
+	{
+		return(this->x*v.x + this->y*v.y);
 	}
 
     /// <summary>
@@ -499,9 +499,9 @@ public:
     /// A floating point value which is the smaller angle between vectors (less or equal 180º).
     /// </returns>
     inline float_q DotProductAngle(const QVector2& v) const
-    { 
+    {
         float_q fLengthProd = this->GetLength() * v.GetLength();
-        
+
         // Checkout to avoid division by zero.
         QE_ASSERT(fLengthProd != QFloat::_0);
 
@@ -542,7 +542,7 @@ public:
 
 			// At this stage we have the angle expressed in DEGREES.
         #endif
- 
+
         return fAngle;
     }
 
@@ -552,9 +552,9 @@ public:
 	/// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
 	/// <param name="v">[IN] Vector with which to interpolate.</param>
 	inline void Lerp(const float_q &fFactor, const QBaseVector2 &v)
-	{ 
+	{
 		this->x = this->x*fFactor + v.x*(QFloat::_1 - fFactor);
-		this->y = this->y*fFactor + v.y*(QFloat::_1 - fFactor); 
+		this->y = this->y*fFactor + v.y*(QFloat::_1 - fFactor);
 	}
 
     /// <summary>
@@ -587,7 +587,7 @@ public:
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>
 	string_q ToString();
-	
+
 	// ATTRIBUTES
 	// ---------------
 public:

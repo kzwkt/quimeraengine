@@ -89,7 +89,7 @@ public:
     }
 
     /// <summary>
-    /// Obtains a reverted copy of the ray. Converts copy's direction is its opposite.
+    /// Obtains a reverted copy of the ray. Converts copy's direction in its opposite.
     /// </summary>
     /// <param name="vRevertedRay">[OUT] A reverted copy of the ray.</param>
     inline void Reverse(QBaseRay<VectorTypePoint, VectorTypeDirection>& vRevertedRay) const
