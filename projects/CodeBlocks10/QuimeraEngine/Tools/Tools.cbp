@@ -15,6 +15,7 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
+					<Add option="-g" />
 					<Add option="-DLINUX32" />
 					<Add option="-D_DEBUG" />
 				</Compiler>
@@ -28,6 +29,7 @@
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
 				<Compiler>
+					<Add option="-g" />
 					<Add option="-D_WIN32" />
 					<Add option="-D_DEBUG" />
 				</Compiler>
@@ -41,7 +43,6 @@
 			<Add option="-Wmissing-include-dirs" />
 			<Add option="-Wswitch-default" />
 			<Add option="-Wall" />
-			<Add option="-g" />
 			<Add directory="..\..\..\..\headers" />
 			<Add directory="..\..\..\..\3rdparty\Boost\include" />
 		</Compiler>
