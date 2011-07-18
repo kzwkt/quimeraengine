@@ -5,6 +5,7 @@
 
 #include "EQIntersections.h"
 #include "QBaseLineSegment.h"
+#include "QBaseOrb.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -129,18 +130,33 @@ public:
 	}
 
 	/// <summary>
+	/// This method receives a orb, and computes if it intersects the resident segment or not.
+	/// </summary>
+	/// <param name="orb">[IN] The orb to be compared to.</param>
+	/// <returns>
+	/// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
+	/// </returns> 
+	inline bool Intersection (const QBaseOrb<VectorType>& orb) const
+	{
+		// An intersection between the segment and the orb is considered if the minimum
+		// distance between "the whole segment" and the center of the orb (this is, the
+		// minimum distance between the center of the orb and the closest point inside
+		// the segment) is either lesser or equal to the radius of the orb.
+		return QFloat::IsLowerOrEquals(this->MinDistance(orb.P), orb.Radius);
+	};
+
+	/// <summary>
 	/// This method receives another line segment, and computes the intersection point between them,
 	/// if it exists.
 	/// </summary>
 	/// <param name="segmt">[IN] The segment to be compared to.</param>
 	/// <param name="vIntersectionPt">[OUT] The point where they intersect.</param>
 	/// <returns>
-	/// True if they intersect each other (or if they were coincident), false if they don't.
+	/// Returns how many intersections have been detected.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
-	/// -If segments are totally or parcially coincident only a single point will be stored in the output
-	///  parameter, presumingly an endpoint belonging to one of the segments.
+	/// -If there's no intersection points, the output parameters used for storing these points won't be modified.
+
 	/// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType>& segmt, VectorType& vIntersectionPt) const
  	{
@@ -381,6 +397,129 @@ public:
 			} // if ( QFloat::IsNotZero(fSquaredMod)
 		} // if ( QFloat::IsZero(fLenght)
 
+	}
+
+	/// <summary>
+    /// This method receives an orb and computes the points where the resident line segment intersects with it, 
+    /// if they exist.
+    /// </summary>
+    /// <param name="Orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
+    /// <param name="vPoint1">[OUT] A vector where to store the first intersection point.</param>
+    /// <param name="vPoint2">[OUT] A vector where to store the second intersection point.</param>
+    /// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take 
+    /// the following values: E_None, E_One and E_Two.
+    /// </returns>
+    /// <remarks>
+    /// -If there's no intersection point, the two output parameters used for storing the points won't be modified.
+    /// -If there are two intersections, the first output parameter stores the closest to A end point of
+    ///  line segment, and the second one stores the closest to B end point.
+    /// </remarks>
+	inline EQIntersections IntersectionPoint (const QBaseOrb<VectorType> &Orb, VectorType &vPoint1, VectorType &vPoint2) const
+	{
+		// We reduce line segment and orb to origin, in order to simplify orb equation, and we calculate
+		// the new point A and vector B-A, to compute intersection as with a ray
+		VectorType vNewA(this->A - Orb.P);
+		VectorType vDirection(this->B - this->A);
+
+		// We replace then in the orb equation to force it to verify the ray equation
+		// vDirection^2*t^2 + 2*vNewA*vDirection*t + vNewA^2 - r^2 = 0
+		// The intersections with ray follows this rules (extracted from quadratic ecuation):
+		//       D = b^2 - 4ac = 0 => 1 intersection
+		//       D = b^2 - 4ac < 0 => 0 intersections
+		//       D = b^2 - 4ac > 0 => 2 intersections
+
+		const float_q &a = vDirection.DotProduct(vDirection);
+		const float_q &b = QFloat::_2 * vNewA.DotProduct(vDirection);
+		const float_q &c = vNewA.DotProduct(vNewA) - Orb.Radius * Orb.Radius;
+
+		const float_q &D = b * b - QFloat::_4 * a * c;
+        
+		// D = b^2 - 4ac < 0 => 0 intersections
+		if (QFloat::IsNegative(D))
+			return EQIntersections::E_None;
+
+		// D = b^2 - 4ac = 0 => 1 intersection
+		else if (QFloat::IsZero(D))
+		{
+			QE_ASSERT(QFloat::IsNotZero(a));
+
+			const float_q &t = -(b*QFloat::_0_5/a);
+
+			VectorType vAux(vNewA + t * vDirection + Orb.P);
+
+			if (QFloat::IsZero(this->MinDistance(vAux)))
+			{
+				vPoint1 = vAux;
+				return EQIntersections::E_One;
+			}
+			else
+				return EQIntersections::E_None;
+		}
+
+		// D = b^2 - 4ac > 0 => 2 intersections
+		else
+		{
+			QE_ASSERT(QFloat::IsNotZero(a));
+
+			const float_q &fAux1 = sqrt(D);
+			const float_q &fAux2 = QFloat::_0_5/a;
+
+			// Closest intersection to ls.A
+			const float_q &t1 = (-b - fAux1)*fAux2;
+			VectorType vAux1(vNewA + t1 * vDirection + Orb.P);
+
+			// Farthest intersection to ls.A
+			const float_q &t2 = (-b + fAux1)*fAux2;
+			VectorType vAux2(vNewA + t2 * vDirection + Orb.P);
+
+			const bool &bIsInSegment1 = QFloat::IsZero(this->MinDistance(vAux1));
+			const bool &bIsInSegment2 = QFloat::IsZero(this->MinDistance(vAux2));
+
+			// Both points are in line segment.
+			if (bIsInSegment1 && bIsInSegment2)
+			{
+				vPoint1 = vAux1;
+				vPoint2 = vAux2;
+				return EQIntersections::E_Two;
+			}
+			// Only t1 point is in line segment.
+			else if (bIsInSegment1)
+			{
+				vPoint1 = vAux1;
+				return EQIntersections::E_One;
+			}
+
+			// Only t2 is in line segment.
+			else if (bIsInSegment2)
+			{
+				vPoint1 = vAux2;
+				return EQIntersections::E_One;
+			}
+			// There are no intersections.
+			else
+				return EQIntersections::E_None;
+		}
+	}
+
+	/// <summary>
+    /// This method receives an orb, and computes the point where the resident line segment intersects with it, 
+    /// if it exists.
+    /// </summary>
+    /// <param name="Orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
+    /// <param name="vPoint1">[OUT] A vector where to store the intersection point.</param>
+    /// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take 
+    /// the following values: E_None, E_One and E_Two.
+    /// </returns>
+    /// <remarks>
+    /// -If there's no intersection point, the output parameter used for storing the point won't be modified.
+    /// -If there is an intersection, the output parameter stores the closest point to A.
+    /// </remarks>
+	inline EQIntersections IntersectionPoint (const QBaseOrb<VectorType> &Orb, VectorType &vPoint1) const
+	{
+		VectorType aux;
+		return this->IntersectionPoint(Orb, vPoint1, aux);
 	}
 
 	/// <summary>

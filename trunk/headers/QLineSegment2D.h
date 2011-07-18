@@ -5,8 +5,6 @@
 
 #include "QLineSegment.h"
 
-#include "QBaseOrb.h"
-
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -92,22 +90,6 @@ public:
         //reinterpret_cast<QBaseLineSegment2&>(*this) = segmt;   
         //return *this;
     }
-
-	/// <summary>
-	/// This method receives a 2D cirle, and computes whether they intersect each other or not.
-	/// </summary>
-	/// <param name="circle">[IN] The 2D circle to be compared to.</param>
-	/// <returns>
-	/// True if the segment intersects the circle (or if they were either tangent or coincident). Otherwise returns false.
-	/// </returns> 
-	inline bool Intersection (const QBaseOrb<QVector2>& circle) const
-	{
-		// An intersection between the segment and the circle is considered if the minimum
-		// distance between "the whole segment" and the center of the circle (this is, the
-		// minimum distance between the center of the circle and the closest point inside
-		// the segment) is either lesser or equal than the radius of the circle.
-		return QFloat::IsLowerOrEquals(this->MinDistance(circle.P), circle.Radius);
-	};
 
 	/// <summary>
 	/// This method receives a 2D triangle, and computes whether they intersect each other or not.
