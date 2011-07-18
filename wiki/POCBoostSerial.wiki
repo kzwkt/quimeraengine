@@ -108,3 +108,5 @@ _`https://quimeraengine.googlecode.com/svn/team/poc/Task 7 - Serialization/Boost
   * [http://www.boost.org/doc/libs/1_44_0/libs/serialization/doc/index.html Serialization]
 
   * [http://www.boost.org/ Boost]
+
+  * [http://www.codeproject.com/Articles/225988/A-practical-guide-to-Cplusplus-serialization Guía práctica en Codeproject]
