@@ -7,7 +7,6 @@
 #include "QLineSegment.h"
 #include "QBasePlane.h"
 #include "EQSpaceRelation.h"
-#include "QBaseOrb.h"
 #include "QBaseTriangle.h"
 #include "QBaseHexahedron.h"
 #include "QQuaternion.h"
@@ -176,27 +175,6 @@ public:
             return false;
         else
             return true;
-    }
-
-    /// <summary>
-    /// Checks if resident line segment intersects with the provided sphere.
-    /// If one end point of the line segment lies on the sphere surface, we consider that there is an intersection.
-    /// </summary>
-    /// <param name="orb">[IN] The sphere we want check if intersects with resident line segment.</param>
-    /// <returns>
-    /// True if sphere and line segment intersects, false otherwise.
-    /// </returns>
-    template <class VectorTypeParam>
-    inline bool Intersection (const QBaseOrb<VectorTypeParam> &orb) const
-    {
-        // [TODO] jwladi: this is to ensure compatibility between the line segment and the center point of the orb,
-        // to allow the use of QLineSegmet methods. It should be removed when QLineSegment was parameterized.
-        QLineSegment3D<VectorTypeParam> lsAux(VectorTypeParam(this->A), VectorTypeParam(this->B));
-
-        if ( QFloat::IsLowerOrEquals(lsAux.QLineSegment::MinDistance(orb.P), orb.Radius) )
-            return true;
-        else
-            return false;
     }
 
     /// <summary>
