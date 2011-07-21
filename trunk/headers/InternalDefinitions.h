@@ -23,7 +23,7 @@ const unsigned int QE_VERSION_REVISION = 0;
         #define null_q 0
     #endif
 #elif QE_COMPILER_GCC
-    #define null_q (void*)0
+    #define null_q 0
 #endif
 
 
