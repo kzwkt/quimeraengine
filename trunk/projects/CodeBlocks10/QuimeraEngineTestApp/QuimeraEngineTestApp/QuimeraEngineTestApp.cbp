@@ -8,8 +8,8 @@
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
-				<Option output="DebugWin32Sharedrt\QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
-				<Option object_output="DebugWin32Sharedrt\" />
+				<Option output="DebugLinux32Sharedrt\QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output="DebugLinux32Sharedrt\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectIncludeDirsRelation="2" />
@@ -17,13 +17,10 @@
 					<Add option="-g" />
 				</Compiler>
 				<Linker>
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
-					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
+					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineCore.a" />
+					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineSystem.a" />
+					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools.a" />
+					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic" />
 				</Linker>
 			</Target>
 			<Target title="DebugWin32SharedrtStatic">
