@@ -135,7 +135,7 @@ public:
 	/// <param name="orb">[IN] The orb to be compared to.</param>
 	/// <returns>
 	/// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
-	/// </returns> 
+	/// </returns>
 	inline bool Intersection (const QBaseOrb<VectorType>& orb) const
 	{
 		// An intersection between the segment and the orb is considered if the minimum
@@ -770,27 +770,6 @@ public:
 
 protected:
 	/// <summary>
-	// [TODO] Thund, put this method as a generic non-member function and delete it from here when it's done.
-	///
-	/// This method clamps the input value to lie within the range [Min..Max]
-	/// </summary>
-	/// <param name="fFactor">[IN] A floating point value; the value to be clamped, if neccesary.</param>
-	/// <param name="fMin">[IN] A floating point value; the minimum value into the range.</param>
-	/// <param name="fMax">[IN] A floating point value; the maximum value into the range.</param>
-	/// <returns>
-	/// A floating point value that represents the input value, clamped (if was really necessary); otherwise,
-	/// the same value.
-	/// </returns>
-	float_q ClampFactor (const float_q& fFactor, const float_q& fMin, const float_q& fMax) const
-	{
-        return QFloat::IsGreaterThan(fFactor, fMax) ?
-                                                    fMax :
-                                                    QFloat::IsLessThan(fFactor, fMin) ?
-                                                                                        fMin :
-                                                                                        fFactor;
-	}
-
-	/// <summary>
 	/// This method computes the closest points between two line segments.
 	/// </summary>
 	/// <param name="segmt">[IN] The segment to whom the distace has to be computed from.</param>
@@ -841,7 +820,8 @@ protected:
 
 				// Checkout to avoid division by 0
 				QE_ASSERT(fSqrLengthv2 != QFloat::_0);
-				fSFactor2 = this->ClampFactor( (fDotProdv2vTails / fSqrLengthv2), QFloat::_0, QFloat::_1 );
+
+				QFloat::Clamp( (fDotProdv2vTails / fSqrLengthv2), QFloat::_0, QFloat::_1, fSFactor2 );
 		    }
 			else
 			{
@@ -854,7 +834,9 @@ protected:
 
 					// Checkout to avoid division by 0
 					QE_ASSERT(fSqrLengthv1 != QFloat::_0);
-					fSFactor1 = this->ClampFactor( (-fDotProdv1vTails / fSqrLengthv1), QFloat::_0, QFloat::_1 );
+
+					QFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), QFloat::_0, QFloat::_1, fSFactor1 );
+
 		        }
 				else
 				{
@@ -872,7 +854,7 @@ protected:
 					// fSFactor1 = ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom
 		            if (QFloat::IsNotZero(fDenom))
 					{
-		                fSFactor1 = this->ClampFactor( ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom, QFloat::_0, QFloat::_1 );
+						QFloat::Clamp( ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom, QFloat::_0, QFloat::_1, fSFactor1 );
 		            }
 					else
 					{
@@ -896,7 +878,7 @@ protected:
 						// Checkout to avoid division by 0
 						QE_ASSERT(fSqrLengthv1 != QFloat::_0);
 
-						fSFactor1 = this->ClampFactor( (-fDotProdv1vTails / fSqrLengthv1), QFloat::_0, QFloat::_1);
+						QFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), QFloat::_0, QFloat::_1, fSFactor1 );
 					}
 					else if (fNom > fSqrLengthv2)
 					{
@@ -904,7 +886,9 @@ protected:
 
 						// Checkout to avoid division by 0
 						QE_ASSERT(fSqrLengthv1 != QFloat::_0);
-						fSFactor1 = this->ClampFactor( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), QFloat::_0, QFloat::_1);
+
+						QFloat::Clamp( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), QFloat::_0, QFloat::_1, fSFactor1 );
+
 					}
 					else // fNom in range [0..1]
 					{

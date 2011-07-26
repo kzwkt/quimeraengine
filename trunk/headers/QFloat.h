@@ -386,6 +386,23 @@ public:
         fValue = boost::math::trunc(fValue);
     }
 
+	/// <summary>
+	/// This method clamps the input value to lie within the range [Min..Max]
+	/// </summary>
+	/// <param name="fValue">[IN] A floating point value; the value to be clamped, if neccesary.</param>
+	/// <param name="fMin">[IN] A floating point value; the minimum value into the range.</param>
+	/// <param name="fMax">[IN] A floating point value; the maximum value into the range.</param>
+	/// <param name="fClampedValue">[OUT] A floating point value; the clamped value.</param>
+	/// <remarks>
+	/// The source input value won't be modified.
+	/// </remarks>
+	inline static void Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax, float_q& fClampedValue)
+	{
+		fClampedValue = (fValue > fMax) ?  fMax :
+										        (fValue < fMin) ?  fMin :
+														                fValue;
+	}
+
     /// <summary>
     /// Inverts the order of bytes which compound a floating point number and returns the result as 
     /// output parameter. A 32-bits floating point number whose value equals to 0xAABBCCDD will be 
