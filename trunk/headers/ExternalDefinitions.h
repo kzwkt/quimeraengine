@@ -20,9 +20,9 @@
     #define QE_OS_WINDOWS 32    // Windows 32 bits
 #elif defined _WIN64
     #define QE_OS_WINDOWS 64    // Windows 64 bits
-#elif defined(LINUX32) && defined(linux)
+#elif defined(__i386) && defined(__linux__)
     #define QE_OS_LINUX 32      // Linux 32 bits
-#elif defined(LINUX64) && defined(linux)
+#elif defined(LINUX64) && defined(__linux__)
     #define QE_OS_LINUX 64      // Linux 64 bits
 #else
 // [TODO] Thund: Complete the list, including: Linux 32 bits, Linux 64 bits and MacOS
@@ -37,8 +37,8 @@
     #else
         #define QE_COMPILER_MSVC 0  // Microsoft Visual C++ < 2010
     #endif
-#elif __GNUG__
-    #define QE_COMPILER_GCC __GNUG__ // GCC
+#elif __GNUC__
+    #define QE_COMPILER_GCC __GNUC__ // GCC
 #endif
 
 // --------------------------------------------------------------------------------------------------------
