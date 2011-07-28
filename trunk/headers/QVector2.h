@@ -307,19 +307,6 @@ public:
     /// <returns>
     /// A reference to the modified vector.
     /// </returns>
-    inline QVector2& operator=(const QVector2 &v)
-    {
-        reinterpret_cast<QBaseVector2&>(*this) = v;
-        return *this;
-    }
-
-    /// <summary>
-    /// Assign operator. Assigns the provided vector to the resident vector.
-    /// </summary>
-    /// <param name="v">[IN] The vector to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified vector.
-    /// </returns>
     inline QVector2& operator=(const QBaseVector2 &v)
     {
         reinterpret_cast<QBaseVector2&>(*this) = v;

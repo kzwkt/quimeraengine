@@ -399,20 +399,6 @@ public:
 				QFloat::IsZero(this->ij[2][3]);  
 	}
 
-	/// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
-    /// </summary>
-    /// <param name="m">[IN] The matrix to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified matrix.
-    /// </returns>
-    inline QMatrix3x4& operator=(const QMatrix3x4 &m)
-    {
-        reinterpret_cast<QBaseMatrix3x4&>(*this) = m;
-        
-		return *this;
-    }
-
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
