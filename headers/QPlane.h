@@ -252,19 +252,6 @@ public:
     /// <returns>
     /// A reference to the modified plane.
     /// </returns>
-    inline QPlane& operator=(const QPlane &p)
-    {
-        reinterpret_cast<QBasePlane&>(*this) = p;
-        return *this;
-    }
-
-    /// <summary>
-    /// Assign operator. Assigns the provided plane to the resident plane.
-    /// </summary>
-    /// <param name="p">[IN] The plane to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified plane.
-    /// </returns>
     inline QPlane& operator=(const QBasePlane &p)
     {
         reinterpret_cast<QBasePlane&>(*this) = p;

@@ -322,19 +322,6 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QTranslationMatrix<MatrixType>& operator=(const QTranslationMatrix<MatrixType> &m)
-    {
-        reinterpret_cast<MatrixType&>(*this) = m;
-        return *this;
-    }
-
-    /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
-    /// </summary>
-    /// <param name="m">[IN] The matrix to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified matrix.
-    /// </returns>
     inline QTranslationMatrix<MatrixType>& operator=(const MatrixType &m)
     {
         reinterpret_cast<MatrixType&>(*this) = m;
