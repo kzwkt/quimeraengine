@@ -114,6 +114,19 @@ public:
     }
 
     /// <summary>
+    /// This method receives a orb, and computes if it intersects the resident segment or not.
+    /// </summary>
+    /// <param name="orb">[IN] The orb to be compared to.</param>
+    /// <returns>
+    /// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
+    /// </returns>
+    template <class VectorTypeParam>
+    inline bool Intersection (const QBaseOrb<VectorTypeParam>& orb) const
+    {
+         return QLineSegment<VectorTypeParam>::Intersection(orb);
+    };
+
+    /// <summary>
     /// Checks if resident line segment intersects with the provided triangle.
     /// If one end point of the line segment lies on the triangle, or on an edge or vertex of the triangle,
     /// we consider there is an intersection.
@@ -219,13 +232,13 @@ public:
 	/// This method receives another line segment, and computes wheter they intersect each other or not.
 	/// This method calls base class' implementation.
 	/// </summary>
-	/// <param name="vBaseLineSegment">[IN] The segment to be compared to.</param>
+	/// <param name="segmt">[IN] The segment to be compared to.</param>
 	/// <returns>
 	/// True if they intersect each other (or if they were coincident), false if they don't.
 	/// </returns>
-	inline bool Intersection (const QBaseLineSegment<VectorType>& vBaseLineSegment) const
+	inline bool Intersection (const QBaseLineSegment<VectorType>& segmt) const
 	{
-		return QLineSegment<VectorType>::Intersection(vBaseLineSegment);
+		return QLineSegment<VectorType>::Intersection(segmt);
 	}
 
     /// <summary>
@@ -254,13 +267,13 @@ public:
 	///	that is, the distance between their farthest points. 
 	/// This method calls base class' implementation.
     /// </summary>
-    /// <param name="q">[IN] The line segment the distance will be measured to.</param>
+    /// <param name="segmt">[IN] The line segment the distance will be measured to.</param>
     /// <returns>
     /// A floating point value containing the maximum distance between both line segments.
     /// </returns>
-    inline float_q MaxDistance(const QBaseLineSegment<VectorType>& vBaseLineSegment) const
+    inline float_q MaxDistance(const QBaseLineSegment<VectorType>& segmt) const
     {
-		return QLineSegment<VectorType>::MaxDistance(vBaseLineSegment);
+		return QLineSegment<VectorType>::MaxDistance(segmt);
     }
 
     /// <summary>
@@ -306,13 +319,13 @@ public:
 	///	that is, the distance between their closest points.
 	/// This method calls base class' implementation.
 	/// </summary>
-	/// <param name="vBaseLineSegment">[IN] The line segment the distance will be measured to.</param>
+	/// <param name="segmt">[IN] The line segment the distance will be measured to.</param>
 	/// <returns>
 	/// A floating point value (always nonnegative) which represents the minimum distance between the two segments.
 	/// </returns>
-	inline float_q MinDistance (const QBaseLineSegment<VectorType>& vBaseLineSegment) const
+	inline float_q MinDistance (const QBaseLineSegment<VectorType>& segmt) const
 	{
-		return QLineSegment<VectorType>::MinDistance(vBaseLineSegment);
+		return QLineSegment<VectorType>::MinDistance(segmt);
 	}
 
 	/// <summary>
@@ -367,58 +380,44 @@ public:
 
     /// <summary>
     /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
-    /// the "A" end point as pivot of rotation.
+    /// the coordinate axis as center of rotation.
     /// </summary>
     /// <param name="q">[IN] The quaternion which contains the rotation.</param>
     inline void Transform(const QQuaternion &q)
-    {
-        this->B -= this->A;
-        
-        this->B.Transform(q);
-
-        this->B += this->A;
+    {   
+        this->TransformFromPivot(q, VectorType::ZeroVector);
     }
 
     /// <summary>
     /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
-    /// the "A" end point as pivot of rotation. The resultant line segment is stored in the line segment provided.
+    /// the coordinate axis as center of rotation. The resultant line segment is stored in the line segment provided.
     /// </summary>
     /// <param name="q">[IN] The quaternion which contains the rotation.</param>
     /// <param name="ls">[OUT] Line segment to store the rotated one.</param>
     inline void Transform(const QQuaternion &q, QLineSegment3D<VectorType> &ls) const
     {
-        ls = *this;
-        ls.Transform(q);
+		this->TransformFromPivot(q, VectorType::ZeroVector, ls);
     }
 
     /// <summary>
     /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the "A" end point as pivot of rotation.
+    /// the coordinate axis as center of rotation.
     /// </summary>
     /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
     inline void Transform(const QDualQuaternion &dq)
     {
-        VectorType vAux(VectorType::ZeroVector);
-        
-        this->B -= this->A;
-
-        this->B.Transform(dq);
-        vAux.Transform(dq);
-
-        this->B += this->A;
-        this->A += vAux2;
+		this->TransformFromPivot(dq, VectorType::ZeroVector);
     }
 
     /// <summary>
     /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the "A" end point as pivot of rotation. The resultant line segment is stored in the line segment provided.
+    /// the coordinate axis as center of rotation. The resultant line segment is stored in the line segment provided.
     /// </summary>
     /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
     /// <param name="ls">[OUT] Line segment to store the transformed one.</param>    
     inline void Transform(const QDualQuaternion &dq, QLineSegment3D<VectorType> &ls) const
     {
-        ls = *this;
-        ls.Transform(dq);
+		this->TransformFromPivot(dq, VectorType::ZeroVector, ls);
     }
 
     /// <summary>
@@ -449,70 +448,76 @@ public:
         reinterpret_cast<QLineSegment3D<VectorType> &> (ls).Transform(m);
     }
 
-    /// <summary>
+	/// <summary>
     /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
-    /// the center point of the line segment as pivot of rotation.
+    /// the pivot point as center of rotation.
     /// </summary>
     /// <param name="q">[IN] The quaternion which contains the rotation.</param>
-    inline void TransformFromCenter(const QQuaternion &q)
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+    inline void TransformFromPivot(const QQuaternion &q, const VectorType &vPivot)
     {
-        VectorType vCenter;
-
-        this->GetCenter(vCenter);
-
-        this->A -= vCenter;
-        this->B -= vCenter;
+		VectorType vPivotAux = vPivot; // We use another local vector object as pivot
+									   // because the pivot point could be one of the
+									   // whole segment endpoints, and the whole endpoint
+									   // is modified despite the const modifier in
+									   // 'const VectorType &vPivot'.
+        this->A -= vPivotAux;
+        this->B -= vPivotAux;
 
         this->A.Transform(q);
-        this->B.Transform(q);   
+        this->B.Transform(q);
 
-        this->A += vCenter;
-        this->B += vCenter;
+        this->A += vPivotAux;
+        this->B += vPivotAux;
     }
 
     /// <summary>
     /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
-    /// the center point of the line segment as pivot of rotation. The resultant line segment is stored in the line segment provided.
+    /// the pivot point as center of rotation. The resultant line segment is stored in the line segment provided.
     /// </summary>
     /// <param name="q">[IN] The quaternion which contains the rotation.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
     /// <param name="ls">[OUT] Line segment to store the rotated one.</param>
-    inline void TransformFromCenter(const QQuaternion &q, QLineSegment3D<VectorType> &ls) const
+    inline void TransformFromPivot(const QQuaternion &q, const VectorType &vPivot, QLineSegment3D<VectorType> &ls) const
     {
         ls = *this;
-        ls.TransformFromCenter(q);
+        ls.TransformFromPivot(q, vPivot);
     }
 
     /// <summary>
     /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the center point of line segment as pivot of rotation.
+    /// the pivot point of line segment as center of rotation.
     /// </summary>
     /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
-    inline void TransformFromCenter(const QDualQuaternion &dq)
+	/// <param name="vPivot">[IN] The pivot point around the rotation will be accomplished.</param>
+    inline void TransformFromPivot(const QDualQuaternion &dq, const VectorType &vPivot)
     {
-        VectorType vCenter;
-
-        this->GetCenter(vCenter);
-
-        this->A -= vCenter;
-        this->B -= vCenter;
+		VectorType vPivotAux = vPivot; // We use another local vector object as pivot
+									   // because the pivot point could be one of the
+									   // whole segment endpoints, and the whole endpoint
+									   // is modified despite the 'const' modifier in
+									   // 'const VectorType &vPivot'.
+        this->A -= vPivotAux;
+        this->B -= vPivotAux;
 
         this->A.Transform(dq);
         this->B.Transform(dq);   
 
-        this->A += vCenter;
-        this->B += vCenter;
+        this->A += vPivotAux;
+        this->B += vPivotAux;
     }
 
     /// <summary>
     /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the center point of line segment as pivot of rotation. The resultant line segment is stored in the line segment provided.
+    /// the pivot point of line segment as center of rotation. The resultant line segment is stored in the line segment provided.
     /// </summary>
     /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
+	/// <param name="vPivot">[IN] The pivot point around the rotation will be accomplished.</param>
     /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
-    inline void TransformFromCenter(const QDualQuaternion &dq, QLineSegment3D<VectorType> &ls) const
+    inline void TransformFromPivot(const QDualQuaternion &dq, const VectorType &vPivot, QLineSegment3D<VectorType> &ls) const
     {
         ls = *this;
-        ls.TransformFromCenter(dq);
+        ls.TransformFromPivot(dq, vPivot);
     }
 
     /// <summary>

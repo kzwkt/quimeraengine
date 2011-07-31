@@ -5,6 +5,8 @@
 
 #include "QLineSegment.h"
 
+#include "QVector2.h"
+
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -18,7 +20,6 @@ namespace Math
 		
 // Forward Declarations
 //-----------------------
-class QVector2;
 template<class VectorType> class QBaseTriangle;
 typedef QBaseTriangle<QVector2> QBaseTriangle2;
 class QBaseQuadrilateral;
@@ -91,8 +92,19 @@ public:
         //return *this;
     }
 
-	/// <summary>
-	/// This method receives a 2D triangle, and computes whether they intersect each other or not.
+    /// <summary>
+    /// This method receives a orb, and computes if it intersects the resident segment or not.
+    /// </summary>
+    /// <param name="orb">[IN] The orb to be compared to.</param>
+    /// <returns>
+    /// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
+    /// </returns>
+    inline bool Intersection (const QBaseOrb<QVector2>& orb) const
+    {
+         return QLineSegment<QVector2>::Intersection(orb);
+    };
+
+	// This method receives a 2D triangle, and computes whether they intersect each other or not.
 	/// </summary>
 	/// <param name="triangl">[IN] The 2D triangle to be compared to.</param>
 	/// <returns>
@@ -113,69 +125,42 @@ public:
 	/// This method receives another line segment, and computes wheter they intersect each other or not.
 	/// This method calls base class' implementation.
 	/// </summary>
-	/// <param name="vBaseLineSegment">[IN] The segment to be compared to.</param>
+	/// <param name="segmt">[IN] The segment to be compared to.</param>
 	/// <returns>
 	/// True if they intersect each other (or if they were coincident), false if they don't.
 	/// </returns>
-	inline bool Intersection (const QBaseLineSegment<QVector2>& vBaseLineSegment) const
+	inline bool Intersection (const QBaseLineSegment<QVector2>& segmt) const
 	{
-		return QLineSegment<QVector2>::Intersection(vBaseLineSegment);
+		return QLineSegment<QVector2>::Intersection(segmt);
 	}
 
 	/// <summary>
-	/// This method transforms the 2D segment by rotating an amount defined by a rotation angle. 
+	/// This method transforms the 2D segment by rotating an amount defined by a rotation angle
+	/// around the coordinate axis centre.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <remarks>
-	/// The rotation will be performed using endpoint A as the pivot point for the rotation.
+	/// Segment endpoints expressed in WORLD coordinates is assumed.
 	/// </remarks>
 	void Transform (const float_q& fRotationAngle);
 
 	/// <summary>
 	/// This method performs a rotation of the 2D segment by rotating an amount defined by a rotation angle
-	/// and then storing the resulting segment in the output parameter.
+	/// (around the coordinate axis centre) and then storing the resulting segment in the output parameter.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="segmt">[OUT] It receives the resulting rotated 2D segment.</param>
-	/// <returns>
-	/// The resulting rotated 2D segment.
-	/// </returns>
 	/// <remarks>
-	/// -The rotation will be performed using endpoint A as the pivot point for the rotation.
+	/// -Segment endpoints expressed in WORLD coordinates is assumed.
 	/// -The segment is NOT modified, it stays the same.
 	/// </remarks>
-	void Transform (const float_q& fRotationAngle, QBaseLineSegment2& segmt) const;
-
-	/// <summary>
-	/// This method transforms the 2D segment by rotating an amount defined by a rotation angle. 
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <remarks>
-	/// The rotation will be performed using the centre point of the segment as the pivot
-	/// point for the rotation.
-	/// </remarks>
-	void TransformFromCenter (const float_q& fRotationAngle);
-
-	/// <summary>
-	/// This method performs a rotation of the 2D segment by rotating an amount defined by a rotation angle
-	/// and then storing the resulting segment in the output parameter.
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <param name="segmt">[OUT] It receives the resulting rotated 2D segment.</param>
-	/// <returns>
-	/// The resulting rotated 2D segment.
-	/// </returns>
-	/// <remarks>
-	/// -The rotation will be performed using the centre point of the segment as the pivot point for the rotation.
-	/// -The segment is NOT modified, it stays the same.
-	/// </remarks>
-	void TransformFromCenter (const float_q& fRotationAngle, QBaseLineSegment2& segmt) const;
+	void Transform (const float_q& fRotationAngle, QBaseLineSegment<QVector2>& segmt) const;
 
 	/// <summary>
 	/// Receives a transformation matrix and applies the transformations to the resident
 	/// line segment. The transformation pivot is the origin of coordinates.
 	/// </summary>
-	/// <param name="tm33Matrix">[IN] matrix: Matrix that contains the transformation to apply.</param>
+	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	void Transform(const QTransformationMatrix3x3 & matrix);
 
 	/// <summary>
@@ -183,26 +168,46 @@ public:
 	/// to a copy of the resident line segment, storing the results in the output parameter. The transformation pivot is the 
 	/// origin of coordinates.
 	/// </summary>
-	/// <param name="tm33Matrix">[IN] matrix: Matrix that contains the transformation to apply.</param>
-	/// <param name="btOutputTriangle">[OUT] lsOutputLineSegment: Line segment that stores the result of the transformation.</param>
+	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="lsOutputLineSegment">[OUT] Line segment that stores the result of the transformation.</param>
 	void Transform(const QTransformationMatrix3x3 & matrix, QBaseLineSegment<QVector2> & lsOutputLineSegment) const;
 
 	/// <summary>
-	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations to the resident line segment. 
-	/// The transformation pivot is the vector recieved as parameter.
+	/// This method transforms the 2D segment by rotating an amount defined by a rotation angle
+	/// around a pivot point (as center of rotation).
 	/// </summary>
-	/// <param name="tm33Matrix">[IN] matrix: Matrix that contains the transformation to apply.</param>
-	/// <param name="bv2Pivot">[IN] v2Pivot: Pivot point used for the transformation.</param>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	void TransformFromPivot (const float_q& fRotationAngle, const QVector2& vPivot);
+
+	/// <summary>
+	/// This method performs a rotation of the 2D segment by rotating an amount defined by a rotation angle
+	/// around a pivot point (as center of rotation), and then storing the resulting segment in the output parameter.
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	/// <param name="segmt">[OUT] It receives the resulting rotated 2D segment.</param>
+	/// <remarks>
+	/// The segment is NOT modified, it stays the same.
+	/// </remarks>
+	void TransformFromPivot (const float_q& fRotationAngle, const QVector2& vPivot, QBaseLineSegment2& segmt) const;
+
+	/// <summary>
+	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations to the resident line segment. 
+	/// The transformation pivot is the vector received as parameter.
+	/// </summary>
+	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="v2Pivot">[IN] Pivot point used for the transformation.</param>
 	void TransformFromPivot(const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot);
 
 	/// <summary>
 	/// Receives a transformation matrix, a vector (transformation pivot) and an output line segment,
 	/// and applies the transformations to a copy of the resident line segment, storing the results in the output parameter.
-	/// The transformation pivot is the vector recieved as parameter.
+	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
-	/// <param name="tm33Matrix">[IN] matrix: Matrix that contains the transformation to apply.</param>
-	/// <param name="bv2Pivot">[IN] v2Pivot: Pivot point used for the transformation.</param>
-	/// <param name="btOutputTriangle">[OUT] lsOutputLineSegment: Line segment that stores the result of the transformation.</param>
+	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="v2Pivot">[IN] Pivot point used for the transformation.</param>
+	/// <param name="lsOutputLineSegment">[OUT] Line segment that stores the result of the transformation.</param>
 	void TransformFromPivot(const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot, QBaseLineSegment<QVector2> & lsOutputLineSegment) const;
 };
 
