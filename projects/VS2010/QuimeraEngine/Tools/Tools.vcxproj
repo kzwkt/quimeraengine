@@ -160,6 +160,8 @@
     <ClInclude Include="..\..\..\..\headers\QVF32.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\EQIntersections.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQSpaceRelation.cpp" />
     <ClCompile Include="..\..\..\..\source\QDualQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QLineSegment2D.cpp" />
     <ClCompile Include="..\..\..\..\source\QMatrix2x2.cpp" />
