@@ -91,6 +91,8 @@
 		<Unit filename="..\..\..\..\headers\QVector2.h" />
 		<Unit filename="..\..\..\..\headers\QVector3.h" />
 		<Unit filename="..\..\..\..\headers\QVector4.h" />
+		<Unit filename="..\..\..\..\source\EQIntersections.cpp" />
+		<Unit filename="..\..\..\..\source\EQSpaceRelation.cpp" />
 		<Unit filename="..\..\..\..\source\QAngle.cpp" />
 		<Unit filename="..\..\..\..\source\QDualQuaternion.cpp" />
 		<Unit filename="..\..\..\..\source\QFloat.cpp" />
