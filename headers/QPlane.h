@@ -10,6 +10,7 @@
 #include "QSpaceConversionMatrix.h"
 #include "QTranslationMatrix.h"
 #include "QVector3.h"
+#include "QVector4.h"
 
 namespace Kinesis
 {
@@ -291,56 +292,52 @@ public:
     /// Calculates the dot product between the direction vector of the resident plane and the provided vector.
     /// </summary>
     /// <param name="v">[IN] The vector which we want to calculate the dot product with.</param>
-    template <class VectorType>
-    inline float_q DotProduct(const VectorType &v) const
+    inline float_q DotProduct(const QVector3 &v) const
     {
-        return v.x * this->a + v.y * this->b + v.z * this->c;
+        return this->DotProductVector(v);
+    }
+
+    /// <summary>
+    /// Calculates the dot product between the direction vector of the resident plane and the provided vector.
+    /// </summary>
+    /// <param name="v">[IN] The vector which we want to calculate the dot product with.</param>
+    inline float_q DotProduct(const QVector4 &v) const
+    {
+        return this->DotProductVector(v);
     }
 
     /// <summary>
     /// Calculates the dot product between the direction vectors of the resident plane and the provided one.
     /// </summary>
     /// <param name="p">[IN] The plane which we want to calculate the dot product with.</param>
-    // [TODO] Thund: Cambiar diseño para poder usar el método de plantilla.
- /*   template <>
-    inline float_q DotProduct<QBasePlane>(const QBasePlane &p) const
+    inline float_q DotProduct(const QBasePlane &p) const
     {
         return p.a * this->a + p.b * this->b + p.c * this->c;
     }
-*/
+
     /// <summary>
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
     /// <param name="v">[IN] The plane whose angle with the resident plane we want to calculate.</param>
-    template <class VectorType>
-    inline float_q DotProductAngle(const VectorType &v) const
+    inline float_q DotProductAngle(const QVector3 &v) const
     {
-        const float_q &fDotLength = sqrt(this->GetSquaredLength() * v.GetSquaredLength());
+        return this->DotProductAngleVector(v);
+    }
 
-        // Checkout to avoid division by zero.
-        QE_ASSERT(fDotLength != QFloat::_0);
-
-        const float_q &fDot = this->DotProduct(v)/fDotLength;
-
-        // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(abs(fDot) <= QFloat::_1);
-
-        const float_q &fAngle = acos(fDot);
-        #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            // If angles are specified in degrees, then converts angle to degrees
-            fAngle = QAngle::RadiansToDegrees(fAngle, fAngle);
-        #endif
-
-        return fAngle;
+    /// <summary>
+    /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
+    /// </summary>
+    /// <param name="v">[IN] The plane whose angle with the resident plane we want to calculate.</param>
+    inline float_q DotProductAngle(const QVector4 &v) const
+    {
+        return this->DotProductAngleVector(v);
     }
 
     /// <summary>
     /// Calculates the angle between resident and provided planes via dot product between their direction vectors.
     /// </summary>
     /// <param name="p">[IN] The plane whose angle with the resident plane we want to calculate.</param>
-    // [TODO] Thund: Cambiar diseño para poder usar el método de plantilla.
-/*    template <>
-    inline float_q DotProductAngle<QBasePlane>(const QBasePlane &p) const
+    inline float_q DotProductAngle(const QBasePlane &p) const
     {
         const float_q fDotLength = sqrt(this->GetSquaredLength() * reinterpret_cast<const QPlane&>(p).GetSquaredLength());
 
@@ -360,7 +357,7 @@ public:
 
         return fAngle;
     }
-*/
+
     /// <summary>
     /// Calculates the orthogonal projection of a given point over the resident plane.
     /// </summary>
@@ -770,6 +767,43 @@ public:
                QE_L(", ")  + QFloat::ToString(this->c) + QE_L(", ") + QFloat::ToString(this->d) + QE_L(")");
     }
 
+protected:
+
+    /// <summary>
+    /// Calculates the dot product between the direction vector of the resident plane and the provided vector.
+    /// </summary>
+    /// <param name="v">[IN] The vector which we want to calculate the dot product with.</param>
+    template <class VectorType>
+    inline float_q DotProductVector(const VectorType &v) const
+    {
+        return v.x * this->a + v.y * this->b + v.z * this->c;
+    }
+
+    /// <summary>
+    /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
+    /// </summary>
+    /// <param name="v">[IN] The plane whose angle with the resident plane we want to calculate.</param>
+    template <class VectorType>
+    inline float_q DotProductAngleVector(const VectorType &v) const
+    {
+        const float_q &fDotLength = sqrt(this->GetSquaredLength() * v.GetSquaredLength());
+
+        // Checkout to avoid division by zero.
+        QE_ASSERT(fDotLength != QFloat::_0);
+
+        const float_q &fDot = this->DotProduct(v)/fDotLength;
+
+        // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
+        QE_ASSERT(abs(fDot) <= QFloat::_1);
+
+        const float_q &fAngle = acos(fDot);
+        #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+            // If angles are specified in degrees, then converts angle to degrees
+            fAngle = QAngle::RadiansToDegrees(fAngle, fAngle);
+        #endif
+
+        return fAngle;
+    }
 };
 
 
