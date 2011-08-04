@@ -17,13 +17,23 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in the space. The triangle may be represented in 2D or 3D, 
-///	and using points or vectors, depending on the parameter of the template, which may be 
+/// Class which represents a triangle in the space. The triangle may be represented in 2D or 3D,
+///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
 /// </summary>
 template <class VectorType>
 class QDllExport QTriangle : public QBaseTriangle<VectorType>
 {
+
+    // BASE CLASS USINGS
+    // -------------------
+public:
+
+    using QBaseTriangle<VectorType>::A;
+    using QBaseTriangle<VectorType>::B;
+    using QBaseTriangle<VectorType>::C;
+
+
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -67,7 +77,7 @@ public:
 	/// <param name="btValue">[IN] QBaseTriangle that will be assigned to current triangle.</param>
 	inline QTriangle<VectorType> & operator=(const QBaseTriangle<VectorType> & btValue)
 	{
-        reinterpret_cast<QBaseTriangle<VectorType>&>(*this) = btValue;    
+        reinterpret_cast<QBaseTriangle<VectorType>&>(*this) = btValue;
         return *this;
 	}
 
@@ -154,7 +164,7 @@ public:
 		VectorType vtSideA = C - B;
 		VectorType vtSideB = A - C;
 		VectorType vtSideC = B - A;
-		
+
 		float_q fLengthA = vtSideA.GetLength();
 		float_q fLengthB = vtSideB.GetLength();
 		float_q fLengthC = vtSideC.GetLength();
