@@ -133,13 +133,23 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
     const float_q &fScaleY  = QFloat::_1 / tan(fHalfVertFOV);
     const float_q &fScaleX  = fScaleY / fAspectRatio;
 
-    this->ResetToZero();
-
     this->ij[0][0] = fScaleX;
+    this->ij[0][1] = QFloat::_0;
+    this->ij[0][2] = QFloat::_0;
+    this->ij[0][3] = QFloat::_0;
+    this->ij[1][0] = QFloat::_0;
     this->ij[1][1] = fScaleY;
+    this->ij[1][2] = QFloat::_0;
+    this->ij[1][3] = QFloat::_0;
+    this->ij[2][0] = QFloat::_0;
+    this->ij[2][1] = QFloat::_0;
     this->ij[2][2] = fFarClipPlane/(fFarClipPlane - fNearClipPlane);
-    this->ij[3][2] = -fNearClipPlane * this->ij[2][2];
     this->ij[2][3] = QFloat::_1;
+    this->ij[3][0] = QFloat::_0;
+    this->ij[3][2] = -fNearClipPlane * this->ij[2][2];
+    this->ij[3][1] = QFloat::_0;
+    this->ij[3][3] = QFloat::_0;
+
 }
 
 void QSpaceConversionMatrix::SwitchHandConventionViewSpaceMatrix()
