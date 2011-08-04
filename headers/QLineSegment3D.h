@@ -22,10 +22,10 @@ namespace Tools
 {
 namespace Math
 {
-    
+
 /// <summary>
 /// Class which represents a chunk (segment) of straight line in 3D space, defined by two endpoints A and B.
-/// These points may be expressed as 3D points or vectors, depending on the template parameter, 
+/// These points may be expressed as 3D points or vectors, depending on the template parameter,
 /// which may be 3D vector or 4D vector.
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment.
 /// </summary>
@@ -68,15 +68,15 @@ public:
     inline QLineSegment3D& operator=(const QBaseLineSegment<VectorType> &ls)
     {
         // [TODO] jwladi: it must be done via QLineSegment assign operator.
-        reinterpret_cast<QBaseLineSegment<VectorType>&>(*this) = ls;    
+        reinterpret_cast<QBaseLineSegment<VectorType>&>(*this) = ls;
         return *this;
     }
 
     /// <summary>
     /// Checks if resident line segment intersects with the provided plane.
-    /// Since a plane divides space into two sides (positive and negative), we can check how the end points of 
+    /// Since a plane divides space into two sides (positive and negative), we can check how the end points of
     /// the line segment satisfies the plane equation:
-    /// Being the plane equation \f$ ax + by + cz + d = 0 \f$, 
+    /// Being the plane equation \f$ ax + by + cz + d = 0 \f$,
     /// and the end points of the line segment \f$ A(A_x, A_y, A_z)\f$, \f$ B(B_x, B_y, B_z)\f$,
     /// we have to check the value of:
     ///
@@ -85,9 +85,9 @@ public:
     /// (2) \f$ a\cdot B_x + b\cdot B_y + c\cdot B_z + d \f$
     ///
     /// If (1) = 0 or (2) = 0, then the line segment intersects the plane (one of the end points lies on plane).
-    /// If the sign of (1) and (2) are different, each end point are in a different side of the space 
+    /// If the sign of (1) and (2) are different, each end point are in a different side of the space
     /// from the plane, and then the line segment intersects the plane.
-    /// If (1) and (2) have equal sign, then there are in the same side of the space from the plane, 
+    /// If (1) and (2) have equal sign, then there are in the same side of the space from the plane,
     /// and the line segment don't intersects the plane.
     /// If one end point of the line segment lies on the plane, we consider there is an intersection.
     /// </summary>
@@ -99,12 +99,12 @@ public:
     {
         const float_q &distA = p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d;
 
-        if (QFloat::IsZero(distA)) 
+        if (QFloat::IsZero(distA))
             return true;
 
         const float_q &distB = p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d;
 
-        if (QFloat::IsZero(distB)) 
+        if (QFloat::IsZero(distB))
             return true;
 
         else if ( QFloat::IsLessThan(distA * distB, QFloat::_0) )
@@ -149,42 +149,42 @@ public:
         PlaneFrom3Points(t.A, t.B, t.C, pAux);
 
         // Line Segment don't intersects the triangle plane.
-        if (!lsAux.Intersection(pAux)) 
+        if (!lsAux.Intersection(pAux))
             return false;
 
         // If both end points satisfy plane equation, the line segment lies on plane
         const float_q &fDot1 = pAux.a * lsAux.B.x + pAux.b * lsAux.B.y + pAux.c * lsAux.B.z + pAux.d;
         const float_q &fDot2 = pAux.a * lsAux.A.x + pAux.b * lsAux.A.y + pAux.c * lsAux.A.z + pAux.d;
 
-        if (QFloat::IsZero(fDot1) && QFloat::IsZero(fDot2)) 
+        if (QFloat::IsZero(fDot1) && QFloat::IsZero(fDot2))
         {
             // Both triangle and line segment are coplanars. If the line segment
             // intersects one of the edges of the triangle, then the line segment intersects the triangle.
-            if (lsAux.QLineSegment::Intersection(QLineSegment<VectorTypeParam> (t.A, t.B)) ||
-                lsAux.QLineSegment::Intersection(QLineSegment<VectorTypeParam> (t.B, t.C)) || 
-                lsAux.QLineSegment::Intersection(QLineSegment<VectorTypeParam> (t.C, t.A))) 
+            if (lsAux.QLineSegment<VectorType>::Intersection(QLineSegment<VectorTypeParam> (t.A, t.B)) ||
+                lsAux.QLineSegment<VectorType>::Intersection(QLineSegment<VectorTypeParam> (t.B, t.C)) ||
+                lsAux.QLineSegment<VectorType>::Intersection(QLineSegment<VectorTypeParam> (t.C, t.A)))
                 return true;
 
             // If not, we check if segment is fully contained in the triangle
             // We only check "A" end point, since if "A" is inside, "B" must be inside too (see previus test).
             else if (!PointsInSameSideOfLine(lsAux.A, t.A, t.B, t.C) ||
                      !PointsInSameSideOfLine(lsAux.A, t.B, t.A, t.C) ||
-                     !PointsInSameSideOfLine(lsAux.A, t.C, t.B, t.A)) 
+                     !PointsInSameSideOfLine(lsAux.A, t.C, t.B, t.A))
                 return false;
             else
                 return true;
-        } 
-        
+        }
+
         QE_ASSERT(QFloat::IsNotZero(fDot2 - fDot1));
 
         // The point which satisfies both line and plane equations.
         VectorTypeParam vAux = lsAux.A + (lsAux.B - lsAux.A) * fDot2/(fDot2 - fDot1);
 
-        // For every edge, it tests if the intersection point is in the same side of each edge 
+        // For every edge, it tests if the intersection point is in the same side of each edge
         // than the third vextex. If it does, then it's inside the triangle, otherwise it's outside.
         if (!PointsInSameSideOfLine(vAux, t.A, t.B, t.C) ||
             !PointsInSameSideOfLine(vAux, t.B, t.A, t.C) ||
-            !PointsInSameSideOfLine(vAux, t.C, t.B, t.A)) 
+            !PointsInSameSideOfLine(vAux, t.C, t.B, t.A))
             return false;
         else
             return true;
@@ -192,7 +192,7 @@ public:
 
     /// <summary>
     /// Checks if resident line segment intersects with the provided hexahedron.
-    /// If one end point of the line segment lies on one of the hexahedron faces, 
+    /// If one end point of the line segment lies on one of the hexahedron faces,
     /// we consider there is an intersection.
     /// </summary>
     /// <param name="h">[IN] The hexahedron we want check if intersects with resident line segment.</param>
@@ -210,7 +210,7 @@ public:
             CuadrilateralIntersection(lsAux, h.A, h.B, h.H, h.E) ||
             CuadrilateralIntersection(lsAux, h.B, h.C, h.G, h.H) ||
             CuadrilateralIntersection(lsAux, h.A, h.D, h.F, h.E) ||
-            CuadrilateralIntersection(lsAux, h.C, h.D, h.F, h.G)) 
+            CuadrilateralIntersection(lsAux, h.C, h.D, h.F, h.G))
             return true;
 
         // If not, we check if one of the line segment end points is inside the hexahedron, which means
@@ -222,7 +222,7 @@ public:
                  !PointsInSameSideOfPlane(lsAux.A, h.C, h.A, h.B, h.H) ||
                  !PointsInSameSideOfPlane(lsAux.A, h.A, h.B, h.C, h.G) ||
                  !PointsInSameSideOfPlane(lsAux.A, h.C, h.A, h.D, h.F) ||
-                 !PointsInSameSideOfPlane(lsAux.A, h.A, h.C, h.D, h.F)) 
+                 !PointsInSameSideOfPlane(lsAux.A, h.A, h.C, h.D, h.F))
             return false;
         else
             return true;
@@ -264,7 +264,7 @@ public:
 
     /// <summary>
 	/// Given an input line segment, this method returns the maximum distance between this and the input one,
-	///	that is, the distance between their farthest points. 
+	///	that is, the distance between their farthest points.
 	/// This method calls base class' implementation.
     /// </summary>
     /// <param name="segmt">[IN] The line segment the distance will be measured to.</param>
@@ -359,7 +359,7 @@ public:
         this->A.x += fProjA * p.a * fInvSquaredLength;
         this->A.y += fProjA * p.b * fInvSquaredLength;
         this->A.z += fProjA * p.c * fInvSquaredLength;
-  
+
         const float_q &fProjB = -(p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d);
 
         this->B.x += fProjB * p.a * fInvSquaredLength;
@@ -384,7 +384,7 @@ public:
     /// </summary>
     /// <param name="q">[IN] The quaternion which contains the rotation.</param>
     inline void Transform(const QQuaternion &q)
-    {   
+    {
         this->TransformFromPivot(q, VectorType::ZeroVector);
     }
 
@@ -414,14 +414,14 @@ public:
     /// the coordinate axis as center of rotation. The resultant line segment is stored in the line segment provided.
     /// </summary>
     /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
-    /// <param name="ls">[OUT] Line segment to store the transformed one.</param>    
+    /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
     inline void Transform(const QDualQuaternion &dq, QLineSegment3D<VectorType> &ls) const
     {
 		this->TransformFromPivot(dq, VectorType::ZeroVector, ls);
     }
 
     /// <summary>
-    /// Transforms the resident line segment with a transformation of types rotation, scale, translation, 
+    /// Transforms the resident line segment with a transformation of types rotation, scale, translation,
     /// generic transformation or space conversion transformation contained in the matrix provided, acting
     /// the coordinate origin as pivot.
     /// </summary>
@@ -434,7 +434,7 @@ public:
     }
 
     /// <summary>
-    /// Transforms the resident line segment with a transformation of types rotation, scale, translation, 
+    /// Transforms the resident line segment with a transformation of types rotation, scale, translation,
     /// generic transformation or space conversion transformation contained in the matrix provided, acting
     /// the coordinate origin as pivot.
     /// The resultant line segment is stored in the line segment provided.
@@ -501,7 +501,7 @@ public:
         this->B -= vPivotAux;
 
         this->A.Transform(dq);
-        this->B.Transform(dq);   
+        this->B.Transform(dq);
 
         this->A += vPivotAux;
         this->B += vPivotAux;
@@ -521,7 +521,7 @@ public:
     }
 
     /// <summary>
-    /// Transforms the resident line segment with a transformation of types rotation, scale, translation, 
+    /// Transforms the resident line segment with a transformation of types rotation, scale, translation,
     /// generic transformation or space conversion transformation contained in the matrix provided, acting
     /// the point provided as pivot.
     /// </summary>
@@ -541,7 +541,7 @@ public:
     }
 
     /// <summary>
-    /// Transforms the resident line segment with a transformation of types rotation, scale, translation, 
+    /// Transforms the resident line segment with a transformation of types rotation, scale, translation,
     /// generic transformation or space conversion transformation contained in the matrix provided, acting
     /// the point provided as pivot.
     /// The resultant line segment is stored in the line segment provided.
@@ -560,9 +560,9 @@ public:
     /// Checks the relation between resident line segment and the provided plane.
     /// Since a plane divides space into two parts, we can check if the "distances" (allowing distances having sign) from
     /// the plane to both end points of line segment are 0, or have diferent sign, in which case the segment crosses the plane.
-    /// If distances from plane to both end points have the same sign, all line segment is in the same 
+    /// If distances from plane to both end points have the same sign, all line segment is in the same
     /// side of the space, and they haven't a common point.
-    /// 
+    ///
     /// </summary>
     /// <remarks>
     /// Note that if only one end point of the resident line segment lies on the plane, we consider that it is
@@ -572,7 +572,7 @@ public:
     /// <returns>
     /// An integer value like follows:
     ///     0 (Contained): All the line segment lies on plane.
-    ///     1 (PositiveSide): The line segment is fully contained in the positive side of the space defined by the plane. 
+    ///     1 (PositiveSide): The line segment is fully contained in the positive side of the space defined by the plane.
     ///     2 (NegativeSide): The line segment is fully contained in the negative side of the space defined by the plane.
     ///     3 (BothSides): One end point of the line segment is in the positive side and the other is in the negative one.
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
@@ -582,22 +582,22 @@ public:
         const float_q &distA = p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d;
         const float_q &distB = p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d;
 
-        if (QFloat::IsZero(distA) && QFloat::IsZero(distB)) 
+        if (QFloat::IsZero(distA) && QFloat::IsZero(distB))
             return EQSpaceRelation::E_Contained;
-        else if ( QFloat::IsGreaterOrEquals(distA, QFloat::_0) && QFloat::IsGreaterOrEquals(distB, QFloat::_0) ) 
+        else if ( QFloat::IsGreaterOrEquals(distA, QFloat::_0) && QFloat::IsGreaterOrEquals(distB, QFloat::_0) )
             return EQSpaceRelation::E_PositiveSide;
         else if ( QFloat::IsLowerOrEquals(distA, QFloat::_0) && QFloat::IsLowerOrEquals(distB, QFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
-        else        
+        else
             return EQSpaceRelation::E_BothSides;
     }
 
 protected:
 
     // [TODO] jwladi: This method will be substituted by a constructor of QPlane;
-    // Constructs a plane from three (different) points. 
+    // Constructs a plane from three (different) points.
     template <class VectorTypeParam>
-    inline void PlaneFrom3Points(const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC, 
+    inline void PlaneFrom3Points(const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC,
         QBasePlane &pOut) const
     {
         // Creates two vectors, to obtain the normal vector of the plane via cross product
@@ -611,19 +611,19 @@ protected:
         // Plane equation
         pOut = QBasePlane(vAux1.x, vAux1.y, vAux1.z, -(vAux1.DotProduct(vA)));
     }
-    
+
     // Calculates if two points are in the same side of a line segment. Can be used to know
-    // if a point is inside or outside a plane convex polygon, being point and polygon coplanars. 
-    // The point must be in the same side of every polygon edge than any 
-    // other polygon vertex not included in the analized edge. 
+    // if a point is inside or outside a plane convex polygon, being point and polygon coplanars.
+    // The point must be in the same side of every polygon edge than any
+    // other polygon vertex not included in the analized edge.
     template <class VectorTypeParam>
-    inline bool PointsInSameSideOfLine(const VectorTypeParam &vP1, const VectorTypeParam &vP2, 
+    inline bool PointsInSameSideOfLine(const VectorTypeParam &vP1, const VectorTypeParam &vP2,
         const VectorTypeParam &vLine1, const VectorTypeParam &vLine2) const
     {
         VectorTypeParam vLine(vLine2 - vLine1);
         VectorTypeParam vCP1;
         VectorTypeParam vCP2;
-        
+
         vLine.CrossProduct(vP1 - vLine1, vCP1);
         vLine.CrossProduct(vP2 - vLine1, vCP2);
 
@@ -635,7 +635,7 @@ protected:
 
     // Calculates if two points are in the same side of a plane defined by 3 points.
     template <class VectorTypeParam>
-    inline bool PointsInSameSideOfPlane(const VectorTypeParam &vP1, const VectorTypeParam &vP2, 
+    inline bool PointsInSameSideOfPlane(const VectorTypeParam &vP1, const VectorTypeParam &vP2,
         const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC) const
     {
         QBasePlane p;
@@ -652,10 +652,10 @@ protected:
     }
 
     // [TODO] jwladi: it must be convenient to implement this method for QBaseQuadrilateral
-    // Checks if a segment intersects a cuadrilateral. It's supossed that A, B, C, D are consecutive 
+    // Checks if a segment intersects a cuadrilateral. It's supossed that A, B, C, D are consecutive
     // vertices of a cuadrilateral.
     template <class VectorTypeParam>
-    bool CuadrilateralIntersection(const QLineSegment3D<VectorTypeParam> &ls, 
+    bool CuadrilateralIntersection(const QLineSegment3D<VectorTypeParam> &ls,
         const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC, const VectorTypeParam &vD) const
     {
         // Plane equation
@@ -663,21 +663,21 @@ protected:
         PlaneFrom3Points(vA, vB, vC, pAux);
 
         // Line Segment don't intersects the cuadrilateral plane.
-        if (!ls.Intersection(pAux)) 
+        if (!ls.Intersection(pAux))
             return false;
 
         // If both end points satisfy plane equation, the line segment lies on plane
         const float_q &fDot1 = pAux.a * ls.B.x + pAux.b * ls.B.y + pAux.c * ls.B.z + pAux.d;
         const float_q &fDot2 = pAux.a * ls.A.x + pAux.b * ls.A.y + pAux.c * ls.A.z + pAux.d;
 
-        if (QFloat::IsZero(fDot1) && QFloat::IsZero(fDot2)) 
+        if (QFloat::IsZero(fDot1) && QFloat::IsZero(fDot2))
         {
             // Both cuadrilateral and line segment are coplanar. If the line segment
             // intersects one of the edges of the cuadrilateral, then the line segment intersects the cuadrilateral.
-            if (ls.QLineSegment::Intersection(QLineSegment<VectorTypeParam> (vA, vB)) ||
-                ls.QLineSegment::Intersection(QLineSegment<VectorTypeParam> (vB, vC)) ||
-                ls.QLineSegment::Intersection(QLineSegment<VectorTypeParam> (vC, vD)) ||
-                ls.QLineSegment::Intersection(QLineSegment<VectorTypeParam> (vD, vA)))
+            if (ls.QLineSegment<VectorType>::Intersection(QLineSegment<VectorTypeParam> (vA, vB)) ||
+                ls.QLineSegment<VectorType>::Intersection(QLineSegment<VectorTypeParam> (vB, vC)) ||
+                ls.QLineSegment<VectorType>::Intersection(QLineSegment<VectorTypeParam> (vC, vD)) ||
+                ls.QLineSegment<VectorType>::Intersection(QLineSegment<VectorTypeParam> (vD, vA)))
                 return true;
 
             // Now we check if segment is fully contained in the cuadrilateral
@@ -685,34 +685,34 @@ protected:
             else if (!PointsInSameSideOfLine(ls.A, vC, vA, vB) ||
                 !PointsInSameSideOfLine(ls.A, vA, vB, vC) ||
                 !PointsInSameSideOfLine(ls.A, vA, vC, vD) ||
-                !PointsInSameSideOfLine(ls.A, vC, vD, vA)) 
+                !PointsInSameSideOfLine(ls.A, vC, vD, vA))
                 return false;
             else
                 return true;
-        } 
-        
+        }
+
         QE_ASSERT(QFloat::IsNotZero(fDot2 - fDot1));
 
         // The point which satisfies both line and plane equations.
         VectorTypeParam vAux = ls.A + (ls.B - ls.A) * fDot2/(fDot2 - fDot1);
 
-        // For every edge, it tests if the intersection point is in the same side of each edge 
-        // than any other vextex (not of the edge). If it does, then it's inside the cuadrilateral, 
+        // For every edge, it tests if the intersection point is in the same side of each edge
+        // than any other vextex (not of the edge). If it does, then it's inside the cuadrilateral,
         // otherwise it's outside.
         if (!PointsInSameSideOfLine(vAux, vC, vA, vB) ||
             !PointsInSameSideOfLine(vAux, vA, vB, vC) ||
             !PointsInSameSideOfLine(vAux, vA, vC, vD) ||
-            !PointsInSameSideOfLine(vAux, vC, vD, vA)) 
+            !PointsInSameSideOfLine(vAux, vC, vD, vA))
             return false;
         else
             return true;
     }
 
-    // Changes the coordinate system of a point to other system based in three normal 
+    // Changes the coordinate system of a point to other system based in three normal
     // vectors and a point which is the origin.
     template <class VectorTypeParam>
-    inline void ChangeCoordSys(const VectorTypeParam &vPoint, VectorTypeParam &vNewPoint, 
-        const VectorTypeParam &vX, const VectorTypeParam &vY, const VectorTypeParam &vZ, 
+    inline void ChangeCoordSys(const VectorTypeParam &vPoint, VectorTypeParam &vNewPoint,
+        const VectorTypeParam &vX, const VectorTypeParam &vY, const VectorTypeParam &vZ,
         const VectorTypeParam &vO) const
     {
         vNewPoint.x = (vPoint.x-vO.x)*vX.x + (vPoint.y-vO.y)*vX.y + (vPoint.z-vO.z)*vX.z;
