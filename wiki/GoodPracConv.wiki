@@ -48,3 +48,4 @@
     * Marcar las clases como exportables, para que sean añadidas a librerías de importación cuando se generen las DLLs. Añadir la macro *QDllExport* después de la palabra clave *class*, al declarar una clase.
     * Siempre que se usen las funciones acos, atan o asin, comprobar que el resultado no es un float en estado NaN.
     * Cuando se declare un método o función, los parámetros de salida ocuparán siempre el último lugar, salvo casos concretos.
+    * La inicialización de atributos estáticos de plantillas se incluirá al final del fichero de cabecera donde esté definida la plantilla.
