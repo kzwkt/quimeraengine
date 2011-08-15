@@ -32,6 +32,23 @@ namespace Math
 template <class VectorType>
 class QDllExport QLineSegment3D : public QLineSegment<VectorType>
 {
+
+	// CONSTANTS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Unit segment lying on positive X axis (it's length equals 1).
+    /// </summary>
+	static const QLineSegment3D<VectorType> UnitLine;
+
+    /// <summary>
+    /// Zero segment lying in the coordinates center whose endpoints
+	/// both equals to (0,0) and it's length equals 0.
+    /// </summary>
+	static const QLineSegment3D<VectorType> LineZero;
+
+
  	// CONSTRUCTORS
 	// ---------------
 public:
@@ -719,7 +736,23 @@ protected:
         vNewPoint.y = (vPoint.x-vO.x)*vY.x + (vPoint.y-vO.y)*vY.y + (vPoint.z-vO.z)*vY.z;
         vNewPoint.z = (vPoint.x-vO.x)*vZ.x + (vPoint.y-vO.y)*vZ.y + (vPoint.z-vO.z)*vZ.z;
     }
+
 };
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |    CONSTANTS DEFINITIONS	 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+template <class VectorType>
+const QLineSegment3D<VectorType> QLineSegment3D<VectorType>::UnitLine(VectorType::ZeroVector, VectorType::UnitVectorX);
+
+template <class VectorType>
+const QLineSegment3D<VectorType> QLineSegment3D<VectorType>::LineZero(VectorType::ZeroVector, VectorType::ZeroVector);
 
 } //namespace Math
 } //namespace Tools
