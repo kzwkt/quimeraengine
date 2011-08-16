@@ -12,7 +12,8 @@ Librerías estáticas precompiladas de la versión 1.46.1 de Boost. En los paque
 [http://quimeraengine.googlecode.com/svn/wiki/images/WindowsLogo.png]*Windows 32-bits*
  * [http://quimeraengine.googlecode.com/files/Boost1_46_1DebugWin32Sharedrt.zip Versión Debug + Enlazado de runtime dinámico + Librería estática (Visual Studio Express 2010)]
  * [http://quimeraengine.googlecode.com/files/Boost1_46_1ReleaseWin32Sharedrt.zip Versión Release + Enlazado de runtime dinámico + Librería estática (Visual Studio Express 2010)]
- * Próximamente librerías compiladas con GCC (MinGW).
+ * [http://quimeraengine.googlecode.com/files/Boost1_46_1DebugWin32Sharedrt_GCC.zip Versión Debug + Enlazado de runtime dinámico + Librería estática (MinGW)]
+ * [http://quimeraengine.googlecode.com/files/Boost1_46_1ReleaseWin32Sharedrt_GCC.zip Versión Release + Enlazado de runtime dinámico + Librería estática (MinGW)]
 
 [http://quimeraengine.googlecode.com/svn/wiki/images/LinuxLogo.png]*Linux 32-bits*
  * [http://quimeraengine.googlecode.com/files/Boost1_46_1DebugLinux32Sharedrt.zip Versión Debug + Enlazado de runtime dinámico + Librería estática (Code::Blocks 10.05 + GCC)]
