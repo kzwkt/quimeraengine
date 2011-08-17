@@ -235,9 +235,9 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QScaleMatrix3x3& operator=(const QMatrix3x3 &m)
+    inline QScaleMatrix3x3& operator=(const QBaseMatrix3x3 &m)
     {
-        reinterpret_cast<QMatrix3x3&>(*this) = m;    
+        reinterpret_cast<QBaseMatrix3x3&>(*this) = m;    
         return *this;
     }
 
