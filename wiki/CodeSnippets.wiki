@@ -2,8 +2,9 @@
 
 = Introduction =
 
-Add your content here.
+Para aquellos que no estén familiarizados con el uso de Code Snippets o similares lo primero que tenemos que saber es que su  principal función es la de tener ordenados pequeños trozos de código que solemos utilizar con frecuencia y poder introducirlos directamente en nuestro programa sin necesidad de volver a teclearlos.
 
+En este documento se explica como utilizar la utilidad Code snippets de Codeblocks con un objetivo ligeramente distinto. Se trata de tener disponibles las plantillas varios archivos y no empezar a codificar desde cero.
 
 = Details =
 
