@@ -22,6 +22,8 @@
   * [Doc3rdParty 3rd Party Documentation]
     * [DocBoost Boost]
       * [CompBoost Compilación de las librerías]
+    * [DocCodeBlocks Code::Blocks IDE]
+      * [CodeSnippets CodeSnippets]
   * [RefAPI API Reference]
   * [PoC Proofs of Content]
     * [POCXMLParsing Lectura/Escritura XML]
