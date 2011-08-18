@@ -6,7 +6,9 @@ En este documento se explica como utilizar la utilidad Code snippets de Codebloc
 
 = Detalles =
 
-  * Si no tenemos visible la ventana de Code snippets vamos al menú View → Code snippets y veremos una ventana similar a la que aparece en la parte superior izquierda de la imagen:[http://quimeraengine.googlecode.com/svn/wiki/images/codesnippets_1.jpg]
+  * Si no tenemos visible la ventana de Code snippets vamos al menú View → Code snippets y veremos una ventana similar a la que aparece en la parte superior izquierda de la imagen:
+
+[http://quimeraengine.googlecode.com/svn/wiki/images/codesnippets_1.jpg]
 
   * El primer paso será crear una nueva sección, en este ejemplo la he llamado Plantillas Quimera Engine. Para ello pincharemos con el botón derecho en la carpeta de color verde que pone codesnippets y seleccionaremos la opción “Add SubCategory” y le ponemos el nombre deseado. El resultado puede verse en la siguiente imagen:[http://quimeraengine.googlecode.com/svn/wiki/images/codesnippets_2.jpg]
 
