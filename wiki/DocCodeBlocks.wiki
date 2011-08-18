@@ -1,3 +1,3 @@
-=Documentación relacionada con Boost C++ Libraries=
+=Documentación relacionada con el IDE Code::Blocks=
 
  * [CodeSnippets CodeSnippets]
