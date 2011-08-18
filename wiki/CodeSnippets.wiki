@@ -7,7 +7,7 @@ En este documento se explica como utilizar la utilidad Code snippets de Codebloc
 = Detalles =
 
   # Si no tenemos visible la ventana de Code snippets vamos al menú View → Code snippets y veremos una ventana similar a la que aparece en la parte superior izquierda de la imagen:
-[http://quimeraengine.googlecode.com/svn/wiki/images/MacLogo.png]
+[http://quimeraengine.googlecode.com/svn/wiki/images/codesnippets_1]
   # El primer paso será crear una nueva sección, en este ejemplo la he llamado Plantillas Quimera Engine. Para ello pincharemos con el botón derecho en la carpeta de color verde que pone codesnippets y seleccionaremos la opción “Add SubCategory” y le ponemos el nombre deseado. El resultado puede verse en la siguiente imagen:
 [http://quimeraengine.googlecode.com/svn/wiki/images/MacLogo.png]
   # Ahora vamos a añadir un enlace a una de las plantillas que deseamos tener disponibles. Para ello haremos click con el botón derecho en la categoría que acabamos de crear “Plantillas Quimera Engine” y seleccionamos “Add snippet”. Se nos aparece una ventana nueva con varias opciones. En este ejemplo vamos a añadir la plantilla de los archivos cpp. Rellenamos el campo que pone label con algo descriptivo como “Plantilla de archivos fuente” o algo similar. Después pulsamos sobre el botón que pone Link target con lo que se nos abrirá un dialogo en que tendremos que elegir el archivo que queremos utilizar como plantilla. En nuestro caso será “SourceTemplate.cpp”. El resultado final lo podemos ver en la imagen. Después pulsaremos el botón de aceptar.
