@@ -49,5 +49,5 @@
     * Siempre que se usen las funciones acos, atan o asin, comprobar que el resultado no es un float en estado NaN.
     * Cuando se declare un método o función, los parámetros de salida ocuparán siempre el último lugar, salvo casos concretos.
     * La inicialización de atributos estáticos de plantillas se incluirá al final del fichero de cabecera donde esté definida la plantilla.
-    * Cuando los símbolos "&" y "*" se apliquen sobre un tipo T, irán pegados a su derecha: T* t; T& t;.
-    * Cuando los símbolos "&" y "*" se apliquen sobre una variable v, irán pegados a su izquierda: t = &v; t = *v;.
+    * Cuando los símbolos "&" y "`*`" se apliquen sobre un tipo T, irán pegados a su derecha: T`*` t; T& t;.
+    * Cuando los símbolos "&" y "`*`" se apliquen sobre una variable v, irán pegados a su izquierda: t = &v; t = `*`v;.
