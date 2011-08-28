@@ -89,7 +89,7 @@ public:
 	/// <returns>
 	/// A vector that is the result of the addition.
 	/// </returns>
-	QVector2 operator + (const QVector2 &v) const;
+	QVector2 operator + (const QBaseVector2 &v) const;
 
 	/// <summary>
 	/// Vectors subtraction: it's performed component by component.
@@ -98,7 +98,7 @@ public:
 	/// <returns>
 	/// A vector that is the result of the subtraction.
 	/// </returns>
-	QVector2 operator - (const QVector2 &v) const;
+	QVector2 operator - (const QBaseVector2 &v) const;
 
 	/// <summary>
 	/// Product by a scalar: all components are multiplied by the floating point value provided.

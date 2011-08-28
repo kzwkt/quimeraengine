@@ -43,12 +43,12 @@ QVector2 QVector2::operator - () const
 	return QVector2(-this->x, -this->y); 
 }
 
-QVector2 QVector2::operator + (const QVector2 &v) const 
+QVector2 QVector2::operator + (const QBaseVector2 &v) const 
 { 
 	return QVector2(this->x + v.x, this->y + v.y); 
 }
 
-QVector2 QVector2::operator - (const QVector2 &v) const 
+QVector2 QVector2::operator - (const QBaseVector2 &v) const 
 { 
 	return QVector2(this->x - v.x, this->y - v.y); 
 }

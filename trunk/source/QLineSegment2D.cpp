@@ -177,16 +177,15 @@ void QLineSegment2D::TransformFromPivot (const QTransformationMatrix3x3 & matrix
 	//         (** by the same way, if we substract the pivot from itself we'll
 	//			   have the pivot in the center of coordinates axis, as being
 	//			   the centre to become the pivot point **)
-	QVector2 vALocal;
-	QVector2 vBLocal;
-	QVector2 vPivot(v2Pivot);
-
-	vALocal = A - vPivot;
-	vBLocal = B - vPivot;
+	A = A - v2Pivot;
+	B = B - v2Pivot;
 
 	// STEP 2) Transform A and B
-	vALocal.Transform(matrix, A);
-	vBLocal.Transform(matrix, B);
+	A.Transform(matrix);
+	B.Transform(matrix);
+
+	A = A + v2Pivot;
+	B = B + v2Pivot;
 }
 
 void QLineSegment2D::TransformFromPivot (const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot, QBaseLineSegment<QVector2> & lsOutputLineSegment) const
@@ -196,17 +195,15 @@ void QLineSegment2D::TransformFromPivot (const QTransformationMatrix3x3 & matrix
 	//         (** by the same way, if we substract the pivot from itself we'll
 	//			   have the pivot in the center of coordinates axis, as being
 	//			   the centre to become the pivot point **)
-
-	QVector2 vALocal(A);
-	QVector2 vBLocal(B);
-	QVector2 vPivot(v2Pivot);
-
-	vALocal = vALocal - vPivot;
-	vBLocal = vBLocal - vPivot;
+	lsOutputLineSegment.A = A - v2Pivot;
+	lsOutputLineSegment.B = B - v2Pivot;
 
 	// STEP 2) Transform A and B, storing them in the output line segment. Current line segment IS NOT transformated.
-	vALocal.Transform(matrix, lsOutputLineSegment.A);
-	vBLocal.Transform(matrix, lsOutputLineSegment.B);
+	lsOutputLineSegment.A.Transform(matrix);
+	lsOutputLineSegment.B.Transform(matrix);
+
+	lsOutputLineSegment.A = lsOutputLineSegment.A + v2Pivot;
+	lsOutputLineSegment.B = lsOutputLineSegment.B + v2Pivot;
 }
 
 } //namespace Math
