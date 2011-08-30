@@ -143,6 +143,7 @@
     <ClInclude Include="..\..\..\..\headers\QMatrix4x3.h" />
     <ClInclude Include="..\..\..\..\headers\QMatrix4x4.h" />
     <ClInclude Include="..\..\..\..\headers\QFloat.h" />
+    <ClInclude Include="..\..\..\..\headers\QOrb.h" />
     <ClInclude Include="..\..\..\..\headers\QPlane.h" />
     <ClInclude Include="..\..\..\..\headers\QQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector4.h" />
