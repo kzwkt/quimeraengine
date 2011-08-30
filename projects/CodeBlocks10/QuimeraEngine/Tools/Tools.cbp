@@ -77,6 +77,7 @@
 		<Unit filename="..\..\..\..\headers\QMatrix3x4.h" />
 		<Unit filename="..\..\..\..\headers\QMatrix4x3.h" />
 		<Unit filename="..\..\..\..\headers\QMatrix4x4.h" />
+		<Unit filename="..\..\..\..\headers\QOrb.h" />
 		<Unit filename="..\..\..\..\headers\QPlane.h" />
 		<Unit filename="..\..\..\..\headers\QQuaternion.h" />
 		<Unit filename="..\..\..\..\headers\QRay.h" />
