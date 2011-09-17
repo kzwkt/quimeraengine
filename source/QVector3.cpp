@@ -128,9 +128,10 @@ void QVector3::CrossProduct(const QBaseVector3 &v)
 {
     QVector3 aux(*this);
 
-    this->x = v.y*aux.z - v.z*aux.y;
-    this->y = v.z*aux.x - v.x*aux.z;
-    this->z = v.x*aux.y - v.y*aux.x;
+    this->x = aux.y*v.z - aux.z*v.y;
+    this->y = aux.z*v.x - aux.x*v.z;
+    this->z = aux.x*v.y - aux.y*v.x;
+
 }
 
 void QVector3::Transform(const QQuaternion &qR)

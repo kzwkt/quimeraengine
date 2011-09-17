@@ -648,6 +648,10 @@ public:
     /// </summary>
     /// <param name="v">[IN] Multiplying vector.</param>
     /// <param name="vOut">[OUT] Vector where resultant product is stored.</param>
+    /// <remarks>
+    /// Cross Product is noncommutative, please note the resident vector is the first operator, set to the left
+    /// of the Cross Product operator sign, and the input vector is the second operator (set to the right).
+    /// </remarks>
     inline void CrossProduct(const QBaseVector4 &v, QBaseVector4 &vOut) const
     {
         vOut = *this;
