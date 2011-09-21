@@ -66,6 +66,7 @@
 		<Unit filename="..\..\..\..\headers\QBaseVector2.h" />
 		<Unit filename="..\..\..\..\headers\QBaseVector3.h" />
 		<Unit filename="..\..\..\..\headers\QBaseVector4.h" />
+		<Unit filename="..\..\..\..\headers\QBoolean.h" />
 		<Unit filename="..\..\..\..\headers\QDualQuaternion.h" />
 		<Unit filename="..\..\..\..\headers\QFloat.h" />
 		<Unit filename="..\..\..\..\headers\QInteger.h" />
@@ -98,6 +99,7 @@
 		<Unit filename="..\..\..\..\source\EQIntersections.cpp" />
 		<Unit filename="..\..\..\..\source\EQSpaceRelation.cpp" />
 		<Unit filename="..\..\..\..\source\QAngle.cpp" />
+		<Unit filename="..\..\..\..\source\QBoolean.cpp" />
 		<Unit filename="..\..\..\..\source\QDualQuaternion.cpp" />
 		<Unit filename="..\..\..\..\source\QFloat.cpp" />
 		<Unit filename="..\..\..\..\source\QLineSegment2D.cpp" />
