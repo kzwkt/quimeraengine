@@ -151,13 +151,13 @@ public:
     /// <summary>
     /// Multiply resident matrix by a square 3x3 matrix.
 	///
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
     /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
     /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
-    /// 
+    ///
     /// \f$ A x B = C \f$
-    /// 
+    ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
     /// </summary>
@@ -173,13 +173,13 @@ public:
     /// <summary>
     /// Multiply resident matrix by a non-square 3x4 matrix.
 	///
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
     /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
     /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
-    /// 
+    ///
     /// \f$ A x B = C \f$
-    /// 
+    ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
     /// </summary>
@@ -205,13 +205,13 @@ public:
     /// Multiply resident matrix by a square 3x3 matrix, being the resultant
 	/// matrix stored as well in the whole resident one.
 	///
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p. 
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
     /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as 
+    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
     /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
-    /// 
+    ///
     /// \f$ A x B = C \f$
-    /// 
+    ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
     /// </summary>
@@ -399,8 +399,8 @@ public:
 	}
 
 	/// <summary>
-	/// Resets main diagonal elements to 1 and any other element to 0. 
-    /// Since element [3][3] doesn't exists, it can not be initialized. 
+	/// Resets main diagonal elements to 1 and any other element to 0.
+    /// Since element [3][3] doesn't exists, it can not be initialized.
 	/// </summary>
 	inline void ResetToIdentity()
 	{
@@ -461,7 +461,7 @@ public:
 
 	/// <summary>
 	/// Converts matrix into a string with the following format:
-	/// “M4x3( 11, 12, 13 )( 21, 22, 23 )( 31, 32, 33 )( 41, 42, 43 )”.
+	/// "M4x3( 11, 12, 13 )( 21, 22, 23 )( 31, 32, 33 )( 41, 42, 43 )".
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>
     inline string_q ToString() const
