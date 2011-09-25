@@ -9,9 +9,7 @@
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
-#include "QBoolean.h"
-#include "QTriangle2D.h"
-#include "QVector2.h"
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -21,8 +19,7 @@
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
-using namespace Kinesis::QuimeraEngine::Tools::Math;
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -56,17 +53,5 @@ using namespace Kinesis::QuimeraEngine::Tools::Math;
 
 int main()
 {
-    QTriangle2D T(QVector2(QFloat::_0, QFloat::_1), QVector2(QFloat::_1, QFloat::_0), QVector2(QFloat::_0, QFloat::_0));
-
-    bool prueba = true;
-
-    string_q verdadero = QBoolean::ToString(prueba);
-
-    prueba = false;
-
-    string_q falso = QBoolean::ToString(prueba);
-
-    string_q triangulo = T.ToString();
-
     return 0;
 }
