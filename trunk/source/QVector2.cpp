@@ -38,29 +38,29 @@ const QVector2 QVector2::UnitVectorInvY( QFloat::_0, -QFloat::_1);
 //##################													   ##################
 //##################=======================================================##################
 
-QVector2 QVector2::operator - () const 
-{ 
-	return QVector2(-this->x, -this->y); 
+QVector2 QVector2::operator - () const
+{
+	return QVector2(-this->x, -this->y);
 }
 
-QVector2 QVector2::operator + (const QBaseVector2 &v) const 
-{ 
-	return QVector2(this->x + v.x, this->y + v.y); 
+QVector2 QVector2::operator + (const QBaseVector2 &v) const
+{
+	return QVector2(this->x + v.x, this->y + v.y);
 }
 
-QVector2 QVector2::operator - (const QBaseVector2 &v) const 
-{ 
-	return QVector2(this->x - v.x, this->y - v.y); 
+QVector2 QVector2::operator - (const QBaseVector2 &v) const
+{
+	return QVector2(this->x - v.x, this->y - v.y);
 }
 
-QVector2 QVector2::operator * (const float_q &fValue) const 
-{ 
-	return QVector2(this->x*fValue, this->y*fValue); 
-} 
+QVector2 QVector2::operator * (const float_q &fValue) const
+{
+	return QVector2(this->x*fValue, this->y*fValue);
+}
 
-QVector2 QVector2::operator * (const QBaseVector2 &v) const 
-{ 
-	return QVector2(this->x*v.x, this->y*v.y); 
+QVector2 QVector2::operator * (const QBaseVector2 &v) const
+{
+	return QVector2(this->x*v.x, this->y*v.y);
 }
 
 QVector2 QVector2::operator * (const QBaseMatrix2x2 &m) const
@@ -76,7 +76,7 @@ QVector2 QVector2::operator / (const float_q &fValue) const
 
 	return QVector2(this->x/fValue, this->y/fValue);
 }
-	
+
 QVector2 QVector2::operator / (const QBaseVector2 &v) const
 {
 	// Checkout to avoid division by 0
@@ -85,21 +85,21 @@ QVector2 QVector2::operator / (const QBaseVector2 &v) const
 	return QVector2(this->x/v.x, this->y/v.y);
 }
 
-// Left float product 
+// Left float product
 QVector2 operator * (const float_q &fValue, const QVector2 &v)
 {
 	return QVector2(v.x*fValue, v.y*fValue);
 }
 
-QVector2 QVector2::GetPerpendicular() const 
-{ 
-	return QVector2(this->y, -this->x); 
+QVector2 QVector2::GetPerpendicular() const
+{
+	return QVector2(this->y, -this->x);
 }
 
-string_q QVector2::ToString() 
+string_q QVector2::ToString() const
 {
-	return QE_L("V2(") + QFloat::ToString(this->x) + 
-		   QE_L(", ")  + QFloat::ToString(this->y) + 
+	return QE_L("V2(") + QFloat::ToString(this->x) +
+		   QE_L(", ")  + QFloat::ToString(this->y) +
 		   QE_L(")");
 }
 
