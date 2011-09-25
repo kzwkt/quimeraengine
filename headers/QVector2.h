@@ -570,7 +570,7 @@ public:
 
 	/// <summary>
 	/// Converts vector into a string with the following format:
-	/// “V2(x, y)"
+	/// "V2(x, y)"
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>
 	string_q ToString() const;

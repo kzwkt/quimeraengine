@@ -22,14 +22,14 @@ namespace Math
 /// <summary>
 /// This class implements the functionality of a matrix with 3 rows and 4 columns.
 ///
-/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix 
+/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix
 /// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.
-/// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m x n matrix, 
+/// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m x n matrix,
 /// while m and n are called its dimensions. Every element is referenced by its position in the matrix.
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
-/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$. In this case, we will work with 4x3 matrices, 
+/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$. In this case, we will work with 4x3 matrices,
 /// therefore our matrix will be:
-/// 
+///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\end{bmatrix}\f$
 ///
 /// </summary>
@@ -59,7 +59,7 @@ public:
     /// <summary>
     /// Stores an identity matrix.
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    /// 
+    ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{bmatrix}\f$
     ///
     /// </summary>
@@ -99,15 +99,15 @@ public:
 	/// <param name="f13">[IN] Floating point value for element of row 1, column 3.</param>
 	/// <param name="f20">[IN] Floating point value for element of row 2, column 0.</param>
 	/// <param name="f21">[IN] Floating point value for element of row 2, column 1.</param>
-	/// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>	
+	/// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
 	/// <param name="f23">[IN] Floating point value for element of row 2, column 3.</param>
 	inline QMatrix3x4(	const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
 						const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
 						const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23) :
 
-						QBaseMatrix3x4(f00, f01, f02, f03, 
-							           f10, f11, f12, f13,  
-									   f20, f21, f22, f23) {}	
+						QBaseMatrix3x4(f00, f01, f02, f03,
+							           f10, f11, f12, f13,
+									   f20, f21, f22, f23) {}
 
 	/// <summary>
 	/// Constructor that receives a pointer to 12 floating point values.
@@ -125,7 +125,7 @@ public:
 	/// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
 	/// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
 	/// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
-	inline QMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) : 
+	inline QMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) :
 		QBaseMatrix3x4(row0, row1, row2) { }
 
 	// METHODS
@@ -196,15 +196,15 @@ public:
 	inline QMatrix3x4& operator/=(const float_q &fScalar)
 	{
 		QE_ASSERT(fScalar != QFloat::_0);
-				
+
 		this->ij[0][0] /= fScalar;
 		this->ij[0][1] /= fScalar;
 		this->ij[0][2] /= fScalar;
-		this->ij[0][3] /= fScalar; 
+		this->ij[0][3] /= fScalar;
 		this->ij[1][0] /= fScalar;
 		this->ij[1][1] /= fScalar;
 		this->ij[1][2] /= fScalar;
-		this->ij[1][3] /= fScalar; 
+		this->ij[1][3] /= fScalar;
 		this->ij[2][0] /= fScalar;
 		this->ij[2][1] /= fScalar;
 		this->ij[2][2] /= fScalar;
@@ -229,7 +229,7 @@ public:
 		this->ij[1][0] += m.ij[1][0];
 		this->ij[1][1] += m.ij[1][1];
 		this->ij[1][2] += m.ij[1][2];
-		this->ij[1][3] += m.ij[1][3];		
+		this->ij[1][3] += m.ij[1][3];
 		this->ij[2][0] += m.ij[2][0];
 		this->ij[2][1] += m.ij[2][1];
 		this->ij[2][2] += m.ij[2][2];
@@ -254,12 +254,12 @@ public:
 		this->ij[1][0] -= m.ij[1][0];
 		this->ij[1][1] -= m.ij[1][1];
 		this->ij[1][2] -= m.ij[1][2];
-		this->ij[1][3] -= m.ij[1][3];		
+		this->ij[1][3] -= m.ij[1][3];
 		this->ij[2][0] -= m.ij[2][0];
 		this->ij[2][1] -= m.ij[2][1];
 		this->ij[2][2] -= m.ij[2][2];
 		this->ij[2][3] -= m.ij[2][3];
-		
+
 		return *this;
 	}
 
@@ -290,7 +290,7 @@ public:
 		aux.ij[2][3] = this->ij[2][0] * m.ij[0][3] + this->ij[2][1] * m.ij[1][3] + this->ij[2][2] * m.ij[2][3] + this->ij[2][3] * m.ij[3][3];
 
 		*this = aux;
-		
+
 		return *this;
 	}
 
@@ -303,8 +303,8 @@ public:
 	/// </returns>
 	inline bool operator==(const QBaseMatrix3x4 &m) const
 	{
-		return	QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) && 
-				QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) && 
+		return	QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
+				QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
 				QFloat::AreEquals(this->ij[0][2], m.ij[0][2]) &&
 				QFloat::AreEquals(this->ij[0][3], m.ij[0][3]) &&
 				QFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
@@ -313,8 +313,8 @@ public:
 				QFloat::AreEquals(this->ij[1][3], m.ij[1][3]) &&
 				QFloat::AreEquals(this->ij[2][0], m.ij[2][0]) &&
 				QFloat::AreEquals(this->ij[2][1], m.ij[2][1]) &&
-				QFloat::AreEquals(this->ij[2][2], m.ij[2][2]) &&			
-				QFloat::AreEquals(this->ij[2][3], m.ij[2][3]);  
+				QFloat::AreEquals(this->ij[2][2], m.ij[2][2]) &&
+				QFloat::AreEquals(this->ij[2][3], m.ij[2][3]);
 	}
 
 	/// <summary>
@@ -337,7 +337,7 @@ public:
 				QFloat::AreNotEquals(this->ij[2][0], m.ij[2][0]) ||
 				QFloat::AreNotEquals(this->ij[2][1], m.ij[2][1]) ||
 				QFloat::AreNotEquals(this->ij[2][2], m.ij[2][2]) ||
-				QFloat::AreNotEquals(this->ij[2][3], m.ij[2][3]);  
+				QFloat::AreNotEquals(this->ij[2][3], m.ij[2][3]);
 	}
 
 	/// <summary>
@@ -345,8 +345,8 @@ public:
 	/// </summary>
 	inline void ResetToZero()
 	{
-		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = this->ij[0][3] = 
-		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = this->ij[1][3] = 
+		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
+		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = this->ij[1][3] =
 		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = this->ij[2][3] = QFloat::_0;
 	}
 
@@ -360,15 +360,15 @@ public:
 	/// <param name="m">[OUT] Stores the resultant trasposed matrix. Output matrix is 4x3</param>
 	inline void Transpose(QBaseMatrix4x3 &m) const
 	{
-		m.ij[0][0] = this->ij[0][0]; 
-		m.ij[1][0] = this->ij[0][1]; 
-		m.ij[2][0] = this->ij[0][2]; 
-		m.ij[3][0] = this->ij[0][3]; 
+		m.ij[0][0] = this->ij[0][0];
+		m.ij[1][0] = this->ij[0][1];
+		m.ij[2][0] = this->ij[0][2];
+		m.ij[3][0] = this->ij[0][3];
 
-		m.ij[0][1] = this->ij[1][0]; 
-		m.ij[1][1] = this->ij[1][1]; 
-		m.ij[2][1] = this->ij[1][2]; 
-		m.ij[3][1] = this->ij[1][3]; 
+		m.ij[0][1] = this->ij[1][0];
+		m.ij[1][1] = this->ij[1][1];
+		m.ij[2][1] = this->ij[1][2];
+		m.ij[3][1] = this->ij[1][3];
 
 		m.ij[0][2] = this->ij[2][0];
 		m.ij[1][2] = this->ij[2][1];
@@ -396,7 +396,7 @@ public:
 				QFloat::IsZero(this->ij[2][0]) &&
 				QFloat::IsZero(this->ij[2][1]) &&
 				QFloat::IsZero(this->ij[2][2]) &&
-				QFloat::IsZero(this->ij[2][3]);  
+				QFloat::IsZero(this->ij[2][3]);
 	}
 
     /// <summary>
@@ -408,27 +408,27 @@ public:
     /// </returns>
     inline QMatrix3x4& operator=(const QBaseMatrix3x4 &m)
     {
-        reinterpret_cast<QBaseMatrix3x4&>(*this) = m;   
-    
+        reinterpret_cast<QBaseMatrix3x4&>(*this) = m;
+
 		return *this;
     }
 
 	/// <summary>
-    /// Resets the matrix to a identity matrix. The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, 
+    /// Resets the matrix to a identity matrix. The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$,
     /// and it's set to 1 if \f$ i=j\f$.
     /// </summary>
     inline void ResetToIdentity()
     {
         this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = QFloat::_1;
 
-        this->ij[0][1] = this->ij[0][2] = this->ij[0][3] = 
-        this->ij[1][0] = this->ij[1][2] = this->ij[1][3] = 
+        this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
+        this->ij[1][0] = this->ij[1][2] = this->ij[1][3] =
         this->ij[2][0] = this->ij[2][1] = this->ij[2][3] = QFloat::_0;
     }
 
 	/// <summary>
 	/// Converts matrix into a string with the following format:
-	/// “M3x4( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 )“
+	/// "M3x4( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 )"
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>
     inline string_q ToString() const
@@ -444,7 +444,7 @@ public:
                                QFloat::ToString(this->ij[2][0]) + QE_L(",") +
                                QFloat::ToString(this->ij[2][1]) + QE_L(",") +
 							   QFloat::ToString(this->ij[2][2]) + QE_L(",") +
-                               QFloat::ToString(this->ij[2][3]) + QE_L(")"); 
+                               QFloat::ToString(this->ij[2][3]) + QE_L(")");
     }
 };
 
