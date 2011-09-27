@@ -4,6 +4,7 @@
 #define __QINTEGER__
 
 #include <string>
+#include <cstdlib>
 
 #include <boost\lexical_cast.hpp>
 
@@ -39,6 +40,94 @@ private:
 public:
 
     /// <summary>
+    /// Returns the absolute value of an 8-bit integer value.
+    /// </summary>
+    /// <param name="nValue">[IN] An 8-bit integer value to extract its absolute value.</param>
+    /// <returns>
+    /// The absolute value, expressed as an 8-bit integer.
+    /// </returns>
+    inline static i8_q Abs(i8_q& nValue)
+    {
+       return abs(nValue);
+    }
+
+    /// <summary>
+    /// Returns the absolute value of an 8-bit integer value.
+    /// </summary>
+    /// <param name="nValue">[IN] An 8-bit integer value to extract its absolute value.</param>
+    /// <param name="nOutput">[OUT] The absolute value.</param>
+    inline static void Abs(const i8_q& nValue, i8_q& nOutput)
+    {
+       nOutput = abs(nValue);
+    }
+
+    /// <summary>
+    /// Returns the absolute value of a short integer value.
+    /// </summary>
+    /// <param name="nValue">[IN] A short integer value to extract its absolute value.</param>
+    /// <returns>
+    /// The absolute value, expressed as a short integer.
+    /// </returns>
+    inline static i16_q Abs(const i16_q& nValue)
+    {
+       return abs(nValue);
+    }
+
+    /// <summary>
+    /// Returns the absolute value of a short integer value.
+    /// </summary>
+    /// <param name="nValue">[IN] A short integer value to extract its absolute value.</param>
+    /// <param name="nOutput">[OUT] The absolute value.</param>
+    inline static void Abs(const i16_q& nValue, i16_q& nOutput)
+    {
+       nOutput = abs(nValue);
+    }
+
+    /// <summary>
+    /// Returns the absolute value of an integer value.
+    /// </summary>
+    /// <param name="nValue">[IN] An integer value to extract its absolute value.</param>
+    /// <returns>
+    /// The absolute value, expressed as an integer.
+    /// </returns>
+    inline static i32_q Abs(const i32_q& nValue)
+    {
+       return abs(nValue);
+    }
+
+    /// <summary>
+    /// Returns the absolute value of an integer value.
+    /// </summary>
+    /// <param name="nValue">[IN] An integer value to extract its absolute value.</param>
+    /// <param name="nOutput">[OUT] The absolute value.</param>
+    inline static void Abs(const i32_q& nValue, i32_q& nOutput)
+    {
+       nOutput = abs(nValue);
+    }
+
+    /// <summary>
+    /// Returns the absolute value of a long integer value.
+    /// </summary>
+    /// <param name="nValue">[IN] A long integer value to extract its absolute value.</param>
+    /// <returns>
+    /// The absolute value, expressed as a long integer.
+    /// </returns>
+    inline static i64_q Abs(const i64_q& nValue)
+    {
+	   return llabs(nValue);
+    }
+
+    /// <summary>
+    /// Returns the absolute value of a long integer value.
+    /// </summary>
+    /// <param name="nValue">[IN] A long integer value to extract its absolute value.</param>
+    /// <param name="nOutput">[OUT] The absolute value.</param>
+    inline static void Abs(const i64_q& nValue, i64_q& nOutput)
+    {
+	   nOutput = llabs(nValue);
+    }
+
+    /// <summary>
     /// Inverts the order of bytes which compound an integer number. A 32-bits integer number
     /// whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
     /// </summary>
@@ -50,8 +139,8 @@ public:
     }
 
     /// <summary>
-    /// Inverts the order of bytes which compound an integer number and returns the result as 
-    /// output parameter. A 32-bits integer number whose value equals to 0xAABBCCDD will be 
+    /// Inverts the order of bytes which compound an integer number and returns the result as
+    /// output parameter. A 32-bits integer number whose value equals to 0xAABBCCDD will be
     /// transformed to 0xDDCCBBAA, for example.
     /// </summary>
     /// <param name="nValue">[IN] The value whose bytes are to be swapped.</param>
