@@ -189,7 +189,7 @@ public:
 	/// <returns>
 	/// A reference to vector result of the addition.
 	/// </returns>
-	inline QVector2& operator += (const QVector2 &v)
+	inline QVector2& operator += (const QBaseVector2 &v)
 	{
 		this->x += v.x;
 		this->y += v.y;
@@ -204,7 +204,7 @@ public:
 	/// <returns>
 	/// A reference to vector result of the subtraction.
 	/// </returns>
-	inline QVector2& operator -= (const QVector2 &v)
+	inline QVector2& operator -= (const QBaseVector2 &v)
 	{
 		this->x -= v.x;
 		this->y -= v.y;
