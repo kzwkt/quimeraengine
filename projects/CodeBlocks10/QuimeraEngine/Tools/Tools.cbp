@@ -80,6 +80,7 @@
 		<Unit filename="..\..\..\..\headers\QMatrix4x4.h" />
 		<Unit filename="..\..\..\..\headers\QOrb.h" />
 		<Unit filename="..\..\..\..\headers\QPlane.h" />
+		<Unit filename="..\..\..\..\headers\QPoint.h" />
 		<Unit filename="..\..\..\..\headers\QQuaternion.h" />
 		<Unit filename="..\..\..\..\headers\QRay.h" />
 		<Unit filename="..\..\..\..\headers\QRotationMatrix3x3.h" />
@@ -89,9 +90,7 @@
 		<Unit filename="..\..\..\..\headers\QTransformationMatrix3x3.h" />
 		<Unit filename="..\..\..\..\headers\QTranslationMatrix.h" />
 		<Unit filename="..\..\..\..\headers\QTriangle.h" />
-		<Unit filename="..\..\..\..\headers\QTriangle2D.h">
-			<Option compile="1" />
-		</Unit>
+		<Unit filename="..\..\..\..\headers\QTriangle2D.h" />
 		<Unit filename="..\..\..\..\headers\QVF32.h" />
 		<Unit filename="..\..\..\..\headers\QVector2.h" />
 		<Unit filename="..\..\..\..\headers\QVector3.h" />
