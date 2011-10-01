@@ -52,7 +52,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const QBaseVector2& vTranslation, QVector2* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             arPoints[i] += vTranslation;
         }
@@ -67,7 +67,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const float_q& fTranslateX, const float_q& fTranslateY, QVector2* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+	    for(unsigned int i = 0; i < nElements; ++i)
         {
             arPoints[i].x += fTranslateX;
             arPoints[i].y += fTranslateY;
@@ -82,7 +82,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	static void Rotate(const float_q& fAngle, QVector2* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             arPoints[i].Transform(fAngle);
         }
@@ -96,7 +96,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Scale(const QBaseVector2& vScale, QVector2* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             arPoints[i] *= vScale;
         }
@@ -111,7 +111,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Scale(const float_q& fScaleX, const float_q& fScaleY, QVector2* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             arPoints[i].x *= fScaleX;
             arPoints[i].y *= fScaleY;
@@ -126,7 +126,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Transform(const QTransformationMatrix3x3& matrix, QVector2* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             arPoints[i].Transform(matrix);
         }
@@ -142,7 +142,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const QBaseVector3& vTranslation, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Translate(vTranslation, arPoints[i]);
         }
@@ -156,7 +156,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const QBaseVector3& vTranslation, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Translate(vTranslation, arPoints[i]);
         }
@@ -172,7 +172,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, arPoints[i]);
         }
@@ -188,7 +188,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, arPoints[i]);
         }
@@ -202,7 +202,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const QTranslationMatrix<QMatrix4x3>& matrix, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Translate(matrix, arPoints[i]);
         }
@@ -216,7 +216,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const QTranslationMatrix<QMatrix4x4>& matrix, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Translate(matrix, arPoints[i]);
         }
@@ -230,7 +230,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const QTranslationMatrix<QMatrix4x3>& matrix, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Translate(matrix, arPoints[i]);
         }
@@ -244,7 +244,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Translate(const QTranslationMatrix<QMatrix4x4>& matrix, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Translate(matrix, arPoints[i]);
         }
@@ -258,7 +258,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Rotate(const QQuaternion& q, QVector3* arPoints, const unsigned int& nElements)
 	{
-	    for(unsigned int i = 0; i < nElements; i++)
+	    for(unsigned int i = 0; i < nElements; ++i)
 	    {
 	        QPoint::Rotate(q, arPoints[i]);
 	    }
@@ -272,7 +272,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Rotate(const QQuaternion& q, QVector4* arPoints, const unsigned int& nElements)
 	{
-	    for(unsigned int i = 0; i < nElements; i++)
+	    for(unsigned int i = 0; i < nElements; ++i)
 	    {
 	        QPoint::Rotate(q, arPoints[i]);
 	    }
@@ -286,7 +286,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Rotate(const QRotationMatrix3x3& matrix, QVector3* arPoints, const unsigned int& nElements)
 	{
-	    for(unsigned int i = 0; i < nElements; i++)
+	    for(unsigned int i = 0; i < nElements; ++i)
 	    {
 	        QPoint::Rotate(matrix, arPoints[i]);
 	    }
@@ -300,7 +300,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Rotate(const QRotationMatrix3x3& matrix, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
 	    {
 	        QPoint::Rotate(matrix, arPoints[i]);
 	    }
@@ -314,7 +314,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Scale(const QBaseVector3& vScale, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Scale(vScale, arPoints[i]);
         }
@@ -328,7 +328,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Scale(const QBaseVector3& vScale, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Scale(vScale, arPoints[i]);
         }
@@ -344,7 +344,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
         }
@@ -360,7 +360,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
         }
@@ -374,7 +374,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Scale(const QScaleMatrix3x3& matrix, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Scale(matrix, arPoints[i]);
         }
@@ -388,7 +388,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Scale(const QScaleMatrix3x3& matrix, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Scale(matrix, arPoints[i]);
         }
@@ -403,7 +403,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Transform(const QTransformationMatrix<QMatrix4x3>& matrix, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Transform(matrix, arPoints[i]);
         }
@@ -417,7 +417,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Transform(const QTransformationMatrix<QMatrix4x4>& matrix, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Transform(matrix, arPoints[i]);
         }
@@ -431,7 +431,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Transform(const QTransformationMatrix<QMatrix4x3>& matrix, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Transform(matrix, arPoints[i]);
         }
@@ -445,7 +445,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Transform(const QTransformationMatrix<QMatrix4x4>& matrix, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Transform(matrix, arPoints[i]);
         }
@@ -459,7 +459,7 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Transform(const QSpaceConversionMatrix& matrix, QVector3* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Transform(matrix, arPoints[i]);
         }
@@ -473,9 +473,357 @@ public:
 	/// <param name="nElements">[IN] Number of elements in the array.</param>
 	inline static void Transform(const QSpaceConversionMatrix& matrix, QVector4* arPoints, const unsigned int& nElements)
 	{
-        for(unsigned int i = 0; i < nElements; i++)
+        for(unsigned int i = 0; i < nElements; ++i)
         {
             QPoint::Transform(matrix, arPoints[i]);
+        }
+	}
+
+    /// <summary>
+	/// Rotates 2D points, using an arbitrary pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="fAngle">[IN] Float type that contains the angle that we will use to rotate the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be rotated.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void RotateFromPivot(const float_q& fAngle, const QBaseVector2& vPivot, QVector2* arPoints, const unsigned int& nElements)
+	{
+        for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            arPoints[i].Transform(fAngle);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Scales 2D points, using an arbitrary pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// </summary>
+    /// <param name="fScaleX">[IN] Scale to be applied to the X dimension.</param>
+    /// <param name="fScaleY">[IN] Scale to be applied to the Y dimension.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void ScaleFromPivot(const float_q& fScaleX, const float_q& fScaleY, const QBaseVector2& vPivot, QVector2* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            arPoints[i].x *= fScaleX;
+            arPoints[i].y *= fScaleY;
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Scales 2D points, using an arbitrary pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// </summary>
+    /// <param name="vScale">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void ScaleFromPivot(const QBaseVector2& vScale, const QBaseVector2& vPivot, QVector2* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            arPoints[i] *= vScale;
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Transforms 2D points, using an arbitrary pivot as the center of transformation. Transformation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="transformation">[IN] Transformation to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be transformed.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void TransformFromPivot(const QTransformationMatrix3x3& transformation, const QBaseVector2& vPivot, QVector2* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            arPoints[i].Transform(transformation);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+	/// <summary>
+	/// Rotates 3D points, using an arbitrary pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void RotateFromPivot(const QQuaternion& qRotation, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Rotate(qRotation, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+	/// <summary>
+	/// Rotates 4D points, using an arbitrary pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void RotateFromPivot(const QQuaternion& qRotation, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Rotate(qRotation, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+	/// <summary>
+	/// Rotates 3D points, using an arbitrary pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="rotation">[IN] Rotation to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void RotateFromPivot(const QRotationMatrix3x3& rotation, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Rotate(rotation, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+	/// <summary>
+	/// Rotates 4D points, using an arbitrary pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="rotation">[IN] Rotation to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void RotateFromPivot(const QRotationMatrix3x3& rotation, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Rotate(rotation, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Scales 3D points, using an arbitrary pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// </summary>
+    /// <param name="vScale">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void ScaleFromPivot(const QBaseVector3& vScale, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Scale(vScale, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Scales 4D points, using an arbitrary pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// </summary>
+    /// <param name="vScale">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void ScaleFromPivot(const QBaseVector3& vScale, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Scale(vScale, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Scales 3D points, using an arbitrary pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// </summary>
+    /// <param name="fScaleX">[IN] Scale to be applied to the points in the X dimension.</param>
+    /// <param name="fScaleY">[IN] Scale to be applied to the points in the Y dimension.</param>
+    /// <param name="fScaleZ">[IN] Scale to be applied to the points in the Z dimension.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void ScaleFromPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Scales 4D points, using an arbitrary pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// </summary>
+    /// <param name="fScaleX">[IN] Scale to be applied to the points in the X dimension.</param>
+    /// <param name="fScaleY">[IN] Scale to be applied to the points in the Y dimension.</param>
+    /// <param name="fScaleZ">[IN] Scale to be applied to the points in the Z dimension.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void ScaleFromPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Scales 3D points, using an arbitrary pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// </summary>
+    /// <param name="scale">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void ScaleFromPivot(const QScaleMatrix3x3& scale, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Scale(scale, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Scales 4D points, using an arbitrary pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// </summary>
+    /// <param name="scale">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void ScaleFromPivot(const QScaleMatrix3x3& scale, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Scale(scale, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Transforms 3D points, using an arbitrary pivot as the center of transformation. The transformation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="transformation">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void TransformFromPivot(const QTransformationMatrix4x3& transformation, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Transform(transformation, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Transforms 4D points, using an arbitrary pivot as the center of transformation. The transformation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="transformation">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void TransformFromPivot(const QTransformationMatrix4x3& transformation, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Transform(transformation, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Transforms 3D points, using an arbitrary pivot as the center of transformation. The transformation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="transformation">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void TransformFromPivot(const QTransformationMatrix4x4& transformation, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Transform(transformation, arPoints[i]);
+
+            arPoints[i] += vPivot;
+        }
+	}
+
+    /// <summary>
+	/// Transforms 4D points, using an arbitrary pivot as the center of transformation. The transformation will be applied to all points in the array.
+	/// </summary>
+    /// <param name="transformation">[IN] Scale to be applied to the points.</param>
+    /// <param name="vPivot">[IN] Point that acts as pivot.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
+	/// <param name="nElements">[IN] Number of elements in the array.</param>
+	inline static void TransformFromPivot(const QTransformationMatrix4x4& transformation, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& nElements)
+	{
+	    for(unsigned int i = 0; i < nElements; ++i)
+        {
+            arPoints[i] -= vPivot;
+
+            QPoint::Transform(transformation, arPoints[i]);
+
+            arPoints[i] += vPivot;
         }
 	}
 
