@@ -85,9 +85,7 @@ public:
     /// </returns>
     inline QLineSegment3D& operator=(const QBaseLineSegment<VectorType> &ls)
     {
-        // [TODO] jwladi: it must be done via QLineSegment assign operator.
-        reinterpret_cast<QBaseLineSegment<VectorType>&>(*this) = ls;
-        return *this;
+        QBaseLineSegment<VectorType>::operator=(ls);
     }
 
     /// <summary>
