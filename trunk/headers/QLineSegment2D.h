@@ -4,8 +4,10 @@
 #define __QLINESEGMENT2D__
 
 #include "QLineSegment.h"
-
 #include "QVector2.h"
+
+#include "QBaseTriangle.h"
+#include "QBaseQuadrilateral.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -17,12 +19,14 @@ namespace Tools
 {
 namespace Math
 {
-		
+
 // Forward Declarations
 //-----------------------
-template<class VectorType> class QBaseTriangle;
+
+//template<class VectorType> class QBaseTriangle;
 typedef QBaseTriangle<QVector2> QBaseTriangle2;
-class QBaseQuadrilateral;
+//class QBaseQuadrilateral;
+
 
 /// <summary>
 /// This class represents a chunk (segment) of straight line into 2D space, defined by two
@@ -107,7 +111,7 @@ public:
 	/// <returns>
 	/// True if the segment intersects the triangle (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
-	bool Intersection (const QBaseTriangle2& triangl) const; 
+	bool Intersection (const QBaseTriangle2& triangl) const;
 
 	/// <summary>
 	/// This method receives a 2D quadrilateral, and computes whether they intersect each other or not.
@@ -119,8 +123,7 @@ public:
 	bool Intersection (const QBaseQuadrilateral& quadrl) const;
 
 	/// <summary>
-	/// This method receives another line segment, and computes wheter they intersect each other or not.
-	/// This method calls base class' implementation.
+	/// This method receives another line segment and computes whether they intersect each other or not.
 	/// </summary>
 	/// <param name="segmt">[IN] The segment to be compared to.</param>
 	/// <returns>
@@ -161,8 +164,8 @@ public:
 	void Transform(const QTransformationMatrix3x3 & matrix);
 
 	/// <summary>
-	/// Receives a transformation matrix and an output line segment and applies the transformations 
-	/// to a copy of the resident line segment, storing the results in the output parameter. The transformation pivot is the 
+	/// Receives a transformation matrix and an output line segment and applies the transformations
+	/// to a copy of the resident line segment, storing the results in the output parameter. The transformation pivot is the
 	/// origin of coordinates.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
@@ -190,7 +193,7 @@ public:
 	void TransformFromPivot (const float_q& fRotationAngle, const QVector2& vPivot, QBaseLineSegment2& segmt) const;
 
 	/// <summary>
-	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations to the resident line segment. 
+	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations to the resident line segment.
 	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
@@ -206,6 +209,181 @@ public:
 	/// <param name="v2Pivot">[IN] Pivot point used for the transformation.</param>
 	/// <param name="lsOutputLineSegment">[OUT] Line segment that stores the result of the transformation.</param>
 	void TransformFromPivot(const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot, QBaseLineSegment<QVector2> & lsOutputLineSegment) const;
+
+ 	/// <summary>
+	/// This method receives another line segment, and computes the intersection point between them,
+	/// if it exists.
+	/// </summary>
+	/// <param name="segmt">[IN] The segment to be compared to.</param>
+	/// <param name="vIntersectionPt">[OUT] The point where they intersect.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
+    /// the following values: E_None, E_One and E_Infinite.
+	/// </returns>
+	/// <remarks>
+	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
+	/// -If segments are totally or parcially coincident only a single point will be stored in the output
+	///  parameter, presumingly an endpoint belonging to one of the segments.
+	/// </remarks>
+	inline EQIntersections IntersectionPoint (const QBaseLineSegment<QVector2>& segmt, QBaseVector2& vIntersectionPt) const
+	{
+		return QLineSegment<QVector2>::IntersectionPoint(segmt, *reinterpret_cast<QVector2*>(&vIntersectionPt));
+	}
+
+	/// <summary>
+	/// This method receives a 2D orb, computes the intersections with the resident line segment and stores the intersection point
+	/// closest to A end point, if it exists.
+	/// </summary>
+	/// <param name="orb">[IN] The orb whose intersection point with resident line segment we want to check.</param>
+    /// <param name="vPoint">[OUT] A vector where to store the intersection point closest to A end point.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
+    /// the following values: E_None, E_One and E_Two.
+	/// </returns>
+	/// <remarks>
+	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
+	/// -If there are two intersections, the output parameter stores only the closest to A end point.
+	/// </remarks>
+	EQIntersections IntersectionPoint (const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint) const
+	{
+        return QLineSegment<QVector2>::IntersectionPoint(orb, reinterpret_cast<QVector2&>(vPoint));
+	}
+
+    /// <summary>
+	/// This method receives a 2D orb, and computes and stores the points where the resident line segment intersects with it,
+    /// if they exists.
+	/// </summary>
+	/// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
+    /// <param name="vPoint1">[OUT] A vector where to store the intersection point closest to A end point.</param>
+    /// <param name="vPoint2">[OUT] A vector where to store the intersection point farthest to A end point.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
+    /// the following values: E_None, E_One and E_Two.
+	/// </returns>
+	/// <remarks>
+	/// -If there's no intersection point, the two output parameters used for storing the points won't be modified.
+	/// -If there is one intersection, it's stored in the first output parameter.
+	/// -If there are two intersections, the first output parameter stores the closest to A end point of
+    ///  line segment, and the second one stores the closest to B end point.
+	/// </remarks>
+	EQIntersections IntersectionPoint (const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint1, QBaseVector2 &vPoint2) const
+	{
+        return QLineSegment<QVector2>::IntersectionPoint(orb, reinterpret_cast<QVector2&>(vPoint1), reinterpret_cast<QVector2&>(vPoint2));
+	}
+
+	/// <summary>
+	/// This method receives a 2D triangle, and computes the intersection points between it and the segment,
+	/// if they exist.
+	/// </summary>
+	/// <param name="triangle">[IN] The triangle to be compared to.</param>
+	/// <param name="vPoint1">[OUT] The first point where they intersect.</param>
+	/// <param name="vPoint2">[OUT] The second point where they intersect.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
+    /// the following values: E_None, E_One, E_Two and E_Infinite.
+	/// </returns>
+	/// <remarks>
+	/// -If there are no intersection points, the output parameters used for storing that points won't be modified.
+	/// -If there's only one intersection point, only the first parameter will be modified.
+	/// -The first point returned is the closest one to A.
+	/// </remarks>
+	EQIntersections IntersectionPoint(const QBaseTriangle2& triangle, QBaseVector2& vPoint1, QBaseVector2& vPoint2) const;
+
+	/// <summary>
+	/// This method receives a 2D triangle, and computes the intersection point between it and the segment,
+	/// if it exists.
+	/// </summary>
+	/// <param name="triangle">[IN] The triangle to be compared to.</param>
+	/// <param name="vPoint">[OUT] The point where they intersect.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
+    /// the following values: E_None, E_One, E_Two and E_Infinite.
+	/// </returns>
+	/// <remarks>
+	/// -If there are no intersection point, the output parameter used for storing that point won't be modified.
+	/// -The point returned is the closest one to A.
+	/// </remarks>
+	inline EQIntersections IntersectionPoint(const QBaseTriangle2& triangle, QBaseVector2& vPoint) const
+	{
+		QBaseVector2 aux;
+		return this->IntersectionPoint(triangle, vPoint, aux);
+	}
+
+	/// <summary>
+	/// This method receives a quadrilateral, and computes the intersection points between it and the segment,
+	/// if they exist.
+	/// </summary>
+	/// <param name="quad">[IN] The quadrilateral to be compared to.</param>
+	/// <param name="vPoint1">[OUT] The first point where they intersect.</param>
+	/// <param name="vPoint2">[OUT] The second point where they intersect.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
+    /// the following values: E_None, E_One, E_Two and E_Infinite.
+	/// </returns>
+	/// <remarks>
+	/// -The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.
+	/// -If there are no intersection points, the output parameters used for storing that points won't be modified.
+	/// -If there's only one intersection point, only the first parameter will be modified.
+	/// -The first point returned is the closest one to A.
+	/// </remarks>
+	EQIntersections IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vPoint1, QBaseVector2& vPoint2) const;
+
+	/// <summary>
+	/// This method receives a quadrilateral, and computes the intersection point between it and the segment,
+	/// if it exists.
+	/// </summary>
+	/// <param name="quad">[IN] The quadrilateral to be compared to.</param>
+	/// <param name="vPoint">[OUT] The point where they intersect.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
+    /// the following values: E_None, E_One, E_Two and E_Infinite.
+	/// </returns>
+	/// <remarks>
+	/// -The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.
+	/// -If there are no intersection point, the output parameter used for storing that point won't be modified.
+	/// -The point returned is the closest one to A.
+	/// </remarks>
+	EQIntersections IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vPoint) const
+	{
+		QBaseVector2 aux;
+		return this->IntersectionPoint(quad, vPoint, aux);
+	}
+
+
+protected:
+
+	// Checks if a point is inside a triangle.
+	// [TODO] jwladi: Replace by the QTriangle2D or QTriangle Contains method, when it exists.
+	inline bool PointInsideTriangle(const QBaseTriangle2& triangle, const QVector2& vPoint) const
+	{
+        return ( PointsInSameSideOfLine(vPoint, triangle.A, triangle.B, triangle.C) &&
+                 PointsInSameSideOfLine(vPoint, triangle.B, triangle.C, triangle.A) &&
+                 PointsInSameSideOfLine(vPoint, triangle.C, triangle.A, triangle.B) );
+	}
+
+    // Check if two points are in the same side of a line.
+	inline bool PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const
+	{
+        const float_q &fOrientation1 = (vLine1.x - vP1.x)*(vLine2.y - vP1.y) - (vLine1.y - vP1.y)*(vLine2.x - vP1.x);
+        const float_q &fOrientation2 = (vLine1.x - vP2.x)*(vLine2.y - vP2.y) - (vLine1.y - vP2.y)*(vLine2.x - vP2.x);
+
+        if ( QFloat::IsZero(fOrientation1) || QFloat::IsZero(fOrientation2) )
+            return true;
+        else if ( QFloat::IsNegative(fOrientation1) == QFloat::IsNegative(fOrientation2) )
+            return true;
+        else
+            return false;
+	}
+
+	// Checks if a point is inside a quadrilateral.
+	// [TODO] jwladi: Replace by the QQuadrilateral Contains method, when it exists.
+	inline bool PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const
+	{
+	    return ( PointsInSameSideOfLine(vPoint, quad.C, quad.A, quad.B) &&
+                 PointsInSameSideOfLine(vPoint, quad.A, quad.B, quad.C) &&
+                 PointsInSameSideOfLine(vPoint, quad.A, quad.C, quad.D) &&
+                 PointsInSameSideOfLine(vPoint, quad.C, quad.D, quad.A) );
+	}
 };
 
 } //namespace Math
