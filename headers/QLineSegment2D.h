@@ -86,10 +86,7 @@ public:
 	/// </returns>
     inline QLineSegment2D& operator=(const QBaseLineSegment2& segmt)
     {
-		// [TODO] It must be done via QLineSegment assign operator,
-		//		  when it's implemented on QLineSegment.
-        //reinterpret_cast<QBaseLineSegment2&>(*this) = segmt;   
-        //return *this;
+		QBaseLineSegment<QVector2>::operator=(segmt);
     }
 
     /// <summary>
