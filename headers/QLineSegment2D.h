@@ -5,6 +5,7 @@
 
 #include "QLineSegment.h"
 #include "QVector2.h"
+#include "QPoint.h"
 
 #include "QBaseTriangle.h"
 #include "QBaseQuadrilateral.h"
@@ -135,33 +136,127 @@ public:
 	}
 
 	/// <summary>
-	/// This method transforms the 2D segment by rotating an amount defined by a rotation angle
+	/// This method applies to the resident line segment the rotation defined by the provided angle
 	/// around the coordinate axis centre.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <remarks>
-	/// Segment endpoints expressed in WORLD coordinates is assumed.
-	/// </remarks>
-	void Transform (const float_q& fRotationAngle);
+	inline void Rotate (const float_q &fRotationAngle)
+	{
+        QPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (this), 2);
+	}
 
 	/// <summary>
-	/// This method performs a rotation of the 2D segment by rotating an amount defined by a rotation angle
-	/// (around the coordinate axis centre) and then storing the resulting segment in the output parameter.
+	/// This method applies to the resident line segment the rotation defined by the provided angle
+	/// around the coordinate axis centre, and stores the resulting segment in the output parameter.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <param name="segmt">[OUT] It receives the resulting rotated 2D segment.</param>
+	/// <param name="lsOut">[OUT] It receives the resulting rotated 2D segment.</param>
 	/// <remarks>
-	/// -Segment endpoints expressed in WORLD coordinates is assumed.
 	/// -The segment is NOT modified, it stays the same.
 	/// </remarks>
-	void Transform (const float_q& fRotationAngle, QBaseLineSegment<QVector2>& segmt) const;
+	inline void Rotate (const float_q &fRotationAngle, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident line segment given by the provided vector.
+	/// </summary>
+	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
+    inline void Translate(const QBaseVector2 &vTranslation)
+	{
+	    QPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (this), 2);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident line segment given by the provided amounts for every axis.
+	/// </summary>
+	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
+	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY)
+	{
+	    QPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (this), 2);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident line segment given by the provided vector, storing the
+	/// resultant line segment in the provided one.
+	/// </summary>
+	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
+	/// <param name="lsOut">[OUT] The translated line segment.</param>
+	inline void Translate(const QBaseVector2 &vTranslation, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident line segment given by the provided amounts for every axis, storing the
+	/// resultant vector in the provided one.
+	/// </summary>
+	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
+	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
+	/// <param name="lsOut">[OUT] The translated line segment.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
+
+	/// <summary>
+	/// This method scales the resident line segment by the scale contained in the provided vector.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	inline void Scale(const QBaseVector2 &vScale)
+	{
+	    QPoint::Scale(vScale, reinterpret_cast<QVector2*> (this), 2);
+	}
+
+	/// <summary>
+	/// This method scales the resident line segment by the provided amounts for every axis.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY)
+	{
+	     QPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (this), 2);
+	}
+
+	/// <summary>
+	/// This method scales the resident line segment by the scale contained in the provided vector, storing the
+	/// resultant line segment in the provided one.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="lsOut">[OUT] The scaled line segment.</param>
+	inline void Scale(const QBaseVector2 &vScale, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::Scale(vScale, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
+
+	/// <summary>
+	/// This method scales the resident line segment by the provided amounts for every axis, storing the
+	/// resultant vector in the provided one.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="lsOut">[OUT] The scaled line segment.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
 
 	/// <summary>
 	/// Receives a transformation matrix and applies the transformations to the resident
 	/// line segment. The transformation pivot is the origin of coordinates.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	void Transform(const QTransformationMatrix3x3 & matrix);
+	inline void Transform(const QTransformationMatrix3x3 &matrix)
+	{
+	    QPoint::Transform(matrix, reinterpret_cast<QVector2*> (this), 2);
+	}
 
 	/// <summary>
 	/// Receives a transformation matrix and an output line segment and applies the transformations
@@ -169,8 +264,12 @@ public:
 	/// origin of coordinates.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="lsOutputLineSegment">[OUT] Line segment that stores the result of the transformation.</param>
-	void Transform(const QTransformationMatrix3x3 & matrix, QBaseLineSegment<QVector2> & lsOutputLineSegment) const;
+	/// <param name="lsOut">[OUT] Line segment that stores the result of the transformation.</param>
+	inline void Transform(const QTransformationMatrix3x3 &matrix, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::Transform(matrix, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
 
 	/// <summary>
 	/// This method transforms the 2D segment by rotating an amount defined by a rotation angle
@@ -178,7 +277,10 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	void TransformFromPivot (const float_q& fRotationAngle, const QVector2& vPivot);
+	inline void RotateFromPivot (const float_q &fRotationAngle, const QVector2 &vPivot)
+	{
+	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 2);
+	}
 
 	/// <summary>
 	/// This method performs a rotation of the 2D segment by rotating an amount defined by a rotation angle
@@ -186,19 +288,77 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	/// <param name="segmt">[OUT] It receives the resulting rotated 2D segment.</param>
+	/// <param name="lsOut">[OUT] It receives the resulting rotated 2D segment.</param>
 	/// <remarks>
 	/// The segment is NOT modified, it stays the same.
 	/// </remarks>
-	void TransformFromPivot (const float_q& fRotationAngle, const QVector2& vPivot, QBaseLineSegment2& segmt) const;
+	inline void RotateFromPivot (const float_q &fRotationAngle, const QVector2 &vPivot, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
 
 	/// <summary>
-	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations to the resident line segment.
-	/// The transformation pivot is the vector received as parameter.
+	/// This method scales the resident line segment by the scale contained in the provided vector,
+	/// acting the provided vector as pivot of scale.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+	{
+	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 2);
+	}
+
+	/// <summary>
+	/// This method scales the resident line segment by the provided amounts for every axis,
+	/// acting the provided vector as pivot of scale.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
+	{
+	     QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 2);
+	}
+
+	/// <summary>
+	/// This method scales the resident line segment by the scale contained in the provided vector,
+	/// acting the provided vector as pivot of scale, and storing the resultant line segment in the provided one.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="lsOut">[OUT] The scaled line segment.</param>
+	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
+
+	/// <summary>
+	/// This method scales the resident line segment by the provided amounts for every axis,
+	/// acting the provided vector as pivot of scale, storing the resultant vector in the provided one.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="lsOut">[OUT] The scaled line segment.</param>
+	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
+
+
+	/// <summary>
+	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
+	/// to the resident line segment. The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="v2Pivot">[IN] Pivot point used for the transformation.</param>
-	void TransformFromPivot(const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot);
+	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
+	inline void TransformFromPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot)
+	{
+	    QPoint::TransformFromPivot(matrix, vPivot, reinterpret_cast<QVector2*> (this), 2);
+	}
 
 	/// <summary>
 	/// Receives a transformation matrix, a vector (transformation pivot) and an output line segment,
@@ -206,9 +366,13 @@ public:
 	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="v2Pivot">[IN] Pivot point used for the transformation.</param>
-	/// <param name="lsOutputLineSegment">[OUT] Line segment that stores the result of the transformation.</param>
-	void TransformFromPivot(const QTransformationMatrix3x3 & matrix, const QBaseVector2 & v2Pivot, QBaseLineSegment<QVector2> & lsOutputLineSegment) const;
+	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
+	/// <param name="lsOut">[OUT] Line segment that stores the result of the transformation.</param>
+	inline void TransformFromPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot, QBaseLineSegment2 &lsOut) const
+	{
+	    lsOut = *this;
+	    QPoint::TransformFromPivot(matrix, vPivot, reinterpret_cast<QVector2*> (&lsOut), 2);
+	}
 
  	/// <summary>
 	/// This method receives another line segment, and computes the intersection point between them,
