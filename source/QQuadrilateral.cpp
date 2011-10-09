@@ -144,6 +144,14 @@ bool QQuadrilateral::Contains (const QBaseVector2 &v) const
         QE_ASSERT(false);
 }
 
+string_q QQuadrilateral::ToString()
+{
+    return QE_L("QL:A(") + this->A.ToString() + QE_L("), B(") +
+                           this->B.ToString() + QE_L("), C(") +
+                           this->C.ToString() + QE_L("), D(") +
+                           this->D.ToString() + QE_L(")");
+}
+
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine

@@ -269,18 +269,251 @@ public:
             return fAngle;
     }
 
+	/// <summary>
+	/// This method applies to the resident quadrilateral the rotation defined by the provided angle
+	/// around the coordinate axis centre.
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	inline void Rotate (const float_q &fRotationAngle)
+	{
+        QPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// This method applies to the resident quadrilateral the rotation defined by the provided angle
+	/// around the coordinate axis centre, and stores the resulting quadrilateral in the output parameter.
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="quadOut">[OUT] It receives the resulting quadrilateral.</param>
+	/// <remarks>
+	/// -The quadrilateral is NOT modified, it stays the same.
+	/// </remarks>
+	inline void Rotate (const float_q &fRotationAngle, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident quadrilateral given by the provided vector.
+	/// </summary>
+	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
+    inline void Translate(const QBaseVector2 &vTranslation)
+	{
+	    QPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident quadrilateral given by the provided amounts for every axis.
+	/// </summary>
+	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
+	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY)
+	{
+	    QPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident quadrilateral given by the provided vector, storing the
+	/// resultant quadrilateral in the provided one.
+	/// </summary>
+	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
+	/// <param name="quadOut">[OUT] The translated quadrilateral.</param>
+	inline void Translate(const QBaseVector2 &vTranslation, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident quadrilateral given by the provided amounts for every axis, storing the
+	/// resultant vector in the provided one.
+	/// </summary>
+	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
+	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
+	/// <param name="quadOut">[OUT] The translated quadrilateral.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+	/// <summary>
+	/// This method scales the resident quadrilateral by the scale contained in the provided vector.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	inline void Scale(const QBaseVector2 &vScale)
+	{
+	    QPoint::Scale(vScale, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// This method scales the resident quadrilateral by the provided amounts for every axis.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY)
+	{
+	     QPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// This method scales the resident quadrilateral by the scale contained in the provided vector, storing the
+	/// resultant quadrilateral in the provided one.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
+	inline void Scale(const QBaseVector2 &vScale, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::Scale(vScale, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+	/// <summary>
+	/// This method scales the resident quadrilateral by the provided amounts for every axis, storing the
+	/// resultant quadrilateral in the provided one.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+	/// <summary>
+	/// Receives a transformation matrix and applies the transformations to the resident
+	/// quadrilateral. The transformation pivot is the origin of coordinates.
+	/// </summary>
+	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	inline void Transform(const QTransformationMatrix3x3 &matrix)
+	{
+	    QPoint::Transform(matrix, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// Receives a transformation matrix and an output quadrilateral and applies the transformations
+	/// to a copy of the resident quadrilateral, storing the results in the output parameter. The transformation pivot is the
+	/// origin of coordinates.
+	/// </summary>
+	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="quadOut">[OUT] Quadrilateral that stores the result of the transformation.</param>
+	inline void Transform(const QTransformationMatrix3x3 &matrix, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::Transform(matrix, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+	/// <summary>
+	/// This method transforms the 2D quadrilateral by rotating an amount defined by a rotation angle
+	/// around a pivot point (as center of rotation).
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	inline void RotateFromPivot (const float_q &fRotationAngle, const QVector2 &vPivot)
+	{
+	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// This method performs a rotation of the 2D quadrilateral by rotating it an amount defined by a rotation angle
+	/// around a pivot point (as center of rotation), and then storing the resulting quadrilateral in the output parameter.
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	/// <param name="quadOut">[OUT] It receives the resulting quadrilateral.</param>
+	/// <remarks>
+	/// The quadrilateral is NOT modified, it stays the same.
+	/// </remarks>
+	inline void RotateFromPivot (const float_q &fRotationAngle, const QVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+	/// <summary>
+	/// This method scales the resident quadrilateral by the scale contained in the provided vector,
+	/// acting the provided vector as pivot of scale.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+	{
+	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// This method scales the resident quadrilateral by the provided amounts for every axis,
+	/// acting the provided vector as pivot of scale.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
+	{
+	     QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// This method scales the resident quadrilateral by the scale contained in the provided vector,
+	/// acting the other provided vector as pivot of scale, and storing the resultant quadrilateral in the provided one.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
+	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+	/// <summary>
+	/// This method scales the resident quadrilateral by the provided amounts for every axis,
+	/// acting the provided vector as pivot of scale, storing the resultant quadrilateral in the provided one.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
+	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
+
+	/// <summary>
+	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
+	/// to the resident quadrilateral. The transformation pivot is the vector received as parameter.
+	/// </summary>
+	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
+	inline void TransformFromPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot)
+	{
+	    QPoint::TransformFromPivot(matrix, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	}
+
+	/// <summary>
+	/// Receives a transformation matrix, a vector (transformation pivot) and an output quadrilateral,
+	/// and applies the transformations to a copy of the resident quadrilateral, storing the results in the output parameter.
+	/// The transformation pivot is the vector received as parameter.
+	/// </summary>
+	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
+	/// <param name="quadOut">[OUT] Quadrilateral that stores the result of the transformation.</param>
+	inline void TransformFromPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	{
+	    quadOut = *this;
+	    QPoint::TransformFromPivot(matrix, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	}
+
     /// <summary>
     /// Converts quadrilateral into a string with the following format:
     /// "QL:A(<A.ToString>), B(<B.ToString>), C(<C.ToString>), D(<D.ToString>)".
     /// </summary>
     /// <returns>The string with the specified format.</returns>
-    inline string_q ToString()
-    {
-        return QE_L("QL:A(") + this->A.ToString() + QE_L("), B(") +
-                               this->B.ToString() + QE_L("), C(") +
-                               this->C.ToString() + QE_L("), D(") +
-                               this->D.ToString() + QE_L(")");
-    }
+    string_q ToString();
 
 protected:
 
