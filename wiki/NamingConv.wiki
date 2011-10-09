@@ -41,7 +41,8 @@ Ejemplo: QTreeNode.
     * str --> std::string.
     * b --> bool.
     * ar --> arrays y std::vector, no para el resto de estructuras.
-
+    * v --> vectores (álgebra).
+    * q --> cuaterniones (álgebra).
 
 Pueden añadirse otros prefijos opcionalmente, siempre que no induzcan a confusión.
 
