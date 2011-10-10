@@ -1,4 +1,4 @@
-=Descargas=
+=Descargas: Dependencias=
 
 Aquí se encuentran todos aquellos recursos utilizados por la librería y que resultan imprescindibles para desarrollar.
 
@@ -23,3 +23,12 @@ Librerías estáticas precompiladas de la versión 1.46.1 de Boost. En los paque
  * Quimera Engine no es portable para Macintosh todavía.
 
 Para *compilar Boost por cuenta propia*, quizás te sirva [CompBoost esta guía].
+
+
+=Descargas: Herramientas=
+
+Conjunto de herramientas creadas / modificadas / recopiladas por el equipo de desarrollo para facilitar el trabajo.
+
+==Plug-in DoxyBlocks modificado==
+
+Se trata de un Plug-in para Code::Blocks ya existente, utilizado para automatizar la escritura de documentación de código, que ha sido modificada para que pueda insertar el formato de documentación XML (típico de .NET) utilizado en la librería (y que es aceptado por Doxygen). Para instalar el plug-in basta con [TODO].
