@@ -68,7 +68,7 @@ public:
 	/// <param name="tValue">[IN] 2D triangle that is assigned to current triangle.</param>
 	QTriangle2D& operator=(const QBaseTriangle<QVector2>& tValue)
 	{
-		reinterpret_cast<QBaseTriangle<QVector2>&> (*this) = tValue;
+        QBaseTriangle2::operator=(tValue);
 		return *this;
 	}
 

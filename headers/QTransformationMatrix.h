@@ -382,7 +382,7 @@ public:
     /// </returns>
     inline QTransformationMatrix<MatrixType>& operator=(const MatrixType &m)
     {
-        reinterpret_cast<MatrixType&>(*this) = m;
+        MatrixType::operator=(m);
         return *this;
     }
 

@@ -76,7 +76,7 @@ public:
 	/// </returns>
     inline QOrb& operator=(const QBaseOrb<VectorType>& orb)
     {
-        reinterpret_cast<QBaseOrb<VectorType>&>(*this) = orb;
+        QBaseOrb<VectorType>::operator=(orb);
         return *this;
     }
 

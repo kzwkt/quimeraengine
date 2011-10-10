@@ -72,7 +72,7 @@ public:
     /// </returns>
     inline QQuadrilateral& operator=(const QBaseQuadrilateral &q)
     {
-        reinterpret_cast<QBaseQuadrilateral&>(*this) = q;
+        QBaseQuadrilateral::operator=(q);
         return *this;
     }
 

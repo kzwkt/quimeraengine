@@ -255,7 +255,7 @@ public:
     /// </returns>
     inline QPlane& operator=(const QBasePlane &p)
     {
-        reinterpret_cast<QBasePlane&>(*this) = p;
+        QBasePlane::operator=(p);
         return *this;
     }
 

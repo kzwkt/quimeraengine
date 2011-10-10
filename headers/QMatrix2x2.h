@@ -278,7 +278,7 @@ public:
     /// </returns>
     inline QMatrix2x2& operator=(const QBaseMatrix2x2 &m)
     {
-        reinterpret_cast<QBaseMatrix2x2&>(*this) = m;    
+        QBaseMatrix2x2::operator=(m);
         return *this;
     }
 

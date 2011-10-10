@@ -371,7 +371,7 @@ public:
     /// </returns>
     inline QVector3& operator=(const QBaseVector3 &v)
     {
-        reinterpret_cast<QBaseVector3&>(*this) = v;
+        QBaseVector3::operator=(v);
         return *this;
     }
 

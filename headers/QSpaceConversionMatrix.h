@@ -213,7 +213,7 @@ public:
     /// </returns>
     inline QSpaceConversionMatrix& operator=(const QBaseMatrix4x4 &m)
     {
-        reinterpret_cast<QBaseMatrix4x4&>(*this) = m;
+        QBaseMatrix4x4::operator=(m);
         return *this;
     }
 
