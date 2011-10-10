@@ -237,10 +237,9 @@ public:
     /// </returns>
     inline QScaleMatrix3x3& operator=(const QBaseMatrix3x3 &m)
     {
-        reinterpret_cast<QBaseMatrix3x3&>(*this) = m;    
+        QBaseMatrix3x3::operator=(m);
         return *this;
     }
-
 
     /// <summary>
     /// Reverse of the matrix. In the case of scale matrices, the inverse is composed

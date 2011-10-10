@@ -431,7 +431,7 @@ public:
     /// </returns>
     inline QQuaternion& operator=(const QBaseQuaternion &q)
     {
-        reinterpret_cast<QBaseQuaternion&>(*this) = q;    
+        QBaseQuaternion::operator=(q);
         return *this;
     }
 

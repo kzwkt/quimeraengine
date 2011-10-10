@@ -91,7 +91,8 @@ public:
 	/// </returns>
     inline QLineSegment2D& operator=(const QBaseLineSegment2& segmt)
     {
-		QBaseLineSegment<QVector2>::operator=(segmt);
+        QBaseLineSegment2::operator=(segmt);
+        return *this;
     }
 
     /// <summary>

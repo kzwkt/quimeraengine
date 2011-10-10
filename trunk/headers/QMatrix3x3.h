@@ -339,7 +339,7 @@ public:
     /// </returns>
     inline QMatrix3x3& operator=(const QBaseMatrix3x3 &m)
     {
-        reinterpret_cast<QBaseMatrix3x3&>(*this) = m;    
+        QBaseMatrix3x3::operator=(m);
         return *this;
     }
 

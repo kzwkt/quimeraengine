@@ -77,7 +77,7 @@ public:
 	/// <param name="btValue">[IN] QBaseTriangle that will be assigned to current triangle.</param>
 	inline QTriangle<VectorType> & operator=(const QBaseTriangle<VectorType> & btValue)
 	{
-        reinterpret_cast<QBaseTriangle<VectorType>&>(*this) = btValue;
+        QBaseTriangle<VectorType>::operator=(btValue);
         return *this;
 	}
 

@@ -383,7 +383,7 @@ public:
     /// </returns>
     inline QMatrix4x3& operator=(const QBaseMatrix4x3 &m)
     {
-        reinterpret_cast<QBaseMatrix4x3&>(*this) = m;
+        QBaseMatrix4x3::operator=(m);
         return *this;
     }
 

@@ -72,7 +72,7 @@ public:
 	/// <param name="tValue">[IN] 3D triangle that is assigned to current triangle.</param>
 	inline QTriangle3D& operator=(const QBaseTriangle<VectorType>& tValue)
 	{
-		reinterpret_cast<QBaseTriangle<VectorType>&> (*this) = tValue;
+        QBaseTriangle<VectorType>::operator=(tValue);
 		return *this;
 	}
 

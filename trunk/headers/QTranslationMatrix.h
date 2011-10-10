@@ -324,7 +324,7 @@ public:
     /// </returns>
     inline QTranslationMatrix<MatrixType>& operator=(const MatrixType &m)
     {
-        reinterpret_cast<MatrixType&>(*this) = m;
+        MatrixType::operator=(m);
         return *this;
     }
 

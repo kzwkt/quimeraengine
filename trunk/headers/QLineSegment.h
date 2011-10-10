@@ -89,7 +89,7 @@ public:
 	/// </returns>
     inline QLineSegment& operator=(const QBaseLineSegment<VectorType>& segmt)
     {
-        reinterpret_cast<QBaseLineSegment<VectorType>&>(*this) = segmt;
+        QBaseLineSegment<VectorType>::operator=(segmt);
         return *this;
     }
 

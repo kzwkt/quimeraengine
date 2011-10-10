@@ -86,6 +86,7 @@ public:
     inline QLineSegment3D& operator=(const QBaseLineSegment<VectorType> &ls)
     {
         QBaseLineSegment<VectorType>::operator=(ls);
+        return *this;
     }
 
     /// <summary>

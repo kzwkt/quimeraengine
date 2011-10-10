@@ -1,9 +1,8 @@
 // [TERMS&CONDITIONS]
 
-/*
 #include "QBaseTriangle.h"
 #include "QBaseQuadrilateral.h"
-*/
+
 #include "QTransformationMatrix3x3.h"
 
 #include "QLineSegment2D.h"

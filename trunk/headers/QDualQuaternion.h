@@ -335,7 +335,7 @@ public:
     /// </returns>
     inline QDualQuaternion& operator=(const QBaseDualQuaternion &dqQuat)
     {
-        reinterpret_cast<QBaseDualQuaternion&>(*this) = dqQuat;    
+        QBaseDualQuaternion::operator=(dqQuat);
         return *this;
     }
 
