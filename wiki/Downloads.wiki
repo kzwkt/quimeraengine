@@ -25,6 +25,7 @@ Librerías estáticas precompiladas de la versión 1.46.1 de Boost. En los paque
 Para *compilar Boost por cuenta propia*, quizás te sirva [CompBoost esta guía].
 
 
+
 =Descargas: Herramientas=
 
 Conjunto de herramientas creadas / modificadas / recopiladas por el equipo de desarrollo para facilitar el trabajo.
