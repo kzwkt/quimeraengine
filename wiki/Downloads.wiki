@@ -31,7 +31,12 @@ Conjunto de herramientas creadas / modificadas / recopiladas por el equipo de de
 
 ==Plug-in `DoxyBlocks` modificado==
 
-Se trata de un Plug-in para Code::Blocks ya existente, utilizado para automatizar la escritura de documentación de código, que ha sido modificado por el equipo para que pueda insertar el formato de documentación XML (típico de .NET) utilizado en la librería (y que es aceptado por Doxygen). Para instalar el plug-in basta con [TODO].
+Se trata de un Plug-in para Code::Blocks ya existente, utilizado para automatizar la escritura de documentación de código, que ha sido modificado por el equipo para que pueda insertar el formato de documentación XML (típico de .NET) utilizado en la librería (y que es aceptado por Doxygen).
 
  * [http://quimeraengine.googlecode.com/files/DoxyBlocks1005PlugInTunedWin32.zip Versión para Code::Blocks 10.05 (Windows 32-bits)]
- * [http://quimeraengine.googlecode.com/files/DoxyBlocks1005PlugInTunedWin32.zip Versión para Code::Blocks 10.05 (Linux 32-bits) PRÓXIMAMENTE]
+ * [http://quimeraengine.googlecode.com/files/DoxyBlocks1005PlugInTunedLinux32.zip Versión para Code::Blocks 10.05 (Linux 32-bits) PRÓXIMAMENTE]
+
+Para instalar el plug-in basta con seguir estos pasos:
+ # Abrir el IDE Code::Blocks.
+ # En el menú superior, abrir la opción _Plugins_ y elegir _Manage plugins..._.
+ # Pulsar en el botón _Install new_ y seleccionar el archivo con extensión _.cbplugin_ descargado.
