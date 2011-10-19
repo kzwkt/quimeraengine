@@ -29,6 +29,9 @@ Para *compilar Boost por cuenta propia*, quizás te sirva [CompBoost esta guía]
 
 Conjunto de herramientas creadas / modificadas / recopiladas por el equipo de desarrollo para facilitar el trabajo.
 
-==Plug-in DoxyBlocks modificado==
+==Plug-in `DoxyBlocks` modificado==
 
-Se trata de un Plug-in para Code::Blocks ya existente, utilizado para automatizar la escritura de documentación de código, que ha sido modificada para que pueda insertar el formato de documentación XML (típico de .NET) utilizado en la librería (y que es aceptado por Doxygen). Para instalar el plug-in basta con [TODO].
+Se trata de un Plug-in para Code::Blocks ya existente, utilizado para automatizar la escritura de documentación de código, que ha sido modificado por el equipo para que pueda insertar el formato de documentación XML (típico de .NET) utilizado en la librería (y que es aceptado por Doxygen). Para instalar el plug-in basta con [TODO].
+
+ * [http://quimeraengine.googlecode.com/files/DoxyBlocks1005PlugInTunedWin32.zip Versión para Code::Blocks 10.05 (Windows 32-bits)]
+ * [http://quimeraengine.googlecode.com/files/DoxyBlocks1005PlugInTunedWin32.zip Versión para Code::Blocks 10.05 (Linux 32-bits) PRÓXIMAMENTE]
