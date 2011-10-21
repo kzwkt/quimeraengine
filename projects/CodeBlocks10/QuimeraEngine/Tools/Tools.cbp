@@ -69,6 +69,7 @@
 		<Unit filename="..\..\..\..\headers\QBoolean.h" />
 		<Unit filename="..\..\..\..\headers\QDualQuaternion.h" />
 		<Unit filename="..\..\..\..\headers\QFloat.h" />
+		<Unit filename="..\..\..\..\headers\QHexahedron.h" />
 		<Unit filename="..\..\..\..\headers\QInteger.h" />
 		<Unit filename="..\..\..\..\headers\QLineSegment.h" />
 		<Unit filename="..\..\..\..\headers\QLineSegment2D.h" />
