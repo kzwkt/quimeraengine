@@ -18,11 +18,11 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a box in the space. The box is defined by its eight vertices.
-/// It's supossed that ABCD defines a face of the box (eventually the top face) and 
+/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.
+/// It's supossed that ABCD defines a face of the hexahedron (eventually the top face) and
 /// EFGH defines the opposite face (eventually the bottom one).
 /// </summary>
-template <class VectorType> 
+template <class VectorType>
 class QDllExport QBaseHexahedron
 {
 
@@ -33,7 +33,7 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseHexahedron () : A(QFloat::_0), B(QFloat::_0), C(QFloat::_0), D(QFloat::_0), 
+    inline QBaseHexahedron () : A(QFloat::_0), B(QFloat::_0), C(QFloat::_0), D(QFloat::_0),
 								E(QFloat::_0), F(QFloat::_0), G(QFloat::_0), H(QFloat::_0) { }
 
     /// <summary>
@@ -52,16 +52,16 @@ public:
 							A(vA), B(vB), C(vC), D(vD), E(vE), F(vF), G(vG), H(vH) { }
 
     /// <summary>
-    /// Constructor from two vectors which defines two opposite vertices, with no common faces between them 
+    /// Constructor from two vectors which defines two opposite vertices, with no common faces between them
     /// (the ends of any inner diagonals).
     /// </summary>
-    /// <param name="vA">[IN] Vector which defines one vertex of a inner diagonal (We'll call it A).</param>
-    /// <param name="vG">[IN] Vector which defines the other vertex of the inner diagonal (We'll call it G).</param>
+    /// <param name="vA">[IN] Vector which defines one vertex of a inner diagonal (it will be used to initialize A).</param>
+    /// <param name="vG">[IN] Vector which defines the other vertex of the inner diagonal (it will be used to initialize G).</param>
     inline QBaseHexahedron (const VectorType &vA, const VectorType &vG)
     {
         A = B = D = E = vA;
         C = F = G = H = vG;
-    
+
         B.z = vG.z;
         C.y = vA.y;
         D.x = vG.x;
@@ -73,7 +73,7 @@ public:
     /// <summary>
     /// Constructor from a vector which defines the gravity center of the box and three floating
     /// points values which defines its height (Y), width (X) and depth (Z).
-    /// It's supossed that all edges are parallel to one of the axis. 
+    /// It's supossed that all edges are parallel to one of the axis.
     /// </summary>
     /// <param name="vCenter">[IN] Center point of the box.</param>
     /// <param name="fLenX">[IN] Length of an edge parallel to X axis (width).</param>
@@ -83,7 +83,7 @@ public:
     {
         // Ensures that all vectors/points are in same coordinates format.
         A = vCenter;
-       
+
         A.x -= fLenX*QFloat::_0_5;
         A.y += fLenY*QFloat::_0_5;
         A.z += fLenZ*QFloat::_0_5;
@@ -113,7 +113,7 @@ public:
     // ATTRIBUTES
     // ---------------
 public:
-    
+
     /// <summary>
     /// Vector which represents a vextex of the box.
     /// </summary>
