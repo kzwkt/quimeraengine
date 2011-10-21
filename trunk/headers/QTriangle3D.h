@@ -9,6 +9,7 @@
 #include "QVector4.h"
 #include "QQuaternion.h"
 #include "QBasePlane.h"
+#include "QPoint.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -123,220 +124,320 @@ public:
 		vCircumcenter = ((this->A + this->C) * QFloat::_0_5) + (vA.DotProduct(vB) / (QFloat::_8 * fK * fK)) * vCrossvCvAvB;
 	}
 
-	/// <summary>
-	/// Translates the triangle.
+    /// <summary>
+	/// This method performs a translation of the resident triangle given by the provided vector.
 	/// </summary>
-	/// <param name="vTranslation">[IN] Vector type that represents the translation.</param>
-	inline void Translate(const VectorType& vTranslation)
+	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
+    inline void Translate(const QBaseVector3 &vTrans)
 	{
-		this->A += vTranslation;
-		this->B += vTranslation;
-		this->C += vTranslation;
+		QPoint::Translate(vTrans, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
-	/// Translates the triangle.
+	/// This method performs a translation of the resident triangle given by the provided vector,
+	/// storing the resultant triangle in the output parameter.
 	/// </summary>
-	/// <param name="vTranslation">[IN] Scalar value  that represents the translation.</param>
-	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
-	inline void Translate(const VectorType& vTranslation, QBaseTriangle<VectorType>& outputTriangle) const
+	/// <param name="vTrans">[IN] Vector that represents the translation.</param>
+	/// <param name="tOut">[OUT] Triangle which stores the translated one.</param>
+	inline void Translate(const QBaseVector3 &vTrans, QBaseTriangle<VectorType>& tOut) const
 	{
-		outputTriangle = *this;
-		reinterpret_cast<QTriangle3D&> (outputTriangle).Translate(vTranslation);
+		tOut = *this;
+		QPoint::Translate(vTrans, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
-	/// Translates the triangle.
+	/// This method performs a translation of the resident triangle given by the provided amounts for every axis.
 	/// </summary>
 	/// <param name="fTranslateX">[IN] Scalar value that contains the translation on X axis.</param>
 	/// <param name="fTranslateY">[IN] Scalar value that contains the translation on Y axis.</param>
 	/// <param name="fTranslateZ">[IN] Scalar value that contains the translation on Z axis.</param>
 	inline void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ)
 	{
-		VectorType vLocalTranslation(fTranslateX, fTranslateY, fTranslateZ);
-
-		this->A += vLocalTranslation;
-		this->B += vLocalTranslation;
-		this->C += vLocalTranslation;
+		QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
-	/// Translates the triangle.
+	/// This method performs a translation of the resident triangle given by the provided amounts for every axis,
+	/// storing the resultant triangle in the output parameter.
 	/// </summary>
 	/// <param name="fTranslateX">[IN] Scalar value that contains the translation on X axis.</param>
 	/// <param name="fTranslateY">[IN] Scalar value that contains the translation on Y axis.</param>
 	/// <param name="fTranslateZ">[IN] Scalar value that contains the translation on Z axis.</param>
-	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
-	inline void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ, QBaseTriangle<VectorType>& outputTriangle) const
+	/// <param name="tOut">[OUT] Triangle which stores the translated one.</param>
+	inline void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ, QBaseTriangle<VectorType>& tOut) const
 	{
-		outputTriangle = *this;
-		reinterpret_cast<QTriangle3D&> (outputTriangle).Translate(fTranslateX, fTranslateY, fTranslateZ);
-	}
+		tOut = *this;
+		QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, reinterpret_cast<VectorType*> (&tOut), 3);	}
 
-	/// <summary>
-	/// Rotates the triangle.
+    /// <summary>
+	/// Translates the triangle applying a [4x3] translation matrix.
 	/// </summary>
-	/// <param name="rotQuaternion">[IN] Quaternion that represents the rotation.</param>
-	void Rotate(const QQuaternion& rotQuaternion)
+	/// <param name="mTrans">[IN] The [4x3] translation matrix to be applied.</param>
+	inline void Translate(const QTranslationMatrix4x3 &mTrans)
 	{
-		this->A.Transform(rotQuaternion);
-		this->B.Transform(rotQuaternion);
-		this->C.Transform(rotQuaternion);
+	    QPoint::Translate(mTrans, reinterpret_cast<VectorType*> (this), 3);
 	}
 
-	/// <summary>
-	/// Rotates the triangle.
+    /// <summary>
+	/// Translates the triangle applying a [4x4] translation matrix.
 	/// </summary>
-	/// <param name="rotQuaternion">[IN] Quaternion that represents the rotation.</param>
-	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
-	void Rotate(const QQuaternion& rotQuaternion, QBaseTriangle<VectorType>& outputTriangle) const
+	/// <param name="mTrans">[IN] The [4x4] translation matrix to be applied.</param>
+	inline void Translate(const QTranslationMatrix4x4 &mTrans)
 	{
-		outputTriangle = *this;
-		reinterpret_cast<QTriangle3D&> (outputTriangle).Rotate(rotQuaternion);
+	    QPoint::Translate(mTrans, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
-	/// Rotates the triangle from a vPivot.
+	/// Translates the triangle applying a [4x3] translation matrix, storing the resultant
+	/// triangle in the output parameter.
 	/// </summary>
-	/// <param name="rotQuaternion">[IN] Quaternion that represents the rotation.</param>
-	/// <param name="vPivot">[IN] Vector type which we will use as pivot.</param>
-	void RotateFromvPivot(const QQuaternion& rotQuaternion, const VectorType& vPivot)
+	/// <param name="mTrans">[IN] The [4x3] translation matrix to be applied.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the translated one.</param>
+	inline void Translate(const QTranslationMatrix4x3 &mTrans, QBaseTriangle<VectorType> tOut) const
 	{
-		this->A += vPivot;
-		this->B += vPivot;
-		this->C += vPivot;
-
-		this->Rotate(rotQuaternion);
-
-		this->A -= vPivot;
-		this->B -= vPivot;
-		this->C -= vPivot;
+	    tOut = *this;
+	    QPoint::Translate(mTrans, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
-	/// <summary>
-	/// Rotates the triangle from a vPivot.
+    /// <summary>
+	/// Translates the triangle applying a [4x4] translation matrix, storing the resultant
+	/// triangle in the output parameter.
 	/// </summary>
-	/// <param name="rotQuaternion">[IN] Quaternion that represents the rotation.</param>
-	/// <param name="vPivot">[IN] Vector type used as vPivot.</param>
-	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
-	void RotateFromvPivot(const QQuaternion& rotQuaternion, const VectorType& vPivot, QBaseTriangle<VectorType>& outputTriangle) const
+	/// <param name="mTrans">[IN] The [4x4] translation matrix to be applied.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the translated one.</param>
+	inline void Translate(const QTranslationMatrix4x4 &mTrans, QBaseTriangle<VectorType> tOut) const
 	{
-		outputTriangle = *this;
-		reinterpret_cast<QTriangle3D&> (outputTriangle).RotateFromvPivot(rotQuaternion, vPivot);
+	    tOut = *this;
+	    QPoint::Translate(mTrans, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
-	/// Scales the triangle.
+	/// This method applies to the resident triangle the rotation defined by the provided quaternion
+	/// around the coordinate axis centre.
 	/// </summary>
-	/// <param name="vScale">[IN] Vector type that represents the scale.</param>
-	inline void Scale(const VectorType& vScale)
+	/// <param name="qRot">[IN] Quaternion which contais the rotation to be applied.</param>
+	inline void Rotate(const QQuaternion &qRot)
 	{
-		this->A *= vScale;
-		this->B *= vScale;
-		this->C *= vScale;
+	    QPoint::Rotate(qRot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
-	/// Scales the triangle.
+	/// This method applies to the resident triangle the rotation defined by the provided quaternion
+	/// around the coordinate axis centre, storing the resultant triangle in the output parameter.
 	/// </summary>
-	/// <param name="vScale">[IN] Vector type that represents the scale.</param>
-	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
-	inline void Scale(const VectorType& vScale, QBaseTriangle<VectorType>& outputTriangle) const
+	/// <param name="qRot">[IN] Quaternion which contais the rotation to be applied.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the rotated one.</param>
+	inline void Rotate(const QQuaternion& qRot, QBaseTriangle<VectorType>& tOut) const
 	{
-		outputTriangle = *this;
-		reinterpret_cast<QTriangle3D&> (outputTriangle).Scale(vScale);
+		tOut = *this;
+	    QPoint::Rotate(qRot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
-	/// Scales the triangle.
+	/// Rotates the triangle applying the provided rotation matrix.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix to be applied.</param>
+	inline void Rotate(const QRotationMatrix3x3 &mRot)
+	{
+	    QPoint::Rotate(mRot, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// Rotates the triangle applying the provided rotation matrix, storing the resultant
+	/// triangle in the output parameter.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix to be applied.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the rotated triangle.</param>
+	inline void Rotate(const QRotationMatrix3x3 &mRot, QBaseTriangle<VectorType> tOut) const
+	{
+	    tOut = *this;
+	    QPoint::Rotate(mRot, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method applies to the resident triangle the rotation defined by the provided quaternion
+	/// around a point which acts as pivot of rotation.
+	/// </summary>
+	/// <param name="qRot">[IN] Quaternion which contais the rotation to be applied.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	inline void RotateFromPivot(const QQuaternion& qRot, const VectorType& vPivot)
+	{
+		QPoint::RotateFromPivot(qRot, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method applies to the resident triangle the rotation defined by the provided quaternion
+	/// around a point which acts as pivot of rotation, storing the resultant triangle in the output parameter.
+	/// </summary>
+	/// <param name="qRot">[IN] Quaternion which contais the rotation to be applied.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the rotated triangle.</param>
+	inline void RotateFromPivot(const QQuaternion& qRot, const VectorType& vPivot, QBaseTriangle<VectorType>& tOut) const
+	{
+		tOut = *this;
+	    QPoint::RotateFromPivot(qRot, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the scale contained in the provided vector.
+	/// </summary>
+	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	inline void Scale(const QBaseVector3 &vScale)
+	{
+	    QPoint::Scale(vScale, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+
+	/// <summary>
+	/// This method scales the resident triangle by the scale contained in the provided vector, storing
+	/// the resultant triangle in the output parameter.
+	/// </summary>
+	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the scaled triangle.</param>
+	inline void Scale(const QBaseVector3 &vScale, QBaseTriangle<VectorType>& tOut) const
+	{
+		tOut = *this;
+		QPoint::Scale(vScale, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the provided amounts for every axis.
 	/// </summary>
 	/// <param name="fScaleX">[IN] Scalar value that contains the scale on X axis.</param>
 	/// <param name="fScaleY">[IN] Scalar value that contains the scale on Y axis.</param>
 	/// <param name="fScaleZ">[IN] Scalar value that contains the scale on Z axis.</param>
 	inline void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ)
 	{
-		VectorType localScale(fScaleX, fScaleY, fScaleZ);
-
-		this->A *= localScale;
-		this->B *= localScale;
-		this->C *= localScale;
+		QPoint::Scale(fScaleX, fScaleY, fScaleZ, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
-	/// Scales the triangle.
+	/// This method scales the resident triangle by the provided amounts for every axis, storing
+	/// the resultant triangle in the output parameter.
 	/// </summary>
 	/// <param name="fScaleX">[IN] Scalar value that contains the scale on X axis.</param>
 	/// <param name="fScaleY">[IN] Scalar value that contains the scale on Y axis.</param>
 	/// <param name="fScaleZ">[IN] Scalar value that contains the scale on Z axis.</param>
-	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
-	inline void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, QBaseTriangle<VectorType>& outputTriangle) const
+	/// <param name="tOut">[OUT] Triangle where to store the scaled triangle.</param>
+	inline void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, QBaseTriangle<VectorType>& tOut) const
 	{
-		outputTriangle = *this;
-		reinterpret_cast<QTriangle3D&> (outputTriangle).Scale(fScaleX, fScaleY, fScaleZ);
+		tOut = *this;
+		QPoint::Scale(fScaleX, fScaleY, fScaleZ, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
-	/// Scales the triangle.
+	/// Scales the triangle applying a scale matrix.
 	/// </summary>
-	/// <param name="vScale">[IN] Vector type that represents the scale.</param>
-	/// <param name="vPivot">[IN] Vector type which we will use as vPivot.</param>
-	inline void ScaleFromvPivot(const VectorType& vScale, const VectorType& vPivot)
+	/// <param name="mScale">[IN] Scale matrix to be applied.</param>
+	inline void Scale(const QScaleMatrix3x3 &mScale)
 	{
-		this->A += vPivot;
-		this->B += vPivot;
-		this->C += vPivot;
-
-		this->Scale(Scale);
-
-		this->A -= vPivot;
-		this->B -= vPivot;
-		this->C -= vPivot;
+	    QPoint::Scale(mScale, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
-	/// Scales the triangle.
+	/// Scales the triangle applying a scale matrix, storing the resultant triangle in the output parameter.
 	/// </summary>
-	/// <param name="vScale">[IN] Vector type that represents the scale.</param>
-	/// <param name="vPivot">[IN] Vector type used as vPivot.</param>
-	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
-	inline void ScaleFromvPivot(const VectorType& vScale, const VectorType& vPivot, QBaseTriangle<VectorType> & outputTriangle) const
+	/// <param name="mScale">[IN] Scale matrix to be applied.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the scaled triangle.</param>
+	inline void Scale(const QScaleMatrix3x3 &mScale, QBaseTriangle<VectorType> tOut) const
 	{
-		outputTriangle = *this;
-		reinterpret_cast<QTriangle3D&> (outputTriangle).ScaleFromvPivot(vScale, vPivot);
+	    tOut = *this;
+	    QPoint::Scale(mScale, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
-	/// Scales the triangle.
+	/// This method scales the resident triangle by the scale contained in the provided vector using the
+	/// provided point as pivot of scale.
 	/// </summary>
-	/// <param name="fScaleX">[IN] Scalar value that contains the scale on X axis.</param>
-	/// <param name="fScaleY">[IN] Scalar value that contains the scale on Y axis.</param>
-	/// <param name="fScaleZ">[IN] Scalar value that contains the scale on Z axis.</param>
-	/// <param name="vPivot">[IN] Vector type used as vPivot.</param>
-	inline void ScaleFromvPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot)
+	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const QBaseVector3 &vScale, const VectorType& vPivot)
 	{
-		this->A += vPivot;
-		this->B += vPivot;
-		this->C += vPivot;
-
-		this->Scale(fScaleX, fScaleY, fScaleZ);
-
-		this->A -= vPivot;
-		this->B -= vPivot;
-		this->C -= vPivot;
+		 QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
-	/// Scales the triangle.
+	/// This method scales the resident triangle by the scale contained in the provided vector using the
+	/// provided point as pivot of scale, storing the resultant triangle in the output parameter.
+	/// </summary>
+	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the scaled triangle.</param>
+	inline void ScaleFromPivot(const QBaseVector3 &vScale, const VectorType& vPivot, QBaseTriangle<VectorType> & tOut) const
+	{
+		tOut = *this;
+		QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the provided amounts for every axis using the
+	/// provided point as pivot of scale.
 	/// </summary>
 	/// <param name="fScaleX">[IN] Scalar value that contains the scale on X axis.</param>
 	/// <param name="fScaleY">[IN] Scalar value that contains the scale on Y axis.</param>
 	/// <param name="fScaleZ">[IN] Scalar value that contains the scale on Z axis.</param>
-	/// <param name="vPivot">[IN] Vector type used as Pivot.</param>
-	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
-	inline void ScaleFromvPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot, QBaseTriangle<VectorType>& outputTriangle) const
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot)
 	{
-		outputTriangle = *this;
-		reinterpret_cast<QTriangle3D&> (outputTriangle).ScaleFromvPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+		QPoint::ScaleFromPivot(fScaleX, fScaleY, fScaleZ, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by provided amounts for every axis using the
+	/// provided point as pivot of scale, storing the resultant triangle in the output parameter.
+	/// </summary>
+	/// <param name="fScaleX">[IN] Scalar value that contains the scale on X axis.</param>
+	/// <param name="fScaleY">[IN] Scalar value that contains the scale on Y axis.</param>
+	/// <param name="fScaleZ">[IN] Scalar value that contains the scale on Z axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the scaled triangle.</param>
+	inline void ScaleFromPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot,
+                                QBaseTriangle<VectorType> &tOut) const
+	{
+		tOut = *this;
+		QPoint::ScaleFromPivot(fScaleX, fScaleY, fScaleZ, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// Transforms the resident triangle applying the [4x3] transformation matrix provided.
+	/// </summary>
+	/// <param name="mTransf">[IN] A [4x3] transformation matrix to be applied.</param>
+	inline void Transform(const QTransformationMatrix4x3 &mTransf)
+	{
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// Transforms the resident triangle applying the [4x4] transformation matrix provided.
+	/// </summary>
+	/// <param name="mTransf">[IN] A [4x4] transformation matrix to be applied.</param>
+	inline void Transform(const QTransformationMatrix4x4 &mTransf)
+	{
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// Transforms the resident triangle applying the [4x3] transformation matrix provided, storing the resultant
+	/// triangle in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] A [4x3] transformation matrix to be applied.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the transformed triangle.</param>
+	inline void Transform(const QTransformationMatrix4x3 &mTransf, QBaseTriangle<VectorType> tOut) const
+	{
+	    tOut = *this;
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// Transforms the resident triangle applying the [4x4] transformation matrix provided, storing the resultant
+	/// triangle in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] A [4x4] transformation matrix to be applied.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the transformed triangle.</param>
+	inline void Transform(const QTransformationMatrix4x4 &mTransf, QBaseTriangle<VectorType> tOut) const
+	{
+	    tOut = *this;
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -348,136 +449,25 @@ public:
     /// <returns>
     /// An enumerated value like follows: Contained in the plane, Positive Side, Negative Side or Both Sides (intersects the plane).
     /// </returns>
-	EQSpaceRelation SpaceRelation(const QBasePlane& plane) const
+	inline EQSpaceRelation SpaceRelation(const QBasePlane& plane) const
 	{
-		float_q fRelationA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
-		float_q fRelationB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
-		float_q fRelationC = plane.a * this->C.x + plane.b * this->C.y + plane.c * this->C.z + plane.d;
+		const float_q &fdistA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
+		const float_q &fdistB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
+		const float_q &fdistC = plane.a * this->C.x + plane.b * this->C.y + plane.c * this->C.z + plane.d;
 
-		if (QFloat::IsZero(fRelationA))
-		{
-			if (QFloat::IsZero(fRelationB))
-			{
-				if (QFloat::IsZero(fRelationC))
-				{
-					//Triangle contained in the plane
-					return EQSpaceRelation::E_Contained;
-				}
-				else if (QFloat::IsGreaterOrEquals(fRelationC, QFloat::_0))
-				{
-					//Triangle is in the positive side of the space delimited by the plane.
-					return EQSpaceRelation::E_PositiveSide;
-				}
-				else
-				{
-					//Triangle is in the negative side of the space delimited by the plane.
-					return EQSpaceRelation::E_NegativeSide;
-				}
-			}
-			else if (QFloat::IsGreaterOrEquals(fRelationB, QFloat::_0))
-			{
-				if ((QFloat::IsZero(fRelationC)) || (QFloat::IsGreaterOrEquals(fRelationC, QFloat::_0)))
-				{
-					//Triangle is in the positive side of the space delimited by the plane.
-					return EQSpaceRelation::E_PositiveSide;
-				}
-				else
-				{
-					//Triangle is in both sides of the plane, intersecting it.
-					return EQSpaceRelation::E_BothSides;
-				}
-			}
-			else
-			{
-				if (QFloat::IsZero(fRelationC))
-				{
-					//Triangle is in the negative side of the space delimited by the plane.
-					return EQSpaceRelation::E_NegativeSide;
-				}
-				else if (QFloat::IsGreaterOrEquals(fRelationC, QFloat::_0))
-				{
-					//Triangle is in both sides of the plane, intersecting it.
-					return EQSpaceRelation::E_BothSides;
-				}
-				else
-				{
-					//Triangle is in the negative side of the space delimited by the plane.
-					return EQSpaceRelation::E_NegativeSide;
-				}
-			}
-		}
-		else if (QFloat::IsGreaterOrEquals(fRelationA, QFloat::_0))
-		{
-			if (QFloat::IsZero(fRelationB))
-			{
-				if ((QFloat::IsZero(fRelationC)) || (QFloat::IsGreaterOrEquals(fRelationC, QFloat::_0)))
-				{
-					//Triangle is in the positive side of the space delimited by the plane.
-					return EQSpaceRelation::E_PositiveSide;
-				}
-				else
-				{
-					//Triangle is in both sides of the plane, intersecting it.
-					return EQSpaceRelation::E_BothSides;
-				}
-			}
-			else if (QFloat::IsGreaterOrEquals(fRelationB, QFloat::_0))
-			{
-				if ((QFloat::IsZero(fRelationC)) || (QFloat::IsGreaterOrEquals(fRelationC, QFloat::_0)))
-				{
-					//Triangle is in the positive side of the space delimited by the plane.
-					return EQSpaceRelation::E_PositiveSide;
-				}
-				else
-				{
-					//Triangle is in both sides of the plane, intersecting it.
-					return EQSpaceRelation::E_BothSides;
-				}
-			}
-			else
-			{
-				//Triangle is in both sides of the plane, intersecting it.
-				return EQSpaceRelation::E_BothSides;
-			}
-		}
-		else
-		{
-			if (QFloat::IsZero(fRelationB))
-			{
-				if (QFloat::IsGreaterOrEquals(fRelationC, QFloat::_0))
-				{
-					//Triangle is in both sides of the plane, intersecting it.
-					return EQSpaceRelation::E_BothSides;
-				}
-				else
-				{
-					//Triangle is in the negative side of the space delimited by the plane.
-					return EQSpaceRelation::E_NegativeSide;
-				}
-			}
-			else if (QFloat::IsGreaterOrEquals(fRelationB, QFloat::_0))
-			{
-				//Triangle is in both sides of the plane, intersecting it.
-				return EQSpaceRelation::E_BothSides;
-			}
-			else
-			{
-				if (QFloat::IsGreaterOrEquals(fRelationC, QFloat::_0))
-				{
-					//Triangle is in both sides of the plane, intersecting it.
-					return EQSpaceRelation::E_BothSides;
-				}
-				else
-				{
-					//Triangle is in the negative side of the space delimited by the plane.
-					return EQSpaceRelation::E_NegativeSide;
-				}
-			}
-		}
+		if ( QFloat::IsZero(fdistA) && QFloat::IsZero(fdistB) && QFloat::IsZero(fdistC) )
+            return EQSpaceRelation::E_Contained;
+        else if ( QFloat::IsPositive(fdistA) && QFloat::IsPositive(fdistB) && QFloat::IsPositive(fdistC) )
+            return EQSpaceRelation::E_PositiveSide;
+        else if ( QFloat::IsLowerOrEquals(fdistA, QFloat::_0) && QFloat::IsLowerOrEquals(fdistB, QFloat::_0) &&
+                  QFloat::IsLowerOrEquals(fdistC, QFloat::_0) )
+            return EQSpaceRelation::E_NegativeSide;
+        else
+            return EQSpaceRelation::E_BothSides;
 	}
 
 	/// <summary>
-	/// Moves the triangle along its normal vector the units indicated by a Scalar value .
+	/// Moves the triangle along its normal vector the units indicated by a scalar value .
 	/// </summary>
 	/// <param name="fAmount">[IN] Float type that contains the amount of the movement.</param>
 	inline void Extrude(const float_q& fAmount)
@@ -494,7 +484,7 @@ public:
 	}
 
 	/// <summary>
-	/// Moves the triangle along its normal vector the units indicated by a Scalar value .
+	/// Moves the triangle along its normal vector the units indicated by a scalar value .
 	/// </summary>
 	/// <param name="fAmount">[IN] Float type that contains the amount of the movement.</param>
 	/// <param name="outputTriangle">[OUT] Triangle which stores the transformation.</param>
@@ -502,6 +492,29 @@ public:
 	{
 		outputTriangle = *this;
 		reinterpret_cast<QTriangle3D&> (outputTriangle).Extrude(fAmount);
+	}
+
+    /// <summary>
+	/// Calculates triangle's orthocenter.
+	/// </summary>
+	/// <param name="vOrthocenter">[OUT] Vector that will contain the triangle´s orthocenter.</param>
+	/// <remarks>
+	/// Method from here: http://descartes.cnice.mec.es/materiales_didacticos/OrtoCircun/Ortocentro.htm
+	/// </remarks>
+	inline void GetOrthocenter(VectorType &vOrthocenter)
+	{
+	    const VectorType &vAB = this->B - this->A;
+	    const VectorType &vBC = this->C - this->B;
+	    const VectorType &vCA = this->A - this->C;
+
+	    // Normal to BC in ABC plane
+	    const VectorType &vNormBC = ( vBC.CrossProduct(vAB) ).CrossProduct(vBC);
+
+        // vNormBC and AB can't be perpendicular, but we ensure it:
+        const float_q &fDot = vNormBC.DotProduct(vAB);
+        QE_ASSERT(fDot != QFloat::_0);
+
+	    vOrthocenter = this->A - ( vCA.DotProduct(vAB)/fDot) * vNormBC;
 	}
 
 protected:
