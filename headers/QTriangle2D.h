@@ -6,6 +6,7 @@
 #include "QTriangle.h"
 #include "QVector2.h"
 #include "QTransformationMatrix3x3.h"
+#include "QPoint.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -79,77 +80,45 @@ public:
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	inline void Transform(const QTransformationMatrix3x3& matrix)
 	{
-		A.Transform(matrix);
-		B.Transform(matrix);
-		C.Transform(matrix);
+		QPoint::Transform(matrix, reinterpret_cast<QVector2*> (this), 3);
 	}
 
 	/// <summary>
-	/// Receives a transformation matrix and an output 2D triangle and applies the transformations 
-	/// to the resident triangle, storing the results in the output triangle. The origin of transformations is the 
+	/// Receives a transformation matrix and an output 2D triangle and applies the transformations
+	/// to the resident triangle, storing the results in the output triangle. The origin of transformations is the
 	/// coordinate axis origin.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="tOutputTriangle">[OUT] 2D Triangle that stores the result of the transformation.</param>
-	inline void Transform(const QTransformationMatrix3x3& matrix, QBaseTriangle<QVector2>& tOutputTriangle) const
+	inline void Transform(const QTransformationMatrix3x3& matrix, QBaseTriangle2 &tOutputTriangle) const
 	{
-		tOutputTriangle.A = A;
-		tOutputTriangle.B = B;
-		tOutputTriangle.C = C;
-
-		tOutputTriangle.A.Transform(matrix);
-		tOutputTriangle.B.Transform(matrix);
-		tOutputTriangle.C.Transform(matrix);
+		tOutputTriangle= *this;
+		QPoint::Transform(matrix, reinterpret_cast<QVector2*> (&tOutputTriangle), 3);
 	}
 
 	/// <summary>
-	/// Receives a transformation matrix and a 2D vector (transformation pivot) and applies the transformations 
+	/// Receives a transformation matrix and a 2D vector (transformation pivot) and applies the transformations
 	/// to the resident triangle. The origin of transformations is the vector type point received as parameter.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="v2Pivot">[IN] 2D Vector Pivot used for the transformation.</param>
 	inline void TransformFromPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot)
 	{
-		//STEP 1: Translate current triangle's vertices.
-		A = A - v2Pivot;
-		B = B - v2Pivot;
-		C = C - v2Pivot;
-
-		//STEP 2: Tranformation of each vertex.
-		A.Transform(matrix);
-		B.Transform(matrix);
-		C.Transform(matrix);
-
-		//STEP 3: Return the transformated vertices to the original position.
-		A = A + v2Pivot;
-		B = B + v2Pivot;
-		C = C + v2Pivot;
+		QPoint::TransformFromPivot(matrix, v2Pivot, reinterpret_cast<QVector2*> (this), 3);
 	}
 
 	/// <summary>
 	/// Receives a transformation matrix, a 2D vector (transformation pivot) and an output 2D triangle,
-	/// and applies the transformations to the resident triangle storing the result in the output triangle. The origin of transformations is the 
+	/// and applies the transformations to the resident triangle storing the result in the output triangle. The origin of transformations is the
 	/// vector type point received as parameter.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="v2Pivot">[IN] 2D Vector Pivot used for the transformation.</param>
 	/// <param name="tOutputTriangle">[OUT] 2D Triangle that stores the result of the transformation.</param>
-	inline void TransformFromPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot, QBaseTriangle<QVector2>& tOutputTriangle) const
+	inline void TransformFromPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot, QBaseTriangle2 &tOutputTriangle) const
 	{
-		//STEP 1: Translate current triangle's vertices.
-		tOutputTriangle.A = A - v2Pivot;
-		tOutputTriangle.B = B - v2Pivot;
-		tOutputTriangle.C = C - v2Pivot;
-
-		//STEP 2: Tranformation of each vertex.
-		tOutputTriangle.A.Transform(matrix);
-		tOutputTriangle.B.Transform(matrix);
-		tOutputTriangle.C.Transform(matrix);
-
-		//STEP 3: Return the transformated vertices to the original position.
-		tOutputTriangle.A = tOutputTriangle.A + v2Pivot;
-		tOutputTriangle.B = tOutputTriangle.B + v2Pivot;
-		tOutputTriangle.C = tOutputTriangle.C + v2Pivot;
+		tOutputTriangle= *this;
+		QPoint::TransformFromPivot(matrix, v2Pivot, reinterpret_cast<QVector2*> (&tOutputTriangle), 3);
 	}
 
 	/// <summary>
@@ -173,7 +142,7 @@ public:
 		float_q gradientHB = - QFloat::_1 / gradientAC;
 
 		//STEP 2.1: Obtain middle point of side AC
-		QVector2 middlePointAC((C + A) * QFloat::_0_5);		
+		QVector2 middlePointAC((C + A) * QFloat::_0_5);
 
 		//STEP 3: Calculate the intersection of the perpendicular bisectors
 		//
@@ -232,6 +201,191 @@ public:
 
 		vOrthocenter.y = gradientHA * vOrthocenter.x - gradientHA * A.x + A.y;
 	}
+
+	/// <summary>
+	/// This method performs a translation of the resident triangle given by the provided vector.
+	/// </summary>
+	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
+    inline void Translate(const QBaseVector2 &vTranslation)
+	{
+	    QPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident triangle given by the provided vector, storing the
+	/// resultant triangle in the provided one.
+	/// </summary>
+	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
+	/// <param name="tOut">[OUT] The translated triangle.</param>
+	inline void Translate(const QBaseVector2 &vTranslation, QBaseTriangle2 &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident triangle given by the provided amounts for every axis.
+	/// </summary>
+	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
+	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY)
+	{
+	    QPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident triangle given by the provided amounts for every axis,
+	/// storing the resultant triangle in the output parameter.
+	/// </summary>
+	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
+	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
+	/// <param name="tOut">[OUT] The translated triangle.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseTriangle2 &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (&tOut), 3);
+	}
+
+    /// <summary>
+	/// This method applies to the resident triangle the rotation defined by the provided angle
+	/// around the coordinate axis centre.
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	inline void Rotate (const float_q &fRotationAngle)
+	{
+        QPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method applies to the resident triangle the rotation defined by the provided angle
+	/// around the coordinate axis centre, and stores the resulting triangle in the output parameter.
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="tOut">[OUT] It receives the resulting triangle.</param>
+	inline void Rotate (const float_q &fRotationAngle, QBaseTriangle2 &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (&tOut), 3);
+	}
+
+    /// <summary>
+	/// This method transforms the resident triangle by rotating it an amount defined by a rotation angle
+	/// around a pivot point (as center of rotation).
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	inline void RotateFromPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot)
+	{
+	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method performs a rotation of the resident triangle by rotating it an amount defined by a rotation angle
+	/// around a pivot point (as center of rotation), and then storing the resulting triangle in the output parameter.
+	/// </summary>
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	/// <param name="tOut">[OUT] It receives the resulting triangle.</param>
+	inline void RotateFromPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the scale contained in the provided vector.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	inline void Scale(const QBaseVector2 &vScale)
+	{
+	    QPoint::Scale(vScale, reinterpret_cast<QVector2*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the provided amounts for every axis.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY)
+	{
+	     QPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the scale contained in the provided vector, storing the
+	/// resultant triangle in the provided one.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="tOut">[OUT] The scaled triangle.</param>
+	inline void Scale(const QBaseVector2 &vScale, QBaseTriangle2 &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::Scale(vScale, reinterpret_cast<QVector2*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the provided amounts for every axis, storing the
+	/// resultant triangle in the provided one.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="tOut">[OUT] The scaled triangle.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseTriangle2 &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (&tOut), 3);
+	}
+
+    /// <summary>
+	/// This method scales the resident triangle by the scale contained in the provided vector,
+	/// acting the provided vector as pivot of scale.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+	{
+	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the provided amounts for every axis,
+	/// acting the provided vector as pivot of scale.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
+	{
+	     QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the scale contained in the provided vector,
+	/// acting the other provided vector as pivot of scale, and storing the resultant triangle in the provided one.
+	/// </summary>
+	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="tOut">[OUT] The scaled triangle.</param>
+	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the provided amounts for every axis,
+	/// acting the provided vector as pivot of scale, storing the resultant triangle in the provided one.
+	/// </summary>
+	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
+	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="tOut">[OUT] The scaled triangle.</param>
+	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	}
+
 };
 
 } //namespace Math
