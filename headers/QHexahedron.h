@@ -386,6 +386,257 @@ public:
     }
 
     /// <summary>
+	/// This method applies to the resident hexahedron the rotation defined by the provided rotation matrix
+	/// around the coordinate axis centre.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contais the rotation to be applied.</param>
+	inline void Rotate (const QRotationMatrix3x3 &mRot)
+	{
+        QPoint::Rotate(mRot, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method applies to the resident hexahedron the rotation defined by the provided rotation matrix
+	/// around the coordinate axis centre, and stores the resulting hexahedron in the output parameter.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contais the rotation to be applied.</param>
+	/// <param name="hOut">[OUT] The resultant rotated hexahedron.</param>
+	/// <remarks>
+	/// -The segment is NOT modified, it stays the same.
+	/// </remarks>
+	inline void Rotate (const QRotationMatrix3x3 &mRot, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::Rotate(mRot, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+	/// <summary>
+	/// This method transforms the resident hexahedron by applying the rotation contained in the
+	/// provided rotation matrix around a pivot point (which acts as center of rotation).
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	inline void RotateFromPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
+	{
+	    QPoint::RotateFromPivot(mRot, vPivot, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method transforms the resident hexahedron by applying the rotation contained in the
+	/// provided rotation matrix around a pivot point (which acts as center of rotation),
+	/// and then storing it in the output parameter.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	/// <param name="hOut">[OUT] The rotated hexahedron.</param>
+	/// <remarks>
+	/// The resident hexahedron is NOT modified, remains unchanged.
+	/// </remarks>
+	inline void RotateFromPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::RotateFromPivot(mRot, vPivot, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident hexahedron given by the provided translation matrix.
+	/// </summary>
+	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
+    inline void Translate(const QTranslationMatrix4x3 &mTranslation)
+	{
+	    QPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident hexahedron given by the provided translation matrix,
+	/// storing the resultant hexahedron in the provided one.
+	/// </summary>
+	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
+	/// <param name="hOut">[OUT] The translated hexahedron.</param>
+	inline void Translate(const QTranslationMatrix4x3 &mTranslation, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident hexahedron given by the provided translation matrix.
+	/// </summary>
+	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
+    inline void Translate(const QTranslationMatrix4x4 &mTranslation)
+	{
+	    QPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method performs a translation of the resident hexahedron given by the provided translation matrix,
+	/// storing the resultant hexahedron in the provided one.
+	/// </summary>
+	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
+	/// <param name="hOut">[OUT] The translated hexahedron.</param>
+	inline void Translate(const QTranslationMatrix4x4 &mTranslation, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+    /// <summary>
+	/// This method scales the resident hexahedron by the scale contained in the provided scale matrix.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
+	inline void Scale(const QScaleMatrix3x3 &mScale)
+	{
+	    QPoint::Scale(mScale, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method scales the resident hexahedron by the scale contained in the provided scale matrix, storing the
+	/// resultant hexahedron in the output parameter.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
+	/// <param name="hOut">[OUT] The scaled hexahedron.</param>
+	inline void Scale(const QScaleMatrix3x3 &mScale, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::Scale(mScale, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+	/// <summary>
+	/// This method scales the resident hexahedron by the scale contained in the provided matrix,
+	/// acting the provided vector as pivot of scale.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
+	{
+	    QPoint::ScaleFromPivot(mScale, vPivot, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method scales the resident hexahedron by the scale contained in the provided matrix,
+	/// acting the provided vector as pivot of scale, storing the resultant hexahedron in the output parameter.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="hOut">[OUT] The scaled hexahedron.</param>
+	inline void ScaleFromPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::ScaleFromPivot(mScale, vPivot, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+    /// <summary>
+	/// This method transforms the resident hexahedron applying the provided transformation matrix.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	inline void Transform(const QTransformationMatrix4x3 &mTransf)
+	{
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method transforms the resident hexahedron applying the provided transformation matrix, storing the
+	/// resultant hexahedron in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
+	inline void Transform(const QTransformationMatrix4x3 &mTransf, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+    /// <summary>
+	/// This method transforms the resident hexahedron applying the provided transformation matrix.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	inline void Transform(const QTransformationMatrix4x4 &mTransf)
+	{
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method transforms the resident hexahedron applying the provided transformation matrix, storing the
+	/// resultant hexahedron in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
+	inline void Transform(const QTransformationMatrix4x4 &mTransf, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+    /// <summary>
+	/// This method transforms the resident hexahedron applying the provided space conversion matrix.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the space conversion transformation to be applied.</param>
+	inline void Transform(const QSpaceConversionMatrix &mTransf)
+	{
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method transforms the resident hexahedron applying the provided space conversion matrix, storing the
+	/// resultant hexahedron in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the space conversion transformation to be applied.</param>
+	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
+	inline void Transform(const QSpaceConversionMatrix &mTransf, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+	/// <summary>
+	/// This method transforms the resident hexahedron applying the provided transformation matrix,
+	/// acting the provided vector as pivot of transformation.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+	inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot)
+	{
+	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method transforms the resident hexahedron applying the provided transformation matrix,
+	/// acting the provided vector as pivot of transformation, storing the resultant hexahedron in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
+	inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+		/// <summary>
+	/// This method transforms the resident hexahedron applying the provided transformation matrix,
+	/// acting the provided vector as pivot of transformation.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+	inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot)
+	{
+	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 8);
+	}
+
+	/// <summary>
+	/// This method transforms the resident hexahedron applying the provided transformation matrix,
+	/// acting the provided vector as pivot of transformation, storing the resultant hexahedron in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
+	inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot, QBaseHexahedron<VectorType> &hOut) const
+	{
+	    hOut = *this;
+	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&hOut), 8);
+	}
+
+    /// <summary>
     /// Converts hexahedron into a string with the following format:
     /// "H:A(<A.ToString>), B(<B.ToString>), C(<C.ToString>), D(<D.ToString>),
     /// E(<E.ToString>), F(<F.ToString>), G(<G.ToString>), H(<H.ToString>)".
