@@ -7,7 +7,7 @@
 #include "QBaseTriangle.h"
 #include "QBaseQuadrilateral.h"
 #include "QLineSegment2D.h"
-
+#include "QTransformationMatrix3x3.h"
 #include "EQIntersections.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -303,6 +303,147 @@ public:
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vPoint1, QBaseVector2 &vPoint2) const;
 
+    /// <summary>
+    /// Checks if resident ray and provided line segment intersects.
+    /// </summary>
+    /// <param name="ls">[IN] The line segment whose intersection with resident ray will be checked.</param>
+    /// <returns>
+    /// True if line segment and resident ray intersects, false otherwise.
+    /// </returns>
+    bool Intersection (const QBaseLineSegment2 &ls) const;
+
+    /// <summary>
+    /// Computes the intersection point between resident ray and provided line segment, if it exists.
+    /// </summary>
+    /// <param name="ls">[IN] The line segment whose intersection with resident ray will be checked.</param>
+    /// <param name="vPoint">[OUT] The intersection point with line segment, if it exists.</param>
+    /// <returns>
+    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
+    /// the following values: E_None, E_One or E_Infinite.
+    /// </returns>
+    /// <remarks>
+    /// -If there's no intersection point, the output parameters won't be modified.
+    /// -If there's one intersection point, output parameter is filled with the intersection point.
+    /// -If there are infinite intersection points, the output parameters won't be modified.
+    /// </remarks>
+    EQIntersections IntersectionPoint (const QBaseLineSegment2 &ls, QBaseVector2 &vPoint) const;
+
+    /// <summary>
+	/// Computes a ray that is the result of resident ray reflection on the line segment provided.
+	/// </summary>
+	/// <param name="ls">[IN] The line segment which acts as mirror.</param>
+	/// <param name="refRay">[OUT] The reflected ray.</param>
+	/// <remarks>
+	/// -If there's no intersection point between ray and line segment, or are both coincident or parallel,
+	///  reflected ray is the resident ray itself.
+	/// -If there's one intersection point between them, then the reflected ray has it origin point at the intersection point
+	///  and its direction verifies that the incident angle and the reflected angle are equals.
+	/// - Ray direction must be normalized to obtain a normalized reflected ray.
+	/// </remarks>
+    inline void Reflection(const QBaseLineSegment2 &ls, QBaseRay2 &refRay) const
+    {
+        //Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
+
+        QVector2 vAux(ls.B - ls.A);
+        QVector2 vPoint;
+
+        vAux.Normalize();
+
+        refRay = *this;
+
+        // Avoiding cases where ray and line segment are parallels or coincident.
+        if (vAux == this->Direction || vAux == -this->Direction)
+            return;
+        else
+        {
+            EQIntersections numInt = this->IntersectionPoint(ls, vPoint);
+            if (numInt == EQIntersections::E_One)
+            {
+                // Reflected origin is the intersection point
+                refRay.Point = vPoint;
+
+                // Calculates normal to line segment (is normalized like vAux)
+                QVector2 vNorm = vAux.GetPerpendicular();
+
+                // Calculates reflected direction
+                refRay.Direction -= QFloat::_2 * (this->Direction.DotProduct(vNorm))*vNorm;
+            }
+        }
+    }
+
+    /// <summary>
+	/// Computes a vector that is the resultant direction of resident ray reflection on the line segment provided.
+	/// </summary>
+	/// <param name="ls">[IN] The line segment which acts as mirror.</param>
+	/// <param name="vRef">[OUT] The direction of the reflected ray.</param>
+	/// <remarks>
+	/// -If there's no intersection point between ray and line segment, or are both coincident or parallel,
+	///  reflected ray is the resident ray itself.
+	/// -If there's one intersection point between them, then the reflected ray direction verifies
+	///  that the incident angle and the reflected angle are equals.
+	/// - Ray direction must be normalized to obtain a normalized reflected vector.
+	/// </remarks>
+    inline void Reflection(const QBaseLineSegment2 &ls, QBaseVector2 &vRef) const
+    {
+        //Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
+
+        QVector2 vAux(ls.B - ls.A);
+
+        vAux.Normalize();
+
+        vRef = this->Direction;
+
+        // Avoiding cases where ray and line segment are parallels or coincident.
+        if (vAux == this->Direction || vAux == -this->Direction)
+            return;
+        else if (this->Intersection(ls))
+        {
+            // Calculates normal to line segment (is normalized like vAux)
+            QVector2 vNorm = vAux.GetPerpendicular();
+
+            // Calculates reflected direction
+            vRef = this->Direction - QFloat::_2 * (this->Direction.DotProduct(vNorm))*vNorm;
+        }
+    }
+
+    /// <summary>
+	/// Applies the transformation given by the matrix provided to resident ray.
+	/// </summary>
+	/// <param name="mTransf">[IN] The transformation matrix to be applied.</param>
+	/// <remarks>
+	/// All transformations affects both origin ray point and ray direction, except translations,
+	/// that only affects origin ray point.
+	/// </remarks>
+	inline void Transform(const QTransformationMatrix3x3 &mTransf)
+	{
+	    this->Point.Transform(mTransf);
+
+        // Direction is transformed without translation. The calculation takes into account only the submatrix that contains
+        // the rotation and the scale.
+        float_q fNewX = this->Direction.x * mTransf.ij[0][0] + this->Direction.y * mTransf.ij[1][0];
+        float_q fNewY = this->Direction.x * mTransf.ij[0][1] + this->Direction.y * mTransf.ij[1][1];
+
+        this->Direction.x = fNewX;
+        this->Direction.y = fNewY;
+
+        this->Direction.Normalize();
+	}
+
+    /// <summary>
+	/// Applies the transformation given by the matrix provided to resident ray, storing the result in the ray provided.
+	/// </summary>
+	/// <param name="mTransf">[IN] The transformation matrix to be applied.</param>
+	/// <param name="outRay">[OUT] The transformed ray.</param>
+	/// <remarks>
+	/// All transformations affects both origin ray point and ray direction, except translations,
+	/// that only affects origin ray point.
+	/// </remarks>
+	inline void Transform(const QTransformationMatrix3x3 &mTransf, QBaseRay2 &outRay)
+	{
+	    outRay = *this;
+	    reinterpret_cast <QRay2D &> (outRay).Transform(mTransf);
+	}
+
 protected:
 
     // Checks if resident ray contains a given point.
@@ -343,81 +484,13 @@ protected:
     // Checks if resident ray intersects the AB line segment
     bool Intersection (const QVector2 &vA, const QVector2 &vB) const
     {
-        QVector2 vAux(vB - vA);
-
-        const float_q &fDenominator = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
-
-        if ( QFloat::IsZero(fDenominator) ) // Both directions are parallels
-        {
-            if ( this->Contains(vA) )
-                return true;
-            else if ( this->Contains(vB) )
-                return true;
-            else
-                return false;
-        }
-        else
-        {
-            const float_q &fNumerator1 = vAux.x * (this->Point.y - vA.y) + vAux.y * (vA.x - this->Point.x);
-            if ((QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator1)) || QFloat::IsZero(fNumerator1))
-            {
-                const float_q &fNumerator2 = this->Direction.x * (this->Point.y - vA.y) + this->Direction.y * (vA.x - this->Point.x);
-                if ( ( QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator2) &&
-                       QFloat::IsGreaterOrEquals(fabs(fDenominator), fabs(fNumerator2)) ) || QFloat::IsZero(fNumerator2) )
-                    return true;
-                else
-                    return false;
-            }
-            else
-                return false;
-        }
+        return this->Intersection(QBaseLineSegment2(vA, vB));
     }
 
     // Checks if resident ray intersects the AB line segment and calculates the intersection point if exists
     EQIntersections IntersectionPoint (const QVector2 &vA, const QVector2 &vB, QBaseVector2 &vPoint) const
     {
-        QVector2 vAux(vB - vA);
-
-        const float_q &fDenominator = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
-
-        if ( QFloat::IsZero(fDenominator) ) // Both directions are parallels
-        {
-            const bool &bAIsInRay = this->Contains(vA);
-            const bool &bBIsInRay = this->Contains(vB);
-
-            if ( bAIsInRay && bBIsInRay )
-                return EQIntersections::E_Infinite;
-            else if ( bAIsInRay )
-            {
-                vPoint = vA;
-                return EQIntersections::E_One;
-            }
-            else if ( bBIsInRay )
-            {
-                vPoint = vB;
-                return EQIntersections::E_One;
-            }
-            else
-                return EQIntersections::E_None;
-        }
-        else
-        {
-            const float_q &fNumerator1 = vAux.x * (this->Point.y - vA.y) + vAux.y * (vA.x - this->Point.x);
-            if ((QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator1)) || QFloat::IsZero(fNumerator1))
-            {
-                const float_q &fNumerator2 = this->Direction.x * (this->Point.y - vA.y) + this->Direction.y * (vA.x - this->Point.x);
-                if ( ( QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator2) &&
-                       QFloat::IsGreaterOrEquals(fabs(fDenominator), fabs(fNumerator2)) ) || QFloat::IsZero(fNumerator2) )
-                {
-                    vPoint = this->Point + (fNumerator1/fDenominator) * this->Direction;
-                    return EQIntersections::E_One;
-                }
-                else
-                    return EQIntersections::E_None;
-            }
-            else
-                return EQIntersections::E_None;
-        }
+        return this->IntersectionPoint(QBaseLineSegment2(vA, vB), vPoint);
     }
 
     // Checks if a point is inside a triangle.
