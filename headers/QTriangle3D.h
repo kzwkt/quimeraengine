@@ -440,6 +440,106 @@ public:
 	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
+    /// <summary>
+	/// This method transforms the resident triangle by applying the rotation contained in the
+	/// provided rotation matrix around a pivot point (which acts as center of rotation).
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	inline void RotateFromPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
+	{
+	    QPoint::RotateFromPivot(mRot, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method transforms the resident triangle by applying the rotation contained in the
+	/// provided rotation matrix around a pivot point (which acts as center of rotation),
+	/// and then storing it in the output parameter.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	/// <param name="tOut">[OUT] The rotated triangle.</param>
+	/// <remarks>
+	/// The resident triangle is NOT modified, remains unchanged.
+	/// </remarks>
+	inline void RotateFromPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::RotateFromPivot(mRot, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+    /// <summary>
+	/// This method scales the resident triangle by the scale contained in the provided matrix,
+	/// acting the provided vector as pivot of scale.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	inline void ScaleFromPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
+	{
+	    QPoint::ScaleFromPivot(mScale, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method scales the resident triangle by the scale contained in the provided matrix,
+	/// acting the provided vector as pivot of scale, storing the resultant triangle in the output parameter.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
+	/// <param name="tOut">[OUT] The scaled triangle.</param>
+	inline void ScaleFromPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::ScaleFromPivot(mScale, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+	/// <summary>
+	/// This method transforms the resident triangle applying the provided transformation matrix,
+	/// acting the provided vector as pivot of transformation.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+	inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot)
+	{
+	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method transforms the resident triangle applying the provided transformation matrix,
+	/// acting the provided vector as pivot of transformation, storing the resultant triangle in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+	/// <param name="tOut">[OUT] The transformed triangle.</param>
+	inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
+    /// <summary>
+	/// This method transforms the resident triangle applying the provided transformation matrix,
+	/// acting the provided vector as pivot of transformation.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+	inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot)
+	{
+	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	}
+
+	/// <summary>
+	/// This method transforms the resident triangle applying the provided transformation matrix,
+	/// acting the provided vector as pivot of transformation, storing the resultant triangle in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
+	/// <param name="tOut">[OUT] The transformed triangle.</param>
+	inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
+	{
+	    tOut = *this;
+	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
+
 	/// <summary>
 	/// Checks the space relation between current triangle and a plane recieved as parameter. Space Relation means that
 	/// the triangle is in the positive side of the space divided by the plane, in the negative side, in both sides (intersection)
