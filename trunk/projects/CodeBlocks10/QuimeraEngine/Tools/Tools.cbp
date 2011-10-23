@@ -85,6 +85,7 @@
 		<Unit filename="..\..\..\..\headers\QQuadrilateral.h" />
 		<Unit filename="..\..\..\..\headers\QQuaternion.h" />
 		<Unit filename="..\..\..\..\headers\QRay.h" />
+		<Unit filename="..\..\..\..\headers\QRay2D.h" />
 		<Unit filename="..\..\..\..\headers\QRotationMatrix3x3.h" />
 		<Unit filename="..\..\..\..\headers\QScaleMatrix3x3.h" />
 		<Unit filename="..\..\..\..\headers\QSpaceConversionMatrix.h" />
@@ -113,6 +114,7 @@
 		<Unit filename="..\..\..\..\source\QPlane.cpp" />
 		<Unit filename="..\..\..\..\source\QQuadrilateral.cpp" />
 		<Unit filename="..\..\..\..\source\QQuaternion.cpp" />
+		<Unit filename="..\..\..\..\source\QRay2D.cpp" />
 		<Unit filename="..\..\..\..\source\QRotationMatrix3x3.cpp" />
 		<Unit filename="..\..\..\..\source\QScaleMatrix3x3.cpp" />
 		<Unit filename="..\..\..\..\source\QSpaceConversionMatrix.cpp" />
