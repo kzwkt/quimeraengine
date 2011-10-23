@@ -107,6 +107,30 @@ public:
 	/// 3rd value (c coefficient), 4th value (d independent term).</param>
     inline explicit QPlane(const vf32_q vfValues) : QBasePlane(vfValues) { }
 
+    /// <summary>
+	/// Constructor from three points.
+	/// </summary>
+	/// <param name="vP1">[IN] A 3D vector which represents the first point.</param>
+	/// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
+	/// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
+    inline QPlane (const QVector3 &vP1, const QVector3 &vP2, const QVector3 &vP3)
+    {
+        this->QPlaneImp(vP1, vP2, vP3);
+    }
+
+    /// <summary>
+	/// Constructor from three points.
+	/// </summary>
+	/// <param name="vP1">[IN] A 3D vector which represents the first point.</param>
+	/// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
+	/// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
+    inline QPlane (const QVector4 &vP1, const QVector4 &vP2, const QVector4 &vP3)
+    {
+        this->QPlaneImp(vP1, vP2, vP3);
+    }
+
+protected:
+
 	/// <summary>
 	/// Constructor from three points.
 	/// </summary>
@@ -114,7 +138,7 @@ public:
 	/// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
 	/// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
     template <class VectorType>
-    inline QPlane (const VectorType &vP1, const VectorType &vP2, const VectorType &vP3)
+    inline void QPlaneImp (const VectorType &vP1, const VectorType &vP2, const VectorType &vP3)
     {
         // Creates two vectors, to obtain the direction vector of the plane via cross product
         VectorType vAux1(vP2 - vP1);
@@ -122,10 +146,12 @@ public:
         vAux1.CrossProduct(vP3 - vP1);
 
         // Checkout to avoid the possibility of tree colineal points.
-        QE_ASSERT (vAux1.IsNotZero());
+        QE_ASSERT (!vAux1.IsZero());
 
         // Plane equation
         *this = QBasePlane(vAux1.x, vAux1.y, vAux1.z, -(vAux1.DotProduct(vP1)));
+
+         this->Normalize();
     }
 
     // METHODS
@@ -266,8 +292,7 @@ public:
     /// </summary>
     inline void Normalize()
     {
-        // [TODO] jwladi: Would it be necessary provide a method which returns the length of the normal (float) or the unit normal (vector)?
-        float_q fDivisor = sqrt(this->a * this->a + this->b * this->b + this->c * this->c);
+        float_q fDivisor = this->GetLength();
 
         // Checkout to avoid division by zero.
         QE_ASSERT(fDivisor != QFloat::_0);
@@ -439,7 +464,7 @@ public:
 
         QE_ASSERT(fLength != QFloat::_0);
 
-        return abs(this->a * v.x + this->b * v.y + this->c * v.z + this->d)/fLength;
+        return fabs(this->a * v.x + this->b * v.y + this->c * v.z + this->d)/fLength;
     }
 
 
@@ -532,7 +557,7 @@ public:
     /// remaining unchanged the distance from the plane to the origin.
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the rotation to be applied.</param>
-    inline void Transform(const QRotationMatrix3x3 &m)
+    inline void Rotate(const QRotationMatrix3x3 &m)
     {
         QVector3 vAux;
 
@@ -552,35 +577,126 @@ public:
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the rotation to be applied.</param>
     /// <param name="pOut">[OUT] The rotated plane.</param>
-    inline void Transform(const QRotationMatrix3x3 &m, QBasePlane &pOut) const
+    inline void Rotate(const QRotationMatrix3x3 &m, QBasePlane &pOut) const
     {
         pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Transform(m);
+        reinterpret_cast<QPlane &>(pOut).Rotate(m);
     }
 
     /// <summary>
-    /// Applies a scale to the resident plane. The direction vector may become denormalized.
+    /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
+    /// remaining unchanged the distance from the plane to the origin.
+    /// </summary>
+    /// <param name="q">[IN] A quaternion containing the rotation to be applied.</param>
+    inline void Rotate(const QQuaternion &q)
+    {
+        QVector3 vAux;
+
+        this->GetNormal(vAux);
+
+        vAux.Transform(q);
+
+        this->a = vAux.x;
+        this->b = vAux.y;
+        this->c = vAux.z;
+    }
+
+    /// <summary>
+    /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
+    /// remaining unchanged the distance from the plane to the origin.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="q">[IN] A quaternion containing the rotation to be applied.</param>
+    /// <param name="pOut">[OUT] The rotated plane.</param>
+    inline void Rotate(const QQuaternion &q, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Rotate(q);
+    }
+
+    /// <summary>
+    /// Applies a scale to the resident plane.
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the scale to be applied.</param>
-    inline void Transform(const QScaleMatrix3x3 &m)
+    inline void Scale(const QScaleMatrix3x3 &m)
     {
         QE_ASSERT(m.ij[0][0] != QFloat::_0 && m.ij[1][1] != QFloat::_0 && m.ij[2][2] != QFloat::_0);
 
         this->a /= m.ij[0][0];
         this->b /= m.ij[1][1];
         this->c /= m.ij[2][2];
+
+        this->Normalize();
     }
 
     /// <summary>
-    /// Applies a scale to the resident plane. The direction vector may become denormalized.
+    /// Applies a scale to the resident plane.
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the scale to be applied.</param>
     /// <param name="pOut">[OUT] The scaled plane.</param>
-    inline void Transform(const QScaleMatrix3x3 &m, QBasePlane &pOut) const
+    inline void Scale(const QScaleMatrix3x3 &m, QBasePlane &pOut) const
     {
         pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Transform(m);
+        reinterpret_cast<QPlane &>(pOut).Scale(m);
+    }
+
+    /// <summary>
+    /// Applies a scale to the resident plane given by the provided vector.
+    /// </summary>
+    /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
+    inline void Scale(const QBaseVector3 &vScale)
+    {
+        QE_ASSERT(vScale.x != QFloat::_0 && vScale.y != QFloat::_0 && vScale.z != QFloat::_0);
+
+        this->a /= vScale.x;
+        this->b /= vScale.y;
+        this->c /= vScale.z;
+
+        this->Normalize();
+    }
+
+    /// <summary>
+    /// Applies a scale to the resident plane given by the provided vector.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
+    /// <param name="pOut">[OUT] The scaled plane.</param>
+    inline void Scale(const QBaseVector3 &vScale, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Scale(vScale);
+    }
+
+    /// <summary>
+    /// Applies a scale to the resident plane given by the provided amounts for every axis.
+    /// </summary>
+    /// <param name="fScaleX">[IN] The scale amount to be applied in X direction.</param>
+    /// <param name="fScaleY">[IN] The scale amount to be applied in Y direction.</param>
+    /// <param name="fScaleZ">[IN] The scale amount to be applied in Z direction.</param>
+    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+    {
+        QE_ASSERT(fScaleX != QFloat::_0 && fScaleY != QFloat::_0 && fScaleZ != QFloat::_0);
+
+        this->a /= fScaleX;
+        this->b /= fScaleY;
+        this->c /= fScaleZ;
+
+        this->Normalize();
+    }
+
+    /// <summary>
+    /// Applies a scale to the resident plane given by the provided amounts for every axis.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="fScaleX">[IN] The scale amount to be applied in X direction.</param>
+    /// <param name="fScaleY">[IN] The scale amount to be applied in Y direction.</param>
+    /// <param name="fScaleZ">[IN] The scale amount to be applied in Z direction.</param>
+    /// <param name="pOut">[OUT] The scaled plane.</param>
+    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Scale(fScaleX, fScaleY, fScaleZ);
     }
 
     /// <summary>
@@ -588,7 +704,7 @@ public:
     /// but the distance from the plane to the origin is modified according with the translation applied.
     /// </summary>
     /// <param name="m">[IN] A [4x3] matrix containing the translation to be applied.</param>
-    inline void Transform(const QTranslationMatrix4x3 &m)
+    inline void Translate(const QTranslationMatrix4x3 &m)
     {
         this->d -= this->a*m.ij[3][0] + this->b*m.ij[3][1] + this->c*m.ij[3][2];
     }
@@ -600,10 +716,10 @@ public:
     /// </summary>
     /// <param name="m">[IN] A [4x3] matrix containing the translation to be applied.</param>
     /// <param name="pOut">[OUT] The translated plane.</param>
-    inline void Transform(const QTranslationMatrix4x3 &m, QBasePlane &pOut) const
+    inline void Translate(const QTranslationMatrix4x3 &m, QBasePlane &pOut) const
     {
         pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Transform(m);
+        reinterpret_cast<QPlane &>(pOut).Translate(m);
     }
 
     /// <summary>
@@ -611,7 +727,7 @@ public:
     /// but the distance from the plane to the origin is modified according with the translation applied.
     /// </summary>
     /// <param name="m">[IN] A [4x4] matrix containing the translation to be applied.</param>
-    inline void Transform(const QTranslationMatrix4x4 &m)
+    inline void Translate(const QTranslationMatrix4x4 &m)
     {
         this->d -= this->a*m.ij[3][0] + this->b*m.ij[3][1] + this->c*m.ij[3][2];
     }
@@ -623,10 +739,85 @@ public:
     /// </summary>
     /// <param name="m">[IN] A [4x4] matrix containing the translation to be applied.</param>
     /// <param name="pOut">[OUT] The translated plane.</param>
-    inline void Transform(const QTranslationMatrix4x4 &m, QBasePlane &pOut) const
+    inline void Translate(const QTranslationMatrix4x4 &m, QBasePlane &pOut) const
     {
         pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Transform(m);
+        reinterpret_cast<QPlane &>(pOut).Translate(m);
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane given by the provided vector. The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// </summary>
+    /// <param name="vTrans">[IN] A 3d vector containing the translation to be applied.</param>
+    inline void Translate(const QBaseVector3 &vTrans)
+    {
+        this->d -= this->a*vTrans.x + this->b*vTrans.y + this->c*vTrans.z;
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane given by the provided vector. The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// The resultant plane is stored in the output provided parameter.
+    /// </summary>
+    /// <param name="vTrans">[IN] A 3d vector containing the translation to be applied.</param>
+    /// <param name="pOut">[OUT] The translated plane.</param>ç
+    inline void Translate(const QBaseVector3 &vTrans, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Translate(vTrans);
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane given by the provided vector. The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// </summary>
+    /// <param name="vTrans">[IN] A 3d vector containing the translation to be applied.</param>
+    inline void Translate(const QBaseVector4 &vTrans)
+    {
+        this->d -= this->a*vTrans.x + this->b*vTrans.y + this->c*vTrans.z;
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane given by the provided vector. The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// The resultant plane is stored in the output provided parameter.
+    /// </summary>
+    /// <param name="vTrans">[IN] A 3d vector containing the translation to be applied.</param>
+    /// <param name="pOut">[OUT] The translated plane.</param>ç
+    inline void Translate(const QBaseVector4 &vTrans, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Translate(vTrans);
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane given by the provided amounts for every axis.
+    /// The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// </summary>
+    /// <param name="fTranslateX">[IN] Translation amount to be applied in X direction.</param>
+    /// <param name="fTranslateY">[IN] Translation amount to be applied in Y direction.</param>
+    /// <param name="fTranslateZ">[IN] Translation amount to be applied in Z direction.</param>
+    inline void Translate(const float_q &fTranslateX, const float_q &fTranslateY, const float_q &fTranslateZ)
+    {
+        this->d -= this->a*fTranslateX + this->b*fTranslateY + this->c*fTranslateZ;
+    }
+
+    /// <summary>
+    /// Applies a translation to the resident plane given by the provided amounts for every axis.
+    /// The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// The resultant plane is stored in the output provided parameter.
+    /// </summary>
+    /// <param name="fTranslateX">[IN] Translation amount to be applied in X direction.</param>
+    /// <param name="fTranslateY">[IN] Translation amount to be applied in Y direction.</param>
+    /// <param name="fTranslateZ">[IN] Translation amount to be applied in Z direction.</param>
+    /// <param name="pOut">[OUT] The translated plane.</param>ç
+    inline void Translate(const float_q &fTranslateX, const float_q &fTranslateY, const float_q &fTranslateZ, QBasePlane &pOut) const
+    {
+        pOut = *this;
+        reinterpret_cast<QPlane &>(pOut).Translate(fTranslateX, fTranslateY, fTranslateZ);
     }
 
     /// <summary>
@@ -649,6 +840,8 @@ public:
                         this->a*mAux.ij[3][0] + this->b*mAux.ij[3][1] + this->c*mAux.ij[3][2] + this->d);
 
         *this = pAux;
+
+        this->Normalize();
     }
 
     /// <summary>
@@ -680,6 +873,8 @@ public:
                         this->a*mAux.ij[3][0] + this->b*mAux.ij[3][1] + this->c*mAux.ij[3][2] + this->d);
 
         *this = pAux;
+
+        this->Normalize();
     }
 
     /// <summary>
@@ -711,6 +906,8 @@ public:
                         this->a*mAux.ij[3][0] + this->b*mAux.ij[3][1] + this->c*mAux.ij[3][2] + this->d*mAux.ij[3][3]);
 
         *this = pAux;
+
+        this->Normalize();
     }
 
     /// <summary>
@@ -723,37 +920,6 @@ public:
     {
         pOut = *this;
         reinterpret_cast<QPlane &>(pOut).Transform(m);
-    }
-
-    /// <summary>
-    /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
-    /// remaining unchanged the distance from the plane to the origin.
-    /// </summary>
-    /// <param name="q">[IN] A quaternion containing the rotation to be applied.</param>
-    inline void Transform(const QQuaternion &q)
-    {
-        QVector3 vAux;
-
-        this->GetNormal(vAux);
-
-        vAux.Transform(q);
-
-        this->a = vAux.x;
-        this->b = vAux.y;
-        this->c = vAux.z;
-    }
-
-    /// <summary>
-    /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
-    /// remaining unchanged the distance from the plane to the origin.
-    /// The resultant plane is stored in the output parameter provided.
-    /// </summary>
-    /// <param name="q">[IN] A quaternion containing the rotation to be applied.</param>
-    /// <param name="pOut">[OUT] The rotated plane.</param>
-    inline void Transform(const QQuaternion &q, QBasePlane &pOut) const
-    {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Transform(q);
     }
 
     /// <summary>
