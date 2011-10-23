@@ -895,6 +895,84 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseV
     }
 }
 
+bool QRay2D::Intersection (const QBaseLineSegment2 &ls) const
+{
+    QVector2 vAux(ls.B - ls.A);
+
+    const float_q &fDenominator = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
+
+    if ( QFloat::IsZero(fDenominator) ) // Both directions are parallels
+    {
+        if ( this->Contains(ls.A) )
+            return true;
+        else if ( this->Contains(ls.B) )
+            return true;
+        else
+            return false;
+    }
+    else
+    {
+        const float_q &fNumerator1 = vAux.x * (this->Point.y - ls.A.y) + vAux.y * (ls.A.x - this->Point.x);
+        if ((QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator1)) || QFloat::IsZero(fNumerator1))
+        {
+            const float_q &fNumerator2 = this->Direction.x * (this->Point.y - ls.A.y) + this->Direction.y * (ls.A.x - this->Point.x);
+            if ( ( QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator2) &&
+                   QFloat::IsGreaterOrEquals(fabs(fDenominator), fabs(fNumerator2)) ) || QFloat::IsZero(fNumerator2) )
+                return true;
+            else
+                return false;
+        }
+        else
+            return false;
+    }
+}
+
+EQIntersections QRay2D::IntersectionPoint (const QBaseLineSegment2 &ls, QBaseVector2 &vPoint) const
+{
+    QVector2 vAux(ls.B - ls.A);
+
+    const float_q &fDenominator = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
+
+    if ( QFloat::IsZero(fDenominator) ) // Both directions are parallels
+    {
+        const bool &bAIsInRay = this->Contains(ls.A);
+        const bool &bBIsInRay = this->Contains(ls.B);
+
+        if ( bAIsInRay && bBIsInRay )
+            return EQIntersections::E_Infinite;
+        else if ( bAIsInRay )
+        {
+            vPoint = ls.A;
+            return EQIntersections::E_One;
+        }
+        else if ( bBIsInRay )
+        {
+            vPoint = ls.B;
+            return EQIntersections::E_One;
+        }
+        else
+            return EQIntersections::E_None;
+    }
+    else
+    {
+        const float_q &fNumerator1 = vAux.x * (this->Point.y - ls.A.y) + vAux.y * (ls.A.x - this->Point.x);
+        if ((QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator1)) || QFloat::IsZero(fNumerator1))
+        {
+            const float_q &fNumerator2 = this->Direction.x * (this->Point.y - ls.A.y) + this->Direction.y * (ls.A.x - this->Point.x);
+            if ( ( QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator2) &&
+                   QFloat::IsGreaterOrEquals(fabs(fDenominator), fabs(fNumerator2)) ) || QFloat::IsZero(fNumerator2) )
+            {
+                vPoint = this->Point + (fNumerator1/fDenominator) * this->Direction;
+                return EQIntersections::E_One;
+            }
+            else
+                return EQIntersections::E_None;
+        }
+        else
+            return EQIntersections::E_None;
+    }
+}
+
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine
