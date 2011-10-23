@@ -102,7 +102,7 @@ public:
 	/// <returns>
 	/// True if they intersect to each other (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
-    inline bool Intersection (const QBaseOrb<VectorType>& orb)
+    inline bool Intersection (const QBaseOrb<VectorType>& orb) const
     {
         // An intersection between the two orbs is considered if the minimum squared distance
 		// between their centre points is lower or equals the square sum of their radius.
