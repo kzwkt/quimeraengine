@@ -8,7 +8,7 @@
 #include "QVector3.h"
 #include "QVector4.h"
 #include "QQuaternion.h"
-#include "QBasePlane.h"
+#include "QPlane.h"
 #include "QPoint.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -597,12 +597,11 @@ public:
     /// <summary>
 	/// Calculates triangle's orthocenter.
 	/// </summary>
-	/// <param name="vOrthocenter">[OUT] Vector that will contain the triangle´s orthocenter.</param>
-	/// <remarks>
-	/// Method from here: http://descartes.cnice.mec.es/materiales_didacticos/OrtoCircun/Ortocentro.htm
-	/// </remarks>
+	/// <param name="vOrthocenter">[OUT] Vector to store the triangle´s orthocenter.</param>
 	inline void GetOrthocenter(VectorType &vOrthocenter)
 	{
+	    /// Method from here: http://descartes.cnice.mec.es/materiales_didacticos/OrtoCircun/Ortocentro.htm
+
 	    const VectorType &vAB = this->B - this->A;
 	    const VectorType &vBC = this->C - this->B;
 	    const VectorType &vCA = this->A - this->C;
@@ -615,6 +614,18 @@ public:
         QE_ASSERT(fDot != QFloat::_0);
 
 	    vOrthocenter = this->A - ( vCA.DotProduct(vAB)/fDot) * vNormBC;
+	}
+
+	/// <summary>
+	/// Projects resident triangle over a given plane, storing the resultant triangle in the provided one.
+	/// </summary>
+	/// <param name="plane">[IN] Plane where to project resident triangle.</param>
+	/// <param name="tOut">[OUT] Triangle where to store the projected one.</param>
+	inline void ProjectToPlane(const QPlane &plane, QBaseTriangle<VectorType> &tOut)
+	{
+	    plane.PointProjection(this->A, tOut.A);
+	    plane.PointProjection(this->B, tOut.B);
+	    plane.PointProjection(this->C, tOut.C);
 	}
 
 protected:
