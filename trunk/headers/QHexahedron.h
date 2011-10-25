@@ -7,6 +7,7 @@
 #include "QPoint.h"
 #include "QQuaternion.h"
 #include "QPlane.h"
+#include "QLineSegment3D.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -635,6 +636,48 @@ public:
 	    hOut = *this;
 	    QPoint::TransformFromPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&hOut), 8);
 	}
+
+    /// <summary>
+	/// Checks if resident hexahedron intersects a given hexahedron.
+	/// </summary>
+	/// <param name="hex">[IN] Hexahedron which intersections with resident hexahedron will be checked.</param>
+	/// <returns>
+	/// True if both hexahedrons intersects, false otherwise.
+	/// </returns>
+	inline bool Intersection(const QBaseHexahedron<VectorType> &hex) const
+	{
+	    return ( this->Contains(hex.A) || this->Contains(hex.B) || this->Contains(hex.C) || this->Contains(hex.D) ||
+                 this->Contains(hex.E) || this->Contains(hex.F) || this->Contains(hex.G) || this->Contains(hex.H) ||
+                 QLineSegment3D<VectorType>(this->A, this->B).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->B, this->C).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->C, this->D).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->D, this->A).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->E, this->F).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->F, this->G).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->G, this->H).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->H, this->E).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->A, this->E).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->B, this->H).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->C, this->G).Intersection(hex) ||
+                 QLineSegment3D<VectorType>(this->D, this->F).Intersection(hex) );
+	}
+
+    /// <summary>
+	/// Projects resident hexahedron over a given plane, storing the resultant hexahedron in the provided one.
+	/// </summary>
+	/// <param name="plane">[IN] Plane where project resident hexahedron to.</param>
+	/// <param name="hex">[OUT] Hexahedron where to store the projected one.</param>
+    inline void ProjectToPlane(const QPlane &plane, QBaseHexahedron<VectorType> &hex) const
+    {
+        plane.PointProjection(this->A, hex.A);
+        plane.PointProjection(this->B, hex.B);
+        plane.PointProjection(this->C, hex.C);
+        plane.PointProjection(this->D, hex.D);
+        plane.PointProjection(this->E, hex.E);
+        plane.PointProjection(this->F, hex.F);
+        plane.PointProjection(this->G, hex.G);
+        plane.PointProjection(this->H, hex.H);
+    }
 
     /// <summary>
     /// Converts hexahedron into a string with the following format:
