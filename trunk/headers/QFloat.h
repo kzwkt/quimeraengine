@@ -94,7 +94,7 @@ public:
     static const float_q _0_25;
 
     /// <summary>
-    /// Defines the comparison tolerance, or how much different can be two floating point values 
+    /// Defines the comparison tolerance, or how much different can be two floating point values
     /// to be considered equals, according to the configured precission.
     /// </summary>
     static const float_q Epsilon;
@@ -124,8 +124,8 @@ private:
 public:
 
     /// <summary>
-    /// Checks if the floating point value's state is NaN. That kind of value is undefined or non-representable, and it's said 
-    /// it isn't a number (NaN = Not a Number). Every time you use functions like acos, asin or atan2, you should check the result 
+    /// Checks if the floating point value's state is NaN. That kind of value is undefined or non-representable, and it's said
+    /// it isn't a number (NaN = Not a Number). Every time you use functions like acos, asin or atan2, you should check the result
     /// value.
     /// </summary>
     /// <param name="fValue">[IN] A floating point number.</param>
@@ -139,8 +139,8 @@ public:
     }
 
     /// <summary>
-    /// Checks if the floating point value's state is Infinite. That kind of value is non-representable and appears as an arithmetic 
-    /// operation result that overflows the floating point type bounds. Every time you use functions like tan, you should check the result 
+    /// Checks if the floating point value's state is Infinite. That kind of value is non-representable and appears as an arithmetic
+    /// operation result that overflows the floating point type bounds. Every time you use functions like tan, you should check the result
     /// value.
     /// </summary>
     /// <param name="fValue">[IN] A floating point number.</param>
@@ -167,7 +167,7 @@ public:
     }
 
     /// <summary>
-    /// Performs an equality comparison between two floating point numbers, taking into account the system tolerance 
+    /// Performs an equality comparison between two floating point numbers, taking into account the system tolerance
     /// constant (Epsilon).
     /// </summary>
     /// <param name="fValueA">[IN] First floating point number to be compared.</param>
@@ -177,11 +177,11 @@ public:
     /// </returns>
     inline static bool AreEquals(const float_q &fValueA, const float_q &fValueB)
     {
-        return abs(fValueA - fValueB) <= QFloat::Epsilon;
+        return QFloat::Abs(fValueA - fValueB) <= QFloat::Epsilon;
     }
 
     /// <summary>
-    /// Performs an inequality comparison between two floating point numbers, taking into account the system tolerance 
+    /// Performs an inequality comparison between two floating point numbers, taking into account the system tolerance
     /// constant (Epsilon).
     /// </summary>
     /// <param name="fValueA">[IN] First floating point number to be compared.</param>
@@ -191,11 +191,11 @@ public:
     /// </returns>
     inline static bool AreNotEquals(const float_q &fValueA, const float_q &fValueB)
     {
-        return abs(fValueA - fValueB) > QFloat::Epsilon;
+        return QFloat::Abs(fValueA - fValueB) > QFloat::Epsilon;
     }
 
     /// <summary>
-    /// Checks if a floating point value is greater than a reference value, taking into account the system tolerance 
+    /// Checks if a floating point value is greater than a reference value, taking into account the system tolerance
     /// constant (Epsilon).
     /// </summary>
     /// <param name="fGreaterValue">The value which is to be compared.</param>
@@ -210,7 +210,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if a floating point value is lower than a reference value, taking into account the system tolerance 
+    /// Checks if a floating point value is lower than a reference value, taking into account the system tolerance
     /// constant (Epsilon).
     /// </summary>
     /// <param name="fGreaterValue">The value which is to be compared.</param>
@@ -225,7 +225,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if a floating point value is greater than or equals to a reference value, taking into account the 
+    /// Checks if a floating point value is greater than or equals to a reference value, taking into account the
     /// system tolerance constant (Epsilon).
     /// </summary>
     /// <param name="fGreaterValue">The value which is to be compared.</param>
@@ -240,7 +240,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if a floating point value is lower than or equals to a reference value, taking into account the 
+    /// Checks if a floating point value is lower than or equals to a reference value, taking into account the
     /// system tolerance constant (Epsilon).
     /// </summary>
     /// <param name="fGreaterValue">The value which is to be compared.</param>
@@ -255,7 +255,7 @@ public:
     }
 
     /// <summary>
-    /// Checks whether a floating point number equals zero or is close to zero, taking into account the system tolerance 
+    /// Checks whether a floating point number equals zero or is close to zero, taking into account the system tolerance
     /// constant (Epsilon).
     /// </summary>
     /// <param name="fValue">[IN] The floating point number to be compared.</param>
@@ -268,7 +268,7 @@ public:
     }
 
     /// <summary>
-    /// Checks whether a floating point number doesn't equal zero or is close to zero, taking into account the system tolerance 
+    /// Checks whether a floating point number doesn't equal zero or is close to zero, taking into account the system tolerance
     /// constant (Epsilon).
     /// </summary>
     /// <param name="fValue">[IN] The floating point number to be compared.</param>
@@ -290,16 +290,16 @@ public:
     static string_q ToString(const float_q &fValue);
 
     /// <summary>
-    /// Converts a floating point number type to an integer number type. The result will be rounded (0.5 -> 1.0). Expected 
-    /// template parameters are: unsigned int, int, long long, unsigned long long, u32_q, i32_q, u64_q, i64_q. Integer type 
+    /// Converts a floating point number type to an integer number type. The result will be rounded (0.5 -> 1.0). Expected
+    /// template parameters are: unsigned int, int, long long, unsigned long long, u32_q, i32_q, u64_q, i64_q. Integer type
     /// size should equals floating point type size or unexpected behavior will occur.
     /// </summary>
     /// <remarks>
     /// Depending on the configured precission, there is a performance overload due to standard conversion use when the value
     /// is greater than the one representable by floating point type mantissa:
-    /// -For 32-bits floating point type values: Must be greater than or equals to \f$ -2^{22} \f$ (-4194304) and lower than or equals 
+    /// -For 32-bits floating point type values: Must be greater than or equals to \f$ -2^{22} \f$ (-4194304) and lower than or equals
     /// to \f$ 2^{23} \f$ (8388608).
-    /// -For 64-bits floating point type values: Must be greater than or equals to \f$ -2^{51} \f$ (-2251799813685248l) and lower than or 
+    /// -For 64-bits floating point type values: Must be greater than or equals to \f$ -2^{51} \f$ (-2251799813685248l) and lower than or
     /// equals to \f$ 2^{52} \f$ (4503599627370496l).
     /// </remarks>
     /// <param name="fValue">[IN] Floating point number to be converted.</param>
@@ -325,7 +325,7 @@ public:
             const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -2251799813685248l; // Maximum convertible integer negative value = 2^51
 
         #endif
-        
+
         if(fValue > MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED ||
            fValue < MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED)
         {
@@ -363,9 +363,9 @@ public:
 
             outInteger = finalValue._integer;
         }
-        
+
     }
-    
+
     /// <summary>
     /// Removes the fractional part of a floating point number and returns the result as output parameter.
     /// No rounding is performed.
@@ -376,7 +376,7 @@ public:
     {
         fTruncatedValue = boost::math::trunc(fValue);
     }
-    
+
     /// <summary>
     /// Removes the fractional part of a floating point number. No rounding is performed.
     /// </summary>
@@ -404,8 +404,8 @@ public:
 	}
 
     /// <summary>
-    /// Inverts the order of bytes which compound a floating point number and returns the result as 
-    /// output parameter. A 32-bits floating point number whose value equals to 0xAABBCCDD will be 
+    /// Inverts the order of bytes which compound a floating point number and returns the result as
+    /// output parameter. A 32-bits floating point number whose value equals to 0xAABBCCDD will be
     /// transformed to 0xDDCCBBAA, for example.
     /// </summary>
     /// <param name="fValue">[IN] The value whose bytes are to be swapped.</param>
@@ -433,7 +433,7 @@ public:
 
         fSwappedValue = swappedValue._float;
     }
-    
+
     /// <summary>
     /// Inverts the order of bytes which compound a floating point number. A 32-bits floating point number
     /// whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
@@ -479,11 +479,32 @@ public:
         // Negative source & Positive target = Change sign
         // Positive source & Negative target = Change sign
         // Positive source & Positive target = Keep positive
-        fValueToCopyTo = QFloat::IsNegative(fSignedValue) 
+        fValueToCopyTo = QFloat::IsNegative(fSignedValue)
                             ?
                             QFloat::IsNegative(fValueToCopyTo) ? fValueToCopyTo : -fValueToCopyTo
                             :
                             QFloat::IsNegative(fValueToCopyTo) ? -fValueToCopyTo : fValueToCopyTo;
+    }
+
+    /// <summary>
+    /// Calculates the absolute value of the provided floating point number.
+    /// </summary>
+    /// <param name="fValue">[IN] A floating point number whose absolute value is wanted.</param>
+    /// <returns>
+    /// If the provided number is greater or equals to zero, it returns the same number,
+    /// otherwise it returns the same number but with opposite sign.
+    /// </returns>
+    inline static float_q Abs(const float_q &fValue)
+    {
+        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+
+            return fabsf(fValue);
+
+        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+
+            return fabsl(fValue);
+
+        #endif
     }
 
 };
