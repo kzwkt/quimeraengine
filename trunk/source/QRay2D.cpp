@@ -179,7 +179,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseTriangle2 &triangle, QBaseV
         {
             vPoint1 = this->Point;
 
-            // Checks intersection with opposite edge
+            // Checks intersection with opposite edge (it should not return E_Infinite, is the opposite edge)
             if (this->IntersectionPoint(triangle.B, triangle.C, vAux) == EQIntersections::E_None) // No intersection found
                 return EQIntersections::E_One;
             else // Intersection found
@@ -942,13 +942,23 @@ EQIntersections QRay2D::IntersectionPoint (const QBaseLineSegment2 &ls, QBaseVec
             return EQIntersections::E_Infinite;
         else if ( bAIsInRay )
         {
-            vPoint = ls.A;
-            return EQIntersections::E_One;
+            if (ls.A == this->Point)
+            {
+                vPoint = ls.A;
+                return EQIntersections::E_One;
+            }
+            else
+                return EQIntersections::E_Infinite;
         }
         else if ( bBIsInRay )
         {
-            vPoint = ls.B;
-            return EQIntersections::E_One;
+            if (ls.B == this->Point)
+            {
+                vPoint = ls.B;
+                return EQIntersections::E_One;
+            }
+            else
+                return EQIntersections::E_Infinite;
         }
         else
             return EQIntersections::E_None;
