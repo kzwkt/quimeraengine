@@ -325,61 +325,6 @@ public:
 		return *this;
 	}
 
-	/// <summary>
-	/// Equal operator. A tolerance value "Epsilon" is used for discriminate whether the matrices are equal or not.
-	/// </summary>
-	/// <param name="m">[IN] The matrix to compare to.</param>
-	/// <returns>
-	/// If matrices are equal, then it returns true. Otherwise, it returns false.
-	/// </returns>
-	inline bool operator==(const QBaseMatrix4x4 &m) const
-	{
-		return	QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
-				QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
-				QFloat::AreEquals(this->ij[0][2], m.ij[0][2]) &&
-				QFloat::AreEquals(this->ij[0][3], m.ij[0][3]) &&
-				QFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
-				QFloat::AreEquals(this->ij[1][1], m.ij[1][1]) &&
-				QFloat::AreEquals(this->ij[1][2], m.ij[1][2]) &&
-				QFloat::AreEquals(this->ij[1][3], m.ij[1][3]) &&
-				QFloat::AreEquals(this->ij[2][0], m.ij[2][0]) &&
-				QFloat::AreEquals(this->ij[2][1], m.ij[2][1]) &&
-				QFloat::AreEquals(this->ij[2][2], m.ij[2][2]) &&
-				QFloat::AreEquals(this->ij[2][3], m.ij[2][3]) &&
-				QFloat::AreEquals(this->ij[3][0], m.ij[3][0]) &&
-				QFloat::AreEquals(this->ij[3][1], m.ij[3][1]) &&
-				QFloat::AreEquals(this->ij[3][2], m.ij[3][2]) &&
-				QFloat::AreEquals(this->ij[3][3], m.ij[3][3]);
-	}
-
-	/// <summary>
-	/// Non-Equal operator. A tolerance value "Epsilon" is used for discriminate whether the
-	/// matrices are equal or not.
-	/// </summary>
-	/// <param name="m">[IN] The matrix to compare to.</param>
-	/// <returns>
-	/// If matrices are not equal, then it returns true. Otherwise, it returns false.
-	/// </returns>
-	inline bool operator!=(const QBaseMatrix4x4 &m) const
-	{
-		return	QFloat::AreNotEquals(this->ij[0][0], m.ij[0][0]) ||
-				QFloat::AreNotEquals(this->ij[0][1], m.ij[0][1]) ||
-				QFloat::AreNotEquals(this->ij[0][2], m.ij[0][2]) ||
-				QFloat::AreNotEquals(this->ij[0][3], m.ij[0][3]) ||
-				QFloat::AreNotEquals(this->ij[1][0], m.ij[1][0]) ||
-				QFloat::AreNotEquals(this->ij[1][1], m.ij[1][1]) ||
-				QFloat::AreNotEquals(this->ij[1][2], m.ij[1][2]) ||
-				QFloat::AreNotEquals(this->ij[1][3], m.ij[1][3]) ||
-				QFloat::AreNotEquals(this->ij[2][0], m.ij[2][0]) ||
-				QFloat::AreNotEquals(this->ij[2][1], m.ij[2][1]) ||
-				QFloat::AreNotEquals(this->ij[2][2], m.ij[2][2]) ||
-				QFloat::AreNotEquals(this->ij[2][3], m.ij[2][3]) ||
-				QFloat::AreNotEquals(this->ij[3][0], m.ij[3][0]) ||
-				QFloat::AreNotEquals(this->ij[3][1], m.ij[3][1]) ||
-				QFloat::AreNotEquals(this->ij[3][2], m.ij[3][2]) ||
-				QFloat::AreNotEquals(this->ij[3][3], m.ij[3][3]);
-	}
-
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
     /// </summary>

@@ -22,7 +22,7 @@ namespace Math
 /// </summary>
 class QDllExport QBaseQuaternion
 {
-    
+
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -62,7 +62,7 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged 
+    /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
     /// into a 128 bits structure. The values order is: X, Y, Z and W.
     /// </summary>
     /// <param name="vfValue">[IN] A four 32 bits floating point types pack.</param>
@@ -70,6 +70,37 @@ public:
     {
         // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
         QVF32::Unpack(vfValue, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
+    }
+
+	// METHODS
+	// ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two quaternions.
+    /// </summary>
+    /// <param name="qQuat">[IN] The quaternion to compare to.</param>
+    /// <returns>
+    /// If quaternions are equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    inline bool operator==(const QBaseQuaternion &qQuat) const
+    {
+        return   QFloat::AreEquals(this->x, qQuat.x) &&
+                 QFloat::AreEquals(this->y, qQuat.y) &&
+                 QFloat::AreEquals(this->z, qQuat.z) &&
+                 QFloat::AreEquals(this->w, qQuat.w);
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two quaternions.
+    /// </summary>
+    /// <param name="qQuat">[IN] The quaternion to compare to.</param>
+    /// <returns>
+    /// If quaternions are not equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    inline bool operator!=(const QBaseQuaternion &qQuat) const
+    {
+        return !(*this == qQuat);
     }
 
 	// ATTRIBUTES
@@ -90,7 +121,7 @@ public:
 	/// Quaternion's z component.
 	/// </summary>
 	float_q z;
-	
+
 	/// <summary>
 	/// Quaternion's w component.
 	/// </summary>

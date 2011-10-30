@@ -22,8 +22,8 @@ class QBaseVector4;
 
 
 /// <summary>
-/// Class which implements the basic functionality of a dual quaternion. 
-/// A dual quaternion is a complex number with two components, a non-dual component and a dual one, e.g. \f$ r + d\varepsilon \f$. 
+/// Class which implements the basic functionality of a dual quaternion.
+/// A dual quaternion is a complex number with two components, a non-dual component and a dual one, e.g. \f$ r + d\varepsilon \f$.
 /// Both components (r and d) of a dual quaternion are (regular) quaternions.
 /// The dual unit, called epsilon (\f$ \varepsilon \f$), verifies \f$ \varepsilon^2=0 \f$. Then, a full quaternion looks like:
 /// \f$ r_w + r_xi + r_yj + r_zk + (d_w + d_xi + d_yj + d_zk)\varepsilon\f$
@@ -83,7 +83,7 @@ public:
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
     /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
     /// in the direction of the rotation axis as follows:
-    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$, 
+    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
     /// and the dual quaternion will be:
     /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
     /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
@@ -94,12 +94,12 @@ public:
     /// </summary>
     /// <param name="qR">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vD">[IN] The vector which represents the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
-    template <class VectorType> 
+    template <class VectorType>
     QDualQuaternion(const QBaseQuaternion &qR, const VectorType &vD)
-    { 
+    {
         QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0)); 
+        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
+                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0));
 
         *this = Desp * Rot;
     }
@@ -108,7 +108,7 @@ public:
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
     /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
     /// in the direction of the rotation axis as follows:
-    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$, 
+    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
     /// and the dual quaternion will be:
     /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
     /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
@@ -121,10 +121,10 @@ public:
     /// <param name="vD">[IN] The vector which represents the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
     template <class VectorType>
     QDualQuaternion(const VectorType &vD, const QBaseQuaternion &qR)
-    { 
+    {
         QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                                    QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0)); 
+        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
+                                    QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0));
 
         *this = Rot * Desp;
     }
@@ -134,7 +134,7 @@ public:
     /// </summary>
     /// <param name="pQuatR">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
     /// <param name="pQuatD">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
-    inline QDualQuaternion(const float_q *pQuatR, const float_q *pQuatD) 
+    inline QDualQuaternion(const float_q *pQuatR, const float_q *pQuatD)
     {
         QE_ASSERT(pQuatR != null_q && pQuatD != null_q);
 
@@ -186,7 +186,7 @@ public:
     QDualQuaternion operator*(const float_q &fScalar) const;
 
     /// <summary>
-    /// Product by a vector (multiplying to the dual quaternion by the right). The vector is transformed into a dual quaternion, 
+    /// Product by a vector (multiplying to the dual quaternion by the right). The vector is transformed into a dual quaternion,
     /// then is multiplied by the resident dual quaternion by the left and transformed back to a vector.
     /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
     /// </summary>
@@ -197,7 +197,7 @@ public:
     QDualQuaternion operator * (const QBaseVector3 &v) const;
 
     /// <summary>
-    /// Product by a vector (multiplying to the dual quaternion by the right). The vector is transformed into a dual quaternion, 
+    /// Product by a vector (multiplying to the dual quaternion by the right). The vector is transformed into a dual quaternion,
     /// then is multiplied by the resident dual quaternion by the left and transformed back to a vector.
     /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
     /// </summary>
@@ -217,7 +217,7 @@ public:
     QDualQuaternion operator/(const float_q &fScalar) const;
 
     /// <summary>
-    /// Add and assign operator. Each input quaternion component is added to the corresponding quaternion 
+    /// Add and assign operator. Each input quaternion component is added to the corresponding quaternion
     /// of the resident dual quaternion.
     /// </summary>
     /// <param name="dqQuat">[IN] The dual quaternion that is Added.</param>
@@ -228,7 +228,7 @@ public:
     {
         this->r += dqQuat.r;
         this->d += dqQuat.d;
-        
+
         return *this;
     }
 
@@ -251,7 +251,7 @@ public:
     /// <summary>
     /// Multiply and assign operator. The resident dual quaternion is multiplied by the input one.
     /// This is calculated as follows:
-    /// \f$ q\cdot q' = r\cdot r' + (r\cdot d' + d\cdot r')\varepsilon\f$ 
+    /// \f$ q\cdot q' = r\cdot r' + (r\cdot d' + d\cdot r')\varepsilon\f$
     /// Note that quaternion multiplication is not conmutative.
     /// </summary>
     /// <param name="dqQuat">[IN] The dual quaternion to multiply by.</param>
@@ -264,12 +264,12 @@ public:
 
         this->r = aux.r * dqQuat.r;
         this->d = aux.r * dqQuat.d + aux.d * dqQuat.r;
-    
+
         return *this;
     }
 
     /// <summary>
-    /// Multiply by a floating point value and assign operator. Each dual quaternion component is 
+    /// Multiply by a floating point value and assign operator. Each dual quaternion component is
     /// multiplied by the input floating point value.
     /// </summary>
     /// <param name="fValue">[IN] The floating point value to multiply by.</param>
@@ -303,30 +303,6 @@ public:
     }
 
     /// <summary>
-    /// Equal operator. Compares component by component.
-    /// </summary>
-    /// <param name="dqQuat">[IN] The dual quaternion to compare to.</param>
-    /// <returns>
-    /// If dual quaternions are equal, then it returns true. Otherwise, it returns false.
-    /// </returns>
-    inline bool operator==(const QBaseDualQuaternion &dqQuat) const
-    {
-        return this->r == dqQuat.r && this->d == dqQuat.d;
-    }
-
-    /// <summary>
-    /// Non-equal operator. Compares component by component.
-    /// </summary>
-    /// <param name="dqQuat">[IN] The quaternion to compare to.</param>
-    /// <returns>
-    /// If quaternions are not equal, then it returns true. Otherwise, it returns false.
-    /// </returns>
-    inline bool operator!=(const QBaseDualQuaternion &dqQuat) const
-    {
-        return this->r != dqQuat.r || this->d != dqQuat.d;
-    }
-
-    /// <summary>
     /// Assign operator. Assigns the provided dual quaternion to the resident dual quaternion.
     /// </summary>
     /// <param name="dqQuat">[IN] The dual quaternion to be assigned.</param>
@@ -342,7 +318,7 @@ public:
     /// <summary>
     /// Resets to zero all components of both quaternions of the dual quaternion.
     /// </summary>
-    inline void ResetToZero () 
+    inline void ResetToZero ()
     {
         this->r.ResetToZero();
         this->d.ResetToZero();
@@ -352,7 +328,7 @@ public:
     /// Resets to identity the dual quaternion. This implies that de non-dual component is reset to identity
     /// and de dual component is reset to zero.
     /// </summary>
-    inline void ResetToIdentity () 
+    inline void ResetToIdentity ()
     {
         this->r.ResetToIdentity();
         this->d.ResetToZero();
@@ -410,7 +386,7 @@ public:
 
     /// <summary>
     /// Applies a transformation to the resident dual quaternion. The transformation is performed as follows:
-    ///     \f$ P' = T \cdot P \cdot T^*\f$, where 
+    ///     \f$ P' = T \cdot P \cdot T^*\f$, where
     ///     \f$ P'\f$: Transformed dual quaternion.
     ///     \f$ T \f$: Transformation applied.
     ///     \f$ P \f$: Dual quaternion which is transformed.
@@ -421,7 +397,7 @@ public:
 
     /// <summary>
     /// Makes a transformed copy of the resident dual quaternion. The transformation is performed as follows:
-    ///     \f$ P' = T \cdot P \cdot T^*\f$, where 
+    ///     \f$ P' = T \cdot P \cdot T^*\f$, where
     ///     \f$ P'\f$: Transformed dual quaternion.
     ///     \f$ T \f$: Transformation applied.
     ///     \f$ P \f$: Dual quaternion which is transformed.
@@ -442,10 +418,10 @@ public:
     /// <param name="vD">[IN] Vector which defines the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
     template <class VectorType>
     void TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD)
-    { 
+    {
         QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0)); 
+        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
+                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0));
 
         QDualQuaternion dqTransf = Desp * Rot;
 
@@ -460,7 +436,7 @@ public:
     /// <param name="dqOut">[OUT] Dual quaternion where the result of transformation is stored.</param>
     template <class VectorType>
     void TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD, QBaseDualQuaternion &dqOut) const
-    { 
+    {
         dqOut = *this;
         reinterpret_cast<QDualQuaternion&> (dqOut).TransformRotationFirst(qR, vD);
     }
@@ -473,10 +449,10 @@ public:
     /// <param name="qR">[IN] Regular quaternion which defines the rotation.</param>
     template <class VectorType>
     void TransformTranslationFirst(const VectorType &vD, const QBaseQuaternion &qR)
-    { 
+    {
         QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0)); 
+        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
+                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0));
 
         QDualQuaternion dqTransf = Rot * Desp;
 
@@ -491,7 +467,7 @@ public:
     /// <param name="dqOut">[OUT] Dual quaternion where the result of transformation is stored.</param>
     template <class VectorType>
     void TransformTranslationFirst(const VectorType &vD, const QBaseQuaternion &qR, QBaseDualQuaternion &dqOut) const
-    { 
+    {
         dqOut = *this;
         reinterpret_cast<QDualQuaternion&> (dqOut).TransformTranslationFirst(vD, qR);
     }
@@ -499,9 +475,9 @@ public:
     /// <summary>
     /// Converts resident dual quaternion, assuming it's a transformation, in a new transformation which is
     /// a linear interpolation between it and a transformation provided, by a proportion also provided.
-    /// Note that this isn't an interpolation between dual quaternions, only between unitary dual quaternions 
-    /// which contains transformations. To take the transformed point or vector interpolating from a transformation, 
-    /// its necessary to apply the resultant transformation of the lerp to the original point or vector, 
+    /// Note that this isn't an interpolation between dual quaternions, only between unitary dual quaternions
+    /// which contains transformations. To take the transformed point or vector interpolating from a transformation,
+    /// its necessary to apply the resultant transformation of the lerp to the original point or vector,
     /// obtaining a point or vector in a status of transformation given by the proportion used.
     /// Lerp is obtained as follows: if Q1 is the original transformation, and Q2 is the transformation provided,
     /// the transformation Q' which give us the status of any point at a proportion t in [0, 1] is
@@ -519,18 +495,18 @@ public:
         this->d += fProp * dqQ2.d;
 
         float_q fLength = this->GetNonDualLength();
-        
+
         QE_ASSERT(fLength != QFloat::_0);
-        
+
         *this /= fLength;
     }
 
     /// <summary>
     /// Calculates from resident dual quaternion, assuming it's a transformation, a new transformation which is
     /// a linear interpolation between it and a transformation provided, by a proportion also provided.
-    /// Note that this isn't an interpolation between dual quaternions, only between unitary dual quaternions 
-    /// which contains transformations. To take the transformed point or vector interpolating from a transformation, 
-    /// its necessary to apply the resultant transformation of the lerp to the original point or vector, 
+    /// Note that this isn't an interpolation between dual quaternions, only between unitary dual quaternions
+    /// which contains transformations. To take the transformed point or vector interpolating from a transformation,
+    /// its necessary to apply the resultant transformation of the lerp to the original point or vector,
     /// obtaining a point or vector in a status of transformation given by the proportion used.
     /// Lerp is obtained as follows: if Q1 is the original transformation, and Q2 is the transformation provided,
     /// the transformation Q' which give us the status of any point at a proportion t in [0, 1] is

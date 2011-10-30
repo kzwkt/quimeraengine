@@ -28,7 +28,7 @@ public:
 
 	/// <summary>
 	/// Override default constructor. Sets attributes to zero.
-	/// </summary>	
+	/// </summary>
 	inline QBaseVector4 () : x(QFloat::_0), y(QFloat::_0), z(QFloat::_0), w(QFloat::_0) {}
 
 	/// <summary>
@@ -56,8 +56,8 @@ public:
 		QE_ASSERT(pValues != null_q);
 
 		// Assignments
-		x = pValues[0]; 
-		y = pValues[1]; 
+		x = pValues[0];
+		y = pValues[1];
 		z = pValues[2];
 		w = pValues[3];
 	}
@@ -67,10 +67,39 @@ public:
 	/// </summary>
 	/// <param name="vfValue">[IN] 4x32 packed floating point containing the three components.
 	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (W).</param>
-	inline explicit QBaseVector4(const vf32_q &vfValue) 
+	inline explicit QBaseVector4(const vf32_q &vfValue)
 	{
         QVF32::Unpack(vfValue, this->x, this->y, this->z, this->w);
 	}
+
+	// METHODS
+	// ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two 4D vectors.
+    /// </summary>
+    /// <param name="v">[IN] Vector with which to compare.</param>
+    /// <returns>
+    /// True if vectors are the same, false otherwise.
+    /// </returns>
+    inline bool operator == (const QBaseVector4 &v) const
+    {
+        return QFloat::AreEquals(v.x, this->x) && QFloat::AreEquals(v.y, this->y) &&
+               QFloat::AreEquals(v.z, this->z) && QFloat::AreEquals(v.w, this->w);
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two 4D vectors.
+    /// </summary>
+    /// <param name="v">[IN] Vector with which to compare.</param>
+    /// <returns>
+    /// True if vectors are not the same, false otherwise.
+    /// </returns>
+    inline bool operator != (const QBaseVector4 &v) const
+    {
+        return !(*this == v);
+    }
 
 
 	// ATTRIBUTES

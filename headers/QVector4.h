@@ -256,32 +256,6 @@ public:
     /// </returns>
     QVector4 operator / (const QBaseVector4 &v) const;
 
-    /// <summary>
-    /// Compares two vectors.
-    /// </summary>
-    /// <param name="v">[IN] Vector with which to compare.</param>
-    /// <returns>
-    /// True if vectors are the same, false otherwise.
-    /// </returns>
-    inline bool operator == (const QBaseVector4 &v) const
-    {
-        return QFloat::AreEquals(v.x, this->x) && QFloat::AreEquals(v.y, this->y) &&
-               QFloat::AreEquals(v.z, this->z) && QFloat::AreEquals(v.w, this->w);
-    }
-
-    /// <summary>
-    /// Compares two vectors.
-    /// </summary>
-    /// <param name="v">[IN] Vector with which to compare.</param>
-    /// <returns>
-    /// True if vectors are not the same, false otherwise.
-    /// </returns>
-    inline bool operator != (const QBaseVector4 &v) const
-    {
-        return QFloat::AreNotEquals(v.x, this->x) || QFloat::AreNotEquals(v.y, this->y) ||
-               QFloat::AreNotEquals(v.z, this->z) || QFloat::AreNotEquals(v.w, this->w);
-    }
-
     // assignment operators
 
     /// <summary>

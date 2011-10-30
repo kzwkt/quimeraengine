@@ -22,7 +22,7 @@ namespace Math
 /// </summary>
 class QDllExport QBaseVector3
 {
-	
+
     // CONSTRUCTORS
 	// ---------------
 public:
@@ -56,8 +56,8 @@ public:
 		QE_ASSERT(pValue != null_q);
 
 		// Assignments
-		this->x = pValue[0]; 
-		this->y = pValue[1]; 
+		this->x = pValue[0];
+		this->y = pValue[1];
 		this->z = pValue[2];
 	}
 
@@ -66,13 +66,41 @@ public:
 	/// </summary>
 	/// <param name="vfValue">[IN] 4x32 packed floating point containing the three components.
 	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (Ignored).</param>
-	inline explicit QBaseVector3(const vf32_q vfValue) 
+	inline explicit QBaseVector3(const vf32_q vfValue)
 	{
 		float_q aux;
 
 		QVF32::Unpack(vfValue, this->x, this->y, this->z, aux);
 	}
-	
+
+	// METHODS
+	// ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two 3D vectors.
+    /// </summary>
+    /// <param name="v">[IN] Vector with which to compare.</param>
+    /// <returns>
+    /// True if vectors are the same, false otherwise.
+    /// </returns>
+    inline bool operator == (const QBaseVector3 &v) const
+    {
+        return ( QFloat::AreEquals(v.x, this->x) && QFloat::AreEquals(v.y, this->y) && QFloat::AreEquals(v.z, this->z) );
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two 3D vectors.
+    /// </summary>
+    /// <param name="v">[IN] Vector with which to compare.</param>
+    /// <returns>
+    /// True if vectors are not the same, false otherwise.
+    /// </returns>
+    inline bool operator != (const QBaseVector3 &v) const
+    {
+        return !(*this == v);
+    }
+
 	// ATTRIBUTES
 	// ---------------
 public:

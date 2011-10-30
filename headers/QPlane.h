@@ -225,40 +225,6 @@ public:
         return *this;
     }
 
-    /// <summary>
-    /// Compares two planes.
-    /// </summary>
-    /// <remarks>
-    /// Note that if any of the planes is not normalized, the result may be false, even if they are the same plane:
-    /// \f$ x + y + z + 1 = 0\f$ and \f$ 2x + 2y + 2z + 2 = 0\f$ are the same plane but its components are different.
-    /// </remarks>
-    /// <param name="p">[IN] Plane with which to compare.</param>
-    /// <returns>
-    /// True if planes are the same, false otherwise.
-    /// </returns>
-    inline bool operator == (const QBasePlane &p) const
-    {
-        return ( QFloat::AreEquals(p.a, this->a) && QFloat::AreEquals(p.b, this->b) &&
-                 QFloat::AreEquals(p.c, this->c) && QFloat::AreEquals(p.d, this->d) );
-    }
-
-    /// <summary>
-    /// Compares two planes.
-    /// </summary>
-    /// <remarks>
-    /// Note that if any of the planes is not normalized, the result may be true, even if they are the same plane.
-    /// \f$ x + y + z + 1 = 0\f$ and \f$ 2x + 2y + 2z + 2 = 0\f$ are the same plane but its components are different.
-    /// </remarks>
-    /// <param name="p">[IN] Plane with which to compare.</param>
-    /// <returns>
-    /// True if planes are not the same, false otherwise.
-    /// </returns>
-    inline bool operator != (const QBasePlane &p) const
-    {
-        return ( QFloat::AreNotEquals(p.a, this->a) || QFloat::AreNotEquals(p.b, this->b) ||
-                 QFloat::AreNotEquals(p.c, this->c) || QFloat::AreNotEquals(p.d, this->d) );
-    }
-
     //Unary operators
 
     /// <summary>

@@ -223,30 +223,6 @@ public:
     /// </returns>
     QVector3 operator / (const QBaseVector3 &v) const;
 
-    /// <summary>
-    /// Compares two vectors.
-    /// </summary>
-    /// <param name="v">[IN] Vector with which to compare.</param>
-    /// <returns>
-    /// True if vectors are the same, false otherwise.
-    /// </returns>
-    inline bool operator == (const QBaseVector3 &v) const
-    {
-        return ( QFloat::AreEquals(v.x, this->x) && QFloat::AreEquals(v.y, this->y) && QFloat::AreEquals(v.z, this->z) );
-    }
-
-    /// <summary>
-    /// Compares two vectors.
-    /// </summary>
-    /// <param name="v">[IN] Vector with which to compare.</param>
-    /// <returns>
-    /// True if vectors are not the same, false otherwise.
-    /// </returns>
-    inline bool operator != (const QBaseVector3 &v) const
-    {
-        return QFloat::AreNotEquals(v.x, this->x) || QFloat::AreNotEquals(v.y, this->y) || QFloat::AreNotEquals(v.z, this->z);
-    }
-
     // assignment operators
 
     /// <summary>

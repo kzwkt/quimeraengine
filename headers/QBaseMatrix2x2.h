@@ -44,7 +44,7 @@ public:
     /// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
     /// <param name="f10">[IN] Floating point value for element of row 1, column 0.</param>
     /// <param name="f11">[IN] Floating point value for element of row 1, column 1.</param>
-    inline QBaseMatrix2x2( const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11) 
+    inline QBaseMatrix2x2( const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11)
     {
         ij[0][0] = f00;
 		ij[0][1] = f01;
@@ -56,7 +56,7 @@ public:
 	/// Constructor that receives a pointer to 4 floating point values.
 	/// </summary>
 	/// <remarks>
-	/// Keeps the convention rows x columns, so each chunck of 2 consecutive elements 
+	/// Keeps the convention rows x columns, so each chunck of 2 consecutive elements
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
 	/// <param name="pfMatrix">Pointer to a 4 length array of floating point values.</param>
@@ -80,8 +80,40 @@ public:
 		QVF32::Unpack(vfValues, this->ij[0][0], this->ij[0][1], this->ij[1][0], this->ij[1][1]);
 	}
 
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two [2x2] matrices.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to compare to.</param>
+    /// <returns>
+    /// If matrices are equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    inline bool operator==(const QBaseMatrix2x2 &m) const
+    {
+        return QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
+               QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
+               QFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
+               QFloat::AreEquals(this->ij[1][1], m.ij[1][1]);
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two [2x2] matrices.
+    /// </summary>
+    /// <param name="m">[IN] The matrix to compare to.</param>
+    /// <returns>
+    /// If matrices are not equals, then it returns true. Otherwise, it returns false.
+    /// </returns>
+    inline bool operator!=(const QBaseMatrix2x2 &m) const
+    {
+        return  !(*this == m);
+    }
+
     // ATTRIBUTES
     // ---------------
+public:
 
 	/// <summary>
 	/// Array that holds the matrix.
