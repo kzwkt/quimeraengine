@@ -103,14 +103,14 @@ public:
     inline explicit QQuaternion(const float_q* pValues) : QBaseQuaternion(pValues) {};
 
     /// <summary>
-    /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged 
+    /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
     /// into a 128 bits structure. The values order is: X, Y, Z and W.
     /// </summary>
     /// <param name="vfValue">[IN] A four 32 bits floating point types pack.</param>
     inline explicit QQuaternion(const vf32_q &vfValue) : QBaseQuaternion(vfValue) {};
 
 	/// <summary>
-	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and 
+	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and
 	/// a normalized vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.
 	/// The resultant quaternion is \f$ (n_x sin(\frac{\theta}{2}), n_y sin(\frac{\theta}{2}), n_z sin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$
     /// </summary>
@@ -123,7 +123,7 @@ public:
 	QQuaternion(const QBaseVector3 &vAxis, const float_q &fAngle);
 
 	/// <summary>
-	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and 
+	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and
 	/// a normalized vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.
 	/// The resultant quaternion is \f$ (n_x sin(\frac{\theta}{2}), n_y sin(\frac{\theta}{2}), n_z sin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$
 	/// Fourth vector component is ignored.
@@ -138,7 +138,7 @@ public:
 
 	/// <summary>
 	/// Constructor that receives a transformation matrix, whose dimensions depend on the
-	/// method template parameter. 
+	/// method template parameter.
     /// </summary>
     /// <param name="m">[IN] A transformation matrix.</param>
 	template <class MatrixType>
@@ -148,7 +148,7 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor that receives a 3x3 rotation matrix. 
+	/// Constructor that receives a 3x3 rotation matrix.
     /// </summary>
     /// <param name="m">[IN] A 3x3 rotation matrix.</param>
 	inline explicit QQuaternion(const QRotationMatrix3x3 &m)
@@ -202,7 +202,7 @@ public:
     QQuaternion operator*(const float_q &fScalar) const;
 
 	/// <summary>
-    /// Multiply by 3D vector operator. The vector is converted into a 
+    /// Multiply by 3D vector operator. The vector is converted into a
 	/// quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
     /// </summary>
     /// <param name="v">[IN] The vector to multiply by.</param>
@@ -212,7 +212,7 @@ public:
     QQuaternion operator*(const QBaseVector3 &v) const;
 
 	/// <summary>
-    /// Multiply by 4D vector operator. The vector is converted into a 
+    /// Multiply by 4D vector operator. The vector is converted into a
 	/// quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
     /// </summary>
     /// <param name="v">[IN] The vector to multiply by.</param>
@@ -222,9 +222,9 @@ public:
     QQuaternion operator*(const QBaseVector4 &v) const;
 
     /// <summary>
-    /// Divide operator. The quaternion is divided by the input one. The division is performed by 
+    /// Divide operator. The quaternion is divided by the input one. The division is performed by
     /// multiplying by the input quaternion's inverse. Note that, if you want boost your division performance and
-    /// you work with normalized quaternions, then you can multiply by the quaternion's conjugate (that is 
+    /// you work with normalized quaternions, then you can multiply by the quaternion's conjugate (that is
     /// cheaper to calculate) instead of using this operator.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to divide by.</param>
@@ -232,7 +232,7 @@ public:
     /// The resultant quaternion.
     /// </returns>
     QQuaternion operator/(const QBaseQuaternion &qQuat) const;
-    
+
     /// <summary>
     /// Divide by scalar operator. All quaternion's components are divided by the scalar.
     /// </summary>
@@ -297,10 +297,10 @@ public:
         this->y = resQuat.y;
         this->z = resQuat.z;
         this->w = resQuat.w;
-        
+
         return *this;
     }
-    
+
     /// <summary>
     /// Multiply by scalar and assign operator. All quaternion's components are multiplied by the scalar.
     /// </summary>
@@ -319,7 +319,7 @@ public:
     }
 
 	/// <summary>
-    /// Multiply by 3D vector and assign operator. The vector is converted into a 
+    /// Multiply by 3D vector and assign operator. The vector is converted into a
 	/// quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
     /// </summary>
     /// <param name="v">[IN] The vector to multiply by.</param>
@@ -336,7 +336,7 @@ public:
 	}
 
 	/// <summary>
-    /// Multiply by 4D vector and assign operator. The vector is converted into a 
+    /// Multiply by 4D vector and assign operator. The vector is converted into a
 	/// quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
     /// </summary>
     /// <param name="v">[IN] The vector to multiply by.</param>
@@ -353,9 +353,9 @@ public:
 	}
 
     /// <summary>
-    /// Divide and assign operator. The quaternion is divided by the input one. The division is performed by 
+    /// Divide and assign operator. The quaternion is divided by the input one. The division is performed by
     /// multiplying by the input quaternion's inverse. Note that, if you want boost your division performance and
-    /// you work with normalized quaternions, then you can multiply by the quaternion's conjugate (that is 
+    /// you work with normalized quaternions, then you can multiply by the quaternion's conjugate (that is
     /// cheaper to calculate) instead of using this operator.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to divide by.</param>
@@ -367,7 +367,7 @@ public:
         QBaseQuaternion resQuat;
 
         reinterpret_cast<const QQuaternion&> (qQuat).Reverse(resQuat);
-        
+
         this->operator*=(resQuat);
 
         return *this;
@@ -390,36 +390,6 @@ public:
         this->w /= fScalar;
 
         return *this;
-    }
-
-    /// <summary>
-    /// Equal operator. A tolerance value "Epsilon" is used for distincting whether the quaternions are equal or not.
-    /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to compare to.</param>
-    /// <returns>
-    /// If quaternions are equal, then it returns true. Otherwise, it returns false.
-    /// </returns>
-    inline bool operator==(const QBaseQuaternion &qQuat) const
-    {
-        return   QFloat::AreEquals(this->x, qQuat.x) &&
-                 QFloat::AreEquals(this->y, qQuat.y) &&
-                 QFloat::AreEquals(this->z, qQuat.z) &&
-                 QFloat::AreEquals(this->w, qQuat.w);
-    }
-
-    /// <summary>
-    /// Non-equal operator. A tolerance value "Epsilon" is used for distincting whether the quaternions are equal or not.
-    /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to compare to.</param>
-    /// <returns>
-    /// If quaternions are not equal, then it returns true. Otherwise, it returns false.
-    /// </returns>
-    inline bool operator!=(const QBaseQuaternion &qQuat) const
-    {
-        return QFloat::AreNotEquals(this->x, qQuat.x) ||
-               QFloat::AreNotEquals(this->y, qQuat.y) ||
-               QFloat::AreNotEquals(this->z, qQuat.z) ||
-               QFloat::AreNotEquals(this->w, qQuat.w);
     }
 
     /// <summary>
@@ -463,7 +433,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the quaternion's inverse. Note that, when the quaternion is normalized, the inverse 
+    /// Calculates the quaternion's inverse. Note that, when the quaternion is normalized, the inverse
     /// coincides with the conjugate (which is cheaper to calculate).
     /// Quaternion inverse is obtained by the following equation:
     ///
@@ -483,7 +453,7 @@ public:
     }
 
     /// <summary>
-    /// Gets a reveted copy of the quaternion. Note that, when the quaternion is normalized, the inverse 
+    /// Gets a reveted copy of the quaternion. Note that, when the quaternion is normalized, the inverse
     /// coincides with the conjugate (which is cheaper to calculate).
     /// Quaternion inverse is obtained by the following equation:
     ///
@@ -560,10 +530,10 @@ public:
     /// A floating point value which is the smaller angle between quaternions (less or equal to 180º).
     /// </returns>
     inline float_q DotProductAngle(const QBaseQuaternion &qQuat) const
-    { 
+    {
         float_q fLength = sqrt( (this->x*this->x + this->y*this->y + this->z*this->z) *
                                 (qQuat.x*qQuat.x + qQuat.y*qQuat.y + qQuat.z*qQuat.z) );
-        
+
         // Checkout to avoid division by zero.
         QE_ASSERT(fLength != QFloat::_0);
 
@@ -573,7 +543,7 @@ public:
         QE_ASSERT(abs(fDot) <= QFloat::_1);
 
         float_q fAngle = acos(fDot);
-        
+
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
             QAngle::RadiansToDegrees(fAngle, fAngle);
@@ -653,7 +623,7 @@ public:
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
     void Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
-    
+
     /// <summary>
     /// Calculates the spherical linear interpolation between the quaternion and the input quaternion. This is
     /// calculated by the following expression:
@@ -681,7 +651,7 @@ public:
         reinterpret_cast<QQuaternion&> (qOutQuat).Slerp(qQuat, fProportion);
     }
 
-    
+
     /// <summary>
     /// Calculates the spherical linear interpolation between two unit quaternions. This is
     /// calculated by the following expression:
@@ -702,7 +672,7 @@ public:
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a unit quaternion</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
     void UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
-    
+
     /// <summary>
     /// Calculates the spherical linear interpolation between two unit quaternions. This is
     /// calculated by the following expression:
@@ -737,17 +707,17 @@ public:
     ///
     /// \f$ X = atan2( 2xw - 2xz, 1 - 2y^2 - 2z^2 )\f$
     /// \f$ Y = asin(2xy + 2zw)\f$
-    /// \f$ Z = atan2( 2xw - 2yz, 1 - 2x^2 - 2z^2 )\f$ 
+    /// \f$ Z = atan2( 2xw - 2yz, 1 - 2x^2 - 2z^2 )\f$
     ///
     /// except when \f$ xy + zw = +0.5\f$ (north pole)
     ///
-    /// \f$ X = 2atan2(x, w)\f$ 
-    /// \f$ Z = 0\f$ 
+    /// \f$ X = 2atan2(x, w)\f$
+    /// \f$ Z = 0\f$
     ///
     /// or when \f$ xy + zw = -0.5\f$ (south pole)
     ///
-    /// \f$ X = -2atan2(x, w)\f$ 
-    /// \f$ Z = 0\f$ 
+    /// \f$ X = -2atan2(x, w)\f$
+    /// \f$ Z = 0\f$
     ///
     /// See atan2 documentation for more interesting information.
     /// </summary>
@@ -816,10 +786,10 @@ public:
         //
         return sqrt( (this->x * this->x) + (this->y * this->y) + (this->z * this->z) + (this->w * this->w));
     }
-    
+
     /// <summary>
     /// Calculates the squared quaternion's length, this means, the squared components sum. This method
-    /// exists due to performance reasons because it avoids to perform square roots when the result is 
+    /// exists due to performance reasons because it avoids to perform square roots when the result is
     /// going to be squared.
     /// </summary>
     /// <returns>
@@ -857,9 +827,9 @@ public:
     /// </returns>
     inline string_q ToString() const
 	{
-		return QE_L("Q(") + QFloat::ToString(this->x) + 
-			   QE_L(", ") + QFloat::ToString(this->y) + 
-			   QE_L(", ") + QFloat::ToString(this->z) + 
+		return QE_L("Q(") + QFloat::ToString(this->x) +
+			   QE_L(", ") + QFloat::ToString(this->y) +
+			   QE_L(", ") + QFloat::ToString(this->z) +
 			   QE_L(", ") + QFloat::ToString(this->w) + QE_L(")");
 	}
 

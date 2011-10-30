@@ -156,30 +156,6 @@ public:
 	/// </returns>
 	friend QVector2 operator * (const float_q &fValue, const QVector2 &v);
 
-	/// <summary>
-	/// Compares two vectors.
-	/// </summary>
-	/// <param name="v">[IN] Vector with which to compare.</param>
-	/// <returns>
-	/// True if vectors are the same, false otherwise.
-	/// </returns>
-	inline bool operator == (const QBaseVector2 &v) const
-	{
-        return ( QFloat::AreEquals(v.x, this->x) && QFloat::AreEquals(v.y, this->y) );
-	}
-
-	/// <summary>
-	/// Compares two vectors.
-	/// </summary>
-	/// <param name="v">[IN] Vector with which to compare.</param>
-	/// <returns>
-	/// True if vectors are not the same, false otherwise.
-	/// </returns>
-	inline bool operator != (const QBaseVector2 &v) const
-	{
-        return QFloat::AreNotEquals(v.x, this->x) || QFloat::AreNotEquals(v.y, this->y);
-	}
-
 	// assignment operators
 
 	/// <summary>

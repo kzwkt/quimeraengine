@@ -47,15 +47,15 @@ public:
 	/// <summary>
 	/// Constructor that receives a pointer-to-FloatType. The pointer should point to a dynamically allocated 2-FloatTypes array.
 	/// </summary>
-	/// <param name="pValues">[IN] Pointer to array of floating point values. It must have at least two elements.</param>		
-	inline explicit QBaseVector2 (const float_q *pValues) 
-	{ 
+	/// <param name="pValues">[IN] Pointer to array of floating point values. It must have at least two elements.</param>
+	inline explicit QBaseVector2 (const float_q *pValues)
+	{
 		// Null pointer checkout
 		QE_ASSERT(pValues != null_q);
 
 		// Assignments
-		x = pValues[0]; 
-		y = pValues[1]; 
+		x = pValues[0];
+		y = pValues[1];
 	}
 
 	/// <summary>
@@ -68,6 +68,34 @@ public:
 		float_q aux;
 
 		QVF32::Unpack(vfValue, this->x, this->y, aux, aux);
+	}
+
+	// METHODS
+	// ---------------
+public:
+
+    /// <summary>
+	/// Equality operator. Compares two 2D vectors.
+	/// </summary>
+	/// <param name="v">[IN] Vector with which to compare.</param>
+	/// <returns>
+	/// True if vectors are the same, false otherwise.
+	/// </returns>
+	inline bool operator == (const QBaseVector2 &v) const
+	{
+        return ( QFloat::AreEquals(v.x, this->x) && QFloat::AreEquals(v.y, this->y) );
+	}
+
+	/// <summary>
+	/// Inequality operator. Compares two 2D vectors.
+	/// </summary>
+	/// <param name="v">[IN] Vector with which to compare.</param>
+	/// <returns>
+	/// True if vectors are not the same, false otherwise.
+	/// </returns>
+	inline bool operator != (const QBaseVector2 &v) const
+	{
+        return !(*this == v);
 	}
 
 	// ATTRIBUTES
