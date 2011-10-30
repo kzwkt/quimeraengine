@@ -57,6 +57,34 @@ public:
     D(vD)
     { }
 
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two quadrilaterals.
+    /// </summary>
+    /// <param name="quad">[IN] Quadrilateral with which to compare.</param>
+    /// <returns>
+    /// True if quadrilaterals are the same, false otherwise.
+    /// </returns>
+    inline bool operator == (const QBaseQuadrilateral &quad) const
+    {
+        return ( this->A == quad.A && this->B == quad.B && this->C == quad.C && this->D == quad.D );
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two quadrilaterals.
+    /// </summary>
+    /// <param name="quad">[IN] Quadrilateral with which to compare.</param>
+    /// <returns>
+    /// True if quadrilaterals are not the same, false otherwise.
+    /// </returns>
+    inline bool operator != (const QBaseQuadrilateral &quad) const
+    {
+        return !(*this == quad);
+    }
+
     // ATTRIBUTES
     // ---------------
 public:

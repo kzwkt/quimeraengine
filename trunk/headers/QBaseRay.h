@@ -45,6 +45,34 @@ public:
 	/// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
 	inline QBaseRay (const VectorTypePoint &vPoint, const VectorTypeDirection &vDirection) : Point(vPoint), Direction(vDirection)	{ }
 
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two rays.
+    /// </summary>
+    /// <param name="r">[IN] Ray with which to compare.</param>
+    /// <returns>
+    /// True if rays are the same, false otherwise.
+    /// </returns>
+    inline bool operator == (const QBaseRay<VectorTypePoint, VectorTypeDirection> &r) const
+    {
+        return ( this->Point == r.Point && this->Direction == r.Direction );
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two rays.
+    /// </summary>
+    /// <param name="r">[IN] Ray with which to compare.</param>
+    /// <returns>
+    /// True if rays are not the same, false otherwise.
+    /// </returns>
+    inline bool operator != (const QBaseRay<VectorTypePoint, VectorTypeDirection> &r) const
+    {
+        return !(*this == r);
+    }
+
 	// ATTRIBUTES
 	// ---------------
 public:

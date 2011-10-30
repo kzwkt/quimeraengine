@@ -24,8 +24,8 @@ class QVector3;
 class QVector4;
 
 /// <summary>
-/// Class which represents a segment of straight line in the space, defined by the points at both ends. 
-/// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter, 
+/// Class which represents a segment of straight line in the space, defined by the points at both ends.
+/// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter,
 /// which may be 2D vector, 3D vector or 4D vector.
 /// </summary>
 template <class VectorType>
@@ -48,11 +48,38 @@ public:
     /// <param name="vB">[IN] Vector to define end B.</param>
     inline QBaseLineSegment (const VectorType &vA, const VectorType &vB) : A(vA), B(vB)  { }
 
- 
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two line segments.
+    /// </summary>
+    /// <param name="ls">[IN] Line segment with which to compare.</param>
+    /// <returns>
+    /// True if line segments are the same, false otherwise.
+    /// </returns>
+    inline bool operator == (const QBaseLineSegment<VectorType> &ls) const
+    {
+        return ( this->A == ls.A && this->B == ls.B );
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two line segments.
+    /// </summary>
+    /// <param name="ls">[IN] Line segment with which to compare.</param>
+    /// <returns>
+    /// True if line segments are not the same, false otherwise.
+    /// </returns>
+    inline bool operator != (const QBaseLineSegment<VectorType> &ls) const
+    {
+        return !(*this == ls);
+    }
+
     // ATTRIBUTES
     // ---------------
 public:
-       
+
     /// <summary>
     /// Vector which represents a end of the segment.
     /// </summary>
