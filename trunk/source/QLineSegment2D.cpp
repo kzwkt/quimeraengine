@@ -680,6 +680,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             }
         }
     }
+    return EQIntersections::E_None;
 }
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vPoint1, QBaseVector2& vPoint2) const
