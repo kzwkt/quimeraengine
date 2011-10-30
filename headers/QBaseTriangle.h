@@ -24,11 +24,11 @@ class QVector3;
 class QVector4;
 
 /// <summary>
-/// Class which represents a triangle in the space. The triangle may be represented in 2D or 3D, 
-///	and using points or vectors, depending on the parameter of the template, which may be 
+/// Class which represents a triangle in the space. The triangle may be represented in 2D or 3D,
+///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
 /// </summary>
-template <class VectorType> 
+template <class VectorType>
 class QDllExport QBaseTriangle
 {
 
@@ -74,10 +74,38 @@ public:
 	/// <param name="vfValueC">[IN] 4x32 packed value which defines vertex C.</param>
 	inline QBaseTriangle (const vf32_q &vfValueA, const vf32_q &vfValueB, const vf32_q &vfValueC) : A(vfValueA), B(vfValueB), C(vfValueC)	{ }
 
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two triangles.
+    /// </summary>
+    /// <param name="t">[IN] Triangle with which to compare.</param>
+    /// <returns>
+    /// True if triangles are the same, false otherwise.
+    /// </returns>
+    inline bool operator == (const QBaseTriangle<VectorType> &t) const
+    {
+        return ( this->A == t.A && this->B == t.B && this->C == t.C );
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two triangles.
+    /// </summary>
+    /// <param name="t">[IN] Triangle with which to compare.</param>
+    /// <returns>
+    /// True if triangles are not the same, false otherwise.
+    /// </returns>
+    inline bool operator != (const QBaseTriangle<VectorType> &t) const
+    {
+        return !(*this == t);
+    }
+
 	// ATTRIBUTES
 	// ---------------
 public:
-	
+
 	/// <summary>
 	/// Vector which represents a vextex of the triangle.
 	/// </summary>

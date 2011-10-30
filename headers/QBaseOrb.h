@@ -18,10 +18,10 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a orb in the space, defined by its center point and radius. 
-/// Center point may be expressed as 2D or 3D point or vector, depending on the parameter of the template, 
+/// Class which represents a orb in the space, defined by its center point and radius.
+/// Center point may be expressed as 2D or 3D point or vector, depending on the parameter of the template,
 /// which may be 2D vector, 3D vector or 4D vector.
-/// Radius is expressed as a floating point value. 
+/// Radius is expressed as a floating point value.
 /// Remember that a orb is the locus of points equidistant from a given one.
 /// </summary>
 template <class VectorType>
@@ -38,18 +38,46 @@ public:
     inline QBaseOrb() : P(QFloat::_0), Radius(QFloat::_0) { }
 
     /// <summary>
-    /// Constructor from a vector which defines center point and a floating point value which 
+    /// Constructor from a vector which defines center point and a floating point value which
     /// defines the radius of the orb.
     /// </summary>
     /// <param name="vP">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] Floating point value to define the radius of the orb.</param>
     inline QBaseOrb(const VectorType &vP, const float_q &fRadius) : P(vP), Radius(fRadius) { }
 
- 
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two orbs.
+    /// </summary>
+    /// <param name="orb">[IN] Orb with which to compare.</param>
+    /// <returns>
+    /// True if orbs are the same, false otherwise.
+    /// </returns>
+    inline bool operator == (const QBaseOrb<VectorType> &orb) const
+    {
+        return ( this->P == orb.P && this->Radius == orb.Radius );
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two orbs.
+    /// </summary>
+    /// <param name="orb">[IN] Orb with which to compare.</param>
+    /// <returns>
+    /// True if orbs are not the same, false otherwise.
+    /// </returns>
+    inline bool operator != (const QBaseOrb<VectorType> &orb) const
+    {
+        return !(*this == orb);
+    }
+
+
     // ATTRIBUTES
     // ---------------
 public:
-       
+
     /// <summary>
     /// Vector which represents the center point of orb.
     /// </summary>

@@ -110,6 +110,35 @@ public:
         H.y = E.y;
     }
 
+    // METHODS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Equality operator. Compares two hexahedrons.
+    /// </summary>
+    /// <param name="hex">[IN] Hexahedron with which to compare.</param>
+    /// <returns>
+    /// True if hexahedrons are the same, false otherwise.
+    /// </returns>
+    inline bool operator == (const QBaseHexahedron<VectorType> &hex) const
+    {
+        return ( this->A == hex.A && this->B == hex.B && this->C == hex.C && this->D == hex.D &&
+                 this->E == hex.E && this->F == hex.F && this->G == hex.G && this->H == hex.H);
+    }
+
+    /// <summary>
+    /// Inequality operator. Compares two hexahedrons.
+    /// </summary>
+    /// <param name="hex">[IN] Hexahedron with which to compare.</param>
+    /// <returns>
+    /// True if hexahedrons are not the same, false otherwise.
+    /// </returns>
+    inline bool operator != (const QBaseHexahedron<VectorType> &hex) const
+    {
+        return !(*this == hex);
+    }
+
     // ATTRIBUTES
     // ---------------
 public:
