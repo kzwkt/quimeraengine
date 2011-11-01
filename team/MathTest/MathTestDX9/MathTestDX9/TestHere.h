@@ -22,14 +22,13 @@
 // To change the VectorType type, go to TestConfiguration.h and change the typedef statement.
 //
 
-void Test(float timeDelta)
+void Test(float fTimeDelta)
 {
-    VectorType v = VectorType::VectorOfOnes;
     // Planning
     OutputDebugStringW(L"Posing test...\n");
 
-    LineSegment3D1.A.x = 0.0f;    LineSegment3D1.A.y = 0.0f;    LineSegment3D1.A.z = 0.0f;
-    LineSegment3D1.B.x = 0.0f;    LineSegment3D1.B.y = 1.0f;    LineSegment3D1.B.z = 0.0f;
+    LineSegment3D1.A.x = -1.0f;    LineSegment3D1.A.y = 0.0f;    LineSegment3D1.A.z = 0.0f;
+    LineSegment3D1.B.x = -1.0f;    LineSegment3D1.B.y = 1.0f;    LineSegment3D1.B.z = 0.0f;
 
     LineSegment3D2.A.x = 1.0f;    LineSegment3D2.A.y = 0.0f;    LineSegment3D2.A.z = 0.0f;
     LineSegment3D2.B.x = 1.0f;    LineSegment3D2.B.y = 1.0f;    LineSegment3D2.B.z = 0.0f;
@@ -50,7 +49,6 @@ void Test(float timeDelta)
     Hexahedron1.F.x = 0.5f;  Hexahedron1.F.y = 0.5f;  Hexahedron1.F.z = -0.5f;
     Hexahedron1.G.x = 0.5f;  Hexahedron1.G.y = -0.5f; Hexahedron1.G.z = -0.5f;
     Hexahedron1.H.x = 0.5f;  Hexahedron1.H.y = -0.5f; Hexahedron1.H.z = 0.5f;
-    Hexahedron1.Translate(2.0f, 0.0f, 0.0f);
 
     Hexahedron2.A.x = -0.5f; Hexahedron2.A.y = 0.5f;  Hexahedron2.A.z = 0.5f;
     Hexahedron2.B.x = -0.5f; Hexahedron2.B.y = 0.5f;  Hexahedron2.B.z = -0.5f;
@@ -60,11 +58,20 @@ void Test(float timeDelta)
     Hexahedron2.F.x = 0.5f;  Hexahedron2.F.y = 0.5f;  Hexahedron2.F.z = -0.5f;
     Hexahedron2.G.x = 0.5f;  Hexahedron2.G.y = -0.5f; Hexahedron2.G.z = -0.5f;
     Hexahedron2.H.x = 0.5f;  Hexahedron2.H.y = -0.5f; Hexahedron2.H.z = 0.5f;
-    Hexahedron2.Translate(2.0f, 0.0f, 2.0f);
 
     // Test
     OutputDebugStringW(L"Executing test...\n");
 
+    // Hexahedron animated rotation sample
+    static float_q fRotationY = 0.0f;
+    fRotationY += fTimeDelta;
+    Hexahedron1.Rotate(QQuaternion(0.0f, fRotationY, 0.0f));
+    Hexahedron1.Translate(2.0f, 0.0f, 0.0f);
+
+    // Hexahedron translation sample
+    Hexahedron2.Translate(2.0f, 0.0f, 2.0f);
+
+    // Log (see output window)
     OutputDebugStringW(LineSegment3D1.ToString().c_str()); OutputDebugStringW(L"\n");
     OutputDebugStringW(LineSegment3D2.ToString().c_str()); OutputDebugStringW(L"\n");
 

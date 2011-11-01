@@ -362,6 +362,62 @@ bool Display(float timeDelta)
 		Draw(0.5f, 0.5f, 0.5f);
 
 #endif
+
+        // Axis
+        // ----------
+        // X
+        if( SUCCEEDED( pVertex->Lock(0, 0, (void**)&pV, D3DLOCK_DISCARD) ) )
+        {
+            pV[0].x = -20.0f; pV[0].y = 0.001f;  pV[0].z = 0.001f;
+            pV[1].x = -20.0f; pV[1].y = 0.001f;  pV[1].z = -0.001f;
+            pV[2].x = -20.0f; pV[2].y = -0.001f; pV[2].z = -0.001f;
+            pV[3].x = -20.0f; pV[3].y = -0.001f; pV[3].z = 0.001f;
+            pV[4].x = 20.0f;  pV[4].y = 0.001f;  pV[4].z = 0.001f;
+            pV[5].x = 20.0f;  pV[5].y = 0.001f;  pV[5].z = -0.001f;
+            pV[6].x = 20.0f;  pV[6].y = -0.001f; pV[6].z = -0.001f;
+            pV[7].x = 20.0f;  pV[7].y = -0.001f; pV[7].z = 0.001f;
+            
+            pVertex->Unlock();
+        }
+
+        Draw(1.0f, 0.0f, 0.0f);
+
+        // Y
+        if( SUCCEEDED( pVertex->Lock(0, 0, (void**)&pV, D3DLOCK_DISCARD) ) )
+        {
+            pV[0].x = -0.001f; pV[0].y = 20.0f;  pV[0].z = 0.001f;
+            pV[1].x = -0.001f; pV[1].y = 20.0f;  pV[1].z = -0.001f;
+            pV[2].x = -0.001f; pV[2].y = -20.0f; pV[2].z = -0.001f;
+            pV[3].x = -0.001f; pV[3].y = -20.0f; pV[3].z = 0.001f;
+            pV[4].x = 0.001f;  pV[4].y = 20.0f;  pV[4].z = 0.001f;
+            pV[5].x = 0.001f;  pV[5].y = 20.0f;  pV[5].z = -0.001f;
+            pV[6].x = 0.001f;  pV[6].y = -20.0f; pV[6].z = -0.001f;
+            pV[7].x = 0.001f;  pV[7].y = -20.0f; pV[7].z = 0.001f;
+            
+            pVertex->Unlock();
+        }
+
+        Draw(1.0f, 0.0f, 0.0f);
+
+        // Z
+        if( SUCCEEDED( pVertex->Lock(0, 0, (void**)&pV, D3DLOCK_DISCARD) ) )
+        {
+            pV[0].x = -0.001f; pV[0].y = 0.001f;  pV[0].z = 20.0f;
+            pV[1].x = -0.001f; pV[1].y = 0.001f;  pV[1].z = -20.0f;
+            pV[2].x = -0.001f; pV[2].y = -0.001f; pV[2].z = -20.0f;
+            pV[3].x = -0.001f; pV[3].y = -0.001f; pV[3].z = 20.0f;
+            pV[4].x = 0.001f;  pV[4].y = 0.001f;  pV[4].z = 20.0f;
+            pV[5].x = 0.001f;  pV[5].y = 0.001f;  pV[5].z = -20.0f;
+            pV[6].x = 0.001f;  pV[6].y = -0.001f; pV[6].z = -20.0f;
+            pV[7].x = 0.001f;  pV[7].y = -0.001f; pV[7].z = 20.0f;
+            
+            pVertex->Unlock();
+        }
+
+		Draw(1.0f, 0.0f, 0.0f);
+
+
+
 		Table.Draw(Device);
 
 		Device->EndScene();
