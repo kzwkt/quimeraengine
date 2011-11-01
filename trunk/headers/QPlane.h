@@ -1148,6 +1148,106 @@ public:
     }
 
     /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// </summary>
+    /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const QVector3 &vPivot)
+    {
+        this->TransformFromPivotImp(mTransf, vPivot);
+    }
+
+    /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// </summary>
+    /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const QVector4 &vPivot)
+    {
+        this->TransformFromPivotImp(mTransf, vPivot);
+    }
+
+    /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <param name="outPlane">[OUT] The transformed plane.</param>
+    inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
+    {
+        outPlane = *this;
+        reinterpret_cast<QPlane &>(outPlane).TransformFromPivot(mTransf, vPivot);
+    }
+
+    /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <param name="outPlane">[OUT] The transformed plane.</param>
+    inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
+    {
+        outPlane = *this;
+        reinterpret_cast<QPlane &>(outPlane).TransformFromPivot(mTransf, vPivot);
+    }
+
+    /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// </summary>
+    /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const QVector3 &vPivot)
+    {
+        this->TransformFromPivotImp(mTransf, vPivot);
+    }
+
+    /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// </summary>
+    /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const QVector4 &vPivot)
+    {
+        this->TransformFromPivotImp(mTransf, vPivot);
+    }
+
+    /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <param name="outPlane">[OUT] The transformed plane.</param>
+    inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
+    {
+        outPlane = *this;
+        reinterpret_cast<QPlane &>(outPlane).TransformFromPivot(mTransf, vPivot);
+    }
+
+    /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <param name="outPlane">[OUT] The transformed plane.</param>
+    inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
+    {
+        outPlane = *this;
+        reinterpret_cast<QPlane &>(outPlane).TransformFromPivot(mTransf, vPivot);
+    }
+
+    /// <summary>
     /// Converts plane into a string with the following format:
     /// "PL(a, b, c, d)".
     /// </summary>
@@ -1268,6 +1368,19 @@ protected:
         this->Translate(vPivot);
     }
 
+    // <summary>
+    // Applies the transformation contained in the provided matrix to the resident plane
+    // around the given point, that acts as pivot of transformation.
+    // </summary>
+    // <param name="mTransf">[IN] A [4x3] or [4x4] matrix containing the transformation to be applied.</param>
+    // <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    template <class MatrixType, class VectorType>
+    inline void TransformFromPivotImp(const MatrixType &mTransf, const VectorType &vPivot)
+    {
+        this->Translate(-vPivot);
+        this->Transform(mTransf);
+        this->Translate(vPivot);
+    }
 };
 
 
