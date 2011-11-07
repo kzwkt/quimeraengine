@@ -28,7 +28,7 @@ public:
     /// <summary>
     /// Stores an identity matrix.
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    /// 
+    ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
     ///
     /// </summary>
@@ -50,14 +50,14 @@ public:
     /// Constructor from a 3x3 matrix.
     /// </summary>
     /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a transformation matrix, 
+    /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="m">[IN] The matrix in which we want the resident matrix to be based.</param>
     inline explicit QTransformationMatrix3x3(const QBaseMatrix3x3 &m) : QMatrix3x3(m) { }
 
     /// <summary>
-    /// Constructor from a 2D vector which stores a scale, a floating point value which stores a rotation 
+    /// Constructor from a 2D vector which stores a scale, a floating point value which stores a rotation
     /// and a 2D vector which stores a translation.
     /// </summary>
     /// <param name="vDisp">[IN] Vector with the displacement values.</param>
@@ -89,7 +89,7 @@ public:
     /// <param name="fOutRot">[OUT] Floating point variable to store the angle of rotation.</param>
     /// <param name="vOutScale">[OUT] A 2D vector to store the scale.</param>
     void Decompose (QBaseVector2 &vOutDisp, float_q &fOutRot, QBaseVector2 &vOutScale) const;
-    
+
     /// <summary>
     /// Extracts the displacement components from the matrix.
     /// </summary>
@@ -101,7 +101,7 @@ public:
     }
 
     /// <summary>
-    /// Extracts the rotation angle from the transformation matrix. 
+    /// Extracts the rotation angle from the transformation matrix.
     /// </summary>
     /// <param name="fOutRot">[OUT] Floating point variable to store the angle of rotation.</param>
     inline void GetRotation (float_q &fOutRot) const
@@ -114,7 +114,7 @@ public:
         const float_q &fCosRot = this->ij[0][0]/fScale;
 
         // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
-        QE_ASSERT(abs(fCosRot) <= QFloat::_1);
+        QE_ASSERT(QFloat::Abs(fCosRot) <= QFloat::_1);
 
         fOutRot = acos(fCosRot);
 

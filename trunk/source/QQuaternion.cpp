@@ -152,9 +152,9 @@ QQuaternion QQuaternion::operator*(const QBaseQuaternion &qQuat) const
 
 QQuaternion QQuaternion::operator*(const float_q &fScalar) const
 {
-    return QQuaternion( this->x * fScalar, 
+    return QQuaternion( this->x * fScalar,
                         this->y * fScalar,
-                        this->z * fScalar, 
+                        this->z * fScalar,
                         this->w * fScalar);
 }
 
@@ -185,9 +185,9 @@ QQuaternion QQuaternion::operator/(const float_q &fScalar) const
 {
     QE_ASSERT(fScalar != QFloat::_0);
 
-    return QQuaternion( this->x / fScalar, 
-                        this->y / fScalar, 
-                        this->z / fScalar, 
+    return QQuaternion( this->x / fScalar,
+                        this->y / fScalar,
+                        this->z / fScalar,
                         this->w / fScalar);
 }
 
@@ -221,7 +221,7 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
 
     // [TODO] Thund: Should we fix this or leave it in an erroneous state?
     QE_ASSERT( !QFloat::IsNaN(fAngleB) );
-        
+
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
     // [TODO] Thund: Should we return a null quaternion instead of let the application crash? In other words, "show must go on"?
     QE_ASSERT( fAngleB != QFloat::_0 && QFloat::AreNotEquals(fAngleB, PI_Q) );
@@ -250,7 +250,7 @@ void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fPropor
 
     // [TODO] Thund: Should we fix this or leave it in an erroneous state?
     QE_ASSERT( !QFloat::IsNaN(fAngleB) );
-        
+
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
     // [TODO] Thund: Should we return a null quaternion instead of let the application crash? In other words, "show must go on"?
     QE_ASSERT( fAngleB != QFloat::_0 && QFloat::AreNotEquals(fAngleB, PI_Q) );
@@ -276,31 +276,31 @@ void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fPropor
 void QQuaternion::ToAxisAngle(QBaseVector3 &vAxis, float_q &fAngle) const
 {
    // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-	QE_ASSERT(abs(this->w) <= QFloat::_1);
+	QE_ASSERT(QFloat::Abs(this->w) <= QFloat::_1);
 
 	fAngle = QFloat::_2 * acos(this->w);
 
 	// Singularity 1: Angle = 0 -> we choose arbitrary axis.
-	if (QFloat::IsZero(fAngle)) 
+	if (QFloat::IsZero(fAngle))
 	{
 		vAxis.x = QFloat::_1;
 		vAxis.y = QFloat::_0;
 		vAxis.z = QFloat::_0;
 	}
 	// Singularity 2: Angle = PI -> we calculate axis.
-	else if ( QFloat::AreEquals(fAngle, QAngle::_Pi) ) 
+	else if ( QFloat::AreEquals(fAngle, QAngle::_Pi) )
 	{
 		vAxis.x = this->x;
 		vAxis.y = this->y;
-		vAxis.z = this->z;		
+		vAxis.z = this->z;
 	}
 	else
 	{
 		const float_q &fInvSin = QFloat::_1/sin(fAngle*QFloat::_0_5);
-		
+
 		vAxis.x = this->x*fInvSin;
 		vAxis.y = this->y*fInvSin;
-		vAxis.z = this->z*fInvSin;		
+		vAxis.z = this->z*fInvSin;
 	}
 
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES

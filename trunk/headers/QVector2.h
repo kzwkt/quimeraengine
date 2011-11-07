@@ -483,7 +483,7 @@ public:
 		//				 2) Replace the two conditional branches and then use Clamp funcion, once this is defined
 		//					as a non-member function.
 		///////////////////////////////////////////////////////////////////
-        QE_ASSERT(abs(fDot) <= QFloat::_1);
+        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
 
 		if ( QFloat::IsGreaterOrEquals(fDot, __CURRENT_COS_MAX_RANGE__) )
 		{

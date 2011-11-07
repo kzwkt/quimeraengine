@@ -595,7 +595,7 @@ public:
         float_q fDot = (this->x*v.x + this->y*v.y + this->z*v.z)/fLength;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(abs(fDot) <= QFloat::_1);
+        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
 
         float_q fAngle = acos(fDot);
 
