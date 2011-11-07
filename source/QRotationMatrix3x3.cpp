@@ -295,7 +295,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q
 
     if ( QFloat::IsLessThan(this->ij[2][0], diff) )
     {
-        if ( QFloat::IsGreaterThan(this->ij[2][0], -diff )) 
+        if ( QFloat::IsGreaterThan(this->ij[2][0], -diff ))
         {
 
             // Checkout ij[2][0] <= 1 not needed :)
@@ -360,7 +360,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
     const float_q &cosAux = (this->ij[0][0] + this->ij[1][1] + this->ij[2][2] - QFloat::_1) * QFloat::_0_5;
 
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-    QE_ASSERT( abs(cosAux) <= QFloat::_1 );
+    QE_ASSERT( QFloat::Abs(cosAux) <= QFloat::_1 );
 
     fAngle = acos(cosAux);
 

@@ -220,7 +220,7 @@ protected:
 		float_q fCos = vtU.DotProduct(vtV) / (fLengthU * fLengthV);
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(abs(fCos) <= QFloat::_1);
+        QE_ASSERT(QFloat::Abs(fCos) <= QFloat::_1);
 
 		float_q fAngle = acos(fCos);
 

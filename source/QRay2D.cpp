@@ -917,7 +917,7 @@ bool QRay2D::Intersection (const QBaseLineSegment2 &ls) const
         {
             const float_q &fNumerator2 = this->Direction.x * (this->Point.y - ls.A.y) + this->Direction.y * (ls.A.x - this->Point.x);
             if ( ( QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator2) &&
-                   QFloat::IsGreaterOrEquals(fabs(fDenominator), fabs(fNumerator2)) ) || QFloat::IsZero(fNumerator2) )
+                   QFloat::IsGreaterOrEquals(QFloat::Abs(fDenominator), QFloat::Abs(fNumerator2)) ) || QFloat::IsZero(fNumerator2) )
                 return true;
             else
                 return false;
@@ -970,7 +970,7 @@ EQIntersections QRay2D::IntersectionPoint (const QBaseLineSegment2 &ls, QBaseVec
         {
             const float_q &fNumerator2 = this->Direction.x * (this->Point.y - ls.A.y) + this->Direction.y * (ls.A.x - this->Point.x);
             if ( ( QFloat::IsNegative(fDenominator) == QFloat::IsNegative(fNumerator2) &&
-                   QFloat::IsGreaterOrEquals(fabs(fDenominator), fabs(fNumerator2)) ) || QFloat::IsZero(fNumerator2) )
+                   QFloat::IsGreaterOrEquals(QFloat::Abs(fDenominator), QFloat::Abs(fNumerator2)) ) || QFloat::IsZero(fNumerator2) )
             {
                 vPoint = this->Point + (fNumerator1/fDenominator) * this->Direction;
                 return EQIntersections::E_One;

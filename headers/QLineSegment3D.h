@@ -1504,8 +1504,8 @@ public:
 
         const float_q &fInvNormalLenght = QFloat::_1/sqrt(fSquaredLength);
 
-        const float_q &distA = abs(p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d) * fInvNormalLenght;
-        const float_q &distB = abs(p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d) * fInvNormalLenght;
+        const float_q &distA = QFloat::Abs(p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d) * fInvNormalLenght;
+        const float_q &distB = QFloat::Abs(p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d) * fInvNormalLenght;
 
         return std::max(distA, distB);
     }
@@ -1556,8 +1556,8 @@ public:
 
         const float_q &fInvNormalLenght = QFloat::_1/sqrt(fSquaredLength);
 
-        const float_q &distA = abs(p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d) * fInvNormalLenght;
-        const float_q &distB = abs(p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d) * fInvNormalLenght;
+        const float_q &distA = QFloat::Abs(p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d) * fInvNormalLenght;
+        const float_q &distB = QFloat::Abs(p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d) * fInvNormalLenght;
 
         return std::min(distA, distB);
     }

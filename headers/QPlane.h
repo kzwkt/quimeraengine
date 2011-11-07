@@ -338,7 +338,7 @@ public:
         const float_q &fDot = this->DotProduct(p)/fDotLength;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(abs(fDot) <= QFloat::_1);
+        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
 
         const float_q &fAngle = acos(fDot);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -430,7 +430,7 @@ public:
 
         QE_ASSERT(fLength != QFloat::_0);
 
-        return fabs(this->a * v.x + this->b * v.y + this->c * v.z + this->d)/fLength;
+        return QFloat::Abs(this->a * v.x + this->b * v.y + this->c * v.z + this->d)/fLength;
     }
 
 
@@ -1285,7 +1285,7 @@ protected:
         const float_q &fDot = this->DotProduct(v)/fDotLength;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(abs(fDot) <= QFloat::_1);
+        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
 
         const float_q &fAngle = acos(fDot);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
