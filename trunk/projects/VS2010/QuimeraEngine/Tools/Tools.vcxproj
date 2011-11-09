@@ -132,7 +132,10 @@
     <ClInclude Include="..\..\..\..\headers\QBaseTriangle.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector2.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
+    <ClInclude Include="..\..\..\..\headers\QBoolean.h" />
+    <ClInclude Include="..\..\..\..\headers\QCircle.h" />
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
+    <ClInclude Include="..\..\..\..\headers\QHexahedron.h" />
     <ClInclude Include="..\..\..\..\headers\QInteger.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment2D.h" />
@@ -145,6 +148,7 @@
     <ClInclude Include="..\..\..\..\headers\QFloat.h" />
     <ClInclude Include="..\..\..\..\headers\QOrb.h" />
     <ClInclude Include="..\..\..\..\headers\QPlane.h" />
+    <ClInclude Include="..\..\..\..\headers\QPoint.h" />
     <ClInclude Include="..\..\..\..\headers\QQuadrilateral.h" />
     <ClInclude Include="..\..\..\..\headers\QQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector4.h" />
@@ -167,6 +171,8 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\EQIntersections.cpp" />
     <ClCompile Include="..\..\..\..\source\EQSpaceRelation.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBoolean.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCircle.cpp" />
     <ClCompile Include="..\..\..\..\source\QDualQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QLineSegment2D.cpp" />
     <ClCompile Include="..\..\..\..\source\QMatrix2x2.cpp" />
@@ -177,6 +183,7 @@
     <ClCompile Include="..\..\..\..\source\QAngle.cpp" />
     <ClCompile Include="..\..\..\..\source\QFloat.cpp" />
     <ClCompile Include="..\..\..\..\source\QPlane.cpp" />
+    <ClCompile Include="..\..\..\..\source\QQuadrilateral.cpp" />
     <ClCompile Include="..\..\..\..\source\QQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QRay2D.cpp" />
     <ClCompile Include="..\..\..\..\source\QRotationMatrix3x3.cpp" />
