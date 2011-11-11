@@ -58,7 +58,7 @@ public:
     /// </returns>
     inline bool operator == (const QBaseOrb<VectorType> &orb) const
     {
-        return ( this->P == orb.P && this->Radius == orb.Radius );
+        return this->P == orb.P && QFloat::AreEquals(this->Radius, orb.Radius);
     }
 
     /// <summary>

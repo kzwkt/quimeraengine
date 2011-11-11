@@ -1898,7 +1898,7 @@ protected:
         const float_q &fV = (fDot00 * fDot12 - fDot01 * fDot02) * fInvDenom;
 
         // Check if point is in triangle
-        return (fU >= QFloat::_0) && (fV >= QFloat::_0) && (fU + fV <= QFloat::_1);
+        return QFloat::IsPositive(fU) && QFloat::IsPositive(fV) && QFloat::IsLowerOrEquals(fU + fV, QFloat::_1);
     }
 
     // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
@@ -1930,7 +1930,7 @@ protected:
         const float_q &fV = (fDot00 * fDot12 - fDot01 * fDot02) * fInvDenom;
 
         // Check if point is in triangle
-        if ( (fU >= QFloat::_0) && (fV >= QFloat::_0) && (fU + fV <= QFloat::_1) )
+        if ( QFloat::IsPositive(fU) && QFloat::IsPositive(fV) && QFloat::IsLowerOrEquals(fU + fV, QFloat::_1) )
             return true;
 
         // Compute new vector
@@ -1952,7 +1952,7 @@ protected:
         const float_q &fV2 = (fDot00 * fDot32 - fDot03 * fDot02) * fInvDenom2;
 
         // Check if point is in triangle
-        return  (fU2 >= QFloat::_0) && (fV2 >= QFloat::_0) && (fU2 + fV2 <= QFloat::_1);
+        return QFloat::IsPositive(fU2) && QFloat::IsPositive(fV2) && QFloat::IsLowerOrEquals(fU2 + fV2, QFloat::_1);
     }
 
     // Calculates if two points are in the same side of a plane defined by 3 points.
