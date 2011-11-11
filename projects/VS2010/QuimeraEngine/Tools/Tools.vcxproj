@@ -154,6 +154,7 @@
     <ClInclude Include="..\..\..\..\headers\QBaseVector4.h" />
     <ClInclude Include="..\..\..\..\headers\QRay.h" />
     <ClInclude Include="..\..\..\..\headers\QRay2D.h" />
+    <ClInclude Include="..\..\..\..\headers\QRay3D.h" />
     <ClInclude Include="..\..\..\..\headers\QRotationMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QScaleMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QSpaceConversionMatrix.h" />
