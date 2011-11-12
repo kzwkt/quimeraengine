@@ -1784,7 +1784,7 @@ public:
     /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
     /// <param name="vPivot">[IN] A 3D or 4D point we want to act as pivot of transformation.</param>
     template <class MatrixType>
-    inline void TransformFromPivot (const MatrixType &m, const VectorType &vPivot)
+    inline void TransformWithPivot (const MatrixType &m, const VectorType &vPivot)
     {
         this->A -= vPivot;
         this->B -= vPivot;
@@ -1806,10 +1806,10 @@ public:
     /// <param name="vPivot">[IN] A 3D or 4D point we want to act as pivot of transformation.</param>
     /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
     template <class MatrixType>
-    inline void TransformFromPivot (const MatrixType &m, const VectorType &vPivot, QBaseLineSegment<VectorType> &ls) const
+    inline void TransformWithPivot (const MatrixType &m, const VectorType &vPivot, QBaseLineSegment<VectorType> &ls) const
     {
         ls = *this;
-        reinterpret_cast<QLineSegment3D<VectorType> &> (ls).TransformFromPivot(m, vPivot);
+        reinterpret_cast<QLineSegment3D<VectorType> &> (ls).TransformWithPivot(m, vPivot);
     }
 
     /// <summary>

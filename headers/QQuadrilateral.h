@@ -411,9 +411,9 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	inline void RotateFromPivot (const float_q &fRotationAngle, const QVector2 &vPivot)
+	inline void RotateWithPivot (const float_q &fRotationAngle, const QVector2 &vPivot)
 	{
-	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	    QPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -426,10 +426,10 @@ public:
 	/// <remarks>
 	/// The quadrilateral is NOT modified, it stays the same.
 	/// </remarks>
-	inline void RotateFromPivot (const float_q &fRotationAngle, const QVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	inline void RotateWithPivot (const float_q &fRotationAngle, const QVector2 &vPivot, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    QPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -438,9 +438,9 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
 	{
-	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	    QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -450,9 +450,9 @@ public:
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
+	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
 	{
-	     QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	     QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -462,10 +462,10 @@ public:
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
-	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -476,10 +476,10 @@ public:
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
-	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 
@@ -489,9 +489,9 @@ public:
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
-	inline void TransformFromPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot)
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot)
 	{
-	    QPoint::TransformFromPivot(matrix, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	    QPoint::TransformWithPivot(matrix, vPivot, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -502,10 +502,10 @@ public:
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
 	/// <param name="quadOut">[OUT] Quadrilateral that stores the result of the transformation.</param>
-	inline void TransformFromPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::TransformFromPivot(matrix, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    QPoint::TransformWithPivot(matrix, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
     /// <summary>

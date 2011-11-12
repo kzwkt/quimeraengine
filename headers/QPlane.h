@@ -894,9 +894,9 @@ public:
     /// </summary>
     /// <param name="qRot">[IN] A quaternion containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
-    inline void RotateFromPivot(const QQuaternion &qRot, const QVector3 &vPivot)
+    inline void RotateWithPivot(const QQuaternion &qRot, const QVector3 &vPivot)
     {
-        this->RotateFromPivotImp(qRot, vPivot);
+        this->RotateWithPivotImp(qRot, vPivot);
     }
 
     /// <summary>
@@ -905,25 +905,11 @@ public:
     /// </summary>
     /// <param name="qRot">[IN] A quaternion containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
-    inline void RotateFromPivot(const QQuaternion &qRot, const QVector4 &vPivot)
+    inline void RotateWithPivot(const QQuaternion &qRot, const QVector4 &vPivot)
     {
-        this->RotateFromPivotImp(qRot, vPivot);
+        this->RotateWithPivotImp(qRot, vPivot);
     }
 
-
-    /// <summary>
-    /// Applies the rotation contained in the provided quaternion to the resident plane
-    /// around the given point, that acts as pivot of rotation.
-    /// The resultant plane is stored in the output parameter provided.
-    /// </summary>
-    /// <param name="qRot">[IN] A quaternion containing the rotation to be applied.</param>
-    /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
-    /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void RotateFromPivot(const QQuaternion &qRot, const QVector3 &vPivot, QBasePlane &outPlane) const
-    {
-        outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).RotateFromPivot(qRot, vPivot);
-    }
 
     /// <summary>
     /// Applies the rotation contained in the provided quaternion to the resident plane
@@ -933,10 +919,24 @@ public:
     /// <param name="qRot">[IN] A quaternion containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void RotateFromPivot(const QQuaternion &qRot, const QVector4 &vPivot, QBasePlane &outPlane) const
+    inline void RotateWithPivot(const QQuaternion &qRot, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).RotateFromPivot(qRot, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).RotateWithPivot(qRot, vPivot);
+    }
+
+    /// <summary>
+    /// Applies the rotation contained in the provided quaternion to the resident plane
+    /// around the given point, that acts as pivot of rotation.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="qRot">[IN] A quaternion containing the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
+    /// <param name="outPlane">[OUT] The rotated plane.</param>
+    inline void RotateWithPivot(const QQuaternion &qRot, const QVector4 &vPivot, QBasePlane &outPlane) const
+    {
+        outPlane = *this;
+        reinterpret_cast<QPlane &>(outPlane).RotateWithPivot(qRot, vPivot);
     }
 
     /// <summary>
@@ -945,9 +945,9 @@ public:
     /// </summary>
     /// <param name="mRot">[IN] A [3x3] matrix containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
-    inline void RotateFromPivot(const QRotationMatrix3x3 &mRot, const QVector3 &vPivot)
+    inline void RotateWithPivot(const QRotationMatrix3x3 &mRot, const QVector3 &vPivot)
     {
-        this->RotateFromPivotImp(mRot, vPivot);
+        this->RotateWithPivotImp(mRot, vPivot);
     }
 
     /// <summary>
@@ -956,9 +956,9 @@ public:
     /// </summary>
     /// <param name="mRot">[IN] A [3x3] matrix containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
-    inline void RotateFromPivot(const QRotationMatrix3x3 &mRot, const QVector4 &vPivot)
+    inline void RotateWithPivot(const QRotationMatrix3x3 &mRot, const QVector4 &vPivot)
     {
-        this->RotateFromPivotImp(mRot, vPivot);
+        this->RotateWithPivotImp(mRot, vPivot);
     }
 
     /// <summary>
@@ -969,10 +969,10 @@ public:
     /// <param name="mRot">[IN] A [3x3] matrix containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void RotateFromPivot(const QRotationMatrix3x3 &mRot, const QVector3 &vPivot, QBasePlane &outPlane) const
+    inline void RotateWithPivot(const QRotationMatrix3x3 &mRot, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).RotateFromPivot(mRot, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).RotateWithPivot(mRot, vPivot);
     }
 
     /// <summary>
@@ -983,10 +983,10 @@ public:
     /// <param name="mRot">[IN] A [3x3] matrix containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void RotateFromPivot(const QRotationMatrix3x3 &mRot, const QVector4 &vPivot, QBasePlane &outPlane) const
+    inline void RotateWithPivot(const QRotationMatrix3x3 &mRot, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).RotateFromPivot(mRot, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).RotateWithPivot(mRot, vPivot);
     }
 
     /// <summary>
@@ -995,9 +995,9 @@ public:
     /// </summary>
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    inline void ScaleFromPivot(const QBaseVector3 &vScale, const QVector3 &vPivot)
+    inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector3 &vPivot)
     {
-        this->ScaleFromPivotImp(vScale, vPivot);
+        this->ScaleWithPivotImp(vScale, vPivot);
     }
 
     /// <summary>
@@ -1006,9 +1006,9 @@ public:
     /// </summary>
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    inline void ScaleFromPivot(const QBaseVector3 &vScale, const QVector4 &vPivot)
+    inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector4 &vPivot)
     {
-        this->ScaleFromPivotImp(vScale, vPivot);
+        this->ScaleWithPivotImp(vScale, vPivot);
     }
 
     /// <summary>
@@ -1019,10 +1019,10 @@ public:
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void ScaleFromPivot(const QBaseVector3 &vScale, const QVector3 &vPivot, QBasePlane &outPlane) const
+    inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleFromPivot(vScale, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(vScale, vPivot);
     }
 
     /// <summary>
@@ -1033,10 +1033,10 @@ public:
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void ScaleFromPivot(const QBaseVector3 &vScale, const QVector4 &vPivot, QBasePlane &outPlane) const
+    inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleFromPivot(vScale, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(vScale, vPivot);
     }
 
     /// <summary>
@@ -1047,9 +1047,9 @@ public:
     /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot)
+    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot)
     {
-        this->ScaleFromPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
+        this->ScaleWithPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
     }
 
     /// <summary>
@@ -1060,25 +1060,9 @@ public:
     /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot)
+    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot)
     {
-        this->ScaleFromPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
-    }
-
-    /// <summary>
-    /// Scales the resident plane by the provided amounts for every axis,
-    /// acting the given point as pivot of scale.
-    /// The resultant plane is stored in the output parameter provided.
-    /// </summary>
-    /// <param name="fScaleX">[IN] Amount of scale to be applied in X direction.</param>
-    /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
-    /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
-    /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot, QBasePlane &outPlane) const
-    {
-        outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleFromPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+        this->ScaleWithPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
     }
 
     /// <summary>
@@ -1091,10 +1075,26 @@ public:
     /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot, QBasePlane &outPlane) const
+    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleFromPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+    }
+
+    /// <summary>
+    /// Scales the resident plane by the provided amounts for every axis,
+    /// acting the given point as pivot of scale.
+    /// The resultant plane is stored in the output parameter provided.
+    /// </summary>
+    /// <param name="fScaleX">[IN] Amount of scale to be applied in X direction.</param>
+    /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
+    /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <param name="outPlane">[OUT] The rotated plane.</param>
+    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot, QBasePlane &outPlane) const
+    {
+        outPlane = *this;
+        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
     }
 
     /// <summary>
@@ -1103,9 +1103,9 @@ public:
     /// </summary>
     /// <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    inline void ScaleFromPivot(const QScaleMatrix3x3 &mScale, const QVector3 &vPivot)
+    inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector3 &vPivot)
     {
-        this->ScaleFromPivotImp(mScale, vPivot);
+        this->ScaleWithPivotImp(mScale, vPivot);
     }
 
     /// <summary>
@@ -1114,9 +1114,9 @@ public:
     /// </summary>
     /// <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    inline void ScaleFromPivot(const QScaleMatrix3x3 &mScale, const QVector4 &vPivot)
+    inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector4 &vPivot)
     {
-        this->ScaleFromPivotImp(mScale, vPivot);
+        this->ScaleWithPivotImp(mScale, vPivot);
     }
 
     /// <summary>
@@ -1127,10 +1127,10 @@ public:
     /// <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void ScaleFromPivot(const QScaleMatrix3x3 &mScale, const QVector3 &vPivot, QBasePlane &outPlane) const
+    inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleFromPivot(mScale, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(mScale, vPivot);
     }
 
     /// <summary>
@@ -1141,10 +1141,10 @@ public:
     /// <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
-    inline void ScaleFromPivot(const QScaleMatrix3x3 &mScale, const QVector4 &vPivot, QBasePlane &outPlane) const
+    inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleFromPivot(mScale, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(mScale, vPivot);
     }
 
     /// <summary>
@@ -1153,9 +1153,9 @@ public:
     /// </summary>
     /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
-    inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const QVector3 &vPivot)
+    inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const QVector3 &vPivot)
     {
-        this->TransformFromPivotImp(mTransf, vPivot);
+        this->TransformWithPivotImp(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1164,9 +1164,9 @@ public:
     /// </summary>
     /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
-    inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const QVector4 &vPivot)
+    inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const QVector4 &vPivot)
     {
-        this->TransformFromPivotImp(mTransf, vPivot);
+        this->TransformWithPivotImp(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1177,10 +1177,10 @@ public:
     /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <param name="outPlane">[OUT] The transformed plane.</param>
-    inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
+    inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).TransformFromPivot(mTransf, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).TransformWithPivot(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1191,10 +1191,10 @@ public:
     /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <param name="outPlane">[OUT] The transformed plane.</param>
-    inline void TransformFromPivot(const QTransformationMatrix4x3 &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
+    inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).TransformFromPivot(mTransf, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).TransformWithPivot(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1203,9 +1203,9 @@ public:
     /// </summary>
     /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
-    inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const QVector3 &vPivot)
+    inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const QVector3 &vPivot)
     {
-        this->TransformFromPivotImp(mTransf, vPivot);
+        this->TransformWithPivotImp(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1214,9 +1214,9 @@ public:
     /// </summary>
     /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
-    inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const QVector4 &vPivot)
+    inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const QVector4 &vPivot)
     {
-        this->TransformFromPivotImp(mTransf, vPivot);
+        this->TransformWithPivotImp(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1227,10 +1227,10 @@ public:
     /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <param name="outPlane">[OUT] The transformed plane.</param>
-    inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
+    inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).TransformFromPivot(mTransf, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).TransformWithPivot(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1241,10 +1241,10 @@ public:
     /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <param name="outPlane">[OUT] The transformed plane.</param>
-    inline void TransformFromPivot(const QTransformationMatrix4x4 &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
+    inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).TransformFromPivot(mTransf, vPivot);
+        reinterpret_cast<QPlane &>(outPlane).TransformWithPivot(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1303,7 +1303,7 @@ protected:
     // <param name="qRot">[IN] A quaternion containing the rotation to be applied.</param>
     // <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
     template <class VectorType>
-    inline void RotateFromPivotImp(const QQuaternion &qRot, const VectorType &vPivot)
+    inline void RotateWithPivotImp(const QQuaternion &qRot, const VectorType &vPivot)
     {
         this->Translate(-vPivot);
         this->Rotate(qRot);
@@ -1317,7 +1317,7 @@ protected:
     // <param name="mRot">[IN] A [3x3] matrix containing the rotation to be applied.</param>
     // <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
     template <class VectorType>
-    inline void RotateFromPivotImp(const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
+    inline void RotateWithPivotImp(const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
     {
         this->Translate(-vPivot);
         this->Rotate(mRot);
@@ -1331,7 +1331,7 @@ protected:
     // <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     // <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     template <class VectorType>
-    inline void ScaleFromPivotImp(const QBaseVector3 &vScale, const VectorType &vPivot)
+    inline void ScaleWithPivotImp(const QBaseVector3 &vScale, const VectorType &vPivot)
     {
         this->Translate(-vPivot);
         this->Scale(vScale);
@@ -1347,7 +1347,7 @@ protected:
     // <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
     // <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     template <class VectorType>
-    inline void ScaleFromPivotImp(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot)
+    inline void ScaleWithPivotImp(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot)
     {
         this->Translate(-vPivot);
         this->Scale(fScaleX, fScaleY, fScaleZ);
@@ -1361,7 +1361,7 @@ protected:
     // <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     // <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     template <class VectorType>
-    inline void ScaleFromPivotImp(const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
+    inline void ScaleWithPivotImp(const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
     {
         this->Translate(-vPivot);
         this->Scale(mScale);
@@ -1375,7 +1375,7 @@ protected:
     // <param name="mTransf">[IN] A [4x3] or [4x4] matrix containing the transformation to be applied.</param>
     // <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     template <class MatrixType, class VectorType>
-    inline void TransformFromPivotImp(const MatrixType &mTransf, const VectorType &vPivot)
+    inline void TransformWithPivotImp(const MatrixType &mTransf, const VectorType &vPivot)
     {
         this->Translate(-vPivot);
         this->Transform(mTransf);
