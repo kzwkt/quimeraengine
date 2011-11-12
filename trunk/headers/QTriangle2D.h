@@ -102,9 +102,9 @@ public:
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="v2Pivot">[IN] 2D Vector Pivot used for the transformation.</param>
-	inline void TransformFromPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot)
+	inline void TransformWithPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot)
 	{
-		QPoint::TransformFromPivot(matrix, v2Pivot, reinterpret_cast<QVector2*> (this), 3);
+		QPoint::TransformWithPivot(matrix, v2Pivot, reinterpret_cast<QVector2*> (this), 3);
 	}
 
 	/// <summary>
@@ -115,10 +115,10 @@ public:
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="v2Pivot">[IN] 2D Vector Pivot used for the transformation.</param>
 	/// <param name="tOutputTriangle">[OUT] 2D Triangle that stores the result of the transformation.</param>
-	inline void TransformFromPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot, QBaseTriangle2 &tOutputTriangle) const
+	inline void TransformWithPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot, QBaseTriangle2 &tOutputTriangle) const
 	{
 		tOutputTriangle= *this;
-		QPoint::TransformFromPivot(matrix, v2Pivot, reinterpret_cast<QVector2*> (&tOutputTriangle), 3);
+		QPoint::TransformWithPivot(matrix, v2Pivot, reinterpret_cast<QVector2*> (&tOutputTriangle), 3);
 	}
 
 	/// <summary>
@@ -274,9 +274,9 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	inline void RotateFromPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot)
+	inline void RotateWithPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot)
 	{
-	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	    QPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 3);
 	}
 
 	/// <summary>
@@ -286,10 +286,10 @@ public:
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
 	/// <param name="tOut">[OUT] It receives the resulting triangle.</param>
-	inline void RotateFromPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	inline void RotateWithPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    QPoint::RotateFromPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	    QPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -342,9 +342,9 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
 	{
-	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	    QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 3);
 	}
 
 	/// <summary>
@@ -354,9 +354,9 @@ public:
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
+	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
 	{
-	     QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	     QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 3);
 	}
 
 	/// <summary>
@@ -366,10 +366,10 @@ public:
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	/// <param name="tOut">[OUT] The scaled triangle.</param>
-	inline void ScaleFromPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    QPoint::ScaleFromPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	    QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -380,10 +380,10 @@ public:
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	/// <param name="tOut">[OUT] The scaled triangle.</param>
-	inline void ScaleFromPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	    QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
 	}
 
 };

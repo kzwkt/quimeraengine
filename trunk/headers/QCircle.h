@@ -145,9 +145,9 @@ public:
 	/// </summary>
     /// <param name="fAngle">[IN] Scalar that contains the angle of rotation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    inline void RotateFromPivot (const float_q& fAngle, const QBaseVector2& vPivot)
+    inline void RotateWithPivot (const float_q& fAngle, const QBaseVector2& vPivot)
     {
-        QPoint::RotateFromPivot(fAngle, vPivot, &P, 1);
+        QPoint::RotateWithPivot(fAngle, vPivot, &P, 1);
     }
 
 	/// <summary>
@@ -156,10 +156,10 @@ public:
     /// <param name="fAngle">[IN] Scalar that contains the angle of rotation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     /// <param name="outputCircle">[OUT] Circle that will store the rotated circle.</param>
-    inline void RotateFromPivot (const float_q& fAngle, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
+    inline void RotateWithPivot (const float_q& fAngle, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).RotateFromPivot(fAngle, vPivot);
+        reinterpret_cast<QCircle&> (outputCircle).RotateWithPivot(fAngle, vPivot);
     }
 
  	/// <summary>
@@ -212,9 +212,9 @@ public:
 	/// </summary>
     /// <param name="vScale">[IN] 2D vector that contains the scale to be applied.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    inline void ScaleFromPivot (const QBaseVector2& vScale, const QBaseVector2& vPivot)
+    inline void ScaleWithPivot (const QBaseVector2& vScale, const QBaseVector2& vPivot)
     {
-        QPoint::ScaleFromPivot(vScale, vPivot, &P, 1);
+        QPoint::ScaleWithPivot(vScale, vPivot, &P, 1);
         Radius *= reinterpret_cast<const QVector2&> (vScale).GetLength();
     }
 
@@ -224,10 +224,10 @@ public:
     /// <param name="vScale">[IN] 2D vector that contains the scale to be applied.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <param name="outputCircle">[OUT] Circle that will store the scaled circle.</param>
-    inline void ScaleFromPivot (const QBaseVector2& vScale, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
+    inline void ScaleWithPivot (const QBaseVector2& vScale, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).ScaleFromPivot(vScale, vPivot);
+        reinterpret_cast<QCircle&> (outputCircle).ScaleWithPivot(vScale, vPivot);
     }
 
  	/// <summary>
@@ -236,9 +236,9 @@ public:
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    inline void ScaleFromPivot (const float_q& fScaleX, const float_q& fScaleY, const QBaseVector2& vPivot)
+    inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const QBaseVector2& vPivot)
     {
-        QPoint::ScaleFromPivot(fScaleX, fScaleY, vPivot, &P, 1);
+        QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &P, 1);
 
         QVector2 vScale(fScaleX, fScaleY);
         Radius *= vScale.GetLength();
@@ -251,10 +251,10 @@ public:
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <param name="outputCircle">[OUT] Circle that will store the scaled circle.</param>
-    inline void ScaleFromPivot (const float_q& fScaleX, const float_q& fScaleY, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
+    inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).ScaleFromPivot(fScaleX, fScaleY, vPivot);
+        reinterpret_cast<QCircle&> (outputCircle).ScaleWithPivot(fScaleX, fScaleY, vPivot);
     }
 
  	/// <summary>
@@ -282,9 +282,9 @@ public:
 	/// </summary>
     /// <param name="matrix">[IN] Matrix that contains the transformations to apply.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the transformation.</param>
-    inline void TransformFromPivot (const QTransformationMatrix3x3& matrix, const QBaseVector2& vPivot)
+    inline void TransformWithPivot (const QTransformationMatrix3x3& matrix, const QBaseVector2& vPivot)
     {
-        QPoint::TransformFromPivot(matrix, vPivot, &P, 1);
+        QPoint::TransformWithPivot(matrix, vPivot, &P, 1);
     }
 
  	/// <summary>
@@ -293,10 +293,10 @@ public:
     /// <param name="matrix">[IN] Matrix that contains the transformations to apply.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the transformation.</param>
     /// <param name="outputCircle">[OUT] Circle that will store the transformed circle.</param>
-    inline void TransformFromPivot (const QTransformationMatrix3x3& matrix, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
+    inline void TransformWithPivot (const QTransformationMatrix3x3& matrix, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).TransformFromPivot(matrix, vPivot);
+        reinterpret_cast<QCircle&> (outputCircle).TransformWithPivot(matrix, vPivot);
     }
 
  	/// <summary>
