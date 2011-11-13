@@ -1,3 +1,5 @@
+// [TERMS&CONDITIONS]
+
 #ifndef __QRAY2D__
 #define __QRAY2D__
 
