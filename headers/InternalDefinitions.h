@@ -3,6 +3,8 @@
 #ifndef __INTERNALDEFINITIONS__
 #define __INTERNALDEFINITIONS__
 
+#include "ExternalDefinitions.h"
+
 // --------------------------------------------------------------------------------------------------------
 // Version: Defines the Quimera Engine's current version.
 // How to use it: Version format is Major version + Minor version + Revision ("##.####.####").
@@ -33,29 +35,34 @@ const unsigned int QE_VERSION_REVISION = 0;
 // --------------------------------------------------------------------------------------------------------
 #ifdef QE_CONFIG_COMPILER_SHAREDLIB // QE_CONFIG_COMPILER_SHAREDLIB is specified as a preprocessor definition [TODO] Thund: Add that definition to preprocessor when configuration is ready
     #ifdef QE_OS_WINDOWS
-        #define QDllExport __declspec( dllexport )
+        #ifdef QE_COMPILER_MSVC
+            #define QDllExport __declspec( dllexport )
+        #elif QE_COMPILER_GCC
+            #define QDllExport __attribute__(( dllexport ))
+        #endif
     #elif defined(QE_OS_LINUX)
-        #define QDllExport
-    #else
-        #define QDllExport
+        #if QE_COMPILER_GCC
+            #define QDllExport __attribute__((visibility("default")))( dllexport )
+        #endif
     #endif
 #elif defined(QE_CONFIG_COMPILER_IMPORT) // QE_CONFIG_COMPILER_IMPORT is specified as a preprocessor definition when compiling the client system
     #ifdef QE_OS_WINDOWS
-        #define QDllExport __declspec( dllimport )
+        #ifdef QE_COMPILER_MSVC
+            #define QDllExport __declspec( dllimport )
+        #elif QE_COMPILER_GCC
+            #define QDllExport __attribute__(( dllimport ))
+        #endif
     #elif defined(QE_OS_LINUX)
-        #define QDllExport
-    #else
-        #define QDllExport
+        #if QE_COMPILER_GCC
+            #define QDllExport
+        #endif
     #endif
 #else // Static library
     #ifdef QE_OS_WINDOWS
         #define QDllExport
     #elif defined(QE_OS_LINUX)
         #define QDllExport
-    #else
-        #define QDllExport
     #endif
 #endif
-
 
 #endif // __INTERNALDEFINITIONS__
