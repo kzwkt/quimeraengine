@@ -25,6 +25,7 @@
 #elif defined(LINUX64) && defined(__linux__)
     #define QE_OS_LINUX 64      // Linux 64 bits
 #else
+    #error Unknown operative system.
 // [TODO] Thund: Complete the list, including: Linux 32 bits, Linux 64 bits and MacOS
 #endif
 
@@ -39,6 +40,8 @@
     #endif
 #elif __GNUC__
     #define QE_COMPILER_GCC __GNUC__ // GCC
+#else
+    #error Unknown compiler.
 #endif
 
 // --------------------------------------------------------------------------------------------------------
