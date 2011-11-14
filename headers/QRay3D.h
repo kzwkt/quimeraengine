@@ -1436,6 +1436,158 @@ public:
 	    reinterpret_cast<QRay3D &> (rOut).ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot);
 	}
 
+    /// <summary>
+	/// This method rotates the resident ray applying the rotation contained in the provided matrix
+	/// around the coordinate axis centre.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
+	inline void Rotate (const QRotationMatrix3x3 &mRot)
+	{
+        QPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Rotate(mRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+	}
+
+	/// <summary>
+	/// This method rotates the resident ray applying the rotation contained in the provided matrix
+	/// around the coordinate axis centre, storing the resultant ray in the provided one.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
+	/// <param name="rOut">[OUT] The resultant rotated ray.</param>
+	inline void Rotate (const QRotationMatrix3x3 &mRot, QBaseRay3 &rOut) const
+	{
+	    rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).Rotate(mRot);
+	}
+
+    /// <summary>
+	/// This method translates the resident ray by the translation contained in the provided matrix.
+	/// </summary>
+	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
+	inline void Translate (const QTranslationMatrix4x3 &mTrans)
+	{
+        QPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Point), 1);
+	}
+
+    /// <summary>
+	/// This method translates the resident ray by the translation contained in the provided matrix.
+	/// </summary>
+	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
+	inline void Translate (const QTranslationMatrix4x4 &mTrans)
+	{
+        QPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Point), 1);
+	}
+
+    /// <summary>
+	/// This method translates the resident ray by the translation contained in the provided matrix,
+	/// storing the resultant ray in the provided one.
+	/// </summary>
+	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
+	/// <param name="rOut">[OUT] The resultant translated ray.</param>
+	inline void Translate (const QTranslationMatrix4x3 &mTrans, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).Translate(mTrans);
+	}
+
+    /// <summary>
+	/// This method translates the resident ray by the translation contained in the provided matrix,
+	/// storing the resultant ray in the provided one.
+	/// </summary>
+	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
+	/// <param name="rOut">[OUT] The resultant translated ray.</param>
+	inline void Translate (const QTranslationMatrix4x4 &mTrans, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).Translate(mTrans);
+	}
+
+    /// <summary>
+	/// This method scales the resident ray by the scale contained in the provided matrix.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied in every axis.</param>
+	inline void Scale (const QScaleMatrix3x3 &mScale)
+	{
+        QPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Scale(mScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        this->Direction.Normalize();
+	}
+
+    /// <summary>
+	/// This method scales the resident ray by the scale contained in the provided matrix,
+	/// storing the resultant ray in the provided one.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied in every axis.</param>
+	/// <param name="rOut">[OUT] The resultant scaled ray.</param>
+	inline void Scale (const QScaleMatrix3x3 &mScale, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).Scale(mScale);
+	}
+
+    /// <summary>
+	/// This method applies to the resident ray the transformation contained in the provided matrix.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	inline void Transform (const QTransformationMatrix4x3 &mTransf)
+	{
+        this->TransformImp(mTransf);
+	}
+
+    /// <summary>
+	/// This method applies to the resident ray the transformation contained in the provided matrix.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	inline void Transform (const QTransformationMatrix4x4 &mTransf)
+	{
+        this->TransformImp(mTransf);
+	}
+
+    /// <summary>
+	/// This method applies to the resident ray the transformation contained in the provided matrix,
+	/// storing the resultant ray in the provided one.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="rOut">[OUT] The resultant transformed ray.</param>
+	inline void Transform (const QTransformationMatrix4x3 &mTransf, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
+	}
+
+    /// <summary>
+	/// This method applies to the resident ray the transformation contained in the provided matrix,
+	/// storing the resultant ray in the provided one.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="rOut">[OUT] The resultant transformed ray.</param>
+	inline void Transform (const QTransformationMatrix4x4 &mTransf, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
+	}
+
+	/// <summary>
+	/// This method applies to the resident ray the transformation contained in the provided matrix.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	inline void Transform (const QSpaceConversionMatrix &mTransf)
+	{
+        this->TransformImp(mTransf);
+	}
+
+	/// <summary>
+	/// This method applies to the resident ray the transformation contained in the provided matrix,
+	/// storing the resultant ray in the provided one.
+	/// </summary>
+	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="rOut">[OUT] The resultant transformed ray.</param>
+	inline void Transform (const QSpaceConversionMatrix &mTransf, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
+	}
+
+
 protected:
 
     // Checks if resident ray contains a given point. Ray must be normalized to works fine.
@@ -2018,6 +2170,29 @@ protected:
         else
             return EQIntersections::E_None;
     }
+
+    // <summary>
+	// This method applies to the resident ray the transformation contained in the provided matrix.
+	// </summary>
+	// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	template <class MatrixType>
+	inline void TransformImp (const MatrixType &mTransf)
+	{
+        QPoint::Transform(mTransf, reinterpret_cast<VectorType *> (&this->Point), 1);
+
+        // Only rotation and scale part of the matrix is applyed to direction vector
+        // These operations must be the same those used in QVector3::Transform, except for the translation operations.
+        const float_q &fNewX = this->x * mTransf.ij[0][0] + this->y * mTransf.ij[1][0] + this->z * mTransf.ij[2][0];
+        const float_q &fNewY = this->x * mTransf.ij[0][1] + this->y * mTransf.ij[1][1] + this->z * mTransf.ij[2][1];
+        const float_q &fNewZ = this->x * mTransf.ij[0][2] + this->y * mTransf.ij[1][2] + this->z * mTransf.ij[2][2];
+
+        this->Direction.x = fNewX;
+        this->Direction.y = fNewY;
+        this->Direction.z = fNewZ;
+
+        this->Direction.Normalize();
+	}
+
 };
 
 } //namespace Math
