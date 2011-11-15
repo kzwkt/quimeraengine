@@ -1587,6 +1587,104 @@ public:
 	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
 	}
 
+    /// <summary>
+	/// This method rotates the resident ray applying the rotation contained in the provided matrix
+	/// around a given point that acts as pivot of rotation.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
+	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
+	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
+	{
+        QPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Direction), 1);
+	}
+
+	/// <summary>
+	/// This method rotates the resident ray applying the rotation contained in the provided matrix
+	/// around a given point that acts as pivot of rotation, storing the resultant ray in the provided one.
+	/// </summary>
+	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
+	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
+	/// <param name="rOut">[OUT] The resultant rotated ray.</param>
+	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot, QBaseRay3 &rOut) const
+	{
+	    rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).RotateWithPivot(mRot, vPivot);
+	}
+
+    /// <summary>
+	/// This method scales the resident ray by the scale contained in the provided matrix from
+	/// a given point that acts as pivot.
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
+	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+	inline void ScaleWithPivot (const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
+	{
+        QPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Direction), 1);
+        this->Direction.Normalize();
+	}
+
+    /// <summary>
+	/// This method scales the resident ray by the scale contained in the provided matrix from
+	/// a given point that acts as pivot, storing the resultant ray in the provided one
+	/// </summary>
+	/// <param name="mScale">[IN] Matrix which contains the scale to be applied in every axis.</param>
+	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+	/// <param name="rOut">[OUT] The resultant scaled ray.</param>
+	inline void ScaleWithPivot (const QScaleMatrix3x3 &mScale, const VectorType &vPivot, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).ScaleWithPivot(mScale, vPivot);
+	}
+
+    /// <summary>
+	/// This method applies the transformation contained in the provided matrix using
+	/// a given point as pivot of transformation.
+	/// </summary>
+	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
+	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+	inline void TransformWithPivot (const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot)
+	{
+        this->TransformWithPivotImp(mTransf, vPivot);
+	}
+
+    /// <summary>
+	/// This method applies the transformation contained in the provided matrix using
+	/// a given point as pivot of transformation.
+	/// </summary>
+	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
+	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+	inline void TransformWithPivot (const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot)
+	{
+        this->TransformWithPivotImp(mTransf, vPivot);
+	}
+
+    /// <summary>
+	/// This method applies the transformation contained in the provided matrix using
+	/// a given point as pivot of transformation, storing the resultant ray in the output parameter.
+	/// </summary>
+	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
+	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+	/// <param name="rOut">[OUT] The resultant ray.</param>
+	inline void TransformWithPivot (const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).TransformWithPivot(mTransf, vPivot);
+	}
+
+    /// <summary>
+	/// This method applies the transformation contained in the provided matrix using
+	/// a given point as pivot of transformation, storing the resultant ray in the provided one
+	/// </summary>
+	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
+	/// <param name="vPivot">[IN] Point that acts as pivot of transformation.</param>
+	/// <param name="rOut">[OUT] The resultant ray.</param>
+	inline void TransformWithPivot (const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const
+	{
+        rOut = *this;
+	    reinterpret_cast<QRay3D &> (rOut).TransformWithPivot(mTransf, vPivot);
+	}
 
 protected:
 
@@ -2192,6 +2290,31 @@ protected:
 
         this->Direction.Normalize();
 	}
+
+    // <summary>
+	// This method applies to the resident ray the transformation contained in the provided matrix using
+	// a given point as pivot of transformation.
+	// </summary>
+	// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
+	// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+	template <class MatrixType>
+	inline void TransformWithPivotImp (const MatrixType &mTransf, const VectorType &vPivot)
+	{
+        QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+
+        // Only rotation and scale part of the matrix is applyed to direction vector
+        // These operations must be the same those used in QVector3::Transform, except for the translation operations.
+        float_q fNewX = this->x * mTransf.ij[0][0] + this->y * mTransf.ij[1][0] + this->z * mTransf.ij[2][0];
+        float_q fNewY = this->x * mTransf.ij[0][1] + this->y * mTransf.ij[1][1] + this->z * mTransf.ij[2][1];
+        float_q fNewZ = this->x * mTransf.ij[0][2] + this->y * mTransf.ij[1][2] + this->z * mTransf.ij[2][2];
+
+        this->Direction.x = fNewX;
+        this->Direction.y = fNewY;
+        this->Direction.z = fNewZ;
+
+        this->Direction.Normalize();
+	}
+
 
 };
 
