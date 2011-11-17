@@ -2,7 +2,7 @@
 #define __TESTCONFIGURATION__
 
 #define QLINESEGMENT3D
-//#define QRAY3D
+#define QRAY3D
 #define QTRIANGLE3D
 //#define QSPHERE
 #define QHEXAHEDRON
@@ -19,7 +19,7 @@
 #include <QScaleMatrix3x3.h>
 #include <QLineSegment3D.h>
 #include <QHexahedron.h>
-//#include <QRay3D.h> Not implemented yet
+#include <QRay3D.h>
 //#include <QSphere.h> Not implemented yet
 #include <QTriangle3D.h>
 

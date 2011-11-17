@@ -27,6 +27,12 @@ void Test(float fTimeDelta)
     // Planning
     OutputDebugStringW(L"Posing test...\n");
 
+    Ray3D1.Direction.x = 1.0f;     Ray3D1.Direction.y = 0.0f;    Ray3D1.Direction.z = 0.0f;
+    Ray3D1.Point.x = 1.0f;         Ray3D1.Point.y = 1.0f;        Ray3D1.Point.z = -1.0f;
+
+    Ray3D2.Direction.x = 1.0f;     Ray3D2.Direction.y = 0.0f;    Ray3D2.Direction.z = 0.0f;
+    Ray3D2.Point.x = 1.0f;         Ray3D2.Point.y = 1.0f;        Ray3D2.Point.z = -2.0f;
+
     LineSegment3D1.A.x = -1.0f;    LineSegment3D1.A.y = 0.0f;    LineSegment3D1.A.z = 0.0f;
     LineSegment3D1.B.x = -1.0f;    LineSegment3D1.B.y = 1.0f;    LineSegment3D1.B.z = 0.0f;
 
@@ -59,6 +65,8 @@ void Test(float fTimeDelta)
     Hexahedron2.G.x = 0.5f;  Hexahedron2.G.y = -0.5f; Hexahedron2.G.z = -0.5f;
     Hexahedron2.H.x = 0.5f;  Hexahedron2.H.y = -0.5f; Hexahedron2.H.z = 0.5f;
 
+
+
     // Test
     OutputDebugStringW(L"Executing test...\n");
 
@@ -70,6 +78,11 @@ void Test(float fTimeDelta)
 
     // Hexahedron translation sample
     Hexahedron2.Translate(2.0f, 0.0f, 2.0f);
+
+    // Ray rotation sample
+    Ray3D1.RotateWithPivot(QQuaternion(0.0f, 0.0f, fRotationY), VectorType(Ray3D1.Point));
+
+
 
     // Log (see output window)
     OutputDebugStringW(LineSegment3D1.ToString().c_str()); OutputDebugStringW(L"\n");
