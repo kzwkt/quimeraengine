@@ -25,7 +25,7 @@ class QVector4;
 /// <summary>
 /// Implements the funcionality of a ray, which is a vector located at a point.
 /// </summary>
-template<class VectorTypePoint, class VectorTypeDirection>
+template<class VectorTypeOrigin, class VectorTypeDirection>
 class QDllExport QBaseRay
 {
 
@@ -36,14 +36,14 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBaseRay() : Point(QFloat::_0), Direction(QFloat::_0) { }
+	inline QBaseRay() : Origin(QFloat::_0), Direction(QFloat::_0) { }
 
 	/// <summary>
 	/// Constructor from a point and a vector.
 	/// </summary>
-	/// <param name="vPoint">[IN] Point where the vector is located.</param>
+	/// <param name="vOrigin">[IN] Point where the vector is located.</param>
 	/// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
-	inline QBaseRay (const VectorTypePoint &vPoint, const VectorTypeDirection &vDirection) : Point(vPoint), Direction(vDirection)	{ }
+	inline QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : Origin(vOrigin), Direction(vDirection)	{ }
 
     // METHODS
     // ---------------
@@ -56,9 +56,9 @@ public:
     /// <returns>
     /// True if rays are the same, false otherwise.
     /// </returns>
-    inline bool operator == (const QBaseRay<VectorTypePoint, VectorTypeDirection> &r) const
+    inline bool operator == (const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &r) const
     {
-        return ( this->Point == r.Point && this->Direction == r.Direction );
+        return ( this->Origin == r.Origin && this->Direction == r.Direction );
     }
 
     /// <summary>
@@ -68,7 +68,7 @@ public:
     /// <returns>
     /// True if rays are not the same, false otherwise.
     /// </returns>
-    inline bool operator != (const QBaseRay<VectorTypePoint, VectorTypeDirection> &r) const
+    inline bool operator != (const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &r) const
     {
         return !(*this == r);
     }
@@ -80,7 +80,7 @@ public:
 	/// <summary>
 	/// Point where the vector is located.
 	/// </summary>
-	VectorTypePoint Point;
+	VectorTypeOrigin Origin;
 
 	/// <summary>
 	/// Vector which defines the direction of the ray.

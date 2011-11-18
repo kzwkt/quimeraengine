@@ -25,8 +25,8 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in 3D space, which consists of a point or position, and a direction. The direction
-/// symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
+/// Represents a ray in 3D space, which consists of a origin point or position, and a direction. The direction
+/// symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </summary>
 template <class VectorType>
 class QDllExport QRay3D : public QRay<VectorType, QVector3>
@@ -73,9 +73,9 @@ public:
     /// <summary>
     /// Constructor that receives the ray's position and direction. The direction vector must be normalized.
     /// </summary>
-    /// <param name="vPoint">[IN] Ray's position.</param>
+    /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
-    inline QRay3D(const VectorType &vPoint, const QVector3 &vDirection) : QRay<VectorType, QVector3>(vPoint, vDirection) { }
+    inline QRay3D(const VectorType &vOrigin, const QVector3 &vDirection) : QRay<VectorType, QVector3>(vOrigin, vDirection) { }
 
 
 	// METHODS
@@ -118,7 +118,7 @@ public:
     /// </remarks>
     bool Intersection(const QBaseRay<VectorType, QVector3> &ray) const
     {
-        const QVector3 &vP(ray.Point - this->Point); // Difference of positions
+        const QVector3 &vP(ray.Origin - this->Origin); // Difference of positions
         QVector3 vCross;
 
         this->Direction.CrossProduct(ray.Direction, vCross); // Cross product of directions
@@ -127,10 +127,10 @@ public:
 
         if ( QFloat::IsZero(fDenominator) ) // Both directions are parallel
         {
-            if ( this->Contains(ray.Point) )
+            if ( this->Contains(ray.Origin) )
                 return true;
             else
-                return ( reinterpret_cast<const QRay3D &> (ray).Contains(this->Point) );
+                return ( reinterpret_cast<const QRay3D &> (ray).Contains(this->Origin) );
         }
         else // Directions are not parallel
         {
@@ -146,8 +146,8 @@ public:
 
                 if ( QFloat::IsPositive(fNumerator2) ) // Remember that fDenominator is always positive
                 {
-                    const QVector3 &vPInt1 = QVector3(this->Point) + (fNumerator1/fDenominator) * this->Direction;
-                    const QVector3 &vPInt2 = QVector3(ray.Point) + (fNumerator2/fDenominator) * ray.Direction;
+                    const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
+                    const QVector3 &vPInt2 = QVector3(ray.Origin) + (fNumerator2/fDenominator) * ray.Direction;
 
                     if (vPInt1 == vPInt2)
                         return true;
@@ -191,7 +191,7 @@ public:
         // After intersection method, the ray parameter is forced to be in [0, 1] interval.
         QBaseRay<QVector3, QVector3> ray(QVector3(ls.A), QVector3(ls.B - ls.A));
 
-        const QVector3 &vP(ls.A - this->Point); // Difference of positions
+        const QVector3 &vP(ls.A - this->Origin); // Difference of positions
         QVector3 vCross;
 
         this->Direction.CrossProduct(ray.Direction, vCross); // Cross product of directions
@@ -220,8 +220,8 @@ public:
                 const float_q fParam2 = fNumerator2/fDenominator;
                 if ( QFloat::IsPositive(fNumerator2) && QFloat::IsLowerOrEquals(fParam2, QFloat::_1) ) // Remember that fDenominator is always positive
                 {
-                    const QVector3 &vPInt1 = QVector3(this->Point) + (fNumerator1/fDenominator) * this->Direction;
-                    const QVector3 &vPInt2 = ray.Point + fParam2 * ray.Direction;
+                    const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
+                    const QVector3 &vPInt2 = ray.Origin + fParam2 * ray.Direction;
 
                     if (vPInt1 == vPInt2)
                         return true;
@@ -267,7 +267,7 @@ public:
     inline bool Intersection (const QBasePlane &plane) const
     {
         const QVector3 vN(plane.a, plane.b, plane.c); //Normal to plane (Normalize not necessary)
-        const QVector3 vP (this->Point); // Homogeinizing vector types
+        const QVector3 vP (this->Origin); // Homogeinizing vector types
 
         const float_q &fNumerator = -(plane.d + vP.DotProduct(vN));
         const float_q &fDenominator = this->Direction.DotProduct(vN);
@@ -301,7 +301,7 @@ public:
         }
         else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point
         {
-            return this->PointInsideTriangle(triangle, vAux);
+            return this->OriginInsideTriangle(triangle, vAux);
         }
         else
             return false;
@@ -353,7 +353,7 @@ public:
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseRay<VectorType, QVector3> &ray, VectorType &vPoint) const
     {
-        const VectorType &vP(ray.Point - this->Point); // Difference of positions
+        const VectorType &vP(ray.Origin - this->Origin); // Difference of positions
         VectorType vCross;
 
         this->Direction.CrossProduct(ray.Direction, vCross); // Cross product of directions
@@ -362,17 +362,17 @@ public:
 
         if ( QFloat::IsZero(fDenominator) ) // Both directions are parallel
         {
-            if (this->Point == ray.Point)
+            if (this->Origin == ray.Origin)
             {
                 if ( (this->Direction + ray.Direction) == QVector3::ZeroVector ) // Directions are opposite (are supossed normalized)
                 {
-                    vPoint = this->Point;
+                    vPoint = this->Origin;
                     return EQIntersections::E_One;
                 }
                 else
                     return EQIntersections::E_Infinite; //Both rays are the same
             }
-            else if ( this->Contains(ray.Point) || reinterpret_cast<const QRay3D<VectorType> &> (ray).Contains(this->Point) )
+            else if ( this->Contains(ray.Origin) || reinterpret_cast<const QRay3D<VectorType> &> (ray).Contains(this->Origin) )
                 return EQIntersections::E_Infinite;
             else
                 return EQIntersections::E_None;
@@ -391,8 +391,8 @@ public:
 
                 if ( QFloat::IsPositive(fNumerator2) ) // Remember that fDenominator is always positive
                 {
-                    const QVector3 &vPInt1 = QVector3(this->Point) + (fNumerator1/fDenominator) * this->Direction;
-                    const QVector3 &vPInt2 = QVector3(ray.Point) + (fNumerator2/fDenominator) * ray.Direction;
+                    const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
+                    const QVector3 &vPInt2 = QVector3(ray.Origin) + (fNumerator2/fDenominator) * ray.Direction;
 
                     if (vPInt1 == vPInt2)
                     {
@@ -445,7 +445,7 @@ public:
         // After intersection method, the ray parameter is forced to be in [0, 1] interval.
         QBaseRay<VectorType, QVector3> ray( ls.A, QVector3(ls.B - ls.A) );
 
-        const VectorType &vP(ls.A - this->Point); // Difference of positions
+        const VectorType &vP(ls.A - this->Origin); // Difference of positions
         VectorType vCross;
 
         this->Direction.CrossProduct(ray.Direction, vCross); // Cross product of directions
@@ -461,7 +461,7 @@ public:
                 return EQIntersections::E_Infinite;
             else if ( bAIsInRay )
             {
-                if (ls.A == this->Point)
+                if (ls.A == this->Origin)
                 {
                     vPoint = ls.A;
                     return EQIntersections::E_One;
@@ -471,7 +471,7 @@ public:
             }
             else if ( bBIsInRay )
             {
-                if (ls.B == this->Point)
+                if (ls.B == this->Origin)
                 {
                     vPoint = ls.B;
                     return EQIntersections::E_One;
@@ -497,8 +497,8 @@ public:
                 const float_q fParam2 = fNumerator2/fDenominator;
                 if ( QFloat::IsPositive(fNumerator2) && QFloat::IsLowerOrEquals(fParam2, QFloat::_1) ) // Remember that fDenominator is always positive
                 {
-                    const QVector3 &vPInt1 = QVector3(this->Point) + (fNumerator1/fDenominator) * this->Direction;
-                    const QVector3 &vPInt2 = ray.Point + fParam2 * ray.Direction;
+                    const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
+                    const QVector3 &vPInt2 = ray.Origin + fParam2 * ray.Direction;
 
                     if (vPInt1 == vPInt2)
                     {
@@ -583,7 +583,7 @@ public:
     {
         const VectorType vN ( QVector3(plane.a, plane.b, plane.c) );
 
-        const float_q &fNumerator = -(plane.d + this->Point.DotProduct(vN));
+        const float_q &fNumerator = -(plane.d + this->Origin.DotProduct(vN));
         const float_q &fDenominator = VectorType(this->Direction).DotProduct(vN);
 
         if ( QFloat::IsZero(fDenominator) ) // Ray is parallel to plane
@@ -593,7 +593,7 @@ public:
                 return EQIntersections::E_None;
         else if ( QFloat::IsZero(fNumerator) ) // Ray origin lies on plane
         {
-            vPoint = this->Point;
+            vPoint = this->Origin;
             return EQIntersections::E_One;
         }
         else
@@ -601,7 +601,7 @@ public:
             const float_q &fParam = fNumerator/fDenominator;
             if ( QFloat::IsPositive(fParam) ) // Intersection in one point.
             {
-                vPoint = this->Point + (fParam) * VectorType(this->Direction); // Posible loss of data, component w
+                vPoint = this->Origin + (fParam) * VectorType(this->Direction); // Posible loss of data, component w
                 return EQIntersections::E_One;
             }
             else // No intersection
@@ -657,11 +657,11 @@ public:
         const EQIntersections &numIntersect = this->IntersectionPoint(auxP, vAux);
         if (numIntersect == EQIntersections::E_Infinite) // Ray and plane are coplanar.
         {
-            if ( PointInsideTriangle(triangle, this->Point) ) // Ray origin is inside triangle
+            if ( PointInsideTriangle(triangle, this->Origin) ) // Ray origin is inside triangle
             {
-                if (this->Point == triangle.A) // Ray origin is A triangle vertex
+                if (this->Origin == triangle.A) // Ray origin is A triangle vertex
                 {
-                    vPoint1 = this->Point;
+                    vPoint1 = this->Origin;
 
                     // Checks intersection with opposite edge
                     if (this->IntersectionPoint(triangle.B, triangle.C, vAux) == EQIntersections::E_None) // No intersection found
@@ -672,9 +672,9 @@ public:
                         return EQIntersections::E_Two;
                     }
                 }
-                else if (this->Point == triangle.B) // Ray origin is B triangle vertex
+                else if (this->Origin == triangle.B) // Ray origin is B triangle vertex
                 {
-                    vPoint1 = this->Point;
+                    vPoint1 = this->Origin;
 
                    // Checks intersection with opposite edge
                     if (this->IntersectionPoint(triangle.C, triangle.A, vAux) == EQIntersections::E_None) // No intersection found
@@ -685,9 +685,9 @@ public:
                         return EQIntersections::E_Two;
                     }
                 }
-                else if (this->Point == triangle.C) // Ray origin is C triangle vertex
+                else if (this->Origin == triangle.C) // Ray origin is C triangle vertex
                 {
-                    vPoint1 = this->Point;
+                    vPoint1 = this->Origin;
 
                     // Checks intersection with opposite edge
                     if (this->IntersectionPoint(triangle.A, triangle.B, vAux) == EQIntersections::E_None) // No intersection found
@@ -698,7 +698,7 @@ public:
                         return EQIntersections::E_Two;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->Point))) // Ray origin is in AB triangle edge
+                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->Origin))) // Ray origin is in AB triangle edge
                 {
                     if (this->IntersectionPoint(triangle.B, triangle.C, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -709,7 +709,7 @@ public:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
@@ -723,18 +723,18 @@ public:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else // Ray don't intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->Point))) // Ray origin is in BC triangle edge
+                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->Origin))) // Ray origin is in BC triangle edge
                 {
                     if (this->IntersectionPoint(triangle.C, triangle.A, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -745,7 +745,7 @@ public:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
@@ -759,18 +759,18 @@ public:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else // Ray don't intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->Point))) // Ray origin is in CA triangle edge
+                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->Origin))) // Ray origin is in CA triangle edge
                 {
                     if (this->IntersectionPoint(triangle.A, triangle.B, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -781,7 +781,7 @@ public:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
@@ -795,14 +795,14 @@ public:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else // Ray don't intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         return EQIntersections::E_One;
                     }
                 }
@@ -830,7 +830,7 @@ public:
                 if (numIntersectAB == EQIntersections::E_Infinite) // Ray contains AB edge
                 {
                     // Looks for closest point to ray origin
-                    if  ( (triangle.A - this->Point).GetSquaredLength() < (triangle.B - this->Point).GetSquaredLength() )
+                    if  ( (triangle.A - this->Origin).GetSquaredLength() < (triangle.B - this->Origin).GetSquaredLength() )
                     {
                         vPoint1 = triangle.A;
                         vPoint2 = triangle.B;
@@ -848,7 +848,7 @@ public:
                 if (numIntersectBC == EQIntersections::E_Infinite) // Ray contains BC edge
                 {
                     // Looks for closest point to ray origin
-                    if  ( (triangle.B - this->Point).GetSquaredLength() < (triangle.C - this->Point).GetSquaredLength() )
+                    if  ( (triangle.B - this->Origin).GetSquaredLength() < (triangle.C - this->Origin).GetSquaredLength() )
                     {
                         vPoint1 = triangle.B;
                         vPoint2 = triangle.C;
@@ -866,7 +866,7 @@ public:
                 if (numIntersectCA == EQIntersections::E_Infinite) // Ray contains CA edge
                 {
                     // Looks for closest point to ray origin
-                    if  ( (triangle.C - this->Point).GetSquaredLength() < (triangle.A - this->Point).GetSquaredLength() )
+                    if  ( (triangle.C - this->Origin).GetSquaredLength() < (triangle.A - this->Origin).GetSquaredLength() )
                     {
                         vPoint1 = triangle.C;
                         vPoint2 = triangle.A;
@@ -892,7 +892,7 @@ public:
                         if (vAuxBC != vPrevInt)
                         {
                             // Looks for closest point to ray origin
-                            if  ( (vAuxBC - this->Point).GetSquaredLength() < (vPrevInt - this->Point).GetSquaredLength() )
+                            if  ( (vAuxBC - this->Origin).GetSquaredLength() < (vPrevInt - this->Origin).GetSquaredLength() )
                             {
                                 vPoint1 = vAuxBC;
                                 vPoint2 = vPrevInt;
@@ -919,7 +919,7 @@ public:
                         if (vAuxCA != vPrevInt)
                         {
                             // Looks for closest point to ray origin
-                            if  ( (vAuxCA - this->Point).GetSquaredLength() < (vPrevInt - this->Point).GetSquaredLength() )
+                            if  ( (vAuxCA - this->Origin).GetSquaredLength() < (vPrevInt - this->Origin).GetSquaredLength() )
                             {
                                 vPoint1 = vAuxCA;
                                 vPoint2 = vPrevInt;
@@ -947,7 +947,7 @@ public:
         }
         else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point, are not coplanar
         {
-            if (this->PointInsideTriangle(triangle, vAux) )
+            if (this->OriginInsideTriangle(triangle, vAux) )
             {
                 vPoint1 = vAux;
                 return EQIntersections::E_One;
@@ -1029,7 +1029,7 @@ public:
         {
             if (bPreviousInt && (vAuxPoint != vAux1)) // There is one intersection with other face and both points are not the same
             {
-                if  ( (vAuxPoint - this->Point).GetSquaredLength() < (vAux1 - this->Point).GetSquaredLength() ) // Computes the closest intersection to ray origin
+                if  ( (vAuxPoint - this->Origin).GetSquaredLength() < (vAux1 - this->Origin).GetSquaredLength() ) // Computes the closest intersection to ray origin
                 {
                     vPoint1 = vAuxPoint;
                     vPoint2 = vAux1;
@@ -1061,7 +1061,7 @@ public:
         {
             if (bPreviousInt && (vAuxPoint != vAux1)) // There is one intersection with other face and both points are not the same
             {
-                if  ( (vAuxPoint - this->Point).GetSquaredLength() < (vAux1 - this->Point).GetSquaredLength() ) // Computes the closest intersection to ray origin
+                if  ( (vAuxPoint - this->Origin).GetSquaredLength() < (vAux1 - this->Origin).GetSquaredLength() ) // Computes the closest intersection to ray origin
                 {
                     vPoint1 = vAuxPoint;
                     vPoint2 = vAux1;
@@ -1093,7 +1093,7 @@ public:
         {
             if (bPreviousInt && (vAuxPoint != vAux1)) // There is one intersection with other face and both points are not the same
             {
-                if  ( (vAuxPoint - this->Point).GetSquaredLength() < (vAux1 - this->Point).GetSquaredLength() ) // Computes the closest intersection to ray origin
+                if  ( (vAuxPoint - this->Origin).GetSquaredLength() < (vAux1 - this->Origin).GetSquaredLength() ) // Computes the closest intersection to ray origin
                 {
                     vPoint1 = vAuxPoint;
                     vPoint2 = vAux1;
@@ -1125,7 +1125,7 @@ public:
         {
             if (bPreviousInt && (vAuxPoint != vAux1)) // There is one intersection with other face and both points are not the same
             {
-                if  ( (vAuxPoint - this->Point).GetSquaredLength() < (vAux1 - this->Point).GetSquaredLength() ) // Computes the closest intersection ray origin
+                if  ( (vAuxPoint - this->Origin).GetSquaredLength() < (vAux1 - this->Origin).GetSquaredLength() ) // Computes the closest intersection ray origin
                 {
                     vPoint1 = vAuxPoint;
                     vPoint2 = vAux1;
@@ -1157,7 +1157,7 @@ public:
         {
             if (bPreviousInt && (vAuxPoint != vAux1)) // There is one intersection with other face and both points are not the same
             {
-                if  ( (vAuxPoint - this->Point).GetSquaredLength() < (vAux1 - this->Point).GetSquaredLength() ) // Computes the closest intersection to ray origin
+                if  ( (vAuxPoint - this->Origin).GetSquaredLength() < (vAux1 - this->Origin).GetSquaredLength() ) // Computes the closest intersection to ray origin
                 {
                     vPoint1 = vAuxPoint;
                     vPoint2 = vAux1;
@@ -1203,32 +1203,32 @@ public:
     EQSpaceRelation SpaceRelation(const QBasePlane &p) const
     {
         // We take as auxiliar point the head of the direction vector, as if it was positioned in the origin point of the ray
-        QVector3 vAux(QVector3(this->Point) + this->Direction);
+        QVector3 vAux(QVector3(this->Origin) + this->Direction);
 
         // Distances to the plane from both auxiliar point and origin of ray
         // To compare the two distances is not necessary to divide by de normal length (it is invariant)
-        const float_q &distPoint = p.a * this->Point.x + p.b * this->Point.y + p.c * this->Point.z + p.d;
-        const float_q &distAux = p.a * vAux.x + p.b * vAux.y + p.c * vAux.z + p.d;
+        const float_q &fDistOrigin = p.a * this->Origin.x + p.b * this->Origin.y + p.c * this->Origin.z + p.d;
+        const float_q &fDistAux = p.a * vAux.x + p.b * vAux.y + p.c * vAux.z + p.d;
 
-        if ( QFloat::IsZero(distPoint) ) // Origin point of ray lies on plane
+        if ( QFloat::IsZero(fDistOrigin) ) // Origin point of ray lies on plane
         {
-            if ( QFloat::IsZero(distAux) ) // Ray lies on plane
+            if ( QFloat::IsZero(fDistAux) ) // Ray lies on plane
                 return EQSpaceRelation::E_Contained;
-            else if ( QFloat::IsNegative(distAux) ) // Direction vector goes to positive side
+            else if ( QFloat::IsNegative(fDistAux) ) // Direction vector goes to positive side
                 return EQSpaceRelation::E_NegativeSide;
             else // Direction vector goes to negative side
                 return EQSpaceRelation::E_PositiveSide;
         }
-        else if ( QFloat::IsNegative(distPoint) )// Origin point of ray is in negative side
+        else if ( QFloat::IsNegative(fDistOrigin) )// Origin point of ray is in negative side
         {
-            if ( QFloat::IsLowerOrEquals(distAux, distPoint) ) // Direction vector moves away from plane or is parallel to it.
+            if ( QFloat::IsLowerOrEquals(fDistAux, fDistOrigin) ) // Direction vector moves away from plane or is parallel to it.
                 return EQSpaceRelation::E_NegativeSide;
             else // Direction vector is approaching to plane
                 return EQSpaceRelation::E_BothSides;
         }
         else // Origin point of ray is in positive side
         {
-            if ( QFloat::IsGreaterOrEquals(distAux, distPoint) ) // Direction vector moves away from plane or is parallel to it.
+            if ( QFloat::IsGreaterOrEquals(fDistAux, fDistOrigin) ) // Direction vector moves away from plane or is parallel to it.
                 return EQSpaceRelation::E_PositiveSide;
             else // Direction vector is approaching to plane
                 return EQSpaceRelation::E_BothSides;
@@ -1242,7 +1242,7 @@ public:
 	/// <param name="qRot">[IN] Quaternion which contains the rotation to be applied.</param>
 	inline void Rotate (const QQuaternion &qRot)
 	{
-        QPoint::Rotate(qRot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Rotate(qRot, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Rotate(qRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
 	}
 
@@ -1266,7 +1266,7 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const QQuaternion &qRot, const VectorType &vPivot)
 	{
-        QPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Rotate(qRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
 	}
 
@@ -1289,7 +1289,7 @@ public:
 	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
 	inline void Translate (const QBaseVector3 &vTrans)
 	{
-        QPoint::Translate(vTrans, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Translate(vTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -1312,7 +1312,7 @@ public:
 	/// <param name="fTransZ">[IN] Amount of translation in Z direction.</param>
 	inline void Translate (const float_q &fTransX, const float_q &fTransY, const float_q &fTransZ)
 	{
-        QPoint::Translate(fTransX, fTransY, fTransZ, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Translate(fTransX, fTransY, fTransZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -1335,7 +1335,7 @@ public:
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	inline void Scale (const QBaseVector3 &vScale)
 	{
-        QPoint::Scale(vScale, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Scale(vScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Scale(vScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
@@ -1360,7 +1360,7 @@ public:
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ)
 	{
-        QPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
@@ -1387,7 +1387,7 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const QBaseVector3 &vScale, const VectorType &vPivot)
 	{
-        QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Scale(vScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
@@ -1415,7 +1415,7 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot)
 	{
-        QPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
@@ -1443,7 +1443,7 @@ public:
 	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
 	inline void Rotate (const QRotationMatrix3x3 &mRot)
 	{
-        QPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Rotate(mRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
 	}
 
@@ -1465,7 +1465,7 @@ public:
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
 	inline void Translate (const QTranslationMatrix4x3 &mTrans)
 	{
-        QPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -1474,7 +1474,7 @@ public:
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
 	inline void Translate (const QTranslationMatrix4x4 &mTrans)
 	{
-        QPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -1507,7 +1507,7 @@ public:
 	/// <param name="mScale">[IN] Matrix which contains the scale to be applied in every axis.</param>
 	inline void Scale (const QScaleMatrix3x3 &mScale)
 	{
-        QPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Scale(mScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
@@ -1595,7 +1595,7 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
 	{
-        QPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Direction), 1);
 	}
 
@@ -1620,7 +1620,7 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
 	{
-        QPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
         QPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
@@ -1691,10 +1691,10 @@ protected:
     // Checks if resident ray contains a given point. Ray must be normalized to works fine.
     inline bool Contains (const VectorType &vPoint) const
     {
-        if (vPoint == this->Point) // The point is the ray position.
+        if (vPoint == this->Origin) // The point is the ray position.
             return true;
 
-        QVector3 vAux(vPoint - this->Point); // Calculates a vector from ray origin to point.
+        QVector3 vAux(vPoint - this->Origin); // Calculates a vector from ray origin to point.
 
         vAux.Normalize(); // Normalizes.
 
@@ -1810,7 +1810,7 @@ protected:
             return ( this->Intersection(vA, vB) || this->Intersection(vB, vC) ||
                      this->Intersection(vC, vD) || this->Intersection(vD, vA) );
         else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point
-            return this->PointInsideQuadrilateral(vA, vB, vC, vD, vAux);
+            return this->OriginInsideQuadrilateral(vA, vB, vC, vD, vAux);
         else
             return false;
     }
@@ -1827,11 +1827,11 @@ protected:
         const EQIntersections &numIntersect = this->IntersectionPoint(auxP, vAux);
         if (numIntersect == EQIntersections::E_Infinite) // Ray and quadrilateral are coplanar.
         {
-            if ( PointInsideQuadrilateral(vA, vB, vC, vD, this->Point) ) // Ray origin is inside quadrilateral
+            if ( PointInsideQuadrilateral(vA, vB, vC, vD, this->Origin) ) // Ray origin is inside quadrilateral
             {
-                if (this->Point == vA) // Ray origin is A quadrilateral vertex
+                if (this->Origin == vA) // Ray origin is A quadrilateral vertex
                 {
-                    vPoint1 = this->Point;
+                    vPoint1 = this->Origin;
 
                     // Checks intersection with opposite edges
                     if (this->IntersectionPoint(vB, vC, vAux) == EQIntersections::E_One) // Intersection found
@@ -1847,9 +1847,9 @@ protected:
                     else // No intersection found
                         return EQIntersections::E_One;
                 }
-                else if (this->Point == vB) // Ray origin is B quadrilateral vertex
+                else if (this->Origin == vB) // Ray origin is B quadrilateral vertex
                 {
-                    vPoint1 = this->Point;
+                    vPoint1 = this->Origin;
 
                    // Checks intersection with opposite edges
                     if (this->IntersectionPoint(vC, vD, vAux) == EQIntersections::E_One) // Intersection found
@@ -1865,9 +1865,9 @@ protected:
                     else // No intersection found
                         return EQIntersections::E_One;
                 }
-                else if (this->Point == vC) // Ray origin is C quadrilateral vertex
+                else if (this->Origin == vC) // Ray origin is C quadrilateral vertex
                 {
-                    vPoint1 = this->Point;
+                    vPoint1 = this->Origin;
 
                     // Checks intersection with opposite edges
                     if (this->IntersectionPoint(vD, vA, vAux) == EQIntersections::E_One) // Intersection found
@@ -1883,9 +1883,9 @@ protected:
                     else // No intersection found
                         return EQIntersections::E_One;
                 }
-                else if (this->Point == vD) // Ray origin is D quadrilateral vertex
+                else if (this->Origin == vD) // Ray origin is D quadrilateral vertex
                 {
-                    vPoint1 = this->Point;
+                    vPoint1 = this->Origin;
 
                     // Checks intersection with opposite edges
                     if (this->IntersectionPoint(vA, vB, vAux) == EQIntersections::E_One) // Intersection found
@@ -1901,7 +1901,7 @@ protected:
                     else // No intersection found
                         return EQIntersections::E_One;
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(vA, vB).MinDistance(this->Point))) // Ray origin is in AB quadrilateral edge
+                else if (QFloat::IsZero(QLineSegment<VectorType>(vA, vB).MinDistance(this->Origin))) // Ray origin is in AB quadrilateral edge
                 {
                     if (this->IntersectionPoint(vB, vC, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -1912,14 +1912,14 @@ protected:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else if (this->IntersectionPoint(vC, vD, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         vPoint2 = vAux;
                         return EQIntersections::E_Two;
                     }
@@ -1932,18 +1932,18 @@ protected:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else // Ray don't intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(vB, vC).MinDistance(this->Point))) // Ray origin is in BC quadrilateral edge
+                else if (QFloat::IsZero(QLineSegment<VectorType>(vB, vC).MinDistance(this->Origin))) // Ray origin is in BC quadrilateral edge
                 {
                     if (this->IntersectionPoint(vC, vD, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -1954,14 +1954,14 @@ protected:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else if (this->IntersectionPoint(vD, vA, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         vPoint2 = vAux;
                         return EQIntersections::E_Two;
                     }
@@ -1974,18 +1974,18 @@ protected:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else // Ray don't intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(vC, vD).MinDistance(this->Point))) // Ray origin is in CD quadrilateral edge
+                else if (QFloat::IsZero(QLineSegment<VectorType>(vC, vD).MinDistance(this->Origin))) // Ray origin is in CD quadrilateral edge
                 {
                     if (this->IntersectionPoint(vD, vA, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -1996,14 +1996,14 @@ protected:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else if (this->IntersectionPoint(vA, vB, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         vPoint2 = vAux;
                         return EQIntersections::E_Two;
                     }
@@ -2016,18 +2016,18 @@ protected:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else // Ray don't intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(vD, vA).MinDistance(this->Point))) // Ray origin is in DA quadrilateral edge
+                else if (QFloat::IsZero(QLineSegment<VectorType>(vD, vA).MinDistance(this->Origin))) // Ray origin is in DA quadrilateral edge
                 {
                     if (this->IntersectionPoint(vA, vB, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -2038,14 +2038,14 @@ protected:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else if (this->IntersectionPoint(vB, vC, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         vPoint2 = vAux;
                         return EQIntersections::E_Two;
                     }
@@ -2058,14 +2058,14 @@ protected:
                         }
                         else // Intersection is in edge
                         {
-                            vPoint1 = this->Point;
+                            vPoint1 = this->Origin;
                             vPoint2 = vAux;
                             return EQIntersections::E_Two;
                         }
                     }
                     else // Ray don't intersects other edge
                     {
-                        vPoint1 = this->Point;
+                        vPoint1 = this->Origin;
                         return EQIntersections::E_One;
                     }
                 }
@@ -2095,7 +2095,7 @@ protected:
                 if (numIntersectAB == EQIntersections::E_Infinite) // Ray contains AB edge
                 {
                     // Looks for closest point to ray origin
-                    if  ( (vA - this->Point).GetSquaredLength() < (vB - this->Point).GetSquaredLength() )
+                    if  ( (vA - this->Origin).GetSquaredLength() < (vB - this->Origin).GetSquaredLength() )
                     {
                         vPoint1 = vA;
                         vPoint2 = vB;
@@ -2113,7 +2113,7 @@ protected:
                 if (numIntersectBC == EQIntersections::E_Infinite) // Ray contains BC edge
                 {
                     // Looks for closest point to ray origin
-                    if  ( (vB - this->Point).GetSquaredLength() < (vC - this->Point).GetSquaredLength() )
+                    if  ( (vB - this->Origin).GetSquaredLength() < (vC - this->Origin).GetSquaredLength() )
                     {
                         vPoint1 = vB;
                         vPoint2 = vC;
@@ -2131,7 +2131,7 @@ protected:
                 if (numIntersectCD == EQIntersections::E_Infinite) // Ray contains CD edge
                 {
                     // Looks for closest point to ray origin
-                    if  ( (vC - this->Point).GetSquaredLength() < (vD - this->Point).GetSquaredLength() )
+                    if  ( (vC - this->Origin).GetSquaredLength() < (vD - this->Origin).GetSquaredLength() )
                     {
                         vPoint1 = vC;
                         vPoint2 = vD;
@@ -2149,7 +2149,7 @@ protected:
                 if (numIntersectDA == EQIntersections::E_Infinite) // Ray contains DA edge
                 {
                     // Looks for closest point to ray origin
-                    if  ( (vD - this->Point).GetSquaredLength() < (vA - this->Point).GetSquaredLength() )
+                    if  ( (vD - this->Origin).GetSquaredLength() < (vA - this->Origin).GetSquaredLength() )
                     {
                         vPoint1 = vD;
                         vPoint2 = vA;
@@ -2175,7 +2175,7 @@ protected:
                         if (vPrevInt != vAuxBC) // There are not the same point (a common vertex)
                         {
                             // Looks for closest point to ray origin
-                            if  ( (vAuxBC - this->Point).GetSquaredLength() < (vPrevInt - this->Point).GetSquaredLength() )
+                            if  ( (vAuxBC - this->Origin).GetSquaredLength() < (vPrevInt - this->Origin).GetSquaredLength() )
                             {
                                 vPoint1 = vAuxBC;
                                 vPoint2 = vPrevInt;
@@ -2202,7 +2202,7 @@ protected:
                         if (vPrevInt != vAuxCD) // There are not the same point (a common vertex)
                         {
                             // Looks for closest point to ray origin
-                            if  ( (vAuxCD - this->Point).GetSquaredLength() < (vPrevInt - this->Point).GetSquaredLength() )
+                            if  ( (vAuxCD - this->Origin).GetSquaredLength() < (vPrevInt - this->Origin).GetSquaredLength() )
                             {
                                 vPoint1 = vAuxCD;
                                 vPoint2 = vPrevInt;
@@ -2229,7 +2229,7 @@ protected:
                         if (vPrevInt != vAuxDA) // There are not the same point (a common vertex)
                         {
                             // Looks for closest point to ray origin
-                            if  ( (vAuxDA - this->Point).GetSquaredLength() < (vPrevInt - this->Point).GetSquaredLength() )
+                            if  ( (vAuxDA - this->Origin).GetSquaredLength() < (vPrevInt - this->Origin).GetSquaredLength() )
                             {
                                 vPoint1 = vAuxDA;
                                 vPoint2 = vPrevInt;
@@ -2257,7 +2257,7 @@ protected:
         }
         else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects only in one point
         {
-            if ( this->PointInsideQuadrilateral(vA, vB, vC, vD, vAux) )
+            if ( this->OriginInsideQuadrilateral(vA, vB, vC, vD, vAux) )
             {
                 vPoint1 = vAux;
                 return EQIntersections::E_One;
@@ -2276,7 +2276,7 @@ protected:
 	template <class MatrixType>
 	inline void TransformImp (const MatrixType &mTransf)
 	{
-        QPoint::Transform(mTransf, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::Transform(mTransf, reinterpret_cast<VectorType *> (&this->Origin), 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in QVector3::Transform, except for the translation operations.
@@ -2300,7 +2300,7 @@ protected:
 	template <class MatrixType>
 	inline void TransformWithPivotImp (const MatrixType &mTransf, const VectorType &vPivot)
 	{
-        QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType *> (&this->Point), 1);
+        QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in QVector3::Transform, except for the translation operations.

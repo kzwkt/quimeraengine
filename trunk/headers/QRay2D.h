@@ -24,7 +24,7 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in 2D space, which consists of a point or position, and a direction. The direction
+/// Represents a ray in 2D space, which consists of a origin point or position, and a direction. The direction
 /// symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
 /// </summary>
 class QDllExport QRay2D : public QRay<QVector2, QVector2>
@@ -68,9 +68,9 @@ public:
     /// <summary>
     /// Constructor that receives the ray's position and direction. The direction vector must be normalized.
     /// </summary>
-    /// <param name="vPoint">[IN] Ray's position.</param>
+    /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
-    inline QRay2D(const QVector2 &vPoint, const QVector2 &vDirection) : QRay<QVector2, QVector2>(vPoint, vDirection) { }
+    inline QRay2D(const QVector2 &vOrigin, const QVector2 &vDirection) : QRay<QVector2, QVector2>(vOrigin, vDirection) { }
 
 
 	// METHODS
@@ -119,21 +119,7 @@ public:
     /// </returns>
     inline bool Intersection (const QBaseOrb<QVector2> &orb) const
     {
-        // [TODO] jwladi: Esto debería ir en la clase base, es independiente de coordenadas.
-
-        QVector2 vNewRayPoint(this->Point - orb.P);
-
-        //  B/2 (instead of B) is calculed here to optimize comparison.
-        const float_q &fB = vNewRayPoint.DotProduct(this->Direction);
-
-        // Since ray is normalized, A = 1.
-        //const float_q &fA = this->Direction.DotProduct(this->Direction);
-
-        const float_q &fC = vNewRayPoint.DotProduct(vNewRayPoint) - orb.Radius * orb.Radius;
-
-        // Discriminant: B^2 - 4AC
-        // Comparing B^2 (divided by 4) and A*C (4*A*C divided by 4). Remember that A = 1.
-        return ( QFloat::IsGreaterOrEquals(fB*fB, fC) );
+        return QRay<QVector2, QVector2>::Intersection(orb);
     }
 
     /// <summary>
@@ -362,7 +348,7 @@ public:
             if (numInt == EQIntersections::E_One)
             {
                 // Reflected origin is the intersection point
-                refRay.Point = vPoint;
+                refRay.Origin = vPoint;
 
                 // Calculates normal to line segment (is normalized like vAux)
                 QVector2 vNorm = vAux.GetPerpendicular();
@@ -418,7 +404,7 @@ public:
 	/// </remarks>
 	inline void Transform(const QTransformationMatrix3x3 &mTransf)
 	{
-	    this->Point.Transform(mTransf);
+	    this->Origin.Transform(mTransf);
 
         // Direction is transformed without translation. The calculation takes into account only the submatrix that contains
         // the rotation and the scale.
@@ -474,7 +460,7 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const float_q &fAngle, const QBaseVector2 &vPivot)
 	{
-        QPoint::RotateWithPivot(fAngle, vPivot, reinterpret_cast<QVector2 *> (&this->Point), 1);
+        QPoint::RotateWithPivot(fAngle, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
         QPoint::Rotate(fAngle, reinterpret_cast<QVector2 *> (&this->Direction), 1);
 	}
 
@@ -497,7 +483,7 @@ public:
 	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
 	inline void Translate (const QBaseVector2 &vTrans)
 	{
-        QPoint::Translate(vTrans, reinterpret_cast<QVector2 *> (&this->Point), 1);
+        QPoint::Translate(vTrans, reinterpret_cast<QVector2 *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -519,7 +505,7 @@ public:
 	/// <param name="fTransY">[IN] Amount of translation in Y direction.</param>
 	inline void Translate (const float_q &fTransX, const float_q &fTransY)
 	{
-        QPoint::Translate(fTransX, fTransY, reinterpret_cast<QVector2 *> (&this->Point), 1);
+        QPoint::Translate(fTransX, fTransY, reinterpret_cast<QVector2 *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -589,7 +575,7 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
 	{
-        QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2 *> (&this->Point), 1);
+        QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
         QPoint::Scale(vScale, reinterpret_cast<QVector2 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
@@ -616,7 +602,7 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot)
 	{
-        QPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, reinterpret_cast<QVector2 *> (&this->Point), 1);
+        QPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
         QPoint::Scale(vScaleX, vScaleY, reinterpret_cast<QVector2 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
@@ -643,7 +629,7 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
 	inline void TransformWithPivot (const QTransformationMatrix3x3 &mTransf, const QBaseVector2 &vPivot)
 	{
-        QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<QVector2 *> (&this->Point), 1);
+        QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
 
         float_q fNewX = this->Direction.x * mTransf.ij[0][0] + this->Direction.y * mTransf.ij[1][0];
         float_q fNewY = this->Direction.x * mTransf.ij[0][1] + this->Direction.y * mTransf.ij[1][1];
@@ -670,12 +656,13 @@ public:
 protected:
 
     // Checks if resident ray contains a given point.
+    // [TODO] jwladi: Este método tenía fallos. Revisar.
     bool Contains (const QVector2 &vPoint) const
     {
-        if (vPoint == this->Point) // The point is the ray position.
+        if (vPoint == this->Origin) // The point is the ray position.
             return true;
 
-        QVector2 vAux(QVector2(vPoint) - this->Point);
+        QVector2 vAux(QVector2(vPoint) - this->Origin);
 
         // Applying Po = P + t·V   =>    t = (Po - P)· V / |V|^2
         return ( QFloat::IsPositive(vAux.DotProduct(this->Direction)) );
