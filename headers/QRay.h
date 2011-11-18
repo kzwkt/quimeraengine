@@ -19,11 +19,11 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in the space, which consists of a point, or position, and a direction. The direction
-/// symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
+/// Represents a ray in the space, which consists of a origin point, or position, and a direction. The direction
+/// symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </summary>
-template<class VectorTypePoint, class VectorTypeDirection>
-class QDllExport QRay : public QBaseRay<VectorTypePoint, VectorTypeDirection>
+template<class VectorTypeOrigin, class VectorTypeDirection>
+class QDllExport QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
 {
     // CONSTANTS
     // ---------------
@@ -50,16 +50,16 @@ public:
     /// Constructor that receives a ray.
     /// </summary>
     /// <param name="baseRay">[IN] An existing ray.</param>
-    inline QRay(const QBaseRay<VectorTypePoint, VectorTypeDirection>& baseRay) : QBaseRay<VectorTypePoint, VectorTypeDirection>(baseRay)
+    inline QRay(const QBaseRay<VectorTypeOrigin, VectorTypeDirection>& baseRay) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(baseRay)
     {
     }
 
     /// <summary>
     /// Constructor that receives the ray's position and direction.
     /// </summary>
-    /// <param name="vPoint">[IN] Ray's position.</param>
+    /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
-    inline QRay(const VectorTypePoint &vPoint, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypePoint, VectorTypeDirection>(vPoint, vDirection)
+    inline QRay(const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(vOrigin, vDirection)
     {
     }
 
@@ -75,9 +75,9 @@ public:
     /// <returns>
     /// A reference to this ray, after assignation.
     /// </returns>
-    inline QRay& operator=(const QBaseRay<VectorTypePoint, VectorTypeDirection>& ray)
+    inline QRay& operator=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection>& ray)
     {
-        QBaseRay<VectorTypePoint, VectorTypeDirection>::operator=(ray);
+        QBaseRay<VectorTypeOrigin, VectorTypeDirection>::operator=(ray);
         return *this;
     }
 
@@ -93,10 +93,10 @@ public:
     /// Obtains a reverted copy of the ray. Converts copy's direction in its opposite.
     /// </summary>
     /// <param name="vRevertedRay">[OUT] A reverted copy of the ray.</param>
-    inline void Reverse(QBaseRay<VectorTypePoint, VectorTypeDirection>& vRevertedRay) const
+    inline void Reverse(QBaseRay<VectorTypeOrigin, VectorTypeDirection>& vRevertedRay) const
     {
         vRevertedRay = *this;
-        reinterpret_cast<QRay<VectorTypePoint, VectorTypeDirection>*>(&vRevertedRay)->Reverse();
+        reinterpret_cast<QRay<VectorTypeOrigin, VectorTypeDirection>*>(&vRevertedRay)->Reverse();
     }
 
     /// <summary>
@@ -111,10 +111,10 @@ public:
     /// Obtains a normalized copy of the ray. Normalizes the copy, converting its direction in a unit vector.
     /// </summary>
     /// <param name="vNormalizedRay">[OUT] A normalized copy of the ray.</param>
-    inline void Normalize(QBaseRay<VectorTypePoint, VectorTypeDirection>& vNormalizedRay) const
+    inline void Normalize(QBaseRay<VectorTypeOrigin, VectorTypeDirection>& vNormalizedRay) const
     {
         vNormalizedRay = *this;
-        reinterpret_cast<QRay<VectorTypePoint, VectorTypeDirection>*>(&vNormalizedRay)->Normalize();
+        reinterpret_cast<QRay<VectorTypeOrigin, VectorTypeDirection>*>(&vNormalizedRay)->Normalize();
     }
 
     /// <summary>
@@ -122,12 +122,12 @@ public:
     /// </summary>
     /// <param name="fDistance">[IN] Distance from the point which is to be found to the ray's position.</param>
     /// <param name="vRayPoint">[OUT] A point of the ray.</param>
-    inline void GetPoint(const float_q &fDistance, VectorTypePoint& vRayPoint) const
+    inline void GetPoint(const float_q &fDistance, VectorTypeOrigin& vRayPoint) const
     {
         // It's assumed that the ray's direction vector is normalized
         vRayPoint = this->Direction;
         vRayPoint *= fDistance;
-        vRayPoint += this->Point;
+        vRayPoint += this->Origin;
     }
 
     /// <summary>
@@ -137,18 +137,18 @@ public:
     /// <returns>
     /// True if ray intersect orb, false otherwise.
     /// </returns>
-    inline bool Intersection (const QBaseOrb<VectorTypePoint> &orb) const
+    inline bool Intersection (const QBaseOrb<VectorTypeOrigin> &orb) const
     {
         // Converts all vectors to VectorTypeDirection, that always will be QVector2 or QVector3
-        VectorTypeDirection vNewRayPoint(this->Point - orb.P);
+        VectorTypeDirection vNewRayOrigin(this->Origin - orb.P);
 
         //  B/2 (instead of B) is calculed here to optimize comparison.
-        const float_q &fB = vNewRayPoint.DotProduct(this->Direction);
+        const float_q &fB = vNewRayOrigin.DotProduct(this->Direction);
 
         // Since ray is normalized, A = 1.
         //const float_q &fA = this->Direction.DotProduct(this->Direction);
 
-        const float_q &fC = vNewRayPoint.DotProduct(vNewRayPoint) - orb.Radius * orb.Radius;
+        const float_q &fC = vNewRayOrigin.DotProduct(vNewRayOrigin) - orb.Radius * orb.Radius;
 
         // Discriminant: B^2 - 4AC
         const float_q fD = fB*fB - fC;
@@ -197,14 +197,14 @@ public:
     /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
-    EQIntersections IntersectionPoint(const QBaseOrb<VectorTypePoint> &orb, VectorTypePoint &vPoint1, VectorTypePoint &vPoint2) const
+    EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vPoint1, VectorTypeOrigin &vPoint2) const
     {
         // We set all vectors to the same type that output parameters to allow operations
-        const VectorTypePoint &vDirection(this->Direction);
+        const VectorTypeOrigin &vDirection(this->Direction);
 
         // We reduce ray and orb to origin, in order to simplify orb equation, and we calculate
         // the new ray origin point
-        const VectorTypePoint &vNewRayPoint(this->Point - orb.P);
+        const VectorTypeOrigin &vNewRayOrigin(this->Point - orb.P);
 
         // We replace then in the orb equation to force it to verify the ray equation
         // vDirection^2*T^2 + 2*vNewA*vDirection*T + vNewA^2 - r^2 = 0
@@ -216,8 +216,8 @@ public:
         // Since ray is normalized, A = 1
         // const float_q &fA = this->Direction.DotProduct(this->Direction);
 
-        const float_q &fB = QFloat::_2 * vNewRayPoint.DotProduct(vDirection);
-        const float_q &fC = vNewRayPoint.DotProduct(vNewRayPoint) - orb.Radius * orb.Radius;
+        const float_q &fB = QFloat::_2 * vNewRayOrigin.DotProduct(vDirection);
+        const float_q &fC = vNewRayOrigin.DotProduct(vNewRayOrigin) - orb.Radius * orb.Radius;
 
         // Remember that a = 1 -> D = B^2 - 4AC = B^2 - 4C
         const float_q &fD = fB * fB - QFloat::_4 * fC;
@@ -235,7 +235,7 @@ public:
                 return EQIntersections::E_None;
             else
             {
-                vPoint1 = vNewRayPoint + fT * vDirection + orb.P;
+                vPoint1 = vNewRayOrigin + fT * vDirection + orb.P;
                 return EQIntersections::E_One;
             }
         }
@@ -257,18 +257,18 @@ public:
                 return EQIntersections::E_None; // Shouldn't happen this :(
             else if (bT1Fails)  // One parameter is negative, there is only one intersection
             {
-                vPoint1 = vNewRayPoint + fT2 * vDirection + orb.P;
+                vPoint1 = vNewRayOrigin + fT2 * vDirection + orb.P;
                 return EQIntersections::E_One;
             }
             else if (bT2Fails) // One parameter is negative, there is only one intersection
             {
-                vPoint1 = vNewRayPoint + fT1 * vDirection + orb.P;
+                vPoint1 = vNewRayOrigin + fT1 * vDirection + orb.P;
                 return EQIntersections::E_One;
             }
             else // Most of the cases: two intersections.
             {
-                vPoint1 = vNewRayPoint + fT1 * vDirection + orb.P;
-                vPoint2 = vNewRayPoint + fT2 * vDirection + orb.P;
+                vPoint1 = vNewRayOrigin + fT1 * vDirection + orb.P;
+                vPoint2 = vNewRayOrigin + fT2 * vDirection + orb.P;
                 return EQIntersections::E_Two;
             }
         }
@@ -276,14 +276,14 @@ public:
 
     /// <summary>
 	/// Converts ray into a string representation with the following format:
-	/// "R:P(VectorTypePoint::ToString),D(VectorTypeDirection::ToString)".
+	/// "R:P(VectorTypeOrigin::ToString),D(VectorTypeDirection::ToString)".
     /// </summary>
     /// <returns>
     /// The string representation with the format specified.
     /// </returns>
     string_q ToString() const
     {
-        return QE_L("R:P(") + this->Point.ToString() + QE_L("),D(") + this->Direction.ToString() + QE_L(")");
+        return QE_L("R:P(") + this->Origin.ToString() + QE_L("),D(") + this->Direction.ToString() + QE_L(")");
     }
 
 };
@@ -297,8 +297,8 @@ public:
 //##################													   ##################
 //##################=======================================================##################
 
-template <class VectorTypePoint, class VectorTypeDirection>
-const QRay<VectorTypePoint, VectorTypeDirection> QRay<VectorTypePoint, VectorTypeDirection>::RayZero(VectorTypePoint::ZeroVector, VectorTypeDirection::ZeroVector);
+template <class VectorTypeOrigin, class VectorTypeDirection>
+const QRay<VectorTypeOrigin, VectorTypeDirection> QRay<VectorTypeOrigin, VectorTypeDirection>::RayZero(VectorTypeOrigin::ZeroVector, VectorTypeDirection::ZeroVector);
 
 } //namespace Math
 } //namespace Tools
