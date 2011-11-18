@@ -9,7 +9,7 @@ A: Nos hacemos llamar Kinesis Team, somos un grupo de desarrolladores de distint
 
 *Q: ¿Necesito tener instalado el SDK de DirectX 11 para utilizar el motor?*
 
-A: Quimera Engine implementa su interfaz de gráficos sobre 2 APIs, DirectX 11 y OpenGL 4, por lo tanto no es necesario tenerlo siempre y cuando dispongas de OpenGL 4.
+A: Quimera Engine implementa su interfaz de gráficos sobre 2 APIs, DirectX 11 y OpenGL 4, por lo tanto no es necesario tenerlo, siempre y cuando dispongas de OpenGL 4.
 
 *Q: ¿Pueden desarrollarse videojuegos para XBox 360 o Play Station 3?*
 
