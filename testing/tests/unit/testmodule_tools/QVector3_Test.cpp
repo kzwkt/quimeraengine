@@ -4,7 +4,7 @@
 #include <boost/test/unit_test_log.hpp>
 using namespace boost::unit_test;
 
-#include "../testsystem/TestingExternalDefinitions.h"
+#include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QVector3.h"
 

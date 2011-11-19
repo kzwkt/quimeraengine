@@ -1,2 +1,2 @@
-./../../../unit/results/Unit_TestModule_
-./../../../performance/results/Perf_TestModule_
+./../../../tests/unit/results/Unit_TestModule_
+./../../../tests/performance/results/Perf_TestModule_

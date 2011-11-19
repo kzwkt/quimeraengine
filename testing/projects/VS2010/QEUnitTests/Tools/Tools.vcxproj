@@ -10,8 +10,8 @@
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
-    <ClCompile Include="..\..\..\..\unit\testmodule_tools\QVector3_Test.cpp" />
-    <ClCompile Include="..\..\..\..\unit\testmodule_tools\TestModule_Tools.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h" />
@@ -61,7 +61,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\tests\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
