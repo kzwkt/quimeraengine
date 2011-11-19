@@ -9,12 +9,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\unit\testmodule_tools\QVector3_Test.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\unit\testmodule_tools\TestModule_Tools.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
       <Filter>TestSystem %28shared%29</Filter>
     </ClCompile>
@@ -23,6 +17,12 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
       <Filter>TestSystem %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp">
+      <Filter>Tests</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
