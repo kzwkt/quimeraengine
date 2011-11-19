@@ -8,8 +8,8 @@
 #include <boost/test/unit_test.hpp>
 #include <boost/test/unit_test_log.hpp>
 
-#include "../common/CommonConfigDefinitions.h"
-#include "../common/QCommonTestConfig.h"
+#include "../testsystem/CommonConfigDefinitions.h"
+#include "../testsystem/QCommonTestConfig.h"
 
 using Kinesis::QuimeraEngine::Test::QCommonTestConfig;
 using Kinesis::QuimeraEngine::Test::EQTestType;

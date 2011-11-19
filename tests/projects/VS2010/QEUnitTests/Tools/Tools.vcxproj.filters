@@ -4,7 +4,7 @@
     <Filter Include="Tests">
       <UniqueIdentifier>{9db66cd7-5975-43cc-b98d-531a9138caa4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Common %28shared%29">
+    <Filter Include="TestSystem %28shared%29">
       <UniqueIdentifier>{fd7e9de1-b34f-4b96-b5a0-43c630e384fd}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -15,43 +15,43 @@
     <ClCompile Include="..\..\..\..\unit\testmodule_tools\TestModule_Tools.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\common\EQTestType.cpp">
-      <Filter>Common %28shared%29</Filter>
+    <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\common\QCommonTestConfig.cpp">
-      <Filter>Common %28shared%29</Filter>
+    <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\common\QSimpleConfigLoader.cpp">
-      <Filter>Common %28shared%29</Filter>
+    <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\common\CommonConfigDefinitions.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\common\EQTestType.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\EQTestType.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\common\QCommonTestConfig.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\common\QSimpleConfigLoader.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\common\QuimeraEngineFixtures.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\common\QUnitTestModuleBase.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\QuimeraEngineFixtures.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\common\TestingHelperDefinitions.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\common\QPerformanceTestModuleBase.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\common\TestingExternalDefinitions.h">
-      <Filter>Common %28shared%29</Filter>
+    <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
+      <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

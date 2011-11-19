@@ -7,22 +7,22 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\common\EQTestType.cpp" />
-    <ClCompile Include="..\..\..\..\common\QCommonTestConfig.cpp" />
-    <ClCompile Include="..\..\..\..\common\QSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\unit\testmodule_tools\QVector3_Test.cpp" />
     <ClCompile Include="..\..\..\..\unit\testmodule_tools\TestModule_Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\common\CommonConfigDefinitions.h" />
-    <ClInclude Include="..\..\..\..\common\EQTestType.h" />
-    <ClInclude Include="..\..\..\..\common\QCommonTestConfig.h" />
-    <ClInclude Include="..\..\..\..\common\QPerformanceTestModuleBase.h" />
-    <ClInclude Include="..\..\..\..\common\QSimpleConfigLoader.h" />
-    <ClInclude Include="..\..\..\..\common\QuimeraEngineFixtures.h" />
-    <ClInclude Include="..\..\..\..\common\QUnitTestModuleBase.h" />
-    <ClInclude Include="..\..\..\..\common\TestingExternalDefinitions.h" />
-    <ClInclude Include="..\..\..\..\common\TestingHelperDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\EQTestType.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QuimeraEngineFixtures.h" />
+    <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{40B8A776-0BED-40E6-B2F2-5CE7386733D8}</ProjectGuid>
