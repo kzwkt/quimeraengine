@@ -237,7 +237,7 @@ private:
 
 // CONSTANTS INITIALIZATION
 // ----------------------------
-
+THIS MUST BE PLACED IN THE CPP FILE
 EQEnumeration::TNameValuePair EQEnumeration::sm_arValueName[] =
     {
         std::pair<string_q, EQEnumeration::EnumType>(QE_L("<>"),    EQEnumeration::E_<>),
