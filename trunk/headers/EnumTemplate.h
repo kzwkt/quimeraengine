@@ -14,9 +14,7 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
-{
-namespace Math
+namespace NAMESPACE
 {
 
 /// <summary>
@@ -222,12 +220,12 @@ private:
     /// <summary>
     /// A list of enumeration values with their names.
     /// </summary>
-    static TNameValuePair sm_arValueName[];
+    static TNameValuePair sm_arValueName[];  REMEMBER TO INITIALIZE IT IN THE CPP FILE
 
     /// <summary>
     /// The dictionary which contains each enumeration value by its name.
     /// </summary>
-    static TNameValueMap  sm_mapValueName;
+    static TNameValueMap  sm_mapValueName;  REMEMBER TO INITIALIZE IT IN THE CPP FILE
 
     /// <summary>
     /// The contained enumeration value.
@@ -252,8 +250,7 @@ EQEnumeration::TNameValueMap EQEnumeration::sm_mapValueName(
 
 
 
-} //namespace Math
-} //namespace Tools
+} //namespace NAMESPACE
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
