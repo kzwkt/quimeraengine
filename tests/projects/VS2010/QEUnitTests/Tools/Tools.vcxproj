@@ -21,6 +21,7 @@
     <ClInclude Include="..\..\..\..\common\QSimpleConfigLoader.h" />
     <ClInclude Include="..\..\..\..\common\QuimeraEngineFixtures.h" />
     <ClInclude Include="..\..\..\..\common\QUnitTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\common\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\common\TestingHelperDefinitions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">

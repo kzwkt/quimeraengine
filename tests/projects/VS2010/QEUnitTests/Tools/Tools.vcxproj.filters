@@ -50,5 +50,8 @@
     <ClInclude Include="..\..\..\..\common\QPerformanceTestModuleBase.h">
       <Filter>Common %28shared%29</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\common\TestingExternalDefinitions.h">
+      <Filter>Common %28shared%29</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
