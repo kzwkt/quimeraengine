@@ -15,24 +15,39 @@
     <ClCompile Include="..\..\..\..\unit\testmodule_tools\TestModule_Tools.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\unit\common\QCommonTestConfig.cpp">
+    <ClCompile Include="..\..\..\..\common\EQTestType.cpp">
       <Filter>Common %28shared%29</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\unit\common\QSimpleConfigLoader.cpp">
+    <ClCompile Include="..\..\..\..\common\QCommonTestConfig.cpp">
+      <Filter>Common %28shared%29</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\common\QSimpleConfigLoader.cpp">
       <Filter>Common %28shared%29</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\unit\common\QuimeraEngineFixtures.h">
+    <ClInclude Include="..\..\..\..\common\CommonConfigDefinitions.h">
       <Filter>Common %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\unit\common\QCommonTestConfig.h">
+    <ClInclude Include="..\..\..\..\common\EQTestType.h">
       <Filter>Common %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\unit\common\QSimpleConfigLoader.h">
+    <ClInclude Include="..\..\..\..\common\QCommonTestConfig.h">
       <Filter>Common %28shared%29</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\unit\common\CommonConfigDefinitions.h">
+    <ClInclude Include="..\..\..\..\common\QSimpleConfigLoader.h">
+      <Filter>Common %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\QuimeraEngineFixtures.h">
+      <Filter>Common %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\QUnitTestModuleBase.h">
+      <Filter>Common %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\TestingHelperDefinitions.h">
+      <Filter>Common %28shared%29</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\common\QPerformanceTestModuleBase.h">
       <Filter>Common %28shared%29</Filter>
     </ClInclude>
   </ItemGroup>

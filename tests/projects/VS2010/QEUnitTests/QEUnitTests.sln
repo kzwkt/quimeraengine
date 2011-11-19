@@ -3,12 +3,17 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "common", "common", "{3FAC7DF2-4659-4F95-AD53-9418F07F673D}"
 	ProjectSection(SolutionItems) = preProject
-		..\..\..\unit\common\CommonConfigDefinitions.h = ..\..\..\unit\common\CommonConfigDefinitions.h
-		..\..\..\unit\common\QCommonTestConfig.cpp = ..\..\..\unit\common\QCommonTestConfig.cpp
-		..\..\..\unit\common\QCommonTestConfig.h = ..\..\..\unit\common\QCommonTestConfig.h
-		..\..\..\unit\common\QSimpleConfigLoader.cpp = ..\..\..\unit\common\QSimpleConfigLoader.cpp
-		..\..\..\unit\common\QSimpleConfigLoader.h = ..\..\..\unit\common\QSimpleConfigLoader.h
-		..\..\..\unit\common\QuimeraEngineFixtures.h = ..\..\..\unit\common\QuimeraEngineFixtures.h
+		..\..\..\common\CommonConfigDefinitions.h = ..\..\..\common\CommonConfigDefinitions.h
+		..\..\..\common\EQTestType.cpp = ..\..\..\common\EQTestType.cpp
+		..\..\..\common\EQTestType.h = ..\..\..\common\EQTestType.h
+		..\..\..\common\QCommonTestConfig.cpp = ..\..\..\common\QCommonTestConfig.cpp
+		..\..\..\common\QCommonTestConfig.h = ..\..\..\common\QCommonTestConfig.h
+		..\..\..\common\QPerformanceTestModuleBase.h = ..\..\..\common\QPerformanceTestModuleBase.h
+		..\..\..\common\QSimpleConfigLoader.cpp = ..\..\..\common\QSimpleConfigLoader.cpp
+		..\..\..\common\QSimpleConfigLoader.h = ..\..\..\common\QSimpleConfigLoader.h
+		..\..\..\common\QuimeraEngineFixtures.h = ..\..\..\common\QuimeraEngineFixtures.h
+		..\..\..\common\QUnitTestModuleBase.h = ..\..\..\common\QUnitTestModuleBase.h
+		..\..\..\common\TestingHelperDefinitions.h = ..\..\..\common\TestingHelperDefinitions.h
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tools", "Tools\Tools.vcxproj", "{40B8A776-0BED-40E6-B2F2-5CE7386733D8}"

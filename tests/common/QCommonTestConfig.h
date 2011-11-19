@@ -10,6 +10,7 @@
 #include <string>
 
 #include "QSimpleConfigLoader.h"
+#include "EQTestType.h"
 
 using namespace boost::unit_test;
 
@@ -22,7 +23,9 @@ namespace Test
 {
 
 /// <summary>
-/// [DOC]
+/// Configures the testing system and initializes it. It must be instantiated only once per module.
+/// When instantiated, it reads the test configuration file and sets up, for example, the test 
+/// logging objects.
 /// </summary>
 class QCommonTestConfig
 {
@@ -32,7 +35,7 @@ class QCommonTestConfig
 public:
 
     /// <summary>
-    /// [DOC]
+    /// Predefined file name of the test configuration file.
     /// </summary>
     static const std::string TestConfigFileName;
 
@@ -42,19 +45,16 @@ public:
 public:
 
     /// <summary>
-    /// [DOC]
+    /// Default constructor.
     /// </summary>
-    /// <param name="QCommonTestConfig">[DOC]</param>
-    /// <returns>
-    /// [DOC]
-    /// </returns>
     QCommonTestConfig();
 
     /// <summary>
-    /// [DOC]
+    /// Constructor that receives the name of the test module and the type of test.
     /// </summary>
-    /// <param name="strTestModuleName">[DOC]</param>
-    QCommonTestConfig(const std::string &strTestModuleName);
+    /// <param name="strTestModuleName">The name of the module.</param>
+    /// <param name="testType">The type of test.</param>
+    QCommonTestConfig(const std::string &strTestModuleName, const EQTestType& testType);
 
 
 	// DESTRUCTOR
@@ -72,13 +72,21 @@ public:
 protected:
 
     /// <summary>
-    /// [DOC]
+    /// The path of the file where the tests results are to be written.
     /// </summary>
+    /// <remarks>
+    /// It has to be static because, internally, it's used by the logger of Boost library, that needs it 
+    /// alive until the application exits.
+    /// </remarks>
     static std::string s_strLogFilePath;
 
     /// <summary>
-    /// [DOC]
+    /// The output file stream where the logger will write.
     /// </summary>
+    /// <remarks>
+    /// It has to be static because, internally, it's used by the logger of Boost library, that needs it 
+    /// alive until the application exits.
+    /// </remarks>
     static std::ofstream s_resultsFileStream;
 
 };
