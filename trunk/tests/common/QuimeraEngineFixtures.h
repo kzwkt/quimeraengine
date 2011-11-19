@@ -3,7 +3,7 @@
 #ifndef __QUIMERAENGINEFIXTURES__
 #define __QUIMERAENGINEFIXTURES__
 
-#define QE_TEST_SUITE_FIXTURE( fixture_class_name, suite_name )                 \
+#define QTEST_SUITE_FIXTURE( fixture_class_name, suite_name )                   \
 class fixture_class_name                                                        \
 {                                                                               \
 public:                                                                         \

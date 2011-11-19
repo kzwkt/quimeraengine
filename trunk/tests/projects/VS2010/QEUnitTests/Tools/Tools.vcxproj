@@ -7,16 +7,21 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\unit\common\QCommonTestConfig.cpp" />
-    <ClCompile Include="..\..\..\..\unit\common\QSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\common\EQTestType.cpp" />
+    <ClCompile Include="..\..\..\..\common\QCommonTestConfig.cpp" />
+    <ClCompile Include="..\..\..\..\common\QSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\unit\testmodule_tools\QVector3_Test.cpp" />
     <ClCompile Include="..\..\..\..\unit\testmodule_tools\TestModule_Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\unit\common\CommonConfigDefinitions.h" />
-    <ClInclude Include="..\..\..\..\unit\common\QCommonTestConfig.h" />
-    <ClInclude Include="..\..\..\..\unit\common\QSimpleConfigLoader.h" />
-    <ClInclude Include="..\..\..\..\unit\common\QuimeraEngineFixtures.h" />
+    <ClInclude Include="..\..\..\..\common\CommonConfigDefinitions.h" />
+    <ClInclude Include="..\..\..\..\common\EQTestType.h" />
+    <ClInclude Include="..\..\..\..\common\QCommonTestConfig.h" />
+    <ClInclude Include="..\..\..\..\common\QPerformanceTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\common\QSimpleConfigLoader.h" />
+    <ClInclude Include="..\..\..\..\common\QuimeraEngineFixtures.h" />
+    <ClInclude Include="..\..\..\..\common\QUnitTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\common\TestingHelperDefinitions.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{40B8A776-0BED-40E6-B2F2-5CE7386733D8}</ProjectGuid>
@@ -71,11 +76,12 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>"$(TargetPath)"</Command>
+      <Command>
+      </Command>
+      <Message>"$(TargetPath)"</Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
