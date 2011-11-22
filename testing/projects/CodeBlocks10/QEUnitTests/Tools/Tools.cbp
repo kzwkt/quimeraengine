@@ -43,6 +43,7 @@
 					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
 					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
 					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
+					<Add library="..\..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic\libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
 					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
