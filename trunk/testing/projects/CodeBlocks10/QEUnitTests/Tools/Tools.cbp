@@ -5,13 +5,13 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)\;Tests\;" />
+		<Option virtualFolders="TestSystem (shared)/;Tests/;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
-				<Option output="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools" prefix_auto="0" extension_auto="1" />
-				<Option working_dir="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugLinux32SharedrtStatic" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineTools" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -19,10 +19,11 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
-					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineTools.a" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineSystem.a" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCore.a" />
+					<Add library="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/libboost_unit_test_framework.a" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
@@ -30,9 +31,9 @@
 			</Target>
 			<Target title="DebugWin32SharedrtStatic">
 				<Option platforms="Windows;" />
-				<Option output="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools" prefix_auto="0" extension_auto="1" />
-				<Option working_dir="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugWin32SharedrtStatic" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtStatic" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -40,11 +41,11 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
-					<Add library="..\..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic\libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
-					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCore.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineSystem.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
+					<Add library="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic/libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='copy &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
@@ -59,51 +60,51 @@
 			<Add option="-Wmissing-include-dirs" />
 			<Add option="-Wswitch-default" />
 			<Add option="-Wall" />
-			<Add directory="..\..\..\..\..\headers" />
-			<Add directory="..\..\..\..\..\3rdparty\Boost\include" />
-			<Add directory="..\..\..\..\tests\unit" />
+			<Add directory="../../../../../headers" />
+			<Add directory="../../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../tests/unit" />
 		</Compiler>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
-			<Option virtualFolder="Tests\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QVector3_Test.cpp">
+			<Option virtualFolder="Tests/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp">
-			<Option virtualFolder="Tests\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/TestModule_Tools.cpp">
+			<Option virtualFolder="Tests/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\CommonConfigDefinitions.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/CommonConfigDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\EQTestType.cpp">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/EQTestType.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\EQTestType.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/EQTestType.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QCommonTestConfig.cpp">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QCommonTestConfig.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QCommonTestConfig.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QCommonTestConfig.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QPerformanceTestModuleBase.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QPerformanceTestModuleBase.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QSimpleConfigLoader.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QSimpleConfigLoader.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QSimpleConfigLoader.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QUnitTestModuleBase.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QUnitTestModuleBase.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QuimeraEngineFixtures.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QuimeraEngineFixtures.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\TestingExternalDefinitions.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/TestingExternalDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\TestingHelperDefinitions.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/TestingHelperDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
 		<Extensions>
 			<code_completion />
