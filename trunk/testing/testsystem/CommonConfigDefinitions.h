@@ -3,6 +3,8 @@
 #ifndef __COMMONCONFIGDEFINITIONS__
 #define __COMMONCONFIGDEFINITIONS__
 
+#include "../../headers/ExternalDefinitions.h"
+
 /*
 [TODO] Thund: Identificar y añadir al bloque de abajo
 // Linux 32 bits OS, Debug, Shared runtime linking, Static library output
@@ -43,32 +45,32 @@
 // CURRENT CONFIGURATION INDENTIFICATION
 // ---------------------------------------
 
-#if defined(_WIN32)
+#if defined(QE_OS_WINDOWS)
 
-    #ifdef _MSC_VER // Microsoft Visual C++
-        #if _MSC_VER >= 1600 // Microsoft Visual C++ 2010
-            #if defined(_DEBUG) && (defined(_MT) && defined(_DLL)) && !defined(QE_CONFIG_COMPILER_DLL)
+    #ifdef QE_COMPILER_MSVC // Microsoft Visual C++
+        #if QE_COMPILER_MSVC >= 10 // Microsoft Visual C++ 2010
+            #if defined(QE_DEBUG) && (defined(_MT) && defined(_DLL)) && !defined(QE_CONFIG_COMPILER_IMPORT)
                 // Windows 32 bits OS, Debug, Shared runtime linking, Static library output
                 #define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_STATICOUT
-            #elif defined(_DEBUG) && (defined(_MT) && defined(_DLL)) && defined(QE_CONFIG_COMPILER_DLL)
+            #elif defined(QE_DEBUG) && (defined(_MT) && defined(_DLL)) && defined(QE_CONFIG_COMPILER_IMPORT)
                 // Windows 32 bits OS, Debug, Shared runtime linking, Dynamic library output
                 #define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_DYNAMICOUT
-            #elif defined(NDEBUG) && (defined(_MT) && defined(_DLL)) && !defined(QE_CONFIG_COMPILER_DLL)
+            #elif !defined(QE_DEBUG) && (defined(_MT) && defined(_DLL)) && !defined(QE_CONFIG_COMPILER_IMPORT)
                 // Windows 32 bits OS, Release, Shared runtime linking, Static library output
                 #define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_STATICOUT
-            #elif defined(NDEBUG) && (defined(_MT) && defined(_DLL)) && defined(QE_CONFIG_COMPILER_DLL)
+            #elif !defined(QE_DEBUG) && (defined(_MT) && defined(_DLL)) && defined(QE_CONFIG_COMPILER_IMPORT)
                 // Windows 32 bits OS, Release, Shared runtime linking, Dynamic library output
                 #define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_DYNAMICOUT
-            #elif defined(_DEBUG) && defined(_MT) && !defined(QE_CONFIG_COMPILER_DLL)
+            #elif defined(QE_DEBUG) && defined(_MT) && !defined(QE_CONFIG_COMPILER_IMPORT)
                 // Windows 32 bits OS, Debug, Static runtime linking, Static library output
                 #define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_STATICOUT
-            #elif defined(_DEBUG) && defined(_MT) && defined(QE_CONFIG_COMPILER_DLL)
+            #elif defined(QE_DEBUG) && defined(_MT) && defined(QE_CONFIG_COMPILER_IMPORT)
                 // Windows 32 bits OS, Debug, Static runtime linking, Dynamic library output
                 #define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_DYNAMICOUT
-            #elif defined(NDEBUG) && defined(_MT) && !defined(QE_CONFIG_COMPILER_DLL)
+            #elif !defined(QE_DEBUG) && defined(_MT) && !defined(QE_CONFIG_COMPILER_IMPORT)
                 // Windows 32 bits OS, Release, Static runtime linking, Static library output
                 #define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_STATICOUT
-            #elif defined(NDEBUG) && defined(_MT) && defined(QE_CONFIG_COMPILER_DLL)
+            #elif !defined(QE_DEBUG) && defined(_MT) && defined(QE_CONFIG_COMPILER_IMPORT)
                 // Windows 32 bits OS, Release, Static runtime linking, Dynamic library output
                 #define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_DYNAMICOUT
             #else
@@ -76,9 +78,70 @@
             #endif
         #else// Microsoft Visual C++ < 2010
         #endif
+    #elif defined(QE_COMPILER_GCC) // GCC (MinGW)
+        #define UsingSharedRuntime // TODO [Thund]: How to know if the compiler is linking shared or static libstdc++?
+        #if defined(QE_DEBUG) && defined(UsingSharedRuntime) && !defined(QE_CONFIG_COMPILER_IMPORT)
+            // Windows 32 bits OS, Debug, Shared runtime linking, Static library output
+            #define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_STATICOUT
+        #elif defined(QE_DEBUG) && defined(UsingSharedRuntime) && defined(QE_CONFIG_COMPILER_IMPORT)
+            // Windows 32 bits OS, Debug, Shared runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_DYNAMICOUT
+        #elif !defined(QE_DEBUG) && defined(UsingSharedRuntime) && !defined(QE_CONFIG_COMPILER_IMPORT)
+            // Windows 32 bits OS, Release, Shared runtime linking, Static library output
+            #define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_STATICOUT
+        #elif !defined(QE_DEBUG) && defined(UsingSharedRuntime) && defined(QE_CONFIG_COMPILER_IMPORT)
+            // Windows 32 bits OS, Release, Shared runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_DYNAMICOUT
+        #elif defined(QE_DEBUG) && !defined(UsingSharedRuntime) && !defined(QE_CONFIG_COMPILER_IMPORT)
+            // Windows 32 bits OS, Debug, Static runtime linking, Static library output
+            #define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_STATICOUT
+        #elif defined(QE_DEBUG) && !defined(UsingSharedRuntime) && defined(QE_CONFIG_COMPILER_IMPORT)
+            // Windows 32 bits OS, Debug, Static runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_DYNAMICOUT
+        #elif !defined(QE_DEBUG) && !defined(UsingSharedRuntime) && !defined(QE_CONFIG_COMPILER_IMPORT)
+            // Windows 32 bits OS, Release, Static runtime linking, Static library output
+            #define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_STATICOUT
+        #elif !defined(QE_DEBUG) && !defined(UsingSharedRuntime) && defined(QE_CONFIG_COMPILER_IMPORT)
+            // Windows 32 bits OS, Release, Static runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_DYNAMICOUT
+        #else
+            #error "Unknown configuration"
+        #endif
     #endif
-
 // [TODO] Thund: Completar con resto de compiladores.
+#elif defined(QE_OS_LINUX)
+    #if defined(QE_COMPILER_GCC) // GCC
+        #define UsingSharedRuntime // TODO [Thund]: How to know if the compiler is linking shared or static libstdc++?
+        #if defined(QE_DEBUG) && defined(UsingSharedRuntime) && !defined(QE_CONFIG_COMPILER_IMPORT)
+            // Linux 32 bits OS, Debug, Shared runtime linking, Static library output
+            #define QE_TEST_CONFIG_LINUX32_DEBUG_SHAREDRUNTIME_STATICOUT
+        #elif defined(QE_DEBUG) && defined(UsingSharedRuntime) && defined(QE_CONFIG_COMPILER_IMPORT)
+            // Linux 32 bits OS, Debug, Shared runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_LINUX32_DEBUG_SHAREDRUNTIME_DYNAMICOUT
+        #elif !defined(QE_DEBUG) && defined(UsingSharedRuntime) && !defined(QE_CONFIG_COMPILER_IMPORT)
+            // Linux 32 bits OS, Release, Shared runtime linking, Static library output
+            #define QE_TEST_CONFIG_LINUX32_RELEASE_SHAREDRUNTIME_STATICOUT
+        #elif !defined(QE_DEBUG) && defined(UsingSharedRuntime) && defined(QE_CONFIG_COMPILER_IMPORT)
+            // Linux 32 bits OS, Release, Shared runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_LINUX32_RELEASE_SHAREDRUNTIME_DYNAMICOUT
+        #elif defined(QE_DEBUG) && !defined(UsingSharedRuntime) && !defined(QE_CONFIG_COMPILER_IMPORT)
+            // Linux 32 bits OS, Debug, Static runtime linking, Static library output
+            #define QE_TEST_CONFIG_LINUX32_DEBUG_STATICRUNTIME_STATICOUT
+        #elif defined(QE_DEBUG) && !defined(UsingSharedRuntime) && defined(QE_CONFIG_COMPILER_IMPORT)
+            // Linux 32 bits OS, Debug, Static runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_LINUX32_DEBUG_STATICRUNTIME_DYNAMICOUT
+        #elif !defined(QE_DEBUG) && !defined(UsingSharedRuntime) && !defined(QE_CONFIG_COMPILER_IMPORT)
+            // Linux 32 bits OS, Release, Static runtime linking, Static library output
+            #define QE_TEST_CONFIG_LINUX32_RELEASE_STATICRUNTIME_STATICOUT
+        #elif !defined(QE_DEBUG) && !defined(UsingSharedRuntime) && defined(QE_CONFIG_COMPILER_IMPORT)
+            // Linux 32 bits OS, Release, Static runtime linking, Dynamic library output
+            #define QE_TEST_CONFIG_LINUX32_RELEASE_STATICRUNTIME_DYNAMICOUT
+        #else
+            #error "Unknown configuration"
+        #endif
+    #endif
+#else
+    #error "Operative system not supported."
 #endif
 
 

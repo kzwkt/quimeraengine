@@ -77,12 +77,13 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <PreBuildEvent>
-      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
-    </PreBuildEvent>
-    <PostBuildEvent>
       <Command>
       </Command>
-      <Message>"$(TargetPath)"</Message>
+    </PreBuildEvent>
+    <PostBuildEvent>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
+      <Message>
+      </Message>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
