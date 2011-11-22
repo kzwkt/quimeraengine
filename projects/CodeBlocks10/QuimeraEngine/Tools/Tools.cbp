@@ -91,6 +91,7 @@
 		<Unit filename="..\..\..\..\headers\QRotationMatrix3x3.h" />
 		<Unit filename="..\..\..\..\headers\QScaleMatrix3x3.h" />
 		<Unit filename="..\..\..\..\headers\QSpaceConversionMatrix.h" />
+		<Unit filename="..\..\..\..\headers\QSphere.h" />
 		<Unit filename="..\..\..\..\headers\QTransformationMatrix.h" />
 		<Unit filename="..\..\..\..\headers\QTransformationMatrix3x3.h" />
 		<Unit filename="..\..\..\..\headers\QTranslationMatrix.h" />
