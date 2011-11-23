@@ -29,7 +29,7 @@ class QDllExport QCircle : public QOrb<QVector2>
     // -------------------
 public:
 
-    using QOrb<QVector2>::P;
+    using QOrb<QVector2>::Center;
     using QOrb<QVector2>::Radius;
 
 
@@ -53,12 +53,12 @@ public:
 	inline QCircle() { }
 
     /// <summary>
-    /// Constructor from a vector which defines the centre point and a floating point value which
+    /// Constructor from a vector which defines the center point and a floating point value which
     /// defines the radius for the circle.
     /// </summary>
-    /// <param name="vP">[IN] Vector to define the center of the cirle.</param>
+    /// <param name="vCenter">[IN] Vector to define the center of the cirle.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    inline QCircle (const QVector2& vP, const float_q& fRadius) : QOrb<QVector2>(vP, fRadius) { }
+    inline QCircle (const QVector2& vCenter, const float_q& fRadius) : QOrb<QVector2>(vCenter, fRadius) { }
 
 
 	// METHODS
@@ -84,7 +84,7 @@ public:
     /// <param name="vTranslate">[IN] 2D vector that contains the translation to be applied.</param>
     inline void Translate (const QBaseVector2& vTranslate)
     {
-        QPoint::Translate(vTranslate, &P, 1);
+        QPoint::Translate(vTranslate, &this->Center, 1);
     }
 
 	/// <summary>
@@ -105,7 +105,7 @@ public:
     /// <param name="fTranslateY">[IN] Scalar that contains the translation on Y axis.</param>
     inline void Translate (const float_q& fTranslateX, const float_q& fTranslateY)
     {
-        QPoint::Translate(fTranslateX, fTranslateY, &P, 1);
+        QPoint::Translate(fTranslateX, fTranslateY, &this->Center, 1);
     }
 
 	/// <summary>
@@ -126,7 +126,7 @@ public:
     /// <param name="fAngle">[IN] Scalar that contains the angle of rotation.</param>
     inline void Rotate (const float_q& fAngle)
     {
-        QPoint::Rotate(fAngle, &P, 1);
+        QPoint::Rotate(fAngle, &this->Center, 1);
     }
 
 	/// <summary>
@@ -147,7 +147,7 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     inline void RotateWithPivot (const float_q& fAngle, const QBaseVector2& vPivot)
     {
-        QPoint::RotateWithPivot(fAngle, vPivot, &P, 1);
+        QPoint::RotateWithPivot(fAngle, vPivot, &this->Center, 1);
     }
 
 	/// <summary>
@@ -168,7 +168,7 @@ public:
     /// <param name="vScale">[IN] 2D vector that contains the scale to be applied.</param>
     inline void Scale (const QBaseVector2& vScale)
     {
-        QPoint::Scale(vScale, &P, 1);
+        QPoint::Scale(vScale, &this->Center, 1);
         Radius *= reinterpret_cast<const QVector2&> (vScale).GetLength();
     }
 
@@ -214,7 +214,7 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     inline void ScaleWithPivot (const QBaseVector2& vScale, const QBaseVector2& vPivot)
     {
-        QPoint::ScaleWithPivot(vScale, vPivot, &P, 1);
+        QPoint::ScaleWithPivot(vScale, vPivot, &this->Center, 1);
         Radius *= reinterpret_cast<const QVector2&> (vScale).GetLength();
     }
 
@@ -238,7 +238,7 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const QBaseVector2& vPivot)
     {
-        QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &P, 1);
+        QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &this->Center, 1);
 
         QVector2 vScale(fScaleX, fScaleY);
         Radius *= vScale.GetLength();
@@ -263,7 +263,7 @@ public:
     /// <param name="matrix">[IN] Matrix that contains the transformations to apply.</param>
     inline void Transform (const QTransformationMatrix3x3& matrix)
     {
-        QPoint::Transform(matrix, &P, 1);
+        QPoint::Transform(matrix, &this->Center, 1);
     }
 
  	/// <summary>
@@ -284,7 +284,7 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the transformation.</param>
     inline void TransformWithPivot (const QTransformationMatrix3x3& matrix, const QBaseVector2& vPivot)
     {
-        QPoint::TransformWithPivot(matrix, vPivot, &P, 1);
+        QPoint::TransformWithPivot(matrix, vPivot, &this->Center, 1);
     }
 
  	/// <summary>
@@ -316,7 +316,7 @@ public:
         QVector2 vSecondI(vSecondIntersection);
 
         //STEP 1: Obtain V1, a unit vector that points from the first circle's center to second circle's center, and the distance between both centers.
-        QVector2 vV1 = otherCircle.P - this->P;
+        QVector2 vV1 = otherCircle.Center - this->Center;
         float_q fDistance = vV1.GetLength();
 
         if (QFloat::IsNotZero(fDistance))
@@ -332,8 +332,8 @@ public:
             //STEP 4: If the equation above gives a value different of NaN, then circles intersect. Intersection points are calculated.
             if (!QFloat::IsNaN(fAngle))
             {
-                vFirstI = this->P + vV1 * (this->Radius * cos(fAngle)) + vV2 * (this->Radius * sin(fAngle));
-                vSecondI = this->P + vV1 * (this->Radius * cos(fAngle)) - vV2 * (this->Radius * sin(fAngle));
+                vFirstI = this->Center + vV1 * (this->Radius * cos(fAngle)) + vV2 * (this->Radius * sin(fAngle));
+                vSecondI = this->Center + vV1 * (this->Radius * cos(fAngle)) - vV2 * (this->Radius * sin(fAngle));
 
                 if (QFloat::AreEquals(vFirstI.x, vSecondI.x) && QFloat::AreEquals(vFirstI.y, vSecondI.y))
                 {

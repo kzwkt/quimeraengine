@@ -204,7 +204,7 @@ public:
         // to allow the use of QLineSegmet methods. It should be removed when QLineSegment was parameterized.
         QLineSegment3D<VectorTypeParam> lsAux(VectorTypeParam(this->A), VectorTypeParam(this->B));
 
-        if ( QFloat::IsLowerOrEquals(lsAux.QLineSegment<VectorTypeParam>::MinDistance(orb.P), orb.Radius) )
+        if ( QFloat::IsLowerOrEquals(lsAux.QLineSegment<VectorTypeParam>::MinDistance(orb.Center), orb.Radius) )
             return true;
         else
             return false;

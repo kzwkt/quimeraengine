@@ -108,7 +108,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVe
 
     // We reduce ray and orb to origin, in order to simplify orb equation, and we calculate
     // the new ray origin point
-    QVector2 vNewRayOrigin(this->Origin - orb.P);
+    QVector2 vNewRayOrigin(this->Origin - orb.Center);
 
     // We replace then in the orb equation to force it to verify the ray equation
     // vDirection^2*t^2 + 2*vNewA*vDirection*t + vNewA^2 - r^2 = 0
@@ -134,7 +134,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVe
         // t = -b/2a -> Remember that a=1
         const float_q &t = -b*QFloat::_0_5;
 
-        vPoint1 = vNewRayOrigin + t * this->Direction + orb.P;
+        vPoint1 = vNewRayOrigin + t * this->Direction + orb.Center;
         return EQIntersections::E_One;
     }
     else // D = b^2 - 4ac > 0 => 2 intersections
@@ -143,7 +143,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVe
 
         // Closest intersection to ls.A. t = (-b - sqrt(D))/2a -> Remember that a = 1
         const float_q &t1 = -(b + fAux1)*QFloat::_0_5;
-        vPoint1 = vNewRayOrigin + t1 * this->Direction + orb.P;
+        vPoint1 = vNewRayOrigin + t1 * this->Direction + orb.Center;
 
         // Farthest intersection to ls.A. t = (-b + sqrt(D))/2a -> Remember that a = 1
         const float_q &t2 = (-b + fAux1)*QFloat::_0_5;
@@ -156,14 +156,14 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVe
             return EQIntersections::E_None; // Shouldn't happen this :(
         else if (QFloat::IsNegative(t1))  // One parameter is negative, there is only one intersection
         {
-            vPoint1 = vNewRayOrigin + t2 * this->Direction + orb.P; // First vPoint1 is bad computed.
+            vPoint1 = vNewRayOrigin + t2 * this->Direction + orb.Center; // First vPoint1 is bad computed.
             return EQIntersections::E_One;
         }
         else if (QFloat::IsNegative(t2)) // One parameter is negative, there is only one intersection
             return EQIntersections::E_One; // First vPoint1 is ok, vPoint2 is not used.
         else // Most of the cases: two intersections.
         {
-            vPoint2 = vNewRayOrigin + t2 * this->Direction + orb.P; // vPoint1 and vPoint2 are ok.
+            vPoint2 = vNewRayOrigin + t2 * this->Direction + orb.Center; // vPoint1 and vPoint2 are ok.
             return EQIntersections::E_Two;
         }
     }

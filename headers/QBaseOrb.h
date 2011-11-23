@@ -35,15 +35,15 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseOrb() : P(QFloat::_0), Radius(QFloat::_0) { }
+    inline QBaseOrb() : Center(QFloat::_0), Radius(QFloat::_0) { }
 
     /// <summary>
     /// Constructor from a vector which defines center point and a floating point value which
     /// defines the radius of the orb.
     /// </summary>
-    /// <param name="vP">[IN] Vector to define the center of the orb.</param>
+    /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] Floating point value to define the radius of the orb.</param>
-    inline QBaseOrb(const VectorType &vP, const float_q &fRadius) : P(vP), Radius(fRadius) { }
+    inline QBaseOrb(const VectorType &vCenter, const float_q &fRadius) : Center(vCenter), Radius(fRadius) { }
 
     // METHODS
     // ---------------
@@ -58,7 +58,7 @@ public:
     /// </returns>
     inline bool operator == (const QBaseOrb<VectorType> &orb) const
     {
-        return this->P == orb.P && QFloat::AreEquals(this->Radius, orb.Radius);
+        return this->Center == orb.Center && QFloat::AreEquals(this->Radius, orb.Radius);
     }
 
     /// <summary>
@@ -81,7 +81,7 @@ public:
     /// <summary>
     /// Vector which represents the center point of orb.
     /// </summary>
-    VectorType P;
+    VectorType Center;
 
     /// <summary>
     /// Floating point value representig the radius of the orb.

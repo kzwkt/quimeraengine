@@ -34,7 +34,7 @@ class QDllExport QSphere : public QOrb<VectorType>
     // -------------------
 public:
 
-    using QOrb<VectorType>::P;
+    using QOrb<VectorType>::Center;
     using QOrb<VectorType>::Radius;
 
 
@@ -60,9 +60,9 @@ public:
     /// <summary>
     /// Constructor from a point as center of the sphere and its radius.
     /// </summary>
-    /// <param name="vP">[IN] Vector that defines the center of the sphere.</param>
+    /// <param name="vCenter">[IN] Vector that defines the center of the sphere.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    inline QSphere (const VectorType& vP, const float_q& fRadius) : QOrb<VectorType>(vP, fRadius) { }
+    inline QSphere (const VectorType& vCenter, const float_q& fRadius) : QOrb<VectorType>(vCenter, fRadius) { }
 
 	// METHODS
 	// ---------------
@@ -87,7 +87,7 @@ public:
     /// <param name="vTranslate">[IN] Vector that contains the translation to be applied.</param>
     inline void Translate (const VectorType& vTranslate)
     {
-        QPoint::Translate(vTranslate, &P, 1);
+        QPoint::Translate(vTranslate, &this->Center, 1);
     }
 
 	/// <summary>
@@ -109,7 +109,7 @@ public:
     /// <param name="fTranslateZ">[IN] Scalar that contains the translation on Z axis.</param>
     inline void Translate (const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ)
     {
-        QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, &P, 1);
+        QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, &this->Center, 1);
     }
 
 	/// <summary>
@@ -131,7 +131,7 @@ public:
     /// <param name="q">[IN] Quaternion that represents the rotation.</param>
     inline void Rotate (const QQuaternion& q)
     {
-        QPoint::Rotate(q, &P, 1);
+        QPoint::Rotate(q, &this->Center, 1);
     }
 
 	/// <summary>
@@ -152,7 +152,7 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     inline void RotateWithPivot (const QQuaternion& q, const VectorType& vPivot)
     {
-        QPoint::RotateFromPivot(q, vPivot, &P, 1);
+        QPoint::RotateWithPivot(q, vPivot, &this->Center, 1);
     }
 
 	/// <summary>
@@ -173,7 +173,7 @@ public:
     /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
     inline void Scale (const VectorType& vScale)
     {
-        QPoint::Scale(vScale, &P, 1);
+        QPoint::Scale(vScale, &this->Center, 1);
 
         //Txaneto: Scaling only transforms the center point
         //Radius *= reinterpret_cast<const VectorType&> (vScale).GetLength();
@@ -223,7 +223,7 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     inline void ScaleWithPivot (const VectorType& vScale, const VectorType& vPivot)
     {
-        QPoint::ScaleFromPivot(vScale, vPivot, &P, 1);
+        QPoint::ScaleWithPivot(vScale, vPivot, &this->Center, 1);
 
         //Txaneto: Scaling only transforms the center point
         //Radius *= reinterpret_cast<const VectorType&> (vScale).GetLength();
@@ -250,7 +250,7 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot)
     {
-        QPoint::ScaleFromPivot(fScaleX, fScaleY, fScaleZ, vPivot, &P, 1);
+        QPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, &this->Center, 1);
 
         //Txaneto: Scaling only transforms the center point
         //QVector3 vScale(fScaleX, fScaleY, fScaleZ);
@@ -282,7 +282,7 @@ public:
     /// </returns>
 	inline EQSpaceRelation SpaceRelation(const QBasePlane& plane) const
 	{
-		const float_q &fDistP = plane.a * P.x + plane.b * P.y + plane.c * P.z + plane.d;
+        const float_q &fDistP = plane.a * this->Center.x + plane.b * this->Center.y + plane.c * this->Center.z + plane.d;
 		const float_q &fAbsDistP = QFloat::Abs(fDistP);
 
 		if (QFloat::IsZero(fDistP))
@@ -316,7 +316,7 @@ public:
     /// <param name="outputOrb">[OUT] Projected orb on the plane.</param>
 	inline void ProjectToPlane(const QPlane& plane, QBaseOrb<VectorType>& outputOrb) const
 	{
-	    plane.PointProjection<VectorType>(this->P, outputOrb.P);
+	    plane.PointProjection<VectorType>(this->Center, outputOrb.Center);
 
         outputOrb.Radius = this->Radius;
 	}
