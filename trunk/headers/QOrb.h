@@ -17,8 +17,8 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents an orb in the space, defined by its centre point and radius.
-/// Centre point may be expressed as 2D or 3D point or vector, depending on the parameter of the template,
+/// Class which represents an orb in the space, defined by its center point and radius.
+/// Center point may be expressed as 2D or 3D point or vector, depending on the parameter of the template,
 /// which may be 2D vector, 3D vector or 4D vector.
 /// Radius is expressed as a floating point value which is always nonnegative.
 /// Remember that an orb is the sum of equidistant points from a given one.
@@ -31,7 +31,7 @@ class QDllExport QOrb : public QBaseOrb<VectorType>
     // -------------------
 public:
 
-    using QBaseOrb<VectorType>::P;
+    using QBaseOrb<VectorType>::Center;
     using QBaseOrb<VectorType>::Radius;
 
 
@@ -55,12 +55,12 @@ public:
 	inline QOrb() { }
 
     /// <summary>
-    /// Constructor from a vector which defines the centre point and a floating point value which
+    /// Constructor from a vector which defines the center point and a floating point value which
     /// defines the radius for the orb.
     /// </summary>
-    /// <param name="vP">[IN] Vector to define the center of the orb.</param>
+    /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    inline QOrb (const VectorType& vP, const float_q& fRadius) : QBaseOrb<VectorType>(vP, fRadius) { }
+    inline QOrb (const VectorType& vCenter, const float_q& fRadius) : QBaseOrb<VectorType>(vCenter, fRadius) { }
 
 
 	// METHODS
@@ -89,9 +89,9 @@ public:
 	/// </returns>
     inline bool Contains (const VectorType& vP)
     {
-        // The point is inside the orb whenever the minimum squared distance the point and
-        // the centre point of the orb is lower or equals the whole square radius of the orb.
-        VectorType vDistance(vP - P);
+        // The point is inside the orb whenever the minimum squared distance between the point and
+        // the center point of the orb is lower or equals the whole square radius of the orb.
+        VectorType vDistance(vP - this->Center);
         return QFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), Radius * Radius);
     }
 
@@ -105,22 +105,22 @@ public:
     inline bool Intersection (const QBaseOrb<VectorType>& orb) const
     {
         // An intersection between the two orbs is considered if the minimum squared distance
-		// between their centre points is lower or equals the square sum of their radius.
-        VectorType vDistance(orb.P - P);
+		// between their center points is lower or equals the square sum of their radius.
+        VectorType vDistance(orb.Center - this->Center);
         float_q    fRadiusSum = Radius + orb.Radius;
         return QFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), fRadiusSum * fRadiusSum);
     }
 
 	/// <summary>
 	/// Converts the orb into a string with the following format:
-	/// O:P(VectorType::ToString),R(Radius)
+	/// O:C(VectorType::ToString),R(Radius)
 	/// </summary>
 	/// <returns>
 	/// The string with the specified format.
 	/// </returns>
 	string_q ToString()
 	{
-		return QE_L("O:P(") + P.ToString() + QE_L("),R(") + QFloat::ToString(Radius) + QE_L(")");
+		return QE_L("O:C(") + this->Center.ToString() + QE_L("),R(") + QFloat::ToString(this->Radius) + QE_L(")");
 	}
 
 };

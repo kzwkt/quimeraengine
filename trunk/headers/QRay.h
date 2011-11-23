@@ -140,7 +140,7 @@ public:
     inline bool Intersection (const QBaseOrb<VectorTypeOrigin> &orb) const
     {
         // Converts all vectors to VectorTypeDirection, that always will be QVector2 or QVector3
-        VectorTypeDirection vNewRayOrigin(this->Origin - orb.P);
+        VectorTypeDirection vNewRayOrigin(this->Origin - orb.Center);
 
         //  B/2 (instead of B) is calculed here to optimize comparison.
         const float_q &fB = vNewRayOrigin.DotProduct(this->Direction);
@@ -204,7 +204,7 @@ public:
 
         // We reduce ray and orb to origin, in order to simplify orb equation, and we calculate
         // the new ray origin point
-        const VectorTypeOrigin &vNewRayOrigin(this->Point - orb.P);
+        const VectorTypeOrigin &vNewRayOrigin(this->Point - orb.Center);
 
         // We replace then in the orb equation to force it to verify the ray equation
         // vDirection^2*T^2 + 2*vNewA*vDirection*T + vNewA^2 - r^2 = 0
@@ -235,7 +235,7 @@ public:
                 return EQIntersections::E_None;
             else
             {
-                vPoint1 = vNewRayOrigin + fT * vDirection + orb.P;
+                vPoint1 = vNewRayOrigin + fT * vDirection + orb.Center;
                 return EQIntersections::E_One;
             }
         }
@@ -257,18 +257,18 @@ public:
                 return EQIntersections::E_None; // Shouldn't happen this :(
             else if (bT1Fails)  // One parameter is negative, there is only one intersection
             {
-                vPoint1 = vNewRayOrigin + fT2 * vDirection + orb.P;
+                vPoint1 = vNewRayOrigin + fT2 * vDirection + orb.Center;
                 return EQIntersections::E_One;
             }
             else if (bT2Fails) // One parameter is negative, there is only one intersection
             {
-                vPoint1 = vNewRayOrigin + fT1 * vDirection + orb.P;
+                vPoint1 = vNewRayOrigin + fT1 * vDirection + orb.Center;
                 return EQIntersections::E_One;
             }
             else // Most of the cases: two intersections.
             {
-                vPoint1 = vNewRayOrigin + fT1 * vDirection + orb.P;
-                vPoint2 = vNewRayOrigin + fT2 * vDirection + orb.P;
+                vPoint1 = vNewRayOrigin + fT1 * vDirection + orb.Center;
+                vPoint2 = vNewRayOrigin + fT2 * vDirection + orb.Center;
                 return EQIntersections::E_Two;
             }
         }
@@ -306,4 +306,3 @@ const QRay<VectorTypeOrigin, VectorTypeDirection> QRay<VectorTypeOrigin, VectorT
 } //namespace Kinesis
 
 #endif // __QRAY__
-// [TERMS&CONDITIONS]
