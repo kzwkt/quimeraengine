@@ -169,7 +169,6 @@ public:
     inline void Scale (const QBaseVector2& vScale)
     {
         QPoint::Scale(vScale, &this->Center, 1);
-        Radius *= reinterpret_cast<const QVector2&> (vScale).GetLength();
     }
 
  	/// <summary>
@@ -190,9 +189,7 @@ public:
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
     inline void Scale (const float_q& fScaleX, const float_q& fScaleY)
     {
-        QVector2 vScale(fScaleX, fScaleY);
-
-        this->Scale(vScale);
+        QPoint::Scale(fScaleX, fScaleY, &this->Center, 1);
     }
 
  	/// <summary>
@@ -215,7 +212,6 @@ public:
     inline void ScaleWithPivot (const QBaseVector2& vScale, const QBaseVector2& vPivot)
     {
         QPoint::ScaleWithPivot(vScale, vPivot, &this->Center, 1);
-        Radius *= reinterpret_cast<const QVector2&> (vScale).GetLength();
     }
 
  	/// <summary>
@@ -239,9 +235,6 @@ public:
     inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const QBaseVector2& vPivot)
     {
         QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &this->Center, 1);
-
-        QVector2 vScale(fScaleX, fScaleY);
-        Radius *= vScale.GetLength();
     }
 
  	/// <summary>
