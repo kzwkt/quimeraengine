@@ -283,7 +283,6 @@ public:
 	inline EQSpaceRelation SpaceRelation(const QBasePlane& plane) const
 	{
         const float_q &fDistP = plane.a * this->Center.x + plane.b * this->Center.y + plane.c * this->Center.z + plane.d;
-		const float_q &fAbsDistP = QFloat::Abs(fDistP);
 
 		if (QFloat::IsZero(fDistP))
 		{
@@ -291,21 +290,14 @@ public:
 		}
 		else
         {
-            if (QFloat::IsGreaterOrEquals(fAbsDistP, Radius))
-            {
-                if (QFloat::IsPositive(fDistP))
-                {
-                    return EQSpaceRelation::E_PositiveSide;
-                }
-                else
-                {
-                    return EQSpaceRelation::E_NegativeSide;
-                }
-            }
-            else
-            {
+            const float_q &fAbsDistP = QFloat::Abs(fDistP)/( reinterpret_cast<QPlane &> (plane).GetLength() );
+
+            if (QFloat::IsLessThan(fAbsDistP, Radius))
                 return EQSpaceRelation::E_BothSides;
-            }
+            else if (QFloat::IsNegative(fDistP))
+                return EQSpaceRelation::E_NegativeSide;
+            else
+                return EQSpaceRelation::E_PositiveSide;
         }
 	}
 
@@ -317,7 +309,6 @@ public:
 	inline void ProjectToPlane(const QPlane& plane, QBaseOrb<VectorType>& outputOrb) const
 	{
 	    plane.PointProjection<VectorType>(this->Center, outputOrb.Center);
-
         outputOrb.Radius = this->Radius;
 	}
 };
