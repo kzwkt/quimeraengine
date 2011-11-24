@@ -190,8 +190,7 @@ public:
 	/// </remarks>
     inline EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint) const
     {
-        QBaseVector2 vAux;
-        return this->IntersectionPoint(orb, vPoint, vAux);
+        return QRay<QVector2, QVector2>::IntersectionPoint(orb, reinterpret_cast<QVector2&>(vPoint));
     }
 
 	/// <summary>
@@ -211,7 +210,10 @@ public:
     /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
-    EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint1, QBaseVector2 &vPoint2) const;
+    EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint1, QBaseVector2 &vPoint2) const
+    {
+        return QRay<QVector2, QVector2>::IntersectionPoint(orb, reinterpret_cast<QVector2&>(vPoint1), reinterpret_cast<QVector2&>(vPoint2));
+    }
 
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.

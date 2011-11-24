@@ -180,6 +180,27 @@ public:
     }
 
     /// <summary>
+    /// This method receives an orb, and computes the point where the resident ray intersects with it,
+    /// if it exists.
+    /// </summary>
+    /// <param name="orb">[IN] The orb whose intersections with resident ray we want to check.</param>
+    /// <param name="vPoint1">[OUT] A vector where to store the intersection point.</param>
+    /// <returns>
+    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
+    /// the following values: E_None, E_One and E_Two.
+    /// </returns>
+    /// <remarks>
+    /// -If there's no intersection point, the output parameter used for storing the point won't be modified.
+    /// -If there are one or two intersections, the output parameter stores the closest to ray origin.
+    /// </remarks>
+	inline EQIntersections IntersectionPoint (const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vPoint1) const
+	{
+		VectorTypeOrigin aux;
+		return this->IntersectionPoint(orb, vPoint1, aux);
+	}
+
+
+    /// <summary>
 	/// Computes the intersection point between resident ray and provided orb, if it exists.
 	/// Ray must be normalized to ensure correct result.
 	/// </summary>
@@ -204,7 +225,7 @@ public:
 
         // We reduce ray and orb to origin, in order to simplify orb equation, and we calculate
         // the new ray origin point
-        const VectorTypeOrigin &vNewRayOrigin(this->Point - orb.Center);
+        const VectorTypeOrigin &vNewRayOrigin(this->Origin - orb.Center);
 
         // We replace then in the orb equation to force it to verify the ray equation
         // vDirection^2*T^2 + 2*vNewA*vDirection*T + vNewA^2 - r^2 = 0

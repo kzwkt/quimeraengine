@@ -533,8 +533,7 @@ public:
 	/// </remarks>
     inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vPoint) const
     {
-        VectorType vAux;
-        return QRay<VectorType, QVector3>::IntersectionPoint(orb, vPoint, vAux);
+        return QRay<VectorType, QVector3>::IntersectionPoint(orb, vPoint);
     }
 
 	/// <summary>

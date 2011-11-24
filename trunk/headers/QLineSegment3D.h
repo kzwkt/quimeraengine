@@ -200,14 +200,7 @@ public:
     template <class VectorTypeParam>
     inline bool Intersection (const QBaseOrb<VectorTypeParam> &orb) const
     {
-        // [TODO] jwladi: this is to ensure compatibility between the line segment and the center point of the orb,
-        // to allow the use of QLineSegmet methods. It should be removed when QLineSegment was parameterized.
-        QLineSegment3D<VectorTypeParam> lsAux(VectorTypeParam(this->A), VectorTypeParam(this->B));
-
-        if ( QFloat::IsLowerOrEquals(lsAux.QLineSegment<VectorTypeParam>::MinDistance(orb.Center), orb.Radius) )
-            return true;
-        else
-            return false;
+        return QLineSegment<VectorType>::Intersection(orb);
     }
 
     /// <summary>
