@@ -1695,10 +1695,17 @@ protected:
             return true;
 
         QVector3 vAux(vPoint - this->Origin); // Calculates a vector from ray origin to point.
+        QVector3 vCross;
 
-        vAux.Normalize(); // Normalizes.
+        vAux.CrossProduct(this->Direction, vCross); // Calculates cross product to check if both vectors are parallel
 
-        return ( vAux == this->Direction ); // Both calculated vector and ray direction must be the same.
+        if (vCross != QVector3::ZeroVector) // Vectors are not parallel
+            return false;
+        else // Vectors are parallel. It checks if they are opposite or not.
+            return ( QFloat::IsNegative(vAux.x) == QFloat::IsNegative(this->Direction.x) ) &&
+                   ( QFloat::IsNegative(vAux.y) == QFloat::IsNegative(this->Direction.y) )
+                   ( QFloat::IsNegative(vAux.z) == QFloat::IsNegative(this->Direction.z) );
+
     }
 
     // Calculates if a point is inside the triangle provided applying barycentric technique.

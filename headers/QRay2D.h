@@ -656,16 +656,38 @@ public:
 protected:
 
     // Checks if resident ray contains a given point.
-    // [TODO] jwladi: Este método tenía fallos. Revisar.
     bool Contains (const QVector2 &vPoint) const
     {
-        if (vPoint == this->Origin) // The point is the ray position.
+        if (this->Origin == vPoint)
             return true;
+        else if ( QFloat::IsZero(this->Direction.x) )
+        {
+            if ( QFloat::AreNotEquals(vPoint.x, this->Origin.x) )
+                return false;
+            if ( QFloat::IsNegative(vPoint.y - this->Origin.y) == QFloat::IsNegative(this->Direction.y) )
+                return true;
+            else
+                return false;
+        }
+        else if ( QFloat::IsZero(this->Direction.y) )
+        {
+            if ( QFloat::AreNotEquals(vPoint.y, this->Origin.y) )
+                return false;
+            if ( QFloat::IsNegative(vPoint.x - this->Origin.x) == QFloat::IsNegative(this->Direction.x) )
+                return true;
+            else
+                return false;
+        }
+        else
+        {
+            const float_q &paramX = (vPoint.x - this->Origin.x)/this->Direction.x;
+            const float_q &paramY = (vPoint.y - this->Origin.y)/this->Direction.y;
 
-        QVector2 vAux(QVector2(vPoint) - this->Origin);
-
-        // Applying Po = P + t·V   =>    t = (Po - P)· V / |V|^2
-        return ( QFloat::IsPositive(vAux.DotProduct(this->Direction)) );
+            if ( QFloat::AreNotEquals(paramX, paramY) || QFloat::IsNegative(paramX))
+                return false;
+            else
+                return true;
+        }
     }
 
     // Checks if resident ray intersects the AB line segment
