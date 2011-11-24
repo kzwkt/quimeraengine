@@ -198,9 +198,7 @@ public:
     /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
     inline void Scale (const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ)
     {
-        QVector3 vScale(fScaleX, fScaleY, fScaleZ);
-
-        this->Scale(vScale);
+        QPoint::Scale(fScaleX, fScaleY, fScaleZ, &this->Center, 1);
     }
 
  	/// <summary>
