@@ -99,8 +99,6 @@ public:
     // ---------------
 public:
 
-    // Binary operators
-
     /// <summary>
     /// Multiplies a space conversion matrix by the resident matrix.
     /// </summary>
@@ -113,7 +111,6 @@ public:
     /// </returns>
     QSpaceConversionMatrix operator*(const QSpaceConversionMatrix &m) const;
 
-    // Assign operators
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -123,99 +120,6 @@ public:
     /// The modified matrix.
     /// </returns>
     QSpaceConversionMatrix& operator*=(const QSpaceConversionMatrix &m);
-
-    /// <summary>
-	/// Multiplies a 4x4 matrix by the resident matrix.
-    /// </summary>
-    /// <remarks>
-    /// This product is not conmmutative.
-    /// </remarks>
-    /// <param name="m">[IN] Matrix to be multiplied by.</param>
-    /// <returns>
-    /// The resultant matrix.
-    /// </returns>
-	inline QSpaceConversionMatrix operator*(const QBaseMatrix4x4& m) const
-	{
-		return *reinterpret_cast<QSpaceConversionMatrix*>(&QMatrix4x4::operator*(m));
-	}
-
-	/// <summary>
-	/// Product and assign operator. Current matrix stores the result of the multiplication.
-    /// </summary>
-    /// <remarks>
-    /// This product is not conmmutative.
-    /// </remarks>
-    /// <param name="m">[IN] Matrix to be multiplied by.</param>
-    /// <returns>
-    /// The modified matrix.
-    /// </returns>
-	inline QSpaceConversionMatrix& operator*=(const QBaseMatrix4x4 &m)
-	{
-		return *reinterpret_cast<QSpaceConversionMatrix*>(&QMatrix4x4::operator*=(m));
-	}
-
-	/// <summary>
-	/// Product by an scalar and assign operator. Current matrix stores the result of the multiplication.
-	/// </summary>
-	/// <param name="fScalar">[IN] The scalar to be multiplied by.</param>
-	/// <returns>
-	/// The modified matrix.
-	/// </returns>
-	inline QSpaceConversionMatrix& operator*=(const float_q &fScalar)
-    {
-		return *reinterpret_cast<QSpaceConversionMatrix*>(&QMatrix4x4::operator*=(fScalar));
-    }
-
-	/// <summary>
-	/// Multiply by scalar operator. All matrix components are multiplied by the scalar.
-	/// </summary>
-	/// <param name="fScalar">[IN] The scalar to multiply by.</param>
-	/// <returns>
-	/// The resultant matrix.
-	/// </returns>
-	inline QSpaceConversionMatrix operator*(const float_q &fScalar) const
-	{
-		return *reinterpret_cast<QSpaceConversionMatrix*>(&QMatrix4x4::operator*(fScalar));
-	}
-
-	/// <summary>
-	/// Multiplies a 4x3 matrix by the current matrix.
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
-    /// So, left matrix must have same number of columns than rows have right matrix.
-	/// The product is not conmutative. To perform a product of matrices, each element is calculated as
-    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
-    ///
-    /// \f$ A x B = C \f$
-    ///
-    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
-    ///
-	/// </summary>
-	/// <remarks>
-	/// This product is not conmmutative.
-	/// </remarks>
-	/// <param name="m">[IN] Matrix to be multiplied by.</param>
-	/// <returns>
-	/// The resultant matrix.
-	/// </returns>
-	inline QMatrix4x3 operator*(const QBaseMatrix4x3 &m) const
-	{
-		return *reinterpret_cast<QMatrix4x3*>(&QMatrix4x4::operator*(m));
-	}
-
-	//Assing operators
-
-    /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
-    /// </summary>
-    /// <param name="m">[IN] The matrix to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified matrix.
-    /// </returns>
-    inline QSpaceConversionMatrix& operator=(const QBaseMatrix4x4 &m)
-    {
-        QBaseMatrix4x4::operator=(m);
-        return *this;
-    }
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
