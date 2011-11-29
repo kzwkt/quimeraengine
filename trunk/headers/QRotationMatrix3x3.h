@@ -300,7 +300,7 @@ public:
     /// </returns>
 	inline float_q GetDeterminant()
 	{
-		return QFloat::_1;
+		return SQFloat::_1;
 	}
 
 protected:

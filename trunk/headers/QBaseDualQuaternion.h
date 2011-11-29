@@ -3,7 +3,7 @@
 #ifndef __QBASEDUALQUATERNION__
 #define __QBASEDUALQUATERNION__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QQuaternion.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -36,8 +36,8 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QBaseDualQuaternion() : r(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0)),
-                            d(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0)) { }
+    inline QBaseDualQuaternion() : r(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0)),
+                            d(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0)) { }
 
     /// <summary>
     /// Constructor from two quaternions, one to initialize the non-dual part and another to do it with the dual part.

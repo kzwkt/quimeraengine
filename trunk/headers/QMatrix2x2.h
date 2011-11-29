@@ -194,7 +194,7 @@ public:
     /// </returns>
     inline QMatrix2x2& operator/=(const float_q &fScalar)
     {
-        QE_ASSERT(fScalar != QFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0);
 
         this->ij[0][0] /= fScalar;
         this->ij[0][1] /= fScalar;
@@ -257,7 +257,7 @@ public:
     inline void ResetToZero()
     {
         this->ij[0][0] = this->ij[0][1] =
-        this->ij[1][0] = this->ij[1][1] = QFloat::_0;
+        this->ij[1][0] = this->ij[1][1] = SQFloat::_0;
     }
 
     /// <summary>
@@ -266,8 +266,8 @@ public:
     /// </summary>
     inline void ResetToIdentity()
     {
-        this->ij[0][0] = this->ij[1][1] = QFloat::_1;
-        this->ij[0][1] = this->ij[1][0] = QFloat::_0;
+        this->ij[0][0] = this->ij[1][1] = SQFloat::_1;
+        this->ij[0][1] = this->ij[1][0] = SQFloat::_0;
     }
 
     /// <summary>
@@ -309,10 +309,10 @@ public:
     /// </returns>
     inline bool IsZero() const
     {
-        return  QFloat::IsZero(this->ij[0][0]) &&
-                QFloat::IsZero(this->ij[0][1]) &&
-                QFloat::IsZero(this->ij[1][0]) &&
-                QFloat::IsZero(this->ij[1][1]);
+        return  SQFloat::IsZero(this->ij[0][0]) &&
+                SQFloat::IsZero(this->ij[0][1]) &&
+                SQFloat::IsZero(this->ij[1][0]) &&
+                SQFloat::IsZero(this->ij[1][1]);
     }
 
     /// <summary>
@@ -324,10 +324,10 @@ public:
     /// </returns>
     inline bool IsIdentity() const
     {
-        return  QFloat::AreEquals(this->ij[0][0], QFloat::_1) &&
-                QFloat::IsZero(this->ij[0][1]) &&
-                QFloat::IsZero(this->ij[1][0]) &&
-                QFloat::AreEquals(this->ij[1][1], QFloat::_1);
+        return  SQFloat::AreEquals(this->ij[0][0], SQFloat::_1) &&
+                SQFloat::IsZero(this->ij[0][1]) &&
+                SQFloat::IsZero(this->ij[1][0]) &&
+                SQFloat::AreEquals(this->ij[1][1], SQFloat::_1);
     }
 
     /// <summary>
@@ -411,10 +411,10 @@ public:
     /// <returns>The string with the format specified.</returns>
     inline string_q ToString() const
     {
-        return QE_L("M2x2(") + QFloat::ToString(this->ij[0][0]) + QE_L(",") +
-                               QFloat::ToString(this->ij[0][1]) + QE_L(")(") +
-                               QFloat::ToString(this->ij[1][0]) + QE_L(",") +
-                               QFloat::ToString(this->ij[1][1]) + QE_L(")");
+        return QE_L("M2x2(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",") +
+                               SQFloat::ToString(this->ij[0][1]) + QE_L(")(") +
+                               SQFloat::ToString(this->ij[1][0]) + QE_L(",") +
+                               SQFloat::ToString(this->ij[1][1]) + QE_L(")");
     }
 };
 

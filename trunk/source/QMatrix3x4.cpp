@@ -20,13 +20,13 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-const QMatrix3x4 QMatrix3x4::ZeroMatrix(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0,
-                                        QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0,
-                                        QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0);
+const QMatrix3x4 QMatrix3x4::ZeroMatrix(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-const QMatrix3x4 QMatrix3x4::Identity(QFloat::_1, QFloat::_0, QFloat::_0, QFloat::_0,
-                                      QFloat::_0, QFloat::_1, QFloat::_0, QFloat::_0,
-                                      QFloat::_0, QFloat::_0, QFloat::_1, QFloat::_0);
+const QMatrix3x4 QMatrix3x4::Identity(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                      SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                      SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -90,7 +90,7 @@ QMatrix3x4 operator*(const float_q &fScalar, const QBaseMatrix3x4 &m)
 QMatrix3x4 QMatrix3x4::operator/(const float_q &fScalar) const
 {
 		
-	QE_ASSERT(fScalar != QFloat::_0);
+	QE_ASSERT(fScalar != SQFloat::_0);
 
 	QMatrix3x4 aux;
 		

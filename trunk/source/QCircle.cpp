@@ -20,7 +20,7 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-const QCircle QCircle::UnitCircle(QVector2::ZeroVector, QFloat::_1);
+const QCircle QCircle::UnitCircle(QVector2::ZeroVector, SQFloat::_1);
 
 } //namespace Math
 } //namespace Tools

@@ -11,7 +11,7 @@
 #include "QBaseOrb.h"
 #include "QBaseTriangle.h"
 #include "QBaseHexahedron.h"
-#include "QPoint.h"
+#include "SQPoint.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -125,7 +125,7 @@ public:
 
         const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
 
-        if ( QFloat::IsZero(fDenominator) ) // Both directions are parallel
+        if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallel
         {
             if ( this->Contains(ray.Origin) )
                 return true;
@@ -138,13 +138,13 @@ public:
                                         vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                         vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( QFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
             {
                 const float_q &fNumerator2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                              vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                              vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
-                if ( QFloat::IsPositive(fNumerator2) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsPositive(fNumerator2) ) // Remember that fDenominator is always positive
                 {
                     const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
                     const QVector3 &vPInt2 = QVector3(ray.Origin) + (fNumerator2/fDenominator) * ray.Direction;
@@ -198,7 +198,7 @@ public:
 
         const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
 
-        if ( QFloat::IsZero(fDenominator) ) // Both directions are parallels
+        if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallels
         {
             if ( this->Contains(ls.A) )
                 return true;
@@ -211,14 +211,14 @@ public:
                                         vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                         vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( QFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
             {
                 const float_q &fNumerator2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                              vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                              vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
                 const float_q fParam2 = fNumerator2/fDenominator;
-                if ( QFloat::IsPositive(fNumerator2) && QFloat::IsLowerOrEquals(fParam2, QFloat::_1) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsPositive(fNumerator2) && SQFloat::IsLowerOrEquals(fParam2, SQFloat::_1) ) // Remember that fDenominator is always positive
                 {
                     const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
                     const QVector3 &vPInt2 = ray.Origin + fParam2 * ray.Direction;
@@ -272,10 +272,10 @@ public:
         const float_q &fNumerator = -(plane.d + vP.DotProduct(vN));
         const float_q &fDenominator = this->Direction.DotProduct(vN);
 
-        if ( QFloat::IsZero(fDenominator) )
-            return QFloat::IsZero(fNumerator);
+        if ( SQFloat::IsZero(fDenominator) )
+            return SQFloat::IsZero(fNumerator);
         else
-            return QFloat::IsPositive(fNumerator/fDenominator);
+            return SQFloat::IsPositive(fNumerator/fDenominator);
     }
 
     /// <summary>
@@ -360,7 +360,7 @@ public:
 
         const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
 
-        if ( QFloat::IsZero(fDenominator) ) // Both directions are parallel
+        if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallel
         {
             if (this->Origin == ray.Origin)
             {
@@ -383,13 +383,13 @@ public:
                                         vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                         vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( QFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
             {
                 const float_q &fNumerator2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                              vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                              vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
-                if ( QFloat::IsPositive(fNumerator2) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsPositive(fNumerator2) ) // Remember that fDenominator is always positive
                 {
                     const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
                     const QVector3 &vPInt2 = QVector3(ray.Origin) + (fNumerator2/fDenominator) * ray.Direction;
@@ -452,7 +452,7 @@ public:
 
         const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
 
-        if ( QFloat::IsZero(fDenominator) ) // Both directions are parallels
+        if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallels
         {
             const bool &bAIsInRay = this->Contains(ls.A);
             const bool &bBIsInRay = this->Contains(ls.B);
@@ -488,14 +488,14 @@ public:
                                         vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                         vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( QFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
             {
                 const float_q &fNumerator2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                              vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                              vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
                 const float_q fParam2 = fNumerator2/fDenominator;
-                if ( QFloat::IsPositive(fNumerator2) && QFloat::IsLowerOrEquals(fParam2, QFloat::_1) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsPositive(fNumerator2) && SQFloat::IsLowerOrEquals(fParam2, SQFloat::_1) ) // Remember that fDenominator is always positive
                 {
                     const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
                     const QVector3 &vPInt2 = ray.Origin + fParam2 * ray.Direction;
@@ -585,12 +585,12 @@ public:
         const float_q &fNumerator = -(plane.d + this->Origin.DotProduct(vN));
         const float_q &fDenominator = VectorType(this->Direction).DotProduct(vN);
 
-        if ( QFloat::IsZero(fDenominator) ) // Ray is parallel to plane
-            if ( QFloat::IsZero(fNumerator) ) // Ray lies on plane
+        if ( SQFloat::IsZero(fDenominator) ) // Ray is parallel to plane
+            if ( SQFloat::IsZero(fNumerator) ) // Ray lies on plane
                 return EQIntersections::E_Infinite;
             else // Ray is parallel but don't lies on plane.
                 return EQIntersections::E_None;
-        else if ( QFloat::IsZero(fNumerator) ) // Ray origin lies on plane
+        else if ( SQFloat::IsZero(fNumerator) ) // Ray origin lies on plane
         {
             vPoint = this->Origin;
             return EQIntersections::E_One;
@@ -598,7 +598,7 @@ public:
         else
         {
             const float_q &fParam = fNumerator/fDenominator;
-            if ( QFloat::IsPositive(fParam) ) // Intersection in one point.
+            if ( SQFloat::IsPositive(fParam) ) // Intersection in one point.
             {
                 vPoint = this->Origin + (fParam) * VectorType(this->Direction); // Posible loss of data, component w
                 return EQIntersections::E_One;
@@ -697,7 +697,7 @@ public:
                         return EQIntersections::E_Two;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->Origin))) // Ray origin is in AB triangle edge
+                else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->Origin))) // Ray origin is in AB triangle edge
                 {
                     if (this->IntersectionPoint(triangle.B, triangle.C, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -733,7 +733,7 @@ public:
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->Origin))) // Ray origin is in BC triangle edge
+                else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->Origin))) // Ray origin is in BC triangle edge
                 {
                     if (this->IntersectionPoint(triangle.C, triangle.A, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -769,7 +769,7 @@ public:
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->Origin))) // Ray origin is in CA triangle edge
+                else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->Origin))) // Ray origin is in CA triangle edge
                 {
                     if (this->IntersectionPoint(triangle.A, triangle.B, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -1209,25 +1209,25 @@ public:
         const float_q &fDistOrigin = p.a * this->Origin.x + p.b * this->Origin.y + p.c * this->Origin.z + p.d;
         const float_q &fDistAux = p.a * vAux.x + p.b * vAux.y + p.c * vAux.z + p.d;
 
-        if ( QFloat::IsZero(fDistOrigin) ) // Origin point of ray lies on plane
+        if ( SQFloat::IsZero(fDistOrigin) ) // Origin point of ray lies on plane
         {
-            if ( QFloat::IsZero(fDistAux) ) // Ray lies on plane
+            if ( SQFloat::IsZero(fDistAux) ) // Ray lies on plane
                 return EQSpaceRelation::E_Contained;
-            else if ( QFloat::IsNegative(fDistAux) ) // Direction vector goes to positive side
+            else if ( SQFloat::IsNegative(fDistAux) ) // Direction vector goes to positive side
                 return EQSpaceRelation::E_NegativeSide;
             else // Direction vector goes to negative side
                 return EQSpaceRelation::E_PositiveSide;
         }
-        else if ( QFloat::IsNegative(fDistOrigin) )// Origin point of ray is in negative side
+        else if ( SQFloat::IsNegative(fDistOrigin) )// Origin point of ray is in negative side
         {
-            if ( QFloat::IsLowerOrEquals(fDistAux, fDistOrigin) ) // Direction vector moves away from plane or is parallel to it.
+            if ( SQFloat::IsLowerOrEquals(fDistAux, fDistOrigin) ) // Direction vector moves away from plane or is parallel to it.
                 return EQSpaceRelation::E_NegativeSide;
             else // Direction vector is approaching to plane
                 return EQSpaceRelation::E_BothSides;
         }
         else // Origin point of ray is in positive side
         {
-            if ( QFloat::IsGreaterOrEquals(fDistAux, fDistOrigin) ) // Direction vector moves away from plane or is parallel to it.
+            if ( SQFloat::IsGreaterOrEquals(fDistAux, fDistOrigin) ) // Direction vector moves away from plane or is parallel to it.
                 return EQSpaceRelation::E_PositiveSide;
             else // Direction vector is approaching to plane
                 return EQSpaceRelation::E_BothSides;
@@ -1241,8 +1241,8 @@ public:
 	/// <param name="qRot">[IN] Quaternion which contains the rotation to be applied.</param>
 	inline void Rotate (const QQuaternion &qRot)
 	{
-        QPoint::Rotate(qRot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Rotate(qRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Rotate(qRot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Rotate(qRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
 	}
 
 	/// <summary>
@@ -1265,8 +1265,8 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const QQuaternion &qRot, const VectorType &vPivot)
 	{
-        QPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Rotate(qRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Rotate(qRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
 	}
 
     /// <summary>
@@ -1288,7 +1288,7 @@ public:
 	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
 	inline void Translate (const QBaseVector3 &vTrans)
 	{
-        QPoint::Translate(vTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Translate(vTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -1311,7 +1311,7 @@ public:
 	/// <param name="fTransZ">[IN] Amount of translation in Z direction.</param>
 	inline void Translate (const float_q &fTransX, const float_q &fTransY, const float_q &fTransZ)
 	{
-        QPoint::Translate(fTransX, fTransY, fTransZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Translate(fTransX, fTransY, fTransZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -1334,8 +1334,8 @@ public:
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	inline void Scale (const QBaseVector3 &vScale)
 	{
-        QPoint::Scale(vScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Scale(vScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Scale(vScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Scale(vScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
 
@@ -1359,8 +1359,8 @@ public:
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ)
 	{
-        QPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
 
@@ -1386,8 +1386,8 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const QBaseVector3 &vScale, const VectorType &vPivot)
 	{
-        QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Scale(vScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Scale(vScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
 
@@ -1414,8 +1414,8 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot)
 	{
-        QPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
 
@@ -1442,8 +1442,8 @@ public:
 	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
 	inline void Rotate (const QRotationMatrix3x3 &mRot)
 	{
-        QPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Rotate(mRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Rotate(mRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
 	}
 
 	/// <summary>
@@ -1464,7 +1464,7 @@ public:
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
 	inline void Translate (const QTranslationMatrix4x3 &mTrans)
 	{
-        QPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -1473,7 +1473,7 @@ public:
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
 	inline void Translate (const QTranslationMatrix4x4 &mTrans)
 	{
-        QPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -1506,8 +1506,8 @@ public:
 	/// <param name="mScale">[IN] Matrix which contains the scale to be applied in every axis.</param>
 	inline void Scale (const QScaleMatrix3x3 &mScale)
 	{
-        QPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Scale(mScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Scale(mScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
 
@@ -1594,8 +1594,8 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
 	{
-        QPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Direction), 1);
+        SQPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Direction), 1);
 	}
 
 	/// <summary>
@@ -1619,8 +1619,8 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
 	{
-        QPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        QPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
 
@@ -1701,9 +1701,9 @@ protected:
         if (vCross != QVector3::ZeroVector) // Vectors are not parallel
             return false;
         else // Vectors are parallel. It checks if they are opposite or not.
-            return ( QFloat::IsNegative(vAux.x) == QFloat::IsNegative(this->Direction.x) ) &&
-                   ( QFloat::IsNegative(vAux.y) == QFloat::IsNegative(this->Direction.y) )
-                   ( QFloat::IsNegative(vAux.z) == QFloat::IsNegative(this->Direction.z) );
+            return ( SQFloat::IsNegative(vAux.x) == SQFloat::IsNegative(this->Direction.x) ) &&
+                   ( SQFloat::IsNegative(vAux.y) == SQFloat::IsNegative(this->Direction.y) )
+                   ( SQFloat::IsNegative(vAux.z) == SQFloat::IsNegative(this->Direction.z) );
 
     }
 
@@ -1726,15 +1726,15 @@ protected:
         // Compute barycentric coordinates
         const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
 
-        QE_ASSERT(fDenom != QFloat::_0);
+        QE_ASSERT(fDenom != SQFloat::_0);
 
-        const float_q &fInvDenom = QFloat::_1 / fDenom;
+        const float_q &fInvDenom = SQFloat::_1 / fDenom;
 
         const float_q &fU = (fDot11 * fDot02 - fDot01 * fDot12) * fInvDenom;
         const float_q &fV = (fDot00 * fDot12 - fDot01 * fDot02) * fInvDenom;
 
         // Check if point is in triangle
-        return QFloat::IsPositive(fU) && QFloat::IsPositive(fV) && QFloat::IsLowerOrEquals(fU + fV, QFloat::_1);
+        return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1);
     }
 
     // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
@@ -1758,15 +1758,15 @@ protected:
         // Compute barycentric coordinates
         const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
 
-        QE_ASSERT(fDenom != QFloat::_0);
+        QE_ASSERT(fDenom != SQFloat::_0);
 
-        const float_q &fInvDenom = QFloat::_1 / fDenom;
+        const float_q &fInvDenom = SQFloat::_1 / fDenom;
 
         const float_q &fU = (fDot11 * fDot02 - fDot01 * fDot12) * fInvDenom;
         const float_q &fV = (fDot00 * fDot12 - fDot01 * fDot02) * fInvDenom;
 
         // Check if point is in triangle
-        if ( QFloat::IsPositive(fU) && QFloat::IsPositive(fV) && QFloat::IsLowerOrEquals(fU + fV, QFloat::_1) )
+        if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1) )
             return true;
 
         // Compute new vector
@@ -1780,15 +1780,15 @@ protected:
         // Compute new barycentric coordinates
         const float_q &fDenom2 = fDot00 * fDot33 - fDot03 * fDot03;
 
-        QE_ASSERT(fDenom2 != QFloat::_0);
+        QE_ASSERT(fDenom2 != SQFloat::_0);
 
-        const float_q &fInvDenom2 = QFloat::_1 / fDenom2;
+        const float_q &fInvDenom2 = SQFloat::_1 / fDenom2;
 
         const float_q &fU2 = (fDot33 * fDot02 - fDot03 * fDot32) * fInvDenom2;
         const float_q &fV2 = (fDot00 * fDot32 - fDot03 * fDot02) * fInvDenom2;
 
         // Check if point is in triangle
-        return  QFloat::IsPositive(fU2) && QFloat::IsPositive(fV2) && QFloat::IsLowerOrEquals(fU2 + fV2, QFloat::_1);;
+        return  SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLowerOrEquals(fU2 + fV2, SQFloat::_1);;
     }
 
     // Checks if resident ray intersects the AB line segment and calculates the intersection point if it exists
@@ -1907,7 +1907,7 @@ protected:
                     else // No intersection found
                         return EQIntersections::E_One;
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(vA, vB).MinDistance(this->Origin))) // Ray origin is in AB quadrilateral edge
+                else if (SQFloat::IsZero(QLineSegment<VectorType>(vA, vB).MinDistance(this->Origin))) // Ray origin is in AB quadrilateral edge
                 {
                     if (this->IntersectionPoint(vB, vC, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -1949,7 +1949,7 @@ protected:
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(vB, vC).MinDistance(this->Origin))) // Ray origin is in BC quadrilateral edge
+                else if (SQFloat::IsZero(QLineSegment<VectorType>(vB, vC).MinDistance(this->Origin))) // Ray origin is in BC quadrilateral edge
                 {
                     if (this->IntersectionPoint(vC, vD, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -1991,7 +1991,7 @@ protected:
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(vC, vD).MinDistance(this->Origin))) // Ray origin is in CD quadrilateral edge
+                else if (SQFloat::IsZero(QLineSegment<VectorType>(vC, vD).MinDistance(this->Origin))) // Ray origin is in CD quadrilateral edge
                 {
                     if (this->IntersectionPoint(vD, vA, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -2033,7 +2033,7 @@ protected:
                         return EQIntersections::E_One;
                     }
                 }
-                else if (QFloat::IsZero(QLineSegment<VectorType>(vD, vA).MinDistance(this->Origin))) // Ray origin is in DA quadrilateral edge
+                else if (SQFloat::IsZero(QLineSegment<VectorType>(vD, vA).MinDistance(this->Origin))) // Ray origin is in DA quadrilateral edge
                 {
                     if (this->IntersectionPoint(vA, vB, vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
@@ -2282,7 +2282,7 @@ protected:
 	template <class MatrixType>
 	inline void TransformImp (const MatrixType &mTransf)
 	{
-        QPoint::Transform(mTransf, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Transform(mTransf, reinterpret_cast<VectorType *> (&this->Origin), 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in QVector3::Transform, except for the translation operations.
@@ -2306,7 +2306,7 @@ protected:
 	template <class MatrixType>
 	inline void TransformWithPivotImp (const MatrixType &mTransf, const VectorType &vPivot)
 	{
-        QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in QVector3::Transform, except for the translation operations.

@@ -24,15 +24,15 @@ namespace Math
 //##################                                                       ##################
 //##################=======================================================##################
 
-const QVector4 QVector4::ZeroVector    ( QFloat::_0,  QFloat::_0,  QFloat::_0,  QFloat::_0);
-const QVector4 QVector4::ZeroPoint     ( QFloat::_0,  QFloat::_0,  QFloat::_0,  QFloat::_1);
-const QVector4 QVector4::VectorOfOnes  ( QFloat::_1,  QFloat::_1,  QFloat::_1,  QFloat::_1);
-const QVector4 QVector4::UnitVectorX   ( QFloat::_1,  QFloat::_0,  QFloat::_0,  QFloat::_0);
-const QVector4 QVector4::UnitVectorY   ( QFloat::_0,  QFloat::_1,  QFloat::_0,  QFloat::_0);
-const QVector4 QVector4::UnitVectorZ   ( QFloat::_0,  QFloat::_0,  QFloat::_1,  QFloat::_0);
-const QVector4 QVector4::UnitVectorInvX(-QFloat::_1,  QFloat::_0,  QFloat::_0,  QFloat::_0);
-const QVector4 QVector4::UnitVectorInvY( QFloat::_0, -QFloat::_1,  QFloat::_0,  QFloat::_0);
-const QVector4 QVector4::UnitVectorInvZ( QFloat::_0,  QFloat::_0, -QFloat::_1,  QFloat::_0);
+const QVector4 QVector4::ZeroVector    ( SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+const QVector4 QVector4::ZeroPoint     ( SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_1);
+const QVector4 QVector4::VectorOfOnes  ( SQFloat::_1,  SQFloat::_1,  SQFloat::_1,  SQFloat::_1);
+const QVector4 QVector4::UnitVectorX   ( SQFloat::_1,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+const QVector4 QVector4::UnitVectorY   ( SQFloat::_0,  SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
+const QVector4 QVector4::UnitVectorZ   ( SQFloat::_0,  SQFloat::_0,  SQFloat::_1,  SQFloat::_0);
+const QVector4 QVector4::UnitVectorInvX(-SQFloat::_1,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+const QVector4 QVector4::UnitVectorInvY( SQFloat::_0, -SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
+const QVector4 QVector4::UnitVectorInvZ( SQFloat::_0,  SQFloat::_0, -SQFloat::_1,  SQFloat::_0);
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -92,7 +92,7 @@ QBaseVector3 QVector4::operator * (const QBaseMatrix4x3 &m) const
 QVector4 QVector4::operator / (const float_q &fValue) const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT (fValue != QFloat::_0);
+    QE_ASSERT (fValue != SQFloat::_0);
 
     return QVector4(this->x/fValue, this->y/fValue, this->z/fValue, this->w/fValue);
 }
@@ -100,8 +100,8 @@ QVector4 QVector4::operator / (const float_q &fValue) const
 QVector4 QVector4::operator / (const QBaseVector4 &v) const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0 &&
-        v.z != QFloat::_0 && v.w != QFloat::_0);
+    QE_ASSERT (v.x != SQFloat::_0 && v.y != SQFloat::_0 &&
+        v.z != SQFloat::_0 && v.w != SQFloat::_0);
 
     return QVector4(this->x/v.x, this->y/v.y, this->z/v.z, this->w/v.w);
 }
@@ -145,7 +145,7 @@ void QVector4::CrossProduct(const QBaseVector4 &v)
 
 void QVector4::Transform(const QQuaternion &qR)
 {
-    QQuaternion qAux(this->x, this->y, this->z, QFloat::_0);
+    QQuaternion qAux(this->x, this->y, this->z, SQFloat::_0);
     QQuaternion qConj;
 
     qR.Conjugate(qConj);
@@ -159,8 +159,8 @@ void QVector4::Transform(const QQuaternion &qR)
 
 void QVector4::Transform(const QDualQuaternion &dqTransf)
 {
-    QDualQuaternion dqAux(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
-                        QBaseQuaternion(this->x, this->y, this->z, QFloat::_0));
+    QDualQuaternion dqAux(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                        QBaseQuaternion(this->x, this->y, this->z, SQFloat::_0));
     QDualQuaternion dqConj;
 
     dqTransf.DoubleConjugate(dqConj);

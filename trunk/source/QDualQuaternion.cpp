@@ -24,8 +24,8 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-const QDualQuaternion QDualQuaternion::Identity(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
-                                                QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
+const QDualQuaternion QDualQuaternion::Identity(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                                                QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
 
 
 //##################=======================================================##################
@@ -65,8 +65,8 @@ QDualQuaternion operator*(const float_q &fScalar, const QBaseDualQuaternion &dqQ
 QDualQuaternion QDualQuaternion::operator * (const QBaseVector3 &v) const
 {
     // Vector3 is converted to dual quaternion (0, 0, 0, 1)(x, y, z, 0)
-    QDualQuaternion auxQ(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                       QBaseQuaternion(v.x, v.y, v.z, QFloat::_0) );
+    QDualQuaternion auxQ(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1), 
+                       QBaseQuaternion(v.x, v.y, v.z, SQFloat::_0) );
 
     auxQ = (*this)*auxQ;
 
@@ -76,8 +76,8 @@ QDualQuaternion QDualQuaternion::operator * (const QBaseVector3 &v) const
 QDualQuaternion QDualQuaternion::operator * (const QBaseVector4 &v) const
 {
     // Vector4 is converted to dual quaternion (0, 0, 0, 1)(x, y, z, 0)
-    QDualQuaternion auxQ(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1), 
-                         QBaseQuaternion(v.x, v.y, v.z, QFloat::_0) );
+    QDualQuaternion auxQ(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1), 
+                         QBaseQuaternion(v.x, v.y, v.z, SQFloat::_0) );
 
     auxQ = (*this)*auxQ;
 
@@ -86,7 +86,7 @@ QDualQuaternion QDualQuaternion::operator * (const QBaseVector4 &v) const
 
 QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar != QFloat::_0);
+    QE_ASSERT(fScalar != SQFloat::_0);
 
     return QDualQuaternion(QBaseQuaternion(this->r / fScalar), QBaseQuaternion(this->d / fScalar));
 }
@@ -101,14 +101,14 @@ void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf)
 
 string_q QDualQuaternion::ToString() const
 {
-    return QE_L("DQ(") + QFloat::ToString(this->r.x) + 
-            QE_L(", ")  + QFloat::ToString(this->r.y) + 
-            QE_L(", ")  + QFloat::ToString(this->r.z) +
-            QE_L(", ")  + QFloat::ToString(this->r.w) + QE_L(")") +
-            QE_L("(")   + QFloat::ToString(this->d.x) + 
-            QE_L(", ")  + QFloat::ToString(this->d.y) + 
-            QE_L(", ")  + QFloat::ToString(this->d.z) +
-            QE_L(", ")  + QFloat::ToString(this->d.w) + QE_L(")");
+    return QE_L("DQ(") + SQFloat::ToString(this->r.x) + 
+            QE_L(", ")  + SQFloat::ToString(this->r.y) + 
+            QE_L(", ")  + SQFloat::ToString(this->r.z) +
+            QE_L(", ")  + SQFloat::ToString(this->r.w) + QE_L(")") +
+            QE_L("(")   + SQFloat::ToString(this->d.x) + 
+            QE_L(", ")  + SQFloat::ToString(this->d.y) + 
+            QE_L(", ")  + SQFloat::ToString(this->d.z) +
+            QE_L(", ")  + SQFloat::ToString(this->d.w) + QE_L(")");
 }
 
 } //namespace Math

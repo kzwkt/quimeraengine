@@ -3,7 +3,7 @@
 #ifndef __QBASEMATRIX2X2__
 #define __QBASEMATRIX2X2__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -31,10 +31,10 @@ public:
 	/// </summary>
 	inline QBaseMatrix2x2()
 	{
-		ij[0][0] = QFloat::_0;
-		ij[0][1] = QFloat::_0;
-		ij[1][0] = QFloat::_0;
-		ij[1][1] = QFloat::_0;
+		ij[0][0] = SQFloat::_0;
+		ij[0][1] = SQFloat::_0;
+		ij[1][0] = SQFloat::_0;
+		ij[1][1] = SQFloat::_0;
 	}
 
     /// <summary>
@@ -93,10 +93,10 @@ public:
     /// </returns>
     inline bool operator==(const QBaseMatrix2x2 &m) const
     {
-        return QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
-               QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
-               QFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
-               QFloat::AreEquals(this->ij[1][1], m.ij[1][1]);
+        return SQFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
+               SQFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
+               SQFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
+               SQFloat::AreEquals(this->ij[1][1], m.ij[1][1]);
     }
 
     /// <summary>

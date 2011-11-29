@@ -3,7 +3,7 @@
 #ifndef __QBASETRIANGLE__
 #define __QBASETRIANGLE__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -39,7 +39,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBaseTriangle () : A(QFloat::_0), B(QFloat::_0), C(QFloat::_0)	{ }
+	inline QBaseTriangle () : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0)	{ }
 
 	/// <summary>
 	/// Constructor from three vectors.

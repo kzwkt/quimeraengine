@@ -82,7 +82,7 @@ public:
     /// <param name="vScale">[IN] Vector with the scale values.</param>
     inline QTransformationMatrix (const QBaseVector3 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale)
     {
-        this->Initialize(vDisp.x, vDisp.y, vDisp.z, QFloat::_0, qRot.x, qRot.y, qRot.z, qRot.w, vScale.x, vScale.y, vScale.z);
+        this->Initialize(vDisp.x, vDisp.y, vDisp.z, SQFloat::_0, qRot.x, qRot.y, qRot.z, qRot.w, vScale.x, vScale.y, vScale.z);
     }
 
     /// <summary>
@@ -438,11 +438,11 @@ public:
         float_q fDet = this->GetDeterminant();
 
         // If Determinant is 0, this matrix has not inverse.
-        if (QFloat::IsZero(fDet))
+        if (SQFloat::IsZero(fDet))
             return false;
 
         // We need inverse of determinant in calculus.
-        fDet = QFloat::_1/fDet;
+        fDet = SQFloat::_1/fDet;
 
         // Binary products are stored in vars to avoid unnecesary repetitions
         const float_q& A = this->ij[0][0] * this->ij[1][1];
@@ -546,7 +546,7 @@ public:
         vDisp.x = this->ij[3][0];
         vDisp.y = this->ij[3][1];
         vDisp.z = this->ij[3][2];
-        vDisp.w = QFloat::_0;
+        vDisp.w = SQFloat::_0;
     }
 
     /// <summary>
@@ -663,9 +663,9 @@ public:
         this->GetRotation(qRotAux);
 
         // Makes a transformation matrix with current rotation, scale 1 and displacement 0
-        mRot = QTransformationMatrix<MatrixTypeParam> (QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0,
+        mRot = QTransformationMatrix<MatrixTypeParam> (SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
                                                        qRotAux.x , qRotAux.y , qRotAux.z , qRotAux.w,
-                                                       QFloat::_1, QFloat::_1, QFloat::_1);
+                                                       SQFloat::_1, SQFloat::_1, SQFloat::_1);
         this->GetTranslation(vAux);
 
         mDisp.ResetToIdentity();
@@ -718,10 +718,10 @@ public:
     /// </summary>
     void SwitchHandConvention()
     {
-        QBaseVector3 vScale, vInvScale(QFloat::_1, QFloat::_1, QFloat::_1);
+        QBaseVector3 vScale, vInvScale(SQFloat::_1, SQFloat::_1, SQFloat::_1);
         this->GetScale(vScale);
 
-        QE_ASSERT(vScale.x != QFloat::_0 && vScale.y != QFloat::_0 && vScale.z != QFloat::_0);
+        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0);
 
         vInvScale.x /= vScale.x;
         vInvScale.y /= vScale.y;
@@ -772,11 +772,11 @@ protected:
     // Dividing each row by its length we obtain the original rotation matrix.
     void ToRotationMatrix3x3(QRotationMatrix3x3 &m) const
     {
-        QBaseVector3 fScale, fInvScale(QFloat::_1, QFloat::_1, QFloat::_1);
+        QBaseVector3 fScale, fInvScale(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
         this->GetScale(fScale);
 
-        QE_ASSERT(fScale.x != QFloat::_0 && fScale.y != QFloat::_0 && fScale.z != QFloat::_0);
+        QE_ASSERT(fScale.x != SQFloat::_0 && fScale.y != SQFloat::_0 && fScale.z != SQFloat::_0);
 
         fInvScale.x /= fScale.x;
         fInvScale.y /= fScale.y;

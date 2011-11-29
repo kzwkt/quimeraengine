@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
 #include "QVector2.h"
-#include "QAngle.h"
+#include "SQAngle.h"
 #include "QTransformationMatrix3x3.h"
 
 namespace Kinesis
@@ -22,12 +22,12 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-const QVector2 QVector2::ZeroVector    ( QFloat::_0,  QFloat::_0);
-const QVector2 QVector2::VectorOfOnes  ( QFloat::_1,  QFloat::_1);
-const QVector2 QVector2::UnitVectorX   ( QFloat::_1,  QFloat::_0);
-const QVector2 QVector2::UnitVectorY   ( QFloat::_0,  QFloat::_1);
-const QVector2 QVector2::UnitVectorInvX(-QFloat::_1,  QFloat::_0);
-const QVector2 QVector2::UnitVectorInvY( QFloat::_0, -QFloat::_1);
+const QVector2 QVector2::ZeroVector    ( SQFloat::_0,  SQFloat::_0);
+const QVector2 QVector2::VectorOfOnes  ( SQFloat::_1,  SQFloat::_1);
+const QVector2 QVector2::UnitVectorX   ( SQFloat::_1,  SQFloat::_0);
+const QVector2 QVector2::UnitVectorY   ( SQFloat::_0,  SQFloat::_1);
+const QVector2 QVector2::UnitVectorInvX(-SQFloat::_1,  SQFloat::_0);
+const QVector2 QVector2::UnitVectorInvY( SQFloat::_0, -SQFloat::_1);
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -98,8 +98,8 @@ QVector2 QVector2::GetPerpendicular() const
 
 string_q QVector2::ToString() const
 {
-	return QE_L("V2(") + QFloat::ToString(this->x) +
-		   QE_L(", ")  + QFloat::ToString(this->y) +
+	return QE_L("V2(") + SQFloat::ToString(this->x) +
+		   QE_L(", ")  + SQFloat::ToString(this->y) +
 		   QE_L(")");
 }
 
@@ -121,7 +121,7 @@ void QVector2::Transform(const QTransformationMatrix3x3& matrix, QBaseVector2& v
 void QVector2::Transform(const float_q& fAngle)
 {
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-		float_q fAngleRad = QAngle::DegreesToRadians(fAngle);
+		float_q fAngleRad = SQAngle::DegreesToRadians(fAngle);
 	#else
 		float_q fAngleRad = fAngle;
 	#endif
@@ -139,7 +139,7 @@ void QVector2::Transform(const float_q& fAngle)
 void QVector2::Transform(const float_q& fAngle, QBaseVector2& vectorOut)
 {
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-		float_q fAngleRad = QAngle::DegreesToRadians(fAngle);
+		float_q fAngleRad = SQAngle::DegreesToRadians(fAngle);
 	#else
 		float_q fAngleRad = fAngle;
 	#endif

@@ -3,7 +3,7 @@
 #ifndef __QBASEPLANE__
 #define __QBASEPLANE__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -30,7 +30,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBasePlane() : a(QFloat::_0), b(QFloat::_0), c(QFloat::_0), d(QFloat::_0) { }
+	inline QBasePlane() : a(SQFloat::_0), b(SQFloat::_0), c(SQFloat::_0), d(SQFloat::_0) { }
 
 	/// <summary>
 	/// Constructor from a floating point value for each coefficient.
@@ -91,8 +91,8 @@ public:
     /// </returns>
     inline bool operator == (const QBasePlane &plane) const
     {
-        return ( QFloat::AreEquals(plane.a, this->a) && QFloat::AreEquals(plane.b, this->b) &&
-                 QFloat::AreEquals(plane.c, this->c) && QFloat::AreEquals(plane.d, this->d) );
+        return ( SQFloat::AreEquals(plane.a, this->a) && SQFloat::AreEquals(plane.b, this->b) &&
+                 SQFloat::AreEquals(plane.c, this->c) && SQFloat::AreEquals(plane.d, this->d) );
     }
 
     /// <summary>

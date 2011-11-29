@@ -3,7 +3,7 @@
 #ifndef __QBASEVECTOR2__
 #define __QBASEVECTOR2__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -29,7 +29,7 @@ public:
 	/// <summary>
 	/// Override default constructor. Sets attributes to zero.
 	/// </summary>
-	inline QBaseVector2 () : x(QFloat::_0), y(QFloat::_0) {}
+	inline QBaseVector2 () : x(SQFloat::_0), y(SQFloat::_0) {}
 
 	/// <summary>
 	/// Constructor that receives 2 FloatTypes, one for each vector components.
@@ -83,7 +83,7 @@ public:
 	/// </returns>
 	inline bool operator == (const QBaseVector2 &v) const
 	{
-        return ( QFloat::AreEquals(v.x, this->x) && QFloat::AreEquals(v.y, this->y) );
+        return ( SQFloat::AreEquals(v.x, this->x) && SQFloat::AreEquals(v.y, this->y) );
 	}
 
 	/// <summary>

@@ -245,7 +245,7 @@ public:
 	/// </returns>
 	inline QMatrix4x4& operator/=(const float_q &fScalar)
 	{
-		QE_ASSERT(fScalar != QFloat::_0);
+		QE_ASSERT(fScalar != SQFloat::_0);
 
 		this->ij[0][0] /= fScalar;
 		this->ij[0][1] /= fScalar;
@@ -346,7 +346,7 @@ public:
 		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
 		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = this->ij[1][3] =
 		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = this->ij[2][3] =
-		this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = this->ij[3][3] = QFloat::_0;
+		this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = this->ij[3][3] = SQFloat::_0;
 	}
 
 	/// <summary>
@@ -355,12 +355,12 @@ public:
 	/// </summary>
 	inline void ResetToIdentity()
 	{
-		this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = this->ij[3][3] = QFloat::_1;
+		this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = this->ij[3][3] = SQFloat::_1;
 
 		this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
 		this->ij[1][0] = this->ij[1][2] = this->ij[1][3] =
 		this->ij[2][0] = this->ij[2][1] = this->ij[2][3] =
-		this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = QFloat::_0;
+		this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = SQFloat::_0;
 	}
 
 	/// <summary>
@@ -394,22 +394,22 @@ public:
 	/// </returns>
 	inline bool IsZero() const
 	{
-		return	QFloat::IsZero(this->ij[0][0]) &&
-				QFloat::IsZero(this->ij[0][1]) &&
-				QFloat::IsZero(this->ij[0][2]) &&
-				QFloat::IsZero(this->ij[0][3]) &&
-				QFloat::IsZero(this->ij[1][0]) &&
-				QFloat::IsZero(this->ij[1][1]) &&
-				QFloat::IsZero(this->ij[1][2]) &&
-				QFloat::IsZero(this->ij[1][3]) &&
-				QFloat::IsZero(this->ij[2][0]) &&
-				QFloat::IsZero(this->ij[2][1]) &&
-				QFloat::IsZero(this->ij[2][2]) &&
-				QFloat::IsZero(this->ij[2][3]) &&
-				QFloat::IsZero(this->ij[3][0]) &&
-				QFloat::IsZero(this->ij[3][1]) &&
-				QFloat::IsZero(this->ij[3][2]) &&
-				QFloat::IsZero(this->ij[3][3]);
+		return	SQFloat::IsZero(this->ij[0][0]) &&
+				SQFloat::IsZero(this->ij[0][1]) &&
+				SQFloat::IsZero(this->ij[0][2]) &&
+				SQFloat::IsZero(this->ij[0][3]) &&
+				SQFloat::IsZero(this->ij[1][0]) &&
+				SQFloat::IsZero(this->ij[1][1]) &&
+				SQFloat::IsZero(this->ij[1][2]) &&
+				SQFloat::IsZero(this->ij[1][3]) &&
+				SQFloat::IsZero(this->ij[2][0]) &&
+				SQFloat::IsZero(this->ij[2][1]) &&
+				SQFloat::IsZero(this->ij[2][2]) &&
+				SQFloat::IsZero(this->ij[2][3]) &&
+				SQFloat::IsZero(this->ij[3][0]) &&
+				SQFloat::IsZero(this->ij[3][1]) &&
+				SQFloat::IsZero(this->ij[3][2]) &&
+				SQFloat::IsZero(this->ij[3][3]);
 	}
 
 	/// <summary>
@@ -421,22 +421,22 @@ public:
 	/// </returns>
 	inline bool IsIdentity() const
 	{
-		return	QFloat::AreEquals(this->ij[0][0], QFloat::_1) &&
-				QFloat::IsZero(this->ij[0][1]) &&
-				QFloat::IsZero(this->ij[0][2]) &&
-				QFloat::IsZero(this->ij[0][3]) &&
-				QFloat::IsZero(this->ij[1][0]) &&
-				QFloat::AreEquals(this->ij[1][1], QFloat::_1) &&
-				QFloat::IsZero(this->ij[1][2]) &&
-				QFloat::IsZero(this->ij[1][3]) &&
-				QFloat::IsZero(this->ij[2][0]) &&
-				QFloat::IsZero(this->ij[2][1]) &&
-				QFloat::AreEquals(this->ij[2][2], QFloat::_1) &&
-				QFloat::IsZero(this->ij[2][3]) &&
-				QFloat::IsZero(this->ij[3][0]) &&
-				QFloat::IsZero(this->ij[3][1]) &&
-				QFloat::IsZero(this->ij[3][2]) &&
-				QFloat::AreEquals(this->ij[3][3], QFloat::_1);
+		return	SQFloat::AreEquals(this->ij[0][0], SQFloat::_1) &&
+				SQFloat::IsZero(this->ij[0][1]) &&
+				SQFloat::IsZero(this->ij[0][2]) &&
+				SQFloat::IsZero(this->ij[0][3]) &&
+				SQFloat::IsZero(this->ij[1][0]) &&
+				SQFloat::AreEquals(this->ij[1][1], SQFloat::_1) &&
+				SQFloat::IsZero(this->ij[1][2]) &&
+				SQFloat::IsZero(this->ij[1][3]) &&
+				SQFloat::IsZero(this->ij[2][0]) &&
+				SQFloat::IsZero(this->ij[2][1]) &&
+				SQFloat::AreEquals(this->ij[2][2], SQFloat::_1) &&
+				SQFloat::IsZero(this->ij[2][3]) &&
+				SQFloat::IsZero(this->ij[3][0]) &&
+				SQFloat::IsZero(this->ij[3][1]) &&
+				SQFloat::IsZero(this->ij[3][2]) &&
+				SQFloat::AreEquals(this->ij[3][3], SQFloat::_1);
 	}
 
 	/// <summary>

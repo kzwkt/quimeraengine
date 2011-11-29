@@ -1,6 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "QAngle.h"
+#include "SQAngle.h"
 #include "QMatrix3x3.h"
 #include "QMatrix3x4.h"
 
@@ -23,13 +23,13 @@ namespace Math
 //##################                                                       ##################
 //##################=======================================================##################
 
-    const QMatrix3x3 QMatrix3x3::ZeroMatrix(QFloat::_0, QFloat::_0, QFloat::_0,
-                                            QFloat::_0, QFloat::_0, QFloat::_0,
-                                            QFloat::_0, QFloat::_0, QFloat::_0);
+    const QMatrix3x3 QMatrix3x3::ZeroMatrix(SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                            SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                            SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    const QMatrix3x3 QMatrix3x3::Identity(  QFloat::_1, QFloat::_0, QFloat::_0,
-                                            QFloat::_0, QFloat::_1, QFloat::_0,
-                                            QFloat::_0, QFloat::_0, QFloat::_1);
+    const QMatrix3x3 QMatrix3x3::Identity(  SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                            SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                            SQFloat::_0, SQFloat::_0, SQFloat::_1);
     
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -145,7 +145,7 @@ namespace Math
     QMatrix3x3 QMatrix3x3::operator/(const float_q &fScalar) const
     {
         
-        QE_ASSERT(fScalar != QFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0);
 
         QMatrix3x3 aux;
         
@@ -246,11 +246,11 @@ namespace Math
         float_q fDet = this->GetDeterminant();
 
         // If Determinant is 0, this matrix has not inverse.
-        if (QFloat::IsZero(fDet)) 
+        if (SQFloat::IsZero(fDet)) 
             return false;
 
         // We need inverse of determinant in calculus.
-        fDet = QFloat::_1/fDet;
+        fDet = SQFloat::_1/fDet;
  
         QMatrix3x3 aux;
 

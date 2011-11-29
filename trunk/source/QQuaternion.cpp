@@ -23,7 +23,7 @@ namespace Math
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
-const QQuaternion QQuaternion::Identity(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1);
+const QQuaternion QQuaternion::Identity(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
 
 //##################=======================================================##################
@@ -40,13 +40,13 @@ QQuaternion::QQuaternion(const float_q &fAngleX, const float_q &fAngleY, const f
     // Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q fHalfAngleXRad = QAngle::DegreesToRadians(fAngleX, fHalfAngleXRad) * QFloat::_0_5;
-        float_q fHalfAngleYRad = QAngle::DegreesToRadians(fAngleY, fHalfAngleYRad) * QFloat::_0_5;
-        float_q fHalfAngleZRad = QAngle::DegreesToRadians(fAngleZ, fHalfAngleZRad) * QFloat::_0_5;
+        float_q fHalfAngleXRad = SQAngle::DegreesToRadians(fAngleX, fHalfAngleXRad) * SQFloat::_0_5;
+        float_q fHalfAngleYRad = SQAngle::DegreesToRadians(fAngleY, fHalfAngleYRad) * SQFloat::_0_5;
+        float_q fHalfAngleZRad = SQAngle::DegreesToRadians(fAngleZ, fHalfAngleZRad) * SQFloat::_0_5;
     #else
-        const float_q& fHalfAngleXRad = fAngleX * QFloat::_0_5;
-        const float_q& fHalfAngleYRad = fAngleY * QFloat::_0_5;
-        const float_q& fHalfAngleZRad = fAngleZ * QFloat::_0_5;
+        const float_q& fHalfAngleXRad = fAngleX * SQFloat::_0_5;
+        const float_q& fHalfAngleYRad = fAngleY * SQFloat::_0_5;
+        const float_q& fHalfAngleZRad = fAngleZ * SQFloat::_0_5;
     #endif
 
     float_q cx = cos(fHalfAngleXRad);
@@ -79,9 +79,9 @@ QQuaternion::QQuaternion(const QBaseVector3 &vAxis, const float_q &fAngle)
 	// Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q fHalfAngleRad = QAngle::DegreesToRadians(fAngle, fHalfAngleRad) * QFloat::_0_5;
+        float_q fHalfAngleRad = SQAngle::DegreesToRadians(fAngle, fHalfAngleRad) * SQFloat::_0_5;
     #else
-        const float_q& fHalfAngleRad = fAngle * QFloat::_0_5;
+        const float_q& fHalfAngleRad = fAngle * SQFloat::_0_5;
     #endif
 
 	const float_q &fSin = sin(fHalfAngleRad);
@@ -100,9 +100,9 @@ QQuaternion::QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle)
 	// Calculates half angle
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q fHalfAngleRad = QAngle::DegreesToRadians(fAngle, fHalfAngleRad) * QFloat::_0_5;
+        float_q fHalfAngleRad = SQAngle::DegreesToRadians(fAngle, fHalfAngleRad) * SQFloat::_0_5;
     #else
-        const float_q& fHalfAngleRad = fAngle * QFloat::_0_5;
+        const float_q& fHalfAngleRad = fAngle * SQFloat::_0_5;
     #endif
 
 	const float_q &fSin = sin(fHalfAngleRad);
@@ -160,7 +160,7 @@ QQuaternion QQuaternion::operator*(const float_q &fScalar) const
 
 QQuaternion QQuaternion::operator*(const QBaseVector3 &v) const
 {
-	QQuaternion qAux(v.x, v.y, v.z, QFloat::_0);
+	QQuaternion qAux(v.x, v.y, v.z, SQFloat::_0);
 
     return *this * qAux;
 }
@@ -173,7 +173,7 @@ QQuaternion QQuaternion::operator*(const QBaseVector4 &v) const
 }
 QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 {
-    QE_ASSERT(qQuat.x != QFloat::_0 && qQuat.y != QFloat::_0 && qQuat.z != QFloat::_0 && qQuat.w != QFloat::_0);
+    QE_ASSERT(qQuat.x != SQFloat::_0 && qQuat.y != SQFloat::_0 && qQuat.z != SQFloat::_0 && qQuat.w != SQFloat::_0);
 
     return QQuaternion(this->x / qQuat.x,
                        this->y / qQuat.y,
@@ -183,7 +183,7 @@ QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 
 QQuaternion QQuaternion::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar != QFloat::_0);
+    QE_ASSERT(fScalar != SQFloat::_0);
 
     return QQuaternion( this->x / fScalar,
                         this->y / fScalar,
@@ -199,12 +199,12 @@ QQuaternion operator*(const float_q &fScalar, const QBaseQuaternion &qQuat)
 void QQuaternion::Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion)
 {
     // Separated from the equation to gain performance
-    QQuaternion qAuxSum = (QFloat::_1 - fProportion) * (*this) + fProportion * qQuat;
+    QQuaternion qAuxSum = (SQFloat::_1 - fProportion) * (*this) + fProportion * qQuat;
 
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor != QFloat::_0);
+    QE_ASSERT(fDivisor != SQFloat::_0);
 
     *this = qAuxSum;
     *this /= fDivisor;
@@ -220,16 +220,16 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
     float_q fAngleB = acos(this->DotProduct(auxQuat));
 
     // [TODO] Thund: Should we fix this or leave it in an erroneous state?
-    QE_ASSERT( !QFloat::IsNaN(fAngleB) );
+    QE_ASSERT( !SQFloat::IsNaN(fAngleB) );
 
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
     // [TODO] Thund: Should we return a null quaternion instead of let the application crash? In other words, "show must go on"?
-    QE_ASSERT( fAngleB != QFloat::_0 && QFloat::AreNotEquals(fAngleB, PI_Q) );
+    QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) );
 
     // [TODO] jwladi: it might be better to do the following:
-    // const float_q &fInvSin = QFloat::_1/sin(fAngleB);
+    // const float_q &fInvSin = SQFloat::_1/sin(fAngleB);
 
-    float_q fWeight1 = sin((QFloat::_1 - fProportion) * fAngleB) / sin(fAngleB);
+    float_q fWeight1 = sin((SQFloat::_1 - fProportion) * fAngleB) / sin(fAngleB);
     float_q fWeight2 = sin(fProportion * fAngleB) / sin(fAngleB);
 
     // Separated from the equation to gain performance
@@ -238,7 +238,7 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor != QFloat::_0);
+    QE_ASSERT(fDivisor != SQFloat::_0);
 
     *this = qAuxSum;
     *this /= fDivisor;
@@ -249,16 +249,16 @@ void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fPropor
     float_q fAngleB = acos(this->DotProduct(qQuat));
 
     // [TODO] Thund: Should we fix this or leave it in an erroneous state?
-    QE_ASSERT( !QFloat::IsNaN(fAngleB) );
+    QE_ASSERT( !SQFloat::IsNaN(fAngleB) );
 
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
     // [TODO] Thund: Should we return a null quaternion instead of let the application crash? In other words, "show must go on"?
-    QE_ASSERT( fAngleB != QFloat::_0 && QFloat::AreNotEquals(fAngleB, PI_Q) );
+    QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) );
 
     // [TODO] jwladi: it might be better to do the following:
-    // const float_q &fInvSin = QFloat::_1/sin(fAngleB);
+    // const float_q &fInvSin = SQFloat::_1/sin(fAngleB);
 
-    float_q fWeight1 = sin((QFloat::_1 - fProportion) * fAngleB) / sin(fAngleB);
+    float_q fWeight1 = sin((SQFloat::_1 - fProportion) * fAngleB) / sin(fAngleB);
     float_q fWeight2 = sin(fProportion * fAngleB) / sin(fAngleB);
 
     // Separated from the equation to gain performance
@@ -267,7 +267,7 @@ void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fPropor
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = qAuxSum.GetLength();
 
-    QE_ASSERT(fDivisor != QFloat::_0);
+    QE_ASSERT(fDivisor != SQFloat::_0);
 
     *this = qAuxSum;
     *this /= fDivisor;
@@ -276,19 +276,19 @@ void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fPropor
 void QQuaternion::ToAxisAngle(QBaseVector3 &vAxis, float_q &fAngle) const
 {
    // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-	QE_ASSERT(QFloat::Abs(this->w) <= QFloat::_1);
+	QE_ASSERT(SQFloat::Abs(this->w) <= SQFloat::_1);
 
-	fAngle = QFloat::_2 * acos(this->w);
+	fAngle = SQFloat::_2 * acos(this->w);
 
 	// Singularity 1: Angle = 0 -> we choose arbitrary axis.
-	if (QFloat::IsZero(fAngle))
+	if (SQFloat::IsZero(fAngle))
 	{
-		vAxis.x = QFloat::_1;
-		vAxis.y = QFloat::_0;
-		vAxis.z = QFloat::_0;
+		vAxis.x = SQFloat::_1;
+		vAxis.y = SQFloat::_0;
+		vAxis.z = SQFloat::_0;
 	}
 	// Singularity 2: Angle = PI -> we calculate axis.
-	else if ( QFloat::AreEquals(fAngle, QAngle::_Pi) )
+	else if ( SQFloat::AreEquals(fAngle, SQAngle::_Pi) )
 	{
 		vAxis.x = this->x;
 		vAxis.y = this->y;
@@ -296,7 +296,7 @@ void QQuaternion::ToAxisAngle(QBaseVector3 &vAxis, float_q &fAngle) const
 	}
 	else
 	{
-		const float_q &fInvSin = QFloat::_1/sin(fAngle*QFloat::_0_5);
+		const float_q &fInvSin = SQFloat::_1/sin(fAngle*SQFloat::_0_5);
 
 		vAxis.x = this->x*fInvSin;
 		vAxis.y = this->y*fInvSin;
@@ -305,7 +305,7 @@ void QQuaternion::ToAxisAngle(QBaseVector3 &vAxis, float_q &fAngle) const
 
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        QAngle::RadiansToDegrees(fAngle, fAngle);
+        SQAngle::RadiansToDegrees(fAngle, fAngle);
     #endif
 }
 
@@ -318,7 +318,7 @@ void QQuaternion::ToAxisAngle(QBaseVector4 &vAxis, float_q &fAngle) const
     vAxis.x =  vAux.x;
     vAxis.y =  vAux.y;
     vAxis.z =  vAux.z;
-    vAxis.w = QFloat::_0;
+    vAxis.w = SQFloat::_0;
 }
 
 

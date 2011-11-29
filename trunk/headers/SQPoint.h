@@ -1,10 +1,10 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QPOINT__
-#define __QPOINT__
+#ifndef __SQPOINT__
+#define __SQPOINT__
 
-#include "QFloat.h"
-#include "QAngle.h"
+#include "SQFloat.h"
+#include "SQAngle.h"
 #include "QVector2.h"
 #include "QVector3.h"
 #include "QVector4.h"
@@ -29,14 +29,14 @@ namespace Math
 /// <summary>
 /// Helper class that will be used to perform transformations related to arrays of points (2D, 3D or 4D).
 /// </summary>
-class QDllExport QPoint
+class QDllExport SQPoint
 {
 
 	// CONSTRUCTORS
 	// ---------------
 private:
 
-	inline QPoint() { }
+	inline SQPoint() { }
 
 	// METHODS
 	// ---------------
@@ -144,7 +144,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Translate(vTranslation, arPoints[i]);
+            SQPoint::Translate(vTranslation, arPoints[i]);
         }
 	}
 
@@ -158,7 +158,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Translate(vTranslation, arPoints[i]);
+            SQPoint::Translate(vTranslation, arPoints[i]);
         }
 	}
 
@@ -174,7 +174,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, arPoints[i]);
+            SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, arPoints[i]);
         }
 	}
 
@@ -190,7 +190,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, arPoints[i]);
+            SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, arPoints[i]);
         }
 	}
 
@@ -204,7 +204,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Translate(matrix, arPoints[i]);
+            SQPoint::Translate(matrix, arPoints[i]);
         }
 	}
 
@@ -218,7 +218,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Translate(matrix, arPoints[i]);
+            SQPoint::Translate(matrix, arPoints[i]);
         }
 	}
 
@@ -232,7 +232,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Translate(matrix, arPoints[i]);
+            SQPoint::Translate(matrix, arPoints[i]);
         }
 	}
 
@@ -246,7 +246,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Translate(matrix, arPoints[i]);
+            SQPoint::Translate(matrix, arPoints[i]);
         }
 	}
 
@@ -260,7 +260,7 @@ public:
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
 	    {
-	        QPoint::Rotate(q, arPoints[i]);
+	        SQPoint::Rotate(q, arPoints[i]);
 	    }
 	}
 
@@ -274,7 +274,7 @@ public:
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
 	    {
-	        QPoint::Rotate(q, arPoints[i]);
+	        SQPoint::Rotate(q, arPoints[i]);
 	    }
 	}
 
@@ -288,7 +288,7 @@ public:
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
 	    {
-	        QPoint::Rotate(matrix, arPoints[i]);
+	        SQPoint::Rotate(matrix, arPoints[i]);
 	    }
 	}
 
@@ -302,7 +302,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
 	    {
-	        QPoint::Rotate(matrix, arPoints[i]);
+	        SQPoint::Rotate(matrix, arPoints[i]);
 	    }
 	}
 
@@ -316,7 +316,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Scale(vScale, arPoints[i]);
+            SQPoint::Scale(vScale, arPoints[i]);
         }
 	}
 
@@ -330,7 +330,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Scale(vScale, arPoints[i]);
+            SQPoint::Scale(vScale, arPoints[i]);
         }
 	}
 
@@ -346,7 +346,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
+            SQPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
         }
 	}
 
@@ -362,7 +362,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
+            SQPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
         }
 	}
 
@@ -376,7 +376,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Scale(matrix, arPoints[i]);
+            SQPoint::Scale(matrix, arPoints[i]);
         }
 	}
 
@@ -390,10 +390,9 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Scale(matrix, arPoints[i]);
+            SQPoint::Scale(matrix, arPoints[i]);
         }
 	}
-
 
 	/// <summary>
 	/// Transforms 3D points. Transformation will be applied to all points in the array.
@@ -405,7 +404,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Transform(matrix, arPoints[i]);
+            SQPoint::Transform(matrix, arPoints[i]);
         }
 	}
 
@@ -419,13 +418,13 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Transform(matrix, arPoints[i]);
+            SQPoint::Transform(matrix, arPoints[i]);
         }
 	}
 
 	/// <summary>
 	/// Transforms 4D points. Transformation will be applied to all points in the array.
-	/// </summary>int& uElements
+	/// </summary>
     /// <param name="matrix">[IN] 4x3 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
@@ -433,7 +432,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Transform(matrix, arPoints[i]);
+            SQPoint::Transform(matrix, arPoints[i]);
         }
 	}
 
@@ -447,7 +446,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Transform(matrix, arPoints[i]);
+            SQPoint::Transform(matrix, arPoints[i]);
         }
 	}
 
@@ -461,7 +460,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Transform(matrix, arPoints[i]);
+            SQPoint::Transform(matrix, arPoints[i]);
         }
 	}
 
@@ -475,7 +474,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            QPoint::Transform(matrix, arPoints[i]);
+            SQPoint::Transform(matrix, arPoints[i]);
         }
 	}
 
@@ -570,7 +569,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Rotate(qRotation, arPoints[i]);
+            SQPoint::Rotate(qRotation, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -589,7 +588,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Rotate(qRotation, arPoints[i]);
+            SQPoint::Rotate(qRotation, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -608,7 +607,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Rotate(rotation, arPoints[i]);
+            SQPoint::Rotate(rotation, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -627,7 +626,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Rotate(rotation, arPoints[i]);
+            SQPoint::Rotate(rotation, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -646,7 +645,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Scale(vScale, arPoints[i]);
+            SQPoint::Scale(vScale, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -665,7 +664,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Scale(vScale, arPoints[i]);
+            SQPoint::Scale(vScale, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -686,7 +685,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
+            SQPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -707,7 +706,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
+            SQPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -726,7 +725,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Scale(scale, arPoints[i]);
+            SQPoint::Scale(scale, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -745,7 +744,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Scale(scale, arPoints[i]);
+            SQPoint::Scale(scale, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -764,7 +763,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Transform(transformation, arPoints[i]);
+            SQPoint::Transform(transformation, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -783,7 +782,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Transform(transformation, arPoints[i]);
+            SQPoint::Transform(transformation, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -802,7 +801,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Transform(transformation, arPoints[i]);
+            SQPoint::Transform(transformation, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -821,7 +820,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            QPoint::Transform(transformation, arPoints[i]);
+            SQPoint::Transform(transformation, arPoints[i]);
 
             arPoints[i] += vPivot;
         }
@@ -957,4 +956,4 @@ private:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QPOINT__
+#endif // __SQPOINT__

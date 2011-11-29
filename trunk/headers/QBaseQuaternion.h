@@ -3,7 +3,7 @@
 #ifndef __QBASEQUATERNION__
 #define __QBASEQUATERNION__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -30,7 +30,7 @@ public:
     /// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QBaseQuaternion() : x(QFloat::_0), y(QFloat::_0), z(QFloat::_0), w(QFloat::_0) {};
+    inline QBaseQuaternion() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0), w(SQFloat::_0) {};
 
     /// <summary>
     /// Constructor that receives 4 values, one per quaternion's component.
@@ -85,10 +85,10 @@ public:
     /// </returns>
     inline bool operator==(const QBaseQuaternion &qQuat) const
     {
-        return   QFloat::AreEquals(this->x, qQuat.x) &&
-                 QFloat::AreEquals(this->y, qQuat.y) &&
-                 QFloat::AreEquals(this->z, qQuat.z) &&
-                 QFloat::AreEquals(this->w, qQuat.w);
+        return   SQFloat::AreEquals(this->x, qQuat.x) &&
+                 SQFloat::AreEquals(this->y, qQuat.y) &&
+                 SQFloat::AreEquals(this->z, qQuat.z) &&
+                 SQFloat::AreEquals(this->w, qQuat.w);
     }
 
     /// <summary>

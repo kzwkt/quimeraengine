@@ -195,7 +195,7 @@ public:
 	/// </returns>
 	inline QMatrix3x4& operator/=(const float_q &fScalar)
 	{
-		QE_ASSERT(fScalar != QFloat::_0);
+		QE_ASSERT(fScalar != SQFloat::_0);
 
 		this->ij[0][0] /= fScalar;
 		this->ij[0][1] /= fScalar;
@@ -301,7 +301,7 @@ public:
 	{
 		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
 		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = this->ij[1][3] =
-		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = this->ij[2][3] = QFloat::_0;
+		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = this->ij[2][3] = SQFloat::_0;
 	}
 
 	/// <summary>
@@ -339,18 +339,18 @@ public:
 	/// </returns>
 	inline bool IsZero() const
 	{
-		return	QFloat::IsZero(this->ij[0][0]) &&
-				QFloat::IsZero(this->ij[0][1]) &&
-				QFloat::IsZero(this->ij[0][2]) &&
-				QFloat::IsZero(this->ij[0][3]) &&
-				QFloat::IsZero(this->ij[1][0]) &&
-				QFloat::IsZero(this->ij[1][1]) &&
-				QFloat::IsZero(this->ij[1][2]) &&
-				QFloat::IsZero(this->ij[1][3]) &&
-				QFloat::IsZero(this->ij[2][0]) &&
-				QFloat::IsZero(this->ij[2][1]) &&
-				QFloat::IsZero(this->ij[2][2]) &&
-				QFloat::IsZero(this->ij[2][3]);
+		return	SQFloat::IsZero(this->ij[0][0]) &&
+				SQFloat::IsZero(this->ij[0][1]) &&
+				SQFloat::IsZero(this->ij[0][2]) &&
+				SQFloat::IsZero(this->ij[0][3]) &&
+				SQFloat::IsZero(this->ij[1][0]) &&
+				SQFloat::IsZero(this->ij[1][1]) &&
+				SQFloat::IsZero(this->ij[1][2]) &&
+				SQFloat::IsZero(this->ij[1][3]) &&
+				SQFloat::IsZero(this->ij[2][0]) &&
+				SQFloat::IsZero(this->ij[2][1]) &&
+				SQFloat::IsZero(this->ij[2][2]) &&
+				SQFloat::IsZero(this->ij[2][3]);
 	}
 
     /// <summary>
@@ -372,11 +372,11 @@ public:
     /// </summary>
     inline void ResetToIdentity()
     {
-        this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = QFloat::_1;
+        this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = SQFloat::_1;
 
         this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
         this->ij[1][0] = this->ij[1][2] = this->ij[1][3] =
-        this->ij[2][0] = this->ij[2][1] = this->ij[2][3] = QFloat::_0;
+        this->ij[2][0] = this->ij[2][1] = this->ij[2][3] = SQFloat::_0;
     }
 
 	/// <summary>
@@ -386,18 +386,18 @@ public:
 	/// <returns>The string with the format specified.</returns>
     inline string_q ToString() const
     {
-        return QE_L("M3x4(") + QFloat::ToString(this->ij[0][0]) + QE_L(",") +
-                               QFloat::ToString(this->ij[0][1]) + QE_L(",") +
-							   QFloat::ToString(this->ij[0][2]) + QE_L(",") +
-                               QFloat::ToString(this->ij[0][3]) + QE_L(")(") +
-                               QFloat::ToString(this->ij[1][0]) + QE_L(",") +
-                               QFloat::ToString(this->ij[1][1]) + QE_L(",") +
-							   QFloat::ToString(this->ij[1][2]) + QE_L(",") +
-                               QFloat::ToString(this->ij[1][3]) + QE_L(")(") +
-                               QFloat::ToString(this->ij[2][0]) + QE_L(",") +
-                               QFloat::ToString(this->ij[2][1]) + QE_L(",") +
-							   QFloat::ToString(this->ij[2][2]) + QE_L(",") +
-                               QFloat::ToString(this->ij[2][3]) + QE_L(")");
+        return QE_L("M3x4(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",") +
+                               SQFloat::ToString(this->ij[0][1]) + QE_L(",") +
+							   SQFloat::ToString(this->ij[0][2]) + QE_L(",") +
+                               SQFloat::ToString(this->ij[0][3]) + QE_L(")(") +
+                               SQFloat::ToString(this->ij[1][0]) + QE_L(",") +
+                               SQFloat::ToString(this->ij[1][1]) + QE_L(",") +
+							   SQFloat::ToString(this->ij[1][2]) + QE_L(",") +
+                               SQFloat::ToString(this->ij[1][3]) + QE_L(")(") +
+                               SQFloat::ToString(this->ij[2][0]) + QE_L(",") +
+                               SQFloat::ToString(this->ij[2][1]) + QE_L(",") +
+							   SQFloat::ToString(this->ij[2][2]) + QE_L(",") +
+                               SQFloat::ToString(this->ij[2][3]) + QE_L(")");
     }
 };
 

@@ -120,7 +120,7 @@ public:
     /// Constructor from a QBaseVector3. It's initialized as vector (w = 0).
     /// </summary>
     /// <param name="v">[IN] The 3D vector in which we want resident vector to be based.</param>
-    inline explicit QVector4(const QBaseVector3 &v) : QBaseVector4(v.x, v.y, v.z, QFloat::_0) { }
+    inline explicit QVector4(const QBaseVector3 &v) : QBaseVector4(v.x, v.y, v.z, SQFloat::_0) { }
 
     /// <summary>
     /// Constructor from four floating point values for each component x, y, z and w.
@@ -156,7 +156,7 @@ public:
     /// </summary>
     /// <param name="m">[IN] A 4x4 or 4x3 translation matrix, depending on the constructor template parameter.</param>
     template <class MatrixType>
-    inline explicit QVector4(const QTranslationMatrix<MatrixType> &m) : QBaseVector4(m.ij[3][0], m.ij[3][1], m.ij[3][2], QFloat::_1) { }
+    inline explicit QVector4(const QTranslationMatrix<MatrixType> &m) : QBaseVector4(m.ij[3][0], m.ij[3][1], m.ij[3][2], SQFloat::_1) { }
 
     // METHODS
     // ---------------
@@ -381,7 +381,7 @@ public:
     inline QVector4& operator /= (const float_q &fValue)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT(fValue != QFloat::_0);
+        QE_ASSERT(fValue != SQFloat::_0);
 
         this->x /= fValue;
         this->y /= fValue;
@@ -401,7 +401,7 @@ public:
     inline QVector4& operator /= (const QBaseVector4 &v)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0 && v.z != QFloat::_0 && v.w != QFloat::_0);
+        QE_ASSERT (v.x != SQFloat::_0 && v.y != SQFloat::_0 && v.z != SQFloat::_0 && v.w != SQFloat::_0);
 
         this->x /= v.x;
         this->y /= v.y;
@@ -467,7 +467,7 @@ public:
         float_q fLength = this->GetLength();
 
         // Checkout to avoid division by 0
-        QE_ASSERT(fLength != QFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0);
 
         //Normalize
         this->x /= fLength;
@@ -512,10 +512,10 @@ public:
     /// </summary>
     inline void ResetToOne()
     {
-        this->x = QFloat::_1;
-        this->y = QFloat::_1;
-        this->z = QFloat::_1;
-        this->w = QFloat::_1;
+        this->x = SQFloat::_1;
+        this->y = SQFloat::_1;
+        this->z = SQFloat::_1;
+        this->w = SQFloat::_1;
     }
 
     /// <summary>
@@ -523,10 +523,10 @@ public:
     /// </summary>
     inline void ResetToZeroPoint()
     {
-        this->x = QFloat::_0;
-        this->y = QFloat::_0;
-        this->z = QFloat::_0;
-        this->w = QFloat::_1;
+        this->x = SQFloat::_0;
+        this->y = SQFloat::_0;
+        this->z = SQFloat::_0;
+        this->w = SQFloat::_1;
     }
 
     /// <summary>
@@ -534,10 +534,10 @@ public:
     /// </summary>
     inline void ResetToZeroDirection()
     {
-        this->x = QFloat::_0;
-        this->y = QFloat::_0;
-        this->z = QFloat::_0;
-        this->w = QFloat::_0;
+        this->x = SQFloat::_0;
+        this->y = SQFloat::_0;
+        this->z = SQFloat::_0;
+        this->w = SQFloat::_0;
     }
 
     /// <summary>
@@ -548,8 +548,8 @@ public:
     /// </returns>
     inline bool IsZero() const
     {
-        return QFloat::IsZero(this->x) && QFloat::IsZero(this->y) &&
-               QFloat::IsZero(this->z) && QFloat::IsZero(this->w);
+        return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y) &&
+               SQFloat::IsZero(this->z) && SQFloat::IsZero(this->w);
     }
 
     /// <summary>
@@ -560,8 +560,8 @@ public:
     /// </returns>
     inline bool IsVectorOfOnes() const
     {
-        return QFloat::AreEquals(this->x, QFloat::_1) && QFloat::AreEquals(this->y, QFloat::_1) &&
-               QFloat::AreEquals(this->z, QFloat::_1) && QFloat::AreEquals(this->w, QFloat::_1);
+        return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1) &&
+               SQFloat::AreEquals(this->z, SQFloat::_1) && SQFloat::AreEquals(this->w, SQFloat::_1);
     }
 
     /// <summary>
@@ -590,18 +590,18 @@ public:
                                 (v.x*v.x + v.y*v.y + v.z*v.z) );
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fLength != QFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0);
 
         float_q fDot = (this->x*v.x + this->y*v.y + this->z*v.z)/fLength;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
         float_q fAngle = acos(fDot);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
-            QAngle::RadiansToDegrees(fAngle, fAngle);
+            SQAngle::RadiansToDegrees(fAngle, fAngle);
         #endif
 
         return fAngle;
@@ -639,7 +639,7 @@ public:
     /// <param name="v">[IN] Vector with which to interpolate.</param>
     inline void Lerp(const float_q &fFactor, const QBaseVector4 &v)
     {
-        float_q fDiff = QFloat::_1 - fFactor;
+        float_q fDiff = SQFloat::_1 - fFactor;
 
         this->x = this->x * fFactor + v.x * fDiff;
         this->y = this->y * fFactor + v.y * fDiff;
@@ -731,9 +731,9 @@ public:
     /// </summary>
     inline void Homogenize()
     {
-        if (QFloat::IsNotZero(this->w))
+        if (SQFloat::IsNotZero(this->w))
         {
-            const float_q &fInvW = QFloat::_1/this->w;
+            const float_q &fInvW = SQFloat::_1/this->w;
 
             this->x *= fInvW;
             this->y *= fInvW;
@@ -897,10 +897,10 @@ public:
     /// <returns>The string with the format specified.</returns>
     inline string_q ToString() const
     {
-        return QE_L("V4(") + QFloat::ToString(this->x) +
-               QE_L(", ")  + QFloat::ToString(this->y) +
-               QE_L(", ")  + QFloat::ToString(this->z) +
-               QE_L(", ")  + QFloat::ToString(this->w) + QE_L(")");
+        return QE_L("V4(") + SQFloat::ToString(this->x) +
+               QE_L(", ")  + SQFloat::ToString(this->y) +
+               QE_L(", ")  + SQFloat::ToString(this->z) +
+               QE_L(", ")  + SQFloat::ToString(this->w) + QE_L(")");
     }
 
 };

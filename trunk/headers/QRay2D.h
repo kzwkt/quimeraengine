@@ -356,7 +356,7 @@ public:
                 QVector2 vNorm = vAux.GetPerpendicular();
 
                 // Calculates reflected direction
-                refRay.Direction -= QFloat::_2 * (this->Direction.DotProduct(vNorm))*vNorm;
+                refRay.Direction -= SQFloat::_2 * (this->Direction.DotProduct(vNorm))*vNorm;
             }
         }
     }
@@ -392,7 +392,7 @@ public:
             QVector2 vNorm = vAux.GetPerpendicular();
 
             // Calculates reflected direction
-            vRef = this->Direction - QFloat::_2 * (this->Direction.DotProduct(vNorm))*vNorm;
+            vRef = this->Direction - SQFloat::_2 * (this->Direction.DotProduct(vNorm))*vNorm;
         }
     }
 
@@ -440,7 +440,7 @@ public:
 	/// <param name="fAngle">[IN] Angle of rotation.</param>
 	inline void Rotate (const float_q &fAngle)
 	{
-        QPoint::Rotate(fAngle, reinterpret_cast<QVector2 *> (this), 2);
+        SQPoint::Rotate(fAngle, reinterpret_cast<QVector2 *> (this), 2);
 	}
 
 	/// <summary>
@@ -462,8 +462,8 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const float_q &fAngle, const QBaseVector2 &vPivot)
 	{
-        QPoint::RotateWithPivot(fAngle, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
-        QPoint::Rotate(fAngle, reinterpret_cast<QVector2 *> (&this->Direction), 1);
+        SQPoint::RotateWithPivot(fAngle, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::Rotate(fAngle, reinterpret_cast<QVector2 *> (&this->Direction), 1);
 	}
 
     /// <summary>
@@ -485,7 +485,7 @@ public:
 	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
 	inline void Translate (const QBaseVector2 &vTrans)
 	{
-        QPoint::Translate(vTrans, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::Translate(vTrans, reinterpret_cast<QVector2 *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -507,7 +507,7 @@ public:
 	/// <param name="fTransY">[IN] Amount of translation in Y direction.</param>
 	inline void Translate (const float_q &fTransX, const float_q &fTransY)
 	{
-        QPoint::Translate(fTransX, fTransY, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::Translate(fTransX, fTransY, reinterpret_cast<QVector2 *> (&this->Origin), 1);
 	}
 
     /// <summary>
@@ -529,7 +529,7 @@ public:
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	inline void Scale (const QBaseVector2 &vScale)
 	{
-        QPoint::Scale(vScale, reinterpret_cast<QVector2 *> (this), 2);
+        SQPoint::Scale(vScale, reinterpret_cast<QVector2 *> (this), 2);
         this->Direction.Normalize();
 	}
 
@@ -552,7 +552,7 @@ public:
 	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY)
 	{
-        QPoint::Scale(vScaleX, vScaleY, reinterpret_cast<QVector2 *> (this), 2);
+        SQPoint::Scale(vScaleX, vScaleY, reinterpret_cast<QVector2 *> (this), 2);
         this->Direction.Normalize();
 	}
 
@@ -577,8 +577,8 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
 	{
-        QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
-        QPoint::Scale(vScale, reinterpret_cast<QVector2 *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::Scale(vScale, reinterpret_cast<QVector2 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
 
@@ -604,8 +604,8 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot)
 	{
-        QPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
-        QPoint::Scale(vScaleX, vScaleY, reinterpret_cast<QVector2 *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::Scale(vScaleX, vScaleY, reinterpret_cast<QVector2 *> (&this->Direction), 1);
         this->Direction.Normalize();
 	}
 
@@ -631,7 +631,7 @@ public:
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
 	inline void TransformWithPivot (const QTransformationMatrix3x3 &mTransf, const QBaseVector2 &vPivot)
 	{
-        QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
 
         float_q fNewX = this->Direction.x * mTransf.ij[0][0] + this->Direction.y * mTransf.ij[1][0];
         float_q fNewY = this->Direction.x * mTransf.ij[0][1] + this->Direction.y * mTransf.ij[1][1];
@@ -662,20 +662,20 @@ protected:
     {
         if (this->Origin == vPoint)
             return true;
-        else if ( QFloat::IsZero(this->Direction.x) )
+        else if ( SQFloat::IsZero(this->Direction.x) )
         {
-            if ( QFloat::AreNotEquals(vPoint.x, this->Origin.x) )
+            if ( SQFloat::AreNotEquals(vPoint.x, this->Origin.x) )
                 return false;
-            if ( QFloat::IsNegative(vPoint.y - this->Origin.y) == QFloat::IsNegative(this->Direction.y) )
+            if ( SQFloat::IsNegative(vPoint.y - this->Origin.y) == SQFloat::IsNegative(this->Direction.y) )
                 return true;
             else
                 return false;
         }
-        else if ( QFloat::IsZero(this->Direction.y) )
+        else if ( SQFloat::IsZero(this->Direction.y) )
         {
-            if ( QFloat::AreNotEquals(vPoint.y, this->Origin.y) )
+            if ( SQFloat::AreNotEquals(vPoint.y, this->Origin.y) )
                 return false;
-            if ( QFloat::IsNegative(vPoint.x - this->Origin.x) == QFloat::IsNegative(this->Direction.x) )
+            if ( SQFloat::IsNegative(vPoint.x - this->Origin.x) == SQFloat::IsNegative(this->Direction.x) )
                 return true;
             else
                 return false;
@@ -685,11 +685,12 @@ protected:
             const float_q &paramX = (vPoint.x - this->Origin.x)/this->Direction.x;
             const float_q &paramY = (vPoint.y - this->Origin.y)/this->Direction.y;
 
-            if ( QFloat::AreNotEquals(paramX, paramY) || QFloat::IsNegative(paramX))
+            if ( SQFloat::AreNotEquals(paramX, paramY) || SQFloat::IsNegative(paramX))
                 return false;
             else
                 return true;
         }
+
     }
 
     // Checks if resident ray intersects the AB line segment
@@ -719,9 +720,9 @@ protected:
         const float_q &fOrientation1 = (vLine1.x - vP1.x)*(vLine2.y - vP1.y) - (vLine1.y - vP1.y)*(vLine2.x - vP1.x);
         const float_q &fOrientation2 = (vLine1.x - vP2.x)*(vLine2.y - vP2.y) - (vLine1.y - vP2.y)*(vLine2.x - vP2.x);
 
-        if ( QFloat::IsZero(fOrientation1) || QFloat::IsZero(fOrientation2) )
+        if ( SQFloat::IsZero(fOrientation1) || SQFloat::IsZero(fOrientation2) )
             return true;
-        else if ( QFloat::IsNegative(fOrientation1) == QFloat::IsNegative(fOrientation2) )
+        else if ( SQFloat::IsNegative(fOrientation1) == SQFloat::IsNegative(fOrientation2) )
             return true;
         else
             return false;

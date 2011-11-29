@@ -25,9 +25,9 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-const QScaleMatrix3x3 QScaleMatrix3x3::Identity(  QFloat::_1, QFloat::_0, QFloat::_0,
-                                                  QFloat::_0, QFloat::_1, QFloat::_0,
-                                                  QFloat::_0, QFloat::_0, QFloat::_1);
+const QScaleMatrix3x3 QScaleMatrix3x3::Identity(  SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                                  SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                                  SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

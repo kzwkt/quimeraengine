@@ -9,7 +9,7 @@
 #include "QVector4.h"
 #include "QQuaternion.h"
 #include "QPlane.h"
-#include "QPoint.h"
+#include "SQPoint.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -110,7 +110,7 @@ public:
 		VectorType vC(this->A - this->C);
 
 		//fSp: Triangle´s semiperimeter
-		float_q fSp = (vA.GetLength() + vB.GetLength() + vC.GetLength()) * QFloat::_0_5;
+		float_q fSp = (vA.GetLength() + vB.GetLength() + vC.GetLength()) * SQFloat::_0_5;
 		//fK: Triangle´s area
 		float_q fK = sqrt(fSp * (fSp - vA.GetLength()) * (fSp - vB.GetLength()) * (fSp - vC.GetLength()));
 
@@ -121,7 +121,7 @@ public:
 		vC.CrossProduct(vCrossvAvB, vCrossvCvAvB);
 
 		//STEP 2: Calculate circumcenter
-		vCircumcenter = ((this->A + this->C) * QFloat::_0_5) + (vA.DotProduct(vB) / (QFloat::_8 * fK * fK)) * vCrossvCvAvB;
+		vCircumcenter = ((this->A + this->C) * SQFloat::_0_5) + (vA.DotProduct(vB) / (SQFloat::_8 * fK * fK)) * vCrossvCvAvB;
 	}
 
     /// <summary>
@@ -130,7 +130,7 @@ public:
 	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
     inline void Translate(const QBaseVector3 &vTrans)
 	{
-		QPoint::Translate(vTrans, reinterpret_cast<VectorType*> (this), 3);
+		SQPoint::Translate(vTrans, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -142,7 +142,7 @@ public:
 	inline void Translate(const QBaseVector3 &vTrans, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		QPoint::Translate(vTrans, reinterpret_cast<VectorType*> (&tOut), 3);
+		SQPoint::Translate(vTrans, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -153,7 +153,7 @@ public:
 	/// <param name="fTranslateZ">[IN] Scalar value that contains the translation on Z axis.</param>
 	inline void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ)
 	{
-		QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, reinterpret_cast<VectorType*> (this), 3);
+		SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -167,7 +167,8 @@ public:
 	inline void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		QPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, reinterpret_cast<VectorType*> (&tOut), 3);	}
+		SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, reinterpret_cast<VectorType*> (&tOut), 3);
+	}
 
     /// <summary>
 	/// Translates the triangle applying a [4x3] translation matrix.
@@ -175,7 +176,7 @@ public:
 	/// <param name="mTrans">[IN] The [4x3] translation matrix to be applied.</param>
 	inline void Translate(const QTranslationMatrix4x3 &mTrans)
 	{
-	    QPoint::Translate(mTrans, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::Translate(mTrans, reinterpret_cast<VectorType*> (this), 3);
 	}
 
     /// <summary>
@@ -184,7 +185,7 @@ public:
 	/// <param name="mTrans">[IN] The [4x4] translation matrix to be applied.</param>
 	inline void Translate(const QTranslationMatrix4x4 &mTrans)
 	{
-	    QPoint::Translate(mTrans, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::Translate(mTrans, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -196,7 +197,7 @@ public:
 	inline void Translate(const QTranslationMatrix4x3 &mTrans, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    QPoint::Translate(mTrans, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::Translate(mTrans, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
     /// <summary>
@@ -208,7 +209,7 @@ public:
 	inline void Translate(const QTranslationMatrix4x4 &mTrans, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    QPoint::Translate(mTrans, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::Translate(mTrans, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -218,7 +219,7 @@ public:
 	/// <param name="qRot">[IN] Quaternion which contais the rotation to be applied.</param>
 	inline void Rotate(const QQuaternion &qRot)
 	{
-	    QPoint::Rotate(qRot, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::Rotate(qRot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -230,7 +231,7 @@ public:
 	inline void Rotate(const QQuaternion& qRot, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-	    QPoint::Rotate(qRot, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::Rotate(qRot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -239,7 +240,7 @@ public:
 	/// <param name="mRot">[IN] Rotation matrix to be applied.</param>
 	inline void Rotate(const QRotationMatrix3x3 &mRot)
 	{
-	    QPoint::Rotate(mRot, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::Rotate(mRot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -251,7 +252,7 @@ public:
 	inline void Rotate(const QRotationMatrix3x3 &mRot, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    QPoint::Rotate(mRot, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::Rotate(mRot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -262,7 +263,7 @@ public:
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
 	inline void RotateWithPivot(const QQuaternion& qRot, const VectorType& vPivot)
 	{
-		QPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType*> (this), 3);
+		SQPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -275,7 +276,7 @@ public:
 	inline void RotateWithPivot(const QQuaternion& qRot, const VectorType& vPivot, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-	    QPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -284,7 +285,7 @@ public:
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	inline void Scale(const QBaseVector3 &vScale)
 	{
-	    QPoint::Scale(vScale, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::Scale(vScale, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 
@@ -297,7 +298,7 @@ public:
 	inline void Scale(const QBaseVector3 &vScale, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		QPoint::Scale(vScale, reinterpret_cast<VectorType*> (&tOut), 3);
+		SQPoint::Scale(vScale, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -308,7 +309,7 @@ public:
 	/// <param name="fScaleZ">[IN] Scalar value that contains the scale on Z axis.</param>
 	inline void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ)
 	{
-		QPoint::Scale(fScaleX, fScaleY, fScaleZ, reinterpret_cast<VectorType*> (this), 3);
+		SQPoint::Scale(fScaleX, fScaleY, fScaleZ, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -322,7 +323,7 @@ public:
 	inline void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		QPoint::Scale(fScaleX, fScaleY, fScaleZ, reinterpret_cast<VectorType*> (&tOut), 3);
+		SQPoint::Scale(fScaleX, fScaleY, fScaleZ, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -331,7 +332,7 @@ public:
 	/// <param name="mScale">[IN] Scale matrix to be applied.</param>
 	inline void Scale(const QScaleMatrix3x3 &mScale)
 	{
-	    QPoint::Scale(mScale, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::Scale(mScale, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -342,7 +343,7 @@ public:
 	inline void Scale(const QScaleMatrix3x3 &mScale, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    QPoint::Scale(mScale, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::Scale(mScale, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -353,7 +354,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const QBaseVector3 &vScale, const VectorType& vPivot)
 	{
-		 QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType*> (this), 3);
+		 SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -366,7 +367,7 @@ public:
 	inline void ScaleWithPivot(const QBaseVector3 &vScale, const VectorType& vPivot, QBaseTriangle<VectorType> & tOut) const
 	{
 		tOut = *this;
-		QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+		SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -379,7 +380,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot)
 	{
-		QPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, reinterpret_cast<VectorType*> (this), 3);
+		SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -395,7 +396,7 @@ public:
                                 QBaseTriangle<VectorType> &tOut) const
 	{
 		tOut = *this;
-		QPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+		SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -404,7 +405,7 @@ public:
 	/// <param name="mTransf">[IN] A [4x3] transformation matrix to be applied.</param>
 	inline void Transform(const QTransformationMatrix4x3 &mTransf)
 	{
-	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -413,7 +414,7 @@ public:
 	/// <param name="mTransf">[IN] A [4x4] transformation matrix to be applied.</param>
 	inline void Transform(const QTransformationMatrix4x4 &mTransf)
 	{
-	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -425,7 +426,7 @@ public:
 	inline void Transform(const QTransformationMatrix4x3 &mTransf, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -437,7 +438,7 @@ public:
 	inline void Transform(const QTransformationMatrix4x4 &mTransf, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    QPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
     /// <summary>
@@ -448,7 +449,7 @@ public:
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
 	{
-	    QPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -465,7 +466,7 @@ public:
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
-	    QPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
     /// <summary>
@@ -476,7 +477,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
 	{
-	    QPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -489,7 +490,7 @@ public:
 	inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
-	    QPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -500,7 +501,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot)
 	{
-	    QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -513,7 +514,7 @@ public:
 	inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
-	    QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
     /// <summary>
@@ -524,7 +525,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot)
 	{
-	    QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 3);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
 
 	/// <summary>
@@ -537,7 +538,7 @@ public:
 	inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
-	    QPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
 	}
 
 	/// <summary>
@@ -555,12 +556,12 @@ public:
 		const float_q &fdistB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
 		const float_q &fdistC = plane.a * this->C.x + plane.b * this->C.y + plane.c * this->C.z + plane.d;
 
-		if ( QFloat::IsZero(fdistA) && QFloat::IsZero(fdistB) && QFloat::IsZero(fdistC) )
+		if ( SQFloat::IsZero(fdistA) && SQFloat::IsZero(fdistB) && SQFloat::IsZero(fdistC) )
             return EQSpaceRelation::E_Contained;
-        else if ( QFloat::IsPositive(fdistA) && QFloat::IsPositive(fdistB) && QFloat::IsPositive(fdistC) )
+        else if ( SQFloat::IsPositive(fdistA) && SQFloat::IsPositive(fdistB) && SQFloat::IsPositive(fdistC) )
             return EQSpaceRelation::E_PositiveSide;
-        else if ( QFloat::IsLowerOrEquals(fdistA, QFloat::_0) && QFloat::IsLowerOrEquals(fdistB, QFloat::_0) &&
-                  QFloat::IsLowerOrEquals(fdistC, QFloat::_0) )
+        else if ( SQFloat::IsLowerOrEquals(fdistA, SQFloat::_0) && SQFloat::IsLowerOrEquals(fdistB, SQFloat::_0) &&
+                  SQFloat::IsLowerOrEquals(fdistC, SQFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_BothSides;
@@ -611,7 +612,7 @@ public:
 
         // vNormBC and AB can't be perpendicular, but we ensure it:
         const float_q &fDot = vNormBC.DotProduct(vAB);
-        QE_ASSERT(fDot != QFloat::_0);
+        QE_ASSERT(fDot != SQFloat::_0);
 
 	    vOrthocenter = this->A - ( vCA.DotProduct(vAB)/fDot) * vNormBC;
 	}

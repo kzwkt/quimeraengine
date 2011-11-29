@@ -3,7 +3,7 @@
 #ifndef __QBASEQUADRILATERAL__
 #define __QBASEQUADRILATERAL__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 #include "QVector2.h"
 
@@ -33,10 +33,10 @@ public:
     /// </summary>
     inline QBaseQuadrilateral()
     :
-    A(QFloat::_0),
-    B(QFloat::_0),
-    C(QFloat::_0),
-    D(QFloat::_0)
+    A(SQFloat::_0),
+    B(SQFloat::_0),
+    C(SQFloat::_0),
+    D(SQFloat::_0)
     { }
 
     /// <summary>

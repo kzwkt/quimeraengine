@@ -85,7 +85,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
         {
             vPoint1 = this->A;
 
-            if (QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B))) // B is in AB triangle edge
+            if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B))) // B is in AB triangle edge
             {
                 if (this->A == triangle.A || this->A == triangle.B) // A and B are in the same edge
                     return EQIntersections::E_One;
@@ -95,7 +95,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B))) // B is in BC triangle edge
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B))) // B is in BC triangle edge
             {
                 if (this->A == triangle.B || this->A == triangle.C) // A and B are in the same edge
                     return EQIntersections::E_One;
@@ -105,7 +105,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B))) // B is in CA triangle edge
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B))) // B is in CA triangle edge
             {
                 if (this->A == triangle.C || this->A == triangle.A) // A and B are in the same edge
                     return EQIntersections::E_One;
@@ -123,7 +123,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
         }
         else if (bBIsVertex)
         {
-            if (QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->A))) // A is in AB triangle edge
+            if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->A))) // A is in AB triangle edge
             {
                 if (this->B == triangle.A || this->B == triangle.B) // A and B are in the same edge
                 {
@@ -137,7 +137,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->A))) // B is in BC triangle edge
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->A))) // B is in BC triangle edge
             {
                 if (this->B == triangle.B || this->B == triangle.C) // A and B are in the same edge
                 {
@@ -151,7 +151,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->A))) // B is in CA triangle edge
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->A))) // B is in CA triangle edge
             {
                 if (this->B == triangle.C || this->B == triangle.A) // A and B are in the same edge
                 {
@@ -173,12 +173,12 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
         }
         else // Neither A or B are vertices of triangle
         {
-            if (QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->A))) // A is in AB triangle edge (but not a vertex)
+            if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->A))) // A is in AB triangle edge (but not a vertex)
             {
-                if (QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B))) // B is in AB triangle edge (but not a vertex)
+                if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B))) // B is in AB triangle edge (but not a vertex)
                     return EQIntersections::E_Infinite;
-                else if ( QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) || // B is in other edge (but not a vertex)
-                          QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
+                else if ( SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+                          SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
                 {
                     vPoint1 = this->A;
                     vPoint2 = this->B;
@@ -190,12 +190,12 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->A))) // A is in BC triangle edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->A))) // A is in BC triangle edge (but not a vertex)
             {
-                if (QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B))) // B is in BC triangle edge (but not a vertex)
+                if (SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B))) // B is in BC triangle edge (but not a vertex)
                     return EQIntersections::E_Infinite;
-                else if ( QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
-                          QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
+                else if ( SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+                          SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
                 {
                     vPoint1 = this->A;
                     vPoint2 = this->B;
@@ -207,12 +207,12 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->A))) // A is in CA triangle edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->A))) // A is in CA triangle edge (but not a vertex)
             {
-                if (QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B))) // B is in CA triangle edge (but not a vertex)
+                if (SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B))) // B is in CA triangle edge (but not a vertex)
                     return EQIntersections::E_Infinite;
-                else if ( QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
-                          QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) )
+                else if ( SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+                          SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) )
                 {
                     vPoint1 = this->A;
                     vPoint2 = this->B;
@@ -226,9 +226,9 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             }
             else // A is not in an edge
             {
-                if ( QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B)) || // B is in an edge (but not a vertex)
-                     QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) ||
-                     QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
+                if ( SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B)) || // B is in an edge (but not a vertex)
+                     SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) ||
+                     SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
                 {
                     vPoint1 = this->B;
                     return EQIntersections::E_One;
@@ -440,7 +440,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 else
                     return EQIntersections::E_One;  // ls only intersects triangle in C vertex
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->A))) // this->A is in AB triangle edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->A))) // this->A is in AB triangle edge (but not a vertex)
             {
                 vPoint1 = this->A;
 
@@ -465,7 +465,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 else
                     return EQIntersections::E_One;
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->A))) // this->A is in BC triangle edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->A))) // this->A is in BC triangle edge (but not a vertex)
             {
                 vPoint1 = this->A;
 
@@ -490,7 +490,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 else
                     return EQIntersections::E_One;
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->A))) // this->A is in CA triangle edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->A))) // this->A is in CA triangle edge (but not a vertex)
             {
                 vPoint1 = this->A;
 
@@ -578,7 +578,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B))) // this->B is in AB triangle edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B))) // this->B is in AB triangle edge (but not a vertex)
             {
                 // ls intersects the other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux);
@@ -608,7 +608,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B))) // this->B is in BC triangle edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B))) // this->B is in BC triangle edge (but not a vertex)
             {
                 // ls intersects the other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.A, triangle.B), vAux);
@@ -634,7 +634,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B))) // this->B is in CA triangle edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B))) // this->B is in CA triangle edge (but not a vertex)
             {
                 // ls intersects the other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux);
@@ -702,7 +702,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
         }
         else if (bAIsVertex) // Only A endpoint is a vertex of quadrilateral
         {
-            if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B))) // B is in AB quad edge
+            if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B))) // B is in AB quad edge
             {
                 if (this->A == quad.A || this->A == quad.B) // A and B are in the same edge
                 {
@@ -716,7 +716,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B))) // B is in BC quad edge
+            else if (SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B))) // B is in BC quad edge
             {
                 if (this->A == quad.B || this->A == quad.C) // A and B are in the same edge
                 {
@@ -730,7 +730,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B))) // B is in CD quad edge
+            else if (SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B))) // B is in CD quad edge
             {
                 if (this->A == quad.C || this->A == quad.D) // A and B are in the same edge
                 {
@@ -744,7 +744,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B))) // B is in DA quad edge
+            else if (SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B))) // B is in DA quad edge
             {
                 if (this->A == quad.D || this->A == quad.A) // A and B are in the same edge
                 {
@@ -766,7 +766,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
         }
         else if (bBIsVertex)
         {
-            if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->A))) // A is in AB quad edge
+            if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->A))) // A is in AB quad edge
             {
                 if (this->B == quad.A || this->B == quad.B) // A and B are in the same edge
                 {
@@ -780,7 +780,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->A))) // B is in BC quad edge
+            else if (SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->A))) // B is in BC quad edge
             {
                 if (this->B == quad.B || this->B == quad.C) // A and B are in the same edge
                 {
@@ -794,7 +794,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->A))) // B is in CD quad edge
+            else if (SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->A))) // B is in CD quad edge
             {
                 if (this->B == quad.C || this->B == quad.D) // A and B are in the same edge
                 {
@@ -808,7 +808,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_Two;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->A))) // B is in DA quad edge
+            else if (SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->A))) // B is in DA quad edge
             {
                 if (this->B == quad.D || this->B == quad.A) // A and B are in the same edge
                 {
@@ -830,13 +830,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
         }
         else // Neither A or B are vertices of quadrilateral
         {
-            if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->A))) // A is in AB quad edge (but not a vertex)
+            if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->A))) // A is in AB quad edge (but not a vertex)
             {
-                if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B))) // B is in AB quad edge (but not a vertex)
+                if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B))) // B is in AB quad edge (but not a vertex)
                     return EQIntersections::E_Infinite;
-                else if (QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) || // B is in other edge (but not a vertex)
-                         QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
-                         QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
+                else if (SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+                         SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
+                         SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
                 {
                     vPoint1 = this->A;
                     vPoint2 = this->B;
@@ -848,13 +848,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->A))) // A is in BC quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->A))) // A is in BC quad edge (but not a vertex)
             {
-                if (QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B))) // B is in BC quad edge (but not a vertex)
+                if (SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B))) // B is in BC quad edge (but not a vertex)
                     return EQIntersections::E_Infinite;
-                else if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
-                         QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
-                         QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
+                else if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+                         SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
+                         SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
                 {
                     vPoint1 = this->A;
                     vPoint2 = this->B;
@@ -866,13 +866,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->A))) // A is in CD quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->A))) // A is in CD quad edge (but not a vertex)
             {
-                if (QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B))) // B is in CD quad edge (but not a vertex)
+                if (SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B))) // B is in CD quad edge (but not a vertex)
                     return EQIntersections::E_Infinite;
-                else if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
-                         QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) ||
-                         QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
+                else if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+                         SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) ||
+                         SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
                 {
                     vPoint1 = this->A;
                     vPoint2 = this->B;
@@ -884,13 +884,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->A))) // A is in DA quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->A))) // A is in DA quad edge (but not a vertex)
             {
-                if (QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B))) // B is in DA quad edge (but not a vertex)
+                if (SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B))) // B is in DA quad edge (but not a vertex)
                     return EQIntersections::E_Infinite;
-                else if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
-                         QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) ||
-                         QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)))
+                else if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+                         SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) ||
+                         SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)))
                 {
                     vPoint1 = this->A;
                     vPoint2 = this->B;
@@ -904,10 +904,10 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
             else // A is not in an edge
             {
-                if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B)) || // B is in an edge (but not a vertex)
-                    QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) ||
-                    QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
-                    QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
+                if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B)) || // B is in an edge (but not a vertex)
+                    SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) ||
+                    SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
+                    SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
                 {
                     vPoint1 = this->B;
                     return EQIntersections::E_One;
@@ -1271,7 +1271,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 else
                     return EQIntersections::E_One;
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->A))) // this->A is in AB quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->A))) // this->A is in AB quad edge (but not a vertex)
             {
                 vPoint1 = this->A;
 
@@ -1304,7 +1304,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 else
                     return EQIntersections::E_One;
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->A))) // this->A is in BC quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->A))) // this->A is in BC quad edge (but not a vertex)
             {
                 vPoint1 = this->A;
 
@@ -1337,7 +1337,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 else
                     return EQIntersections::E_One;
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->A))) // this->A is in CD quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->A))) // this->A is in CD quad edge (but not a vertex)
             {
                 vPoint1 = this->A;
 
@@ -1370,7 +1370,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 else
                     return EQIntersections::E_One;
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->A))) // this->A is in DA quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->A))) // this->A is in DA quad edge (but not a vertex)
             {
                 vPoint1 = this->A;
 
@@ -1510,7 +1510,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B))) // this->B is in AB quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B))) // this->B is in AB quad edge (but not a vertex)
             {
                 // ls intersects the other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
@@ -1550,7 +1550,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B))) // this->B is in BC quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B))) // this->B is in BC quad edge (but not a vertex)
             {
                 // ls intersects the other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux);
@@ -1590,7 +1590,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B))) // this->B is in CD quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B))) // this->B is in CD quad edge (but not a vertex)
             {
                 // ls intersects the other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
@@ -1630,7 +1630,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     return EQIntersections::E_One;
                 }
             }
-            else if (QFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B))) // this->B is in DA quad edge (but not a vertex)
+            else if (SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B))) // this->B is in DA quad edge (but not a vertex)
             {
                 // ls intersects the other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);

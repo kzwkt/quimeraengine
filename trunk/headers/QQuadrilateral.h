@@ -6,7 +6,7 @@
 #include "QBaseQuadrilateral.h"
 #include "QLineSegment2D.h"
 #include "QVector2.h"
-#include "QAngle.h"
+#include "SQAngle.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -194,9 +194,9 @@ public:
         if (this->IsConcaveHere(this->A, this->B, this->D, this->C))
         {
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                return QAngle::_360 - fAngle;
+                return SQAngle::_360 - fAngle;
             #else
-                return QAngle::_2Pi - fAngle;
+                return SQAngle::_2Pi - fAngle;
             #endif
         }
         else
@@ -216,9 +216,9 @@ public:
         if (this->IsConcaveHere(this->B, this->A, this->C, this->D))
         {
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                return QAngle::_360 - fAngle;
+                return SQAngle::_360 - fAngle;
             #else
-                return QAngle::_2Pi - fAngle;
+                return SQAngle::_2Pi - fAngle;
             #endif
         }
         else
@@ -238,9 +238,9 @@ public:
         if (this->IsConcaveHere(this->C, this->B, this->D, this->A))
         {
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                return QAngle::_360 - fAngle;
+                return SQAngle::_360 - fAngle;
             #else
-                return QAngle::_2Pi - fAngle;
+                return SQAngle::_2Pi - fAngle;
             #endif
         }
         else
@@ -260,9 +260,9 @@ public:
         if (this->IsConcaveHere(this->D, this->A, this->C, this->B))
         {
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                return QAngle::_360 - fAngle;
+                return SQAngle::_360 - fAngle;
             #else
-                return QAngle::_2Pi - fAngle;
+                return SQAngle::_2Pi - fAngle;
             #endif
         }
         else
@@ -276,7 +276,7 @@ public:
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	inline void Rotate (const float_q &fRotationAngle)
 	{
-        QPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (this), 4);
+        SQPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -291,7 +291,7 @@ public:
 	inline void Rotate (const float_q &fRotationAngle, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -300,7 +300,7 @@ public:
 	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
     inline void Translate(const QBaseVector2 &vTranslation)
 	{
-	    QPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (this), 4);
+	    SQPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -310,7 +310,7 @@ public:
 	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
 	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY)
 	{
-	    QPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (this), 4);
+	    SQPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -322,7 +322,7 @@ public:
 	inline void Translate(const QBaseVector2 &vTranslation, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -335,7 +335,7 @@ public:
 	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -344,7 +344,7 @@ public:
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	inline void Scale(const QBaseVector2 &vScale)
 	{
-	    QPoint::Scale(vScale, reinterpret_cast<QVector2*> (this), 4);
+	    SQPoint::Scale(vScale, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -354,7 +354,7 @@ public:
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	inline void Scale(const float_q &fScaleX, const float_q &fScaleY)
 	{
-	     QPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (this), 4);
+	     SQPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -366,7 +366,7 @@ public:
 	inline void Scale(const QBaseVector2 &vScale, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::Scale(vScale, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::Scale(vScale, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -379,7 +379,7 @@ public:
 	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -389,7 +389,7 @@ public:
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	inline void Transform(const QTransformationMatrix3x3 &matrix)
 	{
-	    QPoint::Transform(matrix, reinterpret_cast<QVector2*> (this), 4);
+	    SQPoint::Transform(matrix, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -402,7 +402,7 @@ public:
 	inline void Transform(const QTransformationMatrix3x3 &matrix, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::Transform(matrix, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::Transform(matrix, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -413,7 +413,7 @@ public:
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
 	inline void RotateWithPivot (const float_q &fRotationAngle, const QVector2 &vPivot)
 	{
-	    QPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -429,7 +429,7 @@ public:
 	inline void RotateWithPivot (const float_q &fRotationAngle, const QVector2 &vPivot, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -440,7 +440,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
 	{
-	    QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	    SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -452,7 +452,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
 	{
-	     QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -465,7 +465,7 @@ public:
 	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 	/// <summary>
@@ -479,7 +479,7 @@ public:
 	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
 
@@ -491,7 +491,7 @@ public:
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
 	inline void TransformWithPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot)
 	{
-	    QPoint::TransformWithPivot(matrix, vPivot, reinterpret_cast<QVector2*> (this), 4);
+	    SQPoint::TransformWithPivot(matrix, vPivot, reinterpret_cast<QVector2*> (this), 4);
 	}
 
 	/// <summary>
@@ -505,7 +505,7 @@ public:
 	inline void TransformWithPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
 	{
 	    quadOut = *this;
-	    QPoint::TransformWithPivot(matrix, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
+	    SQPoint::TransformWithPivot(matrix, vPivot, reinterpret_cast<QVector2*> (&quadOut), 4);
 	}
 
     /// <summary>
@@ -530,9 +530,9 @@ protected:
         const float_q &fOrientation1 = (vLine1.x - vP1.x)*(vLine2.y - vP1.y) - (vLine1.y - vP1.y)*(vLine2.x - vP1.x);
         const float_q &fOrientation2 = (vLine1.x - vP2.x)*(vLine2.y - vP2.y) - (vLine1.y - vP2.y)*(vLine2.x - vP2.x);
 
-        if ( QFloat::IsZero(fOrientation1) || QFloat::IsZero(fOrientation2) )
+        if ( SQFloat::IsZero(fOrientation1) || SQFloat::IsZero(fOrientation2) )
             return true;
-        else if ( QFloat::IsNegative(fOrientation1) == QFloat::IsNegative(fOrientation2) )
+        else if ( SQFloat::IsNegative(fOrientation1) == SQFloat::IsNegative(fOrientation2) )
             return true;
         else
             return false;
