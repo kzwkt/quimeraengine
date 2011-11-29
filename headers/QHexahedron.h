@@ -310,6 +310,9 @@ public:
     /// plane C, D, F -> CDFG face, stored in element 5 of the array
 	/// </summary>
 	/// <param name="arPlanes">[OUT] An array where to store the six planes. It must have at least six elements.</param>
+	/// <remarks>
+	/// All returned planes are normalized.
+	/// </remarks>
     inline void GetPlanes(QPlane *arPlanes) const
     {
         arPlanes[0] = QPlane(this->A, this->B, this->C); // ABCD face
@@ -667,6 +670,9 @@ public:
 	/// </summary>
 	/// <param name="plane">[IN] Plane where project resident hexahedron to.</param>
 	/// <param name="hex">[OUT] Hexahedron where to store the projected one.</param>
+	/// <remarks>
+    /// The plane must be normalized to obtain a correct result.
+    /// </remarks>
     inline void ProjectToPlane(const QPlane &plane, QBaseHexahedron<VectorType> &hex) const
     {
         plane.PointProjection(this->A, hex.A);
@@ -703,13 +709,10 @@ protected:
     {
         QPlane p(vA, vB, vC);
 
-        const float_q &distP1 = p.a * vP1.x + p.b * vP1.y + p.c * vP1.z + p.d;
-        const float_q &distP2 = p.a * vP2.x + p.b * vP2.y + p.c * vP2.z + p.d;
+        const float_q &fDistP1 = p.a * vP1.x + p.b * vP1.y + p.c * vP1.z + p.d;
+        const float_q &fDistP2 = p.a * vP2.x + p.b * vP2.y + p.c * vP2.z + p.d;
 
-        if ( SQFloat::IsLessThan(distP1 * distP2, SQFloat::_0) )
-            return false;
-        else
-            return true;
+        return !SQFloat::IsNegative(fDistP1 * fDistP2);
     }
 };
 

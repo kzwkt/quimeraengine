@@ -622,6 +622,9 @@ public:
 	/// </summary>
 	/// <param name="plane">[IN] Plane where to project resident triangle.</param>
 	/// <param name="tOut">[OUT] Triangle where to store the projected one.</param>
+	/// <remarks>
+	/// The plane must be normalized to obtain correct result.
+	/// </remarks>
 	inline void ProjectToPlane(const QPlane &plane, QBaseTriangle<VectorType> &tOut)
 	{
 	    plane.PointProjection(this->A, tOut.A);
