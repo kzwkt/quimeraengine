@@ -39,7 +39,7 @@ QPlane QPlane::operator * (const float_q &fValue) const
     return QPlane(this->a * fValue, this->b * fValue, this->c * fValue, this->d * fValue);
 }
 
-// Left float product 
+// Left float product
 QPlane operator * (const float_q &fValue, const QBasePlane &p)
 {
     return QPlane(p.a * fValue, p.b * fValue, p.c * fValue, p.d * fValue);
@@ -54,28 +54,20 @@ QPlane QPlane::operator / (const float_q &fValue) const
 
 EQSpaceRelation QPlane::SpaceRelation(const QBasePlane &p) const
 {
-    // Cross product.
-    if (SQFloat::IsZero(p.b*this->c - p.c*this->b) && 
-        SQFloat::IsZero(p.c*this->a - p.a*this->c) && 
+    // Cross product: checks if planes are parallel or coincident
+    if (SQFloat::IsZero(p.b*this->c - p.c*this->b) &&
+        SQFloat::IsZero(p.c*this->a - p.a*this->c) &&
         SQFloat::IsZero(p.a*this->b - p.b*this->a))
     {
-
-        QPlane plAux1(p), plAux2(*this);
-
-        plAux1.Normalize();
-        plAux2.Normalize();
-
-        // They are the same plane.
-        if (plAux1 == plAux2)
+        if (p == *this) // They are the same plane.
             return EQSpaceRelation::E_Contained;
-        // They are parallel planes.
-        else if (SQFloat::IsNegative(plAux1.d - plAux2.d))
+        else if (SQFloat::IsNegative(p.d - this->d))
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_PositiveSide;
     }
-    else
-        return EQSpaceRelation::E_BothSides; 
+    else // Are not parallel
+        return EQSpaceRelation::E_BothSides;
 }
 
 } //namespace Math

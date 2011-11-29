@@ -120,20 +120,17 @@ public:
     /// </returns>
     inline bool Intersection (const QBasePlane &p) const
     {
-        const float_q &distA = p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d;
+        const float_q &fDistA = p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d;
 
-        if (SQFloat::IsZero(distA))
+        if (SQFloat::IsZero(fDistA))
             return true;
 
-        const float_q &distB = p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d;
+        const float_q &fDistB = p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d;
 
-        if (SQFloat::IsZero(distB))
+        if (SQFloat::IsZero(fDistB))
             return true;
 
-        else if ( SQFloat::IsLessThan(distA * distB, SQFloat::_0) )
-            return true;
-        else
-            return false;
+        return SQFloat::IsNegative(fDistA * fDistB);
     }
 
     /// <summary>
@@ -176,10 +173,8 @@ public:
 
             // If not, we check if segment is fully contained in the triangle
             // We only check "A" end point, since if "A" is inside, "B" must be inside too (see previus test).
-            else if ( PointInsideTriangle(t, lsAux.A) )
-                return true;
             else
-                return false;
+                return PointInsideTriangle(t, lsAux.A);
         }
 
         QE_ASSERT(SQFloat::IsNotZero(fDot2 - fDot1));
@@ -189,10 +184,7 @@ public:
 
         // For every edge, it tests if the intersection point is in the same side of each edge
         // than the third vextex. If it does, then it's inside the triangle, otherwise it's outside.
-        if ( PointInsideTriangle(t, vAux) )
-            return true;
-        else
-            return false;
+        return PointInsideTriangle(t, vAux);
     }
 
     /// <summary>
@@ -1495,18 +1487,15 @@ public:
     /// <returns>
     /// A floating point value containing the maximum distance between the resident line segment and a plane provided.
     /// </returns>
+    /// <remarks>
+    /// The plane must be normalized to obtain correct result.
+    /// </remarks>
     inline float_q MaxDistance(const QBasePlane &p) const
     {
-        const float_q &fSquaredLength = p.a*p.a + p.b*p.b + p.c*p.c;
+        const float_q &fDistA = reinterpret_cast<QPlane &> (p).PointDistance(this->A);
+        const float_q &fDistB = reinterpret_cast<QPlane &> (p).PointDistance(this->B);
 
-        QE_ASSERT(SQFloat::IsNotZero(fSquaredLength));
-
-        const float_q &fInvNormalLenght = SQFloat::_1/sqrt(fSquaredLength);
-
-        const float_q &distA = SQFloat::Abs(p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d) * fInvNormalLenght;
-        const float_q &distB = SQFloat::Abs(p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d) * fInvNormalLenght;
-
-        return std::max(distA, distB);
+        return std::max(fDistA, fDistB);
     }
 
     /// <summary>
@@ -1547,18 +1536,15 @@ public:
     /// <returns>
     /// A floating point value containing the minimum distance between the resident line segment and a plane provided.
     /// </returns>
+    /// <remarks>
+    /// The plane must be normalized to obtain correct result.
+    /// </remarks>
     inline float_q MinDistance(const QBasePlane &p) const
     {
-        const float_q &fSquaredLength = p.a*p.a + p.b*p.b + p.c*p.c;
+        const float_q &fDistA = reinterpret_cast<QPlane &> (p).PointDistance(this->A);
+        const float_q &fDistB = reinterpret_cast<QPlane &> (p).PointDistance(this->B);
 
-        QE_ASSERT(SQFloat::IsNotZero(fSquaredLength));
-
-        const float_q &fInvNormalLenght = SQFloat::_1/sqrt(fSquaredLength);
-
-        const float_q &distA = SQFloat::Abs(p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d) * fInvNormalLenght;
-        const float_q &distB = SQFloat::Abs(p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d) * fInvNormalLenght;
-
-        return std::min(distA, distB);
+        return std::min(fDistA, fDistB);
     }
 
 	/// <summary>
@@ -1593,25 +1579,13 @@ public:
     /// Projects the resident line segment over the plane provided.
     /// </summary>
     /// <param name="p">[IN] The plane where we want to project the resident line segment.</param>
+    /// <remarks>
+    /// The plane must be normalized to obtain correct result.
+    /// </remarks>
     inline void ProjectToPlane (const QBasePlane &p)
     {
-        const float_q &fSquaredLength = p.a*p.a + p.b*p.b + p.c*p.c;
-
-        QE_ASSERT(SQFloat::IsNotZero(fSquaredLength));
-
-        const float_q &fInvSquaredLength = SQFloat::_1/fSquaredLength;
-
-        const float_q &fProjA = -(p.a * this->A.x + p.b * this->A.y + p.c * this->A.z + p.d);
-
-        this->A.x += fProjA * p.a * fInvSquaredLength;
-        this->A.y += fProjA * p.b * fInvSquaredLength;
-        this->A.z += fProjA * p.c * fInvSquaredLength;
-
-        const float_q &fProjB = -(p.a * this->B.x + p.b * this->B.y + p.c * this->B.z + p.d);
-
-        this->B.x += fProjB * p.a * fInvSquaredLength;
-        this->B.y += fProjB * p.b * fInvSquaredLength;
-        this->B.z += fProjB * p.c * fInvSquaredLength;
+        reinterpret_cast <QPlane &> (p).PointProjection(this->A, this->A);
+        reinterpret_cast <QPlane &> (p).PointProjection(this->B, this->B);
     }
 
     /// <summary>
@@ -1621,8 +1595,8 @@ public:
     /// <param name="ls">[OUT] The line segment where to store the result of projection.</param>
     inline void ProjectToPlane (const QBasePlane &p, QBaseLineSegment<VectorType> &ls) const
     {
-        ls = *this;
-        reinterpret_cast<QLineSegment3D<VectorType> &> (ls).ProjectToPlane(p);
+        reinterpret_cast <QPlane &> (p).PointProjection(this->A, ls.A);
+        reinterpret_cast <QPlane &> (p).PointProjection(this->B, ls.B);
     }
 
     /// <summary>
@@ -2138,10 +2112,7 @@ protected:
         vLine.CrossProduct(vP1 - vLine1, vCP1);
         vLine.CrossProduct(vP2 - vLine1, vCP2);
 
-        if ( SQFloat::IsLessThan(vCP1.DotProduct(vCP2), SQFloat::_0) )
-            return false;
-        else
-            return true;
+        return SQFloat::IsPositive(vCP1.DotProduct(vCP2));
     }
 
     // Calculates if a point is inside the triangle provided applying barycentric technique.
@@ -2233,17 +2204,12 @@ protected:
     inline bool PointsInSameSideOfPlane(const VectorTypeParam &vP1, const VectorTypeParam &vP2,
         const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC) const
     {
-        QBasePlane p;
-
-        PlaneFrom3Points(vA, vB, vC, p);
+        QPlane p(vA, vB, vC);
 
         const float_q &distP1 = p.a * vP1.x + p.b * vP1.y + p.c * vP1.z + p.d;
         const float_q &distP2 = p.a * vP2.x + p.b * vP2.y + p.c * vP2.z + p.d;
 
-        if ( SQFloat::IsLessThan(distP1 * distP2, SQFloat::_0) )
-            return false;
-        else
-            return true;
+        return SQFloat::IsPositive(distP1 * distP2);
     }
 
     // Calculates if two points are in the same side of a plane defined by 3 points.
@@ -2265,8 +2231,7 @@ protected:
         const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC, const VectorTypeParam &vD) const
     {
         // Plane equation
-        QBasePlane auxP;
-        PlaneFrom3Points(vA, vB, vC, auxP);
+        QPlane auxP(vA, vB, vC);
 
         // Line Segment don't intersects the cuadrilateral plane.
         if (!ls.Intersection(auxP))
@@ -2297,10 +2262,7 @@ protected:
         // For every edge, it tests if the intersection point is in the same side of each edge
         // than any other vextex (not of the edge). If it does, then it's inside the cuadrilateral,
         // otherwise it's outside.
-        if ( PointInsideQuadrilateral(vA, vB, vC, vD, vAux) )
-            return true;
-        else
-            return false;
+        return PointInsideQuadrilateral(vA, vB, vC, vD, vAux);
     }
 
     // Computes the intersection between a line segment and a cuadrilateral. It's supossed that A, B, C, D are consecutive
@@ -2327,9 +2289,8 @@ protected:
         VectorTypeParam &vOut1, VectorTypeParam &vOut2) const
     {
         // Plane equation
-        QBasePlane auxP;
+        QPlane auxP(vA, vB, vC);
         VectorTypeParam vAux;
-        PlaneFrom3Points(vA, vB, vC, auxP);
 
         const EQIntersections &value = ls.IntersectionPoint(auxP, vAux);
 

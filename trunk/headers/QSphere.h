@@ -533,6 +533,9 @@ public:
 	/// in the negative side or in both sides (intersection).
 	/// </summary>
 	/// <param name="plane">[IN] The plane we want check the relation with current sphere.</param>
+	/// <remarks>
+	/// The plane must be normalized to obtain correct result.
+	/// </remarks>
     /// <returns>
     /// An enumerated value like follows: Positive Side, Negative Side or Both Sides (intersects the plane).
     /// </returns>
@@ -546,7 +549,7 @@ public:
 		}
 		else
         {
-            const float_q &fAbsDistP = SQFloat::Abs(fDistP)/( reinterpret_cast<QPlane &> (plane).GetLength() );
+            const float_q &fAbsDistP = SQFloat::Abs(fDistP);
 
             if (SQFloat::IsLessThan(fAbsDistP, Radius))
                 return EQSpaceRelation::E_BothSides;
@@ -562,9 +565,12 @@ public:
 	/// </summary>
 	/// <param name="plane">[IN] Plane where current sphere will be projected.</param>
     /// <param name="outputOrb">[OUT] Projected orb on the plane.</param>
+    /// <remarks>
+	/// The plane must be normalized to obtain correct result.
+	/// </remarks>
 	inline void ProjectToPlane(const QPlane& plane, QBaseOrb<VectorType>& outputOrb) const
 	{
-	    plane.PointProjection<VectorType>(this->Center, outputOrb.Center);
+	    plane.PointProjection(this->Center, outputOrb.Center);
         outputOrb.Radius = this->Radius;
 	}
 };

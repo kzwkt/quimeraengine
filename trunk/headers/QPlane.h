@@ -113,6 +113,9 @@ public:
 	/// <param name="vP1">[IN] A 3D vector which represents the first point.</param>
 	/// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
 	/// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
+	/// <remarks>
+    /// This method offers a normalized plane.
+    /// </remarks>
     inline QPlane (const QVector3 &vP1, const QVector3 &vP2, const QVector3 &vP3)
     {
         this->QPlaneImp(vP1, vP2, vP3);
@@ -124,6 +127,9 @@ public:
 	/// <param name="vP1">[IN] A 3D vector which represents the first point.</param>
 	/// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
 	/// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
+	/// <remarks>
+    /// This method offers a normalized plane.
+    /// </remarks>
     inline QPlane (const QVector4 &vP1, const QVector4 &vP2, const QVector4 &vP3)
     {
         this->QPlaneImp(vP1, vP2, vP3);
@@ -131,12 +137,12 @@ public:
 
 protected:
 
-	/// <summary>
-	/// Constructor from three points.
-	/// </summary>
-	/// <param name="vP1">[IN] A 3D vector which represents the first point.</param>
-	/// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
-	/// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
+	// <summary>
+	// Constructor from three points.
+	// </summary>
+	// <param name="vP1">[IN] A 3D vector which represents the first point.</param>
+	// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
+	// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
     template <class VectorType>
     inline void QPlaneImp (const VectorType &vP1, const VectorType &vP2, const VectorType &vP3)
     {
@@ -310,6 +316,9 @@ public:
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
     /// <param name="v">[IN] The plane whose angle with the resident plane we want to calculate.</param>
+    /// <remarks>
+    /// The plane must be normalized to obtain a correct result.
+    /// </remarks>
     inline float_q DotProductAngle(const QVector3 &v) const
     {
         return this->DotProductAngleVector(v);
@@ -319,6 +328,9 @@ public:
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
     /// <param name="v">[IN] The plane whose angle with the resident plane we want to calculate.</param>
+    /// <remarks>
+    /// The plane must be normalized to obtain a correct result.
+    /// </remarks>
     inline float_q DotProductAngle(const QVector4 &v) const
     {
         return this->DotProductAngleVector(v);
@@ -328,14 +340,12 @@ public:
     /// Calculates the angle between resident and provided planes via dot product between their direction vectors.
     /// </summary>
     /// <param name="p">[IN] The plane whose angle with the resident plane we want to calculate.</param>
+    /// <remarks>
+    /// Both planes must be normalized to obtain a correct result.
+    /// </remarks>
     inline float_q DotProductAngle(const QBasePlane &p) const
     {
-        const float_q fDotLength = sqrt(this->GetSquaredLength() * reinterpret_cast<const QPlane&>(p).GetSquaredLength());
-
-        // Checkout to avoid division by zero.
-        QE_ASSERT(fDotLength != SQFloat::_0);
-
-        const float_q &fDot = this->DotProduct(p)/fDotLength;
+        const float_q &fDot = this->DotProduct(p);
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
         QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
@@ -354,14 +364,13 @@ public:
     /// </summary>
     /// <param name="vPoint">[IN] A 3D vector which represents the point we want project.</param>
     /// <param name="vProjection">[OUT] A 3D vector where to store the projected point.</param>
+    /// <remarks>
+    /// The plane must be normalized to obtain a correct result.
+    /// </remarks>
     template <class VectorType>
     inline void PointProjection(const VectorType &vPoint, VectorType &vProjection) const
     {
-        const float_q &fSquaredLength = this->GetSquaredLength();
-
-        QE_ASSERT(fSquaredLength != SQFloat::_0);
-
-        const float_q &fProj = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d) / fSquaredLength;
+        const float_q &fProj = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
 
         vProjection.x = fProj * this->a  + vPoint.x;
         vProjection.y = fProj * this->b  + vPoint.y;
@@ -420,17 +429,16 @@ public:
     /// of the normal to the plane which passes through the point.
     /// </summary>
     /// <param name="v">[IN] The point we want know it distance from resident plane.</param>
+    /// <remarks>
+    /// The plane must be normalized to obtain a correct result.
+    /// </remarks>
     /// <returns>
     /// A floating point value which represents the minimum distance between the plane and the point.
     /// </returns>
     template <class VectorType>
     inline float_q PointDistance(const VectorType &v) const
     {
-        const float_q &fLength = this->GetLength();
-
-        QE_ASSERT(fLength != SQFloat::_0);
-
-        return SQFloat::Abs(this->a * v.x + this->b * v.y + this->c * v.z + this->d)/fLength;
+        return SQFloat::Abs(this->a * v.x + this->b * v.y + this->c * v.z + this->d);
     }
 
 
@@ -441,6 +449,9 @@ public:
     /// <param name="pl1">[IN] The first plane we want to calculate the intersection with.</param>
     /// <param name="pl2">[IN] The second plane we want to calculate the intersection with.</param>
     /// <param name="vOut">[OUT] The intersection point of the three planes, if it exists.</param>
+    /// <remarks>
+    /// All planes must be normalized to obtain a correct result.
+    /// </remarks>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the three planes, and can take
     /// the following values: E_None, E_One and E_Infinite.
@@ -451,7 +462,6 @@ public:
         // Solved by Cramer method.
         const float_q &fDetC = this->a*pl1.b*pl2.c + this->b*pl1.c*pl2.a + this->c*pl1.a*pl2.b -
                               (this->c*pl1.b*pl2.a + this->a*pl1.c*pl2.b + this->b*pl1.a*pl2.c);
-
         const float_q &fDetX = this->c*pl1.b*pl2.d + this->d*pl1.c*pl2.b + this->b*pl1.d*pl2.c -
                               (this->d*pl1.b*pl2.c + this->b*pl1.c*pl2.d + this->c*pl1.d*pl2.b);
         const float_q &fDetY = this->c*pl1.d*pl2.a + this->a*pl1.c*pl2.d + this->d*pl1.a*pl2.c -
@@ -459,8 +469,7 @@ public:
         const float_q &fDetZ = this->d*pl1.b*pl2.a + this->a*pl1.d*pl2.b + this->b*pl1.a*pl2.d -
                               (this->a*pl1.b*pl2.d + this->b*pl1.d*pl2.a + this->d*pl1.a*pl2.b);
 
-        // A range = 3, A* range = 3: Compatible system
-        if (!SQFloat::IsZero(fDetC))
+        if (!SQFloat::IsZero(fDetC)) // A range = 3, A* range = 3: Compatible system
         {
             const float_q &fInvDetC = SQFloat::_1/fDetC;
 
@@ -470,8 +479,7 @@ public:
 
             return EQIntersections::E_One;
         }
-        // A range < 3, A* range < 3
-        else if (SQFloat::IsZero(fDetX) && SQFloat::IsZero(fDetY) && SQFloat::IsZero(fDetZ))
+        else if (SQFloat::IsZero(fDetX) && SQFloat::IsZero(fDetY) && SQFloat::IsZero(fDetZ)) // A range < 3, A* range < 3
         {
             // A range = 2, A* range < 3: Undetermined compatible system
             if (SQFloat::IsNotZero(this->a*pl1.b - this->b*pl1.a) ||
@@ -485,27 +493,15 @@ public:
                 SQFloat::IsNotZero(pl1.b*pl2.c - pl1.c*pl2.b))
 
                 return EQIntersections::E_Infinite;
-
-            //// A range = 1, A* range < 3
-            else
+            else //// A range = 1, A* range < 3
             {
-                QPlane plAux1(*this), plAux2(pl1), plAux3(pl2);
-                plAux1.Normalize();
-                plAux2.Normalize();
-                plAux3.Normalize();
-
-                // Coincident planes (A* range = 1)
-                if (plAux1 == plAux2 && plAux1 == plAux3)
-
+                if (*this == pl1 && *this == pl2) // Coincident planes (A* range = 1)
                     return EQIntersections::E_Infinite;
-
-                // Incompatible system (A* range = 2)
-                else
+                else // Incompatible system (A* range = 2)
                     return EQIntersections::E_None;
             }
         }
-        // A range < 3, A* range = 3: Incompatible system
-        else
+        else // A range < 3, A* range = 3: Incompatible system
            return EQIntersections::E_None;
     }
 
@@ -513,6 +509,9 @@ public:
     /// Checks the relation between resident plane and the provided plane.
     /// </summary>
     /// <param name="p">[IN] The plane we want check the relation with resident plane.</param>
+    /// <remarks>
+    /// Both planes must be normalized to obtain a correct result.
+    /// </remarks>
     /// <returns>
     /// An enumerated value like follows: E_Contained, E_PositiveSide, E_NegativeSide.
     /// </returns>
@@ -584,6 +583,9 @@ public:
     /// Applies a scale to the resident plane.
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the scale to be applied.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Scale(const QScaleMatrix3x3 &m)
     {
         QE_ASSERT(m.ij[0][0] != SQFloat::_0 && m.ij[1][1] != SQFloat::_0 && m.ij[2][2] != SQFloat::_0);
@@ -601,6 +603,9 @@ public:
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the scale to be applied.</param>
     /// <param name="pOut">[OUT] The scaled plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Scale(const QScaleMatrix3x3 &m, QBasePlane &pOut) const
     {
         pOut = *this;
@@ -611,6 +616,9 @@ public:
     /// Applies a scale to the resident plane given by the provided vector.
     /// </summary>
     /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Scale(const QBaseVector3 &vScale)
     {
         QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0);
@@ -628,6 +636,9 @@ public:
     /// </summary>
     /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
     /// <param name="pOut">[OUT] The scaled plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Scale(const QBaseVector3 &vScale, QBasePlane &pOut) const
     {
         pOut = *this;
@@ -640,6 +651,9 @@ public:
     /// <param name="fScaleX">[IN] The scale amount to be applied in X direction.</param>
     /// <param name="fScaleY">[IN] The scale amount to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] The scale amount to be applied in Z direction.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
         QE_ASSERT(fScaleX != SQFloat::_0 && fScaleY != SQFloat::_0 && fScaleZ != SQFloat::_0);
@@ -659,6 +673,9 @@ public:
     /// <param name="fScaleY">[IN] The scale amount to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] The scale amount to be applied in Z direction.</param>
     /// <param name="pOut">[OUT] The scaled plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QBasePlane &pOut) const
     {
         pOut = *this;
@@ -790,6 +807,9 @@ public:
     /// Applies a transformation to the resident plane.
     /// </summary>
     /// <param name="m">[IN] A [4x3] matrix containing the transformation to be applied.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Transform(const QTransformationMatrix4x3 &m)
     {
         QMatrix4x4 mAux(m.ij[0][0], m.ij[0][1], m.ij[0][2], SQFloat::_0,
@@ -816,6 +836,9 @@ public:
     /// </summary>
     /// <param name="m">[IN] A [4x3] transformation matrix.</param>
     /// <param name="pOut">[OUT] The transformed plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Transform(const QTransformationMatrix4x3 &m, QBasePlane &pOut) const
     {
         pOut = *this;
@@ -826,6 +849,9 @@ public:
     /// Applies a transformation to the resident plane.
     /// </summary>
     /// <param name="m">[IN] A [4x4] matrix containing the transformation to be applied.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Transform(const QTransformationMatrix4x4 &m)
     {
         QTransformationMatrix4x4 mAux;
@@ -849,6 +875,9 @@ public:
     /// </summary>
     /// <param name="m">[IN] A [4x3] transformation matrix.</param>
     /// <param name="pOut">[OUT] The transformed plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Transform(const QTransformationMatrix4x4 &m, QBasePlane &pOut) const
     {
         pOut = *this;
@@ -859,6 +888,9 @@ public:
     /// Applies the transformation contained in a space conversion matrix to the resident plane.
     /// </summary>
     /// <param name="m">[IN] A [4x4] space conversion matrix containing the transformation to be applied.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Transform(const QSpaceConversionMatrix &m)
     {
         QMatrix4x4 mAux;
@@ -882,6 +914,9 @@ public:
     /// </summary>
     /// <param name="m">[IN] A [4x4] transformation matrix.</param>
     /// <param name="pOut">[OUT] The transformed plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void Transform(const QSpaceConversionMatrix &m, QBasePlane &pOut) const
     {
         pOut = *this;
@@ -995,6 +1030,9 @@ public:
     /// </summary>
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector3 &vPivot)
     {
         this->ScaleWithPivotImp(vScale, vPivot);
@@ -1006,6 +1044,9 @@ public:
     /// </summary>
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector4 &vPivot)
     {
         this->ScaleWithPivotImp(vScale, vPivot);
@@ -1019,6 +1060,9 @@ public:
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1033,6 +1077,9 @@ public:
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1047,6 +1094,9 @@ public:
     /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot)
     {
         this->ScaleWithPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
@@ -1060,6 +1110,9 @@ public:
     /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot)
     {
         this->ScaleWithPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
@@ -1075,6 +1128,9 @@ public:
     /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1091,6 +1147,9 @@ public:
     /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1103,6 +1162,9 @@ public:
     /// </summary>
     /// <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector3 &vPivot)
     {
         this->ScaleWithPivotImp(mScale, vPivot);
@@ -1114,6 +1176,9 @@ public:
     /// </summary>
     /// <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector4 &vPivot)
     {
         this->ScaleWithPivotImp(mScale, vPivot);
@@ -1127,6 +1192,9 @@ public:
     /// <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1141,6 +1209,9 @@ public:
     /// <param name="mScale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <param name="outPlane">[OUT] The rotated plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1153,6 +1224,9 @@ public:
     /// </summary>
     /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const QVector3 &vPivot)
     {
         this->TransformWithPivotImp(mTransf, vPivot);
@@ -1164,6 +1238,9 @@ public:
     /// </summary>
     /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const QVector4 &vPivot)
     {
         this->TransformWithPivotImp(mTransf, vPivot);
@@ -1177,6 +1254,9 @@ public:
     /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <param name="outPlane">[OUT] The transformed plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1191,6 +1271,9 @@ public:
     /// <param name="mTransf">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <param name="outPlane">[OUT] The transformed plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1203,6 +1286,9 @@ public:
     /// </summary>
     /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const QVector3 &vPivot)
     {
         this->TransformWithPivotImp(mTransf, vPivot);
@@ -1214,6 +1300,9 @@ public:
     /// </summary>
     /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const QVector4 &vPivot)
     {
         this->TransformWithPivotImp(mTransf, vPivot);
@@ -1227,6 +1316,9 @@ public:
     /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <param name="outPlane">[OUT] The transformed plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1241,6 +1333,9 @@ public:
     /// <param name="mTransf">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <param name="outPlane">[OUT] The transformed plane.</param>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.
+    /// </remarks>
     inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
@@ -1260,24 +1355,25 @@ public:
 
 protected:
 
-    /// <summary>
-    /// Calculates the dot product between the direction vector of the resident plane and the provided vector.
-    /// </summary>
-    /// <param name="v">[IN] The vector which we want to calculate the dot product with.</param>
+    // <summary>
+    // Calculates the dot product between the direction vector of the resident plane and the provided vector.
+    // </summary>
+    // <param name="v">[IN] The vector which we want to calculate the dot product with.</param>
     template <class VectorType>
     inline float_q DotProductVector(const VectorType &v) const
     {
         return v.x * this->a + v.y * this->b + v.z * this->c;
     }
 
-    /// <summary>
-    /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
-    /// </summary>
-    /// <param name="v">[IN] The plane whose angle with the resident plane we want to calculate.</param>
+    // <summary>
+    // Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
+    // </summary>
+    // <param name="v">[IN] The plane whose angle with the resident plane we want to calculate.</param>
     template <class VectorType>
     inline float_q DotProductAngleVector(const VectorType &v) const
     {
-        const float_q &fDotLength = sqrt(this->GetSquaredLength() * v.GetSquaredLength());
+        // Length of plane removed due to plane is normalized.
+        const float_q &fDotLength = v.GetLength();
 
         // Checkout to avoid division by zero.
         QE_ASSERT(fDotLength != SQFloat::_0);
