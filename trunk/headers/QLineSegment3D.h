@@ -12,6 +12,12 @@
 #include "QBaseHexahedron.h"
 #include "QQuaternion.h"
 #include "QDualQuaternion.h"
+#include "SQPoint.h"
+#include "QTransformationMatrix.h"
+#include "QTranslationMatrix.h"
+#include "QSpaceConversionMatrix.h"
+#include "QRotationMatrix3x3.h"
+#include "QScaleMatrix3x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -1620,192 +1626,6 @@ public:
     }
 
     /// <summary>
-    /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
-    /// the "A" end point as pivot of rotation.
-    /// </summary>
-    /// <param name="q">[IN] The quaternion which contains the rotation.</param>
-    inline void Transform(const QQuaternion &q)
-    {
-        this->B -= this->A;
-
-        this->B.Transform(q);
-
-        this->B += this->A;
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
-    /// the "A" end point as pivot of rotation. The resultant line segment is stored in the line segment provided.
-    /// </summary>
-    /// <param name="q">[IN] The quaternion which contains the rotation.</param>
-    /// <param name="ls">[OUT] Line segment to store the rotated one.</param>
-    inline void Transform(const QQuaternion &q, QLineSegment3D<VectorType> &ls) const
-    {
-        ls = *this;
-        ls.Transform(q);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the "A" end point as pivot of rotation.
-    /// </summary>
-    /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
-    inline void Transform(const QDualQuaternion &dq)
-    {
-        VectorType vAux(VectorType::ZeroVector);
-
-        this->B -= this->A;
-
-        this->B.Transform(dq);
-        vAux.Transform(dq);
-
-        this->B += this->A;
-        this->A += vAux;
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the "A" end point as pivot of rotation. The resultant line segment is stored in the line segment provided.
-    /// </summary>
-    /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
-    /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
-    inline void Transform(const QDualQuaternion &dq, QLineSegment3D<VectorType> &ls) const
-    {
-        ls = *this;
-        ls.Transform(dq);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with a transformation of types rotation, scale, translation,
-    /// generic transformation or space conversion transformation contained in the matrix provided, acting
-    /// the coordinate origin as pivot.
-    /// </summary>
-    /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
-    template <class MatrixType>
-    inline void Transform (const MatrixType &m)
-    {
-        this->A.Transform(m);
-        this->B.Transform(m);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with a transformation of types rotation, scale, translation,
-    /// generic transformation or space conversion transformation contained in the matrix provided, acting
-    /// the coordinate origin as pivot.
-    /// The resultant line segment is stored in the line segment provided.
-    /// </summary>
-    /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
-    /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
-    template <class MatrixType>
-    inline void Transform (const MatrixType &m, QBaseLineSegment<VectorType> &ls) const
-    {
-        ls = *this;
-        reinterpret_cast<QLineSegment3D<VectorType> &> (ls).Transform(m);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
-    /// the center point of the line segment as pivot of rotation.
-    /// </summary>
-    /// <param name="q">[IN] The quaternion which contains the rotation.</param>
-    inline void TransformFromCenter(const QQuaternion &q)
-    {
-        VectorType vCenter;
-
-        this->GetCenter(vCenter);
-
-        this->A -= vCenter;
-        this->B -= vCenter;
-
-        this->A.Transform(q);
-        this->B.Transform(q);
-
-        this->A += vCenter;
-        this->B += vCenter;
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the rotation contained in the quaternion provided, acting
-    /// the center point of the line segment as pivot of rotation. The resultant line segment is stored in the line segment provided.
-    /// </summary>
-    /// <param name="q">[IN] The quaternion which contains the rotation.</param>
-    /// <param name="ls">[OUT] Line segment to store the rotated one.</param>
-    inline void TransformFromCenter(const QQuaternion &q, QLineSegment3D<VectorType> &ls) const
-    {
-        ls = *this;
-        ls.TransformFromCenter(q);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the center point of line segment as pivot of rotation.
-    /// </summary>
-    /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
-    inline void TransformFromCenter(const QDualQuaternion &dq)
-    {
-        VectorType vCenter;
-
-        this->GetCenter(vCenter);
-
-        this->A -= vCenter;
-        this->B -= vCenter;
-
-        this->A.Transform(dq);
-        this->B.Transform(dq);
-
-        this->A += vCenter;
-        this->B += vCenter;
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the center point of line segment as pivot of rotation. The resultant line segment is stored in the line segment provided.
-    /// </summary>
-    /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
-    /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
-    inline void TransformFromCenter(const QDualQuaternion &dq, QLineSegment3D<VectorType> &ls) const
-    {
-        ls = *this;
-        ls.TransformFromCenter(dq);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with a transformation of types rotation, scale, translation,
-    /// generic transformation or space conversion transformation contained in the matrix provided, acting
-    /// the point provided as pivot.
-    /// </summary>
-    /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
-    /// <param name="vPivot">[IN] A 3D or 4D point we want to act as pivot of transformation.</param>
-    template <class MatrixType>
-    inline void TransformWithPivot (const MatrixType &m, const VectorType &vPivot)
-    {
-        this->A -= vPivot;
-        this->B -= vPivot;
-
-        this->A.Transform(m);
-        this->B.Transform(m);
-
-        this->A += vPivot;
-        this->B += vPivot;
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with a transformation of types rotation, scale, translation,
-    /// generic transformation or space conversion transformation contained in the matrix provided, acting
-    /// the point provided as pivot.
-    /// The resultant line segment is stored in the line segment provided.
-    /// </summary>
-    /// <param name="m">[IN] The matrix which contains the transformation to be applied.</param>
-    /// <param name="vPivot">[IN] A 3D or 4D point we want to act as pivot of transformation.</param>
-    /// <param name="ls">[OUT] Line segment to store the transformed one.</param>
-    template <class MatrixType>
-    inline void TransformWithPivot (const MatrixType &m, const VectorType &vPivot, QBaseLineSegment<VectorType> &ls) const
-    {
-        ls = *this;
-        reinterpret_cast<QLineSegment3D<VectorType> &> (ls).TransformWithPivot(m, vPivot);
-    }
-
-    /// <summary>
     /// Checks the relation between resident line segment and the provided plane.
     /// Since a plane divides space into two parts, we can check if the "distances" (allowing distances having sign) from
     /// the plane to both end points of line segment are 0, or have diferent sign, in which case the segment crosses the plane.
@@ -1839,6 +1659,466 @@ public:
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_BothSides;
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment.
+    /// </summary>
+    /// <param name="m">[IN] 4x3 Matrix which contains the transformation.</param>
+    inline void Transform(const QTransformationMatrix4x3& m)
+    {
+        SQPoint::Transform(m, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment.
+    /// </summary>
+    /// <param name="m">[IN] 4x3 Matrix which contains the transformation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment to store the transformed one.</param>
+    inline void Transform(const QTransformationMatrix4x3& m, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Transform(m);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment.
+    /// </summary>
+    /// <param name="m">[IN] 4x4 Matrix which contains the transformation.</param>
+    inline void Transform(const QTransformationMatrix4x4& m)
+    {
+        SQPoint::Transform(m, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment.
+    /// </summary>
+    /// <param name="m">[IN] 4x4 Matrix which contains the transformation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment to store the transformed one.</param>
+    inline void Transform(const QTransformationMatrix4x4& m, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Transform(m);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment.
+    /// </summary>
+    /// <param name="m">[IN] Space conversion matrix which contains the transformation.</param>
+    inline void Transform(const QSpaceConversionMatrix& m)
+    {
+        SQPoint::Transform(m, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment.
+    /// </summary>
+    /// <param name="m">[IN] Space conversion matrix which contains the transformation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment to store the transformed one.</param>
+    inline void Transform(const QSpaceConversionMatrix& m, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Transform(m);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided.
+    /// </summary>
+    /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
+    inline void Transform(const QDualQuaternion& dq)
+    {
+        this->A.Transform(dq);
+        this->B.Transform(dq);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
+    /// the "A" end point as pivot of rotation. The resultant line segment is stored in the line segment provided.
+    /// </summary>
+    /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment to store the transformed one.</param>
+    inline void Transform(const QDualQuaternion& dq, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Transform(dq);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment using a pivot.
+    /// </summary>
+    /// <param name="m">[IN] 4x3 Matrix which contains the transformation.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    inline void TransformWithPivot(const QTransformationMatrix4x3& m, const VectorType& vPivot)
+    {
+        SQPoint::TransformWithPivot(m, vPivot, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment using a pivot.
+    /// </summary>
+    /// <param name="m">[IN] 4x3 Matrix which contains the transformation.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment to store the transformed one.</param>
+    inline void TransformWithPivot(const QTransformationMatrix4x3& m, const VectorType& vPivot, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).TransformWithPivot(m, vPivot);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment using a pivot.
+    /// </summary>
+    /// <param name="m">[IN] 4x4 Matrix which contains the transformation.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    inline void TransformWithPivot(const QTransformationMatrix4x4& m, const VectorType& vPivot)
+    {
+        SQPoint::TransformWithPivot(m, vPivot, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment using a pivot.
+    /// </summary>
+    /// <param name="m">[IN] 4x4 Matrix which contains the transformation.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment to store the transformed one.</param>
+    inline void TransformWithPivot(const QTransformationMatrix4x4& m, const VectorType& vPivot, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).TransformWithPivot(m, vPivot);
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided using a pivot.
+    /// </summary>
+    /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    inline void TransformWithPivot(const QDualQuaternion& dq, const VectorType& vPivot)
+    {
+        // TODO (Txaneto): Maybe in the future there will be more support for Dual Quaternion transformations.
+        // That is, SQPoint would be extended in that way.
+        this->A -= vPivot;
+        this->B -= vPivot;
+
+        this->A.Transform(dq);
+        this->B.Transform(dq);
+
+        this->A += vPivot;
+        this->B += vPivot;
+    }
+
+    /// <summary>
+    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided using a pivot.
+    /// The resultant line segment is stored in the line segment provided.
+    /// </summary>
+    /// <param name="dq">[IN] The dual quaternion which contains the transformation.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment to store the transformed one.</param>
+    inline void TransformWithPivot(const QDualQuaternion &dq, const VectorType& vPivot, QLineSegment3D<VectorType> &outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).TransformWithPivot(dq, vPivot);
+    }
+
+	/// <summary>
+	/// Translates the line segment.
+	/// </summary>
+    /// <param name="vTranslate">[IN] Vector that contains the translation to be applied.</param>
+    inline void Translate (const QBaseVector3& vTranslate)
+    {
+        SQPoint::Translate(vTranslate, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+	/// <summary>
+	/// Translates the line segment. Translated line segment will be stored in the line segment received as parameter.
+	/// </summary>
+    /// <param name="vTranslate">[IN] Vector that contains the translation to be applied.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the translated line segment.</param>
+    inline void Translate (const QBaseVector3& vTranslate, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Translate(vTranslate);
+    }
+
+	/// <summary>
+	/// Translates the line segment.
+	/// </summary>
+    /// <param name="fTranslateX">[IN] Scalar that contains the translation on X axis.</param>
+    /// <param name="fTranslateY">[IN] Scalar that contains the translation on Y axis.</param>
+    /// <param name="fTranslateZ">[IN] Scalar that contains the translation on Z axis.</param>
+    inline void Translate (const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ)
+    {
+        SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+	/// <summary>
+	/// Translates the line segment. Translated line segment will be stored in the line segment received as parameter.
+	/// </summary>
+    /// <param name="fTranslateX">[IN] Scalar that contains the translation on X axis.</param>
+    /// <param name="fTranslateY">[IN] Scalar that contains the translation on Y axis.</param>
+    /// <param name="fTranslateZ">[IN] Scalar that contains the translation on Z axis.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the translated line segment.</param>
+    inline void Translate (const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Translate(fTranslateX, fTranslateY, fTranslateZ);
+    }
+
+	/// <summary>
+	/// Translates the line segment.
+	/// </summary>
+    /// <param name="m">[IN] 4x3 Matrix which contains the translation to be applied.</param>
+    inline void Translate (const QTranslationMatrix<QMatrix4x3>& m)
+    {
+        SQPoint::Translate(m, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+	/// <summary>
+	/// Translates the line segment.
+	/// </summary>
+    /// <param name="m">[IN] 4x4 Matrix which contains the translation to be applied.</param>
+    inline void Translate (const QTranslationMatrix<QMatrix4x4>& m)
+    {
+        SQPoint::Translate(m, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+	/// <summary>
+	/// Translates the line segment.
+	/// </summary>
+    /// <param name="m">[IN] 4x3 Matrix which contains the translation to be applied.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the translated line segment.</param>
+    inline void Translate (const QTranslationMatrix<QMatrix4x3>& m, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Translate(m);
+    }
+
+	/// <summary>
+	/// Translates the line segment.
+	/// </summary>
+    /// <param name="m">[IN] 4x4 Matrix which contains the translation to be applied.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the translated line segment.</param>
+    inline void Translate (const QTranslationMatrix<QMatrix4x4>& m, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Translate(m);
+    }
+
+	/// <summary>
+	/// Rotates the line segment.
+	/// </summary>
+    /// <param name="q">[IN] Quaternion that represents the rotation.</param>
+    inline void Rotate (const QQuaternion& q)
+    {
+        SQPoint::Rotate(q, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+	/// <summary>
+	/// Rotates the line segment. Rotated line segment will be stored in the line segment received as parameter.
+	/// </summary>
+    /// <param name="q">[IN] Quaternion that represents the rotation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the rotated line segment.</param>
+    inline void Rotate (const QQuaternion& q, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Rotate(q);
+    }
+
+	/// <summary>
+	/// Rotates the line segment.
+	/// </summary>
+    /// <param name="m">[IN] Matrix which contains the rotation to be applied.</param>
+    inline void Rotate (const QRotationMatrix3x3 &m)
+    {
+        SQPoint::Rotate(m, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+	/// <summary>
+	/// Rotates the line segment.
+	/// </summary>
+    /// <param name="m">[IN] Matrix which contains the rotation to be applied.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the rotated line segment.</param>
+    inline void Rotate (const QRotationMatrix3x3& m, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Rotate(m);
+    }
+
+	/// <summary>
+	/// Rotates the line segment using a pivot.
+	/// </summary>
+    /// <param name="q">[IN] Quaternion that represents the rotation.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    inline void RotateWithPivot (const QQuaternion& q, const VectorType& vPivot)
+    {
+        SQPoint::RotateWithPivot(q, vPivot, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+	/// <summary>
+	/// Rotates the line segment using a pivot. Rotated line segment will be stored in the line segment received as parameter.
+	/// </summary>
+    /// <param name="q">[IN] Quaternion that represents the rotation.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the rotated line segment.</param>
+    inline void RotateWithPivot (const QQuaternion& q, const VectorType& vPivot, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).RotateWithPivot(q, vPivot);
+    }
+
+	/// <summary>
+	/// Rotates the line segment using a pivot.
+	/// </summary>
+    /// <param name="m">[IN] Matrix which contains the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    inline void RotateWithPivot (const QRotationMatrix3x3& m, const VectorType& vPivot)
+    {
+        SQPoint::RotateWithPivot(m, vPivot, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+	/// <summary>
+	/// Rotates the line segment using a pivot.
+	/// </summary>
+    /// <param name="m">[IN] Matrix which contains the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the rotated line segment.</param>
+    inline void RotateWithPivot (const QRotationMatrix3x3& m, const VectorType& vPivot, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).RotateWithPivot(m, vPivot);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment.
+	/// </summary>
+    /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
+    inline void Scale (const VectorType& vScale)
+    {
+        SQPoint::Scale(vScale, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment. Scaled line segment will be stored in the line segment received as parameter.
+	/// </summary>
+    /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the scaled line segment.</param>
+    inline void Scale (const VectorType& vScale, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Scale(vScale);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment.
+	/// </summary>
+    /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
+    /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
+    /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
+    inline void Scale (const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ)
+    {
+        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment. Scaled line segment will be stored in the line segment received as parameter.
+	/// </summary>
+    /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
+    /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
+    /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the scaled line segment.</param>
+    inline void Scale (const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Scale(fScaleX, fScaleY, fScaleZ);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment.
+	/// </summary>
+    /// <param name="m">[IN] Matrix which contains the scale to be applied.</param>
+    inline void Scale (const QScaleMatrix3x3& m)
+    {
+        SQPoint::Scale(m, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment.
+	/// </summary>
+    /// <param name="m">[IN] Matrix which contains the scale to be applied.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the scaled line segment.</param>
+    inline void Scale (const QScaleMatrix3x3& m, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).Scale(m);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment using a pivot.
+	/// </summary>
+    /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
+    inline void ScaleWithPivot (const VectorType& vScale, const VectorType& vPivot)
+    {
+        SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment using a pivot. Scaled line segment will be stored in the line segment received as parameter.
+	/// </summary>
+    /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the scaled line segment.</param>
+    inline void ScaleWithPivot (const VectorType& vScale, const VectorType& vPivot, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).ScaleWithPivot(vScale, vPivot);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment using a pivot.
+	/// </summary>
+    /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
+    /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
+    /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
+    inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot)
+    {
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment using a pivot. Scaled line segment will be stored in the line segment received as parameter.
+	/// </summary>
+    /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
+    /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
+    /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the scaled line segment.</param>
+    inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment using a pivot.
+	/// </summary>
+    /// <param name="m">[IN] Matrix which contains the scale to be applied.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
+    inline void ScaleWithPivot (const QScaleMatrix3x3& m, const VectorType& vPivot)
+    {
+        SQPoint::ScaleWithPivot(m, vPivot, reinterpret_cast<VectorType *> (this), 2);
+    }
+
+ 	/// <summary>
+	/// Scales the line segment using a pivot.
+	/// </summary>
+    /// <param name="m">[IN] Matrix which contains the scale to be applied.</param>
+    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
+    /// <param name="outputLineSegment">[OUT] Line segment that will store the scaled line segment.</param>
+    inline void ScaleWithPivot (const QScaleMatrix3x3& m, const VectorType& vPivot, QBaseLineSegment<VectorType>& outputLineSegment) const
+    {
+        outputLineSegment = *this;
+        reinterpret_cast<QLineSegment3D<VectorType>&> (outputLineSegment).ScaleWithPivot(m, vPivot);
     }
 
 protected:
