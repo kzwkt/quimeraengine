@@ -247,7 +247,7 @@ public:
 	inline QVector2& operator /= (const float_q &fValue)
 	{
 		// Checkout to avoid division by 0
-		QE_ASSERT(fValue != QFloat::_0);
+		QE_ASSERT(fValue != SQFloat::_0);
 
 		this->x /= fValue;
 		this->y /= fValue;
@@ -265,7 +265,7 @@ public:
 	inline QVector2& operator /= (const QBaseVector2 &v)
 	{
 		// Checkout to avoid division by 0
-		QE_ASSERT (v.x != QFloat::_0 && v.y != QFloat::_0);
+		QE_ASSERT (v.x != SQFloat::_0 && v.y != SQFloat::_0);
 
 		this->x /= v.x;
 		this->y /= v.y;
@@ -336,7 +336,7 @@ public:
 		float_q fLength = this->GetLength();
 
 		// Checkout to avoid division by 0
-		QE_ASSERT(fLength != QFloat::_0);
+		QE_ASSERT(fLength != SQFloat::_0);
 
 		//Normalize
 		this->x /= fLength;
@@ -377,8 +377,8 @@ public:
 	/// </summary>
 	inline void ResetToOne()
 	{
-		this->x = QFloat::_1;
-		this->y = QFloat::_1;
+		this->x = SQFloat::_1;
+		this->y = SQFloat::_1;
 	}
 
 	/// <summary>
@@ -386,8 +386,8 @@ public:
 	/// </summary>
 	inline void ResetToZero()
 	{
-		this->x = QFloat::_0;
-		this->y = QFloat::_0;
+		this->x = SQFloat::_0;
+		this->y = SQFloat::_0;
 	}
 
 	/// <summary>
@@ -428,7 +428,7 @@ public:
 	/// </returns>
 	inline bool IsZero()
 	{
-		return QFloat::IsZero(this->x) && QFloat::IsZero(this->y);
+		return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y);
 	}
 
 	/// <summary>
@@ -439,7 +439,7 @@ public:
 	/// </returns>
 	inline bool IsVectorOfOnes()
 	{
-		return QFloat::AreEquals(this->x, QFloat::_1) && QFloat::AreEquals(this->y, QFloat::_1);
+		return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1);
 	}
 
 	/// <summary>
@@ -466,7 +466,7 @@ public:
         float_q fLengthProd = this->GetLength() * v.GetLength();
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fLengthProd != QFloat::_0);
+        QE_ASSERT(fLengthProd != SQFloat::_0);
 
         float_q fDot = this->DotProduct(v) / fLengthProd;
 
@@ -475,21 +475,21 @@ public:
 		// [TODO] This code block has to be reviewed when a solution to
 		//		  solve values out of range for 'acos' function has been planned, and then:
 		//
-		//				 1) Replace the current QE_ASSERT with one using QFloat::IsLowerOrEquals,
-		//					because something like QE_ASSERT( QFloat::IsLowerOrEquals(abs(fDot), QFloat::_1) )
-		//					or QE_ASSERT( QFloat::IsLowerOrEquals(abs(fDot), CURRENT_COS_MAX_RANGE) )
+		//				 1) Replace the current QE_ASSERT with one using SQFloat::IsLowerOrEquals,
+		//					because something like QE_ASSERT( SQFloat::IsLowerOrEquals(abs(fDot), SQFloat::_1) )
+		//					or QE_ASSERT( SQFloat::IsLowerOrEquals(abs(fDot), CURRENT_COS_MAX_RANGE) )
 		//				    actually doesn't make their work.
 		//
 		//				 2) Replace the two conditional branches and then use Clamp funcion, once this is defined
 		//					as a non-member function.
 		///////////////////////////////////////////////////////////////////
-        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
-		if ( QFloat::IsGreaterOrEquals(fDot, __CURRENT_COS_MAX_RANGE__) )
+		if ( SQFloat::IsGreaterOrEquals(fDot, __CURRENT_COS_MAX_RANGE__) )
 		{
 			fDot = 1.0000000f;
 		}
-		else if ( QFloat::IsLowerOrEquals(fDot, __CURRENT_COS_MIN_RANGE__) )
+		else if ( SQFloat::IsLowerOrEquals(fDot, __CURRENT_COS_MIN_RANGE__) )
 		{
 			fDot = -1.0000000f;
 		}
@@ -501,7 +501,7 @@ public:
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
-            fAngle = QAngle::RadiansToDegrees(fAngle, fAngle);
+            fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
 
 			// At this stage we have the angle expressed in DEGREES.
         #endif
@@ -516,8 +516,8 @@ public:
 	/// <param name="v">[IN] Vector with which to interpolate.</param>
 	inline void Lerp(const float_q &fFactor, const QBaseVector2 &v)
 	{
-		this->x = this->x*fFactor + v.x*(QFloat::_1 - fFactor);
-		this->y = this->y*fFactor + v.y*(QFloat::_1 - fFactor);
+		this->x = this->x*fFactor + v.x*(SQFloat::_1 - fFactor);
+		this->y = this->y*fFactor + v.y*(SQFloat::_1 - fFactor);
 	}
 
     /// <summary>

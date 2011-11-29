@@ -97,9 +97,9 @@ public:
     template <class VectorType>
     QDualQuaternion(const QBaseQuaternion &qR, const VectorType &vD)
     {
-        QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
-                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0));
+        QDualQuaternion Rot(qR, QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
+        QDualQuaternion Desp(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                             QBaseQuaternion(vD.x * SQFloat::_0_5, vD.y * SQFloat::_0_5, vD.z * SQFloat::_0_5, SQFloat::_0));
 
         *this = Desp * Rot;
     }
@@ -122,9 +122,9 @@ public:
     template <class VectorType>
     QDualQuaternion(const VectorType &vD, const QBaseQuaternion &qR)
     {
-        QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
-                                    QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0));
+        QDualQuaternion Rot(qR, QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
+        QDualQuaternion Desp(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                                    QBaseQuaternion(vD.x * SQFloat::_0_5, vD.y * SQFloat::_0_5, vD.z * SQFloat::_0_5, SQFloat::_0));
 
         *this = Rot * Desp;
     }
@@ -294,7 +294,7 @@ public:
     inline QDualQuaternion& operator/=(const float_q fValue)
     {
         // Checkout to avoid division by zero.
-        QE_ASSERT(fValue != QFloat::_0);
+        QE_ASSERT(fValue != SQFloat::_0);
 
         this->r /= fValue;
         this->d /= fValue;
@@ -359,7 +359,7 @@ public:
     inline void DoubleConjugate()
     {
         this->Conjugate();
-        this->d *= -QFloat::_1;
+        this->d *= -SQFloat::_1;
     }
 
     /// <summary>
@@ -369,7 +369,7 @@ public:
     inline void DoubleConjugate(QBaseDualQuaternion &dqOut) const
     {
         this->Conjugate(dqOut);
-        dqOut.d *= -QFloat::_1;
+        dqOut.d *= -SQFloat::_1;
     }
 
     /// <summary>
@@ -419,9 +419,9 @@ public:
     template <class VectorType>
     void TransformRotationFirst(const QBaseQuaternion &qR, const VectorType &vD)
     {
-        QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
-                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0));
+        QDualQuaternion Rot(qR, QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
+        QDualQuaternion Desp(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                             QBaseQuaternion(vD.x * SQFloat::_0_5, vD.y * SQFloat::_0_5, vD.z * SQFloat::_0_5, SQFloat::_0));
 
         QDualQuaternion dqTransf = Desp * Rot;
 
@@ -450,9 +450,9 @@ public:
     template <class VectorType>
     void TransformTranslationFirst(const VectorType &vD, const QBaseQuaternion &qR)
     {
-        QDualQuaternion Rot(qR, QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0));
-        QDualQuaternion Desp(QBaseQuaternion(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1),
-                             QBaseQuaternion(vD.x * QFloat::_0_5, vD.y * QFloat::_0_5, vD.z * QFloat::_0_5, QFloat::_0));
+        QDualQuaternion Rot(qR, QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
+        QDualQuaternion Desp(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                             QBaseQuaternion(vD.x * SQFloat::_0_5, vD.y * SQFloat::_0_5, vD.z * SQFloat::_0_5, SQFloat::_0));
 
         QDualQuaternion dqTransf = Rot * Desp;
 
@@ -496,7 +496,7 @@ public:
 
         float_q fLength = this->GetNonDualLength();
 
-        QE_ASSERT(fLength != QFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0);
 
         *this /= fLength;
     }

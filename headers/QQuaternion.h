@@ -3,7 +3,7 @@
 #ifndef __QQUATERNION__
 #define __QQUATERNION__
 
-#include "QAngle.h"
+#include "SQAngle.h"
 #include "QBaseQuaternion.h"
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
@@ -328,7 +328,7 @@ public:
     /// </returns>
     inline QQuaternion& operator*=(const QBaseVector3 &v)
 	{
-		QQuaternion qAux(v.x, v.y, v.z, QFloat::_0);
+		QQuaternion qAux(v.x, v.y, v.z, SQFloat::_0);
 
 		*this *= qAux;
 
@@ -382,7 +382,7 @@ public:
     /// </returns>
     inline QQuaternion& operator/=(const float_q &fScalar)
     {
-        QE_ASSERT(fScalar != QFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0);
 
         this->x /= fScalar;
         this->y /= fScalar;
@@ -413,7 +413,7 @@ public:
     {
         float_q fLength = this->GetLength();
 
-        QE_ASSERT(fLength != QFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0);
 
         this->x /= fLength;
         this->y /= fLength;
@@ -444,7 +444,7 @@ public:
         // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
         float_q fSquaredLength = this->GetSquaredLength();
 
-        QE_ASSERT(fSquaredLength != QFloat::_0);
+        QE_ASSERT(fSquaredLength != SQFloat::_0);
 
         this->x = -this->x / fSquaredLength;
         this->y = -this->y / fSquaredLength;
@@ -495,7 +495,7 @@ public:
     /// </summary>
     inline void ResetToZero()
     {
-        this->x = this->y = this->z = this->w = QFloat::_0;
+        this->x = this->y = this->z = this->w = SQFloat::_0;
     }
 
     /// <summary>
@@ -503,8 +503,8 @@ public:
     /// </summary>
     inline void ResetToIdentity()
     {
-        this->x = this->y = this->z = QFloat::_0;
-        this->w = QFloat::_1;
+        this->x = this->y = this->z = SQFloat::_0;
+        this->w = SQFloat::_1;
     }
 
     /// <summary>
@@ -535,18 +535,18 @@ public:
                                 (qQuat.x*qQuat.x + qQuat.y*qQuat.y + qQuat.z*qQuat.z) );
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fLength != QFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0);
 
         float_q fDot = (this->x*qQuat.x + this->y*qQuat.y + this->z*qQuat.z)/fLength;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
         float_q fAngle = acos(fDot);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
-            QAngle::RadiansToDegrees(fAngle, fAngle);
+            SQAngle::RadiansToDegrees(fAngle, fAngle);
         #endif
 
         return fAngle;
@@ -730,46 +730,46 @@ public:
         const float_q fNorthAndSouthPoleCheckValue = this->x * this->y + this->z * this->w;
 
         // X (pitch or heading) and Z (roll or bank) checking
-        if(QFloat::AreEquals(fNorthAndSouthPoleCheckValue, QFloat::_0_5)) // North pole
+        if(SQFloat::AreEquals(fNorthAndSouthPoleCheckValue, SQFloat::_0_5)) // North pole
         {
             // The atan2 result is undefined when both parameters are equal to zero
-            QE_ASSERT(this->x != QFloat::_0 || this->w != QFloat::_0);
+            QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0);
 
-            fAngleX = QFloat::_2 * atan2(this->x, this->w);
-            fAngleZ = QFloat::_0;
+            fAngleX = SQFloat::_2 * atan2(this->x, this->w);
+            fAngleZ = SQFloat::_0;
         }
-        else if(QFloat::AreEquals(fNorthAndSouthPoleCheckValue, -QFloat::_0_5)) // South pole
+        else if(SQFloat::AreEquals(fNorthAndSouthPoleCheckValue, -SQFloat::_0_5)) // South pole
         {
             // The atan2 result is undefined when both parameters are equal to zero
-            QE_ASSERT(this->x != QFloat::_0 || this->w != QFloat::_0);
+            QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0);
 
-            fAngleX = -QFloat::_2 * atan2(this->x, this->w);
-            fAngleZ = QFloat::_0;
+            fAngleX = -SQFloat::_2 * atan2(this->x, this->w);
+            fAngleZ = SQFloat::_0;
         }
         else
         {
-            float_q fFirstParameter  = QFloat::_2 * this->x * this->w - QFloat::_2 * this->x * this->z;
-            float_q fSecondParameter = QFloat::_1 - QFloat::_2 * this->y * this->y - QFloat::_2 * this->z * this->z;
+            float_q fFirstParameter  = SQFloat::_2 * this->x * this->w - SQFloat::_2 * this->x * this->z;
+            float_q fSecondParameter = SQFloat::_1 - SQFloat::_2 * this->y * this->y - SQFloat::_2 * this->z * this->z;
 
             // The atan2 result is undefined when both parameters are equal to zero
-            QE_ASSERT(fFirstParameter != QFloat::_0 || fSecondParameter != QFloat::_0);
+            QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0);
 
             fAngleX = atan2(fFirstParameter, fSecondParameter);
 
-            fFirstParameter = QFloat::_2 * this->x * this->w - QFloat::_2 * this->y * this->z;
-            fSecondParameter = QFloat::_1 - QFloat::_2 * this->x * this->x - QFloat::_2 * this->z * this->z;
+            fFirstParameter = SQFloat::_2 * this->x * this->w - SQFloat::_2 * this->y * this->z;
+            fSecondParameter = SQFloat::_1 - SQFloat::_2 * this->x * this->x - SQFloat::_2 * this->z * this->z;
 
             // The atan2 result is undefined when both parameters are equal to zero
-            QE_ASSERT(fFirstParameter != QFloat::_0 || fSecondParameter != QFloat::_0);
+            QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0);
 
             fAngleZ = atan2(fFirstParameter, fSecondParameter);
         }
 
-        fAngleY = asin( QFloat::_2 * this->x * this->y + QFloat::_2 * this->z * this->w );
+        fAngleY = asin( SQFloat::_2 * this->x * this->y + SQFloat::_2 * this->z * this->w );
 
-        QE_ASSERT( !QFloat::IsNaN(fAngleX) );
-        QE_ASSERT( !QFloat::IsNaN(fAngleY) );
-        QE_ASSERT( !QFloat::IsNaN(fAngleZ) );
+        QE_ASSERT( !SQFloat::IsNaN(fAngleX) );
+        QE_ASSERT( !SQFloat::IsNaN(fAngleY) );
+        QE_ASSERT( !SQFloat::IsNaN(fAngleZ) );
 
     }
 
@@ -827,10 +827,10 @@ public:
     /// </returns>
     inline string_q ToString() const
 	{
-		return QE_L("Q(") + QFloat::ToString(this->x) +
-			   QE_L(", ") + QFloat::ToString(this->y) +
-			   QE_L(", ") + QFloat::ToString(this->z) +
-			   QE_L(", ") + QFloat::ToString(this->w) + QE_L(")");
+		return QE_L("Q(") + SQFloat::ToString(this->x) +
+			   QE_L(", ") + SQFloat::ToString(this->y) +
+			   QE_L(", ") + SQFloat::ToString(this->z) +
+			   QE_L(", ") + SQFloat::ToString(this->w) + QE_L(")");
 	}
 
 

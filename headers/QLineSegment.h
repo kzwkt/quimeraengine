@@ -112,7 +112,7 @@ public:
 	{
 		// 1) Direction: AB --> B - A, so that: S(t) = A + [t(B - A)] = ... = t(A + B)
 		// 2) Center:    S(0.5f) --> A + [0.5f(B - A)] --> ... --> 0.5f(A + B)
-		vCenter = QFloat::_0_5 * (A + B);
+		vCenter = SQFloat::_0_5 * (A + B);
 	}
 
 	/// <summary>
@@ -126,7 +126,7 @@ public:
 	{
 		// if MinDistance is 0		  --> there's intersection, return true
 		// else						  --> return false
-		return  QFloat::IsZero(this->MinDistance(segmt));
+		return  SQFloat::IsZero(this->MinDistance(segmt));
 	}
 
 	/// <summary>
@@ -142,7 +142,8 @@ public:
 		// distance between "the whole segment" and the center of the orb (this is, the
 		// minimum distance between the center of the orb and the closest point inside
 		// the segment) is either lesser or equal to the radius of the orb.
-		return QFloat::IsLowerOrEquals(this->MinDistance(orb.Center), orb.Radius);
+		return SQFloat::IsLowerOrEquals(this->MinDistance(orb.Center), orb.Radius);
+
 	};
 
 	/// <summary>
@@ -167,7 +168,7 @@ public:
 
         float_q fSqrLengthProd = v1.GetSquaredLength() * v2.GetSquaredLength();
 
-		if ( QFloat::IsZero(fSqrLengthProd) )
+		if ( SQFloat::IsZero(fSqrLengthProd) )
 		{
 			// CASE 1)
 			// Either S1 or S2 (or both) degenerates into a point --> Intersections: None or One.
@@ -202,7 +203,7 @@ public:
 			// If angles are currently specified in degrees, then converts angle to radians
 			// so we can use "sin" function.
 			#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-				fAngle = QAngle::DegreesToRadians(fAngle, fAngle);
+				fAngle = SQAngle::DegreesToRadians(fAngle, fAngle);
 			#endif
 			///////////////////////////////
 
@@ -216,7 +217,7 @@ public:
 			// Just for safety:
 			// If angles are currently specified in degrees, then reconvert angle to degrees.
 			#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-				fAngle = QAngle::RadiansToDegrees(fAngle, fAngle);
+				fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
 
 				// At this stage we'll have the angle expressed in DEGREES.
 			#endif
@@ -225,7 +226,7 @@ public:
 			// Compute Squared Module of cross product:
 			float_q fSquaredMod = fSqrLengthProd * fSin * fSin;
 
-			if ( QFloat::IsNotZero(fSquaredMod) )
+			if ( SQFloat::IsNotZero(fSquaredMod) )
 			{
 				// CASE 2)
 				// In this case, the situation is as follows:
@@ -277,7 +278,7 @@ public:
 
 				float_q fMinDistance = this->MinDistance(segmt);
 
-				if ( QFloat::IsNotZero(fMinDistance) ) // fMinDistance always nonnegative --> fMinDistance > 0
+				if ( SQFloat::IsNotZero(fMinDistance) ) // fMinDistance always nonnegative --> fMinDistance > 0
 				{
 					// fMinDistance > 0 -->  -Segments are PARALLEL
 					//						OR
@@ -302,7 +303,7 @@ public:
 						}
 						else // Not totally coincident.
 						{
-							if ( QFloat::IsGreaterThan(v1.DotProduct(v2), QFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
+							if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
 							{
 								// One of the segments are totally cointained inside the other
 								// AND sharing one single endpoint (A <-> segmt.A) --> Infinite intersection points.
@@ -321,7 +322,7 @@ public:
 					}
 					else if (B == segmt.B) // A != segmt.A
 					{
-						if ( QFloat::IsGreaterThan(v1.DotProduct(v2), QFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
+						if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
 						{
 							// One of the segments are totally cointained inside the other
 							// AND sharing one single endpoint (B <-> segmt.B) --> Infinite intersection points.
@@ -348,7 +349,7 @@ public:
 						}
 						else // Not totally coincident.
 						{
-							if ( QFloat::IsGreaterThan(v1.DotProduct(v2), QFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
+							if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
 							{
 								// Segments are not contained inside themselves AND intersect in
 								// a single point, an endpoint of share (A <-> segmt.B) --> One intersection.
@@ -367,7 +368,7 @@ public:
 					}
 					else if (segmt.A == B) // (A != segmt.A) && (B != segmt.B) && (A != segmt.B)
 					{
-						if ( QFloat::IsGreaterThan(v1.DotProduct(v2), QFloat::_0) )  // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
+						if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) )  // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
 						{
 							// Segments are not contained inside themselves AND intersect in
 							// a single point, an endpoint of share (B <-> segmt.A) --> One intersection.
@@ -393,9 +394,9 @@ public:
 
 						return EQIntersections::E_Infinite;
 					}
-				} // if ( QFloat::IsNotZero(fMinDistance)
-			} // if ( QFloat::IsNotZero(fSquaredMod)
-		} // if ( QFloat::IsZero(fLenght)
+				} // if ( SQFloat::IsNotZero(fMinDistance)
+			} // if ( SQFloat::IsNotZero(fSquaredMod)
+		} // if ( SQFloat::IsZero(fLenght)
 
 	}
 
@@ -430,25 +431,25 @@ public:
 		//       D = b^2 - 4ac > 0 => 2 intersections
 
 		const float_q &a = vDirection.DotProduct(vDirection);
-		const float_q &b = QFloat::_2 * vNewA.DotProduct(vDirection);
+		const float_q &b = SQFloat::_2 * vNewA.DotProduct(vDirection);
 		const float_q &c = vNewA.DotProduct(vNewA) - orb.Radius * orb.Radius;
 
-		const float_q &D = b * b - QFloat::_4 * a * c;
+		const float_q &D = b * b - SQFloat::_4 * a * c;
 
 		// D = b^2 - 4ac < 0 => 0 intersections
-		if (QFloat::IsNegative(D))
+		if (SQFloat::IsNegative(D))
 			return EQIntersections::E_None;
 
 		// D = b^2 - 4ac = 0 => 1 intersection
-		else if (QFloat::IsZero(D))
+		else if (SQFloat::IsZero(D))
 		{
-			QE_ASSERT(QFloat::IsNotZero(a));
+			QE_ASSERT(SQFloat::IsNotZero(a));
 
-			const float_q &t = -(b*QFloat::_0_5/a);
+			const float_q &t = -(b*SQFloat::_0_5/a);
 
 			VectorType vAux(vNewA + t * vDirection + orb.Center);
 
-			if (QFloat::IsZero(this->MinDistance(vAux)))
+			if (SQFloat::IsZero(this->MinDistance(vAux)))
 			{
 				vPoint1 = vAux;
 				return EQIntersections::E_One;
@@ -460,10 +461,10 @@ public:
 		// D = b^2 - 4ac > 0 => 2 intersections
 		else
 		{
-			QE_ASSERT(QFloat::IsNotZero(a));
+			QE_ASSERT(SQFloat::IsNotZero(a));
 
 			const float_q &fAux1 = sqrt(D);
-			const float_q &fAux2 = QFloat::_0_5/a;
+			const float_q &fAux2 = SQFloat::_0_5/a;
 
 			// Closest intersection to ls.A
 			const float_q &t1 = (-b - fAux1)*fAux2;
@@ -473,8 +474,8 @@ public:
 			const float_q &t2 = (-b + fAux1)*fAux2;
 			VectorType vAux2(vNewA + t2 * vDirection + orb.Center);
 
-			const bool &bIsInSegment1 = QFloat::IsZero(this->MinDistance(vAux1));
-			const bool &bIsInSegment2 = QFloat::IsZero(this->MinDistance(vAux2));
+			const bool &bIsInSegment1 = SQFloat::IsZero(this->MinDistance(vAux1));
+			const bool &bIsInSegment2 = SQFloat::IsZero(this->MinDistance(vAux2));
 
 			// Both points are in line segment.
 			if (bIsInSegment1 && bIsInSegment2)
@@ -562,12 +563,12 @@ public:
 			//				   else
 			//				   STEP 3) ProjectionOverAB(vPoint) falls into the segment, so:
 			//						   MinDistance = Length( ProjectionOverAB(vPoint) - vPoint ) = Length( (A + ((DotProduct(v1, v2) / DotProduct(v1, v1)) * v1)) - vPoint )
-			float_q fDotProductv1v1 = QFloat::_0;
+			float_q fDotProductv1v1 = SQFloat::_0;
 			VectorType v1		    = B - A;
 			VectorType v2			= vPoint - A;
 			float_q fDotProductv1v2 = v1.DotProduct(v2);
 
-			if ( (QFloat::IsNegative(fDotProductv1v2)) || (QFloat::IsZero(fDotProductv1v2)) )
+			if ( (SQFloat::IsNegative(fDotProductv1v2)) || (SQFloat::IsZero(fDotProductv1v2)) )
 			{
 				return v2.GetLength();
 			}
@@ -575,14 +576,14 @@ public:
 			{
 				fDotProductv1v1 = v1.DotProduct(v1);
 
-                if ( QFloat::IsGreaterOrEquals(fDotProductv1v2, fDotProductv1v1) )
+                if ( SQFloat::IsGreaterOrEquals(fDotProductv1v2, fDotProductv1v1) )
 				{
 					return ( (vPoint - B).GetLength() );
 				}
 				else
 				{
 					// Checkout to avoid division by 0
-					QE_ASSERT (fDotProductv1v1 != QFloat::_0);
+					QE_ASSERT (fDotProductv1v1 != SQFloat::_0);
 
 					return ((A + ((fDotProductv1v2 / fDotProductv1v1) * v1)) - vPoint).GetLength();
 				}
@@ -613,7 +614,7 @@ public:
 		// STEP 3) Maximum distance between the segments = maximum distance between their farthest endpoints.
 		//												 = the longer distance between the maximum distances from endpoints
 		//												   of the segment passed by parameter to this segment.
-        return QFloat::IsGreaterThan(fMaxDistance_segmtA_This, fMaxDistance_segmtB_This) ? fMaxDistance_segmtA_This : fMaxDistance_segmtB_This;
+        return SQFloat::IsGreaterThan(fMaxDistance_segmtA_This, fMaxDistance_segmtB_This) ? fMaxDistance_segmtA_This : fMaxDistance_segmtB_This;
 	}
 
 	/// <summary>
@@ -638,15 +639,15 @@ public:
 		//						   else
 		//						   STEP 4) ProjectionOverAB(vPoint) falls into the segment, so:
 		//								   MaxDistance = Biggest( Distance(vPoint,A) , Distance(vPoint,B) )
-		if ( QFloat::IsNotZero(this->MinDistance(vPoint)) )
+		if ( SQFloat::IsNotZero(this->MinDistance(vPoint)) )
 		{
 			VectorType v1		    = B - A;
 			VectorType v2			= vPoint - A;
 			VectorType v3			= vPoint - B;
-			float_q fDotProductv1v1 = QFloat::_0;
+			float_q fDotProductv1v1 = SQFloat::_0;
 			float_q fDotProductv1v2 = v1.DotProduct(v2);
 
-			if ( (QFloat::IsNegative(fDotProductv1v2)) || (QFloat::IsZero(fDotProductv1v2)) )
+			if ( (SQFloat::IsNegative(fDotProductv1v2)) || (SQFloat::IsZero(fDotProductv1v2)) )
 			{
 				return ( v3.GetLength() );
 			}
@@ -654,7 +655,7 @@ public:
 			{
 				fDotProductv1v1 = v1.DotProduct(v1);
 
-                if ( QFloat::IsGreaterOrEquals(fDotProductv1v2, fDotProductv1v1) )
+                if ( SQFloat::IsGreaterOrEquals(fDotProductv1v2, fDotProductv1v1) )
 
 				{
 					return v2.GetLength();
@@ -664,13 +665,13 @@ public:
 					float_q fDistancePointToA = v2.GetLength();
 					float_q fDistancePointToB = v3.GetLength();
 
-                    return QFloat::IsGreaterThan(fDistancePointToA, fDistancePointToB) ? fDistancePointToA : fDistancePointToB;
+                    return SQFloat::IsGreaterThan(fDistancePointToA, fDistancePointToB) ? fDistancePointToA : fDistancePointToB;
 				}
 			}
 		}
 		else
 		{
-			return QFloat::_0;
+			return SQFloat::_0;
 		}
 
 	}
@@ -687,13 +688,13 @@ public:
 	void Lengthen (const float_q& fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
-		if ( QFloat::AreNotEquals(fLengtheningFactor, QFloat::_1) )
+		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
 		{
 			VectorType vCenter;
 			this->GetCenter(vCenter);
 
 			// If Lengthening Factor == 0, just reduce the endpoints to the center.
-			if (QFloat::AreEquals(fLengtheningFactor, QFloat::_0))
+			if (SQFloat::AreEquals(fLengtheningFactor, SQFloat::_0))
 			{
 				A = vCenter;
 				B = vCenter;
@@ -718,10 +719,10 @@ public:
 	void LengthenFromA (const float_q& fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
-		if ( QFloat::AreNotEquals(fLengtheningFactor, QFloat::_1) )
+		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
 		{
 			// If Lengthening Factor == 0, just reduce the endpoints to A.
-			if ( QFloat::AreEquals(fLengtheningFactor, QFloat::_0) )
+			if ( SQFloat::AreEquals(fLengtheningFactor, SQFloat::_0) )
 			{
 				B = A;
 			}
@@ -744,10 +745,10 @@ public:
 	void LengthenFromB (const float_q& fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
-		if ( QFloat::AreNotEquals(fLengtheningFactor, QFloat::_1) )
+		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
 		{
 			// If Lengthening Factor == 0, just reduce the endpoints to B.
-			if ( QFloat::AreEquals(fLengtheningFactor, QFloat::_0) )
+			if ( SQFloat::AreEquals(fLengtheningFactor, SQFloat::_0) )
 			{
 				A = B;
 			}
@@ -791,8 +792,8 @@ protected:
 		//
 		//												S1(fSFactor1) = (A + (fSFactor1 * v1))
 		//												S2(fSFactor2) = (segmt.A + (fSFactor2 * v2))
-		float_q	   fSFactor1  = QFloat::_0;
-		float_q	   fSFactor2  = QFloat::_0;
+		float_q	   fSFactor1  = SQFloat::_0;
+		float_q	   fSFactor2  = SQFloat::_0;
 		VectorType v1		  = B - A;
 	    VectorType v2		  = segmt.B - segmt.A;
 
@@ -803,7 +804,7 @@ protected:
 	    float_q	   fDotProdv2vTails   = v2.DotProduct(vTails);
 
 	    // STEP 2) Check if either or both segments degenerate into points
-	    if ( (QFloat::IsZero(fSqrLengthv1)) && (QFloat::IsZero(fSqrLengthv2)) )
+	    if ( (SQFloat::IsZero(fSqrLengthv1)) && (SQFloat::IsZero(fSqrLengthv2)) )
 		{
 	        // BOTH segments degenerate into points --> The closest points are THEMSELVES.
 			vClosestPtInS1ToS2		   = A;		  // The same with B.
@@ -813,29 +814,29 @@ protected:
 
 		if (!bBothDegeneratedIntoPoints)
 		{
-		    if (QFloat::IsZero(fSqrLengthv1))
+		    if (SQFloat::IsZero(fSqrLengthv1))
 			{
 		        // S1 (*this) degenerates into a point;
 				// fSFactor1 = 0 --> fSFactor2 = (((fDotProdv1v2 * fSFactor1) + fDotProdv2vTails) / fSqrLengthv2) = (fDotProdv2vTails / fSqrLengthv2)
 
 				// Checkout to avoid division by 0
-				QE_ASSERT(fSqrLengthv2 != QFloat::_0);
+				QE_ASSERT(fSqrLengthv2 != SQFloat::_0);
 
-				QFloat::Clamp( (fDotProdv2vTails / fSqrLengthv2), QFloat::_0, QFloat::_1, fSFactor2 );
+				SQFloat::Clamp( (fDotProdv2vTails / fSqrLengthv2), SQFloat::_0, SQFloat::_1, fSFactor2 );
 		    }
 			else
 			{
 		        float_q fDotProdv1vTails = v1.DotProduct(vTails);
 
-		        if (QFloat::IsZero(fSqrLengthv2))
+		        if (SQFloat::IsZero(fSqrLengthv2))
 				{
 		            // S2 (the parameter) degenerates into a point;
 					// fSFactor2 = 0 --> fSFactor1 = (((fDotProdv1v2 * fSFactor2) - fDotProdv1vTails) / fSqrLengthv1) = (-fDotProdv1vTails / fSqrLengthv1)
 
 					// Checkout to avoid division by 0
-					QE_ASSERT(fSqrLengthv1 != QFloat::_0);
+					QE_ASSERT(fSqrLengthv1 != SQFloat::_0);
 
-					QFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), QFloat::_0, QFloat::_1, fSFactor1 );
+					SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1, fSFactor1 );
 
 		        }
 				else
@@ -852,13 +853,13 @@ protected:
 		            // clamp to segment S1. (** if they're paraller pick arbitrary fSFactor1 -here 0- **)
 					//
 					// fSFactor1 = ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom
-		            if (QFloat::IsNotZero(fDenom))
+		            if (SQFloat::IsNotZero(fDenom))
 					{
-						QFloat::Clamp( ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom, QFloat::_0, QFloat::_1, fSFactor1 );
+						SQFloat::Clamp( ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom, SQFloat::_0, SQFloat::_1, fSFactor1 );
 		            }
 					else
 					{
-						fSFactor1 = QFloat::_0;
+						fSFactor1 = SQFloat::_0;
 					}
 
 		            // STEP 3.2) Compute sample factor for S2, fSFactor2
@@ -871,29 +872,29 @@ protected:
 					//		fSFactor1 = ((fSFactor2 * fDotProdv1v2) - fDotProdv1vTails) / fSqrLengthv1
 					//
 		            // and clamp fSFactor1 to range [0..1]
-					if (QFloat::IsNegative(fNom))
+					if (SQFloat::IsNegative(fNom))
 					{
-						fSFactor2 = QFloat::_0;
+						fSFactor2 = SQFloat::_0;
 
 						// Checkout to avoid division by 0
-						QE_ASSERT(fSqrLengthv1 != QFloat::_0);
+						QE_ASSERT(fSqrLengthv1 != SQFloat::_0);
 
-						QFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), QFloat::_0, QFloat::_1, fSFactor1 );
+						SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1, fSFactor1 );
 					}
 					else if (fNom > fSqrLengthv2)
 					{
-						fSFactor2 = QFloat::_1;
+						fSFactor2 = SQFloat::_1;
 
 						// Checkout to avoid division by 0
-						QE_ASSERT(fSqrLengthv1 != QFloat::_0);
+						QE_ASSERT(fSqrLengthv1 != SQFloat::_0);
 
-						QFloat::Clamp( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), QFloat::_0, QFloat::_1, fSFactor1 );
+						SQFloat::Clamp( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), SQFloat::_0, SQFloat::_1, fSFactor1 );
 
 					}
 					else // fNom in range [0..1]
 					{
 						// Checkout to avoid division by 0
-						QE_ASSERT(fSqrLengthv2 != QFloat::_0);
+						QE_ASSERT(fSqrLengthv2 != SQFloat::_0);
 
 						fSFactor2 = fNom / fSqrLengthv2;
 					}

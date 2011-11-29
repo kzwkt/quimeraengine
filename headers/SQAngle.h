@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QANGLE__
-#define __QANGLE__
+#ifndef __SQANGLE__
+#define __SQANGLE__
 
 #include <string>
 
@@ -20,7 +20,7 @@ namespace Math
 /// Helper class that offers functionality related to angles (radians and degrees).
 /// Use constant angle values as far as you can in your code.
 /// </summary>
-class QDllExport QAngle
+class QDllExport SQAngle
 {
     // CONSTANTS
     // ---------------
@@ -114,7 +114,7 @@ private:
 	/// <summary>
 	/// Default constructor (hidden).
 	/// </summary>
-	QAngle();
+	SQAngle();
 
 
 	// METHODS
@@ -131,7 +131,7 @@ public:
     /// </returns>
     inline static float_q& DegreesToRadians(const float_q &fDegrees, float_q &fRadians)
     {
-        fRadians = fDegrees * QAngle::RadiansPerDegree;
+        fRadians = fDegrees * SQAngle::RadiansPerDegree;
         return fRadians;
     }
 
@@ -145,7 +145,7 @@ public:
     /// </returns>
     inline static float_q& RadiansToDegrees(const float_q &fRadians, float_q &fDegrees)
     {
-        fDegrees = fRadians * QAngle::DegreesPerRadian;
+        fDegrees = fRadians * SQAngle::DegreesPerRadian;
         return fDegrees;
     }
 
@@ -159,12 +159,12 @@ public:
     /// </returns>
     inline static float_q TruncateDegrees(const float_q &fAngle)
     {
-        if( QFloat::IsPositive(fAngle) )
+        if( SQFloat::IsPositive(fAngle) )
             // Positive angles
-            return QFloat::IsGreaterThan(fAngle, QAngle::_360) ? QAngle::_360 : fAngle;
+            return SQFloat::IsGreaterThan(fAngle, SQAngle::_360) ? SQAngle::_360 : fAngle;
         else
             // Negative angles
-            return QFloat::IsLessThan(fAngle, -QAngle::_360) ? -QAngle::_360 : fAngle;
+            return SQFloat::IsLessThan(fAngle, -SQAngle::_360) ? -SQAngle::_360 : fAngle;
     }
 
     /// <summary>
@@ -177,12 +177,12 @@ public:
     /// </returns>
     inline static float_q TruncateRadians(const float_q &fAngle)
     {
-        if( QFloat::IsPositive(fAngle) ) 
+        if( SQFloat::IsPositive(fAngle) ) 
             // Positive angles
-            return QFloat::IsGreaterThan(fAngle, QAngle::_2Pi) ? QAngle::_2Pi : fAngle;
+            return SQFloat::IsGreaterThan(fAngle, SQAngle::_2Pi) ? SQAngle::_2Pi : fAngle;
         else
             // Negative angles
-            return QFloat::IsLessThan(fAngle, -QAngle::_2Pi) ? -QAngle::_2Pi : fAngle;
+            return SQFloat::IsLessThan(fAngle, -SQAngle::_2Pi) ? -SQAngle::_2Pi : fAngle;
     }
 
     /// <summary>
@@ -196,9 +196,9 @@ public:
     {
         const float_q COMPLETE_REVOLUTION = 
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
-                QAngle::_2Pi;
+                SQAngle::_2Pi;
             #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                QAngle::_360;
+                SQAngle::_360;
             #endif
 
         return fAngle / COMPLETE_REVOLUTION;
@@ -215,13 +215,13 @@ public:
     {
         const float_q COMPLETE_REVOLUTION = 
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
-                QAngle::_2Pi;
+                SQAngle::_2Pi;
             #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                QAngle::_360;
+                SQAngle::_360;
             #endif
 
         float_q outValue = fAngle / COMPLETE_REVOLUTION;
-        QFloat::Truncate(outValue);
+        SQFloat::Truncate(outValue);
 
         return outValue;
     }
@@ -232,4 +232,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QANGLE__
+#endif // __SQANGLE__

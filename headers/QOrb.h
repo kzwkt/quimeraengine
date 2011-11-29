@@ -92,7 +92,7 @@ public:
         // The point is inside the orb whenever the minimum squared distance between the point and
         // the center point of the orb is lower or equals the whole square radius of the orb.
         VectorType vDistance(vP - this->Center);
-        return QFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), Radius * Radius);
+        return SQFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), Radius * Radius);
     }
 
 	/// <summary>
@@ -108,7 +108,7 @@ public:
 		// between their center points is lower or equals the square sum of their radius.
         VectorType vDistance(orb.Center - this->Center);
         float_q    fRadiusSum = Radius + orb.Radius;
-        return QFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), fRadiusSum * fRadiusSum);
+        return SQFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), fRadiusSum * fRadiusSum);
     }
 
 	/// <summary>
@@ -120,7 +120,7 @@ public:
 	/// </returns>
 	string_q ToString()
 	{
-		return QE_L("O:C(") + this->Center.ToString() + QE_L("),R(") + QFloat::ToString(this->Radius) + QE_L(")");
+		return QE_L("O:C(") + this->Center.ToString() + QE_L("),R(") + SQFloat::ToString(this->Radius) + QE_L(")");
 	}
 
 };
@@ -136,7 +136,7 @@ public:
 //##################=======================================================##################
 
 template <class VectorType>
-const QOrb<VectorType> QOrb<VectorType>::UnitOrb(VectorType::ZeroVector, QFloat::_1);
+const QOrb<VectorType> QOrb<VectorType>::UnitOrb(VectorType::ZeroVector, SQFloat::_1);
 
 } //namespace Math
 } //namespace Tools

@@ -5,7 +5,7 @@
 
 #include <string>
 #include "DataTypesDefinitions.h"
-#include "QFloat.h"
+#include "SQFloat.h"
 
 namespace Kinesis
 {
@@ -104,10 +104,10 @@ public:
         #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
             // Types are different so we need to use known-size types and then invoke
             // implicit casting when copying to auxiliar variables.
-            f32_q f_1 = static_cast<f32_q>(QFloat::_0);
-            f32_q f_2 = static_cast<f32_q>(QFloat::_0);
-            f32_q f_3 = static_cast<f32_q>(QFloat::_0);
-            f32_q f_4 = static_cast<f32_q>(QFloat::_0);
+            f32_q f_1 = static_cast<f32_q>(SQFloat::_0);
+            f32_q f_2 = static_cast<f32_q>(SQFloat::_0);
+            f32_q f_3 = static_cast<f32_q>(SQFloat::_0);
+            f32_q f_4 = static_cast<f32_q>(SQFloat::_0);
         #else
             // Types are the same, no casting is needed so we only use references to maintain names used below
             f32_q& f_1 = fFirst;

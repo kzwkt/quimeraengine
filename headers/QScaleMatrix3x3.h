@@ -87,7 +87,7 @@ public:
         this->ij[2][2] = fScaleZ;
 
         this->ij[0][1] = this->ij[0][2] = this->ij[1][0] =
-        this->ij[1][2] = this->ij[2][0] = this->ij[2][1] = QFloat::_0;
+        this->ij[1][2] = this->ij[2][0] = this->ij[2][1] = SQFloat::_0;
     }
 
     /// <summary>
@@ -101,7 +101,7 @@ public:
         this->ij[2][2] = vScale.z;
 
         this->ij[0][1] = this->ij[0][2] = this->ij[1][0] =
-        this->ij[1][2] = this->ij[2][0] = this->ij[2][1] = QFloat::_0;
+        this->ij[1][2] = this->ij[2][0] = this->ij[2][1] = SQFloat::_0;
     }
 
     /// <summary>
@@ -249,11 +249,11 @@ public:
     inline void Reverse()
     {
         // If one of the diagonal elements is 0, the matrix has not inverse.
-        QE_ASSERT(this->ij[0][0] != QFloat::_0 && this->ij[1][1] != QFloat::_0 && this->ij[2][2] != QFloat::_0);
+        QE_ASSERT(this->ij[0][0] != SQFloat::_0 && this->ij[1][1] != SQFloat::_0 && this->ij[2][2] != SQFloat::_0);
 
-        this->ij[0][0] = QFloat::_1 / this->ij[0][0];
-        this->ij[1][1] = QFloat::_1 / this->ij[1][1];
-        this->ij[2][2] = QFloat::_1 / this->ij[2][2];
+        this->ij[0][0] = SQFloat::_1 / this->ij[0][0];
+        this->ij[1][1] = SQFloat::_1 / this->ij[1][1];
+        this->ij[2][2] = SQFloat::_1 / this->ij[2][2];
     }
 
     /// <summary>

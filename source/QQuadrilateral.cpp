@@ -22,10 +22,10 @@ namespace Math
 //##################                                                       ##################
 //##################=======================================================##################
 
-const QQuadrilateral QQuadrilateral::UnitSquare    ( QVector2( QFloat::_0_5,   QFloat::_0_5),
-                                                     QVector2(-QFloat::_0_5,   QFloat::_0_5),
-                                                     QVector2(-QFloat::_0_5,  -QFloat::_0_5),
-                                                     QVector2( QFloat::_0_5,  -QFloat::_0_5) );
+const QQuadrilateral QQuadrilateral::UnitSquare    ( QVector2( SQFloat::_0_5,   SQFloat::_0_5),
+                                                     QVector2(-SQFloat::_0_5,   SQFloat::_0_5),
+                                                     QVector2(-SQFloat::_0_5,  -SQFloat::_0_5),
+                                                     QVector2( SQFloat::_0_5,  -SQFloat::_0_5) );
 
 
 //##################=======================================================##################

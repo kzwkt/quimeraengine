@@ -111,18 +111,18 @@ public:
         const float_q &fScale = sqrt(this->ij[0][0]*this->ij[0][0] + this->ij[0][1]*this->ij[0][1]);
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fScale != QFloat::_0);
+        QE_ASSERT(fScale != SQFloat::_0);
 
         const float_q &fCosRot = this->ij[0][0]/fScale;
 
         // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
-        QE_ASSERT(QFloat::Abs(fCosRot) <= QFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1);
 
         fOutRot = acos(fCosRot);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles must be specified in degrees, then converts it.
-            QAngle::RadiansToDegrees(fOutRot, fOutRot);
+            SQAngle::RadiansToDegrees(fOutRot, fOutRot);
         #endif
     }
 

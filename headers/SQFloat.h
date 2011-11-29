@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QFLOAT__
-#define __QFLOAT__
+#ifndef __SQFLOAT__
+#define __SQFLOAT__
 
 #include <string>
 
@@ -22,7 +22,7 @@ namespace DataTypes
 /// Helper class that offers functionality related to floating point (IEEE 754) types.
 /// Use these constants and static methods extensively in your code, as far as you can.
 /// </summary>
-class QDllExport QFloat
+class QDllExport SQFloat
 {
     // CONSTANTS
     // ---------------
@@ -116,7 +116,7 @@ public:
 private:
 
 	// Default constructor (hidden).
-    QFloat();
+    SQFloat();
 
 
 	// METHODS
@@ -150,7 +150,7 @@ public:
     inline static bool IsInfinite(const float_q &fValue)
     {
         // [REVIEW] Thund: Boost provides functions to check this
-        return QFloat::IsLessThan(fValue, -QFloat::MaxFloat_Q) || QFloat::IsGreaterThan(fValue, QFloat::MaxFloat_Q);
+        return SQFloat::IsLessThan(fValue, -SQFloat::MaxFloat_Q) || SQFloat::IsGreaterThan(fValue, SQFloat::MaxFloat_Q);
     }
 
     /// <summary>
@@ -163,7 +163,7 @@ public:
     /// </returns>
     inline static bool IsNanOrInfinite(const float_q &fValue)
     {
-        return QFloat::IsNaN(fValue) || QFloat::IsInfinite(fValue);
+        return SQFloat::IsNaN(fValue) || SQFloat::IsInfinite(fValue);
     }
 
     /// <summary>
@@ -177,7 +177,7 @@ public:
     /// </returns>
     inline static bool AreEquals(const float_q &fValueA, const float_q &fValueB)
     {
-        return QFloat::Abs(fValueA - fValueB) <= QFloat::Epsilon;
+        return SQFloat::Abs(fValueA - fValueB) <= SQFloat::Epsilon;
     }
 
     /// <summary>
@@ -191,7 +191,7 @@ public:
     /// </returns>
     inline static bool AreNotEquals(const float_q &fValueA, const float_q &fValueB)
     {
-        return QFloat::Abs(fValueA - fValueB) > QFloat::Epsilon;
+        return SQFloat::Abs(fValueA - fValueB) > SQFloat::Epsilon;
     }
 
     /// <summary>
@@ -206,7 +206,7 @@ public:
     inline static bool IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue)
     {
         // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
-        return (fGreaterValue - fReferenceValue) > QFloat::Epsilon;
+        return (fGreaterValue - fReferenceValue) > SQFloat::Epsilon;
     }
 
     /// <summary>
@@ -221,7 +221,7 @@ public:
     inline static bool IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue)
     {
         // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
-        return (fLowerValue - fReferenceValue) < -QFloat::Epsilon;
+        return (fLowerValue - fReferenceValue) < -SQFloat::Epsilon;
     }
 
     /// <summary>
@@ -236,7 +236,7 @@ public:
     inline static bool IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue)
     {
         // If subtraction is greater or equals to -Epsilon, the value is greater or equals
-        return (fGreaterOrEqualsValue - fReferenceValue) >= -QFloat::Epsilon;
+        return (fGreaterOrEqualsValue - fReferenceValue) >= -SQFloat::Epsilon;
     }
 
     /// <summary>
@@ -251,7 +251,7 @@ public:
     inline static bool IsLowerOrEquals(const float_q &fLowerOrEqualsVaue, const float_q &fReferenceValue)
     {
         // If subtraction is lower or equals to Epsilon, the value is lower or equals
-        return (fLowerOrEqualsVaue - fReferenceValue) <= QFloat::Epsilon;
+        return (fLowerOrEqualsVaue - fReferenceValue) <= SQFloat::Epsilon;
     }
 
     /// <summary>
@@ -264,7 +264,7 @@ public:
     /// </returns>
     inline static bool IsZero(const float_q &fValue)
     {
-        return QFloat::AreEquals(fValue, QFloat::_0);
+        return SQFloat::AreEquals(fValue, SQFloat::_0);
     }
 
     /// <summary>
@@ -277,7 +277,7 @@ public:
     /// </returns>
     inline static bool IsNotZero(const float_q &fValue)
     {
-        return QFloat::AreNotEquals(fValue, QFloat::_0);
+        return SQFloat::AreNotEquals(fValue, SQFloat::_0);
     }
 
     /// <summary>
@@ -441,7 +441,7 @@ public:
     /// <param name="fValue">[IN/OUT] The value whose bytes are to be swapped.</param>
     inline static void SwapEndianess(float_q &fValue)
     {
-        QFloat::SwapEndianess(fValue, fValue);
+        SQFloat::SwapEndianess(fValue, fValue);
     }
 
     /// <summary>
@@ -453,7 +453,7 @@ public:
     /// </returns>
     inline static bool IsNegative(const float_q &fValue)
     {
-        return QFloat::IsLessThan(fValue, QFloat::_0);
+        return SQFloat::IsLessThan(fValue, SQFloat::_0);
     }
 
     /// <summary>
@@ -465,7 +465,7 @@ public:
     /// </returns>
     inline static bool IsPositive(const float_q &fValue)
     {
-        return QFloat::IsGreaterOrEquals(fValue, QFloat::_0);
+        return SQFloat::IsGreaterOrEquals(fValue, SQFloat::_0);
     }
 
     /// <summary>
@@ -479,11 +479,11 @@ public:
         // Negative source & Positive target = Change sign
         // Positive source & Negative target = Change sign
         // Positive source & Positive target = Keep positive
-        fValueToCopyTo = QFloat::IsNegative(fSignedValue)
+        fValueToCopyTo = SQFloat::IsNegative(fSignedValue)
                             ?
-                            QFloat::IsNegative(fValueToCopyTo) ? fValueToCopyTo : -fValueToCopyTo
+                            SQFloat::IsNegative(fValueToCopyTo) ? fValueToCopyTo : -fValueToCopyTo
                             :
-                            QFloat::IsNegative(fValueToCopyTo) ? -fValueToCopyTo : fValueToCopyTo;
+                            SQFloat::IsNegative(fValueToCopyTo) ? -fValueToCopyTo : fValueToCopyTo;
     }
 
     /// <summary>
@@ -515,4 +515,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QFLOAT__
+#endif // __SQFLOAT__

@@ -86,7 +86,7 @@ public:
     /// </summary>
     inline void Reverse()
     {
-        this->Direction *= -QFloat::_1;
+        this->Direction *= -SQFloat::_1;
     }
 
     /// <summary>
@@ -153,17 +153,17 @@ public:
         // Discriminant: B^2 - 4AC
         const float_q fD = fB*fB - fC;
 
-        if (QFloat::IsNegative(fD)) // D = B^2 - 4AC < 0 => 0 intersections
+        if (SQFloat::IsNegative(fD)) // D = B^2 - 4AC < 0 => 0 intersections
             return false;
-        else if ( QFloat::IsZero(fD) ) // D = B^2 - 4AC = 0 => 1 intersection
+        else if ( SQFloat::IsZero(fD) ) // D = B^2 - 4AC = 0 => 1 intersection
         {
-            if ( QFloat::IsPositive(-fB) ) // T = -B/2A -> must be >= 0
+            if ( SQFloat::IsPositive(-fB) ) // T = -B/2A -> must be >= 0
                 return true;
             else
                 return false;
         }
         else
-            return QFloat::IsLowerOrEquals(fB, sqrt(fD));
+            return SQFloat::IsLowerOrEquals(fB, sqrt(fD));
 
             // Explanation:
 
@@ -237,22 +237,22 @@ public:
         // Since ray is normalized, A = 1
         // const float_q &fA = this->Direction.DotProduct(this->Direction);
 
-        const float_q &fB = QFloat::_2 * vNewRayOrigin.DotProduct(vDirection);
+        const float_q &fB = SQFloat::_2 * vNewRayOrigin.DotProduct(vDirection);
         const float_q &fC = vNewRayOrigin.DotProduct(vNewRayOrigin) - orb.Radius * orb.Radius;
 
         // Remember that a = 1 -> D = B^2 - 4AC = B^2 - 4C
-        const float_q &fD = fB * fB - QFloat::_4 * fC;
+        const float_q &fD = fB * fB - SQFloat::_4 * fC;
 
 
-        if (QFloat::IsNegative(fD)) // D = B^2 - 4AC < 0 => 0 intersections
+        if (SQFloat::IsNegative(fD)) // D = B^2 - 4AC < 0 => 0 intersections
             return EQIntersections::E_None;
-        else if (QFloat::IsZero(fD)) // D = B^2 - 4AC = 0 => 1 intersection
+        else if (SQFloat::IsZero(fD)) // D = B^2 - 4AC = 0 => 1 intersection
         {
             // T = -B/2A -> Remember that a=1
-            const float_q &fT = -fB*QFloat::_0_5;
+            const float_q &fT = -fB*SQFloat::_0_5;
 
             // The intersection is backwards the ray origin
-            if (QFloat::IsNegative(fT))
+            if (SQFloat::IsNegative(fT))
                 return EQIntersections::E_None;
             else
             {
@@ -265,14 +265,14 @@ public:
             const float_q &fSqrtD = sqrt(fD);
 
             // Closest intersection to ls.A. T1 = (-B - sqrt(D))/2A -> Remember that A = 1
-            const float_q &fT1 = -(fB + fSqrtD)*QFloat::_0_5;
+            const float_q &fT1 = -(fB + fSqrtD)*SQFloat::_0_5;
 
             // Farthest intersection to ls.A. T2 = (-B + sqrt(D))/2A -> Remember that A = 1
-            const float_q &fT2 = (-fB + fSqrtD)*QFloat::_0_5;
+            const float_q &fT2 = (-fB + fSqrtD)*SQFloat::_0_5;
 
             // Prevent rays with origin point inside orb, which must have only one intersection.
-            const bool &bT1Fails = QFloat::IsNegative(fT1);
-            const bool &bT2Fails = QFloat::IsNegative(fT2);
+            const bool &bT1Fails = SQFloat::IsNegative(fT1);
+            const bool &bT2Fails = SQFloat::IsNegative(fT2);
 
             if (bT1Fails && bT2Fails)
                 return EQIntersections::E_None; // Shouldn't happen this :(

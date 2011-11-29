@@ -1,6 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "QAngle.h"
+#include "SQAngle.h"
 #include "QMatrix2x2.h"
 
 namespace Kinesis
@@ -22,8 +22,8 @@ namespace Math
 //##################                                                       ##################
 //##################=======================================================##################
 
-const QMatrix2x2 QMatrix2x2::ZeroMatrix(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0);
-const QMatrix2x2 QMatrix2x2::Identity  (QFloat::_1, QFloat::_0, QFloat::_0, QFloat::_1);
+const QMatrix2x2 QMatrix2x2::ZeroMatrix(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+const QMatrix2x2 QMatrix2x2::Identity  (SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1);
     
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -83,7 +83,7 @@ QMatrix2x2 QMatrix2x2::operator*(const QBaseMatrix2x2 &m) const
 QMatrix2x2 QMatrix2x2::operator/(const float_q &fScalar) const
 {
         
-    QE_ASSERT(fScalar != QFloat::_0);
+    QE_ASSERT(fScalar != SQFloat::_0);
 
     QMatrix2x2 aux;
         
@@ -145,11 +145,11 @@ bool QMatrix2x2::Reverse()
     float_q fDet = this->GetDeterminant();
 
     // If Determinant is 0, this matrix has not inverse.
-    if (QFloat::IsZero(fDet)) 
+    if (SQFloat::IsZero(fDet)) 
         return false;
 
     // We need inverse of determinant in calculus.
-    fDet = QFloat::_1/fDet;
+    fDet = SQFloat::_1/fDet;
  
     float_q f00  = this->ij[0][0];
 

@@ -106,7 +106,7 @@ public:
 
 		float_q fDotProduct = u.DotProduct(v);
 
-		return (sqrt((fLengthU * fLengthU) * (fLengthV * fLengthV) - (fDotProduct * fDotProduct)) / QFloat::_2);
+		return (sqrt((fLengthU * fLengthU) * (fLengthV * fLengthV) - (fDotProduct * fDotProduct)) / SQFloat::_2);
 	}
 
 	/// <summary>
@@ -172,7 +172,7 @@ public:
 		float_q fP = fLengthA + fLengthB + fLengthC;
 
 		// Checkout to avoid division by zero.
-		QE_ASSERT(fP != QFloat::_0);
+		QE_ASSERT(fP != SQFloat::_0);
 
 		vValue = (fLengthA * A + fLengthB * B + fLengthC * C) / fP;
 	}
@@ -183,7 +183,7 @@ public:
 	/// <param name="vValue">[OUT] VectorType that stores the resultant point.</param>
 	inline void GetCentroid(VectorType & vValue) const
 	{
-		vValue = (A + B + C) / QFloat::_3;
+		vValue = (A + B + C) / SQFloat::_3;
 	}
 
 	/// <summary>
@@ -214,19 +214,19 @@ protected:
 		float_q fLengthV = vtV.GetLength();
 
 		// Checkout to avoid division by zero.
-		QE_ASSERT(fLengthU != QFloat::_0);
-		QE_ASSERT(fLengthV != QFloat::_0);
+		QE_ASSERT(fLengthU != SQFloat::_0);
+		QE_ASSERT(fLengthV != SQFloat::_0);
 
 		float_q fCos = vtU.DotProduct(vtV) / (fLengthU * fLengthV);
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(QFloat::Abs(fCos) <= QFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fCos) <= SQFloat::_1);
 
 		float_q fAngle = acos(fCos);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
-            fAngle = QAngle::RadiansToDegrees(fAngle, fAngle);
+            fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
         #endif
 
 		return fAngle;

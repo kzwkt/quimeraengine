@@ -3,7 +3,7 @@
 #ifndef __QBASEMATRIX4X3__
 #define __QBASEMATRIX4X3__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -34,7 +34,7 @@ public:
 		ij[0][0] = ij[0][1] = ij[0][2] =
 		ij[1][0] = ij[1][1] = ij[1][2] =
 		ij[2][0] = ij[2][1] = ij[2][2] =
-		ij[3][0] = ij[3][1] = ij[3][2] = QFloat::_0;
+		ij[3][0] = ij[3][1] = ij[3][2] = SQFloat::_0;
 	}
 
 	/// <summary>
@@ -142,18 +142,18 @@ public:
 	/// </returns>
 	inline bool operator==(const QBaseMatrix4x3 &m) const
 	{
-		return	QFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
-				QFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
-				QFloat::AreEquals(this->ij[0][2], m.ij[0][2]) &&
-				QFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
-				QFloat::AreEquals(this->ij[1][1], m.ij[1][1]) &&
-				QFloat::AreEquals(this->ij[1][2], m.ij[1][2]) &&
-				QFloat::AreEquals(this->ij[2][0], m.ij[2][0]) &&
-				QFloat::AreEquals(this->ij[2][1], m.ij[2][1]) &&
-				QFloat::AreEquals(this->ij[2][2], m.ij[2][2]) &&
-				QFloat::AreEquals(this->ij[3][0], m.ij[3][0]) &&
-				QFloat::AreEquals(this->ij[3][1], m.ij[3][1]) &&
-				QFloat::AreEquals(this->ij[3][2], m.ij[3][2]);
+		return	SQFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
+				SQFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
+				SQFloat::AreEquals(this->ij[0][2], m.ij[0][2]) &&
+				SQFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
+				SQFloat::AreEquals(this->ij[1][1], m.ij[1][1]) &&
+				SQFloat::AreEquals(this->ij[1][2], m.ij[1][2]) &&
+				SQFloat::AreEquals(this->ij[2][0], m.ij[2][0]) &&
+				SQFloat::AreEquals(this->ij[2][1], m.ij[2][1]) &&
+				SQFloat::AreEquals(this->ij[2][2], m.ij[2][2]) &&
+				SQFloat::AreEquals(this->ij[3][0], m.ij[3][0]) &&
+				SQFloat::AreEquals(this->ij[3][1], m.ij[3][1]) &&
+				SQFloat::AreEquals(this->ij[3][2], m.ij[3][2]);
 	}
 
 	/// <summary>

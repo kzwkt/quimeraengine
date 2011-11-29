@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QBOOLEAN__
-#define __QBOOLEAN__
+#ifndef __SQBOOLEAN__
+#define __SQBOOLEAN__
 
 #include "DataTypesDefinitions.h"
 
@@ -17,14 +17,14 @@ namespace DataTypes
 /// <summary>
 /// Helper class that offers functionality related to boolean types.
 /// </summary>
-class QDllExport QBoolean
+class QDllExport SQBoolean
 {
 	// CONSTRUCTORS
 	// ---------------
 private:
 
 	// Default constructor (hidden).
-    QBoolean();
+    SQBoolean();
 
 
 	// METHODS
@@ -46,4 +46,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QBOOLEAN__
+#endif // __SQBOOLEAN__

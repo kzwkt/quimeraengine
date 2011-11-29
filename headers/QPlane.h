@@ -215,7 +215,7 @@ public:
     inline QPlane& operator /= (const float_q &fValue)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT(fValue != QFloat::_0);
+        QE_ASSERT(fValue != SQFloat::_0);
 
         this->a /= fValue;
         this->b /= fValue;
@@ -261,9 +261,9 @@ public:
         float_q fDivisor = this->GetLength();
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fDivisor != QFloat::_0);
+        QE_ASSERT(fDivisor != SQFloat::_0);
 
-        fDivisor = QFloat::_1 / fDivisor;
+        fDivisor = SQFloat::_1 / fDivisor;
 
         *this *= fDivisor;
     }
@@ -333,17 +333,17 @@ public:
         const float_q fDotLength = sqrt(this->GetSquaredLength() * reinterpret_cast<const QPlane&>(p).GetSquaredLength());
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fDotLength != QFloat::_0);
+        QE_ASSERT(fDotLength != SQFloat::_0);
 
         const float_q &fDot = this->DotProduct(p)/fDotLength;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
         const float_q &fAngle = acos(fDot);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
-            fAngle = QAngle::RadiansToDegrees(fAngle, fAngle);
+            fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
         #endif
 
         return fAngle;
@@ -359,7 +359,7 @@ public:
     {
         const float_q &fSquaredLength = this->GetSquaredLength();
 
-        QE_ASSERT(fSquaredLength != QFloat::_0);
+        QE_ASSERT(fSquaredLength != SQFloat::_0);
 
         const float_q &fProj = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d) / fSquaredLength;
 
@@ -378,7 +378,7 @@ public:
     template <class VectorType>
     inline bool Contains(const VectorType &v) const
     {
-        return QFloat::IsZero(this->a * v.x + this->b * v.y + this->c * v.z + this->d);
+        return SQFloat::IsZero(this->a * v.x + this->b * v.y + this->c * v.z + this->d);
     }
 
     /// <summary>
@@ -428,9 +428,9 @@ public:
     {
         const float_q &fLength = this->GetLength();
 
-        QE_ASSERT(fLength != QFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0);
 
-        return QFloat::Abs(this->a * v.x + this->b * v.y + this->c * v.z + this->d)/fLength;
+        return SQFloat::Abs(this->a * v.x + this->b * v.y + this->c * v.z + this->d)/fLength;
     }
 
 
@@ -460,9 +460,9 @@ public:
                               (this->a*pl1.b*pl2.d + this->b*pl1.d*pl2.a + this->d*pl1.a*pl2.b);
 
         // A range = 3, A* range = 3: Compatible system
-        if (!QFloat::IsZero(fDetC))
+        if (!SQFloat::IsZero(fDetC))
         {
-            const float_q &fInvDetC = QFloat::_1/fDetC;
+            const float_q &fInvDetC = SQFloat::_1/fDetC;
 
             vOut.x = fDetX * fInvDetC;
             vOut.y = fDetY * fInvDetC;
@@ -471,18 +471,18 @@ public:
             return EQIntersections::E_One;
         }
         // A range < 3, A* range < 3
-        else if (QFloat::IsZero(fDetX) && QFloat::IsZero(fDetY) && QFloat::IsZero(fDetZ))
+        else if (SQFloat::IsZero(fDetX) && SQFloat::IsZero(fDetY) && SQFloat::IsZero(fDetZ))
         {
             // A range = 2, A* range < 3: Undetermined compatible system
-            if (QFloat::IsNotZero(this->a*pl1.b - this->b*pl1.a) ||
-                QFloat::IsNotZero(this->a*pl1.c - this->c*pl1.a) ||
-                QFloat::IsNotZero(this->a*pl2.b - this->b*pl2.a) ||
-                QFloat::IsNotZero(this->a*pl2.c - this->c*pl2.a) ||
-                QFloat::IsNotZero(this->b*pl1.c - this->c*pl1.b) ||
-                QFloat::IsNotZero(this->b*pl2.c - this->c*pl2.b) ||
-                QFloat::IsNotZero(pl1.a*pl2.b - pl1.b*pl2.a) ||
-                QFloat::IsNotZero(pl1.a*pl2.c - pl1.c*pl2.a) ||
-                QFloat::IsNotZero(pl1.b*pl2.c - pl1.c*pl2.b))
+            if (SQFloat::IsNotZero(this->a*pl1.b - this->b*pl1.a) ||
+                SQFloat::IsNotZero(this->a*pl1.c - this->c*pl1.a) ||
+                SQFloat::IsNotZero(this->a*pl2.b - this->b*pl2.a) ||
+                SQFloat::IsNotZero(this->a*pl2.c - this->c*pl2.a) ||
+                SQFloat::IsNotZero(this->b*pl1.c - this->c*pl1.b) ||
+                SQFloat::IsNotZero(this->b*pl2.c - this->c*pl2.b) ||
+                SQFloat::IsNotZero(pl1.a*pl2.b - pl1.b*pl2.a) ||
+                SQFloat::IsNotZero(pl1.a*pl2.c - pl1.c*pl2.a) ||
+                SQFloat::IsNotZero(pl1.b*pl2.c - pl1.c*pl2.b))
 
                 return EQIntersections::E_Infinite;
 
@@ -586,7 +586,7 @@ public:
     /// <param name="m">[IN] A [3x3] matrix containing the scale to be applied.</param>
     inline void Scale(const QScaleMatrix3x3 &m)
     {
-        QE_ASSERT(m.ij[0][0] != QFloat::_0 && m.ij[1][1] != QFloat::_0 && m.ij[2][2] != QFloat::_0);
+        QE_ASSERT(m.ij[0][0] != SQFloat::_0 && m.ij[1][1] != SQFloat::_0 && m.ij[2][2] != SQFloat::_0);
 
         this->a /= m.ij[0][0];
         this->b /= m.ij[1][1];
@@ -613,7 +613,7 @@ public:
     /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
     inline void Scale(const QBaseVector3 &vScale)
     {
-        QE_ASSERT(vScale.x != QFloat::_0 && vScale.y != QFloat::_0 && vScale.z != QFloat::_0);
+        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0);
 
         this->a /= vScale.x;
         this->b /= vScale.y;
@@ -642,7 +642,7 @@ public:
     /// <param name="fScaleZ">[IN] The scale amount to be applied in Z direction.</param>
     inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
-        QE_ASSERT(fScaleX != QFloat::_0 && fScaleY != QFloat::_0 && fScaleZ != QFloat::_0);
+        QE_ASSERT(fScaleX != SQFloat::_0 && fScaleY != SQFloat::_0 && fScaleZ != SQFloat::_0);
 
         this->a /= fScaleX;
         this->b /= fScaleY;
@@ -792,10 +792,10 @@ public:
     /// <param name="m">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     inline void Transform(const QTransformationMatrix4x3 &m)
     {
-        QMatrix4x4 mAux(m.ij[0][0], m.ij[0][1], m.ij[0][2], QFloat::_0,
-                        m.ij[1][0], m.ij[1][1], m.ij[1][2], QFloat::_0,
-                        m.ij[2][0], m.ij[2][1], m.ij[2][2], QFloat::_0,
-                        m.ij[3][0], m.ij[3][1], m.ij[3][2], QFloat::_1);
+        QMatrix4x4 mAux(m.ij[0][0], m.ij[0][1], m.ij[0][2], SQFloat::_0,
+                        m.ij[1][0], m.ij[1][1], m.ij[1][2], SQFloat::_0,
+                        m.ij[2][0], m.ij[2][1], m.ij[2][2], SQFloat::_0,
+                        m.ij[3][0], m.ij[3][1], m.ij[3][2], SQFloat::_1);
 
         reinterpret_cast <QTransformationMatrix4x4 &>(mAux).Reverse();
 
@@ -1254,8 +1254,8 @@ public:
     /// <returns>The string with the format specified.</returns>
     inline string_q ToString() const
     {
-        return QE_L("PL(") + QFloat::ToString(this->a) + QE_L(", ") + QFloat::ToString(this->b) +
-               QE_L(", ")  + QFloat::ToString(this->c) + QE_L(", ") + QFloat::ToString(this->d) + QE_L(")");
+        return QE_L("PL(") + SQFloat::ToString(this->a) + QE_L(", ") + SQFloat::ToString(this->b) +
+               QE_L(", ")  + SQFloat::ToString(this->c) + QE_L(", ") + SQFloat::ToString(this->d) + QE_L(")");
     }
 
 protected:
@@ -1280,17 +1280,17 @@ protected:
         const float_q &fDotLength = sqrt(this->GetSquaredLength() * v.GetSquaredLength());
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fDotLength != QFloat::_0);
+        QE_ASSERT(fDotLength != SQFloat::_0);
 
         const float_q &fDot = this->DotProduct(v)/fDotLength;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(QFloat::Abs(fDot) <= QFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
         const float_q &fAngle = acos(fDot);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
-            fAngle = QAngle::RadiansToDegrees(fAngle, fAngle);
+            fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
         #endif
 
         return fAngle;

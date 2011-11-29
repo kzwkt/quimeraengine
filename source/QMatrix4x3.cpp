@@ -22,15 +22,15 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-const QMatrix4x3 QMatrix4x3::ZeroMatrix(QFloat::_0, QFloat::_0, QFloat::_0,
-                                        QFloat::_0, QFloat::_0, QFloat::_0,
-                                        QFloat::_0, QFloat::_0, QFloat::_0,
-                                        QFloat::_0, QFloat::_0, QFloat::_0);
+const QMatrix4x3 QMatrix4x3::ZeroMatrix(SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-const QMatrix4x3 QMatrix4x3::Identity(  QFloat::_1, QFloat::_0, QFloat::_0,
-                                        QFloat::_0, QFloat::_1, QFloat::_0,
-                                        QFloat::_0, QFloat::_0, QFloat::_1,
-                                        QFloat::_0, QFloat::_0, QFloat::_0);
+const QMatrix4x3 QMatrix4x3::Identity(  SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_1,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

@@ -3,7 +3,7 @@
 #ifndef __QBASEORB__
 #define __QBASEORB__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -35,7 +35,7 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseOrb() : Center(QFloat::_0), Radius(QFloat::_0) { }
+    inline QBaseOrb() : Center(SQFloat::_0), Radius(SQFloat::_0) { }
 
     /// <summary>
     /// Constructor from a vector which defines center point and a floating point value which
@@ -58,7 +58,7 @@ public:
     /// </returns>
     inline bool operator == (const QBaseOrb<VectorType> &orb) const
     {
-        return this->Center == orb.Center && QFloat::AreEquals(this->Radius, orb.Radius);
+        return this->Center == orb.Center && SQFloat::AreEquals(this->Radius, orb.Radius);
     }
 
     /// <summary>

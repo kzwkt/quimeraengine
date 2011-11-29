@@ -3,7 +3,7 @@
 #ifndef __QBASEHEXAHEDRON__
 #define __QBASEHEXAHEDRON__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -33,8 +33,8 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseHexahedron () : A(QFloat::_0), B(QFloat::_0), C(QFloat::_0), D(QFloat::_0),
-								E(QFloat::_0), F(QFloat::_0), G(QFloat::_0), H(QFloat::_0) { }
+    inline QBaseHexahedron () : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0), D(SQFloat::_0),
+								E(SQFloat::_0), F(SQFloat::_0), G(SQFloat::_0), H(SQFloat::_0) { }
 
     /// <summary>
     /// Constructor from eight vectors, one for each vertex.
@@ -84,9 +84,9 @@ public:
         // Ensures that all vectors/points are in same coordinates format.
         A = vCenter;
 
-        A.x -= fLenX*QFloat::_0_5;
-        A.y += fLenY*QFloat::_0_5;
-        A.z += fLenZ*QFloat::_0_5;
+        A.x -= fLenX*SQFloat::_0_5;
+        A.y += fLenY*SQFloat::_0_5;
+        A.z += fLenZ*SQFloat::_0_5;
 
         B = A;
         B.z -= fLenZ;

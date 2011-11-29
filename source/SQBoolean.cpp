@@ -1,7 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "QBoolean.h"
-
+#include "SQBoolean.h" 
 
 namespace Kinesis
 {
@@ -21,7 +20,7 @@ namespace DataTypes
 //##################													   ##################
 //##################=======================================================##################
 
-string_q QBoolean::ToString(const bool& bValue)
+string_q SQBoolean::ToString(const bool& bValue)
 {
     if (bValue)
     {

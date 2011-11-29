@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QINTEGER__
-#define __QINTEGER__
+#ifndef __SQINTEGER__
+#define __SQINTEGER__
 
 #include <string>
 #include <cstdlib>
@@ -24,7 +24,7 @@ namespace DataTypes
 /// Helper class that offers functionality related to integer types.
 /// Use these static methods extensively in your code, as far as you can.
 /// </summary>
-class QDllExport QInteger
+class QDllExport SQInteger
 {
 
 	// CONSTRUCTORS
@@ -32,7 +32,7 @@ class QDllExport QInteger
 private:
 
 	// Default constructor (hidden).
-	QInteger();
+	SQInteger();
 
 
 	// METHODS
@@ -135,7 +135,7 @@ public:
     template<typename IntegerType>
     inline static void SwapEndianess(IntegerType &nValue)
     {
-        QInteger::SwapEndianess(nValue, nValue);
+        SQInteger::SwapEndianess(nValue, nValue);
     }
 
     /// <summary>
@@ -191,4 +191,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QINTEGER__
+#endif // __SQINTEGER__

@@ -49,7 +49,6 @@
 		<Unit filename="..\..\..\..\headers\EQIntersections.h" />
 		<Unit filename="..\..\..\..\headers\EQSpaceRelation.h" />
 		<Unit filename="..\..\..\..\headers\MathDefinitions.h" />
-		<Unit filename="..\..\..\..\headers\QAngle.h" />
 		<Unit filename="..\..\..\..\headers\QBaseDualQuaternion.h" />
 		<Unit filename="..\..\..\..\headers\QBaseHexahedron.h" />
 		<Unit filename="..\..\..\..\headers\QBaseLineSegment.h" />
@@ -67,12 +66,9 @@
 		<Unit filename="..\..\..\..\headers\QBaseVector2.h" />
 		<Unit filename="..\..\..\..\headers\QBaseVector3.h" />
 		<Unit filename="..\..\..\..\headers\QBaseVector4.h" />
-		<Unit filename="..\..\..\..\headers\QBoolean.h" />
 		<Unit filename="..\..\..\..\headers\QCircle.h" />
 		<Unit filename="..\..\..\..\headers\QDualQuaternion.h" />
-		<Unit filename="..\..\..\..\headers\QFloat.h" />
 		<Unit filename="..\..\..\..\headers\QHexahedron.h" />
-		<Unit filename="..\..\..\..\headers\QInteger.h" />
 		<Unit filename="..\..\..\..\headers\QLineSegment.h" />
 		<Unit filename="..\..\..\..\headers\QLineSegment2D.h" />
 		<Unit filename="..\..\..\..\headers\QLineSegment3D.h" />
@@ -83,7 +79,6 @@
 		<Unit filename="..\..\..\..\headers\QMatrix4x4.h" />
 		<Unit filename="..\..\..\..\headers\QOrb.h" />
 		<Unit filename="..\..\..\..\headers\QPlane.h" />
-		<Unit filename="..\..\..\..\headers\QPoint.h" />
 		<Unit filename="..\..\..\..\headers\QQuadrilateral.h" />
 		<Unit filename="..\..\..\..\headers\QQuaternion.h" />
 		<Unit filename="..\..\..\..\headers\QRay.h" />
@@ -103,13 +98,15 @@
 		<Unit filename="..\..\..\..\headers\QVector2.h" />
 		<Unit filename="..\..\..\..\headers\QVector3.h" />
 		<Unit filename="..\..\..\..\headers\QVector4.h" />
+		<Unit filename="..\..\..\..\headers\SQAngle.h" />
+		<Unit filename="..\..\..\..\headers\SQBoolean.h" />
+		<Unit filename="..\..\..\..\headers\SQFloat.h" />
+		<Unit filename="..\..\..\..\headers\SQInteger.h" />
+		<Unit filename="..\..\..\..\headers\SQPoint.h" />
 		<Unit filename="..\..\..\..\source\EQIntersections.cpp" />
 		<Unit filename="..\..\..\..\source\EQSpaceRelation.cpp" />
-		<Unit filename="..\..\..\..\source\QAngle.cpp" />
-		<Unit filename="..\..\..\..\source\QBoolean.cpp" />
 		<Unit filename="..\..\..\..\source\QCircle.cpp" />
 		<Unit filename="..\..\..\..\source\QDualQuaternion.cpp" />
-		<Unit filename="..\..\..\..\source\QFloat.cpp" />
 		<Unit filename="..\..\..\..\source\QLineSegment2D.cpp" />
 		<Unit filename="..\..\..\..\source\QMatrix2x2.cpp" />
 		<Unit filename="..\..\..\..\source\QMatrix3x3.cpp" />
@@ -128,6 +125,9 @@
 		<Unit filename="..\..\..\..\source\QVector2.cpp" />
 		<Unit filename="..\..\..\..\source\QVector3.cpp" />
 		<Unit filename="..\..\..\..\source\QVector4.cpp" />
+		<Unit filename="..\..\..\..\source\SQAngle.cpp" />
+		<Unit filename="..\..\..\..\source\SQBoolean.cpp" />
+		<Unit filename="..\..\..\..\source\SQFloat.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

@@ -3,7 +3,7 @@
 #ifndef __QBASERAY__
 #define __QBASERAY__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -36,7 +36,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBaseRay() : Origin(QFloat::_0), Direction(QFloat::_0) { }
+	inline QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0) { }
 
 	/// <summary>
 	/// Constructor from a point and a vector.

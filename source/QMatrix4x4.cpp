@@ -1,6 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "QAngle.h"
+#include "SQAngle.h"
 #include "QMatrix4x4.h"
 
 namespace Kinesis
@@ -22,15 +22,15 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-	const QMatrix4x4 QMatrix4x4::ZeroMatrix(QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0, 
-											QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0, 
-											QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0, 
-											QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_0);
+	const QMatrix4x4 QMatrix4x4::ZeroMatrix(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0, 
+											SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0, 
+											SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0, 
+											SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	const QMatrix4x4 QMatrix4x4::Identity(	QFloat::_1, QFloat::_0, QFloat::_0, QFloat::_0, 
-											QFloat::_0, QFloat::_1, QFloat::_0, QFloat::_0, 
-											QFloat::_0, QFloat::_0, QFloat::_1, QFloat::_0, 
-											QFloat::_0, QFloat::_0, QFloat::_0, QFloat::_1);
+	const QMatrix4x4 QMatrix4x4::Identity(	SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0, 
+											SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0, 
+											SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0, 
+											SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 	
 
 
@@ -154,7 +154,7 @@ namespace Math
 	QMatrix4x4 QMatrix4x4::operator/(const float_q &fScalar) const
 	{
 		
-		QE_ASSERT(fScalar != QFloat::_0);
+		QE_ASSERT(fScalar != SQFloat::_0);
 
 		QMatrix4x4 aux;
 		
@@ -291,11 +291,11 @@ namespace Math
 		float_q fDet = this->GetDeterminant();
 
 		// If Determinant is 0, this matrix has not inverse.
-		if (QFloat::IsZero(fDet)) 
+		if (SQFloat::IsZero(fDet)) 
 			return false;
 
 		// We need inverse of determinant in calculus.
-		fDet = QFloat::_1/fDet;
+		fDet = SQFloat::_1/fDet;
 		
 		// Binary products are stored in vars to avoid unnecesary repetitions 
 		// (each binary product appears 4 times in inverse expresion)
@@ -390,22 +390,22 @@ namespace Math
 
 	string_q QMatrix4x4::ToString() const
 	{
-		return QE_L("M4x4(") + QFloat::ToString(this->ij[0][0]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[0][1]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[0][2]) + QE_L(", ") +
-                               QFloat::ToString(this->ij[0][3]) + QE_L(")(") +
-							   QFloat::ToString(this->ij[1][0]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[1][1]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[1][2]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[1][3]) + QE_L(")(") +
-							   QFloat::ToString(this->ij[2][0]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[2][1]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[2][2]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[2][3]) + QE_L(")(") +
-							   QFloat::ToString(this->ij[3][0]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[3][1]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[3][2]) + QE_L(", ") +
-							   QFloat::ToString(this->ij[3][3]) + QE_L(")");  
+		return QE_L("M4x4(") + SQFloat::ToString(this->ij[0][0]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[0][1]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[0][2]) + QE_L(", ") +
+                               SQFloat::ToString(this->ij[0][3]) + QE_L(")(") +
+							   SQFloat::ToString(this->ij[1][0]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[1][1]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[1][2]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[1][3]) + QE_L(")(") +
+							   SQFloat::ToString(this->ij[2][0]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[2][1]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[2][2]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[2][3]) + QE_L(")(") +
+							   SQFloat::ToString(this->ij[3][0]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[3][1]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[3][2]) + QE_L(", ") +
+							   SQFloat::ToString(this->ij[3][3]) + QE_L(")");  
 	}
 
 } //namespace Math

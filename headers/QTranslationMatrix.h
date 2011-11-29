@@ -217,8 +217,8 @@ public:
     {
         QTransformationMatrix<MatrixType> aux;
 
-        aux.ij[0][3] = aux.ij[1][3] = aux.ij[2][3] = QFloat::_0;
-        aux.ij[3][3] = QFloat::_1;
+        aux.ij[0][3] = aux.ij[1][3] = aux.ij[2][3] = SQFloat::_0;
+        aux.ij[3][3] = SQFloat::_1;
 
         aux.ij[0][0] = m.ij[0][0];
         aux.ij[0][1] = m.ij[0][1];
@@ -253,8 +253,8 @@ public:
     {
         QTransformationMatrix<MatrixType> aux;
 
-        aux.ij[0][3] = aux.ij[1][3] = aux.ij[2][3] = QFloat::_0;
-        aux.ij[3][3] = QFloat::_1;
+        aux.ij[0][3] = aux.ij[1][3] = aux.ij[2][3] = SQFloat::_0;
+        aux.ij[3][3] = SQFloat::_1;
 
         aux.ij[0][0] = m.ij[0][0];
         aux.ij[0][1] = m.ij[0][1];
@@ -394,7 +394,7 @@ public:
         vDisp.x = this->ij[3][0];
         vDisp.y = this->ij[3][1];
         vDisp.z = this->ij[3][2];
-        vDisp.w = QFloat::_0;
+        vDisp.w = SQFloat::_0;
     }
 
 	/// <summary>
@@ -406,7 +406,7 @@ public:
     /// </returns>
 	inline float_q GetDeterminant()
 	{
-		return QFloat::_1;
+		return SQFloat::_1;
 	}
 
 protected:

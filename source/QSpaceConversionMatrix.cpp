@@ -62,22 +62,22 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix4x4 
     this->ij[0][0] = mScale.ij[0][0]*mRot.ij[0][0];
     this->ij[0][1] = mScale.ij[0][0]*mRot.ij[0][1];
     this->ij[0][2] = mScale.ij[0][0]*mRot.ij[0][2];
-    this->ij[0][3] = QFloat::_0;
+    this->ij[0][3] = SQFloat::_0;
 
     this->ij[1][0] = mScale.ij[1][1]*mRot.ij[1][0];
     this->ij[1][1] = mScale.ij[1][1]*mRot.ij[1][1];
     this->ij[1][2] = mScale.ij[1][1]*mRot.ij[1][2];
-    this->ij[1][3] = QFloat::_0;
+    this->ij[1][3] = SQFloat::_0;
 
     this->ij[2][0] = mScale.ij[2][2]*mRot.ij[2][0];
     this->ij[2][1] = mScale.ij[2][2]*mRot.ij[2][1];
     this->ij[2][2] = mScale.ij[2][2]*mRot.ij[2][2];
-    this->ij[2][3] = QFloat::_0;
+    this->ij[2][3] = SQFloat::_0;
 
     this->ij[3][0] = mDisp.ij[3][0];
     this->ij[3][1] = mDisp.ij[3][1];
     this->ij[3][2] = mDisp.ij[3][2];
-    this->ij[3][3] = QFloat::_1;
+    this->ij[3][3] = SQFloat::_1;
 }
 
 void QSpaceConversionMatrix::SetViewSpaceMatrix(const QBaseVector3 &vPointOfView, const QBaseVector3 &vTarget,
@@ -96,59 +96,59 @@ void QSpaceConversionMatrix::SetViewSpaceMatrix(const QBaseVector3 &vPointOfView
     this->ij[0][0] = vXAxis.x;
     this->ij[0][1] = vYAxis.x;
     this->ij[0][2] = vZAxis.x;
-    this->ij[0][3] = QFloat::_0;
+    this->ij[0][3] = SQFloat::_0;
 
     this->ij[1][0] = vXAxis.y;
     this->ij[1][1] = vYAxis.y;
     this->ij[1][2] = vZAxis.y;
-    this->ij[1][3] = QFloat::_0;
+    this->ij[1][3] = SQFloat::_0;
 
     this->ij[2][0] = vXAxis.z;
     this->ij[2][1] = vYAxis.z;
     this->ij[2][2] = vZAxis.z;
-    this->ij[2][3] = QFloat::_0;
+    this->ij[2][3] = SQFloat::_0;
 
     this->ij[3][0] = -vXAxis.DotProduct(vPointOfView);
     this->ij[3][1] = -vYAxis.DotProduct(vPointOfView);
     this->ij[3][2] = -vZAxis.DotProduct(vPointOfView);
-    this->ij[3][3] = QFloat::_1;
+    this->ij[3][3] = SQFloat::_1;
 }
 
 void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
         const float_q &fAspectRatio, const float_q &fVerticalFOV)
 {
-    QE_ASSERT(QFloat::AreNotEquals(fNearClipPlane, fFarClipPlane));
-    QE_ASSERT(QFloat::IsGreaterThan(fAspectRatio, QFloat::_0));
-    QE_ASSERT(QFloat::IsGreaterThan(fVerticalFOV, QFloat::_0));
+    QE_ASSERT(SQFloat::AreNotEquals(fNearClipPlane, fFarClipPlane));
+    QE_ASSERT(SQFloat::IsGreaterThan(fAspectRatio, SQFloat::_0));
+    QE_ASSERT(SQFloat::IsGreaterThan(fVerticalFOV, SQFloat::_0));
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q &fHalfVertFOV = QAngle::DegreesToRadians(fVerticalFOV*QFloat::_0_5, fHalfVertFOV);
+        float_q &fHalfVertFOV = SQAngle::DegreesToRadians(fVerticalFOV*SQFloat::_0_5, fHalfVertFOV);
     #else
-        const float_q &fHalfVertFOV = fVerticalFOV * QFloat::_0_5;
+        const float_q &fHalfVertFOV = fVerticalFOV * SQFloat::_0_5;
     #endif
 
-    QE_ASSERT( QFloat::AreNotEquals(fHalfVertFOV, QAngle::_HalfPi) );
+    QE_ASSERT( SQFloat::AreNotEquals(fHalfVertFOV, SQAngle::_HalfPi) );
 
-    const float_q &fScaleY  = QFloat::_1 / tan(fHalfVertFOV);
+    const float_q &fScaleY  = SQFloat::_1 / tan(fHalfVertFOV);
     const float_q &fScaleX  = fScaleY / fAspectRatio;
 
     this->ij[0][0] = fScaleX;
-    this->ij[0][1] = QFloat::_0;
-    this->ij[0][2] = QFloat::_0;
-    this->ij[0][3] = QFloat::_0;
-    this->ij[1][0] = QFloat::_0;
+    this->ij[0][1] = SQFloat::_0;
+    this->ij[0][2] = SQFloat::_0;
+    this->ij[0][3] = SQFloat::_0;
+    this->ij[1][0] = SQFloat::_0;
     this->ij[1][1] = fScaleY;
-    this->ij[1][2] = QFloat::_0;
-    this->ij[1][3] = QFloat::_0;
-    this->ij[2][0] = QFloat::_0;
-    this->ij[2][1] = QFloat::_0;
+    this->ij[1][2] = SQFloat::_0;
+    this->ij[1][3] = SQFloat::_0;
+    this->ij[2][0] = SQFloat::_0;
+    this->ij[2][1] = SQFloat::_0;
     this->ij[2][2] = fFarClipPlane/(fFarClipPlane - fNearClipPlane);
-    this->ij[2][3] = QFloat::_1;
-    this->ij[3][0] = QFloat::_0;
+    this->ij[2][3] = SQFloat::_1;
+    this->ij[3][0] = SQFloat::_0;
     this->ij[3][2] = -fNearClipPlane * this->ij[2][2];
-    this->ij[3][1] = QFloat::_0;
-    this->ij[3][3] = QFloat::_0;
+    this->ij[3][1] = SQFloat::_0;
+    this->ij[3][3] = SQFloat::_0;
 
 }
 
@@ -174,22 +174,22 @@ void QSpaceConversionMatrix::SwitchHandConventionViewSpaceMatrix()
     this->ij[0][0] = vXAxis.x;
     this->ij[0][1] = vYAxis.x;
     this->ij[0][2] = vZAxis.x;
-    this->ij[0][3] = QFloat::_0;
+    this->ij[0][3] = SQFloat::_0;
 
     this->ij[1][0] = vXAxis.y;
     this->ij[1][1] = vYAxis.y;
     this->ij[1][2] = vZAxis.y;
-    this->ij[1][3] = QFloat::_0;
+    this->ij[1][3] = SQFloat::_0;
 
     this->ij[2][0] = vXAxis.z;
     this->ij[2][1] = vYAxis.z;
     this->ij[2][2] = vZAxis.z;
-    this->ij[2][3] = QFloat::_0;
+    this->ij[2][3] = SQFloat::_0;
 
     this->ij[3][0] = -vXAxis.DotProduct(vPOV);
     this->ij[3][1] = -vYAxis.DotProduct(vPOV);
     this->ij[3][2] = -vZAxis.DotProduct(vPOV);
-    this->ij[3][3] = QFloat::_1;
+    this->ij[3][3] = SQFloat::_1;
 }
 
 } //namespace Math

@@ -3,7 +3,7 @@
 #ifndef __QBASELINESEGMENT__
 #define __QBASELINESEGMENT__
 
-#include "QFloat.h"
+#include "SQFloat.h"
 #include "QVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
@@ -39,7 +39,7 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseLineSegment () : A(QFloat::_0), B(QFloat::_0) { }
+    inline QBaseLineSegment () : A(SQFloat::_0), B(SQFloat::_0) { }
 
     /// <summary>
     /// Constructor from two vectors.

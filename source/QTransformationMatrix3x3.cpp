@@ -36,7 +36,7 @@ QTransformationMatrix3x3::QTransformationMatrix3x3 (const QBaseVector2 &vDisp, c
 {
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q &fRotRad = QAngle::DegreesToRadians(fRot, fRotRad);
+        float_q &fRotRad = SQAngle::DegreesToRadians(fRot, fRotRad);
 
         const float_q& A   = cos(fRotRad);
         const float_q& B   = sin(fRotRad);
@@ -47,15 +47,15 @@ QTransformationMatrix3x3::QTransformationMatrix3x3 (const QBaseVector2 &vDisp, c
 
     this->ij[0][0] =  vScale.x * A;
     this->ij[0][1] =  vScale.x * B;
-    this->ij[0][2] =  QFloat::_0;
+    this->ij[0][2] =  SQFloat::_0;
 
     this->ij[1][0] = -vScale.y * B;
     this->ij[1][1] =  vScale.y * A;
-    this->ij[1][2] =  QFloat::_0;
+    this->ij[1][2] =  SQFloat::_0;
 
     this->ij[2][0] =  vDisp.x;
     this->ij[2][1] =  vDisp.y;
-    this->ij[2][2] =  QFloat::_1;
+    this->ij[2][2] =  SQFloat::_1;
 
 }
 
@@ -78,18 +78,18 @@ void QTransformationMatrix3x3::Decompose (QBaseVector2 &vOutDisp, float_q &fOutR
     vOutScale.y = sqrt(this->ij[1][0]*this->ij[1][0] + this->ij[1][1]*this->ij[1][1]);
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(vOutScale.x != QFloat::_0);
+    QE_ASSERT(vOutScale.x != SQFloat::_0);
 
     const float_q &fCosRot = this->ij[0][0]/vOutScale.x;
 
     // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
-    QE_ASSERT(QFloat::Abs(fCosRot) <= QFloat::_1);
+    QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1);
 
     fOutRot = acos(fCosRot);
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles must be specified in degrees, then converts it.
-        QAngle::RadiansToDegrees(fOutRot, fOutRot);
+        SQAngle::RadiansToDegrees(fOutRot, fOutRot);
     #endif
 }
 

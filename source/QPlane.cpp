@@ -20,10 +20,10 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-const QPlane QPlane::ZeroPlane ( QFloat::_0,  QFloat::_0,  QFloat::_0,  QFloat::_0);
-const QPlane QPlane::PlaneZX   ( QFloat::_0,  QFloat::_1,  QFloat::_0,  QFloat::_0);
-const QPlane QPlane::PlaneXY   ( QFloat::_0,  QFloat::_0,  QFloat::_1,  QFloat::_0);
-const QPlane QPlane::PlaneYZ   ( QFloat::_1,  QFloat::_0,  QFloat::_0,  QFloat::_0);
+const QPlane QPlane::ZeroPlane ( SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+const QPlane QPlane::PlaneZX   ( SQFloat::_0,  SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
+const QPlane QPlane::PlaneXY   ( SQFloat::_0,  SQFloat::_0,  SQFloat::_1,  SQFloat::_0);
+const QPlane QPlane::PlaneYZ   ( SQFloat::_1,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -47,7 +47,7 @@ QPlane operator * (const float_q &fValue, const QBasePlane &p)
 
 QPlane QPlane::operator / (const float_q &fValue) const
 {
-    QE_ASSERT(fValue != QFloat::_0);
+    QE_ASSERT(fValue != SQFloat::_0);
 
     return QPlane(this->a / fValue, this->b / fValue, this->c / fValue, this->d / fValue);
 }
@@ -55,9 +55,9 @@ QPlane QPlane::operator / (const float_q &fValue) const
 EQSpaceRelation QPlane::SpaceRelation(const QBasePlane &p) const
 {
     // Cross product.
-    if (QFloat::IsZero(p.b*this->c - p.c*this->b) && 
-        QFloat::IsZero(p.c*this->a - p.a*this->c) && 
-        QFloat::IsZero(p.a*this->b - p.b*this->a))
+    if (SQFloat::IsZero(p.b*this->c - p.c*this->b) && 
+        SQFloat::IsZero(p.c*this->a - p.a*this->c) && 
+        SQFloat::IsZero(p.a*this->b - p.b*this->a))
     {
 
         QPlane plAux1(p), plAux2(*this);
@@ -69,7 +69,7 @@ EQSpaceRelation QPlane::SpaceRelation(const QBasePlane &p) const
         if (plAux1 == plAux2)
             return EQSpaceRelation::E_Contained;
         // They are parallel planes.
-        else if (QFloat::IsNegative(plAux1.d - plAux2.d))
+        else if (SQFloat::IsNegative(plAux1.d - plAux2.d))
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_PositiveSide;
