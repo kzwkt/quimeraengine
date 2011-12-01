@@ -3,7 +3,6 @@
 	<Workspace title="QuimeraEngine">
 		<Project filename="Core/Core.cbp" />
 		<Project filename="System/System.cbp">
-			<Depends filename="Core/Core.cbp" />
 			<Depends filename="Tools/Tools.cbp" />
 		</Project>
 		<Project filename="Tools/Tools.cbp" active="1">

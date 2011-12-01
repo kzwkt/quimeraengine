@@ -7,7 +7,7 @@
 #include "QBaseVector4.h"
 #include "QBaseQuaternion.h"
 #include "QMatrix4x4.h"
-#include "QTransformationMatrix.h"
+#include "QMatrix4x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -19,6 +19,19 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+//class QBaseMatrix3x3;
+//class QBaseMatrix3x4;
+//class QBaseMatrix4x3;
+//class QBaseMatrix4x4;
+//class QMatrix4x3;
+//class QMatrix4x4;
+template<class MatrixType> class QTranslationMatrix;
+template<class MatrixType> class QTransformationMatrix;
+class QRotationMatrix3x3;
+class QScaleMatrix3x3;
+
 
 /// <summary>
 /// Class representing a matrix which symbolizes coordinate system transformations. It adds functionality
@@ -143,13 +156,7 @@ public:
     /// <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
     /// <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="mScale">[IN] Matrix which contains the scale (size).</param>
-    template <class MatrixType>
-    void SetWorldSpaceMatrix(const QTranslationMatrix<MatrixType> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
-    {
-        QTransformationMatrix4x4 aux(mDisp, mRot, mScale);
-
-        *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
-    }
+    void SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -157,8 +164,16 @@ public:
     /// <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
     /// <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="mScale">[IN] Matrix which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QTransformationMatrix4x4 &mDisp, const QTransformationMatrix4x4 &mRot,
-        const QTransformationMatrix4x4 &mScale);
+    void SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale);
+
+    /// <summary>
+    /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
+    /// </summary>
+    /// <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
+    /// <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
+    /// <param name="mScale">[IN] Matrix which contains the scale (size).</param>
+    void SetWorldSpaceMatrix(const QTransformationMatrix<QMatrix4x4> &mDisp, const QTransformationMatrix<QMatrix4x4> &mRot,
+        const QTransformationMatrix<QMatrix4x4> &mScale);
 
     /// <summary>
     /// Sets the view space matrix, also called camera space matrix, defined by the point of view or camera position,
@@ -199,10 +214,7 @@ public:
     /// To do that, we treat the world space matrix as a transformation matrix,
     /// inverting both rotation (by trasposing it) and z translation component.
     /// </summary>
-    inline void SwitchHandConventionWorldSpaceMatrix()
-    {
-        reinterpret_cast<QTransformationMatrix4x4 &>(*this).SwitchHandConvention();
-    }
+    void SwitchHandConventionWorldSpaceMatrix();
 
     /// <summary>
     /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.
@@ -262,6 +274,15 @@ protected:
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
+
+    // <summary>
+    // Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
+    // </summary>
+    // <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
+    // <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
+    // <param name="mScale">[IN] Matrix which contains the scale (size).</param>
+    template <class MatrixType>
+    void SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale);
 };
 
 } //namespace Math

@@ -757,7 +757,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix4x3& transformation, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& uElements)
+	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3>& transformation, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
         {
@@ -776,7 +776,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix4x3& transformation, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& uElements)
+	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3>& transformation, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
         {
@@ -795,7 +795,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix4x4& transformation, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& uElements)
+	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4>& transformation, const QBaseVector3& vPivot, QVector3* arPoints, const unsigned int& uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
         {
@@ -814,7 +814,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix4x4& transformation, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& uElements)
+	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4>& transformation, const QBaseVector4& vPivot, QVector4* arPoints, const unsigned int& uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
         {

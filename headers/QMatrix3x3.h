@@ -356,7 +356,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if all elements of the matrix are 0 or under tolerance (abs value).
+    /// Checks if all elements of the matrix are 0 or under tolerance (absolute value).
     /// </summary>
     /// <returns>
     /// True if all elements are 0, false otherwise.
@@ -375,7 +375,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if all elements of the matrix are 0 or under tolerance (abs value) except
+    /// Checks if all elements of the matrix are 0 or under tolerance (absolute value) except
     /// elements where i==j, which must be 1.
     /// </summary>
     /// <returns>

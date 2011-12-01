@@ -446,7 +446,7 @@ public:
 	/// This method performs a translation of the resident hexahedron given by the provided translation matrix.
 	/// </summary>
 	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
-    inline void Translate(const QTranslationMatrix4x3 &mTranslation)
+    inline void Translate(const QTranslationMatrix<QMatrix4x3> &mTranslation)
 	{
 	    SQPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (this), 8);
 	}
@@ -457,7 +457,7 @@ public:
 	/// </summary>
 	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
 	/// <param name="hOut">[OUT] The translated hexahedron.</param>
-	inline void Translate(const QTranslationMatrix4x3 &mTranslation, QBaseHexahedron<VectorType> &hOut) const
+	inline void Translate(const QTranslationMatrix<QMatrix4x3> &mTranslation, QBaseHexahedron<VectorType> &hOut) const
 	{
 	    hOut = *this;
 	    SQPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (&hOut), 8);
@@ -467,7 +467,7 @@ public:
 	/// This method performs a translation of the resident hexahedron given by the provided translation matrix.
 	/// </summary>
 	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
-    inline void Translate(const QTranslationMatrix4x4 &mTranslation)
+    inline void Translate(const QTranslationMatrix<QMatrix4x4> &mTranslation)
 	{
 	    SQPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (this), 8);
 	}
@@ -478,7 +478,7 @@ public:
 	/// </summary>
 	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
 	/// <param name="hOut">[OUT] The translated hexahedron.</param>
-	inline void Translate(const QTranslationMatrix4x4 &mTranslation, QBaseHexahedron<VectorType> &hOut) const
+	inline void Translate(const QTranslationMatrix<QMatrix4x4> &mTranslation, QBaseHexahedron<VectorType> &hOut) const
 	{
 	    hOut = *this;
 	    SQPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (&hOut), 8);
@@ -533,7 +533,7 @@ public:
 	/// This method transforms the resident hexahedron applying the provided transformation matrix.
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
-	inline void Transform(const QTransformationMatrix4x3 &mTransf)
+	inline void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf)
 	{
 	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 8);
 	}
@@ -544,7 +544,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
-	inline void Transform(const QTransformationMatrix4x3 &mTransf, QBaseHexahedron<VectorType> &hOut) const
+	inline void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseHexahedron<VectorType> &hOut) const
 	{
 	    hOut = *this;
 	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&hOut), 8);
@@ -554,7 +554,7 @@ public:
 	/// This method transforms the resident hexahedron applying the provided transformation matrix.
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
-	inline void Transform(const QTransformationMatrix4x4 &mTransf)
+	inline void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf)
 	{
 	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 8);
 	}
@@ -565,7 +565,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
-	inline void Transform(const QTransformationMatrix4x4 &mTransf, QBaseHexahedron<VectorType> &hOut) const
+	inline void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseHexahedron<VectorType> &hOut) const
 	{
 	    hOut = *this;
 	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&hOut), 8);
@@ -598,7 +598,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot)
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot)
 	{
 	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 8);
 	}
@@ -610,7 +610,7 @@ public:
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
-	inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot, QBaseHexahedron<VectorType> &hOut) const
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot, QBaseHexahedron<VectorType> &hOut) const
 	{
 	    hOut = *this;
 	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&hOut), 8);
@@ -622,7 +622,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot)
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot)
 	{
 	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 8);
 	}
@@ -634,7 +634,7 @@ public:
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	/// <param name="hOut">[OUT] The transformed hexahedron.</param>
-	inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot, QBaseHexahedron<VectorType> &hOut) const
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot, QBaseHexahedron<VectorType> &hOut) const
 	{
 	    hOut = *this;
 	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&hOut), 8);

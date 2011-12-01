@@ -23,11 +23,7 @@ namespace Math
 // ----------------------
 class QRotationMatrix3x3;
 template<class MatrixType> class QTransformationMatrix;
-typedef QTransformationMatrix<QMatrix4x3> QTransformationMatrix4x3;
-typedef QTransformationMatrix<QMatrix4x4> QTransformationMatrix4x4;
 template<class MatrixType> class QTranslationMatrix;
-typedef QTranslationMatrix<QMatrix4x3> QTranslationMatrix4x3;
-typedef QTranslationMatrix<QMatrix4x4> QTranslationMatrix4x4;
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a scale factor
@@ -178,7 +174,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix4x4 operator*(const QRotationMatrix3x3 &m) const;
+	QTransformationMatrix<QMatrix4x4> operator*(const QRotationMatrix3x3 &m) const;
 
 	/// <summary>
     /// Multiplies a 4x4 translation matrix by the current matrix.
@@ -190,7 +186,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix, depending on the method template parameter.
     /// </returns>
-	QTransformationMatrix4x4 operator*(const QTranslationMatrix4x4 &m) const;
+	QTransformationMatrix<QMatrix4x4> operator*(const QTranslationMatrix<QMatrix4x4> &m) const;
 
     /// <summary>
     /// Multiplies a 4x3 translation matrix by the current matrix.
@@ -202,7 +198,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix, depending on the method template parameter.
     /// </returns>
-	QTransformationMatrix4x3 operator*(const QTranslationMatrix4x3 &m) const;
+	QTransformationMatrix<QMatrix4x3> operator*(const QTranslationMatrix<QMatrix4x3> &m) const;
 
     /// <summary>
     /// Multiplies a 4x4 transformation matrix by the current matrix.
@@ -214,7 +210,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix, depending on the method template parameter.
     /// </returns>
-	QTransformationMatrix4x4 operator*(const QTransformationMatrix4x4 &m) const;
+	QTransformationMatrix<QMatrix4x4> operator*(const QTransformationMatrix<QMatrix4x4> &m) const;
 
     /// <summary>
     /// Multiplies a 4x3 transformation matrix by the current matrix.
@@ -226,7 +222,7 @@ public:
     /// <returns>
     /// The resultant 4x3 transformation matrix, depending on the method template parameter.
     /// </returns>
-	QTransformationMatrix4x3 operator*(const QTransformationMatrix4x3 &m) const;
+	QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &m) const;
 
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.

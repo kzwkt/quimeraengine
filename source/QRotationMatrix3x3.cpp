@@ -3,6 +3,7 @@
 #include "QRotationMatrix3x3.h"
 
 #include "QVector3.h"
+#include "QQuaternion.h"
 #include "QTranslationMatrix.h"
 #include "QScaleMatrix3x3.h"
 #include "QTransformationMatrix.h"
@@ -176,9 +177,9 @@ QRotationMatrix3x3 QRotationMatrix3x3::operator*(const QRotationMatrix3x3 &m) co
     return aux;
 }
 
-QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QTranslationMatrix4x4 &m) const
+QTransformationMatrix<QMatrix4x4> QRotationMatrix3x3::operator*(const QTranslationMatrix<QMatrix4x4> &m) const
 {
-    QTransformationMatrix4x4 aux(QTransformationMatrix4x4::Identity);
+    QTransformationMatrix<QMatrix4x4> aux(QTransformationMatrix<QMatrix4x4>::Identity);
 
     aux.ij[3][0] = m.ij[3][0];
     aux.ij[3][1] = m.ij[3][1];
@@ -199,9 +200,9 @@ QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QTranslationMatrix4
     return aux;
 }
 
-QTransformationMatrix4x3 QRotationMatrix3x3::operator*(const QTranslationMatrix4x3 &m) const
+QTransformationMatrix<QMatrix4x3> QRotationMatrix3x3::operator*(const QTranslationMatrix<QMatrix4x3> &m) const
 {
-    QTransformationMatrix4x3 aux(QTransformationMatrix4x3::Identity);
+    QTransformationMatrix<QMatrix4x3> aux(QTransformationMatrix<QMatrix4x3>::Identity);
 
     aux.ij[3][0] = m.ij[3][0];
     aux.ij[3][1] = m.ij[3][1];
@@ -222,9 +223,9 @@ QTransformationMatrix4x3 QRotationMatrix3x3::operator*(const QTranslationMatrix4
     return aux;
 }
 
-QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QScaleMatrix3x3 &m) const
+QTransformationMatrix<QMatrix4x4> QRotationMatrix3x3::operator*(const QScaleMatrix3x3 &m) const
 {
-    QTransformationMatrix4x4 aux;
+    QTransformationMatrix<QMatrix4x4> aux;
 
     aux.ResetToIdentity();
 
@@ -243,9 +244,9 @@ QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QScaleMatrix3x3 &m)
     return aux;
 }
 
-QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QTransformationMatrix4x4 &m) const
+QTransformationMatrix<QMatrix4x4> QRotationMatrix3x3::operator*(const QTransformationMatrix<QMatrix4x4> &m) const
 {
-    QTransformationMatrix4x4 aux(QTransformationMatrix4x4::Identity);
+    QTransformationMatrix<QMatrix4x4> aux(QTransformationMatrix<QMatrix4x4>::Identity);
 
     aux.ij[3][0] = m.ij[3][0];
     aux.ij[3][1] = m.ij[3][1];
@@ -266,9 +267,9 @@ QTransformationMatrix4x4 QRotationMatrix3x3::operator*(const QTransformationMatr
     return aux;
 }
 
-QTransformationMatrix4x3 QRotationMatrix3x3::operator*(const QTransformationMatrix4x3 &m) const
+QTransformationMatrix<QMatrix4x3> QRotationMatrix3x3::operator*(const QTransformationMatrix<QMatrix4x3> &m) const
 {
-    QTransformationMatrix4x3 aux(QTransformationMatrix4x3::Identity);
+    QTransformationMatrix<QMatrix4x3> aux(QTransformationMatrix<QMatrix4x3>::Identity);
 
     aux.ij[3][0] = m.ij[3][0];
     aux.ij[3][1] = m.ij[3][1];

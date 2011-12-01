@@ -51,9 +51,9 @@ QScaleMatrix3x3 QScaleMatrix3x3::operator*(const QScaleMatrix3x3 &m) const
     return aux;
 }
 
-QTransformationMatrix4x4 QScaleMatrix3x3::operator*(const QRotationMatrix3x3 &m) const
+QTransformationMatrix<QMatrix4x4> QScaleMatrix3x3::operator*(const QRotationMatrix3x3 &m) const
 {
-    QTransformationMatrix4x4 aux;
+    QTransformationMatrix<QMatrix4x4> aux;
 
     aux.ResetToIdentity();
 
@@ -72,9 +72,9 @@ QTransformationMatrix4x4 QScaleMatrix3x3::operator*(const QRotationMatrix3x3 &m)
     return aux;
 }
 
-QTransformationMatrix4x4 QScaleMatrix3x3::operator*(const QTranslationMatrix4x4 &m) const
+QTransformationMatrix<QMatrix4x4> QScaleMatrix3x3::operator*(const QTranslationMatrix<QMatrix4x4> &m) const
 {
-    QTransformationMatrix4x4 aux(QTransformationMatrix4x4::Identity);
+    QTransformationMatrix<QMatrix4x4> aux(QTransformationMatrix<QMatrix4x4>::Identity);
 
     aux.ResetToIdentity();
 
@@ -89,9 +89,9 @@ QTransformationMatrix4x4 QScaleMatrix3x3::operator*(const QTranslationMatrix4x4 
     return aux;
 }
 
-QTransformationMatrix4x3 QScaleMatrix3x3::operator*(const QTranslationMatrix4x3 &m) const
+QTransformationMatrix<QMatrix4x3> QScaleMatrix3x3::operator*(const QTranslationMatrix<QMatrix4x3> &m) const
 {
-    QTransformationMatrix4x3 aux(QTransformationMatrix4x3::Identity);
+    QTransformationMatrix<QMatrix4x3> aux(QTransformationMatrix<QMatrix4x3>::Identity);
 
     aux.ij[0][0] = this->ij[0][0];
     aux.ij[1][1] = this->ij[1][1];
@@ -104,9 +104,9 @@ QTransformationMatrix4x3 QScaleMatrix3x3::operator*(const QTranslationMatrix4x3 
     return aux;
 }
 
-QTransformationMatrix4x4 QScaleMatrix3x3::operator*(const QTransformationMatrix4x4 &m) const
+QTransformationMatrix<QMatrix4x4> QScaleMatrix3x3::operator*(const QTransformationMatrix<QMatrix4x4> &m) const
 {
-    QTransformationMatrix4x4 aux(QTransformationMatrix4x4::Identity);
+    QTransformationMatrix<QMatrix4x4> aux(QTransformationMatrix<QMatrix4x4>::Identity);
 
     aux.ij[3][0] = m.ij[3][0];
     aux.ij[3][1] = m.ij[3][1];
@@ -127,9 +127,9 @@ QTransformationMatrix4x4 QScaleMatrix3x3::operator*(const QTransformationMatrix4
     return aux;
 }
 
-QTransformationMatrix4x3 QScaleMatrix3x3::operator*(const QTransformationMatrix4x3 &m) const
+QTransformationMatrix<QMatrix4x3> QScaleMatrix3x3::operator*(const QTransformationMatrix<QMatrix4x3> &m) const
 {
-    QTransformationMatrix4x3 aux(QTransformationMatrix4x3::Identity);
+    QTransformationMatrix<QMatrix4x3> aux(QTransformationMatrix<QMatrix4x3>::Identity);
 
     aux.ij[3][0] = m.ij[3][0];
     aux.ij[3][1] = m.ij[3][1];

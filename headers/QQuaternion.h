@@ -7,8 +7,6 @@
 #include "QBaseQuaternion.h"
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
-#include "QRotationMatrix3x3.h"
-#include "QTransformationMatrix.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -20,6 +18,13 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QMatrix4x3;
+class QMatrix4x4;
+template<class MatrixType> class QTransformationMatrix;
+class QRotationMatrix3x3;
+
 
 /// <summary>
 /// Quaternions extend the concept of rotation in three dimensions to
@@ -137,24 +142,32 @@ public:
 	QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle);
 
 	/// <summary>
-	/// Constructor that receives a transformation matrix, whose dimensions depend on the
-	/// method template parameter.
+	/// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
     /// </summary>
     /// <param name="m">[IN] A transformation matrix.</param>
-	template <class MatrixType>
-	inline explicit QQuaternion(const QTransformationMatrix<MatrixType> &m)
-	{
-		m.GetRotation(*this);
-	}
+	explicit QQuaternion(const QTransformationMatrix<QMatrix4x3> &m);
+
+	/// <summary>
+	/// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
+    /// </summary>
+    /// <param name="m">[IN] A transformation matrix.</param>
+	explicit QQuaternion(const QTransformationMatrix<QMatrix4x4> &m);
 
 	/// <summary>
 	/// Constructor that receives a 3x3 rotation matrix.
     /// </summary>
     /// <param name="m">[IN] A 3x3 rotation matrix.</param>
-	inline explicit QQuaternion(const QRotationMatrix3x3 &m)
-	{
-		m.GetRotation(*this);
-	}
+	explicit QQuaternion(const QRotationMatrix3x3 &m);
+
+protected:
+
+	// <summary>
+	// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
+    // </summary>
+    // <param name="m">[IN] A transformation matrix.</param>
+	template <class MatrixType>
+	void QQuaternionImp(const QTransformationMatrix<MatrixType> &m);
+
 
 	// METHODS
 	// ---------------
