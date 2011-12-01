@@ -28,10 +28,10 @@ void Test(float fTimeDelta)
     OutputDebugStringW(L"Posing test...\n");
 
     Ray3D1.Direction.x = 1.0f;     Ray3D1.Direction.y = 0.0f;    Ray3D1.Direction.z = 0.0f;
-    Ray3D1.Point.x = 1.0f;         Ray3D1.Point.y = 1.0f;        Ray3D1.Point.z = -1.0f;
+    Ray3D1.Origin.x = 1.0f;        Ray3D1.Origin.y = 1.0f;       Ray3D1.Origin.z = -1.0f;
 
     Ray3D2.Direction.x = 1.0f;     Ray3D2.Direction.y = 0.0f;    Ray3D2.Direction.z = 0.0f;
-    Ray3D2.Point.x = 1.0f;         Ray3D2.Point.y = 1.0f;        Ray3D2.Point.z = -2.0f;
+    Ray3D2.Origin.x = 1.0f;        Ray3D2.Origin.y = 1.0f;       Ray3D2.Origin.z = -2.0f;
 
     LineSegment3D1.A.x = -1.0f;    LineSegment3D1.A.y = 0.0f;    LineSegment3D1.A.z = 0.0f;
     LineSegment3D1.B.x = -1.0f;    LineSegment3D1.B.y = 1.0f;    LineSegment3D1.B.z = 0.0f;
@@ -80,7 +80,7 @@ void Test(float fTimeDelta)
     Hexahedron2.Translate(2.0f, 0.0f, 2.0f);
 
     // Ray rotation sample
-    Ray3D1.RotateWithPivot(QQuaternion(0.0f, 0.0f, fRotationY), VectorType(Ray3D1.Point));
+    Ray3D1.RotateWithPivot(QQuaternion(0.0f, 0.0f, fRotationY), VectorType(Ray3D1.Origin));
 
 
 

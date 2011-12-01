@@ -297,14 +297,14 @@ bool Display(float timeDelta)
         if( SUCCEEDED( pVertex->Lock(0, 0, (void**)&pV, D3DLOCK_DISCARD) ) )
         {
             const float_q RAY_LENGTH = 15.0f;
-            pV[0].x = Ray3D1.Point.x + (Ray3D1.Direction.x + 0.0001f) * RAY_LENGTH;     pV[0].y = Ray3D1.Point.y + Ray3D1.Direction.y * RAY_LENGTH;   pV[0].z = Ray3D1.Point.z + Ray3D1.Direction.z * RAY_LENGTH;
-            pV[1].x = Ray3D1.Point.x + (Ray3D1.Direction.x + 0.0001f) * RAY_LENGTH;     pV[1].y = Ray3D1.Point.y + Ray3D1.Direction.y * RAY_LENGTH;   pV[1].z = Ray3D1.Point.z + Ray3D1.Direction.z * RAY_LENGTH;
-            pV[2].x = Ray3D1.Point.x + Ray3D1.Direction.x * RAY_LENGTH;                 pV[2].y = Ray3D1.Point.y + Ray3D1.Direction.y * RAY_LENGTH;   pV[2].z = Ray3D1.Point.z + (Ray3D1.Direction.z + 0.0001f) * RAY_LENGTH;
-            pV[3].x = Ray3D1.Point.x + Ray3D1.Direction.x * RAY_LENGTH;                 pV[3].y = Ray3D1.Point.y + Ray3D1.Direction.y * RAY_LENGTH;   pV[3].z = Ray3D1.Point.z + (Ray3D1.Direction.z + 0.0001f) * RAY_LENGTH;
-            pV[4].x = Ray3D1.Point.x + 0.0001f;         pV[4].y = Ray3D1.Point.y;       pV[4].z = Ray3D1.Point.z;
-            pV[5].x = Ray3D1.Point.x + 0.0001f;         pV[5].y = Ray3D1.Point.y;       pV[5].z = Ray3D1.Point.z;
-            pV[6].x = Ray3D1.Point.x;                   pV[6].y = Ray3D1.Point.y;       pV[6].z = Ray3D1.Point.z + 0.0001f;
-            pV[7].x = Ray3D1.Point.x;                   pV[7].y = Ray3D1.Point.y;       pV[7].z = Ray3D1.Point.z + 0.0001f;
+            pV[0].x = Ray3D1.Origin.x + (Ray3D1.Direction.x + 0.0001f) * RAY_LENGTH;     pV[0].y = Ray3D1.Origin.y + Ray3D1.Direction.y * RAY_LENGTH;   pV[0].z = Ray3D1.Origin.z + Ray3D1.Direction.z * RAY_LENGTH;
+            pV[1].x = Ray3D1.Origin.x + (Ray3D1.Direction.x + 0.0001f) * RAY_LENGTH;     pV[1].y = Ray3D1.Origin.y + Ray3D1.Direction.y * RAY_LENGTH;   pV[1].z = Ray3D1.Origin.z + Ray3D1.Direction.z * RAY_LENGTH;
+            pV[2].x = Ray3D1.Origin.x + Ray3D1.Direction.x * RAY_LENGTH;                 pV[2].y = Ray3D1.Origin.y + Ray3D1.Direction.y * RAY_LENGTH;   pV[2].z = Ray3D1.Origin.z + (Ray3D1.Direction.z + 0.0001f) * RAY_LENGTH;
+            pV[3].x = Ray3D1.Origin.x + Ray3D1.Direction.x * RAY_LENGTH;                 pV[3].y = Ray3D1.Origin.y + Ray3D1.Direction.y * RAY_LENGTH;   pV[3].z = Ray3D1.Origin.z + (Ray3D1.Direction.z + 0.0001f) * RAY_LENGTH;
+            pV[4].x = Ray3D1.Origin.x + 0.0001f;                                         pV[4].y = Ray3D1.Origin.y;                                     pV[4].z = Ray3D1.Origin.z;
+            pV[5].x = Ray3D1.Origin.x + 0.0001f;                                         pV[5].y = Ray3D1.Origin.y;                                     pV[5].z = Ray3D1.Origin.z;
+            pV[6].x = Ray3D1.Origin.x;                                                   pV[6].y = Ray3D1.Origin.y;                                     pV[6].z = Ray3D1.Origin.z + 0.0001f;
+            pV[7].x = Ray3D1.Origin.x;                                                   pV[7].y = Ray3D1.Origin.y;                                     pV[7].z = Ray3D1.Origin.z + 0.0001f;
             
             pVertex->Unlock();
         }
@@ -314,14 +314,14 @@ bool Display(float timeDelta)
         if( SUCCEEDED( pVertex->Lock(0, 0, (void**)&pV, D3DLOCK_DISCARD) ) )
         {
             const float_q RAY_LENGTH = 15.0f;
-            pV[0].x = Ray3D2.Point.x + (Ray3D2.Direction.x + 0.0001f) * RAY_LENGTH;     pV[0].y = Ray3D2.Point.y + Ray3D2.Direction.y * RAY_LENGTH;   pV[0].z = Ray3D2.Point.z + Ray3D2.Direction.z * RAY_LENGTH;
-            pV[1].x = Ray3D2.Point.x + (Ray3D2.Direction.x + 0.0001f) * RAY_LENGTH;     pV[1].y = Ray3D2.Point.y + Ray3D2.Direction.y * RAY_LENGTH;   pV[1].z = Ray3D2.Point.z + Ray3D2.Direction.z * RAY_LENGTH;
-            pV[2].x = Ray3D2.Point.x + Ray3D2.Direction.x * RAY_LENGTH;                 pV[2].y = Ray3D2.Point.y + Ray3D2.Direction.y * RAY_LENGTH;   pV[2].z = Ray3D2.Point.z + (Ray3D2.Direction.z + 0.0001f) * RAY_LENGTH;
-            pV[3].x = Ray3D2.Point.x + Ray3D2.Direction.x * RAY_LENGTH;                 pV[3].y = Ray3D2.Point.y + Ray3D2.Direction.y * RAY_LENGTH;   pV[3].z = Ray3D2.Point.z + (Ray3D2.Direction.z + 0.0001f) * RAY_LENGTH;
-            pV[4].x = Ray3D2.Point.x + 0.0001f;         pV[4].y = Ray3D2.Point.y;       pV[4].z = Ray3D2.Point.z;
-            pV[5].x = Ray3D2.Point.x + 0.0001f;         pV[5].y = Ray3D2.Point.y;       pV[5].z = Ray3D2.Point.z;
-            pV[6].x = Ray3D2.Point.x;                   pV[6].y = Ray3D2.Point.y;       pV[6].z = Ray3D2.Point.z + 0.0001f;
-            pV[7].x = Ray3D2.Point.x;                   pV[7].y = Ray3D2.Point.y;       pV[7].z = Ray3D2.Point.z + 0.0001f;
+            pV[0].x = Ray3D2.Origin.x + (Ray3D2.Direction.x + 0.0001f) * RAY_LENGTH;     pV[0].y = Ray3D2.Origin.y + Ray3D2.Direction.y * RAY_LENGTH;   pV[0].z = Ray3D2.Origin.z + Ray3D2.Direction.z * RAY_LENGTH;
+            pV[1].x = Ray3D2.Origin.x + (Ray3D2.Direction.x + 0.0001f) * RAY_LENGTH;     pV[1].y = Ray3D2.Origin.y + Ray3D2.Direction.y * RAY_LENGTH;   pV[1].z = Ray3D2.Origin.z + Ray3D2.Direction.z * RAY_LENGTH;
+            pV[2].x = Ray3D2.Origin.x + Ray3D2.Direction.x * RAY_LENGTH;                 pV[2].y = Ray3D2.Origin.y + Ray3D2.Direction.y * RAY_LENGTH;   pV[2].z = Ray3D2.Origin.z + (Ray3D2.Direction.z + 0.0001f) * RAY_LENGTH;
+            pV[3].x = Ray3D2.Origin.x + Ray3D2.Direction.x * RAY_LENGTH;                 pV[3].y = Ray3D2.Origin.y + Ray3D2.Direction.y * RAY_LENGTH;   pV[3].z = Ray3D2.Origin.z + (Ray3D2.Direction.z + 0.0001f) * RAY_LENGTH;
+            pV[4].x = Ray3D2.Origin.x + 0.0001f;                                         pV[4].y = Ray3D2.Origin.y;                                     pV[4].z = Ray3D2.Origin.z;
+            pV[5].x = Ray3D2.Origin.x + 0.0001f;                                         pV[5].y = Ray3D2.Origin.y;                                     pV[5].z = Ray3D2.Origin.z;
+            pV[6].x = Ray3D2.Origin.x;                                                   pV[6].y = Ray3D2.Origin.y;                                     pV[6].z = Ray3D2.Origin.z + 0.0001f;
+            pV[7].x = Ray3D2.Origin.x;                                                   pV[7].y = Ray3D2.Origin.y;                                     pV[7].z = Ray3D2.Origin.z + 0.0001f;
             
             pVertex->Unlock();
         }
