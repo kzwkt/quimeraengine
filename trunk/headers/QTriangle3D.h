@@ -174,7 +174,7 @@ public:
 	/// Translates the triangle applying a [4x3] translation matrix.
 	/// </summary>
 	/// <param name="mTrans">[IN] The [4x3] translation matrix to be applied.</param>
-	inline void Translate(const QTranslationMatrix4x3 &mTrans)
+	inline void Translate(const QTranslationMatrix<QMatrix4x3> &mTrans)
 	{
 	    SQPoint::Translate(mTrans, reinterpret_cast<VectorType*> (this), 3);
 	}
@@ -183,7 +183,7 @@ public:
 	/// Translates the triangle applying a [4x4] translation matrix.
 	/// </summary>
 	/// <param name="mTrans">[IN] The [4x4] translation matrix to be applied.</param>
-	inline void Translate(const QTranslationMatrix4x4 &mTrans)
+	inline void Translate(const QTranslationMatrix<QMatrix4x4> &mTrans)
 	{
 	    SQPoint::Translate(mTrans, reinterpret_cast<VectorType*> (this), 3);
 	}
@@ -194,7 +194,7 @@ public:
 	/// </summary>
 	/// <param name="mTrans">[IN] The [4x3] translation matrix to be applied.</param>
 	/// <param name="tOut">[OUT] Triangle where to store the translated one.</param>
-	inline void Translate(const QTranslationMatrix4x3 &mTrans, QBaseTriangle<VectorType> tOut) const
+	inline void Translate(const QTranslationMatrix<QMatrix4x3> &mTrans, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
 	    SQPoint::Translate(mTrans, reinterpret_cast<VectorType*> (&tOut), 3);
@@ -206,7 +206,7 @@ public:
 	/// </summary>
 	/// <param name="mTrans">[IN] The [4x4] translation matrix to be applied.</param>
 	/// <param name="tOut">[OUT] Triangle where to store the translated one.</param>
-	inline void Translate(const QTranslationMatrix4x4 &mTrans, QBaseTriangle<VectorType> tOut) const
+	inline void Translate(const QTranslationMatrix<QMatrix4x4> &mTrans, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
 	    SQPoint::Translate(mTrans, reinterpret_cast<VectorType*> (&tOut), 3);
@@ -403,7 +403,7 @@ public:
 	/// Transforms the resident triangle applying the [4x3] transformation matrix provided.
 	/// </summary>
 	/// <param name="mTransf">[IN] A [4x3] transformation matrix to be applied.</param>
-	inline void Transform(const QTransformationMatrix4x3 &mTransf)
+	inline void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf)
 	{
 	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 3);
 	}
@@ -412,7 +412,7 @@ public:
 	/// Transforms the resident triangle applying the [4x4] transformation matrix provided.
 	/// </summary>
 	/// <param name="mTransf">[IN] A [4x4] transformation matrix to be applied.</param>
-	inline void Transform(const QTransformationMatrix4x4 &mTransf)
+	inline void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf)
 	{
 	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (this), 3);
 	}
@@ -423,7 +423,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] A [4x3] transformation matrix to be applied.</param>
 	/// <param name="tOut">[OUT] Triangle where to store the transformed triangle.</param>
-	inline void Transform(const QTransformationMatrix4x3 &mTransf, QBaseTriangle<VectorType> tOut) const
+	inline void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
 	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
@@ -435,7 +435,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] A [4x4] transformation matrix to be applied.</param>
 	/// <param name="tOut">[OUT] Triangle where to store the transformed triangle.</param>
-	inline void Transform(const QTransformationMatrix4x4 &mTransf, QBaseTriangle<VectorType> tOut) const
+	inline void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
 	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&tOut), 3);
@@ -499,7 +499,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot)
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot)
 	{
 	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
@@ -511,7 +511,7 @@ public:
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	/// <param name="tOut">[OUT] The transformed triangle.</param>
-	inline void TransformWithPivot(const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
 	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);
@@ -523,7 +523,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot)
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot)
 	{
 	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (this), 3);
 	}
@@ -535,7 +535,7 @@ public:
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	/// <param name="tOut">[OUT] The transformed triangle.</param>
-	inline void TransformWithPivot(const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
 	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&tOut), 3);

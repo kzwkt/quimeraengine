@@ -4,6 +4,8 @@
 
 #include "QQuaternion.h"
 #include "QDualQuaternion.h"
+#include "QMatrix4x3.h"
+#include "QMatrix4x4.h"
 #include "QSpaceConversionMatrix.h"
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
@@ -34,6 +36,25 @@ const QVector3 QVector3::UnitVectorZ   ( SQFloat::_0,  SQFloat::_0,  SQFloat::_1
 const QVector3 QVector3::UnitVectorInvX(-SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
 const QVector3 QVector3::UnitVectorInvY( SQFloat::_0, -SQFloat::_1,  SQFloat::_0);
 const QVector3 QVector3::UnitVectorInvZ( SQFloat::_0,  SQFloat::_0, -SQFloat::_1);
+
+
+//##################=======================================================##################
+//##################             ____________________________              ##################
+//##################            |                            |             ##################
+//##################            |       CONSTRUCTORS         |             ##################
+//##################           /|                            |\            ##################
+//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
+//##################                                                       ##################
+//##################=======================================================##################
+
+QVector3::QVector3(const QTranslationMatrix<QMatrix4x3> &m) : QBaseVector3(m.ij[3][0], m.ij[3][1], m.ij[3][2])
+{
+}
+
+QVector3::QVector3(const QTranslationMatrix<QMatrix4x4> &m) : QBaseVector3(m.ij[3][0], m.ij[3][1], m.ij[3][2])
+{
+}
+
 
 //##################=======================================================##################
 //##################             ____________________________              ##################
@@ -166,6 +187,102 @@ void QVector3::Transform(const QDualQuaternion &dqTransf)
 void QVector3::Transform(const QSpaceConversionMatrix &mTransf)
 {
 	QVector3 vAux;
+
+    vAux.x = this->x * mTransf.ij[0][0] + this->y * mTransf.ij[1][0] + this->z * mTransf.ij[2][0] + mTransf.ij[3][0];
+    vAux.y = this->x * mTransf.ij[0][1] + this->y * mTransf.ij[1][1] + this->z * mTransf.ij[2][1] + mTransf.ij[3][1];
+    vAux.z = this->x * mTransf.ij[0][2] + this->y * mTransf.ij[1][2] + this->z * mTransf.ij[2][2] + mTransf.ij[3][2];
+
+    *this = vAux;
+}
+
+void QVector3::Transform(const QRotationMatrix3x3 &mRot)
+{
+    *this *= mRot;
+}
+
+
+void QVector3::Transform(const QRotationMatrix3x3 &mRot, QBaseVector3 &vOut) const
+{
+    vOut = *this;
+    reinterpret_cast<QVector3&> (vOut).Transform(mRot);
+}
+
+void QVector3::Transform(const QScaleMatrix3x3 &mScale)
+{
+    this->x *= mScale.ij[0][0];
+    this->y *= mScale.ij[1][1];
+    this->z *= mScale.ij[2][2];
+}
+
+void QVector3::Transform(const QScaleMatrix3x3 &mScale, QBaseVector3 &vOut) const
+{
+    vOut = *this;
+    reinterpret_cast<QVector3&> (vOut).Transform(mScale);
+}
+
+void QVector3::Transform(const QTranslationMatrix<QMatrix4x3> &mDisp)
+{
+    TransformImp(mDisp);
+}
+
+void QVector3::Transform(const QTranslationMatrix<QMatrix4x4> &mDisp)
+{
+    TransformImp(mDisp);
+}
+
+void QVector3::Transform(const QTranslationMatrix<QMatrix4x3> &mDisp, QBaseVector3 &vOut) const
+{
+    vOut = *this;
+    reinterpret_cast<QVector3&> (vOut).Transform(mDisp);
+}
+
+void QVector3::Transform(const QTranslationMatrix<QMatrix4x4> &mDisp, QBaseVector3 &vOut) const
+{
+    vOut = *this;
+    reinterpret_cast<QVector3&> (vOut).Transform(mDisp);
+}
+
+void QVector3::Transform(const QTransformationMatrix<QMatrix4x3> &mTransf)
+{
+    TransformImp(mTransf);
+}
+
+void QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &mTransf)
+{
+    TransformImp(mTransf);
+}
+
+void QVector3::Transform(const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseVector3 &vOut) const
+{
+    vOut = *this;
+    reinterpret_cast<QVector3&> (vOut).Transform(mTransf);
+}
+
+void QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseVector3 &vOut) const
+{
+    vOut = *this;
+    reinterpret_cast<QVector3&> (vOut).Transform(mTransf);
+}
+
+
+void QVector3::Transform(const QSpaceConversionMatrix &mTransf, QBaseVector3 &vOut) const
+{
+    vOut = *this;
+    reinterpret_cast<QVector3&>(vOut).Transform(mTransf);
+}
+
+template <class MatrixType>
+inline void QVector3::TransformImp(const QTranslationMatrix<MatrixType> &mDisp)
+{
+    this->x += mDisp.ij[3][0];
+    this->y += mDisp.ij[3][1];
+    this->z += mDisp.ij[3][2];
+}
+
+template <class MatrixType>
+void QVector3::TransformImp(const QTransformationMatrix<MatrixType> &mTransf)
+{
+    QVector3 vAux;
 
     vAux.x = this->x * mTransf.ij[0][0] + this->y * mTransf.ij[1][0] + this->z * mTransf.ij[2][0] + mTransf.ij[3][0];
     vAux.y = this->x * mTransf.ij[0][1] + this->y * mTransf.ij[1][1] + this->z * mTransf.ij[2][1] + mTransf.ij[3][1];

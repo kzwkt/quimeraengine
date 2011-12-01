@@ -5,6 +5,10 @@
 
 #include "QVector3.h"
 #include "QVector4.h"
+#include "QMatrix4x3.h"
+#include "QMatrix4x4.h"
+#include "QRotationMatrix3x3.h"
+#include "QTransformationMatrix.h"
 
 namespace Kinesis
 {
@@ -114,6 +118,29 @@ QQuaternion::QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle)
 	this->z = vAxis.z * fSin;
 
 	this->w = cos(fHalfAngleRad);
+}
+
+QQuaternion::QQuaternion(const QTransformationMatrix<QMatrix4x3> &m)
+{
+    QQuaternionImp(m);
+}
+
+
+QQuaternion::QQuaternion(const QTransformationMatrix<QMatrix4x4> &m)
+{
+    QQuaternionImp(m);
+}
+
+
+QQuaternion::QQuaternion(const QRotationMatrix3x3 &m)
+{
+    m.GetRotation(*this);
+}
+
+template <class MatrixType>
+inline void QQuaternion::QQuaternionImp(const QTransformationMatrix<MatrixType> &m)
+{
+    m.GetRotation(*this);
 }
 
 //##################=======================================================##################

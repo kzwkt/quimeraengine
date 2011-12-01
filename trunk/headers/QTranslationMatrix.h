@@ -147,8 +147,7 @@ public:
     // Binary operators
 
     /// <summary>
-    /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
+    /// Multiplies a translation matrix by the resident matrix. Since both are translation matrices, the product is calculated as follows:
     ///
     /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
     /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
@@ -161,18 +160,33 @@ public:
     /// <returns>
     /// The resultant matrix, with the same template parameter that resident matrix.
     /// </returns>
-    template <class MatrixTypeParam>
-    QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<MatrixTypeParam> &m) const
+    QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x3> &m) const
     {
-        QTranslationMatrix<MatrixType> aux;
+        QTranslationMatrix<MatrixType> outMatrix;
+        ProductOperatorImp(outMatrix);
+        return outMatrix;
+    }
 
-        aux.ResetToIdentity();
+    /// <summary>
+    /// Multiplies a translation matrix by the resident matrix. Since both are translation matrices, the product is calculated as follows:
+    ///
+    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
+    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
+    /// </summary>
+    /// <remarks>
+    /// This product is conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant matrix, with the same template parameter that resident matrix.
+    /// </returns>
+    QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x4> &m) const
+    {
+        QTranslationMatrix<MatrixType> outMatrix;
+        ProductOperatorImp(outMatrix);
+        return outMatrix;
 
-        aux.ij[3][0] = this->ij[3][0] + m.ij[3][0];
-        aux.ij[3][1] = this->ij[3][1] + m.ij[3][1];
-        aux.ij[3][2] = this->ij[3][2] + m.ij[3][2];
-
-        return aux;
     }
 
 	/// <summary>
@@ -294,8 +308,7 @@ public:
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
-    /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
+    /// Multiplies a translation matrix by the resident matrix. Since both are translation matrices, the product is calculated as follows:
     ///
     /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
     /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
@@ -305,13 +318,27 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    template <class MatrixTypeParam>
-    inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<MatrixTypeParam> &m) {
+    inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x3> &m)
+    {
+        ProductAssignationOperatorImp();
+        return *this;
+    }
 
-        this->ij[3][0] += m.ij[3][0];
-        this->ij[3][1] += m.ij[3][1];
-        this->ij[3][2] += m.ij[3][2];
-
+    /// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// Multiplies a translation matrix by the resident matrix. Since both are translation matrices, the product is calculated as follows:
+    ///
+    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
+    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be multiplied by.</param>
+    /// <returns>
+    /// The modified matrix.
+    /// </returns>
+    inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x4> &m)
+    {
+        ProductAssignationOperatorImp();
         return *this;
     }
 
@@ -413,13 +440,49 @@ protected:
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
+
+    // <summary>
+    // Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    // 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
+    //
+    // \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    // \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
+    // \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
+    // </summary>
+    // <remarks>
+    // This product is conmmutative.
+    // </remarks>
+    // <param name="m">[IN] Matrix to be multiplied by.</param>
+    // <param name="outMatrix">[OUT] Resultant matrix.</param>
+    template <class MatrixTypeParam>
+    void ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &m, QTranslationMatrix<MatrixType> &outMatrix) const
+    {
+        outMatrix.ResetToIdentity();
+
+        outMatrix.ij[3][0] = this->ij[3][0] + m.ij[3][0];
+        outMatrix.ij[3][1] = this->ij[3][1] + m.ij[3][1];
+        outMatrix.ij[3][2] = this->ij[3][2] + m.ij[3][2];
+    }
+
+    // <summary>
+    // Product and assign operator. Current matrix stores the result of the multiplication.
+    // Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    // 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
+    //
+    // \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    // \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
+    // \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
+    // </summary>
+    // <param name="m">[IN] The matrix to be multiplied by.</param>
+    template <class MatrixTypeParam>
+    inline void ProductAssignationOperatorImp(const QTranslationMatrix<MatrixTypeParam> &m)
+    {
+        this->ij[3][0] += m.ij[3][0];
+        this->ij[3][1] += m.ij[3][1];
+        this->ij[3][2] += m.ij[3][2];
+    }
+
 };
-
-// TYPEDEFS
-// ---------------
-
-typedef QTranslationMatrix<QMatrix4x3> QTranslationMatrix4x3;
-typedef QTranslationMatrix<QMatrix4x4> QTranslationMatrix4x4;
 
 // CONSTANTS INITIALIZATION
 // ----------------------------

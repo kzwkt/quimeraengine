@@ -3,11 +3,9 @@
 #ifndef __QTRANSFORMATIONMATRIX__
 #define __QTRANSFORMATIONMATRIX__
 
-#include "QMatrix4x3.h"
-#include "QMatrix4x4.h"
 #include "QQuaternion.h"
-#include "QRotationMatrix3x3.h"
 #include "QScaleMatrix3x3.h"
+#include "QRotationMatrix3x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -149,14 +147,40 @@ public:
         MatrixType(row0, row1, row2, row3) { }
 
     /// <summary>
-    /// Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and
+    /// Constructor from a translation matrix, a 3x3 rotation matrix and
     /// a 3x3 scale matrix.
     /// </summary>
-    /// <param name="mDisp">[IN] A 4x3 or 4x4 translation matrix.</param>
+    /// <param name="mDisp">[IN] A translation matrix.</param>
     /// <param name="mRot">[IN] A 3x3 rotation matrix.</param>
     /// <param name="mScale">[IN] A 3x3 scale matrix.</param>
+    QTransformationMatrix(const QTranslationMatrix<QMatrix4x3> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+    {
+        QTransformationMatrixImp(mDisp, mRot, mScale);
+    }
+
+    /// <summary>
+    /// Constructor from a translation matrix, a 3x3 rotation matrix and
+    /// a 3x3 scale matrix.
+    /// </summary>
+    /// <param name="mDisp">[IN] A translation matrix.</param>
+    /// <param name="mRot">[IN] A 3x3 rotation matrix.</param>
+    /// <param name="mScale">[IN] A 3x3 scale matrix.</param>
+    QTransformationMatrix(const QTranslationMatrix<QMatrix4x4> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+    {
+        QTransformationMatrixImp(mDisp, mRot, mScale);
+    }
+
+protected:
+
+    // <summary>
+    // Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and
+    // a 3x3 scale matrix.
+    // </summary>
+    // <param name="mDisp">[IN] A 4x3 or 4x4 translation matrix.</param>
+    // <param name="mRot">[IN] A 3x3 rotation matrix.</param>
+    // <param name="mScale">[IN] A 3x3 scale matrix.</param>
     template <class MatrixTypeParam>
-    QTransformationMatrix (const QTranslationMatrix<MatrixTypeParam> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+    void QTransformationMatrixImp(const QTranslationMatrix<MatrixTypeParam> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
     {
         this->ResetToIdentity();
 
@@ -177,6 +201,7 @@ public:
         this->ij[3][2] = mDisp.ij[3][2];
     }
 
+
     // METHODS
     // ---------------
 public:
@@ -184,45 +209,42 @@ public:
     // Binary operators
 
     /// <summary>
-    /// Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
-    /// knowing that fourth column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
+    /// Multiplies a transformation matrix by the resident matrix.
     /// </summary>
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
     /// <param name="m">[IN] Matrix to be multiplied by.</param>
     /// <returns>
-    /// The resultant matrix, with the same template parameter as resident matrix.
+    /// The resultant matrix.
     /// </returns>
-    template <class MatrixTypeParam>
-    QTransformationMatrix<MatrixType> operator*(const QTransformationMatrix<MatrixTypeParam> &m) const
+    QTransformationMatrix<MatrixType> operator*(const QTransformationMatrix<QMatrix4x3> &m) const
     {
-        QTransformationMatrix<MatrixType> aux;
-
-        aux.ResetToIdentity();
-
-        aux.ij[0][0] = this->ij[0][0] * m.ij[0][0] + this->ij[0][1] * m.ij[1][0] + this->ij[0][2] * m.ij[2][0];
-        aux.ij[0][1] = this->ij[0][0] * m.ij[0][1] + this->ij[0][1] * m.ij[1][1] + this->ij[0][2] * m.ij[2][1];
-        aux.ij[0][2] = this->ij[0][0] * m.ij[0][2] + this->ij[0][1] * m.ij[1][2] + this->ij[0][2] * m.ij[2][2];
-
-        aux.ij[1][0] = this->ij[1][0] * m.ij[0][0] + this->ij[1][1] * m.ij[1][0] + this->ij[1][2] * m.ij[2][0];
-        aux.ij[1][1] = this->ij[1][0] * m.ij[0][1] + this->ij[1][1] * m.ij[1][1] + this->ij[1][2] * m.ij[2][1];
-        aux.ij[1][2] = this->ij[1][0] * m.ij[0][2] + this->ij[1][1] * m.ij[1][2] + this->ij[1][2] * m.ij[2][2];
-
-        aux.ij[2][0] = this->ij[2][0] * m.ij[0][0] + this->ij[2][1] * m.ij[1][0] + this->ij[2][2] * m.ij[2][0];
-        aux.ij[2][1] = this->ij[2][0] * m.ij[0][1] + this->ij[2][1] * m.ij[1][1] + this->ij[2][2] * m.ij[2][1];
-        aux.ij[2][2] = this->ij[2][0] * m.ij[0][2] + this->ij[2][1] * m.ij[1][2] + this->ij[2][2] * m.ij[2][2];
-
-        aux.ij[3][0] = this->ij[3][0] * m.ij[0][0] + this->ij[3][1] * m.ij[1][0] + this->ij[3][2] * m.ij[2][0] + m.ij[3][0];
-        aux.ij[3][1] = this->ij[3][0] * m.ij[0][1] + this->ij[3][1] * m.ij[1][1] + this->ij[3][2] * m.ij[2][1] + m.ij[3][1];
-        aux.ij[3][2] = this->ij[3][0] * m.ij[0][2] + this->ij[3][1] * m.ij[1][2] + this->ij[3][2] * m.ij[2][2] + m.ij[3][2];
-
-        return aux;
+        QTransformationMatrix<MatrixType> outMatrix;
+        ProductOperatorImp(m, outMatrix);
+        return outMatrix;
     }
 
     /// <summary>
-    /// Multiplies a 4x4 or 4x3 (depending on the method template parameter) translation matrix by the current matrix,
+    /// Multiplies a transformation matrix by the resident matrix. The product is calculated
+    /// knowing that fourth column of is (0,0,0,1).
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+    QTransformationMatrix<MatrixType> operator*(const QTransformationMatrix<QMatrix4x4> &m) const
+    {
+        QTransformationMatrix<MatrixType> outMatrix;
+        ProductOperatorImp(m, outMatrix);
+        return outMatrix;
+    }
+
+    /// <summary>
+    /// Multiplies a translation matrix by the current matrix,
     /// following matrices product rules.
     /// </summary>
     /// <remarks>
@@ -232,18 +254,29 @@ public:
     /// <returns>
     /// The resultant transformation matrix.
     /// </returns>
-    template <class MatrixTypeParam>
-    QTransformationMatrix<MatrixType> operator*(const QTranslationMatrix<MatrixTypeParam> &m) const
+    QTransformationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x3> &m) const
     {
-        QTransformationMatrix<MatrixType> aux;
+        QTransformationMatrix<MatrixType> outMatrix;
+        ProductOperatorImp(m, outMatrix);
+        return outMatrix;
+    }
 
-        aux = *this;
-
-        aux.ij[3][0] += m.ij[3][0];
-        aux.ij[3][1] += m.ij[3][1];
-        aux.ij[3][2] += m.ij[3][2];
-
-        return aux;
+    /// <summary>
+    /// Multiplies a translation matrix by the current matrix,
+    /// following matrices product rules.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="m">[IN] Translation matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant transformation matrix.
+    /// </returns>
+    QTransformationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x4> &m) const
+    {
+        QTransformationMatrix<MatrixType> outMatrix;
+        ProductOperatorImp(m, outMatrix);
+        return outMatrix;
     }
 
     /// <summary>
@@ -330,46 +363,37 @@ public:
     /// </returns>
 	inline QTransformationMatrix<MatrixType> operator*(MatrixType &m)
 	{
-		return reinterpret_cast<QTransformationMatrix<MatrixType>&>(MatrixType::operator*(m)); 
+		return reinterpret_cast<QTransformationMatrix<MatrixType>&>(MatrixType::operator*(m));
 	}
 
     // Assign operators
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
-    /// Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
-    /// knowing that last column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
+    /// Multiplies a transformation matrix by the resident matrix.
     /// </summary>
     /// <param name="m">[IN] The matrix to be multiplied by.</param>
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    template <class MatrixTypeParam>
-    inline QTransformationMatrix<MatrixType>& operator*=(const QTransformationMatrix<MatrixTypeParam> &m) {
+    inline QTransformationMatrix<MatrixType>& operator*=(const QTransformationMatrix<QMatrix4x3> &m)
+    {
+        ProductAssignationOperatorImp(m);
+        return *this;
+    }
 
-        QTransformationMatrix<MatrixType> aux;
-
-        aux.ResetToIdentity();
-
-        aux.ij[0][0] = this->ij[0][0] * m.ij[0][0] + this->ij[0][1] * m.ij[1][0] + this->ij[0][2] * m.ij[2][0];
-        aux.ij[0][1] = this->ij[0][0] * m.ij[0][1] + this->ij[0][1] * m.ij[1][1] + this->ij[0][2] * m.ij[2][1];
-        aux.ij[0][2] = this->ij[0][0] * m.ij[0][2] + this->ij[0][1] * m.ij[1][2] + this->ij[0][2] * m.ij[2][2];
-
-        aux.ij[1][0] = this->ij[1][0] * m.ij[0][0] + this->ij[1][1] * m.ij[1][0] + this->ij[1][2] * m.ij[2][0];
-        aux.ij[1][1] = this->ij[1][0] * m.ij[0][1] + this->ij[1][1] * m.ij[1][1] + this->ij[1][2] * m.ij[2][1];
-        aux.ij[1][2] = this->ij[1][0] * m.ij[0][2] + this->ij[1][1] * m.ij[1][2] + this->ij[1][2] * m.ij[2][2];
-
-        aux.ij[2][0] = this->ij[2][0] * m.ij[0][0] + this->ij[2][1] * m.ij[1][0] + this->ij[2][2] * m.ij[2][0];
-        aux.ij[2][1] = this->ij[2][0] * m.ij[0][1] + this->ij[2][1] * m.ij[1][1] + this->ij[2][2] * m.ij[2][1];
-        aux.ij[2][2] = this->ij[2][0] * m.ij[0][2] + this->ij[2][1] * m.ij[1][2] + this->ij[2][2] * m.ij[2][2];
-
-        aux.ij[3][0] = this->ij[3][0] * m.ij[0][0] + this->ij[3][1] * m.ij[1][0] + this->ij[3][2] * m.ij[2][0] + m.ij[3][0];
-        aux.ij[3][1] = this->ij[3][0] * m.ij[0][1] + this->ij[3][1] * m.ij[1][1] + this->ij[3][2] * m.ij[2][1] + m.ij[3][1];
-        aux.ij[3][2] = this->ij[3][0] * m.ij[0][2] + this->ij[3][1] * m.ij[1][2] + this->ij[3][2] * m.ij[2][2] + m.ij[3][2];
-
-        *this = aux;
-
+    /// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// Multiplies a transformation matrix by the resident matrix. The product is calculated
+    /// knowing that last column of matrices is (0,0,0,1).
+    /// </summary>
+    /// <param name="m">[IN] The matrix to be multiplied by.</param>
+    /// <returns>
+    /// The modified matrix.
+    /// </returns>
+    inline QTransformationMatrix<MatrixType>& operator*=(const QTransformationMatrix<QMatrix4x4> &m)
+    {
+        ProductAssignationOperatorImp(m);
         return *this;
     }
 
@@ -640,75 +664,54 @@ public:
 
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated transformation matrices.
-    /// They can be 4x3 or 4x4 matrices, depending on the method template parameter.
     /// </summary>
     /// <param name="mDisp">[OUT] Matrix to store the translation.</param>
     /// <param name="mRot">[OUT] Matrix to store the rotation.</param>
     /// <param name="mScale">[OUT] Matrix to store the scale.</param>
-    template <class MatrixTypeParam>
-    void Decompose(QTransformationMatrix<MatrixTypeParam> &mDisp,
-                   QTransformationMatrix<MatrixTypeParam> &mRot,
-                   QTransformationMatrix<MatrixTypeParam> &mScale) const
+    void Decompose(QTransformationMatrix<QMatrix4x3> &mDisp,
+                   QTransformationMatrix<QMatrix4x3> &mRot,
+                   QTransformationMatrix<QMatrix4x3> &mScale) const
     {
-        QBaseVector3 vAux;
-        this->GetScale(vAux);
+        DecomposeImp(mDisp, mRot, mScale);
+    }
 
-        mScale.ResetToIdentity();
-
-        mScale.ij[0][0] = vAux.x;
-        mScale.ij[1][1] = vAux.y;
-        mScale.ij[2][2] = vAux.z;
-
-        QBaseQuaternion qRotAux;
-        this->GetRotation(qRotAux);
-
-        // Makes a transformation matrix with current rotation, scale 1 and displacement 0
-        mRot = QTransformationMatrix<MatrixTypeParam> (SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                                       qRotAux.x , qRotAux.y , qRotAux.z , qRotAux.w,
-                                                       SQFloat::_1, SQFloat::_1, SQFloat::_1);
-        this->GetTranslation(vAux);
-
-        mDisp.ResetToIdentity();
-
-        mDisp.ij[3][0] = vAux.x;
-        mDisp.ij[3][1] = vAux.y;
-        mDisp.ij[3][2] = vAux.z;
+    /// <summary>
+    /// Extracts the scale, the rotation and the translation into separated transformation matrices.
+    /// </summary>
+    /// <param name="mDisp">[OUT] Matrix to store the translation.</param>
+    /// <param name="mRot">[OUT] Matrix to store the rotation.</param>
+    /// <param name="mScale">[OUT] Matrix to store the scale.</param>
+    void Decompose(QTransformationMatrix<QMatrix4x4> &mDisp,
+                   QTransformationMatrix<QMatrix4x4> &mRot,
+                   QTransformationMatrix<QMatrix4x4> &mScale) const
+    {
+        DecomposeImp(mDisp, mRot, mScale);
     }
 
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
-    /// The translation matrix can be 4x3 or 4x4 matrix, depending on the method template parameter.
     /// </summary>
     /// <param name="mDisp">[OUT] Matrix to store the translation.</param>
     /// <param name="mRot">[OUT] Matrix to store the rotation.</param>
     /// <param name="mScale">[OUT] Matrix to store the scale.</param>
-    template <class MatrixTypeParam>
-    void Decompose(QTranslationMatrix<MatrixTypeParam> &mDisp,
+    void Decompose(QTranslationMatrix<QMatrix4x3> &mDisp,
                    QRotationMatrix3x3 &mRot,
                    QScaleMatrix3x3 &mScale) const
     {
-        QBaseVector3 vAux;
-        this->GetScale(vAux);
+        DecomposeImp(mDisp, mRot, mScale);
+    }
 
-        mScale.ResetToIdentity();
-
-        mScale.ij[0][0] = vAux.x;
-        mScale.ij[1][1] = vAux.y;
-        mScale.ij[2][2] = vAux.z;
-
-        QBaseQuaternion qRotAux;
-        this->GetRotation(qRotAux);
-
-        // Makes a transformation matrix with current rotation, scale 1 and displacement 0
-        mRot = QRotationMatrix3x3 (qRotAux);
-
-        this->GetTranslation(vAux);
-
-        mDisp.ResetToIdentity();
-
-        mDisp.ij[3][0] = vAux.x;
-        mDisp.ij[3][1] = vAux.y;
-        mDisp.ij[3][2] = vAux.z;
+    /// <summary>
+    /// Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
+    /// </summary>
+    /// <param name="mDisp">[OUT] Matrix to store the translation.</param>
+    /// <param name="mRot">[OUT] Matrix to store the rotation.</param>
+    /// <param name="mScale">[OUT] Matrix to store the scale.</param>
+    void Decompose(QTranslationMatrix<QMatrix4x4> &mDisp,
+                   QRotationMatrix3x3 &mRot,
+                   QScaleMatrix3x3 &mScale) const
+    {
+        DecomposeImp(mDisp, mRot, mScale);
     }
 
     /// <summary>
@@ -753,15 +756,26 @@ public:
 	/// To do that, we inverting both rotation (by trasposing it) and z translation component.
     /// </summary>
 	/// <param name="m">[OUT] Matrix to store the changed transformation matrix.</param>
-    template <class MatrixTypeParam>
-    void SwitchHandConvention(QTransformationMatrix<MatrixTypeParam> &m)
+    void SwitchHandConvention(QTransformationMatrix<QMatrix4x3> &m)
     {
 		m = *this;
         m.SwitchHandConvention();
     }
 
+	/// <summary>
+    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.
+	/// Remember that Quimera Engine works with left-hand convention by default.
+	/// To do that, we inverting both rotation (by trasposing it) and z translation component.
+    /// </summary>
+	/// <param name="m">[OUT] Matrix to store the changed transformation matrix.</param>
+    void SwitchHandConvention(QTransformationMatrix<QMatrix4x4> &m)
+    {
+		m = *this;
+        m.SwitchHandConvention();
+    }
 
 protected:
+
     // Hidden method to prevent it could be used.
     void ResetToZero();
 
@@ -834,13 +848,166 @@ protected:
         this->ij[3][1] = fDispY;
         this->ij[3][2] = fDispZ;
     }
+
+
+    // <summary>
+    // Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    // 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
+    // knowing that fourth column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
+    // </summary>
+    // <remarks>
+    // This product is not conmmutative.
+    // </remarks>
+    // <param name="m">[IN] Matrix to be multiplied by.</param>
+    // <param name="outMatrix">[OUT] Resultant matrix.</param>
+    template <class MatrixTypeParam>
+    void ProductOperatorImp(const QTransformationMatrix<MatrixTypeParam> &m, QTransformationMatrix<MatrixTypeParam> &outMatrix) const
+    {
+        outMatrix.ResetToIdentity();
+
+        outMatrix.ij[0][0] = this->ij[0][0] * m.ij[0][0] + this->ij[0][1] * m.ij[1][0] + this->ij[0][2] * m.ij[2][0];
+        outMatrix.ij[0][1] = this->ij[0][0] * m.ij[0][1] + this->ij[0][1] * m.ij[1][1] + this->ij[0][2] * m.ij[2][1];
+        outMatrix.ij[0][2] = this->ij[0][0] * m.ij[0][2] + this->ij[0][1] * m.ij[1][2] + this->ij[0][2] * m.ij[2][2];
+
+        outMatrix.ij[1][0] = this->ij[1][0] * m.ij[0][0] + this->ij[1][1] * m.ij[1][0] + this->ij[1][2] * m.ij[2][0];
+        outMatrix.ij[1][1] = this->ij[1][0] * m.ij[0][1] + this->ij[1][1] * m.ij[1][1] + this->ij[1][2] * m.ij[2][1];
+        outMatrix.ij[1][2] = this->ij[1][0] * m.ij[0][2] + this->ij[1][1] * m.ij[1][2] + this->ij[1][2] * m.ij[2][2];
+
+        outMatrix.ij[2][0] = this->ij[2][0] * m.ij[0][0] + this->ij[2][1] * m.ij[1][0] + this->ij[2][2] * m.ij[2][0];
+        outMatrix.ij[2][1] = this->ij[2][0] * m.ij[0][1] + this->ij[2][1] * m.ij[1][1] + this->ij[2][2] * m.ij[2][1];
+        outMatrix.ij[2][2] = this->ij[2][0] * m.ij[0][2] + this->ij[2][1] * m.ij[1][2] + this->ij[2][2] * m.ij[2][2];
+
+        outMatrix.ij[3][0] = this->ij[3][0] * m.ij[0][0] + this->ij[3][1] * m.ij[1][0] + this->ij[3][2] * m.ij[2][0] + m.ij[3][0];
+        outMatrix.ij[3][1] = this->ij[3][0] * m.ij[0][1] + this->ij[3][1] * m.ij[1][1] + this->ij[3][2] * m.ij[2][1] + m.ij[3][1];
+        outMatrix.ij[3][2] = this->ij[3][0] * m.ij[0][2] + this->ij[3][1] * m.ij[1][2] + this->ij[3][2] * m.ij[2][2] + m.ij[3][2];
+    }
+
+    // <summary>
+    // Multiplies a 4x4 or 4x3 (depending on the method template parameter) translation matrix by the current matrix,
+    // following matrices product rules.
+    // </summary>
+    // <remarks>
+    // This product is not conmmutative.
+    // </remarks>
+    // <param name="m">[IN] Translation matrix to be multiplied by.</param>
+    // <param name="outMatrix">[OUT] Resultant matrix.</param>
+    template <class MatrixTypeParam>
+    inline void ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &m, QTransformationMatrix<MatrixType> &outMatrix) const
+    {
+        outMatrix = *this;
+
+        outMatrix.ij[3][0] += m.ij[3][0];
+        outMatrix.ij[3][1] += m.ij[3][1];
+        outMatrix.ij[3][2] += m.ij[3][2];
+    }
+
+    // <summary>
+    // Product and assign operator. Current matrix stores the result of the multiplication.
+    // Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    // 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
+    // knowing that last column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
+    // </summary>
+    // <param name="m">[IN] The matrix to be multiplied by.</param>
+    template <class MatrixTypeParam>
+    inline void ProductAssignationOperatorImp(const QTransformationMatrix<MatrixTypeParam> &m)
+    {
+        QTransformationMatrix<MatrixType> aux;
+
+        aux.ResetToIdentity();
+
+        aux.ij[0][0] = this->ij[0][0] * m.ij[0][0] + this->ij[0][1] * m.ij[1][0] + this->ij[0][2] * m.ij[2][0];
+        aux.ij[0][1] = this->ij[0][0] * m.ij[0][1] + this->ij[0][1] * m.ij[1][1] + this->ij[0][2] * m.ij[2][1];
+        aux.ij[0][2] = this->ij[0][0] * m.ij[0][2] + this->ij[0][1] * m.ij[1][2] + this->ij[0][2] * m.ij[2][2];
+
+        aux.ij[1][0] = this->ij[1][0] * m.ij[0][0] + this->ij[1][1] * m.ij[1][0] + this->ij[1][2] * m.ij[2][0];
+        aux.ij[1][1] = this->ij[1][0] * m.ij[0][1] + this->ij[1][1] * m.ij[1][1] + this->ij[1][2] * m.ij[2][1];
+        aux.ij[1][2] = this->ij[1][0] * m.ij[0][2] + this->ij[1][1] * m.ij[1][2] + this->ij[1][2] * m.ij[2][2];
+
+        aux.ij[2][0] = this->ij[2][0] * m.ij[0][0] + this->ij[2][1] * m.ij[1][0] + this->ij[2][2] * m.ij[2][0];
+        aux.ij[2][1] = this->ij[2][0] * m.ij[0][1] + this->ij[2][1] * m.ij[1][1] + this->ij[2][2] * m.ij[2][1];
+        aux.ij[2][2] = this->ij[2][0] * m.ij[0][2] + this->ij[2][1] * m.ij[1][2] + this->ij[2][2] * m.ij[2][2];
+
+        aux.ij[3][0] = this->ij[3][0] * m.ij[0][0] + this->ij[3][1] * m.ij[1][0] + this->ij[3][2] * m.ij[2][0] + m.ij[3][0];
+        aux.ij[3][1] = this->ij[3][0] * m.ij[0][1] + this->ij[3][1] * m.ij[1][1] + this->ij[3][2] * m.ij[2][1] + m.ij[3][1];
+        aux.ij[3][2] = this->ij[3][0] * m.ij[0][2] + this->ij[3][1] * m.ij[1][2] + this->ij[3][2] * m.ij[2][2] + m.ij[3][2];
+
+        *this = aux;
+    }
+
+    // <summary>
+    // Extracts the scale, the rotation and the translation into separated transformation matrices.
+    // They can be 4x3 or 4x4 matrices, depending on the method template parameter.
+    // </summary>
+    // <param name="mDisp">[OUT] Matrix to store the translation.</param>
+    // <param name="mRot">[OUT] Matrix to store the rotation.</param>
+    // <param name="mScale">[OUT] Matrix to store the scale.</param>
+    template <class MatrixTypeParam>
+    void DecomposeImp(QTransformationMatrix<MatrixTypeParam> &mDisp,
+                      QTransformationMatrix<MatrixTypeParam> &mRot,
+                      QTransformationMatrix<MatrixTypeParam> &mScale) const
+    {
+        QBaseVector3 vAux;
+        this->GetScale(vAux);
+
+        mScale.ResetToIdentity();
+
+        mScale.ij[0][0] = vAux.x;
+        mScale.ij[1][1] = vAux.y;
+        mScale.ij[2][2] = vAux.z;
+
+        QBaseQuaternion qRotAux;
+        this->GetRotation(qRotAux);
+
+        // Makes a transformation matrix with current rotation, scale 1 and displacement 0
+        mRot = QTransformationMatrix<MatrixTypeParam> (SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                                       qRotAux.x , qRotAux.y , qRotAux.z , qRotAux.w,
+                                                       SQFloat::_1, SQFloat::_1, SQFloat::_1);
+        this->GetTranslation(vAux);
+
+        mDisp.ResetToIdentity();
+
+        mDisp.ij[3][0] = vAux.x;
+        mDisp.ij[3][1] = vAux.y;
+        mDisp.ij[3][2] = vAux.z;
+    }
+
+    // <summary>
+    // Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
+    // The translation matrix can be 4x3 or 4x4 matrix, depending on the method template parameter.
+    // </summary>
+    // <param name="mDisp">[OUT] Matrix to store the translation.</param>
+    // <param name="mRot">[OUT] Matrix to store the rotation.</param>
+    // <param name="mScale">[OUT] Matrix to store the scale.</param>
+    template <class MatrixTypeParam>
+    void DecomposeImp(QTranslationMatrix<MatrixTypeParam> &mDisp,
+                      QRotationMatrix3x3 &mRot,
+                      QScaleMatrix3x3 &mScale) const
+    {
+        QBaseVector3 vAux;
+        this->GetScale(vAux);
+
+        mScale.ResetToIdentity();
+
+        mScale.ij[0][0] = vAux.x;
+        mScale.ij[1][1] = vAux.y;
+        mScale.ij[2][2] = vAux.z;
+
+        QBaseQuaternion qRotAux;
+        this->GetRotation(qRotAux);
+
+        // Makes a transformation matrix with current rotation, scale 1 and displacement 0
+        mRot = QRotationMatrix3x3 (qRotAux);
+
+        this->GetTranslation(vAux);
+
+        mDisp.ResetToIdentity();
+
+        mDisp.ij[3][0] = vAux.x;
+        mDisp.ij[3][1] = vAux.y;
+        mDisp.ij[3][2] = vAux.z;
+    }
+
 };
-
-    // TYPEDEFS
-	// ---------------
-
-    typedef QTransformationMatrix<QMatrix4x3> QTransformationMatrix4x3;
-    typedef QTransformationMatrix<QMatrix4x4> QTransformationMatrix4x4;
 
     // CONSTANTS INITIALIZATION
     // -----------------------------

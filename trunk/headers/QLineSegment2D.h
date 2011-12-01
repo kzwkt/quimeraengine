@@ -24,9 +24,7 @@ namespace Math
 // Forward Declarations
 //-----------------------
 
-//template<class VectorType> class QBaseTriangle;
 typedef QBaseTriangle<QVector2> QBaseTriangle2;
-//class QBaseQuadrilateral;
 
 
 /// <summary>

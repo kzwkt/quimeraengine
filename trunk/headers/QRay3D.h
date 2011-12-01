@@ -1462,7 +1462,7 @@ public:
 	/// This method translates the resident ray by the translation contained in the provided matrix.
 	/// </summary>
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
-	inline void Translate (const QTranslationMatrix4x3 &mTrans)
+	inline void Translate (const QTranslationMatrix<QMatrix4x3> &mTrans)
 	{
         SQPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
@@ -1471,7 +1471,7 @@ public:
 	/// This method translates the resident ray by the translation contained in the provided matrix.
 	/// </summary>
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
-	inline void Translate (const QTranslationMatrix4x4 &mTrans)
+	inline void Translate (const QTranslationMatrix<QMatrix4x4> &mTrans)
 	{
         SQPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
 	}
@@ -1482,7 +1482,7 @@ public:
 	/// </summary>
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
 	/// <param name="rOut">[OUT] The resultant translated ray.</param>
-	inline void Translate (const QTranslationMatrix4x3 &mTrans, QBaseRay3 &rOut) const
+	inline void Translate (const QTranslationMatrix<QMatrix4x3> &mTrans, QBaseRay3 &rOut) const
 	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).Translate(mTrans);
@@ -1494,7 +1494,7 @@ public:
 	/// </summary>
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
 	/// <param name="rOut">[OUT] The resultant translated ray.</param>
-	inline void Translate (const QTranslationMatrix4x4 &mTrans, QBaseRay3 &rOut) const
+	inline void Translate (const QTranslationMatrix<QMatrix4x4> &mTrans, QBaseRay3 &rOut) const
 	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).Translate(mTrans);
@@ -1527,7 +1527,7 @@ public:
 	/// This method applies to the resident ray the transformation contained in the provided matrix.
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
-	inline void Transform (const QTransformationMatrix4x3 &mTransf)
+	inline void Transform (const QTransformationMatrix<QMatrix4x3> &mTransf)
 	{
         this->TransformImp(mTransf);
 	}
@@ -1536,7 +1536,7 @@ public:
 	/// This method applies to the resident ray the transformation contained in the provided matrix.
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
-	inline void Transform (const QTransformationMatrix4x4 &mTransf)
+	inline void Transform (const QTransformationMatrix<QMatrix4x4> &mTransf)
 	{
         this->TransformImp(mTransf);
 	}
@@ -1547,7 +1547,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="rOut">[OUT] The resultant transformed ray.</param>
-	inline void Transform (const QTransformationMatrix4x3 &mTransf, QBaseRay3 &rOut) const
+	inline void Transform (const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseRay3 &rOut) const
 	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
@@ -1559,7 +1559,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="rOut">[OUT] The resultant transformed ray.</param>
-	inline void Transform (const QTransformationMatrix4x4 &mTransf, QBaseRay3 &rOut) const
+	inline void Transform (const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseRay3 &rOut) const
 	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
@@ -1643,7 +1643,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
-	inline void TransformWithPivot (const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot)
+	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot)
 	{
         this->TransformWithPivotImp(mTransf, vPivot);
 	}
@@ -1654,7 +1654,7 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
-	inline void TransformWithPivot (const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot)
+	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot)
 	{
         this->TransformWithPivotImp(mTransf, vPivot);
 	}
@@ -1666,7 +1666,7 @@ public:
 	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
 	/// <param name="rOut">[OUT] The resultant ray.</param>
-	inline void TransformWithPivot (const QTransformationMatrix4x3 &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const
+	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).TransformWithPivot(mTransf, vPivot);
@@ -1679,7 +1679,7 @@ public:
 	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of transformation.</param>
 	/// <param name="rOut">[OUT] The resultant ray.</param>
-	inline void TransformWithPivot (const QTransformationMatrix4x4 &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const
+	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).TransformWithPivot(mTransf, vPivot);

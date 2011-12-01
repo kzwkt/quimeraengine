@@ -4,6 +4,9 @@
 
 #include "QBaseQuaternion.h"
 #include "QVector3.h"
+#include "QTranslationMatrix.h"
+#include "QRotationMatrix3x3.h"
+#include "QScaleMatrix3x3.h"
 #include "QTransformationMatrix.h"
 
 namespace Kinesis
@@ -44,20 +47,20 @@ QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversio
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector3 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale)
 {
-    QTransformationMatrix4x4 aux(vDisp, qRot, vScale);
+    QTransformationMatrix<QMatrix4x4> aux(vDisp, qRot, vScale);
 
     *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
 }
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector4 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale)
 {
-    QTransformationMatrix4x4 aux(vDisp, qRot, vScale);
+    QTransformationMatrix<QMatrix4x4> aux(vDisp, qRot, vScale);
 
     *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix4x4 &mDisp, const QTransformationMatrix4x4 &mRot,
-    const QTransformationMatrix4x4 &mScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix<QMatrix4x4> &mDisp, const QTransformationMatrix<QMatrix4x4> &mRot,
+    const QTransformationMatrix<QMatrix4x4> &mScale)
 {
     this->ij[0][0] = mScale.ij[0][0]*mRot.ij[0][0];
     this->ij[0][1] = mScale.ij[0][0]*mRot.ij[0][1];
@@ -190,6 +193,29 @@ void QSpaceConversionMatrix::SwitchHandConventionViewSpaceMatrix()
     this->ij[3][1] = -vYAxis.DotProduct(vPOV);
     this->ij[3][2] = -vZAxis.DotProduct(vPOV);
     this->ij[3][3] = SQFloat::_1;
+}
+
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+{
+    SetWorldSpaceMatrixImp(mDisp, mRot, mScale);
+}
+
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+{
+    SetWorldSpaceMatrixImp(mDisp, mRot, mScale);
+}
+
+template <class MatrixType>
+void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+{
+    QTransformationMatrix<QMatrix4x4> aux(mDisp, mRot, mScale);
+
+    *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
+}
+
+void QSpaceConversionMatrix::SwitchHandConventionWorldSpaceMatrix()
+{
+    reinterpret_cast<QTransformationMatrix<QMatrix4x4> &>(*this).SwitchHandConvention();
 }
 
 } //namespace Math

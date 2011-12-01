@@ -42,6 +42,7 @@
 			<Add option="-Wmissing-include-dirs" />
 			<Add option="-Wswitch-default" />
 			<Add option="-Wall" />
+			<Add option="-fpermissive" />
 			<Add directory="..\..\..\..\headers" />
 			<Add directory="..\..\..\..\3rdparty\Boost\include" />
 		</Compiler>
