@@ -59,6 +59,9 @@ public:
     /// </summary>
     /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
+    /// <remarks>
+    /// The direction vector must be normalized to construct the ray properly.
+    /// </remarks>
     inline QRay(const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(vOrigin, vDirection)
     {
     }
@@ -122,6 +125,9 @@ public:
     /// </summary>
     /// <param name="fDistance">[IN] Distance from the point which is to be found to the ray's position.</param>
     /// <param name="vRayPoint">[OUT] A point of the ray.</param>
+    /// <remarks>
+    /// Ray must be normalized to obtain a correct result.
+    /// </remarks>
     inline void GetPoint(const float_q &fDistance, VectorTypeOrigin& vRayPoint) const
     {
         // It's assumed that the ray's direction vector is normalized
@@ -131,12 +137,15 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided orb. Ray must be normalized to ensure correct result.
+    /// Checks if resident ray intersects with the provided orb.
     /// </summary>
     /// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
     /// <returns>
     /// True if ray intersect orb, false otherwise.
     /// </returns>
+    /// <remarks>
+    /// Ray must be normalized to obtain a correct result.
+    /// </remarks>
     inline bool Intersection (const QBaseOrb<VectorTypeOrigin> &orb) const
     {
         // Converts all vectors to VectorTypeDirection, that always will be QVector2 or QVector3
@@ -190,6 +199,7 @@ public:
     /// the following values: E_None, E_One and E_Two.
     /// </returns>
     /// <remarks>
+    /// Ray must be normalized to obtain a correct result.
     /// -If there's no intersection point, the output parameter used for storing the point won't be modified.
     /// -If there are one or two intersections, the output parameter stores the closest to ray origin.
     /// </remarks>
@@ -212,6 +222,7 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
+	/// Ray must be normalized to obtain a correct result.
 	/// -If there's no intersection point, the output parameters won't be modified.
 	/// -If there's one intersection point, the second output parameter won't be modified,
 	/// and first output parameter is filled with the intersection point.

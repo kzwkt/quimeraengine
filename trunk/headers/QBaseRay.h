@@ -43,6 +43,9 @@ public:
 	/// </summary>
 	/// <param name="vOrigin">[IN] Point where the vector is located.</param>
 	/// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
+	/// <remarks>
+    /// The direction vector must be normalized to construct the ray properly.
+    /// </remarks>
 	inline QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : Origin(vOrigin), Direction(vDirection)	{ }
 
     // METHODS
@@ -56,6 +59,9 @@ public:
     /// <returns>
     /// True if rays are the same, false otherwise.
     /// </returns>
+    /// <remarks>
+    /// Both rays must be normalized to obtain a correct result.
+    /// </remarks>
     inline bool operator == (const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &r) const
     {
         return ( this->Origin == r.Origin && this->Direction == r.Direction );
@@ -68,6 +74,9 @@ public:
     /// <returns>
     /// True if rays are not the same, false otherwise.
     /// </returns>
+    /// <remarks>
+    /// Both rays must be normalized to obtain a correct result.
+    /// </remarks>
     inline bool operator != (const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &r) const
     {
         return !(*this == r);

@@ -71,10 +71,13 @@ public:
     inline QRay3D(const QRay<VectorType, QVector3> &ray) : QRay<VectorType, QVector3>(ray) { }
 
     /// <summary>
-    /// Constructor that receives the ray's position and direction. The direction vector must be normalized.
+    /// Constructor that receives the ray's position and direction.
     /// </summary>
     /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
+    /// <remarks>
+    /// The direction vector must be normalized to construct the ray properly.
+    /// </remarks>
     inline QRay3D(const VectorType &vOrigin, const QVector3 &vDirection) : QRay<VectorType, QVector3>(vOrigin, vDirection) { }
 
 
@@ -96,7 +99,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided one. Rays must be normalized to ensure correct results.
+    /// Checks if resident ray intersects with the provided one.
     /// </summary>
     /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
     /// <returns>
@@ -163,7 +166,7 @@ public:
     }
 
     /// <summary>
-	/// Checks if resident ray and provided line segment intersects. Ray must be normalized to ensure correct results.
+	/// Checks if resident ray and provided line segment intersects.
 	/// </summary>
 	/// <param name="ls">[IN] The line segment whose intersection with resident ray will be checked.</param>
 	/// <returns>
@@ -243,6 +246,9 @@ public:
     /// <returns>
     /// True if ray intersect orb, false otherwise.
     /// </returns>
+    /// <remarks>
+    /// Ray must be normalized to ensure correct result.
+    /// </remarks>
     inline bool Intersection (const QBaseOrb<VectorType> &orb) const
     {
         return QRay<VectorType, QVector3>::Intersection(orb);
@@ -301,7 +307,7 @@ public:
         }
         else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point
         {
-            return this->OriginInsideTriangle(triangle, vAux);
+            return this->PointInsideTriangle(triangle, vAux);
         }
         else
             return false;
@@ -326,7 +332,7 @@ public:
 
 
     /// <summary>
-	/// Computes the intersection point between resident and provided ray, if it exists. Rays must be normalized to ensure correct results.
+	/// Computes the intersection point between resident and provided ray, if it exists.
 	/// </summary>
 	/// <param name="ray">[IN] The ray whose intersection with resident ray will be checked.</param>
 	/// <param name="vPoint">[OUT] The point where they intersect, if they do.</param>
@@ -335,6 +341,7 @@ public:
     /// the following values: E_None, E_One and E_Infinite.
 	/// </returns>
 	/// <remarks>
+	/// Rays must be normalized to ensure correct results.
 	/// -If there's no intersection point, or the rays are totally or parcially coincident,
 	/// the output parameter used for storing that point won't be modified.
     ///
@@ -411,7 +418,7 @@ public:
     }
 
     /// <summary>
-	/// Computes the intersection point between resident ray and provided line segment, if it exists. Rays must be normalized to ensure correct results.
+	/// Computes the intersection point between resident ray and provided line segment, if it exists.
 	/// </summary>
 	/// <param name="ls">[IN] The line segment whose intersection with resident ray will be checked.</param>
 	/// <param name="vPoint">[OUT] The intersection point with line segment, if it exists.</param>
@@ -518,7 +525,6 @@ public:
 
     /// <summary>
 	/// Computes the intersection point between resident ray and provided orb, if it exists.
-	/// Ray must be normalized to ensure correct result.
 	/// </summary>
 	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
 	/// <param name="vPoint">[OUT] Closest intersection point to ray origin point, if it exists.</param>
@@ -527,6 +533,7 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
+	/// Ray must be normalized to ensure correct result.
 	/// -If there's no intersection point, the output parameters won't be modified.
 	/// -If there's one intersection point, the output parameter stores it.
     /// -If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
@@ -538,7 +545,6 @@ public:
 
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided orb, if it exists.
-	/// Ray must be normalized to ensure correct result.
 	/// </summary>
 	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
 	/// <param name="vPoint1">[OUT] First point where they intersect, if they do.</param>
@@ -548,6 +554,7 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
+	/// Ray must be normalized to ensure correct result.
 	/// -If there's no intersection point, the output parameters won't be modified.
 	/// -If there's one intersection point, the second output parameter won't be modified,
 	/// and first output parameter is filled with the intersection point.
@@ -946,7 +953,7 @@ public:
         }
         else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point, are not coplanar
         {
-            if (this->OriginInsideTriangle(triangle, vAux) )
+            if (this->PointInsideTriangle(triangle, vAux) )
             {
                 vPoint1 = vAux;
                 return EQIntersections::E_One;
@@ -1332,6 +1339,9 @@ public:
 	/// This method scales the resident ray by the scale contained in the provided vector.
 	/// </summary>
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void Scale (const QBaseVector3 &vScale)
 	{
         SQPoint::Scale(vScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
@@ -1345,6 +1355,9 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	/// <param name="rOut">[OUT] The resultant scaled ray.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void Scale (const QBaseVector3 &vScale, QBaseRay3 &rOut) const
 	{
         rOut = *this;
@@ -1357,6 +1370,9 @@ public:
 	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
 	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ)
 	{
         SQPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
@@ -1372,6 +1388,9 @@ public:
 	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
 	/// <param name="rOut">[OUT] The resultant scaled ray.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, QBaseRay3 &rOut) const
 	{
         rOut = *this;
@@ -1384,6 +1403,9 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void ScaleWithPivot (const QBaseVector3 &vScale, const VectorType &vPivot)
 	{
         SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
@@ -1398,6 +1420,9 @@ public:
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	/// <param name="rOut">[OUT] The resultant scaled ray.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void ScaleWithPivot (const QBaseVector3 &vScale, const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
         rOut = *this;
@@ -1412,6 +1437,9 @@ public:
 	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot)
 	{
         SQPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
@@ -1428,6 +1456,9 @@ public:
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	/// <param name="rOut">[OUT] The resultant scaled ray.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ,
                                 const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
@@ -1504,6 +1535,9 @@ public:
 	/// This method scales the resident ray by the scale contained in the provided matrix.
 	/// </summary>
 	/// <param name="mScale">[IN] Matrix which contains the scale to be applied in every axis.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void Scale (const QScaleMatrix3x3 &mScale)
 	{
         SQPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
@@ -1517,6 +1551,9 @@ public:
 	/// </summary>
 	/// <param name="mScale">[IN] Matrix which contains the scale to be applied in every axis.</param>
 	/// <param name="rOut">[OUT] The resultant scaled ray.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void Scale (const QScaleMatrix3x3 &mScale, QBaseRay3 &rOut) const
 	{
         rOut = *this;
@@ -1527,8 +1564,10 @@ public:
 	/// This method applies to the resident ray the transformation contained in the provided matrix.
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
-	inline void Transform (const QTransformationMatrix<QMatrix4x3> &mTransf)
-	{
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	inline void Transform (const QTransformationMatrix<QMatrix4x3> &mTransf)	{
         this->TransformImp(mTransf);
 	}
 
@@ -1536,8 +1575,10 @@ public:
 	/// This method applies to the resident ray the transformation contained in the provided matrix.
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
-	inline void Transform (const QTransformationMatrix<QMatrix4x4> &mTransf)
-	{
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	inline void Transform (const QTransformationMatrix<QMatrix4x4> &mTransf)	{
         this->TransformImp(mTransf);
 	}
 
@@ -1547,8 +1588,10 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="rOut">[OUT] The resultant transformed ray.</param>
-	inline void Transform (const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseRay3 &rOut) const
-	{
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	inline void Transform (const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseRay3 &rOut) const	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
 	}
@@ -1559,8 +1602,10 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="rOut">[OUT] The resultant transformed ray.</param>
-	inline void Transform (const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseRay3 &rOut) const
-	{
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	inline void Transform (const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseRay3 &rOut) const	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
 	}
@@ -1569,6 +1614,9 @@ public:
 	/// This method applies to the resident ray the transformation contained in the provided matrix.
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void Transform (const QSpaceConversionMatrix &mTransf)
 	{
         this->TransformImp(mTransf);
@@ -1580,6 +1628,9 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="rOut">[OUT] The resultant transformed ray.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void Transform (const QSpaceConversionMatrix &mTransf, QBaseRay3 &rOut) const
 	{
         rOut = *this;
@@ -1617,6 +1668,9 @@ public:
 	/// </summary>
 	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void ScaleWithPivot (const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
 	{
         SQPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
@@ -1631,6 +1685,9 @@ public:
 	/// <param name="mScale">[IN] Matrix which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	/// <param name="rOut">[OUT] The resultant scaled ray.</param>
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
 	inline void ScaleWithPivot (const QScaleMatrix3x3 &mScale, const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
         rOut = *this;
@@ -1643,8 +1700,10 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
-	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot)
-	{
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot)	{
         this->TransformWithPivotImp(mTransf, vPivot);
 	}
 
@@ -1654,8 +1713,10 @@ public:
 	/// </summary>
 	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
-	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot)
-	{
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot)	{
         this->TransformWithPivotImp(mTransf, vPivot);
 	}
 
@@ -1666,8 +1727,10 @@ public:
 	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
 	/// <param name="rOut">[OUT] The resultant ray.</param>
-	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const
-	{
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).TransformWithPivot(mTransf, vPivot);
 	}
@@ -1679,8 +1742,10 @@ public:
 	/// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of transformation.</param>
 	/// <param name="rOut">[OUT] The resultant ray.</param>
-	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const
-	{
+	/// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const	{
         rOut = *this;
 	    reinterpret_cast<QRay3D &> (rOut).TransformWithPivot(mTransf, vPivot);
 	}
@@ -1816,7 +1881,7 @@ protected:
             return ( this->Intersection(vA, vB) || this->Intersection(vB, vC) ||
                      this->Intersection(vC, vD) || this->Intersection(vD, vA) );
         else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point
-            return this->OriginInsideQuadrilateral(vA, vB, vC, vD, vAux);
+            return this->PointInsideQuadrilateral(vA, vB, vC, vD, vAux);
         else
             return false;
     }
@@ -2263,7 +2328,7 @@ protected:
         }
         else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects only in one point
         {
-            if ( this->OriginInsideQuadrilateral(vA, vB, vC, vD, vAux) )
+            if ( this->PointInsideQuadrilateral(vA, vB, vC, vD, vAux) )
             {
                 vPoint1 = vAux;
                 return EQIntersections::E_One;
@@ -2279,6 +2344,9 @@ protected:
 	// This method applies to the resident ray the transformation contained in the provided matrix.
 	// </summary>
 	// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
+	// <remarks>
+	// Resultant ray is normalized after this operation.
+	// </remarks>
 	template <class MatrixType>
 	inline void TransformImp (const MatrixType &mTransf)
 	{
@@ -2303,6 +2371,9 @@ protected:
 	// </summary>
 	// <param name="mTransf">[IN] Tranformation matrix to be applied.</param>
 	// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+	// <remarks>
+	// Resultant ray is normalized after this operation.
+	// </remarks>
 	template <class MatrixType>
 	inline void TransformWithPivotImp (const MatrixType &mTransf, const VectorType &vPivot)
 	{
@@ -2320,8 +2391,6 @@ protected:
 
         this->Direction.Normalize();
 	}
-
-
 };
 
 } //namespace Math
