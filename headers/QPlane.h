@@ -392,7 +392,7 @@ public:
     /// </returns>
     inline bool Contains(const QBaseVector3 &v) const
     {
-        ContainsImp(v);
+        return this->ContainsImp(v);
     }
 
     /// <summary>
@@ -404,7 +404,7 @@ public:
     /// </returns>
     inline bool Contains(const QBaseVector4 &v) const
     {
-        ContainsImp(v);
+        return this->ContainsImp(v);
     }
 
     /// <summary>
