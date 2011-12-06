@@ -296,7 +296,7 @@ public:
 	inline void Rotate (const QRotationMatrix3x3 &mRot, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::Rotate(mRot, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::Rotate(mRot, &outSphere.Center, 1);
 	}
 
 	/// <summary>
@@ -307,7 +307,7 @@ public:
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
 	{
-	    SQPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::RotateWithPivot(mRot, vPivot, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -321,7 +321,7 @@ public:
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::RotateWithPivot(mRot, vPivot, &outSphere.Center, 1);
 	}
 
 	/// <summary>
@@ -330,7 +330,7 @@ public:
 	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
     inline void Translate(const QTranslationMatrix<QMatrix4x3> &mTranslation)
 	{
-	    SQPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::Translate(mTranslation, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -342,7 +342,7 @@ public:
 	inline void Translate(const QTranslationMatrix<QMatrix4x3> &mTranslation, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::Translate(mTranslation, &outSphere.Center, 1);
 	}
 
 	/// <summary>
@@ -351,7 +351,7 @@ public:
 	/// <param name="mTranslation">[IN] Matrix which contains the translation to be applied.</param>
     inline void Translate(const QTranslationMatrix<QMatrix4x4> &mTranslation)
 	{
-	    SQPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::Translate(mTranslation, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -363,7 +363,7 @@ public:
 	inline void Translate(const QTranslationMatrix<QMatrix4x4> &mTranslation, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::Translate(mTranslation, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::Translate(mTranslation, &outSphere.Center, 1);
 	}
 
     /// <summary>
@@ -373,7 +373,7 @@ public:
 	/// <param name="mScale">[IN] Matrix which contains the scale to be applied.</param>
 	inline void Scale(const QScaleMatrix3x3 &mScale)
 	{
-	    SQPoint::Scale(mScale, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::Scale(mScale, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -386,7 +386,7 @@ public:
 	inline void Scale(const QScaleMatrix3x3 &mScale, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::Scale(mScale, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::Scale(mScale, &outSphere.Center, 1);
 	}
 
 	/// <summary>
@@ -398,7 +398,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
 	{
-	    SQPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::ScaleWithPivot(mScale, vPivot, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -412,7 +412,7 @@ public:
 	inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::ScaleWithPivot(mScale, vPivot, &outSphere.Center, 1);
 	}
 
     /// <summary>
@@ -421,7 +421,7 @@ public:
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	inline void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf)
 	{
-	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::Transform(mTransf, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -433,7 +433,7 @@ public:
 	inline void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::Transform(mTransf, &outSphere.Center, 1);
 	}
 
     /// <summary>
@@ -442,7 +442,7 @@ public:
 	/// <param name="mTransf">[IN] Matrix which contains the transformation to be applied.</param>
 	inline void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf)
 	{
-	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::Transform(mTransf, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -454,7 +454,7 @@ public:
 	inline void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::Transform(mTransf, &outSphere.Center, 1);
 	}
 
 
@@ -464,7 +464,7 @@ public:
 	/// <param name="mTransf">[IN] Matrix which contains the space conversion transformation to be applied.</param>
 	inline void Transform(const QSpaceConversionMatrix &mTransf)
 	{
-	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::Transform(mTransf, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -476,7 +476,7 @@ public:
 	inline void Transform(const QSpaceConversionMatrix &mTransf, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::Transform(mTransf, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::Transform(mTransf, &outSphere.Center, 1);
 	}
 
 	/// <summary>
@@ -487,7 +487,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot)
 	{
-	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -500,7 +500,7 @@ public:
 	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, &outSphere.Center, 1);
 	}
 
 	/// <summary>
@@ -511,7 +511,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot)
 	{
-	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&this->Center), 1);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, &this->Center, 1);
 	}
 
 	/// <summary>
@@ -524,7 +524,7 @@ public:
 	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot, QBaseOrb<VectorType> &outSphere) const
 	{
 	    outSphere = *this;
-	    SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType*> (&outSphere.Center), 1);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, &outSphere.Center, 1);
 	}
 
 	/// <summary>
