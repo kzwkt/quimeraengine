@@ -53,6 +53,9 @@ public:
     /// </summary>
     /// <param name="fScalar">[IN] The scalar factor.</param>
     /// <param name="qQuat">[IN] The quaternion factor.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -89,6 +92,9 @@ public:
     /// <param name="fAngleX">[IN] Rotation angle about X global axis.</param>
     /// <param name="fAngleY">[IN] Rotation angle about Y global axis.</param>
     /// <param name="fAngleZ">[IN] Rotation angle about Z global axis.</param>
+    /// <remarks>
+    /// This method produces a normalized quaternion.
+    /// </remarks>
     QQuaternion(const float_q &fAngleX, const float_q &fAngleY, const float_q &fAngleZ);
 
     /// <summary>
@@ -123,7 +129,7 @@ public:
 	/// <param name="fAngle">[IN] Angle of rotation.</param>
 	/// <remarks>
 	/// Please note it's a mandatory that the input vector representing the spin axis has to be normalized
-	/// in order to create the quaternion correctly.
+	/// in order to create the quaternion correctly (a normalized rotation quaternion).
 	/// </remarks>
 	QQuaternion(const QBaseVector3 &vAxis, const float_q &fAngle);
 
@@ -137,7 +143,7 @@ public:
 	/// <param name="fAngle">[IN] Angle of rotation.</param>
 	/// <remarks>
 	/// Please note it's a mandatory that the input vector representing the spin axis has to be normalized
-	/// in order to create the quaternion correctly.
+	/// in order to create the quaternion correctly (a normalized rotation quaternion).
 	/// </remarks>
 	QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle);
 
@@ -145,8 +151,10 @@ public:
 	/// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
     /// </summary>
     /// <param name="m">[IN] A transformation matrix.</param>
+    /// <remarks>
+    /// This method produces a normalized quaternion.
+    /// </remarks>
 	explicit QQuaternion(const QTransformationMatrix<QMatrix4x3> &m);
-
 	/// <summary>
 	/// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
     /// </summary>
@@ -157,8 +165,10 @@ public:
 	/// Constructor that receives a 3x3 rotation matrix.
     /// </summary>
     /// <param name="m">[IN] A 3x3 rotation matrix.</param>
+    /// <remarks>
+    /// This method produces a normalized quaternion.
+    /// </remarks>
 	explicit QQuaternion(const QRotationMatrix3x3 &m);
-
 protected:
 
 	// <summary>
@@ -177,6 +187,9 @@ public:
     /// Add operator. Each input quaternion's component is added to the corresponding quaternion's.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion that is Added.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -186,6 +199,9 @@ public:
     /// Subtract operator. Each input quaternion's component is subtracted to the corresponding quaternion's.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion that is subtracted.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -200,6 +216,9 @@ public:
     /// Note that quaternion multiplication is not conmutative.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to multiply by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -209,6 +228,9 @@ public:
     /// Multiply by scalar operator. All quaternion's components are multiplied by the scalar.
     /// </summary>
     /// <param name="fScalar">[IN] The scalar to multiply by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -219,6 +241,9 @@ public:
 	/// quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
     /// </summary>
     /// <param name="v">[IN] The vector to multiply by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -229,6 +254,9 @@ public:
 	/// quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
     /// </summary>
     /// <param name="v">[IN] The vector to multiply by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -241,6 +269,9 @@ public:
     /// cheaper to calculate) instead of using this operator.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to divide by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -250,6 +281,9 @@ public:
     /// Divide by scalar operator. All quaternion's components are divided by the scalar.
     /// </summary>
     /// <param name="fScalar">[IN] The scalar to divide by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -259,6 +293,9 @@ public:
     /// Add and assign operator. Each input quaternion's component is added to the corresponding quaternion's.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion that is Added.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The modified quaternion.
     /// </returns>
@@ -275,6 +312,9 @@ public:
     /// Subtract and assign operator. Each input quaternion's component is subtracted to the corresponding quaternion's.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion that is subtracted.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The modified quaternion.
     /// </returns>
@@ -297,6 +337,9 @@ public:
     /// Note that quaternion multiplication is not conmutative.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to multiply by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The modified quaternion.
     /// </returns>
@@ -318,6 +361,9 @@ public:
     /// Multiply by scalar and assign operator. All quaternion's components are multiplied by the scalar.
     /// </summary>
     /// <param name="fScalar">[IN] The scalar to multiply by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The modified quaternion.
     /// </returns>
@@ -336,6 +382,9 @@ public:
 	/// quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
     /// </summary>
     /// <param name="v">[IN] The vector to multiply by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The modified quaternion.
     /// </returns>
@@ -353,6 +402,9 @@ public:
 	/// quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
     /// </summary>
     /// <param name="v">[IN] The vector to multiply by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
@@ -372,6 +424,9 @@ public:
     /// cheaper to calculate) instead of using this operator.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to divide by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The modified quaternion.
     /// </returns>
@@ -390,6 +445,9 @@ public:
     /// Divide by scalar and assign operator. All quaternion's components are divided by the scalar.
     /// </summary>
     /// <param name="fScalar">[IN] The scalar to divide by.</param>
+    /// <remarks>
+    /// Note that the quaternion could be denormalized after this operation.
+    /// </remarks>
     /// <returns>
     /// The modified quaternion.
     /// </returns>
@@ -459,10 +517,12 @@ public:
 
         QE_ASSERT(fSquaredLength != SQFloat::_0);
 
-        this->x = -this->x / fSquaredLength;
-        this->y = -this->y / fSquaredLength;
-        this->z = -this->z / fSquaredLength;
-        this->w =  this->w / fSquaredLength;
+        const float_q &fInvLength = SQFloat::_1/fSquaredLength;
+
+        this->x *= -fInvLength;
+        this->y *= -fInvLength;
+        this->z *= -fInvLength;
+        this->w *= fInvLength;
     }
 
     /// <summary>
@@ -480,7 +540,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the inverse of a unit quaternion, which coincides with its conjugate.
+    /// Calculates the inverse of a normalized quaternion, which coincides with its conjugate.
     /// Quaternion inverse is then obtained by the following equation:
     ///
     /// \f$ Q^{-1} = w - xi - yj - zk \f$
@@ -491,7 +551,7 @@ public:
     }
 
     /// <summary>
-    /// Gets a reverted copy of a unit quaternion, which coincides with its conjugate.
+    /// Gets a reverted copy of a normalized quaternion, which coincides with its conjugate.
     /// Quaternion inverse is then obtained by the following equation:
     ///
     /// \f$ Q^{-1} = w - xi - yj - zk \f$
@@ -527,7 +587,7 @@ public:
     /// <param name="qQuat">[IN] The quaternion to multiply by.</param>
     /// <returns>
     /// A real number equals to: \f$|Q_1|\cdot |Q_2| cos(\beta)\f$, where \f$\beta = \frac{\widehat{Q_1Q_2}}{2}\f$
-    /// (half the angle between quaternions, when using unit quaternions).
+    /// (half the angle between quaternions, when using normalized quaternions).
     /// </returns>
     inline float_q DotProduct(const QBaseQuaternion &qQuat) const
     {
@@ -573,7 +633,6 @@ public:
         this->x = -this->x;
         this->y = -this->y;
         this->z = -this->z;
-        this->w =  this->w;
     }
 
     /// <summary>
@@ -666,7 +725,7 @@ public:
 
 
     /// <summary>
-    /// Calculates the spherical linear interpolation between two unit quaternions. This is
+    /// Calculates the spherical linear interpolation between two normalized quaternions. This is
     /// calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
@@ -680,14 +739,14 @@ public:
     ///
     /// \f$ \beta = \arccos(Q_1Q_2)\f$
     ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two unit quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
+    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two normalized quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a unit quaternion</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a normalized quaternion</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
     void UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
 
     /// <summary>
-    /// Calculates the spherical linear interpolation between two unit quaternions. This is
+    /// Calculates the spherical linear interpolation between two normalized quaternions. This is
     /// calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
@@ -701,10 +760,10 @@ public:
     ///
     /// \f$ \beta = \arccos(Q_1Q_2)\f$
     ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two unit quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
+    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two normalized quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
     /// The resultant quaternion is stored in an output quaternion.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a unit quaternion</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a normalized quaternion</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
     /// <param name="qOutQuat">[OUT] The interpolation result.</param>
     inline void UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion, QBaseQuaternion &qOutQuat) const

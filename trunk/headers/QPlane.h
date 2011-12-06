@@ -115,7 +115,7 @@ public:
 	/// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
 	/// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
 	/// <remarks>
-    /// This method offers a normalized plane.
+    /// This method produces a normalized plane.
     /// </remarks>
     inline QPlane (const QVector3 &vP1, const QVector3 &vP2, const QVector3 &vP3)
     {
@@ -129,7 +129,7 @@ public:
 	/// <param name="vP2">[IN] A 3D vector which represents the second point.</param>
 	/// <param name="vP3">[IN] A 3D vector which represents the third point.</param>
 	/// <remarks>
-    /// This method offers a normalized plane.
+    /// This method produces a normalized plane.
     /// </remarks>
     inline QPlane (const QVector4 &vP1, const QVector4 &vP2, const QVector4 &vP3)
     {

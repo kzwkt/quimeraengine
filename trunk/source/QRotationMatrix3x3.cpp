@@ -92,33 +92,29 @@ QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vAxis, const float_q
         const float_q& B = sin(fAngle);
     #endif
 
-    QVector3 vAux(vAxis);
-
-    vAux.Normalize();
-
-    const float_q& C = vAux.x*vAux.y;
-    const float_q& D = vAux.y*vAux.z;
-    const float_q& E = vAux.z*vAux.x;
+    const float_q& C = vAxis.x*vAxis.y;
+    const float_q& D = vAxis.y*vAxis.z;
+    const float_q& E = vAxis.z*vAxis.x;
 
     const float_q& F = (SQFloat::_1 - A) * C;
     const float_q& G = (SQFloat::_1 - A) * D;
     const float_q& H = (SQFloat::_1 - A) * E;
 
-    const float_q& I = vAux.x * B;
-    const float_q& J = vAux.y * B;
-    const float_q& K = vAux.z * B;
+    const float_q& I = vAxis.x * B;
+    const float_q& J = vAxis.y * B;
+    const float_q& K = vAxis.z * B;
 
-    this->ij[0][0] = A + (SQFloat::_1 - A) * vAux.x * vAux.x;
+    this->ij[0][0] = A + (SQFloat::_1 - A) * vAxis.x * vAxis.x;
     this->ij[0][1] = F - K;
     this->ij[0][2] = H + J;
 
     this->ij[1][0] = F + K;
-    this->ij[1][1] = A + (SQFloat::_1 - A) * vAux.y * vAux.y;
+    this->ij[1][1] = A + (SQFloat::_1 - A) * vAxis.y * vAxis.y;
     this->ij[1][2] = G - I;
 
     this->ij[2][0] = H - J;
     this->ij[2][1] = G + I;
-    this->ij[2][2] = A + (SQFloat::_1 - A) * vAux.z * vAux.z;
+    this->ij[2][2] = A + (SQFloat::_1 - A) * vAxis.z * vAxis.z;
 }
 
 QRotationMatrix3x3::QRotationMatrix3x3(const QBaseQuaternion &qQuat)
