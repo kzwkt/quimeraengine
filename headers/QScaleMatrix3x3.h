@@ -304,6 +304,48 @@ protected:
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
+
+    // Implementation of product by translation matrix operator
+    template <class MatrixType>
+    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixType> &m) const
+    {
+        QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::Identity);
+
+        aux.ij[0][0] = this->ij[0][0];
+        aux.ij[1][1] = this->ij[1][1];
+        aux.ij[2][2] = this->ij[2][2];
+
+        aux.ij[3][0] = m.ij[3][0];
+        aux.ij[3][1] = m.ij[3][1];
+        aux.ij[3][2] = m.ij[3][2];
+
+        return aux;
+    }
+
+    // Implementation of product by transformation matrix operator
+    template <class MatrixType>
+    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTransformationMatrix<MatrixType> &m) const
+    {
+        QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::Identity);
+
+        aux.ij[3][0] = m.ij[3][0];
+        aux.ij[3][1] = m.ij[3][1];
+        aux.ij[3][2] = m.ij[3][2];
+
+        aux.ij[0][0] = this->ij[0][0]*m.ij[0][0];
+        aux.ij[0][1] = this->ij[0][0]*m.ij[0][1];
+        aux.ij[0][2] = this->ij[0][0]*m.ij[0][2];
+
+        aux.ij[1][0] = this->ij[1][1]*m.ij[1][0];
+        aux.ij[1][1] = this->ij[1][1]*m.ij[1][1];
+        aux.ij[1][2] = this->ij[1][1]*m.ij[1][2];
+
+        aux.ij[2][0] = this->ij[2][2]*m.ij[2][0];
+        aux.ij[2][1] = this->ij[2][2]*m.ij[2][1];
+        aux.ij[2][2] = this->ij[2][2]*m.ij[2][2];
+
+        return aux;
+    }
 };
 
 } //namespace Math
