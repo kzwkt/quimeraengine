@@ -146,43 +146,38 @@ public:
     {
         // Calculates if segment intersects with the plane defined by the triangle.
 
-        // This is necessary due to there are dot products between the normal vector to the plane (VectorType)
-        // and the line segment end points, which are VectorType.
-        QLineSegment3D<VectorType> lsAux(VectorType(this->A), VectorType(this->B));
-
         // Plane equation
         QPlane auxP(t.A, t.B, t.C);
 
         // Line Segment don't intersects the triangle plane.
-        if (!lsAux.Intersection(auxP))
+        if (!this->Intersection(auxP))
             return false;
 
         // If both end points satisfy plane equation, the line segment lies on plane
-        const float_q &fDot1 = auxP.a * lsAux.B.x + auxP.b * lsAux.B.y + auxP.c * lsAux.B.z + auxP.d;
-        const float_q &fDot2 = auxP.a * lsAux.A.x + auxP.b * lsAux.A.y + auxP.c * lsAux.A.z + auxP.d;
+        const float_q &fDot1 = auxP.a * this->B.x + auxP.b * this->B.y + auxP.c * this->B.z + auxP.d;
+        const float_q &fDot2 = auxP.a * this->A.x + auxP.b * this->A.y + auxP.c * this->A.z + auxP.d;
 
         if (SQFloat::IsZero(fDot1) && SQFloat::IsZero(fDot2))
         {
             // Both triangle and line segment are coplanars. If the line segment
             // intersects one of the edges of the triangle, then the line segment intersects the triangle.
-            if (lsAux.QLineSegment<VectorType>::Intersection(QLineSegment<VectorType> (t.A, t.B)) ||
-                lsAux.QLineSegment<VectorType>::Intersection(QLineSegment<VectorType> (t.B, t.C)) ||
-                lsAux.QLineSegment<VectorType>::Intersection(QLineSegment<VectorType> (t.C, t.A)))
+            if (this->QLineSegment<VectorType>::Intersection(QLineSegment<VectorType> (t.A, t.B)) ||
+                this->QLineSegment<VectorType>::Intersection(QLineSegment<VectorType> (t.B, t.C)) ||
+                this->QLineSegment<VectorType>::Intersection(QLineSegment<VectorType> (t.C, t.A)))
                 return true;
 
             // If not, we check if segment is fully contained in the triangle
             // We only check "A" end point, since if "A" is inside, "B" must be inside too (see previus test).
             else
-                return PointInsideTriangle(t, lsAux.A);
+                return PointInsideTriangle(t, this->A);
         }
 
         QE_ASSERT(SQFloat::IsNotZero(fDot2 - fDot1));
 
         // The point which satisfies both line and plane equations.
-        VectorType vAux = lsAux.A + (lsAux.B - lsAux.A) * fDot2/(fDot2 - fDot1);
+        VectorType vAux = this->A + (this->B - this->A) * fDot2/(fDot2 - fDot1);
 
-        // For every edge, it tests if the intersection point is in the same side of each edge
-        // than the third vextex. If it does, then it's inside the triangle, otherwise it's outside.
+        // Tests if the point is inside the triangle.
         return PointInsideTriangle(t, vAux);
     }
 
@@ -210,15 +205,13 @@ public:
     /// </returns>
     bool Intersection(const QBaseHexahedron<VectorType> &h) const
     {
-        QLineSegment3D<VectorType> lsAux(VectorType(this->A), VectorType(this->B));
-
         // Checks if there is an intersection with any face.
-        if (CuadrilateralIntersection(lsAux, h.A, h.B, h.C, h.D) ||
-            CuadrilateralIntersection(lsAux, h.E, h.F, h.G, h.H) ||
-            CuadrilateralIntersection(lsAux, h.A, h.B, h.H, h.E) ||
-            CuadrilateralIntersection(lsAux, h.B, h.C, h.G, h.H) ||
-            CuadrilateralIntersection(lsAux, h.A, h.D, h.F, h.E) ||
-            CuadrilateralIntersection(lsAux, h.C, h.D, h.F, h.G))
+        if (CuadrilateralIntersection(*this, h.A, h.B, h.C, h.D) ||
+            CuadrilateralIntersection(*this, h.E, h.F, h.G, h.H) ||
+            CuadrilateralIntersection(*this, h.A, h.B, h.H, h.E) ||
+            CuadrilateralIntersection(*this, h.B, h.C, h.G, h.H) ||
+            CuadrilateralIntersection(*this, h.A, h.D, h.F, h.E) ||
+            CuadrilateralIntersection(*this, h.C, h.D, h.F, h.G))
             return true;
 
         return false;
@@ -398,16 +391,12 @@ public:
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vPoint1, VectorType &vPoint2) const
 	{
-        // This is necessary due to there are dot products between the normal vector to the plane (VectorType)
-        // and the line segment end points, which are VectorType.
-        QLineSegment3D<VectorType> lsAux(VectorType(lsAux.A), VectorType(lsAux.B));
-
         // Plane equation
         QPlane auxP(triangle.A, triangle.B, triangle.C);
 
         VectorType vPoint;
 
-        EQIntersections value = lsAux.IntersectionPoint(auxP, vPoint);
+        EQIntersections value = this->IntersectionPoint(auxP, vPoint);
 
         if (value == EQIntersections::E_None) // Line segment don't intersects the triangle plane.
             return EQIntersections::E_None;
@@ -423,171 +412,171 @@ public:
         }
         else // Line segment and triangle are coplanars (value == EQIntersections::E_Infinite)
         {
-            const bool &bAIsInside = PointInsideTriangle(triangle, lsAux.A);
-            const bool &bBIsInside = PointInsideTriangle(triangle, lsAux.B);
+            const bool &bAIsInside = PointInsideTriangle(triangle, this->A);
+            const bool &bBIsInside = PointInsideTriangle(triangle, this->B);
 
             if (bAIsInside && bBIsInside) // Both line segment end points are inside triangle.
             {
 				// A or B are vertex
-				const bool &bAIsVertex = (lsAux.A == triangle.A || lsAux.A == triangle.B || lsAux.A == triangle.C);
-				const bool &bBIsVertex = (lsAux.B == triangle.A || lsAux.B == triangle.B || lsAux.B == triangle.C);
+				const bool &bAIsVertex = (this->A == triangle.A || this->A == triangle.B || this->A == triangle.C);
+				const bool &bBIsVertex = (this->B == triangle.A || this->B == triangle.B || this->B == triangle.C);
 
 				if (bAIsVertex && bBIsVertex) // Both endpoints are vertices of triangle
 				{
-					vPoint1 = lsAux.A;
-					vPoint2 = lsAux.B;
+					vPoint1 = this->A;
+					vPoint2 = this->B;
 					return EQIntersections::E_Two;
 				}
 				else if (bAIsVertex) // Only A endpoint is a vertex of triangle
 				{
-					vPoint1 = lsAux.A;
+					vPoint1 = this->A;
 
-					if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.B))) // B is in AB triangle edge
+					if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->B))) // B is in AB triangle edge
 					{
-						if (lsAux.A == triangle.A || lsAux.A == triangle.B) // A and B are in the same edge
+						if (this->A == triangle.A || this->A == triangle.B) // A and B are in the same edge
 							return EQIntersections::E_One;
 						else
 						{
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.B))) // B is in BC triangle edge
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->B))) // B is in BC triangle edge
 					{
-						if (lsAux.A == triangle.B || lsAux.A == triangle.C) // A and B are in the same edge
+						if (this->A == triangle.B || this->A == triangle.C) // A and B are in the same edge
 							return EQIntersections::E_One;
 						else
 						{
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.B))) // B is in CA triangle edge
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->B))) // B is in CA triangle edge
 					{
-						if (lsAux.A == triangle.C || lsAux.A == triangle.A) // A and B are in the same edge
+						if (this->A == triangle.C || this->A == triangle.A) // A and B are in the same edge
 							return EQIntersections::E_One;
 						else
 						{
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 					}
 					else // B is not in an edge
 					{
-						vPoint1 = lsAux.A;
+						vPoint1 = this->A;
 						return EQIntersections::E_One;
 					}
 				}
 				else if (bBIsVertex)
 				{
-					if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.A))) // A is in AB triangle edge
+					if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->A))) // A is in AB triangle edge
 					{
-						if (lsAux.B == triangle.A || lsAux.B == triangle.B) // A and B are in the same edge
+						if (this->B == triangle.A || this->B == triangle.B) // A and B are in the same edge
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 						else
 						{
-							vPoint1 = lsAux.A;
-							vPoint2 = lsAux.B;
+							vPoint1 = this->A;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.A))) // B is in BC triangle edge
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->A))) // B is in BC triangle edge
 					{
-						if (lsAux.B == triangle.B || lsAux.B == triangle.C) // A and B are in the same edge
+						if (this->B == triangle.B || this->B == triangle.C) // A and B are in the same edge
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 						else
 						{
-							vPoint1 = lsAux.A;
-							vPoint2 = lsAux.B;
+							vPoint1 = this->A;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.A))) // B is in CA triangle edge
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->A))) // B is in CA triangle edge
 					{
-						if (lsAux.B == triangle.C || lsAux.B == triangle.A) // A and B are in the same edge
+						if (this->B == triangle.C || this->B == triangle.A) // A and B are in the same edge
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 						else
 						{
-							vPoint1 = lsAux.A;
-							vPoint2 = lsAux.B;
+							vPoint1 = this->A;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 					}
 					else
 					{
-						vPoint1 = lsAux.B;
+						vPoint1 = this->B;
 						return EQIntersections::E_One;
 					}
 				}
 				else // Neither A or B are vertices of triangle
 				{
-					if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.A))) // A is in AB triangle edge (but not a vertex)
+					if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->A))) // A is in AB triangle edge (but not a vertex)
 					{
-						if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.B))) // B is in AB triangle edge (but not a vertex)
+						if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->B))) // B is in AB triangle edge (but not a vertex)
 							return EQIntersections::E_Infinite;
-						else if ( SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.B)) || // B is in other edge (but not a vertex)
-								  SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.B)) )
+						else if ( SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+								  SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->B)) )
 						{
-							vPoint1 = lsAux.A;
-							vPoint2 = lsAux.B;
+							vPoint1 = this->A;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // B is not in an edge
 						{
-							vPoint1 = lsAux.A;
+							vPoint1 = this->A;
 							return EQIntersections::E_One;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.A))) // A is in BC triangle edge (but not a vertex)
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->A))) // A is in BC triangle edge (but not a vertex)
 					{
-						if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.B))) // B is in BC triangle edge (but not a vertex)
+						if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->B))) // B is in BC triangle edge (but not a vertex)
 							return EQIntersections::E_Infinite;
-						else if ( SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.B)) || // B is in other edge (but not a vertex)
-								  SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.B)) )
+						else if ( SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+								  SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->B)) )
 						{
-							vPoint1 = lsAux.A;
-							vPoint2 = lsAux.B;
+							vPoint1 = this->A;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // B is not in an edge
 						{
-							vPoint1 = lsAux.A;
+							vPoint1 = this->A;
 							return EQIntersections::E_One;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.A))) // A is in CA triangle edge (but not a vertex)
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->A))) // A is in CA triangle edge (but not a vertex)
 					{
-						if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.B))) // B is in CA triangle edge (but not a vertex)
+						if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->B))) // B is in CA triangle edge (but not a vertex)
 							return EQIntersections::E_Infinite;
-						else if ( SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.B)) || // B is in other edge (but not a vertex)
-								  SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.B)) )
+						else if ( SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
+								  SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->B)) )
 						{
-							vPoint1 = lsAux.A;
-							vPoint2 = lsAux.B;
+							vPoint1 = this->A;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // B is not in an edge
 						{
-							vPoint1 = lsAux.A;
+							vPoint1 = this->A;
 							return EQIntersections::E_One;
 						}
 					}
 					else // A is not in an edge
 					{
-						if ( SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.B)) || // B is in an edge (but not a vertex)
-							 SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.B)) ||
-							 SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.B)) )
+						if ( SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->B)) || // B is in an edge (but not a vertex)
+							 SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->B)) ||
+							 SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->B)) )
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 						else // B is not in an edge
@@ -599,11 +588,11 @@ public:
             {
                 VectorType vPointAB, vPointBC, vPointCA;
 
-                EQIntersections value2AB = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vPointAB);
+                EQIntersections value2AB = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vPointAB);
 
                 if (value2AB == EQIntersections::E_Infinite) // Line segment contains AB edge of triangle
                 {
-                    if  ( (triangle.A - lsAux.A).GetSquaredLength() < (triangle.B - lsAux.A).GetSquaredLength() ) // Returns closest point to A end point of line segment
+                    if  ( (triangle.A - this->A).GetSquaredLength() < (triangle.B - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                     {
                         vPoint1 = triangle.A;
                         vPoint2 = triangle.B;
@@ -618,10 +607,10 @@ public:
                 }
 
                 // Line segment contains BC edge of triangle
-                EQIntersections value2BC = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vPointBC);
+                EQIntersections value2BC = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vPointBC);
                 if (value2BC == EQIntersections::E_Infinite)
                 {
-                    if  ( (triangle.B - lsAux.A).GetSquaredLength() < (triangle.C - lsAux.A).GetSquaredLength() ) // Returns closest point to A end point of line segment
+                    if  ( (triangle.B - this->A).GetSquaredLength() < (triangle.C - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                     {
                         vPoint1 = triangle.B;
                         vPoint2 = triangle.C;
@@ -636,10 +625,10 @@ public:
                 }
 
                 // Line segment contains CA edge of triangle
-                EQIntersections value2CA = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vPointCA);
+                EQIntersections value2CA = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vPointCA);
                 if (value2CA == EQIntersections::E_Infinite)
                 {
-                    if  ( (triangle.C - lsAux.A).GetSquaredLength() < (triangle.A - lsAux.A).GetSquaredLength() ) // Returns closest point to A end point of line segment
+                    if  ( (triangle.C - this->A).GetSquaredLength() < (triangle.A - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                     {
                         vPoint1 = triangle.C;
                         vPoint2 = triangle.A;
@@ -662,7 +651,7 @@ public:
                         {
 							if (value2CA ==EQIntersections::E_One) // Line segment intersects CA edge of triangle
 							{
-								if  ( (vPointAB - lsAux.A).GetSquaredLength() < (vPointCA - lsAux.A).GetSquaredLength() ) // Returns closest point to A end point of line segment
+								if  ( (vPointAB - this->A).GetSquaredLength() < (vPointCA - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
 								{
 									vPoint1 = vPointAB;
 									vPoint2 = vPointCA;
@@ -682,7 +671,7 @@ public:
                         }
                         else
                         {
-                            if  ( (vPointAB - lsAux.A).GetSquaredLength() < (vPointBC - lsAux.A).GetSquaredLength() ) // Returns closest point to A end point of line segment
+                            if  ( (vPointAB - this->A).GetSquaredLength() < (vPointBC - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                             {
                                 vPoint1 = vPointAB;
                                 vPoint2 = vPointBC;
@@ -705,7 +694,7 @@ public:
                         }
                         else
                         {
-                            if  ( (vPointAB - lsAux.A).GetSquaredLength() < (vPointCA - lsAux.A).GetSquaredLength() ) // Returns closest point to A end point of line segment
+                            if  ( (vPointAB - this->A).GetSquaredLength() < (vPointCA - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                             {
                                 vPoint1 = vPointAB;
                                 vPoint2 = vPointCA;
@@ -733,7 +722,7 @@ public:
                         }
                         else
                         {
-                            if  ( (vPointBC - lsAux.A).GetSquaredLength() < (vPointCA - lsAux.A).GetSquaredLength() ) // Returns closest point to A end point of line segment
+                            if  ( (vPointBC - this->A).GetSquaredLength() < (vPointCA - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                             {
                                 vPoint1 = vPointBC;
                                 vPoint2 = vPointCA;
@@ -759,13 +748,13 @@ public:
             {
                 VectorType vAux; // To store intersection points
 
-				if (bAIsInside) // lsAux.A is inside triangle
+				if (bAIsInside) // this->A is inside triangle
 				{
-					if (lsAux.A == triangle.A) // lsAux.A is A triangle vertex
+					if (this->A == triangle.A) // this->A is A triangle vertex
 					{
-						vPoint1 = lsAux.A;
+						vPoint1 = this->A;
 
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
 						if (value2 == EQIntersections::E_One) // ls intersects opposite edge
 						{
 							vPoint2 = vAux;
@@ -774,11 +763,11 @@ public:
 						else
 							return EQIntersections::E_One; // ls only intersects triangle in A vertex
 					}
-					else if (lsAux.A == triangle.B) // lsAux.A is B triangle vertex
+					else if (this->A == triangle.B) // this->A is B triangle vertex
 					{
-						vPoint1 = lsAux.A;
+						vPoint1 = this->A;
 
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux);
 						if (value2 == EQIntersections::E_One) // ls intersects opposite edge
 						{
 							vPoint2 = vAux;
@@ -787,11 +776,11 @@ public:
 						else
 							return EQIntersections::E_One; // ls only intersects triangle in B vertex
 					}
-					else if (lsAux.A == triangle.C) // lsAux.A is C triangle vertex
+					else if (this->A == triangle.C) // this->A is C triangle vertex
 					{
-						vPoint1 = lsAux.A;
+						vPoint1 = this->A;
 
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.A), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.A), vAux);
 						if (value2 == EQIntersections::E_One) // ls intersects opposite edge
 						{
 							vPoint2 = vAux;
@@ -800,12 +789,12 @@ public:
 						else
 							return EQIntersections::E_One;  // ls only intersects triangle in C vertex
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.A))) // lsAux.A is in AB triangle edge (but not a vertex)
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->A))) // this->A is in AB triangle edge (but not a vertex)
 					{
-						vPoint1 = lsAux.A;
+						vPoint1 = this->A;
 
 						// ls intersects other edges
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
 						if (value2 == EQIntersections::E_One)
 						{
 							if (vAux == triangle.B || vAux == triangle.C) // Both intersections are in the same edge
@@ -814,7 +803,7 @@ public:
 							vPoint2 = vAux;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
 						{
 							if (vAux == triangle.C || vAux == triangle.A) // Both intersections are in the same edge
 								return EQIntersections::E_One;
@@ -825,12 +814,12 @@ public:
 						else
 							return EQIntersections::E_One;
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.A))) // lsAux.A is in BC triangle edge (but not a vertex)
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->A))) // this->A is in BC triangle edge (but not a vertex)
 					{
-						vPoint1 = lsAux.A;
+						vPoint1 = this->A;
 
 						 // ls intersects other edges
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
 						if (value2 == EQIntersections::E_One)
 						{
 							if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
@@ -839,7 +828,7 @@ public:
 							vPoint2 = vAux;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
 						{
 							if (vAux == triangle.C || vAux == triangle.A) // Both intersections are in the same edge
 								return EQIntersections::E_One;
@@ -850,12 +839,12 @@ public:
 						else
 							return EQIntersections::E_One;
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.A))) // lsAux.A is in CA triangle edge (but not a vertex)
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->A))) // this->A is in CA triangle edge (but not a vertex)
 					{
-						vPoint1 = lsAux.A;
+						vPoint1 = this->A;
 
 						 // ls intersects other edges
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
 						if (value2 == EQIntersections::E_One)
 						{
 							if (vAux == triangle.B || vAux == triangle.C) // Both intersections are in the same edge
@@ -864,7 +853,7 @@ public:
 							vPoint2 = vAux;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One)
 						{
 							if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
 								return EQIntersections::E_One;
@@ -875,14 +864,14 @@ public:
 						else
 							return EQIntersections::E_One;
 					}
-					else // lsAux.A is strictly inside triangle: is not in a vertex or edge.
+					else // this->A is strictly inside triangle: is not in a vertex or edge.
 					{
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
 						if (value2 == EQIntersections::E_One)
 							vPoint1 = vAux;
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One)
 							vPoint1 = vAux;
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
 							vPoint1 = vAux;
 						else                  // Something is wrong, if one point is inside and the other is outside,
 							QE_ASSERT(false); // there must be intersections.
@@ -890,58 +879,58 @@ public:
 						return EQIntersections::E_One;
 					}
 				}
-				else // lsAux.B is inside triangle (A is outside)
+				else // this->B is inside triangle (A is outside)
 				{
-					if (lsAux.B == triangle.A) // lsAux.B is triangle.A vertex
+					if (this->B == triangle.A) // this->B is triangle.A vertex
 					{
 
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
 						if (value2 == EQIntersections::E_One) // ls intersects opposite edge
 						{
 							vPoint1 = vAux;
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // ls only intersects in A vertex
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 					}
-					else if (lsAux.B == triangle.B) // lsAux.B is triangle.B vertex
+					else if (this->B == triangle.B) // this->B is triangle.B vertex
 					{
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux);
 						if (value2 == EQIntersections::E_One) // ls intersects opposite edge
 						{
 							vPoint1 = vAux;
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // ls only intersects in B vertex
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 					}
-					else if (lsAux.B == triangle.C) // lsAux.B is triangle.C vertex
+					else if (this->B == triangle.C) // this->B is triangle.C vertex
 					{
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
 						if (value2 == EQIntersections::E_One) // ls intersects opposite edge
 						{
 							vPoint1 = vAux;
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // ls only intersects in C vertex
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(lsAux.B))) // lsAux.B is in AB triangle edge (but not a vertex)
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->B))) // this->B is in AB triangle edge (but not a vertex)
 					{
 						// ls intersects the other edges
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
 						if (value2 == EQIntersections::E_One)
 						{
 							vPoint1 = vAux;
@@ -949,29 +938,29 @@ public:
 							if (vAux == triangle.B || vAux == triangle.C) // Both intersections are in the same edge
 								return EQIntersections::E_One;
 
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
 						{
 							vPoint1 = vAux;
 
 							if (vAux == triangle.C || vAux == triangle.A) // Both intersections are in the same edge
 								return EQIntersections::E_One;
 
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // There is no other intersection
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(lsAux.B))) // lsAux.B is in BC triangle edge (but not a vertex)
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->B))) // this->B is in BC triangle edge (but not a vertex)
 					{
 						// ls intersects the other edges
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
 						if (value2 == EQIntersections::E_One)
 						{
 							vPoint1 = vAux;
@@ -979,25 +968,25 @@ public:
 							if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
 								return EQIntersections::E_One;
 
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
 						{
 							vPoint1 = vAux;
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // There is no other intersection
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 					}
-					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(lsAux.B))) // lsAux.B is in CA triangle edge (but not a vertex)
+					else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->B))) // this->B is in CA triangle edge (but not a vertex)
 					{
 						// ls intersects the other edges
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux);
 						if (value2 == EQIntersections::E_One)
 						{
 							vPoint1 = vAux;
@@ -1005,33 +994,33 @@ public:
 							if (vAux == triangle.B || vAux == triangle.C) // Both intersections are in the same edge
 								return EQIntersections::E_One;
 
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One)
 						{
 							vPoint1 = vAux;
 
 							if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
 								return EQIntersections::E_One;
 
-							vPoint2 = lsAux.B;
+							vPoint2 = this->B;
 							return EQIntersections::E_Two;
 						}
 						else // There is no other intersection
 						{
-							vPoint1 = lsAux.B;
+							vPoint1 = this->B;
 							return EQIntersections::E_One;
 						}
 					}
-					else // lsAux.B is strictly inside triangle: is not in a vertex or edge.
+					else // this->B is strictly inside triangle: is not in a vertex or edge.
 					{
-						EQIntersections value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
+						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
 						if (value2 == EQIntersections::E_One)
 							vPoint1 = vAux;
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One)
 							vPoint1 = vAux;
-						else if (value2 = lsAux.IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
+						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
 							vPoint1 = vAux;
 						else                  // Something is wrong, if one point is inside and the other is outside,
 							QE_ASSERT(false); // there must be intersections.
