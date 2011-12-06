@@ -93,6 +93,9 @@ public:
 	/// </summary>
 	/// <param name="vAxis">[IN] Vector in the direction of the spin axis.</param>
 	/// <param name="fAngle">[IN] Angle of rotation.</param>
+	/// <remarks>
+    /// The axis vector must be normalized to construct the rotation matrix properly.
+    /// </remarks>
     QRotationMatrix3x3 (const QBaseVector3 &vAxis, const float_q &fAngle);
 
 
@@ -101,6 +104,9 @@ public:
     /// taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_quaternion
     /// </summary>
     /// <param name="qQuat">[IN] Quaternion which contains the rotation.</param>
+    /// <remarks>
+    /// The quaternion must be normalized to construct the rotation matrix properly.
+    /// </remarks>
     explicit QRotationMatrix3x3(const QBaseQuaternion &qQuat);
 
     /// <summary>

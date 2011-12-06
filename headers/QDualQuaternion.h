@@ -114,6 +114,9 @@ public:
     /// </summary>
     /// <param name="qR">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vD">[IN] The vector which represents the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
+    /// <remarks>
+    /// Remember that the quaternion must be normalized to represent the rotation properly.
+    /// </remarks>
     QDualQuaternion(const QBaseQuaternion &qR, const QBaseVector4 &vD)
     {
         QDualQuaternionImp(qR, vD);
@@ -134,6 +137,9 @@ public:
     /// </summary>
     /// <param name="qR">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vD">[IN] The vector which represents the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
+    /// <remarks>
+    /// Remember that the quaternion must be normalized to represent the rotation properly.
+    /// </remarks>
     QDualQuaternion(const QBaseVector3 &vD, const QBaseQuaternion &qR)
     {
         QDualQuaternionImp(vD, qR);
@@ -154,6 +160,9 @@ public:
     /// </summary>
     /// <param name="qR">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vD">[IN] The vector which represents the translation. It must be a QBaseVector3, a QBaseVector4 or its descendants.</param>
+    /// <remarks>
+    /// Remember that the quaternion must be normalized to represent the rotation properly.
+    /// </remarks>
     QDualQuaternion(const QBaseVector4 &vD, const QBaseQuaternion &qR)
     {
         QDualQuaternionImp(vD, qR);
