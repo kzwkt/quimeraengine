@@ -473,8 +473,8 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const float_q &fAngle, const QBaseVector2 &vPivot)
 	{
-        SQPoint::RotateWithPivot(fAngle, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
-        SQPoint::Rotate(fAngle, reinterpret_cast<QVector2 *> (&this->Direction), 1);
+        SQPoint::RotateWithPivot(fAngle, vPivot, &this->Origin, 1);
+        SQPoint::Rotate(fAngle, &this->Direction, 1);
 	}
 
     /// <summary>
@@ -496,7 +496,7 @@ public:
 	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
 	inline void Translate (const QBaseVector2 &vTrans)
 	{
-        SQPoint::Translate(vTrans, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::Translate(vTrans, &this->Origin, 1);
 	}
 
     /// <summary>
@@ -518,7 +518,7 @@ public:
 	/// <param name="fTransY">[IN] Amount of translation in Y direction.</param>
 	inline void Translate (const float_q &fTransX, const float_q &fTransY)
 	{
-        SQPoint::Translate(fTransX, fTransY, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::Translate(fTransX, fTransY, &this->Origin, 1);
 	}
 
     /// <summary>
@@ -603,8 +603,8 @@ public:
 	/// </remarks>
 	inline void ScaleWithPivot (const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
 	{
-        SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
-        SQPoint::Scale(vScale, reinterpret_cast<QVector2 *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(vScale, vPivot, &this->Origin, 1);
+        SQPoint::Scale(vScale, &this->Direction, 1);
         this->Direction.Normalize();
 	}
 
@@ -636,8 +636,8 @@ public:
 	/// </remarks>
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot)
 	{
-        SQPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
-        SQPoint::Scale(vScaleX, vScaleY, reinterpret_cast<QVector2 *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, &this->Origin, 1);
+        SQPoint::Scale(vScaleX, vScaleY, &this->Direction, 1);
         this->Direction.Normalize();
 	}
 
@@ -669,7 +669,7 @@ public:
 	/// </remarks>
 	inline void TransformWithPivot (const QTransformationMatrix3x3 &mTransf, const QBaseVector2 &vPivot)
 	{
-        SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<QVector2 *> (&this->Origin), 1);
+        SQPoint::TransformWithPivot(mTransf, vPivot, &this->Origin, 1);
 
         float_q fNewX = this->Direction.x * mTransf.ij[0][0] + this->Direction.y * mTransf.ij[1][0];
         float_q fNewY = this->Direction.x * mTransf.ij[0][1] + this->Direction.y * mTransf.ij[1][1];

@@ -1248,8 +1248,8 @@ public:
 	/// <param name="qRot">[IN] Quaternion which contains the rotation to be applied.</param>
 	inline void Rotate (const QQuaternion &qRot)
 	{
-        SQPoint::Rotate(qRot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Rotate(qRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Rotate(qRot, &this->Origin, 1);
+        SQPoint::Rotate(qRot, &this->Direction, 1);
 	}
 
 	/// <summary>
@@ -1272,8 +1272,8 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const QQuaternion &qRot, const VectorType &vPivot)
 	{
-        SQPoint::RotateWithPivot(qRot, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Rotate(qRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::RotateWithPivot(qRot, vPivot, &this->Origin, 1);
+        SQPoint::Rotate(qRot, &this->Direction, 1);
 	}
 
     /// <summary>
@@ -1295,7 +1295,7 @@ public:
 	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
 	inline void Translate (const QBaseVector3 &vTrans)
 	{
-        SQPoint::Translate(vTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Translate(vTrans, &this->Origin, 1);
 	}
 
     /// <summary>
@@ -1318,7 +1318,7 @@ public:
 	/// <param name="fTransZ">[IN] Amount of translation in Z direction.</param>
 	inline void Translate (const float_q &fTransX, const float_q &fTransY, const float_q &fTransZ)
 	{
-        SQPoint::Translate(fTransX, fTransY, fTransZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Translate(fTransX, fTransY, fTransZ, &this->Origin, 1);
 	}
 
     /// <summary>
@@ -1344,8 +1344,8 @@ public:
 	/// </remarks>
 	inline void Scale (const QBaseVector3 &vScale)
 	{
-        SQPoint::Scale(vScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Scale(vScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Scale(vScale, &this->Origin, 1);
+        SQPoint::Scale(vScale, &this->Direction, 1);
         this->Direction.Normalize();
 	}
 
@@ -1375,8 +1375,8 @@ public:
 	/// </remarks>
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ)
 	{
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &this->Origin, 1);
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &this->Direction, 1);
         this->Direction.Normalize();
 	}
 
@@ -1408,8 +1408,8 @@ public:
 	/// </remarks>
 	inline void ScaleWithPivot (const QBaseVector3 &vScale, const VectorType &vPivot)
 	{
-        SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Scale(vScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(vScale, vPivot, &this->Origin, 1);
+        SQPoint::Scale(vScale, &this->Direction, 1);
         this->Direction.Normalize();
 	}
 
@@ -1442,8 +1442,8 @@ public:
 	/// </remarks>
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot)
 	{
-        SQPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, &this->Origin, 1);
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &this->Direction, 1);
         this->Direction.Normalize();
 	}
 
@@ -1473,8 +1473,8 @@ public:
 	/// <param name="mRot">[IN] Rotation matrix which contains the rotation to be applied.</param>
 	inline void Rotate (const QRotationMatrix3x3 &mRot)
 	{
-        SQPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Rotate(mRot, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Rotate(mRot, &this->Origin, 1);
+        SQPoint::Rotate(mRot, &this->Direction, 1);
 	}
 
 	/// <summary>
@@ -1495,7 +1495,7 @@ public:
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
 	inline void Translate (const QTranslationMatrix<QMatrix4x3> &mTrans)
 	{
-        SQPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Translate(mTrans, &this->Origin, 1);
 	}
 
     /// <summary>
@@ -1504,7 +1504,7 @@ public:
 	/// <param name="mTrans">[IN] Matrix which contains the translation to be applied.</param>
 	inline void Translate (const QTranslationMatrix<QMatrix4x4> &mTrans)
 	{
-        SQPoint::Translate(mTrans, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Translate(mTrans, &this->Origin, 1);
 	}
 
     /// <summary>
@@ -1540,8 +1540,8 @@ public:
 	/// </remarks>
 	inline void Scale (const QScaleMatrix3x3 &mScale)
 	{
-        SQPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Scale(mScale, reinterpret_cast<QVector3 *> (&this->Direction), 1);
+        SQPoint::Scale(mScale, &this->Origin, 1);
+        SQPoint::Scale(mScale, &this->Direction, 1);
         this->Direction.Normalize();
 	}
 
@@ -1645,8 +1645,8 @@ public:
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
 	{
-        SQPoint::RotateWithPivot(mRot, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Rotate(mRot, reinterpret_cast<VectorType *> (&this->Direction), 1);
+        SQPoint::RotateWithPivot(mRot, vPivot, &this->Origin, 1);
+        SQPoint::Rotate(mRot, &this->Direction, 1);
 	}
 
 	/// <summary>
@@ -1673,8 +1673,8 @@ public:
 	/// </remarks>
 	inline void ScaleWithPivot (const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
 	{
-        SQPoint::ScaleWithPivot(mScale, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
-        SQPoint::Scale(mScale, reinterpret_cast<VectorType *> (&this->Direction), 1);
+        SQPoint::ScaleWithPivot(mScale, vPivot, &this->Origin, 1);
+        SQPoint::Scale(mScale, &this->Direction, 1);
         this->Direction.Normalize();
 	}
 
@@ -2350,7 +2350,7 @@ protected:
 	template <class MatrixType>
 	inline void TransformImp (const MatrixType &mTransf)
 	{
-        SQPoint::Transform(mTransf, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::Transform(mTransf, &this->Origin, 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in QVector3::Transform, except for the translation operations.
@@ -2377,7 +2377,7 @@ protected:
 	template <class MatrixType>
 	inline void TransformWithPivotImp (const MatrixType &mTransf, const VectorType &vPivot)
 	{
-        SQPoint::TransformWithPivot(mTransf, vPivot, reinterpret_cast<VectorType *> (&this->Origin), 1);
+        SQPoint::TransformWithPivot(mTransf, vPivot, &this->Origin, 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in QVector3::Transform, except for the translation operations.
