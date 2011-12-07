@@ -94,6 +94,7 @@ namespace DataTypes
 
 string_q SQFloat::ToString(const float_q &fValue)
 {
+    // TODO [Thund]: Change it by fcvt() ?
     string_q strOut = boost::lexical_cast<string_q>(fValue);
 	return strOut;
 }
