@@ -4,7 +4,7 @@
 #define QLINESEGMENT3D
 #define QRAY3D
 #define QTRIANGLE3D
-//#define QSPHERE
+#define QSPHERE
 #define QHEXAHEDRON
 
 #include <QVector3.h>
@@ -20,7 +20,7 @@
 #include <QLineSegment3D.h>
 #include <QHexahedron.h>
 #include <QRay3D.h>
-//#include <QSphere.h> Not implemented yet
+#include <QSphere.h>
 #include <QTriangle3D.h>
 
 using namespace Kinesis::QuimeraEngine::Tools::Math;

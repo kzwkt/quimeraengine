@@ -65,7 +65,11 @@ void Test(float fTimeDelta)
     Hexahedron2.G.x = 0.5f;  Hexahedron2.G.y = -0.5f; Hexahedron2.G.z = -0.5f;
     Hexahedron2.H.x = 0.5f;  Hexahedron2.H.y = -0.5f; Hexahedron2.H.z = 0.5f;
 
+    Sphere1.Center.x = 0.0f; Sphere1.Center.y = 0.0f; Sphere1.Center.z = 0.0f;
+    Sphere1.Radius = 1.0f;
 
+    Sphere2.Center.x = 0.0f; Sphere2.Center.y = 0.0f; Sphere2.Center.z = 0.0f;
+    Sphere2.Radius = 1.0f;
 
     // Test
     OutputDebugStringW(L"Executing test...\n");
@@ -82,8 +86,12 @@ void Test(float fTimeDelta)
     // Ray rotation sample
     Ray3D1.RotateWithPivot(QQuaternion(0.0f, 0.0f, fRotationY), VectorType(Ray3D1.Origin));
 
-
-
+    // Sphere rotation
+    Sphere1.Translate(-3.0f, 0.0f, 0.0f);
+    Sphere1.Radius = 0.3f;
+    Sphere2.Translate(-5.0f, 0.0f, 0.0f);
+    Sphere1.RotateWithPivot(QQuaternion(0.0f, fRotationY, 0.0f), Sphere2.Center);
+    
     // Log (see output window)
     OutputDebugStringW(LineSegment3D1.ToString().c_str()); OutputDebugStringW(L"\n");
     OutputDebugStringW(LineSegment3D2.ToString().c_str()); OutputDebugStringW(L"\n");

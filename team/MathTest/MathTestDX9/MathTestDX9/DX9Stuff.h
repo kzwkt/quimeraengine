@@ -10,6 +10,7 @@
 IDirect3DDevice9* Device = 0;
 IDirect3DVertexBuffer9* pVertex;
 IDirect3DIndexBuffer9* pIndex;
+ID3DXMesh* pSphereMesh;
 Camera TheCamera(Camera::AIRCRAFT);
 D3DLIGHT9* pLuz = 0;
 D3DMATERIAL9* pMaterial = 0;
@@ -213,6 +214,8 @@ bool Setup()
 
 	pIndex->Unlock();
 
+    D3DXCreateSphere(Device, 1.0f, 20, 16, &pSphereMesh, NULL);
+
 	return true;
 }
 
@@ -237,6 +240,23 @@ void Draw(float r, float g, float b)
     Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
 
     Device->DrawIndexedPrimitive(D3DPT_TRIANGLELIST, 0,0,8,0,12);
+}
+
+void DrawMesh(float r, float g, float b, D3DXMATRIX transformation, ID3DXMesh* pMesh)
+{
+    pMaterial->Diffuse = D3DXCOLOR(r,g,b,1);
+    pMaterial->Ambient = D3DXCOLOR(r,g,b,1);
+
+    Device->SetMaterial(pMaterial);
+
+    Device->SetTransform(D3DTS_WORLD, &transformation);
+	Device->SetFVF(D3DFVF_XYZ);
+    Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_SOLID);
+    pMesh->DrawSubset(0);
+
+    Device->SetRenderState(D3DRS_FILLMODE, D3DFILL_WIREFRAME);
+
+    pMesh->DrawSubset(0);
 }
 
 
@@ -397,6 +417,22 @@ bool Display(float timeDelta)
         }
 
 		Draw(0.5f, 0.5f, 0.5f);
+
+#endif
+#ifdef QSPHERE
+
+        D3DXMATRIX transformation, translation, scaling;
+
+        D3DXMatrixTranslation(&translation, Sphere1.Center.x, Sphere1.Center.y, Sphere1.Center.z);
+        D3DXMatrixScaling(&scaling, Sphere1.Radius, Sphere1.Radius, Sphere1.Radius);
+        transformation = scaling * translation;
+        DrawMesh(0.5f, 1.0f, 0.2f, transformation, pSphereMesh);
+
+        
+        D3DXMatrixTranslation(&translation, Sphere2.Center.x, Sphere2.Center.y, Sphere2.Center.z);
+        D3DXMatrixScaling(&scaling, Sphere2.Radius, Sphere2.Radius, Sphere2.Radius);
+        transformation = scaling * translation;
+        DrawMesh(1.0f, 0.0f, 0.5f, transformation, pSphereMesh);
 
 #endif
 
