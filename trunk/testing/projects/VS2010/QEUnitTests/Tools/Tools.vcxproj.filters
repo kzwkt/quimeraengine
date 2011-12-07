@@ -24,6 +24,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -53,5 +56,10 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
       <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt">
+      <Filter>TestSystem %28shared%29</Filter>
+    </None>
   </ItemGroup>
 </Project>

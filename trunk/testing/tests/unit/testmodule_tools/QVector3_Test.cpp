@@ -21,9 +21,9 @@ QTEST_CASE ( Constructor_0_Test )
     QVector3 target;
 
     // Verification
-    BOOST_CHECK_EQUAL( target.x, QFloat::_0 );
-    BOOST_CHECK_EQUAL( target.y, QFloat::_0 );
-    BOOST_CHECK_EQUAL( target.z, QFloat::_0 );
+    BOOST_CHECK_EQUAL( target.x, SQFloat::_0 );
+    BOOST_CHECK_EQUAL( target.y, SQFloat::_0 );
+    BOOST_CHECK_EQUAL( target.z, SQFloat::_0 );
 }
 
 /// <summary>
@@ -32,12 +32,12 @@ QTEST_CASE ( Constructor_0_Test )
 QTEST_CASE ( Constructor_1_Test )
 {
     // Preparation
-    QVector3 target(QFloat::_0_5);
+    QVector3 target(SQFloat::_0_5);
     
     // Verification
-    BOOST_CHECK_EQUAL( target.x, QFloat::_0_5 );
-    BOOST_CHECK_EQUAL( target.y, QFloat::_0_5 );
-    BOOST_CHECK_EQUAL( target.z, QFloat::_0_5 );
+    BOOST_CHECK_EQUAL( target.x, SQFloat::_0_5 );
+    BOOST_CHECK_EQUAL( target.y, SQFloat::_0_5 );
+    BOOST_CHECK_EQUAL( target.z, SQFloat::_0_5 );
 }
 
 /// <summary>
@@ -49,7 +49,7 @@ QTEST_CASE ( OperatorDivision_DividedByZeroAssertionFails_Test )
     QVector3 target;
     
     // Verification
-    BOOST_CHECK_NO_THROW( target /= QFloat::_0 )
+    BOOST_CHECK_NO_THROW( target /= SQFloat::_0 )
     /*try
     {
         ;

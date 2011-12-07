@@ -65,10 +65,15 @@
 // --------------------------------------------------------------------------------------------------------
 #ifndef QE_DISABLE_ASSERTS // This definition must be included as client application's preprocessor definitions to disable assert statements
 
-    #include <boost/assert.hpp>
+    #ifdef QE_ASSERT_THROWS_EXCEPTION // This definition must be included as client application's preprocessor definitions to make assertion throw exceptions. This is used for testing purposes
+        #include <exception>
+        #define QE_ASSERT(expr) if(!(expr)) throw new std::exception(); // TODO [Thund]: Create an special exception class for this
+    #else
+        #include <boost/assert.hpp>
 
-    #ifdef BOOST_ASSERT
-        #define QE_ASSERT(expr) BOOST_ASSERT(expr)
+        #ifdef BOOST_ASSERT
+            #define QE_ASSERT(expr) BOOST_ASSERT(expr)
+        #endif
     #endif
 
 #endif

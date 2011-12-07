@@ -1,0 +1,30 @@
+// [TERMS&CONDITIONS]
+
+#include <boost/test/auto_unit_test.hpp>
+#include <boost/test/unit_test_log.hpp>
+using namespace boost::unit_test;
+
+#include "../../testsystem/TestingExternalDefinitions.h"
+
+#include "ClassToTest.h"
+
+using Kinesis::QuimeraEngine:::ClassToTest;
+
+QTEST_SUITE_BEGIN( ClassToTest_TestSuite )
+
+/// <summary>
+/// [DOC]
+/// </summary>
+QTEST_CASE ( <FuncName>_<TestDescription>_Test )
+{
+    // Preparation
+
+	// Execution
+    
+    // Verification
+
+	// Cleaning
+}
+
+// End - Test Suite: ClassToTest
+QTEST_SUITE_END()
