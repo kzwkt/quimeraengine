@@ -4,7 +4,7 @@
 #define __QBASEQUADRILATERAL__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 #include "QVector2.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;

@@ -4,7 +4,7 @@
 #define __QBASEMATRIX4X3__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -123,10 +123,10 @@ public:
 	{
 		float_q aux;
 
-		QVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], aux);
-		QVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], aux);
-		QVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], aux);
-		QVF32::Unpack(row3, this->ij[3][0], this->ij[3][1], this->ij[3][2], aux);
+		SQVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], aux);
+		SQVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], aux);
+		SQVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], aux);
+		SQVF32::Unpack(row3, this->ij[3][0], this->ij[3][1], this->ij[3][2], aux);
 	}
 
 	// METHODS

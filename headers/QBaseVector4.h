@@ -4,7 +4,7 @@
 #define __QBASEVECTOR4__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -69,7 +69,7 @@ public:
 	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (W).</param>
 	inline explicit QBaseVector4(const vf32_q &vfValue)
 	{
-        QVF32::Unpack(vfValue, this->x, this->y, this->z, this->w);
+        SQVF32::Unpack(vfValue, this->x, this->y, this->z, this->w);
 	}
 
 	// METHODS

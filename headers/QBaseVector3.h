@@ -4,7 +4,7 @@
 #define __QBASEVECTOR3__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -70,7 +70,7 @@ public:
 	{
 		float_q aux;
 
-		QVF32::Unpack(vfValue, this->x, this->y, this->z, aux);
+		SQVF32::Unpack(vfValue, this->x, this->y, this->z, aux);
 	}
 
 	// METHODS

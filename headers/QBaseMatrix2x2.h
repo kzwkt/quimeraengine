@@ -4,7 +4,7 @@
 #define __QBASEMATRIX2X2__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -77,7 +77,7 @@ public:
 	/// <param name="vfValues">[IN] 4x32 values for the matrix.</param>
 	inline QBaseMatrix2x2(const vf32_q &vfValues)
 	{
-		QVF32::Unpack(vfValues, this->ij[0][0], this->ij[0][1], this->ij[1][0], this->ij[1][1]);
+		SQVF32::Unpack(vfValues, this->ij[0][0], this->ij[0][1], this->ij[1][0], this->ij[1][1]);
 	}
 
     // METHODS

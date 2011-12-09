@@ -95,7 +95,6 @@
 		<Unit filename="..\..\..\..\headers\QTriangle.h" />
 		<Unit filename="..\..\..\..\headers\QTriangle2D.h" />
 		<Unit filename="..\..\..\..\headers\QTriangle3D.h" />
-		<Unit filename="..\..\..\..\headers\QVF32.h" />
 		<Unit filename="..\..\..\..\headers\QVector2.h" />
 		<Unit filename="..\..\..\..\headers\QVector3.h" />
 		<Unit filename="..\..\..\..\headers\QVector4.h" />
@@ -104,6 +103,7 @@
 		<Unit filename="..\..\..\..\headers\SQFloat.h" />
 		<Unit filename="..\..\..\..\headers\SQInteger.h" />
 		<Unit filename="..\..\..\..\headers\SQPoint.h" />
+		<Unit filename="..\..\..\..\headers\SQVF32.h" />
 		<Unit filename="..\..\..\..\source\EQIntersections.cpp" />
 		<Unit filename="..\..\..\..\source\EQSpaceRelation.cpp" />
 		<Unit filename="..\..\..\..\source\QCircle.cpp" />
@@ -122,13 +122,13 @@
 		<Unit filename="..\..\..\..\source\QScaleMatrix3x3.cpp" />
 		<Unit filename="..\..\..\..\source\QSpaceConversionMatrix.cpp" />
 		<Unit filename="..\..\..\..\source\QTransformationMatrix3x3.cpp" />
-		<Unit filename="..\..\..\..\source\QVF32.cpp" />
 		<Unit filename="..\..\..\..\source\QVector2.cpp" />
 		<Unit filename="..\..\..\..\source\QVector3.cpp" />
 		<Unit filename="..\..\..\..\source\QVector4.cpp" />
 		<Unit filename="..\..\..\..\source\SQAngle.cpp" />
 		<Unit filename="..\..\..\..\source\SQBoolean.cpp" />
 		<Unit filename="..\..\..\..\source\SQFloat.cpp" />
+		<Unit filename="..\..\..\..\source\SQVF32.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

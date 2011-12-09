@@ -27850,10 +27850,11 @@
 	"ExternalDefinitions.h"
 	"InternalDefinitions.h"
 
-1321277581 d:\inform\quimeraengine\headers\externaldefinitions.h
+1323352134 d:\inform\quimeraengine\headers\externaldefinitions.h
+	<exception>
 	<boost/assert.hpp>
 
-1321277581 d:\inform\quimeraengine\headers\internaldefinitions.h
+1323352134 d:\inform\quimeraengine\headers\internaldefinitions.h
 	"ExternalDefinitions.h"
 
 1315307041 source:d:\javi\kinesis\quimeraengine-xxx-qpoint\trunk\source\prueba.cpp
