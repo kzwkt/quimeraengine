@@ -46,23 +46,6 @@ public:
     /// </returns>
     friend QMatrix2x2 operator*(const float_q &fScalar, const QBaseMatrix2x2 &m);
 
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Stores a matrix with all components set to 0.
-    /// </summary>
-    static const QMatrix2x2 ZeroMatrix;
-
-    /// <summary>
-    /// Stores an identity matrix.
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\f$
-    ///
-    /// </summary>
-    static const QMatrix2x2 Identity;
 
     // CONSTRUCTORS
     // ---------------
@@ -114,6 +97,40 @@ public:
     /// </summary>
     /// <param name="vfValues">[IN] 4x32 values for the matrix.</param>
     inline QMatrix2x2(const vf32_q &vfValues) : QBaseMatrix2x2(vfValues) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets a null matrix.
+    /// </summary>
+    /// <returns>
+    /// A matrix with all components set to 0.
+    /// </returns>
+    inline static const QMatrix2x2& GetZeroMatrix()
+    {
+        static const QMatrix2x2 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+        return ZEROMATRIX;
+    }
+
+    /// <summary>
+    /// Gets an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    ///
+    /// \f$ I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\f$
+    ///
+    /// </summary>
+    /// <returns>
+    /// An identity matrix.
+    /// </returns>
+    inline static const QMatrix2x2& GetIdentity()
+    {
+        static const QMatrix2x2 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+        return IDENTITY;
+    }
+
 
     // METHODS
     // ---------------

@@ -56,54 +56,6 @@ public:
     /// </returns>
     friend QVector4 operator * (const float_q &fValue, const QBaseVector4 &v);
 
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Stores a vector with all components set to 0
-    /// </summary>
-    static const QVector4 ZeroVector;
-
-    /// <summary>
-    /// Stores a vector with all components set to 0
-    /// </summary>
-    static const QVector4 ZeroPoint;
-
-    /// <summary>
-    /// Stores a vector with all components set to 1
-    /// </summary>
-    static const QVector4 VectorOfOnes;
-
-    /// <summary>
-    /// Stores a unit vector in X positive direction
-    /// </summary>
-    static const QVector4 UnitVectorX;
-
-    /// <summary>
-    /// Stores a unit vector in Y positive direction
-    /// </summary>
-    static const QVector4 UnitVectorY;
-
-    /// <summary>
-    /// Stores a unit vector in Z positive direction
-    /// </summary>
-    static const QVector4 UnitVectorZ;
-
-    /// <summary>
-    /// Stores a unit vector in X negative direction
-    /// </summary>
-    static const QVector4 UnitVectorInvX;
-
-    /// <summary>
-    /// Stores a unit vector in Y negative direction
-    /// </summary>
-    static const QVector4 UnitVectorInvY;
-
-    /// <summary>
-    /// Stores a unit vector in Z negative direction
-    /// </summary>
-    static const QVector4 UnitVectorInvZ;
 
     // CONSTRUCTORS
     // ---------------
@@ -167,6 +119,119 @@ public:
     /// </summary>
     /// <param name="m">[IN] A 4x4 or 4x3 translation matrix, depending on the constructor template parameter.</param>
     explicit QVector4(const QTranslationMatrix<QMatrix4x4> &m);
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets a point with all components set to 0 (but W, which equals 1).
+    /// </summary>
+    /// <returns>
+    /// A point placed in coordinate origin.
+    /// </returns>
+    inline static const QVector4& GetZeroPoint()
+    {
+        static const QVector4 ZEROPOINT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+        return ZEROPOINT;
+    }
+
+    /// <summary>
+    /// Gets a vector with all components set to 0.
+    /// </summary>
+    /// <returns>
+    /// A null vector.
+    /// </returns>
+    inline static const QVector4& GetZeroVector()
+    {
+        static const QVector4 ZEROVECTOR(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+        return ZEROVECTOR;
+    }
+
+    /// <summary>
+    /// Gets a vector with all components set to 1.
+    /// </summary>
+    /// <returns>
+    /// A vector of ones.
+    /// </returns>
+    inline static const QVector4& GetVectorOfOnes()
+    {
+        static const QVector4 VECTOROFONES(SQFloat::_1,  SQFloat::_1,  SQFloat::_1, SQFloat::_1);
+        return VECTOROFONES;
+    }
+
+    /// <summary>
+    /// Gets a unit vector that points to X positive direction.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to X positive direction.
+    /// </returns>
+    inline static const QVector4& GetUnitVectorX()
+    {
+        static const QVector4 UNITVECTORX(SQFloat::_1,  SQFloat::_0,  SQFloat::_0, SQFloat::_0);
+        return UNITVECTORX;
+    }
+
+    /// <summary>
+    /// Gets a unit vector that points to Y positive direction.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to Y positive direction.
+    /// </returns>
+    inline static const QVector4& GetUnitVectorY()
+    {
+        static const QVector4 UNITVECTORY(SQFloat::_0,  SQFloat::_1,  SQFloat::_0, SQFloat::_0);
+        return UNITVECTORY;
+    }
+
+    /// <summary>
+    /// Gets a unit vector that points to Z positive direction.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to Z positive direction.
+    /// </returns>
+    inline static const QVector4& GetUnitVectorZ()
+    {
+        static const QVector4 UNITVECTORZ(SQFloat::_0,  SQFloat::_0,  SQFloat::_1, SQFloat::_0);
+        return UNITVECTORZ;
+    }
+
+    /// <summary>
+    /// Gets a unit vector that points to X negative direction.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to X negative direction.
+    /// </returns>
+    inline static const QVector4& GetUnitVectorInvX()
+    {
+        static const QVector4 UNITVECTORINVX(-SQFloat::_1,  SQFloat::_0,  SQFloat::_0, SQFloat::_0);
+        return UNITVECTORINVX;
+    }
+
+    /// <summary>
+    /// Gets a unit vector that points to Y negative direction.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to Y negative direction.
+    /// </returns>
+    inline static const QVector4& GetUnitVectorInvY()
+    {
+        static const QVector4 UNITVECTORINVY(SQFloat::_0,  -SQFloat::_1,  SQFloat::_0, SQFloat::_0);
+        return UNITVECTORINVY;
+    }
+
+    /// <summary>
+    /// Gets a unit vector that points to Z negative direction.
+    /// </summary>
+    /// <returns>
+    /// A unit vector that points to Z positive direction.
+    /// </returns>
+    inline static const QVector4& GetUnitVectorInvZ()
+    {
+        static const QVector4 UNITVECTORINVZ(SQFloat::_0,  SQFloat::_0,  -SQFloat::_1, SQFloat::_0);
+        return UNITVECTORINVZ;
+    }
 
 
     // METHODS

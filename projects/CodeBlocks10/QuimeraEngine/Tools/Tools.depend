@@ -6602,7 +6602,8 @@
 	"ExternalDefinitions.h"
 	"InternalDefinitions.h"
 
-1321217118 g:\users\animal\desktop\qesvn\trunk\headers\externaldefinitions.h
+1323276234 g:\users\animal\desktop\qesvn\trunk\headers\externaldefinitions.h
+	<exception>
 	<boost/assert.hpp>
 
 1297765132 g:\users\animal\desktop\qesvn\trunk\3rdparty\boost\include\boost\assert.hpp
@@ -6615,7 +6616,7 @@
 
 1195992440 g:\users\animal\desktop\qesvn\trunk\3rdparty\boost\include\boost\current_function.hpp
 
-1321217118 g:\users\animal\desktop\qesvn\trunk\headers\internaldefinitions.h
+1323284128 g:\users\animal\desktop\qesvn\trunk\headers\internaldefinitions.h
 	"ExternalDefinitions.h"
 
 1312227128 source:g:\users\animal\desktop\qesvn\trunk\source\eqspacerelation.cpp
@@ -6632,9 +6633,10 @@
 	<string>
 	"MathDefinitions.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\mathdefinitions.h
+1323283727 g:\users\animal\desktop\qesvn\trunk\headers\mathdefinitions.h
 	"Configuration.h"
 	"SQFloat.h"
+	<math.h>
 
 1319919293 g:\users\animal\desktop\qesvn\trunk\headers\qfloat.h
 	<string>
@@ -9484,19 +9486,19 @@
 	<boost/static_assert.hpp>
 	<boost/type_traits/is_floating_point.hpp>
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qdualquaternion.cpp
+1323289145 source:g:\users\animal\desktop\qesvn\trunk\source\qdualquaternion.cpp
 	"QDualQuaternion.h"
 	"QBaseVector3.h"
 	"QBaseVector4.h"
 
-1322686242 g:\users\animal\desktop\qesvn\trunk\headers\qdualquaternion.h
+1323348268 g:\users\animal\desktop\qesvn\trunk\headers\qdualquaternion.h
 	"QBaseDualQuaternion.h"
 
 1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qbasedualquaternion.h
 	"SQFloat.h"
 	"QQuaternion.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qquaternion.h
+1323348267 g:\users\animal\desktop\qesvn\trunk\headers\qquaternion.h
 	"SQAngle.h"
 	"QBaseQuaternion.h"
 	"QBaseVector3.h"
@@ -9519,13 +9521,13 @@
 	"SQFloat.h"
 	"QVF32.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qrotationmatrix3x3.h
+1323431658 g:\users\animal\desktop\qesvn\trunk\headers\qrotationmatrix3x3.h
 	"QBaseVector3.h"
 	"QMatrix3x3.h"
 	"QMatrix4x3.h"
 	"QMatrix4x4.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix3x3.h
+1323348266 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix3x3.h
 	"QBaseMatrix3x3.h"
 	"QBaseMatrix3x4.h"
 
@@ -9537,7 +9539,7 @@
 	"SQFloat.h"
 	"QVF32.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix4x3.h
+1323348266 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix4x3.h
 	"QBaseMatrix3x3.h"
 	"QBaseMatrix3x4.h"
 	"QBaseMatrix4x4.h"
@@ -9551,16 +9553,16 @@
 	"SQFloat.h"
 	"QVF32.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix4x4.h
+1323348266 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix4x4.h
 	"QBaseMatrix4x4.h"
 	"QBaseMatrix4x3.h"
 
-1322603805 g:\users\animal\desktop\qesvn\trunk\headers\qtransformationmatrix.h
+1323431569 g:\users\animal\desktop\qesvn\trunk\headers\qtransformationmatrix.h
 	"QQuaternion.h"
 	"QScaleMatrix3x3.h"
 	"QRotationMatrix3x3.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qscalematrix3x3.h
+1323431720 g:\users\animal\desktop\qesvn\trunk\headers\qscalematrix3x3.h
 	"QBaseVector3.h"
 	"QMatrix3x3.h"
 	"QMatrix4x3.h"
@@ -9694,7 +9696,7 @@
 	<limits.h>
 	<wchar.h>
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qlinesegment2d.cpp
+1323289686 source:g:\users\animal\desktop\qesvn\trunk\source\qlinesegment2d.cpp
 	"QBaseTriangle.h"
 	"QBaseQuadrilateral.h"
 	"QTransformationMatrix3x3.h"
@@ -9709,7 +9711,7 @@
 	"QVF32.h"
 	"QVector2.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qvector2.h
+1323431483 g:\users\animal\desktop\qesvn\trunk\headers\qvector2.h
 	"QBaseVector2.h"
 	"QBaseMatrix2x2.h"
 
@@ -9721,19 +9723,19 @@
 	"SQFloat.h"
 	"QVF32.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qtransformationmatrix3x3.h
+1323431486 g:\users\animal\desktop\qesvn\trunk\headers\qtransformationmatrix3x3.h
 	"QBaseVector2.h"
 	"QMatrix3x3.h"
 	"QBaseMatrix3x3.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qlinesegment2d.h
+1323431553 g:\users\animal\desktop\qesvn\trunk\headers\qlinesegment2d.h
 	"QLineSegment.h"
 	"QVector2.h"
 	"SQPoint.h"
 	"QBaseTriangle.h"
 	"QBaseQuadrilateral.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qlinesegment.h
+1323434071 g:\users\animal\desktop\qesvn\trunk\headers\qlinesegment.h
 	"EQIntersections.h"
 	"QBaseLineSegment.h"
 	"QBaseOrb.h"
@@ -9746,39 +9748,39 @@
 	"SQFloat.h"
 	"QVF32.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix2x2.cpp
+1323290389 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix2x2.cpp
 	"SQAngle.h"
 	"QMatrix2x2.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix2x2.h
+1323348267 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix2x2.h
 	"QBaseMatrix2x2.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix3x3.cpp
+1323290697 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix3x3.cpp
 	"SQAngle.h"
 	"QMatrix3x3.h"
 	"QMatrix3x4.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix3x4.h
+1323348266 g:\users\animal\desktop\qesvn\trunk\headers\qmatrix3x4.h
 	"QBaseMatrix3x3.h"
 	"QBaseMatrix4x4.h"
 	"QBaseMatrix3x4.h"
 	"QBaseMatrix4x3.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix3x4.cpp
+1323291007 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix3x4.cpp
 	"QMatrix3x4.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix4x3.cpp
+1323291576 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix4x3.cpp
 	"QMatrix3x3.h"
 	"QMatrix4x3.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix4x4.cpp
+1323291717 source:g:\users\animal\desktop\qesvn\trunk\source\qmatrix4x4.cpp
 	"SQAngle.h"
 	"QMatrix4x4.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qplane.cpp
+1323292244 source:g:\users\animal\desktop\qesvn\trunk\source\qplane.cpp
 	"QPlane.h"
 
-1322604067 g:\users\animal\desktop\qesvn\trunk\headers\qplane.h
+1323431810 g:\users\animal\desktop\qesvn\trunk\headers\qplane.h
 	"EQIntersections.h"
 	"EQSpaceRelation.h"
 	"QBasePlane.h"
@@ -9793,27 +9795,27 @@
 	"SQFloat.h"
 	"QVF32.h"
 
-1322134357 g:\users\animal\desktop\qesvn\trunk\headers\qspaceconversionmatrix.h
+1323347952 g:\users\animal\desktop\qesvn\trunk\headers\qspaceconversionmatrix.h
 	"QBaseVector3.h"
 	"QBaseVector4.h"
 	"QBaseQuaternion.h"
 	"QMatrix4x4.h"
 	"QMatrix4x3.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qtranslationmatrix.h
+1323431486 g:\users\animal\desktop\qesvn\trunk\headers\qtranslationmatrix.h
 	"QRotationMatrix3x3.h"
 	"QScaleMatrix3x3.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qvector3.h
+1323433268 g:\users\animal\desktop\qesvn\trunk\headers\qvector3.h
 	"SQAngle.h"
 	"QBaseVector3.h"
 	"QBaseVector4.h"
 
-1322603660 g:\users\animal\desktop\qesvn\trunk\headers\qvector4.h
+1323433715 g:\users\animal\desktop\qesvn\trunk\headers\qvector4.h
 	"QBaseVector3.h"
 	"QBaseVector4.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qquaternion.cpp
+1323292635 source:g:\users\animal\desktop\qesvn\trunk\source\qquaternion.cpp
 	"QQuaternion.h"
 	"MathDefinitions.h"
 	"QVector3.h"
@@ -9823,7 +9825,7 @@
 	"QRotationMatrix3x3.h"
 	"QTransformationMatrix.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qrotationmatrix3x3.cpp
+1323347835 source:g:\users\animal\desktop\qesvn\trunk\source\qrotationmatrix3x3.cpp
 	"QRotationMatrix3x3.h"
 	"QVector3.h"
 	"QQuaternion.h"
@@ -9831,14 +9833,14 @@
 	"QScaleMatrix3x3.h"
 	"QTransformationMatrix.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qscalematrix3x3.cpp
+1323347836 source:g:\users\animal\desktop\qesvn\trunk\source\qscalematrix3x3.cpp
 	"QScaleMatrix3x3.h"
 	"QVector3.h"
 	"QTranslationMatrix.h"
 	"QRotationMatrix3x3.h"
 	"QTransformationMatrix.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qspaceconversionmatrix.cpp
+1322688778 source:g:\users\animal\desktop\qesvn\trunk\source\qspaceconversionmatrix.cpp
 	"QSpaceConversionMatrix.h"
 	"QBaseQuaternion.h"
 	"QVector3.h"
@@ -9847,7 +9849,7 @@
 	"QScaleMatrix3x3.h"
 	"QTransformationMatrix.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qtransformationmatrix3x3.cpp
+1323431486 source:g:\users\animal\desktop\qesvn\trunk\source\qtransformationmatrix3x3.cpp
 	"QTransformationMatrix3x3.h"
 
 1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qvf32.cpp
@@ -9859,12 +9861,12 @@
 1316977505 g:\users\animal\desktop\qesvn\trunk\headers\qboolean.h
 	"DataTypesDefinitions.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qvector2.cpp
+1323431487 source:g:\users\animal\desktop\qesvn\trunk\source\qvector2.cpp
 	"QVector2.h"
 	"SQAngle.h"
 	"QTransformationMatrix3x3.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qvector3.cpp
+1323432411 source:g:\users\animal\desktop\qesvn\trunk\source\qvector3.cpp
 	"QVector3.h"
 	"QQuaternion.h"
 	"QDualQuaternion.h"
@@ -9874,7 +9876,7 @@
 	"QTranslationMatrix.h"
 	"QTransformationMatrix.h"
 
-1322605189 source:g:\users\animal\desktop\qesvn\trunk\source\qvector4.cpp
+1323433715 source:g:\users\animal\desktop\qesvn\trunk\source\qvector4.cpp
 	"QVector4.h"
 	"QQuaternion.h"
 	"QDualQuaternion.h"
@@ -13204,19 +13206,19 @@
 	"QRotationMatrix3x3.h"
 	"QScaleMatrix3x3.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qquadrilateral.cpp
+1323292426 source:g:\users\animal\desktop\qesvn\trunk\source\qquadrilateral.cpp
 	"QQuadrilateral.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qquadrilateral.h
+1323348267 g:\users\animal\desktop\qesvn\trunk\headers\qquadrilateral.h
 	"QBaseQuadrilateral.h"
 	"QLineSegment2D.h"
 	"QVector2.h"
 	"SQAngle.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\qray2d.cpp
+1323431631 source:g:\users\animal\desktop\qesvn\trunk\source\qray2d.cpp
 	"QRay2D.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qray2d.h
+1323431619 g:\users\animal\desktop\qesvn\trunk\headers\qray2d.h
 	"QRay.h"
 	"QVector2.h"
 	"QBaseOrb.h"
@@ -13226,12 +13228,12 @@
 	"QTransformationMatrix3x3.h"
 	"EQIntersections.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qray.h
+1323434072 g:\users\animal\desktop\qesvn\trunk\headers\qray.h
 	"QBaseRay.h"
 	"QBaseOrb.h"
 	"EQIntersections.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\qbaseray.h
+1323172660 g:\users\animal\desktop\qesvn\trunk\headers\qbaseray.h
 	"SQFloat.h"
 
 1321011656 source:d:\javi\kinesis\186-qsphere\trunk\source\eqintersections.cpp
@@ -16602,7 +16604,7 @@
 	<boost/math/special_functions/trunc.hpp>
 	"DataTypesDefinitions.h"
 
-1322598583 g:\users\animal\desktop\qesvn\trunk\headers\sqpoint.h
+1322688778 g:\users\animal\desktop\qesvn\trunk\headers\sqpoint.h
 	"SQFloat.h"
 	"SQAngle.h"
 	"QVector2.h"
@@ -16628,7 +16630,7 @@
 1322598583 g:\users\animal\desktop\qesvn\trunk\headers\sqboolean.h
 	"DataTypesDefinitions.h"
 
-1322598577 source:g:\users\animal\desktop\qesvn\trunk\source\sqfloat.cpp
+1323283727 source:g:\users\animal\desktop\qesvn\trunk\source\sqfloat.cpp
 	<sstream>
 	<boost/lexical_cast.hpp>
 	"SQFloat.h"

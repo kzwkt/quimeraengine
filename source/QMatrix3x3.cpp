@@ -17,33 +17,6 @@ namespace Math
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
-//##################            |  CONSTANTS INITIALIZATION  |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-    const QMatrix3x3 QMatrix3x3::ZeroMatrix(SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                            SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                            SQFloat::_0, SQFloat::_0, SQFloat::_0);
-
-    const QMatrix3x3 QMatrix3x3::Identity(  SQFloat::_1, SQFloat::_0, SQFloat::_0,
-                                            SQFloat::_0, SQFloat::_1, SQFloat::_0,
-                                            SQFloat::_0, SQFloat::_0, SQFloat::_1);
-    
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |       CONSTRUCTORS         |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-    
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
 //##################            |            METHODS         |             ##################
 //##################           /|                            |\            ##################
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
@@ -67,7 +40,7 @@ namespace Math
         return aux;
     }
 
-    QMatrix3x3 operator*(const float_q &fScalar, const QBaseMatrix3x3 &m) 
+    QMatrix3x3 operator*(const float_q &fScalar, const QBaseMatrix3x3 &m)
     {
 
         QMatrix3x3 aux;
@@ -81,7 +54,7 @@ namespace Math
         aux.ij[2][0] = fScalar * m.ij[2][0];
         aux.ij[2][1] = fScalar * m.ij[2][1];
         aux.ij[2][2] = fScalar * m.ij[2][2];
-        
+
         return aux;
     }
 
@@ -144,11 +117,11 @@ namespace Math
 
     QMatrix3x3 QMatrix3x3::operator/(const float_q &fScalar) const
     {
-        
+
         QE_ASSERT(fScalar != SQFloat::_0);
 
         QMatrix3x3 aux;
-        
+
         aux.ij[0][0] = this->ij[0][0] / fScalar;
         aux.ij[0][1] = this->ij[0][1] / fScalar;
         aux.ij[0][2] = this->ij[0][2] / fScalar;
@@ -165,7 +138,7 @@ namespace Math
     QMatrix3x3 QMatrix3x3::operator+(const QBaseMatrix3x3 &m) const
     {
         QMatrix3x3 aux;
-        
+
         aux.ij[0][0] = this->ij[0][0] + m.ij[0][0];
         aux.ij[0][1] = this->ij[0][1] + m.ij[0][1];
         aux.ij[0][2] = this->ij[0][2] + m.ij[0][2];
@@ -182,7 +155,7 @@ namespace Math
     QMatrix3x3 QMatrix3x3::operator-(const QBaseMatrix3x3 &m) const
     {
         QMatrix3x3 aux;
-        
+
         aux.ij[0][0] = this->ij[0][0] - m.ij[0][0];
         aux.ij[0][1] = this->ij[0][1] - m.ij[0][1];
         aux.ij[0][2] = this->ij[0][2] - m.ij[0][2];
@@ -213,14 +186,14 @@ namespace Math
         aux.ij[2][2] = this->ij[2][0]*m.ij[0][2] + this->ij[2][1]*m.ij[1][2] + this->ij[2][2]*m.ij[2][2];
 
         *this = aux;
-        
+
         return *this;
     }
 
     void QMatrix3x3::Transpose()
     {
         QMatrix3x3 aux;
-        
+
         aux.ij[0][0] = this->ij[0][0];
         aux.ij[0][1] = this->ij[1][0];
         aux.ij[0][2] = this->ij[2][0];
@@ -233,7 +206,7 @@ namespace Math
 
         *this = aux;
     }
-    
+
     bool QMatrix3x3::Reverse()
     {
         // Special case where matrix is identity. Then inverse of the matrix is itself.
@@ -246,25 +219,25 @@ namespace Math
         float_q fDet = this->GetDeterminant();
 
         // If Determinant is 0, this matrix has not inverse.
-        if (SQFloat::IsZero(fDet)) 
+        if (SQFloat::IsZero(fDet))
             return false;
 
         // We need inverse of determinant in calculus.
         fDet = SQFloat::_1/fDet;
- 
+
         QMatrix3x3 aux;
 
-        // 1st column of inverse 
+        // 1st column of inverse
         aux.ij[0][0] =  fDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1]);
         aux.ij[1][0] = -fDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0]);
         aux.ij[2][0] =  fDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0]);
 
-        // 2nd column of inverse 
+        // 2nd column of inverse
         aux.ij[0][1] = -fDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1]);
         aux.ij[1][1] =  fDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0]);
         aux.ij[2][1] = -fDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0]);
 
-        // 3rd column of inverse 
+        // 3rd column of inverse
         aux.ij[0][2] =  fDet * (this->ij[0][1] * this->ij[1][2] - this->ij[0][2] * this->ij[1][1]);
         aux.ij[1][2] = -fDet * (this->ij[0][0] * this->ij[1][2] - this->ij[0][2] * this->ij[1][0]);
         aux.ij[2][2] =  fDet * (this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0]);

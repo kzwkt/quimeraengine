@@ -31,29 +31,6 @@ namespace Math
 template <class VectorType>
 class QDllExport QRay3D : public QRay<VectorType, QVector3>
 {
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-	/// A ray set at the coordinate origin and whose direction vector is null.
-	/// </summary>
-    static const QRay3D RayZero;
-
-    /// <summary>
-	/// A ray set at the coordinate origin and whose direction vector is in X growing direction.
-	/// </summary>
-    static const QRay3D RayX;
-
-    /// <summary>
-	/// A ray set at the coordinate origin and whose direction vector is in Y growing direction.
-	/// </summary>
-    static const QRay3D RayY;
-
-    /// <summary>
-	/// A ray set at the coordinate origin and whose direction vector is in Z growing direction.
-	/// </summary>
-    static const QRay3D RayZ;
 
 	// CONSTRUCTORS
 	// ---------------
@@ -79,6 +56,59 @@ public:
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
     inline QRay3D(const VectorType &vOrigin, const QVector3 &vDirection) : QRay<VectorType, QVector3>(vOrigin, vDirection) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+	/// Gets a ray placed at the coordinate origin and whose direction vector is null.
+	/// </summary>
+	/// <returns>
+    /// The null ray.
+    /// </returns>
+    inline static const QRay3D<VectorType>& GetRayZero()
+    {
+        static const QRay3D<VectorType> RAYZERO(VectorType::GetZeroVector(), VectorType::GetZeroVector());
+        return RAYZERO;
+    }
+
+    /// <summary>
+	/// Gets a ray placed at the coordinate origin and whose direction vector is in X growing direction.
+	/// </summary>
+	/// <returns>
+    /// A ray that points to X direction.
+    /// </returns>
+    inline static const QRay3D<VectorType>& GetRayX()
+    {
+        static const QRay3D<VectorType> RAYX(VectorType::GetZeroVector(), VectorType::GetUnitVectorX());
+        return RAYX;
+    }
+
+    /// <summary>
+	/// Gets a ray placed at the coordinate origin and whose direction vector is in Y growing direction.
+	/// </summary>
+	/// <returns>
+    /// A ray that points to Y direction.
+    /// </returns>
+    inline static const QRay3D<VectorType>& GetRayY()
+    {
+        static const QRay3D<VectorType> RAYY(VectorType::GetZeroVector(), VectorType::GetUnitVectorY());
+        return RAYY;
+    }
+
+    /// <summary>
+	/// Gets a ray placed at the coordinate origin and whose direction vector is in Z growing direction.
+	/// </summary>
+	/// <returns>
+    /// A ray that points to Z direction.
+    /// </returns>
+    inline static const QRay3D<VectorType>& GetRayZ()
+    {
+        static const QRay3D<VectorType> RAYZ(VectorType::GetZeroVector(), VectorType::GetUnitVectorZ());
+        return RAYZ;
+    }
 
 
 	// METHODS
@@ -371,7 +401,7 @@ public:
         {
             if (this->Origin == ray.Origin)
             {
-                if ( (this->Direction + ray.Direction) == QVector3::ZeroVector ) // Directions are opposite (are supossed normalized)
+                if ( (this->Direction + ray.Direction) == QVector3::GetZeroVector() ) // Directions are opposite (are supossed normalized)
                 {
                     vPoint = this->Origin;
                     return EQIntersections::E_One;
@@ -1763,7 +1793,7 @@ protected:
 
         vAux.CrossProduct(this->Direction, vCross); // Calculates cross product to check if both vectors are parallel
 
-        if (vCross != QVector3::ZeroVector) // Vectors are not parallel
+        if (vCross != QVector3::GetZeroVector()) // Vectors are not parallel
             return false;
         else // Vectors are parallel. It checks if they are opposite or not.
             return ( SQFloat::IsNegative(vAux.x) == SQFloat::IsNegative(this->Direction.x) ) &&

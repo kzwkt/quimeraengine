@@ -51,25 +51,6 @@ public:
 	/// </returns>
 	friend QMatrix4x3 operator*(const float_q &fScalar, const QBaseMatrix4x3 &m);
 
-	// CONSTANTS
-	// ---------------
-public:
-
-	/// <summary>
-	/// Stores a matrix with all components setted to 0.
-	/// </summary>
-	static const QMatrix4x3 ZeroMatrix;
-
-	/// <summary>
-	/// Stores a pseudo-identity matrix.
-	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}\f$
-    ///
-    /// In this case, as it's not a square matrix, it's not a real identity matrix. This constant exists
-    /// due to compatibility reasons only, as an exception.
-	/// </summary>
-	static const QMatrix4x3 Identity;
 
  	// CONSTRUCTORS
 	// ---------------
@@ -134,6 +115,48 @@ public:
 	/// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 2 unpacked in this order.</param>
 	inline QMatrix4x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
 		QBaseMatrix4x3(row0, row1, row2, row3) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets a null matrix.
+    /// </summary>
+    /// <returns>
+    /// A matrix with all components set to 0.
+    /// </returns>
+    inline static const QMatrix4x3& GetZeroMatrix()
+    {
+        static const QMatrix4x3 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                           SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                           SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                           SQFloat::_0, SQFloat::_0, SQFloat::_0);
+        return ZEROMATRIX;
+    }
+
+	/// <summary>
+	/// Gets a pseudo-identity matrix.
+	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    ///
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}\f$
+    ///
+    /// In this case, as it's not a square matrix, it's not a real identity matrix. This constant exists
+    /// due to compatibility reasons only, as an exception.
+	/// </summary>
+    /// <returns>
+    /// An identity matrix
+    /// </returns>
+    inline static const QMatrix4x3& GetIdentity()
+    {
+        static const QMatrix4x3 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                         SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                         SQFloat::_0, SQFloat::_0, SQFloat::_1,
+                                         SQFloat::_0, SQFloat::_0, SQFloat::_0);
+        return IDENTITY;
+    }
+
 
 	// METHODS
 	// ---------------

@@ -16,37 +16,6 @@ namespace Math
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
-//##################		    |  CONSTANTS INITIALIZATION  |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-	const QMatrix4x4 QMatrix4x4::ZeroMatrix(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0, 
-											SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0, 
-											SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0, 
-											SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-
-	const QMatrix4x4 QMatrix4x4::Identity(	SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0, 
-											SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0, 
-											SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0, 
-											SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
-	
-
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-	
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
 //##################		    |		    METHODS			 |			   ##################
 //##################		   /|							 |\			   ##################
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
@@ -77,7 +46,7 @@ namespace Math
 		return aux;
 	}
 
-	QMatrix4x4 operator*(const float_q &fScalar, const QBaseMatrix4x4 &m) 
+	QMatrix4x4 operator*(const float_q &fScalar, const QBaseMatrix4x4 &m)
 	{
 		QMatrix4x4 aux;
 
@@ -97,7 +66,7 @@ namespace Math
 		aux.ij[3][1] = fScalar * m.ij[3][1];
 		aux.ij[3][2] = fScalar * m.ij[3][2];
 		aux.ij[3][3] = fScalar * m.ij[3][3];
-		
+
 		return aux;
 	}
 
@@ -153,11 +122,11 @@ namespace Math
 
 	QMatrix4x4 QMatrix4x4::operator/(const float_q &fScalar) const
 	{
-		
+
 		QE_ASSERT(fScalar != SQFloat::_0);
 
 		QMatrix4x4 aux;
-		
+
 		aux.ij[0][0] = this->ij[0][0] / fScalar;
 		aux.ij[0][1] = this->ij[0][1] / fScalar;
 		aux.ij[0][2] = this->ij[0][2] / fScalar;
@@ -181,7 +150,7 @@ namespace Math
 	QMatrix4x4 QMatrix4x4::operator+(const QBaseMatrix4x4 &m) const
 	{
 		QMatrix4x4 aux;
-		
+
 		aux.ij[0][0] = this->ij[0][0] + m.ij[0][0];
 		aux.ij[0][1] = this->ij[0][1] + m.ij[0][1];
 		aux.ij[0][2] = this->ij[0][2] + m.ij[0][2];
@@ -205,7 +174,7 @@ namespace Math
 	QMatrix4x4 QMatrix4x4::operator-(const QBaseMatrix4x4 &m) const
 	{
 		QMatrix4x4 aux;
-		
+
 		aux.ij[0][0] = this->ij[0][0] - m.ij[0][0];
 		aux.ij[0][1] = this->ij[0][1] - m.ij[0][1];
 		aux.ij[0][2] = this->ij[0][2] - m.ij[0][2];
@@ -251,14 +220,14 @@ namespace Math
 		aux.ij[3][3] = this->ij[3][0]*m.ij[0][3] + this->ij[3][1]*m.ij[1][3] + this->ij[3][2]*m.ij[2][3] + this->ij[3][3]*m.ij[3][3];
 
 		*this = aux;
-		
+
 		return *this;
 	}
 
 	void QMatrix4x4::Transpose()
 	{
 		QMatrix4x4 aux;
-		
+
 		aux.ij[0][0] = this->ij[0][0];
 		aux.ij[0][1] = this->ij[1][0];
 		aux.ij[0][2] = this->ij[2][0];
@@ -278,7 +247,7 @@ namespace Math
 
 		*this = aux;
 	}
-	
+
 	bool QMatrix4x4::Reverse()
 	{
 		// Special case where matrix is identity. Then inverse of the matrix is itself.
@@ -291,13 +260,13 @@ namespace Math
 		float_q fDet = this->GetDeterminant();
 
 		// If Determinant is 0, this matrix has not inverse.
-		if (SQFloat::IsZero(fDet)) 
+		if (SQFloat::IsZero(fDet))
 			return false;
 
 		// We need inverse of determinant in calculus.
 		fDet = SQFloat::_1/fDet;
-		
-		// Binary products are stored in vars to avoid unnecesary repetitions 
+
+		// Binary products are stored in vars to avoid unnecesary repetitions
 		// (each binary product appears 4 times in inverse expresion)
 		const float_q& A = this->ij[0][0] * this->ij[1][1];
 		const float_q& B = this->ij[2][2] * this->ij[3][3];
@@ -326,10 +295,10 @@ namespace Math
 
 		QMatrix4x4 aux;
 
-		// 1st column of inverse 
+		// 1st column of inverse
 
 		aux.ij[0][0] =  fDet * (this->ij[1][1] * B + this->ij[1][2] * I + this->ij[1][3] * J -
-								this->ij[1][3] * K - this->ij[1][1] * G - this->ij[1][2] * L ); 
+								this->ij[1][3] * K - this->ij[1][1] * G - this->ij[1][2] * L );
 
 		aux.ij[1][0] = -fDet * (this->ij[1][0] * B + this->ij[1][2] * M + this->ij[1][3] * N -
 								this->ij[1][3] * O - this->ij[1][0] * G - this->ij[1][2] * P );
@@ -339,11 +308,11 @@ namespace Math
 
 		aux.ij[3][0] = -fDet * (this->ij[1][0] * J + this->ij[1][1] * O + this->ij[1][2] * H -
 								this->ij[1][2] * D - this->ij[1][0] * K - this->ij[1][1] * N );
-		
-		// 2nd column of inverse 
+
+		// 2nd column of inverse
 
 		aux.ij[0][1] = -fDet * (this->ij[0][1] * B + this->ij[0][2] * I + this->ij[0][3] * J -
-								this->ij[0][3] * K - this->ij[0][1] * G - this->ij[0][2] * L ); 
+								this->ij[0][3] * K - this->ij[0][1] * G - this->ij[0][2] * L );
 
 		aux.ij[1][1] =  fDet * (this->ij[0][0] * B + this->ij[0][2] * M + this->ij[0][3] * N -
 								this->ij[0][3] * O - this->ij[0][0] * G - this->ij[0][2] * P );
@@ -354,10 +323,10 @@ namespace Math
 		aux.ij[3][1] =  fDet * (this->ij[0][0] * J + this->ij[0][1] * O + this->ij[0][2] * H -
 								this->ij[0][2] * D - this->ij[0][0] * K - this->ij[0][1] * N );
 
-		// 3rd column of inverse 
+		// 3rd column of inverse
 
 		aux.ij[0][2] =  fDet * (Q * this->ij[3][3] + F * this->ij[3][1] + R * this->ij[3][2] -
-								C * this->ij[3][1] - S * this->ij[3][2] - T * this->ij[3][3] ); 
+								C * this->ij[3][1] - S * this->ij[3][2] - T * this->ij[3][3] );
 
 		aux.ij[1][2] = -fDet * (U * this->ij[3][3] + F * this->ij[3][0] + V * this->ij[3][2] -
 								C * this->ij[3][0] - W * this->ij[3][2] - X * this->ij[3][3] );
@@ -368,10 +337,10 @@ namespace Math
 		aux.ij[3][2] = -fDet * (A * this->ij[3][2] + Q * this->ij[3][0] + X * this->ij[3][1] -
 								T * this->ij[3][0] - U * this->ij[3][1] - E * this->ij[3][2] );
 
-		// 4rd column of inverse 
+		// 4rd column of inverse
 
 		aux.ij[0][3] = -fDet * (Q * this->ij[2][3] + F * this->ij[2][1] + R * this->ij[2][2] -
-								C * this->ij[2][1] - S * this->ij[2][2] - T * this->ij[2][3] ); 
+								C * this->ij[2][1] - S * this->ij[2][2] - T * this->ij[2][3] );
 
 		aux.ij[1][3] =  fDet * (U * this->ij[2][3] + F * this->ij[2][0] + V * this->ij[2][2] -
 								C * this->ij[2][0] - W * this->ij[2][2] - X * this->ij[2][3] );
@@ -405,7 +374,7 @@ namespace Math
 							   SQFloat::ToString(this->ij[3][0]) + QE_L(", ") +
 							   SQFloat::ToString(this->ij[3][1]) + QE_L(", ") +
 							   SQFloat::ToString(this->ij[3][2]) + QE_L(", ") +
-							   SQFloat::ToString(this->ij[3][3]) + QE_L(")");  
+							   SQFloat::ToString(this->ij[3][3]) + QE_L(")");
 	}
 
 } //namespace Math

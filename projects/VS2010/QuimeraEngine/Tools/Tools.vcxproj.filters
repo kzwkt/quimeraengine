@@ -241,9 +241,6 @@
     <ClCompile Include="..\..\..\..\source\QRay2D.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\QCircle.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\QQuadrilateral.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -38,22 +38,6 @@ typedef QBaseTriangle<QVector2> QBaseTriangle2;
 class QDllExport QLineSegment2D : public QLineSegment<QVector2>
 {
 
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Unit segment lying on positive X axis (it's length equals 1).
-    /// </summary>
-	static const QLineSegment2D UnitLine;
-
-    /// <summary>
-    /// Zero segment lying in the coordinates center whose endpoints
-	/// both equals to (0,0) and it's length equals 0.
-    /// </summary>
-	static const QLineSegment2D LineZero;
-
-
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -75,6 +59,36 @@ public:
     /// </summary>
     /// <param name="segmt">[IN] 2D line segment containing the two endpoints.</param>
 	inline explicit QLineSegment2D (const QLineSegment<QVector2>& segmt) : QLineSegment<QVector2>(segmt.A, segmt.B)  { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Unit segment lying on positive X axis (it's length equals 1).
+    /// </summary>
+    /// <returns>
+	/// A 1-length line segment.
+	/// </returns>
+	inline static const QLineSegment2D& GetUnitLine()
+	{
+	    static const QLineSegment2D UNITLINE(QVector2::GetZeroVector(), QVector2::GetUnitVectorX());
+	    return UNITLINE;
+    }
+
+    /// <summary>
+    /// Zero segment lying in the coordinates center whose endpoints
+	/// both equals (0, 0) and it's length equals 0.
+    /// </summary>
+    /// <returns>
+	/// A 0-length line segment.
+	/// </returns>
+	inline static const QLineSegment2D& GetLineZero()
+	{
+	    static const QLineSegment2D LINEZERO(QVector2::GetZeroVector(), QVector2::GetZeroVector());
+	    return LINEZERO;
+	}
 
 
 	// METHODS

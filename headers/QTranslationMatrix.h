@@ -33,19 +33,6 @@ template<class MatrixType> class QTransformationMatrix;
 template <class MatrixType>
 class QDllExport QTranslationMatrix : public MatrixType
 {
-	// CONSTANTS
-	// ---------------
-public:
-
-    /// <summary>
-    /// Stores an identity matrix.
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
-    ///
-    /// If the matrix is 4x3, we simply remove fourth column.
-    /// </summary>
-    static const QTranslationMatrix<MatrixType> Identity;
 
 	// CONSTRUCTORS
 	// ---------------
@@ -138,6 +125,28 @@ public:
     /// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
     inline QTranslationMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
         MatrixType(row0, row1, row2, row3) { }
+
+
+    // PROPERTIES
+	// ---------------
+public:
+
+    /// <summary>
+    /// Stores an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    ///
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
+    ///
+    /// If the matrix is 4x3, we simply remove fourth column.
+    /// </summary>
+    /// <returns>
+    /// The identity matrix.
+    /// </returns>
+    inline static const QTranslationMatrix<MatrixType>& GetIdentity()
+    {
+        static const QTranslationMatrix<MatrixType> IDENTITY(MatrixType::GetIdentity());
+        return IDENTITY;
+    }
 
 
     // METHODS
@@ -484,11 +493,6 @@ protected:
 
 };
 
-// CONSTANTS INITIALIZATION
-// ----------------------------
-
-template <class MatrixType>
-const QTranslationMatrix<MatrixType> QTranslationMatrix<MatrixType>::Identity(MatrixType::Identity);
 
 } //namespace Math
 } //namespace Tools

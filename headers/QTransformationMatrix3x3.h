@@ -24,18 +24,6 @@ namespace Math
 /// </summary>
 class QDllExport QTransformationMatrix3x3 : public QMatrix3x3
 {
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Stores an identity matrix.
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
-    ///
-    /// </summary>
-    static const QTransformationMatrix3x3 Identity;
 
     // CONSTRUCTORS
     // ---------------
@@ -67,6 +55,28 @@ public:
     /// <param name="fRot">[IN] Angle of rotation.</param>
     /// <param name="vScale">[IN] Vector with the scale values.</param>
     QTransformationMatrix3x3 (const QBaseVector2 &vDisp, const float_q &fRot, const QBaseVector2 &vScale);
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    ///
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
+    ///
+    /// </summary>
+    /// <returns>
+    /// The identity matrix.
+    /// </returns>
+    inline static const QTransformationMatrix3x3& GetIdentity()
+    {
+        static const QTransformationMatrix3x3 IDENTITY(QMatrix3x3::GetIdentity());
+        return IDENTITY;
+    }
+
 
     // METHODS
     // ---------------

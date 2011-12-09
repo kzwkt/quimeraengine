@@ -35,16 +35,6 @@ public:
     using QBaseOrb<VectorType>::Radius;
 
 
-    // CONSTANTS
-    // ---------------
-public:
-
-	/// <summary>
-    /// Unit orb placed in the center of coordinates and whose radius equals to 1.
-	/// </summary>
-    static const QOrb<VectorType> UnitOrb;
-
-
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -61,6 +51,23 @@ public:
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
     inline QOrb (const VectorType& vCenter, const float_q& fRadius) : QBaseOrb<VectorType>(vCenter, fRadius) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+	/// <summary>
+    /// Gets a "unit orb" placed in the center of coordinates and whose radius equals to 1.
+	/// </summary>
+	/// <returns>
+	/// A unit orb.
+	/// </returns>
+    inline static const QOrb<VectorType>& GetUnitOrb()
+    {
+        static const QOrb<VectorType> UNITORB(VectorType::GetZeroVector(), SQFloat::_1);
+        return UNITORB;
+    }
 
 
 	// METHODS
@@ -125,18 +132,6 @@ public:
 
 };
 
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |    CONSTANTS DEFINITIONS	 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-template <class VectorType>
-const QOrb<VectorType> QOrb<VectorType>::UnitOrb(VectorType::ZeroVector, SQFloat::_1);
 
 } //namespace Math
 } //namespace Tools

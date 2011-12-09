@@ -11,17 +11,6 @@ namespace Tools
 namespace Math
 {
 
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |  CONSTANTS INITIALIZATION  |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-const QRay2D QRay2D::RayZero(QVector2::ZeroVector, QVector2::ZeroVector);
-const QRay2D QRay2D::RayX(QVector2::ZeroVector, QVector2::UnitVectorX);
-const QRay2D QRay2D::RayY(QVector2::ZeroVector, QVector2::UnitVectorY);
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -65,7 +54,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ra
     {
         if (this->Origin == ray.Origin)
         {
-            if ( (this->Direction + ray.Direction) == QVector2::ZeroVector ) // Directions are opposite (are supossed normalized)
+            if ( (this->Direction + ray.Direction) == QVector2::GetZeroVector() ) // Directions are opposite (are supossed normalized)
             {
                 vPoint = this->Origin;
                 return EQIntersections::E_One;

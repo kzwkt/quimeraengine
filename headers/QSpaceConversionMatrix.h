@@ -21,12 +21,6 @@ namespace Math
 {
 
 // Forward declarations
-//class QBaseMatrix3x3;
-//class QBaseMatrix3x4;
-//class QBaseMatrix4x3;
-//class QBaseMatrix4x4;
-//class QMatrix4x3;
-//class QMatrix4x4;
 template<class MatrixType> class QTranslationMatrix;
 template<class MatrixType> class QTransformationMatrix;
 class QRotationMatrix3x3;

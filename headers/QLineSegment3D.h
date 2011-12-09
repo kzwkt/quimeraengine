@@ -40,21 +40,6 @@ template <class VectorType>
 class QDllExport QLineSegment3D : public QLineSegment<VectorType>
 {
 
-	// CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Unit segment lying on positive X axis (it's length equals 1).
-    /// </summary>
-	static const QLineSegment3D<VectorType> UnitLine;
-
-    /// <summary>
-    /// Zero segment lying in the coordinates center whose endpoints
-	/// both equals to (0,0) and it's length equals 0.
-    /// </summary>
-	static const QLineSegment3D<VectorType> LineZero;
-
 
  	// CONSTRUCTORS
 	// ---------------
@@ -77,6 +62,37 @@ public:
     /// </summary>
     /// <param name="ls">[IN] Line segment in which we want resident line segment is based on.</param>
 	inline explicit QLineSegment3D (const QBaseLineSegment<VectorType> &ls) : QLineSegment<VectorType>(ls.A, ls.B)  { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Unit segment lying on positive X axis (it's length equals 1).
+    /// </summary>
+    /// <returns>
+	/// A 1-length line segment.
+	/// </returns>
+	inline static const QLineSegment3D<VectorType>& GetUnitLine()
+	{
+	    static const QLineSegment3D<VectorType> UNITLINE(VectorType::GetZeroVector(), VectorType::GetUnitVectorX());
+	    return UNITLINE;
+    }
+
+    /// <summary>
+    /// Zero segment lying in the coordinates center whose endpoints
+	/// both equals (0, 0, 0) and it's length equals 0.
+    /// </summary>
+    /// <returns>
+	/// A 0-length line segment.
+	/// </returns>
+	inline static const QLineSegment3D<VectorType>& GetLineZero()
+	{
+	    static const QLineSegment3D<VectorType> LINEZERO(VectorType::GetZeroVector(), VectorType::GetZeroVector());
+	    return LINEZERO;
+	}
+
 
 	// METHODS
 	// ---------------
@@ -3330,20 +3346,6 @@ protected:
 
 };
 
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |    CONSTANTS DEFINITIONS	 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-template <class VectorType>
-const QLineSegment3D<VectorType> QLineSegment3D<VectorType>::UnitLine(VectorType::ZeroVector, VectorType::UnitVectorX);
-
-template <class VectorType>
-const QLineSegment3D<VectorType> QLineSegment3D<VectorType>::LineZero(VectorType::ZeroVector, VectorType::ZeroVector);
 
 } //namespace Math
 } //namespace Tools
