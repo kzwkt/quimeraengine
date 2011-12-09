@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QVF32__
-#define __QVF32__
+#ifndef __SQVF32__
+#define __SQVF32__
 
 #include <string>
 #include "DataTypesDefinitions.h"
@@ -20,7 +20,7 @@ namespace DataTypes
 /// Helper class that offers functionality related to 4 x 32-bits floating point variables packs.
 /// This kind of packs are used in SIMD (SSE) operations.
 /// </summary>
-class QDllExport QVF32
+class QDllExport SQVF32
 {
 
 	// CONSTRUCTORS
@@ -30,7 +30,7 @@ private:
 	/// <summary>
 	/// Default constructor (hidden).
 	/// </summary>
-	QVF32();
+	SQVF32();
 
 
 	// METHODS
@@ -145,4 +145,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QVF32__
+#endif // __SQVF32__

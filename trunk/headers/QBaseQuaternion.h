@@ -4,7 +4,7 @@
 #define __QBASEQUATERNION__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -69,7 +69,7 @@ public:
     inline explicit QBaseQuaternion(const vf32_q &vfValue)
     {
         // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
-        QVF32::Unpack(vfValue, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
+        SQVF32::Unpack(vfValue, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
     }
 
 	// METHODS

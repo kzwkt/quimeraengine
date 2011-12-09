@@ -4,7 +4,7 @@
 #define __QBASEHEXAHEDRON__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 

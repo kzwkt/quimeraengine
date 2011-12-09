@@ -4,7 +4,7 @@
 #define __QBASEMATRIX4X4__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -130,10 +130,10 @@ public:
 	/// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3, parsed in this order.</param>
 	inline QBaseMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3)
 	{
-		QVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], this->ij[0][3]);
-		QVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], this->ij[1][3]);
-		QVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], this->ij[2][3]);
-		QVF32::Unpack(row3, this->ij[3][0], this->ij[3][1], this->ij[3][2], this->ij[3][3]);
+		SQVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], this->ij[0][3]);
+		SQVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], this->ij[1][3]);
+		SQVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], this->ij[2][3]);
+		SQVF32::Unpack(row3, this->ij[3][0], this->ij[3][1], this->ij[3][2], this->ij[3][3]);
 	}
 
 	// METHODS

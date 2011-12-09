@@ -162,12 +162,12 @@
     <ClInclude Include="..\..\..\..\headers\QVector2.h" />
     <ClInclude Include="..\..\..\..\headers\QVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QVector4.h" />
-    <ClInclude Include="..\..\..\..\headers\QVF32.h" />
     <ClInclude Include="..\..\..\..\headers\SQAngle.h" />
     <ClInclude Include="..\..\..\..\headers\SQBoolean.h" />
     <ClInclude Include="..\..\..\..\headers\SQFloat.h" />
     <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
     <ClInclude Include="..\..\..\..\headers\SQPoint.h" />
+    <ClInclude Include="..\..\..\..\headers\SQVF32.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\EQIntersections.cpp" />
@@ -191,10 +191,10 @@
     <ClCompile Include="..\..\..\..\source\QVector2.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector3.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector4.cpp" />
-    <ClCompile Include="..\..\..\..\source\QVF32.cpp" />
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp" />
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQVF32.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

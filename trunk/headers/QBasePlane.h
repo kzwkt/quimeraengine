@@ -4,7 +4,7 @@
 #define __QBASEPLANE__
 
 #include "SQFloat.h"
-#include "QVF32.h"
+#include "SQVF32.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -71,7 +71,7 @@ public:
 	/// 3rd value (c coefficient), 4th value (d independent term).</param>
 	inline explicit QBasePlane(const vf32_q vfValue)
 	{
-		QVF32::Unpack(vfValue, this->a, this->b, this->c, this->d);
+		SQVF32::Unpack(vfValue, this->a, this->b, this->c, this->d);
 	}
 
     // METHODS
