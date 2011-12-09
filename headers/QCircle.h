@@ -320,13 +320,13 @@ public:
             QVector2 vV2(vV1.y, -vV1.x);
 
             //STEP 3: Obtain the angle between V1 and V3. V3 is a vector that points from first circle's center to one of the intersection points.
-            float_q fAngle = acos((this->Radius * this->Radius + fDistance * fDistance - otherCircle.Radius * otherCircle.Radius) / (SQFloat::_2 * this->Radius * fDistance));
+            float_q fAngle = acos_q((this->Radius * this->Radius + fDistance * fDistance - otherCircle.Radius * otherCircle.Radius) / (SQFloat::_2 * this->Radius * fDistance));
 
             //STEP 4: If the equation above gives a value different of NaN, then circles intersect. Intersection points are calculated.
             if (!SQFloat::IsNaN(fAngle))
             {
-                vFirstI = this->Center + vV1 * (this->Radius * cos(fAngle)) + vV2 * (this->Radius * sin(fAngle));
-                vSecondI = this->Center + vV1 * (this->Radius * cos(fAngle)) - vV2 * (this->Radius * sin(fAngle));
+                vFirstI = this->Center + vV1 * (this->Radius * cos_q(fAngle)) + vV2 * (this->Radius * sin_q(fAngle));
+                vSecondI = this->Center + vV1 * (this->Radius * cos_q(fAngle)) - vV2 * (this->Radius * sin_q(fAngle));
 
                 if (SQFloat::AreEquals(vFirstI.x, vSecondI.x) && SQFloat::AreEquals(vFirstI.y, vSecondI.y))
                 {

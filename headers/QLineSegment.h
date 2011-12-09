@@ -209,7 +209,7 @@ public:
 
 			// At this stage we have the angle expressed in RADIANS.
 
-			float_q fSin   = sin(fAngle);
+			float_q fSin   = sin_q(fAngle);
 
 			// [TODO] This block won't serve to any purpose in the future, delete it
 			//		  when it's useness has come to an end.
@@ -463,7 +463,7 @@ public:
 		{
 			QE_ASSERT(SQFloat::IsNotZero(a));
 
-			const float_q &fAux1 = sqrt(D);
+			const float_q &fAux1 = sqrt_q(D);
 			const float_q &fAux2 = SQFloat::_0_5/a;
 
 			// Closest intersection to ls.A

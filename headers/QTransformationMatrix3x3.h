@@ -3,6 +3,7 @@
 #ifndef __QTRANSFORMATIONMATRIX3X3__
 #define __QTRANSFORMATIONMATRIX3X3__
 
+#include "MathDefinitions.h"
 #include "QBaseVector2.h"
 #include "QMatrix3x3.h"
 #include "QBaseMatrix3x3.h"
@@ -108,7 +109,7 @@ public:
     /// <param name="fOutRot">[OUT] Floating point variable to store the angle of rotation.</param>
     inline void GetRotation (float_q &fOutRot) const
     {
-        const float_q &fScale = sqrt(this->ij[0][0]*this->ij[0][0] + this->ij[0][1]*this->ij[0][1]);
+        const float_q &fScale = hypot_q(this->ij[0][0], this->ij[0][1]);
 
         // Checkout to avoid division by zero.
         QE_ASSERT(fScale != SQFloat::_0);
@@ -118,7 +119,7 @@ public:
         // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
         QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1);
 
-        fOutRot = acos(fCosRot);
+        fOutRot = acos_q(fCosRot);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles must be specified in degrees, then converts it.
@@ -132,8 +133,8 @@ public:
     /// <param name="&vOutScale">[OUT] A 2D vector where to store the scale factors.</param>
     inline void GetScale (QBaseVector2 &vOutScale) const
     {
-        vOutScale.x = sqrt(this->ij[0][0]*this->ij[0][0] + this->ij[0][1]*this->ij[0][1]);
-        vOutScale.y = sqrt(this->ij[1][0]*this->ij[1][0] + this->ij[1][1]*this->ij[1][1]);
+        vOutScale.x = hypot_q(this->ij[0][0], this->ij[0][1]);
+        vOutScale.y = hypot_q(this->ij[1][0], this->ij[1][1]);
     }
 
     /// <summary>

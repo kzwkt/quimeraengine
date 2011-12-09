@@ -48,19 +48,19 @@ QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fAngleX, const float_q &fA
         float_q &fAngleYRad = SQAngle::DegreesToRadians(fAngleY, fAngleYRad);
         float_q &fAngleZRad = SQAngle::DegreesToRadians(fAngleZ, fAngleZRad);
 
-        const float_q& A   = cos(fAngleXRad);
-        const float_q& B   = sin(fAngleXRad);
-        const float_q& C   = cos(fAngleYRad);
-        const float_q& D   = sin(fAngleYRad);
-        const float_q& E   = cos(fAngleZRad);
-        const float_q& F   = sin(fAngleZRad);
+        const float_q& A   = cos_q(fAngleXRad);
+        const float_q& B   = sin_q(fAngleXRad);
+        const float_q& C   = cos_q(fAngleYRad);
+        const float_q& D   = sin_q(fAngleYRad);
+        const float_q& E   = cos_q(fAngleZRad);
+        const float_q& F   = sin_q(fAngleZRad);
     #else
-        const float_q& A   = cos(fAngleX);
-        const float_q& B   = sin(fAngleX);
-        const float_q& C   = cos(fAngleY);
-        const float_q& D   = sin(fAngleY);
-        const float_q& E   = cos(fAngleZ);
-        const float_q& F   = sin(fAngleZ);
+        const float_q& A   = cos_q(fAngleX);
+        const float_q& B   = sin_q(fAngleX);
+        const float_q& C   = cos_q(fAngleY);
+        const float_q& D   = sin_q(fAngleY);
+        const float_q& E   = cos_q(fAngleZ);
+        const float_q& F   = sin_q(fAngleZ);
     #endif
 
     float_q BC  = B*C;
@@ -85,11 +85,11 @@ QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vAxis, const float_q
         // If angles are specified in degrees, then converts it to radians
         float_q &fAngleRad = SQAngle::DegreesToRadians(fAngle, fAngleRad);
 
-        const float_q& A = cos(fAngleRad);
-        const float_q& B = sin(fAngleRad);
+        const float_q& A = cos_q(fAngleRad);
+        const float_q& B = sin_q(fAngleRad);
     #else
-        const float_q& A = cos(fAngle);
-        const float_q& B = sin(fAngle);
+        const float_q& A = cos_q(fAngle);
+        const float_q& B = sin_q(fAngle);
     #endif
 
     const float_q& C = vAxis.x*vAxis.y;
@@ -224,15 +224,15 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q
         {
 
             // Checkout ij[2][0] <= 1 not needed :)
-            fAngleY = asin(-this->ij[2][0]);
+            fAngleY = asin_q(-this->ij[2][0]);
 
             // Checkout to avoid passing two zeros to atan2
             QE_ASSERT(this->ij[1][0] != SQFloat::_0 || this->ij[0][0] != SQFloat::_0);
-            fAngleZ = atan2(this->ij[1][0], this->ij[0][0]);
+            fAngleZ = atan2_q(this->ij[1][0], this->ij[0][0]);
 
             // Checkout to avoid passing two zeros to atan2
             QE_ASSERT(this->ij[2][1] != SQFloat::_0 || this->ij[2][2] != SQFloat::_0);
-            fAngleX = atan2(this->ij[2][1], this->ij[2][2]);
+            fAngleX = atan2_q(this->ij[2][1], this->ij[2][2]);
         }
         else
         {
@@ -240,7 +240,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q
 
             // Checkout to avoid passing two zeros to atan2
             QE_ASSERT(this->ij[0][1] != SQFloat::_0 || this->ij[0][2] != SQFloat::_0);
-            fAngleZ = -atan2(this->ij[0][1], this->ij[0][2]);
+            fAngleZ = -atan2_q(this->ij[0][1], this->ij[0][2]);
 
             fAngleX = SQFloat::_0;
         }
@@ -251,7 +251,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q
 
         // Checkout to avoid passing two zeros to atan2
         QE_ASSERT(this->ij[0][1] != SQFloat::_0 || this->ij[0][2] != SQFloat::_0);
-        fAngleZ = atan2(-this->ij[0][1], -this->ij[0][2]);
+        fAngleZ = atan2_q(-this->ij[0][1], -this->ij[0][2]);
 
         fAngleX = SQFloat::_0;
     }
@@ -269,10 +269,10 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngleX, float_q &fAngleY, float_q
 
 void QRotationMatrix3x3::GetRotation(QQuaternion &qQuat) const
 {
-    qQuat.w = sqrt( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] + this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
-    qQuat.x = sqrt( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] - this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
-    qQuat.y = sqrt( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] + this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
-    qQuat.z = sqrt( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] - this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
+    qQuat.w = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] + this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
+    qQuat.x = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] - this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
+    qQuat.y = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] + this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
+    qQuat.z = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] - this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
 
     // [TODO] jwladi: it's necessary verify if this signs correspond to our conventions.
     SQFloat::CopySign(this->ij[2][1] - this->ij[1][2], qQuat.x);
@@ -287,7 +287,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
     QE_ASSERT( SQFloat::Abs(cosAux) <= SQFloat::_1 );
 
-    fAngle = acos(cosAux);
+    fAngle = acos_q(cosAux);
 
     // Singularity 1: Angle = 0 -> we choose arbitrary axis.
     if (SQFloat::IsZero(fAngle))
@@ -299,7 +299,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
     // Singularity 2: Angle = PI -> we calculate axis.
     else if ( SQFloat::AreEquals(fAngle, SQAngle::_Pi) )
     {
-        const float_q &fHalfSqrt2 = sqrt(SQFloat::_2) * SQFloat::_0_5;
+        const float_q &fHalfSqrt2 = sqrt_q(SQFloat::_2) * SQFloat::_0_5;
 
         const float_q &xx = (this->ij[0][0] + SQFloat::_1) * SQFloat::_0_5;
 		const float_q &yy = (this->ij[1][1] + SQFloat::_1) * SQFloat::_0_5;
@@ -318,7 +318,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
             {
                 QE_ASSERT( SQFloat::IsGreaterThan(xx, SQFloat::_0) );
 
-                vAxis.x = sqrt(xx);
+                vAxis.x = sqrt_q(xx);
 
                 const float_q &fInvX = SQFloat::_1 / vAxis.x;
                 const float_q &xy = (this->ij[0][1] + this->ij[1][0]) * SQFloat::_0_25;
@@ -341,7 +341,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
             {
                 QE_ASSERT( SQFloat::IsGreaterThan(yy, SQFloat::_0) );
 
-				vAxis.y = sqrt(yy);
+				vAxis.y = sqrt_q(yy);
 
                 const float_q &fInvY = SQFloat::_1 / vAxis.y;
                 const float_q &xy = (this->ij[0][1] + this->ij[1][0]) * SQFloat::_0_25;
@@ -364,7 +364,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
             {
                 QE_ASSERT( SQFloat::IsGreaterThan(zz, SQFloat::_0) );
 
-				vAxis.z = sqrt(zz);
+				vAxis.z = sqrt_q(zz);
 
                 const float_q &fInvZ = SQFloat::_1 / vAxis.z;
                 const float_q &xz = (this->ij[0][2] + this->ij[2][0]) * SQFloat::_0_25;
@@ -382,7 +382,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const
     }
     else
     {
-        const float_q &fHalfInvSin = SQFloat::_0_5/sin(fAngle);
+        const float_q &fHalfInvSin = SQFloat::_0_5/sin_q(fAngle);
 
         vAxis.x = (this->ij[2][1] - this->ij[1][2]) * fHalfInvSin;
         vAxis.y = (this->ij[0][2] - this->ij[2][0]) * fHalfInvSin;

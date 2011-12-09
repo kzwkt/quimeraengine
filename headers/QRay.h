@@ -3,6 +3,7 @@
 #ifndef __QRAY__
 #define __QRAY__
 
+#include "MathDefinitions.h"
 #include "QBaseRay.h"
 #include "QBaseOrb.h"
 #include "EQIntersections.h"
@@ -172,7 +173,7 @@ public:
                 return false;
         }
         else
-            return SQFloat::IsLowerOrEquals(fB, sqrt(fD));
+            return SQFloat::IsLowerOrEquals(fB, sqrt_q(fD));
 
             // Explanation:
 
@@ -273,7 +274,7 @@ public:
         }
         else // D = B^2 - 4AC > 0 => 2 intersections
         {
-            const float_q &fSqrtD = sqrt(fD);
+            const float_q &fSqrtD = sqrt_q(fD);
 
             // Closest intersection to ls.A. T1 = (-B - sqrt(D))/2A -> Remember that A = 1
             const float_q &fT1 = -(fB + fSqrtD)*SQFloat::_0_5;

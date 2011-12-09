@@ -106,7 +106,7 @@ public:
 
 		float_q fDotProduct = u.DotProduct(v);
 
-		return (sqrt((fLengthU * fLengthU) * (fLengthV * fLengthV) - (fDotProduct * fDotProduct)) / SQFloat::_2);
+		return (sqrt_q((fLengthU * fLengthU) * (fLengthV * fLengthV) - (fDotProduct * fDotProduct)) / SQFloat::_2);
 	}
 
 	/// <summary>
@@ -222,7 +222,7 @@ protected:
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
         QE_ASSERT(SQFloat::Abs(fCos) <= SQFloat::_1);
 
-		float_q fAngle = acos(fCos);
+		float_q fAngle = acos_q(fCos);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees

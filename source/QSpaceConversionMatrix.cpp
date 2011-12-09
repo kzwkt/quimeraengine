@@ -133,7 +133,7 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
 
     QE_ASSERT( SQFloat::AreNotEquals(fHalfVertFOV, SQAngle::_HalfPi) );
 
-    const float_q &fScaleY  = SQFloat::_1 / tan(fHalfVertFOV);
+    const float_q &fScaleY  = SQFloat::_1 / tan_q(fHalfVertFOV);
     const float_q &fScaleX  = fScaleY / fAspectRatio;
 
     this->ij[0][0] = fScaleX;

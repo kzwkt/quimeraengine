@@ -3,6 +3,7 @@
 #ifndef __QVECTOR4__
 #define __QVECTOR4__
 
+#include "MathDefinitions.h"
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
 
@@ -454,7 +455,7 @@ public:
     /// </returns>
     inline float_q GetLength() const
     {
-        return sqrt(this->x*this->x + this->y*this->y + this->z*this->z + this->w*this->w);
+        return sqrt_q(this->x*this->x + this->y*this->y + this->z*this->z + this->w*this->w);
     }
 
     /// <summary>
@@ -596,8 +597,7 @@ public:
     /// </returns>
     inline float_q DotProductAngle(const QBaseVector4 &v) const
     {
-        float_q fLength = sqrt( (this->x*this->x + this->y*this->y + this->z*this->z) *
-                                (v.x*v.x + v.y*v.y + v.z*v.z) );
+        float_q fLength = sqrt_q( (this->x*this->x + this->y*this->y + this->z*this->z) * (v.x*v.x + v.y*v.y + v.z*v.z) );
 
         // Checkout to avoid division by zero.
         QE_ASSERT(fLength != SQFloat::_0);
@@ -607,7 +607,7 @@ public:
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
         QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
-        float_q fAngle = acos(fDot);
+        float_q fAngle = acos_q(fDot);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
@@ -678,7 +678,7 @@ public:
     /// </returns>
     inline float_q Distance(const QBaseVector4 &v) const
     {
-        return sqrt( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) +
+        return sqrt_q( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) +
                      (this->z-v.z)*(this->z-v.z) + (this->w-v.w)*(this->w-v.w) );
     }
 

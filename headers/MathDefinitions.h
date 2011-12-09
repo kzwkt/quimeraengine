@@ -18,17 +18,7 @@ namespace Tools
 {
 namespace Math
 {
-    
-// --------------------------------------------------------------------------------------------------------
-// Pi: Defines how much accurate the mathematical Pi value is.
-// --------------------------------------------------------------------------------------------------------
-const float_q PI_Q = SQFloat::_4 * atan(SQFloat::_1);
 
-// --------------------------------------------------------------------------------------------------------
-// 1/Pi: Defines how much accurate the mathematical Pi value is to calculate its inverse.
-// --------------------------------------------------------------------------------------------------------
-const float_q INVERSE_PI_Q = SQFloat::_1 / PI_Q;
-    
 // --------------------------------------------------------------------------------------------------------
 // Trigonometric functions: Wrappers for all the trigonometric functions provided by the runtime libraries.
 // --------------------------------------------------------------------------------------------------------
@@ -58,7 +48,15 @@ const float_q INVERSE_PI_Q = SQFloat::_1 / PI_Q;
     #define hypot_q(fX, fY) hypot(fX, fY)
 #endif
 
+// --------------------------------------------------------------------------------------------------------
+// Pi: Defines how much accurate the mathematical Pi value is.
+// --------------------------------------------------------------------------------------------------------
+const float_q PI_Q = SQFloat::_4 * atan_q(SQFloat::_1);
 
+// --------------------------------------------------------------------------------------------------------
+// 1/Pi: Defines how much accurate the mathematical Pi value is to calculate its inverse.
+// --------------------------------------------------------------------------------------------------------
+const float_q INVERSE_PI_Q = SQFloat::_1 / PI_Q;
 
 } //namespace Math
 } //namespace Tools
