@@ -604,7 +604,7 @@ public:
     /// </returns>
     inline float_q DotProductAngle(const QBaseQuaternion &qQuat) const
     {
-        float_q fLength = sqrt( (this->x*this->x + this->y*this->y + this->z*this->z) *
+        float_q fLength = sqrt_q( (this->x*this->x + this->y*this->y + this->z*this->z) *
                                 (qQuat.x*qQuat.x + qQuat.y*qQuat.y + qQuat.z*qQuat.z) );
 
         // Checkout to avoid division by zero.
@@ -807,7 +807,7 @@ public:
             // The atan2 result is undefined when both parameters are equal to zero
             QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0);
 
-            fAngleX = SQFloat::_2 * atan2(this->x, this->w);
+            fAngleX = SQFloat::_2 * atan2_q(this->x, this->w);
             fAngleZ = SQFloat::_0;
         }
         else if(SQFloat::AreEquals(fNorthAndSouthPoleCheckValue, -SQFloat::_0_5)) // South pole
@@ -815,7 +815,7 @@ public:
             // The atan2 result is undefined when both parameters are equal to zero
             QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0);
 
-            fAngleX = -SQFloat::_2 * atan2(this->x, this->w);
+            fAngleX = -SQFloat::_2 * atan2_q(this->x, this->w);
             fAngleZ = SQFloat::_0;
         }
         else
@@ -826,7 +826,7 @@ public:
             // The atan2 result is undefined when both parameters are equal to zero
             QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0);
 
-            fAngleX = atan2(fFirstParameter, fSecondParameter);
+            fAngleX = atan2_q(fFirstParameter, fSecondParameter);
 
             fFirstParameter = SQFloat::_2 * this->x * this->w - SQFloat::_2 * this->y * this->z;
             fSecondParameter = SQFloat::_1 - SQFloat::_2 * this->x * this->x - SQFloat::_2 * this->z * this->z;
@@ -834,10 +834,10 @@ public:
             // The atan2 result is undefined when both parameters are equal to zero
             QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0);
 
-            fAngleZ = atan2(fFirstParameter, fSecondParameter);
+            fAngleZ = atan2_q(fFirstParameter, fSecondParameter);
         }
 
-        fAngleY = asin( SQFloat::_2 * this->x * this->y + SQFloat::_2 * this->z * this->w );
+        fAngleY = asin_q( SQFloat::_2 * this->x * this->y + SQFloat::_2 * this->z * this->w );
 
         QE_ASSERT( !SQFloat::IsNaN(fAngleX) );
         QE_ASSERT( !SQFloat::IsNaN(fAngleY) );
@@ -856,7 +856,7 @@ public:
         //           _______________________
         // length = V x^2 + y^2 + z^2 + w^2
         //
-        return sqrt( (this->x * this->x) + (this->y * this->y) + (this->z * this->z) + (this->w * this->w));
+        return sqrt_q( (this->x * this->x) + (this->y * this->y) + (this->z * this->z) + (this->w * this->w));
     }
 
     /// <summary>

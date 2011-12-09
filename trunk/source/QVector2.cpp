@@ -126,8 +126,8 @@ void QVector2::Transform(const float_q& fAngle)
 		float_q fAngleRad = fAngle;
 	#endif
 
-	const float_q fCosAngle = cos(fAngleRad);
-	const float_q fSinAngle = sin(fAngleRad);
+	const float_q fCosAngle = cos_q(fAngleRad);
+	const float_q fSinAngle = sin_q(fAngleRad);
 
 	float_q fNewX = this->x * fCosAngle - this->y * fSinAngle;
 	float_q fNewY = this->y * fCosAngle + this->x * fSinAngle;
@@ -144,8 +144,8 @@ void QVector2::Transform(const float_q& fAngle, QBaseVector2& vectorOut)
 		float_q fAngleRad = fAngle;
 	#endif
 
-	const float_q fCosAngle = cos(fAngleRad);
-	const float_q fSinAngle = sin(fAngleRad);
+	const float_q fCosAngle = cos_q(fAngleRad);
+	const float_q fSinAngle = sin_q(fAngleRad);
 
 	vectorOut.x = this->x * fCosAngle - this->y * fSinAngle;
 	vectorOut.y = this->y * fCosAngle + this->x * fSinAngle;

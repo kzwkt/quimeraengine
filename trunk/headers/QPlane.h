@@ -351,7 +351,7 @@ public:
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
         QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
-        const float_q &fAngle = acos(fDot);
+        const float_q &fAngle = acos_q(fDot);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
             fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
@@ -415,7 +415,7 @@ public:
     /// </returns>
     inline float_q GetLength() const
     {
-        return sqrt(this->a * this->a + this->b * this->b + this->c * this->c);
+        return sqrt_q(this->a * this->a + this->b * this->b + this->c * this->c);
     }
 
     /// <summary>
@@ -1389,7 +1389,7 @@ protected:
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
         QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
-        const float_q &fAngle = acos(fDot);
+        const float_q &fAngle = acos_q(fDot);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
             fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);

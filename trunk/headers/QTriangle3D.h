@@ -112,7 +112,7 @@ public:
 		//fSp: Triangle´s semiperimeter
 		float_q fSp = (vA.GetLength() + vB.GetLength() + vC.GetLength()) * SQFloat::_0_5;
 		//fK: Triangle´s area
-		float_q fK = sqrt(fSp * (fSp - vA.GetLength()) * (fSp - vB.GetLength()) * (fSp - vC.GetLength()));
+		float_q fK = sqrt_q(fSp * (fSp - vA.GetLength()) * (fSp - vB.GetLength()) * (fSp - vC.GetLength()));
 
 		VectorType vCrossvAvB;
 		VectorType vCrossvCvAvB;

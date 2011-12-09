@@ -581,9 +581,9 @@ public:
     /// <param name="fScaleZ">[OUT] Resultant scale in Z axis direction.</param>
     inline void GetScale(float_q &fScaleX, float_q &fScaleY, float_q &fScaleZ) const
     {
-        fScaleX = sqrt(this->ij[0][0]*this->ij[0][0] + this->ij[0][1]*this->ij[0][1] + this->ij[0][2]*this->ij[0][2]);
-        fScaleY = sqrt(this->ij[1][0]*this->ij[1][0] + this->ij[1][1]*this->ij[1][1] + this->ij[1][2]*this->ij[1][2]);
-        fScaleZ = sqrt(this->ij[2][0]*this->ij[2][0] + this->ij[2][1]*this->ij[2][1] + this->ij[2][2]*this->ij[2][2]);
+        fScaleX = sqrt_q(this->ij[0][0]*this->ij[0][0] + this->ij[0][1]*this->ij[0][1] + this->ij[0][2]*this->ij[0][2]);
+        fScaleY = sqrt_q(this->ij[1][0]*this->ij[1][0] + this->ij[1][1]*this->ij[1][1] + this->ij[1][2]*this->ij[1][2]);
+        fScaleZ = sqrt_q(this->ij[2][0]*this->ij[2][0] + this->ij[2][1]*this->ij[2][1] + this->ij[2][2]*this->ij[2][2]);
     }
 
     /// <summary>
@@ -592,9 +592,9 @@ public:
     /// <param name="&vScale">[OUT] Vector where to store the scale factors.</param>
     inline void GetScale(QBaseVector3 &vScale) const
     {
-        vScale.x = sqrt(this->ij[0][0]*this->ij[0][0] + this->ij[0][1]*this->ij[0][1] + this->ij[0][2]*this->ij[0][2]);
-        vScale.y = sqrt(this->ij[1][0]*this->ij[1][0] + this->ij[1][1]*this->ij[1][1] + this->ij[1][2]*this->ij[1][2]);
-        vScale.z = sqrt(this->ij[2][0]*this->ij[2][0] + this->ij[2][1]*this->ij[2][1] + this->ij[2][2]*this->ij[2][2]);
+        vScale.x = sqrt_q(this->ij[0][0]*this->ij[0][0] + this->ij[0][1]*this->ij[0][1] + this->ij[0][2]*this->ij[0][2]);
+        vScale.y = sqrt_q(this->ij[1][0]*this->ij[1][0] + this->ij[1][1]*this->ij[1][1] + this->ij[1][2]*this->ij[1][2]);
+        vScale.z = sqrt_q(this->ij[2][0]*this->ij[2][0] + this->ij[2][1]*this->ij[2][1] + this->ij[2][2]*this->ij[2][2]);
     }
 
     /// <summary>

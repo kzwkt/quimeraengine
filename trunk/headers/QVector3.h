@@ -380,7 +380,7 @@ public:
     /// </returns>
     inline float_q GetLength() const
     {
-        return sqrt(this->x*this->x + this->y*this->y + this->z*this->z);
+        return sqrt_q(this->x*this->x + this->y*this->y + this->z*this->z);
     }
 
     /// <summary>
@@ -514,7 +514,7 @@ public:
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
         QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
 
-        float_q fAngle = acos(fDot);
+        float_q fAngle = acos_q(fDot);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
             fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
@@ -577,7 +577,7 @@ public:
     /// </returns>
     inline float_q Distance(const QBaseVector3 &v) const
     {
-        return sqrt( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) + (this->z-v.z)*(this->z-v.z) );
+        return sqrt_q( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) + (this->z-v.z)*(this->z-v.z) );
 
         //[TODO] jwladi: it may be done as follows, with 3 substractions less:
         // return QVector3(*this - v).GetLength();

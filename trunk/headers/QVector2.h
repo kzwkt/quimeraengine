@@ -12,6 +12,7 @@
 	#define __CURRENT_COS_MIN_RANGE__	(-1.0000001f)
 #endif
 
+#include "MathDefinitions.h"
 #include "QBaseVector2.h"
 #include "QBaseMatrix2x2.h"
 
@@ -305,7 +306,7 @@ public:
 	/// </returns>
 	inline float_q GetLength() const
 	{
-		return sqrt(this->x*this->x + this->y*this->y);
+		return hypot_q(this->x, this->y);
 	}
 
 	/// <summary>
@@ -495,7 +496,7 @@ public:
 		}
 		///////////////////////////////////////////////////////////////////
 
-        float_q fAngle = acos(fDot);
+        float_q fAngle = acos_q(fDot);
 
 		// At this stage we have the angle stored in fAngle expressed in RADIANS.
 
@@ -541,7 +542,7 @@ public:
 	/// </returns>
 	inline float_q Distance(const QVector2 &v) const
 	{
-		return sqrt( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) );
+		return hypot_q(this->x-v.x, this->y-v.y);
 	}
 
 	/// <summary>

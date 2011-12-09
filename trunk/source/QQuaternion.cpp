@@ -53,12 +53,12 @@ QQuaternion::QQuaternion(const float_q &fAngleX, const float_q &fAngleY, const f
         const float_q& fHalfAngleZRad = fAngleZ * SQFloat::_0_5;
     #endif
 
-    float_q cx = cos(fHalfAngleXRad);
-    float_q cy = cos(fHalfAngleYRad);
-    float_q cz = cos(fHalfAngleZRad);
-    float_q sx = sin(fHalfAngleXRad);
-    float_q sy = sin(fHalfAngleYRad);
-    float_q sz = sin(fHalfAngleZRad);
+    float_q cx = cos_q(fHalfAngleXRad);
+    float_q cy = cos_q(fHalfAngleYRad);
+    float_q cz = cos_q(fHalfAngleZRad);
+    float_q sx = sin_q(fHalfAngleXRad);
+    float_q sy = sin_q(fHalfAngleYRad);
+    float_q sz = sin_q(fHalfAngleZRad);
 
 	// These are the computing formulas once the following decisions have been taken for Quimera Engine:
 	//
@@ -88,7 +88,7 @@ QQuaternion::QQuaternion(const QBaseVector3 &vAxis, const float_q &fAngle)
         const float_q& fHalfAngleRad = fAngle * SQFloat::_0_5;
     #endif
 
-	const float_q &fSin = sin(fHalfAngleRad);
+	const float_q &fSin = sin_q(fHalfAngleRad);
 
 	// Please note the axis has to be normalized...
 
@@ -96,7 +96,7 @@ QQuaternion::QQuaternion(const QBaseVector3 &vAxis, const float_q &fAngle)
 	this->y = vAxis.y * fSin;
 	this->z = vAxis.z * fSin;
 
-	this->w = cos(fHalfAngleRad);
+	this->w = cos_q(fHalfAngleRad);
 }
 
 QQuaternion::QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle)
@@ -109,7 +109,7 @@ QQuaternion::QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle)
         const float_q& fHalfAngleRad = fAngle * SQFloat::_0_5;
     #endif
 
-	const float_q &fSin = sin(fHalfAngleRad);
+	const float_q &fSin = sin_q(fHalfAngleRad);
 
 	// Please note the axis has to be normalized...
 
@@ -117,7 +117,7 @@ QQuaternion::QQuaternion(const QBaseVector4 &vAxis, const float_q &fAngle)
 	this->y = vAxis.y * fSin;
 	this->z = vAxis.z * fSin;
 
-	this->w = cos(fHalfAngleRad);
+	this->w = cos_q(fHalfAngleRad);
 }
 
 QQuaternion::QQuaternion(const QTransformationMatrix<QMatrix4x3> &m)
@@ -244,7 +244,7 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
     reinterpret_cast<const QQuaternion&> (qQuat).Normalize(auxQuat);
     this->Normalize();
 
-    float_q fAngleB = acos(this->DotProduct(auxQuat));
+    float_q fAngleB = acos_q(this->DotProduct(auxQuat));
 
     // [TODO] Thund: Should we fix this or leave it in an erroneous state?
     QE_ASSERT( !SQFloat::IsNaN(fAngleB) );
@@ -254,10 +254,10 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
     QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) );
 
     // [TODO] jwladi: it might be better to do the following:
-    // const float_q &fInvSin = SQFloat::_1/sin(fAngleB);
+    // const float_q &fInvSin = SQFloat::_1/sin_q(fAngleB);
 
-    float_q fWeight1 = sin((SQFloat::_1 - fProportion) * fAngleB) / sin(fAngleB);
-    float_q fWeight2 = sin(fProportion * fAngleB) / sin(fAngleB);
+    float_q fWeight1 = sin_q((SQFloat::_1 - fProportion) * fAngleB) / sin_q(fAngleB);
+    float_q fWeight2 = sin_q(fProportion * fAngleB) / sin_q(fAngleB);
 
     // Separated from the equation to gain performance
     QQuaternion qAuxSum = fWeight1 * (*this) + fWeight2 * auxQuat;
@@ -273,7 +273,7 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
 
 void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion)
 {
-    float_q fAngleB = acos(this->DotProduct(qQuat));
+    float_q fAngleB = acos_q(this->DotProduct(qQuat));
 
     // [TODO] Thund: Should we fix this or leave it in an erroneous state?
     QE_ASSERT( !SQFloat::IsNaN(fAngleB) );
@@ -283,10 +283,10 @@ void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fPropor
     QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) );
 
     // [TODO] jwladi: it might be better to do the following:
-    // const float_q &fInvSin = SQFloat::_1/sin(fAngleB);
+    // const float_q &fInvSin = SQFloat::_1/sin_q(fAngleB);
 
-    float_q fWeight1 = sin((SQFloat::_1 - fProportion) * fAngleB) / sin(fAngleB);
-    float_q fWeight2 = sin(fProportion * fAngleB) / sin(fAngleB);
+    float_q fWeight1 = sin_q((SQFloat::_1 - fProportion) * fAngleB) / sin_q(fAngleB);
+    float_q fWeight2 = sin_q(fProportion * fAngleB) / sin_q(fAngleB);
 
     // Separated from the equation to gain performance
     QQuaternion qAuxSum = fWeight1 * (*this) + fWeight2 * qQuat;
@@ -305,7 +305,7 @@ void QQuaternion::ToAxisAngle(QBaseVector3 &vAxis, float_q &fAngle) const
    // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
 	QE_ASSERT(SQFloat::Abs(this->w) <= SQFloat::_1);
 
-	fAngle = SQFloat::_2 * acos(this->w);
+	fAngle = SQFloat::_2 * acos_q(this->w);
 
 	// Singularity 1: Angle = 0 -> we choose arbitrary axis.
 	if (SQFloat::IsZero(fAngle))
@@ -323,7 +323,7 @@ void QQuaternion::ToAxisAngle(QBaseVector3 &vAxis, float_q &fAngle) const
 	}
 	else
 	{
-		const float_q &fInvSin = SQFloat::_1/sin(fAngle*SQFloat::_0_5);
+		const float_q &fInvSin = SQFloat::_1/sin_q(fAngle*SQFloat::_0_5);
 
 		vAxis.x = this->x*fInvSin;
 		vAxis.y = this->y*fInvSin;
