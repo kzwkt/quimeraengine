@@ -47,23 +47,6 @@ public:
 	/// </returns>
 	friend QMatrix4x4 operator*(const float_q &fScalar, const QBaseMatrix4x4 &m);
 
-	// CONSTANTS
-	// ---------------
-public:
-
-	/// <summary>
-	/// Stores a matrix with all components set to 0.
-	/// </summary>
-	static const QMatrix4x4 ZeroMatrix;
-
-	/// <summary>
-	/// Stores an identity matrix.
-	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
-    ///
-	/// </summary>
-	static const QMatrix4x4 Identity;
 
  	// CONSTRUCTORS
 	// ---------------
@@ -131,6 +114,46 @@ public:
 	/// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
 	inline QMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
 		QBaseMatrix4x4(row0, row1, row2, row3) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets a null matrix.
+    /// </summary>
+    /// <returns>
+    /// A matrix with all components set to 0.
+    /// </returns>
+    inline static const QMatrix4x4& GetZeroMatrix()
+    {
+        static const QMatrix4x4 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                           SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                           SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                           SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+        return ZEROMATRIX;
+    }
+
+    /// <summary>
+    /// Gets an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    ///
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
+    ///
+	/// </summary>
+    /// <returns>
+    /// An identity matrix
+    /// </returns>
+    inline static const QMatrix4x4& GetIdentity()
+    {
+        static const QMatrix4x4 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                         SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                         SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                         SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+        return IDENTITY;
+    }
+
 
 	// METHODS
 	// ---------------

@@ -37,18 +37,6 @@ template<class MatrixType> class QTranslationMatrix;
 template <class MatrixType>
 class QDllExport QTransformationMatrix : public MatrixType
 {
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Stores an identity matrix.
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
-    ///
-    /// </summary>
-    static const QTransformationMatrix<MatrixType> Identity;
 
     // CONSTRUCTORS
     // ---------------
@@ -57,7 +45,7 @@ public:
     /// <summary>
     /// Default constructor. It's initialized to identity matrix.
     /// </summary>
-    QTransformationMatrix() : MatrixType(QTransformationMatrix::Identity)
+    QTransformationMatrix() : MatrixType(QTransformationMatrix::GetIdentity())
     {
     }
 
@@ -199,6 +187,27 @@ protected:
         this->ij[3][0] = mDisp.ij[3][0];
         this->ij[3][1] = mDisp.ij[3][1];
         this->ij[3][2] = mDisp.ij[3][2];
+    }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    ///
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
+    ///
+    /// </summary>
+    /// <returns>
+    /// The identity matrix.
+    /// </returns>
+    inline static const QTransformationMatrix<MatrixType>& GetIdentity()
+    {
+        static const QTransformationMatrix<MatrixType> IDENTITY(MatrixType::GetIdentity());
+        return IDENTITY;
     }
 
 
@@ -1009,11 +1018,6 @@ protected:
 
 };
 
-    // CONSTANTS INITIALIZATION
-    // -----------------------------
-
-    template <class MatrixType>
-    const QTransformationMatrix<MatrixType> QTransformationMatrix<MatrixType>::Identity(MatrixType::Identity);
 
 } //namespace Math
 } //namespace Tools

@@ -26,15 +26,6 @@ namespace Math
 template<class VectorTypeOrigin, class VectorTypeDirection>
 class QDllExport QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
 {
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-	/// A ray set at the coordinate origin and whose direction vector is null.
-	/// </summary>
-    static const QRay RayZero;
-
 
 	// CONSTRUCTORS
 	// ---------------
@@ -65,6 +56,23 @@ public:
     /// </remarks>
     inline QRay(const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(vOrigin, vDirection)
     {
+    }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+	/// Gets a ray placed at the coordinate origin and whose direction vector is null.
+	/// </summary>
+	/// <returns>
+    /// The null ray.
+    /// </returns>
+    inline static const QRay& GetRayZero()
+    {
+        static const QRay RAYZERO(VectorTypeOrigin::GetZeroVector(), VectorTypeDirection::GetZeroVector());
+        return RAYZERO;
     }
 
 
@@ -321,17 +329,6 @@ public:
 
 };
 
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |    CONSTANTS DEFINITIONS	 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-template <class VectorTypeOrigin, class VectorTypeDirection>
-const QRay<VectorTypeOrigin, VectorTypeDirection> QRay<VectorTypeOrigin, VectorTypeDirection>::RayZero(VectorTypeOrigin::ZeroVector, VectorTypeDirection::ZeroVector);
 
 } //namespace Math
 } //namespace Tools

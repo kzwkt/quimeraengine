@@ -37,22 +37,6 @@ public:
     using QBaseLineSegment<VectorType>::B;
 
 
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Unit segment lying on positive X axis (it's length equals 1).
-    /// </summary>
-	static const QLineSegment<VectorType> UnitLine;
-
-    /// <summary>
-    /// Zero segment lying in the coordinates center whose endpoints
-	/// both equals to (0,0) and it's length equals 0.
-    /// </summary>
-	static const QLineSegment<VectorType> LineZero;
-
-
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -74,6 +58,36 @@ public:
     /// </summary>
     /// <param name="segmt">[IN] Line segment containing the two endpoints.</param>
 	inline explicit QLineSegment (const QBaseLineSegment<VectorType>& segmt) : QBaseLineSegment<VectorType>(segmt) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets a unit segment lying on positive X axis (it's length equals 1).
+    /// </summary>
+    /// <returns>
+	/// A 1-length segment.
+	/// </returns>
+	inline static const QLineSegment<VectorType>& GetUnitLine()
+	{
+	    static const QLineSegment<VectorType> UNITLINE(VectorType::GetZeroVector(), VectorType::GetUnitVectorX());
+	    return UNITLINE;
+	}
+
+    /// <summary>
+    /// Gets a zero segment lying in the coordinates center whose endpoints
+	/// both equals to (0,0) and it's length equals 0.
+    /// </summary>
+    /// <returns>
+	/// A zero-length segment.
+	/// </returns>
+	inline static const QLineSegment<VectorType>& GetLineZero()
+	{
+	    static const QLineSegment<VectorType> LINEZERO(VectorType::GetZeroVector(), VectorType::GetZeroVector());
+	    return LINEZERO;
+	}
 
 
 	// METHODS
@@ -911,21 +925,6 @@ protected:
 
 };
 
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |    CONSTANTS DEFINITIONS	 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-template <class VectorType>
-const QLineSegment<VectorType> QLineSegment<VectorType>::UnitLine(VectorType::ZeroVector, VectorType::UnitVectorX);
-
-template <class VectorType>
-const QLineSegment<VectorType> QLineSegment<VectorType>::LineZero(VectorType::ZeroVector, VectorType::ZeroVector);
 
 } //namespace Math
 } //namespace Tools

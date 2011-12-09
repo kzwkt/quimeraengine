@@ -33,18 +33,6 @@ template<class MatrixType> class QTranslationMatrix;
 /// </summary>
 class QDllExport QScaleMatrix3x3 : public QMatrix3x3
 {
-	// CONSTANTS
-	// ---------------
-public:
-
-    /// <summary>
-    /// Stores an identity matrix.
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
-    ///
-    /// </summary>
-    static const QScaleMatrix3x3 Identity;
 
 	// CONSTRUCTORS
 	// ---------------
@@ -145,6 +133,30 @@ public:
                              const float_q &f10, const float_q &f11, const float_q &f12,
                              const float_q &f20, const float_q &f21, const float_q &f22) :
                 QMatrix3x3(f00, f01, f02, f10, f11, f12, f20, f21, f22) { }
+
+
+    // PROPERTIES
+	// ---------------
+public:
+
+    /// <summary>
+    /// Gets an identity matrix.
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
+    ///
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
+    ///
+    /// </summary>
+    /// <returns>
+    /// The identity matrix.
+    /// </returns>
+    inline static const QScaleMatrix3x3& GetIdentity()
+    {
+        static const QScaleMatrix3x3 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                              SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                              SQFloat::_0, SQFloat::_0, SQFloat::_1);
+        return IDENTITY;
+    }
+
 
 	// METHODS
 	// ---------------
@@ -309,7 +321,7 @@ protected:
     template <class MatrixType>
     QTransformationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixType> &m) const
     {
-        QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::Identity);
+        QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
 
         aux.ij[0][0] = this->ij[0][0];
         aux.ij[1][1] = this->ij[1][1];
@@ -326,7 +338,7 @@ protected:
     template <class MatrixType>
     QTransformationMatrix<MatrixType> ProductOperatorImp(const QTransformationMatrix<MatrixType> &m) const
     {
-        QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::Identity);
+        QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
 
         aux.ij[3][0] = m.ij[3][0];
         aux.ij[3][1] = m.ij[3][1];

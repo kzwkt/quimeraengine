@@ -47,28 +47,6 @@ public:
     /// </returns>
     friend QPlane operator * (const float_q &fValue, const QBasePlane &p);
 
-	// CONSTANTS
-	// ---------------
-public:
-    /// <summary>
-    /// Stores a plane with all components set to 0.
-    /// </summary>
-    static const QPlane ZeroPlane;
-
-    /// <summary>
-    /// Stores plane y = 0. This plane contains the Z and X axis, and its normal is in the Y axis.
-    /// </summary>
-    static const QPlane PlaneZX;
-
-    /// <summary>
-    /// Stores plane z = 0. This plane contains the X and Y axis, and its normal is in the Z axis.
-    /// </summary>
-    static const QPlane PlaneXY;
-
-    /// <summary>
-    /// Stores plane x = 0. This plane contains the Y and Z axis, and its normal is in the X axis.
-    /// </summary>
-    static const QPlane PlaneYZ;
 
 	// CONSTRUCTORS
 	// ---------------
@@ -160,6 +138,60 @@ protected:
 
          this->Normalize();
     }
+
+
+    // PROPERTIES
+	// ---------------
+public:
+
+    /// <summary>
+    /// Gets a plane with all components set to 0.
+    /// </summary>
+    /// <returns>
+    /// A plane with all components set to 0.
+    /// </returns>
+    inline static const QPlane& GetZeroPlane()
+    {
+        static const QPlane ZEROPLANE(SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+        return ZEROPLANE;
+    }
+
+    /// <summary>
+    /// Gets the plane that contains the Z and X axis, and its normal is in the Y axis.
+    /// </summary>
+    /// <returns>
+    /// The plane ZX.
+    /// </returns>
+    inline static const QPlane& GetPlaneZX()
+    {
+        static const QPlane PLANEZX(SQFloat::_0,  SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
+        return PLANEZX;
+    }
+
+    /// <summary>
+    /// Gets the plane that contains the X and Y axis, and its normal is in the Z axis.
+    /// </summary>
+    /// <returns>
+    /// The plane XY.
+    /// </returns>
+    inline static const QPlane& GetPlaneXY()
+    {
+        static const QPlane PLANEXY(SQFloat::_0,  SQFloat::_0,  SQFloat::_1,  SQFloat::_0);
+        return PLANEXY;
+    }
+
+    /// <summary>
+    /// Gets the plane that contains the Y and Z axis, and its normal is in the X axis.
+    /// </summary>
+    /// <returns>
+    /// The plane YZ.
+    /// </returns>
+    inline static const QPlane& GetPlaneYZ()
+    {
+        static const QPlane PLANEYZ(SQFloat::_1,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+        return PLANEYZ;
+    }
+
 
     // METHODS
 	// ---------------

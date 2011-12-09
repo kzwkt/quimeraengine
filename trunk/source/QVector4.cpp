@@ -21,25 +21,6 @@ namespace Tools
 namespace Math
 {
 
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
-//##################            |  CONSTANTS INITIALIZATION  |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-const QVector4 QVector4::ZeroVector    ( SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-const QVector4 QVector4::ZeroPoint     ( SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_1);
-const QVector4 QVector4::VectorOfOnes  ( SQFloat::_1,  SQFloat::_1,  SQFloat::_1,  SQFloat::_1);
-const QVector4 QVector4::UnitVectorX   ( SQFloat::_1,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-const QVector4 QVector4::UnitVectorY   ( SQFloat::_0,  SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
-const QVector4 QVector4::UnitVectorZ   ( SQFloat::_0,  SQFloat::_0,  SQFloat::_1,  SQFloat::_0);
-const QVector4 QVector4::UnitVectorInvX(-SQFloat::_1,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-const QVector4 QVector4::UnitVectorInvY( SQFloat::_0, -SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
-const QVector4 QVector4::UnitVectorInvZ( SQFloat::_0,  SQFloat::_0, -SQFloat::_1,  SQFloat::_0);
-
 
 //##################=======================================================##################
 //##################             ____________________________              ##################

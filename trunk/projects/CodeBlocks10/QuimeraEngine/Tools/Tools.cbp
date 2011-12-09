@@ -106,7 +106,6 @@
 		<Unit filename="..\..\..\..\headers\SQVF32.h" />
 		<Unit filename="..\..\..\..\source\EQIntersections.cpp" />
 		<Unit filename="..\..\..\..\source\EQSpaceRelation.cpp" />
-		<Unit filename="..\..\..\..\source\QCircle.cpp" />
 		<Unit filename="..\..\..\..\source\QDualQuaternion.cpp" />
 		<Unit filename="..\..\..\..\source\QLineSegment2D.cpp" />
 		<Unit filename="..\..\..\..\source\QMatrix2x2.cpp" />

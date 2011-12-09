@@ -47,16 +47,6 @@ public:
     friend QDualQuaternion operator*(const float_q &fScalar, const QBaseDualQuaternion &dqQuat);
 
 
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Represents the identity dual quaternion. It's (0,0,0,1) (0,0,0,0).
-    /// </summary>
-    static const QDualQuaternion Identity;
-
-
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -231,6 +221,24 @@ protected:
                                     QBaseQuaternion(vD.x * SQFloat::_0_5, vD.y * SQFloat::_0_5, vD.z * SQFloat::_0_5, SQFloat::_0));
 
         *this = Rot * Desp;
+    }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets a dual quaternion that represents the identity dual quaternion. It's (0,0,0,1) (0,0,0,0).
+    /// </summary>
+    /// <returns>
+    /// The identity dual quaternion.
+    /// </returns>
+    inline static const QDualQuaternion& GetIdentity()
+    {
+        static const QDualQuaternion IDENTITY(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                                              QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
+        return IDENTITY;
     }
 
 

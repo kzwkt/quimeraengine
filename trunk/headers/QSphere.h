@@ -38,16 +38,6 @@ public:
     using QOrb<VectorType>::Radius;
 
 
-    // CONSTANTS
-    // ---------------
-public:
-
-	/// <summary>
-    /// Unit sphere placed in the center of coordinates and whose radius equals to 1.
-	/// </summary>
-    static const QSphere<VectorType> UnitSphere;
-
-
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -63,6 +53,24 @@ public:
     /// <param name="vCenter">[IN] Vector that defines the center of the sphere.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
     inline QSphere (const VectorType& vCenter, const float_q& fRadius) : QOrb<VectorType>(vCenter, fRadius) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+	/// <summary>
+    /// Gets a "unit sphere" placed in the center of coordinates and whose radius equals to 1.
+	/// </summary>
+	/// <returns>
+	/// A "unit sphere".
+	/// </returns>
+    inline static const QSphere<VectorType>& GetUnitSphere()
+    {
+        static const QSphere<VectorType> UNITSPHERE(QVector3::GetZeroVector(), SQFloat::_1);
+        return UNITSPHERE;
+    }
+
 
 	// METHODS
 	// ---------------
@@ -575,17 +583,6 @@ public:
 	}
 };
 
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |    CONSTANTS DEFINITIONS	 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-template <class VectorType>
-const QSphere<VectorType> QSphere<VectorType>::UnitSphere(QVector3::ZeroVector, SQFloat::_1);
 
 } //namespace Math
 } //namespace Tools

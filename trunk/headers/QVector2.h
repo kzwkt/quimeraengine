@@ -77,6 +77,84 @@ public:
     /// <param name="vfValue">[IN] 4x32 packed floating point value containing the two components.</param>
     inline explicit QVector2(const vf32_q vfValue) : QBaseVector2 (vfValue) { }
 
+
+    // PROPERTIES
+	// ---------------
+public:
+
+	/// <summary>
+	/// Gets a vector with all components set to 0.
+	/// </summary>
+	/// <returns>
+	/// A null vector.
+	/// </returns>
+	inline static const QVector2& GetZeroVector()
+	{
+	    static const QVector2 ZEROVECTOR(SQFloat::_0,  SQFloat::_0);
+	    return ZEROVECTOR;
+	}
+
+	/// <summary>
+	/// Gets a vector with all components set to 1.
+	/// </summary>
+	/// <returns>
+	/// A vector of ones.
+	/// </returns>
+	inline static const QVector2& GetVectorOfOnes()
+	{
+	    static const QVector2 VECTOROFONES(SQFloat::_1,  SQFloat::_1);
+	    return VECTOROFONES;
+    }
+
+	/// <summary>
+	/// Gets a unit vector in X positive direction.
+	/// </summary>
+	/// <returns>
+	/// A vector that points to X axis direction.
+	/// </returns>
+	inline static const QVector2& GetUnitVectorX()
+	{
+	    static const QVector2 UNITVECTORX(SQFloat::_1,  SQFloat::_0);
+	    return UNITVECTORX;
+	}
+
+	/// <summary>
+	/// Gets a unit vector in Y positive direction.
+	/// </summary>
+	/// <returns>
+	/// A vector that points to Y axis direction.
+	/// </returns>
+	inline static const QVector2& GetUnitVectorY()
+	{
+	    static const QVector2 UNITVECTORY(SQFloat::_0,  SQFloat::_1);
+	    return UNITVECTORY;
+	}
+
+	/// <summary>
+	/// Gets a unit vector in X negative direction.
+	/// </summary>
+	/// <returns>
+	/// A vector that points to X axis opposite direction.
+	/// </returns>
+	inline static const QVector2& GetUnitVectorInvX()
+	{
+	    static const QVector2 UNITVECTORINVX(-SQFloat::_1,  SQFloat::_0);
+	    return UNITVECTORINVX;
+	}
+
+	/// <summary>
+	/// Gets a unit vector in Y negative direction.
+	/// </summary>
+	/// <returns>
+	/// A vector that points to Y axis opposite direction.
+	/// </returns>
+	inline static const QVector2& GetUnitVectorInvY()
+	{
+	    static const QVector2 UNITVECTORINVY(SQFloat::_0,  -SQFloat::_1);
+	    return UNITVECTORINVY;
+	}
+
+
 	// METHODS
 	// ---------------
 public:
@@ -546,40 +624,12 @@ public:
 	}
 
 	/// <summary>
-	/// Converts vector into a string with the following format:
-	/// "V2(x, y)"
+	/// Converts vector into a string with the following format: "V2(x, y)".
 	/// </summary>
-	/// <returns>The string with the format specified.</returns>
+	/// <returns>
+	/// The string with the format specified.
+	/// </returns>
 	string_q ToString() const;
-
-	// ATTRIBUTES
-	// ---------------
-public:
-
-	/// <summary>
-	/// Stores a vector with all components set to 0
-	/// </summary>
-	static const QVector2 ZeroVector;
-	/// <summary>
-	/// Stores a vector with all components set to 1
-	/// </summary>
-	static const QVector2 VectorOfOnes;
-	/// <summary>
-	/// Stores a unit vector in X positive direction
-	/// </summary>
-	static const QVector2 UnitVectorX;
-	/// <summary>
-	/// Stores a unit vector in Y positive direction
-	/// </summary>
-	static const QVector2 UnitVectorY;
-	/// <summary>
-	/// Stores a unit vector in X negative direction
-	/// </summary>
-	static const QVector2 UnitVectorInvX;
-	/// <summary>
-	/// Stores a unit vector in Y negative direction
-	/// </summary>
-	static const QVector2 UnitVectorInvY;
 
 };
 

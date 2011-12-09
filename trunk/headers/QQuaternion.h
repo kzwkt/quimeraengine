@@ -61,14 +61,6 @@ public:
     /// </returns>
     friend QQuaternion operator*(const float_q &fScalar, const QBaseQuaternion &qQuat);
 
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Represents the identity quaternion.
-    /// </summary>
-    static const QQuaternion Identity;
 
 	// CONSTRUCTORS
 	// ---------------
@@ -177,6 +169,23 @@ protected:
     // <param name="m">[IN] A transformation matrix.</param>
 	template <class MatrixType>
 	void QQuaternionImp(const QTransformationMatrix<MatrixType> &m);
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets the identity quaternion.
+    /// </summary>
+    /// <returns>
+    /// The identity quaternion.
+    /// </returns>
+    inline static const QQuaternion& GetIdentity()
+    {
+        static const QQuaternion IDENTITY(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+        return IDENTITY;
+    }
 
 
 	// METHODS

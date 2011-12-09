@@ -30,16 +30,6 @@ namespace Math
 template <class VectorType>
 class QDllExport QHexahedron : public QBaseHexahedron<VectorType>
 {
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Defines a cube whose egdes are 1 unit length, centered in the coordinate origin, and with all edges parallel
-    /// to coordinate axis.
-    /// </summary>
-    static const QHexahedron<VectorType> UnitCube;
-
     // CONSTRUCTORS
     // ---------------
 public:
@@ -83,6 +73,25 @@ public:
     /// <param name="fLenZ">[IN] Length of an edge parallel to Z axis (depth).</param>
     inline QHexahedron (const VectorType &vCenter, const float_q &fLenX, const float_q &fLenY, const float_q &fLenZ) :
            QBaseHexahedron<VectorType>(vCenter, fLenX, fLenY,fLenZ) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets an hexahedron that defines a cube whose egdes are 1 unit length, centered in the coordinate origin, and with all edges parallel
+    /// to coordinate axis.
+    /// </summary>
+    /// <returns>
+	/// A "unit cube".
+	/// </returns>
+    inline static const QHexahedron<VectorType>& GetUnitCube()
+    {
+        static const QHexahedron<VectorType> UNITCUBE(-VectorType::GetVectorOfOnes()*SQFloat::_0_5, VectorType::GetVectorOfOnes()*SQFloat::_0_5);
+        return UNITCUBE;
+    }
+
 
     // METHODS
     // ---------------
@@ -716,17 +725,6 @@ protected:
     }
 };
 
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |    CONSTANTS DEFINITIONS	 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-template <class VectorType>
-const QHexahedron<VectorType> QHexahedron<VectorType>::UnitCube(-VectorType::VectorOfOnes*SQFloat::_0_5, VectorType::VectorOfOnes*SQFloat::_0_5);
 
 } //namespace Math
 } //namespace Tools

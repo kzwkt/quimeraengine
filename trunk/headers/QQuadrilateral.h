@@ -25,14 +25,6 @@ namespace Math
 /// </summary>
 class QDllExport QQuadrilateral : public QBaseQuadrilateral
 {
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-    /// Stores a square with center in coordinate origin and unitary length edges which are parallels to axes.
-    /// </summary>
-    static const QQuadrilateral UnitSquare;
 
 	// CONSTRUCTORS
 	// ---------------
@@ -55,6 +47,26 @@ public:
     /// <param name="vD">[IN] The 2D vector which defines D vertex.</param>
     inline QQuadrilateral(const QVector2 &vA, const QVector2 &vB,
                           const QVector2 &vC, const QVector2 &vD ) : QBaseQuadrilateral(vA, vB, vC, vD) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets a square with center in coordinate origin and 1-length edges which are parallels to axes.
+    /// </summary>
+    /// <returns>
+    /// The "unit square".
+    /// </returns>
+    inline static const QQuadrilateral& GetUnitSquare()
+    {
+        static const QQuadrilateral UNITSQUARE(QVector2( SQFloat::_0_5,   SQFloat::_0_5),
+                                               QVector2(-SQFloat::_0_5,   SQFloat::_0_5),
+                                               QVector2(-SQFloat::_0_5,  -SQFloat::_0_5),
+                                               QVector2( SQFloat::_0_5,  -SQFloat::_0_5));
+        return UNITSQUARE;
+    }
 
 
     // METHODS

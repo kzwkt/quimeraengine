@@ -29,26 +29,6 @@ namespace Math
 /// </summary>
 class QDllExport QRay2D : public QRay<QVector2, QVector2>
 {
-    // CONSTANTS
-    // ---------------
-public:
-
-    /// <summary>
-	/// A ray set at the coordinate origin and whose direction vector is null.
-	/// </summary>
-    static const QRay2D RayZero;
-
-    /// <summary>
-	/// A ray set at the coordinate origin and whose direction vector is in X growing direction.
-	/// </summary>
-    static const QRay2D RayX;
-
-    /// <summary>
-	/// A ray set at the coordinate origin and whose direction vector is in Y growing direction.
-	/// </summary>
-    static const QRay2D RayY;
-
-
 
 	// CONSTRUCTORS
 	// ---------------
@@ -74,6 +54,47 @@ public:
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
     inline QRay2D(const QVector2 &vOrigin, const QVector2 &vDirection) : QRay<QVector2, QVector2>(vOrigin, vDirection) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+	/// Gets a ray placed at the coordinate origin and whose direction vector is null.
+	/// </summary>
+	/// <returns>
+    /// The null ray.
+    /// </returns>
+    inline static const QRay2D& GetRayZero()
+    {
+        static const QRay2D RAYZERO(QVector2::GetZeroVector(), QVector2::GetZeroVector());
+        return RAYZERO;
+    }
+
+    /// <summary>
+	/// Gets a ray placed at the coordinate origin and whose direction vector is in X growing direction.
+	/// </summary>
+	/// <returns>
+    /// A ray that points to X direction.
+    /// </returns>
+    inline static const QRay2D& GetRayX()
+    {
+        static const QRay2D RAYX(QVector2::GetZeroVector(), QVector2::GetUnitVectorX());
+        return RAYX;
+    }
+
+    /// <summary>
+	/// Gets a ray placed at the coordinate origin and whose direction vector is in Y growing direction.
+	/// </summary>
+	/// <returns>
+    /// A ray that points to Y direction.
+    /// </returns>
+    inline static const QRay2D& GetRayY()
+    {
+        static const QRay2D RAYY(QVector2::GetZeroVector(), QVector2::GetUnitVectorY());
+        return RAYY;
+    }
 
 
 	// METHODS

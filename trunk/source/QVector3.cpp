@@ -22,25 +22,6 @@ namespace Math
 //##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
-//##################            |  CONSTANTS INITIALIZATION  |             ##################
-//##################           /|                            |\            ##################
-//##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
-//##################                                                       ##################
-//##################=======================================================##################
-
-const QVector3 QVector3::ZeroVector    ( SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-const QVector3 QVector3::VectorOfOnes  ( SQFloat::_1,  SQFloat::_1,  SQFloat::_1);
-const QVector3 QVector3::UnitVectorX   ( SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
-const QVector3 QVector3::UnitVectorY   ( SQFloat::_0,  SQFloat::_1,  SQFloat::_0);
-const QVector3 QVector3::UnitVectorZ   ( SQFloat::_0,  SQFloat::_0,  SQFloat::_1);
-const QVector3 QVector3::UnitVectorInvX(-SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
-const QVector3 QVector3::UnitVectorInvY( SQFloat::_0, -SQFloat::_1,  SQFloat::_0);
-const QVector3 QVector3::UnitVectorInvZ( SQFloat::_0,  SQFloat::_0, -SQFloat::_1);
-
-
-//##################=======================================================##################
-//##################             ____________________________              ##################
-//##################            |                            |             ##################
 //##################            |       CONSTRUCTORS         |             ##################
 //##################           /|                            |\            ##################
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################

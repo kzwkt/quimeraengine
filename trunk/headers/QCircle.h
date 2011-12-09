@@ -33,16 +33,6 @@ public:
     using QOrb<QVector2>::Radius;
 
 
-    // CONSTANTS
-    // ---------------
-public:
-
-	/// <summary>
-    /// Unit circle placed in the center of coordinates and whose radius equals to 1.
-	/// </summary>
-    static const QCircle UnitCircle;
-
-
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -59,6 +49,23 @@ public:
     /// <param name="vCenter">[IN] Vector to define the center of the cirle.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
     inline QCircle (const QVector2& vCenter, const float_q& fRadius) : QOrb<QVector2>(vCenter, fRadius) { }
+
+
+    // PROPERTIES
+    // ---------------
+public:
+
+    /// <summary>
+    /// Gets a "unit circle" placed in the center of coordinates and whose radius equals 1.
+	/// </summary>
+	/// <returns>
+	/// A unit circle.
+	/// </returns>
+    inline static const QCircle& GetUnitCircle()
+    {
+        static const QCircle UNITCIRCLE(QVector2::GetZeroVector(), SQFloat::_1);
+        return UNITCIRCLE;
+    }
 
 
 	// METHODS
