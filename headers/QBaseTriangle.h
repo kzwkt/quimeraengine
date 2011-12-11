@@ -5,7 +5,9 @@
 
 #include "SQFloat.h"
 #include "SQVF32.h"
+#include "QConvertible.h"
 
+using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -29,7 +31,7 @@ class QVector4;
 ///	2D vector, 3D vector or 4D vector.
 /// </summary>
 template <class VectorType>
-class QDllExport QBaseTriangle
+class QDllExport QBaseTriangle : public QConvertible
 {
 
 	// CONSTRUCTORS

@@ -5,7 +5,9 @@
 
 #include "SQFloat.h"
 #include "QQuaternion.h"
+#include "QConvertible.h"
 
+using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -26,7 +28,7 @@ namespace Math
 /// We'll normally employ it to represent and execute rigid transformations, that is, transformations which involves
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).
 /// </summary>
-class QDllExport QBaseDualQuaternion
+class QDllExport QBaseDualQuaternion : public QConvertible
 {
 
 	// CONSTRUCTORS

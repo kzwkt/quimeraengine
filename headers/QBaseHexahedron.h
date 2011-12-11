@@ -5,7 +5,9 @@
 
 #include "SQFloat.h"
 #include "SQVF32.h"
+#include "QConvertible.h"
 
+using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -23,7 +25,7 @@ namespace Math
 /// EFGH defines the opposite face (eventually the bottom one).
 /// </summary>
 template <class VectorType>
-class QDllExport QBaseHexahedron
+class QDllExport QBaseHexahedron : public QConvertible
 {
 
     // CONSTRUCTORS
