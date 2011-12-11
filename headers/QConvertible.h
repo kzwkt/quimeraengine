@@ -3,6 +3,7 @@
 #ifndef __QCONVERTIBLE__
 #define __QCONVERTIBLE__
 
+#include "InternalDefinitions.h"
 
 namespace Kinesis
 {
@@ -41,7 +42,7 @@ public:
     template<class TargetType>
     inline TargetType& As()
     {
-        return reinterpret_cast<TargetType&>(*this);
+        return rcast_q(TargetType&, *this);
     }
 
     /// <summary>
@@ -53,7 +54,7 @@ public:
     template<class TargetType>
     inline TargetType& As() const
     {
-        return reinterpret_cast<TargetType&>(*this);
+        return rcast_q(TargetType&, *this);
     }
 
     /// <summary>
@@ -65,9 +66,9 @@ public:
     template<class TargetType>
     inline TargetType* AsPtr()
     {
-        return reinterpret_cast<TargetType*>(this);
+        return rcast_q(TargetType*, this);
     }
-    
+
     /// <summary>
     /// Converts the reference to the object to a pointer of different type to the object.
     /// One must be careful when using this method, the object type size has to equals the target type size.
@@ -77,7 +78,7 @@ public:
     template<class TargetType>
     inline TargetType* AsPtr() const
     {
-        return reinterpret_cast<TargetType*>(this);
+        return rcast_q(TargetType*, this);
     }
 };
 
