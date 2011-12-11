@@ -19955,7 +19955,8 @@
 	"DataTypesDefinitions.h"
 	"SQFloat.h"
 
-1323603063 g:\users\animal\desktop\qesvn\trunk\headers\qconvertible.h
+1323641201 g:\users\animal\desktop\qesvn\trunk\headers\qconvertible.h
+	"InternalDefinitions.h"
 
 1323469415 source:g:\users\animal\desktop\qesvn\trunk\source\sqvf32.cpp
 	"SQVF32.h"
