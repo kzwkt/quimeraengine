@@ -54,6 +54,7 @@
 		<Unit filename="..\..\..\..\headers\Configuration.h" />
 		<Unit filename="..\..\..\..\headers\ExternalDefinitions.h" />
 		<Unit filename="..\..\..\..\headers\InternalDefinitions.h" />
+		<Unit filename="..\..\..\..\headers\QConvertible.h" />
 		<Unit filename="..\..\..\..\source\Prueba.cpp" />
 		<Extensions>
 			<code_completion />

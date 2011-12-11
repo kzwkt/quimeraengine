@@ -20022,10 +20022,11 @@
 	"ExternalDefinitions.h"
 	"InternalDefinitions.h"
 
-1321217118 g:\users\animal\desktop\qesvn\trunk\headers\externaldefinitions.h
+1323276234 g:\users\animal\desktop\qesvn\trunk\headers\externaldefinitions.h
+	<exception>
 	<boost/assert.hpp>
 
-1321217118 g:\users\animal\desktop\qesvn\trunk\headers\internaldefinitions.h
+1323284128 g:\users\animal\desktop\qesvn\trunk\headers\internaldefinitions.h
 	"ExternalDefinitions.h"
 
 1304963430 source:d:\javi\kinesis\quimeraengine-qtriangle2d\trunk\source\prueba.cpp

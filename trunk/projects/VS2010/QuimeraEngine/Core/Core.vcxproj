@@ -14,6 +14,7 @@
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\QConvertible.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\Prueba.cpp" />
