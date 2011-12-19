@@ -168,18 +168,13 @@ public:
     /// </returns>
     inline bool IsConvex () const
     {
-        // [TODO] jwladi: May be it can be optimized if it is considered that most of quadrilateral are convex
-
-        if (this->IsCrossed()) // Crossed quadrilateral diagonals don't intersects.
-            return true;
-
         QLineSegment2D ls1(this->A, this->C);
         QLineSegment2D ls2(this->B, this->D);
 
         if (ls1.Intersection(ls2))
             return true;
         else
-            return false;
+            return this->IsCrossed(); // Crossed quadrilateral diagonals don't intersects.
     }
 
     /// <summary>

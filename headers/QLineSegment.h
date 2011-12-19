@@ -211,31 +211,14 @@ public:
 
 			float_q fAngle = v1.DotProductAngle(v2);
 
-			// [TODO] This block won't serve to any purpose in the future, delete it
-			//		  when it's useness has come to an end.
-			///////////////////////////////
 			// If angles are currently specified in degrees, then converts angle to radians
 			// so we can use "sin" function.
 			#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
 				fAngle = SQAngle::DegreesToRadians(fAngle, fAngle);
 			#endif
-			///////////////////////////////
 
 			// At this stage we have the angle expressed in RADIANS.
-
 			float_q fSin   = sin_q(fAngle);
-
-			// [TODO] This block won't serve to any purpose in the future, delete it
-			//		  when it's useness has come to an end.
-			///////////////////////////////
-			// Just for safety:
-			// If angles are currently specified in degrees, then reconvert angle to degrees.
-			#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-				fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
-
-				// At this stage we'll have the angle expressed in DEGREES.
-			#endif
-			///////////////////////////////
 
 			// Compute Squared Module of cross product:
 			float_q fSquaredMod = fSqrLengthProd * fSin * fSin;

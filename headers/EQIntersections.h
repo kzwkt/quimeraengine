@@ -37,9 +37,8 @@ public:
         E_One, /*!< There is one intersection. */
         E_Two, /*!< There are two intersections. */
         E_More, /*!< There are a finite number of intersections, greater than two. */
-        // [TODO] jwladi: It could be interesting to divide this in two values: E_MoreEven and E_MoreOdd.
         E_Infinite, /*!< There are infinite intersections (the intersection may be a straight line or a plane. */
-        
+
         _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };
 
@@ -59,7 +58,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">A valid enumeration value.</param>
-    inline EQIntersections(const EQIntersections::EnumType &eValue) : m_value(eValue) 
+    inline EQIntersections(const EQIntersections::EnumType &eValue) : m_value(eValue)
     {}
 
     /// <summary>
@@ -206,7 +205,7 @@ public:
 
         while(itValueName != itValueNameEnd && itValueName->second != m_value)
             ++itValueName;
-   
+
         if(itValueName != itValueNameEnd)
             return itValueName->first;
         else
@@ -233,7 +232,7 @@ private:
     /// A list of enumeration values with their names.
     /// </summary>
     static TNameValuePair sm_arValueName[];
-    
+
     /// <summary>
     /// The dictionary which contains each enumeration value by its name.
     /// </summary>

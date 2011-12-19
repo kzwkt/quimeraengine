@@ -236,18 +236,15 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
 
     float_q fAngleB = acos_q(this->DotProduct(auxQuat));
 
-    // [TODO] Thund: Should we fix this or leave it in an erroneous state?
     QE_ASSERT( !SQFloat::IsNaN(fAngleB) );
 
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
-    // [TODO] Thund: Should we return a null quaternion instead of let the application crash? In other words, "show must go on"?
     QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) );
 
-    // [TODO] jwladi: it might be better to do the following:
-    // const float_q &fInvSin = SQFloat::_1/sin_q(fAngleB);
+    const float_q &fInvSin = SQFloat::_1/sin_q(fAngleB);
 
-    float_q fWeight1 = sin_q((SQFloat::_1 - fProportion) * fAngleB) / sin_q(fAngleB);
-    float_q fWeight2 = sin_q(fProportion * fAngleB) / sin_q(fAngleB);
+    float_q fWeight1 = sin_q((SQFloat::_1 - fProportion) * fAngleB) * fInvSin;
+    float_q fWeight2 = sin_q(fProportion * fAngleB) * fInvSin;
 
     // Separated from the equation to gain performance
     QQuaternion qAuxSum = fWeight1 * (*this) + fWeight2 * auxQuat;

@@ -1770,8 +1770,6 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     inline void TransformWithPivot(const QDualQuaternion& dq, const VectorType& vPivot)
     {
-        // TODO (Txaneto): Maybe in the future there will be more support for Dual Quaternion transformations.
-        // That is, SQPoint would be extended in that way.
         this->A -= vPivot;
         this->B -= vPivot;
 
