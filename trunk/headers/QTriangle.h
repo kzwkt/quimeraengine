@@ -151,10 +151,6 @@ public:
 		return GetAngle(u, v);
 	}
 
-	/// [TODO] Txaneto: void GetCircumcenter(VectorType & vValue) - Public method that calculates the circumcenter of the triangle. (Intersection point of the medians)
-
-	/// [TODO] Txaneto: void GetOrthocenter(VectorType & vValue) - Public method that calculates the orthocenter of the triangle. (Intersection point of the heights)
-
 	/// <summary>
 	/// Calculates the incenter of the triangle.
 	/// </summary>

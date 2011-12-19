@@ -643,10 +643,7 @@ public:
     /// </returns>
     inline float_q Distance(const QBaseVector3 &v) const
     {
-        return sqrt_q( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) + (this->z-v.z)*(this->z-v.z) );
-
-        //[TODO] jwladi: it may be done as follows, with 3 substractions less:
-        // return QVector3(*this - v).GetLength();
+       return (*this - v).GetLength();
     }
 
     /// <summary>
