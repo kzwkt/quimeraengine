@@ -273,7 +273,7 @@ public:
     inline void Reverse(QBaseMatrix3x3 &mOut) const
     {
         mOut = *this;
-        reinterpret_cast<QScaleMatrix3x3&> (mOut).Reverse();
+        mOut.As<QScaleMatrix3x3> ().Reverse();
     }
 
     /// <summary>

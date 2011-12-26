@@ -3,6 +3,8 @@
 #ifndef __QTRANSLATIONMATRIX__
 #define __QTRANSLATIONMATRIX__
 
+#include "QBaseVector3.h"
+#include "QBaseVector4.h"
 #include "QRotationMatrix3x3.h"
 #include "QScaleMatrix3x3.h"
 
@@ -172,7 +174,7 @@ public:
     QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x3> &m) const
     {
         QTranslationMatrix<MatrixType> outMatrix;
-        ProductOperatorImp(outMatrix);
+        ProductOperatorImp(m, outMatrix);
         return outMatrix;
     }
 
@@ -193,7 +195,7 @@ public:
     QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x4> &m) const
     {
         QTranslationMatrix<MatrixType> outMatrix;
-        ProductOperatorImp(outMatrix);
+        ProductOperatorImp(m, outMatrix);
         return outMatrix;
 
     }
@@ -298,21 +300,6 @@ public:
         return aux;
     }
 
-	/// <summary>
-    /// Multiplies a matrix of the same MatrixType of the current matrix by the current matrix, following matrices product rules.
-    /// </summary>
-    /// <remarks>
-    /// This product is not conmmutative.
-    /// </remarks>
-    /// <param name="m">[IN] Matrix of the same MatrixType to be multiplied by.</param>
-    /// <returns>
-    /// The resultant transformation matrix.
-    /// </returns>
-	inline QTranslationMatrix<MatrixType> operator*(MatrixType &m)
-	{
-		return reinterpret_cast<QTranslationMatrix<MatrixType>&>(MatrixType::operator*(m));
-	}
-
     // Assign operators
 
     /// <summary>
@@ -329,7 +316,7 @@ public:
     /// </returns>
     inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x3> &m)
     {
-        ProductAssignationOperatorImp();
+        ProductAssignationOperatorImp(m);
         return *this;
     }
 
@@ -347,7 +334,7 @@ public:
     /// </returns>
     inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x4> &m)
     {
-        ProductAssignationOperatorImp();
+        ProductAssignationOperatorImp(m);
         return *this;
     }
 

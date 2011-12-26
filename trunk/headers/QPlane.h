@@ -12,6 +12,7 @@
 #include "QRotationMatrix3x3.h"
 #include "QScaleMatrix3x3.h"
 #include "QTransformationMatrix.h"
+#include "QSpaceConversionMatrix.h"
 
 namespace Kinesis
 {
@@ -311,11 +312,11 @@ public:
     /// Calculates a normalized plane from the resident one, storing it in an output plane provided.
     /// This implies to divide all components of plane by the length of the normal.
     /// </summary>
-    /// <param name="plOut">[OUT] The plane where we want to store the normalized plane.</param>
-    inline void Normalize(QBasePlane &plOut) const
+    /// <param name="outPlane">[OUT] The plane where we want to store the normalized plane.</param>
+    inline void Normalize(QBasePlane &outPlane) const
     {
-        plOut = *this;
-        reinterpret_cast <QPlane&> (plOut).Normalize();
+        outPlane = *this;
+        outPlane.As<QPlane> ().Normalize();
     }
 
     /// <summary>
@@ -579,11 +580,11 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the rotation to be applied.</param>
-    /// <param name="pOut">[OUT] The rotated plane.</param>
-    inline void Rotate(const QRotationMatrix3x3 &m, QBasePlane &pOut) const
+    /// <param name="outPlane">[OUT] The rotated plane.</param>
+    inline void Rotate(const QRotationMatrix3x3 &m, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Rotate(m);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Rotate(m);
     }
 
     /// <summary>
@@ -610,11 +611,11 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="q">[IN] A quaternion containing the rotation to be applied.</param>
-    /// <param name="pOut">[OUT] The rotated plane.</param>
-    inline void Rotate(const QQuaternion &q, QBasePlane &pOut) const
+    /// <param name="outPlane">[OUT] The rotated plane.</param>
+    inline void Rotate(const QQuaternion &q, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Rotate(q);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Rotate(q);
     }
 
     /// <summary>
@@ -640,14 +641,14 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [3x3] matrix containing the scale to be applied.</param>
-    /// <param name="pOut">[OUT] The scaled plane.</param>
+    /// <param name="outPlane">[OUT] The scaled plane.</param>
     /// <remarks>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
-    inline void Scale(const QScaleMatrix3x3 &m, QBasePlane &pOut) const
+    inline void Scale(const QScaleMatrix3x3 &m, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Scale(m);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Scale(m);
     }
 
     /// <summary>
@@ -673,14 +674,14 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
-    /// <param name="pOut">[OUT] The scaled plane.</param>
+    /// <param name="outPlane">[OUT] The scaled plane.</param>
     /// <remarks>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
-    inline void Scale(const QBaseVector3 &vScale, QBasePlane &pOut) const
+    inline void Scale(const QBaseVector3 &vScale, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Scale(vScale);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Scale(vScale);
     }
 
     /// <summary>
@@ -710,14 +711,14 @@ public:
     /// <param name="fScaleX">[IN] The scale amount to be applied in X direction.</param>
     /// <param name="fScaleY">[IN] The scale amount to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] The scale amount to be applied in Z direction.</param>
-    /// <param name="pOut">[OUT] The scaled plane.</param>
+    /// <param name="outPlane">[OUT] The scaled plane.</param>
     /// <remarks>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
-    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QBasePlane &pOut) const
+    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Scale(fScaleX, fScaleY, fScaleZ);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Scale(fScaleX, fScaleY, fScaleZ);
     }
 
     /// <summary>
@@ -736,11 +737,11 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [4x3] matrix containing the translation to be applied.</param>
-    /// <param name="pOut">[OUT] The translated plane.</param>
-    inline void Translate(const QTranslationMatrix<QMatrix4x3> &m, QBasePlane &pOut) const
+    /// <param name="outPlane">[OUT] The translated plane.</param>
+    inline void Translate(const QTranslationMatrix<QMatrix4x3> &m, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Translate(m);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Translate(m);
     }
 
     /// <summary>
@@ -759,11 +760,11 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [4x4] matrix containing the translation to be applied.</param>
-    /// <param name="pOut">[OUT] The translated plane.</param>
-    inline void Translate(const QTranslationMatrix<QMatrix4x4> &m, QBasePlane &pOut) const
+    /// <param name="outPlane">[OUT] The translated plane.</param>
+    inline void Translate(const QTranslationMatrix<QMatrix4x4> &m, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Translate(m);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Translate(m);
     }
 
     /// <summary>
@@ -782,11 +783,11 @@ public:
     /// The resultant plane is stored in the output provided parameter.
     /// </summary>
     /// <param name="vTrans">[IN] A 3d vector containing the translation to be applied.</param>
-    /// <param name="pOut">[OUT] The translated plane.</param>ç
-    inline void Translate(const QBaseVector3 &vTrans, QBasePlane &pOut) const
+    /// <param name="outPlane">[OUT] The translated plane.</param>ç
+    inline void Translate(const QBaseVector3 &vTrans, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Translate(vTrans);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Translate(vTrans);
     }
 
     /// <summary>
@@ -805,11 +806,11 @@ public:
     /// The resultant plane is stored in the output provided parameter.
     /// </summary>
     /// <param name="vTrans">[IN] A 3d vector containing the translation to be applied.</param>
-    /// <param name="pOut">[OUT] The translated plane.</param>ç
-    inline void Translate(const QBaseVector4 &vTrans, QBasePlane &pOut) const
+    /// <param name="outPlane">[OUT] The translated plane.</param>ç
+    inline void Translate(const QBaseVector4 &vTrans, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Translate(vTrans);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Translate(vTrans);
     }
 
     /// <summary>
@@ -834,11 +835,11 @@ public:
     /// <param name="fTranslateX">[IN] Translation amount to be applied in X direction.</param>
     /// <param name="fTranslateY">[IN] Translation amount to be applied in Y direction.</param>
     /// <param name="fTranslateZ">[IN] Translation amount to be applied in Z direction.</param>
-    /// <param name="pOut">[OUT] The translated plane.</param>ç
-    inline void Translate(const float_q &fTranslateX, const float_q &fTranslateY, const float_q &fTranslateZ, QBasePlane &pOut) const
+    /// <param name="outPlane">[OUT] The translated plane.</param>ç
+    inline void Translate(const float_q &fTranslateX, const float_q &fTranslateY, const float_q &fTranslateZ, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Translate(fTranslateX, fTranslateY, fTranslateZ);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Translate(fTranslateX, fTranslateY, fTranslateZ);
     }
 
     /// <summary>
@@ -855,7 +856,7 @@ public:
                         m.ij[2][0], m.ij[2][1], m.ij[2][2], SQFloat::_0,
                         m.ij[3][0], m.ij[3][1], m.ij[3][2], SQFloat::_1);
 
-        reinterpret_cast <QTransformationMatrix<QMatrix4x4> &>(mAux).Reverse();
+        mAux.As <QTransformationMatrix<QMatrix4x4> > ().Reverse();
 
         // The product is implemented using the transpose of m
         QBasePlane pAux(this->a*mAux.ij[0][0] + this->b*mAux.ij[0][1] + this->c*mAux.ij[0][2],
@@ -873,14 +874,14 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [4x3] transformation matrix.</param>
-    /// <param name="pOut">[OUT] The transformed plane.</param>
+    /// <param name="outPlane">[OUT] The transformed plane.</param>
     /// <remarks>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
-    inline void Transform(const QTransformationMatrix<QMatrix4x3> &m, QBasePlane &pOut) const
+    inline void Transform(const QTransformationMatrix<QMatrix4x3> &m, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Transform(m);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Transform(m);
     }
 
     /// <summary>
@@ -912,14 +913,14 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [4x3] transformation matrix.</param>
-    /// <param name="pOut">[OUT] The transformed plane.</param>
+    /// <param name="outPlane">[OUT] The transformed plane.</param>
     /// <remarks>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
-    inline void Transform(const QTransformationMatrix<QMatrix4x4> &m, QBasePlane &pOut) const
+    inline void Transform(const QTransformationMatrix<QMatrix4x4> &m, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Transform(m);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Transform(m);
     }
 
     /// <summary>
@@ -933,7 +934,7 @@ public:
     {
         QMatrix4x4 mAux;
 
-        reinterpret_cast<const QMatrix4x4 &>(m).Reverse(mAux);
+        m.As<const QMatrix4x4> ().Reverse(mAux);
 
         // The product is implemented using the transpose of m
         QBasePlane pAux(this->a*mAux.ij[0][0] + this->b*mAux.ij[0][1] + this->c*mAux.ij[0][2] + this->d*mAux.ij[0][3],
@@ -951,14 +952,14 @@ public:
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="m">[IN] A [4x4] transformation matrix.</param>
-    /// <param name="pOut">[OUT] The transformed plane.</param>
+    /// <param name="outPlane">[OUT] The transformed plane.</param>
     /// <remarks>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
-    inline void Transform(const QSpaceConversionMatrix &m, QBasePlane &pOut) const
+    inline void Transform(const QSpaceConversionMatrix &m, QBasePlane &outPlane) const
     {
-        pOut = *this;
-        reinterpret_cast<QPlane &>(pOut).Transform(m);
+        outPlane = *this;
+        outPlane.As<QPlane> ().Transform(m);
     }
 
     /// <summary>
@@ -995,7 +996,7 @@ public:
     inline void RotateWithPivot(const QQuaternion &qRot, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).RotateWithPivot(qRot, vPivot);
+        outPlane.As<QPlane> ().RotateWithPivot(qRot, vPivot);
     }
 
     /// <summary>
@@ -1009,7 +1010,7 @@ public:
     inline void RotateWithPivot(const QQuaternion &qRot, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).RotateWithPivot(qRot, vPivot);
+        outPlane.As<QPlane> ().RotateWithPivot(qRot, vPivot);
     }
 
     /// <summary>
@@ -1045,7 +1046,7 @@ public:
     inline void RotateWithPivot(const QRotationMatrix3x3 &mRot, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).RotateWithPivot(mRot, vPivot);
+        outPlane.As<QPlane> ().RotateWithPivot(mRot, vPivot);
     }
 
     /// <summary>
@@ -1059,7 +1060,7 @@ public:
     inline void RotateWithPivot(const QRotationMatrix3x3 &mRot, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).RotateWithPivot(mRot, vPivot);
+        outPlane.As<QPlane> ().RotateWithPivot(mRot, vPivot);
     }
 
     /// <summary>
@@ -1104,7 +1105,7 @@ public:
     inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(vScale, vPivot);
+        outPlane.As<QPlane> ().ScaleWithPivot(vScale, vPivot);
     }
 
     /// <summary>
@@ -1121,7 +1122,7 @@ public:
     inline void ScaleWithPivot(const QBaseVector3 &vScale, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(vScale, vPivot);
+        outPlane.As<QPlane> ().ScaleWithPivot(vScale, vPivot);
     }
 
     /// <summary>
@@ -1172,7 +1173,7 @@ public:
     inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+        outPlane.As<QPlane> ().ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
     }
 
     /// <summary>
@@ -1191,7 +1192,7 @@ public:
     inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+        outPlane.As<QPlane> ().ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
     }
 
     /// <summary>
@@ -1236,7 +1237,7 @@ public:
     inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(mScale, vPivot);
+        outPlane.As<QPlane> ().ScaleWithPivot(mScale, vPivot);
     }
 
     /// <summary>
@@ -1253,7 +1254,7 @@ public:
     inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).ScaleWithPivot(mScale, vPivot);
+        outPlane.As<QPlane> ().ScaleWithPivot(mScale, vPivot);
     }
 
     /// <summary>
@@ -1298,7 +1299,7 @@ public:
     inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).TransformWithPivot(mTransf, vPivot);
+        outPlane.As<QPlane> ().TransformWithPivot(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1315,7 +1316,7 @@ public:
     inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).TransformWithPivot(mTransf, vPivot);
+        outPlane.As<QPlane> ().TransformWithPivot(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1360,7 +1361,7 @@ public:
     inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const QVector3 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).TransformWithPivot(mTransf, vPivot);
+        outPlane.As<QPlane> ().TransformWithPivot(mTransf, vPivot);
     }
 
     /// <summary>
@@ -1377,7 +1378,7 @@ public:
     inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const QVector4 &vPivot, QBasePlane &outPlane) const
     {
         outPlane = *this;
-        reinterpret_cast<QPlane &>(outPlane).TransformWithPivot(mTransf, vPivot);
+        outPlane.As<QPlane> ().TransformWithPivot(mTransf, vPivot);
     }
 
     /// <summary>

@@ -106,7 +106,7 @@ public:
     inline void Translate (const VectorType& vTranslate, QBaseOrb<VectorType>& outputSphere) const
     {
         outputSphere = *this;
-        reinterpret_cast<QSphere<VectorType>&> (outputSphere).Translate(vTranslate);
+        outputSphere.template As<QSphere<VectorType> > ().Translate(vTranslate);
     }
 
 	/// <summary>
@@ -130,7 +130,7 @@ public:
     inline void Translate (const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ, QBaseOrb<VectorType>& outputSphere) const
     {
         outputSphere = *this;
-        reinterpret_cast<QSphere<VectorType>&> (outputSphere).Translate(fTranslateX, fTranslateY, fTranslateZ);
+        outputSphere.template As<QSphere<VectorType> > ().Translate(fTranslateX, fTranslateY, fTranslateZ);
     }
 
 	/// <summary>
@@ -150,7 +150,7 @@ public:
     inline void Rotate (const QQuaternion& q, QBaseOrb<VectorType>& outputSphere) const
     {
         outputSphere = *this;
-        reinterpret_cast<QSphere<VectorType>&> (outputSphere).Rotate(q);
+        outputSphere.template As<QSphere<VectorType> > ().Rotate(q);
     }
 
 	/// <summary>
@@ -172,7 +172,7 @@ public:
     inline void RotateWithPivot (const QQuaternion& q, const VectorType& vPivot, QBaseOrb<VectorType>& outputSphere) const
     {
         outputSphere = *this;
-        reinterpret_cast<QSphere<VectorType>&> (outputSphere).RotateWithPivot(q, vPivot);
+        outputSphere.template As<QSphere<VectorType> > ().RotateWithPivot(q, vPivot);
     }
 
  	/// <summary>
@@ -197,7 +197,7 @@ public:
     inline void Scale (const VectorType& vScale, QBaseOrb<VectorType>& outputSphere) const
     {
         outputSphere = *this;
-        reinterpret_cast<QSphere<VectorType>&> (outputSphere).Scale(vScale);
+        outputSphere.template As<QSphere<VectorType> > ().Scale(vScale);
     }
 
  	/// <summary>
@@ -223,7 +223,7 @@ public:
     inline void Scale (const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, QBaseOrb<VectorType>& outputSphere) const
     {
         outputSphere = *this;
-        reinterpret_cast<QSphere<VectorType>&> (outputSphere).Scale(fScaleX, fScaleY, fScaleZ);
+        outputSphere.template As<QSphere<VectorType> > ().Scale(fScaleX, fScaleY, fScaleZ);
     }
 
  	/// <summary>
@@ -250,7 +250,7 @@ public:
     inline void ScaleWithPivot (const VectorType& vScale, const VectorType& vPivot, QBaseOrb<VectorType>& outputSphere) const
     {
         outputSphere = *this;
-        reinterpret_cast<QSphere<VectorType>&> (outputSphere).ScaleWithPivot(vScale, vPivot);
+        outputSphere.template As<QSphere<VectorType> > ().ScaleWithPivot(vScale, vPivot);
     }
 
  	/// <summary>
@@ -282,7 +282,7 @@ public:
     inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot, QBaseOrb<VectorType>& outputSphere) const
     {
         outputSphere = *this;
-        reinterpret_cast<QSphere<VectorType>&> (outputSphere).ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+        outputSphere.template As<QSphere<VectorType> > ().ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
     }
 
     /// <summary>
@@ -292,7 +292,7 @@ public:
 	/// <param name="mRot">[IN] Rotation matrix which contais the rotation to be applied.</param>
 	inline void Rotate (const QRotationMatrix3x3 &mRot)
 	{
-        SQPoint::Rotate(mRot, reinterpret_cast<VectorType*> (&this->Center), 1);
+        SQPoint::Rotate(mRot, &this->Center, 1);
 	}
 
 	/// <summary>
