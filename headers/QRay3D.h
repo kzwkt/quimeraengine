@@ -163,7 +163,7 @@ public:
             if ( this->Contains(ray.Origin) )
                 return true;
             else
-                return ( reinterpret_cast<const QRay3D &> (ray).Contains(this->Origin) );
+                return ( ray.template As<const QRay3D<VectorType> > ().Contains(this->Origin) );
         }
         else // Directions are not parallel
         {
@@ -409,7 +409,7 @@ public:
                 else
                     return EQIntersections::E_Infinite; //Both rays are the same
             }
-            else if ( this->Contains(ray.Origin) || reinterpret_cast<const QRay3D<VectorType> &> (ray).Contains(this->Origin) )
+            else if ( this->Contains(ray.Origin) || ray.template As<const QRay3D<VectorType> > ().Contains(this->Origin) )
                 return EQIntersections::E_Infinite;
             else
                 return EQIntersections::E_None;
@@ -1291,7 +1291,7 @@ public:
 	inline void Rotate (const QQuaternion &qRot, QBaseRay3 &rOut) const
 	{
 	    rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Rotate(qRot);
+	    rOut.template As<QRay3D<VectorType> > ().Rotate(qRot);
 	}
 
     /// <summary>
@@ -1316,7 +1316,7 @@ public:
 	inline void RotateWithPivot (const QQuaternion &qRot, const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).RotateWithPivot(qRot, vPivot);
+	    rOut.template As<QRay3D<VectorType> > ().RotateWithPivot(qRot, vPivot);
 	}
 
     /// <summary>
@@ -1337,7 +1337,7 @@ public:
 	inline void Translate (const QBaseVector3 &vTrans, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Translate(vTrans);
+	    rOut.template As<QRay3D<VectorType> > ().Translate(vTrans);
 	}
 
     /// <summary>
@@ -1362,7 +1362,7 @@ public:
 	inline void Translate (const float_q &fTransX, const float_q &fTransY, const float_q &fTransZ, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Translate(fTransX, fTransY, fTransZ);
+	    rOut.template As<QRay3D<VectorType> > ().Translate(fTransX, fTransY, fTransZ);
 	}
 
     /// <summary>
@@ -1391,7 +1391,7 @@ public:
 	inline void Scale (const QBaseVector3 &vScale, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Scale(vScale);
+	    rOut.template As<QRay3D<VectorType> > ().Scale(vScale);
 	}
 
     /// <summary>
@@ -1424,7 +1424,7 @@ public:
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Scale(vScaleX, vScaleY, vScaleZ);
+	    rOut.template As<QRay3D<VectorType> > ().Scale(vScaleX, vScaleY, vScaleZ);
 	}
 
     /// <summary>
@@ -1456,7 +1456,7 @@ public:
 	inline void ScaleWithPivot (const QBaseVector3 &vScale, const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).ScaleWithPivot(vScale, vPivot);
+	    rOut.template As<QRay3D<VectorType> > ().ScaleWithPivot(vScale, vPivot);
 	}
 
     /// <summary>
@@ -1493,7 +1493,7 @@ public:
                                 const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot);
+	    rOut.template As<QRay3D<VectorType> > ().ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot);
 	}
 
     /// <summary>
@@ -1516,7 +1516,7 @@ public:
 	inline void Rotate (const QRotationMatrix3x3 &mRot, QBaseRay3 &rOut) const
 	{
 	    rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Rotate(mRot);
+	    rOut.template As<QRay3D<VectorType> > ().Rotate(mRot);
 	}
 
     /// <summary>
@@ -1546,7 +1546,7 @@ public:
 	inline void Translate (const QTranslationMatrix<QMatrix4x3> &mTrans, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Translate(mTrans);
+	    rOut.template As<QRay3D<VectorType> > ().Translate(mTrans);
 	}
 
     /// <summary>
@@ -1558,7 +1558,7 @@ public:
 	inline void Translate (const QTranslationMatrix<QMatrix4x4> &mTrans, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Translate(mTrans);
+	    rOut.template As<QRay3D<VectorType> > ().Translate(mTrans);
 	}
 
     /// <summary>
@@ -1587,7 +1587,7 @@ public:
 	inline void Scale (const QScaleMatrix3x3 &mScale, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Scale(mScale);
+	    rOut.template As<QRay3D<VectorType> > ().Scale(mScale);
 	}
 
     /// <summary>
@@ -1623,7 +1623,7 @@ public:
 	/// </remarks>
 	inline void Transform (const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseRay3 &rOut) const	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
+	    rOut.template As<QRay3D<VectorType> > ().Transform(mTransf);
 	}
 
     /// <summary>
@@ -1637,7 +1637,7 @@ public:
 	/// </remarks>
 	inline void Transform (const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseRay3 &rOut) const	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
+	    rOut.template As<QRay3D<VectorType> > ().Transform(mTransf);
 	}
 
 	/// <summary>
@@ -1664,7 +1664,7 @@ public:
 	inline void Transform (const QSpaceConversionMatrix &mTransf, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).Transform(mTransf);
+	    rOut.template As<QRay3D<VectorType> > ().Transform(mTransf);
 	}
 
     /// <summary>
@@ -1689,7 +1689,7 @@ public:
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
 	    rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).RotateWithPivot(mRot, vPivot);
+	    rOut.template As<QRay3D<VectorType> > ().RotateWithPivot(mRot, vPivot);
 	}
 
     /// <summary>
@@ -1721,7 +1721,7 @@ public:
 	inline void ScaleWithPivot (const QScaleMatrix3x3 &mScale, const VectorType &vPivot, QBaseRay3 &rOut) const
 	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).ScaleWithPivot(mScale, vPivot);
+	    rOut.template As<QRay3D<VectorType> > ().ScaleWithPivot(mScale, vPivot);
 	}
 
     /// <summary>
@@ -1762,7 +1762,7 @@ public:
 	/// </remarks>
 	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).TransformWithPivot(mTransf, vPivot);
+	    rOut.template As<QRay3D<VectorType> > ().TransformWithPivot(mTransf, vPivot);
 	}
 
     /// <summary>
@@ -1777,7 +1777,7 @@ public:
 	/// </remarks>
 	inline void TransformWithPivot (const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot, QBaseRay3 &rOut) const	{
         rOut = *this;
-	    reinterpret_cast<QRay3D &> (rOut).TransformWithPivot(mTransf, vPivot);
+	    rOut.template As<QRay3D<VectorType> > ().TransformWithPivot(mTransf, vPivot);
 	}
 
 protected:

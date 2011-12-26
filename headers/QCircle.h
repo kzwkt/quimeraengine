@@ -102,7 +102,8 @@ public:
     inline void Translate (const QBaseVector2& vTranslate, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).Translate(vTranslate);
+        outputCircle.As<QCircle> ().Translate(vTranslate);
+
     }
 
 	/// <summary>
@@ -124,7 +125,7 @@ public:
     inline void Translate (const float_q& fTranslateX, const float_q& fTranslateY, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).Translate(fTranslateX, fTranslateY);
+        outputCircle.As<QCircle> ().Translate(fTranslateX, fTranslateY);
     }
 
 	/// <summary>
@@ -144,7 +145,7 @@ public:
     inline void Rotate (const float_q& fAngle, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).Rotate(fAngle);
+        outputCircle.As<QCircle> ().Rotate(fAngle);
     }
 
 	/// <summary>
@@ -166,7 +167,7 @@ public:
     inline void RotateWithPivot (const float_q& fAngle, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).RotateWithPivot(fAngle, vPivot);
+        outputCircle.As<QCircle> ().RotateWithPivot(fAngle, vPivot);
     }
 
  	/// <summary>
@@ -186,7 +187,7 @@ public:
     inline void Scale (const QBaseVector2& vScale, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).Scale(vScale);
+        outputCircle.As<QCircle> ().Scale(vScale);
     }
 
  	/// <summary>
@@ -208,7 +209,7 @@ public:
     inline void Scale (const float_q& fScaleX, const float_q& fScaleY, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).Scale(fScaleX, fScaleY);
+        outputCircle.As<QCircle> ().Scale(fScaleX, fScaleY);
     }
 
  	/// <summary>
@@ -230,7 +231,7 @@ public:
     inline void ScaleWithPivot (const QBaseVector2& vScale, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).ScaleWithPivot(vScale, vPivot);
+        outputCircle.As<QCircle> ().ScaleWithPivot(vScale, vPivot);
     }
 
  	/// <summary>
@@ -254,7 +255,7 @@ public:
     inline void ScaleWithPivot (const float_q& fScaleX, const float_q& fScaleY, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).ScaleWithPivot(fScaleX, fScaleY, vPivot);
+        outputCircle.As<QCircle> ().ScaleWithPivot(fScaleX, fScaleY, vPivot);
     }
 
  	/// <summary>
@@ -274,7 +275,7 @@ public:
     inline void Transform (const QTransformationMatrix3x3& matrix, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).Transform(matrix);
+        outputCircle.As<QCircle> ().Transform(matrix);
     }
 
  	/// <summary>
@@ -296,7 +297,7 @@ public:
     inline void TransformWithPivot (const QTransformationMatrix3x3& matrix, const QBaseVector2& vPivot, QBaseOrb<QVector2>& outputCircle) const
     {
         outputCircle = *this;
-        reinterpret_cast<QCircle&> (outputCircle).TransformWithPivot(matrix, vPivot);
+        outputCircle.As<QCircle> ().TransformWithPivot(matrix, vPivot);
     }
 
  	/// <summary>

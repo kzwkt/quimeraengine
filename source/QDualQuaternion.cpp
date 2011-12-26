@@ -83,7 +83,9 @@ void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf)
     QDualQuaternion dqConj(dqTransf);
 
     dqConj.DoubleConjugate();
-    *this = ( reinterpret_cast<const QDualQuaternion&>(dqTransf) * (*this) ) * dqConj;
+    *this = ( dqTransf.As<const QDualQuaternion>() * (*this) ) * dqConj;
+
+
 }
 
 string_q QDualQuaternion::ToString() const

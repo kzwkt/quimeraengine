@@ -193,7 +193,7 @@ void QVector4::Transform(const QRotationMatrix3x3 &mRot)
 void QVector4::Transform(const QRotationMatrix3x3 &mRot, QBaseVector4 &vOut) const
 {
     vOut = *this;
-    reinterpret_cast<QVector4&> (vOut).Transform(mRot);
+    vOut.As<QVector4> ().Transform(mRot);
 }
 
 void QVector4::Transform(const QScaleMatrix3x3 &mScale)
@@ -207,7 +207,7 @@ void QVector4::Transform(const QScaleMatrix3x3 &mScale)
 void QVector4::Transform(const QScaleMatrix3x3 &mScale, QBaseVector4 &vOut) const
 {
     vOut = *this;
-    reinterpret_cast<QVector4&> (vOut).Transform(mScale);
+    vOut.As<QVector4> ().Transform(mScale);
 }
 
 
@@ -226,14 +226,14 @@ void QVector4::Transform(const QTranslationMatrix<QMatrix4x4> &mDisp)
 void QVector4::Transform(const QTranslationMatrix<QMatrix4x3> &mDisp, QBaseVector4 &vOut) const
 {
     vOut = *this;
-    reinterpret_cast<QVector4&> (vOut).Transform(mDisp);
+    vOut.As<QVector4> ().Transform(mDisp);
 }
 
 
 void QVector4::Transform(const QTranslationMatrix<QMatrix4x4> &mDisp, QBaseVector4 &vOut) const
 {
     vOut = *this;
-    reinterpret_cast<QVector4&> (vOut).Transform(mDisp);
+    vOut.As<QVector4> ().Transform(mDisp);
 }
 
 
@@ -252,14 +252,14 @@ void QVector4::Transform(const QTransformationMatrix<QMatrix4x4> &mTransf)
 void QVector4::Transform(const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseVector4 &vOut) const
 {
     vOut = *this;
-    reinterpret_cast<QVector4&> (vOut).Transform(mTransf);
+    vOut.As<QVector4> ().Transform(mTransf);
 }
 
 
 void QVector4::Transform(const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseVector4 &vOut) const
 {
     vOut = *this;
-    reinterpret_cast<QVector4&> (vOut).Transform(mTransf);
+    vOut.As<QVector4> ().Transform(mTransf);
 }
 
 
@@ -272,7 +272,7 @@ void QVector4::Transform(const QSpaceConversionMatrix &mTransf)
 void QVector4::Transform(const QSpaceConversionMatrix &mTransf, QBaseVector4 &vOut) const
 {
     vOut = *this;
-    reinterpret_cast<QVector4&> (vOut).Transform(mTransf);
+    vOut.As<QVector4> ().Transform(mTransf);
 }
 
 template <class MatrixType>

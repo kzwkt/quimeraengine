@@ -80,7 +80,7 @@ public:
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	inline void Transform(const QTransformationMatrix3x3& matrix)
 	{
-		SQPoint::Transform(matrix, reinterpret_cast<QVector2*> (this), 3);
+		SQPoint::Transform(matrix, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -89,11 +89,11 @@ public:
 	/// coordinate axis origin.
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="tOutputTriangle">[OUT] 2D Triangle that stores the result of the transformation.</param>
-	inline void Transform(const QTransformationMatrix3x3& matrix, QBaseTriangle2 &tOutputTriangle) const
+	/// <param name="tOut">[OUT] 2D Triangle that stores the result of the transformation.</param>
+	inline void Transform(const QTransformationMatrix3x3& matrix, QBaseTriangle2 &tOut) const
 	{
-		tOutputTriangle= *this;
-		SQPoint::Transform(matrix, reinterpret_cast<QVector2*> (&tOutputTriangle), 3);
+		tOut= *this;
+		SQPoint::Transform(matrix, tOut.AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -104,7 +104,7 @@ public:
 	/// <param name="v2Pivot">[IN] 2D Vector Pivot used for the transformation.</param>
 	inline void TransformWithPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot)
 	{
-		SQPoint::TransformWithPivot(matrix, v2Pivot, reinterpret_cast<QVector2*> (this), 3);
+		SQPoint::TransformWithPivot(matrix, v2Pivot, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -114,11 +114,11 @@ public:
 	/// </summary>
 	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="v2Pivot">[IN] 2D Vector Pivot used for the transformation.</param>
-	/// <param name="tOutputTriangle">[OUT] 2D Triangle that stores the result of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot, QBaseTriangle2 &tOutputTriangle) const
+	/// <param name="tOut">[OUT] 2D Triangle that stores the result of the transformation.</param>
+	inline void TransformWithPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot, QBaseTriangle2 &tOut) const
 	{
-		tOutputTriangle= *this;
-		SQPoint::TransformWithPivot(matrix, v2Pivot, reinterpret_cast<QVector2*> (&tOutputTriangle), 3);
+		tOut= *this;
+		SQPoint::TransformWithPivot(matrix, v2Pivot, tOut.AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -208,7 +208,7 @@ public:
 	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
     inline void Translate(const QBaseVector2 &vTranslation)
 	{
-	    SQPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (this), 3);
+	    SQPoint::Translate(vTranslation, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -220,7 +220,7 @@ public:
 	inline void Translate(const QBaseVector2 &vTranslation, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Translate(vTranslation, reinterpret_cast<QVector2*> (&tOut), 3);
+	    SQPoint::Translate(vTranslation, tOut.AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -230,7 +230,7 @@ public:
 	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
 	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY)
 	{
-	    SQPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (this), 3);
+	    SQPoint::Translate(fTranslationX, fTranslationY, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -243,7 +243,7 @@ public:
 	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Translate(fTranslationX, fTranslationY, reinterpret_cast<QVector2*> (&tOut), 3);
+	    SQPoint::Translate(fTranslationX, fTranslationY, tOut.AsPtr<QVector2> (), 3);
 	}
 
     /// <summary>
@@ -253,7 +253,7 @@ public:
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	inline void Rotate (const float_q &fRotationAngle)
 	{
-        SQPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (this), 3);
+        SQPoint::Rotate(fRotationAngle, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -265,7 +265,7 @@ public:
 	inline void Rotate (const float_q &fRotationAngle, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Rotate(fRotationAngle, reinterpret_cast<QVector2*> (&tOut), 3);
+	    SQPoint::Rotate(fRotationAngle, tOut.AsPtr<QVector2> (), 3);
 	}
 
     /// <summary>
@@ -276,7 +276,7 @@ public:
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
 	inline void RotateWithPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot)
 	{
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -289,7 +289,7 @@ public:
 	inline void RotateWithPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, tOut.AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -298,7 +298,7 @@ public:
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	inline void Scale(const QBaseVector2 &vScale)
 	{
-	    SQPoint::Scale(vScale, reinterpret_cast<QVector2*> (this), 3);
+	    SQPoint::Scale(vScale, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -308,7 +308,7 @@ public:
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	inline void Scale(const float_q &fScaleX, const float_q &fScaleY)
 	{
-	     SQPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (this), 3);
+	     SQPoint::Scale(fScaleX, fScaleY, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -320,7 +320,7 @@ public:
 	inline void Scale(const QBaseVector2 &vScale, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Scale(vScale, reinterpret_cast<QVector2*> (&tOut), 3);
+	    SQPoint::Scale(vScale, tOut.AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -333,7 +333,7 @@ public:
 	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Scale(fScaleX, fScaleY, reinterpret_cast<QVector2*> (&tOut), 3);
+	    SQPoint::Scale(fScaleX, fScaleY, tOut.AsPtr<QVector2> (), 3);
 	}
 
     /// <summary>
@@ -344,7 +344,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
 	{
-	    SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	    SQPoint::ScaleWithPivot(vScale, vPivot, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -356,7 +356,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
 	{
-	     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (this), 3);
+	     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, this->AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -369,7 +369,7 @@ public:
 	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	    SQPoint::ScaleWithPivot(vScale, vPivot, tOut.AsPtr<QVector2> (), 3);
 	}
 
 	/// <summary>
@@ -383,7 +383,7 @@ public:
 	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, reinterpret_cast<QVector2*> (&tOut), 3);
+	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, tOut.AsPtr<QVector2> (), 3);
 	}
 
 };

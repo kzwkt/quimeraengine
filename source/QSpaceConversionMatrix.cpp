@@ -33,15 +33,13 @@ QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionM
 {
     QSpaceConversionMatrix aux;
 
-    // [REVIEW] Thund: Esto debe mejorarse:
-    aux = *reinterpret_cast<QSpaceConversionMatrix*>( &(*reinterpret_cast<const QMatrix4x4*> (this) * *reinterpret_cast<const QMatrix4x4*>(&m)) );
-
+    aux = ( this->As<const QMatrix4x4> () * m.As<const QMatrix4x4> () ).As<QSpaceConversionMatrix> ();
     return aux;
 }
 
 QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &m)
 {
-    reinterpret_cast<QMatrix4x4&>(*this) *= reinterpret_cast<const QMatrix4x4 &>(m);
+    this->As<QMatrix4x4> () *= m.As<const QMatrix4x4> ();
     return *this;
 }
 
@@ -49,14 +47,14 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector3 &vDisp, cons
 {
     QTransformationMatrix<QMatrix4x4> aux(vDisp, qRot, vScale);
 
-    *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
+    *this = aux.As<QSpaceConversionMatrix>();
 }
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector4 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale)
 {
     QTransformationMatrix<QMatrix4x4> aux(vDisp, qRot, vScale);
 
-    *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
+    *this = aux.As<QSpaceConversionMatrix>();
 }
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix<QMatrix4x4> &mDisp, const QTransformationMatrix<QMatrix4x4> &mRot,
@@ -210,12 +208,12 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<Mat
 {
     QTransformationMatrix<QMatrix4x4> aux(mDisp, mRot, mScale);
 
-    *this = reinterpret_cast<QSpaceConversionMatrix&>(aux);
+    *this = aux.As<QSpaceConversionMatrix>();
 }
 
 void QSpaceConversionMatrix::SwitchHandConventionWorldSpaceMatrix()
 {
-    reinterpret_cast<QTransformationMatrix<QMatrix4x4> &>(*this).SwitchHandConvention();
+    this->As<QTransformationMatrix<QMatrix4x4> >().SwitchHandConvention();
 }
 
 } //namespace Math
