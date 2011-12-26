@@ -484,7 +484,7 @@ public:
     inline void Normalize(QBaseVector3 &vOut) const
     {
         vOut = *this;
-        vOut.As<QVector3> ().Normalize();
+        vOut.As<QVector3>().Normalize();
     }
 
     /// <summary>
@@ -504,7 +504,7 @@ public:
     inline void Reverse(QBaseVector3 &vOut) const
     {
         vOut = *this;
-        vOut.As<QVector3> ().Reverse();
+        vOut.As<QVector3>().Reverse();
     }
 
     /// <summary>
@@ -607,7 +607,7 @@ public:
     inline void CrossProduct(const QBaseVector3 &v, QBaseVector3 &vOut) const
     {
         vOut = *this;
-        vOut.As<QVector3> ().CrossProduct(v);
+        vOut.As<QVector3>().CrossProduct(v);
     }
 
     /// <summary>
@@ -631,7 +631,7 @@ public:
     inline void Lerp(const float_q &fFactor, const QBaseVector3 &v, QBaseVector3 &vOut) const
     {
         vOut = *this;
-        vOut.As<QVector3> ().Lerp(fFactor, v);
+        vOut.As<QVector3>().Lerp(fFactor, v);
     }
 
     /// <summary>
@@ -668,7 +668,7 @@ public:
     inline void Transform(const QQuaternion &qR, QBaseVector3 &vOut) const
     {
         vOut = *this;
-        vOut.As<QVector3> ().Transform(qR);
+        vOut.As<QVector3>().Transform(qR);
     }
 
     /// <summary>
@@ -691,7 +691,7 @@ public:
     inline void Transform(const QDualQuaternion &dqTransf, QBaseVector3 &vOut) const
     {
         vOut = *this;
-        vOut.As<QVector3> ().Transform(dqTransf);
+        vOut.As<QVector3>().Transform(dqTransf);
     }
 
     /// <summary>

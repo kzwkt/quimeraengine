@@ -443,7 +443,7 @@ public:
     {
         QBaseQuaternion resQuat;
 
-        qQuat.As<const QQuaternion> ().Reverse(resQuat);
+        qQuat.As<const QQuaternion>().Reverse(resQuat);
 
         this->operator*=(resQuat);
 
@@ -509,7 +509,7 @@ public:
     inline void Normalize(QBaseQuaternion &qQuat) const
     {
         qQuat = *this;
-        qQuat.As<QQuaternion> ().Normalize();
+        qQuat.As<QQuaternion>().Normalize();
     }
 
     /// <summary>
@@ -545,7 +545,7 @@ public:
     inline void Reverse(QBaseQuaternion &qQuat) const
     {
         qQuat = *this;
-        qQuat.As<QQuaternion> ().Reverse();
+        qQuat.As<QQuaternion>().Reverse();
     }
 
     /// <summary>
@@ -569,7 +569,7 @@ public:
 	inline void UnitReverse(QBaseQuaternion &qQuat) const
 	{
         qQuat = *this;
-        qQuat.As<QQuaternion> ().Conjugate();
+        qQuat.As<QQuaternion>().Conjugate();
 	}
 
     /// <summary>
@@ -651,7 +651,7 @@ public:
     inline void Conjugate(QBaseQuaternion &qQuat) const
     {
         qQuat = *this;
-        qQuat.As<QQuaternion> ().Conjugate();
+        qQuat.As<QQuaternion>().Conjugate();
     }
 
     /// <summary>
@@ -681,7 +681,7 @@ public:
     inline void Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion, QBaseQuaternion &qOutQuat) const
     {
         qOutQuat = *this;
-        qOutQuat.As<QQuaternion> ().Lerp(qQuat, fProportion);
+        qOutQuat.As<QQuaternion>().Lerp(qQuat, fProportion);
     }
 
     /// <summary>
@@ -729,7 +729,7 @@ public:
     inline void Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion, QBaseQuaternion &qOutQuat) const
     {
         qOutQuat = *this;
-        qOutQuat.As<QQuaternion> ().Slerp(qQuat, fProportion);
+        qOutQuat.As<QQuaternion>().Slerp(qQuat, fProportion);
     }
 
 
@@ -778,7 +778,7 @@ public:
     inline void UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion, QBaseQuaternion &qOutQuat) const
     {
         qOutQuat = *this;
-        qOutQuat.As<QQuaternion> ().UnitSlerp(qQuat, fProportion);
+        qOutQuat.As<QQuaternion>().UnitSlerp(qQuat, fProportion);
     }
 
     /// <summary>

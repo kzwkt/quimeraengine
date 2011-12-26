@@ -219,7 +219,7 @@ public:
 	/// </remarks>
     inline EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint) const
     {
-        return QRay<QVector2, QVector2>::IntersectionPoint(orb, vPoint.As <QVector2> ());
+        return QRay<QVector2, QVector2>::IntersectionPoint(orb, vPoint.As <QVector2>());
     }
 
 	/// <summary>
@@ -242,7 +242,7 @@ public:
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint1, QBaseVector2 &vPoint2) const
     {
-        return QRay<QVector2, QVector2>::IntersectionPoint(orb, vPoint1.As <QVector2> (), vPoint2.As <QVector2> ());
+        return QRay<QVector2, QVector2>::IntersectionPoint(orb, vPoint1.As <QVector2>(), vPoint2.As <QVector2>());
     }
 
 	/// <summary>
@@ -463,7 +463,7 @@ public:
 	inline void Transform(const QTransformationMatrix3x3 &mTransf, QBaseRay2 &rOut)
 	{
 	    rOut = *this;
-	    rOut.As <QRay2D> ().Transform(mTransf);
+	    rOut.As <QRay2D>().Transform(mTransf);
 	}
 
     /// <summary>
@@ -472,7 +472,7 @@ public:
 	/// <param name="fAngle">[IN] Angle of rotation.</param>
 	inline void Rotate (const float_q &fAngle)
 	{
-        SQPoint::Rotate(fAngle, this->AsPtr<QVector2> (), 2);
+        SQPoint::Rotate(fAngle, this->AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -484,7 +484,7 @@ public:
 	inline void Rotate (const float_q &fAngle, QBaseRay2 &rOut) const
 	{
 	    rOut = *this;
-	    rOut.As <QRay2D> ().Rotate(fAngle);
+	    rOut.As <QRay2D>().Rotate(fAngle);
 	}
 
     /// <summary>
@@ -508,7 +508,7 @@ public:
 	inline void RotateWithPivot (const float_q &fAngle, const QBaseVector2 &vPivot, QBaseRay2 &rOut) const
 	{
         rOut = *this;
-	    rOut.As <QRay2D> ().RotateWithPivot(fAngle, vPivot);
+	    rOut.As <QRay2D>().RotateWithPivot(fAngle, vPivot);
 	}
 
     /// <summary>
@@ -529,7 +529,7 @@ public:
 	inline void Translate (const QBaseVector2 &vTrans, QBaseRay2 &rOut) const
 	{
         rOut = *this;
-	    rOut.As <QRay2D> ().Translate(vTrans);
+	    rOut.As <QRay2D>().Translate(vTrans);
 	}
 
     /// <summary>
@@ -552,7 +552,7 @@ public:
 	inline void Translate (const float_q &fTransX, const float_q &fTransY, QBaseRay2 &rOut) const
 	{
         rOut = *this;
-	    rOut.As <QRay2D> ().Translate(fTransX, fTransY);
+	    rOut.As <QRay2D>().Translate(fTransX, fTransY);
 	}
 
     /// <summary>
@@ -564,7 +564,7 @@ public:
 	/// </remarks>
 	inline void Scale (const QBaseVector2 &vScale)
 	{
-        SQPoint::Scale(vScale, this->AsPtr<QVector2> (), 2);
+        SQPoint::Scale(vScale, this->AsPtr<QVector2>(), 2);
         this->Direction.Normalize();
 	}
 
@@ -580,7 +580,7 @@ public:
 	inline void Scale (const QBaseVector2 &vScale, QBaseRay2 &rOut) const
 	{
         rOut = *this;
-	    rOut.As <QRay2D> ().Scale(vScale);
+	    rOut.As <QRay2D>().Scale(vScale);
 	}
 
     /// <summary>
@@ -593,7 +593,7 @@ public:
 	/// </remarks>
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY)
 	{
-        SQPoint::Scale(vScaleX, vScaleY, this->AsPtr<QVector2> (), 2);
+        SQPoint::Scale(vScaleX, vScaleY, this->AsPtr<QVector2>(), 2);
         this->Direction.Normalize();
 	}
 
@@ -610,7 +610,7 @@ public:
 	inline void Scale (const float_q &vScaleX, const float_q &vScaleY, QBaseRay2 &rOut) const
 	{
         rOut = *this;
-	    rOut.As <QRay2D> ().Scale(vScaleX, vScaleY);
+	    rOut.As <QRay2D>().Scale(vScaleX, vScaleY);
 	}
 
     /// <summary>
@@ -642,7 +642,7 @@ public:
 	inline void ScaleWithPivot (const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseRay2 &rOut) const
 	{
         rOut = *this;
-	    rOut.As <QRay2D> ().ScaleWithPivot(vScale, vPivot);
+	    rOut.As <QRay2D>().ScaleWithPivot(vScale, vPivot);
 	}
 
     /// <summary>
@@ -676,7 +676,7 @@ public:
 	inline void ScaleWithPivot (const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot, QBaseRay2 &rOut) const
 	{
         rOut = *this;
-	    rOut.As <QRay2D> ().ScaleWithPivot(vScaleX, vScaleY, vPivot);
+	    rOut.As <QRay2D>().ScaleWithPivot(vScaleX, vScaleY, vPivot);
 	}
 
     /// <summary>
@@ -714,7 +714,7 @@ public:
 	inline void TransformWithPivot (const QTransformationMatrix3x3 &mTransf, const QBaseVector2 &vPivot, QBaseRay2 &rOut) const
 	{
         rOut = *this;
-	    rOut.As <QRay2D> ().TransformWithPivot(mTransf, vPivot);
+	    rOut.As <QRay2D>().TransformWithPivot(mTransf, vPivot);
 	}
 
 protected:

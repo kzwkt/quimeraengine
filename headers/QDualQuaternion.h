@@ -507,7 +507,7 @@ public:
     inline void Transform(const QBaseDualQuaternion &dqTransf, QBaseDualQuaternion &dqOut) const
     {
         dqOut = *this;
-        dqOut.As<QDualQuaternion> ().Transform(dqTransf);
+        dqOut.As<QDualQuaternion>().Transform(dqTransf);
     }
 
     /// <summary>
@@ -539,7 +539,7 @@ public:
     void TransformRotationFirst(const QBaseQuaternion &qR, const QBaseVector3 &vD, QBaseDualQuaternion &dqOut) const
     {
         dqOut = *this;
-        dqOut.As<QDualQuaternion> ().TransformRotationFirst(qR, vD);
+        dqOut.As<QDualQuaternion>().TransformRotationFirst(qR, vD);
     }
 
     /// <summary>
@@ -551,7 +551,7 @@ public:
     void TransformRotationFirst(const QBaseQuaternion &qR, const QBaseVector4 &vD, QBaseDualQuaternion &dqOut) const
     {
         dqOut = *this;
-        dqOut.As<QDualQuaternion> ().TransformRotationFirst(qR, vD);
+        dqOut.As<QDualQuaternion>().TransformRotationFirst(qR, vD);
     }
 
     /// <summary>
@@ -583,7 +583,7 @@ public:
     void TransformTranslationFirst(const QBaseVector3 &vD, const QBaseQuaternion &qR, QBaseDualQuaternion &dqOut) const
     {
         dqOut = *this;
-        dqOut.As<QDualQuaternion> ().TransformTranslationFirst(vD, qR);
+        dqOut.As<QDualQuaternion>().TransformTranslationFirst(vD, qR);
     }
 
     /// <summary>
@@ -595,7 +595,7 @@ public:
     void TransformTranslationFirst(const QBaseVector4 &vD, const QBaseQuaternion &qR, QBaseDualQuaternion &dqOut) const
     {
         dqOut = *this;
-        dqOut.As<QDualQuaternion> ().TransformTranslationFirst(vD, qR);
+        dqOut.As<QDualQuaternion>().TransformTranslationFirst(vD, qR);
     }
 
     /// <summary>
@@ -647,7 +647,7 @@ public:
     inline void Lerp(const float_q &fProp, const QBaseDualQuaternion &dqQ2, QBaseDualQuaternion &dqOut)
     {
         dqOut = *this;
-        dqOut.As<QDualQuaternion> ().Lerp(fProp, dqQ2);
+        dqOut.As<QDualQuaternion>().Lerp(fProp, dqQ2);
     }
 
     /// <summary>

@@ -108,7 +108,7 @@ public:
     inline void Reverse(QBaseRay<VectorTypeOrigin, VectorTypeDirection>& vRevertedRay) const
     {
         vRevertedRay = *this;
-        vRevertedRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> > ().Reverse();
+        vRevertedRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> >().Reverse();
     }
 
     /// <summary>
@@ -126,7 +126,7 @@ public:
     inline void Normalize(QBaseRay<VectorTypeOrigin, VectorTypeDirection>& vNormalizedRay) const
     {
         vNormalizedRay = *this;
-        vNormalizedRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> > ().Normalize();
+        vNormalizedRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> >().Normalize();
     }
 
     /// <summary>

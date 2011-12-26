@@ -185,7 +185,7 @@ void QVector3::Transform(const QRotationMatrix3x3 &mRot)
 void QVector3::Transform(const QRotationMatrix3x3 &mRot, QBaseVector3 &vOut) const
 {
     vOut = *this;
-    vOut.As<QVector3> ().Transform(mRot);
+    vOut.As<QVector3>().Transform(mRot);
 }
 
 void QVector3::Transform(const QScaleMatrix3x3 &mScale)
@@ -198,7 +198,7 @@ void QVector3::Transform(const QScaleMatrix3x3 &mScale)
 void QVector3::Transform(const QScaleMatrix3x3 &mScale, QBaseVector3 &vOut) const
 {
     vOut = *this;
-    vOut.As<QVector3> ().Transform(mScale);
+    vOut.As<QVector3>().Transform(mScale);
 }
 
 void QVector3::Transform(const QTranslationMatrix<QMatrix4x3> &mDisp)
@@ -214,13 +214,13 @@ void QVector3::Transform(const QTranslationMatrix<QMatrix4x4> &mDisp)
 void QVector3::Transform(const QTranslationMatrix<QMatrix4x3> &mDisp, QBaseVector3 &vOut) const
 {
     vOut = *this;
-    vOut.As<QVector3> ().Transform(mDisp);
+    vOut.As<QVector3>().Transform(mDisp);
 }
 
 void QVector3::Transform(const QTranslationMatrix<QMatrix4x4> &mDisp, QBaseVector3 &vOut) const
 {
     vOut = *this;
-    vOut.As<QVector3> ().Transform(mDisp);
+    vOut.As<QVector3>().Transform(mDisp);
 }
 
 void QVector3::Transform(const QTransformationMatrix<QMatrix4x3> &mTransf)
@@ -236,20 +236,20 @@ void QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &mTransf)
 void QVector3::Transform(const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseVector3 &vOut) const
 {
     vOut = *this;
-    vOut.As<QVector3> ().Transform(mTransf);
+    vOut.As<QVector3>().Transform(mTransf);
 }
 
 void QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseVector3 &vOut) const
 {
     vOut = *this;
-    vOut.As<QVector3> ().Transform(mTransf);
+    vOut.As<QVector3>().Transform(mTransf);
 }
 
 
 void QVector3::Transform(const QSpaceConversionMatrix &mTransf, QBaseVector3 &vOut) const
 {
     vOut = *this;
-    vOut.As<QVector3> ().Transform(mTransf);
+    vOut.As<QVector3>().Transform(mTransf);
 }
 
 template <class MatrixType>
