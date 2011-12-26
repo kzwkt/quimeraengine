@@ -84,7 +84,7 @@ public:
 	/// <param name="vNormalVector">[OUT] Vector that will contain the normal vector.</param>
 	inline void GetNormal(QBaseVector3& vNormalVector) const
 	{
-		this->GetNormalImp(vNormalVector.As<QVector3> ());
+		this->GetNormalImp(vNormalVector.As<QVector3>());
 	}
 
 	/// <summary>
@@ -94,7 +94,7 @@ public:
 	/// <param name="vNormalVector">[OUT] Vector that will contain the normal vector.</param>
 	inline void GetNormal(QBaseVector4& vNormalVector) const
 	{
-		this->GetNormalImp(vNormalVector.As<QVector4> ());
+		this->GetNormalImp(vNormalVector.As<QVector4>());
 	}
 
 	/// <summary>
@@ -130,7 +130,7 @@ public:
 	/// <param name="vTrans">[IN] Vector which contains the translation to be applied.</param>
     inline void Translate(const QBaseVector3 &vTrans)
 	{
-		SQPoint::Translate(vTrans, this->template AsPtr<VectorType> (), 3);
+		SQPoint::Translate(vTrans, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -142,7 +142,7 @@ public:
 	inline void Translate(const QBaseVector3 &vTrans, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		SQPoint::Translate(vTrans, tOut.template AsPtr<VectorType> (), 3);
+		SQPoint::Translate(vTrans, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -153,7 +153,7 @@ public:
 	/// <param name="fTranslateZ">[IN] Scalar value that contains the translation on Z axis.</param>
 	inline void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ)
 	{
-		SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, this->template AsPtr<VectorType> (), 3);
+		SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -167,7 +167,7 @@ public:
 	inline void Translate(const float_q& fTranslateX, const float_q& fTranslateY, const float_q& fTranslateZ, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, tOut.template AsPtr<VectorType> (), 3);
+		SQPoint::Translate(fTranslateX, fTranslateY, fTranslateZ, tOut.template AsPtr<VectorType>(), 3);
 	}
 
     /// <summary>
@@ -176,7 +176,7 @@ public:
 	/// <param name="mTrans">[IN] The [4x3] translation matrix to be applied.</param>
 	inline void Translate(const QTranslationMatrix<QMatrix4x3> &mTrans)
 	{
-	    SQPoint::Translate(mTrans, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::Translate(mTrans, this->template AsPtr<VectorType>(), 3);
 	}
 
     /// <summary>
@@ -185,7 +185,7 @@ public:
 	/// <param name="mTrans">[IN] The [4x4] translation matrix to be applied.</param>
 	inline void Translate(const QTranslationMatrix<QMatrix4x4> &mTrans)
 	{
-	    SQPoint::Translate(mTrans, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::Translate(mTrans, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -197,7 +197,7 @@ public:
 	inline void Translate(const QTranslationMatrix<QMatrix4x3> &mTrans, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Translate(mTrans, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::Translate(mTrans, tOut.template AsPtr<VectorType>(), 3);
 	}
 
     /// <summary>
@@ -209,7 +209,7 @@ public:
 	inline void Translate(const QTranslationMatrix<QMatrix4x4> &mTrans, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Translate(mTrans, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::Translate(mTrans, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -219,7 +219,7 @@ public:
 	/// <param name="qRot">[IN] Quaternion which contais the rotation to be applied.</param>
 	inline void Rotate(const QQuaternion &qRot)
 	{
-	    SQPoint::Rotate(qRot, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::Rotate(qRot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -231,7 +231,7 @@ public:
 	inline void Rotate(const QQuaternion& qRot, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-	    SQPoint::Rotate(qRot, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::Rotate(qRot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -240,7 +240,7 @@ public:
 	/// <param name="mRot">[IN] Rotation matrix to be applied.</param>
 	inline void Rotate(const QRotationMatrix3x3 &mRot)
 	{
-	    SQPoint::Rotate(mRot, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::Rotate(mRot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -252,7 +252,7 @@ public:
 	inline void Rotate(const QRotationMatrix3x3 &mRot, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Rotate(mRot, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::Rotate(mRot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -263,7 +263,7 @@ public:
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
 	inline void RotateWithPivot(const QQuaternion& qRot, const VectorType& vPivot)
 	{
-		SQPoint::RotateWithPivot(qRot, vPivot, this->template AsPtr<VectorType> (), 3);
+		SQPoint::RotateWithPivot(qRot, vPivot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -276,7 +276,7 @@ public:
 	inline void RotateWithPivot(const QQuaternion& qRot, const VectorType& vPivot, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-	    SQPoint::RotateWithPivot(qRot, vPivot, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::RotateWithPivot(qRot, vPivot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -285,7 +285,7 @@ public:
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	inline void Scale(const QBaseVector3 &vScale)
 	{
-	    SQPoint::Scale(vScale, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::Scale(vScale, this->template AsPtr<VectorType>(), 3);
 	}
 
 
@@ -298,7 +298,7 @@ public:
 	inline void Scale(const QBaseVector3 &vScale, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		SQPoint::Scale(vScale, tOut.template AsPtr<VectorType> (), 3);
+		SQPoint::Scale(vScale, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -309,7 +309,7 @@ public:
 	/// <param name="fScaleZ">[IN] Scalar value that contains the scale on Z axis.</param>
 	inline void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ)
 	{
-		SQPoint::Scale(fScaleX, fScaleY, fScaleZ, this->template AsPtr<VectorType> (), 3);
+		SQPoint::Scale(fScaleX, fScaleY, fScaleZ, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -323,7 +323,7 @@ public:
 	inline void Scale(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		SQPoint::Scale(fScaleX, fScaleY, fScaleZ, tOut.template AsPtr<VectorType> (), 3);
+		SQPoint::Scale(fScaleX, fScaleY, fScaleZ, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -332,7 +332,7 @@ public:
 	/// <param name="mScale">[IN] Scale matrix to be applied.</param>
 	inline void Scale(const QScaleMatrix3x3 &mScale)
 	{
-	    SQPoint::Scale(mScale, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::Scale(mScale, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -343,7 +343,7 @@ public:
 	inline void Scale(const QScaleMatrix3x3 &mScale, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Scale(mScale, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::Scale(mScale, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -354,7 +354,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const QBaseVector3 &vScale, const VectorType& vPivot)
 	{
-		 SQPoint::ScaleWithPivot(vScale, vPivot, this->template AsPtr<VectorType> (), 3);
+		 SQPoint::ScaleWithPivot(vScale, vPivot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -367,7 +367,7 @@ public:
 	inline void ScaleWithPivot(const QBaseVector3 &vScale, const VectorType& vPivot, QBaseTriangle<VectorType> & tOut) const
 	{
 		tOut = *this;
-		SQPoint::ScaleWithPivot(vScale, vPivot, tOut.template AsPtr<VectorType> (), 3);
+		SQPoint::ScaleWithPivot(vScale, vPivot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -380,7 +380,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot)
 	{
-		SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, this->template AsPtr<VectorType> (), 3);
+		SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -396,7 +396,7 @@ public:
                                 QBaseTriangle<VectorType> &tOut) const
 	{
 		tOut = *this;
-		SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, tOut.template AsPtr<VectorType> (), 3);
+		SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -405,7 +405,7 @@ public:
 	/// <param name="mTransf">[IN] A [4x3] transformation matrix to be applied.</param>
 	inline void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf)
 	{
-	    SQPoint::Transform(mTransf, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::Transform(mTransf, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -414,7 +414,7 @@ public:
 	/// <param name="mTransf">[IN] A [4x4] transformation matrix to be applied.</param>
 	inline void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf)
 	{
-	    SQPoint::Transform(mTransf, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::Transform(mTransf, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -426,7 +426,7 @@ public:
 	inline void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Transform(mTransf, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::Transform(mTransf, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -438,7 +438,7 @@ public:
 	inline void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseTriangle<VectorType> tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::Transform(mTransf, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::Transform(mTransf, tOut.template AsPtr<VectorType>(), 3);
 	}
 
     /// <summary>
@@ -449,7 +449,7 @@ public:
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot)
 	{
-	    SQPoint::RotateWithPivot(mRot, vPivot, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::RotateWithPivot(mRot, vPivot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -466,7 +466,7 @@ public:
 	inline void RotateWithPivot (const QRotationMatrix3x3 &mRot, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::RotateWithPivot(mRot, vPivot, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::RotateWithPivot(mRot, vPivot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
     /// <summary>
@@ -477,7 +477,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot)
 	{
-	    SQPoint::ScaleWithPivot(mScale, vPivot, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::ScaleWithPivot(mScale, vPivot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -490,7 +490,7 @@ public:
 	inline void ScaleWithPivot(const QScaleMatrix3x3 &mScale, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::ScaleWithPivot(mScale, vPivot, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::ScaleWithPivot(mScale, vPivot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -501,7 +501,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot)
 	{
-	    SQPoint::TransformWithPivot(mTransf, vPivot, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -514,7 +514,7 @@ public:
 	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::TransformWithPivot(mTransf, vPivot, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
     /// <summary>
@@ -525,7 +525,7 @@ public:
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot)
 	{
-	    SQPoint::TransformWithPivot(mTransf, vPivot, this->template AsPtr<VectorType> (), 3);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, this->template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -538,7 +538,7 @@ public:
 	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &mTransf, const VectorType &vPivot, QBaseTriangle<VectorType> &tOut) const
 	{
 	    tOut = *this;
-	    SQPoint::TransformWithPivot(mTransf, vPivot, tOut.template AsPtr<VectorType> (), 3);
+	    SQPoint::TransformWithPivot(mTransf, vPivot, tOut.template AsPtr<VectorType>(), 3);
 	}
 
 	/// <summary>
@@ -592,7 +592,7 @@ public:
 	inline void Extrude(const float_q& fAmount, QBaseTriangle<VectorType>& tOut) const
 	{
 		tOut = *this;
-		tOut.template As<QTriangle3D<VectorType> > ().Extrude(fAmount);
+		tOut.template As<QTriangle3D<VectorType> >().Extrude(fAmount);
 	}
 
     /// <summary>

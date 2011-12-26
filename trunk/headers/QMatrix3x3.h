@@ -492,7 +492,7 @@ public:
     inline bool Reverse(QBaseMatrix3x3 &m) const
     {
         m = *this;
-        return m.As<QMatrix3x3> ().Reverse();
+        return m.As<QMatrix3x3>().Reverse();
     }
 
     /// <summary>

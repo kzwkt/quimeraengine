@@ -33,13 +33,13 @@ QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionM
 {
     QSpaceConversionMatrix aux;
 
-    aux = ( this->As<const QMatrix4x4> () * m.As<const QMatrix4x4> () ).As<QSpaceConversionMatrix> ();
+    aux = ( this->As<const QMatrix4x4>() * m.As<const QMatrix4x4>() ).As<QSpaceConversionMatrix>();
     return aux;
 }
 
 QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &m)
 {
-    this->As<QMatrix4x4> () *= m.As<const QMatrix4x4> ();
+    this->As<QMatrix4x4>() *= m.As<const QMatrix4x4>();
     return *this;
 }
 

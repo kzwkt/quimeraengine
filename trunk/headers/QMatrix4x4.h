@@ -406,7 +406,7 @@ public:
 	inline void Transpose(QBaseMatrix4x4 &m) const
 	{
         m = *this;
-        m.As<QMatrix4x4> ().Transpose();
+        m.As<QMatrix4x4>().Transpose();
 	}
 
 	/// <summary>
@@ -558,7 +558,7 @@ public:
 	bool Reverse(QBaseMatrix4x4 &m) const
     {
         m = *this;
-        return m.As<QMatrix4x4> ().Reverse();
+        return m.As<QMatrix4x4>().Reverse();
     }
 	/// <summary>
 	/// Converts matrix into a string with the following format:
