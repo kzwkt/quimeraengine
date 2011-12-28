@@ -75,4 +75,43 @@ const unsigned int QE_VERSION_REVISION = 0;
 #define ccast_q(type, object) const_cast<type>(object)
 
 
+// --------------------------------------------------------------------------------------------------------
+// Assertions: Defines assertion statement behavior.
+// --------------------------------------------------------------------------------------------------------
+#ifndef QE_DISABLE_ASSERTS // This definition must be included as client application's preprocessor definitions to disable assert statements
+
+    #ifdef QE_ASSERT_THROWS_EXCEPTION // This definition must be included as client application's preprocessor definitions to make assertion throw exceptions. This is used for testing purposes
+        #include <exception>
+        #define QE_ASSERT(expr) { if(!(expr)) throw new std::exception(); } // TODO [Thund]: Create an special exception class for this
+    #else
+        #ifdef QE_COMPILER_GCC
+            namespace // Anonymous namespace to make it internally linked
+            {
+                /// <summary>
+                /// Special behaviour for using GDB so it stops at the line the assertion fails and let the
+                /// developer to continue debugging from there on advance.
+                /// </summary>
+                QDllExport void QE_ASSERT_FAILED()
+                {
+                    asm("int $3");
+                }
+            }
+
+            #define QE_ASSERT(expr) (expr) ? (void(0)) : QE_ASSERT_FAILED() // This sentence makes GDB to stop at the failing line and continue the execution later
+        #else
+            #include <boost/assert.hpp>
+
+            #ifdef BOOST_ASSERT
+                #define QE_ASSERT(expr) BOOST_ASSERT(expr)
+            #endif
+        #endif
+    #endif
+
+#endif
+
+#ifndef QE_ASSERT
+    #define QE_ASSERT(expr)
+#endif
+
+
 #endif // __INTERNALDEFINITIONS__
