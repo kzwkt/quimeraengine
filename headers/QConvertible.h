@@ -42,7 +42,7 @@ public:
     template<class TargetType>
     inline TargetType& As()
     {
-        return rcast_q(TargetType&, *this);
+        return rcast_q(*this, TargetType&);
     }
 
     /// <summary>
@@ -54,7 +54,7 @@ public:
     template<class TargetType>
     inline TargetType& As() const
     {
-        return rcast_q(TargetType&, *this);
+        return rcast_q(*this, TargetType&);
     }
 
     /// <summary>
@@ -66,7 +66,7 @@ public:
     template<class TargetType>
     inline TargetType* AsPtr()
     {
-        return rcast_q(TargetType*, this);
+        return rcast_q(this, TargetType*);
     }
 
     /// <summary>
@@ -78,7 +78,7 @@ public:
     template<class TargetType>
     inline TargetType* AsPtr() const
     {
-        return rcast_q(TargetType*, this);
+        return rcast_q(this, TargetType*);
     }
 };
 
