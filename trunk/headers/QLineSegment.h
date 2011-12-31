@@ -3,7 +3,7 @@
 #ifndef __QLINESEGMENT__
 #define __QLINESEGMENT__
 
-#include "MathDefinitions.h"
+//#include "MathDefinitions.h"
 #include "EQIntersections.h"
 #include "QBaseLineSegment.h"
 #include "QBaseOrb.h"

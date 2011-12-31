@@ -119,7 +119,8 @@ public:
          return QLineSegment<QVector2>::Intersection(orb);
     };
 
-	// This method receives a 2D triangle, and computes whether they intersect each other or not.
+    /// <summary>
+	/// This method receives a 2D triangle, and computes whether they intersect each other or not.
 	/// </summary>
 	/// <param name="triangl">[IN] The 2D triangle to be compared to.</param>
 	/// <returns>
