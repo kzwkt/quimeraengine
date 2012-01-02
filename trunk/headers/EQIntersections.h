@@ -66,7 +66,7 @@ public:
     /// </summary>
     /// <param name="nValue">An integer number.</param>
     template<typename IntegerType>
-    inline EQIntersections(const IntegerType &nValue) : m_value(static_cast<const EQIntersections::EnumType>(nValue))
+    inline EQIntersections(const IntegerType &nValue) : m_value(scast_q(nValue, const EQIntersections::EnumType))
     {}
 
     /// <summary>
@@ -89,7 +89,7 @@ public:
     template<typename IntegerType>
     inline EQIntersections& operator=(const IntegerType &nValue)
     {
-        m_value = static_cast<const EQIntersections::EnumType>(nValue);
+        m_value = scast_q(nValue, const EQIntersections::EnumType);
         return *this;
     }
 
@@ -150,7 +150,7 @@ public:
     template<typename IntegerType>
     inline bool operator==(const IntegerType &nValue) const
     {
-        return m_value == static_cast<const EQIntersections::EnumType>(nValue);
+        return m_value == scast_q(nValue, const EQIntersections::EnumType);
     }
 
 
@@ -188,7 +188,7 @@ public:
     template<typename IntegerType>
     operator IntegerType() const
     {
-        return static_cast<IntegerType>(m_value);
+        return scast_q(m_value, IntegerType);
     }
 
 

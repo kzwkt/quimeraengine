@@ -614,7 +614,7 @@ public:
         QRotationMatrix3x3 mAux;
 
         this->ToRotationMatrix3x3(mAux);
-        mAux.GetRotation(static_cast<QQuaternion&>(qRot));
+        mAux.GetRotation(qRot.As<QQuaternion>());
     }
 
     /// <summary>

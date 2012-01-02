@@ -336,7 +336,7 @@ public:
             QE_ASSERT( fValue >= MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED );
 
             // When the value is out of the convertible bounds (using fast conversion), standard conversion is used
-            outInteger = static_cast<IntegerType>(fValue);
+            outInteger = scast_q(fValue, IntegerType);
         }
         else
         {

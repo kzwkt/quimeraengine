@@ -28,7 +28,7 @@ class EQSpaceRelation
     // ENUMERATIONS
     // ---------------
 public:
-    
+
     /// <summary>
     /// The encapsulated enumeration.
     /// </summary>
@@ -38,7 +38,7 @@ public:
         E_PositiveSide, /*!< The geometric element is in front of the plane. */
         E_NegativeSide, /*!< The geometric element is in behind the plane. */
         E_BothSides, /*!< The geometric element intersects the plane. Part of the element is in front of the plane and other part is behind it. */
-        
+
         _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };
 
@@ -53,22 +53,22 @@ public:
 	// METHODS
 	// ---------------
 public:
-    
+
     /// <summary>
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">A valid enumeration value.</param>
-    inline EQSpaceRelation(const EQSpaceRelation::EnumType &eValue) : m_value(eValue) 
+    inline EQSpaceRelation(const EQSpaceRelation::EnumType &eValue) : m_value(eValue)
     {}
-    
+
     /// <summary>
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">An integer number.</param>
     template<typename IntegerType>
-    inline EQSpaceRelation(const IntegerType &nValue) : m_value(static_cast<const EQSpaceRelation::EnumType>(nValue))
+    inline EQSpaceRelation(const IntegerType &nValue) : m_value(scast_q(nValue, const EQSpaceRelation::EnumType))
     {}
-    
+
     /// <summary>
     /// Constructor that receives the name of a valid enumeration value. Note that enumeration value names don't include
     /// the enumeration prefix.
@@ -78,7 +78,7 @@ public:
     {
         *this = strValueName;
     }
-    
+
     /// <summary>
     /// Assign operator that accepts an integer number that corresponds to a valid enumeration value.
     /// </summary>
@@ -89,10 +89,10 @@ public:
     template<typename IntegerType>
     inline EQSpaceRelation& operator=(const IntegerType &nValue)
     {
-        m_value = static_cast<const EQSpaceRelation::EnumType>(nValue);
+        m_value = scast_q(nValue, const EQSpaceRelation::EnumType);
         return *this;
     }
-    
+
     /// <summary>
     /// Assign operator that accepts a valid enumeration value name.
     /// </summary>
@@ -109,7 +109,7 @@ public:
 
         return *this;
     }
-    
+
     /// <summary>
     /// Assign operator that accepts a valid enumeration value.
     /// </summary>
@@ -122,7 +122,7 @@ public:
         m_value = eValue;
         return *this;
     }
-    
+
     /// <summary>
     /// Equality operator that accepts the name of a valid enumeration value. Note that enumeration value names don't include
     /// the enumeration prefix.
@@ -138,7 +138,7 @@ public:
         else
             return false;
     }
-    
+
     /// <summary>
     /// Equality operator that accepts an integer number which must correspond to a valid enumeration value.
     /// </summary>
@@ -149,9 +149,9 @@ public:
     template<typename IntegerType>
     inline bool operator==(const IntegerType &nValue) const
     {
-        return m_value == static_cast<const EQSpaceRelation::EnumType>(nValue);
+        return m_value == scast_q(nValue, const EQSpaceRelation::EnumType);
     }
-    
+
     /// <summary>
     /// Equality operator that receives a valid enumeration value.
     /// </summary>
@@ -163,7 +163,7 @@ public:
     {
         return m_value == eValue;
     }
-    
+
     /// <summary>
     /// Casting operator that converts the class capsule into a valid enumeration value.
     /// </summary>
@@ -174,7 +174,7 @@ public:
     {
         return m_value;
     }
-    
+
     /// <summary>
     /// Casting operator that converts the enumerated type value into its corresponding integer number.
     /// </summary>
@@ -184,9 +184,9 @@ public:
     template<typename IntegerType>
     operator IntegerType() const
     {
-        return static_cast<IntegerType>(m_value);
+        return scast_q(m_value, IntegerType);
     }
-    
+
     /// <summary>
     /// Casting operator that converts the enumerated type value into its corresponding name.
     /// </summary>
@@ -200,7 +200,7 @@ public:
 
         while(itValueName != itValueNameEnd && itValueName->second != m_value)
             ++itValueName;
-   
+
         if(itValueName != itValueNameEnd)
             return itValueName->first;
         else
@@ -228,7 +228,7 @@ private:
     /// A list of enumeration values with their names.
     /// </summary>
     static TNameValuePair sm_arValueName[];
-    
+
     /// <summary>
     /// The dictionary which contains each enumeration value by its name.
     /// </summary>
