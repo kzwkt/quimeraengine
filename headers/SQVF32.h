@@ -61,10 +61,10 @@ public:
         #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
             // Types are different so we need to use known-size types and then invoke
             // implicit casting when copying to auxiliar variables.
-            f32_q f_1 = static_cast<f32_q>(fFirst);
-            f32_q f_2 = static_cast<f32_q>(fSecond); 
-            f32_q f_3 = static_cast<f32_q>(fThird); 
-            f32_q f_4 = static_cast<f32_q>(fFourth);
+            f32_q f_1 = scast_q(fFirst, f32_q);
+            f32_q f_2 = scast_q(fSecond, f32_q);
+            f32_q f_3 = scast_q(fThird, f32_q);
+            f32_q f_4 = scast_q(fFourth, f32_q);
         #else
             // Types are the same, no casting is needed so we only use references to maintain names used below
             const f32_q& f_1 = fFirst;
@@ -104,10 +104,10 @@ public:
         #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
             // Types are different so we need to use known-size types and then invoke
             // implicit casting when copying to auxiliar variables.
-            f32_q f_1 = static_cast<f32_q>(SQFloat::_0);
-            f32_q f_2 = static_cast<f32_q>(SQFloat::_0);
-            f32_q f_3 = static_cast<f32_q>(SQFloat::_0);
-            f32_q f_4 = static_cast<f32_q>(SQFloat::_0);
+            f32_q f_1 = scast_q(SQFloat::_0, f32_q);
+            f32_q f_2 = scast_q(SQFloat::_0, f32_q);
+            f32_q f_3 = scast_q(SQFloat::_0, f32_q);
+            f32_q f_4 = scast_q(SQFloat::_0, f32_q);
         #else
             // Types are the same, no casting is needed so we only use references to maintain names used below
             f32_q& f_1 = fFirst;
@@ -122,10 +122,10 @@ public:
         memcpy(&f_4, (&inPack) + FOURTH_POS * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
 
         #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
-            fFirst  = static_cast<float_q>(f_1);
-            fSecond = static_cast<float_q>(f_2);
-            fThird  = static_cast<float_q>(f_3);
-            fFourth = static_cast<float_q>(f_4);
+            fFirst  = scast_q(f_1, float_q);
+            fSecond = scast_q(f_2, float_q);
+            fThird  = scast_q(f_3, float_q);
+            fFourth = scast_q(f_4, float_q);
         #endif
     }
 

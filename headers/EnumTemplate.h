@@ -52,7 +52,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">A valid enumeration value.</param>
-    inline EQEnumeration(const EQEnumeration::EnumType &eValue) : m_value(eValue) 
+    inline EQEnumeration(const EQEnumeration::EnumType &eValue) : m_value(eValue)
     {}
 
     /// <summary>
@@ -60,7 +60,7 @@ public:
     /// </summary>
     /// <param name="nValue">An integer number.</param>
     template<typename IntegerType>
-    inline EQEnumeration(const IntegerType &nValue) : m_value(static_cast<const EQEnumeration::EnumType>(nValue))
+    inline EQEnumeration(const IntegerType &nValue) : m_value(scast_q(nValue, const EQEnumeration::EnumType))
     {}
 
     /// <summary>
@@ -83,7 +83,7 @@ public:
     template<typename IntegerType>
     inline EQEnumeration& operator=(const IntegerType &nValue)
     {
-        m_value = static_cast<const EQEnumeration::EnumType>(nValue);
+        m_value = scast_q(nValue, const EQEnumeration::EnumType);
         return *this;
     }
 
@@ -143,7 +143,7 @@ public:
     template<typename IntegerType>
     inline bool operator==(const IntegerType &nValue) const
     {
-        return m_value == static_cast<const EQEnumeration::EnumType>(nValue);
+        return m_value == scast_q(nValue, const EQEnumeration::EnumType);
     }
 
     /// <summary>
@@ -178,7 +178,7 @@ public:
     template<typename IntegerType>
     operator IntegerType() const
     {
-        return static_cast<IntegerType>(m_value);
+        return scast_q(m_value, IntegerType);
     }
 
     /// <summary>
@@ -194,7 +194,7 @@ public:
 
         while(itValueName != itValueNameEnd && itValueName->second != m_value)
             ++itValueName;
-   
+
         if(itValueName != itValueNameEnd)
             return itValueName->first;
         else
