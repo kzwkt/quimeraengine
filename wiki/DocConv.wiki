@@ -10,6 +10,14 @@ Descripción del elemento a documentar (método, atributo, constructor, enumerad
 /// </summary>
 }}}
 
+== Etiqueta remarks ==
+Información adicional que el desarrollador deba conocer, normalmente detalles técnicos o peculiaridades de funcionamiento. Se escribe, si cabe, a continuación de _summary_ y antes del resto de etiquetas.
+{{{
+/// <remarks>
+/// 
+/// </remarks>
+}}}
+
 == Etiqueta param ==
 Descripción de un parámetro de un método o función. Puede ser desde un par de palabras a unos cuantos párrafos, según el caso. Esta etiqueta tiene un atributo "name", que debe ser rellenado con el nombre del parámetro. Las etiquetas _param_ van a continuación de _summary_. No se especificará el tipo, aunque sí se hará saber si es opcional mediante una etiqueta `[Opcional]`, y si es de entrada o salida, con `[IN]`, `[OUT]` ó `[IN/OUT`].
 {{{
