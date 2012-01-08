@@ -7,6 +7,12 @@
     <Filter Include="TestSystem %28shared%29">
       <UniqueIdentifier>{fd7e9de1-b34f-4b96-b5a0-43c630e384fd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Math">
+      <UniqueIdentifier>{c3aa2ece-6001-499f-9db7-bc124b1e8328}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Tests\DataTypes">
+      <UniqueIdentifier>{539ea320-355d-4181-9c79-5e4fa6eff11f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -18,14 +24,14 @@
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
       <Filter>TestSystem %28shared%29</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
-      <Filter>Tests</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
-      <Filter>Tests</Filter>
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
+      <Filter>Tests\Math</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
