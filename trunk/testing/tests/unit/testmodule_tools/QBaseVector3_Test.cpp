@@ -73,7 +73,14 @@ QTEST_CASE ( Constructor3_ValueIsSetForAllComponents_Test )
 QTEST_CASE ( Constructor4_VectorComponentsAreFilledWithValidReferenceTo3Floats_Test )
 {
     // Preparation
-    const float_q* VALID_ARRAY_OF_3_FLOATS = new float_q[3];
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
+
+    float_q* VALID_ARRAY_OF_3_FLOATS = new float_q[3];
+    VALID_ARRAY_OF_3_FLOATS[0] = EXPECTED_VALUE_FOR_X;
+    VALID_ARRAY_OF_3_FLOATS[1] = EXPECTED_VALUE_FOR_Y;
+    VALID_ARRAY_OF_3_FLOATS[2] = EXPECTED_VALUE_FOR_Z;
 
 	// Execution
     QBaseVector3 vVectorUT(VALID_ARRAY_OF_3_FLOATS);
