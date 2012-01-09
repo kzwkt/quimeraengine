@@ -25,34 +25,34 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-bool QLineSegment2D::Intersection (const QBaseTriangle2& triangl) const
+bool QLineSegment2D::Intersection (const QBaseTriangle<QVector2>& triangle) const
 {
 	// Just checking if the segment instersects with any edge of the triangle.
 
-	if ( this->Intersection(QLineSegment2D(triangl.A, triangl.B)) ||
-         this->Intersection(QLineSegment2D(triangl.B, triangl.C)) ||
-         this->Intersection(QLineSegment2D(triangl.C, triangl.A)) )
+	if ( this->Intersection(QLineSegment2D(triangle.A, triangle.B)) ||
+         this->Intersection(QLineSegment2D(triangle.B, triangle.C)) ||
+         this->Intersection(QLineSegment2D(triangle.C, triangle.A)) )
         return true;
-    else if (this->PointInsideTriangle(triangl, this->A))
+    else if (this->PointInsideTriangle(triangle, this->A))
         return true;
     else
         return false;
 }
 
-bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quadrl) const
+bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quad) const
 {
-	if ( this->Intersection(QLineSegment2D(quadrl.A, quadrl.B)) ||
-         this->Intersection(QLineSegment2D(quadrl.B, quadrl.C)) ||
-         this->Intersection(QLineSegment2D(quadrl.C, quadrl.D)) ||
-         this->Intersection(QLineSegment2D(quadrl.D, quadrl.A)))
+	if ( this->Intersection(QLineSegment2D(quad.A, quad.B)) ||
+         this->Intersection(QLineSegment2D(quad.B, quad.C)) ||
+         this->Intersection(QLineSegment2D(quad.C, quad.D)) ||
+         this->Intersection(QLineSegment2D(quad.D, quad.A)))
         return true;
-    else if (this->PointInsideQuadrilateral(quadrl, this->A))
+    else if (this->PointInsideQuadrilateral(quad, this->A))
         return true;
     else
         return false;
 }
 
-EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle, QBaseVector2& vPoint1, QBaseVector2& vPoint2) const
+EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>& triangle, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
 {
     const bool &bAIsInside = PointInsideTriangle(triangle, this->A);
     const bool &bBIsInside = PointInsideTriangle(triangle, this->B);
@@ -65,13 +65,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
 
         if (bAIsVertex && bBIsVertex) // Both endpoints are vertices of triangle
         {
-            vPoint1 = this->A;
-            vPoint2 = this->B;
+            vIntersection1 = this->A;
+            vIntersection2 = this->B;
             return EQIntersections::E_Two;
         }
         else if (bAIsVertex) // Only A endpoint is a vertex of triangle
         {
-            vPoint1 = this->A;
+            vIntersection1 = this->A;
 
             if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B))) // B is in AB triangle edge
             {
@@ -79,7 +79,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_One;
                 else
                 {
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -89,7 +89,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_One;
                 else
                 {
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -99,13 +99,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     return EQIntersections::E_One;
                 else
                 {
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
             else // B is not in an edge
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
                 return EQIntersections::E_One;
             }
         }
@@ -115,13 +115,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             {
                 if (this->B == triangle.A || this->B == triangle.B) // A and B are in the same edge
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -129,13 +129,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             {
                 if (this->B == triangle.B || this->B == triangle.C) // A and B are in the same edge
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -143,19 +143,19 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             {
                 if (this->B == triangle.C || this->B == triangle.A) // A and B are in the same edge
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
             else
             {
-                vPoint1 = this->B;
+                vIntersection1 = this->B;
                 return EQIntersections::E_One;
             }
         }
@@ -168,13 +168,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 else if ( SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) || // B is in other edge (but not a vertex)
                           SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // B is not in an edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
             }
@@ -185,13 +185,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 else if ( SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
                           SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // B is not in an edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
             }
@@ -202,13 +202,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 else if ( SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->B)) || // B is in other edge (but not a vertex)
                           SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) )
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // B is not in an edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
             }
@@ -218,7 +218,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                      SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->B)) ||
                      SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->B)) )
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else // B is not in an edge
@@ -236,13 +236,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
         {
             if  ( (triangle.A - this->A).GetSquaredLength() < (triangle.B - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
             {
-                vPoint1 = triangle.A;
-                vPoint2 = triangle.B;
+                vIntersection1 = triangle.A;
+                vIntersection2 = triangle.B;
             }
             else
             {
-                vPoint1 = triangle.B;
-                vPoint2 = triangle.A;
+                vIntersection1 = triangle.B;
+                vIntersection2 = triangle.A;
             }
             return EQIntersections::E_Two;
         }
@@ -253,13 +253,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
         {
             if  ( (triangle.B - this->A).GetSquaredLength() < (triangle.C - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
             {
-                vPoint1 = triangle.B;
-                vPoint2 = triangle.C;
+                vIntersection1 = triangle.B;
+                vIntersection2 = triangle.C;
             }
             else
             {
-                vPoint1 = triangle.C;
-                vPoint2 = triangle.B;
+                vIntersection1 = triangle.C;
+                vIntersection2 = triangle.B;
             }
             return EQIntersections::E_Two;
         }
@@ -270,13 +270,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
         {
             if  ( (triangle.C - this->A).GetSquaredLength() < (triangle.A - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
             {
-                vPoint1 = triangle.C;
-                vPoint2 = triangle.A;
+                vIntersection1 = triangle.C;
+                vIntersection2 = triangle.A;
             }
             else
             {
-                vPoint1 = triangle.A;
-                vPoint2 = triangle.C;
+                vIntersection1 = triangle.A;
+                vIntersection2 = triangle.C;
             }
             return EQIntersections::E_Two;
         }
@@ -291,19 +291,19 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     {
                         if  ( (vPointAB - this->A).GetSquaredLength() < (vPointCA - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                         {
-                            vPoint1 = vPointAB;
-                            vPoint2 = vPointCA;
+                            vIntersection1 = vPointAB;
+                            vIntersection2 = vPointCA;
                         }
                         else
                         {
-                            vPoint1 = vPointCA;
-                            vPoint2 = vPointAB;
+                            vIntersection1 = vPointCA;
+                            vIntersection2 = vPointAB;
                         }
                         return EQIntersections::E_Two;
                     }
                     else
                     {
-                        vPoint1 = vPointAB;
+                        vIntersection1 = vPointAB;
                         return EQIntersections::E_One;
                     }
                 }
@@ -311,13 +311,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 {
                     if  ( (vPointAB - this->A).GetSquaredLength() < (vPointBC - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                     {
-                        vPoint1 = vPointAB;
-                        vPoint2 = vPointBC;
+                        vIntersection1 = vPointAB;
+                        vIntersection2 = vPointBC;
                     }
                     else
                     {
-                        vPoint1 = vPointBC;
-                        vPoint2 = vPointAB;
+                        vIntersection1 = vPointBC;
+                        vIntersection2 = vPointAB;
                     }
                     return EQIntersections::E_Two;
                 }
@@ -326,7 +326,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             {
                 if (vPointAB == vPointCA) // Are the same point
                 {
-                    vPoint1 = vPointAB;
+                    vIntersection1 = vPointAB;
                     return EQIntersections::E_One;
                 }
                 else
@@ -334,13 +334,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     // Returns closest point to A end point of line segment
                     if  ( (vPointAB - this->A).GetSquaredLength() < (vPointCA - this->A).GetSquaredLength() )
                     {
-                        vPoint1 = vPointAB;
-                        vPoint2 = vPointCA;
+                        vIntersection1 = vPointAB;
+                        vIntersection2 = vPointCA;
                     }
                     else
                     {
-                        vPoint1 = vPointCA;
-                        vPoint2 = vPointAB;
+                        vIntersection1 = vPointCA;
+                        vIntersection2 = vPointAB;
                     }
 
                     return EQIntersections::E_Two;
@@ -355,7 +355,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             {
                 if (vPointBC == vPointCA) // Are the same point
                 {
-                    vPoint1 = vPointBC;
+                    vIntersection1 = vPointBC;
                     return EQIntersections::E_One;
                 }
                 else
@@ -363,13 +363,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     // Returns closest point to A end point of line segment
                     if  ( (vPointBC - this->A).GetSquaredLength() < (vPointCA - this->A).GetSquaredLength() )
                     {
-                        vPoint1 = vPointBC;
-                        vPoint2 = vPointCA;
+                        vIntersection1 = vPointBC;
+                        vIntersection2 = vPointCA;
                     }
                     else
                     {
-                        vPoint1 = vPointCA;
-                        vPoint2 = vPointBC;
+                        vIntersection1 = vPointCA;
+                        vIntersection2 = vPointBC;
                     }
 
                     return EQIntersections::E_Two;
@@ -391,12 +391,12 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
         {
             if (this->A == triangle.A) // this->A is A triangle vertex
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux);
                 if (value2 == EQIntersections::E_One) // ls intersects opposite edge
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -404,12 +404,12 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             }
             else if (this->A == triangle.B) // this->A is B triangle vertex
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux);
                 if (value2 == EQIntersections::E_One) // ls intersects opposite edge
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -417,12 +417,12 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             }
             else if (this->A == triangle.C) // this->A is C triangle vertex
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.A), vAux);
                 if (value2 == EQIntersections::E_One) // ls intersects opposite edge
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -430,7 +430,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             }
             else if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->A))) // this->A is in AB triangle edge (but not a vertex)
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 // ls intersects other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux);
@@ -439,7 +439,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     if (vAux == triangle.B || vAux == triangle.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
@@ -447,7 +447,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     if (vAux == triangle.C || vAux == triangle.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -455,7 +455,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             }
             else if (SQFloat::IsZero(QLineSegment2D(triangle.B, triangle.C).MinDistance(this->A))) // this->A is in BC triangle edge (but not a vertex)
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                  // ls intersects other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.A, triangle.B), vAux);
@@ -464,7 +464,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
@@ -472,7 +472,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     if (vAux == triangle.C || vAux == triangle.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -480,7 +480,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             }
             else if (SQFloat::IsZero(QLineSegment2D(triangle.C, triangle.A).MinDistance(this->A))) // this->A is in CA triangle edge (but not a vertex)
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                  // ls intersects other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux);
@@ -489,7 +489,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     if (vAux == triangle.B || vAux == triangle.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.A, triangle.B), vAux) == EQIntersections::E_One)
@@ -497,7 +497,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                     if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -507,11 +507,11 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             {
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.A, triangle.B), vAux);
                 if (value2 == EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux) == EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else                  // Something is wrong, if one point is inside and the other is outside,
                     QE_ASSERT(false); // there must be intersections.
 
@@ -526,13 +526,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux);
                 if (value2 == EQIntersections::E_One) // ls intersects opposite edge
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // ls only intersects in A vertex
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -541,13 +541,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux);
                 if (value2 == EQIntersections::E_One) // ls intersects opposite edge
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // ls only intersects in B vertex
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -556,13 +556,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.A, triangle.B), vAux);
                 if (value2 == EQIntersections::E_One) // ls intersects opposite edge
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // ls only intersects in C vertex
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -572,27 +572,27 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == triangle.B || vAux == triangle.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == triangle.C || vAux == triangle.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // There is no other intersection
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -602,23 +602,23 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.A, triangle.B), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // There is no other intersection
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -628,27 +628,27 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == triangle.B || vAux == triangle.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.A, triangle.B), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // There is no other intersection
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -656,11 +656,11 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
             {
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(triangle.A, triangle.B), vAux);
                 if (value2 == EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.B, triangle.C), vAux) == EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else                  // Something is wrong, if one point is inside and the other is outside,
                     QE_ASSERT(false); // there must be intersections.
 
@@ -671,7 +671,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle2& triangle
     return EQIntersections::E_None;
 }
 
-EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vPoint1, QBaseVector2& vPoint2) const
+EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
 {
     const bool &bAIsInside = PointInsideQuadrilateral(quad, this->A);
     const bool &bBIsInside = PointInsideQuadrilateral(quad, this->B);
@@ -684,8 +684,8 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
 
         if (bAIsVertex && bBIsVertex) // Both endpoints are vertices of quadrilateral
         {
-            vPoint1 = this->A;
-            vPoint2 = this->B;
+            vIntersection1 = this->A;
+            vIntersection2 = this->B;
             return EQIntersections::E_Two;
         }
         else if (bAIsVertex) // Only A endpoint is a vertex of quadrilateral
@@ -694,13 +694,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (this->A == quad.A || this->A == quad.B) // A and B are in the same edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -708,13 +708,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (this->A == quad.B || this->A == quad.C) // A and B are in the same edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -722,13 +722,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (this->A == quad.C || this->A == quad.D) // A and B are in the same edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -736,19 +736,19 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (this->A == quad.D || this->A == quad.A) // A and B are in the same edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
             else // B is not in an edge
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
                 return EQIntersections::E_One;
             }
         }
@@ -758,13 +758,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (this->B == quad.A || this->B == quad.B) // A and B are in the same edge
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -772,13 +772,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (this->B == quad.B || this->B == quad.C) // A and B are in the same edge
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -786,13 +786,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (this->B == quad.C || this->B == quad.D) // A and B are in the same edge
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
@@ -800,19 +800,19 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (this->B == quad.D || this->B == quad.A) // A and B are in the same edge
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
             }
             else
             {
-                vPoint1 = this->B;
+                vIntersection1 = this->B;
                 return EQIntersections::E_One;
             }
         }
@@ -826,13 +826,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                          SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
                          SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // B is not in an edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
             }
@@ -844,13 +844,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                          SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
                          SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // B is not in an edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
             }
@@ -862,13 +862,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                          SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) ||
                          SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // B is not in an edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
             }
@@ -880,13 +880,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                          SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->B)) ||
                          SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)))
                 {
-                    vPoint1 = this->A;
-                    vPoint2 = this->B;
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // B is not in an edge
                 {
-                    vPoint1 = this->A;
+                    vIntersection1 = this->A;
                     return EQIntersections::E_One;
                 }
             }
@@ -897,7 +897,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->B)) ||
                     SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->B)))
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
                 else // B is not in an edge
@@ -915,13 +915,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
         {
             if  ( (quad.A - this->A).GetSquaredLength() < (quad.B - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
             {
-                vPoint1 = quad.A;
-                vPoint2 = quad.B;
+                vIntersection1 = quad.A;
+                vIntersection2 = quad.B;
             }
             else
             {
-                vPoint1 = quad.B;
-                vPoint2 = quad.A;
+                vIntersection1 = quad.B;
+                vIntersection2 = quad.A;
             }
             return EQIntersections::E_Two;
         }
@@ -932,13 +932,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
         {
             if  ( (quad.B - this->A).GetSquaredLength() < (quad.C - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
             {
-                vPoint1 = quad.B;
-                vPoint2 = quad.C;
+                vIntersection1 = quad.B;
+                vIntersection2 = quad.C;
             }
             else
             {
-                vPoint1 = quad.C;
-                vPoint2 = quad.B;
+                vIntersection1 = quad.C;
+                vIntersection2 = quad.B;
             }
             return EQIntersections::E_Two;
         }
@@ -949,13 +949,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
         {
             if  ( (quad.C - this->A).GetSquaredLength() < (quad.D - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
             {
-                vPoint1 = quad.C;
-                vPoint2 = quad.D;
+                vIntersection1 = quad.C;
+                vIntersection2 = quad.D;
             }
             else
             {
-                vPoint1 = quad.D;
-                vPoint2 = quad.C;
+                vIntersection1 = quad.D;
+                vIntersection2 = quad.C;
             }
             return EQIntersections::E_Two;
         }
@@ -966,13 +966,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
         {
             if  ( (quad.D - this->A).GetSquaredLength() < (quad.A - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
             {
-                vPoint1 = quad.D;
-                vPoint2 = quad.A;
+                vIntersection1 = quad.D;
+                vIntersection2 = quad.A;
             }
             else
             {
-                vPoint1 = quad.A;
-                vPoint2 = quad.D;
+                vIntersection1 = quad.A;
+                vIntersection2 = quad.D;
             }
             return EQIntersections::E_Two;
         }
@@ -988,13 +988,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                         // Returns closest point to A end point of line segment
                         if  ( (vPointAB - this->A).GetSquaredLength() < (vPointCD - this->A).GetSquaredLength() )
                         {
-                            vPoint1 = vPointAB;
-                            vPoint2 = vPointCD;
+                            vIntersection1 = vPointAB;
+                            vIntersection2 = vPointCD;
                         }
                         else
                         {
-                            vPoint1 = vPointCD;
-                            vPoint2 = vPointAB;
+                            vIntersection1 = vPointCD;
+                            vIntersection2 = vPointAB;
                         }
 
                         return EQIntersections::E_Two;
@@ -1004,20 +1004,20 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                         // Returns closest point to A end point of line segment
                         if  ( (vPointAB - this->A).GetSquaredLength() < (vPointDA - this->A).GetSquaredLength() )
                         {
-                            vPoint1 = vPointAB;
-                            vPoint2 = vPointDA;
+                            vIntersection1 = vPointAB;
+                            vIntersection2 = vPointDA;
                         }
                         else
                         {
-                            vPoint1 = vPointDA;
-                            vPoint2 = vPointAB;
+                            vIntersection1 = vPointDA;
+                            vIntersection2 = vPointAB;
                         }
 
                         return EQIntersections::E_Two;
                     }
                     else
                     {
-                        vPoint1 = vPointAB;
+                        vIntersection1 = vPointAB;
                         return EQIntersections::E_One;
                     }
                 }
@@ -1025,13 +1025,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 {
                     if  ( (vPointAB - this->A).GetSquaredLength() < (vPointBC - this->A).GetSquaredLength() ) // Returns closest point to A end point of line segment
                     {
-                        vPoint1 = vPointAB;
-                        vPoint2 = vPointBC;
+                        vIntersection1 = vPointAB;
+                        vIntersection2 = vPointBC;
                     }
                     else
                     {
-                        vPoint1 = vPointBC;
-                        vPoint2 = vPointAB;
+                        vIntersection1 = vPointBC;
+                        vIntersection2 = vPointAB;
                     }
                     return EQIntersections::E_Two;
                 }
@@ -1041,13 +1041,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 // Returns closest point to A end point of line segment
                 if  ( (vPointAB - this->A).GetSquaredLength() < (vPointCD - this->A).GetSquaredLength() )
                 {
-                    vPoint1 = vPointAB;
-                    vPoint2 = vPointCD;
+                    vIntersection1 = vPointAB;
+                    vIntersection2 = vPointCD;
                 }
                 else
                 {
-                    vPoint1 = vPointCD;
-                    vPoint2 = vPointAB;
+                    vIntersection1 = vPointCD;
+                    vIntersection2 = vPointAB;
                 }
 
                 return EQIntersections::E_Two;
@@ -1056,7 +1056,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (vPointAB == vPointDA) // Are the same point
                 {
-                    vPoint1 = vPointAB;
+                    vIntersection1 = vPointAB;
                     return EQIntersections::E_One;
                 }
                 else
@@ -1064,13 +1064,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     // Returns closest point to A end point of line segment
                     if  ( (vPointAB - this->A).GetSquaredLength() < (vPointDA - this->A).GetSquaredLength() )
                     {
-                        vPoint1 = vPointAB;
-                        vPoint2 = vPointDA;
+                        vIntersection1 = vPointAB;
+                        vIntersection2 = vPointDA;
                     }
                     else
                     {
-                        vPoint1 = vPointDA;
-                        vPoint2 = vPointAB;
+                        vIntersection1 = vPointDA;
+                        vIntersection2 = vPointAB;
                     }
 
                     return EQIntersections::E_Two;
@@ -1090,20 +1090,20 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                         // Returns closest point to A end point of line segment
                         if  ( (vPointBC - this->A).GetSquaredLength() < (vPointDA - this->A).GetSquaredLength() )
                         {
-                            vPoint1 = vPointBC;
-                            vPoint2 = vPointDA;
+                            vIntersection1 = vPointBC;
+                            vIntersection2 = vPointDA;
                         }
                         else
                         {
-                            vPoint1 = vPointDA;
-                            vPoint2 = vPointBC;
+                            vIntersection1 = vPointDA;
+                            vIntersection2 = vPointBC;
                         }
 
                         return EQIntersections::E_Two;
                     }
                     else
                     {
-                        vPoint1 = vPointBC;
+                        vIntersection1 = vPointBC;
                         return EQIntersections::E_One;
                     }
                 }
@@ -1112,13 +1112,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     // Returns closest point to A end point of line segment
                     if  ( (vPointBC - this->A).GetSquaredLength() < (vPointCD - this->A).GetSquaredLength() )
                     {
-                        vPoint1 = vPointBC;
-                        vPoint2 = vPointCD;
+                        vIntersection1 = vPointBC;
+                        vIntersection2 = vPointCD;
                     }
                     else
                     {
-                        vPoint1 = vPointCD;
-                        vPoint2 = vPointBC;
+                        vIntersection1 = vPointCD;
+                        vIntersection2 = vPointBC;
                     }
 
                     return EQIntersections::E_Two;
@@ -1129,13 +1129,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 // Returns closest point to A end point of line segment
                 if  ( (vPointBC - this->A).GetSquaredLength() < (vPointDA - this->A).GetSquaredLength() )
                 {
-                    vPoint1 = vPointBC;
-                    vPoint2 = vPointDA;
+                    vIntersection1 = vPointBC;
+                    vIntersection2 = vPointDA;
                 }
                 else
                 {
-                    vPoint1 = vPointDA;
-                    vPoint2 = vPointBC;
+                    vIntersection1 = vPointDA;
+                    vIntersection2 = vPointBC;
                 }
 
                 return EQIntersections::E_Two;
@@ -1149,7 +1149,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 if (vPointCD == vPointDA) // Are the same point (D vertex of quadrilateral)
                 {
-                    vPoint1 = vPointCD;
+                    vIntersection1 = vPointCD;
                     return EQIntersections::E_One;
                 }
                 else
@@ -1157,13 +1157,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     // Returns closest point to A end point of line segment
                     if  ( (vPointCD - this->A).GetSquaredLength() < (vPointDA - this->A).GetSquaredLength() )
                     {
-                        vPoint1 = vPointCD;
-                        vPoint2 = vPointDA;
+                        vIntersection1 = vPointCD;
+                        vIntersection2 = vPointDA;
                     }
                     else
                     {
-                        vPoint1 = vPointDA;
-                        vPoint2 = vPointCD;
+                        vIntersection1 = vPointDA;
+                        vIntersection2 = vPointCD;
                     }
 
                     return EQIntersections::E_Two;
@@ -1185,18 +1185,18 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
         {
             if (this->A == quad.A) // this->A is quad.A vertex
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 // ls intersects opposite edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux)== EQIntersections::E_One)
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -1204,18 +1204,18 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
             else if (this->A == quad.B) // this->A is quad.B vertex
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 // ls intersects opposite edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux)== EQIntersections::E_One)
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -1223,18 +1223,18 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
             else if (this->A == quad.C) // this->A is quad.C vertex
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 // ls intersects opposite edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux)== EQIntersections::E_One)
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -1242,18 +1242,18 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
             else if (this->A == quad.D) // this->A is quad.D vertex
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 // ls intersects opposite edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux)== EQIntersections::E_One)
                 {
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -1261,7 +1261,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
             else if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->A))) // this->A is in AB quad edge (but not a vertex)
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                 // ls intersects other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
@@ -1270,7 +1270,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.B || vAux == quad.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux) == EQIntersections::E_One)
@@ -1278,7 +1278,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.C || vAux == quad.D) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux) == EQIntersections::E_One)
@@ -1286,7 +1286,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.D || vAux == quad.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -1294,7 +1294,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
             else if (SQFloat::IsZero(QLineSegment2D(quad.B, quad.C).MinDistance(this->A))) // this->A is in BC quad edge (but not a vertex)
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                  // ls intersects other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux);
@@ -1303,7 +1303,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.A || vAux == quad.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux) == EQIntersections::E_One)
@@ -1311,7 +1311,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.C || vAux == quad.D) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux) == EQIntersections::E_One)
@@ -1319,7 +1319,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.D || vAux == quad.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -1327,7 +1327,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
             else if (SQFloat::IsZero(QLineSegment2D(quad.C, quad.D).MinDistance(this->A))) // this->A is in CD quad edge (but not a vertex)
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                  // ls intersects other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
@@ -1336,7 +1336,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.B || vAux == quad.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux) == EQIntersections::E_One)
@@ -1344,7 +1344,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.A || vAux == quad.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux) == EQIntersections::E_One)
@@ -1352,7 +1352,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.D || vAux == quad.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -1360,7 +1360,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
             else if (SQFloat::IsZero(QLineSegment2D(quad.D, quad.A).MinDistance(this->A))) // this->A is in DA quad edge (but not a vertex)
             {
-                vPoint1 = this->A;
+                vIntersection1 = this->A;
 
                  // ls intersects other edges
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
@@ -1369,7 +1369,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.B || vAux == quad.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux) == EQIntersections::E_One)
@@ -1377,7 +1377,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.C || vAux == quad.D) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux) == EQIntersections::E_One)
@@ -1385,7 +1385,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                     if (vAux == quad.A || vAux == quad.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = vAux;
+                    vIntersection2 = vAux;
                     return EQIntersections::E_Two;
                 }
                 else
@@ -1395,13 +1395,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux);
                 if (value2 == EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux) == EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux)== EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux)== EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else                  // Something is wrong, if one point is inside and the other is outside,
                     QE_ASSERT(false); // there must be intersections.
 
@@ -1416,19 +1416,19 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -1438,19 +1438,19 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -1460,19 +1460,19 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -1482,19 +1482,19 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
-                    vPoint2 = this->B;
+                    vIntersection1 = vAux;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -1504,37 +1504,37 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.B || vAux == quad.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.C || vAux == quad.D) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.D || vAux == quad.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // There is no other intersection
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -1544,37 +1544,37 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.A || vAux == quad.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.C || vAux == quad.D) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.D || vAux == quad.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // There is no other intersection
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -1584,37 +1584,37 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.B || vAux == quad.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.A || vAux == quad.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.D || vAux == quad.A) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // There is no other intersection
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -1624,37 +1624,37 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux);
                 if (value2 == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.B || vAux == quad.C) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.C || vAux == quad.D) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux) == EQIntersections::E_One)
                 {
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
 
                     if (vAux == quad.A || vAux == quad.B) // Both intersections are in the same edge
                         return EQIntersections::E_One;
 
-                    vPoint2 = this->B;
+                    vIntersection2 = this->B;
                     return EQIntersections::E_Two;
                 }
                 else // There is no other intersection
                 {
-                    vPoint1 = this->B;
+                    vIntersection1 = this->B;
                     return EQIntersections::E_One;
                 }
             }
@@ -1662,13 +1662,13 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             {
                 EQIntersections value2 = this->IntersectionPoint(QLineSegment2D(quad.A, quad.B), vAux);
                 if (value2 == EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.B, quad.C), vAux) == EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.C, quad.D), vAux)== EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux)== EQIntersections::E_One)
-                    vPoint1 = vAux;
+                    vIntersection1 = vAux;
                 else                  // Something is wrong, if one point is inside and the other is outside,
                     QE_ASSERT(false); // there must be intersections.
 

@@ -18,12 +18,6 @@ namespace Tools
 namespace Math
 {
 
-// Forward declarations
-// ----------------------
-class QVector2;
-class QVector3;
-class QVector4;
-
 /// <summary>
 /// Implements the funcionality of a ray, which is a vector located at a point.
 /// </summary>
@@ -38,7 +32,9 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0) { }
+	inline QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0) 
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a point and a vector.
@@ -48,7 +44,11 @@ public:
 	/// <remarks>
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
-	inline QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : Origin(vOrigin), Direction(vDirection)	{ }
+	inline QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : 
+                        Origin(vOrigin), Direction(vDirection)
+    { 
+    }
+
 
     // METHODS
     // ---------------
@@ -57,31 +57,31 @@ public:
     /// <summary>
     /// Equality operator. Compares two rays.
     /// </summary>
-    /// <param name="r">[IN] Ray with which to compare.</param>
+    /// <param name="ray">[IN] Ray with which to compare.</param>
     /// <returns>
     /// True if rays are the same, false otherwise.
     /// </returns>
     /// <remarks>
     /// Both rays must be normalized to obtain a correct result.
     /// </remarks>
-    inline bool operator == (const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &r) const
+    inline bool operator==(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
     {
-        return ( this->Origin == r.Origin && this->Direction == r.Direction );
+        return ( this->Origin == ray.Origin && this->Direction == ray.Direction );
     }
 
     /// <summary>
     /// Inequality operator. Compares two rays.
     /// </summary>
-    /// <param name="r">[IN] Ray with which to compare.</param>
+    /// <param name="ray">[IN] Ray with which to compare.</param>
     /// <returns>
     /// True if rays are not the same, false otherwise.
     /// </returns>
     /// <remarks>
     /// Both rays must be normalized to obtain a correct result.
     /// </remarks>
-    inline bool operator != (const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &r) const
+    inline bool operator!=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
     {
-        return !(*this == r);
+        return !(*this == ray);
     }
 
 	// ATTRIBUTES
@@ -99,13 +99,6 @@ public:
 	VectorTypeDirection Direction;
 
 };
-
-// TYPEDEFS
-// ---------------
-
-typedef QBaseRay<QVector2, QVector2> QBaseRay2;
-typedef QBaseRay<QVector3, QVector3> QBaseRay3;
-typedef QBaseRay<QVector4, QVector3> QBaseRay4;
 
 } //namespace Math
 } //namespace Tools

@@ -22,62 +22,135 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-QVector2 QVector2::operator - () const
+QVector2 QVector2::operator-() const
 {
 	return QVector2(-this->x, -this->y);
 }
 
-QVector2 QVector2::operator + (const QBaseVector2 &v) const
+QVector2 QVector2::operator+(const QBaseVector2 &vVector) const
 {
-	return QVector2(this->x + v.x, this->y + v.y);
+	return QVector2(this->x + vVector.x, this->y + vVector.y);
 }
 
-QVector2 QVector2::operator - (const QBaseVector2 &v) const
+QVector2 QVector2::operator-(const QBaseVector2 &vVector) const
 {
-	return QVector2(this->x - v.x, this->y - v.y);
+	return QVector2(this->x - vVector.x, this->y - vVector.y);
 }
 
-QVector2 QVector2::operator * (const float_q &fValue) const
+QVector2 QVector2::operator*(const float_q &fScalar) const
 {
-	return QVector2(this->x*fValue, this->y*fValue);
+	return QVector2(this->x * fScalar, this->y * fScalar);
 }
 
-QVector2 QVector2::operator * (const QBaseVector2 &v) const
+QVector2 QVector2::operator*(const QBaseVector2 &vVector) const
 {
-	return QVector2(this->x*v.x, this->y*v.y);
+	return QVector2(this->x * vVector.x, this->y * vVector.y);
 }
 
-QVector2 QVector2::operator * (const QBaseMatrix2x2 &m) const
+QVector2 QVector2::operator*(const QBaseMatrix2x2 &matrix) const
 {
-	return QVector2(this->x * m.ij[0][0] + this->y * m.ij[1][0],
-                    this->x * m.ij[0][1] + this->y * m.ij[1][1]);
+	return QVector2(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0],
+                    this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1]);
 }
 
-QVector2 QVector2::operator / (const float_q &fValue) const
+QVector2 QVector2::operator/(const float_q &fScalar) const
 {
 	// Checkout to avoid division by 0
-	QE_ASSERT (fValue);
+	QE_ASSERT(fScalar);
 
-	return QVector2(this->x/fValue, this->y/fValue);
+	return QVector2(this->x / fScalar, this->y / fScalar);
 }
 
-QVector2 QVector2::operator / (const QBaseVector2 &v) const
+QVector2 QVector2::operator/(const QBaseVector2 &vVector) const
 {
 	// Checkout to avoid division by 0
-	QE_ASSERT (v.x && v.y);
+	QE_ASSERT(vVector.x && vVector.y);
 
-	return QVector2(this->x/v.x, this->y/v.y);
+	return QVector2(this->x / vVector.x, this->y / vVector.y);
 }
 
 // Left float product
-QVector2 operator * (const float_q &fValue, const QVector2 &v)
+QVector2 operator*(const float_q &fScalar, const QVector2 &vVector)
 {
-	return QVector2(v.x*fValue, v.y*fValue);
+	return QVector2(vVector.x * fScalar, vVector.y * fScalar);
+}
+
+float_q QVector2::GetLength() const
+{
+	return hypot_q(this->x, this->y);
+}
+
+float_q QVector2::GetSquaredLength() const
+{
+    return this->x*this->x + this->y*this->y;
 }
 
 QVector2 QVector2::GetPerpendicular() const
 {
 	return QVector2(this->y, -this->x);
+}
+
+bool QVector2::IsZero()
+{
+	return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y);
+}
+
+bool QVector2::IsVectorOfOnes()
+{
+	return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1);
+}
+
+float_q QVector2::DotProduct(const QVector2 &vVector) const
+{
+	return(this->x * vVector.x + this->y * vVector.y);
+}
+
+float_q QVector2::DotProductAngle(const QVector2 &vVector) const
+{
+    float_q fLengthProd = this->GetLength() * vVector.GetLength();
+
+    // Checkout to avoid division by zero.
+    QE_ASSERT(fLengthProd != SQFloat::_0);
+
+    float_q fDot = this->DotProduct(vVector) / fLengthProd;
+
+	// Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
+	//
+	// [TODO] This code block has to be reviewed when a solution to
+	//		  solve values out of range for 'acos' function has been planned, and then:
+	//
+	//				 1) Replace the current QE_ASSERT with one using SQFloat::IsLowerOrEquals,
+	//					because something like QE_ASSERT( SQFloat::IsLowerOrEquals(abs(fDot), SQFloat::_1) )
+	//					or QE_ASSERT( SQFloat::IsLowerOrEquals(abs(fDot), CURRENT_COS_MAX_RANGE) )
+	//				    actually doesn't make their work.
+	//
+	//				 2) Replace the two conditional branches and then use Clamp funcion, once this is defined
+	//					as a non-member function.
+	///////////////////////////////////////////////////////////////////
+    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
+
+	if ( SQFloat::IsGreaterOrEquals(fDot, __CURRENT_COS_MAX_RANGE__) )
+	{
+		fDot = 1.0000000f;
+	}
+	else if ( SQFloat::IsLowerOrEquals(fDot, __CURRENT_COS_MIN_RANGE__) )
+	{
+		fDot = -1.0000000f;
+	}
+	///////////////////////////////////////////////////////////////////
+
+    float_q fAngle = acos_q(fDot);
+
+	// At this stage we have the angle stored in fAngle expressed in RADIANS.
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        // If angles are specified in degrees, then converts angle to degrees
+        fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
+
+		// At this stage we have the angle expressed in DEGREES.
+    #endif
+
+    return fAngle;
 }
 
 string_q QVector2::ToString() const
@@ -87,7 +160,7 @@ string_q QVector2::ToString() const
 		   QE_L(")");
 }
 
-void QVector2::Transform(const QTransformationMatrix3x3& matrix)
+void QVector2::Transform(const QTransformationMatrix3x3 &matrix)
 {
 	float_q fNewX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0];
 	float_q fNewY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1];
@@ -96,18 +169,18 @@ void QVector2::Transform(const QTransformationMatrix3x3& matrix)
 	this->y = fNewY;
 }
 
-void QVector2::Transform(const QTransformationMatrix3x3& matrix, QBaseVector2& vectorOut)
+void QVector2::Transform(const QTransformationMatrix3x3 &matrix, QBaseVector2 &vOutVector)
 {
-	vectorOut.x = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0];
-	vectorOut.y = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1];
+	vOutVector.x = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0];
+	vOutVector.y = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1];
 }
 
-void QVector2::Transform(const float_q& fAngle)
+void QVector2::Transform(const float_q &fRotationAngle)
 {
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-		float_q fAngleRad = SQAngle::DegreesToRadians(fAngle);
+		float_q fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);
 	#else
-		float_q fAngleRad = fAngle;
+		float_q fAngleRad = fRotationAngle;
 	#endif
 
 	const float_q fCosAngle = cos_q(fAngleRad);
@@ -120,19 +193,19 @@ void QVector2::Transform(const float_q& fAngle)
 	this->y = fNewY;
 }
 
-void QVector2::Transform(const float_q& fAngle, QBaseVector2& vectorOut)
+void QVector2::Transform(const float_q &fRotationAngle, QBaseVector2& vOutVector)
 {
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-		float_q fAngleRad = SQAngle::DegreesToRadians(fAngle);
+		float_q fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);
 	#else
-		float_q fAngleRad = fAngle;
+		float_q fAngleRad = fRotationAngle;
 	#endif
 
 	const float_q fCosAngle = cos_q(fAngleRad);
 	const float_q fSinAngle = sin_q(fAngleRad);
 
-	vectorOut.x = this->x * fCosAngle - this->y * fSinAngle;
-	vectorOut.y = this->y * fCosAngle + this->x * fSinAngle;
+	vOutVector.x = this->x * fCosAngle - this->y * fSinAngle;
+	vOutVector.y = this->y * fCosAngle + this->x * fSinAngle;
 }
 
 } //namespace Math

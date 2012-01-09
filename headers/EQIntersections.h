@@ -59,7 +59,8 @@ public:
     /// </summary>
     /// <param name="eValue">A valid enumeration value.</param>
     inline EQIntersections(const EQIntersections::EnumType &eValue) : m_value(eValue)
-    {}
+    {
+    }
 
     /// <summary>
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
@@ -67,7 +68,8 @@ public:
     /// <param name="nValue">An integer number.</param>
     template<typename IntegerType>
     inline EQIntersections(const IntegerType &nValue) : m_value(scast_q(nValue, const EQIntersections::EnumType))
-    {}
+    {
+    }
 
     /// <summary>
     /// Constructor that receives the name of a valid enumeration value. Note that enumeration value names don't include
@@ -113,7 +115,7 @@ public:
     /// <summary>
     /// Assign operator that accepts a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">A valid enumeration value.</param>
+    /// <param name="eValue">A valid enumeration value.</param>
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
@@ -143,7 +145,7 @@ public:
     /// <summary>
     /// Equality operator that accepts an integer number which must correspond to a valid enumeration value.
     /// </summary>
-    /// <param name="strValueName">An integer number.</param>
+    /// <param name="nValue">An integer number.</param>
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>

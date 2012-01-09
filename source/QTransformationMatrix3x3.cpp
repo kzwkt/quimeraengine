@@ -20,29 +20,29 @@ namespace Math
 //##################                                                       ##################
 //##################=======================================================##################
 
-QTransformationMatrix3x3::QTransformationMatrix3x3 (const QBaseVector2 &vDisp, const float_q &fRot, const QBaseVector2 &vScale)
+QTransformationMatrix3x3::QTransformationMatrix3x3(const QBaseVector2 &vTranslation, const float_q &fRotationAngle, const QBaseVector2 &vScale)
 {
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q &fRotRad = SQAngle::DegreesToRadians(fRot, fRotRad);
+        float_q &fRotRad = SQAngle::DegreesToRadians(fRotationAngle, fRotRad);
 
-        const float_q& A   = cos_q(fRotRad);
-        const float_q& B   = sin_q(fRotRad);
+        const float_q& fA   = cos_q(fRotRad);
+        const float_q& fB   = sin_q(fRotRad);
     #else
-        const float_q& A   = cos_q(fRot);
-        const float_q& B   = sin_q(fRot);
+        const float_q& fA   = cos_q(fRotationAngle);
+        const float_q& fB   = sin_q(fRotationAngle);
     #endif
 
-    this->ij[0][0] =  vScale.x * A;
-    this->ij[0][1] =  vScale.x * B;
+    this->ij[0][0] =  vScale.x * fA;
+    this->ij[0][1] =  vScale.x * fB;
     this->ij[0][2] =  SQFloat::_0;
 
-    this->ij[1][0] = -vScale.y * B;
-    this->ij[1][1] =  vScale.y * A;
+    this->ij[1][0] = -vScale.y * fB;
+    this->ij[1][1] =  vScale.y * fA;
     this->ij[1][2] =  SQFloat::_0;
 
-    this->ij[2][0] =  vDisp.x;
-    this->ij[2][1] =  vDisp.y;
+    this->ij[2][0] =  vTranslation.x;
+    this->ij[2][1] =  vTranslation.y;
     this->ij[2][2] =  SQFloat::_1;
 
 }

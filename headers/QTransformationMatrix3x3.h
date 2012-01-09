@@ -44,17 +44,19 @@ public:
     /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
-    /// <param name="m">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline explicit QTransformationMatrix3x3(const QBaseMatrix3x3 &m) : QMatrix3x3(m) { }
+    /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
+    inline explicit QTransformationMatrix3x3(const QBaseMatrix3x3 &matrix) : QMatrix3x3(matrix)
+    {
+    }
 
     /// <summary>
     /// Constructor from a 2D vector which stores a scale, a floating point value which stores a rotation
     /// and a 2D vector which stores a translation.
     /// </summary>
-    /// <param name="vDisp">[IN] Vector with the displacement values.</param>
-    /// <param name="fRot">[IN] Angle of rotation.</param>
+    /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
+    /// <param name="fRotationAngle">[IN] Angle of rotation.</param>
     /// <param name="vScale">[IN] Vector with the scale values.</param>
-    QTransformationMatrix3x3 (const QBaseVector2 &vDisp, const float_q &fRot, const QBaseVector2 &vScale);
+    QTransformationMatrix3x3(const QBaseVector2 &vTranslation, const float_q &fRotationAngle, const QBaseVector2 &vScale);
 
 
     // PROPERTIES
@@ -85,39 +87,39 @@ public:
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QTransformationMatrix3x3& operator=(const QBaseMatrix3x3 &m)
+    inline QTransformationMatrix3x3& operator=(const QBaseMatrix3x3 &matrix)
     {
-        QBaseMatrix3x3::operator=(m);
+        QBaseMatrix3x3::operator=(matrix);
         return *this;
     }
 
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated variables.
     /// </summary>
-    /// <param name="vOutDisp">[OUT] A 2D vector to store the translation.</param>
-    /// <param name="fOutRot">[OUT] Floating point variable to store the angle of rotation.</param>
-    /// <param name="vOutScale">[OUT] A 2D vector to store the scale.</param>
-    void Decompose (QBaseVector2 &vOutDisp, float_q &fOutRot, QBaseVector2 &vOutScale) const;
+    /// <param name="vTranslation">[OUT] A 2D vector to store the translation.</param>
+    /// <param name="fRotationAngle">[OUT] Floating point variable to store the angle of rotation.</param>
+    /// <param name="vScale">[OUT] A 2D vector to store the scale.</param>
+    void Decompose(QBaseVector2 &vTranslation, float_q &fRotationAngle, QBaseVector2 &vScale) const;
 
     /// <summary>
     /// Extracts the displacement components from the matrix.
     /// </summary>
-    /// <param name="&vOutDisp">[OUT] A 2D vector where to store the displacement.</param>
-    inline void GetTranslation (QBaseVector2 &vOutDisp) const
+    /// <param name="vTranslation">[OUT] A 2D vector where to store the displacement.</param>
+    inline void GetTranslation(QBaseVector2 &vTranslation) const
     {
-        vOutDisp.x = this->ij[2][0];
-        vOutDisp.x = this->ij[2][1];
+        vTranslation.x = this->ij[2][0];
+        vTranslation.x = this->ij[2][1];
     }
 
     /// <summary>
     /// Extracts the rotation angle from the transformation matrix.
     /// </summary>
-    /// <param name="fOutRot">[OUT] Floating point variable to store the angle of rotation.</param>
-    inline void GetRotation (float_q &fOutRot) const
+    /// <param name="fRotationAngle">[OUT] Floating point variable to store the angle of rotation.</param>
+    inline void GetRotation(float_q &fRotationAngle) const
     {
         const float_q &fScale = hypot_q(this->ij[0][0], this->ij[0][1]);
 
@@ -129,22 +131,22 @@ public:
         // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
         QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1);
 
-        fOutRot = acos_q(fCosRot);
+        fRotationAngle = acos_q(fCosRot);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles must be specified in degrees, then converts it.
-            SQAngle::RadiansToDegrees(fOutRot, fOutRot);
+            SQAngle::RadiansToDegrees(fRotationAngle, fRotationAngle);
         #endif
     }
 
     /// <summary>
     /// Extracts the scale factors from the matrix.
     /// </summary>
-    /// <param name="&vOutScale">[OUT] A 2D vector where to store the scale factors.</param>
-    inline void GetScale (QBaseVector2 &vOutScale) const
+    /// <param name="vScale">[OUT] A 2D vector where to store the scale factors.</param>
+    inline void GetScale(QBaseVector2 &vScale) const
     {
-        vOutScale.x = hypot_q(this->ij[0][0], this->ij[0][1]);
-        vOutScale.y = hypot_q(this->ij[1][0], this->ij[1][1]);
+        vScale.x = hypot_q(this->ij[0][0], this->ij[0][1]);
+        vScale.y = hypot_q(this->ij[1][0], this->ij[1][1]);
     }
 
     /// <summary>
@@ -152,7 +154,7 @@ public:
 	/// Remember that Quimera Engine works with left-hand convention by default.
 	/// To do that, we simply invert rotation (by trasposing its submatrix).
     /// </summary>
-    inline void SwitchHandConvention ()
+    inline void SwitchHandConvention()
     {
         this->ij[0][1] = -this->ij[0][1];
         this->ij[1][0] = -this->ij[1][0];
@@ -163,14 +165,15 @@ public:
 	/// Remember that Quimera Engine works with left-hand convention by default.
 	/// To do that, we simply invert rotation (by trasposing its submatrix).
     /// </summary>
-    /// <param name="m">[OUT] Matrix to store the changed transformation matrix.</param>
-    inline void SwitchHandConvention (QTransformationMatrix3x3 &m)
+    /// <param name="outMatrix">[OUT] Matrix to store the changed transformation matrix.</param>
+    inline void SwitchHandConvention(QTransformationMatrix3x3 &outMatrix)
     {
-        m = *this;
-        m.SwitchHandConvention();
+        outMatrix = *this;
+        outMatrix.SwitchHandConvention();
     }
 
 protected:
+
     // Hidden method to prevent it could be used.
     void ResetToZero();
 

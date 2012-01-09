@@ -29,60 +29,60 @@ namespace Math
 
 // Binary operators
 
-QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionMatrix &m) const
+QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionMatrix &matrix) const
 {
     QSpaceConversionMatrix aux;
 
-    aux = ( this->As<const QMatrix4x4>() * m.As<const QMatrix4x4>() ).As<QSpaceConversionMatrix>();
+    aux = ( this->As<const QMatrix4x4>() * matrix.As<const QMatrix4x4>() ).As<QSpaceConversionMatrix>();
     return aux;
 }
 
-QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &m)
+QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &matrix)
 {
-    this->As<QMatrix4x4>() *= m.As<const QMatrix4x4>();
+    this->As<QMatrix4x4>() *= matrix.As<const QMatrix4x4>();
     return *this;
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector3 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
 {
-    QTransformationMatrix<QMatrix4x4> aux(vDisp, qRot, vScale);
+    QTransformationMatrix<QMatrix4x4> aux(vTranslation, qRotation, vScale);
 
     *this = aux.As<QSpaceConversionMatrix>();
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector4 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
 {
-    QTransformationMatrix<QMatrix4x4> aux(vDisp, qRot, vScale);
+    QTransformationMatrix<QMatrix4x4> aux(vTranslation, qRotation, vScale);
 
     *this = aux.As<QSpaceConversionMatrix>();
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix<QMatrix4x4> &mDisp, const QTransformationMatrix<QMatrix4x4> &mRot,
-    const QTransformationMatrix<QMatrix4x4> &mScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix<QMatrix4x4> &translation, const QTransformationMatrix<QMatrix4x4> &rotation,
+                                                 const QTransformationMatrix<QMatrix4x4> &scale)
 {
-    this->ij[0][0] = mScale.ij[0][0]*mRot.ij[0][0];
-    this->ij[0][1] = mScale.ij[0][0]*mRot.ij[0][1];
-    this->ij[0][2] = mScale.ij[0][0]*mRot.ij[0][2];
+    this->ij[0][0] = scale.ij[0][0] * rotation.ij[0][0];
+    this->ij[0][1] = scale.ij[0][0] * rotation.ij[0][1];
+    this->ij[0][2] = scale.ij[0][0] * rotation.ij[0][2];
     this->ij[0][3] = SQFloat::_0;
 
-    this->ij[1][0] = mScale.ij[1][1]*mRot.ij[1][0];
-    this->ij[1][1] = mScale.ij[1][1]*mRot.ij[1][1];
-    this->ij[1][2] = mScale.ij[1][1]*mRot.ij[1][2];
+    this->ij[1][0] = scale.ij[1][1] * rotation.ij[1][0];
+    this->ij[1][1] = scale.ij[1][1] * rotation.ij[1][1];
+    this->ij[1][2] = scale.ij[1][1] * rotation.ij[1][2];
     this->ij[1][3] = SQFloat::_0;
 
-    this->ij[2][0] = mScale.ij[2][2]*mRot.ij[2][0];
-    this->ij[2][1] = mScale.ij[2][2]*mRot.ij[2][1];
-    this->ij[2][2] = mScale.ij[2][2]*mRot.ij[2][2];
+    this->ij[2][0] = scale.ij[2][2] * rotation.ij[2][0];
+    this->ij[2][1] = scale.ij[2][2] * rotation.ij[2][1];
+    this->ij[2][2] = scale.ij[2][2] * rotation.ij[2][2];
     this->ij[2][3] = SQFloat::_0;
 
-    this->ij[3][0] = mDisp.ij[3][0];
-    this->ij[3][1] = mDisp.ij[3][1];
-    this->ij[3][2] = mDisp.ij[3][2];
+    this->ij[3][0] = translation.ij[3][0];
+    this->ij[3][1] = translation.ij[3][1];
+    this->ij[3][2] = translation.ij[3][2];
     this->ij[3][3] = SQFloat::_1;
 }
 
 void QSpaceConversionMatrix::SetViewSpaceMatrix(const QBaseVector3 &vPointOfView, const QBaseVector3 &vTarget,
-    const QBaseVector3 &vUpDirection)
+                                                const QBaseVector3 &vUpDirection)
 {
     QVector3 vZAxis(vTarget.x - vPointOfView.x, vTarget.y - vPointOfView.y, vTarget.z - vPointOfView.z);
     vZAxis.Normalize();
@@ -116,7 +116,7 @@ void QSpaceConversionMatrix::SetViewSpaceMatrix(const QBaseVector3 &vPointOfView
 }
 
 void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
-        const float_q &fAspectRatio, const float_q &fVerticalFOV)
+                                                      const float_q &fAspectRatio, const float_q &fVerticalFOV)
 {
     QE_ASSERT(SQFloat::AreNotEquals(fNearClipPlane, fFarClipPlane));
     QE_ASSERT(SQFloat::IsGreaterThan(fAspectRatio, SQFloat::_0));
@@ -193,20 +193,20 @@ void QSpaceConversionMatrix::SwitchHandConventionViewSpaceMatrix()
     this->ij[3][3] = SQFloat::_1;
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
 {
-    SetWorldSpaceMatrixImp(mDisp, mRot, mScale);
+    SetWorldSpaceMatrixImp(translation, rotation, scale);
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
 {
-    SetWorldSpaceMatrixImp(mDisp, mRot, mScale);
+    SetWorldSpaceMatrixImp(translation, rotation, scale);
 }
 
 template <class MatrixType>
-void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
 {
-    QTransformationMatrix<QMatrix4x4> aux(mDisp, mRot, mScale);
+    QTransformationMatrix<QMatrix4x4> aux(translation, rotation, scale);
 
     *this = aux.As<QSpaceConversionMatrix>();
 }

@@ -42,18 +42,18 @@ public:
     /// Constructor that receives a ray.
     /// </summary>
     /// <param name="baseRay">[IN] An existing ray.</param>
-    inline QRay(const QBaseRay<VectorTypeOrigin, VectorTypeDirection>& baseRay) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(baseRay)
+    inline QRay(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &baseRay) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(baseRay)
     {
     }
 
     /// <summary>
     /// Constructor that receives the ray's position and direction.
     /// </summary>
-    /// <param name="vOrigin">[IN] Ray's position.</param>
-    /// <param name="vDirection">[IN] Ray's direction.</param>
     /// <remarks>
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
+    /// <param name="vOrigin">[IN] Ray's position.</param>
+    /// <param name="vDirection">[IN] Ray's direction.</param>
     inline QRay(const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(vOrigin, vDirection)
     {
     }
@@ -87,7 +87,7 @@ public:
     /// <returns>
     /// A reference to this ray, after assignation.
     /// </returns>
-    inline QRay& operator=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection>& ray)
+    inline QRay& operator=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray)
     {
         QBaseRay<VectorTypeOrigin, VectorTypeDirection>::operator=(ray);
         return *this;
@@ -104,11 +104,11 @@ public:
     /// <summary>
     /// Obtains a reverted copy of the ray. Converts copy's direction in its opposite.
     /// </summary>
-    /// <param name="vRevertedRay">[OUT] A reverted copy of the ray.</param>
-    inline void Reverse(QBaseRay<VectorTypeOrigin, VectorTypeDirection>& vRevertedRay) const
+    /// <param name="outRay">[OUT] A reverted copy of the ray.</param>
+    inline void Reverse(QBaseRay<VectorTypeOrigin, VectorTypeDirection> &outRay) const
     {
-        vRevertedRay = *this;
-        vRevertedRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> >().Reverse();
+        outRay = *this;
+        outRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> >().Reverse();
     }
 
     /// <summary>
@@ -122,22 +122,22 @@ public:
     /// <summary>
     /// Obtains a normalized copy of the ray. Normalizes the copy, converting its direction in a unit vector.
     /// </summary>
-    /// <param name="vNormalizedRay">[OUT] A normalized copy of the ray.</param>
-    inline void Normalize(QBaseRay<VectorTypeOrigin, VectorTypeDirection>& vNormalizedRay) const
+    /// <param name="outRay">[OUT] A normalized copy of the ray.</param>
+    inline void Normalize(QBaseRay<VectorTypeOrigin, VectorTypeDirection> &outRay) const
     {
-        vNormalizedRay = *this;
-        vNormalizedRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> >().Normalize();
+        outRay = *this;
+        outRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> >().Normalize();
     }
 
     /// <summary>
     /// Calculates any point that belongs to the ray, based on the distance to the ray's position.
     /// </summary>
-    /// <param name="fDistance">[IN] Distance from the point which is to be found to the ray's position.</param>
-    /// <param name="vRayPoint">[OUT] A point of the ray.</param>
     /// <remarks>
     /// Ray must be normalized to obtain a correct result.
     /// </remarks>
-    inline void GetPoint(const float_q &fDistance, VectorTypeOrigin& vRayPoint) const
+    /// <param name="fDistance">[IN] Distance from the point which is to be found to the ray's position.</param>
+    /// <param name="vRayPoint">[OUT] A point of the ray.</param>
+    inline void GetPoint(const float_q &fDistance, VectorTypeOrigin &vRayPoint) const
     {
         // It's assumed that the ray's direction vector is normalized
         vRayPoint = this->Direction;
@@ -148,14 +148,14 @@ public:
     /// <summary>
     /// Checks if resident ray intersects with the provided orb.
     /// </summary>
+    /// <remarks>
+    /// Ray must be normalized to obtain a correct result.
+    /// </remarks>
     /// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
     /// <returns>
     /// True if ray intersect orb, false otherwise.
     /// </returns>
-    /// <remarks>
-    /// Ray must be normalized to obtain a correct result.
-    /// </remarks>
-    inline bool Intersection (const QBaseOrb<VectorTypeOrigin> &orb) const
+    inline bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
     {
         // Converts all vectors to VectorTypeDirection, that always will be QVector2 or QVector3
         VectorTypeDirection vNewRayOrigin(this->Origin - orb.Center);
@@ -201,21 +201,21 @@ public:
     /// This method receives an orb, and computes the point where the resident ray intersects with it,
     /// if it exists.
     /// </summary>
-    /// <param name="orb">[IN] The orb whose intersections with resident ray we want to check.</param>
-    /// <param name="vPoint1">[OUT] A vector where to store the intersection point.</param>
-    /// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
-    /// </returns>
     /// <remarks>
     /// Ray must be normalized to obtain a correct result.
     /// -If there's no intersection point, the output parameter used for storing the point won't be modified.
     /// -If there are one or two intersections, the output parameter stores the closest to ray origin.
     /// </remarks>
-	inline EQIntersections IntersectionPoint (const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vPoint1) const
+    /// <param name="orb">[IN] The orb whose intersections with resident ray we want to check.</param>
+    /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
+    /// <returns>
+    /// An enumerated value which represents the number of intersections between the ray and the orb, and can take
+    /// the following values: E_None, E_One and E_Two.
+    /// </returns>
+	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection) const
 	{
-		VectorTypeOrigin aux;
-		return this->IntersectionPoint(orb, vPoint1, aux);
+		VectorTypeOrigin vAux;
+		return this->IntersectionPoint(orb, vIntersection, vAux);
 	}
 
 
@@ -224,8 +224,8 @@ public:
 	/// Ray must be normalized to ensure correct result.
 	/// </summary>
 	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
-	/// <param name="vPoint1">[OUT] First point where they intersect, if they do.</param>
-	/// <param name="vPoint2">[OUT] Second point where they intersect, if they do.</param>
+	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
+	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the orb, and can take
     /// the following values: E_None, E_One and E_Two.
@@ -238,7 +238,7 @@ public:
     /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
-    EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vPoint1, VectorTypeOrigin &vPoint2) const
+    EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection1, VectorTypeOrigin &vIntersection2) const
     {
         // We set all vectors to the same type that output parameters to allow operations
         const VectorTypeOrigin &vDirection(this->Direction);
@@ -276,7 +276,7 @@ public:
                 return EQIntersections::E_None;
             else
             {
-                vPoint1 = vNewRayOrigin + fT * vDirection + orb.Center;
+                vIntersection1 = vNewRayOrigin + fT * vDirection + orb.Center;
                 return EQIntersections::E_One;
             }
         }
@@ -298,18 +298,18 @@ public:
                 return EQIntersections::E_None; // Shouldn't happen this :(
             else if (bT1Fails)  // One parameter is negative, there is only one intersection
             {
-                vPoint1 = vNewRayOrigin + fT2 * vDirection + orb.Center;
+                vIntersection1 = vNewRayOrigin + fT2 * vDirection + orb.Center;
                 return EQIntersections::E_One;
             }
             else if (bT2Fails) // One parameter is negative, there is only one intersection
             {
-                vPoint1 = vNewRayOrigin + fT1 * vDirection + orb.Center;
+                vIntersection1 = vNewRayOrigin + fT1 * vDirection + orb.Center;
                 return EQIntersections::E_One;
             }
             else // Most of the cases: two intersections.
             {
-                vPoint1 = vNewRayOrigin + fT1 * vDirection + orb.Center;
-                vPoint2 = vNewRayOrigin + fT2 * vDirection + orb.Center;
+                vIntersection1 = vNewRayOrigin + fT1 * vDirection + orb.Center;
+                vIntersection2 = vNewRayOrigin + fT2 * vDirection + orb.Center;
                 return EQIntersections::E_Two;
             }
         }

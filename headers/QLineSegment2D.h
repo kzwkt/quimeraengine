@@ -21,12 +21,6 @@ namespace Tools
 namespace Math
 {
 
-// Forward Declarations
-//-----------------------
-
-typedef QBaseTriangle<QVector2> QBaseTriangle2;
-
-
 /// <summary>
 /// This class represents a chunk (segment) of straight line into 2D space, defined by two
 /// endpoints, A and B.
@@ -45,20 +39,26 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QLineSegment2D() { };
+	inline QLineSegment2D()
+    {
+    }
 
 	/// <summary>
     /// Constructor from two vectors.
     /// </summary>
     /// <param name="vA">[IN] 2D vector to define endpoint A.</param>
     /// <param name="vB">[IN] 2D vector to define endpoint B.</param>
-	inline QLineSegment2D (const QVector2& vA, const QVector2& vB) : QLineSegment<QVector2>(vA,vB) { }
+	inline QLineSegment2D (const QVector2& vA, const QVector2& vB) : QLineSegment<QVector2>(vA,vB)
+    {
+    }
 
 	/// <summary>
     /// Constructor from a 2D line segment.
     /// </summary>
-    /// <param name="segmt">[IN] 2D line segment containing the two endpoints.</param>
-	inline explicit QLineSegment2D (const QLineSegment<QVector2>& segmt) : QLineSegment<QVector2>(segmt.A, segmt.B)  { }
+    /// <param name="segment">[IN] 2D line segment containing the two endpoints.</param>
+	inline explicit QLineSegment2D (const QLineSegment<QVector2>& segment) : QLineSegment<QVector2>(segment.A, segment.B)
+    {
+    }
 
 
     // PROPERTIES
@@ -97,13 +97,13 @@ public:
 	/// <summary>
 	/// Assigning operator.
 	/// </summary>
-	/// <param name="segmt">[IN] The 2D segment to be copied from.</param>
+	/// <param name="segment">[IN] The 2D segment to be copied from.</param>
 	/// <returns>
 	/// A reference to the modified line segment.
 	/// </returns>
-    inline QLineSegment2D& operator=(const QBaseLineSegment2& segmt)
+    inline QLineSegment2D& operator=(const QBaseLineSegment<QVector2> &segment)
     {
-        QBaseLineSegment2::operator=(segmt);
+        QBaseLineSegment<QVector2>::operator=(segment);
         return *this;
     }
 
@@ -114,7 +114,7 @@ public:
     /// <returns>
     /// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
     /// </returns>
-    inline bool Intersection (const QBaseOrb<QVector2>& orb) const
+    inline bool Intersection(const QBaseOrb<QVector2> &orb) const
     {
          return QLineSegment<QVector2>::Intersection(orb);
     };
@@ -122,31 +122,31 @@ public:
     /// <summary>
 	/// This method receives a 2D triangle, and computes whether they intersect each other or not.
 	/// </summary>
-	/// <param name="triangl">[IN] The 2D triangle to be compared to.</param>
+	/// <param name="triangle">[IN] The 2D triangle to be compared to.</param>
 	/// <returns>
 	/// True if the segment intersects the triangle (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
-	bool Intersection (const QBaseTriangle2& triangl) const;
+	bool Intersection (const QBaseTriangle<QVector2>& triangle) const;
 
 	/// <summary>
 	/// This method receives a 2D quadrilateral, and computes whether they intersect each other or not.
 	/// </summary>
-	/// <param name="quadrl">[IN] The 2D quadrilateral to be compared to.</param>
+	/// <param name="quad">[IN] The 2D quadrilateral to be compared to.</param>
 	/// <returns>
 	/// True if the segment intersects the quadrilateral (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
-	bool Intersection (const QBaseQuadrilateral& quadrl) const;
+	bool Intersection (const QBaseQuadrilateral& quad) const;
 
 	/// <summary>
 	/// This method receives another line segment and computes whether they intersect each other or not.
 	/// </summary>
-	/// <param name="segmt">[IN] The segment to be compared to.</param>
+	/// <param name="segment">[IN] The segment to be compared to.</param>
 	/// <returns>
 	/// True if they intersect each other (or if they were coincident), false if they don't.
 	/// </returns>
-	inline bool Intersection (const QBaseLineSegment<QVector2>& segmt) const
+	inline bool Intersection (const QBaseLineSegment<QVector2> &segment) const
 	{
-		return QLineSegment<QVector2>::Intersection(segmt);
+		return QLineSegment<QVector2>::Intersection(segment);
 	}
 
 	/// <summary>
@@ -164,14 +164,14 @@ public:
 	/// around the coordinate axis centre, and stores the resulting segment in the output parameter.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <param name="lsOut">[OUT] It receives the resulting rotated 2D segment.</param>
+	/// <param name="outSegment">[OUT] It receives the resulting rotated 2D segment.</param>
 	/// <remarks>
 	/// The segment is NOT modified, it stays the same.
 	/// </remarks>
-	inline void Rotate (const float_q &fRotationAngle, QBaseLineSegment2 &lsOut) const
+	inline void Rotate (const float_q &fRotationAngle, QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::Rotate(fRotationAngle, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::Rotate(fRotationAngle, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -198,11 +198,11 @@ public:
 	/// resultant line segment in the provided one.
 	/// </summary>
 	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
-	/// <param name="lsOut">[OUT] The translated line segment.</param>
-	inline void Translate(const QBaseVector2 &vTranslation, QBaseLineSegment2 &lsOut) const
+	/// <param name="outSegment">[OUT] The translated line segment.</param>
+	inline void Translate(const QBaseVector2 &vTranslation, QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::Translate(vTranslation, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::Translate(vTranslation, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -211,11 +211,11 @@ public:
 	/// </summary>
 	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
 	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
-	/// <param name="lsOut">[OUT] The translated line segment.</param>
-	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseLineSegment2 &lsOut) const
+	/// <param name="outSegment">[OUT] The translated line segment.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::Translate(fTranslationX, fTranslationY, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::Translate(fTranslationX, fTranslationY, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -242,11 +242,11 @@ public:
 	/// resultant line segment in the provided one.
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
-	/// <param name="lsOut">[OUT] The scaled line segment.</param>
-	inline void Scale(const QBaseVector2 &vScale, QBaseLineSegment2 &lsOut) const
+	/// <param name="outSegment">[OUT] The scaled line segment.</param>
+	inline void Scale(const QBaseVector2 &vScale, QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::Scale(vScale, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::Scale(vScale, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -255,21 +255,21 @@ public:
 	/// </summary>
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
-	/// <param name="lsOut">[OUT] The scaled line segment.</param>
-	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseLineSegment2 &lsOut) const
+	/// <param name="outSegment">[OUT] The scaled line segment.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::Scale(fScaleX, fScaleY, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::Scale(fScaleX, fScaleY, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
 	/// Receives a transformation matrix and applies the transformations to the resident
 	/// line segment. The transformation pivot is the origin of coordinates.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	inline void Transform(const QTransformationMatrix3x3 &matrix)
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+	inline void Transform(const QTransformationMatrix3x3 &transformation)
 	{
-	    SQPoint::Transform(matrix, this->AsPtr<QVector2>(), 2);
+	    SQPoint::Transform(transformation, this->AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -277,12 +277,12 @@ public:
 	/// to a copy of the resident line segment, storing the results in the output parameter. The transformation pivot is the
 	/// origin of coordinates.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="lsOut">[OUT] Line segment that stores the result of the transformation.</param>
-	inline void Transform(const QTransformationMatrix3x3 &matrix, QBaseLineSegment2 &lsOut) const
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="outSegment">[OUT] Line segment that stores the result of the transformation.</param>
+	inline void Transform(const QTransformationMatrix3x3 &transformation, QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::Transform(matrix, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::Transform(transformation, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -291,7 +291,7 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	inline void RotateWithPivot (const float_q &fRotationAngle, const QVector2 &vPivot)
+	inline void RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot)
 	{
 	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, this->AsPtr<QVector2>(), 2);
 	}
@@ -302,14 +302,14 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	/// <param name="lsOut">[OUT] It receives the resulting rotated 2D segment.</param>
+	/// <param name="outSegment">[OUT] It receives the resulting rotated 2D segment.</param>
 	/// <remarks>
 	/// The segment is NOT modified, it stays the same.
 	/// </remarks>
-	inline void RotateWithPivot (const float_q &fRotationAngle, const QVector2 &vPivot, QBaseLineSegment2 &lsOut) const
+	inline void RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot, QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -341,11 +341,12 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	/// <param name="lsOut">[OUT] The scaled line segment.</param>
-	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseLineSegment2 &lsOut) const
+	/// <param name="outSegment">[OUT] The scaled line segment.</param>
+	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, 
+                               QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::ScaleWithPivot(vScale, vPivot, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -355,11 +356,12 @@ public:
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	/// <param name="lsOut">[OUT] The scaled line segment.</param>
-	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseLineSegment2 &lsOut) const
+	/// <param name="outSegment">[OUT] The scaled line segment.</param>
+	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, 
+                               QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, outSegment.AsPtr<QVector2>(), 2);
 	}
 
 
@@ -367,11 +369,11 @@ public:
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
 	/// to the resident line segment. The transformation pivot is the vector received as parameter.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot)
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot)
 	{
-	    SQPoint::TransformWithPivot(matrix, vPivot, this->AsPtr<QVector2>(), 2);
+	    SQPoint::TransformWithPivot(transformation, vPivot, this->AsPtr<QVector2>(), 2);
 	}
 
 	/// <summary>
@@ -379,21 +381,22 @@ public:
 	/// and applies the transformations to a copy of the resident line segment, storing the results in the output parameter.
 	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
-	/// <param name="lsOut">[OUT] Line segment that stores the result of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot, QBaseLineSegment2 &lsOut) const
+	/// <param name="outSegment">[OUT] Line segment that stores the result of the transformation.</param>
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot, 
+                                   QBaseLineSegment<QVector2> &outSegment) const
 	{
-	    lsOut = *this;
-	    SQPoint::TransformWithPivot(matrix, vPivot, lsOut.AsPtr<QVector2>(), 2);
+	    outSegment = *this;
+	    SQPoint::TransformWithPivot(transformation, vPivot, outSegment.AsPtr<QVector2>(), 2);
 	}
 
  	/// <summary>
 	/// This method receives another line segment, and computes the intersection point between them,
 	/// if it exists.
 	/// </summary>
-	/// <param name="segmt">[IN] The segment to be compared to.</param>
-	/// <param name="vIntersectionPt">[OUT] The point where they intersect.</param>
+	/// <param name="segment">[IN] The segment to be compared to.</param>
+	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One and E_Infinite.
@@ -403,9 +406,9 @@ public:
 	/// -If segments are totally or parcially coincident only a single point will be stored in the output
 	///  parameter, presumingly an endpoint belonging to one of the segments.
 	/// </remarks>
-	inline EQIntersections IntersectionPoint (const QBaseLineSegment<QVector2>& segmt, QBaseVector2& vIntersectionPt) const
+	inline EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2>& segment, QBaseVector2& vIntersection) const
 	{
-		return QLineSegment<QVector2>::IntersectionPoint(segmt, vIntersectionPt.As<QVector2>());
+		return QLineSegment<QVector2>::IntersectionPoint(segment, vIntersection.As<QVector2>());
 	}
 
 	/// <summary>
@@ -413,7 +416,7 @@ public:
 	/// closest to A end point, if it exists.
 	/// </summary>
 	/// <param name="orb">[IN] The orb whose intersection point with resident line segment we want to check.</param>
-    /// <param name="vPoint">[OUT] A vector where to store the intersection point closest to A end point.</param>
+    /// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to A end point.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One and E_Two.
@@ -422,9 +425,9 @@ public:
 	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
 	/// -If there are two intersections, the output parameter stores only the closest to A end point.
 	/// </remarks>
-	EQIntersections IntersectionPoint (const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint) const
+	EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection) const
 	{
-        return QLineSegment<QVector2>::IntersectionPoint(orb, vPoint.As<QVector2>());
+        return QLineSegment<QVector2>::IntersectionPoint(orb, vIntersection.As<QVector2>());
 	}
 
     /// <summary>
@@ -432,8 +435,8 @@ public:
     /// if they exists.
 	/// </summary>
 	/// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
-    /// <param name="vPoint1">[OUT] A vector where to store the intersection point closest to A end point.</param>
-    /// <param name="vPoint2">[OUT] A vector where to store the intersection point farthest to A end point.</param>
+    /// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to A end point.</param>
+    /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to A end point.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One and E_Two.
@@ -444,9 +447,9 @@ public:
 	/// -If there are two intersections, the first output parameter stores the closest to A end point of
     ///  line segment, and the second one stores the closest to B end point.
 	/// </remarks>
-	EQIntersections IntersectionPoint (const QBaseOrb<QVector2> &orb, QBaseVector2 &vPoint1, QBaseVector2 &vPoint2) const
+	EQIntersections IntersectionPoint (const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
 	{
-        return QLineSegment<QVector2>::IntersectionPoint(orb, vPoint1.As<QVector2>(), vPoint2.As<QVector2>());
+        return QLineSegment<QVector2>::IntersectionPoint(orb, vIntersection1.As<QVector2>(), vIntersection2.As<QVector2>());
 	}
 
 	/// <summary>
@@ -454,8 +457,8 @@ public:
 	/// if they exist.
 	/// </summary>
 	/// <param name="triangle">[IN] The triangle to be compared to.</param>
-	/// <param name="vPoint1">[OUT] The first point where they intersect.</param>
-	/// <param name="vPoint2">[OUT] The second point where they intersect.</param>
+	/// <param name="vIntersection1">[OUT] The first point where they intersect.</param>
+	/// <param name="vIntersection2">[OUT] The second point where they intersect.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
@@ -465,14 +468,14 @@ public:
 	/// -If there's only one intersection point, only the first parameter will be modified.
 	/// -The first point returned is the closest one to A.
 	/// </remarks>
-	EQIntersections IntersectionPoint(const QBaseTriangle2& triangle, QBaseVector2& vPoint1, QBaseVector2& vPoint2) const;
+	EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
 	/// <summary>
 	/// This method receives a 2D triangle, and computes the intersection point between it and the segment,
 	/// if it exists.
 	/// </summary>
 	/// <param name="triangle">[IN] The triangle to be compared to.</param>
-	/// <param name="vPoint">[OUT] The point where they intersect.</param>
+	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
@@ -481,10 +484,10 @@ public:
 	/// -If there are no intersection point, the output parameter used for storing that point won't be modified.
 	/// -The point returned is the closest one to A.
 	/// </remarks>
-	inline EQIntersections IntersectionPoint(const QBaseTriangle2& triangle, QBaseVector2& vPoint) const
+	inline EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
 	{
-		QBaseVector2 aux;
-		return this->IntersectionPoint(triangle, vPoint, aux);
+		QBaseVector2 vAux;
+		return this->IntersectionPoint(triangle, vIntersection, vAux);
 	}
 
 	/// <summary>
@@ -492,8 +495,8 @@ public:
 	/// if they exist.
 	/// </summary>
 	/// <param name="quad">[IN] The quadrilateral to be compared to.</param>
-	/// <param name="vPoint1">[OUT] The first point where they intersect.</param>
-	/// <param name="vPoint2">[OUT] The second point where they intersect.</param>
+	/// <param name="vIntersection1">[OUT] The first point where they intersect.</param>
+	/// <param name="vIntersection2">[OUT] The second point where they intersect.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
@@ -504,14 +507,14 @@ public:
 	/// -If there's only one intersection point, only the first parameter will be modified.
 	/// -The first point returned is the closest one to A.
 	/// </remarks>
-	EQIntersections IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vPoint1, QBaseVector2& vPoint2) const;
+	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
 	/// <summary>
 	/// This method receives a quadrilateral, and computes the intersection point between it and the segment,
 	/// if it exists.
 	/// </summary>
 	/// <param name="quad">[IN] The quadrilateral to be compared to.</param>
-	/// <param name="vPoint">[OUT] The point where they intersect.</param>
+	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
@@ -521,10 +524,10 @@ public:
 	/// -If there are no intersection point, the output parameter used for storing that point won't be modified.
 	/// -The point returned is the closest one to A.
 	/// </remarks>
-	EQIntersections IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vPoint) const
+	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
 	{
-		QBaseVector2 aux;
-		return this->IntersectionPoint(quad, vPoint, aux);
+		QBaseVector2 vAux;
+		return this->IntersectionPoint(quad, vIntersection, vAux);
 	}
 
 
@@ -532,7 +535,7 @@ protected:
 
 	// Checks if a point is inside a triangle.
 	// [TODO] jwladi: Replace by the QTriangle2D or QTriangle Contains method, when it exists.
-	inline bool PointInsideTriangle(const QBaseTriangle2& triangle, const QVector2& vPoint) const
+	inline bool PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const
 	{
         return ( PointsInSameSideOfLine(vPoint, triangle.A, triangle.B, triangle.C) &&
                  PointsInSameSideOfLine(vPoint, triangle.B, triangle.C, triangle.A) &&

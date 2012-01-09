@@ -40,11 +40,11 @@ public:
     /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
     /// </summary>
     /// <param name="fScalar">[IN] The scalar term of product.</param>
-    /// <param name="m">[IN] The matrix term of product.</param>
+    /// <param name="matrix">[IN] The matrix term of product.</param>
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend QMatrix2x2 operator*(const float_q &fScalar, const QBaseMatrix2x2 &m);
+    friend QMatrix2x2 operator*(const float_q &fScalar, const QBaseMatrix2x2 &matrix);
 
 
     // CONSTRUCTORS
@@ -54,22 +54,26 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QMatrix2x2() { }
+    inline QMatrix2x2()
+    {
+    }
 
     /// <summary>
     /// Constructor from a 2x2 matrix.
     /// </summary>
-    /// <param name="m">[IN] The 2x2 matrix in which we want the resident matrix to be based.</param>
-    inline explicit QMatrix2x2(const QBaseMatrix2x2 &m) : QBaseMatrix2x2(m) { }
+    /// <param name="matrix">[IN] The 2x2 matrix in which we want the resident matrix to be based.</param>
+    inline explicit QMatrix2x2(const QBaseMatrix2x2 &matrix) : QBaseMatrix2x2(matrix)
+    {
+    }
 
 	/// <summary>
     /// Constructor from a floating point value which with fill all matrix's elements.
     /// </summary>
-    /// <param name="fValue">[IN] The floating point value used to fill the matrix.</param>
-    inline explicit QMatrix2x2(const float_q &fValue)
+    /// <param name="fValueAll">[IN] The floating point value used to fill the matrix.</param>
+    inline explicit QMatrix2x2(const float_q &fValueAll)
 	{
 		ij[0][0] = ij[0][1] =
-		ij[1][0] = ij[1][1] = fValue;
+		ij[1][0] = ij[1][1] = fValueAll;
 	}
 
     /// <summary>
@@ -79,8 +83,10 @@ public:
     /// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
     /// <param name="f10">[IN] Floating point value for element of row 1, column 0.</param>
     /// <param name="f11">[IN] Floating point value for element of row 1, column 1.</param>
-     inline QMatrix2x2( const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11) :
-        QBaseMatrix2x2(f00, f01, f10, f11) { }
+    inline QMatrix2x2(const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11) :
+                           QBaseMatrix2x2(f00, f01, f10, f11)
+    {
+    }
 
     /// <summary>
     /// Constructor that receives a pointer to 4 floating point values.
@@ -89,14 +95,18 @@ public:
     /// Keeps the convention rows x columns, so each chunck of 2 consecutive elements
     /// corresponds to a row, where each element in the chunck is the column in the row.
     /// </remarks>
-    /// <param name="pfMatrix">[IN] Pointer to a 4 length array of floating point values.</param>
-    inline explicit QMatrix2x2(const float_q *pfMatrix) : QBaseMatrix2x2(pfMatrix) { }
+    /// <param name="arValues">[IN] Pointer to a 4 length array of floating point values.</param>
+    inline explicit QMatrix2x2(const float_q* arValues) : QBaseMatrix2x2(arValues)
+    {
+    }
 
     /// <summary>
     /// Constructor from one 4x32 floating point packed values. Each pack component contains an element of the matrix.
     /// </summary>
-    /// <param name="vfValues">[IN] 4x32 values for the matrix.</param>
-    inline QMatrix2x2(const vf32_q &vfValues) : QBaseMatrix2x2(vfValues) { }
+    /// <param name="value">[IN] 4x32 values for the matrix.</param>
+    inline QMatrix2x2(const vf32_q &value) : QBaseMatrix2x2(value)
+    {
+    }
 
 
     // PROPERTIES
@@ -160,11 +170,11 @@ public:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <param name="m">[IN] Matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    QMatrix2x2 operator*(const QBaseMatrix2x2 &m) const;
+    QMatrix2x2 operator*(const QBaseMatrix2x2 &matrix) const;
 
     /// <summary>
     /// Divides current matrix by a floating point value.
@@ -178,29 +188,29 @@ public:
     /// <summary>
     /// Adds a 2x2 matrix to the current matrix.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be added to.</param>
+    /// <param name="matrix">[IN] The matrix to be added to.</param>
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    QMatrix2x2 operator+(const QBaseMatrix2x2 &m) const;
+    QMatrix2x2 operator+(const QBaseMatrix2x2 &matrix) const;
 
     /// <summary>
     /// Subtracts a 2x2 matrix to the current matrix.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be subtracted to.</param>
+    /// <param name="matrix">[IN] The matrix to be subtracted to.</param>
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    QMatrix2x2 operator-(const QBaseMatrix2x2 &m) const;
+    QMatrix2x2 operator-(const QBaseMatrix2x2 &matrix) const;
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    QMatrix2x2& operator*=(const QBaseMatrix2x2 &m);
+    QMatrix2x2& operator*=(const QBaseMatrix2x2 &matrix);
 
     /// <summary>
     /// Division and assign operator. Current matrix stores the result of the division.
@@ -224,16 +234,16 @@ public:
     /// <summary>
     /// Addition and assign operator. Current matrix stores the result of the addition.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be added to.</param>
+    /// <param name="matrix">[IN] The matrix to be added to.</param>
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QMatrix2x2& operator+=(const QBaseMatrix2x2 &m)
+    inline QMatrix2x2& operator+=(const QBaseMatrix2x2 &matrix)
     {
-        this->ij[0][0] += m.ij[0][0];
-        this->ij[0][1] += m.ij[0][1];
-        this->ij[1][0] += m.ij[1][0];
-        this->ij[1][1] += m.ij[1][1];
+        this->ij[0][0] += matrix.ij[0][0];
+        this->ij[0][1] += matrix.ij[0][1];
+        this->ij[1][0] += matrix.ij[1][0];
+        this->ij[1][1] += matrix.ij[1][1];
 
         return *this;
     }
@@ -241,16 +251,16 @@ public:
     /// <summary>
     /// Subtraction and assign operator. Current matrix stores the result of the subtraction.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be subtracted to.</param>
+    /// <param name="matrix">[IN] The matrix to be subtracted to.</param>
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QMatrix2x2& operator-=(const QBaseMatrix2x2 &m)
+    inline QMatrix2x2& operator-=(const QBaseMatrix2x2 &matrix)
     {
-        this->ij[0][0] -= m.ij[0][0];
-        this->ij[0][1] -= m.ij[0][1];
-        this->ij[1][0] -= m.ij[1][0];
-        this->ij[1][1] -= m.ij[1][1];
+        this->ij[0][0] -= matrix.ij[0][0];
+        this->ij[0][1] -= matrix.ij[0][1];
+        this->ij[1][0] -= matrix.ij[1][0];
+        this->ij[1][1] -= matrix.ij[1][1];
 
         return *this;
     }
@@ -258,13 +268,13 @@ public:
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QMatrix2x2& operator=(const QBaseMatrix2x2 &m)
+    inline QMatrix2x2& operator=(const QBaseMatrix2x2 &matrix)
     {
-        QBaseMatrix2x2::operator=(m);
+        QBaseMatrix2x2::operator=(matrix);
         return *this;
     }
 
@@ -309,13 +319,13 @@ public:
     /// <remarks>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
     /// </remarks>
-    /// <param name="m">[OUT] Stores the resultant transposed matrix.</param>
-    inline void Transpose(QBaseMatrix2x2 &m) const
+    /// <param name="matrix">[OUT] Stores the resultant transposed matrix.</param>
+    inline void Transpose(QBaseMatrix2x2 &matrix) const
     {
-        m.ij[0][0] = this->ij[0][0];
-        m.ij[0][1] = this->ij[1][0];
-        m.ij[1][0] = this->ij[0][1];
-        m.ij[1][1] = this->ij[1][1];
+        matrix.ij[0][0] = this->ij[0][0];
+        matrix.ij[0][1] = this->ij[1][0];
+        matrix.ij[1][0] = this->ij[0][1];
+        matrix.ij[1][1] = this->ij[1][1];
     }
 
     /// <summary>
@@ -372,10 +382,7 @@ public:
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
-    inline float_q GetDeterminant() const
-    {
-        return this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0];
-    }
+    float_q GetDeterminant() const;
 
     /// <summary>
     /// Inverses the matrix.
@@ -411,14 +418,14 @@ public:
     /// <remarks>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
     /// </remarks>
-    /// <param name="m">[OUT] Stores the resultant inversed matrix.</param>
+    /// <param name="matrix">[OUT] Stores the resultant inversed matrix.</param>
     /// <returns>
     /// True if the matrix is invertible, false otherwise.
     /// </returns>
-    inline bool Reverse(QBaseMatrix2x2 &m) const
+    inline bool Reverse(QBaseMatrix2x2 &matrix) const
     {
-        m = *this;
-        return m.As<QMatrix2x2>().Reverse();
+        matrix = *this;
+        return matrix.As<QMatrix2x2>().Reverse();
     }
 
     /// <summary>
@@ -426,13 +433,7 @@ public:
     /// "M2x2( 00, 01 )( 10, 11 )".
     /// </summary>
     /// <returns>The string with the format specified.</returns>
-    inline string_q ToString() const
-    {
-        return QE_L("M2x2(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[0][1]) + QE_L(")(") +
-                               SQFloat::ToString(this->ij[1][0]) + QE_L(",") +
-                               SQFloat::ToString(this->ij[1][1]) + QE_L(")");
-    }
+    string_q ToString() const;
 };
 
 } //namespace Math

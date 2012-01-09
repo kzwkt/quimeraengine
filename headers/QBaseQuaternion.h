@@ -32,7 +32,9 @@ public:
     /// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QBaseQuaternion() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0), w(SQFloat::_0) {};
+    inline QBaseQuaternion() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0), w(SQFloat::_0)
+    {
+    }
 
     /// <summary>
     /// Constructor that receives 4 values, one per quaternion's component.
@@ -41,13 +43,17 @@ public:
     /// <param name="fValueY">[IN] Y component value.</param>
     /// <param name="fValueZ">[IN] Z component value.</param>
     /// <param name="fValueW">[IN] W component value.</param>
-    inline QBaseQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) : x(fValueX), y(fValueY), z(fValueZ), w(fValueW) {};
+    inline QBaseQuaternion(const float_q &fValueX, const float_q &fValueY, 
+                           const float_q &fValueZ, const float_q &fValueW) : 
+                               x(fValueX), y(fValueY), z(fValueZ), w(fValueW)
+    {
+    }
 
     /// <summary>
     /// Constructor that receives a pointer to a sequence of 4 contiguous values, one per quaternion's component.
     /// </summary>
-    /// <param name="pValues">[IN] Sequence of 4 contiguous values.</param>
-    inline explicit QBaseQuaternion(const float_q* pValues)
+    /// <param name="arValues">[IN] Sequence of 4 contiguous values.</param>
+    inline explicit QBaseQuaternion(const float_q* arValues)
     {
         // [REVIEW] Thund: Should we put these constants in another place?
         const int QE_X_INDEX_IN_FLOATTYPE_ARRAY = 0;
@@ -55,23 +61,23 @@ public:
         const int QE_Z_INDEX_IN_FLOATTYPE_ARRAY = 2;
         const int QE_W_INDEX_IN_FLOATTYPE_ARRAY = 3;
 
-        QE_ASSERT(pValues != null_q);
+        QE_ASSERT(arValues != null_q);
 
-        this->x = pValues[QE_X_INDEX_IN_FLOATTYPE_ARRAY];
-        this->y = pValues[QE_Y_INDEX_IN_FLOATTYPE_ARRAY];
-        this->z = pValues[QE_Z_INDEX_IN_FLOATTYPE_ARRAY];
-        this->w = pValues[QE_W_INDEX_IN_FLOATTYPE_ARRAY];
+        this->x = arValues[QE_X_INDEX_IN_FLOATTYPE_ARRAY];
+        this->y = arValues[QE_Y_INDEX_IN_FLOATTYPE_ARRAY];
+        this->z = arValues[QE_Z_INDEX_IN_FLOATTYPE_ARRAY];
+        this->w = arValues[QE_W_INDEX_IN_FLOATTYPE_ARRAY];
     }
 
     /// <summary>
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
     /// into a 128 bits structure. The values order is: X, Y, Z and W.
     /// </summary>
-    /// <param name="vfValue">[IN] A four 32 bits floating point types pack.</param>
-    inline explicit QBaseQuaternion(const vf32_q &vfValue)
+    /// <param name="value">[IN] A four 32 bits floating point types pack.</param>
+    inline explicit QBaseQuaternion(const vf32_q &value)
     {
         // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
-        SQVF32::Unpack(vfValue, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
+        SQVF32::Unpack(value, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
     }
 
 	// METHODS
