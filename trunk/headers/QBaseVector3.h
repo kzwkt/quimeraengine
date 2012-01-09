@@ -32,7 +32,9 @@ public:
 	/// <summary>
 	/// Default constructor. Initializes vector to (0,0,0)
 	/// </summary>
-	inline QBaseVector3() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0) { }
+	inline QBaseVector3() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0) 
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a floating point value for each component.
@@ -40,40 +42,46 @@ public:
 	/// <param name="fValueX">[IN] Value for x component.</param>
 	/// <param name="fValueY">[IN] Value for y component.</param>
 	/// <param name="fValueZ">[IN] Value for z component.</param>
-	inline QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) : x(fValueX), y(fValueY), z(fValueZ) { }
+	inline QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) : 
+                            x(fValueX), y(fValueY), z(fValueZ)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a floating point value for all components.
 	/// </summary>
-	/// <param name="fValue">[IN] Value for all components.</param>
-	inline explicit QBaseVector3(const float_q &fValue) : x(fValue), y(fValue), z(fValue) { }
+	/// <param name="fValueAll">[IN] Value for all components.</param>
+	inline explicit QBaseVector3(const float_q &fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll) 
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a three floating point components array.
 	/// </summary>
-	/// <param name="pValue">[IN] Pointer to array of floating point values. It must have at least three elements.</param>
-	inline explicit QBaseVector3(const float_q *pValue)
+	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least three elements.</param>
+	inline explicit QBaseVector3(const float_q* arValues)
 	{
 		// Null pointer checkout
-		QE_ASSERT(pValue != null_q);
+		QE_ASSERT(arValues != null_q);
 
 		// Assignments
-		this->x = pValue[0];
-		this->y = pValue[1];
-		this->z = pValue[2];
+		this->x = arValues[0];
+		this->y = arValues[1];
+		this->z = arValues[2];
 	}
 
 	/// <summary>
 	/// Constructor from a 4x32 packed floating point value.
 	/// </summary>
-	/// <param name="vfValue">[IN] 4x32 packed floating point containing the three components.
+	/// <param name="value">[IN] 4x32 packed floating point containing the three components.
 	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (Ignored).</param>
-	inline explicit QBaseVector3(const vf32_q vfValue)
+	inline explicit QBaseVector3(const vf32_q value)
 	{
-		float_q aux;
+		float_q fAux;
 
-		SQVF32::Unpack(vfValue, this->x, this->y, this->z, aux);
+		SQVF32::Unpack(value, this->x, this->y, this->z, fAux);
 	}
+
 
 	// METHODS
 	// ---------------
@@ -82,26 +90,27 @@ public:
     /// <summary>
     /// Equality operator. Compares two 3D vectors.
     /// </summary>
-    /// <param name="v">[IN] Vector with which to compare.</param>
+    /// <param name="vVector">[IN] Vector with which to compare.</param>
     /// <returns>
     /// True if vectors are the same, false otherwise.
     /// </returns>
-    inline bool operator == (const QBaseVector3 &v) const
+    inline bool operator==(const QBaseVector3 &vVector) const
     {
-        return ( SQFloat::AreEquals(v.x, this->x) && SQFloat::AreEquals(v.y, this->y) && SQFloat::AreEquals(v.z, this->z) );
+        return ( SQFloat::AreEquals(vVector.x, this->x) && SQFloat::AreEquals(vVector.y, this->y) && SQFloat::AreEquals(vVector.z, this->z) );
     }
 
     /// <summary>
     /// Inequality operator. Compares two 3D vectors.
     /// </summary>
-    /// <param name="v">[IN] Vector with which to compare.</param>
+    /// <param name="vVector">[IN] Vector with which to compare.</param>
     /// <returns>
     /// True if vectors are not the same, false otherwise.
     /// </returns>
-    inline bool operator != (const QBaseVector3 &v) const
+    inline bool operator!=(const QBaseVector3 &vVector) const
     {
-        return !(*this == v);
+        return !(*this == vVector);
     }
+
 
 	// ATTRIBUTES
 	// ---------------

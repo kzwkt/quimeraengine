@@ -53,8 +53,10 @@ public:
     /// If you use this constructor, be sure that you are constructing a rotation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
-    /// <param name="m">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
-    inline explicit QRotationMatrix3x3(const QBaseMatrix3x3 &m) : QMatrix3x3(m) { }
+    /// <param name="rotation">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
+    inline explicit QRotationMatrix3x3(const QBaseMatrix3x3 &rotation) : QMatrix3x3(rotation)
+    {
+    }
 
     /// <summary>
     /// Constructor that receives 3 angles, one for each Euler angle, to construct the rotation
@@ -62,11 +64,10 @@ public:
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
     /// This is a slow operation.
     /// </summary>
-    /// <param name="fAngleX">[IN] Rotation angle about X global axis.</param>
-    /// <param name="fAngleY">[IN] Rotation angle about Y global axis.</param>
-    /// <param name="fAngleZ">[IN] Rotation angle about Z global axis.</param>
-    QRotationMatrix3x3(const float_q &fAngleX, const float_q &fAngleY, const float_q &fAngleZ);
-
+    /// <param name="fRotationAngleX">[IN] Rotation angle about X global axis.</param>
+    /// <param name="fRotationAngleY">[IN] Rotation angle about Y global axis.</param>
+    /// <param name="fRotationAngleZ">[IN] Rotation angle about Z global axis.</param>
+    QRotationMatrix3x3(const float_q &fRotationAngleX, const float_q &fRotationAngleY, const float_q &fRotationAngleZ);
 
 	/// <summary>
 	/// Constructor from an angle and a spin axis defined by a vector. It's computed as follows:
@@ -79,23 +80,22 @@ public:
 	///
     /// taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
 	/// </summary>
-	/// <param name="vAxis">[IN] Vector in the direction of the spin axis.</param>
-	/// <param name="fAngle">[IN] Angle of rotation.</param>
+	/// <param name="vRotationAxis">[IN] Vector in the direction of the spin axis.</param>
+	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
 	/// <remarks>
     /// The axis vector must be normalized to construct the rotation matrix properly.
     /// </remarks>
-    QRotationMatrix3x3 (const QBaseVector3 &vAxis, const float_q &fAngle);
-
+    QRotationMatrix3x3(const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle);
 
     /// <summary>
     /// Constructor from a quaternion.
     /// taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_quaternion
     /// </summary>
-    /// <param name="qQuat">[IN] Quaternion which contains the rotation.</param>
+    /// <param name="qRotation">[IN] Quaternion which contains the rotation.</param>
     /// <remarks>
     /// The quaternion must be normalized to construct the rotation matrix properly.
     /// </remarks>
-    explicit QRotationMatrix3x3(const QBaseQuaternion &qQuat);
+    explicit QRotationMatrix3x3(const QBaseQuaternion &qRotation);
 
     /// <summary>
     /// Constructor that receives a pointer to 9 floating point values.
@@ -106,8 +106,10 @@ public:
     /// If you use this constructor, be sure that you are constructing a rotation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
-    /// <param name="pfMatrix">[IN] Pointer to a 9 length array of floating point values.</param>
-    inline explicit QRotationMatrix3x3(const float_q *pfMatrix) : QMatrix3x3(pfMatrix) { }
+    /// <param name="arValues">[IN] Pointer to a 9 length array of floating point values.</param>
+    inline explicit QRotationMatrix3x3(const float_q* arValues) : QMatrix3x3(arValues)
+    {
+    }
 
     /// <summary>
     /// Constructor from three 4x32 floating point packed values. Each param contains a row of the matrix.
@@ -120,7 +122,9 @@ public:
     /// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
-    inline QRotationMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) : QMatrix3x3(row0, row1, row2) { }
+    inline QRotationMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) : QMatrix3x3(row0, row1, row2)
+    {
+    }
 
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
@@ -138,10 +142,12 @@ public:
     /// <param name="f20">[IN] Floating point value for element of row 2, column 0.</param>
     /// <param name="f21">[IN] Floating point value for element of row 2, column 1.</param>
     /// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
-     inline QRotationMatrix3x3( const float_q &f00, const float_q &f01, const float_q &f02,
-                                const float_q &f10, const float_q &f11, const float_q &f12,
-                                const float_q &f20, const float_q &f21, const float_q &f22) :
-                QMatrix3x3(f00, f01, f02, f10, f11, f12, f20, f21, f22) { }
+     inline QRotationMatrix3x3(const float_q &f00, const float_q &f01, const float_q &f02,
+                               const float_q &f10, const float_q &f11, const float_q &f12,
+                               const float_q &f20, const float_q &f21, const float_q &f22) :
+                                   QMatrix3x3(f00, f01, f02, f10, f11, f12, f20, f21, f22)
+    {
+    }
 
 
     // PROPERTIES
@@ -179,11 +185,11 @@ public:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <param name="m">[IN] Rotation matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] Rotation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-	QRotationMatrix3x3 operator*(const QRotationMatrix3x3 &m) const;
+	QRotationMatrix3x3 operator*(const QRotationMatrix3x3 &matrix) const;
 
 	/// <summary>
     /// Multiplies a 3x3 scale matrix by the current matrix.
@@ -191,11 +197,11 @@ public:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <param name="m">[IN] Scale matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] Scale matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x4 transformation matrix, depending on the method template parameter.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QScaleMatrix3x3 &m) const;
+	QTransformationMatrix<QMatrix4x4> operator*(const QScaleMatrix3x3 &matrix) const;
 
 	/// <summary>
     /// Multiplies a 4x4 translation matrix by the current matrix.
@@ -203,11 +209,11 @@ public:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <param name="m">[IN] Translation matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QTranslationMatrix<QMatrix4x4> &m) const;
+	QTransformationMatrix<QMatrix4x4> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 translation matrix by the current matrix.
@@ -215,11 +221,11 @@ public:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <param name="m">[IN] Translation matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x3 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x3> operator*(const QTranslationMatrix<QMatrix4x3> &m) const;
+	QTransformationMatrix<QMatrix4x3> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const;
 
 	/// <summary>
     /// Multiplies a 4x4 transformation matrix by the current matrix.
@@ -227,11 +233,11 @@ public:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <param name="m">[IN] Transformation matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x4 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QTransformationMatrix<QMatrix4x4> &m) const;
+	QTransformationMatrix<QMatrix4x4> operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 transformation matrix by the current matrix.
@@ -239,22 +245,22 @@ public:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <param name="m">[IN] Transformation matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x3 transformation matrix.
     /// </returns>
-	QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &m) const;
+	QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const;
 
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be assigned.</param>
+    /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QRotationMatrix3x3& operator=(const QBaseMatrix3x3 &m)
+    inline QRotationMatrix3x3& operator=(const QBaseMatrix3x3 &matrix)
     {
-        QBaseMatrix3x3::operator=(m);
+        QBaseMatrix3x3::operator=(matrix);
         return *this;
     }
 
@@ -271,20 +277,20 @@ public:
     /// Reverse of the matrix. In the case of rotation matrices, the transpose is guaranteed
     /// to be the inverse of the matrix. So, it's faster than base class method.
     /// </summary>
-    /// <param name="mOut">[OUT] A rotation matrix where to store reverse matrix.</param>
-    inline void Reverse(QBaseMatrix3x3 &mOut) const
+    /// <param name="outMatrix">[OUT] A rotation matrix where to store reverse matrix.</param>
+    inline void Reverse(QBaseMatrix3x3 &outMatrix) const
     {
-        this->Transpose(mOut);
+        this->Transpose(outMatrix);
     }
 
     /// <summary>
     /// Converts rotation matrix to Euler angles.
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
     /// </summary>
-    /// <param name="fAngleX">[OUT] Resultant rotation around X axis.</param>
-    /// <param name="fAngleY">[OUT] Resultant rotation around Y axis.</param>
-    /// <param name="fAngleZ">[OUT] Resultant rotation around Z axis.</param>
-    void GetRotation(float_q &fAngleX, float_q &fAngleY, float_q &fAngleZ) const;
+    /// <param name="fRotationAngleX">[OUT] Resultant rotation around X axis.</param>
+    /// <param name="fRotationAngleY">[OUT] Resultant rotation around Y axis.</param>
+    /// <param name="fRotationAngleZ">[OUT] Resultant rotation around Z axis.</param>
+    void GetRotation(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const;
 
     /// <summary>
     /// Converts rotation matrix to a rotation quaternion.
@@ -293,8 +299,8 @@ public:
     ///
     /// Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/christian.htm
     /// </summary>
-    /// <param name="qQuat">[OUT] Quaternion where to store the rotation.</param>
-    void GetRotation(QQuaternion &qQuat) const;
+    /// <param name="qRotation">[OUT] Quaternion where to store the rotation.</param>
+    void GetRotation(QQuaternion &qRotation) const;
 
     /// <summary>
     /// Converts rotation matrix to an angle and a spin axis. Since axis components depends on inverse of sin(angle)
@@ -302,9 +308,9 @@ public:
     /// Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
     /// Source: http://en.wikipedia.org/wiki/Rotation_representation_%28mathematics%29#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
     /// </summary>
-    /// <param name="&fAngle">[OUT] Angle of rotation.</param>
-    /// <param name="&vAxis">[OUT] Unitary vector in the direction of the spin axis.</param>
-    void GetRotation(float_q &fAngle, QBaseVector3 &vAxis) const;
+    /// <param name="fRotationAngle">[OUT] Angle of rotation.</param>
+    /// <param name="vRotationAxis">[OUT] Unitary vector in the direction of the spin axis.</param>
+    void GetRotation(float_q &fRotationAngle, QBaseVector3 &vRotationAxis) const;
 
 	/// <summary>
     /// Calculates the determinant of the matrix. Since this is a rotation matrix, which is
@@ -313,10 +319,7 @@ public:
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
-	inline float_q GetDeterminant()
-	{
-		return SQFloat::_1;
-	}
+	float_q GetDeterminant();
 
 protected:
 
@@ -325,13 +328,13 @@ protected:
 
     // Implementation of product by translation matrix operator
     template <class MatrixType>
-    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixType> &m) const
+    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixType> &matrix) const
     {
         QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
 
-        aux.ij[3][0] = m.ij[3][0];
-        aux.ij[3][1] = m.ij[3][1];
-        aux.ij[3][2] = m.ij[3][2];
+        aux.ij[3][0] = matrix.ij[3][0];
+        aux.ij[3][1] = matrix.ij[3][1];
+        aux.ij[3][2] = matrix.ij[3][2];
 
         aux.ij[0][0] = this->ij[0][0];
         aux.ij[0][1] = this->ij[0][1];
@@ -350,25 +353,25 @@ protected:
 
     // Implementation of product by transformation matrix operator
     template <class MatrixType>
-    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTransformationMatrix<MatrixType> &m) const
+    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTransformationMatrix<MatrixType> &matrix) const
     {
         QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
 
-        aux.ij[3][0] = m.ij[3][0];
-        aux.ij[3][1] = m.ij[3][1];
-        aux.ij[3][2] = m.ij[3][2];
+        aux.ij[3][0] = matrix.ij[3][0];
+        aux.ij[3][1] = matrix.ij[3][1];
+        aux.ij[3][2] = matrix.ij[3][2];
 
-        aux.ij[0][0] = this->ij[0][0]*m.ij[0][0] + this->ij[0][1]*m.ij[1][0] + this->ij[0][2]*m.ij[2][0];
-        aux.ij[0][1] = this->ij[0][0]*m.ij[0][1] + this->ij[0][1]*m.ij[1][1] + this->ij[0][2]*m.ij[2][1];
-        aux.ij[0][2] = this->ij[0][0]*m.ij[0][2] + this->ij[0][1]*m.ij[1][2] + this->ij[0][2]*m.ij[2][2];
+        aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0] + this->ij[0][1] * matrix.ij[1][0] + this->ij[0][2] * matrix.ij[2][0];
+        aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1] + this->ij[0][1] * matrix.ij[1][1] + this->ij[0][2] * matrix.ij[2][1];
+        aux.ij[0][2] = this->ij[0][0] * matrix.ij[0][2] + this->ij[0][1] * matrix.ij[1][2] + this->ij[0][2] * matrix.ij[2][2];
 
-        aux.ij[1][0] = this->ij[1][0]*m.ij[0][0] + this->ij[1][1]*m.ij[1][0] + this->ij[1][2]*m.ij[2][0];
-        aux.ij[1][1] = this->ij[1][0]*m.ij[0][1] + this->ij[1][1]*m.ij[1][1] + this->ij[1][2]*m.ij[2][1];
-        aux.ij[1][2] = this->ij[1][0]*m.ij[0][2] + this->ij[1][1]*m.ij[1][2] + this->ij[1][2]*m.ij[2][2];
+        aux.ij[1][0] = this->ij[1][0] * matrix.ij[0][0] + this->ij[1][1] * matrix.ij[1][0] + this->ij[1][2] * matrix.ij[2][0];
+        aux.ij[1][1] = this->ij[1][0] * matrix.ij[0][1] + this->ij[1][1] * matrix.ij[1][1] + this->ij[1][2] * matrix.ij[2][1];
+        aux.ij[1][2] = this->ij[1][0] * matrix.ij[0][2] + this->ij[1][1] * matrix.ij[1][2] + this->ij[1][2] * matrix.ij[2][2];
 
-        aux.ij[2][0] = this->ij[2][0]*m.ij[0][0] + this->ij[2][1]*m.ij[1][0] + this->ij[2][2]*m.ij[2][0];
-        aux.ij[2][1] = this->ij[2][0]*m.ij[0][1] + this->ij[2][1]*m.ij[1][1] + this->ij[2][2]*m.ij[2][1];
-        aux.ij[2][2] = this->ij[2][0]*m.ij[0][2] + this->ij[2][1]*m.ij[1][2] + this->ij[2][2]*m.ij[2][2];
+        aux.ij[2][0] = this->ij[2][0] * matrix.ij[0][0] + this->ij[2][1] * matrix.ij[1][0] + this->ij[2][2] * matrix.ij[2][0];
+        aux.ij[2][1] = this->ij[2][0] * matrix.ij[0][1] + this->ij[2][1] * matrix.ij[1][1] + this->ij[2][2] * matrix.ij[2][1];
+        aux.ij[2][2] = this->ij[2][0] * matrix.ij[0][2] + this->ij[2][1] * matrix.ij[1][2] + this->ij[2][2] * matrix.ij[2][2];
 
         return aux;
     }

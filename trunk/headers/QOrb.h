@@ -42,7 +42,9 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QOrb() { }
+	inline QOrb()
+    {
+    }
 
     /// <summary>
     /// Constructor from a vector which defines the center point and a floating point value which
@@ -50,7 +52,9 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    inline QOrb (const VectorType& vCenter, const float_q& fRadius) : QBaseOrb<VectorType>(vCenter, fRadius) { }
+    inline QOrb (const VectorType &vCenter, const float_q &fRadius) : QBaseOrb<VectorType>(vCenter, fRadius)
+    {
+    }
 
 
     // PROPERTIES
@@ -81,7 +85,7 @@ public:
     /// <returns>
 	/// A reference to the modified orb.
 	/// </returns>
-    inline QOrb& operator=(const QBaseOrb<VectorType>& orb)
+    inline QOrb& operator=(const QBaseOrb<VectorType> &orb)
     {
         QBaseOrb<VectorType>::operator=(orb);
         return *this;
@@ -90,15 +94,15 @@ public:
 	/// <summary>
 	/// This method receives a point and determines if the point is contained into the orb.
 	/// </summary>
-    /// <param name="vP">[IN] The point to be tested.</param>
+    /// <param name="vPoint">[IN] The point to be tested.</param>
 	/// <returns>
 	/// True if the point is inside the orb (or if it belongs to its bounds). Otherwise returns false.
 	/// </returns>
-    inline bool Contains (const VectorType& vP)
+    inline bool Contains(const VectorType &vPoint)
     {
         // The point is inside the orb whenever the minimum squared distance between the point and
         // the center point of the orb is lower or equals the whole square radius of the orb.
-        VectorType vDistance(vP - this->Center);
+        VectorType vDistance(vPoint - this->Center);
         return SQFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), Radius * Radius);
     }
 
@@ -109,7 +113,7 @@ public:
 	/// <returns>
 	/// True if they intersect to each other (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
-    inline bool Intersection (const QBaseOrb<VectorType>& orb) const
+    inline bool Intersection(const QBaseOrb<VectorType> &orb) const
     {
         // An intersection between the two orbs is considered if the minimum squared distance
 		// between their center points is lower or equals the square sum of their radius.

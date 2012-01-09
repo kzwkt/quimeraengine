@@ -28,6 +28,9 @@ namespace Math
 /// We'll normally employ it to represent and execute rigid transformations, that is, transformations which involves
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).
 /// </summary>
+/// <remarks>
+/// This class is experimental and therefore subject to changes.
+/// </remarks>
 class QDllExport QBaseDualQuaternion : public QConvertible
 {
 
@@ -39,14 +42,18 @@ public:
 	/// Default constructor.
 	/// </summary>
     inline QBaseDualQuaternion() : r(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0)),
-                            d(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0)) { }
+                                   d(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0))
+    {
+    }
 
     /// <summary>
     /// Constructor from two quaternions, one to initialize the non-dual part and another to do it with the dual part.
     /// </summary>
-    /// <param name="qR">[IN] Quaternion which is the non-dual part of the dual quaternion.</param>
-    /// <param name="qD">[IN] Quaternion which is the dual part of the dual quaternion.</param>
-    inline QBaseDualQuaternion(const QBaseQuaternion &qR, const QBaseQuaternion &qD) : r(qR), d(qD) { }
+    /// <param name="qReal">[IN] Quaternion which is the non-dual part of the dual quaternion.</param>
+    /// <param name="qDual">[IN] Quaternion which is the dual part of the dual quaternion.</param>
+    inline QBaseDualQuaternion(const QBaseQuaternion &qReal, const QBaseQuaternion &qDual) : r(qReal), d(qDual)
+    {
+    }
 
 	// METHODS
 	// ---------------
@@ -55,25 +62,25 @@ public:
     /// <summary>
     /// Equality operator. Compares two dual quaternions component by component.
     /// </summary>
-    /// <param name="dqQuat">[IN] The dual quaternion to compare to.</param>
+    /// <param name="dualQuat">[IN] The dual quaternion to compare to.</param>
     /// <returns>
     /// If dual quaternions are equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator==(const QBaseDualQuaternion &dqQuat) const
+    inline bool operator==(const QBaseDualQuaternion &dualQuat) const
     {
-        return this->r == dqQuat.r && this->d == dqQuat.d;
+        return this->r == dualQuat.r && this->d == dualQuat.d;
     }
 
     /// <summary>
     /// Inequality operator. Compares two dual quaternions component by component.
     /// </summary>
-    /// <param name="dqQuat">[IN] The dual quaternion to compare to.</param>
+    /// <param name="dualQuat">[IN] The dual quaternion to compare to.</param>
     /// <returns>
     /// If dual quaternions are not equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator!=(const QBaseDualQuaternion &dqQuat) const
+    inline bool operator!=(const QBaseDualQuaternion &dualQuat) const
     {
-        return !(*this == dqQuat);
+        return !(*this == dualQuat);
     }
 
 	// ATTRIBUTES
@@ -81,7 +88,7 @@ public:
 public:
 
     /// <summary>
-    /// Non-dual part of the dual quaternion. Generally it represents the rotation applied.
+    /// Non-dual (real) part of the dual quaternion. Generally it represents the rotation applied.
     /// </summary>
     QQuaternion r;
 

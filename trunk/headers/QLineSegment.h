@@ -45,20 +45,26 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QLineSegment() { }
+	inline QLineSegment()
+    {
+    }
 
 	/// <summary>
     /// Constructor from two vectors.
     /// </summary>
     /// <param name="vA">[IN] Vector to define endpoint A.</param>
     /// <param name="vB">[IN] Vector to define endpoint B.</param>
-	inline QLineSegment (const VectorType &vA, const VectorType &vB) : QBaseLineSegment<VectorType>(vA,vB) { }
+	inline QLineSegment(const VectorType &vA, const VectorType &vB) : QBaseLineSegment<VectorType>(vA,vB)
+    {
+    }
 
 	/// <summary>
     /// Constructor from a line segment.
     /// </summary>
-    /// <param name="segmt">[IN] Line segment containing the two endpoints.</param>
-	inline explicit QLineSegment (const QBaseLineSegment<VectorType>& segmt) : QBaseLineSegment<VectorType>(segmt) { }
+    /// <param name="segment">[IN] Line segment containing the two endpoints.</param>
+	inline explicit QLineSegment(const QBaseLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
+    {
+    }
 
 
     // PROPERTIES
@@ -98,13 +104,13 @@ public:
 	/// <summary>
 	/// Assigning operator.
 	/// </summary>
-	/// <param name="segmt">[IN] The 2D segment to be copied from.</param>
+	/// <param name="segment">[IN] The 2D segment to be copied from.</param>
 	/// <returns>
 	/// A reference to the modified line segment.
 	/// </returns>
-    inline QLineSegment& operator=(const QBaseLineSegment<VectorType>& segmt)
+    inline QLineSegment& operator=(const QBaseLineSegment<VectorType> &segment)
     {
-        QBaseLineSegment<VectorType>::operator=(segmt);
+        QBaseLineSegment<VectorType>::operator=(segment);
         return *this;
     }
 
@@ -114,7 +120,7 @@ public:
     /// <returns>
     /// The resultant distance between the two endpoints.
     /// </returns>
-	inline float_q GetLength () const
+	inline float_q GetLength() const
 	{
 		return A.Distance(B);
 	}
@@ -123,7 +129,7 @@ public:
 	/// Computes the central point of the segment.
 	/// </summary>
 	/// <param name="vCenter">[OUT] A vector which represents the central point of the segment.</param>
-	inline void GetCenter (VectorType& vCenter) const
+	inline void GetCenter(VectorType &vCenter) const
 	{
 		// 1) Direction: AB --> B - A, so that: S(t) = A + [t(B - A)] = ... = t(A + B)
 		// 2) Center:    S(0.5f) --> A + [0.5f(B - A)] --> ... --> 0.5f(A + B)
@@ -133,15 +139,15 @@ public:
 	/// <summary>
 	/// This method receives another line segment, and computes whether they intersect each other or not.
 	/// </summary>
-	/// <param name="segmt">[IN] The segment to be compared to.</param>
+	/// <param name="segment">[IN] The segment to be compared to.</param>
 	/// <returns>
 	/// True if they intersect each other (or if they were coincident), false if they don't.
 	/// </returns>
-	inline bool Intersection (const QBaseLineSegment<VectorType>& segmt) const
+	inline bool Intersection(const QBaseLineSegment<VectorType> &segment) const
 	{
 		// if MinDistance is 0		  --> there's intersection, return true
 		// else						  --> return false
-		return  SQFloat::IsZero(this->MinDistance(segmt));
+		return  SQFloat::IsZero(this->MinDistance(segment));
 	}
 
 	/// <summary>
@@ -151,7 +157,7 @@ public:
 	/// <returns>
 	/// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
-	inline bool Intersection (const QBaseOrb<VectorType>& orb) const
+	inline bool Intersection(const QBaseOrb<VectorType> &orb) const
 	{
 		// An intersection between the segment and the orb is considered if the minimum
 		// distance between "the whole segment" and the center of the orb (this is, the
@@ -165,21 +171,20 @@ public:
 	/// This method receives another line segment, and computes the intersection point between them,
 	/// if it exists.
 	/// </summary>
-	/// <param name="segmt">[IN] The segment to be compared to.</param>
-	/// <param name="vIntersectionPt">[OUT] The point where they intersect.</param>
+	/// <param name="segment">[IN] The segment to be compared to.</param>
+	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
 	/// <returns>
 	/// Returns how many intersections have been detected.
 	/// </returns>
 	/// <remarks>
 	/// -If there's no intersection points, the output parameters used for storing these points won't be modified.
-
 	/// </remarks>
-	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType>& segmt, VectorType& vIntersectionPt) const
+	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
  	{
 		// Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
 		VectorType v1		   = B - A;
-	    VectorType v2		   = segmt.B - segmt.A;
+	    VectorType v2		   = segment.B - segment.A;
 
         float_q fSqrLengthProd = v1.GetSquaredLength() * v2.GetSquaredLength();
 
@@ -193,11 +198,11 @@ public:
 			//    an intersection, and that point is the point of intersection.
 			//
 			VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
-			this->GetClosestPoints(segmt, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
+			this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
 
 			if (vClosestPtInS1ToS2 == vClosestPtInS2ToS1) // One single intersection is assumed.
 			{
-				vIntersectionPt = vClosestPtInS1ToS2; // The same with vClosestPtInS2ToS1.
+				vIntersection = vClosestPtInS1ToS2; // The same with vClosestPtInS2ToS1.
 				return EQIntersections::E_One;
 			}
 			else										 // No intersections.
@@ -238,13 +243,13 @@ public:
 				//  For asking these questions we need the closest points to each segment
 				//  from respect the other one.
 				VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
-				this->GetClosestPoints(segmt, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
+				this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
 
 				if (vClosestPtInS1ToS2 == vClosestPtInS2ToS1)
 				{
 					// Segments intersect each other IN A SINGLE POINT.
 
-					vIntersectionPt = vClosestPtInS1ToS2; // The same with vClosestPtInS2ToS1.
+					vIntersection = vClosestPtInS1ToS2; // The same with vClosestPtInS2ToS1.
 					return EQIntersections::E_One;
 				}
 				else
@@ -274,7 +279,7 @@ public:
 				//
 				//   It may depend of the situation, more info provided below on the walk.
 
-				float_q fMinDistance = this->MinDistance(segmt);
+				float_q fMinDistance = this->MinDistance(segment);
 
 				if ( SQFloat::IsNotZero(fMinDistance) ) // fMinDistance always nonnegative --> fMinDistance > 0
 				{
@@ -290,12 +295,12 @@ public:
 				{
 					// BOTH segments lie on the SAME line --> Angle (v1,v2) == 0 OR 180 degrees <-- Please note at this stage v1.DotProduct(v2) ALWAYS != 0
 
-					if (A == segmt.A)
+					if (A == segment.A)
 					{
-						if (B == segmt.B)
+						if (B == segment.B)
 						{
 							// Segments are totally coincident (both sharing their two
-							// endpoints: A <-> segmt.A, B <-> segmt.B) --> Infinite intersection points.
+							// endpoints: A <-> segment.A, B <-> segment.B) --> Infinite intersection points.
 
 							return EQIntersections::E_Infinite;
 						}
@@ -304,44 +309,44 @@ public:
 							if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
 							{
 								// One of the segments are totally cointained inside the other
-								// AND sharing one single endpoint (A <-> segmt.A) --> Infinite intersection points.
+								// AND sharing one single endpoint (A <-> segment.A) --> Infinite intersection points.
 
 								return EQIntersections::E_Infinite;
 							}
 							else														// v1.DotProduct(v2) < 0 --> Angle(v1,v2) is 180 degrees, v1 and v2 have opposite direction.
 							{
 								// Segments are not contained inside themselves AND intersect in
-								// a single point, an endpoint of share (A <-> segmt.A) --> One intersection.
+								// a single point, an endpoint of share (A <-> segment.A) --> One intersection.
 
-								vIntersectionPt = A;			// The same with segmt.A
+								vIntersection = A;			// The same with segment.A
 								return EQIntersections::E_One;
 							}
 						}
 					}
-					else if (B == segmt.B) // A != segmt.A
+					else if (B == segment.B) // A != segment.A
 					{
 						if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
 						{
 							// One of the segments are totally cointained inside the other
-							// AND sharing one single endpoint (B <-> segmt.B) --> Infinite intersection points.
+							// AND sharing one single endpoint (B <-> segment.B) --> Infinite intersection points.
 
 							return EQIntersections::E_Infinite;
 						}
 						else														// v1.DotProduct(v2) < 0 --> Angle(v1,v2) is 180 degrees, v1 and v2 have opposite direction.
 						{
 							// Segments are not contained inside themselves AND intersect in
-							// a single point, an endpoint of share (B <-> segmt.B) --> One intersection.
+							// a single point, an endpoint of share (B <-> segment.B) --> One intersection.
 
-							vIntersectionPt = B;			// The same with segmt.B
+							vIntersection = B;			// The same with segment.B
 							return EQIntersections::E_One;
 						}
 					}
-					else if (A == segmt.B) // (A != segmt.A) && (B != segmt.B)
+					else if (A == segment.B) // (A != segment.A) && (B != segment.B)
 					{
-						if (segmt.A == B)
+						if (segment.A == B)
 						{
 							// Segments are totally coincident (both sharing their two
-							// endpoints: A <-> segmt.B, segmt.A <-> B) --> Infinite intersection points.
+							// endpoints: A <-> segment.B, segment.A <-> B) --> Infinite intersection points.
 
 							return EQIntersections::E_Infinite;
 						}
@@ -350,39 +355,39 @@ public:
 							if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
 							{
 								// Segments are not contained inside themselves AND intersect in
-								// a single point, an endpoint of share (A <-> segmt.B) --> One intersection.
+								// a single point, an endpoint of share (A <-> segment.B) --> One intersection.
 
-								vIntersectionPt = A;			// The same with segmt.B
+								vIntersection = A;			// The same with segment.B
 								return EQIntersections::E_One;
 							}
 							else														// v1.DotProduct(v2) < 0 --> Angle(v1,v2) is 180 degrees, v1 and v2 have opposite direction.
 							{
 								// One of the segments are totally cointained inside the other
-								// AND sharing one single endpoint (A <-> segmt.b) --> Infinite intersection points.
+								// AND sharing one single endpoint (A <-> segment.b) --> Infinite intersection points.
 
 								return EQIntersections::E_Infinite;
 							}
 						}
 					}
-					else if (segmt.A == B) // (A != segmt.A) && (B != segmt.B) && (A != segmt.B)
+					else if (segment.A == B) // (A != segment.A) && (B != segment.B) && (A != segment.B)
 					{
 						if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) )  // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
 						{
 							// Segments are not contained inside themselves AND intersect in
-							// a single point, an endpoint of share (B <-> segmt.A) --> One intersection.
+							// a single point, an endpoint of share (B <-> segment.A) --> One intersection.
 
-							vIntersectionPt = B;			// The same with segmt.A
+							vIntersection = B;			// The same with segment.A
 							return EQIntersections::E_One;
 						}
 						else														 // v1.DotProduct(v2) < 0 --> Angle(v1,v2) is 180 degrees, v1 and v2 have opposite direction.
 						{
 							// One of the segments are totally cointained inside the other
-							// AND sharing one single endpoint (B <-> segmt.A) --> Infinite intersection points.
+							// AND sharing one single endpoint (B <-> segment.A) --> Infinite intersection points.
 
 							return EQIntersections::E_Infinite;
 						}
 					}
-					else				  // (A != segmt.A) && (B != segmt.B) && (A != segmt.B) && (segmt.A != B)
+					else				  // (A != segment.A) && (B != segment.B) && (A != segment.B) && (segment.A != B)
 					{
 						//  -Segments are just parcially coincident (no endpoints shared).
 						// OR
@@ -403,8 +408,8 @@ public:
     /// if they exist.
     /// </summary>
     /// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
-    /// <param name="vPoint1">[OUT] A vector where to store the first intersection point.</param>
-    /// <param name="vPoint2">[OUT] A vector where to store the second intersection point.</param>
+    /// <param name="vIntersection1">[OUT] A vector where to store the first intersection point.</param>
+    /// <param name="vIntersection2">[OUT] A vector where to store the second intersection point.</param>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One and E_Two.
@@ -414,7 +419,7 @@ public:
     /// -If there are two intersections, the first output parameter stores the closest to A end point of
     ///  line segment, and the second one stores the closest to B end point.
     /// </remarks>
-	inline EQIntersections IntersectionPoint (const QBaseOrb<VectorType> &orb, VectorType &vPoint1, VectorType &vPoint2) const
+	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
 		// We reduce line segment and orb to origin, in order to simplify orb equation, and we calculate
 		// the new point A and vector B-A, to compute intersection as with a ray
@@ -449,7 +454,7 @@ public:
 
 			if (SQFloat::IsZero(this->MinDistance(vAux)))
 			{
-				vPoint1 = vAux;
+				vIntersection1 = vAux;
 				return EQIntersections::E_One;
 			}
 			else
@@ -478,21 +483,21 @@ public:
 			// Both points are in line segment.
 			if (bIsInSegment1 && bIsInSegment2)
 			{
-				vPoint1 = vAux1;
-				vPoint2 = vAux2;
+				vIntersection1 = vAux1;
+				vIntersection2 = vAux2;
 				return EQIntersections::E_Two;
 			}
 			// Only t1 point is in line segment.
 			else if (bIsInSegment1)
 			{
-				vPoint1 = vAux1;
+				vIntersection1 = vAux1;
 				return EQIntersections::E_One;
 			}
 
 			// Only t2 is in line segment.
 			else if (bIsInSegment2)
 			{
-				vPoint1 = vAux2;
+				vIntersection1 = vAux2;
 				return EQIntersections::E_One;
 			}
 			// There are no intersections.
@@ -506,7 +511,7 @@ public:
     /// if it exists.
     /// </summary>
     /// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
-    /// <param name="vPoint1">[OUT] A vector where to store the intersection point.</param>
+    /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One and E_Two.
@@ -515,21 +520,21 @@ public:
     /// -If there's no intersection point, the output parameter used for storing the point won't be modified.
     /// -If there is an intersection, the output parameter stores the closest point to A.
     /// </remarks>
-	inline EQIntersections IntersectionPoint (const QBaseOrb<VectorType> &orb, VectorType &vPoint1) const
+	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
 	{
-		VectorType aux;
-		return this->IntersectionPoint(orb, vPoint1, aux);
+		VectorType vAux;
+		return this->IntersectionPoint(orb, vIntersection, vAux);
 	}
 
 	/// <summary>
 	/// Given an input line segment, this method returns the minimum distance between this and the input one,
 	///	that is, the distance between their closest points.
 	/// </summary>
-	/// <param name="segmt">[IN] The line segment the distance will be measured to.</param>
+	/// <param name="segment">[IN] The line segment the distance will be measured to.</param>
 	/// <returns>
 	/// A floating point value (always nonnegative) which represents the minimum distance between the two segments.
 	/// </returns>
-	float_q MinDistance (const QBaseLineSegment<VectorType>& segmt) const
+	float_q MinDistance(const QBaseLineSegment<VectorType> &segment) const
 	{
 		// Just compute the closests points between the segments, and return
 		// the distance between them; that is the minimum distance.
@@ -537,7 +542,7 @@ public:
 		// Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
 		VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
-		this->GetClosestPoints(segmt, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
+		this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
 
 		return vClosestPtInS1ToS2.Distance(vClosestPtInS2ToS1);
 	}
@@ -550,7 +555,7 @@ public:
 	/// <returns>
 	/// A floating point value (always nonnegative) which represents the minimum distance between point and segment.
 	/// </returns>
-	float_q MinDistance (const VectorType& vPoint) const
+	float_q MinDistance(const VectorType &vPoint) const
 	{
 		if (A != B)
 		{
@@ -598,16 +603,16 @@ public:
 	/// Given an input line segment, this method returns the maximum distance between this and the input one,
 	///	that is, the distance between their farthest points.
 	/// </summary>
-	/// <param name="segmt">[IN] The line segment the distance will be measured to.</param>
+	/// <param name="segment">[IN] The line segment the distance will be measured to.</param>
 	/// <returns>
 	/// A floating point value (always nonnegative) which represents the maximum distance between the two segments.
 	/// </returns>
-	inline float_q MaxDistance (const QBaseLineSegment<VectorType>& segmt) const
+	inline float_q MaxDistance(const QBaseLineSegment<VectorType> &segment) const
 	{
 		// STEP 1) Compute Maximum distance from endpoint A (belonging to the parameter) to this segment.
 		// STEP 2) Compute Maximum distance from endpoint B (belonging to the parameter) to this segment.
-		float_q fMaxDistance_segmtA_This = this->MaxDistance(segmt.A);
-		float_q fMaxDistance_segmtB_This = this->MaxDistance(segmt.B);
+		float_q fMaxDistance_segmtA_This = this->MaxDistance(segment.A);
+		float_q fMaxDistance_segmtB_This = this->MaxDistance(segment.B);
 
 		// STEP 3) Maximum distance between the segments = maximum distance between their farthest endpoints.
 		//												 = the longer distance between the maximum distances from endpoints
@@ -626,7 +631,7 @@ public:
 	/// <returns>
 	/// A floating point value (always nonnegative) which represents the maximum distance between point and segment.
 	/// </returns>
-	float_q MaxDistance (const VectorType& vPoint) const
+	float_q MaxDistance(const VectorType &vPoint) const
 	{
 		// STEP 0) if vPoint is inside the segment the maximum distance will be 0
 		//		   else
@@ -683,7 +688,7 @@ public:
 	/// -If the lengthening factor is 0.0, the segment degenerates into a point (both endpoints become the center).
 	/// -If the lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
-	void Lengthen (const float_q& fLengtheningFactor)
+	void Lengthen(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
 		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
@@ -714,7 +719,7 @@ public:
 	/// -If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become A).
 	/// -If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
-	void LengthenFromA (const float_q& fLengtheningFactor)
+	void LengthenFromA(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
 		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
@@ -740,7 +745,7 @@ public:
 	/// -If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become B).
 	/// -If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
-	void LengthenFromB (const float_q& fLengtheningFactor)
+	void LengthenFromB(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
 		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
@@ -768,37 +773,38 @@ public:
 	}
 
 protected:
+
 	/// <summary>
 	/// This method computes the closest points between two line segments.
 	/// </summary>
-	/// <param name="segmt">[IN] The segment to whom the distace has to be computed from.</param>
+	/// <param name="segment">[IN] The segment to whom the distace has to be computed from.</param>
 	/// <param name="vClosestPtInS1ToS2">[OUT] It stores the closest point to S2 belonging to S1.</param>
 	/// <param name="vClosestPtInS2ToS1">[OUT] It stores the closest point to S1 belonging to S2.</param>
 	/// <remarks>
 	/// We assume S1 is the segment which executes this member function, and S2 the segment passed as
 	/// a parameter to S1.
 	/// </remarks>
-	void GetClosestPoints(const QBaseLineSegment<VectorType>& segmt,
+	void GetClosestPoints(const QBaseLineSegment<VectorType> &segment,
 						  VectorType& vClosestPtInS1ToS2, VectorType& vClosestPtInS2ToS1) const
 	{
 		bool bBothDegeneratedIntoPoints = false; // True if both segments degenerate into points.
 
 		// STEP 0) -Segment S1 == (*this)		== B - A
-		//		   -Segment S2 == the parameter == segmt.B - segmt.A
+		//		   -Segment S2 == the parameter == segment.B - segment.A
 		//		   -fSFactor1,fSFactor2: [0,1]  == Sample factors, so the closest points between S1 and S2
 		//										   will be given through:
 		//
 		//												S1(fSFactor1) = (A + (fSFactor1 * v1))
-		//												S2(fSFactor2) = (segmt.A + (fSFactor2 * v2))
+		//												S2(fSFactor2) = (segment.A + (fSFactor2 * v2))
 		float_q	   fSFactor1  = SQFloat::_0;
 		float_q	   fSFactor2  = SQFloat::_0;
 		VectorType v1		  = B - A;
-	    VectorType v2		  = segmt.B - segmt.A;
+	    VectorType v2		  = segment.B - segment.A;
 
 		// STEP 1) Precomputing intermediate values for solving s and t.
 	    float_q	   fSqrLengthv1		  = v1.DotProduct(v1);	// Squared length of segment S1, always nonnegative.
 	    float_q	   fSqrLengthv2		  = v2.DotProduct(v2);	// Squared length of segment S2, always nonnegative.
-		VectorType vTails			  = A - segmt.A;			// Segment whose endpoints are the "tail" points of each segment.
+		VectorType vTails			  = A - segment.A;			// Segment whose endpoints are the "tail" points of each segment.
 	    float_q	   fDotProdv2vTails   = v2.DotProduct(vTails);
 
 	    // STEP 2) Check if either or both segments degenerate into points
@@ -806,7 +812,7 @@ protected:
 		{
 	        // BOTH segments degenerate into points --> The closest points are THEMSELVES.
 			vClosestPtInS1ToS2		   = A;		  // The same with B.
-			vClosestPtInS2ToS1		   = segmt.A; // The same with segmt.B
+			vClosestPtInS2ToS1		   = segment.A; // The same with segment.B
 			bBothDegeneratedIntoPoints = true;
 	    }
 
@@ -902,7 +908,7 @@ protected:
 			// STEP 4) Finally compute the closest points between S1 and S2 and storing them
 			// in the output parameters.
 			vClosestPtInS1ToS2 = A + (fSFactor1 * v1);
-			vClosestPtInS2ToS1 = segmt.A + (fSFactor2 * v2);
+			vClosestPtInS2ToS1 = segment.A + (fSFactor2 * v2);
 
 		} // if (!bBothDegeneratedIntoPoints
 	}

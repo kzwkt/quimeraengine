@@ -32,7 +32,9 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QTriangle2D() { }
+	inline QTriangle2D()
+    {
+    }
 
 	/// <summary>
 	/// Constructor from three 2D vectors, one for each vertex.
@@ -40,23 +42,30 @@ public:
 	/// <param name="vA">[IN] 2D Vector which defines vertex A.</param>
 	/// <param name="vB">[IN] 2D Vector which defines vertex B.</param>
 	/// <param name="vC">[IN] 2D Vector which defines vertex C.</param>
-	inline QTriangle2D(const QVector2& vA, const QVector2& vB, const QVector2& vC) : QTriangle<QVector2>(vA, vB, vC) { }
+	inline QTriangle2D(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC) : QTriangle<QVector2>(vA, vB, vC)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from three pointer-to-float type, one for each vertex. Each pointer references to an array which has at least two elements.
 	/// </summary>
-	/// <param name="pValueA">[IN] Pointer to floating point value to define vertex A.</param>
-	/// <param name="pValueB">[IN] Pointer to floating point value to define vertex B.</param>
-	/// <param name="pValueC">[IN] Pointer to floating point value to define vertex C.</param>
-	inline QTriangle2D(const float_q* pValueA, const float_q* pValueB, const float_q* pValueC) : QTriangle<QVector2>(pValueA, pValueB, pValueC) { }
+	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
+	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
+	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
+	inline QTriangle2D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) : 
+                           QTriangle<QVector2>(arValuesA, arValuesB, arValuesC)
+    {
+    }
 
 	/// <summary>
-	/// Constructor from three V4x32-FLOAT, one for each vertex.
+	/// Constructor from three 4x32 packed floating point values, one for each vertex.
 	/// </summary>
-	/// <param name="vfValueA">[IN] 4x32 packed value which defines vertex A.</param>
-	/// <param name="vfValueB">[IN] 4x32 packed value which defines vertex B.</param>
-	/// <param name="vfValueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QTriangle2D(const vf32_q& vfValueA, const vf32_q& vfValueB, const vf32_q& vfValueC) : QTriangle<QVector2>(vfValueA, vfValueB, vfValueC) { }
+	/// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
+	/// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
+	/// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
+	inline QTriangle2D(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) : QTriangle<QVector2>(valueA, valueB, valueC)
+    {
+    }
 
 
 	// METHODS
@@ -66,10 +75,10 @@ public:
 	/// <summary>
 	/// Assign operator. Assigns the provided triangle to the resident triangle.
 	/// </summary>
-	/// <param name="tValue">[IN] 2D triangle that is assigned to current triangle.</param>
-	QTriangle2D& operator=(const QBaseTriangle<QVector2>& tValue)
+	/// <param name="triangle">[IN] Triangle that is assigned to current triangle.</param>
+	QTriangle2D& operator=(const QBaseTriangle<QVector2> &triangle)
 	{
-        QBaseTriangle2::operator=(tValue);
+        QBaseTriangle<QVector2>::operator=(triangle);
 		return *this;
 	}
 
@@ -77,10 +86,10 @@ public:
 	/// Receives a transformation matrix and applies its transformations to the resident
 	/// triangle. The origin of transformations is the coordinate axis origin.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	inline void Transform(const QTransformationMatrix3x3& matrix)
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+	inline void Transform(const QTransformationMatrix3x3 &transformation)
 	{
-		SQPoint::Transform(matrix, this->AsPtr<QVector2>(), 3);
+		SQPoint::Transform(transformation, this->AsPtr<QVector2>(), 3);
 	}
 
 	/// <summary>
@@ -88,23 +97,23 @@ public:
 	/// to the resident triangle, storing the results in the output triangle. The origin of transformations is the
 	/// coordinate axis origin.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="tOut">[OUT] 2D Triangle that stores the result of the transformation.</param>
-	inline void Transform(const QTransformationMatrix3x3& matrix, QBaseTriangle2 &tOut) const
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="outTriangle">[OUT] 2D Triangle that stores the result of the transformation.</param>
+	inline void Transform(const QTransformationMatrix3x3 &transformation, QBaseTriangle<QVector2> &outTriangle) const
 	{
-		tOut= *this;
-		SQPoint::Transform(matrix, tOut.AsPtr<QVector2>(), 3);
+		outTriangle= *this;
+		SQPoint::Transform(transformation, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
 	/// <summary>
 	/// Receives a transformation matrix and a 2D vector (transformation pivot) and applies the transformations
 	/// to the resident triangle. The origin of transformations is the vector type point received as parameter.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="v2Pivot">[IN] 2D Vector Pivot used for the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot)
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="vPivot">[IN] 2D Vector Pivot used for the transformation.</param>
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot)
 	{
-		SQPoint::TransformWithPivot(matrix, v2Pivot, this->AsPtr<QVector2>(), 3);
+		SQPoint::TransformWithPivot(transformation, vPivot, this->AsPtr<QVector2>(), 3);
 	}
 
 	/// <summary>
@@ -112,20 +121,20 @@ public:
 	/// and applies the transformations to the resident triangle storing the result in the output triangle. The origin of transformations is the
 	/// vector type point received as parameter.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="v2Pivot">[IN] 2D Vector Pivot used for the transformation.</param>
-	/// <param name="tOut">[OUT] 2D Triangle that stores the result of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3& matrix, const QBaseVector2& v2Pivot, QBaseTriangle2 &tOut) const
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="vPivot">[IN] 2D Vector Pivot used for the transformation.</param>
+	/// <param name="outTriangle">[OUT] 2D Triangle that stores the result of the transformation.</param>
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot, QBaseTriangle<QVector2> &outTriangle) const
 	{
-		tOut= *this;
-		SQPoint::TransformWithPivot(matrix, v2Pivot, tOut.AsPtr<QVector2>(), 3);
+		outTriangle= *this;
+		SQPoint::TransformWithPivot(transformation, vPivot, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
 	/// <summary>
 	/// Calculates the circumcenter of the triangle.
 	/// </summary>
 	/// <param name="vCircumcenter">[OUT] Vector type param used to store the circumcenter as a return value.</param>
-	inline void GetCircumcenter(QVector2& vCircumcenter) const
+	inline void GetCircumcenter(QVector2 &vCircumcenter) const
 	{
 		//STEP 1: Obtain the gradient of height A.
 		//
@@ -169,7 +178,7 @@ public:
 	/// Calculates the orthocenter of the triangle.
 	/// </summary>
 	/// <param name="vOrthocenter">[OUT] Vector type param used to store the orthocenter as a return value.</param>
-	inline void GetOrthocenter(QVector2& vOrthocenter) const
+	inline void GetOrthocenter(QVector2 &vOrthocenter) const
 	{
 		//STEP 1: Obtain the gradient of height A.
 		//
@@ -216,11 +225,11 @@ public:
 	/// resultant triangle in the provided one.
 	/// </summary>
 	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
-	/// <param name="tOut">[OUT] The translated triangle.</param>
-	inline void Translate(const QBaseVector2 &vTranslation, QBaseTriangle2 &tOut) const
+	/// <param name="outTriangle">[OUT] The translated triangle.</param>
+	inline void Translate(const QBaseVector2 &vTranslation, QBaseTriangle<QVector2> &outTriangle) const
 	{
-	    tOut = *this;
-	    SQPoint::Translate(vTranslation, tOut.AsPtr<QVector2>(), 3);
+	    outTriangle = *this;
+	    SQPoint::Translate(vTranslation, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
 	/// <summary>
@@ -239,11 +248,11 @@ public:
 	/// </summary>
 	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
 	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
-	/// <param name="tOut">[OUT] The translated triangle.</param>
-	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseTriangle2 &tOut) const
+	/// <param name="outTriangle">[OUT] The translated triangle.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseTriangle<QVector2> &outTriangle) const
 	{
-	    tOut = *this;
-	    SQPoint::Translate(fTranslationX, fTranslationY, tOut.AsPtr<QVector2>(), 3);
+	    outTriangle = *this;
+	    SQPoint::Translate(fTranslationX, fTranslationY, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
     /// <summary>
@@ -251,7 +260,7 @@ public:
 	/// around the coordinate axis centre.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	inline void Rotate (const float_q &fRotationAngle)
+	inline void Rotate(const float_q &fRotationAngle)
 	{
         SQPoint::Rotate(fRotationAngle, this->AsPtr<QVector2>(), 3);
 	}
@@ -261,11 +270,11 @@ public:
 	/// around the coordinate axis centre, and stores the resulting triangle in the output parameter.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <param name="tOut">[OUT] It receives the resulting triangle.</param>
-	inline void Rotate (const float_q &fRotationAngle, QBaseTriangle2 &tOut) const
+	/// <param name="outTriangle">[OUT] It receives the resulting triangle.</param>
+	inline void Rotate(const float_q &fRotationAngle, QBaseTriangle<QVector2> &outTriangle) const
 	{
-	    tOut = *this;
-	    SQPoint::Rotate(fRotationAngle, tOut.AsPtr<QVector2>(), 3);
+	    outTriangle = *this;
+	    SQPoint::Rotate(fRotationAngle, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
     /// <summary>
@@ -274,7 +283,7 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	inline void RotateWithPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot)
+	inline void RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot)
 	{
 	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, this->AsPtr<QVector2>(), 3);
 	}
@@ -285,11 +294,11 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	/// <param name="tOut">[OUT] It receives the resulting triangle.</param>
-	inline void RotateWithPivot (const float_q &fRotationAngle, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	/// <param name="outTriangle">[OUT] It receives the resulting triangle.</param>
+	inline void RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot, QBaseTriangle<QVector2> &outTriangle) const
 	{
-	    tOut = *this;
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, tOut.AsPtr<QVector2>(), 3);
+	    outTriangle = *this;
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
 	/// <summary>
@@ -316,11 +325,11 @@ public:
 	/// resultant triangle in the provided one.
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
-	/// <param name="tOut">[OUT] The scaled triangle.</param>
-	inline void Scale(const QBaseVector2 &vScale, QBaseTriangle2 &tOut) const
+	/// <param name="outTriangle">[OUT] The scaled triangle.</param>
+	inline void Scale(const QBaseVector2 &vScale, QBaseTriangle<QVector2> &outTriangle) const
 	{
-	    tOut = *this;
-	    SQPoint::Scale(vScale, tOut.AsPtr<QVector2>(), 3);
+	    outTriangle = *this;
+	    SQPoint::Scale(vScale, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
 	/// <summary>
@@ -329,11 +338,11 @@ public:
 	/// </summary>
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
-	/// <param name="tOut">[OUT] The scaled triangle.</param>
-	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseTriangle2 &tOut) const
+	/// <param name="outTriangle">[OUT] The scaled triangle.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseTriangle<QVector2> &outTriangle) const
 	{
-	    tOut = *this;
-	    SQPoint::Scale(fScaleX, fScaleY, tOut.AsPtr<QVector2>(), 3);
+	    outTriangle = *this;
+	    SQPoint::Scale(fScaleX, fScaleY, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
     /// <summary>
@@ -365,11 +374,11 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	/// <param name="tOut">[OUT] The scaled triangle.</param>
-	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	/// <param name="outTriangle">[OUT] The scaled triangle.</param>
+	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseTriangle<QVector2> &outTriangle) const
 	{
-	    tOut = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, tOut.AsPtr<QVector2>(), 3);
+	    outTriangle = *this;
+	    SQPoint::ScaleWithPivot(vScale, vPivot, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
 	/// <summary>
@@ -379,11 +388,11 @@ public:
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	/// <param name="tOut">[OUT] The scaled triangle.</param>
-	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseTriangle2 &tOut) const
+	/// <param name="outTriangle">[OUT] The scaled triangle.</param>
+	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseTriangle<QVector2> &outTriangle) const
 	{
-	    tOut = *this;
-	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, tOut.AsPtr<QVector2>(), 3);
+	    outTriangle = *this;
+	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, outTriangle.AsPtr<QVector2>(), 3);
 	}
 
 };

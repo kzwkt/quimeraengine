@@ -213,7 +213,7 @@ public:
     /// Checks if a floating point value is lower than a reference value, taking into account the system tolerance
     /// constant (Epsilon).
     /// </summary>
-    /// <param name="fGreaterValue">The value which is to be compared.</param>
+    /// <param name="fLowerValue">The value which is to be compared.</param>
     /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
     /// <returns>
     /// If the first value is lower than the reference one, then it returns True. Otherwise, it returns False.
@@ -228,7 +228,7 @@ public:
     /// Checks if a floating point value is greater than or equals to a reference value, taking into account the
     /// system tolerance constant (Epsilon).
     /// </summary>
-    /// <param name="fGreaterValue">The value which is to be compared.</param>
+    /// <param name="fGreaterOrEqualsValue">The value which is to be compared.</param>
     /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
     /// <returns>
     /// If the first value is greater than or equals to the reference one, then it returns True. Otherwise, it returns False.
@@ -243,7 +243,7 @@ public:
     /// Checks if a floating point value is lower than or equals to a reference value, taking into account the
     /// system tolerance constant (Epsilon).
     /// </summary>
-    /// <param name="fGreaterValue">The value which is to be compared.</param>
+    /// <param name="fLowerOrEqualsVaue">The value which is to be compared.</param>
     /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
     /// <returns>
     /// If the first value is lower than or equals to the reference one, then it returns True. Otherwise, it returns False.

@@ -31,46 +31,53 @@ public:
 	/// <summary>
 	/// Override default constructor. Sets attributes to zero.
 	/// </summary>
-	inline QBaseVector2 () : x(SQFloat::_0), y(SQFloat::_0) {}
+	inline QBaseVector2() : x(SQFloat::_0), y(SQFloat::_0)
+    {
+    }
 
 	/// <summary>
-	/// Constructor that receives 2 FloatTypes, one for each vector components.
+	/// Constructor that receives 2 numbers, one for each vector component.
 	/// </summary>
 	/// <param name="fValueX">[IN] Value for x component</param>
 	/// <param name="fValueY">[IN] Value for y component</param>
-	inline QBaseVector2 (const float_q &fValueX, const float_q &fValueY) : x(fValueX), y(fValueY) {}
+	inline QBaseVector2(const float_q &fValueX, const float_q &fValueY) : x(fValueX), y(fValueY)
+    {
+    }
 
 	/// <summary>
-	/// Constructor that receives only 1 FloatType. Set all attributes to that value.
+	/// Constructor that receives only 1 number. Sets all attributes to that value.
 	/// </summary>
 	/// <param name="fValueAll">[IN] Value for all components</param>
-	inline explicit QBaseVector2 (const float_q &fValueAll) : x(fValueAll), y(fValueAll) {}
+	inline explicit QBaseVector2(const float_q &fValueAll) : x(fValueAll), y(fValueAll) 
+    {
+    }
 
 	/// <summary>
-	/// Constructor that receives a pointer-to-FloatType. The pointer should point to a dynamically allocated 2-FloatTypes array.
+	/// Constructor that receives an array of 2 floating point numbers.
 	/// </summary>
-	/// <param name="pValues">[IN] Pointer to array of floating point values. It must have at least two elements.</param>
-	inline explicit QBaseVector2 (const float_q *pValues)
+	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least two elements.</param>
+	inline explicit QBaseVector2(const float_q* arValues)
 	{
 		// Null pointer checkout
-		QE_ASSERT(pValues != null_q);
+		QE_ASSERT(arValues != null_q);
 
 		// Assignments
-		x = pValues[0];
-		y = pValues[1];
+		x = arValues[0];
+		y = arValues[1];
 	}
 
 	/// <summary>
 	/// Constructor that receives a 4x32 packed floating point value. The first two packed components are saved into the components of the vector.
 	/// </summary>
-	/// <param name="vfValues">[IN] 4x32 packed floating point containing the three components.
-	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Ignored), 4th value (Ignored)</param>
-	inline explicit QBaseVector2 (const vf32_q &vfValue)
+	/// <param name="value">[IN] 4x32 packed floating point containing the three components.
+	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Ignored), 4th value (Ignored).</param>
+	inline explicit QBaseVector2(const vf32_q &value)
 	{
-		float_q aux;
+		float_q fAux;
 
-		SQVF32::Unpack(vfValue, this->x, this->y, aux, aux);
+		SQVF32::Unpack(value, this->x, this->y, fAux, fAux);
 	}
+
 
 	// METHODS
 	// ---------------
@@ -79,25 +86,25 @@ public:
     /// <summary>
 	/// Equality operator. Compares two 2D vectors.
 	/// </summary>
-	/// <param name="v">[IN] Vector with which to compare.</param>
+	/// <param name="vVector">[IN] Vector with which to compare.</param>
 	/// <returns>
 	/// True if vectors are the same, false otherwise.
 	/// </returns>
-	inline bool operator == (const QBaseVector2 &v) const
+	inline bool operator==(const QBaseVector2 &vVector) const
 	{
-        return ( SQFloat::AreEquals(v.x, this->x) && SQFloat::AreEquals(v.y, this->y) );
+        return ( SQFloat::AreEquals(vVector.x, this->x) && SQFloat::AreEquals(vVector.y, this->y) );
 	}
 
 	/// <summary>
 	/// Inequality operator. Compares two 2D vectors.
 	/// </summary>
-	/// <param name="v">[IN] Vector with which to compare.</param>
+	/// <param name="vVector">[IN] Vector with which to compare.</param>
 	/// <returns>
 	/// True if vectors are not the same, false otherwise.
 	/// </returns>
-	inline bool operator != (const QBaseVector2 &v) const
+	inline bool operator!=(const QBaseVector2 &vVector) const
 	{
-        return !(*this == v);
+        return !(*this == vVector);
 	}
 
 	// ATTRIBUTES

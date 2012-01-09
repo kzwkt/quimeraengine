@@ -46,7 +46,7 @@ public:
     /// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
     /// <param name="f10">[IN] Floating point value for element of row 1, column 0.</param>
     /// <param name="f11">[IN] Floating point value for element of row 1, column 1.</param>
-    inline QBaseMatrix2x2( const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11)
+    inline QBaseMatrix2x2(const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11)
     {
         ij[0][0] = f00;
 		ij[0][1] = f01;
@@ -61,26 +61,27 @@ public:
 	/// Keeps the convention rows x columns, so each chunck of 2 consecutive elements
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
-	/// <param name="pfMatrix">Pointer to a 4 length array of floating point values.</param>
-	inline QBaseMatrix2x2(const float_q *pfMatrix)
+	/// <param name="arValues">Pointer to a 4 length array of floating point values.</param>
+	inline QBaseMatrix2x2(const float_q* arValues)
 	{
-		QE_ASSERT(pfMatrix != null_q);
+		QE_ASSERT(arValues != null_q);
 
-		ij[0][0] = pfMatrix[0];
-		ij[0][1] = pfMatrix[1];
-		ij[1][0] = pfMatrix[2];
-		ij[1][1] = pfMatrix[3];
+		ij[0][0] = arValues[0];
+		ij[0][1] = arValues[1];
+		ij[1][0] = arValues[2];
+		ij[1][1] = arValues[3];
 	}
 
     /// <summary>
 	/// Constructor from one 4x32 floating point packed values. Each value contains an element of the matrix.
     /// Each pack element is unpacked following the row x column convention.
 	/// </summary>
-	/// <param name="vfValues">[IN] 4x32 values for the matrix.</param>
-	inline QBaseMatrix2x2(const vf32_q &vfValues)
+	/// <param name="value">[IN] 4x32 values for the matrix.</param>
+	inline QBaseMatrix2x2(const vf32_q &value)
 	{
-		SQVF32::Unpack(vfValues, this->ij[0][0], this->ij[0][1], this->ij[1][0], this->ij[1][1]);
+		SQVF32::Unpack(value, this->ij[0][0], this->ij[0][1], this->ij[1][0], this->ij[1][1]);
 	}
+
 
     // METHODS
     // ---------------
@@ -89,28 +90,28 @@ public:
     /// <summary>
     /// Equality operator. Compares two [2x2] matrices.
     /// </summary>
-    /// <param name="m">[IN] The matrix to compare to.</param>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
     /// <returns>
     /// If matrices are equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator==(const QBaseMatrix2x2 &m) const
+    inline bool operator==(const QBaseMatrix2x2 &matrix) const
     {
-        return SQFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
-               SQFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
-               SQFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
-               SQFloat::AreEquals(this->ij[1][1], m.ij[1][1]);
+        return SQFloat::AreEquals(this->ij[0][0], matrix.ij[0][0]) &&
+               SQFloat::AreEquals(this->ij[0][1], matrix.ij[0][1]) &&
+               SQFloat::AreEquals(this->ij[1][0], matrix.ij[1][0]) &&
+               SQFloat::AreEquals(this->ij[1][1], matrix.ij[1][1]);
     }
 
     /// <summary>
     /// Inequality operator. Compares two [2x2] matrices.
     /// </summary>
-    /// <param name="m">[IN] The matrix to compare to.</param>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
     /// <returns>
     /// If matrices are not equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator!=(const QBaseMatrix2x2 &m) const
+    inline bool operator!=(const QBaseMatrix2x2 &matrix) const
     {
-        return  !(*this == m);
+        return  !(*this == matrix);
     }
 
     // ATTRIBUTES

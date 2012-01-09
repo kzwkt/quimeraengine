@@ -41,12 +41,12 @@ public:
     /// <summary>
 	/// Constructor that receives a floating point value for all elements of the matrix.
 	/// </summary>
-	/// <param name="fValue">[IN] Floating point value with which fills the matrix.</param>
-	inline explicit QBaseMatrix3x3(const float_q &fValue)
+	/// <param name="fValueAll">[IN] Floating point value which to fill the matrix with.</param>
+	inline explicit QBaseMatrix3x3(const float_q &fValueAll)
 	{
 		ij[0][0] = ij[0][1] = ij[0][2] =
 		ij[1][0] = ij[1][1] = ij[1][2] =
-		ij[2][0] = ij[2][1] = ij[2][2] = fValue;
+		ij[2][0] = ij[2][1] = ij[2][2] = fValueAll;
 	}
 
 	/// <summary>
@@ -61,9 +61,9 @@ public:
 	/// <param name="f20">[IN] Floating point value for element of row 2, column 0.</param>
 	/// <param name="f21">[IN] Floating point value for element of row 2, column 1.</param>
 	/// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
-	inline explicit QBaseMatrix3x3(	const float_q &f00, const float_q &f01, const float_q &f02,
-									const float_q &f10, const float_q &f11, const float_q &f12,
-									const float_q &f20, const float_q &f21, const float_q &f22)
+	inline explicit QBaseMatrix3x3(const float_q &f00, const float_q &f01, const float_q &f02,
+                                   const float_q &f10, const float_q &f11, const float_q &f12,
+                                   const float_q &f20, const float_q &f21, const float_q &f22)
 	{
 		ij[0][0] = f00;
 		ij[0][1] = f01;
@@ -83,20 +83,20 @@ public:
 	/// Keeps the convention rows x columns, so each chunck of 3 consecutive elements
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
-	/// <param name="pfMatrix">[IN] Pointer to a 9 length array of floating point values.</param>
-	inline explicit QBaseMatrix3x3(const float_q *pfMatrix)
+	/// <param name="arValues">[IN] Pointer to a 9 length array of floating point values.</param>
+	inline explicit QBaseMatrix3x3(const float_q* arValues)
 	{
-		QE_ASSERT(pfMatrix != null_q);
+		QE_ASSERT(arValues != null_q);
 
-		ij[0][0] = pfMatrix[0];
-		ij[0][1] = pfMatrix[1];
-		ij[0][2] = pfMatrix[2];
-		ij[1][0] = pfMatrix[3];
-		ij[1][1] = pfMatrix[4];
-		ij[1][2] = pfMatrix[5];
-		ij[2][0] = pfMatrix[6];
-		ij[2][1] = pfMatrix[7];
-		ij[2][2] = pfMatrix[8];
+		ij[0][0] = arValues[0];
+		ij[0][1] = arValues[1];
+		ij[0][2] = arValues[2];
+		ij[1][0] = arValues[3];
+		ij[1][1] = arValues[4];
+		ij[1][2] = arValues[5];
+		ij[2][0] = arValues[6];
+		ij[2][1] = arValues[7];
+		ij[2][2] = arValues[8];
 	}
 
 	/// <summary>
@@ -110,11 +110,11 @@ public:
 	/// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 2, parsed in this order.</param>
 	inline QBaseMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2)
 	{
-		float_q aux;
+		float_q fAux;
 
-		SQVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], aux);
-		SQVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], aux);
-		SQVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], aux);
+		SQVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], fAux);
+		SQVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], fAux);
+		SQVF32::Unpack(row2, this->ij[2][0], this->ij[2][1], this->ij[2][2], fAux);
 	}
 
     // METHODS
@@ -124,33 +124,33 @@ public:
     /// <summary>
     /// Equality operator. Compares two [3x3] matrices.
     /// </summary>
-    /// <param name="m">[IN] The matrix to compare to.</param>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
     /// <returns>
     /// If matrices are equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator==(const QBaseMatrix3x3 &m) const
+    inline bool operator==(const QBaseMatrix3x3 &matrix) const
     {
-        return SQFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
-               SQFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
-               SQFloat::AreEquals(this->ij[0][2], m.ij[0][2]) &&
-               SQFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
-               SQFloat::AreEquals(this->ij[1][1], m.ij[1][1]) &&
-               SQFloat::AreEquals(this->ij[1][2], m.ij[1][2]) &&
-               SQFloat::AreEquals(this->ij[2][0], m.ij[2][0]) &&
-               SQFloat::AreEquals(this->ij[2][1], m.ij[2][1]) &&
-               SQFloat::AreEquals(this->ij[2][2], m.ij[2][2]);
+        return SQFloat::AreEquals(this->ij[0][0], matrix.ij[0][0]) &&
+               SQFloat::AreEquals(this->ij[0][1], matrix.ij[0][1]) &&
+               SQFloat::AreEquals(this->ij[0][2], matrix.ij[0][2]) &&
+               SQFloat::AreEquals(this->ij[1][0], matrix.ij[1][0]) &&
+               SQFloat::AreEquals(this->ij[1][1], matrix.ij[1][1]) &&
+               SQFloat::AreEquals(this->ij[1][2], matrix.ij[1][2]) &&
+               SQFloat::AreEquals(this->ij[2][0], matrix.ij[2][0]) &&
+               SQFloat::AreEquals(this->ij[2][1], matrix.ij[2][1]) &&
+               SQFloat::AreEquals(this->ij[2][2], matrix.ij[2][2]);
     }
 
     /// <summary>
     /// Inequality operator. Compares two [3x3] matrices.
     /// </summary>
-    /// <param name="m">[IN] The matrix to compare to.</param>
+    /// <param name="matrix">[IN] The matrix to compare to.</param>
     /// <returns>
     /// If matrices are not equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator!=(const QBaseMatrix3x3 &m) const
+    inline bool operator!=(const QBaseMatrix3x3 &matrix) const
     {
-        return  !(*this == m);
+        return  !(*this == matrix);
     }
 
     // ATTRIBUTES

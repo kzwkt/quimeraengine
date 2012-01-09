@@ -41,14 +41,14 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseLineSegment () : A(SQFloat::_0), B(SQFloat::_0) { }
+    inline QBaseLineSegment() : A(SQFloat::_0), B(SQFloat::_0) { }
 
     /// <summary>
     /// Constructor from two vectors.
     /// </summary>
     /// <param name="vA">[IN] Vector to define end A.</param>
     /// <param name="vB">[IN] Vector to define end B.</param>
-    inline QBaseLineSegment (const VectorType &vA, const VectorType &vB) : A(vA), B(vB)  { }
+    inline QBaseLineSegment(const VectorType &vA, const VectorType &vB) : A(vA), B(vB)  { }
 
     // METHODS
     // ---------------
@@ -57,25 +57,25 @@ public:
     /// <summary>
     /// Equality operator. Compares two line segments.
     /// </summary>
-    /// <param name="ls">[IN] Line segment with which to compare.</param>
+    /// <param name="segment">[IN] Line segment with which to compare.</param>
     /// <returns>
     /// True if line segments are the same, false otherwise.
     /// </returns>
-    inline bool operator == (const QBaseLineSegment<VectorType> &ls) const
+    inline bool operator==(const QBaseLineSegment<VectorType> &segment) const
     {
-        return ( this->A == ls.A && this->B == ls.B );
+        return ( this->A == segment.A && this->B == segment.B );
     }
 
     /// <summary>
     /// Inequality operator. Compares two line segments.
     /// </summary>
-    /// <param name="ls">[IN] Line segment with which to compare.</param>
+    /// <param name="segment">[IN] Line segment with which to compare.</param>
     /// <returns>
     /// True if line segments are not the same, false otherwise.
     /// </returns>
-    inline bool operator != (const QBaseLineSegment<VectorType> &ls) const
+    inline bool operator!=(const QBaseLineSegment<VectorType> &segment) const
     {
-        return !(*this == ls);
+        return !(*this == segment);
     }
 
     // ATTRIBUTES
@@ -93,12 +93,6 @@ public:
     VectorType B;
 };
 
-// TYPEDEFS
-// ---------------
-
-typedef QBaseLineSegment<QVector2> QBaseLineSegment2;
-typedef QBaseLineSegment<QVector3> QBaseLineSegment3;
-typedef QBaseLineSegment<QVector4> QBaseLineSegment4;
 
 } //namespace Math
 } //namespace Tools

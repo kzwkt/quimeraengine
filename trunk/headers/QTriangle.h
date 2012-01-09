@@ -41,7 +41,9 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QTriangle() { }
+	inline QTriangle()
+    {
+    }
 
 	/// <summary>
 	/// Constructor from three vectors, one for each vertex.
@@ -49,23 +51,30 @@ public:
 	/// <param name="vA">[IN] Vector to define vertex A.</param>
 	/// <param name="vB">[IN] Vector to define vertex B.</param>
 	/// <param name="vC">[IN] Vector to define vertex C.</param>
-	inline QTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) : QBaseTriangle<VectorType>(vA, vB, vC) { }
+	inline QTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) : QBaseTriangle<VectorType>(vA, vB, vC)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from three pointer-to-float type, one for each vertex.
 	/// </summary>
-	/// <param name="pValueA">[IN] Pointer to floating point value to define vertex A.</param>
-	/// <param name="pValueB">[IN] Pointer to floating point value to define vertex B.</param>
-	/// <param name="pValueC">[IN] Pointer to floating point value to define vertex C.</param>
-	inline QTriangle(const float_q *pValueA, const float_q *pValueB, const float_q *pValueC) : QBaseTriangle<VectorType>(pValueA, pValueB, pValueC) { }
+	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
+	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
+	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
+	inline QTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) : 
+                         QBaseTriangle<VectorType>(arValuesA, arValuesB, arValuesC)
+    {
+    }
 
 	/// <summary>
-	/// Constructor from three V4x32-FLOAT, one for each vertex.
+	/// Constructor from three 4x32 packed floating point values, one for each vertex.
 	/// </summary>
-	/// <param name="vfValueA">[IN] 4x32 packed value which defines vertex A.</param>
-	/// <param name="vfValueB">[IN] 4x32 packed value which defines vertex B.</param>
-	/// <param name="vfValueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QTriangle(const vf32_q &vfValueA, const vf32_q &vfValueB, const vf32_q &vfValueC) : QBaseTriangle<VectorType>(vfValueA, vfValueB, vfValueC) { }
+	/// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
+	/// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
+	/// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
+	inline QTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) : QBaseTriangle<VectorType>(valueA, valueB, valueC)
+    {
+    }
 
 	// METHODS
 	// ---------------
@@ -74,20 +83,20 @@ public:
 	/// <summary>
 	/// Assign operator. Assigns the provided triangle to the resident triangle.
 	/// </summary>
-	/// <param name="btValue">[IN] QBaseTriangle that will be assigned to current triangle.</param>
-	inline QTriangle<VectorType> & operator=(const QBaseTriangle<VectorType> & btValue)
+	/// <param name="triangle">[IN] Triangle that will be assigned to current triangle.</param>
+	inline QTriangle<VectorType>& operator=(const QBaseTriangle<VectorType> &triangle)
 	{
-        QBaseTriangle<VectorType>::operator=(btValue);
+        QBaseTriangle<VectorType>::operator=(triangle);
         return *this;
 	}
 
 	/// <summary>
 	/// Equality Operator. Checks if the triangle recieved in the parameter is equal to the current triangle.
 	/// </summary>
-	/// <param name="btValue">[IN] QBaseTriangle to compare with current triangle.</param>
-	inline bool operator==(const QBaseTriangle<VectorType> & btValue) const
+	/// <param name="triangle">[IN] Triangle to compare with current triangle.</param>
+	bool operator==(const QBaseTriangle<VectorType> &triangle) const
 	{
-		return (this->A == btValue.A) && (this->B == btValue.B) && (this->C == btValue.C);
+		return (this->A == triangle.A) && (this->B == triangle.B) && (this->C == triangle.C);
 	}
 
 	/// <summary>
@@ -115,7 +124,7 @@ public:
     /// <returns>
     /// Returns the angle in a float point type.
     /// </returns>
-	inline float_q GetAngleA() const
+	float_q GetAngleA() const
 	{
 		VectorType u = B - A;
 		VectorType v = C - A;
@@ -129,7 +138,7 @@ public:
     /// <returns>
     /// Returns the angle in a float point type.
     /// </returns>
-	inline float_q GetAngleB() const
+	float_q GetAngleB() const
 	{
 		VectorType u = A - B;
 		VectorType v = C - B;
@@ -143,7 +152,7 @@ public:
     /// <returns>
     /// Returns the angle in a float point type.
     /// </returns>
-	inline float_q GetAngleC() const
+	float_q GetAngleC() const
 	{
 		VectorType u = A - C;
 		VectorType v = B - C;
@@ -154,8 +163,8 @@ public:
 	/// <summary>
 	/// Calculates the incenter of the triangle.
 	/// </summary>
-	/// <param name="vValue">[OUT] VectorType that stores the resultant point.</param>
-	void GetIncenter(VectorType & vValue) const
+	/// <param name="vIncenter">[OUT] Vector that stores the resultant point.</param>
+	void GetIncenter(VectorType & vIncenter) const
 	{
 		VectorType vtSideA = C - B;
 		VectorType vtSideB = A - C;
@@ -170,16 +179,16 @@ public:
 		// Checkout to avoid division by zero.
 		QE_ASSERT(fP != SQFloat::_0);
 
-		vValue = (fLengthA * A + fLengthB * B + fLengthC * C) / fP;
+		vIncenter = (fLengthA * A + fLengthB * B + fLengthC * C) / fP;
 	}
 
 	/// <summary>
 	/// Calculates the centroid of the triangle.
 	/// </summary>
-	/// <param name="vValue">[OUT] VectorType that stores the resultant point.</param>
-	inline void GetCentroid(VectorType & vValue) const
+	/// <param name="vCentroid">[OUT] VectorType that stores the resultant point.</param>
+	inline void GetCentroid(VectorType & vCentroid) const
 	{
-		vValue = (A + B + C) / SQFloat::_3;
+		vCentroid = (A + B + C) / SQFloat::_3;
 	}
 
 	/// <summary>
@@ -196,24 +205,24 @@ public:
 
 protected:
 
-	/// <summary>
-	/// Calculates the angle between two vector types.
-	/// </summary>
-	/// <param name="vtU">[IN] The first vector type.</param>
-	/// <param name="vtV">[IN] The second vector type.</param>
-	/// <returns>
-	/// The angle in a float point type.
-	/// </returns>
-	inline float_q GetAngle(const VectorType vtU, const VectorType vtV) const
+	// <summary>
+	// Calculates the angle between two vector types.
+	// </summary>
+	// <param name="vVector1">[IN] The first vector type.</param>
+	// <param name="vVector2">[IN] The second vector type.</param>
+	// <returns>
+	// The angle in a float point type.
+	// </returns>
+	float_q GetAngle(const VectorType vVector1, const VectorType vVector2) const
 	{
-		float_q fLengthU = vtU.GetLength();
-		float_q fLengthV = vtV.GetLength();
+		float_q fLength1 = vVector1.GetLength();
+		float_q fLength2 = vVector2.GetLength();
 
 		// Checkout to avoid division by zero.
-		QE_ASSERT(fLengthU != SQFloat::_0);
-		QE_ASSERT(fLengthV != SQFloat::_0);
+		QE_ASSERT(fLength1 != SQFloat::_0);
+		QE_ASSERT(fLength2 != SQFloat::_0);
 
-		float_q fCos = vtU.DotProduct(vtV) / (fLengthU * fLengthV);
+		float_q fCos = vVector1.DotProduct(vVector2) / (fLength1 * fLength2);
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
         QE_ASSERT(SQFloat::Abs(fCos) <= SQFloat::_1);

@@ -44,38 +44,50 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QVector2() { }
+	inline QVector2()
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a 2D vector.
 	/// </summary>
-	/// <param name="v">[IN] The 2D vector in which we want resident vector to be based.</param>
-	inline explicit QVector2(const QBaseVector2 &v) : QBaseVector2(v) { }
+	/// <param name="vVector">[IN] The 2D vector in which we want resident vector to be based.</param>
+	inline explicit QVector2(const QBaseVector2 &vVector) : QBaseVector2(vVector)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from two floating point values for each component x and y.
 	/// </summary>
 	/// <param name="fValueX">[IN] Floating point value for x component.</param>
 	/// <param name="fValueY">[IN] Floating point value for y component.</param>
-	inline QVector2(const float_q &fValueX, const float_q &fValueY) : QBaseVector2(fValueX, fValueY) { }
+	inline QVector2(const float_q &fValueX, const float_q &fValueY) : QBaseVector2(fValueX, fValueY)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a single floating point value for all components.
 	/// </summary>
-	/// <param name="fValue">[IN] Floating point value for all components.</param>
-	inline explicit QVector2(const float_q &fValue) : QBaseVector2(fValue) { }
+	/// <param name="fValueAll">[IN] Floating point value for all components.</param>
+	inline explicit QVector2(const float_q &fValueAll) : QBaseVector2(fValueAll)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a two component array of floating point values.
 	/// </summary>
-	/// <param name="pValue">[IN] Pointer to array of floating point values. It must have at least two elements.</param>
-	inline explicit QVector2(const float_q *pValue) : QBaseVector2(pValue) { }
+	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least two elements.</param>
+	inline explicit QVector2(const float_q* arValues) : QBaseVector2(arValues)
+    {
+    }
 
 	/// <summary>
     /// Constructor from a 4x32 packed floating point value.
     /// </summary>
-    /// <param name="vfValue">[IN] 4x32 packed floating point value containing the two components.</param>
-    inline explicit QVector2(const vf32_q vfValue) : QBaseVector2 (vfValue) { }
+    /// <param name="value">[IN] 4x32 packed floating point value containing the two components.</param>
+    inline explicit QVector2(const vf32_q value) : QBaseVector2 (value)
+    {
+    }
 
 
     // PROPERTIES
@@ -159,95 +171,91 @@ public:
 	// ---------------
 public:
 
-	// binary operators
-
 	/// <summary>
 	/// Vectors addition: it's performed component by component.
 	/// </summary>
-	/// <param name="v">[IN] Adding vector.</param>
+	/// <param name="vVector">[IN] Adding vector.</param>
 	/// <returns>
 	/// A vector that is the result of the addition.
 	/// </returns>
-	QVector2 operator + (const QBaseVector2 &v) const;
+	QVector2 operator+(const QBaseVector2 &vVector) const;
 
 	/// <summary>
 	/// Vectors subtraction: it's performed component by component.
 	/// </summary>
-	/// <param name="v">[IN] Subtracting vector.</param>
+	/// <param name="vVector">[IN] Subtracting vector.</param>
 	/// <returns>
 	/// A vector that is the result of the subtraction.
 	/// </returns>
-	QVector2 operator - (const QBaseVector2 &v) const;
+	QVector2 operator-(const QBaseVector2 &vVector) const;
 
 	/// <summary>
 	/// Product by a scalar: all components are multiplied by the floating point value provided.
 	/// </summary>
-	/// <param name="fValue">[IN] Multiplying floating point value.</param>
+	/// <param name="fScalar">[IN] Multiplying floating point value.</param>
 	/// <returns>
 	/// A vector that is the result of the product.
 	/// </returns>
-	QVector2 operator * (const float_q &fValue) const;
+	QVector2 operator*(const float_q &fScalar) const;
 
 	/// <summary>
 	/// Product by a vector: it's performed component by component. It's not dot product or cross product!
 	/// </summary>
-	/// <param name="v">[IN] Multiplying vector.</param>
+	/// <param name="vVector">[IN] Multiplying vector.</param>
 	/// <returns>
 	/// A vector that is the result of the product.
 	/// </returns>
-	QVector2 operator * (const QBaseVector2 &v) const;
+	QVector2 operator*(const QBaseVector2 &vVector) const;
 
     /// <summary>
     /// Product by a matrix with 2 rows and 2 columns: it's performed following the matrices product rules.
     /// </summary>
-    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <param name="matrix">[IN] Multiplying matrix.</param>
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-	QVector2 operator * (const QBaseMatrix2x2 &m) const;
+	QVector2 operator*(const QBaseMatrix2x2 &matrix) const;
 
 	/// <summary>
 	/// Division by a scalar: all components are divided by the floating point value provided.
 	/// </summary>
-	/// <param name="fValue">[IN] Dividing floating point value.</param>
+	/// <param name="fScalar">[IN] Dividing floating point value.</param>
 	/// <returns>
 	/// A vector that is the result of the division.
 	/// </returns>
-	QVector2 operator / (const float_q &fValue) const;
+	QVector2 operator/(const float_q &fScalar) const;
 
 	/// <summary>
 	/// Division by a vector: it's performed component by component.
 	/// </summary>
-	/// <param name="v">[IN] Dividing vector.</param>
+	/// <param name="vVector">[IN] Dividing vector.</param>
 	/// <returns>
 	/// A vector that is the result of the division.
 	/// </returns>
-	QVector2 operator / (const QBaseVector2 &v) const;
+	QVector2 operator/(const QBaseVector2 &vVector) const;
 
 	/// <summary>
 	/// Product by a scalar: all components are multiplied by the floating point value provided.
 	/// Shorcut to multiply on the left.
 	/// </summary>
-	/// <param name="fValue">[IN] Multiplying floating point value.</param>
-	/// <param name="v">[IN] Vector to be multiplied.</param>
+	/// <param name="fScalar">[IN] Multiplying floating point value.</param>
+	/// <param name="vVector">[IN] Vector to be multiplied.</param>
 	/// <returns>
 	/// A vector that is the result of the product.
 	/// </returns>
-	friend QVector2 operator * (const float_q &fValue, const QVector2 &v);
-
-	// assignment operators
+	friend QVector2 operator*(const float_q &fScalar, const QVector2 &vVector);
 
 	/// <summary>
 	/// Adds a vector provided to current vector.
 	/// </summary>
-	/// <param name="v">[IN] Adding vector.</param>
+	/// <param name="vVector">[IN] Adding vector.</param>
 	/// <returns>
 	/// A reference to vector result of the addition.
 	/// </returns>
-	inline QVector2& operator += (const QBaseVector2 &v)
+	inline QVector2& operator+=(const QBaseVector2 &vVector)
 	{
-		this->x += v.x;
-		this->y += v.y;
+		this->x += vVector.x;
+		this->y += vVector.y;
 
 		return *this;
 	}
@@ -255,14 +263,14 @@ public:
 	/// <summary>
 	/// Subtracts a vector provided to current vector.
 	/// </summary>
-	/// <param name="v">[IN] Subtracting vector.</param>
+	/// <param name="vVector">[IN] Subtracting vector.</param>
 	/// <returns>
 	/// A reference to vector result of the subtraction.
 	/// </returns>
-	inline QVector2& operator -= (const QBaseVector2 &v)
+	inline QVector2& operator-=(const QBaseVector2 &vVector)
 	{
-		this->x -= v.x;
-		this->y -= v.y;
+		this->x -= vVector.x;
+		this->y -= vVector.y;
 
 		return *this;
 	}
@@ -270,14 +278,14 @@ public:
 	/// <summary>
 	/// Multiplies current vector by a floating point value provided.
 	/// </summary>
-	/// <param name="fValue">[IN] Multiplying floating point value.</param>
+	/// <param name="fScalar">[IN] Multiplying floating point value.</param>
 	/// <returns>
 	/// A reference to vector result of the product.
 	/// </returns>
-	inline QVector2& operator *= (const float_q &fValue)
+	inline QVector2& operator*=(const float_q &fScalar)
 	{
-		this->x *= fValue;
-		this->y *= fValue;
+		this->x *= fScalar;
+		this->y *= fScalar;
 
 		return *this;
 	}
@@ -285,15 +293,15 @@ public:
 	/// <summary>
     /// Multiplies resident vector by a matrix with 2 rows and 2 columns provided. It's performed with matrix product rules.
     /// </summary>
-    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <param name="matrix">[IN] Multiplying matrix.</param>
     /// <returns>
     /// A reference to vector result of the product.
     /// </returns>
-    inline QVector2& operator *= (const QBaseMatrix2x2 &m)
+    inline QVector2& operator*=(const QBaseMatrix2x2 &matrix)
 	{
 
-		float_q fValueX = this->x * m.ij[0][0] + this->y * m.ij[1][0];
-		float_q fValueY = this->x * m.ij[0][1] + this->y * m.ij[1][1];
+		float_q fValueX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0];
+		float_q fValueY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1];
 
 		this->x = fValueX;
 		this->y = fValueY;
@@ -304,14 +312,14 @@ public:
 	/// <summary>
 	/// Multiplies current vector by a vector provided. It's performed component by component. It's not dot product or cross product!
 	/// </summary>
-	/// <param name="v">[IN] Multiplying vector.</param>
+	/// <param name="vVector">[IN] Multiplying vector.</param>
 	/// <returns>
 	/// A reference to vector result of the product.
 	/// </returns>
-	inline QVector2& operator *= (const QBaseVector2 &v)
+	inline QVector2& operator*=(const QBaseVector2 &vVector)
 	{
-		this->x *= v.x;
-		this->y *= v.y;
+		this->x *= vVector.x;
+		this->y *= vVector.y;
 
 		return *this;
 	}
@@ -319,17 +327,17 @@ public:
 	/// <summary>
 	/// Divides current vector by a floating point value provided.
 	/// </summary>
-	/// <param name="fValue">[IN] Dividing floating point value.</param>
+	/// <param name="fScalar">[IN] Dividing floating point value.</param>
 	/// <returns>
 	/// A reference to vector result of the division.
 	/// </returns>
-	inline QVector2& operator /= (const float_q &fValue)
+	inline QVector2& operator/=(const float_q &fScalar)
 	{
 		// Checkout to avoid division by 0
-		QE_ASSERT(fValue != SQFloat::_0);
+		QE_ASSERT(fScalar != SQFloat::_0);
 
-		this->x /= fValue;
-		this->y /= fValue;
+		this->x /= fScalar;
+		this->y /= fScalar;
 
 		return *this;
 	}
@@ -337,34 +345,32 @@ public:
 	/// <summary>
 	/// Divides current vector by a vector provided. It's performed component by component.
 	/// </summary>
-	/// <param name="v">[IN] Dividing vector.</param>
+	/// <param name="vVector">[IN] Dividing vector.</param>
 	/// <returns>
 	/// A reference to vector result of the division.
 	/// </returns>
-	inline QVector2& operator /= (const QBaseVector2 &v)
+	inline QVector2& operator/=(const QBaseVector2 &vVector)
 	{
 		// Checkout to avoid division by 0
-		QE_ASSERT (v.x != SQFloat::_0 && v.y != SQFloat::_0);
+		QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0);
 
-		this->x /= v.x;
-		this->y /= v.y;
+		this->x /= vVector.x;
+		this->y /= vVector.y;
 
 
 		return *this;
 	}
 
-    // Unary operators
-
     /// <summary>
     /// Assign operator. Assigns the provided vector to the resident vector.
     /// </summary>
-    /// <param name="v">[IN] The vector to be assigned.</param>
+    /// <param name="vVector">[IN] The vector to be assigned.</param>
     /// <returns>
     /// A reference to the modified vector.
     /// </returns>
-    inline QVector2& operator=(const QBaseVector2 &v)
+    inline QVector2& operator=(const QBaseVector2 &vVector)
     {
-        QBaseVector2::operator=(v);
+        QBaseVector2::operator=(vVector);
         return *this;
     }
 
@@ -374,7 +380,7 @@ public:
 	/// <returns>
 	/// A vector that is the result of the negation.
 	/// </returns>
-	QVector2 operator - () const;
+	QVector2 operator-() const;
 
 	/// <summary>
 	/// Calculates the length of current vector.
@@ -382,10 +388,7 @@ public:
 	/// <returns>
 	/// A floating point value which is the length of the vector.
 	/// </returns>
-	inline float_q GetLength() const
-	{
-		return hypot_q(this->x, this->y);
-	}
+	float_q GetLength() const;
 
 	/// <summary>
     /// Calculates the squared length of resident vector.
@@ -393,10 +396,7 @@ public:
     /// <returns>
     /// A floating point value which is the squared length of the vector.
     /// </returns>
-    inline float_q GetSquaredLength() const
-    {
-        return this->x*this->x + this->y*this->y;
-    }
+    float_q GetSquaredLength() const;
 
 	/// <summary>
 	/// Calculates the vector which is perpendicular to the current vector.
@@ -425,11 +425,11 @@ public:
 	/// <summary>
     /// Calculates a normalized vector from the resident one and stores it in an output vector provided.
     /// </summary>
-    /// <param name="vOut">[OUT] Vector where we want to store the normalized vector.</param>
-    inline void Normalize(QBaseVector2 &vOut) const
+    /// <param name="vOutVector">[OUT] Vector where we want to store the normalized vector.</param>
+    inline void Normalize(QBaseVector2 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector2>().Normalize();
+        vOutVector = *this;
+        vOutVector.As<QVector2>().Normalize();
     }
 
 	/// <summary>
@@ -444,11 +444,11 @@ public:
     /// <summary>
     /// Calculates the opposite to resident vector and stores it in an output vector provided.
     /// </summary>
-    /// <param name="vOut">[OUT] Vector where we want to store the opposite vector.</param>
-    inline void Reverse(QBaseVector2 &vOut) const
+    /// <param name="vOutVector">[OUT] Vector where we want to store the opposite vector.</param>
+    inline void Reverse(QBaseVector2 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector2>().Reverse();
+        vOutVector = *this;
+        vOutVector.As<QVector2>().Reverse();
     }
 
 	/// <summary>
@@ -474,7 +474,7 @@ public:
 	/// to transform it. The transformation can be a rotation, scaling or translation, or a combination of them.
 	/// </summary>
 	/// <param name="matrix">[IN] The transformation matrix.</param>
-	void Transform(const QTransformationMatrix3x3& matrix);
+	void Transform(const QTransformationMatrix3x3 &matrix);
 
 	/// <summary>
 	/// Applies a transformation to resident vector, multiplying the vector by a transformation matrix
@@ -482,22 +482,22 @@ public:
 	/// The transformed vector is stored into the provided one. No change to the resident vector.
 	/// </summary>
 	/// <param name="matrix">[IN] The transformation matrix.</param>
-	/// <param name="vectorOut">[OUT] Vector where to store the result of transformation.</param>
-	void Transform(const QTransformationMatrix3x3& matrix, QBaseVector2& vectorOut);
+	/// <param name="vOutVector">[OUT] Vector where to store the result of transformation.</param>
+	void Transform(const QTransformationMatrix3x3 &matrix, QBaseVector2 &vOutVector);
 
 	/// <summary>
 	/// Apply a 2D rotation about the origin of the resident vector.
 	/// </summary>
-	/// <param name="fAngle">[IN] The rotation angle.</param>
-	void Transform(const float_q& fAngle);
+	/// <param name="fRotationAngle">[IN] The rotation angle.</param>
+	void Transform(const float_q& fRotationAngle);
 
 	/// <summary>
 	/// Apply a 2D rotation about the origin of the resident vector. The rotated vector is stored into the provided
 	/// one. No change to the resident vector.
 	/// </summary>
-	/// <param name="fAngle">[IN] The rotation angle.</param>
-	/// <param name="vectorOut">[OUT] Vector where to store the result of rotation.</param>
-	void Transform(const float_q& fAngle, QBaseVector2& vectorOut);
+	/// <param name="fRotationAngle">[IN] The rotation angle.</param>
+	/// <param name="vOutVector">[OUT] Vector where to store the result of rotation.</param>
+	void Transform(const float_q& fRotationAngle, QBaseVector2& vOutVector);
 
 	/// <summary>
 	/// Check if all components of current vector are 0.
@@ -505,10 +505,7 @@ public:
 	/// <returns>
 	/// True if all components are 0. False otherwise.
 	/// </returns>
-	inline bool IsZero()
-	{
-		return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y);
-	}
+	bool IsZero();
 
 	/// <summary>
 	/// Check if all components of current vector are 1.
@@ -516,111 +513,59 @@ public:
 	/// <returns>
 	/// True if all components are 1. False otherwise.
 	/// </returns>
-	inline bool IsVectorOfOnes()
-	{
-		return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1);
-	}
+	bool IsVectorOfOnes();
 
 	/// <summary>
 	/// Calculates Dot Product by a vector provided.
 	/// </summary>
-	/// <param name="v">[IN] Multiplying vector.</param>
+	/// <param name="vVector">[IN] Multiplying vector.</param>
 	/// <returns>
 	/// A floating point value which is the result of Dot Product.
 	/// </returns>
-	inline float_q DotProduct(const QVector2 &v) const
-	{
-		return(this->x*v.x + this->y*v.y);
-	}
+	float_q DotProduct(const QVector2 &vVector) const;
 
     /// <summary>
     /// Calculates the angle between resident vector and the provided vector via Dot Product.
     /// </summary>
-    /// <param name="v">[IN] Multiplying vector.</param>
+    /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
     /// A floating point value which is the smaller angle between vectors (less or equal 180º).
     /// </returns>
-    inline float_q DotProductAngle(const QVector2& v) const
-    {
-        float_q fLengthProd = this->GetLength() * v.GetLength();
-
-        // Checkout to avoid division by zero.
-        QE_ASSERT(fLengthProd != SQFloat::_0);
-
-        float_q fDot = this->DotProduct(v) / fLengthProd;
-
-		// Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-		//
-		// [TODO] This code block has to be reviewed when a solution to
-		//		  solve values out of range for 'acos' function has been planned, and then:
-		//
-		//				 1) Replace the current QE_ASSERT with one using SQFloat::IsLowerOrEquals,
-		//					because something like QE_ASSERT( SQFloat::IsLowerOrEquals(abs(fDot), SQFloat::_1) )
-		//					or QE_ASSERT( SQFloat::IsLowerOrEquals(abs(fDot), CURRENT_COS_MAX_RANGE) )
-		//				    actually doesn't make their work.
-		//
-		//				 2) Replace the two conditional branches and then use Clamp funcion, once this is defined
-		//					as a non-member function.
-		///////////////////////////////////////////////////////////////////
-        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
-
-		if ( SQFloat::IsGreaterOrEquals(fDot, __CURRENT_COS_MAX_RANGE__) )
-		{
-			fDot = 1.0000000f;
-		}
-		else if ( SQFloat::IsLowerOrEquals(fDot, __CURRENT_COS_MIN_RANGE__) )
-		{
-			fDot = -1.0000000f;
-		}
-		///////////////////////////////////////////////////////////////////
-
-        float_q fAngle = acos_q(fDot);
-
-		// At this stage we have the angle stored in fAngle expressed in RADIANS.
-
-        #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            // If angles are specified in degrees, then converts angle to degrees
-            fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
-
-			// At this stage we have the angle expressed in DEGREES.
-        #endif
-
-        return fAngle;
-    }
+    float_q DotProductAngle(const QVector2 &vVector) const;
 
 	/// <summary>
 	/// Makes a Linear Interpolation between current vector and other vector provided. It stores result in current vector.
 	/// </summary>
-	/// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
-	/// <param name="v">[IN] Vector with which to interpolate.</param>
-	inline void Lerp(const float_q &fFactor, const QBaseVector2 &v)
+	/// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
+	/// <param name="vVector">[IN] Vector with which to interpolate.</param>
+	inline void Lerp(const float_q &fProportion, const QBaseVector2 &vVector)
 	{
-		this->x = this->x*fFactor + v.x*(SQFloat::_1 - fFactor);
-		this->y = this->y*fFactor + v.y*(SQFloat::_1 - fFactor);
+		this->x = this->x*fProportion + vVector.x*(SQFloat::_1 - fProportion);
+		this->y = this->y*fProportion + vVector.y*(SQFloat::_1 - fProportion);
 	}
 
     /// <summary>
     /// Makes a Linear Interpolation between resident vector and other vector provided. It stores result in a vector provided.
     /// </summary>
-    /// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the resident vector (per one).</param>
-    /// <param name="v">[IN] Vector with which to interpolate.</param>
-    /// <param name="vOut">[OUT] Vector to store results of interpolation.</param>
-    inline void Lerp(const float_q &fFactor, const QBaseVector2 &v, QBaseVector2 &vOut) const
+    /// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the resident vector (per one).</param>
+    /// <param name="vVector">[IN] Vector with which to interpolate.</param>
+    /// <param name="vOutVector">[OUT] Vector to store results of interpolation.</param>
+    inline void Lerp(const float_q &fProportion, const QBaseVector2 &vVector, QBaseVector2 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector2>().Lerp(fFactor, v);
+        vOutVector = *this;
+        vOutVector.As<QVector2>().Lerp(fProportion, vVector);
     }
 
 	/// <summary>
 	/// Calculates the distance between two vector heads (or two points). It computes the difference of two vectors and returns its length.
 	/// </summary>
-	/// <param name="v">[IN] Vector we want to calculate the distance from current vector.</param>
+	/// <param name="vVector">[IN] Vector we want to calculate the distance from current vector.</param>
 	/// <returns>
 	/// A positive floating point value containing the distance between both vectors.
 	/// </returns>
-	inline float_q Distance(const QVector2 &v) const
+	inline float_q Distance(const QVector2 &vVector) const
 	{
-		return hypot_q(this->x-v.x, this->y-v.y);
+		return hypot_q(this->x-vVector.x, this->y-vVector.y);
 	}
 
 	/// <summary>

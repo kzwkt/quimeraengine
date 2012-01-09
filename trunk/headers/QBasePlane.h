@@ -32,48 +32,55 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBasePlane() : a(SQFloat::_0), b(SQFloat::_0), c(SQFloat::_0), d(SQFloat::_0) { }
+	inline QBasePlane() : a(SQFloat::_0), b(SQFloat::_0), c(SQFloat::_0), d(SQFloat::_0)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a floating point value for each coefficient.
 	/// </summary>
-	/// <param name="fA">[IN] Floating point value for a coefficient.</param>
-	/// <param name="fB">[IN] Floating point value for b coefficient.</param>
-	/// <param name="fC">[IN] Floating point value for c coefficient.</param>
-	/// <param name="fD">[IN] Floating point value for independent term d.</param>
-	inline QBasePlane(float_q fA, float_q fB, float_q fC, float_q fD) : a(fA), b(fB), c(fC), d(fD) { }
+	/// <param name="fValueA">[IN] Floating point value for a coefficient.</param>
+	/// <param name="fValueB">[IN] Floating point value for b coefficient.</param>
+	/// <param name="fValueC">[IN] Floating point value for c coefficient.</param>
+	/// <param name="fValueD">[IN] Floating point value for independent term d.</param>
+	inline QBasePlane(const float_q &fValueA, const float_q &fValueB, const float_q &fValueC, const float_q &fValueD) : 
+                        a(fValueA), b(fValueB), c(fValueC), d(fValueD)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a floating point value for all coefficients.
 	/// </summary>
-	/// <param name="fValue">[IN] Floating point value.</param>
-	inline explicit QBasePlane(float_q fValue) : a(fValue), b(fValue), c(fValue), d(fValue) { }
+	/// <param name="fValueAll">[IN] Floating point value.</param>
+	inline explicit QBasePlane(const float_q &fValueAll) : a(fValueAll), b(fValueAll), c(fValueAll), d(fValueAll)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from a pointer to a array of floating point values.
 	/// </summary>
-	/// <param name="pValue">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
-	inline explicit QBasePlane(float_q *pValue)
+	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
+	inline explicit QBasePlane(float_q* arValues)
 	{
 		// Null pointer checkout
-		QE_ASSERT(pValue != null_q);
+		QE_ASSERT(arValues != null_q);
 
 		// Assignments
-		this->a = pValue[0];
-		this->b = pValue[1];
-		this->c = pValue[2];
-		this->d = pValue[3];
+		this->a = arValues[0];
+		this->b = arValues[1];
+		this->c = arValues[2];
+		this->d = arValues[3];
 	}
 
 	/// <summary>
 	/// Constructor from a 4x32 packed float value.
 	/// </summary>
-	/// <param name="vfValue">[IN] 4x32 packed float containing the four components.
+	/// <param name="value">[IN] 4x32 packed float containing the four components.
 	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
 	/// 3rd value (c coefficient), 4th value (d independent term).</param>
-	inline explicit QBasePlane(const vf32_q vfValue)
+	inline explicit QBasePlane(const vf32_q &value)
 	{
-		SQVF32::Unpack(vfValue, this->a, this->b, this->c, this->d);
+		SQVF32::Unpack(value, this->a, this->b, this->c, this->d);
 	}
 
     // METHODS
@@ -91,7 +98,7 @@ public:
     /// <returns>
     /// True if planes are the same, false otherwise.
     /// </returns>
-    inline bool operator == (const QBasePlane &plane) const
+    inline bool operator==(const QBasePlane &plane) const
     {
         return ( SQFloat::AreEquals(plane.a, this->a) && SQFloat::AreEquals(plane.b, this->b) &&
                  SQFloat::AreEquals(plane.c, this->c) && SQFloat::AreEquals(plane.d, this->d) );
@@ -108,7 +115,7 @@ public:
     /// <returns>
     /// True if planes are not the same, false otherwise.
     /// </returns>
-    inline bool operator != (const QBasePlane &plane) const
+    inline bool operator!=(const QBasePlane &plane) const
     {
         return !(*this == plane);
     }

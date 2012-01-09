@@ -24,19 +24,19 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-QDualQuaternion QDualQuaternion::operator + (const QBaseDualQuaternion &dqQuat) const
+QDualQuaternion QDualQuaternion::operator+(const QBaseDualQuaternion &dualQuat) const
 {
-    return QDualQuaternion (QBaseQuaternion(this->r + dqQuat.r), QBaseQuaternion(this->d + dqQuat.d));
+    return QDualQuaternion(QBaseQuaternion(this->r + dualQuat.r), QBaseQuaternion(this->d + dualQuat.d));
 }
 
-QDualQuaternion QDualQuaternion::operator - (const QBaseDualQuaternion &dqQuat) const
+QDualQuaternion QDualQuaternion::operator-(const QBaseDualQuaternion &dualQuat) const
 {
-    return QDualQuaternion (QBaseQuaternion(this->r - dqQuat.r), QBaseQuaternion(this->d - dqQuat.d));
+    return QDualQuaternion(QBaseQuaternion(this->r - dualQuat.r), QBaseQuaternion(this->d - dualQuat.d));
 }
 
-QDualQuaternion QDualQuaternion::operator * (const QBaseDualQuaternion &dqQuat) const
+QDualQuaternion QDualQuaternion::operator*(const QBaseDualQuaternion &dualQuat) const
 {
-    return QDualQuaternion (QBaseQuaternion(this->r * dqQuat.r), QBaseQuaternion(this->r * dqQuat.d + this->d * dqQuat.r));
+    return QDualQuaternion(QBaseQuaternion(this->r * dualQuat.r), QBaseQuaternion(this->r * dualQuat.d + this->d * dualQuat.r));
 }
 
 QDualQuaternion QDualQuaternion::operator*(const float_q &fScalar) const
@@ -44,27 +44,27 @@ QDualQuaternion QDualQuaternion::operator*(const float_q &fScalar) const
     return QDualQuaternion(QBaseQuaternion(this->r * fScalar), QBaseQuaternion(this->r * fScalar));
 }
 
-QDualQuaternion operator*(const float_q &fScalar, const QBaseDualQuaternion &dqQuat)
+QDualQuaternion operator*(const float_q &fScalar, const QBaseDualQuaternion &dualQuat)
 {
-    return QDualQuaternion(QBaseQuaternion(dqQuat.r * fScalar), QBaseQuaternion(dqQuat.d * fScalar));
+    return QDualQuaternion(QBaseQuaternion(dualQuat.r * fScalar), QBaseQuaternion(dualQuat.d * fScalar));
 }
 
-QDualQuaternion QDualQuaternion::operator * (const QBaseVector3 &v) const
+QDualQuaternion QDualQuaternion::operator*(const QBaseVector3 &vVector) const
 {
     // Vector3 is converted to dual quaternion (0, 0, 0, 1)(x, y, z, 0)
     QDualQuaternion auxQ(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
-                       QBaseQuaternion(v.x, v.y, v.z, SQFloat::_0) );
+                       QBaseQuaternion(vVector.x, vVector.y, vVector.z, SQFloat::_0) );
 
     auxQ = (*this)*auxQ;
 
     return auxQ;
 }
 
-QDualQuaternion QDualQuaternion::operator * (const QBaseVector4 &v) const
+QDualQuaternion QDualQuaternion::operator*(const QBaseVector4 &vVector) const
 {
     // Vector4 is converted to dual quaternion (0, 0, 0, 1)(x, y, z, 0)
     QDualQuaternion auxQ(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
-                         QBaseQuaternion(v.x, v.y, v.z, SQFloat::_0) );
+                         QBaseQuaternion(vVector.x, vVector.y, vVector.z, SQFloat::_0) );
 
     auxQ = (*this)*auxQ;
 
@@ -78,12 +78,12 @@ QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
     return QDualQuaternion(QBaseQuaternion(this->r / fScalar), QBaseQuaternion(this->d / fScalar));
 }
 
-void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf)
+void QDualQuaternion::Transform(const QBaseDualQuaternion &transformation)
 {
-    QDualQuaternion dqConj(dqTransf);
+    QDualQuaternion dqConj(transformation);
 
     dqConj.DoubleConjugate();
-    *this = ( dqTransf.As<const QDualQuaternion>() * (*this) ) * dqConj;
+    *this = ( transformation.As<const QDualQuaternion>() * (*this) ) * dqConj;
 
 
 }
@@ -91,13 +91,13 @@ void QDualQuaternion::Transform(const QBaseDualQuaternion &dqTransf)
 string_q QDualQuaternion::ToString() const
 {
     return QE_L("DQ(") + SQFloat::ToString(this->r.x) +
-            QE_L(", ")  + SQFloat::ToString(this->r.y) +
-            QE_L(", ")  + SQFloat::ToString(this->r.z) +
-            QE_L(", ")  + SQFloat::ToString(this->r.w) + QE_L(")") +
-            QE_L("(")   + SQFloat::ToString(this->d.x) +
-            QE_L(", ")  + SQFloat::ToString(this->d.y) +
-            QE_L(", ")  + SQFloat::ToString(this->d.z) +
-            QE_L(", ")  + SQFloat::ToString(this->d.w) + QE_L(")");
+           QE_L(", ")  + SQFloat::ToString(this->r.y) +
+           QE_L(", ")  + SQFloat::ToString(this->r.z) +
+           QE_L(", ")  + SQFloat::ToString(this->r.w) + QE_L(")") +
+           QE_L("(")   + SQFloat::ToString(this->d.x) +
+           QE_L(", ")  + SQFloat::ToString(this->d.y) +
+           QE_L(", ")  + SQFloat::ToString(this->d.z) +
+           QE_L(", ")  + SQFloat::ToString(this->d.w) + QE_L(")");
 }
 
 } //namespace Math

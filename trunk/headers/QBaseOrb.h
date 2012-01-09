@@ -58,7 +58,7 @@ public:
     /// <returns>
     /// True if orbs are the same, false otherwise.
     /// </returns>
-    inline bool operator == (const QBaseOrb<VectorType> &orb) const
+    inline bool operator== (const QBaseOrb<VectorType> &orb) const
     {
         return this->Center == orb.Center && SQFloat::AreEquals(this->Radius, orb.Radius);
     }
@@ -70,7 +70,7 @@ public:
     /// <returns>
     /// True if orbs are not the same, false otherwise.
     /// </returns>
-    inline bool operator != (const QBaseOrb<VectorType> &orb) const
+    inline bool operator!= (const QBaseOrb<VectorType> &orb) const
     {
         return !(*this == orb);
     }

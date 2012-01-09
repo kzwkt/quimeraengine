@@ -33,7 +33,9 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QQuadrilateral() { }
+    inline QQuadrilateral()
+    {
+    }
 
     /// <summary>
     /// Constructor from four 2D vectors.
@@ -45,8 +47,10 @@ public:
     /// <param name="vB">[IN] The 2D vector which defines B vertex.</param>
     /// <param name="vC">[IN] The 2D vector which defines C vertex.</param>
     /// <param name="vD">[IN] The 2D vector which defines D vertex.</param>
-    inline QQuadrilateral(const QVector2 &vA, const QVector2 &vB,
-                          const QVector2 &vC, const QVector2 &vD ) : QBaseQuadrilateral(vA, vB, vC, vD) { }
+    inline QQuadrilateral(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC, const QVector2 &vD ) : 
+                              QBaseQuadrilateral(vA, vB, vC, vD)
+    {
+    }
 
 
     // PROPERTIES
@@ -78,13 +82,13 @@ public:
     /// <summary>
     /// Assign operator. Assigns the provided quadrilateral to the resident quadrilateral.
     /// </summary>
-    /// <param name="q">[IN] The quadrilateral to be assigned.</param>
+    /// <param name="quad">[IN] The quadrilateral to be assigned.</param>
     /// <returns>
     /// A reference to the modified quadrilateral.
     /// </returns>
-    inline QQuadrilateral& operator=(const QBaseQuadrilateral &q)
+    inline QQuadrilateral& operator=(const QBaseQuadrilateral &quad)
     {
-        QBaseQuadrilateral::operator=(q);
+        QBaseQuadrilateral::operator=(quad);
         return *this;
     }
 
@@ -94,12 +98,12 @@ public:
     /// Checks if a given point is inside quadrilateral or not. This is made in a different way depending on the
     /// kind of quadrilateral we have (crossed, standard convex or concave).
     /// </summary>
-    /// <param name="v">[IN] The point we want to check.</param>
+    /// <param name="vPoint">[IN] The point we want to check.</param>
     /// <returns>
     /// True if the given point is inside quadrilateral, false otherwise.
     /// The quadrilateral perimeter is considered inside.
     /// </returns>
-    bool Contains (const QBaseVector2 &v) const;
+    bool Contains(const QBaseVector2 &vPoint) const;
 
     /// <summary>
     /// Checks if the resident quadrilateral intersects with the provided one. To do that, it checks the intersection
@@ -107,36 +111,11 @@ public:
     /// one arbitrary edge of provided quadrilateral intersects with the resident one, to check the case where the provided
     /// quadrilateral is included in the resident one.
     /// </summary>
-    /// <param name="q">[IN] The quadrilateral we want to check the intersection with resident one.</param>
+    /// <param name="quad">[IN] The quadrilateral we want to check the intersection with resident one.</param>
     /// <returns>
     /// True if the given quadrilateral intersects with resident quadrilateral, false otherwise.
     /// </returns>
-    inline bool Intersection (const QBaseQuadrilateral &q) const
-    {
-
-        // Checks if any edge of resident quadrilateral intersects with q
-        QLineSegment2D ls1(this->A, this->B);
-        if ( ls1.Intersection(q) )
-            return true;
-
-        ls1 = QLineSegment2D(this->B, this->C);
-        if ( ls1.Intersection(q) )
-            return true;
-
-        ls1 = QLineSegment2D(this->C, this->D);
-        if ( ls1.Intersection(q) )
-            return true;
-
-        ls1 = QLineSegment2D(this->D, this->A);
-        if ( ls1.Intersection(q) )
-            return true;
-
-        // q may be contained by resident quadrilateral, we check it.
-        if ( this->Contains(q.A) )
-            return true;
-
-        return false;
-    }
+    bool Intersection(const QBaseQuadrilateral &quad) const;
 
     /// <summary>
     /// Checks if the resident quadrilateral is crossed. To do that, it checks if A and D vertices are in the
@@ -146,16 +125,7 @@ public:
     /// <returns>
     /// True if the resident quadrilateral is crossed, false otherwise.
     /// </returns>
-    inline bool IsCrossed () const
-    {
-        if ( ( !PointsInSameSideOfLine(this->A, this->D, this->B, this->C) &&
-               !PointsInSameSideOfLine(this->C, this->B, this->A, this->D) ) ||
-             ( !PointsInSameSideOfLine(this->A, this->B, this->D, this->C) &&
-               !PointsInSameSideOfLine(this->C, this->D, this->A, this->B) ) )
-            return true;
-        else
-            return false;
-    }
+    bool IsCrossed() const;
 
     /// <summary>
     /// Checks if the resident quadrilateral is convex. To do that, it checks if the quadrilateral diagonals intersects.
@@ -166,16 +136,7 @@ public:
     /// <returns>
     /// True if the resident quadrilateral is convex, false otherwise.
     /// </returns>
-    inline bool IsConvex () const
-    {
-        QLineSegment2D ls1(this->A, this->C);
-        QLineSegment2D ls2(this->B, this->D);
-
-        if (ls1.Intersection(ls2))
-            return true;
-        else
-            return this->IsCrossed(); // Crossed quadrilateral diagonals don't intersects.
-    }
+    bool IsConvex() const;
 
     /// <summary>
     /// Checks if the resident quadrilateral is concave.
@@ -183,10 +144,7 @@ public:
     /// <returns>
     /// True if the resident quadrilateral is concave, false otherwise.
     /// </returns>
-    inline bool IsConcave () const
-    {
-        return !this->IsConvex();
-    }
+    bool IsConcave() const;
 
     /// <summary>
     /// Computes the interior angle between AB and AD edges of resident quadrilateral.
@@ -194,21 +152,7 @@ public:
     /// <returns>
     /// A floating point value which is the angle computed.
     /// </returns>
-    inline float_q GetAngleA() const
-    {
-        const float_q &fAngle = (this->D - this->A).DotProductAngle(this->B - this->A);
-
-        if (this->IsConcaveHere(this->A, this->B, this->D, this->C))
-        {
-            #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                return SQAngle::_360 - fAngle;
-            #else
-                return SQAngle::_2Pi - fAngle;
-            #endif
-        }
-        else
-            return fAngle;
-    }
+    float_q GetAngleA() const;
 
     /// <summary>
     /// Computes the interior angle between BC and BA edges of resident quadrilateral.
@@ -216,21 +160,7 @@ public:
     /// <returns>
     /// A floating point value which is the angle computed.
     /// </returns>
-    inline float_q GetAngleB() const
-    {
-        const float_q &fAngle = (this->A - this->B).DotProductAngle(this->C - this->B);
-
-        if (this->IsConcaveHere(this->B, this->A, this->C, this->D))
-        {
-            #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                return SQAngle::_360 - fAngle;
-            #else
-                return SQAngle::_2Pi - fAngle;
-            #endif
-        }
-        else
-            return fAngle;
-    }
+    float_q GetAngleB() const;
 
     /// <summary>
     /// Computes the angle between CD and CB edges of resident quadrilateral.
@@ -238,21 +168,7 @@ public:
     /// <returns>
     /// A floating point value which is the angle computed.
     /// </returns>
-    inline float_q GetAngleC() const
-    {
-        const float_q &fAngle = (this->B - this->C).DotProductAngle(this->D - this->C);
-
-        if (this->IsConcaveHere(this->C, this->B, this->D, this->A))
-        {
-            #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                return SQAngle::_360 - fAngle;
-            #else
-                return SQAngle::_2Pi - fAngle;
-            #endif
-        }
-        else
-            return fAngle;
-    }
+    float_q GetAngleC() const;
 
     /// <summary>
     /// Computes the angle between DA and DC edges of resident quadrilateral.
@@ -260,28 +176,14 @@ public:
     /// <returns>
     /// A floating point value which is the angle computed.
     /// </returns>
-    inline float_q GetAngleD() const
-    {
-        const float_q &fAngle = (this->C - this->D).DotProductAngle(this->A - this->D);
-
-        if (this->IsConcaveHere(this->D, this->A, this->C, this->B))
-        {
-            #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                return SQAngle::_360 - fAngle;
-            #else
-                return SQAngle::_2Pi - fAngle;
-            #endif
-        }
-        else
-            return fAngle;
-    }
+    float_q GetAngleD() const;
 
 	/// <summary>
 	/// This method applies to the resident quadrilateral the rotation defined by the provided angle
 	/// around the coordinate axis centre.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	inline void Rotate (const float_q &fRotationAngle)
+	inline void Rotate(const float_q &fRotationAngle)
 	{
         SQPoint::Rotate(fRotationAngle, this->AsPtr<QVector2>(), 4);
 	}
@@ -291,14 +193,14 @@ public:
 	/// around the coordinate axis centre, and stores the resulting quadrilateral in the output parameter.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <param name="quadOut">[OUT] It receives the resulting quadrilateral.</param>
+	/// <param name="outQuad">[OUT] It receives the resulting quadrilateral.</param>
 	/// <remarks>
 	/// -The quadrilateral is NOT modified, it stays the same.
 	/// </remarks>
-	inline void Rotate (const float_q &fRotationAngle, QBaseQuadrilateral &quadOut) const
+	inline void Rotate(const float_q &fRotationAngle, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::Rotate(fRotationAngle, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::Rotate(fRotationAngle, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -325,11 +227,11 @@ public:
 	/// resultant quadrilateral in the provided one.
 	/// </summary>
 	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
-	/// <param name="quadOut">[OUT] The translated quadrilateral.</param>
-	inline void Translate(const QBaseVector2 &vTranslation, QBaseQuadrilateral &quadOut) const
+	/// <param name="outQuad">[OUT] The translated quadrilateral.</param>
+	inline void Translate(const QBaseVector2 &vTranslation, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::Translate(vTranslation, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::Translate(vTranslation, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -338,11 +240,11 @@ public:
 	/// </summary>
 	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
 	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
-	/// <param name="quadOut">[OUT] The translated quadrilateral.</param>
-	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseQuadrilateral &quadOut) const
+	/// <param name="outQuad">[OUT] The translated quadrilateral.</param>
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::Translate(fTranslationX, fTranslationY, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::Translate(fTranslationX, fTranslationY, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -369,11 +271,11 @@ public:
 	/// resultant quadrilateral in the provided one.
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
-	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
-	inline void Scale(const QBaseVector2 &vScale, QBaseQuadrilateral &quadOut) const
+	/// <param name="outQuad">[OUT] The scaled quadrilateral.</param>
+	inline void Scale(const QBaseVector2 &vScale, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::Scale(vScale, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::Scale(vScale, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -382,21 +284,21 @@ public:
 	/// </summary>
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
-	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
-	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseQuadrilateral &quadOut) const
+	/// <param name="outQuad">[OUT] The scaled quadrilateral.</param>
+	inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::Scale(fScaleX, fScaleY, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::Scale(fScaleX, fScaleY, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
 	/// Receives a transformation matrix and applies the transformations to the resident
 	/// quadrilateral. The transformation pivot is the origin of coordinates.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	inline void Transform(const QTransformationMatrix3x3 &matrix)
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+	inline void Transform(const QTransformationMatrix3x3 &transformation)
 	{
-	    SQPoint::Transform(matrix, this->AsPtr<QVector2>(), 4);
+	    SQPoint::Transform(transformation, this->AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -404,12 +306,12 @@ public:
 	/// to a copy of the resident quadrilateral, storing the results in the output parameter. The transformation pivot is the
 	/// origin of coordinates.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
-	/// <param name="quadOut">[OUT] Quadrilateral that stores the result of the transformation.</param>
-	inline void Transform(const QTransformationMatrix3x3 &matrix, QBaseQuadrilateral &quadOut) const
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="outQuad">[OUT] Quadrilateral that stores the result of the transformation.</param>
+	inline void Transform(const QTransformationMatrix3x3 &transformation, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::Transform(matrix, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::Transform(transformation, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -418,7 +320,7 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	inline void RotateWithPivot (const float_q &fRotationAngle, const QVector2 &vPivot)
+	inline void RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot)
 	{
 	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, this->AsPtr<QVector2>(), 4);
 	}
@@ -427,16 +329,16 @@ public:
 	/// This method performs a rotation of the 2D quadrilateral by rotating it an amount defined by a rotation angle
 	/// around a pivot point (as center of rotation), and then storing the resulting quadrilateral in the output parameter.
 	/// </summary>
-	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
-	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
-	/// <param name="quadOut">[OUT] It receives the resulting quadrilateral.</param>
-	/// <remarks>
+    /// <remarks>
 	/// The quadrilateral is NOT modified, it stays the same.
 	/// </remarks>
-	inline void RotateWithPivot (const float_q &fRotationAngle, const QVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
+	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
+	/// <param name="outQuad">[OUT] It receives the resulting quadrilateral.</param>
+	inline void RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -468,11 +370,11 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
-	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	/// <param name="outQuad">[OUT] The scaled quadrilateral.</param>
+	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::ScaleWithPivot(vScale, vPivot, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -482,11 +384,11 @@ public:
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
-	/// <param name="quadOut">[OUT] The scaled quadrilateral.</param>
-	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	/// <param name="outQuad">[OUT] The scaled quadrilateral.</param>
+	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, outQuad.AsPtr<QVector2>(), 4);
 	}
 
 
@@ -494,11 +396,11 @@ public:
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
 	/// to the resident quadrilateral. The transformation pivot is the vector received as parameter.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot)
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot)
 	{
-	    SQPoint::TransformWithPivot(matrix, vPivot, this->AsPtr<QVector2>(), 4);
+	    SQPoint::TransformWithPivot(transformation, vPivot, this->AsPtr<QVector2>(), 4);
 	}
 
 	/// <summary>
@@ -506,13 +408,13 @@ public:
 	/// and applies the transformations to a copy of the resident quadrilateral, storing the results in the output parameter.
 	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
-	/// <param name="matrix">[IN] Matrix that contains the transformation to apply.</param>
+	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
-	/// <param name="quadOut">[OUT] Quadrilateral that stores the result of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3 &matrix, const QBaseVector2 &vPivot, QBaseQuadrilateral &quadOut) const
+	/// <param name="outQuad">[OUT] Quadrilateral that stores the result of the transformation.</param>
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot, QBaseQuadrilateral &outQuad) const
 	{
-	    quadOut = *this;
-	    SQPoint::TransformWithPivot(matrix, vPivot, quadOut.AsPtr<QVector2>(), 4);
+	    outQuad = *this;
+	    SQPoint::TransformWithPivot(transformation, vPivot, outQuad.AsPtr<QVector2>(), 4);
 	}
 
     /// <summary>
@@ -530,41 +432,13 @@ protected:
     // It is bassed on the orientation of the two tringles compossed by
     // each point of the two we want to check and the end points of the line. If both triangles have
     // the same orientation, both points are in the same side of the line.
-    bool PointsInSameSideOfLine(const QBaseVector2 &vP1, const QBaseVector2 &vP2,
-                                const QBaseVector2 &vLine1, const QBaseVector2 &vLine2) const
-    {
-
-        const float_q &fOrientation1 = (vLine1.x - vP1.x)*(vLine2.y - vP1.y) - (vLine1.y - vP1.y)*(vLine2.x - vP1.x);
-        const float_q &fOrientation2 = (vLine1.x - vP2.x)*(vLine2.y - vP2.y) - (vLine1.y - vP2.y)*(vLine2.x - vP2.x);
-
-        if ( SQFloat::IsZero(fOrientation1) || SQFloat::IsZero(fOrientation2) )
-            return true;
-        else if ( SQFloat::IsNegative(fOrientation1) == SQFloat::IsNegative(fOrientation2) )
-            return true;
-        else
-            return false;
-    }
+    bool PointsInSameSideOfLine(const QBaseVector2 &vPoint1, const QBaseVector2 &vPoint2,
+                                const QBaseVector2 &vLine1, const QBaseVector2 &vLine2) const;
 
     // Checks if exists concavity in the "AngleVertex" vertex.
     // AngleEndVertex1 and 2 are the two vertices in the end of the segments which defines the angle (adjacent vertices)
-    bool IsConcaveHere(const QVector2 &AngleVertex, const QVector2 &AngleEndVertex1,
-                   const QVector2 &AngleEndVertex2, const QVector2 &OppositeVertex) const
-    {
-        if (this->IsConvex())
-            return false;
-        else if ( !PointsInSameSideOfLine(OppositeVertex, AngleVertex, AngleEndVertex1, AngleEndVertex2) )
-            return false; // The outer diagonal should not divide quadrilateral
-        else
-        {
-            QLineSegment2D ls(AngleEndVertex1, AngleEndVertex2);
-
-            // Angle vertex must be the closest to outer diagonal
-            if ( ls.MinDistance(AngleVertex) < ls.MinDistance(OppositeVertex) )
-                return true;
-            else
-                return false;
-        }
-    }
+    bool IsConcaveHere(const QVector2 &vAngleVertex, const QVector2 &vAngleEndVertex1,
+                       const QVector2 &vAngleEndVertex2, const QVector2 &vOppositeVertex) const;
 };
 
 } //namespace Math

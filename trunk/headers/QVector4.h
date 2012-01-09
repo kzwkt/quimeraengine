@@ -49,12 +49,12 @@ public:
     /// Product by a scalar: all components are multiplied by the floating point value provided.
     /// Shortcut to multiply on the left.
     /// </summary>
-    /// <param name="fValue">[IN] Multiplying floating point value.</param>
-    /// <param name="v">[IN] Vector to be multiplied.</param>
+    /// <param name="fScalar">[IN] Multiplying floating point value.</param>
+    /// <param name="vVector">[IN] Vector to be multiplied.</param>
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    friend QVector4 operator * (const float_q &fValue, const QBaseVector4 &v);
+    friend QVector4 operator*(const float_q &fScalar, const QBaseVector4 &vVector);
 
 
     // CONSTRUCTORS
@@ -64,19 +64,25 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QVector4() { }
+    inline QVector4()
+    {
+    }
 
     /// <summary>
     /// Constructor from a QBaseVector4.
     /// </summary>
-    /// <param name="v">[IN] The vector in which we want resident vector to be based.</param>
-    inline explicit QVector4(const QBaseVector4 &v) : QBaseVector4(v) { }
+    /// <param name="vVector">[IN] The vector in which we want resident vector to be based.</param>
+    inline explicit QVector4(const QBaseVector4 &vVector) : QBaseVector4(vVector)
+    {
+    }
 
     /// <summary>
     /// Constructor from a QBaseVector3. It's initialized as vector (w = 0).
     /// </summary>
-    /// <param name="v">[IN] The 3D vector in which we want resident vector to be based.</param>
-    inline explicit QVector4(const QBaseVector3 &v) : QBaseVector4(v.x, v.y, v.z, SQFloat::_0) { }
+    /// <param name="vVector">[IN] The 3D vector in which we want resident vector to be based.</param>
+    inline explicit QVector4(const QBaseVector3 &vVector) : QBaseVector4(vVector.x, vVector.y, vVector.z, SQFloat::_0)
+    {
+    }
 
     /// <summary>
     /// Constructor from four floating point values for each component x, y, z and w.
@@ -86,39 +92,47 @@ public:
     /// <param name="fValueZ">[IN] Floating point value for z component.</param>
     /// <param name="fValueW">[IN] Floating point value for w component.</param>
     inline QVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
-        QBaseVector4(fValueX, fValueY, fValueZ, fValueW) { }
+                        QBaseVector4(fValueX, fValueY, fValueZ, fValueW)
+    {
+    }
 
     /// <summary>
     /// Constructor from a single floating point value for all components.
     /// </summary>
-    /// <param name="fValue">[IN] Floating point value for all components.</param>
-    inline explicit QVector4(const float_q &fValue) : QBaseVector4(fValue) { }
+    /// <param name="fScalar">[IN] Floating point value for all components.</param>
+    inline explicit QVector4(const float_q &fScalar) : QBaseVector4(fScalar)
+    {
+    }
 
     /// <summary>
     /// Constructor from a four component array of floating point values.
     /// </summary>
-    /// <param name="pValue">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
-    inline explicit QVector4(const float_q *pValue) : QBaseVector4(pValue) { }
+    /// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
+    inline explicit QVector4(const float_q* arValues) : QBaseVector4(arValues)
+    {
+    }
 
     /// <summary>
     /// Constructor from a 4x32 packed floating point value.
     /// </summary>
-    /// <param name="vfValue">[IN] 4x32 packed floating point value containing the four components.</param>
-    inline explicit QVector4(const vf32_q vfValue) : QBaseVector4 (vfValue) { }
+    /// <param name="value">[IN] 4x32 packed floating point value containing the four components.</param>
+    inline explicit QVector4(const vf32_q value) : QBaseVector4(value)
+    {
+    }
 
     /// <summary>
     /// Constructor from a translation matrix. The x, y, z components are filled with the
     /// \f$ a_{30}\f$, \f$ a_{31}\f$ and \f$ a_{32}\f$ elements of the matrix, and the w component is set to 1.
     /// </summary>
-    /// <param name="m">[IN] A 4x4 or 4x3 translation matrix, depending on the constructor template parameter.</param>
-    explicit QVector4(const QTranslationMatrix<QMatrix4x3> &m);
+    /// <param name="matrix">[IN] A 4x4 or 4x3 translation matrix, depending on the constructor template parameter.</param>
+    explicit QVector4(const QTranslationMatrix<QMatrix4x3> &matrix);
 
     /// <summary>
     /// Constructor from a translation matrix. The x, y, z components are filled with the
     /// \f$ a_{30}\f$, \f$ a_{31}\f$ and \f$ a_{32}\f$ elements of the matrix, and the w component is set to 1.
     /// </summary>
-    /// <param name="m">[IN] A 4x4 or 4x3 translation matrix, depending on the constructor template parameter.</param>
-    explicit QVector4(const QTranslationMatrix<QMatrix4x4> &m);
+    /// <param name="matrix">[IN] A 4x4 or 4x3 translation matrix, depending on the constructor template parameter.</param>
+    explicit QVector4(const QTranslationMatrix<QMatrix4x4> &matrix);
 
 
     // PROPERTIES
@@ -237,116 +251,114 @@ public:
     // METHODS
     // ---------------
 public:
-
-    // binary operators
-
+    
     /// <summary>
     /// Vectors addition: it's performed component by component.
     /// </summary>
-    /// <param name="v">[IN] Adding vector.</param>
+    /// <param name="vVector">[IN] Adding vector.</param>
     /// <returns>
     /// A vector that is the result of the addition.
     /// </returns>
-    QVector4 operator + (const QBaseVector4 &v) const;
+    QVector4 operator+(const QBaseVector4 &vVector) const;
 
     /// <summary>
     /// Vectors addition: it's performed component by component, keeping constant the w component.
     /// </summary>
-    /// <param name="v">[IN] Adding vector.</param>
+    /// <param name="vVector">[IN] Adding vector.</param>
     /// <returns>
     /// A vector that is the result of the addition.
     /// </returns>
-    QVector4 operator + (const QBaseVector3 &v) const;
+    QVector4 operator+(const QBaseVector3 &vVector) const;
 
     /// <summary>
     /// Vectors subtraction: it's performed component by component.
     /// </summary>
-    /// <param name="v">[IN] Subtracting vector.</param>
+    /// <param name="vVector">[IN] Subtracting vector.</param>
     /// <returns>
     /// A vector that is the result of the subtraction.
     /// </returns>
-    QVector4 operator - (const QBaseVector4 &v) const;
+    QVector4 operator-(const QBaseVector4 &vVector) const;
 
     /// <summary>
     /// Vectors subtraction: it's performed component by component, keeping constant the w component.
     /// </summary>
-    /// <param name="v">[IN] Subtracting vector.</param>
+    /// <param name="vVector">[IN] Subtracting vector.</param>
     /// <returns>
     /// A vector that is the result of the subtraction.
     /// </returns>
-    QVector4 operator - (const QBaseVector3 &v) const;
+    QVector4 operator-(const QBaseVector3 &vVector) const;
 
     /// <summary>
     /// Product by a scalar: all components are multiplied by the floating point value provided.
     /// </summary>
-    /// <param name="fValue">[IN] Multiplying floating point value.</param>
+    /// <param name="fScalar">[IN] Multiplying floating point value.</param>
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    QVector4 operator * (const float_q &fValue) const;
+    QVector4 operator*(const float_q &fScalar) const;
 
     /// <summary>
     /// Product by a vector: it's performed component by component. It's not dot product or cross product!
     /// </summary>
-    /// <param name="v">[IN] Multiplying vector.</param>
+    /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    QVector4 operator * (const QBaseVector4 &v) const;
+    QVector4 operator*(const QBaseVector4 &vVector) const;
 
     /// <summary>
     /// Product by a [4x4] matrix: it's performed as a matrix product between m[1x4] and n[4x4]
     /// resulting a [1x4] matrix
     /// </summary>
-    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <param name="matrix">[IN] Multiplying matrix.</param>
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    QVector4 operator * (const QBaseMatrix4x4 &m) const;
+    QVector4 operator*(const QBaseMatrix4x4 &matrix) const;
 
     /// <summary>
     /// Product by a matrix with 4 rows and 3 columns: it's performed as a matrix product between m[1x4] and n[4x3]
     /// resulting a [1x3] matrix.
     /// </summary>
-    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <param name="matrix">[IN] Multiplying matrix.</param>
     /// <returns>
     /// A 3D vector that is the result of the product.
     /// </returns>
-    QBaseVector3 operator * (const QBaseMatrix4x3 &m) const;
+    QBaseVector3 operator*(const QBaseMatrix4x3 &matrix) const;
 
     /// <summary>
     /// Division by a scalar: all components are divided by the floating point value provided.
     /// </summary>
-    /// <param name="fValue">[IN] Dividing floating point value.</param>
+    /// <param name="fScalar">[IN] Dividing floating point value.</param>
     /// <returns>
     /// A vector that is the result of the division.
     /// </returns>
-    QVector4 operator / (const float_q &fValue) const;
+    QVector4 operator/(const float_q &fScalar) const;
 
     /// <summary>
     /// Division by a vector: it's performed component by component.
     /// </summary>
-    /// <param name="v">[IN] Dividing vector.</param>
+    /// <param name="vVector">[IN] Dividing vector.</param>
     /// <returns>
     /// A vector that is the result of the division.
     /// </returns>
-    QVector4 operator / (const QBaseVector4 &v) const;
+    QVector4 operator/(const QBaseVector4 &vVector) const;
 
     // assignment operators
 
     /// <summary>
     /// Adds a vector provided to current vector. It's performed component by component.
     /// </summary>
-    /// <param name="v">[IN] Adding vector.</param>
+    /// <param name="vVector">[IN] Adding vector.</param>
     /// <returns>
     /// A reference to vector result of the addition.
     /// </returns>
-    inline QVector4& operator += (const QBaseVector4 &v)
+    inline QVector4& operator+=(const QBaseVector4 &vVector)
     {
-        this->x += v.x;
-        this->y += v.y;
-        this->z += v.z;
-        this->w += v.w;
+        this->x += vVector.x;
+        this->y += vVector.y;
+        this->z += vVector.z;
+        this->w += vVector.w;
 
         return *this;
     }
@@ -355,15 +367,15 @@ public:
     /// Adds a vector provided to current vector. It's performed component by component,
     /// keeping constant the w component.
     /// </summary>
-    /// <param name="v">[IN] Adding vector.</param>
+    /// <param name="vVector">[IN] Adding vector.</param>
     /// <returns>
     /// A reference to vector result of the addition.
     /// </returns>
-    inline QVector4& operator += (const QBaseVector3 &v)
+    inline QVector4& operator+=(const QBaseVector3 &vVector)
     {
-        this->x += v.x;
-        this->y += v.y;
-        this->z += v.z;
+        this->x += vVector.x;
+        this->y += vVector.y;
+        this->z += vVector.z;
 
         return *this;
     }
@@ -371,16 +383,16 @@ public:
     /// <summary>
     /// Subtracts a vector provided to current vector. It's performed component by component.
     /// </summary>
-    /// <param name="v">[IN] Subtracting vector.</param>
+    /// <param name="vVector">[IN] Subtracting vector.</param>
     /// <returns>
     /// A reference to vector result of the subtraction.
     /// </returns>
-    inline QVector4& operator -= (const QBaseVector4 &v)
+    inline QVector4& operator-=(const QBaseVector4 &vVector)
     {
-        this->x -= v.x;
-        this->y -= v.y;
-        this->z -= v.z;
-        this->w -= v.w;
+        this->x -= vVector.x;
+        this->y -= vVector.y;
+        this->z -= vVector.z;
+        this->w -= vVector.w;
 
         return *this;
     }
@@ -389,15 +401,15 @@ public:
     /// Subtracts a vector provided to current vector. It's performed component by component,
     /// keeping constant the w component.
     /// </summary>
-    /// <param name="v">[IN] Subtracting vector.</param>
+    /// <param name="vVector">[IN] Subtracting vector.</param>
     /// <returns>
     /// A reference to vector result of the subtraction.
     /// </returns>
-    inline QVector4& operator -= (const QBaseVector3 &v)
+    inline QVector4& operator-=(const QBaseVector3 &vVector)
     {
-        this->x -= v.x;
-        this->y -= v.y;
-        this->z -= v.z;
+        this->x -= vVector.x;
+        this->y -= vVector.y;
+        this->z -= vVector.z;
 
         return *this;
     }
@@ -405,16 +417,16 @@ public:
     /// <summary>
     /// Multiplies current vector by a floating point value provided. It's performed component by component.
     /// </summary>
-    /// <param name="fValue">[IN] Multiplying floating point value.</param>
+    /// <param name="fScalar">[IN] Multiplying floating point value.</param>
     /// <returns>
     /// A reference to vector result of the product.
     /// </returns>
-    inline QVector4& operator *= (const float_q &fValue)
+    inline QVector4& operator*=(const float_q &fScalar)
     {
-        this->x *= fValue;
-        this->y *= fValue;
-        this->z *= fValue;
-        this->w *= fValue;
+        this->x *= fScalar;
+        this->y *= fScalar;
+        this->z *= fScalar;
+        this->w *= fScalar;
 
         return *this;
     }
@@ -423,16 +435,16 @@ public:
     /// Multiplies current vector by a vector provided. It's performed component by component.
     /// It's not dot product or cross product!
     /// </summary>
-    /// <param name="v">[IN] Multiplying vector.</param>
+    /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
     /// A reference to vector result of the product.
     /// </returns>
-    inline QVector4& operator *= (const QBaseVector4 &v)
+    inline QVector4& operator*=(const QBaseVector4 &vVector)
     {
-        this->x *= v.x;
-        this->y *= v.y;
-        this->z *= v.z;
-        this->w *= v.w;
+        this->x *= vVector.x;
+        this->y *= vVector.y;
+        this->z *= vVector.z;
+        this->w *= vVector.w;
 
         return *this;
     }
@@ -441,28 +453,28 @@ public:
     /// Product by a [4x4] matrix: it's performed as a matrix product between m[1x4] and n[4x4]
     /// resulting a [1x4] matrix
     /// </summary>
-    /// <param name="m">[IN] Multiplying matrix.</param>
+    /// <param name="matrix">[IN] Multiplying matrix.</param>
     /// <returns>
     /// A reference to vector result of the product.
     /// </returns>
-    QVector4& operator *= (const QBaseMatrix4x4 &m);
+    QVector4& operator*=(const QBaseMatrix4x4 &matrix);
 
     /// <summary>
     /// Divides current vector by a floating point value provided.
     /// </summary>
-    /// <param name="fValue">[IN] Dividing floating point value.</param>
+    /// <param name="fScalar">[IN] Dividing floating point value.</param>
     /// <returns>
     /// A reference to vector result of the division.
     /// </returns>
-    inline QVector4& operator /= (const float_q &fValue)
+    inline QVector4& operator/=(const float_q &fScalar)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT(fValue != SQFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0);
 
-        this->x /= fValue;
-        this->y /= fValue;
-        this->z /= fValue;
-        this->w /= fValue;
+        this->x /= fScalar;
+        this->y /= fScalar;
+        this->z /= fScalar;
+        this->w /= fScalar;
 
         return *this;
     }
@@ -470,19 +482,19 @@ public:
     /// <summary>
     /// Divides current vector by a vector provided. It's performed component by component.
     /// </summary>
-    /// <param name="v">[IN] Dividing vector.</param>
+    /// <param name="vVector">[IN] Dividing vector.</param>
     /// <returns>
     /// A reference to vector result of the division.
     /// </returns>
-    inline QVector4& operator /= (const QBaseVector4 &v)
+    inline QVector4& operator /= (const QBaseVector4 &vVector)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT (v.x != SQFloat::_0 && v.y != SQFloat::_0 && v.z != SQFloat::_0 && v.w != SQFloat::_0);
+        QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0 && vVector.w != SQFloat::_0);
 
-        this->x /= v.x;
-        this->y /= v.y;
-        this->z /= v.z;
-        this->w /= v.w;
+        this->x /= vVector.x;
+        this->y /= vVector.y;
+        this->z /= vVector.z;
+        this->w /= vVector.w;
 
         return *this;
     }
@@ -492,13 +504,13 @@ public:
     /// <summary>
     /// Assign operator. Assigns the provided vector to the resident vector.
     /// </summary>
-    /// <param name="v">[IN] The vector to be assigned.</param>
+    /// <param name="vVector">[IN] The vector to be assigned.</param>
     /// <returns>
     /// A reference to the modified vector.
     /// </returns>
-    inline QVector4& operator=(const QBaseVector4 &v)
+    inline QVector4& operator=(const QBaseVector4 &vVector)
     {
-        QBaseVector4::operator=(v);
+        QBaseVector4::operator=(vVector);
         return *this;
     }
 
@@ -508,9 +520,7 @@ public:
     /// <returns>
     /// A vector that is the opposite of the resident vector.
     /// </returns>
-    QVector4 operator- () const;
-
-    //Methods
+    QVector4 operator-() const;
 
     /// <summary>
     /// Calculates the length of current vector.
@@ -518,10 +528,7 @@ public:
     /// <returns>
     /// A floating point value which is the length of the vector.
     /// </returns>
-    inline float_q GetLength() const
-    {
-        return sqrt_q(this->x*this->x + this->y*this->y + this->z*this->z + this->w*this->w);
-    }
+    float_q GetLength() const;
 
     /// <summary>
     /// Calculates the squared length of resident vector.
@@ -529,10 +536,7 @@ public:
     /// <returns>
     /// A floating point value which is the squared length of the vector.
     /// </returns>
-    inline float_q GetSquaredLength() const
-    {
-        return this->x*this->x + this->y*this->y + this->z*this->z + this->w*this->w;
-    }
+    float_q GetSquaredLength() const;
 
     /// <summary>
     /// Makes current vector unitary.
@@ -555,11 +559,11 @@ public:
     /// <summary>
     /// Calculates a normalized vector from the resident one and stores it in an output vector provided.
     /// </summary>
-    /// <param name="vOut">[OUT] Vector where we want to store the normalized vector.</param>
-    inline void Normalize(QBaseVector4 &vOut) const
+    /// <param name="vOutVector">[OUT] Vector where we want to store the normalized vector.</param>
+    inline void Normalize(QBaseVector4 &vOutVector) const
     {
-        vOut = * this;
-        vOut.As<QVector4>().Normalize();
+        vOutVector = * this;
+        vOutVector.As<QVector4>().Normalize();
     }
 
     /// <summary>
@@ -576,11 +580,11 @@ public:
     /// <summary>
     /// Calculates the opposite to resident vector and stores it in an output vector provided.
     /// </summary>
-    /// <param name="vOut">[OUT] Vector where we want store the opposite vector.</param>
-    inline void Reverse(QBaseVector4 &vOut) const
+    /// <param name="vOutVector">[OUT] Vector where we want store the opposite vector.</param>
+    inline void Reverse(QBaseVector4 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector4>().Reverse();
+        vOutVector = *this;
+        vOutVector.As<QVector4>().Reverse();
     }
 
     /// <summary>
@@ -622,11 +626,7 @@ public:
     /// <returns>
     /// True if all components are 0. False otherwise.
     /// </returns>
-    inline bool IsZero() const
-    {
-        return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y) &&
-               SQFloat::IsZero(this->z) && SQFloat::IsZero(this->w);
-    }
+    bool IsZero() const;
 
     /// <summary>
     /// Check if all components of current vector are 1.
@@ -634,117 +634,90 @@ public:
     /// <returns>
     /// True if all components are 1. False otherwise.
     /// </returns>
-    inline bool IsVectorOfOnes() const
-    {
-        return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1) &&
-               SQFloat::AreEquals(this->z, SQFloat::_1) && SQFloat::AreEquals(this->w, SQFloat::_1);
-    }
+    bool IsVectorOfOnes() const;
 
     /// <summary>
     /// Calculates Dot Product by a vector provided.
     /// </summary>
-    /// <param name="v">[IN] Multiplying vector.</param>
+    /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
     /// A floating point value which is the result of Dot Product.
     /// </returns>
-    inline float_q DotProduct(const QBaseVector4 &v) const
-    {
-        return(this->x * v.x + this->y * v.y + this->z * v.z + this->w * v.w);
-    }
+    float_q DotProduct(const QBaseVector4 &vVector) const;
 
     /// <summary>
     /// Calculates the angle between resident vector and the provided vector, via dot product.
     /// Both vectors are treated as 3D vectors, ignoring W component.
     /// </summary>
-    /// <param name="v">[IN] Multiplying vector.</param>
+    /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
     /// A floating point value which is the smaller angle between vectors (less or equal to 180º).
     /// </returns>
-    inline float_q DotProductAngle(const QBaseVector4 &v) const
-    {
-        float_q fLength = sqrt_q( (this->x*this->x + this->y*this->y + this->z*this->z) * (v.x*v.x + v.y*v.y + v.z*v.z) );
-
-        // Checkout to avoid division by zero.
-        QE_ASSERT(fLength != SQFloat::_0);
-
-        float_q fDot = (this->x*v.x + this->y*v.y + this->z*v.z)/fLength;
-
-        // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
-
-        float_q fAngle = acos_q(fDot);
-
-        #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            // If angles are specified in degrees, then converts angle to degrees
-            SQAngle::RadiansToDegrees(fAngle, fAngle);
-        #endif
-
-        return fAngle;
-    }
+    float_q DotProductAngle(const QBaseVector4 &vVector) const;
 
     /// <summary>
     /// Calculates cross product by a vector provided (left handed rules), and stores it in current vector.
     /// Due to cross product between two 4D vectors isn't defined (is a ternary operation in 4D space),
     /// we treat it as a cross product between two 3D vectors, maintaining the W component of the resident vector.
     /// </summary>
-    /// <param name="v">[IN] Multiplying vector.</param>
-    void CrossProduct(const QBaseVector4 &v);
+    /// <param name="vVector">[IN] Multiplying vector.</param>
+    void CrossProduct(const QBaseVector4 &vVector);
 
     /// <summary>
     /// Calculates cross product by a vector provided (left handed rules), and stores it in a vector provided.
     /// Due to cross product between two 4D vectors isn't defined (is a ternary operation in 4D space),
     /// we treat it as a cross product between two 3D vectors, maintaining the W component of the resident vector.
     /// </summary>
-    /// <param name="v">[IN] Multiplying vector.</param>
-    /// <param name="vOut">[OUT] Vector where resultant product is stored.</param>
+    /// <param name="vVector">[IN] Multiplying vector.</param>
+    /// <param name="vOutVector">[OUT] Vector where resultant product is stored.</param>
     /// <remarks>
     /// Cross Product is noncommutative, please note the resident vector is the first operator, set to the left
     /// of the Cross Product operator sign, and the input vector is the second operator (set to the right).
     /// </remarks>
-    inline void CrossProduct(const QBaseVector4 &v, QBaseVector4 &vOut) const
+    inline void CrossProduct(const QBaseVector4 &vVector, QBaseVector4 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector4>().CrossProduct(v);
+        vOutVector = *this;
+        vOutVector.As<QVector4>().CrossProduct(vVector);
     }
 
     /// <summary>
     /// Makes a Linear Interpolation between current vector and other vector provided. It stores result in current vector.
     /// </summary>
-    /// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
-    /// <param name="v">[IN] Vector with which to interpolate.</param>
-    inline void Lerp(const float_q &fFactor, const QBaseVector4 &v)
+    /// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
+    /// <param name="vVector">[IN] Vector with which to interpolate.</param>
+    inline void Lerp(const float_q &fProportion, const QBaseVector4 &vVector)
     {
-        float_q fDiff = SQFloat::_1 - fFactor;
+        float_q fDiff = SQFloat::_1 - fProportion;
 
-        this->x = this->x * fFactor + v.x * fDiff;
-        this->y = this->y * fFactor + v.y * fDiff;
-        this->z = this->z * fFactor + v.z * fDiff;
-        this->w = this->w * fFactor + v.w * fDiff;
+        this->x = this->x * fProportion + vVector.x * fDiff;
+        this->y = this->y * fProportion + vVector.y * fDiff;
+        this->z = this->z * fProportion + vVector.z * fDiff;
+        this->w = this->w * fProportion + vVector.w * fDiff;
     }
 
     /// <summary>
     /// Makes a Linear Interpolation between current vector and other vector provided. It stores result in current vector.
     /// </summary>
-    /// <param name="fFactor">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
-    /// <param name="v">[IN] Vector with which to interpolate.</param>
-    /// <param name="vOut">[OUT] Vector where to store interpolation.</param>
-    inline void Lerp(const float_q &fFactor, const QBaseVector4 &v, QBaseVector4 &vOut) const
+    /// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
+    /// <param name="vVector">[IN] Vector with which to interpolate.</param>
+    /// <param name="vOutVector">[OUT] Vector where to store interpolation.</param>
+    inline void Lerp(const float_q &fProportion, const QBaseVector4 &vVector, QBaseVector4 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector4>().Lerp(fFactor, v);
+        vOutVector = *this;
+        vOutVector.As<QVector4>().Lerp(fProportion, vVector);
     }
 
     /// <summary>
     /// Calculates the distance between two vector heads (or two points). It computes the difference of two vectors and returns its length.
     /// </summary>
-    /// <param name="v">[IN] Vector we want to calculate the distance from current vector.</param>
+    /// <param name="vVector">[IN] Vector we want to calculate the distance from current vector.</param>
     /// <returns>
     /// A positive floating point value containing the distance between both vectors.
     /// </returns>
-    inline float_q Distance(const QBaseVector4 &v) const
+    inline float_q Distance(const QBaseVector4 &vVector) const
     {
-        return sqrt_q( (this->x-v.x)*(this->x-v.x) + (this->y-v.y)*(this->y-v.y) +
-                     (this->z-v.z)*(this->z-v.z) + (this->w-v.w)*(this->w-v.w) );
+        return sqrt_q( (this->x - vVector.x)*(this->x - vVector.x) + (this->y - vVector.y)*(this->y - vVector.y) +
+                       (this->z - vVector.z)*(this->z - vVector.z) + (this->w - vVector.w)*(this->w - vVector.w) );
     }
 
     /// <summary>
@@ -753,10 +726,10 @@ public:
     /// \f$ v' = Q \cdot v \cdot Q^*\f$,
     /// where v is the resident vector, Q the quaternion and \f$ Q^*\f$ the conjugate of the quaternion.
     /// The w component of original vector is not transformed.
-    /// [TODO] jwladi: probably it will be necessary verify if rotation follows left-handed rules or not.
     /// </summary>
-    /// <param name="qR">[IN] The rotation quaternion.</param>
-    void Transform(const QQuaternion &qR);
+    /// <param name="qRotation">[IN] The rotation quaternion.</param>
+    void Transform(const QQuaternion &qRotation);
+    // [TODO] jwladi: probably it will be necessary verify if rotation follows left-handed rules or not.
 
     /// <summary>
     /// Applies a rotation quaternion to resident vector, storing results in an out vector provided.
@@ -765,15 +738,15 @@ public:
     /// \f$ v' = Q \cdot v \cdot Q^*\f$,
     /// where v is the resident vector, Q the quaternion and \f$ Q^*\f$ the conjugate of the quaternion.
     /// The w component of original vector is not transformed.
-    /// [TODO] jwladi: probably it will be necessary verify if rotation follows left-handed rules or not.
     /// </summary>
-    /// <param name="qR">[IN] The rotation quaternion.</param>
-    /// <param name="vOut">[OUT] The vector where the result of rotation is stored.</param>
-    inline void Transform(const QQuaternion &qR, QBaseVector4 &vOut) const
+    /// <param name="qRotation">[IN] The rotation quaternion.</param>
+    /// <param name="vOutVector">[OUT] The vector where the result of rotation is stored.</param>
+    inline void Transform(const QQuaternion &qRotation, QBaseVector4 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector4>().Transform(qR);
+        vOutVector = *this;
+        vOutVector.As<QVector4>().Transform(qRotation);
     }
+    // [TODO] jwladi: probably it will be necessary verify if rotation follows left-handed rules or not.
 
     /// <summary>
     /// Applies a rigid transformation dual quaternion to resident vector.
@@ -782,8 +755,8 @@ public:
     /// where v is the resident vector, \f$\hat{Q}\f$ the dual quaternion and \f$\hat{Q}^*\f$ the double conjugate of the dual quaternion.
     /// The w component of original vector is not transformed.
     /// </summary>
-    /// <param name="dqTransf">[IN] The dual quaternion which wears the transformation.</param>
-    void Transform(const QDualQuaternion &dqTransf);
+    /// <param name="transformation">[IN] The dual quaternion which wears the transformation.</param>
+    void Transform(const QDualQuaternion &transformation);
 
     /// <summary>
     /// Applies a rigid transformation dual quaternion to resident vector, storing results in an out vector provided.
@@ -792,12 +765,12 @@ public:
     /// where v is the resident vector, \f$\hat{Q}\f$ the dual quaternion and \f$\hat{Q}^*\f$ the double conjugate of the dual quaternion.
     /// The w component of original vector is not transformed.
     /// </summary>
-    /// <param name="dqTransf">[IN] The dual quaternion which wears the transformation..</param>
-    /// <param name="vOut">[OUT] The vector where the result of rotation is stored.</param>
-    inline void Transform(const QDualQuaternion &dqTransf, QBaseVector4 &vOut) const
+    /// <param name="transformation">[IN] The dual quaternion which wears the transformation..</param>
+    /// <param name="vOutVector">[OUT] The vector where the result of rotation is stored.</param>
+    inline void Transform(const QDualQuaternion &transformation, QBaseVector4 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector4>().Transform(dqTransf);
+        vOutVector = *this;
+        vOutVector.As<QVector4>().Transform(transformation);
     }
 
     /// <summary>
@@ -819,42 +792,42 @@ public:
     /// <summary>
     /// Divides all componentes by the w component to ensure the vector is in homogeneus coordinates.
     /// </summary>
-    /// <param name="vOut">[OUT] Vector where to store the homogenized vector.</param>
-    inline void Homogenize(QBaseVector4 &vOut) const
+    /// <param name="vOutVector">[OUT] Vector where to store the homogenized vector.</param>
+    inline void Homogenize(QBaseVector4 &vOutVector) const
     {
-        vOut = *this;
-        vOut.As<QVector4>().Homogenize();
+        vOutVector = *this;
+        vOutVector.As<QVector4>().Homogenize();
     }
 
     /// <summary>
     /// Applies a rotation to resident vector, multiplying the vector by a rotation matrix
     /// to transform it. The w component remains unchanged.
     /// </summary>
-    /// <param name="mRot">[IN] The rotation matrix.</param>
-	void Transform(const QRotationMatrix3x3 &mRot);
+    /// <param name="rotation">[IN] The rotation matrix.</param>
+	void Transform(const QRotationMatrix3x3 &rotation);
 
     /// <summary>
     /// Applies a rotation to resident vector, multiplying the vector by a rotation matrix
     /// to transform it. The w component remains unchanged. The rotated vector is stored into the provided one.
     /// </summary>
-    /// <param name="mRot">[IN] The rotation matrix.</param>
-	/// <param name="vOut">[OUT] Vector where to store the result of rotation.</param>
-	void Transform(const QRotationMatrix3x3 &mRot, QBaseVector4 &vOut) const;
+    /// <param name="rotation">[IN] The rotation matrix.</param>
+	/// <param name="vOutVector">[OUT] Vector where to store the result of rotation.</param>
+	void Transform(const QRotationMatrix3x3 &rotation, QBaseVector4 &vOutVector) const;
 
     /// <summary>
     /// Applies a scale transformation to resident vector, multiplying the vector by a scale matrix
     /// to transform it.
     /// </summary>
-    /// <param name="mScale">[IN] The scale matrix.</param>
-	void Transform(const QScaleMatrix3x3 &mScale);
+    /// <param name="scale">[IN] The scale matrix.</param>
+	void Transform(const QScaleMatrix3x3 &scale);
 
     /// <summary>
     /// Applies a scale transformation to resident vector, multiplying the vector by a scale matrix
     /// to transform it. The scaled vector is stored into the provided one.
     /// </summary>
-    /// <param name="mScale">[IN] The scale matrix.</param>
-	/// <param name="vOut">[OUT] Vector where to store the result of scale.</param>
-	void Transform(const QScaleMatrix3x3 &mScale, QBaseVector4 &vOut) const;
+    /// <param name="scale">[IN] The scale matrix.</param>
+	/// <param name="vOutVector">[OUT] Vector where to store the result of scale.</param>
+	void Transform(const QScaleMatrix3x3 &scale, QBaseVector4 &vOutVector) const;
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix
@@ -862,8 +835,8 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <param name="mDisp">[IN] The translation matrix.</param>
-	void Transform(const QTranslationMatrix<QMatrix4x3> &mDisp);
+    /// <param name="translation">[IN] The translation matrix.</param>
+	void Transform(const QTranslationMatrix<QMatrix4x3> &translation);
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix
@@ -871,8 +844,8 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <param name="mDisp">[IN] The translation matrix.</param>
-	void Transform(const QTranslationMatrix<QMatrix4x4> &mDisp);
+    /// <param name="translation">[IN] The translation matrix.</param>
+	void Transform(const QTranslationMatrix<QMatrix4x4> &translation);
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix
@@ -880,9 +853,9 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced. The translated vector is stored into the provided one.
     /// </summary>
-    /// <param name="mDisp">[IN] The translation matrix.</param>
-	/// <param name="vOut">[OUT] Vector where to store the result of translation.</param>
-	void Transform(const QTranslationMatrix<QMatrix4x3> &mDisp, QBaseVector4 &vOut) const;
+    /// <param name="translation">[IN] The translation matrix.</param>
+	/// <param name="vOutVector">[OUT] Vector where to store the result of translation.</param>
+	void Transform(const QTranslationMatrix<QMatrix4x3> &translation, QBaseVector4 &vOutVector) const;
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix
@@ -890,9 +863,9 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced. The translated vector is stored into the provided one.
     /// </summary>
-    /// <param name="mDisp">[IN] The translation matrix.</param>
-	/// <param name="vOut">[OUT] Vector where to store the result of translation.</param>
-	void Transform(const QTranslationMatrix<QMatrix4x4> &mDisp, QBaseVector4 &vOut) const;
+    /// <param name="translation">[IN] The translation matrix.</param>
+	/// <param name="vOutVector">[OUT] Vector where to store the result of translation.</param>
+	void Transform(const QTranslationMatrix<QMatrix4x4> &translation, QBaseVector4 &vOutVector) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -901,8 +874,8 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <param name="mTransf">[IN] The transformation matrix.</param>
-	void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf);
+    /// <param name="transformation">[IN] The transformation matrix.</param>
+	void Transform(const QTransformationMatrix<QMatrix4x3> &transformation);
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -911,8 +884,8 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <param name="mTransf">[IN] The transformation matrix.</param>
-	void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf);
+    /// <param name="transformation">[IN] The transformation matrix.</param>
+	void Transform(const QTransformationMatrix<QMatrix4x4> &transformation);
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -921,9 +894,9 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced. The transformed vector is stored into the provided one.
     /// </summary>
-    /// <param name="mTransf">[IN] The transformation matrix.</param>
-	/// <param name="vOut">[OUT] Vector where to store the result of transformation.</param>
-	void Transform(const QTransformationMatrix<QMatrix4x3> &mTransf, QBaseVector4 &vOut) const;
+    /// <param name="transformation">[IN] The transformation matrix.</param>
+	/// <param name="vOutVector">[OUT] Vector where to store the result of transformation.</param>
+	void Transform(const QTransformationMatrix<QMatrix4x3> &transformation, QBaseVector4 &vOutVector) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -932,9 +905,9 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced. The transformed vector is stored into the provided one.
     /// </summary>
-    /// <param name="mTransf">[IN] The transformation matrix.</param>
-	/// <param name="vOut">[OUT] Vector where to store the result of transformation.</param>
-	void Transform(const QTransformationMatrix<QMatrix4x4> &mTransf, QBaseVector4 &vOut) const;
+    /// <param name="transformation">[IN] The transformation matrix.</param>
+	/// <param name="vOutVector">[OUT] Vector where to store the result of transformation.</param>
+	void Transform(const QTransformationMatrix<QMatrix4x4> &transformation, QBaseVector4 &vOutVector) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -944,8 +917,8 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <param name="mTransf">[IN] The space conversion matrix.</param>
-	void Transform(const QSpaceConversionMatrix &mTransf);
+    /// <param name="spaceConversion">[IN] The space conversion matrix.</param>
+	void Transform(const QSpaceConversionMatrix &spaceConversion);
 
 	/// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -955,22 +928,16 @@ public:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced. The transformed vector is stored into the provided one.
     /// </summary>
-    /// <param name="mTransf">[IN] The space conversion matrix.</param>
-	/// <param name="vOut">[OUT] Vector where to store the result of transformation.</param>
-	void Transform(const QSpaceConversionMatrix &mTransf, QBaseVector4 &vOut) const;
+    /// <param name="spaceConversion">[IN] The space conversion matrix.</param>
+	/// <param name="vOutVector">[OUT] Vector where to store the result of transformation.</param>
+	void Transform(const QSpaceConversionMatrix &spaceConversion, QBaseVector4 &vOutVector) const;
 
     /// <summary>
     /// Converts vector into a string with the following format:
     /// "V4(x, y, z, w)".
     /// </summary>
     /// <returns>The string with the format specified.</returns>
-    inline string_q ToString() const
-    {
-        return QE_L("V4(") + SQFloat::ToString(this->x) +
-               QE_L(", ")  + SQFloat::ToString(this->y) +
-               QE_L(", ")  + SQFloat::ToString(this->z) +
-               QE_L(", ")  + SQFloat::ToString(this->w) + QE_L(")");
-    }
+    string_q ToString() const;
 
 protected:
 
@@ -980,9 +947,9 @@ protected:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <param name="mDisp">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
+    /// <param name="translation">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
 	template <class MatrixType>
-	void TransformImp(const QTranslationMatrix<MatrixType> &mDisp);
+	void TransformImp(const QTranslationMatrix<MatrixType> &translation);
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -991,9 +958,9 @@ protected:
 	/// \f$(v_x, v_y, v_z, 1)\f$ or a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
-    /// <param name="mTransf">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
+    /// <param name="transformation">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
     template <class MatrixType>
-	void TransformImp(const QTransformationMatrix<MatrixType> &mTransf);
+	void TransformImp(const QTransformationMatrix<MatrixType> &transformation);
 
 };
 

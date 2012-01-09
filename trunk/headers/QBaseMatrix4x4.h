@@ -42,13 +42,13 @@ public:
 	/// <summary>
 	/// Constructor that receives a floating point value for all elements of the matrix.
 	/// </summary>
-	/// <param name="fValue">[IN] Floating point value with which fills the matrix.</param>
-	inline explicit QBaseMatrix4x4(const float_q &fValue)
+	/// <param name="fValueAll">[IN] Floating point value which to fill the matrix with.</param>
+	inline explicit QBaseMatrix4x4(const float_q &fValueAll)
 	{
 		ij[0][0] = ij[0][1] = ij[0][2] = ij[0][3] =
 		ij[1][0] = ij[1][1] = ij[1][2] = ij[1][3] =
 		ij[2][0] = ij[2][1] = ij[2][2] = ij[2][3] =
-		ij[3][0] = ij[3][1] = ij[3][2] = ij[3][3] = fValue;
+		ij[3][0] = ij[3][1] = ij[3][2] = ij[3][3] = fValueAll;
 	}
 
 	/// <summary>
@@ -100,27 +100,27 @@ public:
 	/// Keeps the convention rows x columns, so each chunck of 4 consecutive elements
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
-	/// <param name="pfMatrix">[IN] Pointer to a 16 length array of floating point values.</param>
-	inline explicit QBaseMatrix4x4(const float_q *pfMatrix)
+	/// <param name="arValues">[IN] Pointer to a 16 length array of floating point values.</param>
+	inline explicit QBaseMatrix4x4(const float_q* arValues)
 	{
-		QE_ASSERT(pfMatrix != null_q);
+		QE_ASSERT(arValues != null_q);
 
-		ij[0][0] = pfMatrix[0];
-		ij[0][1] = pfMatrix[1];
-		ij[0][2] = pfMatrix[2];
-		ij[0][3] = pfMatrix[3];
-		ij[1][0] = pfMatrix[4];
-		ij[1][1] = pfMatrix[5];
-		ij[1][2] = pfMatrix[6];
-		ij[1][3] = pfMatrix[7];
-		ij[2][0] = pfMatrix[8];
-		ij[2][1] = pfMatrix[9];
-		ij[2][2] = pfMatrix[10];
-		ij[2][3] = pfMatrix[11];
-		ij[3][0] = pfMatrix[12];
-		ij[3][1] = pfMatrix[13];
-		ij[3][2] = pfMatrix[14];
-		ij[3][3] = pfMatrix[15];
+		ij[0][0] = arValues[0];
+		ij[0][1] = arValues[1];
+		ij[0][2] = arValues[2];
+		ij[0][3] = arValues[3];
+		ij[1][0] = arValues[4];
+		ij[1][1] = arValues[5];
+		ij[1][2] = arValues[6];
+		ij[1][3] = arValues[7];
+		ij[2][0] = arValues[8];
+		ij[2][1] = arValues[9];
+		ij[2][2] = arValues[10];
+		ij[2][3] = arValues[11];
+		ij[3][0] = arValues[12];
+		ij[3][1] = arValues[13];
+		ij[3][2] = arValues[14];
+		ij[3][3] = arValues[15];
 	}
 
 	/// <summary>
@@ -145,41 +145,41 @@ public:
 	/// <summary>
 	/// Equality operator. Compares two [4x4] matrices.
 	/// </summary>
-	/// <param name="m">[IN] The matrix to compare to.</param>
+	/// <param name="matrix">[IN] The matrix to compare to.</param>
 	/// <returns>
 	/// If matrices are equals, then it returns true. Otherwise, it returns false.
 	/// </returns>
-	inline bool operator==(const QBaseMatrix4x4 &m) const
+	inline bool operator==(const QBaseMatrix4x4 &matrix) const
 	{
-		return	SQFloat::AreEquals(this->ij[0][0], m.ij[0][0]) &&
-				SQFloat::AreEquals(this->ij[0][1], m.ij[0][1]) &&
-				SQFloat::AreEquals(this->ij[0][2], m.ij[0][2]) &&
-				SQFloat::AreEquals(this->ij[0][3], m.ij[0][3]) &&
-				SQFloat::AreEquals(this->ij[1][0], m.ij[1][0]) &&
-				SQFloat::AreEquals(this->ij[1][1], m.ij[1][1]) &&
-				SQFloat::AreEquals(this->ij[1][2], m.ij[1][2]) &&
-				SQFloat::AreEquals(this->ij[1][3], m.ij[1][3]) &&
-				SQFloat::AreEquals(this->ij[2][0], m.ij[2][0]) &&
-				SQFloat::AreEquals(this->ij[2][1], m.ij[2][1]) &&
-				SQFloat::AreEquals(this->ij[2][2], m.ij[2][2]) &&
-				SQFloat::AreEquals(this->ij[2][3], m.ij[2][3]) &&
-				SQFloat::AreEquals(this->ij[3][0], m.ij[3][0]) &&
-				SQFloat::AreEquals(this->ij[3][1], m.ij[3][1]) &&
-				SQFloat::AreEquals(this->ij[3][2], m.ij[3][2]) &&
-				SQFloat::AreEquals(this->ij[3][3], m.ij[3][3]);
+		return	SQFloat::AreEquals(this->ij[0][0], matrix.ij[0][0]) &&
+				SQFloat::AreEquals(this->ij[0][1], matrix.ij[0][1]) &&
+				SQFloat::AreEquals(this->ij[0][2], matrix.ij[0][2]) &&
+				SQFloat::AreEquals(this->ij[0][3], matrix.ij[0][3]) &&
+				SQFloat::AreEquals(this->ij[1][0], matrix.ij[1][0]) &&
+				SQFloat::AreEquals(this->ij[1][1], matrix.ij[1][1]) &&
+				SQFloat::AreEquals(this->ij[1][2], matrix.ij[1][2]) &&
+				SQFloat::AreEquals(this->ij[1][3], matrix.ij[1][3]) &&
+				SQFloat::AreEquals(this->ij[2][0], matrix.ij[2][0]) &&
+				SQFloat::AreEquals(this->ij[2][1], matrix.ij[2][1]) &&
+				SQFloat::AreEquals(this->ij[2][2], matrix.ij[2][2]) &&
+				SQFloat::AreEquals(this->ij[2][3], matrix.ij[2][3]) &&
+				SQFloat::AreEquals(this->ij[3][0], matrix.ij[3][0]) &&
+				SQFloat::AreEquals(this->ij[3][1], matrix.ij[3][1]) &&
+				SQFloat::AreEquals(this->ij[3][2], matrix.ij[3][2]) &&
+				SQFloat::AreEquals(this->ij[3][3], matrix.ij[3][3]);
 	}
 
 	/// <summary>
 	/// Inequality operator. Compares two [4x4] matrices.
 	/// matrices are equals or not.
 	/// </summary>
-	/// <param name="m">[IN] The matrix to compare to.</param>
+	/// <param name="matrix">[IN] The matrix to compare to.</param>
 	/// <returns>
 	/// If matrices are not equals, then it returns true. Otherwise, it returns false.
 	/// </returns>
-	inline bool operator!=(const QBaseMatrix4x4 &m) const
+	inline bool operator!=(const QBaseMatrix4x4 &matrix) const
 	{
-		return !(*this == m);
+		return !(*this == matrix);
 	}
 
 	// ATTRIBUTES

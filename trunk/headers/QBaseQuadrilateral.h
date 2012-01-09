@@ -33,13 +33,9 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseQuadrilateral()
-    :
-    A(SQFloat::_0),
-    B(SQFloat::_0),
-    C(SQFloat::_0),
-    D(SQFloat::_0)
-    { }
+    inline QBaseQuadrilateral() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0), D(SQFloat::_0)
+    {
+    }
 
     /// <summary>
     /// Constructor from four vectors, one for each vertex.
@@ -48,16 +44,12 @@ public:
     /// <param name="vB">[IN] Vector to define vertex B.</param>
     /// <param name="vC">[IN] Vector to define vertex C.</param>
     /// <param name="vD">[IN] Vector to define vertex D.</param>
-    inline QBaseQuadrilateral(const QVector2 &vA,
-                              const QVector2 &vB,
-                              const QVector2 &vC,
-                              const QVector2 &vD)
-    :
-    A(vA),
-    B(vB),
-    C(vC),
-    D(vD)
-    { }
+    inline QBaseQuadrilateral(const QVector2 &vA, const QVector2 &vB, 
+                              const QVector2 &vC, const QVector2 &vD) :
+                                A(vA), B(vB), C(vC), D(vD)
+    {
+    }
+
 
     // METHODS
     // ---------------
@@ -70,7 +62,7 @@ public:
     /// <returns>
     /// True if quadrilaterals are the same, false otherwise.
     /// </returns>
-    inline bool operator == (const QBaseQuadrilateral &quad) const
+    inline bool operator==(const QBaseQuadrilateral &quad) const
     {
         return ( this->A == quad.A && this->B == quad.B && this->C == quad.C && this->D == quad.D );
     }
@@ -82,7 +74,7 @@ public:
     /// <returns>
     /// True if quadrilaterals are not the same, false otherwise.
     /// </returns>
-    inline bool operator != (const QBaseQuadrilateral &quad) const
+    inline bool operator!=(const QBaseQuadrilateral &quad) const
     {
         return !(*this == quad);
     }

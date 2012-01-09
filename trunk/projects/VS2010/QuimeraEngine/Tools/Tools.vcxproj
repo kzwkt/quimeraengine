@@ -153,6 +153,7 @@
     <ClInclude Include="..\..\..\..\headers\QRotationMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QScaleMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QSpaceConversionMatrix.h" />
+    <ClInclude Include="..\..\..\..\headers\QSphere.h" />
     <ClInclude Include="..\..\..\..\headers\QTransformationMatrix.h" />
     <ClInclude Include="..\..\..\..\headers\QTransformationMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QTranslationMatrix.h" />

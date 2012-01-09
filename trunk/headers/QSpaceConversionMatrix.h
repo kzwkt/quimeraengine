@@ -52,8 +52,10 @@ public:
     /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
-    /// <param name="m">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline explicit QSpaceConversionMatrix(const QBaseMatrix4x4 &m) : QMatrix4x4(m) { }
+    /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
+    inline explicit QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
+    {
+    }
 
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
@@ -78,8 +80,12 @@ public:
                                   const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
                                   const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
                                   const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33) :
-
-                        QMatrix4x4(f00, f01, f02, f03, f10, f11, f12, f13, f20, f21, f22, f23, f30, f31, f32, f33) { }
+                                      QMatrix4x4(f00, f01, f02, f03, 
+                                                 f10, f11, f12, f13, 
+                                                 f20, f21, f22, f23, 
+                                                 f30, f31, f32, f33)
+    {
+    }
 
     /// <summary>
     /// Constructor that receives a pointer to 16 floating point values.
@@ -88,8 +94,10 @@ public:
     /// Keeps the convention rows x columns, so each chunck of 4 consecutive elements
     /// corresponds to a row, where each element in the chunck is the column in the row.
     /// </remarks>
-    /// <param name="pfMatrix">[IN] Pointer to a 16 length array of floating point values.</param>
-    inline explicit QSpaceConversionMatrix(const float_q *pfMatrix) : QMatrix4x4(pfMatrix) { }
+    /// <param name="arValues">[IN] Pointer to a 16 length array of floating point values.</param>
+    inline explicit QSpaceConversionMatrix(const float_q* arValues) : QMatrix4x4(arValues)
+    {
+    }
 
     /// <summary>
     /// Constructor from four 4x32 floating point packed values. Each parameter contains a row of the matrix.
@@ -99,7 +107,9 @@ public:
     /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
     inline QSpaceConversionMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
-        QMatrix4x4(row0, row1, row2, row3) { }
+                                      QMatrix4x4(row0, row1, row2, row3)
+    {
+    }
 
 
     // METHODS
@@ -112,62 +122,62 @@ public:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
-    /// <param name="m">[IN] Matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    QSpaceConversionMatrix operator*(const QSpaceConversionMatrix &m) const;
+    QSpaceConversionMatrix operator*(const QSpaceConversionMatrix &matrix) const;
 
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
     /// </summary>
-    /// <param name="m">[IN] The matrix to be multiplied by.</param>
+    /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    QSpaceConversionMatrix& operator*=(const QSpaceConversionMatrix &m);
+    QSpaceConversionMatrix& operator*=(const QSpaceConversionMatrix &matrix);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
-    /// <param name="vDisp">[IN] Vector which contains the translation (position).</param>
-    /// <param name="qRot">[IN] Quaternion which contains the rotation (orientation).</param>
+    /// <param name="vTranslation">[IN] Vector which contains the translation (position).</param>
+    /// <param name="qRotation">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QBaseVector3 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale);
+    void SetWorldSpaceMatrix(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
-    /// <param name="vDisp">[IN] Vector which contains the translation (position).</param>
-    /// <param name="qRot">[IN] Quaternion which contains the rotation (orientation).</param>
+    /// <param name="vTranslation">[IN] Vector which contains the translation (position).</param>
+    /// <param name="qRotation">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QBaseVector4 &vDisp, const QBaseQuaternion &qRot, const QBaseVector3 &vScale);
+    void SetWorldSpaceMatrix(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
-    /// <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
-    /// <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
-    /// <param name="mScale">[IN] Matrix which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale);
+    /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
+    /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
+    /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
+    void SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
-    /// <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
-    /// <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
-    /// <param name="mScale">[IN] Matrix which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale);
+    /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
+    /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
+    /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
+    void SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
-    /// <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
-    /// <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
-    /// <param name="mScale">[IN] Matrix which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QTransformationMatrix<QMatrix4x4> &mDisp, const QTransformationMatrix<QMatrix4x4> &mRot,
-        const QTransformationMatrix<QMatrix4x4> &mScale);
+    /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
+    /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
+    /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
+    void SetWorldSpaceMatrix(const QTransformationMatrix<QMatrix4x4> &translation, const QTransformationMatrix<QMatrix4x4> &rotation,
+                             const QTransformationMatrix<QMatrix4x4> &scale);
 
     /// <summary>
     /// Sets the view space matrix, also called camera space matrix, defined by the point of view or camera position,
@@ -200,7 +210,7 @@ public:
     /// <param name="fAspectRatio">[IN] Floating point value which defines the frame width/height ratio.</param>
     /// <param name="fVerticalFOV">[IN] Floating point value which defines the vertical field of view.</param>
     void SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
-        const float_q &fAspectRatio, const float_q &fVerticalFOV);
+                                  const float_q &fAspectRatio, const float_q &fVerticalFOV);
 
     /// <summary>
     /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.
@@ -216,11 +226,11 @@ public:
     /// To do that, we treat the world space matrix as a transformation matrix,
     /// inverting both rotation (by trasposing it) and z translation component.
     /// </summary>
-    /// <param name="m">[OUT] Matrix where to store the new world space matrix.</param>
-    inline void SwitchHandConventionWorldSpaceMatrix(QSpaceConversionMatrix &m) const
+    /// <param name="outMatrix">[OUT] Matrix where to store the new world space matrix.</param>
+    inline void SwitchHandConventionWorldSpaceMatrix(QSpaceConversionMatrix &outMatrix) const
     {
-        m = *this;
-        m.SwitchHandConventionWorldSpaceMatrix();
+        outMatrix = *this;
+        outMatrix.SwitchHandConventionWorldSpaceMatrix();
     }
 
     /// <summary>
@@ -235,11 +245,11 @@ public:
     /// Remember that Quimera Engine works with left-hand convention by default.
     /// To do that, we invert the Z axis, and then matrix is recalculated.
     /// </summary>
-    /// <param name="m">[OUT] Matrix where to store the new view space matrix.</param>
-    inline void SwitchHandConventionViewSpaceMatrix(QSpaceConversionMatrix &m)
+    /// <param name="outMatrix">[OUT] Matrix where to store the new view space matrix.</param>
+    inline void SwitchHandConventionViewSpaceMatrix(QSpaceConversionMatrix &outMatrix)
     {
-        m = *this;
-        m.SwitchHandConventionViewSpaceMatrix();
+        outMatrix = *this;
+        outMatrix.SwitchHandConventionViewSpaceMatrix();
     }
 
     /// <summary>
@@ -257,11 +267,11 @@ public:
     /// Remember that Quimera Engine works with left-hand convention by default.
     /// To do that, we change the sign of elements \f$ a_{22}\f$ and \f$ a_{23}\f$.
     /// </summary>
-    /// <param name="m">[OUT] Matrix where to store the new projection space matrix.</param>
-    inline void SwitchHandConventionProjectionSpaceMatrix(QSpaceConversionMatrix &m)
+    /// <param name="outMatrix">[OUT] Matrix where to store the new projection space matrix.</param>
+    inline void SwitchHandConventionProjectionSpaceMatrix(QSpaceConversionMatrix &outMatrix)
     {
-        m = *this;
-        m.SwitchHandConventionProjectionSpaceMatrix();
+        outMatrix = *this;
+        outMatrix.SwitchHandConventionProjectionSpaceMatrix();
     }
 
 protected:
@@ -272,11 +282,11 @@ protected:
     // <summary>
     // Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     // </summary>
-    // <param name="mDisp">[IN] Matrix which contains the translation (position).</param>
-    // <param name="mRot">[IN] Matrix which contains the rotation (orientation).</param>
-    // <param name="mScale">[IN] Matrix which contains the scale (size).</param>
+    // <param name="translation">[IN] Matrix which contains the translation (position).</param>
+    // <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
+    // <param name="scale">[IN] Matrix which contains the scale (size).</param>
     template <class MatrixType>
-    void SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &mDisp, const QRotationMatrix3x3 &mRot, const QScaleMatrix3x3 &mScale);
+    void SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale);
 };
 
 } //namespace Math
