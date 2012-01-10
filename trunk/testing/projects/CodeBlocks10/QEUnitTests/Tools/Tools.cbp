@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)\;Tests\;" />
+		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;Tests\DataTypes\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -67,10 +67,13 @@
 			<Add directory="..\..\..\..\tests\unit" />
 		</Compiler>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
-			<Option virtualFolder="Tests\" />
+			<Option virtualFolder="Tests\Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
-			<Option virtualFolder="Tests\" />
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQVF32_Test.cpp">
+			<Option virtualFolder="Tests\DataTypes\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp">
 			<Option virtualFolder="Tests\" />
