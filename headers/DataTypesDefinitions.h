@@ -35,6 +35,7 @@ namespace DataTypes
         typedef short int           i16_q;  // Signed 16-bits integer
         typedef unsigned int        u32_q;  // Unsigned 32-bits integer
         typedef int                 i32_q;  // Signed 32-bits integer
+        typedef unsigned long long  u64_q;  // Unsigned 64-bits integer
         typedef long long           i64_q;  // Signed 64-bits integer
         typedef float               f32_q;  // 32-bits floating point number
         typedef double              f64_q;  // 64-bits floating point number
@@ -47,13 +48,22 @@ namespace DataTypes
         typedef short int           i16_q;  // Signed 16-bits integer
         typedef unsigned int        u32_q;  // Unsigned 32-bits integer
         typedef int                 i32_q;  // Signed 32-bits integer
+        typedef unsigned long long  u64_q;  // Unsigned 64-bits integer
         typedef long long           i64_q;  // Signed 64-bits integer
         typedef float               f32_q;  // 32-bits floating point number
         typedef double              f64_q;  // 64-bits floating point number
-        struct vf32_q
+        typedef union  // [TODO] Thund: Check if this type can be used with SSE instructions
         {
-            f32_q v[4];
-        };
+             float m128_f32[4];
+             u64_q m128_u64[2];
+             i8_q  m128_i8[16];
+             i16_q m128_i16[8];
+             i32_q m128_i32[4];
+             i64_q m128_i64[2];
+             u8_q  m128_u8[16];
+             u16_q m128_u16[8];
+             u32_q m128_u32[4];
+        } vf32_q __attribute__((aligned(16))); // 4 x 32-bits packed floating point numbers
         // Note: There is no integer or float whose size is greater than 64 bits on Windows 32 bits
     #else
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
@@ -67,13 +77,22 @@ namespace DataTypes
         typedef short int           i16_q;  // Signed 16-bits integer
         typedef unsigned int        u32_q;  // Unsigned 32-bits integer
         typedef int                 i32_q;  // Signed 32-bits integer
+        typedef unsigned long long  u64_q;  // Unsigned 64-bits integer
         typedef long long           i64_q;  // Signed 64-bits integer
         typedef float               f32_q;  // 32-bits floating point number
         typedef double              f64_q;  // 64-bits floating point number
-        struct vf32_q // [TODO] GCC has a 128bits type too, I think
+        typedef union  // [TODO] Thund: Check if this type can be used with SSE instructions
         {
-            f32_q v[4];
-        };
+             float m128_f32[4];
+             u64_q m128_u64[2];
+             i8_q  m128_i8[16];
+             i16_q m128_i16[8];
+             i32_q m128_i32[4];
+             i64_q m128_i64[2];
+             u8_q  m128_u8[16];
+             u16_q m128_u16[8];
+             u32_q m128_u32[4];
+        } vf32_q __attribute__((aligned(16))); // 4 x 32-bits packed floating point numbers
     #else
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
     #endif

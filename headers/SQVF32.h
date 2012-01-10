@@ -40,7 +40,7 @@ public:
     /// <summary>
     /// Packs four input floating point variables into a 128-bits output variable. The order of variables
     /// in the package must be read from left to right, this is:
-    ///  | First | Second | Third | Fourth | position
+    ///  | Fourth | Third | Second | First | position
     /// 128     96       64      32        0 bit
     /// This is endianess-independent.
     /// </summary>
@@ -48,14 +48,9 @@ public:
     /// <param name="fSecond">[IN] Second value in the packet.</param>
     /// <param name="fThird">[IN] Third value in the packet.</param>
     /// <param name="fFourth">[IN] Fourth value in the packet.</param>
-    /// <param name="outPack">[OUT] The package containing four 32-bits floating point values.</param>
-    inline static void Pack(const float_q &fFirst, const float_q &fSecond, const float_q &fThird, const float_q &fFourth, vf32_q &outPack)
+    /// <param name="pack">[OUT] The package containing four 32-bits floating point values.</param>
+    inline static void Pack(const float_q &fFirst, const float_q &fSecond, const float_q &fThird, const float_q &fFourth, vf32_q &pack)
     {
-        const int FIRST_POS  = 1;
-        const int SECOND_POS = 2;
-        const int THIRD_POS  = 3;
-        const int FOURTH_POS = 4;
-
         #define QE_4BYTES_SIZE 4 // We are working with a 32-bits floats pack
 
         #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
@@ -73,32 +68,26 @@ public:
             const f32_q& f_4 = fFourth;
         #endif
 
-        memcpy((&outPack) + FIRST_POS  * QE_4BYTES_SIZE, &f_1, QE_4BYTES_SIZE);
-        memcpy((&outPack) + SECOND_POS * QE_4BYTES_SIZE, &f_2, QE_4BYTES_SIZE);
-        memcpy((&outPack) + THIRD_POS  * QE_4BYTES_SIZE, &f_3, QE_4BYTES_SIZE);
-        memcpy((&outPack) + FOURTH_POS * QE_4BYTES_SIZE, &f_4, QE_4BYTES_SIZE);
+        pack.m128_f32[0] = f_1;
+        pack.m128_f32[1] = f_2;
+        pack.m128_f32[2] = f_3;
+        pack.m128_f32[3] = f_4;
     }
 
     /// <summary>
     /// Unpacks into four output floating point variables stored in a 128-bits input variable. The order of variables
     /// in the package is read from left to right, this is:
-    ///  | First | Second | Third | Fourth | position
+    ///  | Fourth | Third | Second | First | position
     /// 128     96       64      32        0 bit
     /// This is endianess-independent.
     /// </summary>
-    /// <param name="inPack">[IN] The package containing four 32-bits floating point values.</param>
+    /// <param name="pack">[IN] The package containing four 32-bits floating point values.</param>
     /// <param name="fFirst">[OUT] First value in the packet.</param>
     /// <param name="fSecond">[OUT] Second value in the packet.</param>
     /// <param name="fThird">[OUT] Third value in the packet.</param>
     /// <param name="fFourth">[OUT] Fourth value in the packet.</param>
-    inline static void Unpack(const vf32_q &inPack, float_q &fFirst, float_q &fSecond, float_q &fThird, float_q &fFourth)
+    inline static void Unpack(const vf32_q &pack, float_q &fFirst, float_q &fSecond, float_q &fThird, float_q &fFourth)
     {
-        // [TODO] Thund: ¿Mejorable con union?
-        const int FIRST_POS  = 1;
-        const int SECOND_POS = 2;
-        const int THIRD_POS  = 3;
-        const int FOURTH_POS = 4;
-
         #define QE_4BYTES_SIZE 4 // We are working with a 32-bits floats pack
 
         #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
@@ -116,10 +105,10 @@ public:
             f32_q& f_4 = fFourth;
         #endif
 
-        memcpy(&f_1, (&inPack) + FIRST_POS  * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
-        memcpy(&f_2, (&inPack) + SECOND_POS * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
-        memcpy(&f_3, (&inPack) + THIRD_POS  * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
-        memcpy(&f_4, (&inPack) + FOURTH_POS * QE_4BYTES_SIZE, QE_4BYTES_SIZE);
+        f_1 = pack.m128_f32[0];
+        f_2 = pack.m128_f32[1];
+        f_3 = pack.m128_f32[2];
+        f_4 = pack.m128_f32[3];
 
         #if QE_FLOAT_SIZE != QE_4BYTES_SIZE
             fFirst  = scast_q(f_1, float_q);
