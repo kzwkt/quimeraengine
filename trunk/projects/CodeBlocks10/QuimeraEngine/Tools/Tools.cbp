@@ -36,6 +36,7 @@
 			</Target>
 		</Build>
 		<Compiler>
+			<Add option="-march=pentium4" />
 			<Add option="-Wshadow" />
 			<Add option="-Wredundant-decls" />
 			<Add option="-Wcast-align" />

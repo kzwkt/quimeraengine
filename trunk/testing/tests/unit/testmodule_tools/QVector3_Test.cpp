@@ -28,7 +28,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHasntChanged_Test )
 
 	// Execution
     QVector3 vVectorUT;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -88,7 +88,7 @@ QTEST_CASE ( Constructor4_VectorComponentsAreFilledWithValidReferenceTo3Floats_T
 
 	// Execution
     QVector3 vVectorUT(VALID_ARRAY_OF_3_FLOATS);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -117,7 +117,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPointerIsNull_Test )
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
@@ -152,11 +152,20 @@ QTEST_CASE ( Constructor4_ExceptionIsNotThrownWhenArrayIsNotFilled_Test )
 QTEST_CASE ( Constructor5_VectorComponentsAreSetToValidVF32PackedValues_Test )
 {
     // Preparation
-    // TODO [Thund]: QVF32 is not totally implemented yet.
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
+
+	vf32_q PACK;
+	SQVF32::Pack(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, SQFloat::_0, PACK);
 
 	// Execution
-    
+	QVector3 vVectorUT(PACK);
+
     // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
 }
 
 /// <summary>
@@ -179,7 +188,7 @@ QTEST_CASE ( Constructor6_VectorComponentsAreFilledWithRightMatrixElements_Test 
 
 	// Execution
     QVector3 vVectorUT(TRANSLATION);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -206,7 +215,7 @@ QTEST_CASE ( Constructor7_VectorComponentsAreFilledWithRightMatrixElements_Test 
 
 	// Execution
     QVector3 vVectorUT(TRANSLATION);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -225,7 +234,7 @@ QTEST_CASE ( GetZeroVector_ReturnsANullVector_Test )
 
 	// Execution
     QVector3 vVectorUT = QVector3::GetZeroVector();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -244,7 +253,7 @@ QTEST_CASE ( GetVectorOfOnes_ReturnsAVectorOfOnes_Test )
 
 	// Execution
     QVector3 vVectorUT = QVector3::GetVectorOfOnes();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -263,7 +272,7 @@ QTEST_CASE ( GetUnitVectorX_ReturnsAUnitVectorThatPointsToPositiveDirectionOfXAx
 
 	// Execution
     QVector3 vVectorUT = QVector3::GetUnitVectorX();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -282,7 +291,7 @@ QTEST_CASE ( GetUnitVectorY_ReturnsAUnitVectorThatPointsToPositiveDirectionOfYAx
 
 	// Execution
     QVector3 vVectorUT = QVector3::GetUnitVectorY();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -301,7 +310,7 @@ QTEST_CASE ( GetUnitVectorZ_ReturnsAUnitVectorThatPointsToPositiveDirectionOfZAx
 
 	// Execution
     QVector3 vVectorUT = QVector3::GetUnitVectorZ();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -320,7 +329,7 @@ QTEST_CASE ( GetUnitVectorX_ReturnsAUnitVectorThatPointsToNegativeDirectionOfXAx
 
 	// Execution
     QVector3 vVectorUT = QVector3::GetUnitVectorInvX();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -339,7 +348,7 @@ QTEST_CASE ( GetUnitVectorY_ReturnsAUnitVectorThatPointsToNegativeDirectionOfYAx
 
 	// Execution
     QVector3 vVectorUT = QVector3::GetUnitVectorInvY();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -358,7 +367,7 @@ QTEST_CASE ( GetUnitVectorZ_ReturnsAUnitVectorThatPointsToNegativeDirectionOfZAx
 
 	// Execution
     QVector3 vVectorUT = QVector3::GetUnitVectorInvZ();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -380,7 +389,7 @@ QTEST_CASE ( OperatorAddition_TwoDifferentVectorsAreCorrectlyAdded_Test )
 
 	// Execution
     QVector3 vVectorUT = OPERAND1 + OPERAND2;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -401,7 +410,7 @@ QTEST_CASE ( OperatorAddition_VectorIsCorrectlyAddedToItself_Test )
 
 	// Execution
     QVector3 vVectorUT = OPERAND + OPERAND;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -423,7 +432,7 @@ QTEST_CASE ( OperatorSubtraction_TwoDifferentVectorsAreCorrectlySubtracted_Test 
 
 	// Execution
     QVector3 vVectorUT = OPERAND1 - OPERAND2;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -441,10 +450,10 @@ QTEST_CASE ( OperatorSubtraction_VectorIsCorrectlySubtractedToItself_Test )
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
     const QVector3 OPERAND = QVector3(-SQFloat::_0_25, SQFloat::_1, -SQFloat::_2);
-    
+
 	// Execution
     QVector3 vVectorUT = OPERAND - OPERAND;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -463,10 +472,10 @@ QTEST_CASE ( OperatorProduct1_VectorIsCorrectlyMultipliedByScalar_Test )
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_2);
     const float_q  SCALAR = SQFloat::_0_5;
-    
+
 	// Execution
     QVector3 vVectorUT = VECTOR * SCALAR;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);

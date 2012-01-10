@@ -7,8 +7,11 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QBaseVector3.h"
+#include "SQVF32.h"
 
 using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
 QTEST_SUITE_BEGIN( QBaseVector3_TestSuite )
 
@@ -24,7 +27,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHasntChanged_Test )
 
 	// Execution
     QBaseVector3 vVectorUT;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
@@ -84,7 +87,7 @@ QTEST_CASE ( Constructor4_VectorComponentsAreFilledWithValidReferenceTo3Floats_T
 
 	// Execution
     QBaseVector3 vVectorUT(VALID_ARRAY_OF_3_FLOATS);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, VALID_ARRAY_OF_3_FLOATS[0]);
     BOOST_CHECK_EQUAL(vVectorUT.y, VALID_ARRAY_OF_3_FLOATS[1]);
@@ -113,7 +116,7 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPointerIsNull_Test )
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
@@ -148,11 +151,20 @@ QTEST_CASE ( Constructor4_ExceptionIsNotThrownWhenArrayIsNotFilled_Test )
 QTEST_CASE ( Constructor5_VectorComponentsAreSetToValidVF32PackedValues_Test )
 {
     // Preparation
-    // TODO [Thund]: QVF32 is not totally implemented yet.
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
+
+	vf32_q PACK;
+	SQVF32::Pack(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, SQFloat::_0, PACK);
 
 	// Execution
-    
+	QBaseVector3 vVectorUT(PACK);
+
     // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
 }
 
 /// <summary>

@@ -48,7 +48,8 @@
 					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
-					<Add after='copy &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 		</Build>
