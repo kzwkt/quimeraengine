@@ -383,7 +383,7 @@ public:
     /// <param name="outMatrix">[OUT] A matrix where to store reverse matrix.</param>
     inline void Reverse(MatrixType &outMatrix) const
     {
-        mOut.ResetToIdentity();
+        outMatrix.ResetToIdentity();
 
         outMatrix.ij[3][0] = -this->ij[3][0];
         outMatrix.ij[3][1] = -this->ij[3][1];

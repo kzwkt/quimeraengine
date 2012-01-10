@@ -70,8 +70,8 @@ public:
     /// <param name="vScale">[IN] Vector with the scale values.</param>
     inline QTransformationMatrix(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
     {
-        this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z, SQFloat::_0, 
-                         qRotation.x, qRotation.y, qRotation.z, qRotation.w, 
+        this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z, SQFloat::_0,
+                         qRotation.x, qRotation.y, qRotation.z, qRotation.w,
                          vScale.x, vScale.y, vScale.z);
     }
 
@@ -84,8 +84,8 @@ public:
     /// <param name="vScale">[IN] Vector with the scale values.</param>
     inline QTransformationMatrix(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
     {
-        this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z, vTranslation.w, 
-                         qRotation.x, qRotation.y, qRotation.z, qRotation.w, 
+        this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z, vTranslation.w,
+                         qRotation.x, qRotation.y, qRotation.z, qRotation.w,
                          vScale.x, vScale.y, vScale.z);
     }
 
@@ -108,8 +108,8 @@ public:
                                  const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationw,
                                  const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
-        this->Initialize(fTranslationX, fTranslationY, fTranslationZ, fTranslationW, 
-                         fRotationX, fRotationY, fRotationZ, fRotationw, 
+        this->Initialize(fTranslationX, fTranslationY, fTranslationZ, fTranslationW,
+                         fRotationX, fRotationY, fRotationZ, fRotationw,
                          fScaleX, fScaleY, fScaleZ);
     }
 
@@ -992,7 +992,7 @@ protected:
         QBaseVector3 vAux;
         this->GetScale(vAux);
 
-        mScale.ResetToIdentity();
+        scale.ResetToIdentity();
 
         scale.ij[0][0] = vAux.x;
         scale.ij[1][1] = vAux.y;
