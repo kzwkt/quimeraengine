@@ -336,12 +336,12 @@ public:
 
         if (bIsZeroDistA && !bIsZeroDistB) // A point lies on plane
         {
-            vPoint = this->A;
+            vIntersection = this->A;
             return EQIntersections::E_One;
         }
         else if (!bIsZeroDistA && bIsZeroDistB) // B point lies on plane
         {
-            vPoint = this->B;
+            vIntersection = this->B;
             return EQIntersections::E_One;
         }
         else if (bIsZeroDistA && bIsZeroDistB) // All line segment lies on plane
@@ -1243,8 +1243,8 @@ public:
         }
         else // There are no intersections with hexahedron
         {
-            const bool &IsInsideA = PointInsideHexahedron(hex, this->A);
-            const bool &IsInsideB = PointInsideHexahedron(hex, this->B);
+            const bool &IsInsideA = PointInsideHexahedron(hexahedron, this->A);
+            const bool &IsInsideB = PointInsideHexahedron(hexahedron, this->B);
 
             if (IsInsideA && IsInsideB) // Both line segment end points are inside hexahedron
                 return EQIntersections::E_Infinite;
@@ -1741,11 +1741,11 @@ public:
     /// <param name="transformation">[IN] 4x3 Matrix which contains the transformation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot, 
+    inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot,
                                    QBaseLineSegment<VectorType> &outSegment) const
     {
         outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().TransformWithPivot(m, vPivot);
+        outSegment.template As<QLineSegment3D<VectorType> >().TransformWithPivot(transformation, vPivot);
     }
 
     /// <summary>
@@ -1764,7 +1764,7 @@ public:
     /// <param name="transformation">[IN] 4x4 Matrix which contains the transformation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot, 
+    inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot,
                                    QBaseLineSegment<VectorType> &outSegment) const
     {
         outSegment = *this;
@@ -1798,7 +1798,7 @@ public:
     inline void TransformWithPivot(const QDualQuaternion &transformation, const VectorType &vPivot, QLineSegment3D<VectorType> &outSegment) const
     {
         outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().TransformWithPivot(dq, vPivot);
+        outSegment.template As<QLineSegment3D<VectorType> >().TransformWithPivot(transformation, vPivot);
     }
 
 	/// <summary>
@@ -1839,7 +1839,7 @@ public:
     /// <param name="fTranslationY">[IN] Scalar that contains the translation on Y axis.</param>
     /// <param name="fTranslationZ">[IN] Scalar that contains the translation on Z axis.</param>
     /// <param name="outSegment">[OUT] Line segment that will store the translated line segment.</param>
-    inline void Translate(const float_q& fTranslationX, const float_q& fTranslationY, const float_q& fTranslationZ, 
+    inline void Translate(const float_q& fTranslationX, const float_q& fTranslationY, const float_q& fTranslationZ,
                           QBaseLineSegment<VectorType>& outSegment) const
     {
         outSegment = *this;
@@ -1923,7 +1923,7 @@ public:
     inline void Rotate(const QRotationMatrix3x3 &rotation, QBaseLineSegment<VectorType> &outSegment) const
     {
         outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Rotate(m);
+        outSegment.template As<QLineSegment3D<VectorType> >().Rotate(rotation);
     }
 
 	/// <summary>
@@ -1933,7 +1933,7 @@ public:
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     inline void RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot)
     {
-        SQPoint::RotateWithPivot(q, vPivot, this->template AsPtr<VectorType>(), 2);
+        SQPoint::RotateWithPivot(qRotation, vPivot, this->template AsPtr<VectorType>(), 2);
     }
 
 	/// <summary>
@@ -1964,7 +1964,7 @@ public:
     /// <param name="rotation">[IN] Matrix which contains the rotation to be applied.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     /// <param name="outSegment">[OUT] Line segment that will store the rotated line segment.</param>
-    inline void RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot, 
+    inline void RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot,
                                 QBaseLineSegment<VectorType> &outSegment) const
     {
         outSegment = *this;
@@ -2077,7 +2077,7 @@ public:
     /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <param name="outSegment">[OUT] Line segment that will store the scaled line segment.</param>
-    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot, 
+    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot,
                                QBaseLineSegment<VectorType> &outSegment) const
     {
         outSegment = *this;
@@ -2239,7 +2239,7 @@ protected:
     // vertices of a cuadrilateral.
     template <class VectorTypeParam>
     bool CuadrilateralIntersection(const QLineSegment3D<VectorTypeParam> &segment,
-                                   const VectorTypeParam &vA, const VectorTypeParam &vB, 
+                                   const VectorTypeParam &vA, const VectorTypeParam &vB,
                                    const VectorTypeParam &vC, const VectorTypeParam &vD) const
     {
         // Plane equation
@@ -2283,7 +2283,7 @@ protected:
     // Stores the closest intersection point to A end point of line segment in the vector provided.
     template <class VectorTypeParam>
     EQIntersections QuadrilateralIntersectionPoint(const QLineSegment3D<VectorTypeParam> &segment,
-                                                   const VectorTypeParam &vA, const VectorTypeParam &vB, 
+                                                   const VectorTypeParam &vA, const VectorTypeParam &vB,
                                                    const VectorTypeParam &vC, const VectorTypeParam &vD,
                                                    VectorTypeParam &vIntersection) const
     {
@@ -2298,7 +2298,7 @@ protected:
     // point in the second one, if it exists.
     template <class VectorTypeParam>
     EQIntersections QuadrilateralIntersectionPoint(const QLineSegment3D<VectorTypeParam> &segment,
-                                                   const VectorTypeParam &vA, const VectorTypeParam &vB, 
+                                                   const VectorTypeParam &vA, const VectorTypeParam &vB,
                                                    const VectorTypeParam &vC, const VectorTypeParam &vD,
                                                    VectorTypeParam &vIntersection1, VectorTypeParam &vIntersection2) const
     {

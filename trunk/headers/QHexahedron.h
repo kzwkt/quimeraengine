@@ -166,7 +166,7 @@ public:
 	/// </remarks>
 	inline void RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot, QBaseHexahedron<VectorType> &outHexahedron) const
 	{
-	    hOut = *this;
+	    outHexahedron = *this;
 	    SQPoint::RotateWithPivot(qRotation, vPivot, outHexahedron.template AsPtr<VectorType>(), 8);
 	}
 
@@ -213,7 +213,7 @@ public:
 	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ,
                           QBaseHexahedron<VectorType> &outHexahedron) const
 	{
-	    hOut = *this;
+	    outHexahedron = *this;
 	    SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, outHexahedron.template AsPtr<VectorType>(), 8);
 	}
 
@@ -285,7 +285,7 @@ public:
 	inline void ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot, QBaseHexahedron<VectorType> &outHexahedron) const
 	{
 	    outHexahedron = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, outHexahedronv.template AsPtr<VectorType>(), 8);
+	    SQPoint::ScaleWithPivot(vScale, vPivot, outHexahedron.template AsPtr<VectorType>(), 8);
 	}
 
 	/// <summary>
@@ -667,7 +667,7 @@ public:
 	inline bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
 	{
 	    return ( this->Contains(hexahedron.A) || this->Contains(hexahedron.B) || this->Contains(hexahedron.C) || this->Contains(hexahedron.D) ||
-                 this->Contains(hexahedron.E) || this->Contains(hexahedronhex.F) || this->Contains(hexahedron.G) || this->Contains(hexahedron.H) ||
+                 this->Contains(hexahedron.E) || this->Contains(hexahedron.F) || this->Contains(hexahedron.G) || this->Contains(hexahedron.H) ||
                  QLineSegment3D<VectorType>(this->A, this->B).Intersection(hexahedron) ||
                  QLineSegment3D<VectorType>(this->B, this->C).Intersection(hexahedron) ||
                  QLineSegment3D<VectorType>(this->C, this->D).Intersection(hexahedron) ||
