@@ -6,19 +6,19 @@ Cada test case debe tener un nombre único dentro del test suite. A continuació
 
 *General*
 
-Todos los nombres de test case utilizarán la forma PascalCase y se dividirán en 3 partes separadas por guiones bajos: 1º, el nombre del método de clase o la función que va a ser probada; 2º, una frase que explique cuándo el test dará positivo, o sea, cuando no fallará; y 3º, el sufijo "Test". Por ejemplo:
+Todos los nombres de test case utilizarán la forma `PascalCase` y se dividirán en 3 partes separadas por guiones bajos: 1º, el nombre del método de clase o la función que va a ser probada; 2º, una frase que explique cuándo el test dará positivo, o sea, cuando no fallará; y 3º, el sufijo "Test". Por ejemplo:
 
-_Intersection_IntersectionIsFoundWhenPlanesCoincide_Test_
+_`Intersection_IntersectionIsFoundWhenPlanesCoincide_Test`_
 
 
 *Sobrecargas*
 
 Cuando existan varias sobrecargas para un método, la forma de diferenciarlos en la test suite será añadiendo un número al final del nombre del método, empezando por el nº 1. Por ejemplo, teniendo 2 sobrecargas:
 
-_Intersection1_IntersectionIsFoundWhenPlanesCoincide_Test_
-_Intersection1_IntersectionIsNotFoundWhenPlanesAreParallelAndNotCoincident_Test_
-_Intersection2_IntersectionIsFoundWhenPlanesCoincide_Test_
-_Intersection2_IntersectionIsNotFoundWhenPlanesAreParallelAndNotCoincident_Test_
+_`Intersection1_IntersectionIsFoundWhenPlanesCoincide_Test`_
+_`Intersection1_IntersectionIsNotFoundWhenPlanesAreParallelAndNotCoincident_Test`_
+_`Intersection2_IntersectionIsFoundWhenPlanesCoincide_Test`_
+_`Intersection2_IntersectionIsNotFoundWhenPlanesAreParallelAndNotCoincident_Test`_
 
 *Operadores*
 
@@ -27,32 +27,32 @@ Los operadores serán nombrados usando la palabra "Operator", seguida de una de 
  * Subtraction (A-B)
  * Multiplication (A`*`B)
  * Division (A/B)
- * UnaryMinus (-A)
- * UnaryPlus (+A)
+ * `UnaryMinus` (-A)
+ * `UnaryPlus` (+A)
  * Assignation (A=B)
  * Equality (A==B)
  * Inequality (A!=B)
- * GreaterThan (A>B)
- * LowerThan (A<B)
- * GreaterThanOrEquals (A>=B)
- * LowerThanOrEquals (A<=B)
- * ShiftLeft (A<<B)
- * ShiftRight (A>>B)
+ * `GreaterThan` (A>B)
+ * `LowerThan` (A<B)
+ * `GreaterThanOrEquals` (A>=B)
+ * `LowerThanOrEquals` (A<=B)
+ * `ShiftLeft` (A<<B)
+ * `ShiftRight` (A>>B)
  * Parenthesis (A())
  * Array (A[])
- * LogOR (A||B)
- * LogAND (A&&B)
- * LogNOT (!A)
- * BitOR (A|B)
- * BitAND (A&B)
- * BitNOT (~A)
- * CastTo`<Type>` (Type())
- * AdditionAssignation (A+=B)
+ * `LogOR` (A||B)
+ * `LogAND` (A&&B)
+ * `LogNOT` (!A)
+ * `BitOR` (A|B)
+ * `BitAND` (A&B)
+ * `BitNOT` (~A)
+ * `CastTo``<Type>` (Type())
+ * `AdditionAssignation` (A+=B)
  * [...]
 
 Por ejemplo:
 
-_OperatorMultiplication_ProductIsNotConmutative_Test_
+_`OperatorMultiplication_ProductIsNotConmutative_Test`_
 
 
 ==Nombre de objetos involucrados==
@@ -97,7 +97,7 @@ Los mocks serán nombrados como cualquier clase, añadiendo el sufijo -Mock. Deb
 
 *Derivaciones para pruebas de caja blanca*
 
-A veces es necesario crear una clase derivada de la que está siendo probada para poder acceder a sus métodos protegidos, ya sea para falsearlos o para probarlos directamente. Las clases creadas para tal efecto deben estar en ficheros independientes y seguir las normas de nomenclatura de cualquier clase, añadiendo el sufijo -WhiteBox (cuando se pretendan testear métodos no públicos) o -Mocked, si se pretenda trucar el comportamiento interno.
+A veces es necesario crear una clase derivada de la que está siendo probada para poder acceder a sus métodos protegidos, ya sea para falsearlos o para probarlos directamente. Las clases creadas para tal efecto deben estar en ficheros independientes y seguir las normas de nomenclatura de cualquier clase, añadiendo el sufijo -`WhiteBox` (cuando se pretendan testear métodos no públicos) o -Mocked, si se pretenda trucar el comportamiento interno.
 
 ==Documentación==
 
