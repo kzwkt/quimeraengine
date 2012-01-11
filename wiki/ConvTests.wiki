@@ -1,0 +1,104 @@
+=Convenciones para Unit Tests=
+
+==Nombre de los test case==
+
+Cada test case debe tener un nombre único dentro del test suite. A continuación se describen las normas a seguir para formar tales nombres:
+
+*General*
+
+Todos los nombres de test case utilizarán la forma PascalCase y se dividirán en 3 partes separadas por guiones bajos: 1º, el nombre del método de clase o la función que va a ser probada; 2º, una frase que explique cuándo el test dará positivo, o sea, cuando no fallará; y 3º, el sufijo "Test". Por ejemplo:
+
+_Intersection_IntersectionIsFoundWhenPlanesCoincide_Test_
+
+
+*Sobrecargas*
+
+Cuando existan varias sobrecargas para un método, la forma de diferenciarlos en la test suite será añadiendo un número al final del nombre del método, empezando por el nº 1. Por ejemplo, teniendo 2 sobrecargas:
+
+_Intersection1_IntersectionIsFoundWhenPlanesCoincide_Test_
+_Intersection1_IntersectionIsNotFoundWhenPlanesAreParallelAndNotCoincident_Test_
+_Intersection2_IntersectionIsFoundWhenPlanesCoincide_Test_
+_Intersection2_IntersectionIsNotFoundWhenPlanesAreParallelAndNotCoincident_Test_
+
+*Operadores*
+
+Los operadores serán nombrados usando la palabra "Operator", seguida de una de las sigueintes palabras:
+ * Addition (A+B)
+ * Subtraction (A-B)
+ * Multiplication (A`*`B)
+ * Division (A/B)
+ * UnaryMinus (-A)
+ * UnaryPlus (+A)
+ * Assignation (A=B)
+ * Equality (A==B)
+ * Inequality (A!=B)
+ * GreaterThan (A>B)
+ * LowerThan (A<B)
+ * GreaterThanOrEquals (A>=B)
+ * LowerThanOrEquals (A<=B)
+ * ShiftLeft (A<<B)
+ * ShiftRight (A>>B)
+ * Parenthesis (A())
+ * Array (A[])
+ * LogOR (A||B)
+ * LogAND (A&&B)
+ * LogNOT (!A)
+ * BitOR (A|B)
+ * BitAND (A&B)
+ * BitNOT (~A)
+ * CastTo`<Type>` (Type())
+ * AdditionAssignation (A+=B)
+ * [...]
+
+Por ejemplo:
+
+_OperatorMultiplication_ProductIsNotConmutative_Test_
+
+
+==Nombre de objetos involucrados==
+
+*Objetos constantes*
+
+Un objeto constante puede ser tanto una constante en sí, como una variable que no cambiará durante la ejecución del test. Estos objetos deben seguir la nomenclatura de las constantes.
+
+*Objeto bajo pruebas*
+
+Aquella variable que es instancia de la clase bajo pruebas y que ejecutará las acciones que corresponden al test case concreto, deberá ser nombrada de forma parecida a la clase y llevará el sufijo -UT (under test). Por ejemplo:
+
+_triangleUT_
+
+==Organización interna==
+
+Cada test case deberá estar mínimamente organizado, al menos, en las 4 fases siguientes (cuando proceda):
+
+*Preparación*
+
+En esta sección de código se crearán todos los objetos necesarios para la realización de la prueba (valores de entrada, valores esperados de salida, etc.).
+
+*Ejecución*
+
+Es el trozo de código donde la ejecución de aquello que se quiere probar tiene lugar (la ejecución de un método de la instancia de la clase bajo pruebas, por ejemplo).
+
+*Verificación*
+
+Es la parte en que se realizan todas las comprobaciones para conocer si el test ha pasado o ha fallado, es decir, si se cumplen o no las condiciones esperadas en base a las acciones ejecutadas.
+
+*Limpieza*
+
+Si la preparación de la prueba requirió la reserva de recursos o la realización de cambios en sistemas externos, este es el lugar donde liberarlo y restaurarlo todo.
+
+==Artefactos especiales==
+
+A menudo algunos test case de mayor complejidad hacen necesaria la creación de artefactos ad-hoc, como los siguientes:
+
+*Mocks*
+
+Los mocks serán nombrados como cualquier clase, añadiendo el sufijo -Mock. Deben estar definidos en ficheros independientes siguiendo las normas de una clase normal.
+
+*Derivaciones para pruebas de caja blanca*
+
+A veces es necesario crear una clase derivada de la que está siendo probada para poder acceder a sus métodos protegidos, ya sea para falsearlos o para probarlos directamente. Las clases creadas para tal efecto deben estar en ficheros independientes y seguir las normas de nomenclatura de cualquier clase, añadiendo el sufijo -WhiteBox (cuando se pretendan testear métodos no públicos) o -Mocked, si se pretenda trucar el comportamiento interno.
+
+==Documentación==
+
+La documentación de los test case consiste en un bloque _summary_ que explica brevemente en qué consiste la prueba. No es deseable dedicar demasiado tiempo a la documentación de tests dado que estos pueden cambiar con relativa frecuencia y pueden aparecer más inconsistencias cuanto más texto haya que revisar. Internamente, el test puede estar escrito siguiendo un estilo "self-explained", de manera que no sean necesarios comentarios ya que, generalmente, un unit test debería ser corto y sencillo. En casos complejos (habría que estudiar si se debería partir en varios) sí será obligatorio describir el proceso de la prueba.
