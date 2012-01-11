@@ -177,20 +177,24 @@ public:
 	/// Scales the circle.
 	/// </summary>
     /// <param name="vScale">[IN] 2D vector that contains the scale to be applied.</param>
-    inline void Scale(const QBaseVector2 &vScale)
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
+    inline void Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale)
     {
         SQPoint::Scale(vScale, &this->Center, 1);
+        this->Radius *= fRadiusScale;
     }
 
  	/// <summary>
 	/// Scales the circle. Scaled circle will be stored in the circle received as parameter.
 	/// </summary>
     /// <param name="vScale">[IN] 2D vector that contains the scale to be applied.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="outCircle">[OUT] Circle that will store the scaled circle.</param>
-    inline void Scale(const QBaseVector2 &vScale, QBaseOrb<QVector2> &outCircle) const
+    inline void Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale, QBaseOrb<QVector2> &outCircle) const
     {
         outCircle = *this;
-        outCircle.As<QCircle>().Scale(vScale);
+        outCircle.As<QCircle>().Scale(vScale, fRadiusScale);
+        outCircle.Radius *= fRadiusScale;
     }
 
  	/// <summary>
@@ -198,9 +202,11 @@ public:
 	/// </summary>
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
-    inline void Scale(const float_q &fScaleX, const float_q &fScaleY)
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
+    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale)
     {
         SQPoint::Scale(fScaleX, fScaleY, &this->Center, 1);
+        this->Radius *= fRadiusScale;
     }
 
  	/// <summary>
@@ -208,33 +214,39 @@ public:
 	/// </summary>
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="outCircle">[OUT] Circle that will store the scaled circle.</param>
-    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, QBaseOrb<QVector2> &outCircle) const
+    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, QBaseOrb<QVector2> &outCircle) const
     {
         outCircle = *this;
-        outCircle.As<QCircle>().Scale(fScaleX, fScaleY);
+        outCircle.As<QCircle>().Scale(fScaleX, fScaleY, fRadiusScale);
+        outCircle.Radius *= fRadiusScale;
     }
 
  	/// <summary>
 	/// Scales the circle using a pivot.
 	/// </summary>
     /// <param name="vScale">[IN] 2D vector that contains the scale to be applied.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+    inline void ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadiusScale, const QBaseVector2 &vPivot)
     {
         SQPoint::ScaleWithPivot(vScale, vPivot, &this->Center, 1);
+        this->Radius *= fRadiusScale;
     }
 
  	/// <summary>
 	/// Scales the circle using a pivot. Scaled circle will be stored in the circle received as parameter.
 	/// </summary>
     /// <param name="vScale">[IN] 2D vector that contains the scale to be applied.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <param name="outCircle">[OUT] Circle that will store the scaled circle.</param>
-    inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseOrb<QVector2> &outCircle) const
+    inline void ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadiusScale, const QBaseVector2 &vPivot, QBaseOrb<QVector2> &outCircle) const
     {
         outCircle = *this;
-        outCircle.As<QCircle>().ScaleWithPivot(vScale, vPivot);
+        outCircle.As<QCircle>().ScaleWithPivot(vScale, fRadiusScale, vPivot);
+        outCircle.Radius *= fRadiusScale;
     }
 
  	/// <summary>
@@ -242,10 +254,12 @@ public:
 	/// </summary>
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
+    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, const QBaseVector2 &vPivot)
     {
         SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &this->Center, 1);
+        this->Radius *= fRadiusScale;
     }
 
  	/// <summary>
@@ -253,55 +267,65 @@ public:
 	/// </summary>
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <param name="outCircle">[OUT] Circle that will store the scaled circle.</param>
-    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QBaseOrb<QVector2> &outCircle) const
+    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, const QBaseVector2 &vPivot, QBaseOrb<QVector2> &outCircle) const
     {
         outCircle = *this;
-        outCircle.As<QCircle>().ScaleWithPivot(fScaleX, fScaleY, vPivot);
+        outCircle.As<QCircle>().ScaleWithPivot(fScaleX, fScaleY, fRadiusScale, vPivot);
+        outCircle.Radius *= fRadiusScale;
     }
 
  	/// <summary>
 	/// Transforms the circle.
 	/// </summary>
     /// <param name="transformation">[IN] Matrix that contains the transformations to apply.</param>
-    inline void Transform(const QTransformationMatrix3x3 &transformation)
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
+    inline void Transform(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale)
     {
         SQPoint::Transform(transformation, &this->Center, 1);
+        this->Radius *= fRadiusScale;
     }
 
  	/// <summary>
 	/// Transforms the circle. Transformed circle will be stored in the circle received as parameter.
 	/// </summary>
     /// <param name="transformation">[IN] Matrix that contains the transformations to apply.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="outCircle">[OUT] Circle that will store the transformed circle.</param>
-    inline void Transform(const QTransformationMatrix3x3 &transformation, QBaseOrb<QVector2> &outCircle) const
+    inline void Transform(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, QBaseOrb<QVector2> &outCircle) const
     {
         outCircle = *this;
-        outCircle.As<QCircle>().Transform(transformation);
+        outCircle.As<QCircle>().Transform(transformation, fRadiusScale);
+        outCircle.Radius *= fRadiusScale;
     }
 
  	/// <summary>
 	/// Transforms the circle using a pivot.
 	/// </summary>
     /// <param name="transformation">[IN] Matrix that contains the transformations to apply.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the transformation.</param>
-    inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot)
+    inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot)
     {
         SQPoint::TransformWithPivot(transformation, vPivot, &this->Center, 1);
+        this->Radius *= fRadiusScale;
     }
 
  	/// <summary>
 	/// Transforms the circle using a pivot. Transformed circle will be stored in the circle received as parameter.
 	/// </summary>
     /// <param name="transformation">[IN] Matrix that contains the transformations to apply.</param>
+    /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the transformation.</param>
     /// <param name="outCircle">[OUT] Circle that will store the transformed circle.</param>
-    inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot, 
+    inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot,
                                    QBaseOrb<QVector2> &outCircle) const
     {
         outCircle = *this;
-        outCircle.As<QCircle>().TransformWithPivot(transformation, vPivot);
+        outCircle.As<QCircle>().TransformWithPivot(transformation, fRadiusScale, vPivot);
+        outCircle.Radius *= fRadiusScale;
     }
 
  	/// <summary>
