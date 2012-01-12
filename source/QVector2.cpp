@@ -58,7 +58,9 @@ QVector2 QVector2::operator/(const float_q &fScalar) const
 	// Checkout to avoid division by 0
 	QE_ASSERT(fScalar);
 
-	return QVector2(this->x / fScalar, this->y / fScalar);
+	const float_q &fDivisor = SQFloat::_1/fScalar;
+
+	return QVector2(this->x * fDivisor, this->y * fDivisor);
 }
 
 QVector2 QVector2::operator/(const QBaseVector2 &vVector) const

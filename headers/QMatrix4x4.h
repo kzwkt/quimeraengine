@@ -98,8 +98,8 @@ public:
                       const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
                       const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
                       const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33) :
-                          QBaseMatrix4x4(f00, f01, f02, f03, f10, f11, f12, f13, 
-                                         f20, f21, f22, f23, f30, f31, f32, f33) 
+                          QBaseMatrix4x4(f00, f01, f02, f03, f10, f11, f12, f13,
+                                         f20, f21, f22, f23, f30, f31, f32, f33)
     {
     }
 
@@ -123,7 +123,7 @@ public:
 	/// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
 	/// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
 	inline QMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
-		                  QBaseMatrix4x4(row0, row1, row2, row3) 
+		                  QBaseMatrix4x4(row0, row1, row2, row3)
     {
     }
 
@@ -282,22 +282,24 @@ public:
 	{
 		QE_ASSERT(fScalar != SQFloat::_0);
 
-		this->ij[0][0] /= fScalar;
-		this->ij[0][1] /= fScalar;
-		this->ij[0][2] /= fScalar;
-		this->ij[0][3] /= fScalar;
-		this->ij[1][0] /= fScalar;
-		this->ij[1][1] /= fScalar;
-		this->ij[1][2] /= fScalar;
-		this->ij[1][3] /= fScalar;
-		this->ij[2][0] /= fScalar;
-		this->ij[2][1] /= fScalar;
-		this->ij[2][2] /= fScalar;
-		this->ij[2][3] /= fScalar;
-		this->ij[3][0] /= fScalar;
-		this->ij[3][1] /= fScalar;
-		this->ij[3][2] /= fScalar;
-		this->ij[3][3] /= fScalar;
+		const float_q &fDivisor = SQFloat::_1/fScalar;
+
+		this->ij[0][0] *= fDivisor;
+		this->ij[0][1] *= fDivisor;
+		this->ij[0][2] *= fDivisor;
+		this->ij[0][3] *= fDivisor;
+		this->ij[1][0] *= fDivisor;
+		this->ij[1][1] *= fDivisor;
+		this->ij[1][2] *= fDivisor;
+		this->ij[1][3] *= fDivisor;
+		this->ij[2][0] *= fDivisor;
+		this->ij[2][1] *= fDivisor;
+		this->ij[2][2] *= fDivisor;
+		this->ij[2][3] *= fDivisor;
+		this->ij[3][0] *= fDivisor;
+		this->ij[3][1] *= fDivisor;
+		this->ij[3][2] *= fDivisor;
+		this->ij[3][3] *= fDivisor;
 
 		return *this;
 	}

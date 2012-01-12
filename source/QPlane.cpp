@@ -35,7 +35,9 @@ QPlane QPlane::operator/(const float_q &fScalar) const
 {
     QE_ASSERT(fScalar != SQFloat::_0);
 
-    return QPlane(this->a / fScalar, this->b / fScalar, this->c / fScalar, this->d / fScalar);
+    const float_q &fDivisor = SQFloat::_1/fScalar;
+
+    return QPlane(this->a * fDivisor, this->b * fDivisor, this->c * fDivisor, this->d * fDivisor);
 }
 
 QPlane QPlane::operator-() const

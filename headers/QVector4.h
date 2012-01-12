@@ -251,7 +251,7 @@ public:
     // METHODS
     // ---------------
 public:
-    
+
     /// <summary>
     /// Vectors addition: it's performed component by component.
     /// </summary>
@@ -471,10 +471,12 @@ public:
         // Checkout to avoid division by 0
         QE_ASSERT(fScalar != SQFloat::_0);
 
-        this->x /= fScalar;
-        this->y /= fScalar;
-        this->z /= fScalar;
-        this->w /= fScalar;
+        const float_q &fDivisor = SQFloat::_1/fScalar;
+
+        this->x *= fDivisor;
+        this->y *= fDivisor;
+        this->z *= fDivisor;
+        this->w *= fDivisor;
 
         return *this;
     }

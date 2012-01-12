@@ -75,7 +75,7 @@ public:
 	/// <param name="fB">[IN] Floating point value for b coefficient.</param>
 	/// <param name="fC">[IN] Floating point value for c coefficient.</param>
 	/// <param name="fD">[IN] Floating point value for independent term d.</param>
-    inline QPlane(const float_q &fA, const float_q &fB, const float_q &fC, const float_q &fD) : 
+    inline QPlane(const float_q &fA, const float_q &fB, const float_q &fC, const float_q &fD) :
                       QBasePlane(fA, fB, fC, fD)
     {
     }
@@ -268,10 +268,12 @@ public:
         // Checkout to avoid division by 0
         QE_ASSERT(fScalar != SQFloat::_0);
 
-        this->a /= fScalar;
-        this->b /= fScalar;
-        this->c /= fScalar;
-        this->d /= fScalar;
+        const float_q &fDivisor = SQFloat::_1/fScalar;
+
+        this->a *= fDivisor;
+        this->b *= fDivisor;
+        this->c *= fDivisor;
+        this->d *= fDivisor;
 
         return *this;
     }

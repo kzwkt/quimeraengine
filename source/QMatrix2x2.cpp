@@ -62,12 +62,14 @@ QMatrix2x2 QMatrix2x2::operator/(const float_q &fScalar) const
 
     QE_ASSERT(fScalar != SQFloat::_0);
 
+    const float_q &fDivisor = SQFloat::_1/fScalar;
+
     QMatrix2x2 aux;
 
-    aux.ij[0][0] = this->ij[0][0] / fScalar;
-    aux.ij[0][1] = this->ij[0][1] / fScalar;
-    aux.ij[1][0] = this->ij[1][0] / fScalar;
-    aux.ij[1][1] = this->ij[1][1] / fScalar;
+    aux.ij[0][0] = this->ij[0][0] * fDivisor;
+    aux.ij[0][1] = this->ij[0][1] * fDivisor;
+    aux.ij[1][0] = this->ij[1][0] * fDivisor;
+    aux.ij[1][1] = this->ij[1][1] * fDivisor;
 
     return aux;
 }

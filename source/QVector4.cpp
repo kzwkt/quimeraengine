@@ -31,12 +31,12 @@ namespace Math
 //##################                                                       ##################
 //##################=======================================================##################
 
-QVector4::QVector4(const QTranslationMatrix<QMatrix4x3> &translation) : 
+QVector4::QVector4(const QTranslationMatrix<QMatrix4x3> &translation) :
                        QBaseVector4(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2], SQFloat::_1)
 {
 }
 
-QVector4::QVector4(const QTranslationMatrix<QMatrix4x4> &translation) : 
+QVector4::QVector4(const QTranslationMatrix<QMatrix4x4> &translation) :
                        QBaseVector4(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2], SQFloat::_1)
 {
 }
@@ -102,7 +102,9 @@ QVector4 QVector4::operator/(const float_q &fScalar) const
     // Checkout to avoid division by 0
     QE_ASSERT(fScalar != SQFloat::_0);
 
-    return QVector4(this->x/fScalar, this->y/fScalar, this->z/fScalar, this->w/fScalar);
+    const float_q &fDivisor = SQFloat::_1/fScalar;
+
+    return QVector4(this->x * fDivisor, this->y * fDivisor, this->z * fDivisor, this->w * fDivisor);
 }
 
 QVector4 QVector4::operator/(const QBaseVector4 &vVector) const

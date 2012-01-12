@@ -202,10 +202,12 @@ QQuaternion QQuaternion::operator/(const float_q &fScalar) const
 {
     QE_ASSERT(fScalar != SQFloat::_0);
 
-    return QQuaternion( this->x / fScalar,
-                        this->y / fScalar,
-                        this->z / fScalar,
-                        this->w / fScalar);
+    const float_q &fDivisor = SQFloat::_1/fScalar;
+
+    return QQuaternion( this->x * fDivisor,
+                        this->y * fDivisor,
+                        this->z * fDivisor,
+                        this->w * fDivisor);
 }
 
 QQuaternion operator*(const float_q &fScalar, const QBaseQuaternion &qQuat)
