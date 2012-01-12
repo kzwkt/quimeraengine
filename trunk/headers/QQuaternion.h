@@ -100,7 +100,7 @@ public:
     /// <param name="fValueY">[IN] Y component value.</param>
     /// <param name="fValueZ">[IN] Z component value.</param>
     /// <param name="fValueW">[IN] W component value.</param>
-    inline QQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) : 
+    inline QQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
                            QBaseQuaternion(fValueX, fValueY, fValueZ, fValueW)
     {
     }
@@ -109,7 +109,7 @@ public:
     /// Constructor that receives a pointer to a sequence of 4 contiguous values, one per quaternion's component.
     /// </summary>
     /// <param name="arValues">[IN] Sequence of 4 contiguous values.</param>
-    inline explicit QQuaternion(const float_q* arValues) : QBaseQuaternion(arValues) 
+    inline explicit QQuaternion(const float_q* arValues) : QBaseQuaternion(arValues)
     {
     }
 
@@ -476,10 +476,12 @@ public:
     {
         QE_ASSERT(fScalar != SQFloat::_0);
 
-        this->x /= fScalar;
-        this->y /= fScalar;
-        this->z /= fScalar;
-        this->w /= fScalar;
+        const float_q &fDivisor = SQFloat::_1/fScalar;
+
+        this->x *= fDivisor;
+        this->y *= fDivisor;
+        this->z *= fDivisor;
+        this->w *= fDivisor;
 
         return *this;
     }

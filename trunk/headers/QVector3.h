@@ -399,9 +399,11 @@ public:
         // Checkout to avoid division by 0
         QE_ASSERT(fScalar != SQFloat::_0);
 
-        this->x /= fScalar;
-        this->y /= fScalar;
-        this->z /= fScalar;
+        const float_q &fDivisor = SQFloat::_1/fScalar;
+
+        this->x *= fDivisor;
+        this->y *= fDivisor;
+        this->z *= fDivisor;
 
         return *this;
     }

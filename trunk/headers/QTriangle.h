@@ -61,7 +61,7 @@ public:
 	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
 	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
 	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
-	inline QTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) : 
+	inline QTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
                          QBaseTriangle<VectorType>(arValuesA, arValuesB, arValuesC)
     {
     }
@@ -115,7 +115,7 @@ public:
 
 		float_q fDotProduct = u.DotProduct(v);
 
-		return (sqrt_q((fLengthU * fLengthU) * (fLengthV * fLengthV) - (fDotProduct * fDotProduct)) / SQFloat::_2);
+		return (sqrt_q((fLengthU * fLengthU) * (fLengthV * fLengthV) - (fDotProduct * fDotProduct)) * SQFloat::_0_5);
 	}
 
 	/// <summary>
