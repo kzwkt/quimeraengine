@@ -116,30 +116,7 @@ float_q QVector2::DotProductAngle(const QVector2 &vVector) const
 
     float_q fDot = this->DotProduct(vVector) / fLengthProd;
 
-	// Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-	//
-	// [TODO] This code block has to be reviewed when a solution to
-	//		  solve values out of range for 'acos' function has been planned, and then:
-	//
-	//				 1) Replace the current QE_ASSERT with one using SQFloat::IsLowerOrEquals,
-	//					because something like QE_ASSERT( SQFloat::IsLowerOrEquals(abs(fDot), SQFloat::_1) )
-	//					or QE_ASSERT( SQFloat::IsLowerOrEquals(abs(fDot), CURRENT_COS_MAX_RANGE) )
-	//				    actually doesn't make their work.
-	//
-	//				 2) Replace the two conditional branches and then use Clamp funcion, once this is defined
-	//					as a non-member function.
-	///////////////////////////////////////////////////////////////////
     QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
-
-	if ( SQFloat::IsGreaterOrEquals(fDot, __CURRENT_COS_MAX_RANGE__) )
-	{
-		fDot = 1.0000000f;
-	}
-	else if ( SQFloat::IsLowerOrEquals(fDot, __CURRENT_COS_MIN_RANGE__) )
-	{
-		fDot = -1.0000000f;
-	}
-	///////////////////////////////////////////////////////////////////
 
     float_q fAngle = acos_q(fDot);
 

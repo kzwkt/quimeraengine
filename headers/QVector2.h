@@ -3,15 +3,6 @@
 #ifndef __QVECTOR2__
 #define __QVECTOR2__
 
-// [TODO] This two ranges may have to be deleted when a solution to
-//		  solve values out of range for 'acos' function has been planned.
-#ifndef __CURRENT_COS_MAX_RANGE__
-	#define __CURRENT_COS_MAX_RANGE__	(1.0000001f)
-#endif
-#ifndef __CURRENT_COS_MIN_RANGE__
-	#define __CURRENT_COS_MIN_RANGE__	(-1.0000001f)
-#endif
-
 #include "MathDefinitions.h"
 #include "QBaseVector2.h"
 #include "QBaseMatrix2x2.h"
