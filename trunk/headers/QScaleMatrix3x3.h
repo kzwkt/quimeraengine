@@ -264,7 +264,7 @@ public:
     inline void Reverse()
     {
         // If one of the diagonal elements is 0, the matrix has not inverse.
-        QE_ASSERT(this->ij[0][0] != SQFloat::_0 && this->ij[1][1] != SQFloat::_0 && this->ij[2][2] != SQFloat::_0);
+        QE_ASSERT(this->ij[0][0] != SQFloat::_0 && this->ij[1][1] != SQFloat::_0 && this->ij[2][2] != SQFloat::_0)
 
         this->ij[0][0] = SQFloat::_1 / this->ij[0][0];
         this->ij[1][1] = SQFloat::_1 / this->ij[1][1];

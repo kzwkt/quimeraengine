@@ -194,7 +194,7 @@ public:
                 return PointInsideTriangle(triangle, this->A);
         }
 
-        QE_ASSERT(SQFloat::IsNotZero(fDot2 - fDot1));
+        QE_ASSERT(SQFloat::IsNotZero(fDot2 - fDot1))
 
         // The point which satisfies both line and plane equations.
         VectorType vAux = this->A + (this->B - this->A) * fDot2/(fDot2 - fDot1);
@@ -361,7 +361,7 @@ public:
 
             const float_q &fDenom = fDistA - fDistB;
 
-            QE_ASSERT(fDenom != SQFloat::_0);
+            QE_ASSERT(fDenom != SQFloat::_0)
 
             vIntersection = this->A + fDistA * (this->B - this->A)/fDenom;
 
@@ -731,7 +731,7 @@ public:
                         }
                     }
 		            else                  // Something is wrong: if end points of line segment are outside triangle,
-						QE_ASSERT(false); // line segment must intersects none or two edges, never only one.
+						QE_ASSERT(false)  // line segment must intersects none or two edges, never only one.
                 }
                 else if (value2BC == EQIntersections::E_One) // Line segment intersects BC edge of triangle
                 {
@@ -759,7 +759,7 @@ public:
                         }
                     }
                     else                  // Something is wrong: if end points of line segment are outside triangle,
-                        QE_ASSERT(false); // line segment must intersects none, two or the three edges, never only one.
+                        QE_ASSERT(false)  // line segment must intersects none, two or the three edges, never only one.
                 }
 
                 // Line segment don't intersects triangle
@@ -896,7 +896,7 @@ public:
 						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
 							vIntersection1 = vAux;
 						else                  // Something is wrong, if one point is inside and the other is outside,
-							QE_ASSERT(false); // there must be intersections.
+							QE_ASSERT(false)  // there must be intersections.
 
 						return EQIntersections::E_One;
 					}
@@ -1045,7 +1045,7 @@ public:
 						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
 							vIntersection1 = vAux;
 						else                  // Something is wrong, if one point is inside and the other is outside,
-							QE_ASSERT(false); // there must be intersections.
+							QE_ASSERT(false)  // there must be intersections.
 
 						return EQIntersections::E_One;
 					}
@@ -1251,7 +1251,7 @@ public:
             else if (!IsInsideA && !IsInsideB) // Both line segment end points are outside hexahedron
                 return EQIntersections::E_None;
             else // Something is wrong!! There must be intersections in this case.
-                QE_ASSERT(false);
+                QE_ASSERT(false) 
         }
     }
 
@@ -1484,7 +1484,7 @@ public:
             else if (!IsInsideA && !IsInsideB) // Both line segment end points are outside hexahedron
                 return EQIntersections::E_None;
             else // Something is wrong!! There must be intersections in this case.
-                QE_ASSERT(false);
+                QE_ASSERT(false) 
         }
     }
 
@@ -2145,7 +2145,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
 
-        QE_ASSERT(fDenom != SQFloat::_0);
+        QE_ASSERT(fDenom != SQFloat::_0)
 
         const float_q &fInvDenom = SQFloat::_1 / fDenom;
 
@@ -2177,7 +2177,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
 
-        QE_ASSERT(fDenom != SQFloat::_0);
+        QE_ASSERT(fDenom != SQFloat::_0)
 
         const float_q &fInvDenom = SQFloat::_1 / fDenom;
 
@@ -2199,7 +2199,7 @@ protected:
         // Compute new barycentric coordinates
         const float_q &fDenom2 = fDot00 * fDot33 - fDot03 * fDot03;
 
-        QE_ASSERT(fDenom2 != SQFloat::_0);
+        QE_ASSERT(fDenom2 != SQFloat::_0)
 
         const float_q &fInvDenom2 = SQFloat::_1 / fDenom2;
 
@@ -2266,7 +2266,7 @@ protected:
                 return false;
         }
 
-        QE_ASSERT(SQFloat::IsNotZero(fDot2 - fDot1));
+        QE_ASSERT(SQFloat::IsNotZero(fDot2 - fDot1))
 
         // The point which satisfies both line and plane equations.
         VectorTypeParam vAux = segment.A + (segment.B - segment.A) * fDot2/(fDot2 - fDot1);
@@ -2744,7 +2744,7 @@ protected:
                         }
                     }
                     else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                        QE_ASSERT(false); // line segment must intersects none, two or three edges, never only one.
+                        QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
                 }
                 else if (value2BC ==EQIntersections::E_One) // Line segment intersects BC edge of quadrilateral
                 {
@@ -2808,7 +2808,7 @@ protected:
                         return EQIntersections::E_Two;
                     }
                     else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                        QE_ASSERT(false); // line segment must intersects none, two or three edges, never only one.
+                        QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
                 }
                 else if (value2CD ==EQIntersections::E_One) // Line segment intersects CD edge of quadrilateral
                 {
@@ -2837,10 +2837,10 @@ protected:
                         }
                     }
                     else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                        QE_ASSERT(false); // line segment must intersects none, two or three edges, never only one.
+                        QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
                 }
 				else if (value2DA ==EQIntersections::E_One) // Line segment intersects DA edge of quadrilateral
-					QE_ASSERT(false);   // Something is wrong: if end points of line segment are outside quadrilateral,
+					QE_ASSERT(false)    // Something is wrong: if end points of line segment are outside quadrilateral,
 				else                    // line segment must intersects none, two or three edges, never only one.
 					return EQIntersections::E_None; // There are no intersections.
             }
@@ -3068,7 +3068,7 @@ protected:
                         else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)== EQIntersections::E_One)
                             vIntersection1 = vAux;
                         else                  // Something is wrong, if one point is inside and the other is outside,
-                            QE_ASSERT(false); // there must be intersections.
+                            QE_ASSERT(false)  // there must be intersections.
 
                         return EQIntersections::E_One;
                     }
@@ -3335,7 +3335,7 @@ protected:
                         else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)== EQIntersections::E_One)
                             vIntersection1 = vAux;
                         else                  // Something is wrong, if one point is inside and the other is outside,
-                            QE_ASSERT(false); // there must be intersections.
+                            QE_ASSERT(false)  // there must be intersections.
 
                         return EQIntersections::E_One;
                     }

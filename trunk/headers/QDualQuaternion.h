@@ -171,7 +171,7 @@ public:
     /// <param name="arValuesDual">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
     inline QDualQuaternion(const float_q *arValuesReal, const float_q *arValuesDual)
     {
-        QE_ASSERT(arValuesReal != null_q && arValuesDual != null_q);
+        QE_ASSERT(arValuesReal != null_q && arValuesDual != null_q)
 
         this->r = QQuaternion(arValuesReal[0], arValuesReal[1], arValuesReal[2], arValuesReal[3]);
         this->d = QQuaternion(arValuesDual[0], arValuesDual[1], arValuesDual[2], arValuesDual[3]);
@@ -398,7 +398,7 @@ public:
     inline QDualQuaternion& operator/=(const float_q &fScalar)
     {
         // Checkout to avoid division by zero.
-        QE_ASSERT(fScalar != SQFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0)
 
         const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -629,7 +629,7 @@ public:
 
         float_q fLength = this->GetNonDualLength();
 
-        QE_ASSERT(fLength != SQFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0)
 
         *this /= fLength;
     }

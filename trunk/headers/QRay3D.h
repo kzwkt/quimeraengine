@@ -860,7 +860,7 @@ public:
                     else if (this->IntersectionPoint(triangle.C, triangle.A, vAux) == EQIntersections::E_One)
                         vIntersection1 = vAux;
                     else
-                        QE_ASSERT(false); // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                        QE_ASSERT(false)  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
                     return EQIntersections::E_One;
                 }
@@ -978,7 +978,7 @@ public:
                         }
                     }
                     else
-                        QE_ASSERT(false); // Something is wrong, there is ONE intersection and is not a vertex
+                        QE_ASSERT(false)  // Something is wrong, there is ONE intersection and is not a vertex
                 }
 
                 if (bPrevInt)
@@ -1842,7 +1842,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
 
-        QE_ASSERT(fDenom != SQFloat::_0);
+        QE_ASSERT(fDenom != SQFloat::_0)
 
         const float_q &fInvDenom = SQFloat::_1 / fDenom;
 
@@ -1875,7 +1875,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
 
-        QE_ASSERT(fDenom != SQFloat::_0);
+        QE_ASSERT(fDenom != SQFloat::_0)
 
         const float_q &fInvDenom = SQFloat::_1 / fDenom;
 
@@ -1897,7 +1897,7 @@ protected:
         // Compute new barycentric coordinates
         const float_q &fDenom2 = fDot00 * fDot33 - fDot03 * fDot03;
 
-        QE_ASSERT(fDenom2 != SQFloat::_0);
+        QE_ASSERT(fDenom2 != SQFloat::_0)
 
         const float_q &fInvDenom2 = SQFloat::_1 / fDenom2;
 
@@ -2203,7 +2203,7 @@ protected:
                     else if (this->IntersectionPoint(vVertexD, vVertexA, vAux) == EQIntersections::E_One)
                         vIntersection1 = vAux;
                     else
-                        QE_ASSERT(false); // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                        QE_ASSERT(false)  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
                     return EQIntersections::E_One;
                 }
@@ -2366,7 +2366,7 @@ protected:
                         }
                     }
                     else // Its the first intersection found
-                        QE_ASSERT(false); // Something is wrong
+                        QE_ASSERT(false)  // Something is wrong
                 }
 
                 if (bPrevInt)

@@ -308,7 +308,7 @@ public:
     inline static void ToInteger(const float_q &fValue, IntegerType &outInteger)
     {
         // Checks whether both input types have the same size
-        QE_ASSERT( sizeof(fValue) == sizeof(outInteger) );
+        QE_ASSERT( sizeof(fValue) == sizeof(outInteger) )
 
         #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
 
@@ -330,10 +330,10 @@ public:
            fValue < MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED)
         {
             // Checks whether the value is too big to be converted this way
-            QE_ASSERT( fValue <= MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED );
+            QE_ASSERT( fValue <= MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED )
 
             // Checks whether the value is too big (when it's negative) to be converted this way
-            QE_ASSERT( fValue >= MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED );
+            QE_ASSERT( fValue >= MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED )
 
             // When the value is out of the convertible bounds (using fast conversion), standard conversion is used
             outInteger = scast_q(fValue, IntegerType);

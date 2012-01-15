@@ -63,7 +63,7 @@ public:
 	inline explicit QBasePlane(float_q* arValues)
 	{
 		// Null pointer checkout
-		QE_ASSERT(arValues != null_q);
+		QE_ASSERT(arValues != null_q)
 
 		// Assignments
 		this->a = arValues[0];

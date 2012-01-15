@@ -33,7 +33,7 @@ QPlane operator*(const float_q &fScalar, const QBasePlane &plane)
 
 QPlane QPlane::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar != SQFloat::_0);
+    QE_ASSERT(fScalar != SQFloat::_0)
 
     const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -75,7 +75,7 @@ float_q QPlane::DotProductAngle(const QBasePlane &plane) const
     const float_q &fDot = this->DotProduct(plane);
 
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
+    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
 
     const float_q& fAngle = acos_q(fDot);
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES

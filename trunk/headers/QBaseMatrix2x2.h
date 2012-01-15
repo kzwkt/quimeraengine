@@ -64,7 +64,7 @@ public:
 	/// <param name="arValues">Pointer to a 4 length array of floating point values.</param>
 	inline QBaseMatrix2x2(const float_q* arValues)
 	{
-		QE_ASSERT(arValues != null_q);
+		QE_ASSERT(arValues != null_q)
 
 		ij[0][0] = arValues[0];
 		ij[0][1] = arValues[1];

@@ -65,7 +65,7 @@ bool QQuadrilateral::Contains (const QBaseVector2 &vPoint) const
                 }
                 // Something is wrong! : Its crossed quadrilateral but there are no intersections between edges.
                 else
-                    QE_ASSERT(false);
+                    QE_ASSERT(false) 
             }
         }
         else // Its standard convex
@@ -127,7 +127,7 @@ bool QQuadrilateral::Contains (const QBaseVector2 &vPoint) const
             return false;
     }
     else // Something is wrong! : its concave but no vertex has concavity
-        QE_ASSERT(false);
+        QE_ASSERT(false) 
 }
 
 bool QQuadrilateral::Intersection(const QBaseQuadrilateral &quad) const

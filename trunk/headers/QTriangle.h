@@ -177,7 +177,7 @@ public:
 		float_q fP = fLengthA + fLengthB + fLengthC;
 
 		// Checkout to avoid division by zero.
-		QE_ASSERT(fP != SQFloat::_0);
+		QE_ASSERT(fP != SQFloat::_0)
 
 		vIncenter = (fLengthA * A + fLengthB * B + fLengthC * C) / fP;
 	}
@@ -219,13 +219,13 @@ protected:
 		float_q fLength2 = vVector2.GetLength();
 
 		// Checkout to avoid division by zero.
-		QE_ASSERT(fLength1 != SQFloat::_0);
-		QE_ASSERT(fLength2 != SQFloat::_0);
+		QE_ASSERT(fLength1 != SQFloat::_0)
+		QE_ASSERT(fLength2 != SQFloat::_0)
 
 		float_q fCos = vVector1.DotProduct(vVector2) / (fLength1 * fLength2);
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(SQFloat::Abs(fCos) <= SQFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fCos) <= SQFloat::_1)
 
 		float_q fAngle = acos_q(fCos);
 

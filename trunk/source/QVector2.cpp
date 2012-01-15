@@ -56,7 +56,7 @@ QVector2 QVector2::operator*(const QBaseMatrix2x2 &matrix) const
 QVector2 QVector2::operator/(const float_q &fScalar) const
 {
 	// Checkout to avoid division by 0
-	QE_ASSERT(fScalar);
+	QE_ASSERT(fScalar)
 
 	const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -66,7 +66,7 @@ QVector2 QVector2::operator/(const float_q &fScalar) const
 QVector2 QVector2::operator/(const QBaseVector2 &vVector) const
 {
 	// Checkout to avoid division by 0
-	QE_ASSERT(vVector.x && vVector.y);
+	QE_ASSERT(vVector.x && vVector.y)
 
 	return QVector2(this->x / vVector.x, this->y / vVector.y);
 }
@@ -112,11 +112,11 @@ float_q QVector2::DotProductAngle(const QVector2 &vVector) const
     float_q fLengthProd = this->GetLength() * vVector.GetLength();
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(fLengthProd != SQFloat::_0);
+    QE_ASSERT(fLengthProd != SQFloat::_0)
 
     float_q fDot = this->DotProduct(vVector) / fLengthProd;
 
-    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
+    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
 
     float_q fAngle = acos_q(fDot);
 

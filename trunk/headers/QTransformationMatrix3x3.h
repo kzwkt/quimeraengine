@@ -124,12 +124,12 @@ public:
         const float_q &fScale = hypot_q(this->ij[0][0], this->ij[0][1]);
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fScale != SQFloat::_0);
+        QE_ASSERT(fScale != SQFloat::_0)
 
         const float_q &fCosRot = this->ij[0][0]/fScale;
 
         // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
-        QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1)
 
         fRotationAngle = acos_q(fCosRot);
 
