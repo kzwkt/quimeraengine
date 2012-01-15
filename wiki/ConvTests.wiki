@@ -11,6 +11,10 @@ Todos los nombres de test case utilizarán la forma `PascalCase` y se dividirán
 _`Intersection_IntersectionIsFoundWhenPlanesCoincide_Test`_
 
 
+Las funciones incluídas como friend dentro de la clase, serán también testeadas enl a misma test suite y tendrán el pregijo Friend-. Ejemplo:
+
+_`FriendIntersection_IntersectionIsFoundWhenPlanesCoincide_Test`_
+
 *Sobrecargas*
 
 Cuando existan varias sobrecargas para un método, la forma de diferenciarlos en la test suite será añadiendo un número al final del nombre del método, empezando por el nº 1. Por ejemplo, teniendo 2 sobrecargas:
