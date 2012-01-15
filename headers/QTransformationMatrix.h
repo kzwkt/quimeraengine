@@ -730,7 +730,7 @@ public:
         QBaseVector3 vScale, vInvScale(SQFloat::_1, SQFloat::_1, SQFloat::_1);
         this->GetScale(vScale);
 
-        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0);
+        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0)
 
         vInvScale.x /= vScale.x;
         vInvScale.y /= vScale.y;
@@ -796,7 +796,7 @@ protected:
 
         this->GetScale(fScale);
 
-        QE_ASSERT(fScale.x != SQFloat::_0 && fScale.y != SQFloat::_0 && fScale.z != SQFloat::_0);
+        QE_ASSERT(fScale.x != SQFloat::_0 && fScale.y != SQFloat::_0 && fScale.z != SQFloat::_0)
 
         fInvScale.x /= fScale.x;
         fInvScale.y /= fScale.y;

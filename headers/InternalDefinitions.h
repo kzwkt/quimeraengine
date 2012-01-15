@@ -97,12 +97,12 @@ const unsigned int QE_VERSION_REVISION = 0;
                 }
             }
 
-            #define QE_ASSERT(expr) (expr) ? (void(0)) : QE_ASSERT_FAILED() // This sentence makes GDB to stop at the failing line and continue the execution later
+            #define QE_ASSERT(expr) (expr) ? (void(0)) : QE_ASSERT_FAILED(); // This sentence makes GDB to stop at the failing line and continue the execution later
         #else
             #include <boost/assert.hpp>
 
             #ifdef BOOST_ASSERT
-                #define QE_ASSERT(expr) BOOST_ASSERT(expr)
+                #define QE_ASSERT(expr) BOOST_ASSERT(expr);
             #endif
         #endif
     #endif

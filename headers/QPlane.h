@@ -143,7 +143,7 @@ protected:
         vAux1.CrossProduct(vPoint3 - vPoint1);
 
         // Checkout to avoid the possibility of tree colineal points.
-        QE_ASSERT (!vAux1.IsZero());
+        QE_ASSERT (!vAux1.IsZero())
 
         // Plane equation
         *this = QBasePlane(vAux1.x, vAux1.y, vAux1.z, -(vAux1.DotProduct(vPoint1)));
@@ -266,7 +266,7 @@ public:
     inline QPlane& operator/=(const float_q &fScalar)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT(fScalar != SQFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0)
 
         const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -311,7 +311,7 @@ public:
         float_q fDivisor = this->GetLength();
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fDivisor != SQFloat::_0);
+        QE_ASSERT(fDivisor != SQFloat::_0)
 
         fDivisor = SQFloat::_1 / fDivisor;
 
@@ -590,7 +590,7 @@ public:
     /// </remarks>
     inline void Scale(const QScaleMatrix3x3 &scale)
     {
-        QE_ASSERT(scale.ij[0][0] != SQFloat::_0 && scale.ij[1][1] != SQFloat::_0 && scale.ij[2][2] != SQFloat::_0);
+        QE_ASSERT(scale.ij[0][0] != SQFloat::_0 && scale.ij[1][1] != SQFloat::_0 && scale.ij[2][2] != SQFloat::_0)
 
         this->a /= scale.ij[0][0];
         this->b /= scale.ij[1][1];
@@ -623,7 +623,7 @@ public:
     /// </remarks>
     inline void Scale(const QBaseVector3 &vScale)
     {
-        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0);
+        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0)
 
         this->a /= vScale.x;
         this->b /= vScale.y;
@@ -658,7 +658,7 @@ public:
     /// </remarks>
     inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
-        QE_ASSERT(fScaleX != SQFloat::_0 && fScaleY != SQFloat::_0 && fScaleZ != SQFloat::_0);
+        QE_ASSERT(fScaleX != SQFloat::_0 && fScaleY != SQFloat::_0 && fScaleZ != SQFloat::_0)
 
         this->a /= fScaleX;
         this->b /= fScaleY;
@@ -1374,12 +1374,12 @@ protected:
         const float_q &fDotLength = vVector.GetLength();
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fDotLength != SQFloat::_0);
+        QE_ASSERT(fDotLength != SQFloat::_0)
 
         const float_q &fDot = this->DotProduct(vVector)/fDotLength;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
+        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
 
         const float_q &fAngle = acos_q(fDot);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES

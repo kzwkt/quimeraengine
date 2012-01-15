@@ -221,7 +221,7 @@ public:
     /// </returns>
     inline QMatrix2x2& operator/=(const float_q &fScalar)
     {
-        QE_ASSERT(fScalar != SQFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0)
 
         const float_q &fDivisor = SQFloat::_1/fScalar;
 

@@ -63,7 +63,7 @@ QMatrix3x4 operator*(const float_q &fScalar, const QBaseMatrix3x4 &matrix)
 QMatrix3x4 QMatrix3x4::operator/(const float_q &fScalar) const
 {
 
-	QE_ASSERT(fScalar != SQFloat::_0);
+	QE_ASSERT(fScalar != SQFloat::_0)
 
     const float_q &fDivisor = SQFloat::_1/fScalar;
 

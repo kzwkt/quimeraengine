@@ -469,7 +469,7 @@ public:
     inline QVector4& operator/=(const float_q &fScalar)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT(fScalar != SQFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0)
 
         const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -491,7 +491,7 @@ public:
     inline QVector4& operator /= (const QBaseVector4 &vVector)
     {
         // Checkout to avoid division by 0
-        QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0 && vVector.w != SQFloat::_0);
+        QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0 && vVector.w != SQFloat::_0)
 
         this->x /= vVector.x;
         this->y /= vVector.y;
@@ -549,7 +549,7 @@ public:
         float_q fLength = this->GetLength();
 
         // Checkout to avoid division by 0
-        QE_ASSERT(fLength != SQFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0)
 
         //Normalize
         this->x /= fLength;

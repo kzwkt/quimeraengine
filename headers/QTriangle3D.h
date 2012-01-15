@@ -626,7 +626,7 @@ public:
 
         // vNormBC and AB can't be perpendicular, but we ensure it:
         const float_q &fDot = vNormBC.DotProduct(vAB);
-        QE_ASSERT(fDot != SQFloat::_0);
+        QE_ASSERT(fDot != SQFloat::_0)
 
 	    vOrthocenter = this->A - ( vCA.DotProduct(vAB)/fDot) * vNormBC;
 	}

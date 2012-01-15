@@ -66,12 +66,12 @@ void QTransformationMatrix3x3::Decompose (QBaseVector2 &vOutDisp, float_q &fOutR
     vOutScale.y = hypot_q(this->ij[1][0], this->ij[1][1]);
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(vOutScale.x != SQFloat::_0);
+    QE_ASSERT(vOutScale.x != SQFloat::_0)
 
     const float_q &fCosRot = this->ij[0][0]/vOutScale.x;
 
     // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
-    QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1);
+    QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1)
 
     fOutRot = acos_q(fCosRot);
 

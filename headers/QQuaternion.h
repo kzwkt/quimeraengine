@@ -474,7 +474,7 @@ public:
     /// </returns>
     inline QQuaternion& operator/=(const float_q &fScalar)
     {
-        QE_ASSERT(fScalar != SQFloat::_0);
+        QE_ASSERT(fScalar != SQFloat::_0)
 
         const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -507,7 +507,7 @@ public:
     {
         float_q fLength = this->GetLength();
 
-        QE_ASSERT(fLength != SQFloat::_0);
+        QE_ASSERT(fLength != SQFloat::_0)
 
         this->x /= fLength;
         this->y /= fLength;
@@ -538,7 +538,7 @@ public:
         // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
         float_q fSquaredLength = this->GetSquaredLength();
 
-        QE_ASSERT(fSquaredLength != SQFloat::_0);
+        QE_ASSERT(fSquaredLength != SQFloat::_0)
 
         const float_q &fInvLength = SQFloat::_1/fSquaredLength;
 

@@ -100,7 +100,7 @@ QBaseVector3 QVector4::operator*(const QBaseMatrix4x3 &matrix) const
 QVector4 QVector4::operator/(const float_q &fScalar) const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT(fScalar != SQFloat::_0);
+    QE_ASSERT(fScalar != SQFloat::_0)
 
     const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -111,7 +111,7 @@ QVector4 QVector4::operator/(const QBaseVector4 &vVector) const
 {
     // Checkout to avoid division by 0
     QE_ASSERT(vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 &&
-              vVector.z != SQFloat::_0 && vVector.w != SQFloat::_0);
+              vVector.z != SQFloat::_0 && vVector.w != SQFloat::_0)
 
     return QVector4(this->x / vVector.x, this->y / vVector.y, this->z / vVector.z, this->w / vVector.w);
 }
@@ -171,12 +171,12 @@ float_q QVector4::DotProductAngle(const QBaseVector4 &vVector) const
     float_q fLength = sqrt_q( (this->x*this->x + this->y*this->y + this->z*this->z) * (vVector.x*vVector.x + vVector.y*vVector.y + vVector.z*vVector.z) );
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(fLength != SQFloat::_0);
+    QE_ASSERT(fLength != SQFloat::_0)
 
     float_q fDot = (this->x*vVector.x + this->y*vVector.y + this->z*vVector.z) / fLength;
 
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
+    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
 
     float_q fAngle = acos_q(fDot);
 

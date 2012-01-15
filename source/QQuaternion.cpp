@@ -190,7 +190,7 @@ QQuaternion QQuaternion::operator*(const QBaseVector4 &vVector) const
 }
 QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 {
-    QE_ASSERT(qQuat.x != SQFloat::_0 && qQuat.y != SQFloat::_0 && qQuat.z != SQFloat::_0 && qQuat.w != SQFloat::_0);
+    QE_ASSERT(qQuat.x != SQFloat::_0 && qQuat.y != SQFloat::_0 && qQuat.z != SQFloat::_0 && qQuat.w != SQFloat::_0)
 
     return QQuaternion(this->x / qQuat.x,
                        this->y / qQuat.y,
@@ -200,7 +200,7 @@ QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 
 QQuaternion QQuaternion::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar != SQFloat::_0);
+    QE_ASSERT(fScalar != SQFloat::_0)
 
     const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -226,12 +226,12 @@ float_q QQuaternion::DotProductAngle(const QBaseQuaternion &qQuat) const
                             (qQuat.x*qQuat.x + qQuat.y*qQuat.y + qQuat.z*qQuat.z) );
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(fLength != SQFloat::_0);
+    QE_ASSERT(fLength != SQFloat::_0)
 
     float_q fDot = (this->x*qQuat.x + this->y*qQuat.y + this->z*qQuat.z)/fLength;
 
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1);
+    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
 
     float_q fAngle = acos(fDot);
 
@@ -251,7 +251,7 @@ void QQuaternion::Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion)
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor != SQFloat::_0);
+    QE_ASSERT(fDivisor != SQFloat::_0)
 
     *this = qAuxSum;
     *this /= fDivisor;
@@ -266,10 +266,10 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
 
     float_q fAngleB = acos_q(this->DotProduct(auxQuat));
 
-    QE_ASSERT( !SQFloat::IsNaN(fAngleB) );
+    QE_ASSERT( !SQFloat::IsNaN(fAngleB) )
 
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
-    QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) );
+    QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) )
 
     const float_q &fInvSin = SQFloat::_1/sin_q(fAngleB);
 
@@ -282,7 +282,7 @@ void QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor != SQFloat::_0);
+    QE_ASSERT(fDivisor != SQFloat::_0)
 
     *this = qAuxSum;
     *this /= fDivisor;
@@ -292,10 +292,10 @@ void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fPropor
 {
     float_q fAngleB = acos_q(this->DotProduct(qQuat));
 
-    QE_ASSERT( !SQFloat::IsNaN(fAngleB) );
+    QE_ASSERT( !SQFloat::IsNaN(fAngleB) )
 
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
-    QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) );
+    QE_ASSERT( fAngleB != SQFloat::_0 && SQFloat::AreNotEquals(fAngleB, PI_Q) )
 
     const float_q &fInvSin = SQFloat::_1/sin_q(fAngleB);
 
@@ -308,7 +308,7 @@ void QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fPropor
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = qAuxSum.GetLength();
 
-    QE_ASSERT(fDivisor != SQFloat::_0);
+    QE_ASSERT(fDivisor != SQFloat::_0)
 
     *this = qAuxSum;
     *this /= fDivisor;
@@ -323,7 +323,7 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
     if(SQFloat::AreEquals(fNorthAndSouthPoleCheckValue, SQFloat::_0_5)) // North pole
     {
         // The atan2 result is undefined when both parameters are equal to zero
-        QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0);
+        QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0)
 
         fRotationAngleX = SQFloat::_2 * atan2_q(this->x, this->w);
         fRotationAngleZ = SQFloat::_0;
@@ -331,7 +331,7 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
     else if(SQFloat::AreEquals(fNorthAndSouthPoleCheckValue, -SQFloat::_0_5)) // South pole
     {
         // The atan2 result is undefined when both parameters are equal to zero
-        QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0);
+        QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0)
 
         fRotationAngleX = -SQFloat::_2 * atan2_q(this->x, this->w);
         fRotationAngleZ = SQFloat::_0;
@@ -342,7 +342,7 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
         float_q fSecondParameter = SQFloat::_1 - SQFloat::_2 * this->y * this->y - SQFloat::_2 * this->z * this->z;
 
         // The atan2 result is undefined when both parameters are equal to zero
-        QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0);
+        QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0)
 
         fRotationAngleX = atan2_q(fFirstParameter, fSecondParameter);
 
@@ -350,23 +350,23 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
         fSecondParameter = SQFloat::_1 - SQFloat::_2 * this->x * this->x - SQFloat::_2 * this->z * this->z;
 
         // The atan2 result is undefined when both parameters are equal to zero
-        QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0);
+        QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0)
 
         fRotationAngleZ = atan2_q(fFirstParameter, fSecondParameter);
     }
 
     fRotationAngleY = asin_q( SQFloat::_2 * this->x * this->y + SQFloat::_2 * this->z * this->w );
 
-    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleX) );
-    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleY) );
-    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleZ) );
+    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleX) )
+    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleY) )
+    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleZ) )
 
 }
 
 void QQuaternion::ToAxisAngle(QBaseVector3 &vRotationAxis, float_q &fRotationAngle) const
 {
    // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-	QE_ASSERT(SQFloat::Abs(this->w) <= SQFloat::_1);
+	QE_ASSERT(SQFloat::Abs(this->w) <= SQFloat::_1)
 
 	fRotationAngle = SQFloat::_2 * acos_q(this->w);
 

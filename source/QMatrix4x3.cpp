@@ -156,7 +156,7 @@ QMatrix4x3& QMatrix4x3::operator*=(const QBaseMatrix3x3& matrix)
 
 QMatrix4x3 QMatrix4x3::operator/(const float_q &fScalar) const
 {
-	QE_ASSERT(fScalar);
+	QE_ASSERT(fScalar)
 
 	const float_q &fDivisor = SQFloat::_1/fScalar;
 

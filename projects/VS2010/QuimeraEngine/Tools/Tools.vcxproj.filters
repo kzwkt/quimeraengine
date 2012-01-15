@@ -183,7 +183,7 @@
       <Filter>DataTypes</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QSphere.h">
-      <Filter>Header Files</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

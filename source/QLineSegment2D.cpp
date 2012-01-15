@@ -347,7 +347,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 }
             }
             else                  // Something is wrong: if end points of line segment are outside triangle,
-                QE_ASSERT(false); // line segment must intersects none or two edges, never only one.
+                QE_ASSERT(false)  // line segment must intersects none or two edges, never only one.
         }
         else if (value2BC ==EQIntersections::E_One) // Line segment intersects BC edge of triangle
         {
@@ -376,7 +376,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 }
             }
             else                  // Something is wrong: if end points of line segment are outside triangle,
-                QE_ASSERT(false); // line segment must intersects none or two, never only one.
+                QE_ASSERT(false)  // line segment must intersects none or two, never only one.
         }
 
         // Line segment don't intersects triangle
@@ -513,7 +513,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
                     vIntersection1 = vAux;
                 else                  // Something is wrong, if one point is inside and the other is outside,
-                    QE_ASSERT(false); // there must be intersections.
+                    QE_ASSERT(false)  // there must be intersections.
 
                 return EQIntersections::E_One;
             }
@@ -662,7 +662,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
                     vIntersection1 = vAux;
                 else                  // Something is wrong, if one point is inside and the other is outside,
-                    QE_ASSERT(false); // there must be intersections.
+                    QE_ASSERT(false)  // there must be intersections.
 
                 return EQIntersections::E_One;
             }
@@ -1077,7 +1077,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 }
             }
             else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                QE_ASSERT(false); // line segment must intersects none, two or three edges, never only one.
+                QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
         }
         else if (value2BC ==EQIntersections::E_One) // Line segment intersects BC edge of quadrilateral
         {
@@ -1141,7 +1141,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 return EQIntersections::E_Two;
             }
             else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                QE_ASSERT(false); // line segment must intersects none, two or three edges, never only one.
+                QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
         }
         else if (value2CD ==EQIntersections::E_One) // Line segment intersects CD edge of quadrilateral
         {
@@ -1170,11 +1170,11 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 }
             }
             else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                QE_ASSERT(false); // line segment must intersects none, two or three edges, never only one.
+                QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
         }
         else if (value2DA ==EQIntersections::E_One) // Line segment intersects DA edge of quadrilateral
-            QE_ASSERT(false);   // Something is wrong: if end points of line segment are outside quadrilateral,
-        else                    // line segment must intersects none, two or three edges, never only one.
+            QE_ASSERT(false)   // Something is wrong: if end points of line segment are outside quadrilateral,
+        else                   // line segment must intersects none, two or three edges, never only one.
             return EQIntersections::E_None; // There are no intersections.
     }
     else // one line segment end point is inside and the other one is outside triangle.
@@ -1403,7 +1403,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux)== EQIntersections::E_One)
                     vIntersection1 = vAux;
                 else                  // Something is wrong, if one point is inside and the other is outside,
-                    QE_ASSERT(false); // there must be intersections.
+                    QE_ASSERT(false)  // there must be intersections.
 
                 return EQIntersections::E_One;
             }
@@ -1670,7 +1670,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 else if (value2 = this->IntersectionPoint(QLineSegment2D(quad.D, quad.A), vAux)== EQIntersections::E_One)
                     vIntersection1 = vAux;
                 else                  // Something is wrong, if one point is inside and the other is outside,
-                    QE_ASSERT(false); // there must be intersections.
+                    QE_ASSERT(false)  // there must be intersections.
 
                 return EQIntersections::E_One;
             }

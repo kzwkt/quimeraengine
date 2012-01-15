@@ -60,7 +60,7 @@ QMatrix2x2 QMatrix2x2::operator*(const QBaseMatrix2x2 &matrix) const
 QMatrix2x2 QMatrix2x2::operator/(const float_q &fScalar) const
 {
 
-    QE_ASSERT(fScalar != SQFloat::_0);
+    QE_ASSERT(fScalar != SQFloat::_0)
 
     const float_q &fDivisor = SQFloat::_1/fScalar;
 

@@ -62,7 +62,7 @@ public:
 	inline explicit QBaseVector3(const float_q* arValues)
 	{
 		// Null pointer checkout
-		QE_ASSERT(arValues != null_q);
+		QE_ASSERT(arValues != null_q)
 
 		// Assignments
 		this->x = arValues[0];
