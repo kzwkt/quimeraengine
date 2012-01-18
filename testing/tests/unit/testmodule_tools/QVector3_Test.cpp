@@ -929,5 +929,734 @@ QTEST_CASE ( OperatorSubtractionAssignation_VectorObjectIsCorrectlySubtractedAnd
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
 }
 
+/// <summary>
+/// Checks if all the components of the vector are multiplied by the scalar.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalar_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_2);
+    const float_q  SCALAR = SQFloat::_0_5;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT *= SCALAR;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that a vector component is multiplied and assigned to itself.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation1_VectorComponentIsCorrectlyMultipliedByScalarAndAssignedToItself_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_9;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_6;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_3, SQFloat::_0, SQFloat::_2);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR; // [TODO] Thund: An error discovered!
+    vVectorUT *= vVectorUT.x;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that every component of one operand is multiplied by the same component of the other operand.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation2_VectorIsCorrectlyMultipliedByAnotherVector_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_Y = 10;
+    const float_q EXPECTED_VALUE_FOR_Z = 18;
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1;
+    vVectorUT *= OPERAND2;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that the product between vectors is commutative.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation2_ProductIsCommutative_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_Y = 10;
+    const float_q EXPECTED_VALUE_FOR_Z = 18;
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+
+	// Execution
+    QVector3 vVector1UT = OPERAND1;
+    vVector1UT *= OPERAND2;
+    QVector3 vVector2UT = OPERAND2;
+    vVector2UT *= OPERAND1;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVector1UT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVector1UT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVector1UT.z, EXPECTED_VALUE_FOR_Z);
+    BOOST_CHECK_EQUAL(vVector2UT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVector2UT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVector2UT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that a vector can be multiplied by itself.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation2_VectorCanBeMultipliedByItself_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_9;
+
+    const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND;
+    vVectorUT *= OPERAND;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks if a vector object is correctly multiplied and assigned when using itself (the object) as the other operand.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation2_VectorObjectIsCorrectlyMultipliedAndAssignedToItself_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_9;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
+
+    const QVector3 OPERAND = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_1);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND;
+    vVectorUT *= vVectorUT;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that the vector is properly multiplied by a matrix with 3 rows and 3 columns.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation3_VectorIsCorrectlyMultipliedByMatrix3x3_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = 24;
+    const float_q EXPECTED_VALUE_FOR_Y = 30;
+    const float_q EXPECTED_VALUE_FOR_Z = 36;
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
+
+    const QBaseMatrix3x3 MATRIX = QBaseMatrix3x3(SQFloat::_0, SQFloat::_1, SQFloat::_2,
+                                                 SQFloat::_3, SQFloat::_4, SQFloat::_5,
+                                                 SQFloat::_6, SQFloat::_7, SQFloat::_8);
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT *= MATRIX;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks if all the components of the vector are divided by the scalar.
+/// </summary>
+QTEST_CASE ( OperatorDivisionAssignation1_VectorIsCorrectlyDividedByScalar_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_2;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const float_q  SCALAR = SQFloat::_2;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT /= SCALAR;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that there is an assertion that warns when the divisor equals zero.
+/// </summary>
+QTEST_CASE ( OperatorDivisionAssignation1_AssertionFailsWhenDivisorEqualsZero_Test )
+{
+    // Preparation
+    const float_q  SCALAR = SQFloat::_0;
+
+    // Execution
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QVector3 vVectorUT;
+        vVectorUT /= SCALAR;
+    }
+    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    {
+        bAssertionFailed = true;
+    }
+
+    // Verification
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that a vector component is divided and assigned to itself.
+/// </summary>
+QTEST_CASE ( OperatorDivisionAssignation1_VectorComponentIsCorrectlyDividedByScalarAndAssignedToItself_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_2);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR; // [TODO] Thund: An error discovered!
+    vVectorUT /= vVectorUT.x;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that every component of one operand is divided by the same component of the other operand.
+/// </summary>
+QTEST_CASE ( OperatorDivisionAssignation2_VectorIsCorrectlyDividedByAnotherVector_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = 2;
+    const float_q EXPECTED_VALUE_FOR_Z = 3;
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_2, SQFloat::_8, SQFloat::_9);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1;
+    vVectorUT /= OPERAND2;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that the division between vectors is not commutative.
+/// </summary>
+QTEST_CASE ( OperatorDivisionAssignation2_DivisionIsNotCommutative_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_25;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.4;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0_5;
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+
+	// Execution
+    QVector3 vVector1UT = OPERAND1;
+    vVector1UT /= OPERAND2;
+    QVector3 vVector2UT = OPERAND2;
+    vVector2UT /= OPERAND1;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVector1UT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVector1UT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVector1UT.z, EXPECTED_VALUE_FOR_Z);
+    BOOST_CHECK_NE(vVector2UT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_NE(vVector2UT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_NE(vVector2UT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that a vector can be divided by itself.
+/// </summary>
+QTEST_CASE ( OperatorDivisionAssignation2_VectorCanBeDividedByItself_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
+
+    const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND;
+    vVectorUT /= OPERAND;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that the assertion fails when any of the vector components equals zero.
+/// </summary>
+QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZero_Test )
+{
+    // Preparation
+    const QVector3 OPERAND_WITH_ZERO_X = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_1);
+    const QVector3 OPERAND_WITH_ZERO_Y = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_1);
+    const QVector3 OPERAND_WITH_ZERO_Z = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
+
+	// Execution
+    bool bAssertionFailedWhenXEqualsZero = false;
+    bool bAssertionFailedWhenYEqualsZero = false;
+    bool bAssertionFailedWhenZEqualsZero = false;
+    QVector3 vVectorUT;
+    
+    try
+    {
+        vVectorUT /= OPERAND_WITH_ZERO_X;
+    }
+    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    {
+        bAssertionFailedWhenXEqualsZero = true;
+    }
+
+    try
+    {
+        vVectorUT /= OPERAND_WITH_ZERO_Y;
+    }
+    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    {
+        bAssertionFailedWhenYEqualsZero = true;
+    }
+
+    try
+    {
+        vVectorUT /= OPERAND_WITH_ZERO_Z;
+    }
+    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    {
+        bAssertionFailedWhenZEqualsZero = true;
+    }
+
+    // Verification
+    BOOST_CHECK(bAssertionFailedWhenXEqualsZero);
+    BOOST_CHECK(bAssertionFailedWhenYEqualsZero);
+    BOOST_CHECK(bAssertionFailedWhenZEqualsZero);
+}
+
+/// <summary>
+/// Checks that a vector is correctly assigned to another vector.
+/// </summary>
+QTEST_CASE ( OperatorAssignation_VectorIsAssignedProperlyToAnother_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that all vector components are correctly negated.
+/// </summary>
+QTEST_CASE ( OperatorUnaryMinus_ComponentsAreNegated_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = -VECTOR;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that the length of the vector is correctly calculated.
+/// </summary>
+QTEST_CASE ( GetLength_LengthOfACommonVectorIsCalculatedCorrectly_Test )
+{
+    // Preparation
+    const float_q EXPECTED_LENGTH = SQFloat::_7;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_6);
+
+	// Execution
+    float_q fLengthUT = VECTOR.GetLength();
+
+    // Verification
+    BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
+}
+
+/// <summary>
+/// Checks that the squared length of the vector is correctly calculated.
+/// </summary>
+QTEST_CASE ( GetSquaredLength_SquaredLengthOfACommonVectorIsCalculatedCorrectly_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE = (float_q)49.0f;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_6);
+
+	// Execution
+    float_q fSquaredLengthUT = VECTOR.GetSquaredLength();
+
+    // Verification
+    BOOST_CHECK_EQUAL(fSquaredLengthUT, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that a common vector becomes a unit vector.
+/// </summary>
+QTEST_CASE ( Normalize1_CommonVectorIsCorrectlyNormalized_Test )
+{
+    // Preparation
+    const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Normalize();
+
+    // Verification
+    float_q fSquaredLength = vVectorUT.GetSquaredLength();
+
+    BOOST_CHECK(SQFloat::AreEquals(fSquaredLength, EXPECTED_SQUAREDLENGTH));
+}
+
+/// <summary>
+/// Checks that the assertion fails when a null vector is to be normalized.
+/// </summary>
+QTEST_CASE ( Normalize1_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
+{
+    // Preparation
+    const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+
+	// Execution
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QVector3 vVectorUT = VECTOR;
+        vVectorUT.Normalize();
+    }
+    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    {
+        bAssertionFailed = true;
+    }
+
+    // Verification
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that a common vector becomes a unit vector.
+/// </summary>
+QTEST_CASE ( Normalize2_CommonVectorIsCorrectlyNormalized_Test )
+{
+    // Preparation
+    const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    
+	// Execution
+    QVector3 vNormalizedVectorUT;
+    VECTOR.Normalize(vNormalizedVectorUT);
+
+    // Verification
+    float_q fSquaredLength = vNormalizedVectorUT.GetSquaredLength();
+
+    BOOST_CHECK(SQFloat::AreEquals(fSquaredLength, EXPECTED_SQUAREDLENGTH));
+}
+
+/// <summary>
+/// Checks that the assertion fails when a null vector is to be normalized.
+/// </summary>
+QTEST_CASE ( Normalize2_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
+{
+    // Preparation
+    const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    QVector3 vNormalizedVector;
+
+	// Execution
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QVector3 vVectorUT = VECTOR;
+        vVectorUT.Normalize(vNormalizedVector);
+    }
+    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
+    {
+        bAssertionFailed = true;
+    }
+
+    // Verification
+    BOOST_CHECK(bAssertionFailed);
+}
+
+/// <summary>
+/// Checks that a vector object can be used as return value of its own method.
+/// </summary>
+QTEST_CASE ( Normalize2_VectorObjectCanBeUsedAsParameterOfItsOwnMethod_Test )
+{
+    // Preparation
+    const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Normalize(vVectorUT);
+
+    // Verification
+    float_q fSquaredLength = vVectorUT.GetSquaredLength();
+
+    BOOST_CHECK(SQFloat::AreEquals(fSquaredLength, EXPECTED_SQUAREDLENGTH));
+}
+
+/// <summary>
+/// Checks that a common vector is correctly inverted.
+/// </summary>
+QTEST_CASE ( Reverse1_CommonVectorIsCorrectlyInverted_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Reverse();
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that a common vector is correctly inverted.
+/// </summary>
+QTEST_CASE ( Reverse2_CommonVectorIsCorrectlyInverted_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
+    
+	// Execution
+    QVector3 vRevertedVectorUT;
+    VECTOR.Reverse(vRevertedVectorUT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vRevertedVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vRevertedVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vRevertedVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that a vector object can be used as return value of its own method.
+/// </summary>
+QTEST_CASE ( Reverse2_VectorObjectCanBeUsedAsParameterOfItsOwnMethod_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Reverse(vVectorUT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks that all vector components are set to one.
+/// </summary>
+QTEST_CASE ( ResetToOne_AllVectorComponentsAreSetToOne_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_1;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.ResetToOne();
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_ALL);
+}
+
+/// <summary>
+/// Checks that all vector components are set to zero.
+/// </summary>
+QTEST_CASE ( ResetToZero_AllVectorComponentsAreSetToZero_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.ResetToZero();
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_ALL);
+}
+
+/// <summary>
+/// Checks that it returns true when all vector components equal zero.
+/// </summary>
+QTEST_CASE ( IsZero_ReturnsTrueWhenAllVectorComponentsEqualZero_Test )
+{
+    // Preparation
+    const bool EXPECTED_RESULT = true;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+
+	// Execution
+    bool bResult = VECTOR.IsZero();
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns false when not all vector components equal zero.
+/// </summary>
+QTEST_CASE ( IsZero_ReturnsFalseWhenNotAllVectorComponentsEqualZero_Test )
+{
+    // Preparation
+    const bool EXPECTED_RESULT = false;
+
+    const QVector3 VECTOR_X_NOT_EQUAL_ZERO = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QVector3 VECTOR_Y_NOT_EQUAL_ZERO = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
+    const QVector3 VECTOR_Z_NOT_EQUAL_ZERO = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1);
+
+	// Execution
+    bool bResult = VECTOR_X_NOT_EQUAL_ZERO.IsZero();
+    bResult |= VECTOR_Y_NOT_EQUAL_ZERO.IsZero();
+    bResult |= VECTOR_Z_NOT_EQUAL_ZERO.IsZero();
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns true when all vector components equal one.
+/// </summary>
+QTEST_CASE ( IsVectorOfOnes_ReturnsTrueWhenAllVectorComponentsEqualOne_Test )
+{
+    // Preparation
+    const bool EXPECTED_RESULT = true;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+
+	// Execution
+    bool bResult = VECTOR.IsVectorOfOnes();
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns false when not all vector components equal one.
+/// </summary>
+QTEST_CASE ( IsVectorOfOnes_ReturnsFalseWhenNotAllVectorComponentsEqualOne_Test )
+{
+    // Preparation
+    const bool EXPECTED_RESULT = false;
+
+    const QVector3 VECTOR_X_NOT_EQUAL_ONE = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_1);
+    const QVector3 VECTOR_Y_NOT_EQUAL_ONE = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_1);
+    const QVector3 VECTOR_Z_NOT_EQUAL_ONE = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
+
+	// Execution
+    bool bResult = VECTOR_X_NOT_EQUAL_ONE.IsVectorOfOnes();
+    bResult |= VECTOR_X_NOT_EQUAL_ONE.IsVectorOfOnes();
+    bResult |= VECTOR_X_NOT_EQUAL_ONE.IsVectorOfOnes();
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
 // End - Test Suite: QVector3
 QTEST_SUITE_END()
