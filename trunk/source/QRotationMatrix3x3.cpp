@@ -50,19 +50,19 @@ QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fRotationAngleX, const flo
         const float_q& fF   = sin_q(fRotationAngleZ);
     #endif
 
-    float_q fBC  = fB * fC;
+    float_q fBC  = -fB * fC;
     float_q fBD  = fB * fD;
 
-    ij[0][0]  =  fE * fC - fF * fBD;
-    ij[0][1]  = -fA * fF;
-    ij[0][2]  =  fE * fD + fF * fBC;
+    ij[0][0]  =  fE * fC + fF * fBD;
+    ij[0][1]  =  fA * fF;
+    ij[0][2]  =  -fE * fD - fF * fBC;
 
-    ij[1][0]  =  fF * fC + fE * fBD;
+    ij[1][0]  =  -fF * fC + fE * fBD;
     ij[1][1]  =  fA * fE;
     ij[1][2]  =  fF * fD - fE * fBC;
 
-    ij[2][0]  =  -fA * fD;
-    ij[2][1]  =  fB;
+    ij[2][0]  =  fA * fD;
+    ij[2][1]  =  -fB;
     ij[2][2]  =  fA * fC;
 }
 
@@ -87,9 +87,9 @@ QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vRotationAxis, const
     const float_q& fG = (SQFloat::_1 - fA) * fD;
     const float_q& fH = (SQFloat::_1 - fA) * fE;
 
-    const float_q& fI = vRotationAxis.x * fB;
-    const float_q& fJ = vRotationAxis.y * fB;
-    const float_q& fK = vRotationAxis.z * fB;
+    const float_q& fI = -vRotationAxis.x * fB;
+    const float_q& fJ = -vRotationAxis.y * fB;
+    const float_q& fK = -vRotationAxis.z * fB;
 
     this->ij[0][0] = fA + (SQFloat::_1 - fA) * vRotationAxis.x * vRotationAxis.x;
     this->ij[0][1] = fF - fK;
@@ -104,6 +104,32 @@ QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vRotationAxis, const
     this->ij[2][2] = fA + (SQFloat::_1 - fA) * vRotationAxis.z * vRotationAxis.z;
 }
 
+/*
+Según http://osdir.com/ml/games.devel.algorithms/2002-11/msg00318.html
+...
+i.e.
+        "3D Game Engine Design", Page 17, Section 2.3.5, Eqn 2.13
+            and
+         "Rotating Objects Using Quaterions" (Corrected matrix)
+         Game Developer, Feb 98, Nick Bobick
+
+RHCS?
+                 2    2
+         [ 1 - 2y - 2z    2xy + 2wz      2xz - 2wy    ]
+         [                      2    2                ]
+         [ 2xy - 2wz      1 - 2x - 2z    2yz + 2wx    ]
+         [                                     2    2 ]
+         [ 2xz + 2wy      2yz - 2wx      1 - 2x - 2y  ]
+
+         Used by Watt&Watt, Parameetrization of orientation, Page 362
+LHCS?
+                 2    2
+         [ 1 - 2y - 2z    2xy - 2wz      2xz + 2wy    ]
+         [                      2    2                ]
+         [ 2xy + 2wz      1 - 2x - 2z    2yz - 2wx    ]
+         [                                     2    2 ]
+         [ 2xz - 2wy      2yz + 2wx      1 - 2x - 2y  ]
+*/
 QRotationMatrix3x3::QRotationMatrix3x3(const QBaseQuaternion &qRotation)
 {
     const float_q& fA   = SQFloat::_2 * qRotation.x * qRotation.x;
@@ -118,15 +144,15 @@ QRotationMatrix3x3::QRotationMatrix3x3(const QBaseQuaternion &qRotation)
     const float_q& fI   = SQFloat::_2 * qRotation.z * qRotation.w;
 
     this->ij[0][0] = SQFloat::_1 - fB - fC;
-    this->ij[0][1] = fD - fI;
-    this->ij[0][2] = fE + fH;
+    this->ij[0][1] = fD + fI;
+    this->ij[0][2] = fE - fH;
 
-    this->ij[1][0] = fD + fI;
+    this->ij[1][0] = fD - fI;
     this->ij[1][1] = SQFloat::_1 - fA - fC;
-    this->ij[1][2] = fG - fF;
+    this->ij[1][2] = fG + fF;
 
-    this->ij[2][0] = fE - fH;
-    this->ij[2][1] = fG + fF;
+    this->ij[2][0] = fE + fH;
+    this->ij[2][1] = fG - fF;
     this->ij[2][2] = SQFloat::_1 - fA - fB;
 }
 
