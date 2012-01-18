@@ -86,6 +86,7 @@ Es el trozo de código donde la ejecución de aquello que se quiere probar tiene
 *Verificación*
 
 Es la parte en que se realizan todas las comprobaciones para conocer si el test ha pasado o ha fallado, es decir, si se cumplen o no las condiciones esperadas en base a las acciones ejecutadas.
+Nota: Cuando se usen funciones de comprobación donde se comprueba que un par de valores son iguales o no, el parámetro izquierdo debe ser el resultado a comprobar, y el parámetro derecho el valor de referencia (normalmente constante).
 
 *Limpieza*
 
