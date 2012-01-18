@@ -68,6 +68,9 @@ QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fRotationAngleX, const flo
 
 QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle)
 {
+    // Taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
+    // but changing factors affected by sinus to get a left handed matrix.
+
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
         float_q &fAngleRad = SQAngle::DegreesToRadians(fRotationAngle, fAngleRad);
@@ -104,34 +107,10 @@ QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vRotationAxis, const
     this->ij[2][2] = fA + (SQFloat::_1 - fA) * vRotationAxis.z * vRotationAxis.z;
 }
 
-/*
-Según http://osdir.com/ml/games.devel.algorithms/2002-11/msg00318.html
-...
-i.e.
-        "3D Game Engine Design", Page 17, Section 2.3.5, Eqn 2.13
-            and
-         "Rotating Objects Using Quaterions" (Corrected matrix)
-         Game Developer, Feb 98, Nick Bobick
-
-RHCS?
-                 2    2
-         [ 1 - 2y - 2z    2xy + 2wz      2xz - 2wy    ]
-         [                      2    2                ]
-         [ 2xy - 2wz      1 - 2x - 2z    2yz + 2wx    ]
-         [                                     2    2 ]
-         [ 2xz + 2wy      2yz - 2wx      1 - 2x - 2y  ]
-
-         Used by Watt&Watt, Parameetrization of orientation, Page 362
-LHCS?
-                 2    2
-         [ 1 - 2y - 2z    2xy - 2wz      2xz + 2wy    ]
-         [                      2    2                ]
-         [ 2xy + 2wz      1 - 2x - 2z    2yz - 2wx    ]
-         [                                     2    2 ]
-         [ 2xz - 2wy      2yz + 2wx      1 - 2x - 2y  ]
-*/
 QRotationMatrix3x3::QRotationMatrix3x3(const QBaseQuaternion &qRotation)
 {
+    // Taken from http://osdir.com/ml/games.devel.algorithms/2002-11/msg00318.html
+
     const float_q& fA   = SQFloat::_2 * qRotation.x * qRotation.x;
     const float_q& fB   = SQFloat::_2 * qRotation.y * qRotation.y;
     const float_q& fC   = SQFloat::_2 * qRotation.z * qRotation.z;
