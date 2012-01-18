@@ -62,6 +62,12 @@ public:
     /// Constructor that receives 3 angles, one for each Euler angle, to construct the rotation
     /// matrix of a specified rotation.
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
+    /// The rotation matrix is obtained as follows:
+    ///
+    /// \f$ R = \begin{bmatrix} 1 & 0 & 0\\ 0 & \cos x  & \sin x\\ 0 & -\sin x & \cos x \end{bmatrix}
+    /// \begin{bmatrix} \cos y & 0 & -\sin y\\ 0 & 1 & 0\\ \sin y & 0 & \cos y \end{bmatrix}
+    /// \begin{bmatrix} \cos z & \sin z & 0 \\ -\sin z & \cos z & 0\\ 0 & 0 & 1 \end{bmatrix} \f$
+    ///
     /// This is a slow operation.
     /// </summary>
     /// <param name="fRotationAngleX">[IN] Rotation angle about X global axis.</param>
@@ -73,12 +79,11 @@ public:
 	/// Constructor from an angle and a spin axis defined by a vector. It's computed as follows:
 	///
 	/// \f$ R = \begin{bmatrix} \cos\theta & 0 & 0 \\ 0 & \cos\theta & 0 \\ 0 & 0 & \cos\theta \end{bmatrix} + (1- \cos\theta)\cdot
-	/// \begin{bmatrix} e_x & e_y & e_z\end{bmatrix} \cdot \begin{bmatrix} e_x \\ e_y \\ e_z\end{bmatrix} +
-	/// \begin{bmatrix} 0 & -e_z & e_y \\ e_z & 0 & -e_x \\ -e_y & e_x & 0 \end{bmatrix}\cdot \sin\theta \f$
+	/// \begin{bmatrix} e_x \\ e_y \\ e_z\end{bmatrix} \cdot \begin{bmatrix} e_x & e_y & e_z\end{bmatrix} +
+	/// \begin{bmatrix} 0 & e_z & -e_y \\ -e_z & 0 & e_x \\ e_y & -e_x & 0 \end{bmatrix}\cdot \sin\theta \f$
 	///
 	/// where \f$ e=(e_x, e_y, e_z)\f$, is a unit vector defining spin axis.
 	///
-    /// taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
 	/// </summary>
 	/// <param name="vRotationAxis">[IN] Vector in the direction of the spin axis.</param>
 	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
@@ -88,8 +93,13 @@ public:
     QRotationMatrix3x3(const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle);
 
     /// <summary>
-    /// Constructor from a quaternion.
-    /// taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_quaternion
+    /// Constructor from a quaternion. Is constructed as follows:
+    ///
+    /// \f$ R = \begin{bmatrix} 1 - 2(q_y^2 + q_z^2) & 2(q_xq_y - q_wq_z) & 2(q_xq_z + q_wq_y) \\
+    /// 2(q_xq_y + q_wq_z) & 1 - 2(q_x^2 + q_z^2) & 2(q_yq_z - q_wq_x) \\
+    /// 2(q_xq_z - q_wq_y) & 2(q_yq_z + q_wq_x) & 1 - 2(q_x^2 + q_y^2)
+    /// \end{bmatrix}\f$
+    ///
     /// </summary>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation.</param>
     /// <remarks>
