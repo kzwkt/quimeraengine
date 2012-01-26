@@ -20,8 +20,8 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in the space, which consists of a origin point, or position, and a direction. The direction
-/// symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
+/// Represents a ray in the space, which consists of a origin point, or position, and a direction.<br>
+/// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </summary>
 template<class VectorTypeOrigin, class VectorTypeDirection>
 class QDllExport QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
@@ -202,9 +202,9 @@ public:
     /// if it exists.
     /// </summary>
     /// <remarks>
-    /// Ray must be normalized to obtain a correct result.
-    /// -If there's no intersection point, the output parameter used for storing the point won't be modified.
-    /// -If there are one or two intersections, the output parameter stores the closest to ray origin.
+    /// Ray must be normalized to obtain a correct result.<br>
+    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br>
+    /// If there are one or two intersections, the output parameter stores the closest to ray origin.
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident ray we want to check.</param>
     /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
@@ -221,7 +221,6 @@ public:
 
     /// <summary>
 	/// Computes the intersection point between resident ray and provided orb, if it exists.
-	/// Ray must be normalized to ensure correct result.
 	/// </summary>
 	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
 	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
@@ -231,11 +230,11 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
-	/// Ray must be normalized to obtain a correct result.
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.
-    /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
+	/// Ray must be normalized to obtain a correct result.<br>
+	/// If there's no intersection point, the output parameters won't be modified.<br>
+	/// If there's one intersection point, the second output parameter won't be modified,
+	/// and first output parameter is filled with the intersection point.<br>
+    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection1, VectorTypeOrigin &vIntersection2) const
@@ -316,7 +315,7 @@ public:
     }
 
     /// <summary>
-	/// Converts ray into a string representation with the following format:
+	/// Converts ray into a string representation with the following format:<br>
 	/// "R:P(VectorTypeOrigin::ToString),D(VectorTypeDirection::ToString)".
     /// </summary>
     /// <returns>

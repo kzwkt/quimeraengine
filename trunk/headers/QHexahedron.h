@@ -21,11 +21,11 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.
+/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.<br>
 /// It's supossed that ABCD defines a face of the hexahedron (eventually the top face) and
-/// EFGH defines the opposite face (eventually the bottom one).
-/// The six faces are defined by the followings vertices: ABCD, EFGH, AEFD, ABHE, BCGH, CDFG
-/// The twelve edges are AB, BC, CD, DA, EF, FG, GH, HE, AE, BH, CG, DF
+/// EFGH defines the opposite face (eventually the bottom one).<br>
+/// The six faces are defined by the followings vertices: ABCD, EFGH, AEFD, ABHE, BCGH, CDFG.<br>
+/// The twelve edges are AB, BC, CD, DA, EF, FG, GH, HE, AE, BH, CG, DF.
 /// </summary>
 template <class VectorType>
 class QDllExport QHexahedron : public QBaseHexahedron<VectorType>
@@ -70,7 +70,7 @@ public:
 
     /// <summary>
     /// Constructor from a vector which defines the gravity center of the box and three floating
-    /// points values which defines its height (Y), width (X) and depth (Z).
+    /// points values which defines its height (Y), width (X) and depth (Z).<br>
     /// It's supossed that all edges are parallel to one of the axis.
     /// </summary>
     /// <param name="vCenter">[IN] Center point of the box.</param>
@@ -318,13 +318,16 @@ public:
 	}
 
     /// <summary>
-	/// This method store in the output parameter the six planes which defines the hexahedron. The six planes are:
-	/// plane A, B, C -> ABCD face, stored in element 0 of the array
-	/// plane E, F, G -> EFGH face, stored in element 1 of the array
-    /// plane A, E, F -> AEFD face, stored in element 2 of the array
-    /// plane A, B, H -> ABHE face, stored in element 3 of the array
-    /// plane B, C, G -> BCGH face, stored in element 4 of the array
-    /// plane C, D, F -> CDFG face, stored in element 5 of the array
+	/// This method store in the output parameter the six planes which defines the hexahedron.<br>
+	/// The six planes are:<br>
+	/// <br><ul>
+	/// <li>plane A, B, C -> ABCD face, stored in element 0 of the array</li>
+	/// <li>plane E, F, G -> EFGH face, stored in element 1 of the array</li>
+    /// <li>plane A, E, F -> AEFD face, stored in element 2 of the array</li>
+    /// <li>plane A, B, H -> ABHE face, stored in element 3 of the array</li>
+    /// <li>plane B, C, G -> BCGH face, stored in element 4 of the array</li>
+    /// <li>plane C, D, F -> CDFG face, stored in element 5 of the array</li>
+    /// </ul>
 	/// </summary>
 	/// <param name="arPlanes">[OUT] An array where to store the six planes. It must have at least six elements.</param>
 	/// <remarks>
@@ -361,9 +364,9 @@ public:
     }
 
     /// <summary>
-    /// Checks the relation between resident hexahedron and the provided plane.
+    /// Checks the relation between resident hexahedron and the provided plane.<br>
     /// Since a plane divides space into two parts, we can check if the "distances" (allowing distances having sign) from
-    /// the plane to all vertices of hexahedron have diferent sign, in which case the segment crosses the plane.
+    /// the plane to all vertices of hexahedron have diferent sign, in which case the segment crosses the plane.<br>
     /// If distances from plane to all vertices have the same sign, all hexahedron is in the same
     /// side of the space.
     /// </summary>
@@ -373,11 +376,12 @@ public:
     /// </remarks>
     /// <param name="plane">[IN] The plane the relation with resident hexahedron will be check.</param>
     /// <returns>
-    /// An integer value like follows:
-    ///     0 (Contained): All hexahedron lies on plane.
-    ///     1 (PositiveSide): The hexahedron is fully contained in the positive side of the space defined by the plane.
-    ///     2 (NegativeSide): The hexahedron is fully contained in the negative side of the space defined by the plane.
-    ///     3 (BothSides): The hexahedron crosses the plane.
+    /// An enumerated value like follows:
+    /// - Contained: All hexahedron lies on plane.
+    /// - PositiveSide: The hexahedron is fully contained in the positive side of the space defined by the plane.
+    /// - NegativeSide: The hexahedron is fully contained in the negative side of the space defined by the plane.
+    /// - BothSides: The hexahedron crosses the plane.
+    /// <br>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
@@ -423,7 +427,7 @@ public:
 	/// <param name="rotation">[IN] Rotation matrix which contais the rotation to be applied.</param>
 	/// <param name="outHexahedron">[OUT] The resultant rotated hexahedron.</param>
 	/// <remarks>
-	/// -The segment is NOT modified, it stays the same.
+	/// The segment is NOT modified, it stays the same.
 	/// </remarks>
 	inline void Rotate(const QRotationMatrix3x3 &rotation, QBaseHexahedron<VectorType> &outHexahedron) const
 	{
@@ -703,7 +707,7 @@ public:
     }
 
     /// <summary>
-    /// Converts hexahedron into a string with the following format:
+    /// Converts hexahedron into a string with the following format:<br>
     /// "H:A(<A.ToString>), B(<B.ToString>), C(<C.ToString>), D(<D.ToString>),
     /// E(<E.ToString>), F(<F.ToString>), G(<G.ToString>), H(<H.ToString>)".
     /// </summary>

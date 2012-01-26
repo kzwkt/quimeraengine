@@ -18,15 +18,16 @@ namespace Math
 {
 
 /// <summary>
-/// This class implements the functionality of a matrix with 3 rows and 3 columns.
-///
-/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix
-/// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.
+/// This class implements the functionality of a matrix with 3 rows and 3 columns.<br>
+/// A matrix is a rectangular arrangement of numbers.<br>
+/// The horizontal and vertical lines in a matrix
+/// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br>
 /// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m × n matrix,
-/// while m and n are called its dimensions. Every element is referenced by its position in the matrix.
+/// while m and n are called its dimensions.<br>
+/// Every element is referenced by its position in the matrix.<br>
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
-/// column: the element in the i row and the j column is denoted A_ij. In this case, we will work with 3x3 matrices,
-/// therefore our matrix will be:
+/// column: the element in the i row and the j column is denoted A_ij.<br>
+/// In this case, we will work with 3x3 matrices, therefore our matrix will be:
 ///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\end{bmatrix}\f$
 ///
@@ -168,13 +169,14 @@ public:
     QMatrix3x3 operator*(const float_q &fScalar) const;
 
     /// <summary>
-    /// Multiplies a 3x3 matrix by the current matrix.
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
-    /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
-    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// Multiplies a 3x3 matrix by the current matrix.<br>
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br>
+    /// So, left matrix must have same number of columns than rows have right matrix.<br>
+    /// The product is not conmutative.<br>
+    /// To perform a product of matrices, each element is calculated as
+    /// ( being A(m x n), B(n x p), C (m x p) ):
     ///
-    /// \f$ A x B = C \f$
+    /// \f$ A \times B = C \f$
     ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
@@ -189,13 +191,13 @@ public:
     QMatrix3x3 operator*(const QBaseMatrix3x3 &matrix) const;
 
     /// <summary>
-    /// Multiplies a 3x4 matrix by the current matrix.
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
-    /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
-    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// Multiplies a 3x4 matrix by the current matrix.<br>
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br>
+    /// So, left matrix must have same number of columns than rows have right matrix.<br>
+    /// The product is not conmutative.<br>
+    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
     ///
-    /// \f$ A x B = C \f$
+    /// \f$ A\times B = C \f$
     ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
@@ -362,7 +364,9 @@ public:
 
     /// <summary>
     /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row. Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$. It's noted \f$ A^T \f$.
+    /// and each column becomes a row.<br>
+    /// Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$.<br>
+    /// It's noted \f$ A^T \f$.
     /// </summary>
     /// <remarks>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -371,7 +375,9 @@ public:
 
     /// <summary>
     /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row. Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$. It's noted \f$ A^T \f$.
+    /// and each column becomes a row.<br>
+    /// Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$.<br>
+    /// It's noted \f$ A^T \f$.
     /// </summary>
     /// <remarks>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -411,10 +417,10 @@ public:
 
     /// <summary>
     /// Checks if all elements of the matrix are 0 or under tolerance (absolute value) except
-    /// elements where i==j, which must be 1.
+    /// elements where i=j, which must be 1.
     /// </summary>
     /// <returns>
-    /// True if all elements are 0 except i==j which are 1, false otherwise.
+    /// True if all elements are 0 except i=j which are 1, false otherwise.
     /// </returns>
     inline bool IsIdentity() const
     {
@@ -430,10 +436,11 @@ public:
     }
 
     /// <summary>
-    /// Calculates the determinant of the matrix.
-    /// It's only applicable to square matrices. A determinant is a real number obtained
+    /// Calculates the determinant of the matrix.<br>
+    /// It's only applicable to square matrices.<br>
+    /// A determinant is a real number obtained
     /// through the addition of all possible products between elements of different
-    /// row and column, where the sign of a product derives from the parity of the permutation involved.
+    /// row and column, where the sign of a product derives from the parity of the permutation involved.<br>
     /// In practice, we can calculate any determinant this way:
     ///
     /// Order 1: \f$\left|A\right| = a_{00}\f$
@@ -443,12 +450,12 @@ public:
     /// Order 3: \f$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$
     ///
     /// Any other order can be solved developing determinant by a row or a column, reducing
-    /// the problem to other of one order less.
+    /// the problem to other of one order less.<br>
     /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
     ///
     /// \f$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\f$,
     ///
-    /// where \f$ M_{ij}\f$ is the submatrix obtained by deleting from the original matrix the i row and the j column.
+    /// where \f$ M_{ij}\f$ is the submatrix obtained by deleting from the original matrix the i row and the j column.<br>
     /// After that, we add all products to obtain the final value of the determinant.
     /// </summary>
     /// <returns>
@@ -457,7 +464,7 @@ public:
     float_q GetDeterminant() const;
 
     /// <summary>
-    /// Inverses the matrix.
+    /// Inverses the matrix.<br>
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
     ///
     /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
@@ -475,7 +482,7 @@ public:
     bool Reverse();
 
     /// <summary>
-    /// Calculates the inverse of the matrix and stores it in the matrix provided.
+    /// Calculates the inverse of the matrix and stores it in the matrix provided.<br>
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
     ///
     /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
@@ -501,7 +508,7 @@ public:
     }
 
     /// <summary>
-    /// Converts matrix into a string with the following format:
+    /// Converts matrix into a string with the following format:<br>
     /// "M3x3( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 )( 41, 42, 43, 44 )".
     /// </summary>
     /// <returns>The string with the format specified.</returns>

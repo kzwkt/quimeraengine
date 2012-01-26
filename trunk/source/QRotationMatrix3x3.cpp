@@ -261,6 +261,8 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngleX, float_q &fRotatio
 
 void QRotationMatrix3x3::GetRotation(QQuaternion &qRotation) const
 {
+    // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/christian.htm
+
     qRotation.w = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] + this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
     qRotation.x = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] - this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
     qRotation.y = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] + this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
@@ -274,6 +276,9 @@ void QRotationMatrix3x3::GetRotation(QQuaternion &qRotation) const
 
 void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRotationAxis) const
 {
+    // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
+    // Source: http://en.wikipedia.org/wiki/Rotation_representation_%28mathematics%29#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
+
     const float_q &cosAux = (this->ij[0][0] + this->ij[1][1] + this->ij[2][2] - SQFloat::_1) * SQFloat::_0_5;
 
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.

@@ -25,8 +25,8 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in 3D space, which consists of a origin point or position, and a direction. The direction
-/// symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
+/// Represents a ray in 3D space, which consists of a origin point or position, and a direction.<br>
+/// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </summary>
 template <class VectorType>
 class QDllExport QRay3D : public QRay<VectorType, QVector3>
@@ -143,16 +143,21 @@ public:
     /// </returns>
     /// <remarks>
     /// If both rays intesect, the intersection point must verify both vectorial ecuations:
+    ///
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
+    ///
     /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
+    ///
     /// This ecuation is solved via vectorial products as follovs:
+    ///
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
+    ///
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
     ///
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed, and
-    /// it is verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
+    /// it is verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
     bool Intersection(const QBaseRay<VectorType, QVector3> &ray) const
@@ -205,19 +210,24 @@ public:
 	/// Checks if resident ray and provided line segment intersects.
 	/// </summary>
     /// <remarks>
-    /// A ray with direction from A to B with origin in A is constructed.
+    /// A ray with direction from A to B with origin in A is constructed.<br>
     /// If both rays intersects, the intersection point must verify both vectorial ecuations:
+    ///
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
+    ///
     /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
+    ///
     /// This ecuation is solved via vectorial products as follovs:
+    ///
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
+    ///
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
     ///
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
-    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.
-    /// Finally it's verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
+    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br>
+    /// Finally it's verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
 	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
@@ -291,15 +301,19 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided plane.
+    /// Checks if resident ray intersects with the provided plane.<br>
     /// Intersection point \f$ P_0 \f$ must verify both ecuations:
+    ///
     /// Ray equation: \f$ P_0 = P + t \cdot V \f$
-    /// Plane equation: \f$ aP_{0x} + bP_{0y} + cP_{0z} + d = N \cdot P_0 + D = 0 \f$
+    ///
+    /// Plane equation: \f$ aP_{0x} + bP_{0y} + cP_{0z} + d = N \cdot P_0 + d = 0 \f$
+    ///
     /// That is:
+    ///
     /// \f$ t = \frac{-(d + N \cdot P)}{N \cdot V} \f$
     ///
     /// - If \f$ N \cdot V = 0 \f$ ray and plane are parallels.
-    ///   Then, if \f$ d + N \cdot P = 0 \f$ ray lies on plane, otherwise there are no intersection.
+    ///  - Then, if \f$ d + N \cdot P = 0 \f$ ray lies on plane, otherwise there are no intersection.
     /// - If t < 0, there are no intersection (the ray straight line intersects the plane backwards the ray origin).
     /// </summary>
     /// <param name="plane">[IN] The plane we want check if intersects with resident ray.</param>
@@ -350,9 +364,8 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided hexahedron.
-    /// If the origin of the ray lies on one of the hexahedron faces,
-    /// we consider there is an intersection.
+    /// Checks if resident ray intersects with the provided hexahedron.<br>
+    /// If the origin of the ray lies on one of the hexahedron faces, we consider there is an intersection.
     /// </summary>
     /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with resident ray.</param>
     /// <returns>
@@ -361,11 +374,11 @@ public:
     inline bool Intersection (const QBaseHexahedron<VectorType> &hexahedron) const
     {
          // Checks if there is an intersection with any face.
-        return (this->Intersection(hexahedron.A, hexahedron.B, hexahedron.C, hexahedron.D) || 
+        return (this->Intersection(hexahedron.A, hexahedron.B, hexahedron.C, hexahedron.D) ||
                 this->Intersection(hexahedron.E, hexahedron.F, hexahedron.G, hexahedron.H) ||
-                this->Intersection(hexahedron.A, hexahedron.B, hexahedron.H, hexahedron.E) || 
+                this->Intersection(hexahedron.A, hexahedron.B, hexahedron.H, hexahedron.E) ||
                 this->Intersection(hexahedron.B, hexahedron.C, hexahedron.G, hexahedron.H) ||
-                this->Intersection(hexahedron.A, hexahedron.D, hexahedron.F, hexahedron.E) || 
+                this->Intersection(hexahedron.A, hexahedron.D, hexahedron.F, hexahedron.E) ||
                 this->Intersection(hexahedron.C, hexahedron.D, hexahedron.F, hexahedron.G));
     }
 
@@ -374,21 +387,29 @@ public:
 	/// Computes the intersection point between resident and provided ray, if it exists.
 	/// </summary>
     /// <remarks>
-	/// Rays must be normalized to ensure correct results.
-	/// -If there's no intersection point, or the rays are totally or parcially coincident,
+	/// Rays must be normalized to ensure correct results.<br>
+	/// If there's no intersection point, or the rays are totally or parcially coincident,
 	/// the output parameter used for storing that point won't be modified.
     ///
     /// If both rays intesect, the intersection point must verify both vectorial ecuations:
+    ///
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
+    ///
     /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
+    ///
     /// This ecuation is solved via vectorial products as follovs:
+    ///
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
+    ///
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
     ///
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed, and
-    /// it is verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
+    /// it is verified that:
+    ///
+    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
+    ///
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
 	/// </remarks>
 	/// <param name="ray">[IN] The ray whose intersection with resident ray will be checked.</param>
@@ -460,24 +481,31 @@ public:
 	/// Computes the intersection point between resident ray and provided line segment, if it exists.
 	/// </summary>
     /// <remarks>
-    /// A ray with direction from A to B with origin in A is constructed.
+    /// A ray with direction from A to B with origin in A is constructed.<br>
     /// If both rays intersects, the intersection point must verify both vectorial ecuations:
+    ///
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
+    ///
     /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
+    ///
     /// This ecuation is solved via vectorial products as follovs:
+    ///
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
+    ///
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
     ///
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
-    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.
-    /// Finally it's verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
-    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
-	///
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, output parameter is filled with the intersection point.
-    /// -If there are infinite intersection points, the output parameters won't be modified.
+    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br>
+    /// Finally it's verified that:
+    ///
+    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
+    ///
+    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br>
+	/// - If there's no intersection point, the output parameters won't be modified.
+	/// - If there's one intersection point, output parameter is filled with the intersection point.
+    /// - If there are infinite intersection points, the output parameters won't be modified.
 	/// </remarks>
 	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
 	/// <param name="vIntersection">[OUT] The intersection point with line segment, if it exists.</param>
@@ -566,10 +594,10 @@ public:
 	/// Computes the intersection point between resident ray and provided orb, if it exists.
 	/// </summary>
     /// <remarks>
-	/// Ray must be normalized to ensure correct result.
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, the output parameter stores it.
-    /// -If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// Ray must be normalized to ensure correct result.<br>
+	/// - If there's no intersection point, the output parameters won't be modified.
+	/// - If there's one intersection point, the output parameter stores it.
+    /// - If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
 	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
 	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
@@ -586,11 +614,11 @@ public:
 	/// Computes the intersection point between resident ray and provided orb, if it exists.
 	/// </summary>
     /// <remarks>
-	/// Ray must be normalized to ensure correct result.
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, the second output parameter won't be modified,
+	/// Ray must be normalized to ensure correct result.<br>
+	/// - If there's no intersection point, the output parameters won't be modified.
+	/// - If there's one intersection point, the second output parameter won't be modified,
 	/// and first output parameter is filled with the intersection point.
-    /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
+    /// - If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
 	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
@@ -606,22 +634,26 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided plane, calculating the intersection point.
+    /// Checks if resident ray intersects with the provided plane, calculating the intersection point.<br>
     /// Intersection point \f$ P_0 \f$ must verify both ecuations:
+    ///
     /// Ray equation: \f$ P_0 = P + t \cdot V \f$
+    ///
     /// Plane equation: \f$ aP_{0x} + bP_{0y} + cP_{0z} + d = N \cdot P_0 + D = 0 \f$
+    ///
     /// That is:
+    ///
     /// \f$ t = \frac{-(d + N \cdot P)}{N \cdot V} \f$
     ///
     /// - If \f$ N \cdot V = 0 \f$ ray and plane are parallels.
-    ///   Then, if \f$ d + N \cdot P = 0 \f$ ray lies on plane, otherwise there are no intersection.
+    ///  - Then, if \f$ d + N \cdot P = 0 \f$ ray lies on plane, otherwise there are no intersection.
     /// - If t < 0, there are no intersection (the ray straight line intersects the plane backwards the ray position).
     /// </summary>
     /// <param name="plane">[IN] The plane we want check if intersects with resident ray.</param>
     /// <param name="vIntersection">[OUT] The point where they intersect, if they do.</param>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the plane, and can take
-    /// the following values: E_None, E_One and E_Infinite.
+    /// the following values: E_None, E_One and E_Infinite.<br>
     /// If there are no intersections or ray lies on plane, the output parameter is not modified.
     /// </returns>
     EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
@@ -664,9 +696,9 @@ public:
     /// the following values: E_None, E_One or E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter won't be modified.
-	/// -If there's one intersection point, the output parameter stores it.
-    /// -If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// - If there's no intersection point, the output parameter won't be modified.
+	/// - If there's one intersection point, the output parameter stores it.
+    /// - If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection) const
     {
@@ -679,10 +711,10 @@ public:
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
     /// <remarks>
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, the second output parameter won't be modified,
+	/// - If there's no intersection point, the output parameters won't be modified.
+	/// - If there's one intersection point, the second output parameter won't be modified,
 	/// and first output parameter is filled with the intersection point.
-    /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
+    /// - If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
 	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
@@ -1015,9 +1047,9 @@ public:
     /// which can takes the following values: E_None, E_One, E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter used for storing the intersection point won't be modified.
-	/// -If there is only one intersection point, it's stored in the output parameter.
-	/// -If there are two intersections, the output parameter stores the closest point to origin of ray.
+	/// - If there's no intersection point, the output parameter used for storing the intersection point won't be modified.
+	/// - If there is only one intersection point, it's stored in the output parameter.
+	/// - If there are two intersections, the output parameter stores the closest point to origin of ray.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
 	{
@@ -1037,9 +1069,9 @@ public:
     /// which can takes the following values: E_None, E_One, E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameters used for storing the intersection points won't be modified.
-	/// -If there is only one intersection point, it's stored in the first output parameter, and the second one is not modified.
-	/// -If there are two intersections, the first output parameter stores the closest point to origin of ray.
+	/// - If there's no intersection point, the output parameters used for storing the intersection points won't be modified.
+	/// - If there is only one intersection point, it's stored in the first output parameter, and the second one is not modified.
+	/// - If there are two intersections, the first output parameter stores the closest point to origin of ray.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
@@ -1238,11 +1270,11 @@ public:
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check the relation with resident ray.</param>
     /// <returns>
-    /// An enumerated value like follows:
-    ///     0 (E_Contained): The ray lies on plane.
-    ///     1 (E_PositiveSide): The ray is fully contained in the positive side of the space defined by the plane.
-    ///     2 (E_NegativeSide): The ray is fully contained in the negative side of the space defined by the plane.
-    ///     3 (E_BothSides): The ray cross the plane.
+    /// An enumerated value like follows:<br>
+    /// - 0 (E_Contained): The ray lies on plane.
+    /// - 1 (E_PositiveSide): The ray is fully contained in the positive side of the space defined by the plane.
+    /// - 2 (E_NegativeSide): The ray is fully contained in the negative side of the space defined by the plane.
+    /// - 3 (E_BothSides): The ray cross the plane.
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
@@ -1430,7 +1462,7 @@ public:
 	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
 	/// <param name="outRay">[OUT] The resultant scaled ray.</param>
-	inline void Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, 
+	inline void Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ,
                       QBaseRay<QVector3, QVector3> &outRay) const
 	{
         outRay = *this;
@@ -1463,7 +1495,7 @@ public:
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
 	/// <param name="outRay">[OUT] The resultant scaled ray.</param>
-	inline void ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot, 
+	inline void ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot,
                                QBaseRay<QVector3, QVector3> &outRay) const
 	{
         outRay = *this;
@@ -1777,7 +1809,7 @@ public:
 	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
 	/// <param name="outRay">[OUT] The resultant ray.</param>
-	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot, 
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot,
                                    QBaseRay<QVector3, QVector3> &outRay) const
     {
         outRay = *this;
@@ -1794,7 +1826,7 @@ public:
 	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of transformation.</param>
 	/// <param name="outRay">[OUT] The resultant ray.</param>
-	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, 
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation,
                                    const VectorType &vPivot, QBaseRay<QVector3, QVector3> &outRay) const
     {
         outRay = *this;
@@ -1857,7 +1889,7 @@ protected:
     // applying barycentric technique. Is supossed that quadrilateral vertex are consecutive.
     template <class VectorTypeParam>
     bool PointInsideQuadrilateral(const VectorTypeParam &vVertexA, const VectorTypeParam &vVertexB,
-                                  const VectorTypeParam &vVertexC,const VectorTypeParam &vVertexD, 
+                                  const VectorTypeParam &vVertexC,const VectorTypeParam &vVertexD,
                                   const VectorTypeParam &vPoint) const
     {
         // Compute vectors

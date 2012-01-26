@@ -22,10 +22,11 @@ namespace Math
 class QTransformationMatrix3x3;
 
 /// <summary>
-/// This class implements two components vector functionality. It inherits from QBaseVector2.
-///	A vector is a geometric object that has both a magnitude (or length) and direction.
+/// This class implements two components vector functionality.<br>
+///	A vector is a geometric object that has both a magnitude (or length) and direction.<br>
 ///	It is frequently represented by a line segment with a definite direction, or graphically as an arrow,
-///	connecting an initial point A with a terminal point B. The vector is then denoted by AB with a arrow hat.
+///	connecting an initial point A with a terminal point B.<br>
+/// The vector is then denoted by AB with a arrow hat: \f$ \overrightarrow{AB}\f$.
 /// </summary>
 class QDllExport QVector2 : public QBaseVector2
 {
@@ -190,7 +191,8 @@ public:
 	QVector2 operator*(const float_q &fScalar) const;
 
 	/// <summary>
-	/// Product by a vector: it's performed component by component. It's not dot product or cross product!
+	/// Product by a vector: it's performed component by component.<br>
+	/// It's not dot product or cross product!
 	/// </summary>
 	/// <param name="vVector">[IN] Multiplying vector.</param>
 	/// <returns>
@@ -226,7 +228,7 @@ public:
 	QVector2 operator/(const QBaseVector2 &vVector) const;
 
 	/// <summary>
-	/// Product by a scalar: all components are multiplied by the floating point value provided.
+	/// Product by a scalar: all components are multiplied by the floating point value provided.<br>
 	/// Shorcut to multiply on the left.
 	/// </summary>
 	/// <param name="fScalar">[IN] Multiplying floating point value.</param>
@@ -282,7 +284,8 @@ public:
 	}
 
 	/// <summary>
-    /// Multiplies resident vector by a matrix with 2 rows and 2 columns provided. It's performed with matrix product rules.
+    /// Multiplies resident vector by a matrix with 2 rows and 2 columns provided.<br>
+    /// It's performed with matrix product rules.
     /// </summary>
     /// <param name="matrix">[IN] Multiplying matrix.</param>
     /// <returns>
@@ -301,7 +304,9 @@ public:
 	}
 
 	/// <summary>
-	/// Multiplies current vector by a vector provided. It's performed component by component. It's not dot product or cross product!
+	/// Multiplies current vector by a vector provided.<br>
+	/// It's performed component by component.<br>
+	/// It's not dot product or cross product!
 	/// </summary>
 	/// <param name="vVector">[IN] Multiplying vector.</param>
 	/// <returns>
@@ -336,7 +341,8 @@ public:
 	}
 
 	/// <summary>
-	/// Divides current vector by a vector provided. It's performed component by component.
+	/// Divides current vector by a vector provided.<br>
+	/// It's performed component by component.
 	/// </summary>
 	/// <param name="vVector">[IN] Dividing vector.</param>
 	/// <returns>
@@ -355,7 +361,8 @@ public:
 	}
 
     /// <summary>
-    /// Assign operator. Assigns the provided vector to the resident vector.
+    /// Assign operator.<br>
+    /// Assigns the provided vector to the resident vector.
     /// </summary>
     /// <param name="vVector">[IN] The vector to be assigned.</param>
     /// <returns>
@@ -464,14 +471,16 @@ public:
 
 	/// <summary>
 	/// Applies a transformation to resident vector, multiplying the vector by a transformation matrix
-	/// to transform it. The transformation can be a rotation, scaling or translation, or a combination of them.
+	/// to transform it.<br>
+	/// The transformation can be a rotation, scaling or translation, or a combination of them.
 	/// </summary>
 	/// <param name="matrix">[IN] The transformation matrix.</param>
 	void Transform(const QTransformationMatrix3x3 &matrix);
 
 	/// <summary>
 	/// Applies a transformation to resident vector, multiplying the vector by a transformation matrix
-	/// to transform it. The transformation can be a rotation, scaling or translation, or a combination of them.
+	/// to transform it.<br>
+	/// The transformation can be a rotation, scaling or translation, or a combination of them.<br>
 	/// The transformed vector is stored into the provided one. No change to the resident vector.
 	/// </summary>
 	/// <param name="matrix">[IN] The transformation matrix.</param>
@@ -485,8 +494,9 @@ public:
 	void Transform(const float_q& fRotationAngle);
 
 	/// <summary>
-	/// Apply a 2D rotation about the origin of the resident vector. The rotated vector is stored into the provided
-	/// one. No change to the resident vector.
+	/// Apply a 2D rotation about the origin of the resident vector.<br>
+	/// The rotated vector is stored into the provided one.<br>
+	/// No change to the resident vector.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The rotation angle.</param>
 	/// <param name="vOutVector">[OUT] Vector where to store the result of rotation.</param>
@@ -522,12 +532,13 @@ public:
     /// </summary>
     /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
-    /// A floating point value which is the smaller angle between vectors (less or equal 180º).
+    /// A floating point value which is the smaller angle between vectors (less or equal \f$ 180^0\f$).
     /// </returns>
     float_q DotProductAngle(const QVector2 &vVector) const;
 
 	/// <summary>
-	/// Makes a Linear Interpolation between current vector and other vector provided. It stores result in current vector.
+	/// Makes a Linear Interpolation between current vector and other vector provided.<br>
+	/// It stores result in current vector.
 	/// </summary>
 	/// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
 	/// <param name="vVector">[IN] Vector with which to interpolate.</param>
@@ -538,7 +549,8 @@ public:
 	}
 
     /// <summary>
-    /// Makes a Linear Interpolation between resident vector and other vector provided. It stores result in a vector provided.
+    /// Makes a Linear Interpolation between resident vector and other vector provided.<br>
+    /// It stores result in a vector provided.
     /// </summary>
     /// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the resident vector (per one).</param>
     /// <param name="vVector">[IN] Vector with which to interpolate.</param>
@@ -550,7 +562,8 @@ public:
     }
 
 	/// <summary>
-	/// Calculates the distance between two vector heads (or two points). It computes the difference of two vectors and returns its length.
+	/// Calculates the distance between two vector heads (or two points).<br>
+	/// It computes the difference of two vectors and returns its length.
 	/// </summary>
 	/// <param name="vVector">[IN] Vector we want to calculate the distance from current vector.</param>
 	/// <returns>
@@ -562,7 +575,8 @@ public:
 	}
 
 	/// <summary>
-	/// Converts vector into a string with the following format: "V2(x, y)".
+	/// Converts vector into a string with the following format:<br>
+	/// "V2(x, y)".
 	/// </summary>
 	/// <returns>
 	/// The string with the format specified.

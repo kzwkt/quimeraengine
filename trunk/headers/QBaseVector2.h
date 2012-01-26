@@ -48,7 +48,7 @@ public:
 	/// Constructor that receives only 1 number. Sets all attributes to that value.
 	/// </summary>
 	/// <param name="fValueAll">[IN] Value for all components</param>
-	inline explicit QBaseVector2(const float_q &fValueAll) : x(fValueAll), y(fValueAll) 
+	inline explicit QBaseVector2(const float_q &fValueAll) : x(fValueAll), y(fValueAll)
     {
     }
 
@@ -67,9 +67,10 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor that receives a 4x32 packed floating point value. The first two packed components are saved into the components of the vector.
+	/// Constructor that receives a 4x32 packed floating point value.<br>
+	/// The first two packed components are saved into the components of the vector.
 	/// </summary>
-	/// <param name="value">[IN] 4x32 packed floating point containing the three components.
+	/// <param name="value">[IN] 4x32 packed floating point containing the three components.<br>
 	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Ignored), 4th value (Ignored).</param>
 	inline explicit QBaseVector2(const vf32_q &value)
 	{

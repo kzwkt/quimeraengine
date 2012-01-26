@@ -32,7 +32,7 @@ public:
 	/// <summary>
 	/// Default constructor. Initializes vector to (0,0,0)
 	/// </summary>
-	inline QBaseVector3() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0) 
+	inline QBaseVector3() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0)
     {
     }
 
@@ -42,7 +42,7 @@ public:
 	/// <param name="fValueX">[IN] Value for x component.</param>
 	/// <param name="fValueY">[IN] Value for y component.</param>
 	/// <param name="fValueZ">[IN] Value for z component.</param>
-	inline QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) : 
+	inline QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) :
                             x(fValueX), y(fValueY), z(fValueZ)
     {
     }
@@ -51,7 +51,7 @@ public:
 	/// Constructor from a floating point value for all components.
 	/// </summary>
 	/// <param name="fValueAll">[IN] Value for all components.</param>
-	inline explicit QBaseVector3(const float_q &fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll) 
+	inline explicit QBaseVector3(const float_q &fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll)
     {
     }
 
@@ -73,7 +73,7 @@ public:
 	/// <summary>
 	/// Constructor from a 4x32 packed floating point value.
 	/// </summary>
-	/// <param name="value">[IN] 4x32 packed floating point containing the three components.
+	/// <param name="value">[IN] 4x32 packed floating point containing the three components.<br>
 	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (Ignored).</param>
 	inline explicit QBaseVector3(const vf32_q value)
 	{

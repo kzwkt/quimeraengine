@@ -23,7 +23,8 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in 3D. Methods in this class are related to transformations in 3D.
+/// Class which represents a triangle in 3D.<br>
+/// Methods in this class are related to transformations in 3D.
 /// </summary>
 template <class VectorType>
 class QDllExport QTriangle3D : public QTriangle<VectorType>
@@ -51,12 +52,13 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from three pointer-to-float type, one for each vertex. Each pointer references to an array which has at least three or four elements.
+	/// Constructor from three pointer-to-float type, one for each vertex.<br>
+	/// Each pointer references to an array which has at least three or four elements.
 	/// </summary>
 	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
 	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
 	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
-	inline QTriangle3D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) : 
+	inline QTriangle3D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
                            QTriangle<VectorType>(arValuesA, arValuesB, arValuesC)
     {
     }
@@ -67,7 +69,7 @@ public:
 	/// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
 	/// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
 	/// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QTriangle3D(const vf32_q& valueA, const vf32_q& valueB, const vf32_q& valueC) : 
+	inline QTriangle3D(const vf32_q& valueA, const vf32_q& valueB, const vf32_q& valueC) :
                            QTriangle<VectorType>(valueA, valueB, valueC)
     {
     }
@@ -78,7 +80,8 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator. Assigns the provided triangle to the resident triangle.
+	/// Assign operator.<br>
+	/// Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] 3D triangle that is assigned to current triangle.</param>
 	inline QTriangle3D& operator=(const QBaseTriangle<VectorType> &triangle)
@@ -88,7 +91,7 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates triangle's normal vector.
+	/// Calculates triangle's normal vector.<br>
 	/// Follows left-handed rule, as Quimera requires.
 	/// </summary>
 	/// <param name="vNormal">[OUT] Vector that will contain the normal vector.</param>
@@ -98,7 +101,7 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates triangle's normal vector.
+	/// Calculates triangle's normal vector.<br>
 	/// Follows left-handed rule, as Quimera requires.
 	/// </summary>
 	/// <param name="vNormal">[OUT] Vector that will contain the normal vector.</param>
@@ -113,7 +116,7 @@ public:
 	/// <param name="vCircumcenter">[OUT] Vector type that will contain the triangle´s circumcenter.</param>
 	void GetCircumcenter(VectorType &vCircumcenter) const
 	{
-        /// More information: https://www.box.net/shared/9736bjiyq1
+        // More information: https://www.box.net/shared/9736bjiyq1
 
 		//STEP 1: Calculate all previous stuff
 		VectorType vA(this->B - this->A);
@@ -175,7 +178,7 @@ public:
 	/// <param name="fTranslationY">[IN] Scalar value that contains the translation on Y axis.</param>
 	/// <param name="fTranslationZ">[IN] Scalar value that contains the translation on Z axis.</param>
 	/// <param name="outTriangle">[OUT] Triangle which stores the translated one.</param>
-	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ, 
+	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ,
                           QBaseTriangle<VectorType>& outTriangle) const
 	{
 		outTriangle = *this;
@@ -523,7 +526,7 @@ public:
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	/// <param name="outTriangle">[OUT] The transformed triangle.</param>
-	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot, 
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot,
                                    QBaseTriangle<VectorType> &outTriangle) const
 	{
 	    outTriangle = *this;
@@ -548,7 +551,7 @@ public:
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
 	/// <param name="outTriangle">[OUT] The transformed triangle.</param>
-	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot, 
+	inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot,
                                    QBaseTriangle<VectorType> &outTriangle) const
 	{
 	    outTriangle = *this;
@@ -556,13 +559,18 @@ public:
 	}
 
 	/// <summary>
-	/// Checks the space relation between current triangle and a plane recieved as parameter. Space Relation means that
+	/// Checks the space relation between current triangle and a plane recieved as parameter.<br>
+	/// Space Relation means that
 	/// the triangle is in the positive side of the space divided by the plane, in the negative side, in both sides (intersection)
 	/// or even the triangle is contained in the plane.
 	/// </summary>
 	/// <param name="plane">[IN] The plane we want check the relation with current triangle.</param>
     /// <returns>
-    /// An enumerated value like follows: Contained in the plane, Positive Side, Negative Side or Both Sides (intersects the plane).
+    /// An enumerated value like follows:<br>
+    /// - Contained in the plane
+    /// - Positive Side
+    /// - Negative Side
+    /// - Both Sides (intersects the plane).
     /// </returns>
 	EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
@@ -615,7 +623,7 @@ public:
 	/// <param name="vOrthocenter">[OUT] Vector to store the triangle´s orthocenter.</param>
 	inline void GetOrthocenter(VectorType &vOrthocenter)
 	{
-	    /// Method from here: http://descartes.cnice.mec.es/materiales_didacticos/OrtoCircun/Ortocentro.htm
+	    // Method from here: http://descartes.cnice.mec.es/materiales_didacticos/OrtoCircun/Ortocentro.htm
 
 	    const VectorType &vAB = this->B - this->A;
 	    const VectorType &vBC = this->C - this->B;
@@ -649,7 +657,7 @@ public:
 protected:
 
 	/// <summary>
-	/// Template method that calculates triangle's normal vector.
+	/// Template method that calculates triangle's normal vector.<br>
 	/// Follows left-handed rule, as Quimera requires.
 	/// </summary>
 	/// <param name="vNormal">[OUT] Vector type which will store the normal vector.</param>

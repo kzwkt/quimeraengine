@@ -45,7 +45,8 @@ public:
     /// 2D TRANSFORMATIONS
 
 	/// <summary>
-	/// Translates 2D points. Translation will be applied to all points in the array.
+	/// Translates 2D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="vTranslation">[IN] 2D Vector type that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be translated.</param>
@@ -59,7 +60,8 @@ public:
 	}
 
 	/// <summary>
-	/// Translates 2D points. Translation will be applied to all points in the array.
+	/// Translates 2D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="fTranslationX">[IN] Floating point value that contains the translation to be applied on X component.</param>
     /// <param name="fTranslationY">[IN] Floating point value that contains the translation to be applied on Y component.</param>
@@ -75,7 +77,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 2D points. Rotation will be applied to all points in the array.
+	/// Rotates 2D points.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="fRotationAngle">[IN] Floating point value that contains the angle that we will use to rotate the points.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be rotated.</param>
@@ -89,7 +92,8 @@ public:
 	}
 
 	/// <summary>
-	/// Scales 2D points. Scale will be applied to all points in the array.
+	/// Scales 2D points.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="vScale">[IN] 2D Vector type that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled.</param>
@@ -103,7 +107,8 @@ public:
 	}
 
 	/// <summary>
-	/// Scales 2D points. Scale will be applied to all points in the array.
+	/// Scales 2D points.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="fScaleX">[IN] Floating point value that contains the scale to be applied on X component.</param>
     /// <param name="fScaleY">[IN] Floating point value that contains the scale to be applied on Y component.</param>
@@ -119,7 +124,8 @@ public:
 	}
 
 	/// <summary>
-	/// Transforms 2D points using a transformation matrix. Transformation will be applied to all points in the array.
+	/// Transforms 2D points using a transformation matrix.<br>
+	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] Transformation matrix that will be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be translated.</param>
@@ -132,10 +138,11 @@ public:
         }
 	}
 
-	/// 3D TRANSFORMATIONS
+	// 3D TRANSFORMATIONS
 
 	/// <summary>
-	/// Translates 3D points. Translation will be applied to all points in the array.
+	/// Translates 3D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated.</param>
@@ -149,7 +156,8 @@ public:
 	}
 
 	/// <summary>
-	/// Translates 4D points. Translation will be applied to all points in the array.
+	/// Translates 4D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated.</param>
@@ -163,7 +171,8 @@ public:
 	}
 
 	/// <summary>
-	/// Translates 3D points. Translation will be applied to all points in the array.
+	/// Translates 3D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="fTranslationX">[IN] Scalar value that contains the translation to be applied on X component.</param>
     /// <param name="fTranslationY">[IN] Scalar value that contains the translation to be applied on Y component.</param>
@@ -179,7 +188,8 @@ public:
 	}
 
 	/// <summary>
-	/// Translates 4D points. Translation will be applied to all points in the array.
+	/// Translates 4D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="fTranslationX">[IN] Scalar value that contains the translation to be applied on X component.</param>
     /// <param name="fTranslationY">[IN] Scalar value that contains the translation to be applied on Y component.</param>
@@ -195,7 +205,8 @@ public:
 	}
 
 	/// <summary>
-	/// Translates 3D points. Translation will be applied to all points in the array.
+	/// Translates 3D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="translation">[IN] 4x3 matrix that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated.</param>
@@ -209,7 +220,8 @@ public:
 	}
 
 	/// <summary>
-	/// Translates 3D points. Translation will be applied to all points in the array.
+	/// Translates 3D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="translation">[IN] 4x4 matrix that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated.</param>
@@ -223,7 +235,8 @@ public:
 	}
 
 	/// <summary>
-	/// Translates 4D points. Translation will be applied to all points in the array.
+	/// Translates 4D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="translation">[IN] 4x3 matrix that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated.</param>
@@ -237,7 +250,8 @@ public:
 	}
 
 	/// <summary>
-	/// Translates 4D points. Translation will be applied to all points in the array.
+	/// Translates 4D points.<br>
+	/// Translation will be applied to all points in the array.
 	/// </summary>
     /// <param name="translation">[IN] 4x4 matrix that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated.</param>
@@ -251,7 +265,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 3D points. Rotation will be applied to all points in the array.
+	/// Rotates 3D points.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated.</param>
@@ -265,7 +280,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 4D points. Rotation will be applied to all points in the array.
+	/// Rotates 4D points.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated.</param>
@@ -279,7 +295,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 3D points. Rotation will be applied to all points in the array.
+	/// Rotates 3D points.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="rotation">[IN] Rotation matrix that contains the rotation to be done.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated.</param>
@@ -293,7 +310,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 4D points. Rotation will be applied to all points in the array.
+	/// Rotates 4D points.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="rotation">[IN] Rotation matrix that contains the rotation to be done.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated.</param>
@@ -307,7 +325,8 @@ public:
 	}
 
 	/// <summary>
-	/// Scales 3D points. Scale will be applied to all points in the array.
+	/// Scales 3D points.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled.</param>
@@ -321,7 +340,8 @@ public:
 	}
 
 	/// <summary>
-	/// Scales 4D points. Scale will be applied to all points in the array.
+	/// Scales 4D points.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled.</param>
@@ -335,7 +355,8 @@ public:
 	}
 
 	/// <summary>
-	/// Scales 3D points. Scale will be applied to all points in the array.
+	/// Scales 3D points.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="fScaleX">[IN] Floating point value that contains the scale to be applied on X component.</param>
     /// <param name="fScaleY">[IN] Floating point value that contains the scale to be applied on Y component.</param>
@@ -351,7 +372,8 @@ public:
 	}
 
 	/// <summary>
-	/// Scales 4D points. Scale will be applied to all points in the array.
+	/// Scales 4D points.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="fScaleX">[IN] Floating point value that contains the scale to be applied on X component.</param>
     /// <param name="fScaleY">[IN] Floating point value that contains the scale to be applied on Y component.</param>
@@ -367,7 +389,8 @@ public:
 	}
 
 	/// <summary>
-	/// Scales 3D points. Scale will be applied to all points in the array.
+	/// Scales 3D points.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="scale">[IN] Scale matrix that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled.</param>
@@ -381,7 +404,8 @@ public:
 	}
 
 	/// <summary>
-	/// Scales 4D points. Scale will be applied to all points in the array.
+	/// Scales 4D points.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="scale">[IN] Scale matrix that contains the Scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled.</param>
@@ -395,7 +419,8 @@ public:
 	}
 
 	/// <summary>
-	/// Transforms 3D points. Transformation will be applied to all points in the array.
+	/// Transforms 3D points.<br>
+	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] 4x3 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
@@ -409,7 +434,8 @@ public:
 	}
 
 	/// <summary>
-	/// Transforms 3D points. Transformation will be applied to all points in the array.
+	/// Transforms 3D points.<br>
+	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] 4x4 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
@@ -423,7 +449,8 @@ public:
 	}
 
 	/// <summary>
-	/// Transforms 4D points. Transformation will be applied to all points in the array.
+	/// Transforms 4D points.<br>
+	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] 4x3 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
@@ -437,7 +464,8 @@ public:
 	}
 
 	/// <summary>
-	/// Transforms 4D points. Transformation will be applied to all points in the array.
+	/// Transforms 4D points.<br>
+	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] 4x4 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
@@ -451,7 +479,8 @@ public:
 	}
 
 	/// <summary>
-	/// Transforms 3D points. Transformation will be applied to all points in the array.
+	/// Transforms 3D points.<br>
+	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="spaceConversion">[IN] Space conversion matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
@@ -465,7 +494,8 @@ public:
 	}
 
 	/// <summary>
-	/// Transforms 4D points. Transformation will be applied to all points in the array.
+	/// Transforms 4D points.<br>
+	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="spaceConversion">[IN] Space conversion matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
@@ -479,7 +509,8 @@ public:
 	}
 
     /// <summary>
-	/// Rotates 2D points, using the provided pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// Rotates 2D points, using the provided pivot as the center of transformation.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="fRotationAngle">[IN] Floating point value that contains the angle that we will use to rotate the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -498,7 +529,8 @@ public:
 	}
 
     /// <summary>
-	/// Scales 2D points, using the provided pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// Scales 2D points, using the provided pivot as the center of transformation.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="fScaleX">[IN] Scale to be applied to the X dimension.</param>
     /// <param name="fScaleY">[IN] Scale to be applied to the Y dimension.</param>
@@ -519,7 +551,8 @@ public:
 	}
 
     /// <summary>
-	/// Scales 2D points, using the provided pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// Scales 2D points, using the provided pivot as the center of transformation.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="vScale">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -538,7 +571,8 @@ public:
 	}
 
     /// <summary>
-	/// Transforms 2D points, using the provided pivot as the center of transformation. Transformation will be applied to all points in the array.
+	/// Transforms 2D points, using the provided pivot as the center of transformation.<br>
+	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] Transformation to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -557,7 +591,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 3D points, using the provided pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// Rotates 3D points, using the provided pivot as the center of transformation.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -576,7 +611,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 4D points, using the provided pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// Rotates 4D points, using the provided pivot as the center of transformation.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -595,7 +631,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 3D points, using the provided pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// Rotates 3D points, using the provided pivot as the center of transformation.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="rotation">[IN] Rotation to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -614,7 +651,8 @@ public:
 	}
 
 	/// <summary>
-	/// Rotates 4D points, using the provided pivot as the center of transformation. Rotation will be applied to all points in the array.
+	/// Rotates 4D points, using the provided pivot as the center of transformation.<br>
+	/// Rotation will be applied to all points in the array.
 	/// </summary>
     /// <param name="rotation">[IN] Rotation to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -633,7 +671,8 @@ public:
 	}
 
     /// <summary>
-	/// Scales 3D points, using the provided pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// Scales 3D points, using the provided pivot as the center of transformation.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="vScale">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -652,7 +691,8 @@ public:
 	}
 
     /// <summary>
-	/// Scales 4D points, using the provided pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// Scales 4D points, using the provided pivot as the center of transformation.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="vScale">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -671,7 +711,8 @@ public:
 	}
 
     /// <summary>
-	/// Scales 3D points, using the provided pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// Scales 3D points, using the provided pivot as the center of transformation.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="fScaleX">[IN] Scale to be applied to the points in the X dimension.</param>
     /// <param name="fScaleY">[IN] Scale to be applied to the points in the Y dimension.</param>
@@ -679,7 +720,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const float_q &fScaleX, const float_q  fScaleY, const float_q &fScaleZ, const QBaseVector3 &vPivot, 
+	inline static void ScaleWithPivot(const float_q &fScaleX, const float_q  fScaleY, const float_q &fScaleZ, const QBaseVector3 &vPivot,
                                       QVector3* arPoints, const unsigned int &uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
@@ -693,7 +734,8 @@ public:
 	}
 
     /// <summary>
-	/// Scales 4D points, using the provided pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// Scales 4D points, using the provided pivot as the center of transformation.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="fScaleX">[IN] Scale to be applied to the points in the X dimension.</param>
     /// <param name="fScaleY">[IN] Scale to be applied to the points in the Y dimension.</param>
@@ -701,7 +743,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QBaseVector4 &vPivot, 
+	inline static void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QBaseVector4 &vPivot,
                                       QVector4* arPoints, const unsigned int &uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
@@ -715,7 +757,8 @@ public:
 	}
 
     /// <summary>
-	/// Scales 3D points, using the provided pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// Scales 3D points, using the provided pivot as the center of transformation.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="scale">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -734,7 +777,8 @@ public:
 	}
 
     /// <summary>
-	/// Scales 4D points, using the provided pivot as the center of transformation. Scale will be applied to all points in the array.
+	/// Scales 4D points, using the provided pivot as the center of transformation.<br>
+	/// Scale will be applied to all points in the array.
 	/// </summary>
     /// <param name="scale">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
@@ -753,13 +797,14 @@ public:
 	}
 
     /// <summary>
-	/// Transforms 3D points, using the provided pivot as the center of transformation. The transformation will be applied to all points in the array.
+	/// Transforms 3D points, using the provided pivot as the center of transformation.<br>
+	/// The transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QBaseVector3 &vPivot, QVector3* arPoints, 
+	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QBaseVector3 &vPivot, QVector3* arPoints,
                                           const unsigned int &uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
@@ -773,13 +818,14 @@ public:
 	}
 
     /// <summary>
-	/// Transforms 4D points, using the provided pivot as the center of transformation. The transformation will be applied to all points in the array.
+	/// Transforms 4D points, using the provided pivot as the center of transformation.<br>
+	/// The transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QBaseVector4 &vPivot, QVector4* arPoints, 
+	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QBaseVector4 &vPivot, QVector4* arPoints,
                                           const unsigned int &uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
@@ -793,13 +839,14 @@ public:
 	}
 
     /// <summary>
-	/// Transforms 3D points, using the provided pivot as the center of transformation. The transformation will be applied to all points in the array.
+	/// Transforms 3D points, using the provided pivot as the center of transformation.<br>
+	/// The transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QBaseVector3 &vPivot, QVector3* arPoints, 
+	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QBaseVector3 &vPivot, QVector3* arPoints,
                                           const unsigned int &uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
@@ -813,13 +860,14 @@ public:
 	}
 
     /// <summary>
-	/// Transforms 4D points, using the provided pivot as the center of transformation. The transformation will be applied to all points in the array.
+	/// Transforms 4D points, using the provided pivot as the center of transformation.<br>
+	/// The transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QBaseVector4 &vPivot, QVector4* arPoints, 
+	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QBaseVector4 &vPivot, QVector4* arPoints,
                                           const unsigned int &uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)

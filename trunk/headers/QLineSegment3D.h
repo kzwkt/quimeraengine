@@ -31,9 +31,9 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a chunk (segment) of straight line in 3D space, defined by two endpoints A and B.
+/// Class which represents a chunk (segment) of straight line in 3D space, defined by two endpoints A and B.<br>
 /// These points may be expressed as 3D points or vectors, depending on the template parameter,
-/// which may be 3D vector or 4D vector.
+/// which may be 3D vector or 4D vector.<br>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment.
 /// </summary>
 template <class VectorType>
@@ -118,22 +118,22 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident line segment intersects with the provided plane.
+    /// Checks if resident line segment intersects with the provided plane.<br>
     /// Since a plane divides space into two sides (positive and negative), we can check how the end points of
-    /// the line segment satisfies the plane equation:
-    /// Being the plane equation \f$ ax + by + cz + d = 0 \f$,
+    /// the line segment satisfies the plane equation.<br>
+    /// Being the plane equation:<br><br>
+    /// \f$ ax + by + cz + d = 0 \f$,<br><br>
     /// and the end points of the line segment \f$ A(A_x, A_y, A_z)\f$, \f$ B(B_x, B_y, B_z)\f$,
-    /// we have to check the value of:
-    ///
+    /// we have to check the value of:<br><br>
     /// (1) \f$ a\cdot A_x + b\cdot A_y + c\cdot A_z + d \f$
-    ///
+    /// <br>
     /// (2) \f$ a\cdot B_x + b\cdot B_y + c\cdot B_z + d \f$
-    ///
-    /// If (1) = 0 or (2) = 0, then the line segment intersects the plane (one of the end points lies on plane).
+    /// <br><br>
+    /// If (1) = 0 or (2) = 0, then the line segment intersects the plane (one of the end points lies on plane).<br>
     /// If the sign of (1) and (2) are different, each end point are in a different side of the space
-    /// from the plane, and then the line segment intersects the plane.
+    /// from the plane, and then the line segment intersects the plane.<br>
     /// If (1) and (2) have equal sign, then there are in the same side of the space from the plane,
-    /// and the line segment don't intersects the plane.
+    /// and the line segment don't intersects the plane.<br>
     /// If one end point of the line segment lies on the plane, we consider there is an intersection.
     /// </summary>
     /// <param name="plane">[IN] The plane we want check if intersects with resident line segment.</param>
@@ -156,7 +156,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident line segment intersects with the provided triangle.
+    /// Checks if resident line segment intersects with the provided triangle.<br>
     /// If one end point of the line segment lies on the triangle, or on an edge or vertex of the triangle,
     /// we consider there is an intersection.
     /// </summary>
@@ -204,7 +204,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident line segment intersects with the provided sphere.
+    /// Checks if resident line segment intersects with the provided sphere.<br>
     /// If one end point of the line segment lies on the sphere surface, we consider that there is an intersection.
     /// </summary>
     /// <param name="orb">[IN] The sphere we want check if intersects with resident line segment.</param>
@@ -217,7 +217,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident line segment intersects with the provided hexahedron.
+    /// Checks if resident line segment intersects with the provided hexahedron.<br>
     /// If one end point of the line segment lies on one of the hexahedron faces,
     /// we consider there is an intersection.
     /// </summary>
@@ -262,9 +262,9 @@ public:
     /// the following values: E_None, E_One and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
-	/// -If segments are totally or parcially coincident only a single point will be stored in the output
-	///  parameter, presumingly an endpoint belonging to one of the segments.
+	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// If segments are totally or parcially coincident only a single point will be stored in the output
+	/// parameter, presumingly an endpoint belonging to one of the segments.
 	/// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
 	{
@@ -282,8 +282,8 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
-	/// -If there are two intersections, the output parameter stores only the closest to A end point.
+	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// If there are two intersections, the output parameter stores only the closest to A end point.
 	/// </remarks>
 	EQIntersections IntersectionPoint (const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
 	{
@@ -302,10 +302,10 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the two output parameters used for storing the points won't be modified.
-	/// -If there is one intersection, it's stored in the first output parameter.
-	/// -If there are two intersections, the first output parameter stores the closest to A end point of
-    ///  line segment, and the second one stores the closest to B end point.
+	/// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br>
+	/// If there is one intersection, it's stored in the first output parameter.<br>
+	/// If there are two intersections, the first output parameter stores the closest to A end point of
+    /// line segment, and the second one stores the closest to B end point.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
@@ -323,8 +323,8 @@ public:
     /// the following values: E_None, E_One and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point or the line segment lies on plane, the output
-    ///  parameter used for storing that point won't be modified.
+	/// If there's no intersection point or the line segment lies on plane, the output
+    /// parameter used for storing that point won't be modified.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
 	{
@@ -382,10 +382,10 @@ public:
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point or the line segment lies on triangle, the output
-    ///  parameter used for storing that point won't be modified.
-    /// -if the line segment lies partially on triangle, the intersection point stored is the intersection of
-    ///  segment and an edge of the triangle.
+	/// If there's no intersection point or the line segment lies on triangle, the output
+    /// parameter used for storing that point won't be modified.<br>
+    /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
+    /// segment and an edge of the triangle.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection) const
     {
@@ -406,10 +406,10 @@ public:
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point or the line segment lies on triangle, the output
-    ///  parameter used for storing that point won't be modified.
-    /// -if the line segment lies partially on triangle, the intersection point stored is the intersection of
-    ///  segment and an edge of the triangle.
+	/// If there's no intersection point or the line segment lies on triangle, the output
+    /// parameter used for storing that point won't be modified.<br>
+    /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
+    /// segment and an edge of the triangle.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
@@ -1065,8 +1065,8 @@ public:
     /// which can takes the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
-	/// -If there are two intersections, the output parameter stores only one of them.
+	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// If there are two intersections, the output parameter stores only one of them.
 	/// </remarks>
 	EQIntersections IntersectionPoint (const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
 	{
@@ -1251,7 +1251,7 @@ public:
             else if (!IsInsideA && !IsInsideB) // Both line segment end points are outside hexahedron
                 return EQIntersections::E_None;
             else // Something is wrong!! There must be intersections in this case.
-                QE_ASSERT(false) 
+                QE_ASSERT(false)
         }
     }
 
@@ -1267,8 +1267,8 @@ public:
     /// which can takes the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameters used for storing the intersection points won't be modified.
-	/// -If there are two intersections, the first output parameter stores the closest point to A end point of line segment.
+	/// If there's no intersection point, the output parameters used for storing the intersection points won't be modified.<br>
+	/// If there are two intersections, the first output parameter stores the closest point to A end point of line segment.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
@@ -1484,7 +1484,7 @@ public:
             else if (!IsInsideA && !IsInsideB) // Both line segment end points are outside hexahedron
                 return EQIntersections::E_None;
             else // Something is wrong!! There must be intersections in this case.
-                QE_ASSERT(false) 
+                QE_ASSERT(false)
         }
     }
 
@@ -1523,9 +1523,9 @@ public:
     /// <summary>
 	/// Given an input vector (which represents a point), this method returns the maximum distance between this and
 	/// the segment, that is, the distance between the input point and the farthest point lying into the segment...
-	/// ...and this will be one of the segment endpoints!.
+	/// ...and this will be one of the segment endpoints!.<br>
 	/// Please note the above is correct only when the point lies outside the segment; if it's inside the segment,
-	/// the maximum distance equals to 0.
+	/// the maximum distance equals to 0.<br>
 	/// This method calls base class' implementation.
 	/// </summary>
 	/// <param name="vPoint">[IN] The point the distance will be measured to.</param>
@@ -1557,7 +1557,7 @@ public:
 
 	/// <summary>
 	/// Given an input line segment, this method returns the minimum distance between this and the input one,
-	///	that is, the distance between their closest points.
+	///	that is, the distance between their closest points.<br>
 	/// This method calls base class' implementation.
 	/// </summary>
 	/// <param name="segment">[IN] The line segment the distance will be measured to.</param>
@@ -1571,7 +1571,7 @@ public:
 
 	/// <summary>
 	/// Given an input vector (which represents a point), this method returns the minimum distance between this and
-	/// the segment, that is, the distance between the input point and the closest point lying into the segment.
+	/// the segment, that is, the distance between the input point and the closest point lying into the segment.<br>
 	/// This method calls base class' implementation.
 	/// </summary>
 	/// <param name="vPoint">[IN] The point the distance will be measured to.</param>
@@ -1608,12 +1608,11 @@ public:
     }
 
     /// <summary>
-    /// Checks the relation between resident line segment and the provided plane.
+    /// Checks the relation between resident line segment and the provided plane.<br>
     /// Since a plane divides space into two parts, we can check if the "distances" (allowing distances having sign) from
-    /// the plane to both end points of line segment are 0, or have diferent sign, in which case the segment crosses the plane.
+    /// the plane to both end points of line segment are 0, or have diferent sign, in which case the segment crosses the plane.<br>
     /// If distances from plane to both end points have the same sign, all line segment is in the same
     /// side of the space, and they haven't a common point.
-    ///
     /// </summary>
     /// <remarks>
     /// Note that if only one end point of the resident line segment lies on the plane, we consider that it is
@@ -1621,11 +1620,12 @@ public:
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check the relation with resident line segment.</param>
     /// <returns>
-    /// An integer value like follows:
-    ///     0 (Contained): All the line segment lies on plane.
-    ///     1 (PositiveSide): The line segment is fully contained in the positive side of the space defined by the plane.
-    ///     2 (NegativeSide): The line segment is fully contained in the negative side of the space defined by the plane.
-    ///     3 (BothSides): One end point of the line segment is in the positive side and the other is in the negative one.
+    /// An integer value like follows:<br><ul>
+    /// <li>0 (Contained): All the line segment lies on plane.</li>
+    /// <li>1 (PositiveSide): The line segment is fully contained in the positive side of the space defined by the plane.</li>
+    /// <li>2 (NegativeSide): The line segment is fully contained in the negative side of the space defined by the plane.</li>
+    /// <li>3 (BothSides): One end point of the line segment is in the positive side and the other is in the negative one.</li>
+    /// </ul><br>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane)
@@ -1715,7 +1715,8 @@ public:
 
     /// <summary>
     /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the "A" end point as pivot of rotation. The resultant line segment is stored in the line segment provided.
+    /// the "A" end point as pivot of rotation.<br>
+    /// The resultant line segment is stored in the line segment provided.
     /// </summary>
     /// <param name="transformation">[IN] The dual quaternion which contains the transformation.</param>
     /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
@@ -1789,7 +1790,7 @@ public:
     }
 
     /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided using a pivot.
+    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided using a pivot.<br>
     /// The resultant line segment is stored in the line segment provided.
     /// </summary>
     /// <param name="transformation">[IN] The dual quaternion which contains the transformation.</param>
@@ -1811,7 +1812,8 @@ public:
     }
 
 	/// <summary>
-	/// Translates the line segment. Translated line segment will be stored in the line segment received as parameter.
+	/// Translates the line segment.<br>
+	/// Translated line segment will be stored in the line segment received as parameter.
 	/// </summary>
     /// <param name="vTranslate">[IN] Vector that contains the translation to be applied.</param>
     /// <param name="outputLineSegment">[OUT] Line segment that will store the translated line segment.</param>
@@ -1833,7 +1835,8 @@ public:
     }
 
 	/// <summary>
-	/// Translates the line segment. Translated line segment will be stored in the line segment received as parameter.
+	/// Translates the line segment.<br>
+	/// Translated line segment will be stored in the line segment received as parameter.
 	/// </summary>
     /// <param name="fTranslationX">[IN] Scalar that contains the translation on X axis.</param>
     /// <param name="fTranslationY">[IN] Scalar that contains the translation on Y axis.</param>
@@ -1896,7 +1899,8 @@ public:
     }
 
 	/// <summary>
-	/// Rotates the line segment. Rotated line segment will be stored in the line segment received as parameter.
+	/// Rotates the line segment.<br>
+	/// Rotated line segment will be stored in the line segment received as parameter.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
     /// <param name="outSegment">[OUT] Line segment that will store the rotated line segment.</param>
@@ -1937,7 +1941,8 @@ public:
     }
 
 	/// <summary>
-	/// Rotates the line segment using a pivot. Rotated line segment will be stored in the line segment received as parameter.
+	/// Rotates the line segment using a pivot.<br>
+	/// Rotated line segment will be stored in the line segment received as parameter.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
@@ -1981,7 +1986,8 @@ public:
     }
 
  	/// <summary>
-	/// Scales the line segment. Scaled line segment will be stored in the line segment received as parameter.
+	/// Scales the line segment.<br>
+	/// Scaled line segment will be stored in the line segment received as parameter.
 	/// </summary>
     /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
     /// <param name="outSegment">[OUT] Line segment that will store the scaled line segment.</param>
@@ -2003,7 +2009,8 @@ public:
     }
 
  	/// <summary>
-	/// Scales the line segment. Scaled line segment will be stored in the line segment received as parameter.
+	/// Scales the line segment.<br>
+	/// Scaled line segment will be stored in the line segment received as parameter.
 	/// </summary>
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
@@ -2046,7 +2053,8 @@ public:
     }
 
  	/// <summary>
-	/// Scales the line segment using a pivot. Scaled line segment will be stored in the line segment received as parameter.
+	/// Scales the line segment using a pivot.<br>
+	/// Scaled line segment will be stored in the line segment received as parameter.
 	/// </summary>
     /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
@@ -2070,7 +2078,8 @@ public:
     }
 
  	/// <summary>
-	/// Scales the line segment using a pivot. Scaled line segment will be stored in the line segment received as parameter.
+	/// Scales the line segment using a pivot.<br>
+	/// Scaled line segment will be stored in the line segment received as parameter.
 	/// </summary>
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>

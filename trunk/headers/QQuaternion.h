@@ -27,18 +27,14 @@ class QRotationMatrix3x3;
 
 
 /// <summary>
-/// Quaternions extend the concept of rotation in three dimensions to
-/// rotation in four dimensions. This avoids the problem of "gimbal-lock"
-/// and allows for the implementation of smooth and continuous rotation.
-///
+/// Quaternions extend the concept of rotation in three dimensions to rotation in four dimensions.<br>
+/// This avoids the problem of "gimbal-lock"
+/// and allows for the implementation of smooth and continuous rotation.<br>
 /// In effect, they may be considered to add a additional rotation angle
-/// to spherical coordinates ie. Longitude, Latitude and Rotation angles
-///
-/// A Quaternion is defined using four floating point values |x y z w|.
-///
+/// to spherical coordinates ie. Longitude, Latitude and Rotation angles.<br>
+/// A Quaternion is defined using four floating point values |x y z w|.<br>
 /// These are calculated from the combination of the three coordinates
-/// of the rotation axis and the rotation angle.
-///
+/// of the rotation axis and the rotation angle.<br>
 /// Text extracted from: Flipcode.
 /// </summary>
 class QDllExport QQuaternion : public QBaseQuaternion
@@ -82,8 +78,9 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives 3 angles, one for each Euler angle, to represent a spacial rotation as a quaternion.
-    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll. This is a slow operation.
+    /// Constructor that receives 3 angles, one for each Euler angle, to represent a spacial rotation as a quaternion.<br>
+    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br>
+    /// This is a slow operation.
     /// </summary>
     /// <param name="fRotationAngleX">[IN] Rotation angle about X global axis.</param>
     /// <param name="fRotationAngleY">[IN] Rotation angle about Y global axis.</param>
@@ -115,7 +112,8 @@ public:
 
     /// <summary>
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
-    /// into a 128 bits structure. The values order is: X, Y, Z and W.
+    /// into a 128 bits structure.<br>
+    /// The values order is: X, Y, Z and W.
     /// </summary>
     /// <param name="value">[IN] A four 32 bits floating point types pack.</param>
     inline explicit QQuaternion(const vf32_q &value) : QBaseQuaternion(value)
@@ -124,8 +122,10 @@ public:
 
 	/// <summary>
 	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and
-	/// a normalized vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.
-	/// The resultant quaternion is \f$ (n_x sin(\frac{\theta}{2}), n_y sin(\frac{\theta}{2}), n_z sin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$
+	/// a normalized vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.<br>
+	/// The resultant quaternion is:
+	///
+	/// \f$ (n_x sin(\frac{\theta}{2}), n_y sin(\frac{\theta}{2}), n_z sin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$
     /// </summary>
     /// <param name="vRotationAxis">[IN] Normalined vector in the direction of the spin axis.</param>
 	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
@@ -137,8 +137,10 @@ public:
 
 	/// <summary>
 	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and
-	/// a normalized vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.
-	/// The resultant quaternion is \f$ (n_x sin(\frac{\theta}{2}), n_y sin(\frac{\theta}{2}), n_z sin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$
+	/// a normalized vector \f$ \vec{n}(n_x, n_y, n_z)\f$ in the direction of the spin axis.<br>
+	/// The resultant quaternion is:
+	/// \f$ (n_x sin(\frac{\theta}{2}), n_y sin(\frac{\theta}{2}), n_z sin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$
+	///
 	/// Fourth vector component is ignored.
     /// </summary>
     /// <param name="vRotationAxis">[IN] Normalized vector in the direction of the spin axis.</param>
@@ -229,7 +231,7 @@ public:
     QQuaternion operator-(const QBaseQuaternion &qQuat) const;
 
     /// <summary>
-    /// Multiply operator. The quaternion is multipled by the input one and the result is returned.
+    /// Multiply operator. The quaternion is multipled by the input one and the result is returned.<br>
     /// This is calculated as follows:
     ///
     /// \f$ Q_1 \cdot Q_2=(w_1w_2-x_1x_2-y_1y_2-z_1z_2)+(w_1x_2+x_1w_2+y_1z_2-z_1y_2)i+(w_1y_2+y_1w_2+z_1x_2-x_1z_2)j+(w_1z_2+z_1w_2+xv1y_2-y_1x_2)k\f$
@@ -258,8 +260,8 @@ public:
     QQuaternion operator*(const float_q &fScalar) const;
 
 	/// <summary>
-    /// Multiply by 3D vector operator. The vector is converted into a
-	/// quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
+    /// Multiply by 3D vector operator.<br>
+    /// The vector is converted into a quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
     /// </summary>
     /// <param name="vVector">[IN] The vector to multiply by.</param>
     /// <remarks>
@@ -271,8 +273,8 @@ public:
     QQuaternion operator*(const QBaseVector3 &vVector) const;
 
 	/// <summary>
-    /// Multiply by 4D vector operator. The vector is converted into a
-	/// quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
+    /// Multiply by 4D vector operator.<br>
+    /// The vector is converted into a quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
     /// </summary>
     /// <param name="vVector">[IN] The vector to multiply by.</param>
     /// <remarks>
@@ -284,9 +286,10 @@ public:
     QQuaternion operator*(const QBaseVector4 &vVector) const;
 
     /// <summary>
-    /// Divide operator. The quaternion is divided by the input one. The division is performed by
-    /// multiplying by the input quaternion's inverse. Note that, if you want boost your division performance and
-    /// you work with normalized quaternions, then you can multiply by the quaternion's conjugate (that is
+    /// Divide operator. The quaternion is divided by the input one.<br>
+    /// The division is performed by multiplying by the input quaternion's inverse.<br>
+    /// Note that, if you want boost your division performance and you work with normalized quaternions,
+    /// then you can multiply by the quaternion's conjugate (that is
     /// cheaper to calculate) instead of using this operator.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to divide by.</param>
@@ -350,7 +353,7 @@ public:
     }
 
     /// <summary>
-    /// Multiply and assign operator. The quaternion is multipled by the input one.
+    /// Multiply and assign operator. The quaternion is multipled by the input one.<br>
     /// This is calculated as follows:
     ///
     /// \f$ Q_1 \cdot Q_2=(w_1w_2-x_1x_2-y_1y_2-z_1z_2)+(w_1x_2+x_1w_2+y_1z_2-z_1y_2)i+(w_1y_2+y_1w_2+z_1x_2-x_1z_2)j+(w_1z_2+z_1w_2+xv1y_2-y_1x_2)k\f$
@@ -399,8 +402,8 @@ public:
     }
 
 	/// <summary>
-    /// Multiply by 3D vector and assign operator. The vector is converted into a
-	/// quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
+    /// Multiply by 3D vector and assign operator.<br>
+    /// The vector is converted into a quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
     /// </summary>
     /// <remarks>
     /// Note that the quaternion could be denormalized after this operation.
@@ -419,8 +422,8 @@ public:
 	}
 
 	/// <summary>
-    /// Multiply by 4D vector and assign operator. The vector is converted into a
-	/// quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
+    /// Multiply by 4D vector and assign operator.<br>
+    /// The vector is converted into a quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
     /// </summary>
     /// <remarks>
     /// Note that the quaternion could be denormalized after this operation.
@@ -439,8 +442,9 @@ public:
 	}
 
     /// <summary>
-    /// Divide and assign operator. The quaternion is divided by the input one. The division is performed by
-    /// multiplying by the input quaternion's inverse. Note that, if you want boost your division performance and
+    /// Divide and assign operator. The quaternion is divided by the input one.<br>
+    /// The division is performed by multiplying by the input quaternion's inverse.<br>
+    /// Note that, if you want boost your division performance and
     /// you work with normalized quaternions, then you can multiply by the quaternion's conjugate (that is
     /// cheaper to calculate) instead of using this operator.
     /// </summary>
@@ -500,7 +504,7 @@ public:
     }
 
     /// <summary>
-    /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.
+    /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.<br>
     /// A quaternion is normalized when its length is equal to 1.
     /// </summary>
     inline void Normalize()
@@ -516,7 +520,7 @@ public:
     }
 
     /// <summary>
-    /// Gets a normalized copy of the quaternion. A quaternion is normalized when its length is equal to 1.
+    /// Gets a normalized copy of the quaternion. A quaternion is normalized when its length is equal to 1.<br>
     /// To calculate it, all quaternion's components are divided by the quaternion's length.
     /// </summary>
     /// <param name="qQuat">[OUT] The normalized quaternion copy.</param>
@@ -527,8 +531,8 @@ public:
     }
 
     /// <summary>
-    /// Calculates the quaternion's inverse. Note that, when the quaternion is normalized, the inverse
-    /// coincides with the conjugate (which is cheaper to calculate).
+    /// Calculates the quaternion's inverse.<br>
+    /// Note that, when the quaternion is normalized, the inverse coincides with the conjugate (which is cheaper to calculate).<br>
     /// Quaternion inverse is obtained by the following equation:
     ///
     /// \f$ Q^{-1} = \frac{w - xi - yj - zk}{\left|Q\right|^2}\f$
@@ -549,8 +553,8 @@ public:
     }
 
     /// <summary>
-    /// Gets a reveted copy of the quaternion. Note that, when the quaternion is normalized, the inverse
-    /// coincides with the conjugate (which is cheaper to calculate).
+    /// Gets a reveted copy of the quaternion.<br>
+    /// Note that, when the quaternion is normalized, the inverse coincides with the conjugate (which is cheaper to calculate).
     /// Quaternion inverse is obtained by the following equation:
     ///
     /// \f$ Q^{-1} = \frac{w - xi - yj - zk}{\left|Q\right|^2}\f$
@@ -563,7 +567,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the inverse of a normalized quaternion, which coincides with its conjugate.
+    /// Calculates the inverse of a normalized quaternion, which coincides with its conjugate.<br>
     /// Quaternion inverse is then obtained by the following equation:
     ///
     /// \f$ Q^{-1} = w - xi - yj - zk \f$
@@ -574,7 +578,7 @@ public:
     }
 
     /// <summary>
-    /// Gets a reverted copy of a normalized quaternion, which coincides with its conjugate.
+    /// Gets a reverted copy of a normalized quaternion, which coincides with its conjugate.<br>
     /// Quaternion inverse is then obtained by the following equation:
     ///
     /// \f$ Q^{-1} = w - xi - yj - zk \f$
@@ -604,28 +608,38 @@ public:
     }
 
     /// <summary>
-    /// Calculates the dot product between the quaternion and the input quaternion.
-    /// This is obtained using the equation: \f$ f(Q_1, Q_2) = x_1x_2 + y_1y_2 + z_1z_2 + w_1w_2\f$.
+    /// Calculates the dot product between the quaternion and the input quaternion.<br>
+    /// This is obtained using the equation:
+    ///
+    /// \f$ f(Q_1, Q_2) = x_1x_2 + y_1y_2 + z_1z_2 + w_1w_2\f$.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to multiply by.</param>
     /// <returns>
-    /// A real number equals to: \f$|Q_1|\cdot |Q_2| cos(\beta)\f$, where \f$\beta = \frac{\widehat{Q_1Q_2}}{2}\f$
+    /// A real number equals to:
+    ///
+    /// \f$|Q_1|\cdot |Q_2| cos(\beta)\f$, where
+    ///
+    /// \f$\beta = \frac{\widehat{Q_1Q_2}}{2}\f$
+    ///
     /// (half the angle between quaternions, when using normalized quaternions).
     /// </returns>
     float_q DotProduct(const QBaseQuaternion &qQuat) const;
 
     /// <summary>
-    /// Calculates the angle between resident quaternion and the provided quaternion, via dot product.
+    /// Calculates the angle between resident quaternion and the provided quaternion, via dot product.<br>
     /// Both quaternions are treated as 3D vectors, ignoring W component.
     /// </summary>
     /// <param name="qQuat">[IN] Multiplying quaternion.</param>
     /// <returns>
-    /// A floating point value which is the smaller angle between quaternions (less or equal to 180º).
+    /// A floating point value which is the smaller angle between quaternions (less or equal to \f$ 180^0\f$).
     /// </returns>
     float_q DotProductAngle(const QBaseQuaternion &qQuat) const;
 
     /// <summary>
-    /// Calculates the quaternion's conjugate. It's calculated this way: \f$Q^* = w - xi - yj - zk\f$.
+    /// Calculates the quaternion's conjugate.<br>
+    /// It's calculated this way:
+    ///
+    /// \f$Q^* = w - xi - yj - zk\f$.
     /// </summary>
     inline void Conjugate()
     {
@@ -635,7 +649,10 @@ public:
     }
 
     /// <summary>
-    /// Gets a conjugated quaternion copy. It's calculated this way: \f$Q^* = w - xi - yj - zk\f$.
+    /// Gets a conjugated quaternion copy.
+    /// It's calculated this way:
+    ///
+    /// \f$Q^* = w - xi - yj - zk\f$.
     /// </summary>
     /// <param name="qQuat">[OUT] The conjugated quaternion copy.</param>
     inline void Conjugate(QBaseQuaternion &qQuat) const
@@ -645,24 +662,24 @@ public:
     }
 
     /// <summary>
-    /// Calculates the linear interpolation between the quaternion and the input quaternion. This is calculated
-    /// by the following expression:
+    /// Calculates the linear interpolation between the quaternion and the input quaternion.<br>
+    /// This is calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = \frac{(1 - s)Q_1 + sQ_2}{|(1 - s)Q_1 + sQ_2|}\f$
     ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
+    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
     void Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
 
     /// <summary>
-    /// Calculates the linear interpolation between the quaternion and the input quaternion. This is calculated
-    /// by the following expression:
+    /// Calculates the linear interpolation between the quaternion and the input quaternion.<br>
+    /// This is calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = \frac{(1 - s)Q_1 + sQ_2}{|(1 - s)Q_1 + sQ_2|}\f$
     ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
+    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.<br>
     /// The resultant quaternion is stored in an output quaternion.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
@@ -675,12 +692,13 @@ public:
     }
 
     /// <summary>
-    /// Calculates the spherical linear interpolation between the quaternion and the input quaternion. This is
-    /// calculated by the following expression:
+    /// Calculates the spherical linear interpolation between the quaternion and the input quaternion.
+    /// This is calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
     ///
     /// where
+    ///
     /// \f$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\f$
     ///
     /// \f$ w_2 = \frac{sin( s\beta)}{sin(\beta)})\f$
@@ -689,19 +707,20 @@ public:
     ///
     /// \f$ \beta = \arccos(Q_1Q_2)\f$
     ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
+    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
     void Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
 
     /// <summary>
-    /// Calculates the spherical linear interpolation between the quaternion and the input quaternion. This is
-    /// calculated by the following expression:
+    /// Calculates the spherical linear interpolation between the quaternion and the input quaternion.
+    /// This is calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
     ///
     /// where
+    ///
     /// \f$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\f$
     ///
     /// \f$ w_2 = \frac{sin( s\beta)}{sin(\beta)})\f$
@@ -710,7 +729,7 @@ public:
     ///
     /// \f$ \beta = \arccos(Q_1Q_2)\f$
     ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
+    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.<br>
     /// The resultant quaternion is stored in an output quaternion.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
@@ -724,12 +743,13 @@ public:
 
 
     /// <summary>
-    /// Calculates the spherical linear interpolation between two normalized quaternions. This is
-    /// calculated by the following expression:
+    /// Calculates the spherical linear interpolation between two normalized quaternions.
+    /// This is calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
     ///
     /// where
+    ///
     /// \f$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\f$
     ///
     /// \f$ w_2 = \frac{sin( s\beta)}{sin(\beta)})\f$
@@ -738,19 +758,20 @@ public:
     ///
     /// \f$ \beta = \arccos(Q_1Q_2)\f$
     ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two normalized quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
+    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two normalized quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a normalized quaternion</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
     void UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
 
     /// <summary>
-    /// Calculates the spherical linear interpolation between two normalized quaternions. This is
-    /// calculated by the following expression:
+    /// Calculates the spherical linear interpolation between two normalized quaternions.
+    /// This is calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
     ///
     /// where
+    ///
     /// \f$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\f$
     ///
     /// \f$ w_2 = \frac{sin( s\beta)}{sin(\beta)})\f$
@@ -759,7 +780,8 @@ public:
     ///
     /// \f$ \beta = \arccos(Q_1Q_2)\f$
     ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two normalized quaternions and s the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
+    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two normalized quaternions and \f$ s\f$ the scalar
+    /// proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.<br>
     /// The resultant quaternion is stored in an output quaternion.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a normalized quaternion</param>
@@ -772,22 +794,26 @@ public:
     }
 
     /// <summary>
-    /// Obtains Euler angles that represent the same rotation than the quaternion does.
-    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
+    /// Obtains Euler angles that represent the same rotation than the quaternion does.<br>
+    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br>
     /// To achieve this, the following equations are implemented:
     ///
     /// \f$ X = atan2( 2xw - 2xz, 1 - 2y^2 - 2z^2 )\f$
+    ///
     /// \f$ Y = asin(2xy + 2zw)\f$
+    ///
     /// \f$ Z = atan2( 2xw - 2yz, 1 - 2x^2 - 2z^2 )\f$
     ///
     /// except when \f$ xy + zw = +0.5\f$ (north pole)
     ///
     /// \f$ X = 2atan2(x, w)\f$
+    ///
     /// \f$ Z = 0\f$
     ///
     /// or when \f$ xy + zw = -0.5\f$ (south pole)
     ///
     /// \f$ X = -2atan2(x, w)\f$
+    ///
     /// \f$ Z = 0\f$
     ///
     /// See atan2 documentation for more interesting information.
@@ -806,8 +832,8 @@ public:
     float_q GetLength() const;
 
     /// <summary>
-    /// Calculates the squared quaternion's length, this means, the squared components sum. This method
-    /// exists due to performance reasons because it avoids to perform square roots when the result is
+    /// Calculates the squared quaternion's length, this means, the squared components sum.
+    /// This method exists due to performance reasons because it avoids to perform square roots when the result is
     /// going to be squared.
     /// </summary>
     /// <returns>
@@ -816,16 +842,16 @@ public:
     float_q GetSquaredLength() const;
 
     /// <summary>
-    /// Obtains the angle of rotation and the spin axis contained in the resident quaternion.
-	/// There are two possible singularities: when rotation angle is 0 or 180º.
+    /// Obtains the angle of rotation and the spin axis contained in the resident quaternion.<br>
+	/// There are two possible singularities: when rotation angle is 0 or \f$ 180^0\f$.
     /// </summary>
     /// <param name="vRotationAxis">Vector to store the spin axis.</param>
     /// <param name="fRotationAngle">Angle of rotation.</param>
 	void ToAxisAngle(QBaseVector3 &vRotationAxis, float_q &fRotationAngle) const;
 
     /// <summary>
-    /// Obtains the angle of rotation and the spin axis contained in the resident quaternion.
-	/// There are two possible singularities: when rotation angle is 0 or 180º.
+    /// Obtains the angle of rotation and the spin axis contained in the resident quaternion.<br>
+	/// There are two possible singularities: when rotation angle is 0 or \f$ 180^0\f$.
     /// </summary>
     /// <param name="vRotationAxis">Vector to store the spin axis.</param>
     /// <param name="fRotationAngle">Angle of rotation.</param>
@@ -835,7 +861,8 @@ public:
     /// Gets a character string that represents the quaternion values.
     /// </summary>
     /// <returns>
-    /// A character string, following this pattern: "Q( x, y, z, w)".
+    /// A character string, following this pattern:<br>
+    /// "Q( x, y, z, w)".
     /// </returns>
     string_q ToString() const;
 };

@@ -20,7 +20,8 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in 2D. Methods in this class are related to transformations in 2D.
+/// Class which represents a triangle in 2D.<br>
+/// Methods in this class are related to transformations in 2D.
 /// </summary>
 class QDllExport QTriangle2D : public QTriangle<QVector2>
 {
@@ -47,12 +48,13 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from three pointer-to-float type, one for each vertex. Each pointer references to an array which has at least two elements.
+	/// Constructor from three pointer-to-float type, one for each vertex.<br>
+	/// Each pointer references to an array which has at least two elements.
 	/// </summary>
 	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
 	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
 	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
-	inline QTriangle2D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) : 
+	inline QTriangle2D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
                            QTriangle<QVector2>(arValuesA, arValuesB, arValuesC)
     {
     }
@@ -73,7 +75,8 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator. Assigns the provided triangle to the resident triangle.
+	/// Assign operator.<br>
+	/// Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle that is assigned to current triangle.</param>
 	QTriangle2D& operator=(const QBaseTriangle<QVector2> &triangle)
@@ -83,8 +86,8 @@ public:
 	}
 
 	/// <summary>
-	/// Receives a transformation matrix and applies its transformations to the resident
-	/// triangle. The origin of transformations is the coordinate axis origin.
+	/// Receives a transformation matrix and applies its transformations to the resident triangle.<br>
+	/// The origin of transformations is the coordinate axis origin.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	inline void Transform(const QTransformationMatrix3x3 &transformation)
@@ -94,8 +97,8 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and an output 2D triangle and applies the transformations
-	/// to the resident triangle, storing the results in the output triangle. The origin of transformations is the
-	/// coordinate axis origin.
+	/// to the resident triangle, storing the results in the output triangle.<br>
+	/// The origin of transformations is the coordinate axis origin.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="outTriangle">[OUT] 2D Triangle that stores the result of the transformation.</param>
@@ -107,7 +110,8 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a 2D vector (transformation pivot) and applies the transformations
-	/// to the resident triangle. The origin of transformations is the vector type point received as parameter.
+	/// to the resident triangle.<br>
+	/// The origin of transformations is the vector type point received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] 2D Vector Pivot used for the transformation.</param>
@@ -118,8 +122,8 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix, a 2D vector (transformation pivot) and an output 2D triangle,
-	/// and applies the transformations to the resident triangle storing the result in the output triangle. The origin of transformations is the
-	/// vector type point received as parameter.
+	/// and applies the transformations to the resident triangle storing the result in the output triangle.<br>
+	/// The origin of transformations is the vector type point received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] 2D Vector Pivot used for the transformation.</param>

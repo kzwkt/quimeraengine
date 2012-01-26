@@ -17,7 +17,7 @@ namespace Math
 {
 
 /// <summary>
-/// Helper class that offers functionality related to angles (radians and degrees).
+/// Helper class that offers functionality related to angles (radians and degrees).<br>
 /// Use constant angle values as far as you can in your code.
 /// </summary>
 class QDllExport SQAngle
@@ -111,9 +111,9 @@ public:
 	// ---------------
 private:
 
-	/// <summary>
-	/// Default constructor (hidden).
-	/// </summary>
+	// <summary>
+	// Default constructor (hidden).
+	// </summary>
 	SQAngle();
 
 
@@ -127,7 +127,8 @@ public:
     /// <param name="fDegrees">[IN] The angle measured in degrees.</param>
     /// <param name="fRadians">[OUT] The same angle converted to radians.</param>
     /// <returns>
-    /// A reference to the output parameter. This let this method to be used has parameter in another function.
+    /// A reference to the output parameter.<br>
+    /// This let this method to be used has parameter in another function.
     /// </returns>
     inline static float_q& DegreesToRadians(const float_q &fDegrees, float_q &fRadians)
     {
@@ -141,7 +142,8 @@ public:
     /// <param name="fRadians">[IN] The angle measured in radians.</param>
     /// <param name="fDegrees">[OUT] The same angle converted to degrees.</param>
     /// <returns>
-    /// A reference to the output parameter. This let this method to be used has parameter in another function.
+    /// A reference to the output parameter.<br>
+    /// This let this method to be used has parameter in another function.
     /// </returns>
     inline static float_q& RadiansToDegrees(const float_q &fRadians, float_q &fDegrees)
     {
@@ -150,8 +152,8 @@ public:
     }
 
     /// <summary>
-    /// Truncates an angle which describes more than one revolution. If the angle value is greater than 360º, then
-    /// it will be replaced by the maximum, this means, 360º.
+    /// Truncates an angle which describes more than one revolution.<br>
+    /// If the angle value is greater than \f$ 360^0\f$, then it will be replaced by the maximum, this means, \f$ 360^0\f$.
     /// </summary>
     /// <param name="fAngle">[IN] The original angle value, in degrees.</param>
     /// <returns>
@@ -168,8 +170,8 @@ public:
     }
 
     /// <summary>
-    /// Truncates an angle which describes more than one revolution. If the angle value is greater than 2 Pi, then
-    /// it will be replaced by the maximum, this means, 2 Pi.
+    /// Truncates an angle which describes more than one revolution.<br>
+    /// If the angle value is greater than \f$ 2\Pi\f$, then it will be replaced by the maximum, this means, \f$ 2\Pi\f$.
     /// </summary>
     /// <param name="fAngle">[IN] The original angle value, in radians.</param>
     /// <returns>
@@ -177,7 +179,7 @@ public:
     /// </returns>
     inline static float_q TruncateRadians(const float_q &fAngle)
     {
-        if( SQFloat::IsPositive(fAngle) ) 
+        if( SQFloat::IsPositive(fAngle) )
             // Positive angles
             return SQFloat::IsGreaterThan(fAngle, SQAngle::_2Pi) ? SQAngle::_2Pi : fAngle;
         else
@@ -194,7 +196,7 @@ public:
     /// </returns>
     inline static float_q CountRevolutions(const float_q &fAngle)
     {
-        const float_q COMPLETE_REVOLUTION = 
+        const float_q COMPLETE_REVOLUTION =
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
                 SQAngle::_2Pi;
             #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -213,7 +215,7 @@ public:
     /// </returns>
     inline static float_q CountCompleteRevolutions(const float_q &fAngle)
     {
-        const float_q COMPLETE_REVOLUTION = 
+        const float_q COMPLETE_REVOLUTION =
             #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
                 SQAngle::_2Pi;
             #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES

@@ -19,7 +19,7 @@ namespace DataTypes
 {
 
 /// <summary>
-/// Helper class that offers functionality related to floating point (IEEE 754) types.
+/// Helper class that offers functionality related to floating point (IEEE 754) types.<br>
 /// Use these constants and static methods extensively in your code, as far as you can.
 /// </summary>
 class QDllExport SQFloat
@@ -84,12 +84,12 @@ public:
     static const float_q _10;
 
     /// <summary>
-    /// The fraction 1/2, as a floating point type.
+    /// The fraction \f$ \frac{1}{2}\f$, as a floating point type.
     /// </summary>
     static const float_q _0_5;
 
     /// <summary>
-    /// The fraction 1/4, as a floating point type.
+    /// The fraction \f$ \frac{1}{4}\f$, as a floating point type.
     /// </summary>
     static const float_q _0_25;
 
@@ -124,8 +124,9 @@ private:
 public:
 
     /// <summary>
-    /// Checks if the floating point value's state is NaN. That kind of value is undefined or non-representable, and it's said
-    /// it isn't a number (NaN = Not a Number). Every time you use functions like acos, asin or atan2, you should check the result
+    /// Checks if the floating point value's state is NaN.<br>
+    /// That kind of value is undefined or non-representable, and it's said it isn't a number (NaN = Not a Number).<br>
+    /// Every time you use functions like acos, asin or atan2, you should check the result
     /// value.
     /// </summary>
     /// <param name="fValue">[IN] A floating point number.</param>
@@ -139,9 +140,10 @@ public:
     }
 
     /// <summary>
-    /// Checks if the floating point value's state is Infinite. That kind of value is non-representable and appears as an arithmetic
-    /// operation result that overflows the floating point type bounds. Every time you use functions like tan, you should check the result
-    /// value.
+    /// Checks if the floating point value's state is Infinite.<br>
+    /// That kind of value is non-representable and appears as an arithmetic
+    /// operation result that overflows the floating point type bounds.<br>
+    /// Every time you use functions like tan, you should check the result value.
     /// </summary>
     /// <param name="fValue">[IN] A floating point number.</param>
     /// <returns>
@@ -154,7 +156,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if the floating point value's state is one of the special ones described in IEEE specification.
+    /// Checks if the floating point value's state is one of the special ones described in IEEE specification.<br>
     /// That kind of values are undefined or non-representable (like infinite).
     /// </summary>
     /// <param name="fValue">[IN] A floating point number.</param>
@@ -290,17 +292,18 @@ public:
     static string_q ToString(const float_q &fValue);
 
     /// <summary>
-    /// Converts a floating point number type to an integer number type. The result will be rounded (0.5 -> 1.0). Expected
-    /// template parameters are: unsigned int, int, long long, unsigned long long, u32_q, i32_q, u64_q, i64_q. Integer type
-    /// size should equals floating point type size or unexpected behavior will occur.
+    /// Converts a floating point number type to an integer number type.<br>
+    /// The result will be rounded (0.5 -> 1.0).<br>
+    /// Expected template parameters are: unsigned int, int, long long, unsigned long long, u32_q, i32_q, u64_q, i64_q.<br>
+    /// Integer type size should equals floating point type size or unexpected behavior will occur.
     /// </summary>
     /// <remarks>
     /// Depending on the configured precission, there is a performance overload due to standard conversion use when the value
     /// is greater than the one representable by floating point type mantissa:
-    /// -For 32-bits floating point type values: Must be greater than or equals to \f$ -2^{22} \f$ (-4194304) and lower than or equals
-    /// to \f$ 2^{23} \f$ (8388608).
-    /// -For 64-bits floating point type values: Must be greater than or equals to \f$ -2^{51} \f$ (-2251799813685248l) and lower than or
-    /// equals to \f$ 2^{52} \f$ (4503599627370496l).
+    /// - For 32-bits floating point type values:
+    ///  - Must be greater than or equals to \f$ -2^{22} \f$ (-4194304) and lower than or equals to \f$ 2^{23} \f$ (8388608).
+    /// - For 64-bits floating point type values:
+    ///  - Must be greater than or equals to \f$ -2^{51} \f$ (-2251799813685248l) and lower than or equals to \f$ 2^{52} \f$ (4503599627370496l).
     /// </remarks>
     /// <param name="fValue">[IN] Floating point number to be converted.</param>
     /// <param name="outInteger">[OUT] Integer value obtained.</param>
@@ -367,7 +370,7 @@ public:
     }
 
     /// <summary>
-    /// Removes the fractional part of a floating point number and returns the result as output parameter.
+    /// Removes the fractional part of a floating point number and returns the result as output parameter.<br>
     /// No rounding is performed.
     /// </summary>
     /// <param name="fValue">[IN] Value to be truncated.</param>
@@ -378,7 +381,8 @@ public:
     }
 
     /// <summary>
-    /// Removes the fractional part of a floating point number. No rounding is performed.
+    /// Removes the fractional part of a floating point number.<br>
+    /// No rounding is performed.
     /// </summary>
     /// <param name="fValue">[IN/OUT] Value to be truncated.</param>
     inline static void Truncate(float_q &fValue)
@@ -404,8 +408,8 @@ public:
 	}
 
     /// <summary>
-    /// Inverts the order of bytes which compound a floating point number and returns the result as
-    /// output parameter. A 32-bits floating point number whose value equals to 0xAABBCCDD will be
+    /// Inverts the order of bytes which compound a floating point number and returns the result as output parameter.<br>
+    /// A 32-bits floating point number whose value equals to 0xAABBCCDD will be
     /// transformed to 0xDDCCBBAA, for example.
     /// </summary>
     /// <param name="fValue">[IN] The value whose bytes are to be swapped.</param>
@@ -435,8 +439,8 @@ public:
     }
 
     /// <summary>
-    /// Inverts the order of bytes which compound a floating point number. A 32-bits floating point number
-    /// whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
+    /// Inverts the order of bytes which compound a floating point number.<br>
+    /// A 32-bits floating point number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
     /// </summary>
     /// <param name="fValue">[IN/OUT] The value whose bytes are to be swapped.</param>
     inline static void SwapEndianess(float_q &fValue)
@@ -457,7 +461,8 @@ public:
     }
 
     /// <summary>
-    /// Indicates whether the floating point number has positive sign. Zero is cosidered as positive.
+    /// Indicates whether the floating point number has positive sign.<br>
+    /// Zero is cosidered as positive.
     /// </summary>
     /// <param name="fValue">[IN] The value whose sign is going to be checked.</param>
     /// <returns>

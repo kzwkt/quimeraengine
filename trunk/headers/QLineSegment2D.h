@@ -23,8 +23,8 @@ namespace Math
 
 /// <summary>
 /// This class represents a chunk (segment) of straight line into 2D space, defined by two
-/// endpoints, A and B.
-/// These points will always be expressed as 2D points or vectors.
+/// endpoints, A and B.<br>
+/// These points will always be expressed as 2D points or vectors.<br>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below). However, some transforming methods will rotate the segment using A
 /// by default as the pivot point.
@@ -274,8 +274,8 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and an output line segment and applies the transformations
-	/// to a copy of the resident line segment, storing the results in the output parameter. The transformation pivot is the
-	/// origin of coordinates.
+	/// to a copy of the resident line segment, storing the results in the output parameter.<br>
+	/// The transformation pivot is the origin of coordinates.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="outSegment">[OUT] Line segment that stores the result of the transformation.</param>
@@ -342,7 +342,7 @@ public:
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	/// <param name="outSegment">[OUT] The scaled line segment.</param>
-	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, 
+	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot,
                                QBaseLineSegment<QVector2> &outSegment) const
 	{
 	    outSegment = *this;
@@ -357,7 +357,7 @@ public:
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
 	/// <param name="outSegment">[OUT] The scaled line segment.</param>
-	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, 
+	inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot,
                                QBaseLineSegment<QVector2> &outSegment) const
 	{
 	    outSegment = *this;
@@ -367,7 +367,8 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
-	/// to the resident line segment. The transformation pivot is the vector received as parameter.
+	/// to the resident line segment.<br>
+	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
@@ -378,13 +379,13 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix, a vector (transformation pivot) and an output line segment,
-	/// and applies the transformations to a copy of the resident line segment, storing the results in the output parameter.
+	/// and applies the transformations to a copy of the resident line segment, storing the results in the output parameter.<br>
 	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
 	/// <param name="outSegment">[OUT] Line segment that stores the result of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot, 
+	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot,
                                    QBaseLineSegment<QVector2> &outSegment) const
 	{
 	    outSegment = *this;
@@ -402,8 +403,8 @@ public:
     /// the following values: E_None, E_One and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
-	/// -If segments are totally or parcially coincident only a single point will be stored in the output
+	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// If segments are totally or parcially coincident only a single point will be stored in the output
 	///  parameter, presumingly an endpoint belonging to one of the segments.
 	/// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2>& segment, QBaseVector2& vIntersection) const
@@ -422,8 +423,8 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter used for storing that point won't be modified.
-	/// -If there are two intersections, the output parameter stores only the closest to A end point.
+	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// If there are two intersections, the output parameter stores only the closest to A end point.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection) const
 	{
@@ -442,9 +443,9 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the two output parameters used for storing the points won't be modified.
-	/// -If there is one intersection, it's stored in the first output parameter.
-	/// -If there are two intersections, the first output parameter stores the closest to A end point of
+	/// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br>
+	/// If there is one intersection, it's stored in the first output parameter.<br>
+	/// If there are two intersections, the first output parameter stores the closest to A end point of
     ///  line segment, and the second one stores the closest to B end point.
 	/// </remarks>
 	EQIntersections IntersectionPoint (const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
@@ -464,9 +465,9 @@ public:
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there are no intersection points, the output parameters used for storing that points won't be modified.
-	/// -If there's only one intersection point, only the first parameter will be modified.
-	/// -The first point returned is the closest one to A.
+	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br>
+	/// If there's only one intersection point, only the first parameter will be modified.<br>
+	/// The first point returned is the closest one to A.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
@@ -481,8 +482,8 @@ public:
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -If there are no intersection point, the output parameter used for storing that point won't be modified.
-	/// -The point returned is the closest one to A.
+	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// The point returned is the closest one to A.
 	/// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
 	{
@@ -502,10 +503,10 @@ public:
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.
-	/// -If there are no intersection points, the output parameters used for storing that points won't be modified.
-	/// -If there's only one intersection point, only the first parameter will be modified.
-	/// -The first point returned is the closest one to A.
+	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br>
+	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br>
+	/// If there's only one intersection point, only the first parameter will be modified.<br>
+	/// The first point returned is the closest one to A.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
@@ -520,9 +521,9 @@ public:
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
 	/// <remarks>
-	/// -The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.
-	/// -If there are no intersection point, the output parameter used for storing that point won't be modified.
-	/// -The point returned is the closest one to A.
+	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br>
+	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// The point returned is the closest one to A.
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
 	{

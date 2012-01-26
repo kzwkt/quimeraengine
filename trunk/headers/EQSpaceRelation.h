@@ -72,7 +72,7 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives the name of a valid enumeration value. Note that enumeration value names don't include
+    /// Constructor that receives the name of a valid enumeration value. <br>Note that enumeration value names don't include
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">The name of a valid enumeration value.</param>
@@ -126,7 +126,7 @@ public:
     }
 
     /// <summary>
-    /// Equality operator that accepts the name of a valid enumeration value. Note that enumeration value names don't include
+    /// Equality operator that accepts the name of a valid enumeration value. <br>Note that enumeration value names don't include
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">The enumeration value name.</param>

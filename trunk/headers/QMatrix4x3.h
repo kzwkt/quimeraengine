@@ -21,15 +21,16 @@ namespace Math
 {
 
 /// <summary>
-/// This class implements the functionality of a matrix with 4 rows and 3 columns.
-///
-/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix
-/// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.
+/// This class implements the functionality of a matrix with 4 rows and 3 columns.<br>
+/// A matrix is a rectangular arrangement of numbers.<br>
+/// The horizontal and vertical lines in a matrix
+/// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br>
 /// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m x n matrix,
-/// while m and n are called its dimensions. Every element is referenced by its position in the matrix.
+/// while m and n are called its dimensions.<br>
+/// Every element is referenced by its position in the matrix.<br>
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
-/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$. In this case, we will work with 4x3 matrices,
-/// therefore our matrix will be:
+/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$.<br>
+/// In this case, we will work with 4x3 matrices, therefore our matrix will be:
 ///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\\ a_{30} & a_{31} & a_{32}\end{bmatrix}\f$
 ///
@@ -148,13 +149,13 @@ public:
     }
 
 	/// <summary>
-	/// Gets a pseudo-identity matrix.
+	/// Gets a pseudo-identity matrix.<br>
 	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}\f$
     ///
-    /// In this case, as it's not a square matrix, it's not a real identity matrix. This constant exists
-    /// due to compatibility reasons only, as an exception.
+    /// In this case, as it's not a square matrix, it's not a real identity matrix.<br>
+    /// This constant exists due to compatibility reasons only, as an exception.
 	/// </summary>
     /// <returns>
     /// An identity matrix
@@ -183,14 +184,13 @@ public:
 	QMatrix4x3 operator*(const float_q &fScalar) const;
 
     /// <summary>
-    /// Multiply resident matrix by a square 3x3 matrix.
-	///
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
-    /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
-    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// Multiply resident matrix by a square 3x3 matrix.<br>
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br>
+    /// So, left matrix must have same number of columns than rows have right matrix.<br>
+    /// The product is not conmutative.<br>
+    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
     ///
-    /// \f$ A x B = C \f$
+    /// \f$ A\times B = C \f$
     ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
     ///
@@ -205,12 +205,11 @@ public:
     QMatrix4x3 operator*(const QBaseMatrix3x3 &matrix) const;
 
     /// <summary>
-    /// Multiply resident matrix by a non-square 3x4 matrix.
-	///
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
-    /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
-    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// Multiply resident matrix by a non-square 3x4 matrix.<br>
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br>
+    /// So, left matrix must have same number of columns than rows have right matrix.<br>
+    /// The product is not conmutative.<br>
+    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
     ///
     /// \f$ A x B = C \f$
     ///
@@ -239,10 +238,10 @@ public:
     /// Multiply resident matrix by a square 3x3 matrix, being the resultant
 	/// matrix stored as well in the whole resident one.
 	///
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.
-    /// So, left matrix must have same number of columns than rows have right matrix.
-    /// The product is not conmutative. To perform a product of matrices, each element is calculated as
-    /// (being \f$ A(m x n), B(n x p), C (m x p) \f$):
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br>
+    /// So, left matrix must have same number of columns than rows have right matrix.<br>
+    /// The product is not conmutative.<br>
+    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
     ///
     /// \f$ A x B = C \f$
     ///
@@ -389,7 +388,7 @@ public:
 	}
 
 	/// <summary>
-	/// Resets main diagonal elements to 1 and any other element to 0.
+	/// Resets main diagonal elements to 1 and any other element to 0.<br>
     /// Since element [3][3] doesn't exists, it can not be initialized.
 	/// </summary>
 	inline void ResetToIdentity()
@@ -402,8 +401,10 @@ public:
 	}
 
 	/// <summary>
-	/// Transpose: the transpose of a matrix m x n is a matrix n x m where each row becomes a column
-	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T.
+	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
+	/// and each column becomes a row.<br>
+	/// Every element Aij becomes Aji.<br>
+	/// It's noted A^T.
  	/// </summary>
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -450,7 +451,7 @@ public:
 	}
 
 	/// <summary>
-	/// Converts matrix into a string with the following format:
+	/// Converts matrix into a string with the following format:<br>
 	/// "M4x3( 11, 12, 13 )( 21, 22, 23 )( 31, 32, 33 )( 41, 42, 43 )".
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>

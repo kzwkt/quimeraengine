@@ -20,7 +20,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.
+/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.<br>
 /// It's supossed that ABCD defines a face of the hexahedron (eventually the top face) and
 /// EFGH defines the opposite face (eventually the bottom one).
 /// </summary>
@@ -36,7 +36,7 @@ public:
     /// Default constructor.
     /// </summary>
     inline QBaseHexahedron() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0), D(SQFloat::_0),
-                               E(SQFloat::_0), F(SQFloat::_0), G(SQFloat::_0), H(SQFloat::_0) 
+                               E(SQFloat::_0), F(SQFloat::_0), G(SQFloat::_0), H(SQFloat::_0)
     {
     }
 
@@ -78,7 +78,7 @@ public:
 
     /// <summary>
     /// Constructor from a vector which defines the gravity center of the box and three floating
-    /// points values which defines its height (Y), width (X) and depth (Z).
+    /// points values which defines its height (Y), width (X) and depth (Z).<br>
     /// It's supossed that all edges are parallel to one of the axis.
     /// </summary>
     /// <param name="vCenter">[IN] Center point of the box.</param>

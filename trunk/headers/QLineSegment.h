@@ -20,9 +20,9 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a chunk (segment) of straight line in the space, defined by two endpoints A and B.
+/// Class which represents a chunk (segment) of straight line in the space, defined by two endpoints A and B.<br>
 /// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter,
-/// which may be 2D vector, 3D vector or 4D vector.
+/// which may be 2D vector, 3D vector or 4D vector.<br>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below).
 /// </summary>
@@ -177,7 +177,7 @@ public:
 	/// Returns how many intersections have been detected.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection points, the output parameters used for storing these points won't be modified.
+	/// If there's no intersection points, the output parameters used for storing these points won't be modified.
 	/// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
  	{
@@ -415,9 +415,9 @@ public:
     /// the following values: E_None, E_One and E_Two.
     /// </returns>
     /// <remarks>
-    /// -If there's no intersection point, the two output parameters used for storing the points won't be modified.
-    /// -If there are two intersections, the first output parameter stores the closest to A end point of
-    ///  line segment, and the second one stores the closest to B end point.
+    /// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br>
+    /// If there are two intersections, the first output parameter stores the closest to A end point of
+    /// line segment, and the second one stores the closest to B end point.
     /// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
@@ -517,8 +517,8 @@ public:
     /// the following values: E_None, E_One and E_Two.
     /// </returns>
     /// <remarks>
-    /// -If there's no intersection point, the output parameter used for storing the point won't be modified.
-    /// -If there is an intersection, the output parameter stores the closest point to A.
+    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br>
+    /// If there is an intersection, the output parameter stores the closest point to A.
     /// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
 	{
@@ -623,7 +623,7 @@ public:
 	/// <summary>
 	/// Given an input vector (which represents a point), this method returns the maximum distance between this and
 	/// the segment, that is, the distance between the input point and the farthest point lying into the segment...
-	/// ...and this will be one of the segment endpoints!.
+	/// ...and this will be one of the segment endpoints!.<br>
 	/// Please note the above is correct only when the point lies outside the segment; if it's inside the segment,
 	/// the maximum distance equals to 0.
 	/// </summary>
@@ -685,8 +685,8 @@ public:
 	/// </summary>
 	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	/// <remarks>
-	/// -If the lengthening factor is 0.0, the segment degenerates into a point (both endpoints become the center).
-	/// -If the lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
+	/// If the lengthening factor is 0.0, the segment degenerates into a point (both endpoints become the center).<br>
+	/// If the lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
 	void Lengthen(const float_q &fLengtheningFactor)
 	{
@@ -716,8 +716,8 @@ public:
 	/// </summary>
 	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	/// <remarks>
-	/// -If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become A).
-	/// -If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
+	/// If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become A).<br>
+	/// If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
 	void LengthenFromA(const float_q &fLengtheningFactor)
 	{
@@ -742,8 +742,8 @@ public:
 	/// </summary>
 	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	/// <remarks>
-	/// -If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become B).
-	/// -If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
+	/// If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become B).<br>
+	/// If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
 	void LengthenFromB(const float_q &fLengtheningFactor)
 	{
@@ -763,7 +763,7 @@ public:
 	}
 
 	/// <summary>
-	/// Converts vector into a string with the following format:
+	/// Converts vector into a string with the following format:<br>
 	/// LS:A(VectorType::ToString)-B(VectorType::ToString)
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>
@@ -774,16 +774,16 @@ public:
 
 protected:
 
-	/// <summary>
-	/// This method computes the closest points between two line segments.
-	/// </summary>
-	/// <param name="segment">[IN] The segment to whom the distace has to be computed from.</param>
-	/// <param name="vClosestPtInS1ToS2">[OUT] It stores the closest point to S2 belonging to S1.</param>
-	/// <param name="vClosestPtInS2ToS1">[OUT] It stores the closest point to S1 belonging to S2.</param>
-	/// <remarks>
-	/// We assume S1 is the segment which executes this member function, and S2 the segment passed as
-	/// a parameter to S1.
-	/// </remarks>
+	// <summary>
+	// This method computes the closest points between two line segments.
+	// </summary>
+	// <param name="segment">[IN] The segment to whom the distace has to be computed from.</param>
+	// <param name="vClosestPtInS1ToS2">[OUT] It stores the closest point to S2 belonging to S1.</param>
+	// <param name="vClosestPtInS2ToS1">[OUT] It stores the closest point to S1 belonging to S2.</param>
+	// <remarks>
+	// We assume S1 is the segment which executes this member function, and S2 the segment passed as
+	// a parameter to S1.
+	// </remarks>
 	void GetClosestPoints(const QBaseLineSegment<VectorType> &segment,
 						  VectorType& vClosestPtInS1ToS2, VectorType& vClosestPtInS2ToS1) const
 	{

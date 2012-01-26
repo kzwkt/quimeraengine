@@ -24,8 +24,8 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in 2D space, which consists of a origin point or position, and a direction. The direction
-/// symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
+/// Represents a ray in 2D space, which consists of a origin point or position, and a direction.<br>
+/// The direction symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
 /// </summary>
 class QDllExport QRay2D : public QRay<QVector2, QVector2>
 {
@@ -50,7 +50,8 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives the ray's position and direction. The direction vector must be normalized.
+    /// Constructor that receives the ray's position and direction.<br>
+    /// The direction vector must be normalized.
     /// </summary>
     /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
@@ -129,13 +130,19 @@ public:
     /// </returns>
     /// <remarks>
     /// If both rays intesect, the intersection point must verify both vectorial ecuations:
+    ///
     /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$
+    ///
     /// \f$ P \equiv P_2 + \lambda_2 \cdot D_2 \f$
+    ///
     /// These ecuations can be decomposed by components, obtaining  two equalities:
+    ///
     /// 1) \f$ P_{1x} + \lambda_1 \cdot D_{1x} = P_{2x} + \lambda_2 \cdot D_{2x}\f$
+    ///
     /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$
+    ///
     /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
-    /// ensure ray direction is being followed.
+    /// ensure ray direction is being followed.<br>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
     bool Intersection(const QBaseRay<QVector2, QVector2> &ray) const;
@@ -186,18 +193,23 @@ public:
 	/// Computes the intersection point between resident and provided ray, if it exists.
 	/// </summary>
     /// <remarks>
-	/// Both rays must be normalized to ensure correct result.
-	/// -If there's no intersection point, or the rays are totally or parcially coincident,
-	/// the output parameter used for storing that point won't be modified.
-    ///
+	/// Both rays must be normalized to ensure correct result.<br>
+	/// If there's no intersection point, or the rays are totally or parcially coincident,
+	/// the output parameter used for storing that point won't be modified.<br>
     /// If both rays intesect, the intersection point must verify both vectorial ecuations:
+    ///
     /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$
+    ///
     /// \f$ P \equiv P_2 + \lambda_2 \cdot D_2 \f$
+    ///
     /// These ecuations can be decomposed by components, obtaining two equalities:
+    ///
     /// 1) \f$ P_{1x} + \lambda_1 \cdot D_{1x} = P_{2x} + \lambda_2 \cdot D_{2x}\f$
+    ///
     /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$
+    ///
     /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
-    /// ensure ray direction is being followed.
+    /// ensure ray direction is being followed.<br>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
 	/// </remarks>
 	/// <param name="ray">[IN] The ray whose intersection with resident ray will be checked.</param>
@@ -218,10 +230,10 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
-	/// Ray must be normalized to obtain a correct result.
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, the output parameter stores it.
-    /// -If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// Ray must be normalized to obtain a correct result.<br>
+	/// If there's no intersection point, the output parameters won't be modified.<br>
+	/// If there's one intersection point, the output parameter stores it.<br>
+    /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
     inline EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection) const
     {
@@ -239,11 +251,11 @@ public:
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
 	/// <remarks>
-	/// Ray must be normalized to obtain a correct result.
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.
-    /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
+	/// Ray must be normalized to obtain a correct result.<br>
+	/// If there's no intersection point, the output parameters won't be modified.<br>
+	/// If there's one intersection point, the second output parameter won't be modified,
+	/// and first output parameter is filled with the intersection point.<br>
+    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
@@ -261,9 +273,9 @@ public:
     /// the following values: E_None, E_One or E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter won't be modified.
-	/// -If there's one intersection point, the output parameter stores it.
-    /// -If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// If there's no intersection point, the output parameter won't be modified.<br>
+	/// If there's one intersection point, the output parameter stores it.<br>
+    /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
     {
@@ -282,10 +294,10 @@ public:
     /// the following values: E_None, E_One or E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.
-    /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
+	/// If there's no intersection point, the output parameters won't be modified.<br>
+	/// If there's one intersection point, the second output parameter won't be modified,
+	/// and first output parameter is filled with the intersection point.<br>
+    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
@@ -300,9 +312,9 @@ public:
     /// the following values: E_None, E_One or E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameter won't be modified.
-	/// -If there's one intersection point, the output parameter stores it.
-    /// -If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// If there's no intersection point, the output parameter won't be modified.<br>
+	/// If there's one intersection point, the output parameter stores it.<br>
+    /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
     {
@@ -321,10 +333,10 @@ public:
     /// the following values: E_None, E_One or E_Two.
 	/// </returns>
 	/// <remarks>
-	/// -If there's no intersection point, the output parameters won't be modified.
-	/// -If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.
-    /// -If there are two intersection points, both output parameters are filled with the intersection points, storing
+	/// If there's no intersection point, the output parameters won't be modified.<br>
+	/// If there's one intersection point, the second output parameter won't be modified,
+	/// and first output parameter is filled with the intersection point.<br>
+    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
@@ -348,9 +360,9 @@ public:
     /// the following values: E_None, E_One or E_Infinite.
     /// </returns>
     /// <remarks>
-    /// -If there's no intersection point, the output parameters won't be modified.
-    /// -If there's one intersection point, output parameter is filled with the intersection point.
-    /// -If there are infinite intersection points, the output parameters won't be modified.
+    /// If there's no intersection point, the output parameters won't be modified.<br>
+    /// If there's one intersection point, output parameter is filled with the intersection point.<br>
+    /// If there are infinite intersection points, the output parameters won't be modified.
     /// </remarks>
     EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection) const;
 
@@ -360,11 +372,11 @@ public:
 	/// <param name="segment">[IN] The line segment which acts as mirror.</param>
 	/// <param name="ray">[OUT] The reflected ray.</param>
 	/// <remarks>
-	/// Ray direction must be normalized to obtain a correct result.
-	/// -If there's no intersection point between ray and line segment, or are both coincident or parallel,
-	///  reflected ray is the resident ray itself.
-	/// -If there's one intersection point between them, then the reflected ray has it origin point at the intersection point
-	///  and its direction verifies that the incident angle and the reflected angle are equals.
+	/// Ray direction must be normalized to obtain a correct result.<br>
+	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
+	/// reflected ray is the resident ray itself.<br>
+	/// If there's one intersection point between them, then the reflected ray has it origin point at the intersection point
+	/// and its direction verifies that the incident angle and the reflected angle are equals.
 	/// </remarks>
     inline void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseRay<QVector2, QVector2> &ray) const
     {
@@ -403,11 +415,11 @@ public:
 	/// <param name="segment">[IN] The line segment which acts as mirror.</param>
 	/// <param name="vDirection">[OUT] The direction of the reflected ray.</param>
 	/// <remarks>
-	/// Ray direction must be normalized to obtain a correct result.
-	/// -If there's no intersection point between ray and line segment, or are both coincident or parallel,
-	///  reflected ray is the resident ray itself.
-	/// -If there's one intersection point between them, then the reflected ray direction verifies
-	///  that the incident angle and the reflected angle are equals.
+	/// Ray direction must be normalized to obtain a correct result.<br>
+	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
+	/// reflected ray is the resident ray itself.<br>
+	/// If there's one intersection point between them, then the reflected ray direction verifies
+	/// that the incident angle and the reflected angle are equals.
 	/// </remarks>
     inline void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vDirection) const
     {
@@ -437,7 +449,7 @@ public:
 	/// </summary>
 	/// <param name="transformation">[IN] The transformation matrix to be applied.</param>
 	/// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br>
 	/// All transformations affects both origin ray point and ray direction, except translations,
 	/// that only affects origin ray point.
 	/// </remarks>
@@ -462,7 +474,7 @@ public:
 	/// <param name="transformation">[IN] The transformation matrix to be applied.</param>
 	/// <param name="outRay">[OUT] The transformed ray.</param>
 	/// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br>
 	/// All transformations affects both origin ray point and ray direction, except translations,
 	/// that only affects origin ray point.
 	/// </remarks>

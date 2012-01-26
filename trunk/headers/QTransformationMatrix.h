@@ -22,17 +22,25 @@ namespace Math
 template<class MatrixType> class QTranslationMatrix;
 
 /// <summary>
-/// Class which represents a transformation matrix. A transformation matrix is, in general, composed of a scale,
-/// a rotation and a translation (or any combination of them). If we note:
+/// Class which represents a transformation matrix.<br>
+/// A transformation matrix is, in general, composed of a scale, a rotation and a translation (or any combination of them).<br>
+/// If we note:
+///
 /// \f$ S = \begin{bmatrix} s_x & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s_z & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$,
+///
 /// \f$ R = \begin{bmatrix} r_{00} & r_{01} & r_{02} & 0 \\ r_{10} & r_{11} & r_{12} & 0 \\ r_{20} & r_{21} & r_{22} & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$, and
-/// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$,\\
+///
+/// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$,
+///
 /// which are the scale matrix, the rotation matrix and the translation matrix respectively, we compose the transformation as follows:
+///
 /// \f$ SRT = \begin{bmatrix} s_x\dot r_{00} & s_x\dot r_{01} & s_x\dot r_{02} & 0 \\ s_y\dot r_{10} & s_y\dot r_{11} & s_y\dot r_{12} & 0 \\
 /// s_z\dot r_{20} & s_z\dot r_{21} & s_z\dot r_{22} & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
-/// Since this class is a template, we allow the use of a 4x4 matrix (QMatrix4x4) or a 4x3 one (QMatrix4x3) as parameter.
-/// When parameter is a 4x3 matrix, we treat it as a 4x4 matrix, assuming that fourth column
-/// is \f$ \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}\f$.
+///
+/// Since this class is a template, we allow the use of a 4x4 matrix or a 4x3 one as parameter.<br>
+/// When parameter is a 4x3 matrix, we treat it as a 4x4 matrix, assuming that fourth column is:
+///
+/// \f$ \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}\f$.
 /// </summary>
 template <class MatrixType>
 class QDllExport QTransformationMatrix : public MatrixType
@@ -118,9 +126,8 @@ public:
     /// </summary>
     /// <remarks>
     /// Keeps the convention rows x columns, so the pointer must point to a 12 floating point array if
-    /// the template parameter is a 4x3 matrix and to a 16 floating point array if it is a 4x4 matrix.
-    /// Each three or four consecutive values, depending on template parameter, is used to fill a row
-    /// of the matrix.
+    /// the template parameter is a 4x3 matrix and to a 16 floating point array if it is a 4x4 matrix.<br>
+    /// Each three or four consecutive values, depending on template parameter, is used to fill a row of the matrix.<br>
     /// If you use this constructor, be sure that you are constructing a translation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
@@ -130,7 +137,7 @@ public:
     }
 
     /// <summary>
-    /// Constructor from four 4x32 floating point packed values. Each param contains a row of the matrix.
+    /// Constructor from four 4x32 floating point packed values. Each param contains a row of the matrix.<br>
     /// Last component of each pack will be ignored if the template parameter is a 4x3 matrix.
     /// </summary>
     /// <remarks>
@@ -147,8 +154,7 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a translation matrix, a 3x3 rotation matrix and
-    /// a 3x3 scale matrix.
+    /// Constructor from a translation matrix, a 3x3 rotation matrix and a 3x3 scale matrix.
     /// </summary>
     /// <param name="translation">[IN] A translation matrix.</param>
     /// <param name="rotation">[IN] A 3x3 rotation matrix.</param>
@@ -159,8 +165,7 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a translation matrix, a 3x3 rotation matrix and
-    /// a 3x3 scale matrix.
+    /// Constructor from a translation matrix, a 3x3 rotation matrix and a 3x3 scale matrix.
     /// </summary>
     /// <param name="translation">[IN] A translation matrix.</param>
     /// <param name="rotation">[IN] A 3x3 rotation matrix.</param>
@@ -207,7 +212,7 @@ protected:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.
+    /// Gets an identity matrix.<br>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
@@ -247,8 +252,8 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a transformation matrix by the resident matrix. The product is calculated
-    /// knowing that fourth column of is (0,0,0,1).
+    /// Multiplies a transformation matrix by the resident matrix.<br>
+    /// The product is calculated knowing that fourth column of is (0,0,0,1).
     /// </summary>
     /// <remarks>
     /// This product is not conmmutative.
@@ -265,8 +270,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a translation matrix by the current matrix,
-    /// following matrices product rules.
+    /// Multiplies a translation matrix by the current matrix, following matrices product rules.
     /// </summary>
     /// <remarks>
     /// This product is not conmmutative.
@@ -283,8 +287,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a translation matrix by the current matrix,
-    /// following matrices product rules.
+    /// Multiplies a translation matrix by the current matrix, following matrices product rules.
     /// </summary>
     /// <remarks>
     /// This product is not conmmutative.
@@ -301,7 +304,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.
+    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.<br>
     /// The rotation matrix is extended to a 4x4 matrix to allow this product.
     /// </summary>
     /// <remarks>
@@ -337,7 +340,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a 3x3 scale matrix by the current matrix, following matrices product rules.
+    /// Multiplies a 3x3 scale matrix by the current matrix, following matrices product rules.<br>
     /// The scale matrix is extended to a 4x4 matrix to allow this product.
     /// </summary>
     /// <remarks>
@@ -375,7 +378,7 @@ public:
     // Assign operators
 
     /// <summary>
-    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// Product and assign operator. Current matrix stores the result of the multiplication.<br>
     /// Multiplies a transformation matrix by the resident matrix.
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
@@ -389,9 +392,9 @@ public:
     }
 
     /// <summary>
-    /// Product and assign operator. Current matrix stores the result of the multiplication.
-    /// Multiplies a transformation matrix by the resident matrix. The product is calculated
-    /// knowing that last column of matrices is (0,0,0,1).
+    /// Product and assign operator. Current matrix stores the result of the multiplication.<br>
+    /// Multiplies a transformation matrix by the resident matrix.<br>
+    /// The product is calculated knowing that last column of matrices is (0,0,0,1).
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     /// <returns>
@@ -417,9 +420,9 @@ public:
     }
 
     /// <summary>
-    /// Calculates the determinant of the matrix. Since this is a transformation matrix,
-    /// its determinant can be calculated as if it was a 3x3 matrix, removing fourth row and fourth column
-    /// in calculus :
+    /// Calculates the determinant of the matrix.<br>
+    /// Since this is a transformation matrix, its determinant can be calculated as
+    /// if it was a 3x3 matrix, removing fourth row and fourth column in calculus :
     ///
     /// \f$ \left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{10}\cdot a_{21} -
     /// (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$
@@ -439,19 +442,24 @@ public:
     }
 
     /// <summary>
-    /// Inverses the matrix.
+    /// Inverses the matrix.<br>
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
     ///
     /// \f$ A\cdot A^{-1}  = A^{-1}\cdot A = I\f$
     ///
     /// We can calculate the inverse of any matrix by:
     ///
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$ , where \f$ C^T_{ij}\f$ is the matrix
-    /// formed by each cofactor of each element of A, trasposed.
+    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$,
+    ///
+    /// where \f$ C^T_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.<br>
     /// Since the matrix is a transformation matrix, then the inversion can be optimized avoiding all products by
-    /// the elements of the fourth column.
+    /// the elements of the fourth column.<br>
     /// Inverse has this general form, expressed in function of the scale, the rotation and the translation:
-    /// \f$ (SRT)^{-1} = T^{-1}\cdot R^{-1}\cdot S^{-1} = \begin{bmatrix} \frac{r_{00}}{S_x} & \frac{r_{10}}{S_y} & \frac{r_{20}}{S_z} & 0 \\ \frac{r_{01}}{S_x} & \frac{r_{11}}{S_y} & \frac{r_{21}}{S_z} & 0 \\ \frac{r_{02}}{S_x} & \frac{r_{12}}{S_y} & \frac{r_{22}}{S_z} & 0 \\ \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
+    ///
+    /// \f$ (SRT)^{-1} = T^{-1}\cdot R^{-1}\cdot S^{-1} = \begin{bmatrix} \frac{r_{00}}{S_x} & \frac{r_{10}}{S_y} & \frac{r_{20}}{S_z} & 0 \\
+    /// \frac{r_{01}}{S_x} & \frac{r_{11}}{S_y} & \frac{r_{21}}{S_z} & 0 \\
+    /// \frac{r_{02}}{S_x} & \frac{r_{12}}{S_y} & \frac{r_{22}}{S_z} & 0 \\
+    /// \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
     /// </summary>
     /// <returns>
     /// True if the matrix is invertible, false otherwise.
@@ -519,19 +527,24 @@ public:
     }
 
     /// <summary>
-    /// Inverses the matrix and stores result in a matrix provided.
+    /// Inverses the matrix and stores result in a matrix provided.<br>
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
     ///
     /// \f$ A\cdot A^{-1}  = A^{-1}\cdot A = I\f$
     ///
     /// We can calculate the inverse of any matrix by:
     ///
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$ , where \f$ C^T_{ij}\f$ is the matrix
-    /// formed by each cofactor of each element of A, trasposed.
+    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$,
+    ///
+    /// where \f$ C^T_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.<br>
     /// Since the matrix is a transformation matrix, then the inversion can be optimized avoiding all products by
-    /// the elements of the fourth column.
+    /// the elements of the fourth column.<br>
     /// Inverse has this general form, expressed in function of the scale, the rotation and the translation:
-    /// \f$ (SRT)^{-1} = T^{-1}\cdot R^{-1}\cdot S^{-1} = \begin{bmatrix} \frac{r_{00}}{S_x} & \frac{r_{10}}{S_y} & \frac{r_{20}}{S_z} & 0 \\ \frac{r_{01}}{S_x} & \frac{r_{11}}{S_y} & \frac{r_{21}}{S_z} & 0 \\ \frac{r_{02}}{S_x} & \frac{r_{12}}{S_y} & \frac{r_{22}}{S_z} & 0 \\ \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
+    ///
+    /// \f$ (SRT)^{-1} = T^{-1}\cdot R^{-1}\cdot S^{-1} = \begin{bmatrix} \frac{r_{00}}{S_x} & \frac{r_{10}}{S_y} & \frac{r_{20}}{S_z} & 0 \\
+    /// \frac{r_{01}}{S_x} & \frac{r_{11}}{S_y} & \frac{r_{21}}{S_z} & 0 \\
+    /// \frac{r_{02}}{S_x} & \frac{r_{12}}{S_y} & \frac{r_{22}}{S_z} & 0 \\
+    /// \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
     /// </summary>
     /// <param name="matrix">[OUT] The matrix where to store the inverse matrix.</param>
     /// <returns>
@@ -721,8 +734,8 @@ public:
     }
 
     /// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.
-	/// Remember that Quimera Engine works with left-hand convention by default.
+    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
+	/// Remember that Quimera Engine works with left-hand convention by default.<br>
 	/// To do that, we invert both rotation (by trasposing it) and z translation component.
     /// </summary>
     void SwitchHandConvention()
@@ -757,8 +770,8 @@ public:
     }
 
 	/// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.
-	/// Remember that Quimera Engine works with left-hand convention by default.
+    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
+	/// Remember that Quimera Engine works with left-hand convention by default.<br>
 	/// To do that, we inverting both rotation (by trasposing it) and z translation component.
     /// </summary>
 	/// <param name="outMatrix">[OUT] Matrix to store the changed transformation matrix.</param>
@@ -769,8 +782,8 @@ public:
     }
 
 	/// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.
-	/// Remember that Quimera Engine works with left-hand convention by default.
+    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
+	/// Remember that Quimera Engine works with left-hand convention by default.<br>
 	/// To do that, we inverting both rotation (by trasposing it) and z translation component.
     /// </summary>
 	/// <param name="outMatrix">[OUT] Matrix to store the changed transformation matrix.</param>
