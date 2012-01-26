@@ -20,15 +20,16 @@ namespace Math
 {
 
 /// <summary>
-/// This class implements the functionality of a matrix with 3 rows and 4 columns.
-///
-/// A matrix is a rectangular arrangement of numbers. The horizontal and vertical lines in a matrix
-/// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.
+/// This class implements the functionality of a matrix with 3 rows and 4 columns.<br>
+/// A matrix is a rectangular arrangement of numbers.<br>
+/// The horizontal and vertical lines in a matrix
+/// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br>
 /// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m x n matrix,
-/// while m and n are called its dimensions. Every element is referenced by its position in the matrix.
+/// while m and n are called its dimensions.<br>
+/// Every element is referenced by its position in the matrix.<br>
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
-/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$. In this case, we will work with 4x3 matrices,
-/// therefore our matrix will be:
+/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$.<br>
+/// In this case, we will work with 4x3 matrices, therefore our matrix will be:
 ///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\end{bmatrix}\f$
 ///
@@ -143,7 +144,7 @@ public:
     }
 
     /// <summary>
-    /// Stores an identity matrix.
+    /// Stores an identity matrix.<br>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \end{bmatrix}\f$
@@ -340,8 +341,9 @@ public:
 	}
 
 	/// <summary>
-	/// Transpose: the transpose of a matrix m x n is a matrix n x m where each row becomes a column
-	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T
+	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
+	/// and each column becomes a row.<br>
+	/// Every element Aij becomes Aji. It's noted A^T
  	/// </summary>
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -402,8 +404,8 @@ public:
     }
 
 	/// <summary>
-    /// Resets the matrix to a identity matrix. The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$,
-    /// and it's set to 1 if \f$ i=j\f$.
+    /// Resets the matrix to a identity matrix.<br>
+    /// The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, and it's set to 1 if \f$ i=j\f$.
     /// </summary>
     inline void ResetToIdentity()
     {
@@ -415,7 +417,7 @@ public:
     }
 
 	/// <summary>
-	/// Converts matrix into a string with the following format:
+	/// Converts matrix into a string with the following format:<br>
 	/// "M3x4( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 )"
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>

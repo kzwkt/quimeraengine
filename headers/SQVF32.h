@@ -17,7 +17,7 @@ namespace DataTypes
 {
 
 /// <summary>
-/// Helper class that offers functionality related to 4 x 32-bits floating point variables packs.
+/// Helper class that offers functionality related to 4 x 32-bits floating point variables packs.<br>
 /// This kind of packs are used in SIMD (SSE) operations.
 /// </summary>
 class QDllExport SQVF32
@@ -38,10 +38,10 @@ private:
 public:
     // [TODO] Thund: Review this doc.
     /// <summary>
-    /// Packs four input floating point variables into a 128-bits output variable. The order of variables
-    /// in the package must be read from left to right, this is:
-    ///  | Fourth | Third | Second | First | position
-    /// 128     96       64      32        0 bit
+    /// Packs four input floating point variables into a 128-bits output variable.<br>
+    /// The order of variables in the package must be read from left to right, this is:<br>
+    ///  | Fourth | Third | Second | First | position<br>
+    /// 128       96     64        32      0 bit<br>
     /// This is endianess-independent.
     /// </summary>
     /// <param name="fFirst">[IN] First value in the packet.</param>
@@ -75,10 +75,10 @@ public:
     }
 
     /// <summary>
-    /// Unpacks into four output floating point variables stored in a 128-bits input variable. The order of variables
-    /// in the package is read from left to right, this is:
-    ///  | Fourth | Third | Second | First | position
-    /// 128     96       64      32        0 bit
+    /// Unpacks into four output floating point variables stored in a 128-bits input variable.<br>
+    /// The order of variables in the package is read from left to right, this is:<br>
+    ///  | Fourth | Third | Second | First | position<br>
+    /// 128       96     64        32      0 bit<br>
     /// This is endianess-independent.
     /// </summary>
     /// <param name="pack">[IN] The package containing four 32-bits floating point values.</param>
@@ -123,7 +123,8 @@ public:
     /// </summary>
     /// <param name="inPack">[IN] A package containing four 32-bits floating point values.</param>
     /// <returns>
-    /// The packet represented as a character string. The format is: VF( First, Second, Third, Fourth ).
+    /// The packet represented as a character string.<br>
+    /// The format is: VF( First, Second, Third, Fourth ).
     /// </returns>
     static string_q ToString(const vf32_q &inPack);
 

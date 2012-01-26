@@ -24,7 +24,10 @@ namespace Math
 {
 
 /// <summary>
-/// It represents the basic form of a 3D plane, defined by the equation \f$ ax + by + cz + d = 0\f$.
+/// It represents the basic form of a 3D plane, defined by the equation:
+///
+/// \f$ ax + by + cz + d = 0\f$.
+///
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from
 /// plane to the origin, when the normal is normalized.
 /// </summary>
@@ -35,7 +38,7 @@ class QDllExport QPlane : public QBasePlane
 public:
 
     /// <summary>
-    /// Product by a scalar: all coefficients are multiplied by the floating point value provided.
+    /// Product by a scalar: all coefficients are multiplied by the floating point value provided.<br>
     /// Shortcut to multiply on the left.
     /// </summary>
     /// <remarks>
@@ -91,9 +94,11 @@ public:
 	/// <summary>
 	/// Constructor from a 4x32 packed float value.
 	/// </summary>
-	/// <param name="value">[IN] 4x32 packed float containing the four components.
+	/// <param name="value">[IN] 4x32 packed float containing the four components.</param>
+	/// <remarks>
 	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
-	/// 3rd value (c coefficient), 4th value (d independent term).</param>
+	/// 3rd value (c coefficient), 4th value (d independent term).
+	/// </remarks>
     inline explicit QPlane(const vf32_q value) : QBasePlane(value)
     {
     }
@@ -304,7 +309,8 @@ public:
     //Methods
 
     /// <summary>
-    /// Normalizes the resident plane. This implies to divide all components of plane by the length of the normal.
+    /// Normalizes the resident plane.<br>
+    /// This implies to divide all components of plane by the length of the normal.
     /// </summary>
     inline void Normalize()
     {
@@ -319,7 +325,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates a normalized plane from the resident one, storing it in an output plane provided.
+    /// Calculates a normalized plane from the resident one, storing it in an output plane provided.<br>
     /// This implies to divide all components of plane by the length of the normal.
     /// </summary>
     /// <param name="outPlane">[OUT] The plane where we want to store the normalized plane.</param>
@@ -539,7 +545,7 @@ public:
 
     /// <summary>
     /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
-    /// remaining unchanged the distance from the plane to the origin.
+    /// remaining unchanged the distance from the plane to the origin.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="rotation">[IN] A [3x3] matrix containing the rotation to be applied.</param>
@@ -570,7 +576,7 @@ public:
 
     /// <summary>
     /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
-    /// remaining unchanged the distance from the plane to the origin.
+    /// remaining unchanged the distance from the plane to the origin.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="qRotation">[IN] A quaternion containing the rotation to be applied.</param>
@@ -600,7 +606,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a scale to the resident plane.
+    /// Applies a scale to the resident plane.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="scale">[IN] A [3x3] matrix containing the scale to be applied.</param>
@@ -633,7 +639,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a scale to the resident plane given by the provided vector.
+    /// Applies a scale to the resident plane given by the provided vector.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
@@ -668,7 +674,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a scale to the resident plane given by the provided amounts for every axis.
+    /// Applies a scale to the resident plane given by the provided amounts for every axis.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="fScaleX">[IN] The scale amount to be applied in X direction.</param>
@@ -696,7 +702,7 @@ public:
 
     /// <summary>
     /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
-    /// but the distance from the plane to the origin is modified according with the translation applied.
+    /// but the distance from the plane to the origin is modified according with the translation applied.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="translation">[IN] A [4x3] matrix containing the translation to be applied.</param>
@@ -719,7 +725,7 @@ public:
 
     /// <summary>
     /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
-    /// but the distance from the plane to the origin is modified according with the translation applied.
+    /// but the distance from the plane to the origin is modified according with the translation applied.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="translation">[IN] A [4x4] matrix containing the translation to be applied.</param>
@@ -731,7 +737,8 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided vector. The normal vector to the plane remains unchanged,
+    /// Applies a translation to the resident plane given by the provided vector.<br>
+    /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according with the applied translation.
     /// </summary>
     /// <param name="vTranslation">[IN] A 3d vector containing the translation to be applied.</param>
@@ -741,8 +748,9 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided vector. The normal vector to the plane remains unchanged,
-    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// Applies a translation to the resident plane given by the provided vector.<br>
+    /// The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the applied translation.<br>
     /// The resultant plane is stored in the output provided parameter.
     /// </summary>
     /// <param name="vTranslation">[IN] A 3d vector containing the translation to be applied.</param>
@@ -754,7 +762,8 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided vector. The normal vector to the plane remains unchanged,
+    /// Applies a translation to the resident plane given by the provided vector.<br>
+    /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according with the applied translation.
     /// </summary>
     /// <param name="vTranslation">[IN] A 3d vector containing the translation to be applied.</param>
@@ -764,8 +773,9 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided vector. The normal vector to the plane remains unchanged,
-    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// Applies a translation to the resident plane given by the provided vector.<br>
+    /// The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according with the applied translation.<br>
     /// The resultant plane is stored in the output provided parameter.
     /// </summary>
     /// <param name="vTranslation">[IN] A 3d vector containing the translation to be applied.</param>
@@ -777,7 +787,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided amounts for every axis.
+    /// Applies a translation to the resident plane given by the provided amounts for every axis.<br>
     /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according with the applied translation.
     /// </summary>
@@ -790,9 +800,9 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided amounts for every axis.
+    /// Applies a translation to the resident plane given by the provided amounts for every axis.<br>
     /// The normal vector to the plane remains unchanged,
-    /// but the distance from the plane to the origin is modified according with the applied translation.
+    /// but the distance from the plane to the origin is modified according with the applied translation.<br>
     /// The resultant plane is stored in the output provided parameter.
     /// </summary>
     /// <param name="fTranslationX">[IN] Translation amount to be applied in X direction.</param>
@@ -833,7 +843,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a transformation to the resident plane.
+    /// Applies a transformation to the resident plane.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -872,7 +882,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a transformation to the resident plane.
+    /// Applies a transformation to the resident plane.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -911,7 +921,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a transformation to the resident plane.
+    /// Applies a transformation to the resident plane.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="spaceConversion">[IN] A [4x4] transformation matrix.</param>
@@ -950,7 +960,7 @@ public:
 
     /// <summary>
     /// Applies the rotation contained in the provided quaternion to the resident plane
-    /// around the given point, that acts as pivot of rotation.
+    /// around the given point, that acts as pivot of rotation.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="qRotation">[IN] A quaternion containing the rotation to be applied.</param>
@@ -964,7 +974,7 @@ public:
 
     /// <summary>
     /// Applies the rotation contained in the provided quaternion to the resident plane
-    /// around the given point, that acts as pivot of rotation.
+    /// around the given point, that acts as pivot of rotation.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="qRotation">[IN] A quaternion containing the rotation to be applied.</param>
@@ -1000,7 +1010,7 @@ public:
 
     /// <summary>
     /// Applies the rotation contained in the provided matrix to the resident plane
-    /// around the given point, that acts as pivot of rotation.
+    /// around the given point, that acts as pivot of rotation.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="rotation">[IN] A [3x3] matrix containing the rotation to be applied.</param>
@@ -1014,7 +1024,7 @@ public:
 
     /// <summary>
     /// Applies the rotation contained in the provided matrix to the resident plane
-    /// around the given point, that acts as pivot of rotation.
+    /// around the given point, that acts as pivot of rotation.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <param name="rotation">[IN] A [3x3] matrix containing the rotation to be applied.</param>
@@ -1056,7 +1066,7 @@ public:
 
     /// <summary>
     /// Applies the scale contained in the provided vector to the resident plane,
-    /// acting the given point as pivot of scale.
+    /// acting the given point as pivot of scale.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1073,7 +1083,7 @@ public:
 
     /// <summary>
     /// Applies the scale contained in the provided vector to the resident plane,
-    /// acting the given point as pivot of scale.
+    /// acting the given point as pivot of scale.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1122,7 +1132,7 @@ public:
 
     /// <summary>
     /// Scales the resident plane by the provided amounts for every axis,
-    /// acting the given point as pivot of scale.
+    /// acting the given point as pivot of scale.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1141,7 +1151,7 @@ public:
 
     /// <summary>
     /// Scales the resident plane by the provided amounts for every axis,
-    /// acting the given point as pivot of scale.
+    /// acting the given point as pivot of scale.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1188,7 +1198,7 @@ public:
 
     /// <summary>
     /// Applies the scale contained in the provided matrix to the resident plane,
-    /// acting the given point as pivot of scale.
+    /// acting the given point as pivot of scale.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1205,7 +1215,7 @@ public:
 
     /// <summary>
     /// Applies the scale contained in the provided matrix to the resident plane,
-    /// acting the given point as pivot of scale.
+    /// acting the given point as pivot of scale.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1250,7 +1260,7 @@ public:
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
-    /// around the given point, that acts as pivot of transformation.
+    /// around the given point, that acts as pivot of transformation.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1267,7 +1277,7 @@ public:
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
-    /// around the given point, that acts as pivot of transformation.
+    /// around the given point, that acts as pivot of transformation.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1312,7 +1322,7 @@ public:
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
-    /// around the given point, that acts as pivot of transformation.
+    /// around the given point, that acts as pivot of transformation.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1329,7 +1339,7 @@ public:
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
-    /// around the given point, that acts as pivot of transformation.
+    /// around the given point, that acts as pivot of transformation.<br>
     /// The resultant plane is stored in the output parameter provided.
     /// </summary>
     /// <remarks>
@@ -1345,7 +1355,7 @@ public:
     }
 
     /// <summary>
-    /// Converts plane into a string with the following format:
+    /// Converts plane into a string with the following format:<br>
     /// "PL(a, b, c, d)".
     /// </summary>
     /// <returns>The string with the format specified.</returns>

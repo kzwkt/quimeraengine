@@ -24,7 +24,8 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a sphere in space. A sphere is the collection of all points that are equidistant from other point known as "Center".
+/// Class which represents a sphere in space.<br>
+/// A sphere is the collection of all points that are equidistant from other point known as "Center".
 /// </summary>
 template <class VectorType>
 class QDllExport QSphere : public QOrb<VectorType>
@@ -103,7 +104,8 @@ public:
     }
 
 	/// <summary>
-	/// Translates the sphere. Translated sphere will be stored in the sphere received as parameter.
+	/// Translates the sphere.<br>
+	/// Translated sphere will be stored in the sphere received as parameter.
 	/// </summary>
     /// <param name="vTranslation">[IN] Vector that contains the translation to be applied.</param>
     /// <param name="outSphere">[OUT] Sphere that will store the translated sphere.</param>
@@ -125,7 +127,8 @@ public:
     }
 
 	/// <summary>
-	/// Translates the sphere. Translated sphere will be stored in the sphere received as parameter.
+	/// Translates the sphere.<br>
+	/// Translated sphere will be stored in the sphere received as parameter.
 	/// </summary>
     /// <param name="fTranslationX">[IN] Scalar that contains the translation on X axis.</param>
     /// <param name="fTranslationY">[IN] Scalar that contains the translation on Y axis.</param>
@@ -147,7 +150,8 @@ public:
     }
 
 	/// <summary>
-	/// Rotates the sphere. Rotated sphere will be stored in the sphere received as parameter.
+	/// Rotates the sphere.<br>
+	/// Rotated sphere will be stored in the sphere received as parameter.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
     /// <param name="outSphere">[OUT] Sphere that will store the rotated sphere.</param>
@@ -168,7 +172,8 @@ public:
     }
 
 	/// <summary>
-	/// Rotates the sphere using a pivot. Rotated sphere will be stored in the sphere received as parameter.
+	/// Rotates the sphere using a pivot.<br>
+	/// Rotated sphere will be stored in the sphere received as parameter.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
@@ -191,7 +196,8 @@ public:
     }
 
  	/// <summary>
-	/// Scales the sphere. Scaled sphere will be stored in the sphere received as parameter.
+	/// Scales the sphere.<br>
+	/// Scaled sphere will be stored in the sphere received as parameter.
 	/// </summary>
     /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
@@ -217,7 +223,8 @@ public:
     }
 
  	/// <summary>
-	/// Scales the sphere. Scaled sphere will be stored in the sphere received as parameter.
+	/// Scales the sphere.<br>
+	/// Scaled sphere will be stored in the sphere received as parameter.
 	/// </summary>
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
@@ -245,7 +252,8 @@ public:
     }
 
  	/// <summary>
-	/// Scales the sphere using a pivot. Scaled sphere will be stored in the sphere received as parameter.
+	/// Scales the sphere using a pivot.<br>
+	/// Scaled sphere will be stored in the sphere received as parameter.
 	/// </summary>
     /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
@@ -274,7 +282,8 @@ public:
     }
 
  	/// <summary>
-	/// Scales the sphere using a pivot. Scaled sphere will be stored in the sphere received as parameter.
+	/// Scales the sphere using a pivot.<br>
+	/// Scaled sphere will be stored in the sphere received as parameter.
 	/// </summary>
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
@@ -497,7 +506,7 @@ public:
 
 	/// <summary>
 	/// This method transforms the resident sphere applying the provided space conversion matrix, storing the
-	/// resultant sphere in the output parameter.
+	/// resultant sphere in the output parameter.<br>
 	/// Only the center of sphere is affected by this transformation.
 	/// </summary>
 	/// <param name="spaceConversion">[IN] Matrix which contains the space conversion transformation to be applied.</param>
@@ -569,7 +578,8 @@ public:
 	}
 
 	/// <summary>
-	/// Checks the space relation between current sphere and a plane received as parameter. Space relation means that
+	/// Checks the space relation between current sphere and a plane received as parameter.<br>
+	/// Space relation means that
 	/// the sphere is in the positive side of the space divided by the plane (subspace pointed by plane´s normal),
 	/// in the negative side or in both sides (intersection).
 	/// </summary>
@@ -578,7 +588,10 @@ public:
 	/// </remarks>
 	/// <param name="plane">[IN] The plane we want check the relation with current sphere.</param>
     /// <returns>
-    /// An enumerated value like follows: Positive Side, Negative Side or Both Sides (intersects the plane).
+    /// An enumerated value like follows:
+    /// - Positive Side
+    /// - Negative Side
+    /// - Both Sides (intersects the plane).
     /// </returns>
 	inline EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
@@ -602,7 +615,8 @@ public:
 	}
 
 	/// <summary>
-	/// Projects the sphere to a plane perpendicularly. Only the center point of the sphere is projected. Radius keeps its original value.
+	/// Projects the sphere to a plane perpendicularly.<br>
+	/// Only the center point of the sphere is projected. Radius keeps its original value.
 	/// </summary>
     /// <remarks>
 	/// The plane must be normalized to obtain correct result.

@@ -17,10 +17,10 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents an orb in the space, defined by its center point and radius.
+/// Class which represents an orb in the space, defined by its center point and radius.<br>
 /// Center point may be expressed as 2D or 3D point or vector, depending on the parameter of the template,
-/// which may be 2D vector, 3D vector or 4D vector.
-/// Radius is expressed as a floating point value which is always nonnegative.
+/// which may be 2D vector, 3D vector or 4D vector.<br>
+/// Radius is expressed as a floating point value which is always nonnegative.<br>
 /// Remember that an orb is the sum of equidistant points from a given one.
 /// </summary>
 template <class VectorType>
@@ -123,7 +123,7 @@ public:
     }
 
 	/// <summary>
-	/// Converts the orb into a string with the following format:
+	/// Converts the orb into a string with the following format:<br>
 	/// O:C(VectorType::ToString),R(Radius)
 	/// </summary>
 	/// <returns>

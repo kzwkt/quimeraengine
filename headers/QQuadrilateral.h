@@ -20,7 +20,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a quadrilateral in 2D space. Methods in this class are related to transformations in 2D.
+/// Class which represents a quadrilateral in 2D space. Methods in this class are related to transformations in 2D.<br>
 /// The quadrilateral is defined by four consecutive vertices A, B, C, D, being the edges AB, BC, CD and DA segments.
 /// </summary>
 class QDllExport QQuadrilateral : public QBaseQuadrilateral
@@ -47,7 +47,7 @@ public:
     /// <param name="vB">[IN] The 2D vector which defines B vertex.</param>
     /// <param name="vC">[IN] The 2D vector which defines C vertex.</param>
     /// <param name="vD">[IN] The 2D vector which defines D vertex.</param>
-    inline QQuadrilateral(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC, const QVector2 &vD ) : 
+    inline QQuadrilateral(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC, const QVector2 &vD ) :
                               QBaseQuadrilateral(vA, vB, vC, vD)
     {
     }
@@ -95,7 +95,8 @@ public:
     //Methods
 
     /// <summary>
-    /// Checks if a given point is inside quadrilateral or not. This is made in a different way depending on the
+    /// Checks if a given point is inside quadrilateral or not.<br>
+    /// This is made in a different way depending on the
     /// kind of quadrilateral we have (crossed, standard convex or concave).
     /// </summary>
     /// <param name="vPoint">[IN] The point we want to check.</param>
@@ -106,8 +107,9 @@ public:
     bool Contains(const QBaseVector2 &vPoint) const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral intersects with the provided one. To do that, it checks the intersection
-    /// with the four segments of the resident quadrilateral with the provided quadrilateral. Additionally, it checks if
+    /// Checks if the resident quadrilateral intersects with the provided one.<br>
+    /// To do that, it checks the intersection with the four segments of the resident quadrilateral with the provided quadrilateral.<br>
+    /// Additionally, it checks if
     /// one arbitrary edge of provided quadrilateral intersects with the resident one, to check the case where the provided
     /// quadrilateral is included in the resident one.
     /// </summary>
@@ -118,7 +120,8 @@ public:
     bool Intersection(const QBaseQuadrilateral &quad) const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral is crossed. To do that, it checks if A and D vertices are in the
+    /// Checks if the resident quadrilateral is crossed.<br>
+    /// To do that, it checks if A and D vertices are in the
     /// same side of BC segment AND C and D vertices are in the same side of AB segment, in which case the quadrilateral
     /// is not crossed.
     /// </summary>
@@ -128,10 +131,12 @@ public:
     bool IsCrossed() const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral is convex. To do that, it checks if the quadrilateral diagonals intersects.
+    /// Checks if the resident quadrilateral is convex.<br>
+    /// To do that, it checks if the quadrilateral diagonals intersects.
     /// </summary>
     /// <remarks>
-    /// Crossed quadrilaterals are considered as convex. Quadrilaterals with a 180º angle are considered convex too.
+    /// Crossed quadrilaterals are considered as convex.<br>
+    /// Quadrilaterals with a \f$ 180^0\f$ angle are considered convex too.
     /// </remarks>
     /// <returns>
     /// True if the resident quadrilateral is convex, false otherwise.
@@ -195,7 +200,7 @@ public:
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="outQuad">[OUT] It receives the resulting quadrilateral.</param>
 	/// <remarks>
-	/// -The quadrilateral is NOT modified, it stays the same.
+	/// The quadrilateral is NOT modified, it stays the same.
 	/// </remarks>
 	inline void Rotate(const float_q &fRotationAngle, QBaseQuadrilateral &outQuad) const
 	{
@@ -292,8 +297,8 @@ public:
 	}
 
 	/// <summary>
-	/// Receives a transformation matrix and applies the transformations to the resident
-	/// quadrilateral. The transformation pivot is the origin of coordinates.
+	/// Receives a transformation matrix and applies the transformations to the resident quadrilateral.<br>
+	/// The transformation pivot is the origin of coordinates.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	inline void Transform(const QTransformationMatrix3x3 &transformation)
@@ -303,8 +308,8 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and an output quadrilateral and applies the transformations
-	/// to a copy of the resident quadrilateral, storing the results in the output parameter. The transformation pivot is the
-	/// origin of coordinates.
+	/// to a copy of the resident quadrilateral, storing the results in the output parameter.quadrilateral.<br>
+	/// The transformation pivot is the origin of coordinates.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="outQuad">[OUT] Quadrilateral that stores the result of the transformation.</param>
@@ -394,7 +399,8 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
-	/// to the resident quadrilateral. The transformation pivot is the vector received as parameter.
+	/// to the resident quadrilateral.<br>
+	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
@@ -405,7 +411,7 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix, a vector (transformation pivot) and an output quadrilateral,
-	/// and applies the transformations to a copy of the resident quadrilateral, storing the results in the output parameter.
+	/// and applies the transformations to a copy of the resident quadrilateral, storing the results in the output parameter.<br>
 	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
@@ -418,7 +424,7 @@ public:
 	}
 
     /// <summary>
-    /// Converts quadrilateral into a string with the following format:
+    /// Converts quadrilateral into a string with the following format:<br>
     /// "QL:A(<A.ToString>), B(<B.ToString>), C(<C.ToString>), D(<D.ToString>)".
     /// </summary>
     /// <returns>The string with the specified format.</returns>

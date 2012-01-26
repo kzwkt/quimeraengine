@@ -60,8 +60,8 @@ public:
 
     /// <summary>
     /// Constructor that receives 3 angles, one for each Euler angle, to construct the rotation
-    /// matrix of a specified rotation.
-    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
+    /// matrix of a specified rotation.<br>
+    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br>
     /// The rotation matrix is obtained as follows:
     ///
     /// \f$ R = \begin{bmatrix} 1 & 0 & 0\\ 0 & \cos x  & \sin x\\ 0 & -\sin x & \cos x \end{bmatrix}
@@ -83,7 +83,6 @@ public:
 	/// \begin{bmatrix} 0 & e_z & -e_y \\ -e_z & 0 & e_x \\ e_y & -e_x & 0 \end{bmatrix}\cdot \sin\theta \f$
 	///
 	/// where \f$ e=(e_x, e_y, e_z)\f$, is a unit vector defining spin axis.
-	///
 	/// </summary>
 	/// <param name="vRotationAxis">[IN] Vector in the direction of the spin axis.</param>
 	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
@@ -112,7 +111,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Keeps the convention rows x columns, so each chunck of 3 consecutive elements
-    /// corresponds to a row, where each element in the chunck is the column in the row.
+    /// corresponds to a row, where each element in the chunck is the column in the row.<br>
     /// If you use this constructor, be sure that you are constructing a rotation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
@@ -122,7 +121,7 @@ public:
     }
 
     /// <summary>
-    /// Constructor from three 4x32 floating point packed values. Each param contains a row of the matrix.
+    /// Constructor from three 4x32 floating point packed values. Each param contains a row of the matrix.<br>
     /// Last component of each pack will be ignored.
     /// </summary>
     /// <remarks>
@@ -165,7 +164,7 @@ public:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.
+    /// Gets an identity matrix.<br>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
@@ -275,8 +274,9 @@ public:
     }
 
     /// <summary>
-    /// Reverse of the matrix. In the case of rotation matrices, the transpose is guaranteed
-    /// to be the inverse of the matrix. So, it's faster than base class method.
+    /// Reverse of the matrix.<br>
+    /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.<br>
+    /// So, it's faster than base class method.
     /// </summary>
     inline void Reverse()
     {
@@ -284,8 +284,9 @@ public:
     }
 
     /// <summary>
-    /// Reverse of the matrix. In the case of rotation matrices, the transpose is guaranteed
-    /// to be the inverse of the matrix. So, it's faster than base class method.
+    /// Reverse of the matrix.<br>
+    /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.<br>
+    /// So, it's faster than base class method.
     /// </summary>
     /// <param name="outMatrix">[OUT] A rotation matrix where to store reverse matrix.</param>
     inline void Reverse(QBaseMatrix3x3 &outMatrix) const
@@ -294,7 +295,7 @@ public:
     }
 
     /// <summary>
-    /// Converts rotation matrix to Euler angles.
+    /// Converts rotation matrix to Euler angles.<br>
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
     /// </summary>
     /// <param name="fRotationAngleX">[OUT] Resultant rotation around X axis.</param>
@@ -303,20 +304,17 @@ public:
     void GetRotation(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const;
 
     /// <summary>
-    /// Converts rotation matrix to a rotation quaternion.
+    /// Converts rotation matrix to a rotation quaternion.<br>
     /// Since rotation matrices are special orthogonal matrices, where \f$ AA^T = AA^{-1} = I\f$, it's always verified
-    /// that (1 + trace) > 0. Then, we can calculate quaternion component from every matrix trace.
-    ///
-    /// Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/christian.htm
+    /// that (1 + trace) > 0.<br>
+    /// Then, we can calculate quaternion component from every matrix trace.<br>
     /// </summary>
     /// <param name="qRotation">[OUT] Quaternion where to store the rotation.</param>
     void GetRotation(QQuaternion &qRotation) const;
 
     /// <summary>
-    /// Converts rotation matrix to an angle and a spin axis. Since axis components depends on inverse of sin(angle)
-    /// it's necessary to take into account when angle is 0 or \f$ \pi\f$.
-    /// Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
-    /// Source: http://en.wikipedia.org/wiki/Rotation_representation_%28mathematics%29#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
+    /// Converts rotation matrix to an angle and a spin axis.<br>
+    /// Since axis components depends on inverse of sin(angle) it's necessary to take into account when angle is 0 or \f$ \pi\f$.
     /// </summary>
     /// <param name="fRotationAngle">[OUT] Angle of rotation.</param>
     /// <param name="vRotationAxis">[OUT] Unitary vector in the direction of the spin axis.</param>

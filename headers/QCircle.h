@@ -20,7 +20,8 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a circle in bidimensional space. A circle is the collection of all points that are equidistant from other point known as "Center".
+/// Class which represents a circle in bidimensional space.<br>
+/// A circle is the collection of all points that are equidistant from other point known as "Center".
 /// </summary>
 class QDllExport QCircle : public QOrb<QVector2>
 {
@@ -329,14 +330,14 @@ public:
     }
 
  	/// <summary>
-	/// Calculates possible intersections between resident circle and a circle received as parameter.
+	/// Calculates possible intersections between resident circle and a circle received as parameter.<br>
 	/// When no intersections are detected, output parameters are not modified.
 	/// </summary>
     /// <param name="circle">[IN] A circle that is supposed to intersect with resident one.</param>
     /// <param name="vIntersection1">[OUT] An intersection point.</param>
     /// <param name="vIntersection2">[OUT] An intersection point.</param>
     /// <returns>
-    /// An enumerated value that shows if there have been one intersection, two intersections, one circle is contained into the other or the circles don´t intersect.
+    /// An enumerated value that shows if there have been one intersection, two intersections, one circle is contained into the other or the circles don't intersect.
     /// </returns>
     inline EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &circle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
     {

@@ -42,7 +42,7 @@ public:
 	/// <param name="fValueY">[IN] Value for y component.</param>
 	/// <param name="fValueZ">[IN] Value for z component.</param>
 	/// <param name="fValueW">[IN] Value for w component.</param>
-	inline QBaseVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) : 
+	inline QBaseVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
                             x(fValueX), y(fValueY), z(fValueZ), w(fValueW)
     {
     }
@@ -74,7 +74,7 @@ public:
 	/// <summary>
 	/// Constructor from a 4x32 packed floating point value.
 	/// </summary>
-	/// <param name="value">[IN] 4x32 packed floating point containing the three components.
+	/// <param name="value">[IN] 4x32 packed floating point containing the three components.<br>
 	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (W).</param>
 	inline explicit QBaseVector4(const vf32_q &value)
 	{

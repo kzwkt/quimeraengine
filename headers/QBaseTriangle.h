@@ -20,7 +20,8 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in the space. The triangle may be represented in 2D or 3D,
+/// Class which represents a triangle in the space.<br>
+/// The triangle may be represented in 2D or 3D,
 ///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
 /// </summary>
@@ -45,13 +46,13 @@ public:
 	/// <param name="vA">[IN] Vector to define vertex A.</param>
 	/// <param name="vB">[IN] Vector to define vertex B.</param>
 	/// <param name="vC">[IN] Vector to define vertex C.</param>
-	inline QBaseTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) : 
+	inline QBaseTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) :
                             A(vA), B(vB), C(vC)
     {
     }
 
 	/// <summary>
-	/// Constructor from a pointer to floating point values to define each vertex.
+	/// Constructor from a pointer to floating point values to define each vertex.<br>
 	/// Pointer must have two, three or four values depending on VectorType.
 	/// </summary>
 	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
@@ -73,7 +74,7 @@ public:
 	/// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
 	/// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
 	/// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QBaseTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) : 
+	inline QBaseTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) :
                              A(valueA), B(valueB), C(valueC)
     {
     }

@@ -27,7 +27,7 @@ template<class MatrixType> class QTranslationMatrix;
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a scale factor
-/// in the direction of each coordinate axis.
+/// in the direction of each coordinate axis.<br>
 /// It's a diagonal matrix where element \f$ a_{00}\f$ stores the scaling value in X direction, element \f$ a_{11}\f$ stores it
 /// in Y direction and element \f$ a_{22}\f$ does it in Z direction.
 /// </summary>
@@ -94,7 +94,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Keeps the convention rows x columns, so each chunck of 3 consecutive elements
-    /// corresponds to a row, where each element in the chunck is the column in the row.
+    /// corresponds to a row, where each element in the chunck is the column in the row.<br>
     /// If you use this constructor, be sure that you are constructing a scale matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
@@ -104,7 +104,7 @@ public:
     }
 
     /// <summary>
-    /// Constructor from three 4x32 floating point packed values. Each param contains a row of the matrix.
+    /// Constructor from three 4x32 floating point packed values. Each param contains a row of the matrix.<br>
     /// Last component of each pack will be ignored.
     /// </summary>
     /// <remarks>
@@ -147,7 +147,7 @@ public:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.
+    /// Gets an identity matrix.<br>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
@@ -257,8 +257,9 @@ public:
     }
 
     /// <summary>
-    /// Reverse of the matrix. In the case of scale matrices, the inverse is composed
-    /// by the inverses of its non zero elements. So, it's faster than base class method.
+    /// Reverse of the matrix.<br>
+    /// In the case of scale matrices, the inverse is composed by the inverses of its non zero elements.<br>
+    /// So, it's faster than base class method.<br>
     /// If one of the diagonal elements is 0, the matrix has not inverse.
     /// </summary>
     inline void Reverse()
@@ -272,8 +273,9 @@ public:
     }
 
     /// <summary>
-    /// Reverse of the matrix. In the case of scale matrices, the inverse is composed
-    /// by the inverses of its non zero elements. So, it's faster than base class method.
+    /// Reverse of the matrix.<br>
+    /// In the case of scale matrices, the inverse is composed by the inverses of its non zero elements.<br>
+    /// So, it's faster than base class method.<br>
     /// If one of the diagonal elements is 0, the matrix has not inverse.
     /// </summary>
     /// <param name="outMatrix">[OUT] A matrix where to store reverse matrix.</param>
@@ -308,8 +310,8 @@ public:
     }
 
     /// <summary>
-    /// Calculates the determinant of the matrix. Since this is a scale matrix, which is
-	/// a diagonal matrix, its determinant is the product of the elements of the main diagonal.
+    /// Calculates the determinant of the matrix.<br>
+    /// Since this is a scale matrix, which is a diagonal matrix, its determinant is the product of the elements of the main diagonal.
     /// </summary>
     /// <returns>
     /// Floating point value which is the result of the determinant.

@@ -17,7 +17,8 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in the space. The triangle may be represented in 2D or 3D,
+/// Class which represents a triangle in the space.<br>
+/// The triangle may be represented in 2D or 3D,
 ///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
 /// </summary>
@@ -81,7 +82,8 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator. Assigns the provided triangle to the resident triangle.
+	/// Assign operator.<br>
+	/// Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle that will be assigned to current triangle.</param>
 	inline QTriangle<VectorType>& operator=(const QBaseTriangle<VectorType> &triangle)
@@ -91,7 +93,8 @@ public:
 	}
 
 	/// <summary>
-	/// Equality Operator. Checks if the triangle recieved in the parameter is equal to the current triangle.
+	/// Equality Operator.<br>
+	/// Checks if the triangle recieved in the parameter is equal to the current triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle to compare with current triangle.</param>
 	bool operator==(const QBaseTriangle<VectorType> &triangle) const
@@ -192,7 +195,7 @@ public:
 	}
 
 	/// <summary>
-	/// Converts triangle into a string with the following format:
+	/// Converts triangle into a string with the following format:<br>
 	/// "T:A(<A.ToString>), B(<B.ToString>), C(<C.ToString>)"
 	/// </summary>
 	/// <returns>
