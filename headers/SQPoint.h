@@ -128,7 +128,7 @@ public:
 	/// Transformation will be applied to all points in the array.
 	/// </summary>
     /// <param name="transformation">[IN] Transformation matrix that will be applied.</param>
-	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be translated.</param>
+	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be transformed.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
 	inline static void Transform(const QTransformationMatrix3x3 &transformation, QVector2* arPoints, const unsigned int &uElements)
 	{
