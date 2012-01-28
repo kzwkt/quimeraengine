@@ -55,7 +55,7 @@ namespace DataTypes
     const float_q SQFloat::_9   = 9.0;
     const float_q SQFloat::_10  = 10.0;
     const float_q SQFloat::_0_5 = 0.5;
-    const float_q SQFloat::_0_25 = 0.25f;
+    const float_q SQFloat::_0_25 = 0.25;
 
 #endif
 
