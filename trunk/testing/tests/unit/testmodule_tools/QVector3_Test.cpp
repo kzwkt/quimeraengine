@@ -958,15 +958,17 @@ QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalar_Tes
 QTEST_CASE ( OperatorProductAssignation1_VectorComponentIsCorrectlyMultipliedByScalarAndAssignedToItself_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_9;
-    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
-    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_6;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)1152;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)1728;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)2304;
 
-    const QVector3 VECTOR = QVector3(SQFloat::_3, SQFloat::_0, SQFloat::_2);
+    const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
 	// Execution
     QVector3 vVectorUT = VECTOR; // [TODO] Thund: An error discovered!
-    vVectorUT *= vVectorUT.x;
+    vVectorUT *= vVectorUT.x; // x2  Now x==4,    y==6,    z==8
+    vVectorUT *= vVectorUT.y; // x6  Now x==24,   y==36,   z==48
+    vVectorUT *= vVectorUT.z; // x48 Now x==1152, y==1728, z==2304
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -1151,15 +1153,17 @@ QTEST_CASE ( OperatorDivisionAssignation1_AssertionFailsWhenDivisorEqualsZero_Te
 QTEST_CASE ( OperatorDivisionAssignation1_VectorComponentIsCorrectlyDividedByScalarAndAssignedToItself_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_25;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
 
-    const QVector3 VECTOR = QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_2);
+    const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_8);
 
 	// Execution
-    QVector3 vVectorUT = VECTOR; // [TODO] Thund: An error discovered!
-    vVectorUT /= vVectorUT.x;
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT /= vVectorUT.x; // :2 Now x==1,    y==2,   z==4
+    vVectorUT /= vVectorUT.y; // :2 Now x==0.5,  y==1,   z==2
+    vVectorUT /= vVectorUT.z; // :2 Now x==0.25, y==0.5, z==1
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -1656,6 +1660,230 @@ QTEST_CASE ( IsVectorOfOnes_ReturnsFalseWhenNotAllVectorComponentsEqualOne_Test 
 
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that the returned dot product result for 2 common vectors equals the expected value.
+/// </summary>
+QTEST_CASE ( DotProduct_ReturnsDotProductFor2CommonVectors_Test )
+{
+    // Preparation
+    const float_q EXPECTED_RESULT = (float_q)32;
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+
+	// Execution
+    float_q fResultUT = OPERAND1.DotProduct(OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
+}
+
+/// <summary>
+/// Checks that the dot product is commutative.
+/// </summary>
+QTEST_CASE ( DotProduct_DotProductIsCommutative_Test )
+{
+    // Preparation
+    const float_q EXPECTED_RESULT = (float_q)32;
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+
+	// Execution
+    float_q fResult1UT = OPERAND1.DotProduct(OPERAND2);
+    float_q fResult2UT = OPERAND2.DotProduct(OPERAND1);
+
+    // Verification
+    BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
+    BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
+}
+
+/// <summary>
+/// Checks that the dot product equals zero when vectors are orthogonal.
+/// </summary>
+QTEST_CASE ( DotProduct_DotProductEqualsZeroWhenVectorsAreOrthogonal_Test )
+{
+    // Preparation
+    const float_q EXPECTED_RESULT = SQFloat::_0;
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_3, SQFloat::_0, SQFloat::_0);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_3, SQFloat::_0);
+    const QVector3 OPERAND3 = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_3);
+
+	// Execution
+    float_q fResult1UT = OPERAND1.DotProduct(OPERAND2);
+    float_q fResult2UT = OPERAND2.DotProduct(OPERAND3);
+
+    // Verification
+    BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
+    BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
+}
+
+/// <summary>
+/// Checks that the returned angle result for 2 common vectors equals the expected value.
+/// </summary>
+QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        float_q EXPECTED_RESULT = SQAngle::_45;
+    #else
+        const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
+    #endif
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
+
+	// Execution
+    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(fResultUT, EXPECTED_RESULT) );
+}
+
+/// <summary>
+/// Checks that the "get angle from dot product" is commutative.
+/// </summary>
+QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        float_q EXPECTED_RESULT = SQAngle::_45;
+    #else
+        const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
+    #endif
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
+
+	// Execution
+    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
+
+    // Verification
+    BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
+    BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
+}
+
+/// <summary>
+/// Checks that the angle equals zero when vectors are parallel.
+/// </summary>
+QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenVectorsAreParallel_Test )
+{
+    // Preparation
+    const float_q EXPECTED_RESULT = SQFloat::_0;
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_9, SQFloat::_0, SQFloat::_0);
+
+	// Execution
+    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
+}
+
+/// <summary>
+/// Checks that the angle equals PI/2 (or 90º) when vectors are paralallel.
+/// </summary>
+QTEST_CASE ( DotProductAngle_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOrthogonal_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        const float_q EXPECTED_RESULT = SQAngle::_90;
+    #else
+        const float_q EXPECTED_RESULT = SQAngle::_HalfPi;
+    #endif
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_5, SQFloat::_0, SQFloat::_0);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_5, SQFloat::_0);
+    const QVector3 OPERAND3 = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_5);
+
+	// Execution
+    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND3);
+
+    // Verification
+    BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
+    BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
+}
+
+/// <summary>
+/// Checks that the angle equals Pi (or 180º) when vectors are opposite.
+/// </summary>
+QTEST_CASE ( DotProductAngle_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOpposite_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        const float_q EXPECTED_RESULT = SQAngle::_180;
+    #else
+        const float_q EXPECTED_RESULT = SQAngle::_Pi;
+    #endif
+
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QVector3 OPERAND2 = QVector3(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
+
+	// Execution
+    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
+}
+
+/// <summary>
+/// Checks that the angle is always positive.
+/// </summary>
+QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
+{
+    // Preparation
+    const QVector3 REFERENCE_OPERAND = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);                                // _
+    const QVector3 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_0);  // \_
+    const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /¨
+
+	// Execution
+    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::IsPositive(fResult1UT) );
+    BOOST_CHECK( SQFloat::IsPositive(fResult2UT) );
+}
+
+/// <summary>
+/// Checks that the angle is lower than Pi (or 180º) when vector are not opposite.
+/// </summary>
+QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAreNotOpposite_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        const float_q HALF_CIRCUMFERENCE_ANGLE = SQAngle::_180;
+    #else
+        const float_q HALF_CIRCUMFERENCE_ANGLE = SQAngle::_Pi;
+    #endif
+
+    const QVector3 REFERENCE_OPERAND = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);                                // _
+    const QVector3 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_0);  // \_
+    const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /¨
+
+	// Execution
+    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
+    BOOST_CHECK( SQFloat::IsLessThan(fResult2UT, HALF_CIRCUMFERENCE_ANGLE) );
 }
 
 // End - Test Suite: QVector3
