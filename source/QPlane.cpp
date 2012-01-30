@@ -146,8 +146,8 @@ EQSpaceRelation QPlane::SpaceRelation(const QBasePlane &plane) const
 
 string_q QPlane::ToString() const
 {
-    return QE_L("PL(") + SQFloat::ToString(this->a) + QE_L(", ") + SQFloat::ToString(this->b) +
-           QE_L(", ")  + SQFloat::ToString(this->c) + QE_L(", ") + SQFloat::ToString(this->d) + QE_L(")");
+    return QE_L("PL(") + SQFloat::ToString(this->a) + QE_L(",") + SQFloat::ToString(this->b) +
+           QE_L(",")   + SQFloat::ToString(this->c) + QE_L(",") + SQFloat::ToString(this->d) + QE_L(")");
 }
 
 } //namespace Math

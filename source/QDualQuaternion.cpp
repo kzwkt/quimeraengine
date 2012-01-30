@@ -92,14 +92,8 @@ void QDualQuaternion::Transform(const QBaseDualQuaternion &transformation)
 
 string_q QDualQuaternion::ToString() const
 {
-    return QE_L("DQ(") + SQFloat::ToString(this->r.x) +
-           QE_L(", ")  + SQFloat::ToString(this->r.y) +
-           QE_L(", ")  + SQFloat::ToString(this->r.z) +
-           QE_L(", ")  + SQFloat::ToString(this->r.w) + QE_L(")") +
-           QE_L("(")   + SQFloat::ToString(this->d.x) +
-           QE_L(", ")  + SQFloat::ToString(this->d.y) +
-           QE_L(", ")  + SQFloat::ToString(this->d.z) +
-           QE_L(", ")  + SQFloat::ToString(this->d.w) + QE_L(")");
+    return QE_L("DQ(r(") + r.ToString() +
+           QE_L("),d(")  + d.ToString() + QE_L("))");
 }
 
 } //namespace Math

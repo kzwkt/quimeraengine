@@ -306,8 +306,8 @@ void QVector3::Transform(const QSpaceConversionMatrix &conversion, QBaseVector3 
 string_q QVector3::ToString() const
 {
     return QE_L("V3(") + SQFloat::ToString(this->x) +
-           QE_L(", ")  + SQFloat::ToString(this->y) +
-           QE_L(", ")  + SQFloat::ToString(this->z) + QE_L(")");
+           QE_L(",")  + SQFloat::ToString(this->y) +
+           QE_L(",")  + SQFloat::ToString(this->z) + QE_L(")");
 }
 
 template <class MatrixType>

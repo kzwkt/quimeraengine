@@ -316,14 +316,15 @@ public:
 
     /// <summary>
 	/// Converts ray into a string representation with the following format:<br>
-	/// "R:P(VectorTypeOrigin::ToString),D(VectorTypeDirection::ToString)".
+	/// "RY(o($Origin),d($Direction))".<br>
+    /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>
     /// The string representation with the format specified.
     /// </returns>
     string_q ToString() const
     {
-        return QE_L("R:P(") + this->Origin.ToString() + QE_L("),D(") + this->Direction.ToString() + QE_L(")");
+        return QE_L("RY(o(") + this->Origin.ToString() + QE_L("),d(") + this->Direction.ToString() + QE_L("))");
     }
 
 };

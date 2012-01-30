@@ -430,9 +430,9 @@ float_q QQuaternion::GetSquaredLength() const
 string_q QQuaternion::ToString() const
 {
     return QE_L("Q(") + SQFloat::ToString(this->x) +
-           QE_L(", ") + SQFloat::ToString(this->y) +
-           QE_L(", ") + SQFloat::ToString(this->z) +
-           QE_L(", ") + SQFloat::ToString(this->w) + QE_L(")");
+           QE_L(",")  + SQFloat::ToString(this->y) +
+           QE_L(",")  + SQFloat::ToString(this->z) +
+           QE_L(",")  + SQFloat::ToString(this->w) + QE_L(")");
 }
 
 } //namespace Math

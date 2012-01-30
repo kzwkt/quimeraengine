@@ -168,18 +168,18 @@ QBaseMatrix3x4 QMatrix3x4::operator*(const QBaseMatrix4x4 &matrix) const
 
 string_q QMatrix3x4::ToString() const
 {
-    return QE_L("M3x4(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[0][1]) + QE_L(",")  +
-						   SQFloat::ToString(this->ij[0][2]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[0][3]) + QE_L(")(") +
-                           SQFloat::ToString(this->ij[1][0]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[1][1]) + QE_L(",")  +
-						   SQFloat::ToString(this->ij[1][2]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[1][3]) + QE_L(")(") +
-                           SQFloat::ToString(this->ij[2][0]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[2][1]) + QE_L(",")  +
-						   SQFloat::ToString(this->ij[2][2]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[2][3]) + QE_L(")");
+    return QE_L("M3x4((") + SQFloat::ToString(this->ij[0][0]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[0][1]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[0][2]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[0][3]) + QE_L(")(") +
+                            SQFloat::ToString(this->ij[1][0]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[1][1]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[1][2]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[1][3]) + QE_L(")(") +
+                            SQFloat::ToString(this->ij[2][0]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[2][1]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[2][2]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[2][3]) + QE_L("))");
 }
 
 } //namespace Math

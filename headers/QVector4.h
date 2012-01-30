@@ -954,7 +954,8 @@ public:
 
     /// <summary>
     /// Converts vector into a string with the following format:<br>
-    /// "V4(x, y, z, w)".
+    /// "V4($x,$y,$z,$w)".<br>
+    /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>The string with the format specified.</returns>
     string_q ToString() const;

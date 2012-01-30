@@ -147,10 +147,10 @@ bool QMatrix2x2::Reverse()
 
 string_q QMatrix2x2::ToString() const
 {
-    return QE_L("M2x2(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[0][1]) + QE_L(")(") +
-                           SQFloat::ToString(this->ij[1][0]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[1][1]) + QE_L(")");
+    return QE_L("M2x2((") + SQFloat::ToString(this->ij[0][0]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[0][1]) + QE_L(")(") +
+                            SQFloat::ToString(this->ij[1][0]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[1][1]) + QE_L("))");
 }
 
 } //namespace Math

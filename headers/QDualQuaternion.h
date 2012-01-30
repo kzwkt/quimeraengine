@@ -707,7 +707,8 @@ public:
 
     /// <summary>
     /// Converts dual quaternion into a string with the following format:<br>
-    /// "DQ(rX, rY, rZ, rW)(dX, dY, dZ, dW)".
+    /// "DQ(r($r),d($d))".<br>
+    /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>The std::string with the format specified.</returns>
     string_q ToString() const;

@@ -816,7 +816,8 @@ public:
 
     /// <summary>
     /// Converts vector into a string with the following format:<br>
-    /// "V3(x, y, z)".
+    /// "V3($x,$y,$z)".<br>
+    /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>The std::string with the format specified.</returns>
     string_q ToString() const;

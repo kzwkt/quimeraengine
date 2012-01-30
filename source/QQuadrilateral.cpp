@@ -250,10 +250,10 @@ float_q QQuadrilateral::GetAngleD() const
 
 string_q QQuadrilateral::ToString()
 {
-    return QE_L("QL:A(") + this->A.ToString() + QE_L("), B(") +
-                           this->B.ToString() + QE_L("), C(") +
-                           this->C.ToString() + QE_L("), D(") +
-                           this->D.ToString() + QE_L(")");
+    return QE_L("QL(a(") + this->A.ToString() + QE_L("),b(") +
+                           this->B.ToString() + QE_L("),c(") +
+                           this->C.ToString() + QE_L("),d(") +
+                           this->D.ToString() + QE_L("))");
 }
 
 bool QQuadrilateral::PointsInSameSideOfLine(const QBaseVector2 &vPoint1, const QBaseVector2 &vPoint2,

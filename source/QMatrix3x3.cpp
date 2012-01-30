@@ -262,15 +262,15 @@ bool QMatrix3x3::Reverse()
 
 string_q QMatrix3x3::ToString() const
 {
-    return QE_L("M3x3(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[0][1]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[0][2]) + QE_L(")(") +
-                           SQFloat::ToString(this->ij[1][0]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[1][1]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[1][2]) + QE_L(")(") +
-                           SQFloat::ToString(this->ij[2][0]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[2][1]) + QE_L(",")  +
-                           SQFloat::ToString(this->ij[2][2]) + QE_L(")");
+    return QE_L("M3x3((") + SQFloat::ToString(this->ij[0][0]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[0][1]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[0][2]) + QE_L(")(") +
+                            SQFloat::ToString(this->ij[1][0]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[1][1]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[1][2]) + QE_L(")(") +
+                            SQFloat::ToString(this->ij[2][0]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[2][1]) + QE_L(",")  +
+                            SQFloat::ToString(this->ij[2][2]) + QE_L("))");
 }
 
 } //namespace Math
