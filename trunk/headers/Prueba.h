@@ -2,7 +2,7 @@
 #include <vector>
 #include <boost/foreach.hpp>
 #include <boost/thread.hpp>
-#include "Configuration.h"
+#include "InternalDefinitions.h"
 
 class QDllExport Prueba
 {

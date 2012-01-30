@@ -3,7 +3,7 @@
 #ifndef __DATATYPESDEFINITIONS__
 #define __DATATYPESDEFINITIONS__
 
-#include "Configuration.h"
+#include "InternalDefinitions.h"
 #include <string>
 // Below, tchar.h is included depending on the configuration values.
 

@@ -16088,11 +16088,11 @@
 1288478842 source:g:\users\animal\desktop\qesvn\trunk\source\prueba.cpp
 	"Prueba.h"
 
-1300152252 g:\users\animal\desktop\qesvn\trunk\headers\prueba.h
+1327841808 g:\users\animal\desktop\qesvn\trunk\headers\prueba.h
 	<vector>
 	<boost/foreach.hpp>
 	<boost/thread.hpp>
-	"Configuration.h"
+	"InternalDefinitions.h"
 
 1286379404 g:\users\animal\desktop\qesvn\trunk\3rdparty\boost\include\boost\foreach.hpp
 	<cstddef>
@@ -20018,16 +20018,15 @@
 	<cstddef>
 	<boost/smart_ptr/detail/operator_bool.hpp>
 
-1294596369 g:\users\animal\desktop\qesvn\trunk\headers\configuration.h
-	"ExternalDefinitions.h"
-	"InternalDefinitions.h"
+1327843036 g:\users\animal\desktop\qesvn\trunk\headers\configuration.h
 
-1323276234 g:\users\animal\desktop\qesvn\trunk\headers\externaldefinitions.h
+1324907526 g:\users\animal\desktop\qesvn\trunk\headers\externaldefinitions.h
+
+1327843036 g:\users\animal\desktop\qesvn\trunk\headers\internaldefinitions.h
+	"ExternalDefinitions.h"
+	"Configuration.h"
 	<exception>
 	<boost/assert.hpp>
-
-1323284128 g:\users\animal\desktop\qesvn\trunk\headers\internaldefinitions.h
-	"ExternalDefinitions.h"
 
 1304963430 source:d:\javi\kinesis\quimeraengine-qtriangle2d\trunk\source\prueba.cpp
 	"Prueba.h"
