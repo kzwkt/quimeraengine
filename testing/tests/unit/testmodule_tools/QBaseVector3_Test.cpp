@@ -246,7 +246,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 }
 
 /// <summary>
-/// Checks if the operator returns false when operand components differences are greater than tolerance value.
+/// Checks if the operator returns true when operand components differences are greater than tolerance value.
 /// </summary>
 QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
 {
@@ -259,7 +259,7 @@ QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test 
 }
 
 /// <summary>
-/// Checks if the operator returns true when operand components are exactly equal.
+/// Checks if the operator returns false when operand components are exactly equal.
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
 {
