@@ -576,7 +576,8 @@ public:
 
 	/// <summary>
 	/// Converts vector into a string with the following format:<br>
-	/// "V2(x, y)".
+	/// "V2($x,$y)".<br>
+    /// Where "$" means "string representation of attribute".
 	/// </summary>
 	/// <returns>
 	/// The string with the format specified.

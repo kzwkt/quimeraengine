@@ -764,12 +764,13 @@ public:
 
 	/// <summary>
 	/// Converts vector into a string with the following format:<br>
-	/// LS:A(VectorType::ToString)-B(VectorType::ToString)
+	/// "LS(a($A),b($B))".<br>
+    /// Where "$" means "string representation of attribute".
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>
 	string_q ToString()
 	{
-		return QE_L("LS:A(") + A.ToString() + QE_L(")-B(") + B.ToString() + QE_L(")");
+		return QE_L("LS(a(") + A.ToString() + QE_L("),b(") + B.ToString() + QE_L("))");
 	}
 
 protected:

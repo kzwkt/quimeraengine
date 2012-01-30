@@ -1356,7 +1356,8 @@ public:
 
     /// <summary>
     /// Converts plane into a string with the following format:<br>
-    /// "PL(a, b, c, d)".
+    /// "PL($a,$b,$c,$d)".<br>
+    /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>The string with the format specified.</returns>
     string_q ToString() const;

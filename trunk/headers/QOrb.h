@@ -124,14 +124,15 @@ public:
 
 	/// <summary>
 	/// Converts the orb into a string with the following format:<br>
-	/// O:C(VectorType::ToString),R(Radius)
+	/// "OB(c($Center),r($Radius))".<br>
+    /// Where "$" means "string representation of attribute".
 	/// </summary>
 	/// <returns>
 	/// The string with the specified format.
 	/// </returns>
 	string_q ToString()
 	{
-		return QE_L("O:C(") + this->Center.ToString() + QE_L("),R(") + SQFloat::ToString(this->Radius) + QE_L(")");
+		return QE_L("OB(c(") + this->Center.ToString() + QE_L("),r(") + SQFloat::ToString(this->Radius) + QE_L("))");
 	}
 
 };

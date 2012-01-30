@@ -388,22 +388,22 @@ bool QMatrix4x4::Reverse()
 
 string_q QMatrix4x4::ToString() const
 {
-	return QE_L("M4x4(") + SQFloat::ToString(this->ij[0][0]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[0][1]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[0][2]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[0][3]) + QE_L(")(") +
-                           SQFloat::ToString(this->ij[1][0]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[1][1]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[1][2]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[1][3]) + QE_L(")(") +
-                           SQFloat::ToString(this->ij[2][0]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[2][1]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[2][2]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[2][3]) + QE_L(")(") +
-                           SQFloat::ToString(this->ij[3][0]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[3][1]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[3][2]) + QE_L(", ") +
-                           SQFloat::ToString(this->ij[3][3]) + QE_L(")");
+	return QE_L("M4x4((") + SQFloat::ToString(this->ij[0][0]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[0][1]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[0][2]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[0][3]) + QE_L(")(") +
+                            SQFloat::ToString(this->ij[1][0]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[1][1]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[1][2]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[1][3]) + QE_L(")(") +
+                            SQFloat::ToString(this->ij[2][0]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[2][1]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[2][2]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[2][3]) + QE_L(")(") +
+                            SQFloat::ToString(this->ij[3][0]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[3][1]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[3][2]) + QE_L(",") +
+                            SQFloat::ToString(this->ij[3][3]) + QE_L("))");
 }
 
 } //namespace Math

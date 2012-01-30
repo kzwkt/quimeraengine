@@ -418,7 +418,9 @@ public:
 
 	/// <summary>
 	/// Converts matrix into a string with the following format:<br>
-	/// "M3x4( 11, 12, 13, 14 )( 21, 22, 23, 24 )( 31, 32, 33, 34 )"
+    /// "M3x4(($ij[0][0],$ij[0][1],$ij[0][2],$ij[0][3])($ij[1][0],$ij[1][1],$ij[1][2],$ij[1][3])
+    ///       ($ij[2][0],$ij[2][1],$ij[2][2],$ij[2][3]))".<br>
+    /// Where "$" means "string representation of attribute".
 	/// </summary>
 	/// <returns>The string with the format specified.</returns>
     string_q ToString() const;

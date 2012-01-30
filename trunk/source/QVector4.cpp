@@ -327,9 +327,9 @@ void QVector4::Transform(const QSpaceConversionMatrix &conversion, QBaseVector4 
 string_q QVector4::ToString() const
 {
     return QE_L("V4(") + SQFloat::ToString(this->x) +
-           QE_L(", ")  + SQFloat::ToString(this->y) +
-           QE_L(", ")  + SQFloat::ToString(this->z) +
-           QE_L(", ")  + SQFloat::ToString(this->w) + QE_L(")");
+           QE_L(",")  + SQFloat::ToString(this->y) +
+           QE_L(",")  + SQFloat::ToString(this->z) +
+           QE_L(",")  + SQFloat::ToString(this->w) + QE_L(")");
 }
 
 template <class MatrixType>

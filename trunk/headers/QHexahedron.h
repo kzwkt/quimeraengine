@@ -708,16 +708,16 @@ public:
 
     /// <summary>
     /// Converts hexahedron into a string with the following format:<br>
-    /// "H:A(<A.ToString>), B(<B.ToString>), C(<C.ToString>), D(<D.ToString>),
-    /// E(<E.ToString>), F(<F.ToString>), G(<G.ToString>), H(<H.ToString>)".
+    /// "HX(a($A),b($B),c($C),d($D),e($E),f($F),g($G),h($H))".<br>
+    /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>The string with the specified format.</returns>
     string_q ToString() const
     {
-        return QE_L("QL:A(") + this->A.ToString() + QE_L("), B(") + this->B.ToString() + QE_L("), C(") +
-                               this->C.ToString() + QE_L("), D(") + this->D.ToString() + QE_L("), E(") +
-                               this->E.ToString() + QE_L("), F(") + this->F.ToString() + QE_L("), G(") +
-                               this->G.ToString() + QE_L("), H(") + this->H.ToString() + QE_L(")");
+        return QE_L("HX(a(") + this->A.ToString() + QE_L("),b(") + this->B.ToString() + QE_L("),c(") +
+                               this->C.ToString() + QE_L("),d(") + this->D.ToString() + QE_L("),e(") +
+                               this->E.ToString() + QE_L("),f(") + this->F.ToString() + QE_L("),g(") +
+                               this->G.ToString() + QE_L("),h(") + this->H.ToString() + QE_L("))");
     }
 
 

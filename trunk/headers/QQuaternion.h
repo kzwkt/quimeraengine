@@ -862,7 +862,8 @@ public:
     /// </summary>
     /// <returns>
     /// A character string, following this pattern:<br>
-    /// "Q( x, y, z, w)".
+    /// "Q($x,$y,$z,$w)".<br>
+    /// Where "$" means "string representation of attribute".
     /// </returns>
     string_q ToString() const;
 };

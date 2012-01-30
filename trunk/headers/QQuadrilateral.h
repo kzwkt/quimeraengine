@@ -425,7 +425,8 @@ public:
 
     /// <summary>
     /// Converts quadrilateral into a string with the following format:<br>
-    /// "QL:A(<A.ToString>), B(<B.ToString>), C(<C.ToString>), D(<D.ToString>)".
+    /// "QL(a($A),b($B),c($C),d($D))".<br>
+    /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>The string with the specified format.</returns>
     string_q ToString();
