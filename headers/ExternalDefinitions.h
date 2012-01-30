@@ -3,6 +3,8 @@
 #ifndef __EXTERNALDEFINITIONS__
 #define __EXTERNALDEFINITIONS__
 
+#include "Configuration.h"
+
 // --------------------------------------------------------------------------------------------------------
 // Compilation configuration: Defines if the current compilation configuration is set for debugging or
 // releasing.

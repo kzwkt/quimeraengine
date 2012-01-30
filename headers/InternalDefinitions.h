@@ -33,7 +33,7 @@ const unsigned int QE_VERSION_REVISION = 0;
 // Dll Export Specifier: Defines which compiler keywords will be used to export symbols when compiling as
 // a DLL. Their values are "empty" when compiling the library as static.
 // --------------------------------------------------------------------------------------------------------
-#ifdef QE_CONFIG_COMPILER_SHAREDLIB // QE_CONFIG_COMPILER_SHAREDLIB is specified as a preprocessor definition [TODO] Thund: Add that definition to preprocessor when configuration is ready
+#ifdef QE_PREPROCESSOR_COMPILER_SHAREDLIB // QE_PREPROCESSOR_COMPILER_SHAREDLIB is specified as a preprocessor definition [TODO] Thund: Add that definition to preprocessor when configuration is ready
     #ifdef QE_OS_WINDOWS
         #ifdef QE_COMPILER_MSVC
             #define QDllExport __declspec( dllexport )
@@ -45,7 +45,7 @@ const unsigned int QE_VERSION_REVISION = 0;
             #define QDllExport __attribute__((visibility("default")))( dllexport )
         #endif
     #endif
-#elif defined(QE_CONFIG_COMPILER_IMPORT) // QE_CONFIG_COMPILER_IMPORT is specified as a preprocessor definition when compiling the client system
+#elif defined(QE_PREPROCESSOR_COMPILER_IMPORT) // QE_PREPROCESSOR_COMPILER_IMPORT is specified as a preprocessor definition when compiling the client system
     #ifdef QE_OS_WINDOWS
         #ifdef QE_COMPILER_MSVC
             #define QDllExport __declspec( dllimport )
@@ -78,9 +78,9 @@ const unsigned int QE_VERSION_REVISION = 0;
 // --------------------------------------------------------------------------------------------------------
 // Assertions: Defines assertion statement behavior.
 // --------------------------------------------------------------------------------------------------------
-#ifndef QE_DISABLE_ASSERTS // This definition must be included as client application's preprocessor definitions to disable assert statements
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
-    #ifdef QE_ASSERT_THROWS_EXCEPTION // This definition must be included as client application's preprocessor definitions to make assertion throw exceptions. This is used for testing purposes
+    #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
         #include <exception>
         #define QE_ASSERT(expr) { if(!(expr)) throw new std::exception(); } // TODO [Thund]: Create an special exception class for this
     #else
@@ -103,15 +103,16 @@ const unsigned int QE_VERSION_REVISION = 0;
 
             #ifdef BOOST_ASSERT
                 #define QE_ASSERT(expr) BOOST_ASSERT(expr);
+            #else
+                #define QE_ASSERT(expr)
             #endif
         #endif
     #endif
 
-#endif
+#else
 
-#ifndef QE_ASSERT
     #define QE_ASSERT(expr)
-#endif
 
+#endif
 
 #endif // __INTERNALDEFINITIONS__

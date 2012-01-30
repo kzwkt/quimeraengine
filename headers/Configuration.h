@@ -3,9 +3,6 @@
 #ifndef __QUIMERAENGINE_CONFIGURATION__
 #define __QUIMERAENGINE_CONFIGURATION__
 
-#include "ExternalDefinitions.h"
-#include "InternalDefinitions.h"
-
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -70,7 +67,18 @@ namespace Configuration
 
 #define QE_CONFIG_CHARACTERSET_DEFAULT QE_CONFIG_CHARACTERSET_UNICODE // [Configurable]
 
-    
+// --------------------------------------------------------------------------------------------------------
+// Asserts behavior: Specifies the behavior of assertions throughout the engine. Assertions can be disabled
+// or be replaced by exceptions, for example.
+//
+// How to use it: Write a behavior value as the default definition.
+// --------------------------------------------------------------------------------------------------------
+#define QE_CONFIG_ASSERTSBEHAVIOR_ENABLED 0x0
+#define QE_CONFIG_ASSERTSBEHAVIOR_DISABLED 0x1
+#define QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS 0x2
+
+#define QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT QE_CONFIG_ASSERTSBEHAVIOR_ENABLED
+
 }//namespace Configuration
 }//namespace Core
 }//namespace QuimeraEngine
