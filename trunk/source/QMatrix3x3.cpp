@@ -100,7 +100,7 @@ QBaseMatrix3x4 QMatrix3x3::operator*(const QBaseMatrix3x4& matrix) const
 
 }
 
-QMatrix3x3& QMatrix3x3::operator*=(const float_q& fScalar)
+QMatrix3x3& QMatrix3x3::operator*=(const float_q fScalar)
 {
     this->ij[0][0] *= fScalar;
 	this->ij[0][1] *= fScalar;

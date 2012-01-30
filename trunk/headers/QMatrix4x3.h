@@ -232,7 +232,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    QMatrix4x3& operator*=(const float_q &fScalar);
+    QMatrix4x3& operator*=(const float_q fScalar);
 
     /// <summary>
     /// Multiply resident matrix by a square 3x3 matrix, being the resultant

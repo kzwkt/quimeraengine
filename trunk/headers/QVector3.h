@@ -355,7 +355,7 @@ public:
     /// <returns>
     /// A reference to vector result of the product.
     /// </returns>
-    inline QVector3& operator*=(const float_q &fScalar)
+    inline QVector3& operator*=(const float_q fScalar)
     {
         this->x *= fScalar;
         this->y *= fScalar;
