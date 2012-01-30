@@ -218,7 +218,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    QMatrix3x3& operator*=(const float_q& fScalar);
+    QMatrix3x3& operator*=(const float_q fScalar);
 
     /// <summary>
     /// Divides current matrix by a floating point value.

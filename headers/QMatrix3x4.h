@@ -299,6 +299,31 @@ public:
 		return *this;
 	}
 
+    /// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// </summary>
+    /// <param name="fScalar">[IN] The floating point value to be multiplied by.</param>
+    /// <returns>
+    /// The modified matrix.
+    /// </returns>
+    inline QMatrix3x4& operator*=(const float_q fScalar)
+    {
+        this->ij[0][0] *= fScalar;
+        this->ij[0][1] *= fScalar;
+        this->ij[0][2] *= fScalar;
+        this->ij[0][3] *= fScalar;
+        this->ij[1][0] *= fScalar;
+        this->ij[1][1] *= fScalar;
+        this->ij[1][2] *= fScalar;
+        this->ij[1][3] *= fScalar;
+        this->ij[2][0] *= fScalar;
+        this->ij[2][1] *= fScalar;
+        this->ij[2][2] *= fScalar;
+        this->ij[2][3] *= fScalar;
+
+        return *this;
+    }
+
 	/// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
     /// </summary>

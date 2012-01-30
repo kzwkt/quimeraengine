@@ -248,7 +248,7 @@ public:
     /// <returns>
     /// A reference to plane result of the product.
     /// </returns>
-    inline QPlane& operator*=(const float_q &fScalar)
+    inline QPlane& operator*=(const float_q fScalar)
     {
         this->a *= fScalar;
         this->b *= fScalar;

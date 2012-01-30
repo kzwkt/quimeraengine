@@ -391,7 +391,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator*=(const float_q &fScalar)
+    inline QQuaternion& operator*=(const float_q fScalar)
     {
         this->x *= fScalar;
         this->y *= fScalar;

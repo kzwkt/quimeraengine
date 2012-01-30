@@ -266,7 +266,7 @@ public:
 	/// <returns>
 	/// The modified matrix.
 	/// </returns>
-	inline QMatrix4x4& operator*=(const float_q &fScalar)
+	inline QMatrix4x4& operator*=(const float_q fScalar)
     {
         *this = fScalar * *this;
         return *this;

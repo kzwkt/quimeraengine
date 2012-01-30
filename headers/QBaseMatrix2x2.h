@@ -39,6 +39,16 @@ public:
 		ij[1][1] = SQFloat::_0;
 	}
 
+	/// <summary>
+	/// Constructor that receives a floating point value for all elements of the matrix.
+	/// </summary>
+	/// <param name="fValueAll">[IN] Floating point value which to fill the matrix with.</param>
+	inline explicit QBaseMatrix2x2(const float_q &fValueAll)
+	{
+		ij[0][0] = ij[0][1] =
+		ij[1][0] = ij[1][1] = fValueAll;
+	}
+
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
     /// </summary>

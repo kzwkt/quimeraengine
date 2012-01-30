@@ -111,7 +111,7 @@ QBaseMatrix4x4 QMatrix4x3::operator*(const QBaseMatrix3x4& matrix) const
 	return aux;
 }
 
-QMatrix4x3& QMatrix4x3::operator*=(const float_q& fScalar)
+QMatrix4x3& QMatrix4x3::operator*=(const float_q fScalar)
 {
     this->ij[0][0] *= fScalar;
 	this->ij[0][1] *= fScalar;

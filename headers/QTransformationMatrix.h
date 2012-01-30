@@ -78,7 +78,7 @@ public:
     /// <param name="vScale">[IN] Vector with the scale values.</param>
     inline QTransformationMatrix(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
     {
-        this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z, SQFloat::_0,
+        this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z,
                          qRotation.x, qRotation.y, qRotation.z, qRotation.w,
                          vScale.x, vScale.y, vScale.z);
     }
@@ -92,7 +92,7 @@ public:
     /// <param name="vScale">[IN] Vector with the scale values.</param>
     inline QTransformationMatrix(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
     {
-        this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z, vTranslation.w,
+        this->Initialize(vTranslation.x, vTranslation.y, vTranslation.z,
                          qRotation.x, qRotation.y, qRotation.z, qRotation.w,
                          vScale.x, vScale.y, vScale.z);
     }
@@ -116,7 +116,7 @@ public:
                                  const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationw,
                                  const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
-        this->Initialize(fTranslationX, fTranslationY, fTranslationZ, fTranslationW,
+        this->Initialize(fTranslationX, fTranslationY, fTranslationZ,
                          fRotationX, fRotationY, fRotationZ, fRotationw,
                          fScaleX, fScaleY, fScaleZ);
     }
@@ -833,7 +833,6 @@ protected:
     // <param name="fTranslationX">[IN] Displazament within X direction.</param>
     // <param name="fTranslationY">[IN] Displazament within Y direction.</param>
     // <param name="fTranslationZ">[IN] Displazament within Z direction.</param>
-    // <param name="fTranslationW">[IN] W component of a 4d translation vector (0 generally).</param>
     // <param name="fRotationX">[IN] X component of the rotation quaternion.</param>
     // <param name="fRotationY">[IN] Y component of the rotation quaternion.</param>
     // <param name="fRotationZ">[IN] Z component of the rotation quaternion.</param>
@@ -841,7 +840,7 @@ protected:
     // <param name="fScaleX">[IN] Scale within X direction.</param>
     // <param name="fScaleY">[IN] Scale within Y direction.</param>
     // <param name="fScaleZ">[IN] Scale within Z direction.</param>
-    void Initialize(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ, const float_q &fTranslationW,
+    void Initialize(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ,
                     const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationW,
                     const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {

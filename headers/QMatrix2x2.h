@@ -70,10 +70,8 @@ public:
     /// Constructor from a floating point value which with fill all matrix's elements.
     /// </summary>
     /// <param name="fValueAll">[IN] The floating point value used to fill the matrix.</param>
-    inline explicit QMatrix2x2(const float_q &fValueAll)
+    inline explicit QMatrix2x2(const float_q &fValueAll) : QBaseMatrix2x2(fValueAll)
 	{
-		ij[0][0] = ij[0][1] =
-		ij[1][0] = ij[1][1] = fValueAll;
 	}
 
     /// <summary>
@@ -202,6 +200,23 @@ public:
     /// The resultant matrix.
     /// </returns>
     QMatrix2x2 operator-(const QBaseMatrix2x2 &matrix) const;
+
+    /// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// </summary>
+    /// <param name="fScalar">[IN] The floating point value to be multiplied by.</param>
+    /// <returns>
+    /// The modified matrix.
+    /// </returns>
+    inline QMatrix2x2& operator*=(const float_q fScalar)
+    {
+        this->ij[0][0] *= fScalar;
+        this->ij[0][1] *= fScalar;
+        this->ij[1][0] *= fScalar;
+        this->ij[1][1] *= fScalar;
+
+        return *this;
+    }
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.

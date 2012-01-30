@@ -412,7 +412,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    inline QDualQuaternion& operator*=(const float_q &fScalar)
+    inline QDualQuaternion& operator*=(const float_q fScalar)
     {
         this->r *= fScalar;
         this->d *= fScalar;
