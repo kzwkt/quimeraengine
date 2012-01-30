@@ -761,7 +761,7 @@ QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
     bool bAssertionFailedWhenYEqualsZero = false;
     bool bAssertionFailedWhenZEqualsZero = false;
     QVector3 vVectorUT;
-    
+
     try
     {
         vVectorUT / OPERAND_WITH_ZERO_X;
@@ -1259,7 +1259,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
     bool bAssertionFailedWhenYEqualsZero = false;
     bool bAssertionFailedWhenZEqualsZero = false;
     QVector3 vVectorUT;
-    
+
     try
     {
         vVectorUT /= OPERAND_WITH_ZERO_X;
@@ -1423,7 +1423,7 @@ QTEST_CASE ( Normalize2_CommonVectorIsCorrectlyNormalized_Test )
     const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    
+
 	// Execution
     QVector3 vNormalizedVectorUT;
     VECTOR.Normalize(vNormalizedVectorUT);
@@ -1513,7 +1513,7 @@ QTEST_CASE ( Reverse2_CommonVectorIsCorrectlyInverted_Test )
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
-    
+
 	// Execution
     QVector3 vRevertedVectorUT;
     VECTOR.Reverse(vRevertedVectorUT);
@@ -1655,8 +1655,8 @@ QTEST_CASE ( IsVectorOfOnes_ReturnsFalseWhenNotAllVectorComponentsEqualOne_Test 
 
 	// Execution
     bool bResult = VECTOR_X_NOT_EQUAL_ONE.IsVectorOfOnes();
-    bResult |= VECTOR_X_NOT_EQUAL_ONE.IsVectorOfOnes();
-    bResult |= VECTOR_X_NOT_EQUAL_ONE.IsVectorOfOnes();
+    bResult |= VECTOR_Y_NOT_EQUAL_ONE.IsVectorOfOnes();
+    bResult |= VECTOR_Z_NOT_EQUAL_ONE.IsVectorOfOnes();
 
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
