@@ -87,9 +87,10 @@ float_q QVector2::GetSquaredLength() const
     return this->x*this->x + this->y*this->y;
 }
 
-QVector2 QVector2::GetPerpendicular() const
+void QVector2::GetPerpendicular(QBaseVector2 &vOutVector) const
 {
-	return QVector2(this->y, -this->x);
+	vOutVector.x =  this->y;
+	vOutVector.y = -this->x;
 }
 
 bool QVector2::IsZero()
