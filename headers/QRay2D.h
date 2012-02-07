@@ -401,7 +401,8 @@ public:
                 ray.Origin = vPoint;
 
                 // Calculates normal to line segment (is normalized like vAux)
-                QVector2 vNorm = vAux.GetPerpendicular();
+                QVector2 vNorm;
+                vAux.GetPerpendicular(vNorm);
 
                 // Calculates reflected direction
                 ray.Direction -= SQFloat::_2 * (this->Direction.DotProduct(vNorm)) * vNorm;
@@ -437,7 +438,8 @@ public:
         else if (this->Intersection(segment))
         {
             // Calculates normal to line segment (is normalized like vAux)
-            QVector2 vNorm = vAux.GetPerpendicular();
+            QVector2 vNorm;
+            vAux.GetPerpendicular(vNorm);
 
             // Calculates reflected direction
             vDirection = this->Direction - SQFloat::_2 * (this->Direction.DotProduct(vNorm)) * vNorm;

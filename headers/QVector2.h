@@ -404,7 +404,7 @@ public:
 	/// <returns>
 	/// A Vector which is perpendicular of the vector.
 	/// </returns>
-	QVector2 GetPerpendicular() const;
+	void GetPerpendicular(QBaseVector2 &vOutVector) const;
 
 	/// <summary>
 	/// Makes current vector unitary
