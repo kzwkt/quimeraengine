@@ -87,14 +87,11 @@ float_q QVector2::GetSquaredLength() const
     return this->x*this->x + this->y*this->y;
 }
 
-void QVector2::GetPerpendicular(QBaseVector2 &vOutVector) const
+void QVector2::GetPerpendicular(QBaseVector2 &vVector) const
 {
-    QBaseVector2 vAux;
+    QBaseVector2 vAux = QBaseVector2(this->y, -this->x);
 
-	vAux.x = this->y;
-	vAux.y = -this->x;
-
-	vOutvector = vAux;
+	vVector = vAux;
 }
 
 bool QVector2::IsZero()
@@ -146,8 +143,8 @@ string_q QVector2::ToString() const
 
 void QVector2::Transform(const QTransformationMatrix3x3 &matrix)
 {
-	float_q fNewX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0];
-	float_q fNewY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1];
+	const float_q &fNewX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0];
+	const float_q &fNewY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1];
 
 	this->x = fNewX;
 	this->y = fNewY;
@@ -155,8 +152,8 @@ void QVector2::Transform(const QTransformationMatrix3x3 &matrix)
 
 void QVector2::Transform(const QTransformationMatrix3x3 &matrix, QBaseVector2 &vOutVector)
 {
-	vOutVector.x = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0];
-	vOutVector.y = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1];
+    vOutVector = *this;
+    vOutVector.Tramsform(matrix);
 }
 
 void QVector2::Transform(const float_q &fRotationAngle)
@@ -179,17 +176,8 @@ void QVector2::Transform(const float_q &fRotationAngle)
 
 void QVector2::Transform(const float_q &fRotationAngle, QBaseVector2& vOutVector)
 {
-	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-		float_q fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);
-	#else
-		float_q fAngleRad = fRotationAngle;
-	#endif
-
-	const float_q fCosAngle = cos_q(fAngleRad);
-	const float_q fSinAngle = sin_q(fAngleRad);
-
-	vOutVector.x = this->x * fCosAngle - this->y * fSinAngle;
-	vOutVector.y = this->y * fCosAngle + this->x * fSinAngle;
+	vOutVector = *this;
+	vOutVector.Transform(fRotationAngle);
 }
 
 } //namespace Math
