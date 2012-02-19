@@ -145,30 +145,6 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPointerIsNull_Test )
 }
 
 /// <summary>
-/// Checks if no exceptions are thrown when the input array of floats points to an invalid memory space.
-/// </summary>
-QTEST_CASE ( Constructor4_ExceptionIsNotThrownWhenArrayIsNotFilled_Test )
-{
-    // Preparation
-    const float_q* INVALID_ARRAY_OF_2_FLOATS = new float_q[2];
-
-	// Execution
-    bool bExceptionsThrown = false;
-
-    try
-    {
-        QVector3 vVectorUT(INVALID_ARRAY_OF_2_FLOATS);
-    }
-    catch(...)
-    {
-        bExceptionsThrown = true;
-    }
-
-    // Verification
-    BOOST_CHECK(!bExceptionsThrown);
-}
-
-/// <summary>
 /// Checks if vector components are set to the correct values packed in a valid vf32 object.
 /// </summary>
 QTEST_CASE ( Constructor5_VectorComponentsAreSetToValidVF32PackedValues_Test )
@@ -237,6 +213,52 @@ QTEST_CASE ( Constructor7_VectorComponentsAreFilledWithRightMatrixElements_Test 
 
 	// Execution
     QVector3 vVectorUT(TRANSLATION);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks if that every input vector's component is copied to the right target vector's component.
+/// </summary>
+QTEST_CASE ( Constructor8_VectorComponentsAreCopiedIntoCorrectComponents_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
+
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
+
+	QBaseVector3 INPUT_VECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
+
+	// Execution
+	QVector3 vVectorUT(INPUT_VECTOR);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
+}
+
+/// <summary>
+/// Checks if that every input vector's component is copied to the right target vector's component.
+/// </summary>
+QTEST_CASE ( Constructor9_VectorComponentsAreCopiedIntoCorrectComponents_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
+
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
+
+	QBaseVector4 INPUT_VECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, SQFloat::_0);
+
+	// Execution
+	QVector3 vVectorUT(INPUT_VECTOR);
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -1722,6 +1744,26 @@ QTEST_CASE ( DotProduct_DotProductEqualsZeroWhenVectorsAreOrthogonal_Test )
 }
 
 /// <summary>
+/// Checks that the dot product equals zero when at least one operand is null vector.
+/// </summary>
+QTEST_CASE ( DotProduct_ReturnsZeroWhenAOperandIsNullVector_Test )
+{
+    // Preparation
+    const float_q EXPECTED_RESULT = SQFloat::_0;
+
+    const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+
+	// Execution
+    float_q fResult1UT = NONNULL_VECTOR.DotProduct(NULL_VECTOR);
+    float_q fResult2UT = NULL_VECTOR.DotProduct(NONNULL_VECTOR);
+
+    // Verification
+    BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
+    BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
+}
+
+/// <summary>
 /// Checks that the returned angle result for 2 common vectors equals the expected value.
 /// </summary>
 QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
@@ -1790,7 +1832,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenVectorsAreParallel_Test )
 }
 
 /// <summary>
-/// Checks that the angle equals PI/2 (or 90º) when vectors are paralallel.
+/// Checks that the angle equals PI/2 (or 90º) when vectors are orthogonal.
 /// </summary>
 QTEST_CASE ( DotProductAngle_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOrthogonal_Test )
 {
@@ -1884,6 +1926,260 @@ QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAre
     // Verification
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessThan(fResult2UT, HALF_CIRCUMFERENCE_ANGLE) );
+}
+
+/// <summary>
+/// Checks that a correct vector is obtained by applying the cross product to 2 common vectors.
+/// </summary>
+QTEST_CASE ( CrossProduct1_AThirdVectorIsCorrectlyCalculated_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
+    const QVector3 EXPECTED_RESULT = QVector3(-SQFloat::_10, (float_q)13.0, (float_q)-4.0);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1;
+    vVectorUT.CrossProduct(OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that a null vector is obtained by applying the cross product to 2 parallel vectors that point at the same direction.
+/// </summary>
+QTEST_CASE ( CrossProduct1_ResultIsNullWhenVectorsAreParallelAndSameDirection_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_6);
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1;
+    vVectorUT.CrossProduct(OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that a null vector is obtained by applying the cross product to 2 parallel vectors that point at opposite direction.
+/// </summary>
+QTEST_CASE ( CrossProduct1_ResultIsNullWhenVectorsAreParallelAndOppositeDirection_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(-SQFloat::_1, -SQFloat::_2, -SQFloat::_3);
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1;
+    vVectorUT.CrossProduct(OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that follows left-handed rules, so +X x +Y = +Z.
+/// </summary>
+QTEST_CASE ( CrossProduct1_FollowsLeftHandedRule_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1;
+    vVectorUT.CrossProduct(OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that null vector is obtained when at least one of the operands is null vector.
+/// </summary>
+QTEST_CASE ( CrossProduct1_ReturnsNullVectorWhenAOperandIsNullVector_Test )
+{
+    // Preparation
+    const float_q EXPECTED_RESULT_FOR_ALL = SQFloat::_0;
+
+    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT1 = NULL_VECTOR;
+    vVectorUT1.CrossProduct(NONNULL_VECTOR);
+
+    QVector3 vVectorUT2 = NONNULL_VECTOR;
+    vVectorUT2.CrossProduct(NULL_VECTOR);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT1.x, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT1.y, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT1.z, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT2.x, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT2.y, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT2.z, EXPECTED_RESULT_FOR_ALL);
+}
+
+
+/// <summary>
+/// Checks that a correct vector is obtained by applying the cross product to 2 common vectors.
+/// </summary>
+QTEST_CASE ( CrossProduct2_AThirdVectorIsCorrectlyCalculated_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
+    const QVector3 EXPECTED_RESULT = QVector3(-SQFloat::_10, (float_q)13.0, (float_q)-4.0);
+
+	// Execution
+    QVector3 vVectorUT;
+    OPERAND1.CrossProduct(OPERAND2, vVectorUT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that a null vector is obtained by applying the cross product to 2 parallel vectors that point at the same direction.
+/// </summary>
+QTEST_CASE ( CrossProduct2_ResultIsNullWhenVectorsAreParallelAndSameDirection_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_6);
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT;
+    OPERAND1.CrossProduct(OPERAND2, vVectorUT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that a null vector is obtained by applying the cross product to 2 parallel vectors that point at opposite direction.
+/// </summary>
+QTEST_CASE ( CrossProduct2_ResultIsNullWhenVectorsAreParallelAndOppositeDirection_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(-SQFloat::_1, -SQFloat::_2, -SQFloat::_3);
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT;
+    OPERAND1.CrossProduct(OPERAND2, vVectorUT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that follows left-handed rules, so +X x +Y = +Z.
+/// </summary>
+QTEST_CASE ( CrossProduct2_FollowsLeftHandedRule_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1);
+
+	// Execution
+    QVector3 vVectorUT;
+    OPERAND1.CrossProduct(OPERAND2, vVectorUT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that null vector is obtained when at least one of the operands is null vector.
+/// </summary>
+QTEST_CASE ( CrossProduct2_ReturnsNullVectorWhenAOperandIsNullVector_Test )
+{
+    // Preparation
+    const float_q EXPECTED_RESULT_FOR_ALL = SQFloat::_0;
+
+    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT1;
+    NULL_VECTOR.CrossProduct(NONNULL_VECTOR, vVectorUT1);
+
+    QVector3 vVectorUT2;
+    NONNULL_VECTOR.CrossProduct(NULL_VECTOR, vVectorUT2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT1.x, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT1.y, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT1.z, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT2.x, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT2.y, EXPECTED_RESULT_FOR_ALL);
+    BOOST_CHECK_EQUAL(vVectorUT2.z, EXPECTED_RESULT_FOR_ALL);
+}
+
+/// <summary>
+/// Checks that the result is correct even if the same vector instance is used as output parameter.
+/// </summary>
+QTEST_CASE ( CrossProduct2_CorrectResultIsObtainedWhenSameVectorInstanceIsUsedAsOutput_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
+    const QVector3 EXPECTED_RESULT = QVector3(-SQFloat::_10, (float_q)13.0, (float_q)-4.0);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1;
+    vVectorUT.CrossProduct(OPERAND2, vVectorUT); // TODO [avillalba]: Error detected.
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the result is correct even if the same vector instance is used both as the other operand and as output parameter.
+/// </summary>
+QTEST_CASE ( CrossProduct2_CorrectResultIsObtainedWhenSameVectorInstanceIsUsedAsOperandAndOutput_Test )
+{
+    // Preparation
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.CrossProduct(QVector3(vVectorUT), vVectorUT); // TODO [avillalba]: Error detected.
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
 }
 
 // End - Test Suite: QVector3

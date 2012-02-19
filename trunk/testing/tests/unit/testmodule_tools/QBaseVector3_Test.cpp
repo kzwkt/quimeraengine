@@ -122,30 +122,6 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPointerIsNull_Test )
 }
 
 /// <summary>
-/// Checks if no exceptions are thrown when the input array of floats points to an invalid memory space.
-/// </summary>
-QTEST_CASE ( Constructor4_ExceptionIsNotThrownWhenArrayIsNotFilled_Test )
-{
-    // Preparation
-    const float_q* INVALID_ARRAY_OF_2_FLOATS = new float_q[2];
-
-	// Execution
-    bool bExceptionsThrown = false;
-
-    try
-    {
-        QBaseVector3 vVectorUT(INVALID_ARRAY_OF_2_FLOATS);
-    }
-    catch(...)
-    {
-        bExceptionsThrown = true;
-    }
-
-    // Verification
-    BOOST_CHECK(!bExceptionsThrown);
-}
-
-/// <summary>
 /// Checks if vector components are set to the correct values packed in a valid vf32 object.
 /// </summary>
 QTEST_CASE ( Constructor5_VectorComponentsAreSetToValidVF32PackedValues_Test )
