@@ -103,7 +103,7 @@ Los mocks serán nombrados como cualquier clase, añadiendo el sufijo -Mock. Deb
 
 *Derivaciones para pruebas de caja blanca*
 
-A veces es necesario crear una clase derivada de la que está siendo probada para poder acceder a sus métodos protegidos, ya sea para falsearlos o para probarlos directamente. Las clases creadas para tal efecto deben estar en ficheros independientes y seguir las normas de nomenclatura de cualquier clase, añadiendo el sufijo -`WhiteBox` (cuando se pretendan testear métodos no públicos) o -Mocked, si se pretenda trucar el comportamiento interno.
+A veces es necesario crear una clase derivada de la que está siendo probada para poder acceder a sus métodos protegidos, ya sea para falsearlos o para probarlos directamente. Las clases creadas para tal efecto deben estar en ficheros independientes y seguir las normas de nomenclatura de cualquier clase, añadiendo el sufijo -`WhiteBox` (cuando se pretendan testear métodos no públicos) o -Mocked, si se pretende trucar el comportamiento interno.
 
 ==Documentación==
 
