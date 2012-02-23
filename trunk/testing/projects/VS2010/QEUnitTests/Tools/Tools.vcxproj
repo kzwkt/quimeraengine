@@ -30,6 +30,7 @@
     <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt" />
