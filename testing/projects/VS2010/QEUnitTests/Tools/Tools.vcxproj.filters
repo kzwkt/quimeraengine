@@ -80,6 +80,9 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
       <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h">
+      <Filter>Tests\Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt">

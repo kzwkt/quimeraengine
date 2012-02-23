@@ -84,6 +84,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3WhiteBox.h">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

@@ -8,9 +8,17 @@ using namespace boost::unit_test;
 
 #include "QVector3.h"
 
+#include "QVector3WhiteBox.h"
 #include "QMatrix4x3.h"
 #include "QMatrix4x4.h"
 #include "QTranslationMatrix.h"
+#include "QTransformationMatrix.h"
+#include "QRotationMatrix3x3.h"
+#include "QScaleMatrix3x3.h"
+#include "QSpaceConversionMatrix.h"
+#include "QQuaternion.h"
+#include "QDualQuaternion.h"
+#include "SQAngle.h"
 
 using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1394,7 +1402,7 @@ QTEST_CASE ( GetSquaredLength_SquaredLengthOfACommonVectorIsCalculatedCorrectly_
 /// <summary>
 /// Checks that a common vector becomes a unit vector.
 /// </summary>
-QTEST_CASE ( Normalize1_CommonVectorIsCorrectlyNormalized_Test )
+QTEST_CASE ( Normalize_CommonVectorIsCorrectlyNormalized_Test )
 {
     // Preparation
     const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
@@ -1402,8 +1410,7 @@ QTEST_CASE ( Normalize1_CommonVectorIsCorrectlyNormalized_Test )
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
 	// Execution
-    QVector3 vVectorUT = VECTOR;
-    vVectorUT.Normalize();
+    QVector3 vVectorUT = VECTOR.Normalize();
 
     // Verification
     float_q fSquaredLength = vVectorUT.GetSquaredLength();
@@ -1414,7 +1421,7 @@ QTEST_CASE ( Normalize1_CommonVectorIsCorrectlyNormalized_Test )
 /// <summary>
 /// Checks that the assertion fails when a null vector is to be normalized.
 /// </summary>
-QTEST_CASE ( Normalize1_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
+QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 {
     // Preparation
     const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
@@ -1437,75 +1444,9 @@ QTEST_CASE ( Normalize1_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 }
 
 /// <summary>
-/// Checks that a common vector becomes a unit vector.
-/// </summary>
-QTEST_CASE ( Normalize2_CommonVectorIsCorrectlyNormalized_Test )
-{
-    // Preparation
-    const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
-
-    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-
-	// Execution
-    QVector3 vNormalizedVectorUT;
-    VECTOR.Normalize(vNormalizedVectorUT);
-
-    // Verification
-    float_q fSquaredLength = vNormalizedVectorUT.GetSquaredLength();
-
-    BOOST_CHECK(SQFloat::AreEquals(fSquaredLength, EXPECTED_SQUAREDLENGTH));
-}
-
-/// <summary>
-/// Checks that the assertion fails when a null vector is to be normalized.
-/// </summary>
-QTEST_CASE ( Normalize2_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
-{
-    // Preparation
-    const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    QVector3 vNormalizedVector;
-
-	// Execution
-    bool bAssertionFailed = false;
-
-    try
-    {
-        QVector3 vVectorUT = VECTOR;
-        vVectorUT.Normalize(vNormalizedVector);
-    }
-    catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
-    {
-        bAssertionFailed = true;
-    }
-
-    // Verification
-    BOOST_CHECK(bAssertionFailed);
-}
-
-/// <summary>
-/// Checks that a vector object can be used as return value of its own method.
-/// </summary>
-QTEST_CASE ( Normalize2_VectorObjectCanBeUsedAsParameterOfItsOwnMethod_Test )
-{
-    // Preparation
-    const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
-
-    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-
-	// Execution
-    QVector3 vVectorUT = VECTOR;
-    vVectorUT.Normalize(vVectorUT);
-
-    // Verification
-    float_q fSquaredLength = vVectorUT.GetSquaredLength();
-
-    BOOST_CHECK(SQFloat::AreEquals(fSquaredLength, EXPECTED_SQUAREDLENGTH));
-}
-
-/// <summary>
 /// Checks that a common vector is correctly inverted.
 /// </summary>
-QTEST_CASE ( Reverse1_CommonVectorIsCorrectlyInverted_Test )
+QTEST_CASE ( Reverse_CommonVectorIsCorrectlyInverted_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
@@ -1515,52 +1456,7 @@ QTEST_CASE ( Reverse1_CommonVectorIsCorrectlyInverted_Test )
     const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
 	// Execution
-    QVector3 vVectorUT = VECTOR;
-    vVectorUT.Reverse();
-
-    // Verification
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
-}
-
-/// <summary>
-/// Checks that a common vector is correctly inverted.
-/// </summary>
-QTEST_CASE ( Reverse2_CommonVectorIsCorrectlyInverted_Test )
-{
-    // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
-    const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
-
-    const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
-
-	// Execution
-    QVector3 vRevertedVectorUT;
-    VECTOR.Reverse(vRevertedVectorUT);
-
-    // Verification
-    BOOST_CHECK_EQUAL(vRevertedVectorUT.x, EXPECTED_VALUE_FOR_X);
-    BOOST_CHECK_EQUAL(vRevertedVectorUT.y, EXPECTED_VALUE_FOR_Y);
-    BOOST_CHECK_EQUAL(vRevertedVectorUT.z, EXPECTED_VALUE_FOR_Z);
-}
-
-/// <summary>
-/// Checks that a vector object can be used as return value of its own method.
-/// </summary>
-QTEST_CASE ( Reverse2_VectorObjectCanBeUsedAsParameterOfItsOwnMethod_Test )
-{
-    // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
-    const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
-
-    const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
-
-	// Execution
-    QVector3 vVectorUT = VECTOR;
-    vVectorUT.Reverse(vVectorUT);
+    QVector3 vVectorUT = VECTOR.Reverse();
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -1931,7 +1827,7 @@ QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAre
 /// <summary>
 /// Checks that a correct vector is obtained by applying the cross product to 2 common vectors.
 /// </summary>
-QTEST_CASE ( CrossProduct1_AThirdVectorIsCorrectlyCalculated_Test )
+QTEST_CASE ( CrossProduct_AThirdVectorIsCorrectlyCalculated_Test )
 {
     // Preparation
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
@@ -1939,8 +1835,7 @@ QTEST_CASE ( CrossProduct1_AThirdVectorIsCorrectlyCalculated_Test )
     const QVector3 EXPECTED_RESULT = QVector3(-SQFloat::_10, (float_q)13.0, (float_q)-4.0);
 
 	// Execution
-    QVector3 vVectorUT = OPERAND1;
-    vVectorUT.CrossProduct(OPERAND2);
+    QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
@@ -1951,7 +1846,7 @@ QTEST_CASE ( CrossProduct1_AThirdVectorIsCorrectlyCalculated_Test )
 /// <summary>
 /// Checks that a null vector is obtained by applying the cross product to 2 parallel vectors that point at the same direction.
 /// </summary>
-QTEST_CASE ( CrossProduct1_ResultIsNullWhenVectorsAreParallelAndSameDirection_Test )
+QTEST_CASE ( CrossProduct_ResultIsNullWhenVectorsAreParallelAndSameDirection_Test )
 {
     // Preparation
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
@@ -1959,8 +1854,7 @@ QTEST_CASE ( CrossProduct1_ResultIsNullWhenVectorsAreParallelAndSameDirection_Te
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
 	// Execution
-    QVector3 vVectorUT = OPERAND1;
-    vVectorUT.CrossProduct(OPERAND2);
+    QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
@@ -1971,7 +1865,7 @@ QTEST_CASE ( CrossProduct1_ResultIsNullWhenVectorsAreParallelAndSameDirection_Te
 /// <summary>
 /// Checks that a null vector is obtained by applying the cross product to 2 parallel vectors that point at opposite direction.
 /// </summary>
-QTEST_CASE ( CrossProduct1_ResultIsNullWhenVectorsAreParallelAndOppositeDirection_Test )
+QTEST_CASE ( CrossProduct_ResultIsNullWhenVectorsAreParallelAndOppositeDirection_Test )
 {
     // Preparation
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
@@ -1979,8 +1873,7 @@ QTEST_CASE ( CrossProduct1_ResultIsNullWhenVectorsAreParallelAndOppositeDirectio
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
 	// Execution
-    QVector3 vVectorUT = OPERAND1;
-    vVectorUT.CrossProduct(OPERAND2);
+    QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
@@ -1991,7 +1884,7 @@ QTEST_CASE ( CrossProduct1_ResultIsNullWhenVectorsAreParallelAndOppositeDirectio
 /// <summary>
 /// Checks that follows left-handed rules, so +X x +Y = +Z.
 /// </summary>
-QTEST_CASE ( CrossProduct1_FollowsLeftHandedRule_Test )
+QTEST_CASE ( CrossProduct_FollowsLeftHandedRule_Test )
 {
     // Preparation
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
@@ -1999,8 +1892,7 @@ QTEST_CASE ( CrossProduct1_FollowsLeftHandedRule_Test )
     const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
 	// Execution
-    QVector3 vVectorUT = OPERAND1;
-    vVectorUT.CrossProduct(OPERAND2);
+    QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
@@ -2011,7 +1903,7 @@ QTEST_CASE ( CrossProduct1_FollowsLeftHandedRule_Test )
 /// <summary>
 /// Checks that null vector is obtained when at least one of the operands is null vector.
 /// </summary>
-QTEST_CASE ( CrossProduct1_ReturnsNullVectorWhenAOperandIsNullVector_Test )
+QTEST_CASE ( CrossProduct_ReturnsNullVectorWhenAOperandIsNullVector_Test )
 {
     // Preparation
     const float_q EXPECTED_RESULT_FOR_ALL = SQFloat::_0;
@@ -2020,119 +1912,8 @@ QTEST_CASE ( CrossProduct1_ReturnsNullVectorWhenAOperandIsNullVector_Test )
     const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
 	// Execution
-    QVector3 vVectorUT1 = NULL_VECTOR;
-    vVectorUT1.CrossProduct(NONNULL_VECTOR);
-
-    QVector3 vVectorUT2 = NONNULL_VECTOR;
-    vVectorUT2.CrossProduct(NULL_VECTOR);
-
-    // Verification
-    BOOST_CHECK_EQUAL(vVectorUT1.x, EXPECTED_RESULT_FOR_ALL);
-    BOOST_CHECK_EQUAL(vVectorUT1.y, EXPECTED_RESULT_FOR_ALL);
-    BOOST_CHECK_EQUAL(vVectorUT1.z, EXPECTED_RESULT_FOR_ALL);
-    BOOST_CHECK_EQUAL(vVectorUT2.x, EXPECTED_RESULT_FOR_ALL);
-    BOOST_CHECK_EQUAL(vVectorUT2.y, EXPECTED_RESULT_FOR_ALL);
-    BOOST_CHECK_EQUAL(vVectorUT2.z, EXPECTED_RESULT_FOR_ALL);
-}
-
-
-/// <summary>
-/// Checks that a correct vector is obtained by applying the cross product to 2 common vectors.
-/// </summary>
-QTEST_CASE ( CrossProduct2_AThirdVectorIsCorrectlyCalculated_Test )
-{
-    // Preparation
-    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
-    const QVector3 EXPECTED_RESULT = QVector3(-SQFloat::_10, (float_q)13.0, (float_q)-4.0);
-
-	// Execution
-    QVector3 vVectorUT;
-    OPERAND1.CrossProduct(OPERAND2, vVectorUT);
-
-    // Verification
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
-}
-
-/// <summary>
-/// Checks that a null vector is obtained by applying the cross product to 2 parallel vectors that point at the same direction.
-/// </summary>
-QTEST_CASE ( CrossProduct2_ResultIsNullWhenVectorsAreParallelAndSameDirection_Test )
-{
-    // Preparation
-    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QVector3 OPERAND2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_6);
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
-
-	// Execution
-    QVector3 vVectorUT;
-    OPERAND1.CrossProduct(OPERAND2, vVectorUT);
-
-    // Verification
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
-}
-
-/// <summary>
-/// Checks that a null vector is obtained by applying the cross product to 2 parallel vectors that point at opposite direction.
-/// </summary>
-QTEST_CASE ( CrossProduct2_ResultIsNullWhenVectorsAreParallelAndOppositeDirection_Test )
-{
-    // Preparation
-    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QVector3 OPERAND2 = QVector3(-SQFloat::_1, -SQFloat::_2, -SQFloat::_3);
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
-
-	// Execution
-    QVector3 vVectorUT;
-    OPERAND1.CrossProduct(OPERAND2, vVectorUT);
-
-    // Verification
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
-}
-
-/// <summary>
-/// Checks that follows left-handed rules, so +X x +Y = +Z.
-/// </summary>
-QTEST_CASE ( CrossProduct2_FollowsLeftHandedRule_Test )
-{
-    // Preparation
-    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
-    const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
-    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1);
-
-	// Execution
-    QVector3 vVectorUT;
-    OPERAND1.CrossProduct(OPERAND2, vVectorUT);
-
-    // Verification
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
-}
-
-/// <summary>
-/// Checks that null vector is obtained when at least one of the operands is null vector.
-/// </summary>
-QTEST_CASE ( CrossProduct2_ReturnsNullVectorWhenAOperandIsNullVector_Test )
-{
-    // Preparation
-    const float_q EXPECTED_RESULT_FOR_ALL = SQFloat::_0;
-
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
-    const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-
-	// Execution
-    QVector3 vVectorUT1;
-    NULL_VECTOR.CrossProduct(NONNULL_VECTOR, vVectorUT1);
-
-    QVector3 vVectorUT2;
-    NONNULL_VECTOR.CrossProduct(NULL_VECTOR, vVectorUT2);
+    QVector3 vVectorUT1 = NULL_VECTOR.CrossProduct(NONNULL_VECTOR);;
+    QVector3 vVectorUT2 = NONNULL_VECTOR.CrossProduct(NULL_VECTOR);
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT1.x, EXPECTED_RESULT_FOR_ALL);
@@ -2144,18 +1925,16 @@ QTEST_CASE ( CrossProduct2_ReturnsNullVectorWhenAOperandIsNullVector_Test )
 }
 
 /// <summary>
-/// Checks that the result is correct even if the same vector instance is used as output parameter.
+/// Checks that the cross product is correctly calculated when the same instance is used for both operands.
 /// </summary>
-QTEST_CASE ( CrossProduct2_CorrectResultIsObtainedWhenSameVectorInstanceIsUsedAsOutput_Test )
+QTEST_CASE ( CrossProduct_BehavesCorrectlyWhenSameInstanceIsUsedAsParameter_Test )
 {
     // Preparation
-    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
-    const QVector3 EXPECTED_RESULT = QVector3(-SQFloat::_10, (float_q)13.0, (float_q)-4.0);
+    const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
 	// Execution
-    QVector3 vVectorUT = OPERAND1;
-    vVectorUT.CrossProduct(OPERAND2, vVectorUT); // TODO [avillalba]: Error detected.
+    QVector3 vVectorUT = OPERAND.CrossProduct(OPERAND);
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
@@ -2164,17 +1943,219 @@ QTEST_CASE ( CrossProduct2_CorrectResultIsObtainedWhenSameVectorInstanceIsUsedAs
 }
 
 /// <summary>
-/// Checks that the result is correct even if the same vector instance is used both as the other operand and as output parameter.
+/// Checks that a correct vector is obtained as result of interpolating between 2 common vectors.
 /// </summary>
-QTEST_CASE ( CrossProduct2_CorrectResultIsObtainedWhenSameVectorInstanceIsUsedAsOperandAndOutput_Test )
+QTEST_CASE ( Lerp_CorrectLerpedVectorIsObtainedForTwoCommonVectors_Test )
 {
     // Preparation
-    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+    const QVector3 EXPECTED_RESULT = QVector3((float_q)2.5f, (float_q)3.5, (float_q)4.5);
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the result of interpolating between 2 equivalent vectors is the same vector.
+/// </summary>
+QTEST_CASE ( Lerp_InterpolatingTwoEquivalentVectorsGivesSameVector_Test )
+{
+    // Preparation
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+	// Execution
+    QVector3 vVectorUT = EXPECTED_RESULT.Lerp(SQFloat::_0_5, EXPECTED_RESULT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the result of interpolating just in the middle between 2 opposite vectors is a null vector.
+/// </summary>
+QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfTwoOppositeVectorsGivesNullVector_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = -OPERAND1;
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the vector obtained when using a non-null vector and a null vector is just the proportion of the non-null vector.
+/// </summary>
+QTEST_CASE ( Lerp_WhenUsedNonNullVectorAndNullVectorTheResultIsAScaledNonNullVector_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = OPERAND1 * SQFloat::_0_25;
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_25, OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that when the proportion equals 0, the returned vector is the input vector.
+/// </summary>
+QTEST_CASE ( Lerp_ProportionZeroMeansInputVector_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
+    const QVector3 EXPECTED_RESULT = OPERAND2;
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0, OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that when the proportion equals 1, the returned vector is the resident vector.
+/// </summary>
+QTEST_CASE ( Lerp_ProportionOneMeansResidentVector_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
+    const QVector3 EXPECTED_RESULT = OPERAND1;
+
+	// Execution
+    QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_1, OPERAND1);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the distance is correctly calcualted for two common vectors.
+/// </summary>
+QTEST_CASE ( Distance_CorrectlyCalculatedForTwoCommonVectors_Test )
+{
+    // Preparation
+    const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+    const float_q EXPECTED_RESULT = (float_q)5.196152422706632;
+
+	// Execution
+    float_q fDistancerUT = OPERAND1.Distance(OPERAND2);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(fDistancerUT, EXPECTED_RESULT) );
+}
+
+/// <summary>
+/// Checks that the distance equals zero when both vectors are the same.
+/// </summary>
+QTEST_CASE ( Distance_ExactlyZeroWhenTwoVectorsAreTheSame_Test )
+{
+    // Preparation
+    const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const float_q EXPECTED_RESULT = SQFloat::_0;
+
+	// Execution
+    float_q fDistancerUT = OPERAND.Distance(OPERAND);
+
+    // Verification
+    BOOST_CHECK_EQUAL(fDistancerUT, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks the distance between 2 opposite vectors equals the sume of their lengths.
+/// </summary>
+QTEST_CASE ( Distance_ForTwoOppositeVectorsResultEqualsSumOfTheirLengths_Test )
+{
+    // Preparation
+    const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QVector3 OPPOSITE_OPERAND = QVector3(-SQFloat::_0_5, -SQFloat::_1, -SQFloat::_2);
+    const float_q EXPECTED_RESULT = OPERAND.GetLength() + OPPOSITE_OPERAND.GetLength();
+
+	// Execution
+    float_q fDistancerUT = OPERAND.Distance(OPPOSITE_OPERAND);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(fDistancerUT, EXPECTED_RESULT) );
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary quaternion.
+/// </summary>
+QTEST_CASE ( Transform1_VectorIsCorrectlyTransformedByCommonQuaternion_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QQuaternion TRANSFORMATION = QQuaternion(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)-3.5355339,
+                                               (float_q)-2.1213205,
+                                               (float_q)-1.9999995);
+                                               
+    // Results have been obtained by using DirectX SDK
+    // D3DXQUATERNION qRot, qVector, qConjugate;
+    // float_q fYaw = SQAngle::_Pi;
+    // float_q fPitch = SQAngle::_HalfPi;
+    // float_q fRoll = SQAngle::_QuarterPi;
+    // D3DXQuaternionRotationYawPitchRoll(&qRot, fYaw, fPitch, fRoll);
+    // D3DXQuaternionNormalize(&qRot, &qRot);
+    // D3DXQuaternionConjugate(&qConjugate, &qRot);
+    // qVector.x = 1; qVector.y = 2; qVector.z = 4; qVector.w = 0;
+    // D3DXQuaternionMultiply(&qVector, &qRot, &qv);
+    // D3DXQuaternionMultiply(&qVector, &qVector, &qConjugate);
 
 	// Execution
     QVector3 vVectorUT = VECTOR;
-    vVectorUT.CrossProduct(QVector3(vVectorUT), vVectorUT); // TODO [avillalba]: Error detected.
+    vVectorUT.Transform(TRANSFORMATION); // [TODO] Thund: Fails.
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity quaternion.
+/// </summary>
+QTEST_CASE ( Transform1_VectorDoesntChangeWhenTransformedByIdentityQuaternion_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QQuaternion UNIT_QUATERNION = QQuaternion::GetIdentity();
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(UNIT_QUATERNION);
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
@@ -2182,5 +2163,951 @@ QTEST_CASE ( CrossProduct2_CorrectResultIsObtainedWhenSameVectorInstanceIsUsedAs
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
 }
 
+/// <summary>
+/// Checks that the vector is nulled when the quaternion is null.
+/// </summary>
+QTEST_CASE ( Transform1_VectorIsNullWhenQuaternionIsNull_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(NULL_QUATERNION);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary dual quaternion.
+/// </summary>
+QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
+    using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QDualQuaternion TRANSFORMATION = QDualQuaternion(QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_5), 
+                                                           QQuaternion(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi));
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)-6.5355339,
+                                               (float_q)-6.1213205,
+                                               (float_q)-6.9999995);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION); // [TODO] Thund: Fails.
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity dual quaternion.
+/// </summary>
+QTEST_CASE ( Transform2_VectorDoesntChangeWhenTransformedByIdentityDualQuaternion_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QDualQuaternion TRANSFORMATION = QDualQuaternion::GetIdentity();
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector is nulled when the dual quaternion is null.
+/// </summary>
+QTEST_CASE ( Transform2_VectorIsNullWhenDualQuaternionIsNull_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
+    using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QDualQuaternion NULL_DUALQUATERNION = QDualQuaternion(QVector3::GetZeroVector(), QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
+    
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(NULL_DUALQUATERNION);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary rotation matrix.
+/// </summary>
+QTEST_CASE ( Transform3_VectorIsCorrectlyTransformedByCommonRotationMatrix_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
+
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.70710671,
+                                               (float_q)-3.9999990,
+                                               (float_q)-2.1213202);
+
+    // Results calculated with DirectX SDK
+    // float_q fYaw = SQAngle::_Pi;
+    // float_q fPitch = SQAngle::_HalfPi;
+    // float_q fRoll = SQAngle::_QuarterPi;
+    // D3DXMATRIX rot;
+    // D3DXMatrixRotationYawPitchRoll(&rot, fYaw, fPitch, fRoll);
+    // D3DXVECTOR3 vRot(1, 2, 4);
+    // D3DXVec3TransformNormal(&vRot, &vRot, &rot);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE ( Transform3_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3::GetIdentity();
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector is nulled when the rotation matrix is null.
+/// </summary>
+QTEST_CASE ( Transform3_VectorIsNullWhenRotationMatrixIsNull_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QRotationMatrix3x3 NULL_MATRIX = QRotationMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(NULL_MATRIX);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks the the rotation is applied following left-handed rules.
+/// </summary>
+QTEST_CASE ( Transform3_RotationFollowsLeftHandedRules_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(SQFloat::_0, SQAngle::_HalfPi, SQFloat::_0);
+
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, -SQFloat::_1);
+
+    // Results calculated with DirectX SDK
+    // float_q fYaw = SQAngle::_HalfPi;
+    // float_q fPitch = SQFloat::_0;
+    // float_q fRoll = SQFloat::_0;
+    // D3DXMATRIX rot;
+    // D3DXMatrixRotationYawPitchRoll(&rot, fYaw, fPitch, fRoll);
+    // D3DXVECTOR3 vRot(1, 0, 0);
+    // D3DXVec3TransformNormal(&vRot, &vRot, &rot);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary scale matrix.
+/// </summary>
+QTEST_CASE ( Transform4_VectorIsCorrectlyTransformedByCommonScaleMatrix_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QScaleMatrix3x3 TRANSFORMATION = QScaleMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0_25, SQFloat::_6, -SQFloat::_4);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE ( Transform4_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QScaleMatrix3x3 TRANSFORMATION = QScaleMatrix3x3::GetIdentity();
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector is nulled when the scale matrix is null.
+/// </summary>
+QTEST_CASE ( Transform4_VectorIsNullWhenScaleMatrixIsNull_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QScaleMatrix3x3 NULL_MATRIX = QScaleMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(NULL_MATRIX);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Template method used by Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Test to test
+/// using different template parameters for class QTranslationMatrix.
+/// </summary>
+template<class MatrixType>
+void Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTranslationMatrix<MatrixType> TRANSFORMATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
+
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_3, SQFloat::_6, -SQFloat::_2);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary translation matrix.
+/// </summary>
+QTEST_CASE ( Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test to test
+/// using different template parameters for class QTranslationMatrix.
+/// </summary>
+template<class MatrixType>
+void Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTranslationMatrix<MatrixType> TRANSFORMATION = QTranslationMatrix<MatrixType>::GetIdentity();
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE ( Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by Transform5_VectorIsNullWhenTranslationMatrixIsNull_Test to test
+/// using different template parameters for class QTranslationMatrix.
+/// </summary>
+template<class MatrixType>
+void Transform5_VectorIsNullWhenTranslationMatrixIsNull_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTranslationMatrix<MatrixType> NULL_MATRIX = QTranslationMatrix<MatrixType>(MatrixType::GetZeroMatrix());
+    
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(NULL_MATRIX);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when the translation matrix is null.
+/// </summary>
+QTEST_CASE ( Transform5_VectorIsNullWhenTranslationMatrixIsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    Transform5_VectorIsNullWhenTranslationMatrixIsNull_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    Transform5_VectorIsNullWhenTranslationMatrixIsNull_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Test to test
+/// using different template parameters for class QTransformationMatrix.
+/// </summary>
+template<class MatrixType>
+void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
+    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
+    const QScaleMatrix3x3 SCALE = QScaleMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
+
+    const QVector3 EXPECTED_RESULT = QVector3(4.0658631, 4.0000000, -4.4194174);
+
+    // Results calculated using DirectX SDK
+    // float_q fYaw = SQAngle::_Pi;
+    // float_q fPitch = SQAngle::_HalfPi;
+    // float_q fRoll = SQAngle::_QuarterPi;
+    // D3DXMATRIX rotation, translation, scaling, transformation;
+    // D3DXMatrixRotationYawPitchRoll(&rotation, fYaw, fPitch, fRoll);
+    // D3DXMatrixScaling(&scaling, SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+    // D3DXMatrixTranslation(&translation, SQFloat::_2, SQFloat::_4, -SQFloat::_6);
+    // D3DXVECTOR3 vVector(1, 2, 4);
+    // transformation = scaling * rotation * translation;
+    // D3DXVec3TransformNormal(&vVector, &vVector, &transformation);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION); // [TODO] Thund: Fails.
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary translation matrix.
+/// </summary>
+QTEST_CASE ( Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by Transform6_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test to test
+/// using different template parameters for class QTransformationMatrix.
+/// </summary>
+template<class MatrixType>
+void Transform6_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>::GetIdentity();
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(TRANSFORMATION);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE ( Transform6_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    Transform6_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    Transform6_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by Transform6_VectorIsNullWhenTransformationMatrixIsNull_Test to test
+/// using different template parameters for class QTransformationMatrix.
+/// </summary>
+template<class MatrixType>
+void Transform6_VectorIsNullWhenTransformationMatrixIsNull_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTransformationMatrix<MatrixType> NULL_MATRIX = QTransformationMatrix<MatrixType>(MatrixType::GetZeroMatrix());
+    
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(NULL_MATRIX);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the vector is nulled when the transformation matrix is null.
+/// </summary>
+QTEST_CASE ( Transform6_VectorIsNullWhenTransformationMatrixIsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    Transform6_VectorIsNullWhenTransformationMatrixIsNull_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    Transform6_VectorIsNullWhenTransformationMatrixIsNull_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary space conversion matrix.
+/// </summary>
+QTEST_CASE ( Transform7_VectorIsCorrectlyTransformedByCommonSpaceConversionMatrix_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    QSpaceConversionMatrix CONVERSION = QSpaceConversionMatrix();
+    CONVERSION.SetViewSpaceMatrix(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3), 
+                                  QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1), 
+                                  QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0));
+
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.89442724,
+                                               (float_q)-1.1925696,
+                                               (float_q)-4.3333330);
+
+    // Results calculated with DirectX SDK
+    // D3DXMATRIX transformation;
+    // D3DXVECTOR3 vEye(1, 2, 3), vUp(0, 1, 0), vAt(0, 0, 1);
+    // D3DXMatrixLookAtLH(&transformation, &vEye, &vAt, &vUp);
+    // D3DXVec3TransformNormal(&vVector, &vVector, &transformation);
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(CONVERSION); // [TODO] Thund: Fails.
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE ( Transform7_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QSpaceConversionMatrix CONVERSION = QSpaceConversionMatrix(QMatrix4x4::GetIdentity());
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(CONVERSION);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector is nulled when the space conversion matrix is null.
+/// </summary>
+QTEST_CASE ( Transform7_VectorIsNullWhenSpaceConversionMatrixIsNull_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QSpaceConversionMatrix NULL_MATRIX = QSpaceConversionMatrix(QMatrix4x4::GetZeroMatrix());
+    
+    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    vVectorUT.Transform(NULL_MATRIX);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the format of the returned string matches what's expected.
+/// </summary>
+QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
+{
+    // Preparation
+    const QVector3 VECTOR = QVector3(SQFloat::_0_25, (float_q)-0.000002f, (float_q)40000.0f );
+    const string_q EXPECTED_STRING_FORM = QE_L("V3(0.25,-1.99999999e-006,40000)");
+
+	// Execution
+    QVector3 vVectorUT = VECTOR;
+    string_q strStringForm = vVectorUT.ToString();
+
+    // Verification
+    BOOST_CHECK(strStringForm == EXPECTED_STRING_FORM);
+}
+
+/// <summary>
+/// Template method used by TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Test to test
+/// using different template parameters for class QTranslationMatrix.
+/// </summary>
+template<class MatrixType>
+void TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTranslationMatrix<MatrixType> TRANSFORMATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
+
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_3, SQFloat::_6, -SQFloat::_2);
+
+	// Execution
+    QVector3WhiteBox vVectorUT = VECTOR;
+    vVectorUT.TransformImp(TRANSFORMATION);
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary translation matrix.
+/// </summary>
+QTEST_CASE ( TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test to test
+/// using different template parameters for class QTranslationMatrix.
+/// </summary>
+template<class MatrixType>
+void TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTranslationMatrix<MatrixType> TRANSFORMATION = QTranslationMatrix<MatrixType>::GetIdentity();
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3WhiteBox vVectorUT = VECTOR;
+    vVectorUT.TransformImp(TRANSFORMATION);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE ( TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by TransformImp1_VectorIsNullWhenTranslationMatrixIsNull_Test to test
+/// using different template parameters for class QTranslationMatrix.
+/// </summary>
+template<class MatrixType>
+void TransformImp1_VectorIsNullWhenTranslationMatrixIsNull_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTranslationMatrix<MatrixType> NULL_MATRIX = QTranslationMatrix<MatrixType>(MatrixType::GetZeroMatrix());
+    
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3WhiteBox vVectorUT = VECTOR;
+    vVectorUT.TransformImp(NULL_MATRIX);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the vector is nulled when the transformation matrix is null.
+/// </summary>
+QTEST_CASE ( TransformImp1_VectorIsNullWhenTranslationMatrixIsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    TransformImp1_VectorIsNullWhenTranslationMatrixIsNull_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    TransformImp1_VectorIsNullWhenTranslationMatrixIsNull_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Test to test
+/// using different template parameters for class QTransformationMatrix.
+/// </summary>
+template<class MatrixType>
+void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
+    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
+    const QScaleMatrix3x3 SCALE = QScaleMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
+
+    const QVector3 EXPECTED_RESULT = QVector3(4.0658631, 4.0000000, -4.4194174);
+
+    // Results calculated using DirectX SDK
+    // float_q fYaw = SQAngle::_Pi;
+    // float_q fPitch = SQAngle::_HalfPi;
+    // float_q fRoll = SQAngle::_QuarterPi;
+    // D3DXMATRIX rotation, translation, scaling, transformation;
+    // D3DXMatrixRotationYawPitchRoll(&rotation, fYaw, fPitch, fRoll);
+    // D3DXMatrixScaling(&scaling, SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+    // D3DXMatrixTranslation(&translation, SQFloat::_2, SQFloat::_4, -SQFloat::_6);
+    // D3DXVECTOR3 vVector(1, 2, 4);
+    // transformation = scaling * rotation * translation;
+    // D3DXVec3TransformNormal(&vVector, &vVector, &transformation);
+
+	// Execution
+    QVector3WhiteBox vVectorUT = VECTOR;
+    vVectorUT.TransformImp(TRANSFORMATION); // [TODO] Thund: Fails.
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks the vector is correctly transformed by an arbitrary transformation matrix.
+/// </summary>
+QTEST_CASE ( TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test to test
+/// using different template parameters for class QTransformationMatrix.
+/// </summary>
+template<class MatrixType>
+void TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>::GetIdentity();
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3WhiteBox vVectorUT = VECTOR;
+    vVectorUT.TransformImp(TRANSFORMATION);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE ( TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Test to test
+/// using different template parameters for class QTransformationMatrix.
+/// </summary>
+template<class MatrixType>
+void TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
+
+    const QVector3 VECTOR = QVector3::GetZeroVector();
+    const QTransformationMatrix<MatrixType> NULL_MATRIX = QTransformationMatrix<MatrixType>(MatrixType::GetZeroMatrix());
+    
+    const QVector3 EXPECTED_RESULT = VECTOR;
+
+	// Execution
+    QVector3WhiteBox vVectorUT = VECTOR;
+    vVectorUT.TransformImp(NULL_MATRIX);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
+}
+
+/// <summary>
+/// Checks that the vector is nulled when the transformation matrix is null.
+/// </summary>
+QTEST_CASE ( TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Template<QMatrix4x4>();
+}
+
+/// <summary>
+/// Template method used by TransformImp2_RotationFollowsLeftHandedRules_Test to test
+/// using different template parameters for class QTransformationMatrix.
+/// </summary>
+template<class MatrixType>
+void TransformImp2_RotationFollowsLeftHandedRules_Template()
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
+
+    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(SQFloat::_0, SQAngle::_HalfPi, SQFloat::_0);
+    const QScaleMatrix3x3 SCALE = QScaleMatrix3x3(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
+
+    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, -SQFloat::_1);
+
+    // Results calculated using DirectX SDK
+    // float_q fYaw = SQAngle::_HalfPi;
+    // float_q fPitch = SQFloat::_0;
+    // float_q fRoll = SQFloat::_0;
+    // D3DXMATRIX rotation, translation, scaling, transformation;
+    // D3DXMatrixRotationYawPitchRoll(&rotation, fYaw, fPitch, fRoll);
+    // D3DXMatrixScaling(&scaling, SQFloat::_1, SQFloat::_1, -SQFloat::_1);
+    // D3DXMatrixTranslation(&translation, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    // D3DXVECTOR3 vVector(1, 0, 0);
+    // transformation = scaling * rotation * translation;
+    // D3DXVec3TransformNormal(&vVector, &vVector, &transformation);
+
+	// Execution
+    QVector3WhiteBox vVectorUT = VECTOR;
+    vVectorUT.TransformImp(TRANSFORMATION); // [TODO] Thund: Fails.
+    
+    // Verification
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+}
+
+/// <summary>
+/// Checks that the vector is nulled when the transformation matrix is null.
+/// </summary>
+QTEST_CASE ( TransformImp2_RotationFollowsLeftHandedRules_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
+    TransformImp2_RotationFollowsLeftHandedRules_Template<QMatrix4x3>();
+    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
+    TransformImp2_RotationFollowsLeftHandedRules_Template<QMatrix4x4>();
+}
 // End - Test Suite: QVector3
 QTEST_SUITE_END()
