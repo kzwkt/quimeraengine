@@ -7,6 +7,7 @@
 #include "QTranslationMatrix.h"
 #include "QScaleMatrix3x3.h"
 #include "QTransformationMatrix.h"
+#include "SQAngle.h"
 
 namespace Kinesis
 {
@@ -31,9 +32,9 @@ QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fRotationAngleX, const flo
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q &fAngleXRad = SQAngle::DegreesToRadians(fRotationAngleX, fAngleXRad);
-        float_q &fAngleYRad = SQAngle::DegreesToRadians(fRotationAngleY, fAngleYRad);
-        float_q &fAngleZRad = SQAngle::DegreesToRadians(fRotationAngleZ, fAngleZRad);
+        const float_q& fAngleXRad = SQAngle::DegreesToRadians(fRotationAngleX);
+        const float_q& fAngleYRad = SQAngle::DegreesToRadians(fRotationAngleY);
+        const float_q& fAngleZRad = SQAngle::DegreesToRadians(fRotationAngleZ);
 
         const float_q& fA   = cos_q(fAngleXRad);
         const float_q& fB   = sin_q(fAngleXRad);
@@ -73,7 +74,7 @@ QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vRotationAxis, const
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q &fAngleRad = SQAngle::DegreesToRadians(fRotationAngle, fAngleRad);
+        const float_q& fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);
 
         const float_q& fA = cos_q(fAngleRad);
         const float_q& fB = sin_q(fAngleRad);
@@ -253,9 +254,9 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngleX, float_q &fRotatio
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // Since angles are specified in radians, we convert it to degrees
-        SQAngle::RadiansToDegrees(fRotationAngleX, fRotationAngleX);
-        SQAngle::RadiansToDegrees(fRotationAngleY, fRotationAngleY);
-        SQAngle::RadiansToDegrees(fRotationAngleZ, fRotationAngleZ);
+        fRotationAngleX = SQAngle::RadiansToDegrees(fRotationAngleX);
+        fRotationAngleY = SQAngle::RadiansToDegrees(fRotationAngleY);
+        fRotationAngleZ = SQAngle::RadiansToDegrees(fRotationAngleZ);
     #endif
 }
 
@@ -387,12 +388,12 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // Since angles are specified in radians, we convert it to degrees
-            SQAngle::RadiansToDegrees(fRotationAngle, fRotationAngle);
+            fRotationAngle = SQAngle::RadiansToDegrees(fRotationAngle);
         #endif
     }
 }
 
-float_q QRotationMatrix3x3::GetDeterminant()
+float_q QRotationMatrix3x3::GetDeterminant() const
 {
 	return SQFloat::_1;
 }

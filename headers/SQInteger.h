@@ -52,16 +52,6 @@ public:
     }
 
     /// <summary>
-    /// Returns the absolute value of an 8-bit integer value.
-    /// </summary>
-    /// <param name="nValue">[IN] An 8-bit integer value to extract its absolute value.</param>
-    /// <param name="nOutput">[OUT] The absolute value.</param>
-    inline static void Abs(const i8_q& nValue, i8_q& nOutput)
-    {
-       nOutput = abs(nValue);
-    }
-
-    /// <summary>
     /// Returns the absolute value of a short integer value.
     /// </summary>
     /// <param name="nValue">[IN] A short integer value to extract its absolute value.</param>
@@ -71,16 +61,6 @@ public:
     inline static i16_q Abs(const i16_q& nValue)
     {
        return abs(nValue);
-    }
-
-    /// <summary>
-    /// Returns the absolute value of a short integer value.
-    /// </summary>
-    /// <param name="nValue">[IN] A short integer value to extract its absolute value.</param>
-    /// <param name="nOutput">[OUT] The absolute value.</param>
-    inline static void Abs(const i16_q& nValue, i16_q& nOutput)
-    {
-       nOutput = abs(nValue);
     }
 
     /// <summary>
@@ -96,16 +76,6 @@ public:
     }
 
     /// <summary>
-    /// Returns the absolute value of an integer value.
-    /// </summary>
-    /// <param name="nValue">[IN] An integer value to extract its absolute value.</param>
-    /// <param name="nOutput">[OUT] The absolute value.</param>
-    inline static void Abs(const i32_q& nValue, i32_q& nOutput)
-    {
-       nOutput = abs(nValue);
-    }
-
-    /// <summary>
     /// Returns the absolute value of a long integer value.
     /// </summary>
     /// <param name="nValue">[IN] A long integer value to extract its absolute value.</param>
@@ -118,34 +88,15 @@ public:
     }
 
     /// <summary>
-    /// Returns the absolute value of a long integer value.
-    /// </summary>
-    /// <param name="nValue">[IN] A long integer value to extract its absolute value.</param>
-    /// <param name="nOutput">[OUT] The absolute value.</param>
-    inline static void Abs(const i64_q& nValue, i64_q& nOutput)
-    {
-	   nOutput = llabs(nValue);
-    }
-
-    /// <summary>
-    /// Inverts the order of bytes which compound an integer number.<br>
-    /// A 32-bits integer number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
-    /// </summary>
-    /// <param name="nValue">[IN/OUT] The value whose bytes are to be swapped.</param>
-    template<typename IntegerType>
-    inline static void SwapEndianess(IntegerType &nValue)
-    {
-        SQInteger::SwapEndianess(nValue, nValue);
-    }
-
-    /// <summary>
     /// Inverts the order of bytes which compound an integer number and returns the result as output parameter.<br>
     /// A 32-bits integer number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
     /// </summary>
     /// <param name="nValue">[IN] The value whose bytes are to be swapped.</param>
-    /// <param name="nSwappedValue">[OUT] The transformed value.</param>
+    /// <returns>
+    /// The transformed value.
+    /// </returns>
     template<typename IntegerType>
-    inline static void SwapEndianess(const IntegerType &nValue, IntegerType &nSwappedValue)
+    inline static IntegerType SwapEndianess(const IntegerType &nValue)
     {
         const unsigned int INTEGER_SIZE = sizeof(IntegerType);
 
@@ -166,7 +117,7 @@ public:
         for(unsigned int i = 0, j = INTEGER_SIZE - 1; i < INTEGER_SIZE; ++i, --j)
             swappedValue._bytes[i] = srcValue._bytes[j];
 
-        nSwappedValue = swappedValue._integer;
+        return swappedValue._integer;
     }
 
     /// <summary>

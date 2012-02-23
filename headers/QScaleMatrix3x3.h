@@ -262,27 +262,15 @@ public:
     /// So, it's faster than base class method.<br>
     /// If one of the diagonal elements is 0, the matrix has not inverse.
     /// </summary>
-    inline void Reverse()
+    /// <returns>
+    /// The inverse of the matrix.
+    /// </returns>
+    inline QMatrix3x3 Reverse() const
     {
         // If one of the diagonal elements is 0, the matrix has not inverse.
         QE_ASSERT(this->ij[0][0] != SQFloat::_0 && this->ij[1][1] != SQFloat::_0 && this->ij[2][2] != SQFloat::_0)
 
-        this->ij[0][0] = SQFloat::_1 / this->ij[0][0];
-        this->ij[1][1] = SQFloat::_1 / this->ij[1][1];
-        this->ij[2][2] = SQFloat::_1 / this->ij[2][2];
-    }
-
-    /// <summary>
-    /// Reverse of the matrix.<br>
-    /// In the case of scale matrices, the inverse is composed by the inverses of its non zero elements.<br>
-    /// So, it's faster than base class method.<br>
-    /// If one of the diagonal elements is 0, the matrix has not inverse.
-    /// </summary>
-    /// <param name="outMatrix">[OUT] A matrix where to store reverse matrix.</param>
-    inline void Reverse(QBaseMatrix3x3 &outMatrix) const
-    {
-        outMatrix = *this;
-        outMatrix.As<QScaleMatrix3x3>().Reverse();
+        return QScaleMatrix3x3(SQFloat::_1 / this->ij[0][0], SQFloat::_1 / this->ij[1][1], SQFloat::_1 / this->ij[2][2]);
     }
 
     /// <summary>
@@ -316,7 +304,7 @@ public:
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
-	float_q GetDeterminant();
+	float_q GetDeterminant() const;
 
 protected:
 

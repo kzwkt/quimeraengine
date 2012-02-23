@@ -278,22 +278,14 @@ public:
     /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.<br>
     /// So, it's faster than base class method.
     /// </summary>
-    inline void Reverse()
+    /// <returns>
+    /// The inverse of the matrix.
+    /// </returns>
+    inline QMatrix3x3 Reverse() const
     {
-        this->Transpose();
+        return this->Transpose();
     }
-
-    /// <summary>
-    /// Reverse of the matrix.<br>
-    /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.<br>
-    /// So, it's faster than base class method.
-    /// </summary>
-    /// <param name="outMatrix">[OUT] A rotation matrix where to store reverse matrix.</param>
-    inline void Reverse(QBaseMatrix3x3 &outMatrix) const
-    {
-        this->Transpose(outMatrix);
-    }
-
+    
     /// <summary>
     /// Converts rotation matrix to Euler angles.<br>
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
@@ -327,7 +319,7 @@ public:
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
-	float_q GetDeterminant();
+	float_q GetDeterminant() const;
 
 protected:
 

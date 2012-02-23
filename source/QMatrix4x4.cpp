@@ -226,28 +226,12 @@ QMatrix4x4& QMatrix4x4::operator*=(const QBaseMatrix4x4 &matrix)
 	return *this;
 }
 
-void QMatrix4x4::Transpose()
+QMatrix4x4 QMatrix4x4::Transpose() const
 {
-	QMatrix4x4 aux;
-
-	aux.ij[0][0] = this->ij[0][0];
-	aux.ij[0][1] = this->ij[1][0];
-	aux.ij[0][2] = this->ij[2][0];
-	aux.ij[0][3] = this->ij[3][0];
-	aux.ij[1][0] = this->ij[0][1];
-	aux.ij[1][1] = this->ij[1][1];
-	aux.ij[1][2] = this->ij[2][1];
-	aux.ij[1][3] = this->ij[3][1];
-	aux.ij[2][0] = this->ij[0][2];
-	aux.ij[2][1] = this->ij[1][2];
-	aux.ij[2][2] = this->ij[2][2];
-	aux.ij[2][3] = this->ij[3][2];
-	aux.ij[3][0] = this->ij[0][3];
-	aux.ij[3][1] = this->ij[1][3];
-	aux.ij[3][2] = this->ij[2][3];
-	aux.ij[3][3] = this->ij[3][3];
-
-	*this = aux;
+    return QMatrix4x4(this->ij[0][0], this->ij[1][0], this->ij[2][0], this->ij[3][0],
+                      this->ij[0][1], this->ij[1][1], this->ij[2][1], this->ij[3][1],
+                      this->ij[0][2], this->ij[1][2], this->ij[2][2], this->ij[3][2],
+                      this->ij[0][3], this->ij[1][3], this->ij[2][3], this->ij[3][3]);
 }
 
 float_q QMatrix4x4::GetDeterminant() const
@@ -277,113 +261,70 @@ float_q QMatrix4x4::GetDeterminant() const
 								F * this->ij[3][0] - G * this->ij[3][1] - L * this->ij[3][2] );
 }
 
-bool QMatrix4x4::Reverse()
+QMatrix4x4 QMatrix4x4::Reverse() const
 {
-	// Special case where matrix is identity. Then inverse of the matrix is itself.
-	if (this->IsIdentity())
-	{
-		return true;
-	}
+	// Gets the inverse of the Determinant.
+	const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
 
-	// Gets Determinant.
-	float_q fDet = this->GetDeterminant();
-
-	// If Determinant is 0, this matrix has not inverse.
-	if (SQFloat::IsZero(fDet))
-		return false;
-
-	// We need inverse of determinant in calculus.
-	fDet = SQFloat::_1/fDet;
-
-	// Binary products are stored in vars to avoid unnecesary repetitions
+    // Binary products are stored in vars to avoid unnecesary repetitions
 	// (each binary product appears 4 times in inverse expresion)
-	const float_q& A = this->ij[0][0] * this->ij[1][1];
-	const float_q& B = this->ij[2][2] * this->ij[3][3];
-	const float_q& C = this->ij[0][3] * this->ij[1][2];
-	const float_q& D = this->ij[2][1] * this->ij[3][0];
-	const float_q& E = this->ij[0][1] * this->ij[1][0];
-	const float_q& F = this->ij[0][2] * this->ij[1][3];
-	const float_q& G = this->ij[2][3] * this->ij[3][2];
-	const float_q& H = this->ij[2][0] * this->ij[3][1];
-	const float_q& I = this->ij[2][3] * this->ij[3][1];
-	const float_q& J = this->ij[2][1] * this->ij[3][2];
-	const float_q& K = this->ij[2][2] * this->ij[3][1];
-	const float_q& L = this->ij[2][1] * this->ij[3][3];
-	const float_q& M = this->ij[2][3] * this->ij[3][0];
-	const float_q& N = this->ij[2][0] * this->ij[3][2];
-	const float_q& O = this->ij[2][2] * this->ij[3][0];
-	const float_q& P = this->ij[2][0] * this->ij[3][3];
-	const float_q& Q = this->ij[0][1] * this->ij[1][2];
-	const float_q& R = this->ij[0][3] * this->ij[1][1];
-	const float_q& S = this->ij[0][1] * this->ij[1][3];
-	const float_q& T = this->ij[0][2] * this->ij[1][1];
-	const float_q& U = this->ij[0][0] * this->ij[1][2];
-	const float_q& V = this->ij[0][3] * this->ij[1][0];
-	const float_q& W = this->ij[0][0] * this->ij[1][3];
-	const float_q& X = this->ij[0][2] * this->ij[1][0];
+	const float_q& fA = this->ij[0][0] * this->ij[1][1];
+	const float_q& fB = this->ij[2][2] * this->ij[3][3];
+	const float_q& fC = this->ij[0][3] * this->ij[1][2];
+	const float_q& fD = this->ij[2][1] * this->ij[3][0];
+	const float_q& fE = this->ij[0][1] * this->ij[1][0];
+	const float_q& fF = this->ij[0][2] * this->ij[1][3];
+	const float_q& fG = this->ij[2][3] * this->ij[3][2];
+	const float_q& fH = this->ij[2][0] * this->ij[3][1];
+	const float_q& fI = this->ij[2][3] * this->ij[3][1];
+	const float_q& fJ = this->ij[2][1] * this->ij[3][2];
+	const float_q& fK = this->ij[2][2] * this->ij[3][1];
+	const float_q& fL = this->ij[2][1] * this->ij[3][3];
+	const float_q& fM = this->ij[2][3] * this->ij[3][0];
+	const float_q& fN = this->ij[2][0] * this->ij[3][2];
+	const float_q& fO = this->ij[2][2] * this->ij[3][0];
+	const float_q& fP = this->ij[2][0] * this->ij[3][3];
+	const float_q& fQ = this->ij[0][1] * this->ij[1][2];
+	const float_q& fR = this->ij[0][3] * this->ij[1][1];
+	const float_q& fS = this->ij[0][1] * this->ij[1][3];
+	const float_q& fT = this->ij[0][2] * this->ij[1][1];
+	const float_q& fU = this->ij[0][0] * this->ij[1][2];
+	const float_q& fV = this->ij[0][3] * this->ij[1][0];
+	const float_q& fW = this->ij[0][0] * this->ij[1][3];
+	const float_q& fX = this->ij[0][2] * this->ij[1][0];
 
-	QMatrix4x4 aux;
-
-	// 1st column of inverse
-
-	aux.ij[0][0] =  fDet * (this->ij[1][1] * B + this->ij[1][2] * I + this->ij[1][3] * J -
-							this->ij[1][3] * K - this->ij[1][1] * G - this->ij[1][2] * L );
-
-	aux.ij[1][0] = -fDet * (this->ij[1][0] * B + this->ij[1][2] * M + this->ij[1][3] * N -
-							this->ij[1][3] * O - this->ij[1][0] * G - this->ij[1][2] * P );
-
-	aux.ij[2][0] =  fDet * (this->ij[1][0] * L + this->ij[1][1] * M + this->ij[1][3] * H -
-							this->ij[1][3] * D - this->ij[1][0] * I - this->ij[1][1] * P );
-
-	aux.ij[3][0] = -fDet * (this->ij[1][0] * J + this->ij[1][1] * O + this->ij[1][2] * H -
-							this->ij[1][2] * D - this->ij[1][0] * K - this->ij[1][1] * N );
-
-	// 2nd column of inverse
-
-	aux.ij[0][1] = -fDet * (this->ij[0][1] * B + this->ij[0][2] * I + this->ij[0][3] * J -
-							this->ij[0][3] * K - this->ij[0][1] * G - this->ij[0][2] * L );
-
-	aux.ij[1][1] =  fDet * (this->ij[0][0] * B + this->ij[0][2] * M + this->ij[0][3] * N -
-							this->ij[0][3] * O - this->ij[0][0] * G - this->ij[0][2] * P );
-
-	aux.ij[2][1] = -fDet * (this->ij[0][0] * L + this->ij[0][1] * M + this->ij[0][3] * H -
-							this->ij[0][3] * D - this->ij[0][0] * I - this->ij[0][1] * P );
-
-	aux.ij[3][1] =  fDet * (this->ij[0][0] * J + this->ij[0][1] * O + this->ij[0][2] * H -
-							this->ij[0][2] * D - this->ij[0][0] * K - this->ij[0][1] * N );
-
-	// 3rd column of inverse
-
-	aux.ij[0][2] =  fDet * (Q * this->ij[3][3] + F * this->ij[3][1] + R * this->ij[3][2] -
-							C * this->ij[3][1] - S * this->ij[3][2] - T * this->ij[3][3] );
-
-	aux.ij[1][2] = -fDet * (U * this->ij[3][3] + F * this->ij[3][0] + V * this->ij[3][2] -
-							C * this->ij[3][0] - W * this->ij[3][2] - X * this->ij[3][3] );
-
-	aux.ij[2][2] =  fDet * (A * this->ij[3][3] + S * this->ij[3][0] + V * this->ij[3][1] -
-							R * this->ij[3][0] - W * this->ij[3][1] - E * this->ij[3][3] );
-
-	aux.ij[3][2] = -fDet * (A * this->ij[3][2] + Q * this->ij[3][0] + X * this->ij[3][1] -
-							T * this->ij[3][0] - U * this->ij[3][1] - E * this->ij[3][2] );
-
-	// 4rd column of inverse
-
-	aux.ij[0][3] = -fDet * (Q * this->ij[2][3] + F * this->ij[2][1] + R * this->ij[2][2] -
-							C * this->ij[2][1] - S * this->ij[2][2] - T * this->ij[2][3] );
-
-	aux.ij[1][3] =  fDet * (U * this->ij[2][3] + F * this->ij[2][0] + V * this->ij[2][2] -
-							C * this->ij[2][0] - W * this->ij[2][2] - X * this->ij[2][3] );
-
-	aux.ij[2][3] = -fDet * (A * this->ij[2][3] + S * this->ij[2][0] + V * this->ij[2][1] -
-							R * this->ij[2][0] - W * this->ij[2][1] - E * this->ij[2][3] );
-
-	aux.ij[3][3] =  fDet * (A * this->ij[2][2] + Q * this->ij[2][0] + X * this->ij[2][1] -
-							T * this->ij[2][0] - U * this->ij[2][1] - E * this->ij[2][2] );
-
-	*this = aux;
-
-	return true;
-
+    return QMatrix4x4( fInvDet * (this->ij[1][1] * fB + this->ij[1][2] * fI + this->ij[1][3] * fJ -
+                                  this->ij[1][3] * fK - this->ij[1][1] * fG - this->ij[1][2] * fL ),
+                      -fInvDet * (this->ij[0][1] * fB + this->ij[0][2] * fI + this->ij[0][3] * fJ -
+                                  this->ij[0][3] * fK - this->ij[0][1] * fG - this->ij[0][2] * fL ),
+                       fInvDet * (fQ * this->ij[3][3] + fF * this->ij[3][1] + fR * this->ij[3][2] -
+                                  fC * this->ij[3][1] - fS * this->ij[3][2] - fT * this->ij[3][3] ),
+                      -fInvDet * (fQ * this->ij[2][3] + fF * this->ij[2][1] + fR * this->ij[2][2] -
+                                  fC * this->ij[2][1] - fS * this->ij[2][2] - fT * this->ij[2][3] ),
+                      -fInvDet * (this->ij[1][0] * fB + this->ij[1][2] * fM + this->ij[1][3] * fN -
+                                  this->ij[1][3] * fO - this->ij[1][0] * fG - this->ij[1][2] * fP ),
+                       fInvDet * (this->ij[0][0] * fB + this->ij[0][2] * fM + this->ij[0][3] * fN -
+					              this->ij[0][3] * fO - this->ij[0][0] * fG - this->ij[0][2] * fP ),
+                      -fInvDet * (fU * this->ij[3][3] + fF * this->ij[3][0] + fV * this->ij[3][2] -
+					              fC * this->ij[3][0] - fW * this->ij[3][2] - fX * this->ij[3][3] ),
+                       fInvDet * (fU * this->ij[2][3] + fF * this->ij[2][0] + fV * this->ij[2][2] -
+					              fC * this->ij[2][0] - fW * this->ij[2][2] - fX * this->ij[2][3] ),
+                       fInvDet * (this->ij[1][0] * fL + this->ij[1][1] * fM + this->ij[1][3] * fH -
+					              this->ij[1][3] * fD - this->ij[1][0] * fI - this->ij[1][1] * fP ),
+                      -fInvDet * (this->ij[0][0] * fL + this->ij[0][1] * fM + this->ij[0][3] * fH -
+					              this->ij[0][3] * fD - this->ij[0][0] * fI - this->ij[0][1] * fP ),
+                       fInvDet * (fA * this->ij[3][3] + fS * this->ij[3][0] + fV * this->ij[3][1] -
+					              fR * this->ij[3][0] - fW * this->ij[3][1] - fE * this->ij[3][3] ),
+                      -fInvDet * (fA * this->ij[2][3] + fS * this->ij[2][0] + fV * this->ij[2][1] -
+					              fR * this->ij[2][0] - fW * this->ij[2][1] - fE * this->ij[2][3] ),
+                      -fInvDet * (this->ij[1][0] * fJ + this->ij[1][1] * fO + this->ij[1][2] * fH -
+					              this->ij[1][2] * fD - this->ij[1][0] * fK - this->ij[1][1] * fN ),
+                       fInvDet * (this->ij[0][0] * fJ + this->ij[0][1] * fO + this->ij[0][2] * fH -
+					              this->ij[0][2] * fD - this->ij[0][0] * fK - this->ij[0][1] * fN ),
+                      -fInvDet * (fA * this->ij[3][2] + fQ * this->ij[3][0] + fX * this->ij[3][1] -
+					              fT * this->ij[3][0] - fU * this->ij[3][1] - fE * this->ij[3][2] ),
+                       fInvDet * (fA * this->ij[2][2] + fQ * this->ij[2][0] + fX * this->ij[2][1] -
+					              fT * this->ij[2][0] - fU * this->ij[2][1] - fE * this->ij[2][2] ));
 }
 
 string_q QMatrix4x4::ToString() const

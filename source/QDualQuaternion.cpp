@@ -80,14 +80,9 @@ QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
     return QDualQuaternion(QBaseQuaternion(this->r * fDivisor), QBaseQuaternion(this->d * fDivisor));
 }
 
-void QDualQuaternion::Transform(const QBaseDualQuaternion &transformation)
+QDualQuaternion QDualQuaternion::Transform(const QBaseDualQuaternion &transformation) const
 {
-    QDualQuaternion dqConj(transformation);
-
-    dqConj.DoubleConjugate();
-    *this = ( transformation.As<const QDualQuaternion>() * (*this) ) * dqConj;
-
-
+    return QDualQuaternion(transformation.As<const QDualQuaternion>() * (*this) * transformation.As<const QDualQuaternion>().DoubleConjugate());
 }
 
 string_q QDualQuaternion::ToString() const

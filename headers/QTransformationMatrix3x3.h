@@ -7,6 +7,7 @@
 #include "QBaseVector2.h"
 #include "QMatrix3x3.h"
 #include "QBaseMatrix3x3.h"
+#include "SQAngle.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -135,7 +136,7 @@ public:
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles must be specified in degrees, then converts it.
-            SQAngle::RadiansToDegrees(fRotationAngle, fRotationAngle);
+            fRotationAngle = SQAngle::RadiansToDegrees(fRotationAngle);
         #endif
     }
 
@@ -154,22 +155,15 @@ public:
 	/// Remember that Quimera Engine works with left-hand convention by default.<br>
 	/// To do that, we simply invert rotation (by trasposing its submatrix).
     /// </summary>
-    inline void SwitchHandConvention()
+    /// <returns>
+    /// The switched matrix.
+    /// </returns>
+    inline QTransformationMatrix3x3 SwitchHandConvention() const
     {
-        this->ij[0][1] = -this->ij[0][1];
-        this->ij[1][0] = -this->ij[1][0];
-    }
-
-    /// <summary>
-    /// Turns the hand convention into opposite rules.<br>
-	/// Remember that Quimera Engine works with left-hand convention by default.<br>
-	/// To do that, we simply invert rotation (by trasposing its submatrix).
-    /// </summary>
-    /// <param name="outMatrix">[OUT] Matrix to store the changed transformation matrix.</param>
-    inline void SwitchHandConvention(QTransformationMatrix3x3 &outMatrix)
-    {
-        outMatrix = *this;
-        outMatrix.SwitchHandConvention();
+        QTransformationMatrix3x3 switchedMatrix = *this;
+        switchedMatrix.ij[0][1] = -this->ij[0][1];
+        switchedMatrix.ij[1][0] = -this->ij[1][0];
+        return switchedMatrix;
     }
 
 protected:

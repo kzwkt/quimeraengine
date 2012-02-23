@@ -166,20 +166,17 @@ float_q QVector3::DotProductAngle(const QVector3 &vVector) const
     float_q fAngle = acos_q(fDot);
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
-        fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
+        fAngle = SQAngle::RadiansToDegrees(fAngle);
     #endif
 
     return fAngle;
 }
 
-void QVector3::CrossProduct(const QBaseVector3 &vVector)
+QVector3 QVector3::CrossProduct(const QBaseVector3 &vVector) const
 {
-    QVector3 vAux(*this);
-
-    this->x = vAux.y * vVector.z - vAux.z * vVector.y;
-    this->y = vAux.z * vVector.x - vAux.x * vVector.z;
-    this->z = vAux.x * vVector.y - vAux.y * vVector.x;
-
+    return QVector3(this->y * vVector.z - this->z * vVector.y,
+                    this->z * vVector.x - this->x * vVector.z,
+                    this->x * vVector.y - this->y * vVector.x);
 }
 
 float_q QVector3::Distance(const QBaseVector3 &vVector) const
@@ -187,36 +184,36 @@ float_q QVector3::Distance(const QBaseVector3 &vVector) const
     return (*this - vVector).GetLength();
 }
 
-void QVector3::Transform(const QQuaternion &qRotation)
+QVector3& QVector3::Transform(const QQuaternion &qRotation)
 {
     QQuaternion qAux(this->x, this->y, this->z, SQFloat::_0);
-    QQuaternion qConj;
-
-    qRotation.Conjugate(qConj);
+    QQuaternion qConj = qRotation.Conjugate();
 
     qAux = (qRotation * qAux) * qConj;
 
     this->x = qAux.x;
     this->y = qAux.y;
     this->z = qAux.z;
+
+    return *this;
 }
 
-void QVector3::Transform(const QDualQuaternion &transformation)
+QVector3& QVector3::Transform(const QDualQuaternion &transformation)
 {
     QDualQuaternion dqAux(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
                           QBaseQuaternion(this->x, this->y, this->z, SQFloat::_0));
-    QDualQuaternion dqConj;
-
-    transformation.DoubleConjugate(dqConj);
+    QDualQuaternion dqConj = transformation.DoubleConjugate();
 
     dqAux = (transformation * dqAux ) * dqConj;
 
     this->x = dqAux.d.x;
     this->y = dqAux.d.y;
     this->z = dqAux.d.z;
+
+    return *this;
 }
 
-void QVector3::Transform(const QSpaceConversionMatrix &conversion)
+QVector3& QVector3::Transform(const QSpaceConversionMatrix &conversion)
 {
 	QVector3 vAux;
 
@@ -224,83 +221,44 @@ void QVector3::Transform(const QSpaceConversionMatrix &conversion)
     vAux.y = this->x * conversion.ij[0][1] + this->y * conversion.ij[1][1] + this->z * conversion.ij[2][1] + conversion.ij[3][1];
     vAux.z = this->x * conversion.ij[0][2] + this->y * conversion.ij[1][2] + this->z * conversion.ij[2][2] + conversion.ij[3][2];
 
-    *this = vAux;
+    return *this = vAux;
 }
 
-void QVector3::Transform(const QRotationMatrix3x3 &rotation)
+QVector3& QVector3::Transform(const QRotationMatrix3x3 &rotation)
 {
-    *this *= rotation;
+    return *this *= rotation;
 }
 
-
-void QVector3::Transform(const QRotationMatrix3x3 &rotation, QBaseVector3 &vOutVector) const
-{
-    vOutVector = *this;
-    vOutVector.As<QVector3>().Transform(rotation);
-}
-
-void QVector3::Transform(const QScaleMatrix3x3 &scale)
+QVector3& QVector3::Transform(const QScaleMatrix3x3 &scale)
 {
     this->x *= scale.ij[0][0];
     this->y *= scale.ij[1][1];
     this->z *= scale.ij[2][2];
+    return *this;
 }
 
-void QVector3::Transform(const QScaleMatrix3x3 &scale, QBaseVector3 &vOutVector) const
-{
-    vOutVector = *this;
-    vOutVector.As<QVector3>().Transform(scale);
-}
-
-void QVector3::Transform(const QTranslationMatrix<QMatrix4x3> &translation)
+QVector3& QVector3::Transform(const QTranslationMatrix<QMatrix4x3> &translation)
 {
     TransformImp(translation);
+    return *this;
 }
 
-void QVector3::Transform(const QTranslationMatrix<QMatrix4x4> &translation)
+QVector3& QVector3::Transform(const QTranslationMatrix<QMatrix4x4> &translation)
 {
     TransformImp(translation);
+    return *this;
 }
 
-void QVector3::Transform(const QTranslationMatrix<QMatrix4x3> &translation, QBaseVector3 &vOutVector) const
-{
-    vOutVector = *this;
-    vOutVector.As<QVector3>().Transform(translation);
-}
-
-void QVector3::Transform(const QTranslationMatrix<QMatrix4x4> &translation, QBaseVector3 &vOutVector) const
-{
-    vOutVector = *this;
-    vOutVector.As<QVector3>().Transform(translation);
-}
-
-void QVector3::Transform(const QTransformationMatrix<QMatrix4x3> &transformation)
+QVector3& QVector3::Transform(const QTransformationMatrix<QMatrix4x3> &transformation)
 {
     TransformImp(transformation);
+    return *this;
 }
 
-void QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &transformation)
+QVector3& QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &transformation)
 {
     TransformImp(transformation);
-}
-
-void QVector3::Transform(const QTransformationMatrix<QMatrix4x3> &transformation, QBaseVector3 &vOutVector) const
-{
-    vOutVector = *this;
-    vOutVector.As<QVector3>().Transform(transformation);
-}
-
-void QVector3::Transform(const QTransformationMatrix<QMatrix4x4> &transformation, QBaseVector3 &vOutVector) const
-{
-    vOutVector = *this;
-    vOutVector.As<QVector3>().Transform(transformation);
-}
-
-
-void QVector3::Transform(const QSpaceConversionMatrix &conversion, QBaseVector3 &vOutVector) const
-{
-    vOutVector = *this;
-    vOutVector.As<QVector3>().Transform(conversion);
+    return *this;
 }
 
 string_q QVector3::ToString() const

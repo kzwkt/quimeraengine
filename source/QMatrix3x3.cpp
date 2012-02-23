@@ -192,21 +192,11 @@ QMatrix3x3& QMatrix3x3::operator*=(const QBaseMatrix3x3 &matrix)
     return *this;
 }
 
-void QMatrix3x3::Transpose()
+QMatrix3x3 QMatrix3x3::Transpose() const
 {
-    QMatrix3x3 aux;
-
-    aux.ij[0][0] = this->ij[0][0];
-    aux.ij[0][1] = this->ij[1][0];
-    aux.ij[0][2] = this->ij[2][0];
-    aux.ij[1][0] = this->ij[0][1];
-    aux.ij[1][1] = this->ij[1][1];
-    aux.ij[1][2] = this->ij[2][1];
-    aux.ij[2][0] = this->ij[0][2];
-    aux.ij[2][1] = this->ij[1][2];
-    aux.ij[2][2] = this->ij[2][2];
-
-    *this = aux;
+    return QMatrix3x3(this->ij[0][0], this->ij[1][0], this->ij[2][0],
+                      this->ij[0][1], this->ij[1][1], this->ij[2][1],
+                      this->ij[0][2], this->ij[1][2], this->ij[2][2]);
 }
 
 float_q QMatrix3x3::GetDeterminant() const
@@ -219,45 +209,20 @@ float_q QMatrix3x3::GetDeterminant() const
            this->ij[0][1] * this->ij[1][0] * this->ij[2][2];
 }
 
-bool QMatrix3x3::Reverse()
+QMatrix3x3 QMatrix3x3::Reverse() const
 {
-    // Special case where matrix is identity. Then inverse of the matrix is itself.
-    if (this->IsIdentity())
-    {
-        return true;
-    }
+    // Gets the inverse of the Determinant.
+    const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
 
-    // Gets Determinant.
-    float_q fDet = this->GetDeterminant();
-
-    // If Determinant is 0, this matrix has not inverse.
-    if (SQFloat::IsZero(fDet))
-        return false;
-
-    // We need inverse of determinant in calculus.
-    fDet = SQFloat::_1/fDet;
-
-    QMatrix3x3 aux;
-
-    // 1st column of inverse
-    aux.ij[0][0] =  fDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1]);
-    aux.ij[1][0] = -fDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0]);
-    aux.ij[2][0] =  fDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0]);
-
-    // 2nd column of inverse
-    aux.ij[0][1] = -fDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1]);
-    aux.ij[1][1] =  fDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0]);
-    aux.ij[2][1] = -fDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0]);
-
-    // 3rd column of inverse
-    aux.ij[0][2] =  fDet * (this->ij[0][1] * this->ij[1][2] - this->ij[0][2] * this->ij[1][1]);
-    aux.ij[1][2] = -fDet * (this->ij[0][0] * this->ij[1][2] - this->ij[0][2] * this->ij[1][0]);
-    aux.ij[2][2] =  fDet * (this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0]);
-
-    *this = aux;
-
-    return true;
-
+    return QMatrix3x3( fInvDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1]),
+                      -fInvDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0]),
+                       fInvDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0]),
+                      -fInvDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1]),
+                       fInvDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0]),
+                      -fInvDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0]),
+                       fInvDet * (this->ij[0][1] * this->ij[1][2] - this->ij[0][2] * this->ij[1][1]),
+                      -fInvDet * (this->ij[0][0] * this->ij[1][2] - this->ij[0][2] * this->ij[1][0]),
+                       fInvDet * (this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0]) );
 }
 
 string_q QMatrix3x3::ToString() const

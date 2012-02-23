@@ -404,52 +404,36 @@ public:
 	/// <returns>
 	/// A Vector which is perpendicular of the vector.
 	/// </returns>
-	void GetPerpendicular(QBaseVector2 &vOutVector) const;
+	QVector2 GetPerpendicular() const;
 
 	/// <summary>
 	/// Makes current vector unitary
 	/// </summary>
-	inline void Normalize()
+    /// <returns>
+	/// The normalized vector.
+	/// </returns>
+	inline QVector2 Normalize() const
 	{
 		// Gets vector length
-		float_q fLength = this->GetLength();
+		const float_q fLength = this->GetLength();
 
 		// Checkout to avoid division by 0
 		QE_ASSERT(fLength != SQFloat::_0)
 
 		//Normalize
-		this->x /= fLength;
-		this->y /= fLength;
+        return QVector2(this->x / fLength, this->y / fLength);
 	}
-
-	/// <summary>
-    /// Calculates a normalized vector from the resident one and stores it in an output vector provided.
-    /// </summary>
-    /// <param name="vOutVector">[OUT] Vector where we want to store the normalized vector.</param>
-    inline void Normalize(QBaseVector2 &vOutVector) const
-    {
-        vOutVector = *this;
-        vOutVector.As<QVector2>().Normalize();
-    }
 
 	/// <summary>
 	/// Convert current vector in its opposite vector.
 	/// </summary>
-	inline void Reverse()
+    /// <returns>
+	/// The inverted vector.
+	/// </returns>
+	inline QVector2 Reverse() const
 	{
-		this->x = -this->x;
-		this->y = -this->y;
+        return QVector2(-this->x, -this->y);
 	}
-
-    /// <summary>
-    /// Calculates the opposite to resident vector and stores it in an output vector provided.
-    /// </summary>
-    /// <param name="vOutVector">[OUT] Vector where we want to store the opposite vector.</param>
-    inline void Reverse(QBaseVector2 &vOutVector) const
-    {
-        vOutVector = *this;
-        vOutVector.As<QVector2>().Reverse();
-    }
 
 	/// <summary>
 	/// Resets all components of current vector to 1.
@@ -475,32 +459,19 @@ public:
 	/// The transformation can be a rotation, scaling or translation, or a combination of them.
 	/// </summary>
 	/// <param name="matrix">[IN] The transformation matrix.</param>
-	void Transform(const QTransformationMatrix3x3 &matrix);
-
-	/// <summary>
-	/// Applies a transformation to resident vector, multiplying the vector by a transformation matrix
-	/// to transform it.<br>
-	/// The transformation can be a rotation, scaling or translation, or a combination of them.<br>
-	/// The transformed vector is stored into the provided one. No change to the resident vector.
-	/// </summary>
-	/// <param name="matrix">[IN] The transformation matrix.</param>
-	/// <param name="vOutVector">[OUT] Vector where to store the result of transformation.</param>
-	void Transform(const QTransformationMatrix3x3 &matrix, QBaseVector2 &vOutVector);
+    /// <returns>
+	/// A reference to the transfoemed vector.
+	/// </returns>
+	QVector2& Transform(const QTransformationMatrix3x3 &matrix);
 
 	/// <summary>
 	/// Apply a 2D rotation about the origin of the resident vector.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The rotation angle.</param>
-	void Transform(const float_q& fRotationAngle);
-
-	/// <summary>
-	/// Apply a 2D rotation about the origin of the resident vector.<br>
-	/// The rotated vector is stored into the provided one.<br>
-	/// No change to the resident vector.
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] The rotation angle.</param>
-	/// <param name="vOutVector">[OUT] Vector where to store the result of rotation.</param>
-	void Transform(const float_q& fRotationAngle, QBaseVector2& vOutVector);
+    /// <returns>
+	/// A reference to the transfoemed vector.
+	/// </returns>
+	QVector2& Transform(const float_q &fRotationAngle);
 
 	/// <summary>
 	/// Check if all components of current vector are 0.
@@ -508,7 +479,7 @@ public:
 	/// <returns>
 	/// True if all components are 0. False otherwise.
 	/// </returns>
-	bool IsZero();
+	bool IsZero() const;
 
 	/// <summary>
 	/// Check if all components of current vector are 1.
@@ -516,7 +487,7 @@ public:
 	/// <returns>
 	/// True if all components are 1. False otherwise.
 	/// </returns>
-	bool IsVectorOfOnes();
+	bool IsVectorOfOnes() const;
 
 	/// <summary>
 	/// Calculates Dot Product by a vector provided.
@@ -542,24 +513,14 @@ public:
 	/// </summary>
 	/// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
 	/// <param name="vVector">[IN] Vector with which to interpolate.</param>
-	inline void Lerp(const float_q &fProportion, const QBaseVector2 &vVector)
+    /// <returns>
+    /// The "lerped" vector.
+    /// </returns>
+	inline QVector2 Lerp(const float_q &fProportion, const QBaseVector2 &vVector) const
 	{
-		this->x = this->x*fProportion + vVector.x*(SQFloat::_1 - fProportion);
-		this->y = this->y*fProportion + vVector.y*(SQFloat::_1 - fProportion);
+        return QVector2(this->x * fProportion + vVector.x * (SQFloat::_1 - fProportion), 
+                        this->y * fProportion + vVector.y * (SQFloat::_1 - fProportion));
 	}
-
-    /// <summary>
-    /// Makes a Linear Interpolation between resident vector and other vector provided.<br>
-    /// It stores result in a vector provided.
-    /// </summary>
-    /// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the resident vector (per one).</param>
-    /// <param name="vVector">[IN] Vector with which to interpolate.</param>
-    /// <param name="vOutVector">[OUT] Vector to store results of interpolation.</param>
-    inline void Lerp(const float_q &fProportion, const QBaseVector2 &vVector, QBaseVector2 &vOutVector) const
-    {
-        vOutVector = *this;
-        vOutVector.As<QVector2>().Lerp(fProportion, vVector);
-    }
 
 	/// <summary>
 	/// Calculates the distance between two vector heads (or two points).<br>

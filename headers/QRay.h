@@ -69,9 +69,9 @@ public:
 	/// <returns>
     /// The null ray.
     /// </returns>
-    inline static const QRay& GetRayZero()
+    inline static const QRay<VectorTypeOrigin, VectorTypeDirection>& GetRayZero()
     {
-        static const QRay RAYZERO(VectorTypeOrigin::GetZeroVector(), VectorTypeDirection::GetZeroVector());
+        static const QRay<VectorTypeOrigin, VectorTypeDirection> RAYZERO(VectorTypeOrigin::GetZeroVector(), VectorTypeDirection::GetZeroVector());
         return RAYZERO;
     }
 
@@ -87,7 +87,7 @@ public:
     /// <returns>
     /// A reference to this ray, after assignation.
     /// </returns>
-    inline QRay& operator=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray)
+    inline QRay<VectorTypeOrigin, VectorTypeDirection>& operator=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray)
     {
         QBaseRay<VectorTypeOrigin, VectorTypeDirection>::operator=(ray);
         return *this;
@@ -96,37 +96,23 @@ public:
     /// <summary>
     /// Converts the ray's direction in its opposite.
     /// </summary>
-    inline void Reverse()
+    /// <returns>
+    /// The inverse of the ray.
+    /// </returns>
+    inline QRay<VectorTypeOrigin, VectorTypeDirection> Reverse() const
     {
-        this->Direction *= -SQFloat::_1;
-    }
-
-    /// <summary>
-    /// Obtains a reverted copy of the ray. Converts copy's direction in its opposite.
-    /// </summary>
-    /// <param name="outRay">[OUT] A reverted copy of the ray.</param>
-    inline void Reverse(QBaseRay<VectorTypeOrigin, VectorTypeDirection> &outRay) const
-    {
-        outRay = *this;
-        outRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> >().Reverse();
+        return QRay<VectorTypeOrigin, VectorTypeDirection>(this->Origin, -this->Direction);
     }
 
     /// <summary>
     /// Normalizes the ray, converting its direction in a unit vector.
     /// </summary>
-    inline void Normalize()
+    /// <returns>
+    /// The normalized ray.
+    /// </returns>
+    inline QRay<VectorTypeOrigin, VectorTypeDirection> Normalize() const
     {
-        this->Direction.Normalize();
-    }
-
-    /// <summary>
-    /// Obtains a normalized copy of the ray. Normalizes the copy, converting its direction in a unit vector.
-    /// </summary>
-    /// <param name="outRay">[OUT] A normalized copy of the ray.</param>
-    inline void Normalize(QBaseRay<VectorTypeOrigin, VectorTypeDirection> &outRay) const
-    {
-        outRay = *this;
-        outRay.template As<QRay<VectorTypeOrigin, VectorTypeDirection> >().Normalize();
+        return QRay<VectorTypeOrigin, VectorTypeDirection>(this->Origin, this->Direction.Normalize());
     }
 
     /// <summary>
@@ -136,13 +122,13 @@ public:
     /// Ray must be normalized to obtain a correct result.
     /// </remarks>
     /// <param name="fDistance">[IN] Distance from the point which is to be found to the ray's position.</param>
-    /// <param name="vRayPoint">[OUT] A point of the ray.</param>
-    inline void GetPoint(const float_q &fDistance, VectorTypeOrigin &vRayPoint) const
+    /// <returns>
+    /// A point of the ray.
+    /// </returns>
+    inline VectorTypeOrigin GetPoint(const float_q &fDistance) const
     {
         // It's assumed that the ray's direction vector is normalized
-        vRayPoint = this->Direction;
-        vRayPoint *= fDistance;
-        vRayPoint += this->Origin;
+        return this->Origin + this->Direction * fDistance;
     }
 
     /// <summary>

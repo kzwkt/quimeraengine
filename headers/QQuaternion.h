@@ -457,9 +457,7 @@ public:
     /// </returns>
     inline QQuaternion& operator/=(const QBaseQuaternion &qQuat)
     {
-        QBaseQuaternion resQuat;
-
-        qQuat.As<const QQuaternion>().Reverse(resQuat);
+        QBaseQuaternion resQuat = qQuat.As<const QQuaternion>().Reverse();
 
         this->operator*=(resQuat);
 
@@ -507,27 +505,16 @@ public:
     /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.<br>
     /// A quaternion is normalized when its length is equal to 1.
     /// </summary>
-    inline void Normalize()
+    /// <returns>
+    /// The normalized quaternion.
+    /// </returns>
+    inline QQuaternion Normalize() const
     {
-        float_q fLength = this->GetLength();
+        QE_ASSERT(this->GetLength()) // Code that will not execute, no overhead
 
-        QE_ASSERT(fLength != SQFloat::_0)
+        const float_q& fInvLength = SQFloat::_1 / this->GetLength();
 
-        this->x /= fLength;
-        this->y /= fLength;
-        this->z /= fLength;
-        this->w /= fLength;
-    }
-
-    /// <summary>
-    /// Gets a normalized copy of the quaternion. A quaternion is normalized when its length is equal to 1.<br>
-    /// To calculate it, all quaternion's components are divided by the quaternion's length.
-    /// </summary>
-    /// <param name="qQuat">[OUT] The normalized quaternion copy.</param>
-    inline void Normalize(QBaseQuaternion &qQuat) const
-    {
-        qQuat = *this;
-        qQuat.As<QQuaternion>().Normalize();
+        return QQuaternion(this->x * fInvLength, this->y * fInvLength, this->z * fInvLength, this->w * fInvLength);
     }
 
     /// <summary>
@@ -537,33 +524,19 @@ public:
     ///
     /// \f$ Q^{-1} = \frac{w - xi - yj - zk}{\left|Q\right|^2}\f$
     /// </summary>
-    inline void Reverse()
+    /// <returns>
+    /// The reversed quaternion.
+    /// </returns>
+    inline QQuaternion Reverse() const
     {
         // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
-        float_q fSquaredLength = this->GetSquaredLength();
+        const float_q& fSquaredLength = this->GetSquaredLength();
 
         QE_ASSERT(fSquaredLength != SQFloat::_0)
 
-        const float_q &fInvLength = SQFloat::_1/fSquaredLength;
+        const float_q& fNegInvLength = -SQFloat::_1/fSquaredLength;
 
-        this->x *= -fInvLength;
-        this->y *= -fInvLength;
-        this->z *= -fInvLength;
-        this->w *= fInvLength;
-    }
-
-    /// <summary>
-    /// Gets a reveted copy of the quaternion.<br>
-    /// Note that, when the quaternion is normalized, the inverse coincides with the conjugate (which is cheaper to calculate).
-    /// Quaternion inverse is obtained by the following equation:
-    ///
-    /// \f$ Q^{-1} = \frac{w - xi - yj - zk}{\left|Q\right|^2}\f$
-    /// </summary>
-    /// <param name="qQuat">[OUT] The reverted quaternion copy.</param>
-    inline void Reverse(QBaseQuaternion &qQuat) const
-    {
-        qQuat = *this;
-        qQuat.As<QQuaternion>().Reverse();
+        return QQuaternion(this->x * fNegInvLength, this->y * fNegInvLength, this->z * fNegInvLength, this->w * -fNegInvLength);
     }
 
     /// <summary>
@@ -572,23 +545,13 @@ public:
     ///
     /// \f$ Q^{-1} = w - xi - yj - zk \f$
     /// </summary>
-    inline void UnitReverse()
+    /// <returns>
+    /// The reversed quaternion.
+    /// </returns>
+    inline QQuaternion UnitReverse() const
     {
-		this->Conjugate();
+		return this->Conjugate();
     }
-
-    /// <summary>
-    /// Gets a reverted copy of a normalized quaternion, which coincides with its conjugate.<br>
-    /// Quaternion inverse is then obtained by the following equation:
-    ///
-    /// \f$ Q^{-1} = w - xi - yj - zk \f$
-    /// </summary>
-	/// <param name="qQuat">[OUT] The reverted quaternion copy.</param>
-	inline void UnitReverse(QBaseQuaternion &qQuat) const
-	{
-        qQuat = *this;
-        qQuat.As<QQuaternion>().Conjugate();
-	}
 
     /// <summary>
     /// Sets all quaternion's components to zero.
@@ -641,24 +604,12 @@ public:
     ///
     /// \f$Q^* = w - xi - yj - zk\f$.
     /// </summary>
-    inline void Conjugate()
+    /// <returns>
+    /// The conjugated quaternion.
+    /// </returns>
+    inline QQuaternion Conjugate() const
     {
-        this->x = -this->x;
-        this->y = -this->y;
-        this->z = -this->z;
-    }
-
-    /// <summary>
-    /// Gets a conjugated quaternion copy.
-    /// It's calculated this way:
-    ///
-    /// \f$Q^* = w - xi - yj - zk\f$.
-    /// </summary>
-    /// <param name="qQuat">[OUT] The conjugated quaternion copy.</param>
-    inline void Conjugate(QBaseQuaternion &qQuat) const
-    {
-        qQuat = *this;
-        qQuat.As<QQuaternion>().Conjugate();
+        return QQuaternion(-this->x, -this->y, -this->z);
     }
 
     /// <summary>
@@ -671,25 +622,10 @@ public:
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
-    void Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
-
-    /// <summary>
-    /// Calculates the linear interpolation between the quaternion and the input quaternion.<br>
-    /// This is calculated by the following expression:
-    ///
-    /// \f$ f(Q_1, Q_2, s) = \frac{(1 - s)Q_1 + sQ_2}{|(1 - s)Q_1 + sQ_2|}\f$
-    ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.<br>
-    /// The resultant quaternion is stored in an output quaternion.
-    /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
-    /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
-    /// <param name="qOutQuat">[OUT] The resultant quaternion.</param>
-    inline void Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion, QBaseQuaternion &qOutQuat) const
-    {
-        qOutQuat = *this;
-        qOutQuat.As<QQuaternion>().Lerp(qQuat, fProportion);
-    }
+    /// <returns>
+    /// The "lerped" quaternion.
+    /// </returns>
+    QQuaternion Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const;
 
     /// <summary>
     /// Calculates the spherical linear interpolation between the quaternion and the input quaternion.
@@ -711,37 +647,11 @@ public:
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
-    void Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
-
-    /// <summary>
-    /// Calculates the spherical linear interpolation between the quaternion and the input quaternion.
-    /// This is calculated by the following expression:
-    ///
-    /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
-    ///
-    /// where
-    ///
-    /// \f$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\f$
-    ///
-    /// \f$ w_2 = \frac{sin( s\beta)}{sin(\beta)})\f$
-    ///
-    /// where
-    ///
-    /// \f$ \beta = \arccos(Q_1Q_2)\f$
-    ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.<br>
-    /// The resultant quaternion is stored in an output quaternion.
-    /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
-    /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
-    /// <param name="qOutQuat">[OUT] The interpolation result.</param>
-    inline void Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion, QBaseQuaternion &qOutQuat) const
-    {
-        qOutQuat = *this;
-        qOutQuat.As<QQuaternion>().Slerp(qQuat, fProportion);
-    }
-
-
+    /// <returns>
+    /// The "lerped" quaternion.
+    /// </returns>
+    QQuaternion Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const;
+    
     /// <summary>
     /// Calculates the spherical linear interpolation between two normalized quaternions.
     /// This is calculated by the following expression:
@@ -762,36 +672,10 @@ public:
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a normalized quaternion</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
-    void UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion);
-
-    /// <summary>
-    /// Calculates the spherical linear interpolation between two normalized quaternions.
-    /// This is calculated by the following expression:
-    ///
-    /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
-    ///
-    /// where
-    ///
-    /// \f$ w_1 = \frac{sin( (1 - s) \beta)}{sin(\beta)}\f$
-    ///
-    /// \f$ w_2 = \frac{sin( s\beta)}{sin(\beta)})\f$
-    ///
-    /// where
-    ///
-    /// \f$ \beta = \arccos(Q_1Q_2)\f$
-    ///
-    /// being \f$ Q_1\f$ and \f$ Q_2\f$ two normalized quaternions and \f$ s\f$ the scalar
-    /// proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.<br>
-    /// The resultant quaternion is stored in an output quaternion.
-    /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a normalized quaternion</param>
-    /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
-    /// <param name="qOutQuat">[OUT] The interpolation result.</param>
-    inline void UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion, QBaseQuaternion &qOutQuat) const
-    {
-        qOutQuat = *this;
-        qOutQuat.As<QQuaternion>().UnitSlerp(qQuat, fProportion);
-    }
+    /// <returns>
+    /// The "lerped" quaternion.
+    /// </returns>
+    QQuaternion UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const;
 
     /// <summary>
     /// Obtains Euler angles that represent the same rotation than the quaternion does.<br>

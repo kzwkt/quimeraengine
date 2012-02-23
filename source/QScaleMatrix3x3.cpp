@@ -79,7 +79,7 @@ QTransformationMatrix<QMatrix4x3> QScaleMatrix3x3::operator*(const QTransformati
     return this->ProductOperatorImp<QMatrix4x3>(matrix);
 }
 
-float_q QScaleMatrix3x3::GetDeterminant()
+float_q QScaleMatrix3x3::GetDeterminant() const
 {
 	return this->ij[0][0] * this->ij[1][1] * this->ij[2][2];
 }

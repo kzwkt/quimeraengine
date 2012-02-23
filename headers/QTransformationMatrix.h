@@ -6,6 +6,7 @@
 #include "QQuaternion.h"
 #include "QScaleMatrix3x3.h"
 #include "QRotationMatrix3x3.h"
+#include "QVector3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -440,6 +441,19 @@ public:
                this->ij[0][0] * this->ij[1][2] * this->ij[2][1] -
                this->ij[0][1] * this->ij[1][0] * this->ij[2][2];
     }
+    
+    /// <summary>
+    /// Calculates whether the matrix has inverse or not. 
+    /// A matrix has inverse when its determinant doesn't equal zero.
+    /// </summary>
+    /// <returns>
+    /// True if the matrix has inverse, false otherwise.
+    /// </returns>
+    inline bool HasReverse() const
+    {
+        // If Determinant is 0, this matrix has not inverse.
+        return SQFloat::IsNotZero(this->GetDeterminant());
+    }
 
     /// <summary>
     /// Inverses the matrix.<br>
@@ -462,98 +476,53 @@ public:
     /// \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
     /// </summary>
     /// <returns>
-    /// True if the matrix is invertible, false otherwise.
+    /// The inverse of the matrix.
     /// </returns>
-    bool Reverse()
+    MatrixType Reverse() const
     {
-        // Special case where matrix is identity. Then inverse of the matrix is itself.
-        if (this->IsIdentity())
-        {
-            return true;
-        }
-
-        // Gets Determinant.
-        float_q fDet = this->GetDeterminant();
-
-        // If Determinant is 0, this matrix has not inverse.
-        if (SQFloat::IsZero(fDet))
-            return false;
-
-        // We need inverse of determinant in calculus.
-        fDet = SQFloat::_1/fDet;
+        // Gets the inverse of the Determinant.
+        const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
 
         // Binary products are stored in vars to avoid unnecesary repetitions
-        const float_q& A = this->ij[0][0] * this->ij[1][1];
-        const float_q& D = this->ij[2][1] * this->ij[3][0];
-        const float_q& E = this->ij[0][1] * this->ij[1][0];
-        const float_q& H = this->ij[2][0] * this->ij[3][1];
-        const float_q& J = this->ij[2][1] * this->ij[3][2];
-        const float_q& K = this->ij[2][2] * this->ij[3][1];
-        const float_q& N = this->ij[2][0] * this->ij[3][2];
-        const float_q& O = this->ij[2][2] * this->ij[3][0];
-        const float_q& Q = this->ij[0][1] * this->ij[1][2];
-        const float_q& T = this->ij[0][2] * this->ij[1][1];
-        const float_q& U = this->ij[0][0] * this->ij[1][2];
-        const float_q& X = this->ij[0][2] * this->ij[1][0];
+        const float_q& fA = this->ij[0][0] * this->ij[1][1];
+        const float_q& fD = this->ij[2][1] * this->ij[3][0];
+        const float_q& fE = this->ij[0][1] * this->ij[1][0];
+        const float_q& fH = this->ij[2][0] * this->ij[3][1];
+        const float_q& fJ = this->ij[2][1] * this->ij[3][2];
+        const float_q& fK = this->ij[2][2] * this->ij[3][1];
+        const float_q& fN = this->ij[2][0] * this->ij[3][2];
+        const float_q& fO = this->ij[2][2] * this->ij[3][0];
+        const float_q& fQ = this->ij[0][1] * this->ij[1][2];
+        const float_q& fT = this->ij[0][2] * this->ij[1][1];
+        const float_q& fU = this->ij[0][0] * this->ij[1][2];
+        const float_q& fX = this->ij[0][2] * this->ij[1][0];
 
         MatrixType aux;
 
         aux.ResetToIdentity();
 
         // 1st column of inverse
-        aux.ij[0][0] =  fDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1] );
-        aux.ij[1][0] = -fDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0] );
-        aux.ij[2][0] =  fDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0] );
-        aux.ij[3][0] = -fDet * (this->ij[1][0] * J + this->ij[1][1] * O + this->ij[1][2] * H -
-                                this->ij[1][2] * D - this->ij[1][0] * K - this->ij[1][1] * N );
+        aux.ij[0][0] =  fInvDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1] );
+        aux.ij[1][0] = -fInvDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0] );
+        aux.ij[2][0] =  fInvDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0] );
+        aux.ij[3][0] = -fInvDet * (this->ij[1][0] * fJ + this->ij[1][1] * fO + this->ij[1][2] * fH -
+                                   this->ij[1][2] * fD - this->ij[1][0] * fK - this->ij[1][1] * fN );
 
         // 2nd column of inverse
-        aux.ij[0][1] = -fDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1] );
-        aux.ij[1][1] =  fDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0] );
-        aux.ij[2][1] = -fDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0] );
-        aux.ij[3][1] =  fDet * (this->ij[0][0] * J + this->ij[0][1] * O + this->ij[0][2] * H -
-                                this->ij[0][2] * D - this->ij[0][0] * K - this->ij[0][1] * N );
+        aux.ij[0][1] = -fInvDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1] );
+        aux.ij[1][1] =  fInvDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0] );
+        aux.ij[2][1] = -fInvDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0] );
+        aux.ij[3][1] =  fInvDet * (this->ij[0][0] * fJ + this->ij[0][1] * fO + this->ij[0][2] * fH -
+                                   this->ij[0][2] * fD - this->ij[0][0] * fK - this->ij[0][1] * fN );
 
         // 3rd column of inverse
-        aux.ij[0][2] =  fDet * (Q - T);
-        aux.ij[1][2] = -fDet * (U - X);
-        aux.ij[2][2] =  fDet * (A - E);
-        aux.ij[3][2] = -fDet * (A * this->ij[3][2] + Q * this->ij[3][0] + X * this->ij[3][1] -
-                                T * this->ij[3][0] - U * this->ij[3][1] - E * this->ij[3][2] );
+        aux.ij[0][2] =  fInvDet * (fQ - fT);
+        aux.ij[1][2] = -fInvDet * (fU - fX);
+        aux.ij[2][2] =  fInvDet * (fA - fE);
+        aux.ij[3][2] = -fInvDet * (fA * this->ij[3][2] + fQ * this->ij[3][0] + fX * this->ij[3][1] -
+                                   fT * this->ij[3][0] - fU * this->ij[3][1] - fE * this->ij[3][2] );
 
-        *this = aux;
-
-        return true;
-    }
-
-    /// <summary>
-    /// Inverses the matrix and stores result in a matrix provided.<br>
-    /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-    ///
-    /// \f$ A\cdot A^{-1}  = A^{-1}\cdot A = I\f$
-    ///
-    /// We can calculate the inverse of any matrix by:
-    ///
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$,
-    ///
-    /// where \f$ C^T_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.<br>
-    /// Since the matrix is a transformation matrix, then the inversion can be optimized avoiding all products by
-    /// the elements of the fourth column.<br>
-    /// Inverse has this general form, expressed in function of the scale, the rotation and the translation:
-    ///
-    /// \f$ (SRT)^{-1} = T^{-1}\cdot R^{-1}\cdot S^{-1} = \begin{bmatrix} \frac{r_{00}}{S_x} & \frac{r_{10}}{S_y} & \frac{r_{20}}{S_z} & 0 \\
-    /// \frac{r_{01}}{S_x} & \frac{r_{11}}{S_y} & \frac{r_{21}}{S_z} & 0 \\
-    /// \frac{r_{02}}{S_x} & \frac{r_{12}}{S_y} & \frac{r_{22}}{S_z} & 0 \\
-    /// \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
-    /// </summary>
-    /// <param name="matrix">[OUT] The matrix where to store the inverse matrix.</param>
-    /// <returns>
-    /// True if the matrix is invertible, false otherwise.
-    /// </returns>
-    bool Reverse(MatrixType &matrix) const
-    {
-        matrix = *this;
-        return matrix.Reverse();
+        return aux;
     }
 
     /// <summary>
@@ -624,9 +593,7 @@ public:
     /// <param name="fRotationAngleZ">[OUT] Resultant rotation around Z axis.</param>
     void GetRotation(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const
     {
-        QRotationMatrix3x3 mAux;
-
-        this->ToRotationMatrix3x3(mAux);
+        QRotationMatrix3x3 mAux = this->ToRotationMatrix3x3();
         mAux.GetRotation(fRotationAngleX, fRotationAngleY, fRotationAngleZ);
     }
 
@@ -636,9 +603,7 @@ public:
     /// <param name="qRotation">[OUT] Quaternion where to store the extracted rotation.</param>
     void GetRotation(QBaseQuaternion &qRotation) const
     {
-        QRotationMatrix3x3 mAux;
-
-        this->ToRotationMatrix3x3(mAux);
+        QRotationMatrix3x3 mAux = this->ToRotationMatrix3x3();
         mAux.GetRotation(qRotation.As<QQuaternion>());
     }
 
@@ -649,9 +614,7 @@ public:
     /// <param name="vRotationAxis">[OUT] Unitary vector in the direction of the spin axis.</param>
     void GetRotation(float_q &fRotationAngle, QBaseVector3 &vRotationAxis) const
     {
-        QRotationMatrix3x3 mAux;
-
-        this->ToRotationMatrix3x3(mAux);
+        QRotationMatrix3x3 mAux = this->ToRotationMatrix3x3();
         mAux.GetRotation(fRotationAngle, vRotationAxis);
     }
 
@@ -738,59 +701,39 @@ public:
 	/// Remember that Quimera Engine works with left-hand convention by default.<br>
 	/// To do that, we invert both rotation (by trasposing it) and z translation component.
     /// </summary>
-    void SwitchHandConvention()
+    /// <returns>
+    /// The converted matrix.
+    /// </returns>
+    QTransformationMatrix<MatrixType> SwitchHandConvention() const
     {
-        QBaseVector3 vScale, vInvScale(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+        QVector3 vScale;
         this->GetScale(vScale);
 
         QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0)
 
-        vInvScale.x /= vScale.x;
-        vInvScale.y /= vScale.y;
-        vInvScale.z /= vScale.z;
+        QVector3 vInvScale = QVector3::GetVectorOfOnes() / vScale;
 
         // Rotation correction
-        std::swap(this->ij[0][1], this->ij[1][0]);
-        std::swap(this->ij[0][2], this->ij[2][0]);
-        std::swap(this->ij[2][1], this->ij[1][2]);
+        QTransformationMatrix<MatrixType> switchedMatrix = QTransformationMatrix<MatrixType>::GetIdentity();
+        switchedMatrix.ij[0][1] = this->ij[1][0];
+        switchedMatrix.ij[1][0] = this->ij[0][1];
+        switchedMatrix.ij[0][2] = this->ij[2][0];
+        switchedMatrix.ij[2][0] = this->ij[0][2];
+        switchedMatrix.ij[2][1] = this->ij[1][2];
+        switchedMatrix.ij[1][2] = this->ij[2][1];
 
         // Scale correction
-        this->ij[0][1] *= vInvScale.y * vScale.x;
-        this->ij[1][0] *= vInvScale.x * vScale.y;
-
-        this->ij[0][2] *= vInvScale.z * vScale.x;
-        this->ij[2][0] *= vInvScale.x * vScale.z;
-
-        this->ij[2][1] *= vInvScale.z * vScale.y;
-        this->ij[1][2] *= vInvScale.y * vScale.z;
+        switchedMatrix.ij[0][1] *= vInvScale.y * vScale.x;
+        switchedMatrix.ij[1][0] *= vInvScale.x * vScale.y;
+        switchedMatrix.ij[0][2] *= vInvScale.z * vScale.x;
+        switchedMatrix.ij[2][0] *= vInvScale.x * vScale.z;
+        switchedMatrix.ij[2][1] *= vInvScale.z * vScale.y;
+        switchedMatrix.ij[1][2] *= vInvScale.y * vScale.z;
 
         // Translation correction
-        this->ij[3][2] = -this->ij[3][2];
+        switchedMatrix.ij[3][2] = -this->ij[3][2];
 
-    }
-
-	/// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-	/// Remember that Quimera Engine works with left-hand convention by default.<br>
-	/// To do that, we inverting both rotation (by trasposing it) and z translation component.
-    /// </summary>
-	/// <param name="outMatrix">[OUT] Matrix to store the changed transformation matrix.</param>
-    void SwitchHandConvention(QTransformationMatrix<QMatrix4x3> &outMatrix)
-    {
-		outMatrix = *this;
-        outMatrix.SwitchHandConvention();
-    }
-
-	/// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-	/// Remember that Quimera Engine works with left-hand convention by default.<br>
-	/// To do that, we inverting both rotation (by trasposing it) and z translation component.
-    /// </summary>
-	/// <param name="outMatrix">[OUT] Matrix to store the changed transformation matrix.</param>
-    void SwitchHandConvention(QTransformationMatrix<QMatrix4x4> &outMatrix)
-    {
-		outMatrix = *this;
-        outMatrix.SwitchHandConvention();
+        return switchedMatrix;
     }
 
 protected:
@@ -803,27 +746,18 @@ protected:
     // the length of any row o column vector is 1, so current length of each row in the transformation matrix
     // is the scale factor (each row have a scale factor which matches with an axis).
     // Dividing each row by its length we obtain the original rotation matrix.
-    void ToRotationMatrix3x3(QRotationMatrix3x3 &matrix) const
+    QRotationMatrix3x3 ToRotationMatrix3x3() const
     {
-        QBaseVector3 fScale, fInvScale(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+        QVector3 vScale;
+        this->GetScale(vScale);
 
-        this->GetScale(fScale);
+        QE_ASSERT( !vScale.IsZero() )
 
-        QE_ASSERT(fScale.x != SQFloat::_0 && fScale.y != SQFloat::_0 && fScale.z != SQFloat::_0)
+        QVector3 vInvScale = QVector3::GetVectorOfOnes() / vScale;
 
-        fInvScale.x /= fScale.x;
-        fInvScale.y /= fScale.y;
-        fInvScale.z /= fScale.z;
-
-        matrix.ij[0][0] = this->ij[0][0] * fInvScale.x;
-        matrix.ij[0][1] = this->ij[0][1] * fInvScale.x;
-        matrix.ij[0][2] = this->ij[0][2] * fInvScale.x;
-        matrix.ij[1][0] = this->ij[1][0] * fInvScale.y;
-        matrix.ij[1][1] = this->ij[1][1] * fInvScale.y;
-        matrix.ij[1][2] = this->ij[1][2] * fInvScale.y;
-        matrix.ij[2][0] = this->ij[2][0] * fInvScale.z;
-        matrix.ij[2][1] = this->ij[2][1] * fInvScale.z;
-        matrix.ij[2][2] = this->ij[2][2] * fInvScale.z;
+        return QRotationMatrix3x3(this->ij[0][0] * vInvScale.x, this->ij[0][1] * vInvScale.x, this->ij[0][2] * vInvScale.x,
+                                  this->ij[1][0] * vInvScale.y, this->ij[1][1] * vInvScale.y, this->ij[1][2] * vInvScale.y,
+                                  this->ij[2][0] * vInvScale.z, this->ij[2][1] * vInvScale.z, this->ij[2][2] * vInvScale.z);
     }
 
     // <summary>

@@ -79,7 +79,7 @@ public:
     /// <summary>
     /// Third part of Pi radians angle (\f$ \frac{\pi}{3} \f$).
     /// </summary>
-    static const float_q _ThridPi;
+    static const float_q _ThirdPi;
 
     /// <summary>
     /// 2 Pi radians angle (\f$ 2\pi \f$).
@@ -125,30 +125,24 @@ public:
     /// Computes the conversion from a value expressed in degrees to its equivalent in radians.
     /// </summary>
     /// <param name="fDegrees">[IN] The angle measured in degrees.</param>
-    /// <param name="fRadians">[OUT] The same angle converted to radians.</param>
     /// <returns>
-    /// A reference to the output parameter.<br>
-    /// This let this method to be used has parameter in another function.
+    /// The same angle converted to radians.
     /// </returns>
-    inline static float_q& DegreesToRadians(const float_q &fDegrees, float_q &fRadians)
+    inline static float_q DegreesToRadians(const float_q &fDegrees)
     {
-        fRadians = fDegrees * SQAngle::RadiansPerDegree;
-        return fRadians;
+        return fDegrees * SQAngle::RadiansPerDegree;
     }
 
     /// <summary>
     /// Computes the conversion from a value expressed in radians to its equivalent in degrees.
     /// </summary>
     /// <param name="fRadians">[IN] The angle measured in radians.</param>
-    /// <param name="fDegrees">[OUT] The same angle converted to degrees.</param>
     /// <returns>
-    /// A reference to the output parameter.<br>
-    /// This let this method to be used has parameter in another function.
+    /// The same angle converted to degrees.
     /// </returns>
-    inline static float_q& RadiansToDegrees(const float_q &fRadians, float_q &fDegrees)
+    inline static float_q RadiansToDegrees(const float_q &fRadians)
     {
-        fDegrees = fRadians * SQAngle::DegreesPerRadian;
-        return fDegrees;
+        return fRadians * SQAngle::DegreesPerRadian;
     }
 
     /// <summary>
@@ -161,12 +155,12 @@ public:
     /// </returns>
     inline static float_q TruncateDegrees(const float_q &fAngle)
     {
-        if( SQFloat::IsPositive(fAngle) )
-            // Positive angles
-            return SQFloat::IsGreaterThan(fAngle, SQAngle::_360) ? SQAngle::_360 : fAngle;
-        else
-            // Negative angles
-            return SQFloat::IsLessThan(fAngle, -SQAngle::_360) ? -SQAngle::_360 : fAngle;
+        const float_q TRUNCATED_ANGLE = SQFloat::IsPositive(fAngle) ? 
+                                            // Positive angles
+                                            SQFloat::IsGreaterThan(fAngle, SQAngle::_360) ? SQAngle::_360 : fAngle : 
+                                            // Negative angles
+                                            SQFloat::IsLessThan(fAngle, -SQAngle::_360) ? -SQAngle::_360 : fAngle;
+        return TRUNCATED_ANGLE;
     }
 
     /// <summary>
@@ -179,12 +173,12 @@ public:
     /// </returns>
     inline static float_q TruncateRadians(const float_q &fAngle)
     {
-        if( SQFloat::IsPositive(fAngle) )
-            // Positive angles
-            return SQFloat::IsGreaterThan(fAngle, SQAngle::_2Pi) ? SQAngle::_2Pi : fAngle;
-        else
-            // Negative angles
-            return SQFloat::IsLessThan(fAngle, -SQAngle::_2Pi) ? -SQAngle::_2Pi : fAngle;
+        const float_q TRUNCATED_ANGLE = SQFloat::IsPositive(fAngle) ? 
+                                            // Positive angles
+                                            SQFloat::IsGreaterThan(fAngle, SQAngle::_2Pi) ? SQAngle::_2Pi : fAngle : 
+                                            // Negative angles
+                                            SQFloat::IsLessThan(fAngle, -SQAngle::_2Pi) ? -SQAngle::_2Pi : fAngle;
+        return TRUNCATED_ANGLE;
     }
 
     /// <summary>
@@ -222,10 +216,7 @@ public:
                 SQAngle::_360;
             #endif
 
-        float_q outValue = fAngle / COMPLETE_REVOLUTION;
-        SQFloat::Truncate(outValue);
-
-        return outValue;
+        return SQFloat::Truncate(fAngle / COMPLETE_REVOLUTION);
     }
 };
 

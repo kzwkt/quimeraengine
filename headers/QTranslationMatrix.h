@@ -372,30 +372,25 @@ public:
     ///
     /// So, it's faster than base class method.
     /// </summary>
-    inline void Reverse()
+    /// <returns>
+    /// The inverse of the matrix.
+    /// </returns>
+    inline MatrixType Reverse() const
     {
-        this->ij[3][0] = -this->ij[3][0];
-        this->ij[3][1] = -this->ij[3][1];
-        this->ij[3][2] = -this->ij[3][2];
+        return QTranslationMatrix<MatrixType>(-this->ij[3][0], -this->ij[3][1], -this->ij[3][2]);
     }
-
+    
     /// <summary>
-    /// Reverse of the matrix.<br>
-    /// In the case of translation matrices, the inverse is composed
-    /// by the opposite of the elements which defines the displacement:
-    ///
-    /// \f$ T^{-1}= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ -d_{x} & -d_{y} & -d_{z} & 1 \end{bmatrix}\f$
-    ///
-    /// So, it's faster than base class method.
+    /// Calculates whether the matrix has inverse or not. 
+    /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
-    /// <param name="outMatrix">[OUT] A matrix where to store reverse matrix.</param>
-    inline void Reverse(MatrixType &outMatrix) const
+    /// <returns>
+    /// True if the matrix has inverse, false otherwise.
+    /// </returns>
+    inline bool HasReverse() const
     {
-        outMatrix.ResetToIdentity();
-
-        outMatrix.ij[3][0] = -this->ij[3][0];
-        outMatrix.ij[3][1] = -this->ij[3][1];
-        outMatrix.ij[3][2] = -this->ij[3][2];
+        // If Determinant is 0, this matrix has not inverse.
+        return SQFloat::IsNotZero(this->GetDeterminant());
     }
 
     /// <summary>
@@ -442,7 +437,7 @@ public:
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
-	float_q GetDeterminant()
+	float_q GetDeterminant() const
 	{
 		return SQFloat::_1;
 	}
@@ -464,15 +459,15 @@ protected:
     // This product is conmmutative.
     // </remarks>
     // <param name="matrix">[IN] Matrix to be multiplied by.</param>
-    // <param name="outMatrix">[OUT] Resultant matrix.</param>
+    // <returns>
+    // The resultant translation matrix.
+    // </returns>
     template <class MatrixTypeParam>
-    void ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix, QTranslationMatrix<MatrixType> &outMatrix) const
+    QTranslationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix) const
     {
-        outMatrix.ResetToIdentity();
-
-        outMatrix.ij[3][0] = this->ij[3][0] + matrix.ij[3][0];
-        outMatrix.ij[3][1] = this->ij[3][1] + matrix.ij[3][1];
-        outMatrix.ij[3][2] = this->ij[3][2] + matrix.ij[3][2];
+        return QTranslationMatrix<MatrixType>(this->ij[3][0] + matrix.ij[3][0], 
+                                              this->ij[3][1] + matrix.ij[3][1], 
+                                              this->ij[3][2] + matrix.ij[3][2]);
     }
 
     // <summary>

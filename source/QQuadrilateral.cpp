@@ -212,7 +212,7 @@ float_q QQuadrilateral::GetAngleD() const
         return fAngle;
 }
 
-string_q QQuadrilateral::ToString()
+string_q QQuadrilateral::ToString() const
 {
     return QE_L("QL(a(") + this->A.ToString() + QE_L("),b(") +
                            this->B.ToString() + QE_L("),c(") +

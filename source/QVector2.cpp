@@ -87,19 +87,17 @@ float_q QVector2::GetSquaredLength() const
     return this->x*this->x + this->y*this->y;
 }
 
-void QVector2::GetPerpendicular(QBaseVector2 &vVector) const
+QVector2 QVector2::GetPerpendicular() const
 {
-    QBaseVector2 vAux = QBaseVector2(this->y, -this->x);
-
-	vVector = vAux;
+    return QVector2(this->y, -this->x);
 }
 
-bool QVector2::IsZero()
+bool QVector2::IsZero() const
 {
 	return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y);
 }
 
-bool QVector2::IsVectorOfOnes()
+bool QVector2::IsVectorOfOnes() const
 {
 	return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1);
 }
@@ -126,7 +124,7 @@ float_q QVector2::DotProductAngle(const QVector2 &vVector) const
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
-        fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
+        fAngle = SQAngle::RadiansToDegrees(fAngle);
 
 		// At this stage we have the angle expressed in DEGREES.
     #endif
@@ -141,22 +139,18 @@ string_q QVector2::ToString() const
 		   QE_L(")");
 }
 
-void QVector2::Transform(const QTransformationMatrix3x3 &matrix)
+QVector2& QVector2::Transform(const QTransformationMatrix3x3 &matrix)
 {
 	const float_q &fNewX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0];
 	const float_q &fNewY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1];
 
 	this->x = fNewX;
 	this->y = fNewY;
+
+    return *this;
 }
 
-void QVector2::Transform(const QTransformationMatrix3x3 &matrix, QBaseVector2 &vOutVector)
-{
-    vOutVector = *this;
-    vOutVector.Tramsform(matrix);
-}
-
-void QVector2::Transform(const float_q &fRotationAngle)
+QVector2& QVector2::Transform(const float_q &fRotationAngle)
 {
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
 		float_q fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);
@@ -172,12 +166,8 @@ void QVector2::Transform(const float_q &fRotationAngle)
 
 	this->x = fNewX;
 	this->y = fNewY;
-}
 
-void QVector2::Transform(const float_q &fRotationAngle, QBaseVector2& vOutVector)
-{
-	vOutVector = *this;
-	vOutVector.Transform(fRotationAngle);
+    return *this;
 }
 
 } //namespace Math
