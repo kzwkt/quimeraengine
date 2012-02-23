@@ -26,7 +26,9 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	QConvertible() {}
+	QConvertible()
+    {
+    }
 
 
 	// METHODS

@@ -140,7 +140,7 @@ public:
     /// <returns>
     /// True if plane and line segment intersects, false otherwise.
     /// </returns>
-    inline bool Intersection (const QBasePlane &plane) const
+    inline bool Intersection(const QBasePlane &plane) const
     {
         const float_q &fDistA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
 
@@ -285,7 +285,7 @@ public:
 	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
 	/// If there are two intersections, the output parameter stores only the closest to A end point.
 	/// </remarks>
-	EQIntersections IntersectionPoint (const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
+	EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
 	{
         return QLineSegment<VectorType>::IntersectionPoint(orb, vIntersection);
 	}
@@ -1068,7 +1068,7 @@ public:
 	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
 	/// If there are two intersections, the output parameter stores only one of them.
 	/// </remarks>
-	EQIntersections IntersectionPoint (const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
+	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
 	{
         VectorType vAuxPoint, vAux;
         bool bPreviousInt = false;
@@ -1590,21 +1590,13 @@ public:
     /// <remarks>
     /// The plane must be normalized to obtain correct result.
     /// </remarks>
-    inline void ProjectToPlane(const QBasePlane &plane)
+    /// <returns>
+	/// The projected segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType> ProjectToPlane(const QPlane &plane) const
     {
-        plane.As<QPlane>().PointProjection(this->A, this->A);
-        plane.As<QPlane>().PointProjection(this->B, this->B);
-    }
-
-    /// <summary>
-    /// Projects the resident line segment over the plane provided. The projection is stored in the line segment provided.
-    /// </summary>
-    /// <param name="plane">[IN] The plane where we want to project the resident line segment.</param>
-    /// <param name="segment">[OUT] The line segment where to store the result of projection.</param>
-    inline void ProjectToPlane (const QBasePlane &plane, QBaseLineSegment<VectorType> &segment) const
-    {
-        plane.As<QPlane>().PointProjection(this->A, segment.A);
-        plane.As<QPlane>().PointProjection(this->B, segment.B);
+        return QLineSegment3D<VectorType>(plane.PointProjection(this->A),
+                                          plane.PointProjection(this->B));
     }
 
     /// <summary>
@@ -1628,7 +1620,7 @@ public:
     /// </ul><br>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
-    EQSpaceRelation SpaceRelation(const QBasePlane &plane)
+    EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
     {
         const float_q &distA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
         const float_q &distB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
@@ -1647,83 +1639,53 @@ public:
     /// Transforms the resident line segment.
     /// </summary>
     /// <param name="transformation">[IN] 4x3 Matrix which contains the transformation.</param>
-    inline void Transform(const QTransformationMatrix<QMatrix4x3> &transformation)
+    /// <returns>
+	/// A reference to the transformed segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Transform(const QTransformationMatrix<QMatrix4x3> &transformation)
     {
         SQPoint::Transform(transformation, this->template AsPtr<VectorType>(), 2);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment.
-    /// </summary>
-    /// <param name="transformation">[IN] 4x3 Matrix which contains the transformation.</param>
-    /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void Transform(const QTransformationMatrix<QMatrix4x3> &transformation, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Transform(transformation);
+        retrun *this;
     }
 
     /// <summary>
     /// Transforms the resident line segment.
     /// </summary>
     /// <param name="transformation">[IN] 4x4 Matrix which contains the transformation.</param>
-    inline void Transform(const QTransformationMatrix<QMatrix4x4> &transformation)
+    /// <returns>
+	/// A reference to the transformed segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Transform(const QTransformationMatrix<QMatrix4x4> &transformation)
     {
         SQPoint::Transform(transformation, this->template AsPtr<VectorType>(), 2);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment.
-    /// </summary>
-    /// <param name="transformation">[IN] 4x4 Matrix which contains the transformation.</param>
-    /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void Transform(const QTransformationMatrix<QMatrix4x4> &transformation, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Transform(transformation);
+        return *this;
     }
 
     /// <summary>
     /// Transforms the resident line segment.
     /// </summary>
     /// <param name="spaceConversion">[IN] Space conversion matrix which contains the transformation.</param>
-    inline void Transform(const QSpaceConversionMatrix &spaceConversion)
+    /// <returns>
+	/// A reference to the converted segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Transform(const QSpaceConversionMatrix &spaceConversion)
     {
         SQPoint::Transform(spaceConversion, this->template AsPtr<VectorType>(), 2);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment.
-    /// </summary>
-    /// <param name="spaceConversion">[IN] Space conversion matrix which contains the transformation.</param>
-    /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void Transform(const QSpaceConversionMatrix &spaceConversion, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Transform(spaceConversion);
+        return *this;
     }
 
     /// <summary>
     /// Transforms the resident line segment with the transformation contained in the dual quaternion provided.
     /// </summary>
     /// <param name="transformation">[IN] The dual quaternion which contains the transformation.</param>
-    inline void Transform(const QDualQuaternion &transformation)
+    /// <returns>
+	/// A reference to the converted segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Transform(const QDualQuaternion &transformation)
     {
         this->A.Transform(transformation);
         this->B.Transform(transformation);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided, acting
-    /// the "A" end point as pivot of rotation.<br>
-    /// The resultant line segment is stored in the line segment provided.
-    /// </summary>
-    /// <param name="transformation">[IN] The dual quaternion which contains the transformation.</param>
-    /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void Transform(const QDualQuaternion &transformation, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Transform(transformation);
+        return *this;
     }
 
     /// <summary>
@@ -1731,22 +1693,13 @@ public:
     /// </summary>
     /// <param name="transformation">[IN] 4x3 Matrix which contains the transformation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot)
+    /// <returns>
+	/// A reference to the transformed segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot)
     {
         SQPoint::TransformWithPivot(transformation, vPivot, this->template AsPtr<VectorType>(), 2);
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment using a pivot.
-    /// </summary>
-    /// <param name="transformation">[IN] 4x3 Matrix which contains the transformation.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot,
-                                   QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().TransformWithPivot(transformation, vPivot);
+        return *this;
     }
 
     /// <summary>
@@ -1754,30 +1707,24 @@ public:
     /// </summary>
     /// <param name="transformation">[IN] 4x4 Matrix which contains the transformation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot)
+    /// <returns>
+	/// A reference to the transformed segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot)
     {
         SQPoint::TransformWithPivot(transformation, vPivot, this->template AsPtr<VectorType>(), 2);
+        return *this;
     }
-
-    /// <summary>
-    /// Transforms the resident line segment using a pivot.
-    /// </summary>
-    /// <param name="transformation">[IN] 4x4 Matrix which contains the transformation.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot,
-                                   QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().TransformWithPivot(transformation, vPivot);
-    }
-
+    
     /// <summary>
     /// Transforms the resident line segment with the transformation contained in the dual quaternion provided using a pivot.
     /// </summary>
     /// <param name="transformation">[IN] The dual quaternion which contains the transformation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    inline void TransformWithPivot(const QDualQuaternion &transformation, const VectorType &vPivot)
+    /// <returns>
+	/// A reference to the transformed segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& TransformWithPivot(const QDualQuaternion &transformation, const VectorType &vPivot)
     {
         this->A -= vPivot;
         this->B -= vPivot;
@@ -1787,40 +1734,21 @@ public:
 
         this->A += vPivot;
         this->B += vPivot;
-    }
 
-    /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided using a pivot.<br>
-    /// The resultant line segment is stored in the line segment provided.
-    /// </summary>
-    /// <param name="transformation">[IN] The dual quaternion which contains the transformation.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    /// <param name="outSegment">[OUT] Line segment to store the transformed one.</param>
-    inline void TransformWithPivot(const QDualQuaternion &transformation, const VectorType &vPivot, QLineSegment3D<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().TransformWithPivot(transformation, vPivot);
+        return *this;
     }
 
 	/// <summary>
 	/// Translates the line segment.
 	/// </summary>
     /// <param name="vTranslation">[IN] Vector that contains the translation to be applied.</param>
-    inline void Translate(const QBaseVector3 &vTranslation)
+    /// <returns>
+	/// A reference to the translated segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Translate(const QBaseVector3 &vTranslation)
     {
         SQPoint::Translate(vTranslation, this->template AsPtr<VectorType>(), 2);
-    }
-
-	/// <summary>
-	/// Translates the line segment.<br>
-	/// Translated line segment will be stored in the line segment received as parameter.
-	/// </summary>
-    /// <param name="vTranslate">[IN] Vector that contains the translation to be applied.</param>
-    /// <param name="outputLineSegment">[OUT] Line segment that will store the translated line segment.</param>
-    inline void Translate(const QBaseVector3 &vTranslate, QBaseLineSegment<VectorType> &outputLineSegment) const
-    {
-        outputLineSegment = *this;
-        outputLineSegment.template As<QLineSegment3D<VectorType> >().Translate(vTranslate);
+        return *this;
     }
 
 	/// <summary>
@@ -1829,105 +1757,65 @@ public:
     /// <param name="fTranslationX">[IN] Scalar that contains the translation on X axis.</param>
     /// <param name="fTranslationY">[IN] Scalar that contains the translation on Y axis.</param>
     /// <param name="fTranslationZ">[IN] Scalar that contains the translation on Z axis.</param>
-    inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ)
+    /// <returns>
+	/// A reference to the translated segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ)
     {
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, this->template AsPtr<VectorType>(), 2);
-    }
-
-	/// <summary>
-	/// Translates the line segment.<br>
-	/// Translated line segment will be stored in the line segment received as parameter.
-	/// </summary>
-    /// <param name="fTranslationX">[IN] Scalar that contains the translation on X axis.</param>
-    /// <param name="fTranslationY">[IN] Scalar that contains the translation on Y axis.</param>
-    /// <param name="fTranslationZ">[IN] Scalar that contains the translation on Z axis.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the translated line segment.</param>
-    inline void Translate(const float_q& fTranslationX, const float_q& fTranslationY, const float_q& fTranslationZ,
-                          QBaseLineSegment<VectorType>& outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Translate(fTranslationX, fTranslationY, fTranslationZ);
+        return *this;
     }
 
 	/// <summary>
 	/// Translates the line segment.
 	/// </summary>
     /// <param name="translation">[IN] 4x3 Matrix which contains the translation to be applied.</param>
-    inline void Translate(const QTranslationMatrix<QMatrix4x3> &translation)
+    /// <returns>
+	/// A reference to the translated segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Translate(const QTranslationMatrix<QMatrix4x3> &translation)
     {
         SQPoint::Translate(translation, this->template AsPtr<VectorType>(), 2);
+        return *this;
     }
 
 	/// <summary>
 	/// Translates the line segment.
 	/// </summary>
     /// <param name="translation">[IN] 4x4 Matrix which contains the translation to be applied.</param>
-    inline void Translate(const QTranslationMatrix<QMatrix4x4> &translation)
+    /// <returns>
+	/// A reference to the translated segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Translate(const QTranslationMatrix<QMatrix4x4> &translation)
     {
         SQPoint::Translate(translation, this->template AsPtr<VectorType>(), 2);
-    }
-
-	/// <summary>
-	/// Translates the line segment.
-	/// </summary>
-    /// <param name="translation">[IN] 4x3 Matrix which contains the translation to be applied.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the translated line segment.</param>
-    inline void Translate(const QTranslationMatrix<QMatrix4x3> &translation, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Translate(translation);
-    }
-
-	/// <summary>
-	/// Translates the line segment.
-	/// </summary>
-    /// <param name="translation">[IN] 4x4 Matrix which contains the translation to be applied.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the translated line segment.</param>
-    inline void Translate (const QTranslationMatrix<QMatrix4x4> &translation, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Translate(translation);
+        return *this;
     }
 
 	/// <summary>
 	/// Rotates the line segment.
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
-    inline void Rotate(const QQuaternion &qRotation)
+    /// <returns>
+	/// A reference to the rotated segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Rotate(const QQuaternion &qRotation)
     {
         SQPoint::Rotate(qRotation, this->template AsPtr<VectorType>(), 2);
-    }
-
-	/// <summary>
-	/// Rotates the line segment.<br>
-	/// Rotated line segment will be stored in the line segment received as parameter.
-	/// </summary>
-    /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the rotated line segment.</param>
-    inline void Rotate(const QQuaternion &qRotation, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Rotate(qRotation);
+        return *this;
     }
 
 	/// <summary>
 	/// Rotates the line segment.
 	/// </summary>
     /// <param name="rotation">[IN] Matrix which contains the rotation to be applied.</param>
-    inline void Rotate(const QRotationMatrix3x3 &rotation)
+    /// <returns>
+	/// A reference to the rotated segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Rotate(const QRotationMatrix3x3 &rotation)
     {
         SQPoint::Rotate(rotation, this->template AsPtr<VectorType>(), 2);
-    }
-
-	/// <summary>
-	/// Rotates the line segment.
-	/// </summary>
-    /// <param name="rotation">[IN] Matrix which contains the rotation to be applied.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the rotated line segment.</param>
-    inline void Rotate(const QRotationMatrix3x3 &rotation, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Rotate(rotation);
+        return *this;
     }
 
 	/// <summary>
@@ -1935,22 +1823,13 @@ public:
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    inline void RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot)
+    /// <returns>
+	/// A reference to the rotated segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot)
     {
         SQPoint::RotateWithPivot(qRotation, vPivot, this->template AsPtr<VectorType>(), 2);
-    }
-
-	/// <summary>
-	/// Rotates the line segment using a pivot.<br>
-	/// Rotated line segment will be stored in the line segment received as parameter.
-	/// </summary>
-    /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the rotated line segment.</param>
-    inline void RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().RotateWithPivot(qRotation, vPivot);
+        return *this;
     }
 
 	/// <summary>
@@ -1958,43 +1837,26 @@ public:
 	/// </summary>
     /// <param name="rotation">[IN] Matrix which contains the rotation to be applied.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    inline void RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot)
+    /// <returns>
+	/// A reference to the rotated segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot)
     {
         SQPoint::RotateWithPivot(rotation, vPivot, this->template AsPtr<VectorType>(), 2);
-    }
-
-	/// <summary>
-	/// Rotates the line segment using a pivot.
-	/// </summary>
-    /// <param name="rotation">[IN] Matrix which contains the rotation to be applied.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the rotated line segment.</param>
-    inline void RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot,
-                                QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().RotateWithPivot(rotation, vPivot);
+        return *this;
     }
 
  	/// <summary>
 	/// Scales the line segment.
 	/// </summary>
     /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
-    inline void Scale(const VectorType &vScale)
+    /// <returns>
+	/// A reference to the scaled segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Scale(const VectorType &vScale)
     {
         SQPoint::Scale(vScale, this->template AsPtr<VectorType>(), 2);
-    }
-
- 	/// <summary>
-	/// Scales the line segment.<br>
-	/// Scaled line segment will be stored in the line segment received as parameter.
-	/// </summary>
-    /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the scaled line segment.</param>
-    inline void Scale(const VectorType &vScale, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Scale(vScale);
+        return *this;
     }
 
  	/// <summary>
@@ -2003,43 +1865,26 @@ public:
     /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
     /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
-    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+    /// <returns>
+	/// A reference to the scaled segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
         SQPoint::Scale(fScaleX, fScaleY, fScaleZ, this->template AsPtr<VectorType>(), 2);
-    }
-
- 	/// <summary>
-	/// Scales the line segment.<br>
-	/// Scaled line segment will be stored in the line segment received as parameter.
-	/// </summary>
-    /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
-    /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
-    /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the scaled line segment.</param>
-    inline void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Scale(fScaleX, fScaleY, fScaleZ);
+        return *this;
     }
 
  	/// <summary>
 	/// Scales the line segment.
 	/// </summary>
     /// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
-    inline void Scale(const QScaleMatrix3x3& scale)
+    /// <returns>
+	/// A reference to the scaled segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& Scale(const QScaleMatrix3x3& scale)
     {
         SQPoint::Scale(scale, this->template AsPtr<VectorType>(), 2);
-    }
-
- 	/// <summary>
-	/// Scales the line segment.
-	/// </summary>
-    /// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the scaled line segment.</param>
-    inline void Scale(const QScaleMatrix3x3 &scale, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().Scale(scale);
+        return *this;
     }
 
  	/// <summary>
@@ -2047,24 +1892,15 @@ public:
 	/// </summary>
     /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    inline void ScaleWithPivot(const VectorType &vScale, const VectorType &vPivot)
+    /// <returns>
+	/// A reference to the scaled segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& ScaleWithPivot(const VectorType &vScale, const VectorType &vPivot)
     {
         SQPoint::ScaleWithPivot(vScale, vPivot, this->template AsPtr<VectorType>(), 2);
+        return *this;
     }
-
- 	/// <summary>
-	/// Scales the line segment using a pivot.<br>
-	/// Scaled line segment will be stored in the line segment received as parameter.
-	/// </summary>
-    /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the scaled line segment.</param>
-    inline void ScaleWithPivot(const VectorType &vScale, const VectorType &vPivot, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().ScaleWithPivot(vScale, vPivot);
-    }
-
+    
  	/// <summary>
 	/// Scales the line segment using a pivot.
 	/// </summary>
@@ -2072,25 +1908,13 @@ public:
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
     /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot)
+    /// <returns>
+	/// A reference to the scaled segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot)
     {
         SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, this->template AsPtr<VectorType>(), 2);
-    }
-
- 	/// <summary>
-	/// Scales the line segment using a pivot.<br>
-	/// Scaled line segment will be stored in the line segment received as parameter.
-	/// </summary>
-    /// <param name="fScaleX">[IN] Scalar that contains the scale on X axis.</param>
-    /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
-    /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the scaled line segment.</param>
-    inline void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot,
-                               QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot);
+        return *this;
     }
 
  	/// <summary>
@@ -2098,21 +1922,13 @@ public:
 	/// </summary>
     /// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    inline void ScaleWithPivot(const QScaleMatrix3x3& scale, const VectorType& vPivot)
+    /// <returns>
+	/// A reference to the scaled segment.
+	/// </returns>
+    inline QLineSegment3D<VectorType>& ScaleWithPivot(const QScaleMatrix3x3& scale, const VectorType& vPivot)
     {
         SQPoint::ScaleWithPivot(scale, vPivot, this->template AsPtr<VectorType>(), 2);
-    }
-
- 	/// <summary>
-	/// Scales the line segment using a pivot.
-	/// </summary>
-    /// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
-    /// <param name="outSegment">[OUT] Line segment that will store the scaled line segment.</param>
-    inline void ScaleWithPivot(const QScaleMatrix3x3 &scale, const VectorType &vPivot, QBaseLineSegment<VectorType> &outSegment) const
-    {
-        outSegment = *this;
-        outSegment.template As<QLineSegment3D<VectorType> >().ScaleWithPivot(scale, vPivot);
+        return *this;
     }
 
 protected:
@@ -2126,11 +1942,8 @@ protected:
                                        const VectorTypeParam &vLine1, const VectorTypeParam &vLine2) const
     {
         VectorTypeParam vLine(vLine2 - vLine1);
-        VectorTypeParam vCP1;
-        VectorTypeParam vCP2;
-
-        vLine.CrossProduct(vPoint1 - vLine1, vCP1);
-        vLine.CrossProduct(vPoint2 - vLine1, vCP2);
+        VectorTypeParam vCP1 = vLine.CrossProduct(vPoint1 - vLine1);
+        VectorTypeParam vCP2 = vLine.CrossProduct(vPoint2 - vLine1);
 
         return SQFloat::IsPositive(vCP1.DotProduct(vCP2));
     }

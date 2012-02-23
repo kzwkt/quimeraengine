@@ -42,6 +42,7 @@ class QDllExport QMatrix4x3 : public QBaseMatrix4x3
 	// FRIENDS
 	// ---------------
 public:
+
 	/// <summary>
 	/// Multiply by scalar operator. All matrix components are multiplied by the scalar.
 	/// </summary>
@@ -409,23 +410,14 @@ public:
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
-	/// <param name="matrix">[OUT] Stores the resultant trasposed matrix.</param>
-	inline void Transpose(QBaseMatrix3x4 &matrix) const
+    /// <returns>
+	/// The transposed matrix, which is a 3x4 matrix.
+	/// </returns>
+	inline QBaseMatrix3x4 Transpose() const
 	{
-		matrix.ij[0][0] = this->ij[0][0];
-		matrix.ij[0][1] = this->ij[1][0];
-		matrix.ij[0][2] = this->ij[2][0];
-        matrix.ij[0][3] = this->ij[3][0];
-
-		matrix.ij[1][0] = this->ij[0][1];
-		matrix.ij[1][1] = this->ij[1][1];
-		matrix.ij[1][2] = this->ij[2][1];
-		matrix.ij[1][3] = this->ij[3][1];
-
-        matrix.ij[2][0] = this->ij[0][2];
-		matrix.ij[2][1] = this->ij[1][2];
-		matrix.ij[2][2] = this->ij[2][2];
-        matrix.ij[2][3] = this->ij[3][2];
+        return QBaseMatrix3x4(this->ij[0][0], this->ij[1][0], this->ij[2][0], this->ij[3][0],
+                              this->ij[0][1], this->ij[1][1], this->ij[2][1], this->ij[3][1],
+                              this->ij[0][2], this->ij[1][2], this->ij[2][2], this->ij[3][2]);
 	}
 
 	/// <summary>
@@ -456,7 +448,9 @@ public:
     ///       ($ij[2][0],$ij[2][1],$ij[2][2])($ij[3][0],$ij[3][1],$ij[3][2]))".<br>
     /// Where "$" means "string representation of attribute".
 	/// </summary>
-	/// <returns>The string with the format specified.</returns>
+	/// <returns>
+    /// The string with the format specified.
+    /// </returns>
     string_q ToString() const;
 };
 

@@ -24,7 +24,7 @@ QTransformationMatrix3x3::QTransformationMatrix3x3(const QBaseVector2 &vTranslat
 {
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        float_q &fRotRad = SQAngle::DegreesToRadians(fRotationAngle, fRotRad);
+        const float_q &fRotRad = SQAngle::DegreesToRadians(fRotationAngle);
 
         const float_q& fA   = cos_q(fRotRad);
         const float_q& fB   = sin_q(fRotRad);
@@ -77,7 +77,7 @@ void QTransformationMatrix3x3::Decompose (QBaseVector2 &vOutDisp, float_q &fOutR
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles must be specified in degrees, then converts it.
-        SQAngle::RadiansToDegrees(fOutRot, fOutRot);
+        fOutRot = SQAngle::RadiansToDegrees(fOutRot);
     #endif
 }
 

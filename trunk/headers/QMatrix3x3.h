@@ -371,30 +371,10 @@ public:
     /// <remarks>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
     /// </remarks>
-    void Transpose();
-
-    /// <summary>
-    /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row.<br>
-    /// Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$.<br>
-    /// It's noted \f$ A^T \f$.
-    /// </summary>
-    /// <remarks>
-    /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
-    /// </remarks>
-    /// <param name="matrix">[OUT] Stores the resultant transposed matrix.</param>
-    inline void Transpose(QBaseMatrix3x3 &matrix) const
-    {
-        matrix.ij[0][0] = this->ij[0][0];
-        matrix.ij[0][1] = this->ij[1][0];
-        matrix.ij[0][2] = this->ij[2][0];
-        matrix.ij[1][0] = this->ij[0][1];
-        matrix.ij[1][1] = this->ij[1][1];
-        matrix.ij[1][2] = this->ij[2][1];
-        matrix.ij[2][0] = this->ij[0][2];
-        matrix.ij[2][1] = this->ij[1][2];
-        matrix.ij[2][2] = this->ij[2][2];
-    }
+    /// <returns>
+    /// The transposed matrix.
+    /// </returns>
+    QMatrix3x3 Transpose() const;
 
     /// <summary>
     /// Checks if all elements of the matrix are 0 or under tolerance (absolute value).
@@ -477,34 +457,21 @@ public:
     ///
     /// </summary>
     /// <returns>
-    /// True if the matrix is invertible, false otherwise.
+    /// The inverse of the matrix.
     /// </returns>
-    bool Reverse();
-
+    QMatrix3x3 Reverse() const;
+    
     /// <summary>
-    /// Calculates the inverse of the matrix and stores it in the matrix provided.<br>
-    /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-    ///
-    /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
-    ///
-    /// We can calculate the inverse of any matrix by:
-    ///
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,
-    ///
-    /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
-    ///
+    /// Calculates whether the matrix has inverse or not. 
+    /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
-    /// <remarks>
-    /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
-    /// </remarks>
-    /// <param name="matrix">[OUT] Stores the resultant inversed matrix.</param>
     /// <returns>
-    /// True if the matrix is invertible, false otherwise.
+    /// True if the matrix has inverse, false otherwise.
     /// </returns>
-    inline bool Reverse(QBaseMatrix3x3 &matrix) const
+    inline bool HasReverse() const
     {
-        matrix = *this;
-        return matrix.As<QMatrix3x3>().Reverse();
+        // If Determinant is 0, this matrix has not inverse.
+        return SQFloat::IsNotZero(this->GetDeterminant());
     }
 
     /// <summary>

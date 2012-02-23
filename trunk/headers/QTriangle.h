@@ -157,8 +157,8 @@ public:
     /// </returns>
 	float_q GetAngleC() const
 	{
-		VectorType u = A - C;
-		VectorType v = B - C;
+		const VectorType u = A - C;
+		const VectorType v = B - C;
 
 		return GetAngle(u, v);
 	}
@@ -166,32 +166,36 @@ public:
 	/// <summary>
 	/// Calculates the incenter of the triangle.
 	/// </summary>
-	/// <param name="vIncenter">[OUT] Vector that stores the resultant point.</param>
-	void GetIncenter(VectorType & vIncenter) const
+	/// <returns>
+    /// The incenter.
+    /// </returns>
+	VectorType GetIncenter() const
 	{
-		VectorType vtSideA = C - B;
-		VectorType vtSideB = A - C;
-		VectorType vtSideC = B - A;
+		const VectorType vtSideA = C - B;
+		const VectorType vtSideB = A - C;
+		const VectorType vtSideC = B - A;
 
-		float_q fLengthA = vtSideA.GetLength();
-		float_q fLengthB = vtSideB.GetLength();
-		float_q fLengthC = vtSideC.GetLength();
+		const float_q fLengthA = vtSideA.GetLength();
+		const float_q fLengthB = vtSideB.GetLength();
+		const float_q fLengthC = vtSideC.GetLength();
 
-		float_q fP = fLengthA + fLengthB + fLengthC;
+		const float_q fP = fLengthA + fLengthB + fLengthC;
 
 		// Checkout to avoid division by zero.
 		QE_ASSERT(fP != SQFloat::_0)
 
-		vIncenter = (fLengthA * A + fLengthB * B + fLengthC * C) / fP;
+		return (fLengthA * A + fLengthB * B + fLengthC * C) / fP;
 	}
 
 	/// <summary>
 	/// Calculates the centroid of the triangle.
 	/// </summary>
-	/// <param name="vCentroid">[OUT] VectorType that stores the resultant point.</param>
-	inline void GetCentroid(VectorType & vCentroid) const
+	/// <returns>
+    /// The centroid.
+    /// </returns>
+	inline VectorType GetCentroid() const
 	{
-		vCentroid = (A + B + C) / SQFloat::_3;
+		return (A + B + C) / SQFloat::_3;
 	}
 
 	/// <summary>
@@ -201,7 +205,7 @@ public:
 	/// <returns>
 	/// The string in the specified format.
 	/// </returns>
-	string_q ToString()
+	string_q ToString() const
 	{
 		return QE_L("T:A(") + A.ToString() + QE_L("), B(") + B.ToString() + QE_L("), C(") + C.ToString() + QE_L(")");
 	}
@@ -218,14 +222,14 @@ protected:
 	// </returns>
 	float_q GetAngle(const VectorType vVector1, const VectorType vVector2) const
 	{
-		float_q fLength1 = vVector1.GetLength();
-		float_q fLength2 = vVector2.GetLength();
+		const float_q fLength1 = vVector1.GetLength();
+		const float_q fLength2 = vVector2.GetLength();
 
 		// Checkout to avoid division by zero.
 		QE_ASSERT(fLength1 != SQFloat::_0)
 		QE_ASSERT(fLength2 != SQFloat::_0)
 
-		float_q fCos = vVector1.DotProduct(vVector2) / (fLength1 * fLength2);
+		const float_q fCos = vVector1.DotProduct(vVector2) / (fLength1 * fLength2);
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
         QE_ASSERT(SQFloat::Abs(fCos) <= SQFloat::_1)

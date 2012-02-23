@@ -306,10 +306,14 @@ public:
     ///  - Must be greater than or equals to \f$ -2^{51} \f$ (-2251799813685248l) and lower than or equals to \f$ 2^{52} \f$ (4503599627370496l).
     /// </remarks>
     /// <param name="fValue">[IN] Floating point number to be converted.</param>
-    /// <param name="outInteger">[OUT] Integer value obtained.</param>
+    /// <returns>
+    /// Integer value obtained.
+    /// </returns>
     template<typename IntegerType>
-    inline static void ToInteger(const float_q &fValue, IntegerType &outInteger)
+    inline static IntegerType ToInteger(const float_q &fValue)
     {
+        IntegerType outInteger;
+
         // Checks whether both input types have the same size
         QE_ASSERT( sizeof(fValue) == sizeof(outInteger) )
 
@@ -367,6 +371,7 @@ public:
             outInteger = finalValue._integer;
         }
 
+        return outInteger;
     }
 
     /// <summary>
@@ -374,20 +379,12 @@ public:
     /// No rounding is performed.
     /// </summary>
     /// <param name="fValue">[IN] Value to be truncated.</param>
-    /// <param name="fTruncatedValue">[OUT] Value without fractional part.</param>
-    inline static void Truncate(const float_q &fValue, float_q &fTruncatedValue)
+    /// <returns>
+    /// Value without fractional part.
+    /// </returns>
+    inline static float_q Truncate(const float_q &fValue)
     {
-        fTruncatedValue = boost::math::trunc(fValue);
-    }
-
-    /// <summary>
-    /// Removes the fractional part of a floating point number.<br>
-    /// No rounding is performed.
-    /// </summary>
-    /// <param name="fValue">[IN/OUT] Value to be truncated.</param>
-    inline static void Truncate(float_q &fValue)
-    {
-        fValue = boost::math::trunc(fValue);
+        return boost::math::trunc(fValue);
     }
 
 	/// <summary>
@@ -396,15 +393,15 @@ public:
 	/// <param name="fValue">[IN] A floating point value; the value to be clamped, if neccesary.</param>
 	/// <param name="fMin">[IN] A floating point value; the minimum value into the range.</param>
 	/// <param name="fMax">[IN] A floating point value; the maximum value into the range.</param>
-	/// <param name="fClampedValue">[OUT] A floating point value; the clamped value.</param>
-	/// <remarks>
-	/// The source input value won't be modified.
-	/// </remarks>
-	inline static void Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax, float_q& fClampedValue)
+    /// <returns>
+    /// The clamped value.
+    /// </returns>
+	inline static float_q Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax)
 	{
-		fClampedValue = (fValue > fMax) ?  fMax :
-										        (fValue < fMin) ?  fMin :
-														                fValue;
+		const float_q CAMPLED_VALUE = (fValue > fMax) ?  fMax :
+										                 (fValue < fMin) ?  fMin :
+														                    fValue;
+        return CAMPLED_VALUE;
 	}
 
     /// <summary>
@@ -413,8 +410,10 @@ public:
     /// transformed to 0xDDCCBBAA, for example.
     /// </summary>
     /// <param name="fValue">[IN] The value whose bytes are to be swapped.</param>
-    /// <param name="fSwappedValue">[OUT] The transformed value.</param>
-    inline static void SwapEndianess(const float_q &fValue, float_q &fSwappedValue)
+    /// <returns>
+    /// The transformed value.
+    /// </returns>
+    inline static float_q SwapEndianess(const float_q &fValue)
     {
         const unsigned int FLOAT_SIZE = sizeof(float_q);
 
@@ -435,17 +434,7 @@ public:
         for(unsigned int i = 0, j = FLOAT_SIZE - 1; i < FLOAT_SIZE; ++i, --j)
             swappedValue._bytes[i] = srcValue._bytes[j];
 
-        fSwappedValue = swappedValue._float;
-    }
-
-    /// <summary>
-    /// Inverts the order of bytes which compound a floating point number.<br>
-    /// A 32-bits floating point number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
-    /// </summary>
-    /// <param name="fValue">[IN/OUT] The value whose bytes are to be swapped.</param>
-    inline static void SwapEndianess(float_q &fValue)
-    {
-        SQFloat::SwapEndianess(fValue, fValue);
+        return swappedValue._float;
     }
 
     /// <summary>

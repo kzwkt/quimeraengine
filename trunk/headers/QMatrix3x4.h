@@ -355,6 +355,19 @@ public:
 		return *this;
 	}
 
+    /// <summary>
+    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to be assigned.</param>
+    /// <returns>
+    /// A reference to the modified matrix.
+    /// </returns>
+    inline QMatrix3x4& operator=(const QBaseMatrix3x4 &matrix)
+    {
+        QBaseMatrix3x4::operator=(matrix);
+		return *this;
+    }
+
 	/// <summary>
 	/// Resets all matrix elements to 0.
 	/// </summary>
@@ -373,24 +386,15 @@ public:
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
-	/// <param name="matrix">[OUT] Stores the resultant trasposed matrix. Output matrix is 4x3</param>
-	inline void Transpose(QBaseMatrix4x3 &matrix) const
+    /// <returns>
+	/// The transposed matrix, which is a 4x3 matrix.
+	/// </returns>
+	inline QBaseMatrix4x3 Transpose() const
 	{
-		matrix.ij[0][0] = this->ij[0][0];
-		matrix.ij[1][0] = this->ij[0][1];
-		matrix.ij[2][0] = this->ij[0][2];
-		matrix.ij[3][0] = this->ij[0][3];
-
-		matrix.ij[0][1] = this->ij[1][0];
-		matrix.ij[1][1] = this->ij[1][1];
-		matrix.ij[2][1] = this->ij[1][2];
-		matrix.ij[3][1] = this->ij[1][3];
-
-		matrix.ij[0][2] = this->ij[2][0];
-		matrix.ij[1][2] = this->ij[2][1];
-		matrix.ij[2][2] = this->ij[2][2];
-		matrix.ij[3][2] = this->ij[2][3];
-
+        return QBaseMatrix4x3(this->ij[0][0], this->ij[1][0], this->ij[2][0],
+                              this->ij[0][1], this->ij[1][1], this->ij[2][1],
+                              this->ij[0][2], this->ij[1][2], this->ij[2][2],
+                              this->ij[0][3], this->ij[1][3], this->ij[2][3]);
 	}
 
 	/// <summary>
@@ -415,18 +419,6 @@ public:
 				SQFloat::IsZero(this->ij[2][3]);
 	}
 
-    /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
-    /// </summary>
-    /// <param name="matrix">[IN] The matrix to be assigned.</param>
-    /// <returns>
-    /// A reference to the modified matrix.
-    /// </returns>
-    inline QMatrix3x4& operator=(const QBaseMatrix3x4 &matrix)
-    {
-        QBaseMatrix3x4::operator=(matrix);
-		return *this;
-    }
 
 	/// <summary>
     /// Resets the matrix to a identity matrix.<br>
@@ -447,7 +439,9 @@ public:
     ///       ($ij[2][0],$ij[2][1],$ij[2][2],$ij[2][3]))".<br>
     /// Where "$" means "string representation of attribute".
 	/// </summary>
-	/// <returns>The string with the format specified.</returns>
+	/// <returns>
+    /// The string with the format specified.
+    /// </returns>
     string_q ToString() const;
 
 };

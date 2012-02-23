@@ -382,10 +382,7 @@ public:
     {
         //Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
 
-        QVector2 vAux(segment.B - segment.A);
-        QVector2 vPoint;
-
-        vAux.Normalize();
+        QVector2 vAux = QVector2(segment.B - segment.A).Normalize();
 
         ray = *this;
 
@@ -394,6 +391,7 @@ public:
             return;
         else
         {
+            QVector2 vPoint;
             EQIntersections numInt = this->IntersectionPoint(segment, vPoint);
             if (numInt == EQIntersections::E_One)
             {
@@ -401,8 +399,7 @@ public:
                 ray.Origin = vPoint;
 
                 // Calculates normal to line segment (is normalized like vAux)
-                QVector2 vNorm;
-                vAux.GetPerpendicular(vNorm);
+                QVector2 vNorm = vAux.GetPerpendicular();
 
                 // Calculates reflected direction
                 ray.Direction -= SQFloat::_2 * (this->Direction.DotProduct(vNorm)) * vNorm;
@@ -426,9 +423,7 @@ public:
     {
         //Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
 
-        QVector2 vAux(segment.B - segment.A);
-
-        vAux.Normalize();
+        QVector2 vAux = QVector2(segment.B - segment.A).Normalize();
 
         vDirection = this->Direction;
 
@@ -438,8 +433,7 @@ public:
         else if (this->Intersection(segment))
         {
             // Calculates normal to line segment (is normalized like vAux)
-            QVector2 vNorm;
-            vAux.GetPerpendicular(vNorm);
+            QVector2 vNorm = vAux.GetPerpendicular();
 
             // Calculates reflected direction
             vDirection = this->Direction - SQFloat::_2 * (this->Direction.DotProduct(vNorm)) * vNorm;
@@ -455,126 +449,79 @@ public:
 	/// All transformations affects both origin ray point and ray direction, except translations,
 	/// that only affects origin ray point.
 	/// </remarks>
-	inline void Transform(const QTransformationMatrix3x3 &transformation)
+    /// <returns>
+    /// A reference to the transformed ray.
+    /// </returns>
+	inline QRay2D& Transform(const QTransformationMatrix3x3 &transformation)
 	{
 	    this->Origin.Transform(transformation);
 
         // Direction is transformed without translation. The calculation takes into account only the submatrix that contains
         // the rotation and the scale.
-        float_q fNewX = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
-        float_q fNewY = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];
+        const float_q fNewX = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
+        const float_q fNewY = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];
 
-        this->Direction.x = fNewX;
-        this->Direction.y = fNewY;
+        this->Direction = QVector2(fNewX, fNewY).Normalize();
 
-        this->Direction.Normalize();
+        return *this;
 	}
-
-    /// <summary>
-	/// Applies the transformation given by the matrix provided to resident ray, storing the result in the ray provided.
-	/// </summary>
-	/// <param name="transformation">[IN] The transformation matrix to be applied.</param>
-	/// <param name="outRay">[OUT] The transformed ray.</param>
-	/// <remarks>
-	/// Resultant ray is normalized after this operation.<br>
-	/// All transformations affects both origin ray point and ray direction, except translations,
-	/// that only affects origin ray point.
-	/// </remarks>
-	inline void Transform(const QTransformationMatrix3x3 &transformation, QBaseRay<QVector2, QVector2> &outRay)
-	{
-	    outRay = *this;
-	    outRay.As<QRay2D>().Transform(transformation);
-	}
-
+    
     /// <summary>
 	/// This method rotates the resident ray the provided angle around the coordinate axis centre.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
-	inline void Rotate(const float_q &fRotationAngle)
+    /// <returns>
+    /// A reference to the rotated ray.
+    /// </returns>
+	inline QRay2D& Rotate(const float_q &fRotationAngle)
 	{
         SQPoint::Rotate(fRotationAngle, this->AsPtr<QVector2>(), 2);
+        return *this;
 	}
 
-	/// <summary>
-	/// This method rotates the resident ray the provided angle around the coordinate axis centre,
-	/// storing the resultant ray in the provided one.
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
-	/// <param name="outRay">[OUT] The resultant rotated ray.</param>
-	inline void Rotate(const float_q &fRotationAngle, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-	    outRay = *this;
-	    outRay.As<QRay2D>().Rotate(fRotationAngle);
-	}
 
     /// <summary>
 	/// This method rotates the resident ray the provided angle around the point provided as pivot.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
-	inline void RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot)
+    /// <returns>
+    /// A reference to the rotated ray.
+    /// </returns>
+	inline QRay2D& RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot)
 	{
         SQPoint::RotateWithPivot(fRotationAngle, vPivot, &this->Origin, 1);
         SQPoint::Rotate(fRotationAngle, &this->Direction, 1);
-	}
-
-    /// <summary>
-	/// This method rotates the resident ray the provided angle around the point provided as pivot,
-	/// storing the resultant ray in the provided one.
-	/// </summary>
-	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
-	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
-	/// <param name="outRay">[OUT] The resultant rotated ray.</param>
-	inline void RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-        outRay = *this;
-	    outRay.As <QRay2D>().RotateWithPivot(fRotationAngle, vPivot);
+        return *this;
 	}
 
     /// <summary>
 	/// This method translates the resident ray by the translation contained in the provided vector.
 	/// </summary>
 	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
-	inline void Translate(const QBaseVector2 &vTranslation)
+    /// <returns>
+    /// A reference to the translated ray.
+    /// </returns>
+	inline QRay2D& Translate(const QBaseVector2 &vTranslation)
 	{
         SQPoint::Translate(vTranslation, &this->Origin, 1);
+        return *this;
 	}
-
-    /// <summary>
-	/// This method translates the resident ray by the translation contained in the provided vector,
-	/// storing the resultant ray in the provided one.
-	/// </summary>
-	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
-	/// <param name="outRay">[OUT] The resultant translated ray.</param>
-	inline void Translate(const QBaseVector2 &vTranslation, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-        outRay = *this;
-	    outRay.As <QRay2D>().Translate(vTranslation);
-	}
-
+    
     /// <summary>
 	/// This method translates the resident ray by the provided amounts for every axis.
 	/// </summary>
 	/// <param name="fTranslationX">[IN] Amount of translation in X direction.</param>
 	/// <param name="fTranslationY">[IN] Amount of translation in Y direction.</param>
-	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY)
+    /// <returns>
+    /// A reference to the translated ray.
+    /// </returns>
+	inline QRay2D& Translate(const float_q &fTranslationX, const float_q &fTranslationY)
 	{
         SQPoint::Translate(fTranslationX, fTranslationY, &this->Origin, 1);
+        return *this;
 	}
-
-    /// <summary>
-	/// This method translates the resident ray by the provided amounts for every axis,
-	/// storing the resultant ray in the provided one.
-	/// </summary>
-	/// <param name="fTranslationX">[IN] Amount of translation in X direction.</param>
-	/// <param name="fTranslationY">[IN] Amount of translation in Y direction.</param>
-	/// <param name="outRay">[OUT] The resultant translated ray.</param>
-	inline void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-        outRay = *this;
-	    outRay.As <QRay2D>().Translate(fTranslationX, fTranslationY);
-	}
-
+    
     /// <summary>
 	/// This method scales the resident ray by the scale contained in the provided vector.
 	/// </summary>
@@ -582,27 +529,16 @@ public:
 	/// Resultant ray is normalized after this operation.
 	/// </remarks>
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
-	inline void Scale(const QBaseVector2 &vScale)
+    /// <returns>
+    /// A reference to the scaled ray.
+    /// </returns>
+	inline QRay2D& Scale(const QBaseVector2 &vScale)
 	{
         SQPoint::Scale(vScale, this->AsPtr<QVector2>(), 2);
-        this->Direction.Normalize();
+        this->Direction = this->Direction.Normalize();
+        return *this;
 	}
-
-    /// <summary>
-	/// This method scales the resident ray by the scale contained in the provided vector,
-	/// storing the resultant ray in the provided one.
-	/// </summary>
-    /// <remarks>
-	/// Resultant ray is normalized after this operation.
-	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
-	/// <param name="outRay">[OUT] The resultant scaled ray.</param>
-	inline void Scale(const QBaseVector2 &vScale, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-        outRay = *this;
-	    outRay.As <QRay2D>().Scale(vScale);
-	}
-
+    
     /// <summary>
 	/// This method scales the resident ray by the amounts provided for every axis.
 	/// </summary>
@@ -611,26 +547,14 @@ public:
 	/// </remarks>
 	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
 	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
-	inline void Scale(const float_q &vScaleX, const float_q &vScaleY)
+    /// <returns>
+    /// A reference to the scaled ray.
+    /// </returns>
+	inline QRay2D& Scale(const float_q &vScaleX, const float_q &vScaleY)
 	{
         SQPoint::Scale(vScaleX, vScaleY, this->AsPtr<QVector2>(), 2);
-        this->Direction.Normalize();
-	}
-
-    /// <summary>
-	/// This method scales the resident ray by the amounts provided for every axis,
-	/// storing the resultant ray in the provided one.
-	/// </summary>
-    /// <remarks>
-	/// Resultant ray is normalized after this operation.
-	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
-	/// <param name="outRay">[OUT] The resultant scaled ray.</param>
-	inline void Scale(const float_q &vScaleX, const float_q &vScaleY, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-        outRay = *this;
-	    outRay.As <QRay2D>().Scale(vScaleX, vScaleY);
+        this->Direction = this->Direction.Normalize();
+        return *this;
 	}
 
     /// <summary>
@@ -642,27 +566,15 @@ public:
 	/// </remarks>
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
-	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+    /// <returns>
+    /// A reference to the scaled ray.
+    /// </returns>
+	inline QRay2D& ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
 	{
         SQPoint::ScaleWithPivot(vScale, vPivot, &this->Origin, 1);
         SQPoint::Scale(vScale, &this->Direction, 1);
-        this->Direction.Normalize();
-	}
-
-    /// <summary>
-	/// This method scales the resident ray by the scale contained in the provided vector from
-	/// the provided point that acts as pivot, storing the resultant ray in the provided one.
-	/// </summary>
-    /// <remarks>
-	/// Resultant ray is normalized after this operation.
-	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
-	/// <param name="outRay">[OUT] The resultant scaled ray.</param>
-	inline void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-        outRay = *this;
-	    outRay.As <QRay2D>().ScaleWithPivot(vScale, vPivot);
+        this->Direction = this->Direction.Normalize();
+        return *this;
 	}
 
     /// <summary>
@@ -675,28 +587,15 @@ public:
 	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
 	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
-	inline void ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot)
+    /// <returns>
+    /// A reference to the scaled ray.
+    /// </returns>
+	inline QRay2D& ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot)
 	{
         SQPoint::ScaleWithPivot(vScaleX, vScaleY, vPivot, &this->Origin, 1);
         SQPoint::Scale(vScaleX, vScaleY, &this->Direction, 1);
-        this->Direction.Normalize();
-	}
-
-    /// <summary>
-	/// This method scales the resident ray by the amounts provided for every axis from
-	/// the provided point that acts as pivot, storing the resultant ray in the provided one.
-	/// </summary>
-    /// <remarks>
-	/// Resultant ray is normalized after this operation.
-	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
-	/// <param name="outRay">[OUT] The resultant scaled ray.</param>
-	inline void ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const QBaseVector2 &vPivot, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-        outRay = *this;
-	    outRay.As <QRay2D>().ScaleWithPivot(vScaleX, vScaleY, vPivot);
+        this->Direction = this->Direction.Normalize();
+        return *this;
 	}
 
     /// <summary>
@@ -708,33 +607,19 @@ public:
 	/// </remarks>
 	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot)
+    /// <returns>
+    /// A reference to the transformed ray.
+    /// </returns>
+	inline QRay2D& TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot)
 	{
         SQPoint::TransformWithPivot(transformation, vPivot, &this->Origin, 1);
 
-        float_q fNewX = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
-        float_q fNewY = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];
+        const float_q fNewX = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
+        const float_q fNewY = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];
 
-        this->Direction.x = fNewX;
-        this->Direction.y = fNewY;
+        this->Direction = QVector2(fNewX, fNewY).Normalize();
 
-        this->Direction.Normalize();
-	}
-
-    /// <summary>
-	/// This method applies the transformation contained in the provided transformation matrix from
-	/// the provided point that acts as pivot, storing the resultant ray in the provided one.
-	/// </summary>
-    /// <remarks>
-	/// Resultant ray is normalized after this operation.
-	/// </remarks>
-	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
-	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
-	/// <param name="outRay">[OUT] The resultant scaled ray.</param>
-	inline void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot, QBaseRay<QVector2, QVector2> &outRay) const
-	{
-        outRay = *this;
-	    outRay.As <QRay2D>().TransformWithPivot(transformation, vPivot);
+        return *this;
 	}
 
 protected:

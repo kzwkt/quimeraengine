@@ -7,6 +7,7 @@
 #include "EQIntersections.h"
 #include "QBaseLineSegment.h"
 #include "QBaseOrb.h"
+#include "SQAngle.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -128,12 +129,14 @@ public:
 	/// <summary>
 	/// Computes the central point of the segment.
 	/// </summary>
-	/// <param name="vCenter">[OUT] A vector which represents the central point of the segment.</param>
-	inline void GetCenter(VectorType &vCenter) const
+    /// <returns>
+    /// The center of the segment.
+    /// </returns>
+	inline QLineSegment<VectorType> GetCenter() const
 	{
 		// 1) Direction: AB --> B - A, so that: S(t) = A + [t(B - A)] = ... = t(A + B)
 		// 2) Center:    S(0.5f) --> A + [0.5f(B - A)] --> ... --> 0.5f(A + B)
-		vCenter = SQFloat::_0_5 * (A + B);
+		return SQFloat::_0_5 * (A + B);
 	}
 
 	/// <summary>
@@ -220,7 +223,7 @@ public:
 			// If angles are currently specified in degrees, then converts angle to radians
 			// so we can use "sin" function.
 			#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-				fAngle = SQAngle::DegreesToRadians(fAngle, fAngle);
+				fAngle = SQAngle::DegreesToRadians(fAngle);
 			#endif
 
 			// At this stage we have the angle expressed in RADIANS.
@@ -767,7 +770,9 @@ public:
 	/// "LS(a($A),b($B))".<br>
     /// Where "$" means "string representation of attribute".
 	/// </summary>
-	/// <returns>The string with the format specified.</returns>
+	/// <returns>
+    /// The string with the format specified.
+    /// </returns>
 	string_q ToString()
 	{
 		return QE_L("LS(a(") + A.ToString() + QE_L("),b(") + B.ToString() + QE_L("))");
@@ -827,7 +832,7 @@ protected:
 				// Checkout to avoid division by 0
 				QE_ASSERT(fSqrLengthv2 != SQFloat::_0)
 
-				SQFloat::Clamp( (fDotProdv2vTails / fSqrLengthv2), SQFloat::_0, SQFloat::_1, fSFactor2 );
+				fSFactor2 = SQFloat::Clamp( (fDotProdv2vTails / fSqrLengthv2), SQFloat::_0, SQFloat::_1);
 		    }
 			else
 			{
@@ -841,7 +846,7 @@ protected:
 					// Checkout to avoid division by 0
 					QE_ASSERT(fSqrLengthv1 != SQFloat::_0)
 
-					SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1, fSFactor1 );
+					fSFactor1 = SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
 
 		        }
 				else
@@ -860,7 +865,7 @@ protected:
 					// fSFactor1 = ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom
 		            if (SQFloat::IsNotZero(fDenom))
 					{
-						SQFloat::Clamp( ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom, SQFloat::_0, SQFloat::_1, fSFactor1 );
+						fSFactor1 = SQFloat::Clamp( ((fDotProdv1v2 * fDotProdv2vTails) - (fDotProdv1vTails * fSqrLengthv2)) / fDenom, SQFloat::_0, SQFloat::_1 );
 		            }
 					else
 					{
@@ -884,7 +889,7 @@ protected:
 						// Checkout to avoid division by 0
 						QE_ASSERT(fSqrLengthv1 != SQFloat::_0)
 
-						SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1, fSFactor1 );
+						fSFactor1 = SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
 					}
 					else if (fNom > fSqrLengthv2)
 					{
@@ -893,7 +898,7 @@ protected:
 						// Checkout to avoid division by 0
 						QE_ASSERT(fSqrLengthv1 != SQFloat::_0)
 
-						SQFloat::Clamp( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), SQFloat::_0, SQFloat::_1, fSFactor1 );
+						fSFactor1 = SQFloat::Clamp( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
 
 					}
 					else // fNom in range [0..1]

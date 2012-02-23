@@ -3,8 +3,8 @@
 #ifndef __QSPACECONVERSIONMATRIX__
 #define __QSPACECONVERSIONMATRIX__
 
-#include "QBaseVector3.h"
-#include "QBaseVector4.h"
+#include "QVector3.h"
+#include "QVector4.h"
 #include "QBaseQuaternion.h"
 #include "QMatrix4x4.h"
 #include "QMatrix4x3.h"
@@ -144,7 +144,7 @@ public:
     /// <param name="vTranslation">[IN] Vector which contains the translation (position).</param>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
+    void SetWorldSpaceMatrix(const QVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -152,7 +152,7 @@ public:
     /// <param name="vTranslation">[IN] Vector which contains the translation (position).</param>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
+    void SetWorldSpaceMatrix(const QVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -186,7 +186,7 @@ public:
     /// <param name="vPointOfView">[IN] Vector which defines the position of the camera or the point of view.</param>
     /// <param name="vTarget">[IN] Vector which defines the point where we are looking at.</param>
     /// <param name="vUpDirection">[IN] Vector which defines the "up direction".</param>
-    void SetViewSpaceMatrix(const QBaseVector3 &vPointOfView, const QBaseVector3 &vTarget, const QBaseVector3 &vUpDirection);
+    void SetViewSpaceMatrix(const QVector3 &vPointOfView, const QVector3 &vTarget, const QVector3 &vUpDirection);
 
     /// <summary>
     /// Sets the view space matrix, also called camera space matrix, defined by the point of view or camera position,
@@ -195,12 +195,7 @@ public:
     /// <param name="vPointOfView">[IN] Vector which defines the position of the camera or the point of view.</param>
     /// <param name="vTarget">[IN] Vector which defines the point where we are looking at.</param>
     /// <param name="vUpDirection">[IN] Vector which defines the "up direction".</param>
-    inline void SetViewSpaceMatrix(const QBaseVector4 &vPointOfView, const QBaseVector4 &vTarget, const QBaseVector4 &vUpDirection)
-    {
-        SetViewSpaceMatrix(QBaseVector3(vPointOfView.x, vPointOfView.y, vPointOfView.z),
-                           QBaseVector3(vTarget.x, vTarget.y, vTarget.z),
-                           QBaseVector3(vUpDirection.x, vUpDirection.y, vUpDirection.z));
-    }
+    inline void SetViewSpaceMatrix(const QVector4 &vPointOfView, const QVector4 &vTarget, const QVector4 &vUpDirection);
 
     /// <summary>
     /// Sets the projection space matrix, which defines how perspective is applied to the scene.
@@ -218,62 +213,37 @@ public:
     /// To do that, we treat the world space matrix as a transformation matrix,
     /// inverting both rotation (by trasposing it) and z translation component.
     /// </summary>
-    void SwitchHandConventionWorldSpaceMatrix();
-
-    /// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-    /// Remember that Quimera Engine works with left-hand convention by default.<br>
-    /// To do that, we treat the world space matrix as a transformation matrix,
-    /// inverting both rotation (by trasposing it) and z translation component.
-    /// </summary>
-    /// <param name="outMatrix">[OUT] Matrix where to store the new world space matrix.</param>
-    inline void SwitchHandConventionWorldSpaceMatrix(QSpaceConversionMatrix &outMatrix) const
-    {
-        outMatrix = *this;
-        outMatrix.SwitchHandConventionWorldSpaceMatrix();
-    }
-
+    /// <returns>
+    /// The switched matrix.
+    /// </returns>
+    QSpaceConversionMatrix SwitchHandConventionWorldSpaceMatrix() const;
+    
     /// <summary>
     /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
     /// Remember that Quimera Engine works with left-hand convention by default.<br>
     /// To do that, we invert the Z axis, and then the matrix is recalculated.
     /// </summary>
-    void SwitchHandConventionViewSpaceMatrix();
-
-    /// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-    /// Remember that Quimera Engine works with left-hand convention by default.<br>
-    /// To do that, we invert the Z axis, and then matrix is recalculated.
-    /// </summary>
-    /// <param name="outMatrix">[OUT] Matrix where to store the new view space matrix.</param>
-    inline void SwitchHandConventionViewSpaceMatrix(QSpaceConversionMatrix &outMatrix)
-    {
-        outMatrix = *this;
-        outMatrix.SwitchHandConventionViewSpaceMatrix();
-    }
+    /// <returns>
+    /// The switched matrix.
+    /// </returns>
+    QSpaceConversionMatrix SwitchHandConventionViewSpaceMatrix() const;
 
     /// <summary>
     /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
     /// Remember that Quimera Engine works with left-hand convention by default.<br>
     /// To do that, we change the sign of elements \f$ a_{22}\f$ and \f$ a_{23}\f$.
     /// </summary>
-    inline void SwitchHandConventionProjectionSpaceMatrix()
+    /// <returns>
+    /// The switched matrix.
+    /// </returns>
+    inline QSpaceConversionMatrix SwitchHandConventionProjectionSpaceMatrix() const
     {
-        this->ij[2][2] = -this->ij[2][2];
-        this->ij[2][3] = -this->ij[2][3];
+        QSpaceConversionMatrix switchedMatrix = *this;
+        switchedMatrix.ij[2][2] = -this->ij[2][2];
+        switchedMatrix.ij[2][3] = -this->ij[2][3];
+        return switchedMatrix;
     }
-    /// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-    /// Remember that Quimera Engine works with left-hand convention by default.<br>
-    /// To do that, we change the sign of elements \f$ a_{22}\f$ and \f$ a_{23}\f$.
-    /// </summary>
-    /// <param name="outMatrix">[OUT] Matrix where to store the new projection space matrix.</param>
-    inline void SwitchHandConventionProjectionSpaceMatrix(QSpaceConversionMatrix &outMatrix)
-    {
-        outMatrix = *this;
-        outMatrix.SwitchHandConventionProjectionSpaceMatrix();
-    }
-
+    
 protected:
 
     // Hidden method to prevent it could be used.

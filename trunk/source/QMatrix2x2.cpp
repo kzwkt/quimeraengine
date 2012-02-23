@@ -117,32 +117,15 @@ float_q QMatrix2x2::GetDeterminant() const
     return this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0];
 }
 
-bool QMatrix2x2::Reverse()
+QMatrix2x2 QMatrix2x2::Reverse() const
 {
-    // Special case where matrix is identity. Then inverse of the matrix is itself.
-    if (this->IsIdentity())
-    {
-        return true;
-    }
-
-    // Gets Determinant.
-    float_q fDet = this->GetDeterminant();
-
-    // If Determinant is 0, this matrix has not inverse.
-    if (SQFloat::IsZero(fDet))
-        return false;
-
     // We need inverse of determinant in calculus.
-    fDet = SQFloat::_1/fDet;
+    const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
 
-    float_q f00  = this->ij[0][0];
-
-    this->ij[0][0] =  fDet * this->ij[1][1];
-    this->ij[1][0] *= -fDet;
-    this->ij[0][1] *= -fDet;
-    this->ij[1][1] =  fDet * f00;
-
-    return true;
+    return QMatrix2x2( fInvDet * this->ij[1][1],
+                      -fInvDet * this->ij[0][1],
+                      -fInvDet * this->ij[1][0],
+                       fInvDet * this->ij[0][0] ); 
 }
 
 string_q QMatrix2x2::ToString() const

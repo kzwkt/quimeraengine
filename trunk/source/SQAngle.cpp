@@ -1,6 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "SQAngle.h" 
+#include "SQAngle.h"
 
 namespace Kinesis
 {
@@ -19,7 +19,7 @@ namespace Math
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
-        
+
 #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
 
     const float_q SQAngle::_15           = 15.0f;
@@ -32,7 +32,7 @@ namespace Math
     const float_q SQAngle::_360          = 360.0f;
     const float_q SQAngle::_HalfPi       = PI_Q * 0.5f;
     const float_q SQAngle::_QuarterPi    = PI_Q * 0.25f;
-    const float_q SQAngle::_ThridPi      = PI_Q / 3.0f;
+    const float_q SQAngle::_ThirdPi      = PI_Q / 3.0f;
     const float_q SQAngle::_2Pi          = PI_Q * 2.0f;
     const float_q SQAngle::_Pi           = PI_Q;
     const float_q SQAngle::_3HalfsPi     = PI_Q * 1.5f;
@@ -52,7 +52,7 @@ namespace Math
     const float_q SQAngle::_360          = 360.0;
     const float_q SQAngle::_HalfPi       = PI_Q * 0.5;
     const float_q SQAngle::_QuarterPi    = PI_Q * 0.25;
-    const float_q SQAngle::_ThridPi      = PI_Q / 3.0;
+    const float_q SQAngle::_ThirdPi      = PI_Q / 3.0;
     const float_q SQAngle::_2Pi          = PI_Q * 2.0;
     const float_q SQAngle::_Pi           = PI_Q;
     const float_q SQAngle::_3HalfsPi     = PI_Q * 1.5;

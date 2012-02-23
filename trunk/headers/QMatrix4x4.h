@@ -411,23 +411,10 @@ public:
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
-	void Transpose();
-
-	/// <summary>
-	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row.<br>
-    /// Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$.<br>
-    /// It's noted \f$ A^T \f$.
-	/// </summary>
-	/// <remarks>
-	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
-	/// </remarks>
-	/// <param name="matrix">[OUT] Stores the resultant transposed matrix.</param>
-	inline void Transpose(QBaseMatrix4x4 &matrix) const
-	{
-        matrix = *this;
-        matrix.As<QMatrix4x4>().Transpose();
-	}
+    /// <returns>
+	/// The transposed matrix.
+	/// </returns>
+	QMatrix4x4 Transpose() const;
 
 	/// <summary>
 	/// Checks if all elements of the matrix are 0 or under tolerance (absolute value).
@@ -527,34 +514,21 @@ public:
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
 	/// <returns>
-	/// True if the matrix is invertible, false otherwise.
+	/// The inverse of the matrix.
 	/// </returns>
-	bool Reverse();
-
-	/// <summary>
-	/// Calculates the inverse of the matrix and stores it in the matrix provided.<br>
-	/// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-	///
-    /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
-    ///
-    /// We can calculate the inverse of any matrix by:
-    ///
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,
-    ///
-    /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
-    ///
-	/// </summary>
-	/// <remarks>
-	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
-	/// </remarks>
-	/// <param name="matrix">[OUT] Stores the resultant inversed matrix.</param>
-	/// <returns>
-	/// True if the matrix is invertible, false otherwise.
-	/// </returns>
-	bool Reverse(QBaseMatrix4x4 &matrix) const
+	QMatrix4x4 Reverse() const;
+    
+    /// <summary>
+    /// Calculates whether the matrix has inverse or not. 
+    /// A matrix has inverse when its determinant doesn't equal zero.
+    /// </summary>
+    /// <returns>
+    /// True if the matrix has inverse, false otherwise.
+    /// </returns>
+    inline bool HasReverse() const
     {
-        matrix = *this;
-        return matrix.As<QMatrix4x4>().Reverse();
+        // If Determinant is 0, this matrix has not inverse.
+        return SQFloat::IsNotZero(this->GetDeterminant());
     }
 
 	/// <summary>
