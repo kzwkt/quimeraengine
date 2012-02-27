@@ -50,16 +50,16 @@ public:
 
     // Exposed method
     template <class MatrixType>
-	void TransformImp(const QTranslationMatrix<MatrixType> &translation)
+	QVector3 TransformImp(const QTranslationMatrix<MatrixType> &translation) const
     {
-        QVector3::TransformImp(translation);
+        return QVector3::TransformImp(translation);
     }
 
     // Exposed method
     template <class MatrixType>
-	void TransformImp(const QTransformationMatrix<MatrixType> &transformation)
+	QVector3 TransformImp(const QTransformationMatrix<MatrixType> &transformation) const
     {
-        QVector3::TransformImp(transformation);
+        return QVector3::TransformImp(transformation);
     }
 };
 

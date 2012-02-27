@@ -96,6 +96,14 @@ string_q SQFloat::ToString(const float_q &fValue)
 {
     string_q strOut = boost::lexical_cast<string_q>(fValue);
 	return strOut;
+  
+// Is this better? [SMELL] Thund:
+//    template <class T> inline std::string stringify(T x)
+//    {
+//	    std::ostringstream o;
+//	    o << x;
+//	    return o.str();
+//    }
 }
 
 } //namespace DataTypes

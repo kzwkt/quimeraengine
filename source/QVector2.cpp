@@ -139,18 +139,13 @@ string_q QVector2::ToString() const
 		   QE_L(")");
 }
 
-QVector2& QVector2::Transform(const QTransformationMatrix3x3 &matrix)
+QVector2 QVector2::Transform(const QTransformationMatrix3x3 &matrix) const
 {
-	const float_q &fNewX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0];
-	const float_q &fNewY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1];
-
-	this->x = fNewX;
-	this->y = fNewY;
-
-    return *this;
+    return QVector2(this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + matrix.ij[2][0],
+                    this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1] + matrix.ij[2][1]);
 }
 
-QVector2& QVector2::Transform(const float_q &fRotationAngle)
+QVector2 QVector2::Transform(const float_q &fRotationAngle) const
 {
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
 		float_q fAngleRad = SQAngle::DegreesToRadians(fRotationAngle);
@@ -161,13 +156,7 @@ QVector2& QVector2::Transform(const float_q &fRotationAngle)
 	const float_q fCosAngle = cos_q(fAngleRad);
 	const float_q fSinAngle = sin_q(fAngleRad);
 
-	float_q fNewX = this->x * fCosAngle - this->y * fSinAngle;
-	float_q fNewY = this->y * fCosAngle + this->x * fSinAngle;
-
-	this->x = fNewX;
-	this->y = fNewY;
-
-    return *this;
+    return QVector2(this->x * fCosAngle - this->y * fSinAngle, this->y * fCosAngle + this->x * fSinAngle);
 }
 
 } //namespace Math

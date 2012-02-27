@@ -95,12 +95,13 @@ public:
 	/// </summary>
     /// <param name="vTranslation">[IN] 2D vector that contains the translation to be applied.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The translated circle.
 	/// </returns>
-    inline QCircle& Translate(const QBaseVector2 &vTranslation)
+    inline QCircle Translate(const QBaseVector2 &vTranslation) const
     {
-        SQPoint::Translate(vTranslation, &this->Center, 1);
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::Translate(vTranslation, &auxCircle.Center, 1);
+        return auxCircle;
     }
 
 	/// <summary>
@@ -109,12 +110,13 @@ public:
     /// <param name="fTranslationX">[IN] Scalar that contains the translation on X axis.</param>
     /// <param name="fTranslationY">[IN] Scalar that contains the translation on Y axis.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The translated circle.
 	/// </returns>
-    inline QCircle& Translate(const float_q &fTranslationX, const float_q &fTranslationY)
+    inline QCircle Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
     {
-        SQPoint::Translate(fTranslationX, fTranslationY, &this->Center, 1);
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::Translate(fTranslationX, fTranslationY, &auxCircle.Center, 1);
+        return auxCircle;
     }
     
 	/// <summary>
@@ -122,12 +124,13 @@ public:
 	/// </summary>
     /// <param name="fRotationAngle">[IN] Scalar that contains the angle of rotation.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The rotated circle.
 	/// </returns>
-    inline QCircle& Rotate(const float_q &fRotationAngle)
+    inline QCircle Rotate(const float_q &fRotationAngle) const
     {
-        SQPoint::Rotate(fRotationAngle, &this->Center, 1);
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::Rotate(fRotationAngle, &auxCircle.Center, 1);
+        return auxCircle;
     }
 
 	/// <summary>
@@ -136,12 +139,13 @@ public:
     /// <param name="fRotationAngle">[IN] Scalar that contains the angle of rotation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The rotated circle.
 	/// </returns>
-    inline QCircle& RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot)
+    inline QCircle RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const
     {
-        SQPoint::RotateWithPivot(fRotationAngle, vPivot, &this->Center, 1);
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::RotateWithPivot(fRotationAngle, vPivot, &auxCircle.Center, 1);
+        return auxCircle;
     }
 
  	/// <summary>
@@ -150,13 +154,14 @@ public:
     /// <param name="vScale">[IN] 2D vector that contains the scale to be applied.</param>
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The scaled circle.
 	/// </returns>
-    inline QCircle& Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale)
+    inline QCircle Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale) const
     {
-        SQPoint::Scale(vScale, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::Scale(vScale, &auxCircle.Center, 1);
+        auxCircle.Radius *= fRadiusScale;
+        return auxCircle;
     }
 
  	/// <summary>
@@ -166,13 +171,14 @@ public:
     /// <param name="fScaleY">[IN] Scalar that contains the scale on Y axis.</param>
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The scaled circle.
 	/// </returns>
-    inline QCircle& Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale)
+    inline QCircle Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale) const
     {
-        SQPoint::Scale(fScaleX, fScaleY, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::Scale(fScaleX, fScaleY, &auxCircle.Center, 1);
+        auxCircle.Radius *= fRadiusScale;
+        return auxCircle;
     }
 
  	/// <summary>
@@ -182,13 +188,14 @@ public:
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The scaled circle.
 	/// </returns>
-    inline QCircle& ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadiusScale, const QBaseVector2 &vPivot)
+    inline QCircle ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
     {
-        SQPoint::ScaleWithPivot(vScale, vPivot, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::ScaleWithPivot(vScale, vPivot, &auxCircle.Center, 1);
+        auxCircle.Radius *= fRadiusScale;
+        return auxCircle;
     }
 
  	/// <summary>
@@ -199,13 +206,14 @@ public:
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The scaled circle.
 	/// </returns>
-    inline QCircle& ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, const QBaseVector2 &vPivot)
+    inline QCircle ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
     {
-        SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &auxCircle.Center, 1);
+        auxCircle.Radius *= fRadiusScale;
+        return auxCircle;
     }
 
  	/// <summary>
@@ -214,13 +222,14 @@ public:
     /// <param name="transformation">[IN] Matrix that contains the transformations to apply.</param>
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The transformed circle.
 	/// </returns>
-    inline QCircle& Transform(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale)
+    inline QCircle Transform(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale) const
     {
-        SQPoint::Transform(transformation, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::Transform(transformation, &auxCircle.Center, 1);
+        auxCircle.Radius *= fRadiusScale;
+        return auxCircle;
     }
 
  	/// <summary>
@@ -230,13 +239,14 @@ public:
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the circle's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the transformation.</param>
     /// <returns>
-	/// A reference to the modified orb.
+	/// The transformed circle.
 	/// </returns>
-    inline QCircle& TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot)
+    inline QCircle TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
     {
-        SQPoint::TransformWithPivot(transformation, vPivot, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QCircle auxCircle = *this;
+        SQPoint::TransformWithPivot(transformation, vPivot, &auxCircle.Center, 1);
+        auxCircle.Radius *= fRadiusScale;
+        return auxCircle;
     }
 
  	/// <summary>
@@ -262,7 +272,7 @@ public:
 
         if (SQFloat::IsNotZero(fDistance))
         {
-            vV1.Normalize();
+            vV1 = vV1.Normalize();
 
             //STEP 2: Obtain V2, a normal vector to V1.
             QVector2 vV2(vV1.y, -vV1.x);

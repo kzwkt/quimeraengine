@@ -189,12 +189,13 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
     /// <returns>
-    /// A reference to the rotated quadrilateral.
+    /// The rotated quadrilateral.
     /// </returns>
-	inline QQuadrilateral& Rotate(const float_q &fRotationAngle)
+	inline QQuadrilateral Rotate(const float_q &fRotationAngle) const
 	{
-        SQPoint::Rotate(fRotationAngle, this->AsPtr<QVector2>(), 4);
-        return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::Rotate(fRotationAngle, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
     
 	/// <summary>
@@ -202,12 +203,13 @@ public:
 	/// </summary>
 	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
     /// <returns>
-    /// A reference to the translated quadrilateral.
+    /// The translated quadrilateral.
     /// </returns>
-    inline QQuadrilateral& Translate(const QBaseVector2 &vTranslation)
+    inline QQuadrilateral Translate(const QBaseVector2 &vTranslation) const
 	{
-	    SQPoint::Translate(vTranslation, this->AsPtr<QVector2>(), 4);
-        return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::Translate(vTranslation, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
 
 	/// <summary>
@@ -216,12 +218,13 @@ public:
 	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
 	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
     /// <returns>
-    /// A reference to the translated quadrilateral.
+    /// The translated quadrilateral.
     /// </returns>
-	inline QQuadrilateral& Translate(const float_q &fTranslationX, const float_q &fTranslationY)
+	inline QQuadrilateral Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
 	{
-	    SQPoint::Translate(fTranslationX, fTranslationY, this->AsPtr<QVector2>(), 4);
-        return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::Translate(fTranslationX, fTranslationY, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
 
 	/// <summary>
@@ -229,12 +232,13 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
     /// <returns>
-    /// A reference to the scaled quadrilateral.
+    /// The scaled quadrilateral.
     /// </returns>
-	inline QQuadrilateral& Scale(const QBaseVector2 &vScale)
+	inline QQuadrilateral Scale(const QBaseVector2 &vScale) const
 	{
-	    SQPoint::Scale(vScale, this->AsPtr<QVector2>(), 4);
-        return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::Scale(vScale, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
 
 	/// <summary>
@@ -243,12 +247,13 @@ public:
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
     /// <returns>
-    /// A reference to the scaled quadrilateral.
+    /// The scaled quadrilateral.
     /// </returns>
-	inline QQuadrilateral& Scale(const float_q &fScaleX, const float_q &fScaleY)
+	inline QQuadrilateral Scale(const float_q &fScaleX, const float_q &fScaleY) const
 	{
-	     SQPoint::Scale(fScaleX, fScaleY, this->AsPtr<QVector2>(), 4);
-         return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::Scale(fScaleX, fScaleY, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
     
 	/// <summary>
@@ -257,12 +262,13 @@ public:
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
     /// <returns>
-    /// A reference to the transformed quadrilateral.
+    /// The transformed quadrilateral.
     /// </returns>
-	inline QQuadrilateral& Transform(const QTransformationMatrix3x3 &transformation)
+	inline QQuadrilateral Transform(const QTransformationMatrix3x3 &transformation) const
 	{
-	    SQPoint::Transform(transformation, this->AsPtr<QVector2>(), 4);
-        return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::Transform(transformation, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
 
 	/// <summary>
@@ -272,12 +278,13 @@ public:
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
     /// <returns>
-    /// A reference to the rotated quadrilateral.
+    /// The rotated quadrilateral.
     /// </returns>
-	inline QQuadrilateral& RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot)
+	inline QQuadrilateral RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
 	{
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, this->AsPtr<QVector2>(), 4);
-        return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::RotateWithPivot(fRotationAngle, vPivot, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
 
 	/// <summary>
@@ -287,12 +294,13 @@ public:
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
     /// <returns>
-    /// A reference to the scaled quadrilateral.
+    /// The scaled quadrilateral.
     /// </returns>
-	inline QQuadrilateral& ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+	inline QQuadrilateral ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
 	{
-	    SQPoint::ScaleWithPivot(vScale, vPivot, this->AsPtr<QVector2>(), 4);
-        return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::ScaleWithPivot(vScale, vPivot, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
 
 	/// <summary>
@@ -303,12 +311,13 @@ public:
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
     /// <returns>
-    /// A reference to the scaled quadrilateral.
+    /// The scaled quadrilateral.
     /// </returns>
-	inline QQuadrilateral& ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
+	inline QQuadrilateral ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
 	{
-	     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, this->AsPtr<QVector2>(), 4);
-         return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
 
 	/// <summary>
@@ -319,12 +328,13 @@ public:
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
     /// <returns>
-    /// A reference to the transformed quadrilateral.
+    /// The transformed quadrilateral.
     /// </returns>
-	inline QQuadrilateral& TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot)
+	inline QQuadrilateral TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
 	{
-	    SQPoint::TransformWithPivot(transformation, vPivot, this->AsPtr<QVector2>(), 4);
-        return *this;
+        QQuadrilateral auxQuadrilateral = *this;
+        SQPoint::TransformWithPivot(transformation, vPivot, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        return auxQuadrilateral;
 	}
 
     /// <summary>

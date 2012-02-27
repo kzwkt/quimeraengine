@@ -460,18 +460,18 @@ public:
 	/// </summary>
 	/// <param name="matrix">[IN] The transformation matrix.</param>
     /// <returns>
-	/// A reference to the transfoemed vector.
+	/// The transformed vector.
 	/// </returns>
-	QVector2& Transform(const QTransformationMatrix3x3 &matrix);
+	QVector2 Transform(const QTransformationMatrix3x3 &matrix) const;
 
 	/// <summary>
 	/// Apply a 2D rotation about the origin of the resident vector.
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The rotation angle.</param>
     /// <returns>
-	/// A reference to the transfoemed vector.
+	/// The transformed vector.
 	/// </returns>
-	QVector2& Transform(const float_q &fRotationAngle);
+	QVector2 Transform(const float_q &fRotationAngle) const;
 
 	/// <summary>
 	/// Check if all components of current vector are 0.

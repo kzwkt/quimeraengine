@@ -155,12 +155,13 @@ public:
 	/// </summary>
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
     /// <returns>
-	/// A reference to the rotated segment.
+	/// The rotated segment.
 	/// </returns>
-	inline QLineSegment2D& Rotate(const float_q &fRotationAngle)
+	inline QLineSegment2D Rotate(const float_q &fRotationAngle) const
 	{
-        SQPoint::Rotate(fRotationAngle, this->AsPtr<QVector2>(), 2);
-        return *this;
+        QLineSegment2D auxLineSegment = *this;
+        SQPoint::Rotate(fRotationAngle, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -168,12 +169,13 @@ public:
 	/// </summary>
 	/// <param name="vTranslation">[IN] The 2D vector which contains the translation to be applied.</param>
     /// <returns>
-	/// A reference to the translated segment.
+	/// The translated segment.
 	/// </returns>
-    inline QLineSegment2D& Translate(const QBaseVector2 &vTranslation)
+    inline QLineSegment2D Translate(const QBaseVector2 &vTranslation) const
 	{
-	    SQPoint::Translate(vTranslation, this->AsPtr<QVector2>(), 2);
-        return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::Translate(vTranslation, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -182,12 +184,13 @@ public:
 	/// <param name="fTranslationX">[IN] The amount of translation to be applied in X direction.</param>
 	/// <param name="fTranslationY">[IN] The amount of translation to be applied in Y direction.</param>
 	/// <returns>
-	/// A reference to the translated segment.
+	/// The translated segment.
 	/// </returns>
-    inline QLineSegment2D& Translate(const float_q &fTranslationX, const float_q &fTranslationY)
+    inline QLineSegment2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
 	{
-	    SQPoint::Translate(fTranslationX, fTranslationY, this->AsPtr<QVector2>(), 2);
-        return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::Translate(fTranslationX, fTranslationY, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -195,12 +198,13 @@ public:
 	/// </summary>
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <returns>
-	/// A reference to the scaled segment.
+	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment2D& Scale(const QBaseVector2 &vScale)
+    inline QLineSegment2D Scale(const QBaseVector2 &vScale) const
 	{
-	    SQPoint::Scale(vScale, this->AsPtr<QVector2>(), 2);
-        return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::Scale(vScale, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -209,12 +213,13 @@ public:
 	/// <param name="fScaleX">[IN] The scale to be applied in X direction.</param>
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <returns>
-	/// A reference to the scaled segment.
+	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment2D& Scale(const float_q &fScaleX, const float_q &fScaleY)
+    inline QLineSegment2D Scale(const float_q &fScaleX, const float_q &fScaleY) const
 	{
-	     SQPoint::Scale(fScaleX, fScaleY, this->AsPtr<QVector2>(), 2);
-         return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::Scale(fScaleX, fScaleY, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -223,12 +228,13 @@ public:
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
     /// <returns>
-	/// A reference to the transformed segment.
+	/// The transformed segment.
 	/// </returns>
-	inline QLineSegment2D& Transform(const QTransformationMatrix3x3 &transformation)
+	inline QLineSegment2D Transform(const QTransformationMatrix3x3 &transformation) const
 	{
-	    SQPoint::Transform(transformation, this->AsPtr<QVector2>(), 2);
-        return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::Transform(transformation, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -238,12 +244,13 @@ public:
 	/// <param name="fRotationAngle">[IN] The angle of rotation.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
     /// <returns>
-	/// A reference to the rotated segment.
+	/// The rotated segment.
 	/// </returns>
-	inline QLineSegment2D& RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot)
+	inline QLineSegment2D RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
 	{
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, this->AsPtr<QVector2>(), 2);
-        return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -253,12 +260,13 @@ public:
 	/// <param name="vScale">[IN] The 2D vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
     /// <returns>
-	/// A reference to the scaled segment.
+	/// The scaled segment.
 	/// </returns>
-	inline QLineSegment2D& ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot)
+	inline QLineSegment2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
 	{
-	    SQPoint::ScaleWithPivot(vScale, vPivot, this->AsPtr<QVector2>(), 2);
-        return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::ScaleWithPivot(vScale, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -269,12 +277,13 @@ public:
 	/// <param name="fScaleY">[IN] The scale to be applied in Y direction.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
     /// <returns>
-	/// A reference to the scaled segment.
+	/// The scaled segment.
 	/// </returns>
-	inline QLineSegment2D& ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot)
+	inline QLineSegment2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const 
 	{
-	     SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, this->AsPtr<QVector2>(), 2);
-         return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
 
 	/// <summary>
@@ -285,12 +294,13 @@ public:
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
     /// <returns>
-	/// A reference to the transformed segment.
+	/// The transformed segment.
 	/// </returns>
-	inline QLineSegment2D& TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot)
+	inline QLineSegment2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
 	{
-	    SQPoint::TransformWithPivot(transformation, vPivot, this->AsPtr<QVector2>(), 2);
-        return *this;
+        QLineSegment2D auxLineSegment = *this;
+	    SQPoint::TransformWithPivot(transformation, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
+        return auxLineSegment;
 	}
     
  	/// <summary>

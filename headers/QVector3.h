@@ -599,9 +599,9 @@ public:
     /// </summary>
     /// <param name="qRotation">[IN] The rotation quaternion.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-    QVector3& Transform(const QQuaternion &qRotation);
+    QVector3 Transform(const QQuaternion &qRotation) const;
 
     /// <summary>
     /// Applies a rigid transformation dual quaternion to resident vector.<br>
@@ -613,9 +613,9 @@ public:
     /// </summary>
     /// <param name="transformation">[IN] The dual quaternion which wears the transformation.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-    QVector3& Transform(const QDualQuaternion &transformation);
+    QVector3 Transform(const QDualQuaternion &transformation) const;
 
     /// <summary>
     /// Applies a rotation to resident vector, multiplying the vector by a rotation matrix
@@ -623,9 +623,9 @@ public:
     /// </summary>
     /// <param name="rotation">[IN] The rotation matrix.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-	QVector3& Transform(const QRotationMatrix3x3 &rotation);
+	QVector3 Transform(const QRotationMatrix3x3 &rotation) const;
 
     /// <summary>
     /// Applies a scale transformation to resident vector, multiplying the vector by a scale matrix
@@ -633,9 +633,9 @@ public:
     /// </summary>
     /// <param name="scale">[IN] The scale matrix.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-	QVector3& Transform(const QScaleMatrix3x3 &scale);
+	QVector3 Transform(const QScaleMatrix3x3 &scale) const;
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix to transform it.<br>
@@ -644,9 +644,9 @@ public:
     /// </summary>
     /// <param name="translation">[IN] The translation matrix.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-	QVector3& Transform(const QTranslationMatrix<QMatrix4x3> &translation);
+	QVector3 Transform(const QTranslationMatrix<QMatrix4x3> &translation) const;
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix to transform it.<br>
@@ -655,9 +655,9 @@ public:
     /// </summary>
     /// <param name="translation">[IN] The translation matrix.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-	QVector3& Transform(const QTranslationMatrix<QMatrix4x4> &translation);
+	QVector3 Transform(const QTranslationMatrix<QMatrix4x4> &translation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -667,9 +667,9 @@ public:
     /// </summary>
     /// <param name="transformation">[IN] The transformation matrix.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-	QVector3& Transform(const QTransformationMatrix<QMatrix4x3> &transformation);
+	QVector3 Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -679,9 +679,9 @@ public:
     /// </summary>
     /// <param name="transformation">[IN] The transformation matrix.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-	QVector3& Transform(const QTransformationMatrix<QMatrix4x4> &transformation);
+	QVector3 Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -691,9 +691,9 @@ public:
     /// </summary>
     /// <param name="spaceConversion">[IN] The space conversion matrix.</param>
     /// <returns>
-    /// A reference to the transformed vector.
+    /// The transformed vector.
     /// </returns>
-	QVector3& Transform(const QSpaceConversionMatrix &spaceConversion);
+	QVector3 Transform(const QSpaceConversionMatrix &spaceConversion) const;
     
     /// <summary>
     /// Converts vector into a string with the following format:<br>
@@ -714,8 +714,11 @@ protected:
 	// since a 3D vector cannot be displaced.
     // </summary>
     // <param name="translation">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
+    // <returns>
+    // The transformed vector.
+    // </returns>
 	template <class MatrixType>
-	void TransformImp(const QTranslationMatrix<MatrixType> &translation);
+	QVector3 TransformImp(const QTranslationMatrix<MatrixType> &translation) const;
 
     // <summary>
     // Applies a transformation composed of a scale, a rotation and a translation
@@ -725,8 +728,11 @@ protected:
 	// since a 3D vector cannot be displaced.
     // </summary>
     // <param name="transformation">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
+    // <returns>
+    // The transformed vector.
+    // </returns>
     template <class MatrixType>
-	void TransformImp(const QTransformationMatrix<MatrixType> &transformation);
+	QVector3 TransformImp(const QTransformationMatrix<MatrixType> &transformation) const;
 };
 
 } //namespace Math
