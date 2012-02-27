@@ -87,7 +87,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            arPoints[i].Transform(fRotationAngle);
+            arPoints[i] = arPoints[i].Transform(fRotationAngle);
         }
 	}
 
@@ -134,7 +134,7 @@ public:
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
-            arPoints[i].Transform(transformation);
+            arPoints[i] = arPoints[i].Transform(transformation);
         }
 	}
 
@@ -522,7 +522,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            arPoints[i].Transform(fRotationAngle);
+            arPoints[i] = arPoints[i].Transform(fRotationAngle);
 
             arPoints[i] += vPivot;
         }
@@ -584,7 +584,7 @@ public:
         {
             arPoints[i] -= vPivot;
 
-            arPoints[i].Transform(transformation);
+            arPoints[i] = arPoints[i].Transform(transformation);
 
             arPoints[i] += vPivot;
         }
@@ -918,7 +918,7 @@ private:
 	template <class MatrixType, class VectorType>
 	inline static void Translate(const MatrixType &translation, VectorType &vPoint)
 	{
-        vPoint.Transform(translation);
+        vPoint = vPoint.Transform(translation);
 	}
 
 	/// <summary>
@@ -929,7 +929,7 @@ private:
 	template <class VectorType>
 	inline static void Rotate(const QQuaternion &qRotation, VectorType &vPoint)
 	{
-        vPoint.Transform(qRotation);
+        vPoint = vPoint.Transform(qRotation);
 	}
 
 	/// <summary>
@@ -940,7 +940,7 @@ private:
 	template <class VectorType>
 	inline static void Rotate(const QRotationMatrix3x3 &rotation, VectorType &vPoint)
 	{
-	    vPoint.Transform(rotation);
+	    vPoint = vPoint.Transform(rotation);
 	}
 
 	/// <summary>
@@ -979,7 +979,7 @@ private:
 	template <class VectorType>
     inline static void Scale(const QScaleMatrix3x3 &scale, VectorType &vPoint)
 	{
-	    vPoint.Transform(scale);
+	    vPoint = vPoint.Transform(scale);
 	}
 
 	/// <summary>
@@ -990,7 +990,7 @@ private:
 	template <class MatrixType, class VectorType>
 	inline static void Transform(const MatrixType &transformation, VectorType &vPoint)
 	{
-        vPoint.Transform(transformation);
+        vPoint = vPoint.Transform(transformation);
 	}
 
 	/// <summary>
@@ -1001,7 +1001,7 @@ private:
 	template <class VectorType>
 	inline static void Transform(const QSpaceConversionMatrix &spaceConversion, VectorType &vPoint)
 	{
-        vPoint.Transform(spaceConversion);
+        vPoint = vPoint.Transform(spaceConversion);
 	}
 };
 

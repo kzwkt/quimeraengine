@@ -164,7 +164,7 @@ public:
     {
         const QVector3 &vP(ray.Origin - this->Origin); // Difference of positions
         QVector3 vCross = this->Direction.CrossProduct(ray.Direction); // Cross product of directions
-        
+
         const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
 
         if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallel
@@ -1312,13 +1312,14 @@ public:
 	/// </summary>
 	/// <param name="qRotation">[IN] Quaternion which contains the rotation to be applied.</param>
     /// <returns>
-    /// A reference to the rotated ray.
+    /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType>& Rotate(const QQuaternion &qRotation)
+	inline QRay3D<VectorType> Rotate(const QQuaternion &qRotation) const
 	{
-        SQPoint::Rotate(qRotation, &this->Origin, 1);
-        SQPoint::Rotate(qRotation, &this->Direction, 1);
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Rotate(qRotation, &auxRay.Origin, 1);
+        SQPoint::Rotate(qRotation, &auxRay.Direction, 1);
+        return auxRay;
 	}
 
     /// <summary>
@@ -1328,13 +1329,14 @@ public:
 	/// <param name="qRotation">[IN] Quaternion which contains the rotation to be applied.</param>
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
     /// <returns>
-    /// A reference to the rotated ray.
+    /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType>& RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot)
+	inline QRay3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
 	{
-        SQPoint::RotateWithPivot(qRotation, vPivot, &this->Origin, 1);
-        SQPoint::Rotate(qRotation, &this->Direction, 1);
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::RotateWithPivot(qRotation, vPivot, &auxRay.Origin, 1);
+        SQPoint::Rotate(qRotation, &auxRay.Direction, 1);
+        return auxRay;
 	}
 
     /// <summary>
@@ -1342,14 +1344,15 @@ public:
 	/// </summary>
 	/// <param name="vTranslation">[IN] Vector which contains the translation to be applied.</param>
     /// <returns>
-    /// A reference to the translated ray.
+    /// The translated ray.
     /// </returns>
-	inline QRay3D<VectorType>& Translate(const QBaseVector3 &vTranslation)
+	inline QRay3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
 	{
-        SQPoint::Translate(vTranslation, &this->Origin, 1);
-        retrun *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Translate(vTranslation, &auxRay.Origin, 1);
+        return auxRay;
 	}
-    
+
     /// <summary>
 	/// This method translates the resident ray by the provided amounts for every axis.
 	/// </summary>
@@ -1357,12 +1360,13 @@ public:
 	/// <param name="fTranslationY">[IN] Amount of translation in Y direction.</param>
 	/// <param name="fTranslationZ">[IN] Amount of translation in Z direction.</param>
     /// <returns>
-    /// A reference to the translated ray.
+    /// The translated ray.
     /// </returns>
-	inline QRay3D<VectorType>& Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ)
+	inline QRay3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
 	{
-        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &this->Origin, 1);
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxRay.Origin, 1);
+        return auxRay;
 	}
 
     /// <summary>
@@ -1373,14 +1377,14 @@ public:
 	/// </remarks>
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
     /// <returns>
-    /// A reference to the scaled ray.
+    /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType>& Scale(const QBaseVector3 &vScale)
+	inline QRay3D<VectorType> Scale(const QBaseVector3 &vScale) const
 	{
-        SQPoint::Scale(vScale, &this->Origin, 1);
-        SQPoint::Scale(vScale, &this->Direction, 1);
-        this->Direction = this->Direction.Normalize();
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Scale(vScale, &auxRay.Origin, 1);
+        SQPoint::Scale(vScale, &auxRay.Direction, 1);
+        return QRay3D<VectorType>(auxRay.Origine, auxRay.Direction.Normalize());
 	}
 
     /// <summary>
@@ -1393,14 +1397,14 @@ public:
 	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
     /// <returns>
-    /// A reference to the scaled ray.
+    /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType>& Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ)
+	inline QRay3D<VectorType> Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ) const
 	{
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &this->Origin, 1);
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &this->Direction, 1);
-        this->Direction = this->Direction.Normalize();
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Origin, 1);
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Direction, 1);
+        return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
 	}
 
     /// <summary>
@@ -1413,14 +1417,14 @@ public:
 	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
-    /// A reference to the scaled ray.
+    /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType>& ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot)
+	inline QRay3D<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
 	{
-        SQPoint::ScaleWithPivot(vScale, vPivot, &this->Origin, 1);
-        SQPoint::Scale(vScale, &this->Direction, 1);
-        this->Direction = this->Direction.Normalize();
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Scale(vScale, vPivot, &auxRay.Origin, 1);
+        SQPoint::Scale(vScale, &auxRay.Direction, 1);
+        return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
 	}
 
     /// <summary>
@@ -1435,14 +1439,14 @@ public:
 	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
-    /// A reference to the scaled ray.
+    /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType>& ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot)
+	inline QRay3D<VectorType> ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot) const
 	{
-        SQPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, &this->Origin, 1);
-        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &this->Direction, 1);
-        this->Direction = this->Direction.Normalize();
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, vPivot, &auxRay.Origin, 1);
+        SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Direction, 1);
+        return QRay3D<VectorType>(auxRay.Origine, auxRay.Direction.Normalize());
 	}
 
     /// <summary>
@@ -1451,13 +1455,14 @@ public:
 	/// </summary>
 	/// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
     /// <returns>
-    /// A reference to the rotated ray.
+    /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType>& Rotate (const QRotationMatrix3x3 &rotation)
+	inline QRay3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
 	{
-        SQPoint::Rotate(rotation, &this->Origin, 1);
-        SQPoint::Rotate(rotation, &this->Direction, 1);
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Rotate(rotation, &auxRay.Origin, 1);
+        SQPoint::Rotate(rotation, &auxRay.Direction, 1);
+        return auxRay;
 	}
 
     /// <summary>
@@ -1465,12 +1470,13 @@ public:
 	/// </summary>
 	/// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
     /// <returns>
-    /// A reference to the translated ray.
+    /// The translated ray.
     /// </returns>
-	inline QRay3D<VectorType>& Translate(const QTranslationMatrix<QMatrix4x3> &translation)
+	inline QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
 	{
-        SQPoint::Translate(translation, &this->Origin, 1);
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Translate(translation, &auxRay.Origin, 1);
+        return auxRay;
 	}
 
     /// <summary>
@@ -1478,12 +1484,13 @@ public:
 	/// </summary>
 	/// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
     /// <returns>
-    /// A reference to the translated ray.
+    /// The translated ray.
     /// </returns>
-	inline QRay3D<VectorType>& Translate(const QTranslationMatrix<QMatrix4x4> &translation)
+	inline QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
 	{
-        SQPoint::Translate(translation, &this->Origin, 1);
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Translate(translation, &auxRay.Origin, 1);
+        return auxRay;
 	}
 
     /// <summary>
@@ -1494,14 +1501,14 @@ public:
 	/// </remarks>
 	/// <param name="scale">[IN] Matrix which contains the scale to be applied in every axis.</param>
     /// <returns>
-    /// A reference to the scaled ray.
+    /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType>& Scale(const QScaleMatrix3x3 &scale)
+	inline QRay3D<VectorType> Scale(const QScaleMatrix3x3 &scale) const
 	{
-        SQPoint::Scale(scale, &this->Origin, 1);
-        SQPoint::Scale(scale, &this->Direction, 1);
-        this->Direction = this->Direction.Normalize();
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Scale(scale, &auxRay.Origin, 1);
+        SQPoint::Scale(scale, &auxRay.Direction, 1);
+        return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
 	}
 
     /// <summary>
@@ -1512,12 +1519,11 @@ public:
 	/// </remarks>
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
     /// <returns>
-    /// A reference to the transformed ray.
+    /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType>& Transform(const QTransformationMatrix<QMatrix4x3> &transformation)
+	inline QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
     {
-        this->TransformImp(transformation);
-        return *this;
+        return this->TransformImp(transformation);
 	}
 
     /// <summary>
@@ -1528,12 +1534,11 @@ public:
 	/// </remarks>
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
     /// <returns>
-    /// A reference to the transformed ray.
+    /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType>& Transform(const QTransformationMatrix<QMatrix4x4> &transformation)
+	inline QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
     {
-        this->TransformImp(transformation);
-        return *this;
+        return this->TransformImp(transformation);
 	}
 
 	/// <summary>
@@ -1544,12 +1549,11 @@ public:
 	/// </remarks>
 	/// <param name="spaceConversion">[IN] Matrix which contains the transformation to be applied.</param>
     /// <returns>
-    /// A reference to the transformed ray.
+    /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType>& Transform(const QSpaceConversionMatrix &spaceConversion)
+	inline QRay3D<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
 	{
-        this->TransformImp(spaceConversion);
-        return *this;
+        return this->TransformImp(spaceConversion);
 	}
 
     /// <summary>
@@ -1559,13 +1563,14 @@ public:
 	/// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
 	/// <param name="vPivot">[IN] Point which acts as pivot.</param>
     /// <returns>
-    /// A reference to the rotated ray.
+    /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType>& RotateWithPivot (const QRotationMatrix3x3 &rotation, const VectorType &vPivot)
+	inline QRay3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
 	{
-        SQPoint::RotateWithPivot(rotation, vPivot, &this->Origin, 1);
-        SQPoint::Rotate(rotation, &this->Direction, 1);
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::RotateWithPivot(rotation, vPivot, &auxRay.Origin, 1);
+        SQPoint::Rotate(rotation, &auxRay.Direction, 1);
+        return auxRay;
 	}
 
     /// <summary>
@@ -1578,14 +1583,14 @@ public:
 	/// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
-    /// A reference to the rotated ray.
+    /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType>& ScaleWithPivot(const QScaleMatrix3x3 &scale, const VectorType &vPivot)
+	inline QRay3D<VectorType> ScaleWithPivot(const QScaleMatrix3x3 &scale, const VectorType &vPivot) const
 	{
-        SQPoint::ScaleWithPivot(scale, vPivot, &this->Origin, 1);
-        SQPoint::Scale(scale, &this->Direction, 1);
-        this->Direction = this->Direction.Normalize();
-        return *this;
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::ScaleWithPivot(scale, vPivot, &auxRay.Origin, 1);
+        SQPoint::Scale(scale, &auxRay.Direction, 1);
+        return QRay3D<VectorType>(auxRay.Origin, auxRay.Direction.Normalize());
 	}
 
     /// <summary>
@@ -1598,12 +1603,11 @@ public:
 	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
-    /// A reference to the transformed ray.
+    /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType>& TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot)
+	inline QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
     {
-        this->TransformWithPivotImp(transformation, vPivot);
-        return *this;
+        return this->TransformWithPivotImp(transformation, vPivot);
 	}
 
     /// <summary>
@@ -1616,12 +1620,11 @@ public:
 	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
-    /// A reference to the transformed ray.
+    /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType>& TransformWithPivot (const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot)
+	inline QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
     {
-        this->TransformWithPivotImp(transformation, vPivot);
-        return *this;
+        return this->TransformWithPivotImp(transformation, vPivot);
 	}
 
 protected:
@@ -1634,7 +1637,7 @@ protected:
 
         QVector3 vAux(vPoint - this->Origin); // Calculates a vector from ray origin to point.
 
-        QVector3 vCross = vAux.Direction.CrossProduct(this->Direction); // Calculates cross product to check if both vectors are parallel
+        QVector3 vCross = vAux.CrossProduct(this->Direction); // Calculates cross product to check if both vectors are parallel
 
         if (vCross != QVector3::GetZeroVector()) // Vectors are not parallel
             return false;
@@ -2221,22 +2224,22 @@ protected:
 	// <remarks>
 	// Resultant ray is normalized after this operation.
 	// </remarks>
+    // <returns>
+    // The transformed ray.
+    // </returns>
 	template <class MatrixType>
-	inline void TransformImp(const MatrixType &transformation)
+	inline QRay3D<VectorType> TransformImp(const MatrixType &transformation) const
 	{
-        SQPoint::Transform(transformation, &this->Origin, 1);
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Transform(transformation, &auxRay.Origin, 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in QVector3::Transform, except for the translation operations.
-        const float_q &fNewX = this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0];
-        const float_q &fNewY = this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1];
-        const float_q &fNewZ = this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2];
-
-        this->Direction.x = fNewX;
-        this->Direction.y = fNewY;
-        this->Direction.z = fNewZ;
-
-        this->Direction = this->Direction.Normalize();
+        auxRay.Direction = QVector3(this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0] + this->Direction.z * transformation.ij[2][0],
+                                    this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1] + this->Direction.z * transformation.ij[2][1],
+                                    this->Direction.x * transformation.ij[0][2] + this->Direction.y * transformation.ij[1][2] + this->Direction.z * transformation.ij[2][2])
+                                    .Normalize();
+        return auxRay;
 	}
 
     // <summary>
@@ -2248,22 +2251,22 @@ protected:
 	// <remarks>
 	// Resultant ray is normalized after this operation.
 	// </remarks>
+    // <returns>
+    // The transformed ray.
+    // </returns>
 	template <class MatrixType>
-	inline void TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot)
+	inline QRay3D<VectorType> TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const
 	{
-        SQPoint::TransformWithPivot(transformation, vPivot, &this->Origin, 1);
+        QRay3D<VectorType> auxRay = *this;
+        SQPoint::Transform(transformation, vPivot, &auxRay.Origin, 1);
 
         // Only rotation and scale part of the matrix is applyed to direction vector
         // These operations must be the same those used in QVector3::Transform, except for the translation operations.
-        float_q fNewX = this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0];
-        float_q fNewY = this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1];
-        float_q fNewZ = this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2];
-
-        this->Direction.x = fNewX;
-        this->Direction.y = fNewY;
-        this->Direction.z = fNewZ;
-
-        this->Direction = this->Direction.Normalize();
+        auxRay.Direction = QVector3(this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0] + this->Direction.z * transformation.ij[2][0],
+                                    this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1] + this->Direction.z * transformation.ij[2][1],
+                                    this->Direction.x * transformation.ij[0][2] + this->Direction.y * transformation.ij[1][2] + this->Direction.z * transformation.ij[2][2])
+                                    .Normalize();
+        return auxRay;
 	}
 };
 

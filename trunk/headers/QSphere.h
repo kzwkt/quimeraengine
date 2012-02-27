@@ -88,7 +88,7 @@ public:
     /// <returns>
 	/// A reference to the modified orb.
 	/// </returns>
-    inline QSphere& operator=(const QBaseOrb<VectorType> &sphere)
+    inline QSphere<VectorType>& operator=(const QBaseOrb<VectorType> &sphere)
     {
         QBaseOrb<VectorType>::operator=(sphere);
         return *this;
@@ -99,12 +99,13 @@ public:
 	/// </summary>
     /// <param name="vTranslation">[IN] Vector that contains the translation to be applied.</param>
     /// <returns>
-    /// A reference to the translated sphere.
+    /// The translated sphere.
     /// </returns>
-    inline QSphere& Translate(const VectorType &vTranslation)
+    inline QSphere<VectorType> Translate(const VectorType &vTranslation) const
     {
-        SQPoint::Translate(vTranslation, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Translate(vTranslation, &auxSphere.Center, 1);
+        return auxSphere;
     }
     
 	/// <summary>
@@ -114,12 +115,13 @@ public:
     /// <param name="fTranslationY">[IN] Scalar that contains the translation on Y axis.</param>
     /// <param name="fTranslationZ">[IN] Scalar that contains the translation on Z axis.</param>
     /// <returns>
-    /// A reference to the translated sphere.
+    /// The translated sphere.
     /// </returns>
-    inline QSphere& Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ)
+    inline QSphere<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
     {
-        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxSphere.Center, 1);
+        return auxSphere;
     }
     
 	/// <summary>
@@ -127,12 +129,13 @@ public:
 	/// </summary>
     /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
     /// <returns>
-    /// A reference to the rotated sphere.
+    /// The rotated sphere.
     /// </returns>
-    inline QSphere& Rotate(const QQuaternion &qRotation)
+    inline QSphere<VectorType> Rotate(const QQuaternion &qRotation) const
     {
-        SQPoint::Rotate(qRotation, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Rotate(qRotation, &auxSphere.Center, 1);
+        return auxSphere;
     }
     
 	/// <summary>
@@ -141,12 +144,13 @@ public:
     /// <param name="qRotation">[IN] Quaternion that represents the rotation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     /// <returns>
-    /// A reference to the rotated sphere.
+    /// The rotated sphere.
     /// </returns>
-    inline QSphere& RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot)
+    inline QSphere<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
     {
-        SQPoint::RotateWithPivot(qRotation, vPivot, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::RotateWithPivot(qRotation, vPivot, &auxSphere.Center, 1);
+        return auxSphere;
     }
     
  	/// <summary>
@@ -155,13 +159,13 @@ public:
     /// <param name="vScale">[IN] Vector that contains the scale to be applied.</param>
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
     /// <returns>
-    /// A reference to the scaled sphere.
+    /// The scaled sphere.
     /// </returns>
-    inline QSphere& Scale(const VectorType &vScale, const float_q &fRadiusScale)
+    inline QSphere<VectorType> Scale(const VectorType &vScale, const float_q &fRadiusScale) const
     {
-        SQPoint::Scale(vScale, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Scale(vScale, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
  	/// <summary>
@@ -172,13 +176,13 @@ public:
     /// <param name="fScaleZ">[IN] Scalar that contains the scale on Z axis.</param>
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
     /// <returns>
-    /// A reference to the scaled sphere.
+    /// The scaled sphere.
     /// </returns>
-    inline QSphere& Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const float_q &fRadiusScale)
+    inline QSphere<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const float_q &fRadiusScale) const
     {
-        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
  	/// <summary>
@@ -188,13 +192,13 @@ public:
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <returns>
-    /// A reference to the scaled sphere.
+    /// The scaled sphere.
     /// </returns>
-    inline QSphere& ScaleWithPivot(const VectorType &vScale, const float_q &fRadiusScale, const VectorType &vPivot)
+    inline QSphere<VectorType> ScaleWithPivot(const VectorType &vScale, const float_q &fRadiusScale, const VectorType &vPivot) const
     {
-        SQPoint::ScaleWithPivot(vScale, vPivot, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::ScaleWithPivot(vScale, vPivot, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
  	/// <summary>
@@ -206,14 +210,14 @@ public:
     /// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the scale.</param>
     /// <returns>
-    /// A reference to the scaled sphere.
+    /// The scaled sphere.
     /// </returns>
-    inline QSphere& ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const float_q &fRadiusScale,
-                               const VectorType &vPivot)
+    inline QSphere<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const float_q &fRadiusScale,
+                               const VectorType &vPivot) const
     {
-        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, &this->Center, 1);
-        this->Radius *= fRadiusScale;
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
     }
 
     /// <summary>
@@ -222,12 +226,13 @@ public:
 	/// </summary>
 	/// <param name="rotation">[IN] Rotation matrix which contais the rotation to be applied.</param>
     /// <returns>
-    /// A reference to the rotated sphere.
+    /// The rotated sphere.
     /// </returns>
-	inline QSphere& Rotate(const QRotationMatrix3x3 &rotation)
+	inline QSphere<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
 	{
-        SQPoint::Rotate(rotation, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Rotate(rotation, &auxSphere.Center, 1);
+        return auxSphere;
 	}
 
 	/// <summary>
@@ -237,12 +242,13 @@ public:
 	/// <param name="rotation">[IN] Rotation matrix which contains the rotation to be applied.</param>
 	/// <param name="vPivot">[IN] The pivot point which the rotation will be accomplished around.</param>
     /// <returns>
-    /// A reference to the rotated sphere.
+    /// The rotated sphere.
     /// </returns>
-	inline QSphere& RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot)
+	inline QSphere<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
 	{
-	    SQPoint::RotateWithPivot(rotation, vPivot, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::RotateWithPivot(rotation, vPivot, &auxSphere.Center, 1);
+        return auxSphere;
 	}
 
 	/// <summary>
@@ -250,12 +256,13 @@ public:
 	/// </summary>
 	/// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
     /// <returns>
-    /// A reference to the translated sphere.
+    /// The translated sphere.
     /// </returns>
-    inline QSphere& Translate(const QTranslationMatrix<QMatrix4x3> &translation)
+    inline QSphere<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
 	{
-	    SQPoint::Translate(translation, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Translate(translation, &auxSphere.Center, 1);
+        return auxSphere;
 	}
 
 	/// <summary>
@@ -263,12 +270,13 @@ public:
 	/// </summary>
 	/// <param name="translation">[IN] Matrix which contains the translation to be applied.</param>
     /// <returns>
-    /// A reference to the translated sphere.
+    /// The translated sphere.
     /// </returns>
-    inline QSphere& Translate(const QTranslationMatrix<QMatrix4x4> &translation)
+    inline QSphere<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
 	{
-	    SQPoint::Translate(translation, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Translate(translation, &auxSphere.Center, 1);
+        return auxSphere;
 	}
 
     /// <summary>
@@ -277,13 +285,13 @@ public:
 	/// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
 	/// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
     /// <returns>
-    /// A reference to the scaled sphere.
+    /// The scaled sphere.
     /// </returns>
-	inline QSphere& Scale(const QScaleMatrix3x3 &scale, const float_q &fRadiusScale)
+	inline QSphere<VectorType> Scale(const QScaleMatrix3x3 &scale, const float_q &fRadiusScale) const
 	{
-	    SQPoint::Scale(scale, &this->Center, 1);
-	    this->Radius *= fRadiusScale;
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+        SQPoint::Scale(scale, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
 	}
 
 	/// <summary>
@@ -294,13 +302,13 @@ public:
 	/// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the scale.</param>
     /// <returns>
-    /// A reference to the scaled sphere.
+    /// The scaled sphere.
     /// </returns>
-	inline QSphere& ScaleWithPivot(const QScaleMatrix3x3 &scale, const float_q &fRadiusScale, const VectorType &vPivot)
+	inline QSphere<VectorType> ScaleWithPivot(const QScaleMatrix3x3 &scale, const float_q &fRadiusScale, const VectorType &vPivot) const
 	{
-	    SQPoint::ScaleWithPivot(scale, vPivot, &this->Center, 1);
-	    this->Radius *= fRadiusScale;
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+	    SQPoint::ScaleWithPivot(scale, vPivot, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
 	}
 
     /// <summary>
@@ -309,13 +317,13 @@ public:
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
     /// <returns>
-    /// A reference to the transformed sphere.
+    /// The transformed sphere.
     /// </returns>
-	inline QSphere& Transform(const QTransformationMatrix<QMatrix4x3> &transformation, const float_q &fRadiusScale)
+	inline QSphere<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation, const float_q &fRadiusScale) const
 	{
-	    SQPoint::Transform(transformation, &this->Center, 1);
-	    this->Radius *= fRadiusScale;
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+	    SQPoint::Transform(transformation, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
 	}
 
     /// <summary>
@@ -324,13 +332,13 @@ public:
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
     /// <returns>
-    /// A reference to the transformed sphere.
+    /// The transformed sphere.
     /// </returns>
-	inline QSphere& Transform(const QTransformationMatrix<QMatrix4x4> &transformation, const float_q &fRadiusScale)
+	inline QSphere<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation, const float_q &fRadiusScale) const
 	{
-	    SQPoint::Transform(transformation, &this->Center, 1);
-	    this->Radius *= fRadiusScale;
-        return *this;
+	    QSphere<VectorType> auxSphere = *this;
+	    SQPoint::Transform(transformation, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
 	}
 
     /// <summary>
@@ -339,12 +347,13 @@ public:
 	/// </summary>
 	/// <param name="spaceConversion">[IN] Matrix which contains the space conversion transformation to be applied.</param>
     /// <returns>
-    /// A reference to the transformed sphere.
+    /// The transformed sphere.
     /// </returns>
-	inline QSphere& Transform(const QSpaceConversionMatrix &spaceConversion)
+	inline QSphere<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
 	{
-	    SQPoint::Transform(spaceConversion, &this->Center, 1);
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+	    SQPoint::Transform(spaceConversion, &auxSphere.Center, 1);
+        return auxSphere;
 	}
 
 	/// <summary>
@@ -355,14 +364,14 @@ public:
 	/// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
     /// <returns>
-    /// A reference to the transformed sphere.
+    /// The transformed sphere.
     /// </returns>
-	inline QSphere& TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const float_q &fRadiusScale,
-                                   const VectorType &vPivot)
+	inline QSphere<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const float_q &fRadiusScale,
+                                   const VectorType &vPivot) const
 	{
-	    SQPoint::TransformWithPivot(transformation, vPivot, &this->Center, 1);
-	    this->Radius *= fRadiusScale;
-        return *this;
+        QSphere<VectorType> auxSphere = *this;
+	    SQPoint::Transform(transformation, vPivot, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
 	}
 
 	/// <summary>
@@ -373,14 +382,14 @@ public:
 	/// <param name="fRadiusScale">[IN] Multiplying factor to scale the sphere's radius.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
     /// <returns>
-    /// A reference to the transformed sphere.
+    /// The transformed sphere.
     /// </returns>
-	inline QSphere& TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const float_q &fRadiusScale,
-                                   const VectorType &vPivot)
+	inline QSphere<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const float_q &fRadiusScale,
+                                   const VectorType &vPivot) const
 	{
-	    SQPoint::TransformWithPivot(transformation, vPivot, &this->Center, 1);
-	    this->Radius *= fRadiusScale;
-        return *this;
+	    QSphere<VectorType> auxSphere = *this;
+	    SQPoint::Transform(transformation, vPivot, &auxSphere.Center, 1);
+        return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
 	}
 
 	/// <summary>

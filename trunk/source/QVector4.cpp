@@ -196,21 +196,17 @@ QVector4 QVector4::CrossProduct(const QBaseVector4 &vVector) const
                     this->w);
 }
 
-QVector4& QVector4::Transform(const QQuaternion &qRotation)
+QVector4 QVector4::Transform(const QQuaternion &qRotation) const
 {
     QQuaternion qAux(this->x, this->y, this->z, SQFloat::_0);
     QQuaternion qConj = qRotation.Conjugate();
 
     qAux = (qRotation * qAux) * qConj;
 
-    this->x = qAux.x;
-    this->y = qAux.y;
-    this->z = qAux.z;
-
-    return *this;
+    return QVector4(qAux.x, qAux.y, qAux.z, this->w);
 }
 
-QVector4& QVector4::Transform(const QDualQuaternion &transformation)
+QVector4 QVector4::Transform(const QDualQuaternion &transformation) const
 {
     QDualQuaternion dqAux(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
                           QBaseQuaternion(this->x, this->y, this->z, SQFloat::_0));
@@ -218,63 +214,47 @@ QVector4& QVector4::Transform(const QDualQuaternion &transformation)
 
     dqAux = (transformation * dqAux ) * dqConj;
 
-    this->x = dqAux.d.x;
-    this->y = dqAux.d.y;
-    this->z = dqAux.d.z;
-
-    return *this;
+    return QVector4(dqAux.d.x, dqAux.d.y, dqAux.d.z, this->w);
 }
 
-QVector4& QVector4::Transform(const QRotationMatrix3x3 &rotation)
+QVector4 QVector4::Transform(const QRotationMatrix3x3 &rotation) const
 {
-    QVector4 vAux;
-
-    vAux.x = this->x * rotation.ij[0][0] + this->y * rotation.ij[1][0] + this->z * rotation.ij[2][0];
-    vAux.y = this->x * rotation.ij[0][1] + this->y * rotation.ij[1][1] + this->z * rotation.ij[2][1];
-    vAux.z = this->x * rotation.ij[0][2] + this->y * rotation.ij[1][2] + this->z * rotation.ij[2][2];
-    vAux.w = this->w;
-
-    return *this = vAux;
+    return QVector4(this->x * rotation.ij[0][0] + this->y * rotation.ij[1][0] + this->z * rotation.ij[2][0],
+                    this->x * rotation.ij[0][1] + this->y * rotation.ij[1][1] + this->z * rotation.ij[2][1],
+                    this->x * rotation.ij[0][2] + this->y * rotation.ij[1][2] + this->z * rotation.ij[2][2],
+                    this->w);
 }
 
-QVector4& QVector4::Transform(const QScaleMatrix3x3 &scale)
+QVector4 QVector4::Transform(const QScaleMatrix3x3 &scale) const
 {
-    this->x *= scale.ij[0][0];
-    this->y *= scale.ij[1][1];
-    this->z *= scale.ij[2][2];
-
-    return *this;
+    return QVector4(this->x * scale.ij[0][0], this->y * scale.ij[1][1], this->z * scale.ij[2][2], this->w);
 }
 
-QVector4& QVector4::Transform(const QTranslationMatrix<QMatrix4x3> &translation)
+QVector4 QVector4::Transform(const QTranslationMatrix<QMatrix4x3> &translation) const
 {
-    TransformImp(translation);
-    return *this;
+    return TransformImp(translation);
 }
 
 
-QVector4& QVector4::Transform(const QTranslationMatrix<QMatrix4x4> &translation)
+QVector4 QVector4::Transform(const QTranslationMatrix<QMatrix4x4> &translation) const
 {
-    TransformImp(translation);
-    return *this;
+    return TransformImp(translation);
 }
 
-QVector4& QVector4::Transform(const QTransformationMatrix<QMatrix4x3> &transformation)
+QVector4 QVector4::Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
 {
-    TransformImp(transformation);
-    return *this;
+    return TransformImp(transformation);
 }
 
 
-QVector4& QVector4::Transform(const QTransformationMatrix<QMatrix4x4> &transformation)
+QVector4 QVector4::Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
 {
-    TransformImp(transformation);
-    return *this;
+    return TransformImp(transformation);
 }
 
-QVector4& QVector4::Transform(const QSpaceConversionMatrix &conversion)
+QVector4 QVector4::Transform(const QSpaceConversionMatrix &conversion) const
 {
-    return *this *= conversion;
+    return *this * conversion;
 }
 
 string_q QVector4::ToString() const
@@ -286,23 +266,21 @@ string_q QVector4::ToString() const
 }
 
 template <class MatrixType>
-inline void QVector4::TransformImp(const QTranslationMatrix<MatrixType> &translation)
+QVector4 QVector4::TransformImp(const QTranslationMatrix<MatrixType> &translation) const
 {
-    this->x += this->w * translation.ij[3][0];
-    this->y += this->w * translation.ij[3][1];
-    this->z += this->w * translation.ij[3][2];
+    return QVector4(this->x + this->w * translation.ij[3][0], 
+                    this->y + this->w * translation.ij[3][1], 
+                    this->z + this->w * translation.ij[3][2], 
+                    this->w);
 }
 
 template <class MatrixType>
-void QVector4::TransformImp(const QTransformationMatrix<MatrixType> &transformation)
+QVector4 QVector4::TransformImp(const QTransformationMatrix<MatrixType> &transformation) const
 {
-    QVector4 vAux;
-
-    vAux.x = this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0] + this->w * transformation.ij[3][0];
-    vAux.y = this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + this->w * transformation.ij[3][1];
-    vAux.z = this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2] + this->w * transformation.ij[3][2];
-
-    *this = vAux;
+    return QVector4(this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0] + this->w * transformation.ij[3][0],
+                    this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + this->w * transformation.ij[3][1],
+                    this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2] + this->w * transformation.ij[3][2],
+                    this->w);
 }
 
 } //namespace Math
