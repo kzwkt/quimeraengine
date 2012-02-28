@@ -27,7 +27,7 @@ QTEST_SUITE_BEGIN( QVector3_TestSuite )
 /// <summary>
 /// Checks if all the components of the vector are multiplied by the scalar.
 /// </summary>
-QTEST_CASE ( FriendOperatorProduct1_ScalarIsCorrectlyMultipliedByVector_Test )
+QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByVector_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
@@ -1431,8 +1431,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 
     try
     {
-        QVector3 vVectorUT = VECTOR;
-        vVectorUT.Normalize();
+        QVector3 vVectorUT = VECTOR.Normalize();
     }
     catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
     {
@@ -2113,8 +2112,18 @@ QTEST_CASE ( Transform1_VectorIsCorrectlyTransformedByCommonQuaternion_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
+    const float_q EULER_ANGLE_Y = SQAngle::_Pi;
+    const float_q EULER_ANGLE_Z = SQAngle::_QuarterPi;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const float_q EULER_ANGLE_X = SQAngle::_90;
+    const float_q EULER_ANGLE_Y = SQAngle::_180;
+    const float_q EULER_ANGLE_Z = SQAngle::_45;
+#endif
+
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QQuaternion TRANSFORMATION = QQuaternion(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
+    const QQuaternion TRANSFORMATION = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
     const QVector3 EXPECTED_RESULT = QVector3( (float_q)-3.5355339,
                                                (float_q)-2.1213205,
                                                (float_q)-1.9999995);
@@ -2192,9 +2201,19 @@ QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test 
     using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
+    const float_q EULER_ANGLE_Y = SQAngle::_Pi;
+    const float_q EULER_ANGLE_Z = SQAngle::_QuarterPi;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const float_q EULER_ANGLE_X = SQAngle::_90;
+    const float_q EULER_ANGLE_Y = SQAngle::_180;
+    const float_q EULER_ANGLE_Z = SQAngle::_45;
+#endif
+
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QDualQuaternion TRANSFORMATION = QDualQuaternion(QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_5), 
-                                                           QQuaternion(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi));
+                                                           QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z));
     const QVector3 EXPECTED_RESULT = QVector3( (float_q)-6.5355339,
                                                (float_q)-6.1213205,
                                                (float_q)-6.9999995);
@@ -2261,8 +2280,18 @@ QTEST_CASE ( Transform3_VectorIsCorrectlyTransformedByCommonRotationMatrix_Test 
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
+    const float_q EULER_ANGLE_Y = SQAngle::_Pi;
+    const float_q EULER_ANGLE_Z = SQAngle::_QuarterPi;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const float_q EULER_ANGLE_X = SQAngle::_90;
+    const float_q EULER_ANGLE_Y = SQAngle::_180;
+    const float_q EULER_ANGLE_Z = SQAngle::_45;
+#endif
+
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
+    const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
     const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.70710671,
                                                (float_q)-3.9999990,
@@ -2339,8 +2368,18 @@ QTEST_CASE ( Transform3_RotationFollowsLeftHandedRules_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const float_q EULER_ANGLE_X = SQFloat::_0;
+    const float_q EULER_ANGLE_Y = SQAngle::_HalfPi;
+    const float_q EULER_ANGLE_Z = SQFloat::_0;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const float_q EULER_ANGLE_X = SQFloat::_0;
+    const float_q EULER_ANGLE_Y = SQAngle::_90;
+    const float_q EULER_ANGLE_Z = SQFloat::_0;
+#endif
+
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
-    const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(SQFloat::_0, SQAngle::_HalfPi, SQFloat::_0);
+    const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
     const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, -SQFloat::_1);
 
@@ -2562,7 +2601,7 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    const QVector3 EXPECTED_RESULT = QVector3(4.0658631, 4.0000000, -4.4194174);
+    const QVector3 EXPECTED_RESULT = QVector3((float_q)4.0658631, (float_q)4.0000000, (float_q)-4.4194174);
 
     // Results calculated using DirectX SDK
     // float_q fYaw = SQAngle::_Pi;
@@ -2901,14 +2940,24 @@ void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Temp
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
+    const float_q EULER_ANGLE_Y = SQAngle::_Pi;
+    const float_q EULER_ANGLE_Z = SQAngle::_QuarterPi;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const float_q EULER_ANGLE_X = SQAngle::_90;
+    const float_q EULER_ANGLE_Y = SQAngle::_180;
+    const float_q EULER_ANGLE_Z = SQAngle::_45;
+#endif
+
     const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
-    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
+    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
     const QScaleMatrix3x3 SCALE = QScaleMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    const QVector3 EXPECTED_RESULT = QVector3(4.0658631, 4.0000000, -4.4194174);
+    const QVector3 EXPECTED_RESULT = QVector3((float_q)4.0658631, (float_q)4.0000000, (float_q)-4.4194174);
 
     // Results calculated using DirectX SDK
     // float_q fYaw = SQAngle::_Pi;
@@ -3036,6 +3085,16 @@ void TransformImp2_RotationFollowsLeftHandedRules_Template()
     using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
+
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const float_q EULER_ANGLE_X = SQFloat::_0;
+    const float_q EULER_ANGLE_Y = SQAngle::_HalfPi;
+    const float_q EULER_ANGLE_Z = SQFloat::_0;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const float_q EULER_ANGLE_X = SQFloat::_0;
+    const float_q EULER_ANGLE_Y = SQAngle::_90;
+    const float_q EULER_ANGLE_Z = SQFloat::_0;
+#endif
 
     const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_0, SQFloat::_0, SQFloat::_0);
