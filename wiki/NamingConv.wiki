@@ -52,7 +52,7 @@ Ejemplo: int nNumero; float `arFloats[8]`;.
 
 Ejemplo: `m_`nCount.
 
-*Constantes:* Sin prefijos, todo en mayúscula y separando palabras con guiones bajos (podrán tener prefijos sólo en aquellos casos donde la legibilidad se vea muy afectada). Se excluyen de esta norma los parámetros función de tipo constante, que seguirán la convención de las variables locales.
+*Constantes:* Sin prefijos, todo en mayúscula y separando palabras con guiones bajos (podrán tener prefijos sólo en aquellos casos donde la legibilidad se vea muy afectada). Se excluyen de esta norma los parámetros función de tipo constante, que seguirán la convención de las variables locales. El nombre de las constantes locales no puede empezar por "Q" ni por "QE", prefijos que quedan reservados para Quimera Engine.
 
 Ejemplo: GRAPHIC_DEVICE_FLAG.
 
