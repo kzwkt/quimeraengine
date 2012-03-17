@@ -43,9 +43,9 @@ public:
 public:
 
     // Necessary for testing
-    QVector3WhiteBox& operator=(const QVector3 &vVector)
+    QBaseVector3& operator=(const QVector3 &vVector)
     {
-        QVector3::operator=(vVector);
+        return QVector3::operator=(vVector);
     }
 
     // Exposed method
