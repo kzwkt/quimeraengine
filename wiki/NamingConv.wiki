@@ -64,7 +64,7 @@ Ejemplo: static_nCount.
 
 Ejemplo: sm_pMember.
 
-*Métodos y propiedades, de instancia o estáticos:* Usarán `PascalCase`, sin ningún tipo de prefijo o postfijo.
+*Métodos y propiedades, de instancia o estáticos:* Usarán `PascalCase`, sin ningún tipo de prefijo o postfijo. Nunca podrán terminar en un número.
 
 Ejemplo: `GetMethod`().
 
