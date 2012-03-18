@@ -200,7 +200,7 @@ public:
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    operator const string_q&() const
+    operator const string_q() const
     {
         TNameValueMap::iterator itValueName = EQIntersections::sm_mapValueName.begin();
         TNameValueMap::const_iterator itValueNameEnd = EQIntersections::sm_mapValueName.end();
@@ -220,7 +220,7 @@ public:
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    const string_q& ToString()
+    const string_q ToString()
     {
         return *this;
     }
