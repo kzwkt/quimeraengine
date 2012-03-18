@@ -43,7 +43,11 @@ namespace Math
 #define sqrt_q(fValue)  sqrt(fValue)
 
 #ifdef QE_COMPILER_MSVC
-    #define hypot_q(fX, fY) _hypot(fX, fY)
+    #if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+        #define hypot_q(fX, fY) _hypotf(fX, fY)
+    #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #define hypot_q(fX, fY) _hypot(fX, fY)
+    #endif
 #elif defined(QE_COMPILER_GCC)
     #define hypot_q(fX, fY) hypot(fX, fY)
 #endif

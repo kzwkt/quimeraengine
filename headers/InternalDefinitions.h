@@ -104,14 +104,14 @@ const unsigned int QE_VERSION_REVISION = 0;
             #ifdef BOOST_ASSERT
                 #define QE_ASSERT(expr) BOOST_ASSERT(expr);
             #else
-                #define QE_ASSERT(expr)
+                #define QE_ASSERT(expr) ;
             #endif
         #endif
     #endif
 
 #else
 
-    #define QE_ASSERT(expr)
+    #define QE_ASSERT(expr) ;
 
 #endif
 

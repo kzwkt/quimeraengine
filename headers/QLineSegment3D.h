@@ -730,8 +730,6 @@ public:
                             return EQIntersections::E_Two;
                         }
                     }
-		            else                  // Something is wrong: if end points of line segment are outside triangle,
-						QE_ASSERT(false)  // line segment must intersects none or two edges, never only one.
                 }
                 else if (value2BC == EQIntersections::E_One) // Line segment intersects BC edge of triangle
                 {
@@ -758,8 +756,6 @@ public:
                             return EQIntersections::E_Two;
                         }
                     }
-                    else                  // Something is wrong: if end points of line segment are outside triangle,
-                        QE_ASSERT(false)  // line segment must intersects none, two or the three edges, never only one.
                 }
 
                 // Line segment don't intersects triangle
@@ -825,7 +821,7 @@ public:
 							vIntersection2 = vAux;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
 						{
 							if (vAux == triangle.C || vAux == triangle.A) // Both intersections are in the same edge
 								return EQIntersections::E_One;
@@ -850,7 +846,7 @@ public:
 							vIntersection2 = vAux;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
 						{
 							if (vAux == triangle.C || vAux == triangle.A) // Both intersections are in the same edge
 								return EQIntersections::E_One;
@@ -875,7 +871,7 @@ public:
 							vIntersection2 = vAux;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux)) == EQIntersections::E_One)
 						{
 							if (vAux == triangle.A || vAux == triangle.B) // Both intersections are in the same edge
 								return EQIntersections::E_One;
@@ -891,12 +887,10 @@ public:
 						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
 						if (value2 == EQIntersections::E_One)
 							vIntersection1 = vAux;
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux)) == EQIntersections::E_One)
 							vIntersection1 = vAux;
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
 							vIntersection1 = vAux;
-						else                  // Something is wrong, if one point is inside and the other is outside,
-							QE_ASSERT(false)  // there must be intersections.
 
 						return EQIntersections::E_One;
 					}
@@ -963,7 +957,7 @@ public:
 							vIntersection2 = this->B;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
 						{
 							vIntersection1 = vAux;
 
@@ -993,7 +987,7 @@ public:
 							vIntersection2 = this->B;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
 						{
 							vIntersection1 = vAux;
 							vIntersection2 = this->B;
@@ -1019,7 +1013,7 @@ public:
 							vIntersection2 = this->B;
 							return EQIntersections::E_Two;
 						}
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux)) == EQIntersections::E_One)
 						{
 							vIntersection1 = vAux;
 
@@ -1040,18 +1034,21 @@ public:
 						EQIntersections value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.A, triangle.B), vAux);
 						if (value2 == EQIntersections::E_One)
 							vIntersection1 = vAux;
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.B, triangle.C), vAux)) == EQIntersections::E_One)
 							vIntersection1 = vAux;
-						else if (value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)== EQIntersections::E_One)
+						else if ((value2 = this->IntersectionPoint(QLineSegment3D<VectorType>(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
 							vIntersection1 = vAux;
-						else                  // Something is wrong, if one point is inside and the other is outside,
-							QE_ASSERT(false)  // there must be intersections.
 
 						return EQIntersections::E_One;
 					}
 				}
             }
         }
+
+        // Something was wrong, this line should be never reached
+		QE_ASSERT(false)
+
+        return EQIntersections::E_None;
     }
 
     /// <summary>
@@ -1250,9 +1247,12 @@ public:
                 return EQIntersections::E_Infinite;
             else if (!IsInsideA && !IsInsideB) // Both line segment end points are outside hexahedron
                 return EQIntersections::E_None;
-            else // Something is wrong!! There must be intersections in this case.
-                QE_ASSERT(false)
         }
+
+        // Something was wrong, this line should be never reached
+		QE_ASSERT(false)
+
+        return EQIntersections::E_None;
     }
 
     /// <summary>
@@ -1483,9 +1483,12 @@ public:
                 return EQIntersections::E_Infinite;
             else if (!IsInsideA && !IsInsideB) // Both line segment end points are outside hexahedron
                 return EQIntersections::E_None;
-            else // Something is wrong!! There must be intersections in this case.
-                QE_ASSERT(false)
         }
+
+        // Something was wrong, this line should be never reached
+		QE_ASSERT(false)
+
+        return EQIntersections::E_None;
     }
 
     /// <summary>
@@ -2583,8 +2586,6 @@ protected:
                             return EQIntersections::E_Two;
                         }
                     }
-                    else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                        QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
                 }
                 else if (value2BC ==EQIntersections::E_One) // Line segment intersects BC edge of quadrilateral
                 {
@@ -2647,8 +2648,6 @@ protected:
 
                         return EQIntersections::E_Two;
                     }
-                    else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                        QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
                 }
                 else if (value2CD ==EQIntersections::E_One) // Line segment intersects CD edge of quadrilateral
                 {
@@ -2676,11 +2675,7 @@ protected:
                             return EQIntersections::E_Two;
                         }
                     }
-                    else                  // Something is wrong: if end points of line segment are outside quadrilateral,
-                        QE_ASSERT(false)  // line segment must intersects none, two or three edges, never only one.
                 }
-				else if (value2DA ==EQIntersections::E_One) // Line segment intersects DA edge of quadrilateral
-					QE_ASSERT(false)    // Something is wrong: if end points of line segment are outside quadrilateral,
 				else                    // line segment must intersects none, two or three edges, never only one.
 					return EQIntersections::E_None; // There are no intersections.
             }
@@ -2699,7 +2694,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)== EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
@@ -2718,7 +2713,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)== EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
@@ -2737,7 +2732,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux)== EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
@@ -2756,7 +2751,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vB, vC), vAux)== EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vB, vC), vAux)) == EQIntersections::E_One)
                         {
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
@@ -2778,7 +2773,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                         {
 							if (vAux == vC || vAux == vD) // Both intersections are in the same edge
 								return EQIntersections::E_One;
@@ -2786,7 +2781,7 @@ protected:
                             vIntersection2 = vAux;
                             return EQIntersections::E_Two;
                         }
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                         {
 							if (vAux == vD || vAux == vA) // Both intersections are in the same edge
 								return EQIntersections::E_One;
@@ -2907,8 +2902,6 @@ protected:
                             vIntersection1 = vAux;
                         else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)== EQIntersections::E_One)
                             vIntersection1 = vAux;
-                        else                  // Something is wrong, if one point is inside and the other is outside,
-                            QE_ASSERT(false)  // there must be intersections.
 
                         return EQIntersections::E_One;
                     }
@@ -3168,20 +3161,23 @@ protected:
                         EQIntersections value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vA, vB), vAux);
                         if (value2 == EQIntersections::E_One)
                             vIntersection1 = vAux;
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vB, vC), vAux) == EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vB, vC), vAux)) == EQIntersections::E_One)
                             vIntersection1 = vAux;
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)== EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vC, vD), vAux)) == EQIntersections::E_One)
                             vIntersection1 = vAux;
-                        else if (value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)== EQIntersections::E_One)
+                        else if ((value2 = segment.IntersectionPoint(QLineSegment3D<VectorTypeParam>(vD, vA), vAux)) == EQIntersections::E_One)
                             vIntersection1 = vAux;
-                        else                  // Something is wrong, if one point is inside and the other is outside,
-                            QE_ASSERT(false)  // there must be intersections.
 
                         return EQIntersections::E_One;
                     }
                 }
             }
         }
+
+        // Something was wrong, this line should be never reached
+		QE_ASSERT(false)
+
+        return EQIntersections::E_None;
     }
 
     // Changes the coordinate system of a point to other system based in three normal
