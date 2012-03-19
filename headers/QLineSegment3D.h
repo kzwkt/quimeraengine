@@ -142,17 +142,17 @@ public:
     /// </returns>
     inline bool Intersection(const QBasePlane &plane) const
     {
-        const float_q &fDistA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
+        const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
 
-        if (SQFloat::IsZero(fDistA))
+        if (SQFloat::IsZero(DIST_A))
             return true;
 
-        const float_q &fDistB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
+        const float_q &DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
 
-        if (SQFloat::IsZero(fDistB))
+        if (SQFloat::IsZero(DIST_B))
             return true;
 
-        return SQFloat::IsNegative(fDistA * fDistB);
+        return SQFloat::IsNegative(DIST_A * DIST_B);
     }
 
     /// <summary>
@@ -176,10 +176,10 @@ public:
             return false;
 
         // If both end points satisfy plane equation, the line segment lies on plane
-        const float_q &fDot1 = auxP.a * this->B.x + auxP.b * this->B.y + auxP.c * this->B.z + auxP.d;
-        const float_q &fDot2 = auxP.a * this->A.x + auxP.b * this->A.y + auxP.c * this->A.z + auxP.d;
+        const float_q &DOT1 = auxP.a * this->B.x + auxP.b * this->B.y + auxP.c * this->B.z + auxP.d;
+        const float_q &DOT2 = auxP.a * this->A.x + auxP.b * this->A.y + auxP.c * this->A.z + auxP.d;
 
-        if (SQFloat::IsZero(fDot1) && SQFloat::IsZero(fDot2))
+        if (SQFloat::IsZero(DOT1) && SQFloat::IsZero(DOT2))
         {
             // Both triangle and line segment are coplanars. If the line segment
             // intersects one of the edges of the triangle, then the line segment intersects the triangle.
@@ -194,10 +194,10 @@ public:
                 return PointInsideTriangle(triangle, this->A);
         }
 
-        QE_ASSERT(SQFloat::IsNotZero(fDot2 - fDot1))
+        QE_ASSERT(SQFloat::IsNotZero(DOT2 - DOT1))
 
         // The point which satisfies both line and plane equations.
-        VectorType vAux = this->A + (this->B - this->A) * fDot2/(fDot2 - fDot1);
+        VectorType vAux = this->A + (this->B - this->A) * DOT2/(DOT2 - DOT1);
 
         // Tests if the point is inside the triangle.
         return PointInsideTriangle(triangle, vAux);
@@ -328,25 +328,25 @@ public:
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
 	{
-        const float_q &fDistA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
-        const float_q &fDistB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
+        const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
+        const float_q &DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
 
-        const bool &bIsZeroDistA = SQFloat::IsZero(fDistA);
-        const bool &bIsZeroDistB = SQFloat::IsZero(fDistB);
+        const bool &IS_ZERO_DIST_A = SQFloat::IsZero(DIST_A);
+        const bool &IS_ZERO_DIST_B = SQFloat::IsZero(DIST_B);
 
-        if (bIsZeroDistA && !bIsZeroDistB) // A point lies on plane
+        if (IS_ZERO_DIST_A && !IS_ZERO_DIST_B) // A point lies on plane
         {
             vIntersection = this->A;
             return EQIntersections::E_One;
         }
-        else if (!bIsZeroDistA && bIsZeroDistB) // B point lies on plane
+        else if (!IS_ZERO_DIST_A && IS_ZERO_DIST_B) // B point lies on plane
         {
             vIntersection = this->B;
             return EQIntersections::E_One;
         }
-        else if (bIsZeroDistA && bIsZeroDistB) // All line segment lies on plane
+        else if (IS_ZERO_DIST_A && IS_ZERO_DIST_B) // All line segment lies on plane
             return EQIntersections::E_Infinite;
-        else if ( SQFloat::IsLessThan(fDistA * fDistB, SQFloat::_0) ) // Line segment intersects plane in a point
+        else if ( SQFloat::IsLessThan(DIST_A * DIST_B, SQFloat::_0) ) // Line segment intersects plane in a point
         {
             // Being n the plane direction vector, v floating point parameter
             // Point which satisfies plane equation: P.n + d = 0              (1)
@@ -359,11 +359,11 @@ public:
             // v = - fDistA/(fDistB - fDistA) = fDistA/(fDistA - fDistB)
             // then we replace v in (2) and we get the intersection point
 
-            const float_q &fDenom = fDistA - fDistB;
+            const float_q &DENOM = DIST_A - DIST_B;
 
-            QE_ASSERT(fDenom != SQFloat::_0)
+            QE_ASSERT(DENOM != SQFloat::_0)
 
-            vIntersection = this->A + fDistA * (this->B - this->A)/fDenom;
+            vIntersection = this->A + DIST_A * (this->B - this->A) / DENOM;
 
             return EQIntersections::E_One;
         }
@@ -434,22 +434,22 @@ public:
         }
         else // Line segment and triangle are coplanars (value == EQIntersections::E_Infinite)
         {
-            const bool &bAIsInside = PointInsideTriangle(triangle, this->A);
-            const bool &bBIsInside = PointInsideTriangle(triangle, this->B);
+            const bool &A_IS_INSIDE = PointInsideTriangle(triangle, this->A);
+            const bool &B_IS_INSIDE = PointInsideTriangle(triangle, this->B);
 
-            if (bAIsInside && bBIsInside) // Both line segment end points are inside triangle.
+            if (A_IS_INSIDE && B_IS_INSIDE) // Both line segment end points are inside triangle.
             {
 				// A or B are vertex
-				const bool &bAIsVertex = (this->A == triangle.A || this->A == triangle.B || this->A == triangle.C);
-				const bool &bBIsVertex = (this->B == triangle.A || this->B == triangle.B || this->B == triangle.C);
+				const bool &A_IS_VERTEX = (this->A == triangle.A || this->A == triangle.B || this->A == triangle.C);
+				const bool &B_IS_VERTEX = (this->B == triangle.A || this->B == triangle.B || this->B == triangle.C);
 
-				if (bAIsVertex && bBIsVertex) // Both endpoints are vertices of triangle
+				if (A_IS_VERTEX && B_IS_VERTEX) // Both endpoints are vertices of triangle
 				{
 					vIntersection1 = this->A;
 					vIntersection2 = this->B;
 					return EQIntersections::E_Two;
 				}
-				else if (bAIsVertex) // Only A endpoint is a vertex of triangle
+				else if (A_IS_VERTEX) // Only A endpoint is a vertex of triangle
 				{
 					vIntersection1 = this->A;
 
@@ -489,7 +489,7 @@ public:
 						return EQIntersections::E_One;
 					}
 				}
-				else if (bBIsVertex)
+				else if (B_IS_VERTEX)
 				{
 					if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->A))) // A is in AB triangle edge
 					{
@@ -606,7 +606,7 @@ public:
 					}
 				}
 			}
-            else if (!bAIsInside && !bBIsInside) // Both line segment end points are outside triangle.
+            else if (!A_IS_VERTEX && !B_IS_VERTEX) // Both line segment end points are outside triangle.
             {
                 VectorType vPointAB, vPointBC, vPointCA;
 
@@ -766,7 +766,7 @@ public:
             {
                 VectorType vAux; // To store intersection points
 
-				if (bAIsInside) // this->A is inside triangle
+				if (A_IS_INSIDE) // this->A is inside triangle
 				{
 					if (this->A == triangle.A) // this->A is A triangle vertex
 					{
@@ -1240,12 +1240,12 @@ public:
         }
         else // There are no intersections with hexahedron
         {
-            const bool &IsInsideA = PointInsideHexahedron(hexahedron, this->A);
-            const bool &IsInsideB = PointInsideHexahedron(hexahedron, this->B);
+            const bool &A_IS_INSIDE = PointInsideHexahedron(hexahedron, this->A);
+            const bool &B_IS_INSIDE = PointInsideHexahedron(hexahedron, this->B);
 
-            if (IsInsideA && IsInsideB) // Both line segment end points are inside hexahedron
+            if (A_IS_INSIDE && B_IS_INSIDE) // Both line segment end points are inside hexahedron
                 return EQIntersections::E_Infinite;
-            else if (!IsInsideA && !IsInsideB) // Both line segment end points are outside hexahedron
+            else if (!A_IS_INSIDE && !B_IS_INSIDE) // Both line segment end points are outside hexahedron
                 return EQIntersections::E_None;
         }
 
@@ -1476,12 +1476,12 @@ public:
         }
         else // There are no intersections with hexahedron
         {
-            const bool &IsInsideA = PointInsideHexahedron(hexahedron, this->A);
-            const bool &IsInsideB = PointInsideHexahedron(hexahedron, this->B);
+            const bool &A_IS_INSIDE = PointInsideHexahedron(hexahedron, this->A);
+            const bool &B_IS_INSIDE = PointInsideHexahedron(hexahedron, this->B);
 
-            if (IsInsideA && IsInsideB) // Both line segment end points are inside hexahedron
+            if (A_IS_INSIDE && B_IS_INSIDE) // Both line segment end points are inside hexahedron
                 return EQIntersections::E_Infinite;
-            else if (!IsInsideA && !IsInsideB) // Both line segment end points are outside hexahedron
+            else if (!A_IS_INSIDE && !B_IS_INSIDE) // Both line segment end points are outside hexahedron
                 return EQIntersections::E_None;
         }
 
@@ -1503,10 +1503,10 @@ public:
     /// </remarks>
     inline float_q MaxDistance(const QBasePlane &plane) const
     {
-        const float_q &fDistA = plane.As<QPlane>().PointDistance(this->A);
-        const float_q &fDistB = plane.As<QPlane>().PointDistance(this->B);
+        const float_q &DIST_A = plane.As<QPlane>().PointDistance(this->A);
+        const float_q &DIST_B = plane.As<QPlane>().PointDistance(this->B);
 
-        return std::max(fDistA, fDistB);
+        return std::max(DIST_A, DIST_B);
     }
 
     /// <summary>
@@ -1552,10 +1552,10 @@ public:
     /// </remarks>
     inline float_q MinDistance(const QBasePlane &plane) const
     {
-        const float_q &fDistA = plane.As<QPlane>().PointDistance(this->A);
-        const float_q &fDistB = plane.As<QPlane>().PointDistance(this->B);
+        const float_q &DIST_A = plane.As<QPlane>().PointDistance(this->A);
+        const float_q &DIST_B = plane.As<QPlane>().PointDistance(this->B);
 
-        return std::min(fDistA, fDistB);
+        return std::min(DIST_A, DIST_B);
     }
 
 	/// <summary>
@@ -1625,14 +1625,14 @@ public:
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
     {
-        const float_q &distA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
-        const float_q &distB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
+        const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
+        const float_q &DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
 
-        if (SQFloat::IsZero(distA) && SQFloat::IsZero(distB))
+        if (SQFloat::IsZero(DIST_A) && SQFloat::IsZero(DIST_B))
             return EQSpaceRelation::E_Contained;
-        else if ( SQFloat::IsGreaterOrEquals(distA, SQFloat::_0) && SQFloat::IsGreaterOrEquals(distB, SQFloat::_0) )
+        else if ( SQFloat::IsGreaterOrEquals(DIST_A, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_B, SQFloat::_0) )
             return EQSpaceRelation::E_PositiveSide;
-        else if ( SQFloat::IsLowerOrEquals(distA, SQFloat::_0) && SQFloat::IsLowerOrEquals(distB, SQFloat::_0) )
+        else if ( SQFloat::IsLowerOrEquals(DIST_A, SQFloat::_0) && SQFloat::IsLowerOrEquals(DIST_B, SQFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_BothSides;
@@ -1974,26 +1974,26 @@ protected:
     inline bool PointInsideTriangle(const QBaseTriangle<VectorTypeParam> &triangle, const VectorTypeParam &vPoint) const
     {
         // Compute vectors
-        const VectorTypeParam &v0(triangle.C - triangle.A);
-        const VectorTypeParam &v1(triangle.B - triangle.A);
-        const VectorTypeParam &v2(vPoint - triangle.A);
+        const VectorTypeParam &V0(triangle.C - triangle.A);
+        const VectorTypeParam &V1(triangle.B - triangle.A);
+        const VectorTypeParam &V2(vPoint - triangle.A);
 
         // Compute dot products
-        const float_q &fDot00 = v0.DotProduct(v0);
-        const float_q &fDot01 = v0.DotProduct(v1);
-        const float_q &fDot02 = v0.DotProduct(v2);
-        const float_q &fDot11 = v1.DotProduct(v1);
-        const float_q &fDot12 = v1.DotProduct(v2);
+        const float_q &DOT_00 = V0.DotProduct(V0);
+        const float_q &DOT_01 = V0.DotProduct(V1);
+        const float_q &DOT_02 = V0.DotProduct(V2);
+        const float_q &DOT_11 = V1.DotProduct(V1);
+        const float_q &DOT_12 = V1.DotProduct(V2);
 
         // Compute barycentric coordinates
-        const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
+        const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(fDenom != SQFloat::_0)
+        QE_ASSERT(DENOM != SQFloat::_0)
 
-        const float_q &fInvDenom = SQFloat::_1 / fDenom;
+        const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
-        const float_q &fU = (fDot11 * fDot02 - fDot01 * fDot12) * fInvDenom;
-        const float_q &fV = (fDot00 * fDot12 - fDot01 * fDot02) * fInvDenom;
+        const float_q &fU = (DOT_11 * DOT_02 - DOT_01 * DOT_12) * INV_DENOM;
+        const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
         return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1);
@@ -2006,48 +2006,48 @@ protected:
                                          const VectorTypeParam &vC, const VectorTypeParam &vD, const VectorTypeParam &vPoint) const
     {
         // Compute vectors
-        const VectorTypeParam &v0(vC - vA);
-        const VectorTypeParam &v1(vB - vA);
-        const VectorTypeParam &v2(vPoint - vA);
+        const VectorTypeParam &V0(vC - vA);
+        const VectorTypeParam &V1(vB - vA);
+        const VectorTypeParam &V2(vPoint - vA);
 
         // Compute dot products
-        const float_q &fDot00 = v0.DotProduct(v0);
-        const float_q &fDot01 = v0.DotProduct(v1);
-        const float_q &fDot02 = v0.DotProduct(v2);
-        const float_q &fDot11 = v1.DotProduct(v1);
-        const float_q &fDot12 = v1.DotProduct(v2);
+        const float_q &DOT_00 = V0.DotProduct(V0);
+        const float_q &DOT_01 = V0.DotProduct(V1);
+        const float_q &DOT_02 = V0.DotProduct(V2);
+        const float_q &DOT_11 = V1.DotProduct(V1);
+        const float_q &DOT_12 = V1.DotProduct(V2);
 
         // Compute barycentric coordinates
-        const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
+        const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(fDenom != SQFloat::_0)
+        QE_ASSERT(DENOM != SQFloat::_0)
 
-        const float_q &fInvDenom = SQFloat::_1 / fDenom;
+        const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
-        const float_q &fU = (fDot11 * fDot02 - fDot01 * fDot12) * fInvDenom;
-        const float_q &fV = (fDot00 * fDot12 - fDot01 * fDot02) * fInvDenom;
+        const float_q &fU = (DOT_11 * DOT_02 - DOT_01 * DOT_12) * INV_DENOM;
+        const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
         if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1) )
             return true;
 
         // Compute new vector
-        const VectorTypeParam &v3(vD - vA);
+        const VectorTypeParam &V3(vD - vA);
 
         // Compute new dot products
-        const float_q &fDot03 = v0.DotProduct(v3);
-        const float_q &fDot33 = v3.DotProduct(v3);
-        const float_q &fDot32 = v3.DotProduct(v2);
+        const float_q &DOT_03 = V0.DotProduct(V3);
+        const float_q &DOT_33 = V3.DotProduct(V3);
+        const float_q &DOT_32 = V3.DotProduct(V2);
 
         // Compute new barycentric coordinates
-        const float_q &fDenom2 = fDot00 * fDot33 - fDot03 * fDot03;
+        const float_q &DENOM2 = DOT_00 * DOT_33 - DOT_03 * DOT_03;
 
-        QE_ASSERT(fDenom2 != SQFloat::_0)
+        QE_ASSERT(DENOM2 != SQFloat::_0)
 
-        const float_q &fInvDenom2 = SQFloat::_1 / fDenom2;
+        const float_q &INV_DENOM2 = SQFloat::_1 / DENOM2;
 
-        const float_q &fU2 = (fDot33 * fDot02 - fDot03 * fDot32) * fInvDenom2;
-        const float_q &fV2 = (fDot00 * fDot32 - fDot03 * fDot02) * fInvDenom2;
+        const float_q &fU2 = (DOT_33 * DOT_02 - DOT_03 * DOT_32) * INV_DENOM2;
+        const float_q &fV2 = (DOT_00 * DOT_32 - DOT_03 * DOT_02) * INV_DENOM2;
 
         // Check if point is in triangle
         return SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLowerOrEquals(fU2 + fV2, SQFloat::_1);
@@ -2060,10 +2060,10 @@ protected:
     {
         QPlane p(vA, vB, vC);
 
-        const float_q &distP1 = p.a * vPoint1.x + p.b * vPoint1.y + p.c * vPoint1.z + p.d;
-        const float_q &distP2 = p.a * vPoint2.x + p.b * vPoint2.y + p.c * vPoint2.z + p.d;
+        const float_q &DIST_P1 = p.a * vPoint1.x + p.b * vPoint1.y + p.c * vPoint1.z + p.d;
+        const float_q &DIST_P2 = p.a * vPoint2.x + p.b * vPoint2.y + p.c * vPoint2.z + p.d;
 
-        return SQFloat::IsPositive(distP1 * distP2);
+        return SQFloat::IsPositive(DIST_P1 * DIST_P2);
     }
 
     // Calculates if two points are in the same side of a plane defined by 3 points.
@@ -2093,10 +2093,10 @@ protected:
             return false;
 
         // If both end points satisfy plane equation, the line segment lies on plane
-        const float_q &fDot1 = auxP.a * segment.B.x + auxP.b * segment.B.y + auxP.c * segment.B.z + auxP.d;
-        const float_q &fDot2 = auxP.a * segment.A.x + auxP.b * segment.A.y + auxP.c * segment.A.z + auxP.d;
+        const float_q &DOT1 = auxP.a * segment.B.x + auxP.b * segment.B.y + auxP.c * segment.B.z + auxP.d;
+        const float_q &DOT2 = auxP.a * segment.A.x + auxP.b * segment.A.y + auxP.c * segment.A.z + auxP.d;
 
-        if (SQFloat::IsZero(fDot1) && SQFloat::IsZero(fDot2))
+        if (SQFloat::IsZero(DOT1) && SQFloat::IsZero(DOT2))
         {
             if (segment.QLineSegment<VectorTypeParam>::Intersection(QLineSegment<VectorTypeParam> (vA, vB)) ||   // Both cuadrilateral and line segment are coplanar. If the line segment
                 segment.QLineSegment<VectorTypeParam>::Intersection(QLineSegment<VectorTypeParam> (vB, vC)) ||   // intersects one of the edges of the cuadrilateral, then the line segment intersects the cuadrilateral.
@@ -2109,10 +2109,10 @@ protected:
                 return false;
         }
 
-        QE_ASSERT(SQFloat::IsNotZero(fDot2 - fDot1))
+        QE_ASSERT(SQFloat::IsNotZero(DOT2 - DOT1))
 
         // The point which satisfies both line and plane equations.
-        VectorTypeParam vAux = segment.A + (segment.B - segment.A) * fDot2/(fDot2 - fDot1);
+        VectorTypeParam vAux = segment.A + (segment.B - segment.A) * DOT2/(DOT2 - DOT1);
 
         // For every edge, it tests if the intersection point is in the same side of each edge
         // than any other vextex (not of the edge). If it does, then it's inside the cuadrilateral,
@@ -2149,11 +2149,11 @@ protected:
         QPlane auxP(vA, vB, vC);
         VectorTypeParam vAux;
 
-        const EQIntersections &value = segment.IntersectionPoint(auxP, vAux);
+        const EQIntersections &VALUE = segment.IntersectionPoint(auxP, vAux);
 
-        if (value == EQIntersections::E_None) // Line Segment don't intersects the cuadrilateral plane.
+        if (VALUE == EQIntersections::E_None) // Line Segment don't intersects the cuadrilateral plane.
             return EQIntersections::E_None;
-        else if (value == EQIntersections::E_One) // Line segment has one intersection with quadrilateral plane
+        else if (VALUE == EQIntersections::E_One) // Line segment has one intersection with quadrilateral plane
         {
             if (PointInsideQuadrilateral(vA, vB, vC, vD, vAux))
             {
@@ -2165,22 +2165,22 @@ protected:
         }
         else // Line segment lies on plane (value == EQIntersections::E_Infinite)
         {
-            const bool &bAIsInside = PointInsideQuadrilateral(vA, vB, vC, vD, segment.A);
-            const bool &bBIsInside = PointInsideQuadrilateral(vA, vB, vC, vD, segment.B);
+            const bool &A_IS_INSIDE = PointInsideQuadrilateral(vA, vB, vC, vD, segment.A);
+            const bool &B_IS_INSIDE = PointInsideQuadrilateral(vA, vB, vC, vD, segment.B);
 
-            if (bAIsInside && bBIsInside) // Both line segment end points are inside quadrilateral.
+            if (A_IS_INSIDE && B_IS_INSIDE) // Both line segment end points are inside quadrilateral.
             {
                 // A or B are vertex
-                const bool &bAIsVertex = (segment.A == vA || segment.A == vB || segment.A == vC || segment.A == vD);
-                const bool &bBIsVertex = (segment.B == vA || segment.B == vB || segment.B == vC || segment.B == vD);
+                const bool &A_IS_VERTEX = (segment.A == vA || segment.A == vB || segment.A == vC || segment.A == vD);
+                const bool &B_IS_VERTEX = (segment.B == vA || segment.B == vB || segment.B == vC || segment.B == vD);
 
-                if (bAIsVertex && bBIsVertex) // Both endpoints are vertices of quadrilateral
+                if (A_IS_VERTEX && B_IS_VERTEX) // Both endpoints are vertices of quadrilateral
                 {
                     vIntersection1 = segment.A;
                     vIntersection2 = segment.B;
                     return EQIntersections::E_Two;
                 }
-                else if (bAIsVertex) // Only A endpoint is a vertex of quadrilateral
+                else if (A_IS_VERTEX) // Only A endpoint is a vertex of quadrilateral
                 {
                     if (SQFloat::IsZero(QLineSegment<VectorTypeParam>(vA, vB).MinDistance(segment.B))) // B is in vAvB edge
                     {
@@ -2244,7 +2244,7 @@ protected:
                         return EQIntersections::E_One;
                     }
                 }
-                else if (bBIsVertex)
+                else if (B_IS_VERTEX)
                 {
                     if (SQFloat::IsZero(QLineSegment<VectorTypeParam>(vA, vB).MinDistance(segment.A))) // A is in vAvB edge
                     {
@@ -2415,7 +2415,7 @@ protected:
                     }
                 }
             }
-            else if (!bAIsInside && !bBIsInside) // Both line segment end points are outside quadrilateral.
+            else if (!A_IS_INSIDE && !B_IS_INSIDE) // Both line segment end points are outside quadrilateral.
             {
                 VectorTypeParam vPointAB, vPointBC, vPointCD, vPointDA;
 
@@ -2681,7 +2681,7 @@ protected:
             }
             else // one line segment end point is inside and the other one is outside triangle.
             {
-                if (bAIsInside) // segment.A is inside quadrilateral
+                if (A_IS_INSIDE) // segment.A is inside quadrilateral
                 {
                     if (segment.A == vA) // segment.A is vA vertex
                     {

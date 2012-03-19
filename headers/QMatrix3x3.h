@@ -267,17 +267,17 @@ public:
     {
         QE_ASSERT(fScalar != SQFloat::_0)
 
-        const float_q &fDivisor = SQFloat::_1/fScalar;
+        const float_q &DIVISOR = SQFloat::_1/fScalar;
 
-        this->ij[0][0] *= fDivisor;
-        this->ij[0][1] *= fDivisor;
-        this->ij[0][2] *= fDivisor;
-        this->ij[1][0] *= fDivisor;
-        this->ij[1][1] *= fDivisor;
-        this->ij[1][2] *= fDivisor;
-        this->ij[2][0] *= fDivisor;
-        this->ij[2][1] *= fDivisor;
-        this->ij[2][2] *= fDivisor;
+        this->ij[0][0] *= DIVISOR;
+        this->ij[0][1] *= DIVISOR;
+        this->ij[0][2] *= DIVISOR;
+        this->ij[1][0] *= DIVISOR;
+        this->ij[1][1] *= DIVISOR;
+        this->ij[1][2] *= DIVISOR;
+        this->ij[2][0] *= DIVISOR;
+        this->ij[2][1] *= DIVISOR;
+        this->ij[2][2] *= DIVISOR;
 
         return *this;
     }

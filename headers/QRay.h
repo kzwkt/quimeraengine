@@ -226,14 +226,14 @@ public:
     EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection1, VectorTypeOrigin &vIntersection2) const
     {
         // We set all vectors to the same type that output parameters to allow operations
-        const VectorTypeOrigin &vDirection(this->Direction);
+        const VectorTypeOrigin &DIRECTION(this->Direction);
 
         // We reduce ray and orb to origin, in order to simplify orb equation, and we calculate
         // the new ray origin point
-        const VectorTypeOrigin &vNewRayOrigin(this->Origin - orb.Center);
+        const VectorTypeOrigin &NEW_RAY_ORIGIN(this->Origin - orb.Center);
 
         // We replace then in the orb equation to force it to verify the ray equation
-        // vDirection^2*T^2 + 2*vNewA*vDirection*T + vNewA^2 - r^2 = 0
+        // DIRECTION^2*T^2 + 2*vNewA*DIRECTION*T + vNewA^2 - r^2 = 0
         // The intersections with ray follows this rules (extracted from quadratic ecuation):
         //       D = B^2 - 4AC = 0 => 1 intersection
         //       D = B^2 - 4AC < 0 => 0 intersections
@@ -242,8 +242,8 @@ public:
         // Since ray is normalized, A = 1
         // const float_q &fA = this->Direction.DotProduct(this->Direction);
 
-        const float_q &fB = SQFloat::_2 * vNewRayOrigin.DotProduct(vDirection);
-        const float_q &fC = vNewRayOrigin.DotProduct(vNewRayOrigin) - orb.Radius * orb.Radius;
+        const float_q &fB = SQFloat::_2 * NEW_RAY_ORIGIN.DotProduct(DIRECTION);
+        const float_q &fC = NEW_RAY_ORIGIN.DotProduct(NEW_RAY_ORIGIN) - orb.Radius * orb.Radius;
 
         // Remember that a = 1 -> D = B^2 - 4AC = B^2 - 4C
         const float_q &fD = fB * fB - SQFloat::_4 * fC;
@@ -261,40 +261,40 @@ public:
                 return EQIntersections::E_None;
             else
             {
-                vIntersection1 = vNewRayOrigin + fT * vDirection + orb.Center;
+                vIntersection1 = NEW_RAY_ORIGIN + fT * DIRECTION + orb.Center;
                 return EQIntersections::E_One;
             }
         }
         else // D = B^2 - 4AC > 0 => 2 intersections
         {
-            const float_q &fSqrtD = sqrt_q(fD);
+            const float_q &SQRT_D = sqrt_q(fD);
 
             // Closest intersection to ls.A. T1 = (-B - sqrt(D))/2A -> Remember that A = 1
-            const float_q &fT1 = -(fB + fSqrtD)*SQFloat::_0_5;
+            const float_q &fT1 = -(fB + SQRT_D)*SQFloat::_0_5;
 
             // Farthest intersection to ls.A. T2 = (-B + sqrt(D))/2A -> Remember that A = 1
-            const float_q &fT2 = (-fB + fSqrtD)*SQFloat::_0_5;
+            const float_q &fT2 = (-fB + SQRT_D)*SQFloat::_0_5;
 
             // Prevent rays with origin point inside orb, which must have only one intersection.
-            const bool &bT1Fails = SQFloat::IsNegative(fT1);
-            const bool &bT2Fails = SQFloat::IsNegative(fT2);
+            const bool &T1_FAILS = SQFloat::IsNegative(fT1);
+            const bool &T2_FAILS = SQFloat::IsNegative(fT2);
 
-            if (bT1Fails && bT2Fails)
+            if (T1_FAILS && T2_FAILS)
                 return EQIntersections::E_None; // Shouldn't happen this :(
-            else if (bT1Fails)  // One parameter is negative, there is only one intersection
+            else if (T1_FAILS)  // One parameter is negative, there is only one intersection
             {
-                vIntersection1 = vNewRayOrigin + fT2 * vDirection + orb.Center;
+                vIntersection1 = NEW_RAY_ORIGIN + fT2 * DIRECTION + orb.Center;
                 return EQIntersections::E_One;
             }
-            else if (bT2Fails) // One parameter is negative, there is only one intersection
+            else if (T2_FAILS) // One parameter is negative, there is only one intersection
             {
-                vIntersection1 = vNewRayOrigin + fT1 * vDirection + orb.Center;
+                vIntersection1 = NEW_RAY_ORIGIN + fT1 * DIRECTION + orb.Center;
                 return EQIntersections::E_One;
             }
             else // Most of the cases: two intersections.
             {
-                vIntersection1 = vNewRayOrigin + fT1 * vDirection + orb.Center;
-                vIntersection2 = vNewRayOrigin + fT2 * vDirection + orb.Center;
+                vIntersection1 = NEW_RAY_ORIGIN + fT1 * DIRECTION + orb.Center;
+                vIntersection2 = NEW_RAY_ORIGIN + fT2 * DIRECTION + orb.Center;
                 return EQIntersections::E_Two;
             }
         }

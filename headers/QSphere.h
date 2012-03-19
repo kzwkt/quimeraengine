@@ -410,19 +410,19 @@ public:
     /// </returns>
 	inline EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
-        const float_q &fDistP = plane.a * this->Center.x + plane.b * this->Center.y + plane.c * this->Center.z + plane.d;
+        const float_q &DIST_P = plane.a * this->Center.x + plane.b * this->Center.y + plane.c * this->Center.z + plane.d;
 
-		if (SQFloat::IsZero(fDistP))
+		if (SQFloat::IsZero(DIST_P))
 		{
 		    return EQSpaceRelation::E_BothSides;
 		}
 		else
         {
-            const float_q &fAbsDistP = SQFloat::Abs(fDistP);
+            const float_q &ABS_DIST_P = SQFloat::Abs(DIST_P);
 
-            if (SQFloat::IsLessThan(fAbsDistP, Radius))
+            if (SQFloat::IsLessThan(ABS_DIST_P, Radius))
                 return EQSpaceRelation::E_BothSides;
-            else if (SQFloat::IsNegative(fDistP))
+            else if (SQFloat::IsNegative(DIST_P))
                 return EQSpaceRelation::E_NegativeSide;
             else
                 return EQSpaceRelation::E_PositiveSide;

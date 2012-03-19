@@ -271,12 +271,12 @@ public:
         // Checkout to avoid division by 0
         QE_ASSERT(fScalar != SQFloat::_0)
 
-        const float_q &fDivisor = SQFloat::_1/fScalar;
+        const float_q &DIVISOR = SQFloat::_1/fScalar;
 
-        this->a *= fDivisor;
-        this->b *= fDivisor;
-        this->c *= fDivisor;
-        this->d *= fDivisor;
+        this->a *= DIVISOR;
+        this->b *= DIVISOR;
+        this->c *= DIVISOR;
+        this->d *= DIVISOR;
 
         return *this;
     }
@@ -1028,17 +1028,17 @@ protected:
     float_q DotProductAngleImp(const VectorType &vVector) const
     {
         // Length of plane removed due to plane is normalized.
-        const float_q &fDotLength = vVector.GetLength();
+        const float_q &DOT_LENGTH = vVector.GetLength();
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fDotLength != SQFloat::_0)
+        QE_ASSERT(DOT_LENGTH != SQFloat::_0)
 
-        const float_q &fDot = this->DotProduct(vVector)/fDotLength;
+        const float_q &DOT = this->DotProduct(vVector)/DOT_LENGTH;
 
         // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
+        QE_ASSERT(SQFloat::Abs(DOT) <= SQFloat::_1)
 
-        float_q fAngle = acos_q(fDot);
+        float_q fAngle = acos_q(DOT);
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
             fAngle = SQAngle::RadiansToDegrees(fAngle);
@@ -1163,12 +1163,12 @@ protected:
     template <class VectorType>
     inline VectorType PointProjectionImp(const VectorType &vPoint) const
     {
-        const float_q &fProj = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
+        const float_q &PROJ = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
 
         VectorType vProjection;
-        vProjection.x = fProj * this->a  + vPoint.x;
-        vProjection.y = fProj * this->b  + vPoint.y;
-        vProjection.z = fProj * this->c  + vPoint.z;
+        vProjection.x = PROJ * this->a  + vPoint.x;
+        vProjection.y = PROJ * this->b  + vPoint.y;
+        vProjection.z = PROJ * this->c  + vPoint.z;
 
         return vProjection;
     }
@@ -1215,26 +1215,26 @@ protected:
     EQIntersections IntersectionPointImp(const QBasePlane &plane1, const QBasePlane &plane2, VectorType &vIntersection) const
     {
         // Solved by Cramer method.
-        const float_q &fDetC = this->a * plane1.b * plane2.c + this->b * plane1.c * plane2.a + this->c * plane1.a * plane2.b -
+        const float_q &DET_C = this->a * plane1.b * plane2.c + this->b * plane1.c * plane2.a + this->c * plane1.a * plane2.b -
                               (this->c * plane1.b * plane2.a + this->a * plane1.c * plane2.b + this->b * plane1.a * plane2.c);
-        const float_q &fDetX = this->c * plane1.b * plane2.d + this->d * plane1.c * plane2.b + this->b * plane1.d * plane2.c -
+        const float_q &DET_X = this->c * plane1.b * plane2.d + this->d * plane1.c * plane2.b + this->b * plane1.d * plane2.c -
                               (this->d * plane1.b * plane2.c + this->b * plane1.c * plane2.d + this->c * plane1.d * plane2.b);
-        const float_q &fDetY = this->c * plane1.d * plane2.a + this->a * plane1.c * plane2.d + this->d * plane1.a * plane2.c -
+        const float_q &DET_Y = this->c * plane1.d * plane2.a + this->a * plane1.c * plane2.d + this->d * plane1.a * plane2.c -
                               (this->a * plane1.d * plane2.c + this->d * plane1.c * plane2.a + this->c * plane1.a * plane2.d);
-        const float_q &fDetZ = this->d * plane1.b * plane2.a + this->a * plane1.d * plane2.b + this->b * plane1.a * plane2.d -
+        const float_q &DET_Z = this->d * plane1.b * plane2.a + this->a * plane1.d * plane2.b + this->b * plane1.a * plane2.d -
                               (this->a * plane1.b * plane2.d + this->b * plane1.d * plane2.a + this->d * plane1.a * plane2.b);
 
-        if (!SQFloat::IsZero(fDetC)) // A range = 3, A* range = 3: Compatible system
+        if (!SQFloat::IsZero(DET_C)) // A range = 3, A* range = 3: Compatible system
         {
-            const float_q &fInvDetC = SQFloat::_1/fDetC;
+            const float_q &INV_DET_C = SQFloat::_1/DET_C;
 
-            vIntersection.x = fDetX * fInvDetC;
-            vIntersection.y = fDetY * fInvDetC;
-            vIntersection.z = fDetZ * fInvDetC;
+            vIntersection.x = DET_X * INV_DET_C;
+            vIntersection.y = DET_Y * INV_DET_C;
+            vIntersection.z = DET_Z * INV_DET_C;
 
             return EQIntersections::E_One;
         }
-        else if (SQFloat::IsZero(fDetX) && SQFloat::IsZero(fDetY) && SQFloat::IsZero(fDetZ)) // A range < 3, A* range < 3
+        else if (SQFloat::IsZero(DET_X) && SQFloat::IsZero(DET_Y) && SQFloat::IsZero(DET_Z)) // A range < 3, A* range < 3
         {
             // A range = 2, A* range < 3: Undetermined compatible system
             if (SQFloat::IsNotZero(this->a  * plane1.b - this->b  * plane1.a) ||

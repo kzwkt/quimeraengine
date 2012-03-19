@@ -150,66 +150,66 @@ bool QQuadrilateral::IsConcave() const
 
 float_q QQuadrilateral::GetAngleA() const
 {
-    const float_q &fAngle = (this->D - this->A).DotProductAngle(this->B - this->A);
+    const float_q &ANGLE = (this->D - this->A).DotProductAngle(this->B - this->A);
 
     if (this->IsConcaveHere(this->A, this->B, this->D, this->C))
     {
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            return SQAngle::_360 - fAngle;
+            return SQAngle::_360 - ANGLE;
         #else
-            return SQAngle::_2Pi - fAngle;
+            return SQAngle::_2Pi - ANGLE;
         #endif
     }
     else
-        return fAngle;
+        return ANGLE;
 }
 
 float_q QQuadrilateral::GetAngleB() const
 {
-    const float_q &fAngle = (this->A - this->B).DotProductAngle(this->C - this->B);
+    const float_q &ANGLE = (this->A - this->B).DotProductAngle(this->C - this->B);
 
     if (this->IsConcaveHere(this->B, this->A, this->C, this->D))
     {
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            return SQAngle::_360 - fAngle;
+            return SQAngle::_360 - ANGLE;
         #else
-            return SQAngle::_2Pi - fAngle;
+            return SQAngle::_2Pi - ANGLE;
         #endif
     }
     else
-        return fAngle;
+        return ANGLE;
 }
 
 float_q QQuadrilateral::GetAngleC() const
 {
-    const float_q &fAngle = (this->B - this->C).DotProductAngle(this->D - this->C);
+    const float_q &ANGLE = (this->B - this->C).DotProductAngle(this->D - this->C);
 
     if (this->IsConcaveHere(this->C, this->B, this->D, this->A))
     {
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            return SQAngle::_360 - fAngle;
+            return SQAngle::_360 - ANGLE;
         #else
-            return SQAngle::_2Pi - fAngle;
+            return SQAngle::_2Pi - ANGLE;
         #endif
     }
     else
-        return fAngle;
+        return ANGLE;
 }
 
 float_q QQuadrilateral::GetAngleD() const
 {
-    const float_q &fAngle = (this->C - this->D).DotProductAngle(this->A - this->D);
+    const float_q &ANGLE = (this->C - this->D).DotProductAngle(this->A - this->D);
 
     if (this->IsConcaveHere(this->D, this->A, this->C, this->B))
     {
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            return SQAngle::_360 - fAngle;
+            return SQAngle::_360 - ANGLE;
         #else
-            return SQAngle::_2Pi - fAngle;
+            return SQAngle::_2Pi - ANGLE;
         #endif
     }
     else
-        return fAngle;
+        return ANGLE;
 }
 
 string_q QQuadrilateral::ToString() const
@@ -224,13 +224,13 @@ bool QQuadrilateral::PointsInSameSideOfLine(const QBaseVector2 &vPoint1, const Q
                                             const QBaseVector2 &vLine1, const QBaseVector2 &vLine2) const
 {
 
-    const float_q &fOrientation1 = (vLine1.x - vPoint1.x)*(vLine2.y - vPoint1.y) - (vLine1.y - vPoint1.y)*(vLine2.x - vPoint1.x);
-    const float_q &fOrientation2 = (vLine1.x - vPoint2.x)*(vLine2.y - vPoint2.y) - (vLine1.y - vPoint2.y)*(vLine2.x - vPoint2.x);
+    const float_q &ORIENTATION1 = (vLine1.x - vPoint1.x)*(vLine2.y - vPoint1.y) - (vLine1.y - vPoint1.y)*(vLine2.x - vPoint1.x);
+    const float_q &ORIENTATION2 = (vLine1.x - vPoint2.x)*(vLine2.y - vPoint2.y) - (vLine1.y - vPoint2.y)*(vLine2.x - vPoint2.x);
 
-    if ( SQFloat::IsZero(fOrientation1) || SQFloat::IsZero(fOrientation2) )
+    if ( SQFloat::IsZero(ORIENTATION1) || SQFloat::IsZero(ORIENTATION2) )
         return true;
     else
-        return ( SQFloat::IsNegative(fOrientation1) == SQFloat::IsNegative(fOrientation2) );
+        return ( SQFloat::IsNegative(ORIENTATION1) == SQFloat::IsNegative(ORIENTATION2) );
 }
 
 

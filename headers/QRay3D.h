@@ -165,9 +165,9 @@ public:
         const QVector3 &vP(ray.Origin - this->Origin); // Difference of positions
         QVector3 vCross = this->Direction.CrossProduct(ray.Direction); // Cross product of directions
 
-        const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
+        const float_q &DENOMINATOR = vCross.GetSquaredLength(); // That is always positive
 
-        if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallel
+        if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallel
         {
             if ( this->Contains(ray.Origin) )
                 return true;
@@ -176,22 +176,22 @@ public:
         }
         else // Directions are not parallel
         {
-            const float_q fNumerator1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
-                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
-                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
+            const float_q NUMERATOR1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
+                                       vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
+                                       vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that the denominator is always positive
             {
-                const float_q &fNumerator2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
-                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
-                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
+                const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
+                                            vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
+                                            vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
-                if ( SQFloat::IsPositive(fNumerator2) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsPositive(fNumerator2) ) // Remember that the denominator is always positive
                 {
-                    const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
-                    const QVector3 &vPInt2 = QVector3(ray.Origin) + (fNumerator2/fDenominator) * ray.Direction;
+                    const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1/DENOMINATOR) * this->Direction;
+                    const QVector3 &P_INT2 = QVector3(ray.Origin) + (NUMERATOR2/DENOMINATOR) * ray.Direction;
 
-                    if (vPInt1 == vPInt2)
+                    if (P_INT1 == P_INT2)
                         return true;
                     else
                         return false;
@@ -242,9 +242,9 @@ public:
 
         QVector3 vCross = this->Direction.CrossProduct(ray.Direction); // Cross product of directions
 
-        const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
+        const float_q &DENOMINATOR = vCross.GetSquaredLength(); // That is always positive
 
-        if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallels
+        if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
         {
             if ( this->Contains(segment.A) )
                 return true;
@@ -253,23 +253,23 @@ public:
         }
         else // Directions are not parallel
         {
-            const float_q fNumerator1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
-                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
-                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
+            const float_q NUMERATOR1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
+                                       vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
+                                       vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that the denominator is always positive
             {
-                const float_q &fNumerator2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
-                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
-                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
+                const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
+                                            vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
+                                            vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
-                const float_q fParam2 = fNumerator2/fDenominator;
-                if ( SQFloat::IsPositive(fNumerator2) && SQFloat::IsLowerOrEquals(fParam2, SQFloat::_1) ) // Remember that fDenominator is always positive
+                const float_q PARAM2 = NUMERATOR2 / DENOMINATOR;
+                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLowerOrEquals(fParam2, SQFloat::_1) ) // Remember that the denominator is always positive
                 {
-                    const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
-                    const QVector3 &vPInt2 = ray.Origin + fParam2 * ray.Direction;
+                    const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
+                    const QVector3 &P_INT2 = ray.Origin + PARAM2 * ray.Direction;
 
-                    if (vPInt1 == vPInt2)
+                    if (P_INT1 == P_INT2)
                         return true;
                     else
                         return false;
@@ -320,15 +320,15 @@ public:
     inline bool Intersection(const QBasePlane &plane) const
     {
         const QVector3 vN(plane.a, plane.b, plane.c); //Normal to plane (Normalize not necessary)
-        const QVector3 vP (this->Origin); // Homogeinizing vector types
+        const QVector3 vP(this->Origin); // Homogeinizing vector types
 
-        const float_q &fNumerator = -(plane.d + vP.DotProduct(vN));
-        const float_q &fDenominator = this->Direction.DotProduct(vN);
+        const float_q &NUMERATOR = -(plane.d + vP.DotProduct(vN));
+        const float_q &DENOMINATOR = this->Direction.DotProduct(vN);
 
-        if ( SQFloat::IsZero(fDenominator) )
-            return SQFloat::IsZero(fNumerator);
+        if ( SQFloat::IsZero(DENOMINATOR) )
+            return SQFloat::IsZero(NUMERATOR);
         else
-            return SQFloat::IsPositive(fNumerator/fDenominator);
+            return SQFloat::IsPositive(NUMERATOR / DENOMINATOR);
     }
 
     /// <summary>
@@ -345,14 +345,14 @@ public:
 
         VectorType vAux;
 
-        const EQIntersections &numIntersect = this->IntersectionPoint(auxP, vAux);
-        if (numIntersect == EQIntersections::E_Infinite) // Ray and plane are coplanar.
+        const EQIntersections &NUM_INTERSECT = this->IntersectionPoint(auxP, vAux);
+        if (NUM_INTERSECT == EQIntersections::E_Infinite) // Ray and plane are coplanar.
         {
             return ( this->Intersection(triangle.A, triangle.B) ||
                      this->Intersection(triangle.B, triangle.C) ||
                      this->Intersection(triangle.C, triangle.A) );
         }
-        else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point
+        else if (NUM_INTERSECT == EQIntersections::E_One) // Ray and plane intersects in one point
         {
             return this->PointInsideTriangle(triangle, vAux);
         }
@@ -420,9 +420,9 @@ public:
         const VectorType &vP(ray.Origin - this->Origin); // Difference of positions
         VectorType vCross = this->Direction.CrossProduct(ray.Direction); // Cross product of directions
 
-        const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
+        const float_q &DENOMINATOR = vCross.GetSquaredLength(); // That is always positive
 
-        if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallel
+        if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallel
         {
             if (this->Origin == ray.Origin)
             {
@@ -441,24 +441,24 @@ public:
         }
         else // Directions are not parallel
         {
-            const float_q fNumerator1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
-                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
-                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
+            const float_q NUMERATOR1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
+                                       vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
+                                       vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that fDenominator is always positive
             {
-                const float_q &fNumerator2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
-                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
-                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
+                const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
+                                            vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
+                                            vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
-                if ( SQFloat::IsPositive(fNumerator2) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsPositive(NUMERATOR2) ) // Remember that fDenominator is always positive
                 {
-                    const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
-                    const QVector3 &vPInt2 = QVector3(ray.Origin) + (fNumerator2/fDenominator) * ray.Direction;
+                    const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
+                    const QVector3 &P_INT2 = QVector3(ray.Origin) + (NUMERATOR2 / DENOMINATOR) * ray.Direction;
 
-                    if (vPInt1 == vPInt2)
+                    if (P_INT1 == P_INT2)
                     {
-                        vIntersection = vPInt1;
+                        vIntersection = P_INT1;
                         return EQIntersections::E_One;
                     }
                     else
@@ -518,16 +518,16 @@ public:
 
         VectorType vCross = this->Direction.CrossProduct(ray.Direction); // Cross product of directions
 
-        const float_q &fDenominator = vCross.GetSquaredLength(); // That is always positive
+        const float_q &DENOMINATOR = vCross.GetSquaredLength(); // That is always positive
 
-        if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallels
+        if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
         {
-            const bool &bAIsInRay = this->Contains(segment.A);
-            const bool &bBIsInRay = this->Contains(segment.B);
+            const bool &A_IS_IN_RAY = this->Contains(segment.A);
+            const bool &B_IS_IN_RAY = this->Contains(segment.B);
 
-            if ( bAIsInRay && bBIsInRay )
+            if ( A_IS_IN_RAY && B_IS_IN_RAY )
                 return EQIntersections::E_Infinite;
-            else if ( bAIsInRay )
+            else if ( A_IS_IN_RAY )
             {
                 if (segment.A == this->Origin)
                 {
@@ -537,7 +537,7 @@ public:
                 else
                     return EQIntersections::E_Infinite;
             }
-            else if ( bBIsInRay )
+            else if ( B_IS_IN_RAY )
             {
                 if (segment.B == this->Origin)
                 {
@@ -552,25 +552,25 @@ public:
         }
         else // Directions are not parallel
         {
-            const float_q fNumerator1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
-                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
-                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
+            const float_q NUMERATOR1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
+                                       vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
+                                       vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(fNumerator1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that fDenominator is always positive
             {
-                const float_q &fNumerator2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
-                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
-                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
+                const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
+                                            vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
+                                            vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
-                const float_q fParam2 = fNumerator2/fDenominator;
-                if ( SQFloat::IsPositive(fNumerator2) && SQFloat::IsLowerOrEquals(fParam2, SQFloat::_1) ) // Remember that fDenominator is always positive
+                const float_q PARAM2 = NUMERATOR2 / DENOMINATOR;
+                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLowerOrEquals(PARAM2, SQFloat::_1) ) // Remember that fDenominator is always positive
                 {
-                    const QVector3 &vPInt1 = QVector3(this->Origin) + (fNumerator1/fDenominator) * this->Direction;
-                    const QVector3 &vPInt2 = ray.Origin + fParam2 * ray.Direction;
+                    const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
+                    const QVector3 &P_INT2 = ray.Origin + PARAM2 * ray.Direction;
 
-                    if (vPInt1 == vPInt2)
+                    if (P_INT1 == P_INT2)
                     {
-                        vIntersection = vPInt1;
+                        vIntersection = P_INT1;
                         return EQIntersections::E_One;
                     }
                     else
@@ -652,27 +652,27 @@ public:
     /// </returns>
     EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
     {
-        const VectorType vN ( QVector3(plane.a, plane.b, plane.c) );
+        const VectorType vN( QVector3(plane.a, plane.b, plane.c) );
 
-        const float_q &fNumerator = -(plane.d + this->Origin.DotProduct(vN));
-        const float_q &fDenominator = VectorType(this->Direction).DotProduct(vN);
+        const float_q &NUMERATOR = -(plane.d + this->Origin.DotProduct(vN));
+        const float_q &DENOMINATOR = VectorType(this->Direction).DotProduct(vN);
 
-        if ( SQFloat::IsZero(fDenominator) ) // Ray is parallel to plane
-            if ( SQFloat::IsZero(fNumerator) ) // Ray lies on plane
+        if ( SQFloat::IsZero(DENOMINATOR) ) // Ray is parallel to plane
+            if ( SQFloat::IsZero(NUMERATOR) ) // Ray lies on plane
                 return EQIntersections::E_Infinite;
             else // Ray is parallel but don't lies on plane.
                 return EQIntersections::E_None;
-        else if ( SQFloat::IsZero(fNumerator) ) // Ray origin lies on plane
+        else if ( SQFloat::IsZero(NUMERATOR) ) // Ray origin lies on plane
         {
             vIntersection = this->Origin;
             return EQIntersections::E_One;
         }
         else
         {
-            const float_q &fParam = fNumerator/fDenominator;
-            if ( SQFloat::IsPositive(fParam) ) // Intersection in one point.
+            const float_q &PARAM = NUMERATOR / DENOMINATOR;
+            if ( SQFloat::IsPositive(PARAM) ) // Intersection in one point.
             {
-                vIntersection = this->Origin + (fParam) * VectorType(this->Direction); // Posible loss of data, component w
+                vIntersection = this->Origin + (PARAM) * VectorType(this->Direction); // Posible loss of data, component w
                 return EQIntersections::E_One;
             }
             else // No intersection
@@ -725,8 +725,8 @@ public:
 
         VectorType vAux;
 
-        const EQIntersections &numIntersect = this->IntersectionPoint(auxP, vAux);
-        if (numIntersect == EQIntersections::E_Infinite) // Ray and plane are coplanar.
+        const EQIntersections &NUM_INTERSECT = this->IntersectionPoint(auxP, vAux);
+        if (NUM_INTERSECT == EQIntersections::E_Infinite) // Ray and plane are coplanar.
         {
             if ( PointInsideTriangle(triangle, this->Origin) ) // Ray origin is inside triangle
             {
@@ -1016,7 +1016,7 @@ public:
                     return EQIntersections::E_None;
             }
         }
-        else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point, are not coplanar
+        else if (NUM_INTERSECT == EQIntersections::E_One) // Ray and plane intersects in one point, are not coplanar
         {
             if (this->PointInsideTriangle(triangle, vAux) )
             {
@@ -1278,28 +1278,28 @@ public:
 
         // Distances to the plane from both auxiliar point and origin of ray
         // To compare the two distances is not necessary to divide by de normal length (it is invariant)
-        const float_q& fDistOrigin = plane.a * this->Origin.x + plane.b * this->Origin.y + plane.c * this->Origin.z + plane.d;
-        const float_q& fDistAux = plane.a * vAux.x + plane.b * vAux.y + plane.c * vAux.z + plane.d;
+        const float_q& DIST_ORIGIN = plane.a * this->Origin.x + plane.b * this->Origin.y + plane.c * this->Origin.z + plane.d;
+        const float_q& DIST_AUX = plane.a * vAux.x + plane.b * vAux.y + plane.c * vAux.z + plane.d;
 
-        if ( SQFloat::IsZero(fDistOrigin) ) // Origin point of ray lies on plane
+        if ( SQFloat::IsZero(DIST_ORIGIN) ) // Origin point of ray lies on plane
         {
-            if ( SQFloat::IsZero(fDistAux) ) // Ray lies on plane
+            if ( SQFloat::IsZero(DIST_AUX) ) // Ray lies on plane
                 return EQSpaceRelation::E_Contained;
-            else if ( SQFloat::IsNegative(fDistAux) ) // Direction vector goes to positive side
+            else if ( SQFloat::IsNegative(DIST_AUX) ) // Direction vector goes to positive side
                 return EQSpaceRelation::E_NegativeSide;
             else // Direction vector goes to negative side
                 return EQSpaceRelation::E_PositiveSide;
         }
-        else if ( SQFloat::IsNegative(fDistOrigin) )// Origin point of ray is in negative side
+        else if ( SQFloat::IsNegative(DIST_ORIGIN) )// Origin point of ray is in negative side
         {
-            if ( SQFloat::IsLowerOrEquals(fDistAux, fDistOrigin) ) // Direction vector moves away from plane or is parallel to it.
+            if ( SQFloat::IsLowerOrEquals(DIST_AUX, DIST_ORIGIN) ) // Direction vector moves away from plane or is parallel to it.
                 return EQSpaceRelation::E_NegativeSide;
             else // Direction vector is approaching to plane
                 return EQSpaceRelation::E_BothSides;
         }
         else // Origin point of ray is in positive side
         {
-            if ( SQFloat::IsGreaterOrEquals(fDistAux, fDistOrigin) ) // Direction vector moves away from plane or is parallel to it.
+            if ( SQFloat::IsGreaterOrEquals(DIST_AUX, DIST_ORIGIN) ) // Direction vector moves away from plane or is parallel to it.
                 return EQSpaceRelation::E_PositiveSide;
             else // Direction vector is approaching to plane
                 return EQSpaceRelation::E_BothSides;
@@ -1653,26 +1653,26 @@ protected:
     inline bool PointInsideTriangle(const QBaseTriangle<VectorTypeParam> &triangle, const VectorTypeParam &vPoint) const
     {
         // Compute vectors
-        const VectorTypeParam &v0(triangle.C - triangle.A);
-        const VectorTypeParam &v1(triangle.B - triangle.A);
-        const VectorTypeParam &v2(vPoint - triangle.A);
+        const VectorTypeParam &V0(triangle.C - triangle.A);
+        const VectorTypeParam &V1(triangle.B - triangle.A);
+        const VectorTypeParam &V2(vPoint - triangle.A);
 
         // Compute dot products
-        const float_q &fDot00 = v0.DotProduct(v0);
-        const float_q &fDot01 = v0.DotProduct(v1);
-        const float_q &fDot02 = v0.DotProduct(v2);
-        const float_q &fDot11 = v1.DotProduct(v1);
-        const float_q &fDot12 = v1.DotProduct(v2);
+        const float_q &DOT_00 = V0.DotProduct(V0);
+        const float_q &DOT_01 = V0.DotProduct(V1);
+        const float_q &DOT_02 = V0.DotProduct(V2);
+        const float_q &DOT_11 = V1.DotProduct(V1);
+        const float_q &DOT_12 = V1.DotProduct(V2);
 
         // Compute barycentric coordinates
-        const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
+        const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(fDenom != SQFloat::_0)
+        QE_ASSERT(DENOM != SQFloat::_0)
 
-        const float_q &fInvDenom = SQFloat::_1 / fDenom;
+        const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
-        const float_q &fU = (fDot11 * fDot02 - fDot01 * fDot12) * fInvDenom;
-        const float_q &fV = (fDot00 * fDot12 - fDot01 * fDot02) * fInvDenom;
+        const float_q &fU = (DOT_11 * DOT_02 - DOT_01 * DOT_12) * INV_DENOM;
+        const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
         return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1);
@@ -1686,48 +1686,48 @@ protected:
                                   const VectorTypeParam &vPoint) const
     {
         // Compute vectors
-        const VectorTypeParam &v0(vVertexC - vVertexA);
-        const VectorTypeParam &v1(vVertexB - vVertexA);
-        const VectorTypeParam &v2(vPoint - vVertexA);
+        const VectorTypeParam &V0(vVertexC - vVertexA);
+        const VectorTypeParam &V1(vVertexB - vVertexA);
+        const VectorTypeParam &V2(vPoint - vVertexA);
 
         // Compute dot products
-        const float_q &fDot00 = v0.DotProduct(v0);
-        const float_q &fDot01 = v0.DotProduct(v1);
-        const float_q &fDot02 = v0.DotProduct(v2);
-        const float_q &fDot11 = v1.DotProduct(v1);
-        const float_q &fDot12 = v1.DotProduct(v2);
+        const float_q &DOT_00 = V0.DotProduct(V0);
+        const float_q &DOT_01 = V0.DotProduct(V1);
+        const float_q &DOT_02 = V0.DotProduct(V2);
+        const float_q &DOT_11 = V1.DotProduct(V1);
+        const float_q &DOT_12 = V1.DotProduct(V2);
 
         // Compute barycentric coordinates
-        const float_q &fDenom = fDot00 * fDot11 - fDot01 * fDot01;
+        const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(fDenom != SQFloat::_0)
+        QE_ASSERT(DENOM != SQFloat::_0)
 
-        const float_q &fInvDenom = SQFloat::_1 / fDenom;
+        const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
-        const float_q &fU = (fDot11 * fDot02 - fDot01 * fDot12) * fInvDenom;
-        const float_q &fV = (fDot00 * fDot12 - fDot01 * fDot02) * fInvDenom;
+        const float_q &fU = (DOT_11 * DOT_02 - DOT_01 * DOT_12) * INV_DENOM;
+        const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
         if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1) )
             return true;
 
         // Compute new vector
-        const VectorTypeParam &v3(vVertexD - vVertexA);
+        const VectorTypeParam &V3(vVertexD - vVertexA);
 
         // Compute new dot products
-        const float_q &fDot03 = v0.DotProduct(v3);
-        const float_q &fDot33 = v3.DotProduct(v3);
-        const float_q &fDot32 = v3.DotProduct(v2);
+        const float_q &DOT_03 = V0.DotProduct(V3);
+        const float_q &DOT_33 = V3.DotProduct(V3);
+        const float_q &DOT_32 = V3.DotProduct(V2);
 
         // Compute new barycentric coordinates
-        const float_q &fDenom2 = fDot00 * fDot33 - fDot03 * fDot03;
+        const float_q &DENOM2 = DOT_00 * DOT_33 - DOT_03 * DOT_03;
 
-        QE_ASSERT(fDenom2 != SQFloat::_0)
+        QE_ASSERT(DENOM2 != SQFloat::_0)
 
-        const float_q &fInvDenom2 = SQFloat::_1 / fDenom2;
+        const float_q &INV_DENOM2 = SQFloat::_1 / DENOM2;
 
-        const float_q &fU2 = (fDot33 * fDot02 - fDot03 * fDot32) * fInvDenom2;
-        const float_q &fV2 = (fDot00 * fDot32 - fDot03 * fDot02) * fInvDenom2;
+        const float_q &fU2 = (DOT_33 * DOT_02 - DOT_03 * DOT_32) * INV_DENOM2;
+        const float_q &fV2 = (DOT_00 * DOT_32 - DOT_03 * DOT_02) * INV_DENOM2;
 
         // Check if point is in triangle
         return  SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLowerOrEquals(fU2 + fV2, SQFloat::_1);;
@@ -1753,11 +1753,11 @@ protected:
 
         VectorType vAux;
 
-        const EQIntersections &numIntersect = this->IntersectionPoint(auxP, vAux);
-        if (numIntersect == EQIntersections::E_Infinite) // Ray and plane are coplanar.
+        const EQIntersections &NUM_INTERSECT = this->IntersectionPoint(auxP, vAux);
+        if (NUM_INTERSECT == EQIntersections::E_Infinite) // Ray and plane are coplanar.
             return ( this->Intersection(vVertexA, vVertexB) || this->Intersection(vVertexB, vVertexC) ||
                      this->Intersection(vVertexC, vVertexD) || this->Intersection(vVertexD, vVertexA) );
-        else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects in one point
+        else if (NUM_INTERSECT == EQIntersections::E_One) // Ray and plane intersects in one point
             return this->PointInsideQuadrilateral(vVertexA, vVertexB, vVertexC, vVertexD, vAux);
         else
             return false;
@@ -1772,8 +1772,8 @@ protected:
 
         VectorType vAux;
 
-        const EQIntersections &numIntersect = this->IntersectionPoint(auxP, vAux);
-        if (numIntersect == EQIntersections::E_Infinite) // Ray and quadrilateral are coplanar.
+        const EQIntersections &NUM_INTERSECT = this->IntersectionPoint(auxP, vAux);
+        if (NUM_INTERSECT == EQIntersections::E_Infinite) // Ray and quadrilateral are coplanar.
         {
             if ( PointInsideQuadrilateral(vVertexA, vVertexB, vVertexC, vVertexD, this->Origin) ) // Ray origin is inside quadrilateral
             {
@@ -2203,7 +2203,7 @@ protected:
                     return EQIntersections::E_None;
             }
         }
-        else if (numIntersect == EQIntersections::E_One) // Ray and plane intersects only in one point
+        else if (NUM_INTERSECT == EQIntersections::E_One) // Ray and plane intersects only in one point
         {
             if ( this->PointInsideQuadrilateral(vVertexA, vVertexB, vVertexC, vVertexD, vAux) )
             {

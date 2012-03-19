@@ -23,9 +23,9 @@ namespace Math
 
 bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
 {
-    const float_q &fDenominator = this->Direction.x * ray.Direction.y - this->Direction.y * ray.Direction.x;
+    const float_q &DENOMINATOR = this->Direction.x * ray.Direction.y - this->Direction.y * ray.Direction.x;
 
-    if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallels
+    if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
     {
         if ( this->Contains(ray.Origin) )
             return true;
@@ -34,12 +34,12 @@ bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
     }
     else // rays are not parallel
     {
-        const float_q &fNumerator1 = this->Direction.x * (this->Origin.y - ray.Origin.y) + this->Direction.y * (ray.Origin.x - this->Origin.x);
-        if ((SQFloat::IsNegative(fDenominator) == SQFloat::IsNegative(fNumerator1)) || SQFloat::IsZero(fNumerator1))
+        const float_q &NUMERATOR1 = this->Direction.x * (this->Origin.y - ray.Origin.y) + this->Direction.y * (ray.Origin.x - this->Origin.x);
+        if ((SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR1)) || SQFloat::IsZero(NUMERATOR1))
         {
-            const float_q &fNumerator2 = ray.Direction.x * (this->Origin.y - ray.Origin.y) + ray.Direction.y * (ray.Origin.x - this->Origin.x);
+            const float_q &NUMERATOR2 = ray.Direction.x * (this->Origin.y - ray.Origin.y) + ray.Direction.y * (ray.Origin.x - this->Origin.x);
 
-            return ( (SQFloat::IsNegative(fDenominator) == SQFloat::IsNegative(fNumerator2)) || SQFloat::IsZero(fNumerator2) );
+            return ( (SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR2)) || SQFloat::IsZero(NUMERATOR2) );
         }
         else
             return false;
@@ -48,9 +48,9 @@ bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
 
 EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ray, QBaseVector2 &vIntersection) const
 {
-    const float_q &fDenominator = this->Direction.x * ray.Direction.y - this->Direction.y * ray.Direction.x;
+    const float_q &DENOMINATOR = this->Direction.x * ray.Direction.y - this->Direction.y * ray.Direction.x;
 
-    if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallels
+    if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
     {
         if (this->Origin == ray.Origin)
         {
@@ -69,18 +69,18 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ra
     }
     else
     {
-        const float_q &fNumerator1 = this->Direction.x * (this->Origin.y - ray.Origin.y) +
-                                     this->Direction.y * (ray.Origin.x - this->Origin.x);
+        const float_q &NUMERATOR1 = this->Direction.x * (this->Origin.y - ray.Origin.y) +
+                                    this->Direction.y * (ray.Origin.x - this->Origin.x);
 
         // Forces first parameter to be greater o equal to 0
-        if ((SQFloat::IsNegative(fDenominator) == SQFloat::IsNegative(fNumerator1)) || SQFloat::IsZero(fNumerator1))
+        if ((SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR1)) || SQFloat::IsZero(NUMERATOR1))
         {
-            const float_q &fNumerator2 = ray.Direction.x * (this->Origin.y - ray.Origin.y) + ray.Direction.y * (ray.Origin.x - this->Origin.x);
+            const float_q &NUMERATOR2 = ray.Direction.x * (this->Origin.y - ray.Origin.y) + ray.Direction.y * (ray.Origin.x - this->Origin.x);
 
             // Forces second parameter to be greater o equal to 0
-            if ( (SQFloat::IsNegative(fDenominator) == SQFloat::IsNegative(fNumerator2)) || SQFloat::IsZero(fNumerator2) )
+            if ( (SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR2)) || SQFloat::IsZero(NUMERATOR2) )
             {
-                vIntersection = this->Origin + (fNumerator2/fDenominator) * this->Direction;
+                vIntersection = this->Origin + (NUMERATOR2/DENOMINATOR) * this->Direction;
                 return EQIntersections::E_One;
             }
             else
@@ -821,9 +821,9 @@ bool QRay2D::Intersection(const QBaseLineSegment<QVector2> &segment) const
 {
     QVector2 vAux(segment.B - segment.A);
 
-    const float_q &fDenominator = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
+    const float_q &DENOMINATOR = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
 
-    if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallels
+    if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
     {
         if ( this->Contains(segment.A) )
             return true;
@@ -834,12 +834,12 @@ bool QRay2D::Intersection(const QBaseLineSegment<QVector2> &segment) const
     }
     else
     {
-        const float_q &fNumerator1 = vAux.x * (this->Origin.y - segment.A.y) + vAux.y * (segment.A.x - this->Origin.x);
-        if ((SQFloat::IsNegative(fDenominator) == SQFloat::IsNegative(fNumerator1)) || SQFloat::IsZero(fNumerator1))
+        const float_q &NUMERATOR1 = vAux.x * (this->Origin.y - segment.A.y) + vAux.y * (segment.A.x - this->Origin.x);
+        if ((SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR1)) || SQFloat::IsZero(NUMERATOR1))
         {
-            const float_q &fNumerator2 = this->Direction.x * (this->Origin.y - segment.A.y) + this->Direction.y * (segment.A.x - this->Origin.x);
-            if ( ( SQFloat::IsNegative(fDenominator) == SQFloat::IsNegative(fNumerator2) &&
-                   SQFloat::IsGreaterOrEquals(SQFloat::Abs(fDenominator), SQFloat::Abs(fNumerator2)) ) || SQFloat::IsZero(fNumerator2) )
+            const float_q &NUMERATOR2 = this->Direction.x * (this->Origin.y - segment.A.y) + this->Direction.y * (segment.A.x - this->Origin.x);
+            if ( ( SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR2) &&
+                   SQFloat::IsGreaterOrEquals(SQFloat::Abs(DENOMINATOR), SQFloat::Abs(NUMERATOR2)) ) || SQFloat::IsZero(NUMERATOR2) )
                 return true;
             else
                 return false;
@@ -853,16 +853,16 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseLineSegment<QVector2> &segm
 {
     QVector2 vAux(segment.B - segment.A);
 
-    const float_q &fDenominator = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
+    const float_q &DENOMINATOR = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
 
-    if ( SQFloat::IsZero(fDenominator) ) // Both directions are parallels
+    if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
     {
-        const bool &bAIsInRay = this->Contains(segment.A);
-        const bool &bBIsInRay = this->Contains(segment.B);
+        const bool &A_IS_IN_RAY = this->Contains(segment.A);
+        const bool &B_IS_IN_RAY = this->Contains(segment.B);
 
-        if ( bAIsInRay && bBIsInRay )
+        if ( A_IS_IN_RAY && B_IS_IN_RAY )
             return EQIntersections::E_Infinite;
-        else if ( bAIsInRay )
+        else if ( A_IS_IN_RAY )
         {
             if (segment.A == this->Origin)
             {
@@ -872,7 +872,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseLineSegment<QVector2> &segm
             else
                 return EQIntersections::E_Infinite;
         }
-        else if ( bBIsInRay )
+        else if ( B_IS_IN_RAY )
         {
             if (segment.B == this->Origin)
             {
@@ -887,14 +887,14 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseLineSegment<QVector2> &segm
     }
     else
     {
-        const float_q &fNumerator1 = vAux.x * (this->Origin.y - segment.A.y) + vAux.y * (segment.A.x - this->Origin.x);
-        if ((SQFloat::IsNegative(fDenominator) == SQFloat::IsNegative(fNumerator1)) || SQFloat::IsZero(fNumerator1))
+        const float_q &NUMERATOR1 = vAux.x * (this->Origin.y - segment.A.y) + vAux.y * (segment.A.x - this->Origin.x);
+        if ((SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR1)) || SQFloat::IsZero(NUMERATOR1))
         {
-            const float_q &fNumerator2 = this->Direction.x * (this->Origin.y - segment.A.y) + this->Direction.y * (segment.A.x - this->Origin.x);
-            if ( ( SQFloat::IsNegative(fDenominator) == SQFloat::IsNegative(fNumerator2) &&
-                   SQFloat::IsGreaterOrEquals(SQFloat::Abs(fDenominator), SQFloat::Abs(fNumerator2)) ) || SQFloat::IsZero(fNumerator2) )
+            const float_q &NUMERATOR2 = this->Direction.x * (this->Origin.y - segment.A.y) + this->Direction.y * (segment.A.x - this->Origin.x);
+            if ( ( SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR2) &&
+                   SQFloat::IsGreaterOrEquals(SQFloat::Abs(DENOMINATOR), SQFloat::Abs(NUMERATOR2)) ) || SQFloat::IsZero(NUMERATOR2) )
             {
-                vIntersection = this->Origin + (fNumerator1/fDenominator) * this->Direction;
+                vIntersection = this->Origin + (NUMERATOR1/DENOMINATOR) * this->Direction;
                 return EQIntersections::E_One;
             }
             else

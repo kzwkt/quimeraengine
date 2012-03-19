@@ -127,27 +127,27 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
-        const float_q& fHalfVertFOV = SQAngle::DegreesToRadians(fVerticalFOV*SQFloat::_0_5);
+        const float_q& HALF_VERT_FOV = SQAngle::DegreesToRadians(fVerticalFOV * SQFloat::_0_5);
     #else
-        const float_q& fHalfVertFOV = fVerticalFOV * SQFloat::_0_5;
+        const float_q& HALF_VERT_FOV = fVerticalFOV * SQFloat::_0_5;
     #endif
 
-    QE_ASSERT( SQFloat::AreNotEquals(fHalfVertFOV, SQAngle::_HalfPi) )
+    QE_ASSERT( SQFloat::AreNotEquals(HALF_VERT_FOV, SQAngle::_HalfPi) )
 
-    const float_q &fScaleY  = SQFloat::_1 / tan_q(fHalfVertFOV);
-    const float_q &fScaleX  = fScaleY / fAspectRatio;
+    const float_q &SCALE_Y  = SQFloat::_1 / tan_q(HALF_VERT_FOV);
+    const float_q &SCALE_X  = SCALE_Y / fAspectRatio;
 
-    this->ij[0][0] = fScaleX;
+    this->ij[0][0] = SCALE_X;
     this->ij[0][1] = SQFloat::_0;
     this->ij[0][2] = SQFloat::_0;
     this->ij[0][3] = SQFloat::_0;
     this->ij[1][0] = SQFloat::_0;
-    this->ij[1][1] = fScaleY;
+    this->ij[1][1] = SCALE_Y;
     this->ij[1][2] = SQFloat::_0;
     this->ij[1][3] = SQFloat::_0;
     this->ij[2][0] = SQFloat::_0;
     this->ij[2][1] = SQFloat::_0;
-    this->ij[2][2] = fFarClipPlane/(fFarClipPlane - fNearClipPlane);
+    this->ij[2][2] = fFarClipPlane / (fFarClipPlane - fNearClipPlane);
     this->ij[2][3] = SQFloat::_1;
     this->ij[3][0] = SQFloat::_0;
     this->ij[3][2] = -fNearClipPlane * this->ij[2][2];

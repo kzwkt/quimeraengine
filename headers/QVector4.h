@@ -479,12 +479,12 @@ public:
         // Checkout to avoid division by 0
         QE_ASSERT(fScalar != SQFloat::_0)
 
-        const float_q &fDivisor = SQFloat::_1/fScalar;
+        const float_q &DIVISOR = SQFloat::_1 / fScalar;
 
-        this->x *= fDivisor;
-        this->y *= fDivisor;
-        this->z *= fDivisor;
-        this->w *= fDivisor;
+        this->x *= DIVISOR;
+        this->y *= DIVISOR;
+        this->z *= DIVISOR;
+        this->w *= DIVISOR;
 
         return *this;
     }
@@ -663,12 +663,12 @@ public:
     /// </returns>
     inline QVector4 Lerp(const float_q &fProportion, const QBaseVector4 &vVector) const
     {
-        const float_q fDiff = SQFloat::_1 - fProportion;
+        const float_q DIFF = SQFloat::_1 - fProportion;
 
-        return QVector4(this->x * fProportion + vVector.x * fDiff,
-                        this->y * fProportion + vVector.y * fDiff,
-                        this->z * fProportion + vVector.z * fDiff,
-                        this->w * fProportion + vVector.w * fDiff);
+        return QVector4(this->x * fProportion + vVector.x * DIFF,
+                        this->y * fProportion + vVector.y * DIFF,
+                        this->z * fProportion + vVector.z * DIFF,
+                        this->w * fProportion + vVector.w * DIFF);
     }
 
     /// <summary>

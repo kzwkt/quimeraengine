@@ -432,10 +432,10 @@ public:
         // Checkout to avoid division by zero.
         QE_ASSERT(fScalar != SQFloat::_0)
 
-        const float_q &fDivisor = SQFloat::_1/fScalar;
+        const float_q &DIVISOR = SQFloat::_1/fScalar;
 
-        this->r *= fDivisor;
-        this->d *= fDivisor;
+        this->r *= DIVISOR;
+        this->d *= DIVISOR;
 
         return *this;
     }

@@ -90,9 +90,9 @@ QVector3 QVector3::operator/(const float_q &fScalar) const
     // Checkout to avoid division by 0
     QE_ASSERT (fScalar != SQFloat::_0)
 
-    const float_q &fDivisor = SQFloat::_1/fScalar;
+    const float_q &DIVISOR = SQFloat::_1/fScalar;
 
-    return QVector3(this->x * fDivisor, this->y * fDivisor, this->z * fDivisor);
+    return QVector3(this->x * DIVISOR, this->y * DIVISOR, this->z * DIVISOR);
 }
 
 QVector3 QVector3::operator/(const QBaseVector3 &vVector) const
