@@ -75,9 +75,9 @@ QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
 {
     QE_ASSERT(fScalar != SQFloat::_0)
 
-    const float_q &fDivisor = SQFloat::_1/fScalar;
+    const float_q &DIVISOR = SQFloat::_1/fScalar;
 
-    return QDualQuaternion(QBaseQuaternion(this->r * fDivisor), QBaseQuaternion(this->d * fDivisor));
+    return QDualQuaternion(QBaseQuaternion(this->r * DIVISOR), QBaseQuaternion(this->d * DIVISOR));
 }
 
 QDualQuaternion QDualQuaternion::Transform(const QBaseDualQuaternion &transformation) const

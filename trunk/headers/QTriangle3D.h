@@ -462,19 +462,19 @@ public:
 	{
 	    // Method from here: http://descartes.cnice.mec.es/materiales_didacticos/OrtoCircun/Ortocentro.htm
 
-	    const VectorType &vAB = this->B - this->A;
-	    const VectorType &vBC = this->C - this->B;
-	    const VectorType &vCA = this->A - this->C;
+	    const VectorType &AB = this->B - this->A;
+	    const VectorType &BC = this->C - this->B;
+	    const VectorType &CA = this->A - this->C;
 
 	    // Normal to BC in ABC plane
-	    const VectorType &vNormBC = ( vBC.CrossProduct(vAB) ).CrossProduct(vBC);
+	    const VectorType &NORMAL_TO_BC = ( BC.CrossProduct(AB) ).CrossProduct(BC);
 
-        // vNormBC and AB can't be perpendicular, but we ensure it:
-        const float_q &fDot = vNormBC.DotProduct(vAB);
+        // NORMAL_TO_BC and AB can't be perpendicular, but we ensure it:
+        const float_q &DOT = NORMAL_TO_BC.DotProduct(AB);
 
-        QE_ASSERT(fDot != SQFloat::_0)
+        QE_ASSERT(DOT != SQFloat::_0)
 
-	    return this->A - ( vCA.DotProduct(vAB)/fDot) * vNormBC;
+	    return this->A - ( CA.DotProduct(AB) / DOT) * NORMAL_TO_BC;
 	}
 
 	/// <summary>

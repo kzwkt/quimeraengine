@@ -54,22 +54,22 @@ bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quad) const
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>& triangle, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
 {
-    const bool &bAIsInside = PointInsideTriangle(triangle, this->A);
-    const bool &bBIsInside = PointInsideTriangle(triangle, this->B);
+    const bool &A_IS_INSIDE = PointInsideTriangle(triangle, this->A);
+    const bool &B_IS_INSIDE = PointInsideTriangle(triangle, this->B);
 
-    if (bAIsInside && bBIsInside) // Both line segment end points are inside triangle.
+    if (A_IS_INSIDE && B_IS_INSIDE) // Both line segment end points are inside triangle.
     {
         // A or B are vertex
-        const bool &bAIsVertex = (this->A == triangle.A || this->A == triangle.B || this->A == triangle.C);
-        const bool &bBIsVertex = (this->B == triangle.A || this->B == triangle.B || this->B == triangle.C);
+        const bool &A_IS_VERTEX = (this->A == triangle.A || this->A == triangle.B || this->A == triangle.C);
+        const bool &B_IS_VERTEX = (this->B == triangle.A || this->B == triangle.B || this->B == triangle.C);
 
-        if (bAIsVertex && bBIsVertex) // Both endpoints are vertices of triangle
+        if (A_IS_VERTEX && B_IS_VERTEX) // Both endpoints are vertices of triangle
         {
             vIntersection1 = this->A;
             vIntersection2 = this->B;
             return EQIntersections::E_Two;
         }
-        else if (bAIsVertex) // Only A endpoint is a vertex of triangle
+        else if (A_IS_VERTEX) // Only A endpoint is a vertex of triangle
         {
             vIntersection1 = this->A;
 
@@ -109,7 +109,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 return EQIntersections::E_One;
             }
         }
-        else if (bBIsVertex)
+        else if (B_IS_VERTEX)
         {
             if (SQFloat::IsZero(QLineSegment2D(triangle.A, triangle.B).MinDistance(this->A))) // A is in AB triangle edge
             {
@@ -226,7 +226,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
             }
         }
     }
-    else if (!bAIsInside && !bBIsInside) // Both line segment end points are outside triangle.
+    else if (!A_IS_INSIDE && !B_IS_INSIDE) // Both line segment end points are outside triangle.
     {
         QVector2 vPointAB, vPointBC, vPointCA;
 
@@ -387,7 +387,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
     {
         QVector2 vAux; // To store intersection points
 
-        if (bAIsInside) // this->A is inside triangle
+        if (A_IS_INSIDE) // this->A is inside triangle
         {
             if (this->A == triangle.A) // this->A is A triangle vertex
             {
@@ -673,22 +673,22 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
 {
-    const bool &bAIsInside = PointInsideQuadrilateral(quad, this->A);
-    const bool &bBIsInside = PointInsideQuadrilateral(quad, this->B);
+    const bool &A_IS_INSIDE = PointInsideQuadrilateral(quad, this->A);
+    const bool &B_IS_INSIDE = PointInsideQuadrilateral(quad, this->B);
 
-    if (bAIsInside && bBIsInside) // Both line segment end points are inside quadrilateral.
+    if (A_IS_INSIDE && B_IS_INSIDE) // Both line segment end points are inside quadrilateral.
     {
         // A or B are vertex
-        const bool &bAIsVertex = (this->A == quad.A || this->A == quad.B || this->A == quad.C || this->A == quad.D);
-        const bool &bBIsVertex = (this->B == quad.A || this->B == quad.B || this->B == quad.C || this->B == quad.D);
+        const bool &A_IS_VERTEX = (this->A == quad.A || this->A == quad.B || this->A == quad.C || this->A == quad.D);
+        const bool &B_IS_VERTEX = (this->B == quad.A || this->B == quad.B || this->B == quad.C || this->B == quad.D);
 
-        if (bAIsVertex && bBIsVertex) // Both endpoints are vertices of quadrilateral
+        if (A_IS_VERTEX && B_IS_VERTEX) // Both endpoints are vertices of quadrilateral
         {
             vIntersection1 = this->A;
             vIntersection2 = this->B;
             return EQIntersections::E_Two;
         }
-        else if (bAIsVertex) // Only A endpoint is a vertex of quadrilateral
+        else if (A_IS_VERTEX) // Only A endpoint is a vertex of quadrilateral
         {
             if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->B))) // B is in AB quad edge
             {
@@ -752,7 +752,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
                 return EQIntersections::E_One;
             }
         }
-        else if (bBIsVertex)
+        else if (B_IS_VERTEX)
         {
             if (SQFloat::IsZero(QLineSegment2D(quad.A, quad.B).MinDistance(this->A))) // A is in AB quad edge
             {
@@ -905,7 +905,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
             }
         }
     }
-    else if (!bAIsInside && !bBIsInside) // Both line segment end points are outside quadrilateral.
+    else if (!A_IS_INSIDE && !B_IS_INSIDE) // Both line segment end points are outside quadrilateral.
     {
         QVector2 vPointAB, vPointBC, vPointCD, vPointDA;
 
@@ -1173,7 +1173,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
     {
         QVector2 vAux; // To store intersection points
 
-        if (bAIsInside) // this->A is inside quadrilateral
+        if (A_IS_INSIDE) // this->A is inside quadrilateral
         {
             if (this->A == quad.A) // this->A is quad.A vertex
             {

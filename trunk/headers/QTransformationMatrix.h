@@ -481,7 +481,7 @@ public:
     MatrixType Reverse() const
     {
         // Gets the inverse of the Determinant.
-        const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
+        const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();
 
         // Binary products are stored in vars to avoid unnecesary repetitions
         const float_q& fA = this->ij[0][0] * this->ij[1][1];
@@ -502,24 +502,24 @@ public:
         aux.ResetToIdentity();
 
         // 1st column of inverse
-        aux.ij[0][0] =  fInvDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1] );
-        aux.ij[1][0] = -fInvDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0] );
-        aux.ij[2][0] =  fInvDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0] );
-        aux.ij[3][0] = -fInvDet * (this->ij[1][0] * fJ + this->ij[1][1] * fO + this->ij[1][2] * fH -
+        aux.ij[0][0] =  INV_DET * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1] );
+        aux.ij[1][0] = -INV_DET * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0] );
+        aux.ij[2][0] =  INV_DET * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0] );
+        aux.ij[3][0] = -INV_DET * (this->ij[1][0] * fJ + this->ij[1][1] * fO + this->ij[1][2] * fH -
                                    this->ij[1][2] * fD - this->ij[1][0] * fK - this->ij[1][1] * fN );
 
         // 2nd column of inverse
-        aux.ij[0][1] = -fInvDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1] );
-        aux.ij[1][1] =  fInvDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0] );
-        aux.ij[2][1] = -fInvDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0] );
-        aux.ij[3][1] =  fInvDet * (this->ij[0][0] * fJ + this->ij[0][1] * fO + this->ij[0][2] * fH -
+        aux.ij[0][1] = -INV_DET * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1] );
+        aux.ij[1][1] =  INV_DET * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0] );
+        aux.ij[2][1] = -INV_DET * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0] );
+        aux.ij[3][1] =  INV_DET * (this->ij[0][0] * fJ + this->ij[0][1] * fO + this->ij[0][2] * fH -
                                    this->ij[0][2] * fD - this->ij[0][0] * fK - this->ij[0][1] * fN );
 
         // 3rd column of inverse
-        aux.ij[0][2] =  fInvDet * (fQ - fT);
-        aux.ij[1][2] = -fInvDet * (fU - fX);
-        aux.ij[2][2] =  fInvDet * (fA - fE);
-        aux.ij[3][2] = -fInvDet * (fA * this->ij[3][2] + fQ * this->ij[3][0] + fX * this->ij[3][1] -
+        aux.ij[0][2] =  INV_DET * (fQ - fT);
+        aux.ij[1][2] = -INV_DET * (fU - fX);
+        aux.ij[2][2] =  INV_DET * (fA - fE);
+        aux.ij[3][2] = -INV_DET * (fA * this->ij[3][2] + fQ * this->ij[3][0] + fX * this->ij[3][1] -
                                    fT * this->ij[3][0] - fU * this->ij[3][1] - fE * this->ij[3][2] );
 
         return aux;

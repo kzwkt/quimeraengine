@@ -570,10 +570,10 @@ protected:
     {
         QPlane p(vA, vB, vC);
 
-        const float_q &fDistP1 = p.a * vP1.x + p.b * vP1.y + p.c * vP1.z + p.d;
-        const float_q &fDistP2 = p.a * vP2.x + p.b * vP2.y + p.c * vP2.z + p.d;
+        const float_q &DIST_P1 = p.a * vP1.x + p.b * vP1.y + p.c * vP1.z + p.d;
+        const float_q &DIST_P2 = p.a * vP2.x + p.b * vP2.y + p.c * vP2.z + p.d;
 
-        return !SQFloat::IsNegative(fDistP1 * fDistP2);
+        return !SQFloat::IsNegative(DIST_P1 * DIST_P2);
     }
 };
 

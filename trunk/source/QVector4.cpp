@@ -102,9 +102,9 @@ QVector4 QVector4::operator/(const float_q &fScalar) const
     // Checkout to avoid division by 0
     QE_ASSERT(fScalar != SQFloat::_0)
 
-    const float_q &fDivisor = SQFloat::_1/fScalar;
+    const float_q &DIVISOR = SQFloat::_1 / fScalar;
 
-    return QVector4(this->x * fDivisor, this->y * fDivisor, this->z * fDivisor, this->w * fDivisor);
+    return QVector4(this->x * DIVISOR, this->y * DIVISOR, this->z * DIVISOR, this->w * DIVISOR);
 }
 
 QVector4 QVector4::operator/(const QBaseVector4 &vVector) const

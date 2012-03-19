@@ -62,14 +62,14 @@ QMatrix2x2 QMatrix2x2::operator/(const float_q &fScalar) const
 
     QE_ASSERT(fScalar != SQFloat::_0)
 
-    const float_q &fDivisor = SQFloat::_1/fScalar;
+    const float_q &DIVISOR = SQFloat::_1/fScalar;
 
     QMatrix2x2 aux;
 
-    aux.ij[0][0] = this->ij[0][0] * fDivisor;
-    aux.ij[0][1] = this->ij[0][1] * fDivisor;
-    aux.ij[1][0] = this->ij[1][0] * fDivisor;
-    aux.ij[1][1] = this->ij[1][1] * fDivisor;
+    aux.ij[0][0] = this->ij[0][0] * DIVISOR;
+    aux.ij[0][1] = this->ij[0][1] * DIVISOR;
+    aux.ij[1][0] = this->ij[1][0] * DIVISOR;
+    aux.ij[1][1] = this->ij[1][1] * DIVISOR;
 
     return aux;
 }
@@ -120,12 +120,12 @@ float_q QMatrix2x2::GetDeterminant() const
 QMatrix2x2 QMatrix2x2::Reverse() const
 {
     // We need inverse of determinant in calculus.
-    const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
+    const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();
 
-    return QMatrix2x2( fInvDet * this->ij[1][1],
-                      -fInvDet * this->ij[0][1],
-                      -fInvDet * this->ij[1][0],
-                       fInvDet * this->ij[0][0] ); 
+    return QMatrix2x2( INV_DET * this->ij[1][1],
+                      -INV_DET * this->ij[0][1],
+                      -INV_DET * this->ij[1][0],
+                       INV_DET * this->ij[0][0] ); 
 }
 
 string_q QMatrix2x2::ToString() const

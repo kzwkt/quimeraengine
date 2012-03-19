@@ -122,17 +122,17 @@ public:
     /// <param name="fRotationAngle">[OUT] Floating point variable to store the angle of rotation.</param>
     inline void GetRotation(float_q &fRotationAngle) const
     {
-        const float_q &fScale = hypot_q(this->ij[0][0], this->ij[0][1]);
+        const float_q &SCALE = hypot_q(this->ij[0][0], this->ij[0][1]);
 
         // Checkout to avoid division by zero.
-        QE_ASSERT(fScale != SQFloat::_0)
+        QE_ASSERT(SCALE != SQFloat::_0)
 
-        const float_q &fCosRot = this->ij[0][0]/fScale;
+        const float_q &COS_ROT = this->ij[0][0] / SCALE;
 
         // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
-        QE_ASSERT(SQFloat::Abs(fCosRot) <= SQFloat::_1)
+        QE_ASSERT(SQFloat::Abs(COS_ROT) <= SQFloat::_1)
 
-        fRotationAngle = acos_q(fCosRot);
+        fRotationAngle = acos_q(COS_ROT);
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles must be specified in degrees, then converts it.

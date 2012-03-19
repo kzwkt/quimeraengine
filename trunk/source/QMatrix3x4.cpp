@@ -65,22 +65,22 @@ QMatrix3x4 QMatrix3x4::operator/(const float_q &fScalar) const
 
 	QE_ASSERT(fScalar != SQFloat::_0)
 
-    const float_q &fDivisor = SQFloat::_1/fScalar;
+    const float_q &DIVISOR = SQFloat::_1/fScalar;
 
 	QMatrix3x4 aux;
 
-	aux.ij[0][0] = this->ij[0][0] * fDivisor;
-	aux.ij[0][1] = this->ij[0][1] * fDivisor;
-	aux.ij[0][2] = this->ij[0][2] * fDivisor;
-	aux.ij[0][3] = this->ij[0][3] * fDivisor;
-	aux.ij[1][0] = this->ij[1][0] * fDivisor;
-	aux.ij[1][1] = this->ij[1][1] * fDivisor;
-	aux.ij[1][2] = this->ij[1][2] * fDivisor;
-	aux.ij[1][3] = this->ij[1][3] * fDivisor;
-	aux.ij[2][0] = this->ij[2][0] * fDivisor;
-	aux.ij[2][1] = this->ij[2][1] * fDivisor;
-	aux.ij[2][2] = this->ij[2][2] * fDivisor;
-	aux.ij[2][3] = this->ij[2][3] * fDivisor;
+	aux.ij[0][0] = this->ij[0][0] * DIVISOR;
+	aux.ij[0][1] = this->ij[0][1] * DIVISOR;
+	aux.ij[0][2] = this->ij[0][2] * DIVISOR;
+	aux.ij[0][3] = this->ij[0][3] * DIVISOR;
+	aux.ij[1][0] = this->ij[1][0] * DIVISOR;
+	aux.ij[1][1] = this->ij[1][1] * DIVISOR;
+	aux.ij[1][2] = this->ij[1][2] * DIVISOR;
+	aux.ij[1][3] = this->ij[1][3] * DIVISOR;
+	aux.ij[2][0] = this->ij[2][0] * DIVISOR;
+	aux.ij[2][1] = this->ij[2][1] * DIVISOR;
+	aux.ij[2][2] = this->ij[2][2] * DIVISOR;
+	aux.ij[2][3] = this->ij[2][3] * DIVISOR;
 
 	return aux;
 }

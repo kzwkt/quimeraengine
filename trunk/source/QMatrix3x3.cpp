@@ -120,19 +120,19 @@ QMatrix3x3 QMatrix3x3::operator/(const float_q &fScalar) const
 
     QE_ASSERT(fScalar != SQFloat::_0)
 
-    const float_q &fDivisor = SQFloat::_1/fScalar;
+    const float_q &DIVISOR = SQFloat::_1/fScalar;
 
     QMatrix3x3 aux;
 
-    aux.ij[0][0] = this->ij[0][0] * fDivisor;
-    aux.ij[0][1] = this->ij[0][1] * fDivisor;
-    aux.ij[0][2] = this->ij[0][2] * fDivisor;
-    aux.ij[1][0] = this->ij[1][0] * fDivisor;
-    aux.ij[1][1] = this->ij[1][1] * fDivisor;
-    aux.ij[1][2] = this->ij[1][2] * fDivisor;
-    aux.ij[2][0] = this->ij[2][0] * fDivisor;
-    aux.ij[2][1] = this->ij[2][1] * fDivisor;
-    aux.ij[2][2] = this->ij[2][2] * fDivisor;
+    aux.ij[0][0] = this->ij[0][0] * DIVISOR;
+    aux.ij[0][1] = this->ij[0][1] * DIVISOR;
+    aux.ij[0][2] = this->ij[0][2] * DIVISOR;
+    aux.ij[1][0] = this->ij[1][0] * DIVISOR;
+    aux.ij[1][1] = this->ij[1][1] * DIVISOR;
+    aux.ij[1][2] = this->ij[1][2] * DIVISOR;
+    aux.ij[2][0] = this->ij[2][0] * DIVISOR;
+    aux.ij[2][1] = this->ij[2][1] * DIVISOR;
+    aux.ij[2][2] = this->ij[2][2] * DIVISOR;
 
     return aux;
 }
@@ -212,17 +212,17 @@ float_q QMatrix3x3::GetDeterminant() const
 QMatrix3x3 QMatrix3x3::Reverse() const
 {
     // Gets the inverse of the Determinant.
-    const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
+    const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();
 
-    return QMatrix3x3( fInvDet * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1]),
-                      -fInvDet * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0]),
-                       fInvDet * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0]),
-                      -fInvDet * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1]),
-                       fInvDet * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0]),
-                      -fInvDet * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0]),
-                       fInvDet * (this->ij[0][1] * this->ij[1][2] - this->ij[0][2] * this->ij[1][1]),
-                      -fInvDet * (this->ij[0][0] * this->ij[1][2] - this->ij[0][2] * this->ij[1][0]),
-                       fInvDet * (this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0]) );
+    return QMatrix3x3( INV_DET * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1]),
+                      -INV_DET * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0]),
+                       INV_DET * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0]),
+                      -INV_DET * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1]),
+                       INV_DET * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0]),
+                      -INV_DET * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0]),
+                       INV_DET * (this->ij[0][1] * this->ij[1][2] - this->ij[0][2] * this->ij[1][1]),
+                      -INV_DET * (this->ij[0][0] * this->ij[1][2] - this->ij[0][2] * this->ij[1][0]),
+                       INV_DET * (this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0]) );
 }
 
 string_q QMatrix3x3::ToString() const

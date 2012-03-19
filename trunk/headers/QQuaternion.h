@@ -478,12 +478,12 @@ public:
     {
         QE_ASSERT(fScalar != SQFloat::_0)
 
-        const float_q &fDivisor = SQFloat::_1/fScalar;
+        const float_q &DIVISOR = SQFloat::_1/fScalar;
 
-        this->x *= fDivisor;
-        this->y *= fDivisor;
-        this->z *= fDivisor;
-        this->w *= fDivisor;
+        this->x *= DIVISOR;
+        this->y *= DIVISOR;
+        this->z *= DIVISOR;
+        this->w *= DIVISOR;
 
         return *this;
     }
@@ -512,9 +512,9 @@ public:
     {
         QE_ASSERT(this->GetLength()) // Code that will not execute, no overhead
 
-        const float_q& fInvLength = SQFloat::_1 / this->GetLength();
+        const float_q& INV_LENGTH = SQFloat::_1 / this->GetLength();
 
-        return QQuaternion(this->x * fInvLength, this->y * fInvLength, this->z * fInvLength, this->w * fInvLength);
+        return QQuaternion(this->x * INV_LENGTH, this->y * INV_LENGTH, this->z * INV_LENGTH, this->w * INV_LENGTH);
     }
 
     /// <summary>
@@ -530,13 +530,13 @@ public:
     inline QQuaternion Reverse() const
     {
         // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
-        const float_q& fSquaredLength = this->GetSquaredLength();
+        const float_q& SQUARED_LENGTH = this->GetSquaredLength();
 
-        QE_ASSERT(fSquaredLength != SQFloat::_0)
+        QE_ASSERT(SQUARED_LENGTH != SQFloat::_0)
 
-        const float_q& fNegInvLength = -SQFloat::_1/fSquaredLength;
+        const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
 
-        return QQuaternion(this->x * fNegInvLength, this->y * fNegInvLength, this->z * fNegInvLength, this->w * -fNegInvLength);
+        return QQuaternion(this->x * NEG_INV_LENGTH, this->y * NEG_INV_LENGTH, this->z * NEG_INV_LENGTH, this->w * -NEG_INV_LENGTH);
     }
 
     /// <summary>

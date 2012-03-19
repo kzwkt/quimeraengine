@@ -459,10 +459,10 @@ public:
 
         // Direction is transformed without translation. The calculation takes into account only the submatrix that contains
         // the rotation and the scale.
-        const float_q fNewX = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
-        const float_q fNewY = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];
+        const float_q NEW_X = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
+        const float_q NEW_Y = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];
 
-        auxRay.Direction = QVector2(fNewX, fNewY).Normalize();
+        auxRay.Direction = QVector2(NEW_X, NEW_Y).Normalize();
 
         return auxRay;
 	}
@@ -620,10 +620,10 @@ public:
         QRay2D auxRay = *this;
         SQPoint::TransformWithPivot(transformation, vPivot, &auxRay.Origin, 1);
 
-        const float_q fNewX = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
-        const float_q fNewY = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];
+        const float_q NEW_X = this->Direction.x * transformation.ij[0][0] + this->Direction.y * transformation.ij[1][0];
+        const float_q NEW_Y = this->Direction.x * transformation.ij[0][1] + this->Direction.y * transformation.ij[1][1];
 
-        auxRay.Direction = QVector2(fNewX, fNewY).Normalize();
+        auxRay.Direction = QVector2(NEW_X, NEW_Y).Normalize();
 
         return auxRay;
 	}
@@ -655,10 +655,10 @@ protected:
         }
         else
         {
-            const float_q &paramX = (vPoint.x - this->Origin.x)/this->Direction.x;
-            const float_q &paramY = (vPoint.y - this->Origin.y)/this->Direction.y;
+            const float_q &PARAM_X = (vPoint.x - this->Origin.x)/this->Direction.x;
+            const float_q &PARAM_Y = (vPoint.y - this->Origin.y)/this->Direction.y;
 
-            if ( SQFloat::AreNotEquals(paramX, paramY) || SQFloat::IsNegative(paramX))
+            if ( SQFloat::AreNotEquals(PARAM_X, PARAM_Y) || SQFloat::IsNegative(PARAM_X))
                 return false;
             else
                 return true;
@@ -690,12 +690,12 @@ protected:
     // Check if two points are in the same side of a line.
 	inline bool PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const
 	{
-        const float_q &fOrientation1 = (vLine1.x - vP1.x)*(vLine2.y - vP1.y) - (vLine1.y - vP1.y)*(vLine2.x - vP1.x);
-        const float_q &fOrientation2 = (vLine1.x - vP2.x)*(vLine2.y - vP2.y) - (vLine1.y - vP2.y)*(vLine2.x - vP2.x);
+        const float_q &ORIENTATION1 = (vLine1.x - vP1.x)*(vLine2.y - vP1.y) - (vLine1.y - vP1.y)*(vLine2.x - vP1.x);
+        const float_q &ORIENTATION2 = (vLine1.x - vP2.x)*(vLine2.y - vP2.y) - (vLine1.y - vP2.y)*(vLine2.x - vP2.x);
 
-        if ( SQFloat::IsZero(fOrientation1) || SQFloat::IsZero(fOrientation2) )
+        if ( SQFloat::IsZero(ORIENTATION1) || SQFloat::IsZero(ORIENTATION2) )
             return true;
-        else if ( SQFloat::IsNegative(fOrientation1) == SQFloat::IsNegative(fOrientation2) )
+        else if ( SQFloat::IsNegative(ORIENTATION1) == SQFloat::IsNegative(ORIENTATION2) )
             return true;
         else
             return false;
