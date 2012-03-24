@@ -249,10 +249,7 @@ public:
     /// </returns>
     QTransformationMatrix<MatrixType> operator*(const QRotationMatrix3x3 &matrix) const
     {
-        QTransformationMatrix<MatrixType> aux;
-
-        aux.ij[0][3] = aux.ij[1][3] = aux.ij[2][3] = SQFloat::_0;
-        aux.ij[3][3] = SQFloat::_1;
+        QTransformationMatrix<MatrixType> aux = QTransformationMatrix<MatrixType>::GetIdentity();
 
         aux.ij[0][0] = matrix.ij[0][0];
         aux.ij[0][1] = matrix.ij[0][1];

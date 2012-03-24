@@ -43,29 +43,17 @@ QQuaternion::QQuaternion(const float_q &fRotationAngleX, const float_q &fRotatio
         const float_q& HALF_ANGLE_Z_RAD = fRotationAngleZ * SQFloat::_0_5;
     #endif
 
-    float_q cx = cos_q(HALF_ANGLE_X_RAD);
-    float_q cy = cos_q(HALF_ANGLE_Y_RAD);
-    float_q cz = cos_q(HALF_ANGLE_Z_RAD);
-    float_q sx = sin_q(HALF_ANGLE_X_RAD);
-    float_q sy = sin_q(HALF_ANGLE_Y_RAD);
-    float_q sz = sin_q(HALF_ANGLE_Z_RAD);
+    const float_q cx = cos_q(HALF_ANGLE_X_RAD);
+    const float_q cy = cos_q(HALF_ANGLE_Y_RAD);
+    const float_q cz = cos_q(HALF_ANGLE_Z_RAD);
+    const float_q sx = sin_q(HALF_ANGLE_X_RAD);
+    const float_q sy = sin_q(HALF_ANGLE_Y_RAD);
+    const float_q sz = sin_q(HALF_ANGLE_Z_RAD);
 
-	// These are the computing formulas once the following decisions have been taken for Quimera Engine:
-	//
-	// -Coordinate system axis: LEFT-Handed.
-	//       -Positive rotation: CLOCKWISE.
-	//			-Please note from user's perspective (-Z axis) rotation about Z axis may be seen
-	//			 as COUNTER-CLOCKWISE.
-	//		 -Matrices as ROW vectors.
-	//			-Transforming vectors: Vector * TransformationMatrix = TransformedVector
-	// -Convention: ZXY (roll, pitch, yaw).
-	//		 -Quaternion combination: from RIGHT to LEFT --> yaw * (pitch * roll)
-
-	this->w = cy * cx * cz - sy * sz * sx;
-
-	this->x = cy * cz * sx + sy * cx * sz;
-	this->y = cy * sz * sx + cx * cz * sy;
-	this->z = cy * cx * sz - sy * cz * sx;
+	this->w =  cy * cx * cz + sy * sx * sz;
+	this->x =  cy * sx * cz + sy * cx * sz;
+	this->y = -cy * sx * sz + sy * cx * cz;
+	this->z = -sy * sx * cz + cy * cx * sz;
 }
 
 QQuaternion::QQuaternion(const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle)
@@ -160,11 +148,10 @@ QQuaternion QQuaternion::operator-(const QBaseQuaternion &qQuat) const
 
 QQuaternion QQuaternion::operator*(const QBaseQuaternion &qQuat) const
 {
-
-    return QQuaternion( this->w * qQuat.x + qQuat.w * this->x + (this->y * qQuat.z - this->z * qQuat.y),	   // Vx
-                        this->w * qQuat.y + this->y * qQuat.w + (this->z * qQuat.x - this->x * qQuat.z),	   // Vy
-                        this->w * qQuat.z + this->z * qQuat.w + (this->x * qQuat.y - this->y * qQuat.x),	   // Vz
-                        this->w * qQuat.w - (this->x * qQuat.x + this->y * qQuat.y + this->z * qQuat.z) );	   // W
+    return QQuaternion( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,	   // Vx
+                        qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,	   // Vy
+                        qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,	   // Vz
+                        qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );	   // W
 }
 
 QQuaternion QQuaternion::operator*(const float_q &fScalar) const
@@ -177,25 +164,17 @@ QQuaternion QQuaternion::operator*(const float_q &fScalar) const
 
 QQuaternion QQuaternion::operator*(const QBaseVector3 &vVector) const
 {
-	QQuaternion qAux(vVector.x, vVector.y, vVector.z, SQFloat::_0);
-
-    return *this * qAux;
+    return *this * QQuaternion(vVector.x, vVector.y, vVector.z, SQFloat::_0);
 }
 
 QQuaternion QQuaternion::operator*(const QBaseVector4 &vVector) const
 {
-	QQuaternion qAux(vVector.x, vVector.y, vVector.z, vVector.w);
-
-    return *this * qAux;
+    return *this * QQuaternion(vVector.x, vVector.y, vVector.z, vVector.w);
 }
+
 QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 {
-    QE_ASSERT(qQuat.x != SQFloat::_0 && qQuat.y != SQFloat::_0 && qQuat.z != SQFloat::_0 && qQuat.w != SQFloat::_0)
-
-    return QQuaternion(this->x / qQuat.x,
-                       this->y / qQuat.y,
-                       this->z / qQuat.z,
-                       this->w / qQuat.w);
+    return *this * qQuat.As<const QQuaternion>().Reverse();
 }
 
 QQuaternion QQuaternion::operator/(const float_q &fScalar) const
@@ -222,18 +201,17 @@ float_q QQuaternion::DotProduct(const QBaseQuaternion &qQuat) const
 
 float_q QQuaternion::DotProductAngle(const QBaseQuaternion &qQuat) const
 {
-    float_q fLength = sqrt_q( (this->x*this->x + this->y*this->y + this->z*this->z) *
-                            (qQuat.x*qQuat.x + qQuat.y*qQuat.y + qQuat.z*qQuat.z) );
+    float_q fLengths = this->GetLength() * qQuat.As<const QQuaternion>().GetLength();
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(fLength != SQFloat::_0)
+    QE_ASSERT(fLengths != SQFloat::_0)
 
-    float_q fDot = (this->x*qQuat.x + this->y*qQuat.y + this->z*qQuat.z)/fLength;
+    float_q fDot = (this->x*qQuat.x + this->y*qQuat.y + this->z*qQuat.z + this->w*qQuat.w)/fLengths;
 
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
     QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
 
-    float_q fAngle = acos(fDot);
+    float_q fAngle = acos(fDot) * SQFloat::_2;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
@@ -258,6 +236,8 @@ QQuaternion QQuaternion::Lerp(const QBaseQuaternion &qQuat, const float_q &fProp
 
 QQuaternion QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const
 {
+    QQuaternion qReturnValue;
+
     // Assures that all quaternions are unit length
     QQuaternion qNormalizedInputQuat = qQuat.As<const QQuaternion>().Normalize();
     QQuaternion qNormalizedThisQuat = this->Normalize();
@@ -266,97 +246,82 @@ QQuaternion QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fPro
 
     QE_ASSERT( !SQFloat::IsNaN(ANGLE_B) )
 
-    // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
-    QE_ASSERT( ANGLE_B != SQFloat::_0 && SQFloat::AreNotEquals(ANGLE_B, PI_Q) )
+    if( ANGLE_B != SQFloat::_0 && SQFloat::AreNotEquals(ANGLE_B, PI_Q) )
+    {
+        const float_q INV_SIN = SQFloat::_1/sin_q(ANGLE_B);
 
-    const float_q INV_SIN = SQFloat::_1/sin_q(ANGLE_B);
+        const float_q WEIGHT1 = sin_q((SQFloat::_1 - fProportion) * ANGLE_B) * INV_SIN;
+        const float_q WEIGHT2 = sin_q(fProportion * ANGLE_B) * INV_SIN;
 
-    const float_q WEIGHT1 = sin_q((SQFloat::_1 - fProportion) * ANGLE_B) * INV_SIN;
-    const float_q WEIGHT2 = sin_q(fProportion * ANGLE_B) * INV_SIN;
+        // Separated from the equation to gain performance
+        const QQuaternion AUX_SUM = WEIGHT1 * qNormalizedThisQuat + WEIGHT2 * qNormalizedInputQuat;
 
-    // Separated from the equation to gain performance
-    const QQuaternion AUX_SUM = WEIGHT1 * qNormalizedThisQuat + WEIGHT2 * qNormalizedInputQuat;
+        // Separated from the equation to check for "division by zero"
+        const float_q DIVISOR = AUX_SUM.GetLength();
 
-    // Separated from the equation to check for "division by zero"
-    const float_q DIVISOR = AUX_SUM.GetLength();
+        QE_ASSERT(DIVISOR != SQFloat::_0)
 
-    QE_ASSERT(DIVISOR != SQFloat::_0)
+        qReturnValue = AUX_SUM / DIVISOR;
+    }
+    else
+        qReturnValue = *this;
 
-    return AUX_SUM / DIVISOR;
+    return qReturnValue;
 }
 
 QQuaternion QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const
 {
+    QQuaternion qReturnValue;
+
     const float_q& ANGLE_B = acos_q(this->DotProduct(qQuat));
 
     QE_ASSERT( !SQFloat::IsNaN(ANGLE_B) )
 
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
-    QE_ASSERT( ANGLE_B != SQFloat::_0 && SQFloat::AreNotEquals(ANGLE_B, PI_Q) )
+    if(ANGLE_B != SQFloat::_0 && SQFloat::AreNotEquals(ANGLE_B, PI_Q))
+    {
+        const float_q INV_SIN = SQFloat::_1/sin_q(ANGLE_B);
 
-    const float_q INV_SIN = SQFloat::_1 / sin_q(ANGLE_B);
+        const float_q WEIGHT1 = sin_q((SQFloat::_1 - fProportion) * ANGLE_B) * INV_SIN;
+        const float_q WEIGHT2 = sin_q(fProportion * ANGLE_B) * INV_SIN;
 
-    const float_q WEIGHT1 = sin_q((SQFloat::_1 - fProportion) * ANGLE_B) * INV_SIN;
-    const float_q WEIGHT2 = sin_q(fProportion * ANGLE_B) * INV_SIN;
+        // Separated from the equation to gain performance
+        const QQuaternion AUX_SUM = WEIGHT1 * (*this) + WEIGHT2 * qQuat;
 
-    // Separated from the equation to gain performance
-    const QQuaternion AUX_SUM = WEIGHT1 * (*this) + WEIGHT2 * qQuat;
+        // Separated from the equation to check for "division by zero"
+        const float_q DIVISOR = AUX_SUM.GetLength();
 
-    // Separated from the equation to check for "division by zero"
-    const float_q DIVISOR = AUX_SUM.GetLength();
+        QE_ASSERT(DIVISOR != SQFloat::_0)
 
-    QE_ASSERT(DIVISOR != SQFloat::_0)
+        qReturnValue = AUX_SUM / DIVISOR;
+    }
+    else
+        qReturnValue = *this;
 
-    return AUX_SUM / DIVISOR;
+    return qReturnValue;
 }
 
 void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const
 {
-    // [TODO] Thund: Check whether this implementation corresponds to YawPitchRoll.
-    const float_q NORTH_AND_SOUTH_POLE_CHECK_VALUE = this->x * this->y + this->z * this->w;
+    // Source: Based on Amy de Buitléir's document about quaternions
 
-    // X (pitch or heading) and Z (roll or bank) checking
-    if(SQFloat::AreEquals(NORTH_AND_SOUTH_POLE_CHECK_VALUE, SQFloat::_0_5)) // North pole
+    fRotationAngleX = asin_q(SQFloat::_2 * (this->w * this->x - this->z * this->y));
+
+
+    // Checks for +-90º singularity
+    if(SQFloat::AreEquals(fRotationAngleX, SQFloat::Abs(SQAngle::_QuarterPi)))
+
     {
-        // The atan2 result is undefined when both parameters are equal to zero
-        QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0)
-
-        fRotationAngleX = SQFloat::_2 * atan2_q(this->x, this->w);
-        fRotationAngleZ = SQFloat::_0;
-    }
-    else if(SQFloat::AreEquals(NORTH_AND_SOUTH_POLE_CHECK_VALUE, -SQFloat::_0_5)) // South pole
-    {
-        // The atan2 result is undefined when both parameters are equal to zero
-        QE_ASSERT(this->x != SQFloat::_0 || this->w != SQFloat::_0)
-
-        fRotationAngleX = -SQFloat::_2 * atan2_q(this->x, this->w);
-        fRotationAngleZ = SQFloat::_0;
+        fRotationAngleZ = atan2_q(this->z, this->w);
+        fRotationAngleY = SQFloat::_0;
     }
     else
     {
-        float_q fFirstParameter  = SQFloat::_2 * this->x * this->w - SQFloat::_2 * this->x * this->z;
-        float_q fSecondParameter = SQFloat::_1 - SQFloat::_2 * this->y * this->y - SQFloat::_2 * this->z * this->z;
-
-        // The atan2 result is undefined when both parameters are equal to zero
-        QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0)
-
-        fRotationAngleX = atan2_q(fFirstParameter, fSecondParameter);
-
-        fFirstParameter = SQFloat::_2 * this->x * this->w - SQFloat::_2 * this->y * this->z;
-        fSecondParameter = SQFloat::_1 - SQFloat::_2 * this->x * this->x - SQFloat::_2 * this->z * this->z;
-
-        // The atan2 result is undefined when both parameters are equal to zero
-        QE_ASSERT(fFirstParameter != SQFloat::_0 || fSecondParameter != SQFloat::_0)
-
-        fRotationAngleZ = atan2_q(fFirstParameter, fSecondParameter);
+        fRotationAngleZ = atan2_q(SQFloat::_2 * (this->w * this->z + this->x * this->y), 
+                                  (SQFloat::_1 - SQFloat::_2 * (this->z * this->z + this->x * this->x)) );
+        fRotationAngleY = atan2_q(SQFloat::_2 * (this->w * this->y + this->z * this->x), 
+                                  (SQFloat::_1 - SQFloat::_2 * (this->x * this->x + this->y * this->y)) );
     }
-
-    fRotationAngleY = asin_q( SQFloat::_2 * this->x * this->y + SQFloat::_2 * this->z * this->w );
-
-    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleX) )
-    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleY) )
-    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleZ) )
-
 }
 
 void QQuaternion::ToAxisAngle(QBaseVector3 &vRotationAxis, float_q &fRotationAngle) const

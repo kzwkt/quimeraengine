@@ -245,7 +245,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    QQuaternion operator*(const QBaseQuaternion &qQuat) const;
+    QQuaternion operator*(const QBaseQuaternion &qQuat) const;// [DOC] Thund: Update the documentation (formula changed)
 
     /// <summary>
     /// Multiply by scalar operator. All quaternion's components are multiplied by the scalar.
@@ -367,12 +367,12 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator*=(const QBaseQuaternion &qQuat)
+    inline QQuaternion& operator*=(const QBaseQuaternion &qQuat)// [DOC] Thund: Update the documentation (formula changed)
     {
-        QQuaternion resQuat( this->w * qQuat.x + this->x * qQuat.w + this->y * qQuat.z - this->z * qQuat.y,
-                             this->w * qQuat.y + this->y * qQuat.w + this->z * qQuat.x - this->x * qQuat.z,
-                             this->w * qQuat.z + this->z * qQuat.w + this->x * qQuat.y - this->y * qQuat.x,
-                             this->w * qQuat.w - this->x * qQuat.x - this->y * qQuat.y - this->z * qQuat.z);
+        QQuaternion resQuat( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,	   // Vx
+                             qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,	   // Vy
+                             qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,	   // Vz
+                             qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );  // W
         this->x = resQuat.x;
         this->y = resQuat.y;
         this->z = resQuat.z;
@@ -589,8 +589,8 @@ public:
     float_q DotProduct(const QBaseQuaternion &qQuat) const;
 
     /// <summary>
-    /// Calculates the angle between resident quaternion and the provided quaternion, via dot product.<br>
-    /// Both quaternions are treated as 3D vectors, ignoring W component.
+    /// Calculates the angle between resident quaternion and the provided quaternion, via dot product. Both 
+    /// quaternions have to be normalized to obtain a more precise value.<br>
     /// </summary>
     /// <param name="qQuat">[IN] Multiplying quaternion.</param>
     /// <returns>
@@ -609,7 +609,7 @@ public:
     /// </returns>
     inline QQuaternion Conjugate() const
     {
-        return QQuaternion(-this->x, -this->y, -this->z);
+        return QQuaternion(-this->x, -this->y, -this->z, this->w);
     }
 
     /// <summary>
@@ -623,9 +623,9 @@ public:
     /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
     /// <returns>
-    /// The "lerped" quaternion.
+    /// The "lerped" quaternion. It's normalized.
     /// </returns>
-    QQuaternion Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const;
+    QQuaternion Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
 
     /// <summary>
     /// Calculates the spherical linear interpolation between the quaternion and the input quaternion.
@@ -650,7 +650,7 @@ public:
     /// <returns>
     /// The "lerped" quaternion.
     /// </returns>
-    QQuaternion Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const;
+    QQuaternion Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
     
     /// <summary>
     /// Calculates the spherical linear interpolation between two normalized quaternions.
@@ -675,12 +675,15 @@ public:
     /// <returns>
     /// The "lerped" quaternion.
     /// </returns>
-    QQuaternion UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const;
+    QQuaternion UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
 
     /// <summary>
     /// Obtains Euler angles that represent the same rotation than the quaternion does.<br>
+    /// </summary>
+    /// <remarks>
+    /// The quaternion must be normalized in order to get correct results.<br>
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br>
-    /// To achieve this, the following equations are implemented:
+    /// To achieve this, the following equations are implemented:<br>
     ///
     /// \f$ X = atan2( 2xw - 2xz, 1 - 2y^2 - 2z^2 )\f$
     ///
@@ -701,11 +704,13 @@ public:
     /// \f$ Z = 0\f$
     ///
     /// See atan2 documentation for more interesting information.
-    /// </summary>
+    /// Note that obtained angles haven't to match whatever values 
+    /// were used to create the quaternion from 3 Euler angles.
+    /// </remarks>
     /// <param name="fRotationAngleX">X Euler angle (pitch).</param>
     /// <param name="fRotationAngleY">Y Euler angle (yaw).</param>
     /// <param name="fRotationAngleZ">Z Euler angle (roll).</param>
-    void ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const;
+    void ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const; // DOC [Thund]: Maybe formulas has to be updated
 
     /// <summary>
     /// Calculates the quaternion's length, this means, the square root of the squared components sum.
@@ -737,6 +742,10 @@ public:
     /// Obtains the angle of rotation and the spin axis contained in the resident quaternion.<br>
 	/// There are two possible singularities: when rotation angle is 0 or \f$ 180^0\f$.
     /// </summary>
+    /// <remarks>
+    /// Note that angle and axis haven't to match whatever values were used to create the quaternion from 
+    /// an axis and an angle.
+    /// </remarks>
     /// <param name="vRotationAxis">Vector to store the spin axis.</param>
     /// <param name="fRotationAngle">Angle of rotation.</param>
 	void ToAxisAngle(QBaseVector4 &vRotationAxis, float_q &fRotationAngle) const;

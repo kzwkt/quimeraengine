@@ -264,15 +264,18 @@ void QRotationMatrix3x3::GetRotation(QQuaternion &qRotation) const
 {
     // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/christian.htm
 
+    // If the main diagonal is zero, the rotation matrix is not well-formed
+    QE_ASSERT( SQFloat::IsNotZero(this->ij[0][0] + this->ij[1][1] + this->ij[2][2]) )
+
     qRotation.w = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] + this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
     qRotation.x = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] - this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
     qRotation.y = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] + this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
     qRotation.z = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] - this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
 
-    // [TODO] jwladi: it's necessary verify if this signs correspond to our conventions.
-    SQFloat::CopySign(this->ij[2][1] - this->ij[1][2], qRotation.x);
-    SQFloat::CopySign(this->ij[0][2] - this->ij[2][0], qRotation.y);
-    SQFloat::CopySign(this->ij[1][0] - this->ij[0][1], qRotation.z);
+    // This sing depends on hand convention
+    SQFloat::CopySign(this->ij[1][2] - this->ij[2][1], qRotation.x);
+    SQFloat::CopySign(this->ij[2][0] - this->ij[0][2], qRotation.y);
+    SQFloat::CopySign(this->ij[0][1] - this->ij[1][0], qRotation.z);
 }
 
 void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRotationAxis) const
