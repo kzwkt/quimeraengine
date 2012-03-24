@@ -78,7 +78,7 @@ public:
     inline explicit QBaseQuaternion(const vf32_q &value)
     {
         // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
-        SQVF32::Unpack(value, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_SECOND_COMPONENT);
+        SQVF32::Unpack(value, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_FOURTH_COMPONENT);
     }
 
 	// METHODS
