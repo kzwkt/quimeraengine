@@ -27,14 +27,14 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
-      <Filter>Tests\Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
-      <Filter>Tests\Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQVF32_Test.cpp">
       <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp">
+      <Filter>Tests\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix2x2_Test.cpp">
       <Filter>Tests\Math</Filter>
@@ -49,6 +49,15 @@
       <Filter>Tests\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix4x4_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
   </ItemGroup>
@@ -81,6 +90,9 @@
       <Filter>TestSystem %28shared%29</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h">
+      <Filter>Tests\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h">
       <Filter>Tests\Math</Filter>
     </ClInclude>
   </ItemGroup>
