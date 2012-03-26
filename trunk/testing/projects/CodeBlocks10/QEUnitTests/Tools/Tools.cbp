@@ -66,6 +66,9 @@
 			<Add directory="..\..\..\..\..\3rdparty\Boost\include" />
 			<Add directory="..\..\..\..\tests\unit" />
 		</Compiler>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix2x2_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
@@ -81,7 +84,16 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix4x4_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3WhiteBox.h">
