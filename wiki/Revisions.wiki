@@ -22,7 +22,8 @@ El código de cualquier miembro del equipo debe ser revisado. Las revisiones las
  * Detección de problemas fácilmente visibles de rendimiento o errores potenciales.
  * Revisión de que se usan las clases ya conocidas y no se repite código.
 
-===Revisión de tests===
+==Revisión de tests==
+
 No hay manera de estar seguro de que el producto funciona correctamente si no se tiene la certeza de que los tests que deben confirmarlo cumplen su objetivo. Por ello, se hace necesaria la revisión de los tests implementados, de la misma manera que se hiciera con el código del producto final. Sin embargo, dado que el coste de desarrollo de los tests es elevado, y nunca debería sobrepasar (salvo caso de vida o muerte) el coste del propio producto, se impone una relajación en cuanto a la cantidad de características del código a comprobar, a saber:
 
  * Revisión de que los tests que no funcionan, de forma justificada, estén marcados con una etiqueta TODO y su explicación.
