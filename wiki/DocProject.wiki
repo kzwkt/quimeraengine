@@ -42,7 +42,7 @@
 <td>[Workflow Work flow]</td>
 </tr>
 <tr>
-<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.jpg]</td>
+<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
 <td>[Revisions Revisions]</td>
 </tr>
 <tr>
