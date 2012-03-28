@@ -77,7 +77,7 @@ Cada test case deberá estar mínimamente organizado, al menos, en las 4 fases s
 
 *Preparación*
 
-En esta sección de código se crearán todos los objetos necesarios para la realización de la prueba (valores de entrada, valores esperados de salida, etc.).
+En esta sección de código se crearán todos los objetos necesarios para la realización de la prueba (valores de entrada, valores esperados de salida, etc.). Algo importante a tener en cuenta es que todas las clases que intervienen en el test (excluyendo a la propia clase bajo pruebas y sus ancestros) deben ser "importadas" en esta sección, es decir, debe usarse una sentencia *using* por cada tipo. Por tanto, este tipo de importaciones no aparecerán al principio del fichero, aunque las clases se usen también en otros tests.
 
 *Ejecución*
 
