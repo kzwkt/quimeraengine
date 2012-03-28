@@ -2,7 +2,7 @@
 
 ==Nombre de los test case==
 
-Cada test case debe tener un nombre único dentro del test suite. A continuación se describen las normas a seguir para formar tales nombres:
+Cada test case debe tener un nombre único dentro del test suite y, preferentemente, deberá aparecer en el mismo orden que aparecen los métodos en la clase bajo pruebas (por facilitar las búsquedas visuales). A continuación se describen las normas a seguir para formar tales nombres:
 
 *General*
 
