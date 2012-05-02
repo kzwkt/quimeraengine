@@ -215,13 +215,13 @@ QMatrix3x3 QMatrix3x3::Invert() const
     const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();
 
     return QMatrix3x3( INV_DET * (this->ij[1][1] * this->ij[2][2] - this->ij[1][2] * this->ij[2][1]),
-                      -INV_DET * (this->ij[1][0] * this->ij[2][2] - this->ij[1][2] * this->ij[2][0]),
-                       INV_DET * (this->ij[1][0] * this->ij[2][1] - this->ij[1][1] * this->ij[2][0]),
-                      -INV_DET * (this->ij[0][1] * this->ij[2][2] - this->ij[0][2] * this->ij[2][1]),
+                       INV_DET * (this->ij[0][2] * this->ij[2][1] - this->ij[2][2] * this->ij[0][1]),
+                       INV_DET * (this->ij[0][1] * this->ij[1][2] - this->ij[1][1] * this->ij[0][2]),
+                       INV_DET * (this->ij[1][2] * this->ij[2][0] - this->ij[2][2] * this->ij[1][0]),
                        INV_DET * (this->ij[0][0] * this->ij[2][2] - this->ij[0][2] * this->ij[2][0]),
-                      -INV_DET * (this->ij[0][0] * this->ij[2][1] - this->ij[0][1] * this->ij[2][0]),
-                       INV_DET * (this->ij[0][1] * this->ij[1][2] - this->ij[0][2] * this->ij[1][1]),
-                      -INV_DET * (this->ij[0][0] * this->ij[1][2] - this->ij[0][2] * this->ij[1][0]),
+                       INV_DET * (this->ij[0][2] * this->ij[1][0] - this->ij[1][2] * this->ij[0][0]),
+                       INV_DET * (this->ij[1][0] * this->ij[2][1] - this->ij[2][0] * this->ij[1][1]),
+                       INV_DET * (this->ij[0][1] * this->ij[2][0] - this->ij[2][1] * this->ij[0][0]),
                        INV_DET * (this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0]) );
 }
 
