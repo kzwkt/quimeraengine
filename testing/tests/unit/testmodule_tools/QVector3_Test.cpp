@@ -985,7 +985,7 @@ QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalar_Tes
 /// <summary>
 /// Checks that a vector component is multiplied and assigned to itself.
 /// </summary>
-QTEST_CASE ( OperatorProductAssignation1_VectorComponentIsCorrectlyMultipliedByScalarAndAssignedToItself_Test )
+QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalarAndAssignedToItself_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = (float_q)1152;

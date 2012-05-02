@@ -511,7 +511,8 @@ public:
     ///
 	/// </summary>
 	/// <remarks>
-	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
+    /// Note that not all the matrices have inverse. Check it by calling HasInverse method before calculating the inverse.
+	/// If the matrix is a rotation matrix, then the inverse is guaranteed to be the transpose of the matrix.
 	/// </remarks>
 	/// <returns>
 	/// The inverse of the matrix.

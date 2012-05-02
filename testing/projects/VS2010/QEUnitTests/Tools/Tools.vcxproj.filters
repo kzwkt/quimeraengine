@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x4_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix2x2_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>

@@ -263,6 +263,8 @@ float_q QMatrix4x4::GetDeterminant() const
 
 QMatrix4x4 QMatrix4x4::Reverse() const
 {
+    // Based on http://www.cg.info.hiroshima-cu.ac.jp/~miyazaki/knowledge/teche23.html
+
 	// Gets the inverse of the Determinant.
 	const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
 
@@ -294,37 +296,37 @@ QMatrix4x4 QMatrix4x4::Reverse() const
 	const float_q& fX = this->ij[0][2] * this->ij[1][0];
 
     return QMatrix4x4( fInvDet * (this->ij[1][1] * fB + this->ij[1][2] * fI + this->ij[1][3] * fJ -
-                                  this->ij[1][3] * fK - this->ij[1][1] * fG - this->ij[1][2] * fL ),
-                      -fInvDet * (this->ij[0][1] * fB + this->ij[0][2] * fI + this->ij[0][3] * fJ -
-                                  this->ij[0][3] * fK - this->ij[0][1] * fG - this->ij[0][2] * fL ),
-                       fInvDet * (fQ * this->ij[3][3] + fF * this->ij[3][1] + fR * this->ij[3][2] -
-                                  fC * this->ij[3][1] - fS * this->ij[3][2] - fT * this->ij[3][3] ),
-                      -fInvDet * (fQ * this->ij[2][3] + fF * this->ij[2][1] + fR * this->ij[2][2] -
-                                  fC * this->ij[2][1] - fS * this->ij[2][2] - fT * this->ij[2][3] ),
-                      -fInvDet * (this->ij[1][0] * fB + this->ij[1][2] * fM + this->ij[1][3] * fN -
-                                  this->ij[1][3] * fO - this->ij[1][0] * fG - this->ij[1][2] * fP ),
+                                  this->ij[1][1] * fG - this->ij[1][2] * fL - this->ij[1][3] * fK ),
+                       fInvDet * (this->ij[0][1] * fG + this->ij[0][2] * fL + this->ij[0][3] * fK -
+                                  this->ij[0][1] * fB - this->ij[0][2] * fI - this->ij[0][3] * fJ ),
+                       fInvDet * (fQ * this->ij[3][3] + this->ij[0][2] * this->ij[1][3] * this->ij[3][1] + fR * this->ij[3][2] -
+                                  fS * this->ij[3][2] - fT * this->ij[3][3] - fC * this->ij[3][1] ),
+                       fInvDet * (fS * this->ij[2][2] + fT * this->ij[2][3] + fC * this->ij[2][1] -
+                                  fQ * this->ij[2][3] - this->ij[0][2] * this->ij[1][3] * this->ij[2][1] - fR * this->ij[2][2] ),
+                       fInvDet * (this->ij[1][0] * fG + this->ij[1][2] * fP + this->ij[1][3] * fO -
+                                  this->ij[1][0] * fB - this->ij[1][2] * fM - this->ij[1][3] * fN ),
                        fInvDet * (this->ij[0][0] * fB + this->ij[0][2] * fM + this->ij[0][3] * fN -
-					              this->ij[0][3] * fO - this->ij[0][0] * fG - this->ij[0][2] * fP ),
-                      -fInvDet * (fU * this->ij[3][3] + fF * this->ij[3][0] + fV * this->ij[3][2] -
-					              fC * this->ij[3][0] - fW * this->ij[3][2] - fX * this->ij[3][3] ),
-                       fInvDet * (fU * this->ij[2][3] + fF * this->ij[2][0] + fV * this->ij[2][2] -
-					              fC * this->ij[2][0] - fW * this->ij[2][2] - fX * this->ij[2][3] ),
+					              this->ij[0][0] * fG - this->ij[0][2] * fP - this->ij[0][3] * fO ),
+                       fInvDet * (fW * this->ij[3][2] + fX * this->ij[3][3] + fC * this->ij[3][0] -
+					              fU * this->ij[3][3] - this->ij[0][2] * this->ij[1][3] * this->ij[3][0] - fV * this->ij[3][2] ),
+                       fInvDet * (fU * this->ij[2][3] + this->ij[0][2] * this->ij[1][3] * this->ij[2][0] + fV * this->ij[2][2] -
+					              fW * this->ij[2][2] - fX * this->ij[2][3] - fC * this->ij[2][0] ),
                        fInvDet * (this->ij[1][0] * fL + this->ij[1][1] * fM + this->ij[1][3] * fH -
-					              this->ij[1][3] * fD - this->ij[1][0] * fI - this->ij[1][1] * fP ),
-                      -fInvDet * (this->ij[0][0] * fL + this->ij[0][1] * fM + this->ij[0][3] * fH -
-					              this->ij[0][3] * fD - this->ij[0][0] * fI - this->ij[0][1] * fP ),
+					              this->ij[1][0] * fI - this->ij[1][1] * fP - this->ij[1][3] * fD ),
+                       fInvDet * (this->ij[0][0] * fI + this->ij[0][1] * fP + this->ij[0][3] * fD -
+					              this->ij[0][0] * fL - this->ij[0][1] * fM - this->ij[0][3] * fH ),
                        fInvDet * (fA * this->ij[3][3] + fS * this->ij[3][0] + fV * this->ij[3][1] -
-					              fR * this->ij[3][0] - fW * this->ij[3][1] - fE * this->ij[3][3] ),
-                      -fInvDet * (fA * this->ij[2][3] + fS * this->ij[2][0] + fV * this->ij[2][1] -
-					              fR * this->ij[2][0] - fW * this->ij[2][1] - fE * this->ij[2][3] ),
-                      -fInvDet * (this->ij[1][0] * fJ + this->ij[1][1] * fO + this->ij[1][2] * fH -
-					              this->ij[1][2] * fD - this->ij[1][0] * fK - this->ij[1][1] * fN ),
+					              fW * this->ij[3][1] - fE * this->ij[3][3] - fR * this->ij[3][0] ),
+                       fInvDet * (fW * this->ij[2][1] + fE * this->ij[2][3] + fR * this->ij[2][0] -
+					              fA * this->ij[2][3] - fS * this->ij[2][0] - fV * this->ij[2][1] ),
+                       fInvDet * (this->ij[1][0] * fK + this->ij[1][1] * fN + this->ij[1][2] * fD -
+					              this->ij[1][0] * fJ - this->ij[1][1] * fO - this->ij[1][2] * fH ),
                        fInvDet * (this->ij[0][0] * fJ + this->ij[0][1] * fO + this->ij[0][2] * fH -
-					              this->ij[0][2] * fD - this->ij[0][0] * fK - this->ij[0][1] * fN ),
-                      -fInvDet * (fA * this->ij[3][2] + fQ * this->ij[3][0] + fX * this->ij[3][1] -
-					              fT * this->ij[3][0] - fU * this->ij[3][1] - fE * this->ij[3][2] ),
+					              this->ij[0][0] * fK - this->ij[0][1] * fN - this->ij[0][2] * fD ),
+                       fInvDet * (fU * this->ij[3][1] + fE * this->ij[3][2] + fT * this->ij[3][0] -
+					              fA * this->ij[3][2] - fQ * this->ij[3][0] - fX * this->ij[3][1] ),
                        fInvDet * (fA * this->ij[2][2] + fQ * this->ij[2][0] + fX * this->ij[2][1] -
-					              fT * this->ij[2][0] - fU * this->ij[2][1] - fE * this->ij[2][2] ));
+					              fU * this->ij[2][1] - fE * this->ij[2][2] - fT * this->ij[2][0] ));
 }
 
 string_q QMatrix4x4::ToString() const
