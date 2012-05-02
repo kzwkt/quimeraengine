@@ -191,7 +191,7 @@ public:
 	/// <returns>
 	/// The resultant 3x4 matrix.
 	/// </returns>
-	QBaseMatrix3x4 operator*(const QBaseMatrix4x4& matrix) const;
+	QMatrix3x4 operator*(const QBaseMatrix4x4& matrix) const;
 
 	/// <summary>
 	/// Divides resident matrix by a floating point value.
