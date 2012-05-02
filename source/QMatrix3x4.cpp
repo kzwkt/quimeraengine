@@ -144,9 +144,9 @@ QBaseMatrix3x3 QMatrix3x4::operator*(const QBaseMatrix4x3 &matrix) const
 	return aux;
 }
 
-QBaseMatrix3x4 QMatrix3x4::operator*(const QBaseMatrix4x4 &matrix) const
+QMatrix3x4 QMatrix3x4::operator*(const QBaseMatrix4x4 &matrix) const
 {
-	QBaseMatrix3x4 aux;
+	QMatrix3x4 aux;
 
 	aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0] + this->ij[0][1] * matrix.ij[1][0] + this->ij[0][2] * matrix.ij[2][0] + this->ij[0][3] * matrix.ij[3][0];
 	aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1] + this->ij[0][1] * matrix.ij[1][1] + this->ij[0][2] * matrix.ij[2][1] + this->ij[0][3] * matrix.ij[3][1];
