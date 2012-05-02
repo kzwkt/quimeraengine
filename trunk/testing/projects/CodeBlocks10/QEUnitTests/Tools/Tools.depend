@@ -29110,3 +29110,9 @@
 	"QMatrix3x3.h"
 	"QBaseMatrix3x4.h"
 
+1333552929 source:g:\quimeraengine\sandbox5\testing\tests\unit\testmodule_tools\sqangle_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"SQAngle.h"
+
