@@ -44,7 +44,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend QMatrix2x2 operator*(const float_q &fScalar, const QBaseMatrix2x2 &matrix);
+    friend QMatrix2x2 operator*(const float_q &fScalar, const QMatrix2x2 &matrix);
 
 
     // CONSTRUCTORS

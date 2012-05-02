@@ -55,7 +55,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    friend QQuaternion operator*(const float_q &fScalar, const QBaseQuaternion &qQuat);
+    friend QQuaternion operator*(const float_q &fScalar, const QQuaternion &qQuat);
 
 
 	// CONSTRUCTORS
@@ -625,7 +625,7 @@ public:
     /// <returns>
     /// The "lerped" quaternion. It's normalized.
     /// </returns>
-    QQuaternion Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
+    QQuaternion Lerp(const QQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
 
     /// <summary>
     /// Calculates the spherical linear interpolation between the quaternion and the input quaternion.
@@ -650,7 +650,7 @@ public:
     /// <returns>
     /// The "lerped" quaternion.
     /// </returns>
-    QQuaternion Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
+    QQuaternion Slerp(const QQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
     
     /// <summary>
     /// Calculates the spherical linear interpolation between two normalized quaternions.
@@ -675,7 +675,7 @@ public:
     /// <returns>
     /// The "lerped" quaternion.
     /// </returns>
-    QQuaternion UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
+    QQuaternion UnitSlerp(const QQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
 
     /// <summary>
     /// Obtains Euler angles that represent the same rotation than the quaternion does.<br>

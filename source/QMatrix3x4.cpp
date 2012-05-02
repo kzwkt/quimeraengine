@@ -40,7 +40,7 @@ QMatrix3x4 QMatrix3x4::operator*(const float_q &fScalar) const
 	return aux;
 }
 
-QMatrix3x4 operator*(const float_q &fScalar, const QBaseMatrix3x4 &matrix)
+QMatrix3x4 operator*(const float_q &fScalar, const QMatrix3x4 &matrix)
 {
 	QMatrix3x4 aux;
 

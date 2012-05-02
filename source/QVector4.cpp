@@ -134,7 +134,7 @@ QVector4 QVector4::operator-() const
 }
 
 // Left float product
-QVector4 operator*(const float_q &fScalar, const QBaseVector4 &vVector)
+QVector4 operator*(const float_q &fScalar, const QVector4 &vVector)
 {
     return QVector4(vVector.x * fScalar, vVector.y * fScalar, vVector.z * fScalar, vVector.w * fScalar);
 }

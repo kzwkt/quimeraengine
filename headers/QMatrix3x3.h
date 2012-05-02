@@ -45,7 +45,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend QMatrix3x3 operator*(const float_q &fScalar, const QBaseMatrix3x3 &matrix);
+    friend QMatrix3x3 operator*(const float_q &fScalar, const QMatrix3x3 &matrix);
 
 
     // CONSTRUCTORS

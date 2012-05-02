@@ -55,7 +55,7 @@ public:
     /// <returns>
     /// A vector that is the result of the product.
     /// </returns>
-    friend QVector3 operator*(const float_q &fScalar, const QBaseVector3 &vVector);
+    friend QVector3 operator*(const float_q &fScalar, const QVector3 &vVector);
 
 
 	// CONSTRUCTORS
