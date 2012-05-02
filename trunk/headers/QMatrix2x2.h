@@ -59,10 +59,10 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a 2x2 matrix.
+    /// Copy constructor.
     /// </summary>
     /// <param name="matrix">[IN] The 2x2 matrix in which we want the resident matrix to be based.</param>
-    inline explicit QMatrix2x2(const QBaseMatrix2x2 &matrix) : QBaseMatrix2x2(matrix)
+    inline QMatrix2x2(const QBaseMatrix2x2 &matrix) : QBaseMatrix2x2(matrix)
     {
     }
 

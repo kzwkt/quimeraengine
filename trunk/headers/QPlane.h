@@ -64,10 +64,10 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a plane.
+    /// Copy constructor.
     /// </summary>
     /// <param name="plane">The plane on which we base the resident plane.</param>
-    inline explicit QPlane(const QBasePlane &plane) : QBasePlane(plane)
+    inline QPlane(const QBasePlane &plane) : QBasePlane(plane)
     {
     }
 

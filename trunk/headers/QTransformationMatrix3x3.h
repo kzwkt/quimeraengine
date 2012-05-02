@@ -39,14 +39,14 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a 3x3 matrix.
+    /// Copy constructor.
     /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline explicit QTransformationMatrix3x3(const QBaseMatrix3x3 &matrix) : QMatrix3x3(matrix)
+    inline QTransformationMatrix3x3(const QBaseMatrix3x3 &matrix) : QMatrix3x3(matrix)
     {
     }
 

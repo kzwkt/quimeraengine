@@ -40,6 +40,14 @@ public:
 	inline QTriangle3D()
     {
     }
+    
+	/// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="triangle">[IN] The 3D triangle in which we want resident triangle to be based.</param>
+	inline QTriangle3D(const QTriangle3D<VectorType> &triangle) : QTriangle<VectorType>(triangle)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from three vector types, one for each vertex.

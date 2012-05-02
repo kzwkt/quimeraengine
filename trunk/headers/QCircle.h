@@ -44,6 +44,14 @@ public:
 	inline QCircle()
     {
     }
+    
+	/// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="orb">[IN] The orb in which we want resident orb to be based.</param>
+	inline QCircle(const QOrb<QVector2> &orb) : QOrb<QVector2>(orb)
+    {
+    }
 
     /// <summary>
     /// Constructor from a vector which defines the center point and a floating point value which

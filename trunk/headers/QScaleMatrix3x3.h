@@ -47,14 +47,14 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a 3x3 matrix.
+    /// Copy constructor.
     /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a scale matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="scale">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
-    inline explicit QScaleMatrix3x3(const QBaseMatrix3x3 &scale) : QMatrix3x3(scale)
+    inline QScaleMatrix3x3(const QBaseMatrix3x3 &scale) : QMatrix3x3(scale)
     {
     }
 

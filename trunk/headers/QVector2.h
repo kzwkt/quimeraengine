@@ -41,10 +41,10 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from a 2D vector.
+	/// Copy constructor.
 	/// </summary>
 	/// <param name="vVector">[IN] The 2D vector in which we want resident vector to be based.</param>
-	inline explicit QVector2(const QBaseVector2 &vVector) : QBaseVector2(vVector)
+	inline QVector2(const QBaseVector2 &vVector) : QBaseVector2(vVector)
     {
     }
 

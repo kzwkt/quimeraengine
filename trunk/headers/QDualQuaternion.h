@@ -61,10 +61,10 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives a base dual quaternion.
+    /// Copy constructor.
     /// </summary>
     /// <param name="dualQuat">[IN] A base dual quaternion.</param>
-    inline explicit QDualQuaternion(const QBaseDualQuaternion &dualQuat) : QBaseDualQuaternion(dualQuat)
+    inline QDualQuaternion(const QBaseDualQuaternion &dualQuat) : QBaseDualQuaternion(dualQuat)
     {
     }
 

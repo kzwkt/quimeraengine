@@ -36,6 +36,14 @@ public:
     inline QQuadrilateral()
     {
     }
+    
+	/// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="segment">[IN] The quadrilateral in which we want resident quadrilateral to be based.</param>
+	inline QQuadrilateral(const QQuadrilateral &quad) : QBaseQuadrilateral(quad)
+    {
+    }
 
     /// <summary>
     /// Constructor from four 2D vectors.

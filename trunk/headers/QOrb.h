@@ -45,6 +45,14 @@ public:
 	inline QOrb()
     {
     }
+    
+	/// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="orb">[IN] The orb in which we want resident orb to be based.</param>
+	inline QOrb(const QBaseOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
+    {
+    }
 
     /// <summary>
     /// Constructor from a vector which defines the center point and a floating point value which
@@ -52,7 +60,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    inline QOrb (const VectorType &vCenter, const float_q &fRadius) : QBaseOrb<VectorType>(vCenter, fRadius)
+    inline QOrb(const VectorType &vCenter, const float_q &fRadius) : QBaseOrb<VectorType>(vCenter, fRadius)
     {
     }
 

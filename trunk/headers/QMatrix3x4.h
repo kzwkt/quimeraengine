@@ -62,10 +62,10 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from a 3x4 matrix.
+	/// Copy constructor.
 	/// </summary>
 	/// <param name="matrix">[IN] The 3x4 matrix in which we want the resident matrix to be based.</param>
-	inline explicit QMatrix3x4(const QBaseMatrix3x4 &matrix) : QBaseMatrix3x4(matrix)
+	inline QMatrix3x4(const QBaseMatrix3x4 &matrix) : QBaseMatrix3x4(matrix)
     {
     }
 
