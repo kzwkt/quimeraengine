@@ -714,7 +714,7 @@ public:
     /// </returns>
     inline QPlane Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
     {
-        QMatrix4x3 mAux = transformation.Reverse();
+        QMatrix4x3 mAux = transformation.Invert();
 
         // The product is implemented using the transpose of m
         return QPlane(this->a * mAux.ij[0][0] + this->b * mAux.ij[0][1] + this->c * mAux.ij[0][2],
@@ -736,7 +736,7 @@ public:
     /// </returns>
     inline QPlane Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
     {
-        QMatrix4x4 mAux = transformation.Reverse();
+        QMatrix4x4 mAux = transformation.Invert();
 
         // The product is implemented using the transpose of m
         return QPlane(this->a * mAux.ij[0][0] + this->b * mAux.ij[0][1] + this->c * mAux.ij[0][2],
@@ -758,7 +758,7 @@ public:
     /// </returns>
     inline QPlane Transform(const QSpaceConversionMatrix &spaceConversion) const
     {
-        QMatrix4x4 mAux = spaceConversion.Reverse();
+        QMatrix4x4 mAux = spaceConversion.Invert();
 
         // The product is implemented using the transpose of m
         return QPlane(this->a * mAux.ij[0][0] + this->b * mAux.ij[0][1] + this->c * mAux.ij[0][2] + this->d * mAux.ij[0][3],

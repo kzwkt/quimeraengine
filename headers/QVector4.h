@@ -568,7 +568,7 @@ public:
     /// <summary>
     /// Convert current vector in its opposite vector.
     /// </summary>
-    inline QVector4 Reverse() const
+    inline QVector4 Invert() const
     {
         return QVector4(-this->x, -this->y, -this->z, -this->w);
     }

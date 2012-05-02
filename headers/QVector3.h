@@ -495,7 +495,7 @@ public:
     /// <returns>
     /// The inverted vector.
     /// </returns>
-    inline QVector3 Reverse() const
+    inline QVector3 Invert() const
     {
         return QVector3(-this->x, -this->y, -this->z);
     }

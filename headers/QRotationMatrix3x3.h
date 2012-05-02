@@ -274,14 +274,14 @@ public:
     }
 
     /// <summary>
-    /// Reverse of the matrix.<br>
+    /// Inverts the matrix.<br>
     /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.<br>
     /// So, it's faster than base class method.
     /// </summary>
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    inline QMatrix3x3 Reverse() const
+    inline QMatrix3x3 Invert() const
     {
         return this->Transpose();
     }

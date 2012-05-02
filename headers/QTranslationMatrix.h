@@ -361,7 +361,7 @@ public:
     }
 
     /// <summary>
-    /// Reverse of the matrix.<br>
+    /// Inverts the matrix.<br>
     /// In the case of translation matrices, the inverse is composed
     /// of the opposite of the elements which defines the displacement:
     ///
@@ -372,7 +372,7 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    inline MatrixType Reverse() const
+    inline MatrixType Invert() const
     {
         return QTranslationMatrix<MatrixType>(-this->ij[3][0], -this->ij[3][1], -this->ij[3][2]);
     }
@@ -384,7 +384,7 @@ public:
     /// <returns>
     /// True if the matrix has inverse, false otherwise.
     /// </returns>
-    inline bool HasReverse() const
+    inline bool HasInverse() const
     {
         // If Determinant is 0, this matrix has not inverse.
         return SQFloat::IsNotZero(this->GetDeterminant());

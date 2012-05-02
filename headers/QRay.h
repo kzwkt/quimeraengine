@@ -99,7 +99,7 @@ public:
     /// <returns>
     /// The inverse of the ray.
     /// </returns>
-    inline QRay<VectorTypeOrigin, VectorTypeDirection> Reverse() const
+    inline QRay<VectorTypeOrigin, VectorTypeDirection> Invert() const
     {
         return QRay<VectorTypeOrigin, VectorTypeDirection>(this->Origin, -this->Direction);
     }

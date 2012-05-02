@@ -174,7 +174,7 @@ QQuaternion QQuaternion::operator*(const QBaseVector4 &vVector) const
 
 QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 {
-    return *this * qQuat.As<const QQuaternion>().Reverse();
+    return *this * qQuat.As<const QQuaternion>().Invert();
 }
 
 QQuaternion QQuaternion::operator/(const float_q &fScalar) const

@@ -1552,7 +1552,7 @@ QTEST_CASE ( GetDeterminant_DeterminantOfZeroMatrixEqualsZero_Test )
 /// <summary>
 /// Checks that a common matrix is correctly inverted.
 /// </summary>
-QTEST_CASE ( Reverse_CommonMatrixIsCorrectlyInverted_Test )
+QTEST_CASE ( Invert_CommonMatrixIsCorrectlyInverted_Test )
 {
     // Preparation
     const QMatrix4x4 MATRIX(SQFloat::_3,    SQFloat::_2,    SQFloat::_0,    SQFloat::_1,
@@ -1566,7 +1566,7 @@ QTEST_CASE ( Reverse_CommonMatrixIsCorrectlyInverted_Test )
                                     (float_q)0.41666669f, SQFloat::_0_25,  SQFloat::_0_5,  (float_q)-0.41666669f);
 
     // Execution
-    QMatrix4x4 matrixUT = MATRIX.Reverse();
+    QMatrix4x4 matrixUT = MATRIX.Invert();
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
@@ -1590,14 +1590,14 @@ QTEST_CASE ( Reverse_CommonMatrixIsCorrectlyInverted_Test )
 /// <summary>
 /// Checks that it returns True when the determinant of the matrix doesn't equal zero.
 /// </summary>
-QTEST_CASE ( HasReverse_ReturnsTrueWhenDeterminantIsNotZero_Test )
+QTEST_CASE ( HasInverse_ReturnsTrueWhenDeterminantIsNotZero_Test )
 {
     // Preparation
     const QMatrix4x4 MATRIX = QMatrix4x4::GetIdentity();
     const bool EXPECTED_VALUE = true;
 
     // Execution
-    bool bResultUT = MATRIX.HasReverse();
+    bool bResultUT = MATRIX.HasInverse();
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_VALUE);
@@ -1606,14 +1606,14 @@ QTEST_CASE ( HasReverse_ReturnsTrueWhenDeterminantIsNotZero_Test )
 /// <summary>
 /// Checks that it returns False when the determinant of the matrix equals zero.
 /// </summary>
-QTEST_CASE ( HasReverse_ReturnsFalseWhenDeterminantIsZero_Test )
+QTEST_CASE ( HasInverse_ReturnsFalseWhenDeterminantIsZero_Test )
 {
     // Preparation
     const QMatrix4x4 MATRIX = QMatrix4x4::GetZeroMatrix();
     const bool EXPECTED_VALUE = false;
 
     // Execution
-    bool bResultUT = MATRIX.HasReverse();
+    bool bResultUT = MATRIX.HasInverse();
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_VALUE);

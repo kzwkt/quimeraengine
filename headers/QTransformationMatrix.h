@@ -449,7 +449,7 @@ public:
     /// <returns>
     /// True if the matrix has inverse, false otherwise.
     /// </returns>
-    inline bool HasReverse() const
+    inline bool HasInverse() const
     {
         // If Determinant is 0, this matrix has not inverse.
         return SQFloat::IsNotZero(this->GetDeterminant());
@@ -478,7 +478,7 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    MatrixType Reverse() const
+    MatrixType Invert() const
     {
         // Gets the inverse of the Determinant.
         const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();

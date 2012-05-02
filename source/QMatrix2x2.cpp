@@ -117,7 +117,7 @@ float_q QMatrix2x2::GetDeterminant() const
     return this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0];
 }
 
-QMatrix2x2 QMatrix2x2::Reverse() const
+QMatrix2x2 QMatrix2x2::Invert() const
 {
     // We need inverse of determinant in calculus.
     const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();
