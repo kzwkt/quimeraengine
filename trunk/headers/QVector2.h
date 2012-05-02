@@ -430,7 +430,7 @@ public:
     /// <returns>
 	/// The inverted vector.
 	/// </returns>
-	inline QVector2 Reverse() const
+	inline QVector2 Invert() const
 	{
         return QVector2(-this->x, -this->y);
 	}

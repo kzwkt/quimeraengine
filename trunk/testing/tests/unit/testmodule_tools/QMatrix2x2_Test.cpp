@@ -910,7 +910,7 @@ QTEST_CASE ( Reverse_CommonMatrixIsCorrectlyInverted_Test )
                                     (float_q)1.5f, -SQFloat::_0_5);
 
     // Execution
-    QMatrix2x2 matrixUT = MATRIX.Reverse();
+    QMatrix2x2 matrixUT = MATRIX.Invert();
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
@@ -929,7 +929,7 @@ QTEST_CASE ( HasReverse_ReturnsTrueWhenDeterminantIsNotZero_Test )
     const bool EXPECTED_VALUE = true;
 
     // Execution
-    bool bResultUT = MATRIX.HasReverse();
+    bool bResultUT = MATRIX.HasInverse();
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_VALUE);
@@ -945,7 +945,7 @@ QTEST_CASE ( HasReverse_ReturnsFalseWhenDeterminantIsZero_Test )
     const bool EXPECTED_VALUE = false;
 
     // Execution
-    bool bResultUT = MATRIX.HasReverse();
+    bool bResultUT = MATRIX.HasInverse();
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_VALUE);

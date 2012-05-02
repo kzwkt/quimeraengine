@@ -209,7 +209,7 @@ float_q QMatrix3x3::GetDeterminant() const
            this->ij[0][1] * this->ij[1][0] * this->ij[2][2];
 }
 
-QMatrix3x3 QMatrix3x3::Reverse() const
+QMatrix3x3 QMatrix3x3::Invert() const
 {
     // Gets the inverse of the Determinant.
     const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();

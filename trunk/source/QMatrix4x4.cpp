@@ -261,7 +261,7 @@ float_q QMatrix4x4::GetDeterminant() const
 								F * this->ij[3][0] - G * this->ij[3][1] - L * this->ij[3][2] );
 }
 
-QMatrix4x4 QMatrix4x4::Reverse() const
+QMatrix4x4 QMatrix4x4::Invert() const
 {
     // Based on http://www.cg.info.hiroshima-cu.ac.jp/~miyazaki/knowledge/teche23.html
 

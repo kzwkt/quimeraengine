@@ -404,7 +404,7 @@ public:
     /// <returns>
     /// The inverted matrix.
     /// </returns>
-    QMatrix2x2 Reverse() const;
+    QMatrix2x2 Invert() const;
 
     /// <summary>
     /// Calculates whether the matrix has inverse or not. 
@@ -413,7 +413,7 @@ public:
     /// <returns>
     /// True if the matrix has inverse, false otherwise.
     /// </returns>
-    inline bool HasReverse() const
+    inline bool HasInverse() const
     {
         // If Determinant is 0, this matrix has not inverse.
         return SQFloat::IsNotZero(this->GetDeterminant());

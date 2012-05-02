@@ -457,7 +457,7 @@ public:
     /// </returns>
     inline QQuaternion& operator/=(const QBaseQuaternion &qQuat)
     {
-        QBaseQuaternion resQuat = qQuat.As<const QQuaternion>().Reverse();
+        QBaseQuaternion resQuat = qQuat.As<const QQuaternion>().Invert();
 
         this->operator*=(resQuat);
 
@@ -527,7 +527,7 @@ public:
     /// <returns>
     /// The reversed quaternion.
     /// </returns>
-    inline QQuaternion Reverse() const
+    inline QQuaternion Invert() const
     {
         // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
         const float_q& SQUARED_LENGTH = this->GetSquaredLength();
@@ -548,7 +548,7 @@ public:
     /// <returns>
     /// The reversed quaternion.
     /// </returns>
-    inline QQuaternion UnitReverse() const
+    inline QQuaternion UnitInvert() const
     {
 		return this->Conjugate();
     }
