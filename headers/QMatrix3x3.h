@@ -212,15 +212,6 @@ public:
 	QBaseMatrix3x4 operator*(const QBaseMatrix3x4& matrix) const;
 
     /// <summary>
-    /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
-    /// </summary>
-    /// <param name="fScalar">[IN] The scalar to multiply by.</param>
-    /// <returns>
-    /// The resultant matrix.
-    /// </returns>
-    QMatrix3x3& operator*=(const float_q fScalar);
-
-    /// <summary>
     /// Divides current matrix by a floating point value.
     /// </summary>
     /// <param name="fScalar">[IN] Floating point value to be divided by.</param>
@@ -255,6 +246,15 @@ public:
     /// The modified matrix.
     /// </returns>
     QMatrix3x3& operator*=(const QBaseMatrix3x3 &matrix);
+
+    /// <summary>
+    /// Multiply by scalar operator. All matrix components are multiplied by the scalar.
+    /// </summary>
+    /// <param name="fScalar">[IN] The scalar to multiply by.</param>
+    /// <returns>
+    /// The resultant matrix.
+    /// </returns>
+    QMatrix3x3& operator*=(const float_q fScalar);
 
     /// <summary>
     /// Division and assign operator. Current matrix stores the result of the division.
