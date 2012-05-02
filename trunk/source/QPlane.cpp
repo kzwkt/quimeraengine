@@ -26,7 +26,7 @@ QPlane QPlane::operator*(const float_q &fScalar) const
 }
 
 // Left float product
-QPlane operator*(const float_q &fScalar, const QBasePlane &plane)
+QPlane operator*(const float_q &fScalar, const QPlane &plane)
 {
     return QPlane(plane.a * fScalar, plane.b * fScalar, plane.c * fScalar, plane.d * fScalar);
 }

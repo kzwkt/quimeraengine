@@ -33,7 +33,7 @@ QMatrix2x2 QMatrix2x2::operator*(const float_q &fScalar) const
     return aux;
 }
 
-QMatrix2x2 operator*(const float_q &fScalar, const QBaseMatrix2x2 &matrix)
+QMatrix2x2 operator*(const float_q &fScalar, const QMatrix2x2 &matrix)
 {
     QMatrix2x2 aux;
 

@@ -116,7 +116,7 @@ QVector3& QVector3::operator*=(const QBaseMatrix3x3 &matrix)
     return *this;
 }
 
-QVector3 operator*(const float_q &fScalar, const QBaseVector3 &vVector)
+QVector3 operator*(const float_q &fScalar, const QVector3 &vVector)
 {
     return QVector3(vVector.x * fScalar, vVector.y * fScalar, vVector.z * fScalar);
 }

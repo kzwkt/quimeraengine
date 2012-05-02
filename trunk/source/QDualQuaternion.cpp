@@ -44,7 +44,7 @@ QDualQuaternion QDualQuaternion::operator*(const float_q &fScalar) const
     return QDualQuaternion(QBaseQuaternion(this->r * fScalar), QBaseQuaternion(this->r * fScalar));
 }
 
-QDualQuaternion operator*(const float_q &fScalar, const QBaseDualQuaternion &dualQuat)
+QDualQuaternion operator*(const float_q &fScalar, const QDualQuaternion &dualQuat)
 {
     return QDualQuaternion(QBaseQuaternion(dualQuat.r * fScalar), QBaseQuaternion(dualQuat.d * fScalar));
 }

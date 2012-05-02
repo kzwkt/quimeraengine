@@ -189,7 +189,7 @@ QQuaternion QQuaternion::operator/(const float_q &fScalar) const
                         this->w * DIVISOR);
 }
 
-QQuaternion operator*(const float_q &fScalar, const QBaseQuaternion &qQuat)
+QQuaternion operator*(const float_q &fScalar, const QQuaternion &qQuat)
 {
     return QQuaternion( qQuat.x * fScalar, qQuat.y * fScalar, qQuat.z * fScalar, qQuat.w * fScalar);
 }
@@ -221,7 +221,7 @@ float_q QQuaternion::DotProductAngle(const QBaseQuaternion &qQuat) const
     return fAngle;
 }
 
-QQuaternion QQuaternion::Lerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const
+QQuaternion QQuaternion::Lerp(const QQuaternion &qQuat, const float_q &fProportion) const
 {
     // Separated from the equation to gain performance
     QQuaternion qAuxSum = (SQFloat::_1 - fProportion) * (*this) + fProportion * qQuat;
@@ -234,7 +234,7 @@ QQuaternion QQuaternion::Lerp(const QBaseQuaternion &qQuat, const float_q &fProp
     return qAuxSum / fDivisor;
 }
 
-QQuaternion QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const
+QQuaternion QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProportion) const
 {
     QQuaternion qReturnValue;
 
@@ -269,7 +269,7 @@ QQuaternion QQuaternion::Slerp(const QBaseQuaternion &qQuat, const float_q &fPro
     return qReturnValue;
 }
 
-QQuaternion QQuaternion::UnitSlerp(const QBaseQuaternion &qQuat, const float_q &fProportion) const
+QQuaternion QQuaternion::UnitSlerp(const QQuaternion &qQuat, const float_q &fProportion) const
 {
     QQuaternion qReturnValue;
 
