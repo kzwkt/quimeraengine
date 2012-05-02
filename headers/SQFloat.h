@@ -293,8 +293,8 @@ public:
 
     /// <summary>
     /// Converts a floating point number type to an integer number type.<br>
-    /// The result will be rounded (0.5 -> 1.0).<br>
-    /// Expected template parameters are: unsigned int, int, long long, unsigned long long, u32_q, i32_q, u64_q, i64_q.<br>
+    /// The result will be rounded (>0.5 --> 1.0).<br>
+    /// Expected template parameters are: int, long, long long, i32_q, i64_q.<br>
     /// Integer type size should equals floating point type size or unexpected behavior will occur.
     /// </summary>
     /// <remarks>
@@ -358,7 +358,7 @@ public:
             IntegerOrFloatUnion biasValue;  // Used to manipulate the float mantissa
             IntegerOrFloatUnion finalValue; // Used to store operations results
 
-            finalValue._float  = fValue;
+            finalValue._float = fValue;
 
             if(finalValue._integer < 0)
                 biasValue._integer = (EXPONENT << LOWEST_EXPONENT_BIT_POS) + (IntegerType(1) << (LOWEST_EXPONENT_BIT_POS - IntegerType(1))); // Equivalent to 1 x 2 ^ LOWEST_MANTISSA_BIT_POS + 1 x 2 ^ (LOWEST_MANTISSA_BIT_POS - 1)
@@ -376,7 +376,7 @@ public:
 
     /// <summary>
     /// Removes the fractional part of a floating point number and returns the result as output parameter.<br>
-    /// No rounding is performed.
+    /// No rounding off is performed.
     /// </summary>
     /// <param name="fValue">[IN] Value to be truncated.</param>
     /// <returns>
@@ -388,7 +388,7 @@ public:
     }
 
 	/// <summary>
-	/// This method clamps the input value to lie within the range [Min..Max]
+	/// This method clamps the input value to lie within the range [Min..Max]. No tolerance is used for this operation.
 	/// </summary>
 	/// <param name="fValue">[IN] A floating point value; the value to be clamped, if neccesary.</param>
 	/// <param name="fMin">[IN] A floating point value; the minimum value into the range.</param>
