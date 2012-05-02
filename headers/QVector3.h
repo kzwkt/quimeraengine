@@ -70,10 +70,10 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a 3D vector.
+    /// Copy constructor.
     /// </summary>
     /// <param name="vVector">[IN] The 3D vector in which we want resident vector to be based.</param>
-    inline explicit QVector3(const QBaseVector3 &vVector) : QBaseVector3(vVector)
+    inline QVector3(const QBaseVector3 &vVector) : QBaseVector3(vVector)
     {
     }
 

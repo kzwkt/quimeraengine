@@ -36,6 +36,14 @@ public:
 	inline QTriangle2D()
     {
     }
+    
+	/// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="triangle">[IN] The 2D triangle in which we want resident triangle to be based.</param>
+	inline QTriangle2D(const QTriangle2D &triangle) : QTriangle<QVector2>(triangle)
+    {
+    }
 
 	/// <summary>
 	/// Constructor from three 2D vectors, one for each vertex.

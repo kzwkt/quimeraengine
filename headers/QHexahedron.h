@@ -40,6 +40,14 @@ public:
     inline QHexahedron()
     {
     }
+    
+	/// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="hexahedron">[IN] The hexahedron in which we want resident hexahedron to be based.</param>
+	inline QHexahedron(const QBaseHexahedron<VectorType> &hexahedron) : QBaseHexahedron<VectorType>(hexahedron)
+    {
+    }
 
     /// <summary>
     /// Constructor from eight vectors, one for each vertex.

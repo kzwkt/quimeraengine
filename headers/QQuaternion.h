@@ -70,10 +70,10 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives a base quaternion.
+    /// Copy constructor.
     /// </summary>
-    /// <param name="qQuat">[IN] A base quaternion.</param>
-    inline explicit QQuaternion(const QBaseQuaternion &qQuat) : QBaseQuaternion(qQuat)
+    /// <param name="qQuat">[IN] The quaternion in which we want resident quaternion to be based.</param>
+    inline QQuaternion(const QBaseQuaternion &qQuat) : QBaseQuaternion(qQuat)
     {
     }
 

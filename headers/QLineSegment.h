@@ -49,6 +49,14 @@ public:
 	inline QLineSegment()
     {
     }
+    
+	/// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="segment">[IN] The segment in which we want resident segment to be based.</param>
+	inline QLineSegment(const QLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
+    {
+    }
 
 	/// <summary>
     /// Constructor from two vectors.

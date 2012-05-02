@@ -43,20 +43,20 @@ public:
     {
     }
 
+    /// <summary>
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="segment">[IN] 2D line segment containing the two endpoints.</param>
+	inline QLineSegment2D(const QLineSegment<QVector2>& segment) : QLineSegment<QVector2>(segment.A, segment.B)
+    {
+    }
+
 	/// <summary>
     /// Constructor from two vectors.
     /// </summary>
     /// <param name="vA">[IN] 2D vector to define endpoint A.</param>
     /// <param name="vB">[IN] 2D vector to define endpoint B.</param>
-	inline QLineSegment2D (const QVector2& vA, const QVector2& vB) : QLineSegment<QVector2>(vA,vB)
-    {
-    }
-
-	/// <summary>
-    /// Constructor from a 2D line segment.
-    /// </summary>
-    /// <param name="segment">[IN] 2D line segment containing the two endpoints.</param>
-	inline explicit QLineSegment2D (const QLineSegment<QVector2>& segment) : QLineSegment<QVector2>(segment.A, segment.B)
+	inline QLineSegment2D(const QVector2& vA, const QVector2& vB) : QLineSegment<QVector2>(vA,vB)
     {
     }
 

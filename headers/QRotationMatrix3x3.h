@@ -47,14 +47,14 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a 3x3 matrix.
+    /// Copy constructor.
     /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a rotation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="rotation">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
-    inline explicit QRotationMatrix3x3(const QBaseMatrix3x3 &rotation) : QMatrix3x3(rotation)
+    inline QRotationMatrix3x3(const QBaseMatrix3x3 &rotation) : QMatrix3x3(rotation)
     {
     }
 

@@ -46,14 +46,14 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a matrix.
+    /// Copy constructor.
     /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline explicit QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
+    inline QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
     {
     }
 

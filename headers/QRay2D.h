@@ -42,9 +42,9 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives a ray.
+    /// Copy constructor.
     /// </summary>
-    /// <param name="ray">[IN] An existing ray.</param>
+    /// <param name="ray">[IN] The ray in which we want resident ray to be based.</param>
     inline QRay2D(const QRay<QVector2, QVector2> &ray) : QRay<QVector2, QVector2>(ray)
     {
     }

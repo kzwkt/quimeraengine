@@ -49,6 +49,14 @@ public:
 	inline QSphere()
     {
     }
+    
+	/// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="sphere">[IN] The sphere in which we want resident sphere to be based.</param>
+	inline QSphere(const QSphere<VectorType> &sphere) : QBaseSphere<VectorType>(sphere)
+    {
+    }
 
     /// <summary>
     /// Constructor from a point as center of the sphere and its radius.

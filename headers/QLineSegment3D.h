@@ -53,19 +53,19 @@ public:
     }
 
     /// <summary>
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="segment">[IN] Line segment in which we want resident line segment is based on.</param>
+	inline QLineSegment3D(const QBaseLineSegment<VectorType> &segment) : QLineSegment<VectorType>(segment.A, segment.B)
+    {
+    }
+
+    /// <summary>
     /// Constructor from two vectors.
     /// </summary>
     /// <param name="vA">[IN] Vector to define endpoint A.</param>
     /// <param name="vB">[IN] Vector to define endpoint B.</param>
 	inline QLineSegment3D(const VectorType &vA, const VectorType &vB) : QLineSegment<VectorType>(vA,vB)
-    {
-    }
-
-	/// <summary>
-    /// Constructor from a line segment.
-    /// </summary>
-    /// <param name="segment">[IN] Line segment in which we want resident line segment is based on.</param>
-	inline explicit QLineSegment3D(const QBaseLineSegment<VectorType> &segment) : QLineSegment<VectorType>(segment.A, segment.B)
     {
     }
 

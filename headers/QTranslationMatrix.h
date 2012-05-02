@@ -49,14 +49,14 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a 4x4 or 4x3 matrix, depending on template parameter.
+    /// Copy constructor.
     /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a translation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline explicit QTranslationMatrix(const MatrixType &matrix) : MatrixType(matrix)
+    inline QTranslationMatrix(const MatrixType &matrix) : MatrixType(matrix)
     {
     }
 
