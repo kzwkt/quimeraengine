@@ -29103,3 +29103,10 @@
 	"QBaseMatrix3x4.h"
 	"QBaseMatrix4x3.h"
 
+1335997535 source:g:\quimeraengine\sandbox5\testing\tests\unit\testmodule_tools\qmatrix3x3_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QMatrix3x3.h"
+	"QBaseMatrix3x4.h"
+
