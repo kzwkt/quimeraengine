@@ -195,7 +195,7 @@ public:
     /// <param name="vPointOfView">[IN] Vector which defines the position of the camera or the point of view.</param>
     /// <param name="vTarget">[IN] Vector which defines the point where we are looking at.</param>
     /// <param name="vUpDirection">[IN] Vector which defines the "up direction".</param>
-    inline void SetViewSpaceMatrix(const QVector4 &vPointOfView, const QVector4 &vTarget, const QVector4 &vUpDirection);
+    void SetViewSpaceMatrix(const QVector4 &vPointOfView, const QVector4 &vTarget, const QVector4 &vUpDirection);
 
     /// <summary>
     /// Sets the projection space matrix, which defines how perspective is applied to the scene.

@@ -111,6 +111,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector4Whitebox.h">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQVF32_Test.cpp">
 			<Option virtualFolder="Tests\DataTypes\" />
 		</Unit>

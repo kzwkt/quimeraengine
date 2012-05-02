@@ -23,6 +23,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQVF32_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp" />
   </ItemGroup>
@@ -38,6 +39,7 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector4Whitebox.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt" />

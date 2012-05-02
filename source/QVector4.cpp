@@ -163,7 +163,7 @@ bool QVector4::IsVectorOfOnes() const
 
 float_q QVector4::DotProduct(const QBaseVector4 &vVector) const
 {
-    return(this->x * vVector.x + this->y * vVector.y + this->z * vVector.z + this->w * vVector.w);
+    return this->x * vVector.x + this->y * vVector.y + this->z * vVector.z;
 }
 
 float_q QVector4::DotProductAngle(const QBaseVector4 &vVector) const

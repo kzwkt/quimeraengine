@@ -497,7 +497,7 @@ public:
     /// <returns>
     /// A reference to vector result of the division.
     /// </returns>
-    inline QVector4& operator /= (const QBaseVector4 &vVector)
+    inline QVector4& operator/=(const QBaseVector4 &vVector)
     {
         // Checkout to avoid division by 0
         QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0 && vVector.w != SQFloat::_0)
@@ -624,6 +624,7 @@ public:
 
     /// <summary>
     /// Calculates dot product by a vector provided.
+    /// Both vectors are treated as 3D vectors, ignoring W component.
     /// </summary>
     /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
@@ -673,7 +674,7 @@ public:
 
     /// <summary>
     /// Calculates the distance between two vector heads (or two points).<br>
-    /// It computes the difference of two vectors and returns its length.
+    /// It computes the difference of two vectors and returns its length. W component is not taken into account.
     /// </summary>
     /// <param name="vVector">[IN] Vector we want to calculate the distance from current vector.</param>
     /// <returns>
@@ -682,7 +683,31 @@ public:
     inline float_q Distance(const QBaseVector4 &vVector) const
     {
         return sqrt_q( (this->x - vVector.x)*(this->x - vVector.x) + (this->y - vVector.y)*(this->y - vVector.y) +
-                       (this->z - vVector.z)*(this->z - vVector.z) + (this->w - vVector.w)*(this->w - vVector.w) );
+                       (this->z - vVector.z)*(this->z - vVector.z) );
+    }
+    
+    /// <summary>
+    /// Divides all componentes by the w component to ensure the vector is in homogeneus coordinates.
+    /// W component is supposed not to equal zero. In this case, the returned vector is the same as the original one.
+    /// </summary>
+    /// <returns>
+    /// The homogenized vector.
+    /// </returns>
+    inline QVector4 Homogenize() const
+    {
+        QVector4 homogenizedVector;
+
+        if(this->w != SQFloat::_0) // Exactly zero
+        {
+            float_q fInvW = SQFloat::_1 / this->w;
+            homogenizedVector = QVector4(this->x * fInvW, this->y * fInvW, this->z * fInvW, SQFloat::_1);
+        }
+        else
+        {
+            homogenizedVector = *this;
+        }
+
+        return homogenizedVector;
     }
 
     /// <summary>
@@ -715,30 +740,6 @@ public:
     /// The transformed vector.
     /// </returns>
     QVector4 Transform(const QDualQuaternion &transformation) const;
-
-    /// <summary>
-    /// Divides all componentes by the w component to ensure the vector is in homogeneus coordinates.
-    /// W component is supposed not to equal zero. In this case, the returned vector is the same as the original one.
-    /// </summary>
-    /// <returns>
-    /// The homogenized vector.
-    /// </returns>
-    inline QVector4 Homogenize() const
-    {
-        QVector4 homogenizedVector;
-
-        if(this->w != SQFloat::_0) // Exactly zero
-        {
-            float_q fInvW = SQFloat::_1 / this->w;
-            homogenizedVector = QVector4(this->x * fInvW, this->y * fInvW, this->z * fInvW, SQFloat::_1);
-        }
-        else
-        {
-            homogenizedVector = *this;
-        }
-
-        return homogenizedVector;
-    }
 
     /// <summary>
     /// Applies a rotation to resident vector, multiplying the vector by a rotation matrix
