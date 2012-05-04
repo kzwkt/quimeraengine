@@ -54,7 +54,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="sphere">[IN] The sphere in which we want resident sphere to be based.</param>
-	inline QSphere(const QSphere<VectorType> &sphere) : QBaseSphere<VectorType>(sphere)
+	inline QSphere(const QSphere<VectorType> &sphere) : QOrb<VectorType>(sphere)
     {
     }
 
