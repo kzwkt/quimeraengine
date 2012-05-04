@@ -1462,7 +1462,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_VectorCanBeDividedByItself_Test )
 
 	// Execution
     QVector4 vVectorUT = OPERAND;
-    vVectorUT /= OPERAND;
+    vVectorUT /= vVectorUT;
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
