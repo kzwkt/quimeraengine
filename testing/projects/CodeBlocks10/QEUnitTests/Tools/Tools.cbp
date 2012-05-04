@@ -93,6 +93,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix2x2_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x3_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x4_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
@@ -108,6 +111,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3WhiteBox.h">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
@@ -118,6 +124,12 @@
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQVF32_Test.cpp">
