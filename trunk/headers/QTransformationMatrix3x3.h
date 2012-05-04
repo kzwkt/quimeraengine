@@ -113,7 +113,7 @@ public:
     inline void GetTranslation(QBaseVector2 &vTranslation) const
     {
         vTranslation.x = this->ij[2][0];
-        vTranslation.x = this->ij[2][1];
+        vTranslation.y = this->ij[2][1];
     }
 
     /// <summary>

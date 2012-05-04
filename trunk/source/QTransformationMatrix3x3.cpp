@@ -37,7 +37,7 @@ QTransformationMatrix3x3::QTransformationMatrix3x3(const QBaseVector2 &vTranslat
     this->ij[0][1] =  vScale.x * fB;
     this->ij[0][2] =  SQFloat::_0;
 
-    this->ij[1][0] = -vScale.y * fB;
+    this->ij[1][0] =  vScale.y * -fB;
     this->ij[1][1] =  vScale.y * fA;
     this->ij[1][2] =  SQFloat::_0;
 
@@ -57,10 +57,10 @@ QTransformationMatrix3x3::QTransformationMatrix3x3(const QBaseVector2 &vTranslat
 //##################                                                       ##################
 //##################=======================================================##################
 
-void QTransformationMatrix3x3::Decompose (QBaseVector2 &vOutDisp, float_q &fOutRot, QBaseVector2 &vOutScale) const
+void QTransformationMatrix3x3::Decompose(QBaseVector2 &vOutDisp, float_q &fOutRot, QBaseVector2 &vOutScale) const
 {
     vOutDisp.x = this->ij[2][0];
-    vOutDisp.x = this->ij[2][1];
+    vOutDisp.y = this->ij[2][1];
 
     vOutScale.x = hypot_q(this->ij[0][0], this->ij[0][1]);
     vOutScale.y = hypot_q(this->ij[1][0], this->ij[1][1]);
