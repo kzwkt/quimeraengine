@@ -15,6 +15,10 @@ Las funciones incluídas como friend dentro de la clase, serán también testead
 
 _`FriendIntersection_IntersectionIsFoundWhenPlanesCoincide_Test`_
 
+Adicionalmente, por comodidad, podrá usarse el adjetivo "Common" para describir un objeto utilizado en el test cuyo valor sea arbitrario, que represente a la gran mayoría de los valores que podrá adoptar el objeto y que, por tanto, no coincida con un valor límite o destacado (como pueda ser el cero, la identidad, el valor máximo o mínimo, etc.). Por ejemplo, si en el siguiente test se usara el valor 35º como parámetro del método bajo pruebas, podría usarse el siguiente nombre:
+
+_`ConvertDegreesToRadians_CorrectValueIsObtainedWhenCommonAngleIsProvided_Test`_
+
 *Sobrecargas*
 
 Cuando existan varias sobrecargas para un método, la forma de diferenciarlos en la test suite será añadiendo un número al final del nombre del método, empezando por el nº 1. Por ejemplo, teniendo 2 sobrecargas:
