@@ -16,6 +16,7 @@ El código de cualquier miembro del equipo debe ser revisado. Las revisiones las
  * Revisión de la documentación, de que se usan las estructuras aconsejadas para ello, lo descrito corresponde con la realidad, y la gramática es correcta.
  * Revisión de uso de assertions cuando existen situaciones potencialmente peligrosas que deben ser notificadas.
  * Revisión del grado de finalización de la tarea, todo lo que aparezca en la descripción y documentación de la tarea debe existir en el trabajo entregado.
+ * Revisión de que los tests relacionados hayan sido actualizados.
  * Revisión de que todos los tests provistos pasan.
  * Revisión de que hay suficiente cobertura de test.
  * Revisión de que el código compila y no se añaden warnings no justificadas.
