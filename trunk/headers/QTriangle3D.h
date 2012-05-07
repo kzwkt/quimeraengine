@@ -280,7 +280,7 @@ public:
     /// <returns>
     ///The scaled triangle.
     /// </returns>
-	inline QTriangle3D<VectorType> Scale(const QScaleMatrix3x3 &scale) const
+	inline QTriangle3D<VectorType> Scale(const QScalingMatrix3x3 &scale) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
 		SQPoint::Scale(scale, auxTriangle.template AsPtr<VectorType>(), 3);
@@ -374,7 +374,7 @@ public:
     /// <returns>
     /// The scalde triangle.
     /// </returns>
-	inline QTriangle3D<VectorType> ScaleWithPivot(const QScaleMatrix3x3 &scale, const VectorType &vPivot) const
+	inline QTriangle3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
 		SQPoint::ScaleWithPivot(scale, vPivot, auxTriangle.template AsPtr<VectorType>(), 3);

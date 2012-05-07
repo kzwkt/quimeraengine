@@ -14,7 +14,7 @@ using namespace boost::unit_test;
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
 #include "QRotationMatrix3x3.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 #include "QSpaceConversionMatrix.h"
 #include "QQuaternion.h"
 #include "QDualQuaternion.h"
@@ -2851,10 +2851,10 @@ QTEST_CASE ( Transform3_RotationFollowsLeftHandedRules_Test )
 QTEST_CASE ( Transform4_VectorIsCorrectlyTransformedByCommonScaleMatrix_Test )
 {
     // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QScaleMatrix3x3 TRANSFORMATION = QScaleMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+    const QScalingMatrix3x3 TRANSFORMATION = QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QVector4 EXPECTED_RESULT = QVector4(SQFloat::_0_25, SQFloat::_6, -SQFloat::_4, SQFloat::_5);
 
@@ -2874,11 +2874,11 @@ QTEST_CASE ( Transform4_VectorIsCorrectlyTransformedByCommonScaleMatrix_Test )
 QTEST_CASE ( Transform4_WComponentDoesntTakePartInTheOperation_Test )
 {
     // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const QVector4 VECTOR_WITH_OTHER_W = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0);
-    const QScaleMatrix3x3 TRANSFORMATION = QScaleMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+    const QScalingMatrix3x3 TRANSFORMATION = QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
 	// Execution
     QVector4 vVector1UT = VECTOR.Transform(TRANSFORMATION);
@@ -2897,10 +2897,10 @@ QTEST_CASE ( Transform4_WComponentDoesntTakePartInTheOperation_Test )
 QTEST_CASE ( Transform4_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 {
     // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QScaleMatrix3x3 TRANSFORMATION = QScaleMatrix3x3::GetIdentity();
+    const QScalingMatrix3x3 TRANSFORMATION = QScalingMatrix3x3::GetIdentity();
     const QVector4 EXPECTED_RESULT = VECTOR;
 
 	// Execution
@@ -2919,11 +2919,11 @@ QTEST_CASE ( Transform4_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 QTEST_CASE ( Transform4_XYZEqualZeroWhenScaleMatrixIsNull_Test )
 {
     // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QScaleMatrix3x3 NULL_MATRIX = QScaleMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    const QScalingMatrix3x3 NULL_MATRIX = QScalingMatrix3x3(QMatrix3x3::GetZeroMatrix());
 
     QVector4 EXPECTED_RESULT = QVector4::GetZeroVector();
     EXPECTED_RESULT.w = VECTOR.w;
@@ -3065,13 +3065,13 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
     const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
-    const QScaleMatrix3x3 SCALE = QScaleMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
@@ -3422,7 +3422,7 @@ void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Temp
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector4WhiteBox;
 
@@ -3439,7 +3439,7 @@ void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Temp
     const QVector4WhiteBox VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
     const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
-    const QScaleMatrix3x3 SCALE = QScaleMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
+    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
@@ -3572,7 +3572,7 @@ void TransformImp2_RotationFollowsLeftHandedRules_Template()
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector4WhiteBox;
 
@@ -3589,7 +3589,7 @@ void TransformImp2_RotationFollowsLeftHandedRules_Template()
     const QVector4WhiteBox VECTOR = QVector4(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
-    const QScaleMatrix3x3 SCALE = QScaleMatrix3x3(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 

@@ -151,7 +151,7 @@
     <ClInclude Include="..\..\..\..\headers\QRay2D.h" />
     <ClInclude Include="..\..\..\..\headers\QRay3D.h" />
     <ClInclude Include="..\..\..\..\headers\QRotationMatrix3x3.h" />
-    <ClInclude Include="..\..\..\..\headers\QScaleMatrix3x3.h" />
+    <ClInclude Include="..\..\..\..\headers\QScalingMatrix3x3.h" />
     <ClInclude Include="..\..\..\..\headers\QSpaceConversionMatrix.h" />
     <ClInclude Include="..\..\..\..\headers\QSphere.h" />
     <ClInclude Include="..\..\..\..\headers\QTransformationMatrix.h" />
@@ -185,7 +185,7 @@
     <ClCompile Include="..\..\..\..\source\QQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QRay2D.cpp" />
     <ClCompile Include="..\..\..\..\source\QRotationMatrix3x3.cpp" />
-    <ClCompile Include="..\..\..\..\source\QScaleMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QScalingMatrix3x3.cpp" />
     <ClCompile Include="..\..\..\..\source\QSpaceConversionMatrix.cpp" />
     <ClCompile Include="..\..\..\..\source\QTransformationMatrix3x3.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector2.cpp" />

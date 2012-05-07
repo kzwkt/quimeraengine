@@ -5,7 +5,7 @@
 #include "QBaseQuaternion.h"
 #include "QTranslationMatrix.h"
 #include "QRotationMatrix3x3.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
 
 namespace Kinesis
@@ -176,18 +176,18 @@ QSpaceConversionMatrix QSpaceConversionMatrix::SwitchHandConventionViewSpaceMatr
                                   -vXAxis.DotProduct(vPOV), -vYAxis.DotProduct(vPOV), -vZAxis.DotProduct(vPOV), SQFloat::_1);
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
 {
     SetWorldSpaceMatrixImp(translation, rotation, scale);
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
 {
     SetWorldSpaceMatrixImp(translation, rotation, scale);
 }
 
 template <class MatrixType>
-void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
 {
     QTransformationMatrix<QMatrix4x4> aux(translation, rotation, scale);
 

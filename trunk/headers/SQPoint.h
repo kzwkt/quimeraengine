@@ -13,7 +13,7 @@
 #include "QSpaceConversionMatrix.h"
 #include "QQuaternion.h"
 #include "QRotationMatrix3x3.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -395,7 +395,7 @@ public:
     /// <param name="scale">[IN] Scale matrix that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const QScaleMatrix3x3 &scale, QVector3* arPoints, const unsigned int &uElements)
+	inline static void Scale(const QScalingMatrix3x3 &scale, QVector3* arPoints, const unsigned int &uElements)
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
@@ -410,7 +410,7 @@ public:
     /// <param name="scale">[IN] Scale matrix that contains the Scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const QScaleMatrix3x3 &scale, QVector4* arPoints, const unsigned int &uElements)
+	inline static void Scale(const QScalingMatrix3x3 &scale, QVector4* arPoints, const unsigned int &uElements)
 	{
         for(unsigned int i = 0; i < uElements; ++i)
         {
@@ -764,7 +764,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const QScaleMatrix3x3 &scale, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements)
+	inline static void ScaleWithPivot(const QScalingMatrix3x3 &scale, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
         {
@@ -784,7 +784,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const QScaleMatrix3x3 &scale, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements)
+	inline static void ScaleWithPivot(const QScalingMatrix3x3 &scale, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements)
 	{
 	    for(unsigned int i = 0; i < uElements; ++i)
         {
@@ -977,7 +977,7 @@ private:
     /// <param name="scale">[IN] Scale matrix that contains the scale to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
 	template <class VectorType>
-    inline static void Scale(const QScaleMatrix3x3 &scale, VectorType &vPoint)
+    inline static void Scale(const QScalingMatrix3x3 &scale, VectorType &vPoint)
 	{
 	    vPoint = vPoint.Transform(scale);
 	}

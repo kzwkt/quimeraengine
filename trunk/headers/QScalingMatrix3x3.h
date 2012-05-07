@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QSCALEMATRIX3X3__
-#define __QSCALEMATRIX3X3__
+#ifndef __QSCALINGMATRIX3X3__
+#define __QSCALINGMATRIX3X3__
 
 #include "QBaseVector3.h"
 #include "QMatrix3x3.h"
@@ -31,7 +31,7 @@ template<class MatrixType> class QTranslationMatrix;
 /// It's a diagonal matrix where element \f$ a_{00}\f$ stores the scaling value in X direction, element \f$ a_{11}\f$ stores it
 /// in Y direction and element \f$ a_{22}\f$ does it in Z direction.
 /// </summary>
-class QDllExport QScaleMatrix3x3 : public QMatrix3x3
+class QDllExport QScalingMatrix3x3 : public QMatrix3x3
 {
 
 	// CONSTRUCTORS
@@ -41,7 +41,7 @@ public:
 	/// <summary>
 	/// Default constructor. It's initialized to identity matrix.
 	/// </summary>
-    inline QScaleMatrix3x3()
+    inline QScalingMatrix3x3()
     {
         this->ResetToIdentity();
     }
@@ -54,7 +54,7 @@ public:
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="scale">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
-    inline QScaleMatrix3x3(const QBaseMatrix3x3 &scale) : QMatrix3x3(scale)
+    inline QScalingMatrix3x3(const QBaseMatrix3x3 &scale) : QMatrix3x3(scale)
     {
     }
 
@@ -65,7 +65,7 @@ public:
     /// <param name="fScaleX">[IN] Scale within X direction.</param>
     /// <param name="fScaleY">[IN] Scale within Y direction.</param>
     /// <param name="fScaleZ">[IN] Scale within Z direction.</param>
-    inline QScaleMatrix3x3(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+    inline QScalingMatrix3x3(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
         this->ij[0][0] = fScaleX;
         this->ij[1][1] = fScaleY;
@@ -79,7 +79,7 @@ public:
     /// Constructor from a 3D vector which stores the three scaling values, one for each axis direction.
     /// </summary>
     /// <param name="vScale">[IN] Vector with the scaling values.</param>
-    inline explicit QScaleMatrix3x3(const QBaseVector3 &vScale)
+    inline explicit QScalingMatrix3x3(const QBaseVector3 &vScale)
     {
         this->ij[0][0] = vScale.x;
         this->ij[1][1] = vScale.y;
@@ -103,9 +103,9 @@ public:
     /// <returns>
     /// The identity matrix.
     /// </returns>
-    inline static const QScaleMatrix3x3& GetIdentity()
+    inline static const QScalingMatrix3x3& GetIdentity()
     {
-        static const QScaleMatrix3x3 IDENTITY(QMatrix3x3::GetIdentity());
+        static const QScalingMatrix3x3 IDENTITY(QMatrix3x3::GetIdentity());
         return IDENTITY;
     }
 
@@ -126,7 +126,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-	QScaleMatrix3x3 operator*(const QScaleMatrix3x3 &matrix) const;
+	QScalingMatrix3x3 operator*(const QScalingMatrix3x3 &matrix) const;
 
     /// <summary>
     /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.
@@ -195,7 +195,7 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QScaleMatrix3x3& operator=(const QBaseMatrix3x3 &matrix)
+    inline QScalingMatrix3x3& operator=(const QBaseMatrix3x3 &matrix)
     {
         QBaseMatrix3x3::operator=(matrix);
         return *this;
@@ -215,7 +215,7 @@ public:
         // If one of the diagonal elements is 0, the matrix has not inverse.
         QE_ASSERT(this->ij[0][0] != SQFloat::_0 && this->ij[1][1] != SQFloat::_0 && this->ij[2][2] != SQFloat::_0)
 
-        return QScaleMatrix3x3(SQFloat::_1 / this->ij[0][0], SQFloat::_1 / this->ij[1][1], SQFloat::_1 / this->ij[2][2]);
+        return QScalingMatrix3x3(SQFloat::_1 / this->ij[0][0], SQFloat::_1 / this->ij[1][1], SQFloat::_1 / this->ij[2][2]);
     }
 
     /// <summary>
@@ -304,4 +304,4 @@ protected:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QSCALEMATRIX3X3__
+#endif // __QSCALINGMATRIX3X3__

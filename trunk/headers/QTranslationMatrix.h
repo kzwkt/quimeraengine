@@ -6,7 +6,7 @@
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
 #include "QRotationMatrix3x3.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -185,7 +185,7 @@ public:
     /// <returns>
     /// The resultant transformation matrix, with the same template parameter that resident matrix.
     /// </returns>
-    QTransformationMatrix<MatrixType> operator*(const QScaleMatrix3x3 &matrix) const
+    QTransformationMatrix<MatrixType> operator*(const QScalingMatrix3x3 &matrix) const
     {
         QTransformationMatrix<MatrixType> aux;
 

@@ -295,7 +295,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-	inline QSphere<VectorType> Scale(const QScaleMatrix3x3 &scale, const float_q &fRadiusScale) const
+	inline QSphere<VectorType> Scale(const QScalingMatrix3x3 &scale, const float_q &fRadiusScale) const
 	{
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Scale(scale, &auxSphere.Center, 1);
@@ -312,7 +312,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-	inline QSphere<VectorType> ScaleWithPivot(const QScaleMatrix3x3 &scale, const float_q &fRadiusScale, const VectorType &vPivot) const
+	inline QSphere<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const float_q &fRadiusScale, const VectorType &vPivot) const
 	{
         QSphere<VectorType> auxSphere = *this;
 	    SQPoint::ScaleWithPivot(scale, vPivot, &auxSphere.Center, 1);

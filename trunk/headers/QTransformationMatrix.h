@@ -4,7 +4,7 @@
 #define __QTRANSFORMATIONMATRIX__
 
 #include "QQuaternion.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 #include "QRotationMatrix3x3.h"
 #include "QVector3.h"
 
@@ -128,7 +128,7 @@ public:
     /// <param name="translation">[IN] A translation matrix.</param>
     /// <param name="rotation">[IN] A 3x3 rotation matrix.</param>
     /// <param name="scale">[IN] A 3x3 scale matrix.</param>
-    QTransformationMatrix(const QTranslationMatrix<QMatrix4x3> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
+    QTransformationMatrix(const QTranslationMatrix<QMatrix4x3> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
     {
         QTransformationMatrixImp(translation, rotation, scale);
     }
@@ -139,7 +139,7 @@ public:
     /// <param name="translation">[IN] A translation matrix.</param>
     /// <param name="rotation">[IN] A 3x3 rotation matrix.</param>
     /// <param name="scale">[IN] A 3x3 scale matrix.</param>
-    QTransformationMatrix(const QTranslationMatrix<QMatrix4x4> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
+    QTransformationMatrix(const QTranslationMatrix<QMatrix4x4> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
     {
         QTransformationMatrixImp(translation, rotation, scale);
     }
@@ -154,7 +154,7 @@ protected:
     // <param name="rotation">[IN] A 3x3 rotation matrix.</param>
     // <param name="scale">[IN] A 3x3 scale matrix.</param>
     template <class MatrixTypeParam>
-    void QTransformationMatrixImp(const QTranslationMatrix<MatrixTypeParam> &translation, const QRotationMatrix3x3 &rotation, const QScaleMatrix3x3 &scale)
+    void QTransformationMatrixImp(const QTranslationMatrix<MatrixTypeParam> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
     {
         this->ResetToIdentity();
 
@@ -319,7 +319,7 @@ public:
     /// <returns>
     /// The resultant transformation matrix.
     /// </returns>
-    QTransformationMatrix<MatrixType> operator*(const QScaleMatrix3x3 &matrix) const
+    QTransformationMatrix<MatrixType> operator*(const QScalingMatrix3x3 &matrix) const
     {
         QTransformationMatrix<MatrixType> aux;
 
@@ -646,7 +646,7 @@ public:
     /// <param name="scale">[OUT] Matrix to store the scale.</param>
     void Decompose(QTranslationMatrix<QMatrix4x3> &translation,
                    QRotationMatrix3x3 &rotation,
-                   QScaleMatrix3x3 &scale) const
+                   QScalingMatrix3x3 &scale) const
     {
         DecomposeImp(translation, rotation, scale);
     }
@@ -659,7 +659,7 @@ public:
     /// <param name="scale">[OUT] Matrix to store the scale.</param>
     void Decompose(QTranslationMatrix<QMatrix4x4> &translation,
                    QRotationMatrix3x3 &rotation,
-                   QScaleMatrix3x3 &scale) const
+                   QScalingMatrix3x3 &scale) const
     {
         DecomposeImp(translation, rotation, scale);
     }
@@ -901,7 +901,7 @@ protected:
     template <class MatrixTypeParam>
     void DecomposeImp(QTranslationMatrix<MatrixTypeParam> &translation,
                       QRotationMatrix3x3 &rotation,
-                      QScaleMatrix3x3 &scale) const
+                      QScalingMatrix3x3 &scale) const
     {
         QBaseVector3 vAux;
         this->GetScale(vAux);
