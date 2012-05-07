@@ -217,7 +217,7 @@ QVector3 QVector3::Transform(const QRotationMatrix3x3 &rotation) const
     return *this * rotation;
 }
 
-QVector3 QVector3::Transform(const QScaleMatrix3x3 &scale) const
+QVector3 QVector3::Transform(const QScalingMatrix3x3 &scale) const
 {
     return QVector3(this->x * scale.ij[0][0], this->y * scale.ij[1][1], this->z * scale.ij[2][2]);
 }

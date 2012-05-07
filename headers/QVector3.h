@@ -31,7 +31,7 @@ class QDualQuaternion;
 template<class MatrixType> class QTransformationMatrix;
 class QSpaceConversionMatrix;
 class QRotationMatrix3x3;
-class QScaleMatrix3x3;
+class QScalingMatrix3x3;
 
 /// <summary>
 /// This class implements three components vector functionality.<br>
@@ -635,7 +635,7 @@ public:
     /// <returns>
     /// The transformed vector.
     /// </returns>
-	QVector3 Transform(const QScaleMatrix3x3 &scale) const;
+	QVector3 Transform(const QScalingMatrix3x3 &scale) const;
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix to transform it.<br>

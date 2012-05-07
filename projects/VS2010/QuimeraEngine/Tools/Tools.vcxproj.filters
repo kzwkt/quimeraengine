@@ -80,9 +80,6 @@
     <ClInclude Include="..\..\..\..\headers\QRotationMatrix3x3.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\QScaleMatrix3x3.h">
-      <Filter>Math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QVector2.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -185,6 +182,9 @@
     <ClInclude Include="..\..\..\..\headers\QSphere.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QScalingMatrix3x3.h">
+      <Filter>Math</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -241,9 +241,6 @@
     <ClCompile Include="..\..\..\..\source\QRotationMatrix3x3.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\QScaleMatrix3x3.cpp">
-      <Filter>Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\QSpaceConversionMatrix.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -257,6 +254,9 @@
       <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QVector4.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QScalingMatrix3x3.cpp">
       <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>

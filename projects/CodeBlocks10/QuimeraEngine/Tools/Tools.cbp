@@ -168,7 +168,7 @@
 		<Unit filename="..\..\..\..\headers\QRotationMatrix3x3.h">
 			<Option virtualFolder="Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\headers\QScaleMatrix3x3.h">
+		<Unit filename="..\..\..\..\headers\QScalingMatrix3x3.h">
 			<Option virtualFolder="Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\headers\QSpaceConversionMatrix.h">
@@ -264,7 +264,7 @@
 		<Unit filename="..\..\..\..\source\QRotationMatrix3x3.cpp">
 			<Option virtualFolder="Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\source\QScaleMatrix3x3.cpp">
+		<Unit filename="..\..\..\..\source\QScalingMatrix3x3.cpp">
 			<Option virtualFolder="Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\source\QSpaceConversionMatrix.cpp">

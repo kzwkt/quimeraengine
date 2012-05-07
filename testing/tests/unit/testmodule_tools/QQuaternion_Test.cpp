@@ -15,7 +15,7 @@ using namespace boost::unit_test;
 #include "QMatrix4x3.h"
 #include "QMatrix4x4.h"
 #include "QRotationMatrix3x3.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 
 using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -695,7 +695,7 @@ QTEST_CASE ( Constructor9_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotati
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -712,7 +712,7 @@ QTEST_CASE ( Constructor9_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotati
 
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QTranslationMatrix<QMatrix4x3>(),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScaleMatrix3x3());
+                                                           QScalingMatrix3x3());
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -730,7 +730,7 @@ QTEST_CASE ( Constructor9_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslatio
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -747,7 +747,7 @@ QTEST_CASE ( Constructor9_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslatio
 
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QTranslationMatrix<QMatrix4x3>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScaleMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -765,13 +765,13 @@ QTEST_CASE ( Constructor9_IdentityIsObtainedWhenMatrixContainsTranslationAndScal
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QTranslationMatrix<QMatrix4x3>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScaleMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
@@ -836,7 +836,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -853,7 +853,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
 
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTranslationMatrix<QMatrix4x4>(),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScaleMatrix3x3());
+                                                           QScalingMatrix3x3());
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -871,7 +871,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -888,7 +888,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
 
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTranslationMatrix<QMatrix4x4>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScaleMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -906,13 +906,13 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTranslationMatrix<QMatrix4x4>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScaleMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
@@ -1054,7 +1054,7 @@ void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Tem
     using Kinesis::QuimeraEngine::Tools::Math::Test::QQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -1070,7 +1070,7 @@ void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Tem
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION(QTranslationMatrix<MatrixType>(),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScaleMatrix3x3());
+                                                           QScalingMatrix3x3());
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -1106,7 +1106,7 @@ void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotat
     using Kinesis::QuimeraEngine::Tools::Math::Test::QQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -1122,7 +1122,7 @@ void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotat
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION(QTranslationMatrix<MatrixType>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScaleMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -1158,12 +1158,12 @@ void QQuaternionImp_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNo
     using Kinesis::QuimeraEngine::Tools::Math::Test::QQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScaleMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION(QTranslationMatrix<MatrixType>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScaleMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution

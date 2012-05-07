@@ -410,7 +410,7 @@ public:
     /// <returns>
 	/// The scaled hexahedron.
 	/// </returns>
-	inline QHexahedron Scale(const QScaleMatrix3x3 &scale) const
+	inline QHexahedron Scale(const QScalingMatrix3x3 &scale) const
 	{
         QHexahedron auxHexahedron = *this;
 	    SQPoint::Scale(scale, auxHexahedron.template AsPtr<VectorType>(), 8);
@@ -426,7 +426,7 @@ public:
     /// <returns>
 	/// The scaled hexahedron.
 	/// </returns>
-	inline QHexahedron ScaleWithPivot(const QScaleMatrix3x3 &scale, const VectorType &vPivot) const
+	inline QHexahedron ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
 	{
         QHexahedron auxHexahedron = *this;
 	    SQPoint::ScaleWithPivot(scale, vPivot, auxHexahedron.template AsPtr<VectorType>(), 8);

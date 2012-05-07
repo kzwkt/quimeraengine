@@ -17,7 +17,7 @@
 #include "QTranslationMatrix.h"
 #include "QSpaceConversionMatrix.h"
 #include "QRotationMatrix3x3.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
@@ -1898,7 +1898,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Scale(const QScaleMatrix3x3& scale) const
+    inline QLineSegment3D<VectorType> Scale(const QScalingMatrix3x3& scale) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Scale(scale, auxLineSegment.template AsPtr<VectorType>(), 2);
@@ -1945,7 +1945,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> ScaleWithPivot(const QScaleMatrix3x3& scale, const VectorType& vPivot) const
+    inline QLineSegment3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3& scale, const VectorType& vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::ScaleWithPivot(scale, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);

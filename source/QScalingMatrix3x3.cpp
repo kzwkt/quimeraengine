@@ -1,6 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 
 #include "QVector3.h"
 #include "QTranslationMatrix.h"
@@ -25,9 +25,9 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-QScaleMatrix3x3 QScaleMatrix3x3::operator*(const QScaleMatrix3x3 &matrix) const
+QScalingMatrix3x3 QScalingMatrix3x3::operator*(const QScalingMatrix3x3 &matrix) const
 {
-    QScaleMatrix3x3 aux;
+    QScalingMatrix3x3 aux;
 
     aux.ResetToIdentity();
 
@@ -38,7 +38,7 @@ QScaleMatrix3x3 QScaleMatrix3x3::operator*(const QScaleMatrix3x3 &matrix) const
     return aux;
 }
 
-QTransformationMatrix<QMatrix4x4> QScaleMatrix3x3::operator*(const QRotationMatrix3x3 &matrix) const
+QTransformationMatrix<QMatrix4x4> QScalingMatrix3x3::operator*(const QRotationMatrix3x3 &matrix) const
 {
     QTransformationMatrix<QMatrix4x4> aux;
 
@@ -59,27 +59,27 @@ QTransformationMatrix<QMatrix4x4> QScaleMatrix3x3::operator*(const QRotationMatr
     return aux;
 }
 
-QTransformationMatrix<QMatrix4x4> QScaleMatrix3x3::operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const
+QTransformationMatrix<QMatrix4x4> QScalingMatrix3x3::operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const
 {
     return this->ProductOperatorImp<QMatrix4x4>(matrix);
 }
 
-QTransformationMatrix<QMatrix4x3> QScaleMatrix3x3::operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const
+QTransformationMatrix<QMatrix4x3> QScalingMatrix3x3::operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const
 {
     return this->ProductOperatorImp<QMatrix4x3>(matrix);
 }
 
-QTransformationMatrix<QMatrix4x4> QScaleMatrix3x3::operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const
+QTransformationMatrix<QMatrix4x4> QScalingMatrix3x3::operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const
 {
     return this->ProductOperatorImp<QMatrix4x4>(matrix);
 }
 
-QTransformationMatrix<QMatrix4x3> QScaleMatrix3x3::operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const
+QTransformationMatrix<QMatrix4x3> QScalingMatrix3x3::operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const
 {
     return this->ProductOperatorImp<QMatrix4x3>(matrix);
 }
 
-float_q QScaleMatrix3x3::GetDeterminant() const
+float_q QScalingMatrix3x3::GetDeterminant() const
 {
 	return this->ij[0][0] * this->ij[1][1] * this->ij[2][2];
 }

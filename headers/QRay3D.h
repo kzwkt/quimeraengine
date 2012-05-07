@@ -1503,7 +1503,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType> Scale(const QScaleMatrix3x3 &scale) const
+	inline QRay3D<VectorType> Scale(const QScalingMatrix3x3 &scale) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Scale(scale, &auxRay.Origin, 1);
@@ -1585,7 +1585,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType> ScaleWithPivot(const QScaleMatrix3x3 &scale, const VectorType &vPivot) const
+	inline QRay3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::ScaleWithPivot(scale, vPivot, &auxRay.Origin, 1);

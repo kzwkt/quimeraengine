@@ -5,7 +5,7 @@
 #include "QVector3.h"
 #include "QQuaternion.h"
 #include "QTranslationMatrix.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
 #include "SQAngle.h"
 
@@ -176,7 +176,7 @@ QTransformationMatrix<QMatrix4x3> QRotationMatrix3x3::operator*(const QTranslati
     return this->ProductOperatorImp<QMatrix4x3>(matrix);
 }
 
-QTransformationMatrix<QMatrix4x4> QRotationMatrix3x3::operator*(const QScaleMatrix3x3 &matrix) const
+QTransformationMatrix<QMatrix4x4> QRotationMatrix3x3::operator*(const QScalingMatrix3x3 &matrix) const
 {
     QTransformationMatrix<QMatrix4x4> aux;
 

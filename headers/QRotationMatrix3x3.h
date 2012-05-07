@@ -23,7 +23,7 @@ namespace Math
 // ----------------------
 class QBaseQuaternion;
 class QQuaternion;
-class QScaleMatrix3x3;
+class QScalingMatrix3x3;
 template<class MatrixType> class QTransformationMatrix;
 template<class MatrixType> class QTranslationMatrix;
 
@@ -156,7 +156,7 @@ public:
     /// <returns>
     /// The resultant 4x4 transformation matrix, depending on the method template parameter.
     /// </returns>
-	QTransformationMatrix<QMatrix4x4> operator*(const QScaleMatrix3x3 &matrix) const;
+	QTransformationMatrix<QMatrix4x4> operator*(const QScalingMatrix3x3 &matrix) const;
 
 	/// <summary>
     /// Multiplies a 4x4 translation matrix by the current matrix.

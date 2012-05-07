@@ -10,7 +10,7 @@
 #include "QVector4.h"
 #include "QTranslationMatrix.h"
 #include "QRotationMatrix3x3.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
 
@@ -571,7 +571,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane Scale(const QScaleMatrix3x3 &scale) const
+    inline QPlane Scale(const QScalingMatrix3x3 &scale) const
     {
         QE_ASSERT(scale.ij[0][0] != SQFloat::_0 && scale.ij[1][1] != SQFloat::_0 && scale.ij[2][2] != SQFloat::_0)
 
@@ -908,7 +908,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane ScaleWithPivot(const QScaleMatrix3x3 &scale, const QVector3 &vPivot) const
+    inline QPlane ScaleWithPivot(const QScalingMatrix3x3 &scale, const QVector3 &vPivot) const
     {
         return this->ScaleWithPivotImp(scale, vPivot);
     }
@@ -925,7 +925,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane ScaleWithPivot(const QScaleMatrix3x3 &scale, const QVector4 &vPivot) const
+    inline QPlane ScaleWithPivot(const QScalingMatrix3x3 &scale, const QVector4 &vPivot) const
     {
         return this->ScaleWithPivotImp(scale, vPivot);
     }
@@ -1127,7 +1127,7 @@ protected:
     // The scaled plane.
     // </returns>
     template <class VectorType>
-    inline QPlane ScaleWithPivotImp(const QScaleMatrix3x3 &scale, const VectorType &vPivot) const
+    inline QPlane ScaleWithPivotImp(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
     {
         return this->Translate(-vPivot)
                     .Scale(scale)

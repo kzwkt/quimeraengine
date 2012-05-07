@@ -8,7 +8,7 @@
 #include "QMatrix4x4.h"
 #include "QTranslationMatrix.h"
 #include "QRotationMatrix3x3.h"
-#include "QScaleMatrix3x3.h"
+#include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
 
@@ -225,7 +225,7 @@ QVector4 QVector4::Transform(const QRotationMatrix3x3 &rotation) const
                     this->w);
 }
 
-QVector4 QVector4::Transform(const QScaleMatrix3x3 &scale) const
+QVector4 QVector4::Transform(const QScalingMatrix3x3 &scale) const
 {
     return QVector4(this->x * scale.ij[0][0], this->y * scale.ij[1][1], this->z * scale.ij[2][2], this->w);
 }
