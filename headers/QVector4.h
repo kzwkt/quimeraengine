@@ -598,7 +598,7 @@ public:
     /// <summary>
     /// Resets all components of current vector to 0.
     /// </summary>
-    inline void ResetToZeroDirection()
+    inline void ResetToZeroVector()
     {
         this->x = SQFloat::_0;
         this->y = SQFloat::_0;
@@ -685,7 +685,7 @@ public:
         return sqrt_q( (this->x - vVector.x)*(this->x - vVector.x) + (this->y - vVector.y)*(this->y - vVector.y) +
                        (this->z - vVector.z)*(this->z - vVector.z) );
     }
-    
+
     /// <summary>
     /// Divides all componentes by the w component to ensure the vector is in homogeneus coordinates.
     /// W component is supposed not to equal zero. In this case, the returned vector is the same as the original one.
