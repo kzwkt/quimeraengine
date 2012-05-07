@@ -84,12 +84,12 @@ public:
 	///
 	/// where \f$ e=(e_x, e_y, e_z)\f$, is a unit vector defining spin axis.
 	/// </summary>
-	/// <param name="vRotationAxis">[IN] Vector in the direction of the spin axis.</param>
 	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
+    /// <param name="vRotationAxis">[IN] Vector in the direction of the spin axis.</param>
 	/// <remarks>
     /// The axis vector must be normalized to construct the rotation matrix properly.
     /// </remarks>
-    QRotationMatrix3x3(const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle);
+    QRotationMatrix3x3(const float_q &fRotationAngle, const QBaseVector3 &vRotationAxis);
 
     /// <summary>
     /// Constructor from a quaternion. Is constructed as follows:
@@ -252,8 +252,11 @@ public:
 
     /// <summary>
     /// Converts rotation matrix to an angle and a spin axis.<br>
-    /// Since axis components depends on inverse of sin(angle) it's necessary to take into account when angle is 0 or \f$ \pi\f$.
     /// </summary>
+    /// <remarks>
+    /// Since axis components depends on inverse of sin(angle) it's necessary to take into account when angle is 0 or \f$ \pi\f$.<br>
+    /// When angle equals zero, the returned axis is a null vector.
+    /// </remarks>
     /// <param name="fRotationAngle">[OUT] Angle of rotation.</param>
     /// <param name="vRotationAxis">[OUT] Unitary vector in the direction of the spin axis.</param>
     void GetRotation(float_q &fRotationAngle, QBaseVector3 &vRotationAxis) const;

@@ -67,7 +67,7 @@ QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fRotationAngleX, const flo
     ij[2][2]  =  fA * fC;
 }
 
-QRotationMatrix3x3::QRotationMatrix3x3 (const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle)
+QRotationMatrix3x3::QRotationMatrix3x3 (const float_q &fRotationAngle, const QBaseVector3 &vRotationAxis)
 {
     // Taken from http://en.wikipedia.org/wiki/Rotation_representation#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
     // but changing factors affected by sinus to get a left handed matrix.
@@ -209,46 +209,27 @@ QTransformationMatrix<QMatrix4x3> QRotationMatrix3x3::operator*(const QTransform
 
 void QRotationMatrix3x3::GetRotation(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const
 {
-    const float_q &DIFF = SQFloat::_1 - SQFloat::Epsilon;
+    // \f$ Rx \begin{bmatrix} 1 & 0 & 0 \\ 0 & cos(X) & sin(X) \\ 0 & -sin(X) & cos(X) \end{bmatrix}\f$
+    // \f$ Ry \begin{bmatrix} cos(Y) & 0 & -sin(Y) \\ 0 & 1 & 0 \\ sin(Y) & 0 & cos(Y) \end{bmatrix}\f$
+    // \f$ Rz \begin{bmatrix} cos(Z) & sin(Z) & 0 \\ -sin(Z) & cos(Z) & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
+    // \f$ RzRx \begin{bmatrix} cos(Z) & sin(Z)cos(X) & sin(Z)sin(X) \\ -sin(Z) & cos(Z)cos(X) & cos(Z)sin(X) \\ 0 & -sin(X) & cos(X) \end{bmatrix}\f$
+    // \f$ RzRxRy \begin{bmatrix} cos(Z)cos(Y) + sin(Z)sin(X)sin(Y) & sin(Z)cos(X) & cos(Z)(-sin(Y)) + sin(Z)sin(X)cos(Y) \\ -sin(Z)cos(Y) + cos(Z)cos(X)sin(Y) & cos(Z)cos(X) & -sin(Z)(-sin(Y)) + cos(Z)sin(X)cos(Y) \\ cos(X)sin(Y) & -sin(X) & cos(X)cos(Y) \end{bmatrix}\f$
 
-    if ( SQFloat::IsLessThan(this->ij[2][0], DIFF) )
+    fRotationAngleX = asin_q(-this->ij[2][1]); // m[2,1] == -sin(X)
+    
+    const float_q COS_X = cos_q(fRotationAngleX);
+
+    if( SQFloat::IsGreaterThan(COS_X, SQFloat::_0) )
     {
-        if ( SQFloat::IsGreaterThan(this->ij[2][0], -DIFF ))
-        {
-
-            // Checkout ij[2][0] <= 1 not needed :)
-            fRotationAngleY = asin_q(-this->ij[2][0]);
-
-            // Checkout to avoid passing two zeros to atan2
-            QE_ASSERT(this->ij[1][0] != SQFloat::_0 || this->ij[0][0] != SQFloat::_0)
-            fRotationAngleZ = atan2_q(this->ij[1][0], this->ij[0][0]);
-
-            // Checkout to avoid passing two zeros to atan2
-            QE_ASSERT(this->ij[2][1] != SQFloat::_0 || this->ij[2][2] != SQFloat::_0)
-            fRotationAngleX = atan2_q(this->ij[2][1], this->ij[2][2]);
-        }
-        else
-        {
-            fRotationAngleY = SQAngle::_HalfPi;
-
-            // Checkout to avoid passing two zeros to atan2
-            QE_ASSERT(this->ij[0][1] != SQFloat::_0 || this->ij[0][2] != SQFloat::_0)
-            fRotationAngleZ = -atan2_q(this->ij[0][1], this->ij[0][2]);
-
-            fRotationAngleX = SQFloat::_0;
-        }
+        fRotationAngleZ = atan2_q(this->ij[0][1], this->ij[1][1]);
+        fRotationAngleY = atan2_q(this->ij[2][0], this->ij[2][2]);
     }
     else
     {
-        fRotationAngleY = -SQAngle::_HalfPi;
-
-        // Checkout to avoid passing two zeros to atan2
-        QE_ASSERT(this->ij[0][1] != SQFloat::_0 || this->ij[0][2] != SQFloat::_0)
-        fRotationAngleZ = atan2_q(-this->ij[0][1], -this->ij[0][2]);
-
-        fRotationAngleX = SQFloat::_0;
+        fRotationAngleZ = atan2_q(-this->ij[1][0], this->ij[0][0]);
+        fRotationAngleY = SQFloat::_0;
     }
-
+    
     // Checkout to avoid NaN values
     QE_ASSERT( !SQFloat::IsNaN(fRotationAngleX) && !SQFloat::IsNaN(fRotationAngleY) && !SQFloat::IsNaN(fRotationAngleZ) )
 
@@ -283,31 +264,24 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
     // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
     // Source: http://en.wikipedia.org/wiki/Rotation_representation_%28mathematics%29#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
 
-    const float_q &COS_AUX = (this->ij[0][0] + this->ij[1][1] + this->ij[2][2] - SQFloat::_1) * SQFloat::_0_5;
-
-    // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-    QE_ASSERT( SQFloat::Abs(COS_AUX) <= SQFloat::_1 )
+    // Note: It must be clamped due to loss of precission that produces a cos value greater than 1, that is not valid
+    const float_q &COS_AUX = SQFloat::Clamp((this->ij[0][0] + this->ij[1][1] + this->ij[2][2] - SQFloat::_1) * SQFloat::_0_5, -SQFloat::_1, SQFloat::_1);
 
     fRotationAngle = acos_q(COS_AUX);
-
-    // Singularity 1: Angle = 0 -> we choose arbitrary axis.
-    if (SQFloat::IsZero(fRotationAngle))
+    
+    if( SQFloat::AreEquals(COS_AUX, SQFloat::_1) ) // Singularity 1: Angle == 0 -> we choose arbitrary axis.
     {
-        vRotationAxis.x = SQFloat::_1;
-        vRotationAxis.y = SQFloat::_0;
-        vRotationAxis.z = SQFloat::_0;
+        vRotationAxis = QVector3::GetZeroVector();
     }
-    // Singularity 2: Angle = PI -> we calculate axis.
-    else if ( SQFloat::AreEquals(fRotationAngle, SQAngle::_Pi) )
+    else if( SQFloat::AreEquals(COS_AUX, -SQFloat::_1) ) // Singularity 2: Angle == PI -> we calculate axis.
     {
         const float_q &HALF_SQRT_2 = sqrt_q(SQFloat::_2) * SQFloat::_0_5;
 
         const float_q &XX = (this->ij[0][0] + SQFloat::_1) * SQFloat::_0_5;
 		const float_q &YY = (this->ij[1][1] + SQFloat::_1) * SQFloat::_0_5;
 		const float_q &ZZ = (this->ij[2][2] + SQFloat::_1) * SQFloat::_0_5;
-
-        // m[0][0] is the largest diagonal term
-        if ( SQFloat::IsGreaterThan(XX, YY) && SQFloat::IsGreaterThan(XX, ZZ) )
+        
+        if( SQFloat::IsGreaterThan(XX, YY) && SQFloat::IsGreaterThan(XX, ZZ) ) // m[0][0] is the largest diagonal term
         {
 			if (SQFloat::IsZero(XX))
             {
@@ -329,8 +303,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 				vRotationAxis.z = XZ * INV_X;
 			}
 		}
-        // m[1][1] is the largest diagonal term
-        else if ( SQFloat::IsGreaterThan(YY, ZZ) )
+        else if( SQFloat::IsGreaterThan(YY, ZZ) ) // m[1][1] is the largest diagonal term
         {
 			if (SQFloat::IsZero(YY))
             {
@@ -352,10 +325,9 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 				vRotationAxis.z = YZ * INV_Y;
 			}
 		}
-        // m[2][2] is the largest diagonal term so base result on this
-        else
+        else // m[2][2] is the largest diagonal term so base result on this
         {
-			if (SQFloat::IsZero(ZZ))
+			if(SQFloat::IsZero(ZZ))
             {
 				vRotationAxis.x = HALF_SQRT_2;
 				vRotationAxis.y = HALF_SQRT_2;
@@ -385,9 +357,9 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
     {
         const float_q &HALF_INV_SIN = SQFloat::_0_5 / sin_q(fRotationAngle);
 
-        vRotationAxis.x = (this->ij[2][1] - this->ij[1][2]) * HALF_INV_SIN;
-        vRotationAxis.y = (this->ij[0][2] - this->ij[2][0]) * HALF_INV_SIN;
-        vRotationAxis.z = (this->ij[1][0] - this->ij[0][1]) * HALF_INV_SIN;
+        vRotationAxis.x = (this->ij[1][2] - this->ij[2][1]) * HALF_INV_SIN;
+        vRotationAxis.y = (this->ij[2][0] - this->ij[0][2]) * HALF_INV_SIN;
+        vRotationAxis.z = (this->ij[0][1] - this->ij[1][0]) * HALF_INV_SIN;
 
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // Since angles are specified in radians, we convert it to degrees
