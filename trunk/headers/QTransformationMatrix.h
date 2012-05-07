@@ -121,39 +121,7 @@ public:
                          fRotationX, fRotationY, fRotationZ, fRotationw,
                          fScaleX, fScaleY, fScaleZ);
     }
-
-    /// <summary>
-    /// Constructor that receives a pointer to a floating point array.
-    /// </summary>
-    /// <remarks>
-    /// Keeps the convention rows x columns, so the pointer must point to a 12 floating point array if
-    /// the template parameter is a 4x3 matrix and to a 16 floating point array if it is a 4x4 matrix.<br>
-    /// Each three or four consecutive values, depending on template parameter, is used to fill a row of the matrix.<br>
-    /// If you use this constructor, be sure that you are constructing a translation matrix,
-    /// otherwise unpredictable behavior could happen.
-    /// </remarks>
-    /// <param name="arValues">[IN] Pointer to a 12/16 length array of floating point values.</param>
-    inline explicit QTransformationMatrix(const float_q* arValues) : MatrixType(arValues)
-    {
-    }
-
-    /// <summary>
-    /// Constructor from four 4x32 floating point packed values. Each param contains a row of the matrix.<br>
-    /// Last component of each pack will be ignored if the template parameter is a 4x3 matrix.
-    /// </summary>
-    /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a translation matrix,
-    /// otherwise unpredictable behavior could happen.
-    /// </remarks>
-    /// <param name="row0">[IN] A 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
-    /// <param name="row1">[IN] A 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
-    /// <param name="row2">[IN] A 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
-    /// <param name="row3">[IN] A 4x32 values for row 3, columns 0 to 3 unpacked in this order.</param>
-    inline QTransformationMatrix(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
-                                     MatrixType(row0, row1, row2, row3)
-    {
-    }
-
+    
     /// <summary>
     /// Constructor from a translation matrix, a 3x3 rotation matrix and a 3x3 scale matrix.
     /// </summary>
@@ -755,9 +723,9 @@ protected:
 
         QVector3 vInvScale = QVector3::GetVectorOfOnes() / vScale;
 
-        return QRotationMatrix3x3(this->ij[0][0] * vInvScale.x, this->ij[0][1] * vInvScale.x, this->ij[0][2] * vInvScale.x,
-                                  this->ij[1][0] * vInvScale.y, this->ij[1][1] * vInvScale.y, this->ij[1][2] * vInvScale.y,
-                                  this->ij[2][0] * vInvScale.z, this->ij[2][1] * vInvScale.z, this->ij[2][2] * vInvScale.z);
+        return QRotationMatrix3x3(QMatrix3x3(this->ij[0][0] * vInvScale.x, this->ij[0][1] * vInvScale.x, this->ij[0][2] * vInvScale.x,
+                                             this->ij[1][0] * vInvScale.y, this->ij[1][1] * vInvScale.y, this->ij[1][2] * vInvScale.y,
+                                             this->ij[2][0] * vInvScale.z, this->ij[2][1] * vInvScale.z, this->ij[2][2] * vInvScale.z));
     }
 
     // <summary>

@@ -105,59 +105,7 @@ public:
     /// The quaternion must be normalized to construct the rotation matrix properly.
     /// </remarks>
     explicit QRotationMatrix3x3(const QBaseQuaternion &qRotation);
-
-    /// <summary>
-    /// Constructor that receives a pointer to 9 floating point values.
-    /// </summary>
-    /// <remarks>
-    /// Keeps the convention rows x columns, so each chunck of 3 consecutive elements
-    /// corresponds to a row, where each element in the chunck is the column in the row.<br>
-    /// If you use this constructor, be sure that you are constructing a rotation matrix,
-    /// otherwise unpredictable behavior could be happen.
-    /// </remarks>
-    /// <param name="arValues">[IN] Pointer to a 9 length array of floating point values.</param>
-    inline explicit QRotationMatrix3x3(const float_q* arValues) : QMatrix3x3(arValues)
-    {
-    }
-
-    /// <summary>
-    /// Constructor from three 4x32 floating point packed values. Each param contains a row of the matrix.<br>
-    /// Last component of each pack will be ignored.
-    /// </summary>
-    /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a rotation matrix,
-    /// otherwise unpredictable behavior could be happen.
-    /// </remarks>
-    /// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
-    /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
-    /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
-    inline QRotationMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) : QMatrix3x3(row0, row1, row2)
-    {
-    }
-
-    /// <summary>
-    /// Constructor from a floating point value for each element of the matrix.
-    /// </summary>
-    /// <remarks>
-    /// If you use this constructor, be sure that you are constructing a rotation matrix,
-    /// otherwise unpredictable behavior could be happen.
-    /// </remarks>
-    /// <param name="f00">[IN] Floating point value for element of row 0, column 0.</param>
-    /// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
-    /// <param name="f02">[IN] Floating point value for element of row 0, column 2.</param>
-    /// <param name="f10">[IN] Floating point value for element of row 1, column 0.</param>
-    /// <param name="f11">[IN] Floating point value for element of row 1, column 1.</param>
-    /// <param name="f12">[IN] Floating point value for element of row 1, column 2.</param>
-    /// <param name="f20">[IN] Floating point value for element of row 2, column 0.</param>
-    /// <param name="f21">[IN] Floating point value for element of row 2, column 1.</param>
-    /// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
-     inline QRotationMatrix3x3(const float_q &f00, const float_q &f01, const float_q &f02,
-                               const float_q &f10, const float_q &f11, const float_q &f12,
-                               const float_q &f20, const float_q &f21, const float_q &f22) :
-                                   QMatrix3x3(f00, f01, f02, f10, f11, f12, f20, f21, f22)
-    {
-    }
-
+    
 
     // PROPERTIES
 	// ---------------
@@ -175,9 +123,7 @@ public:
     /// </returns>
     inline static const QRotationMatrix3x3& GetIdentity()
     {
-        static const QRotationMatrix3x3 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0,
-                                                 SQFloat::_0, SQFloat::_1, SQFloat::_0,
-                                                 SQFloat::_0, SQFloat::_0, SQFloat::_1);
+        static const QRotationMatrix3x3 IDENTITY(QMatrix3x3::GetIdentity());
         return IDENTITY;
     }
 
