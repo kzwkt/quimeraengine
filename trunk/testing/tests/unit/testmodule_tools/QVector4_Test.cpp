@@ -23,7 +23,7 @@ using namespace boost::unit_test;
 using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
 QTEST_SUITE_BEGIN( QVector4_TestSuite )
-    
+
 /// <summary>
 /// Checks if all the components of the vector are multiplied by the scalar.
 /// </summary>
@@ -729,9 +729,9 @@ QTEST_CASE ( OperatorProduct3_VectorIsCorrectlyMultipliedByMatrix4x4_Test )
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)90.0f;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)100.0f;
     const float_q EXPECTED_VALUE_FOR_W = (float_q)110.0f;
-    
-    const QBaseMatrix4x4 MATRIX = QBaseMatrix4x4(SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_3, 
-                                                 SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7, 
+
+    const QBaseMatrix4x4 MATRIX = QBaseMatrix4x4(SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_3,
+                                                 SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7,
                                                  SQFloat::_8, SQFloat::_9, (float_q)10.0f, (float_q)11.0f,
                                                  (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f);
 
@@ -760,9 +760,9 @@ QTEST_CASE ( OperatorProduct4_VectorIsCorrectlyMultipliedByMatrix4x3_Test )
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)70.0f;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)80.0f;
 
-    const QBaseMatrix4x3 MATRIX = QBaseMatrix4x3(SQFloat::_0, SQFloat::_1, SQFloat::_2, 
-                                                 SQFloat::_3, SQFloat::_4, SQFloat::_5, 
-                                                 SQFloat::_6, SQFloat::_7, SQFloat::_8, 
+    const QBaseMatrix4x3 MATRIX = QBaseMatrix4x3(SQFloat::_0, SQFloat::_1, SQFloat::_2,
+                                                 SQFloat::_3, SQFloat::_4, SQFloat::_5,
+                                                 SQFloat::_6, SQFloat::_7, SQFloat::_8,
                                                  SQFloat::_9, SQFloat::_10, (float_q)11.0f);
 
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
@@ -1306,9 +1306,9 @@ QTEST_CASE ( OperatorProductAssignation3_VectorIsCorrectlyMultipliedByMatrix4x4_
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)90.0f;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)100.0f;
     const float_q EXPECTED_VALUE_FOR_W = (float_q)110.0f;
-    
-    const QBaseMatrix4x4 MATRIX = QBaseMatrix4x4(SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_3, 
-                                                 SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7, 
+
+    const QBaseMatrix4x4 MATRIX = QBaseMatrix4x4(SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_3,
+                                                 SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7,
                                                  SQFloat::_8, SQFloat::_9, (float_q)10.0f, (float_q)11.0f,
                                                  (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f);
 
@@ -1515,7 +1515,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
     {
         bAssertionFailedWhenZEqualsZero = true;
     }
-    
+
     try
     {
         vVectorUT /= OPERAND_WITH_ZERO_W;
@@ -1724,7 +1724,7 @@ QTEST_CASE ( ResetToZeroPoint_AllVectorComponentsAreSetToZeroAndWEqualsOne_Test 
 /// <summary>
 /// Checks that all vector components are set to zero.
 /// </summary>
-QTEST_CASE ( ResetToZeroDirection_AllVectorComponentsAreSetToZero_Test )
+QTEST_CASE ( ResetToZeroVector_AllVectorComponentsAreSetToZero_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
@@ -1733,7 +1733,7 @@ QTEST_CASE ( ResetToZeroDirection_AllVectorComponentsAreSetToZero_Test )
 
 	// Execution
     QVector4 vVectorUT = VECTOR;
-    vVectorUT.ResetToZeroDirection();
+    vVectorUT.ResetToZeroVector();
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_ALL);
