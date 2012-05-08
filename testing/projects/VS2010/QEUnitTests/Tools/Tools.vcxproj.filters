@@ -90,6 +90,15 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector2_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector4_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector2_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
