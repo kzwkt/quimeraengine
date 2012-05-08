@@ -502,6 +502,17 @@ public:
     }
 
     /// <summary>
+    /// Unary minus operator. Obtains a copy of the resident quaternion which has each component multiplied by -1.
+    /// </summary>
+    /// <returns>
+    /// A copy of the resident quaternion which has each component multiplied by -1.
+    /// </returns>
+	inline QQuaternion operator-() const
+	{
+		return QQuaternion(-this->x, -this->y, -this->z, -this->w);
+	}
+	
+	/// <summary>
     /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.<br>
     /// A quaternion is normalized when its length is equal to 1.
     /// </summary>
