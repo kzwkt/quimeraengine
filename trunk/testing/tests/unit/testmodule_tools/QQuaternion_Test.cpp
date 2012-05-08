@@ -2266,6 +2266,29 @@ QTEST_CASE ( OperatorAssignation_QuaternionIsAssignedProperlyToAnother_Test )
 }
 
 /// <summary>
+/// Checks that all quaternion components are correctly negated.
+/// </summary>
+QTEST_CASE ( OperatorUnaryMinus_ComponentsAreNegated_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
+    const float_q EXPECTED_VALUE_FOR_W = SQFloat::_4;
+
+    const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, -SQFloat::_4);
+
+	// Execution
+    QQuaternion qQuaternionUT = -QUATERNION;
+
+    // Verification
+    BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
+    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_VALUE_FOR_W);
+}
+
+/// <summary>
 /// Checks that a common quaternion becomes a unit quaternion.
 /// </summary>
 QTEST_CASE ( Normalize_CommonQuaternionIsCorrectlyNormalized_Test )
