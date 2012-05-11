@@ -18,3 +18,4 @@ Existe un pack de librerías, llamado [http://wxpack.sourceforge.net/Main/Featur
 
 Usando wxPack, nos evitamos tener que compilar las librerías, como hemos dicho. Simplemente descargamos la última versión e instalamos, eligiendo para wxWidgets el compilador que queramos, y las versiones dinámicas o estáticas:
 
+http://i50.tinypic.com/2rhmsmt.jpg
