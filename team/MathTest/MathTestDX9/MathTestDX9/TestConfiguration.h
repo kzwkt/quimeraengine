@@ -16,7 +16,7 @@
 #include <QTranslationMatrix.h>
 #include <QTransformationMatrix.h>
 #include <QRotationMatrix3x3.h>
-#include <QScaleMatrix3x3.h>
+#include <QScalingMatrix3x3.h>
 #include <QLineSegment3D.h>
 #include <QHexahedron.h>
 #include <QRay3D.h>
