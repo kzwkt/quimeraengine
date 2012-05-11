@@ -147,38 +147,19 @@ public:
 
     /// <summary>
     /// Truncates an angle which describes more than one revolution.<br>
-    /// If the angle value is greater than \f$ 360^0\f$, then it will be replaced by the maximum, this means, \f$ 360^0\f$.
+    /// If the angle value is greater than one revolution positive angle or lower than one revolution negative angle, then it will be adjusted to remain into that interval.
     /// </summary>
-    /// <param name="fAngle">[IN] The original angle value, in degrees.</param>
+    /// <param name="fAngle">[IN] The original angle value</param>
     /// <returns>
-    /// The truncated angle value, in degrees.
+    /// The truncated angle value.
     /// </returns>
-    inline static float_q TruncateDegrees(const float_q &fAngle)
-    {
-        const float_q TRUNCATED_ANGLE = SQFloat::IsPositive(fAngle) ? 
-                                            // Positive angles
-                                            SQFloat::IsGreaterThan(fAngle, SQAngle::_360) ? SQAngle::_360 : fAngle : 
-                                            // Negative angles
-                                            SQFloat::IsLessThan(fAngle, -SQAngle::_360) ? -SQAngle::_360 : fAngle;
-        return TRUNCATED_ANGLE;
-    }
-
-    /// <summary>
-    /// Truncates an angle which describes more than one revolution.<br>
-    /// If the angle value is greater than \f$ 2\Pi\f$, then it will be replaced by the maximum, this means, \f$ 2\Pi\f$.
-    /// </summary>
-    /// <param name="fAngle">[IN] The original angle value, in radians.</param>
-    /// <returns>
-    /// The truncated angle value, in radians.
-    /// </returns>
-    inline static float_q TruncateRadians(const float_q &fAngle)
-    {
-        const float_q TRUNCATED_ANGLE = SQFloat::IsPositive(fAngle) ? 
-                                            // Positive angles
-                                            SQFloat::IsGreaterThan(fAngle, SQAngle::_2Pi) ? SQAngle::_2Pi : fAngle : 
-                                            // Negative angles
-                                            SQFloat::IsLessThan(fAngle, -SQAngle::_2Pi) ? -SQAngle::_2Pi : fAngle;
-        return TRUNCATED_ANGLE;
+    inline static float_q Truncate(const float_q &fAngle)
+	{
+		#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+			return fmod_q(fAngle, SQAngle::_2Pi);  
+		#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+			return fmod_q(fAngle, SQAngle::_360);
+		#endif
     }
 
     /// <summary>

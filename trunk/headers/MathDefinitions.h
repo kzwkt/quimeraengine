@@ -52,6 +52,12 @@ namespace Math
     #define hypot_q(fX, fY) hypot(fX, fY)
 #endif
 
+#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+	#define fmod_q(fX, fY) fmodf(fX, fY) // To improve the compatibility, we prefer fmodf to fmod overloaded version
+#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+	#define fmod_q(fX, fY) fmod(fX, fY)
+#endif
+
 // --------------------------------------------------------------------------------------------------------
 // Pi: Defines how much accurate the mathematical Pi value is.
 // --------------------------------------------------------------------------------------------------------
