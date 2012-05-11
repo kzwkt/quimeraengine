@@ -50,7 +50,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="triangle">[IN] The triangle in which we want resident triangle to be based.</param>
-	inline QTriangle(const QTriangle<VectorType> &triangle) : QTriangle<VectorType>(triangle)
+	inline QTriangle(const QTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
     {
     }
 
