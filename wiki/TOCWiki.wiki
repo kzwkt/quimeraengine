@@ -43,6 +43,7 @@
     * [POCMulti Multihilo] 
       * [MultiBoost Boost]
       * [MultiPoco POCO]
+    * [POCwxWidgets wxWidgets]
   * [Downloads Downloads]
   * [ProjectFAQ F.A.Q.]
 ----
