@@ -19,3 +19,25 @@ Existe un pack de librerías, llamado [http://wxpack.sourceforge.net/Main/Featur
 Usando wxPack, nos evitamos tener que compilar las librerías, como hemos dicho. Simplemente descargamos la última versión e instalamos, eligiendo para wxWidgets el compilador que queramos, y las versiones dinámicas o estáticas:
 
 http://i50.tinypic.com/2rhmsmt.jpg
+
+== Creación de un proyecto nuevo ==
+
+Desde CodeBlocks, se crea un proyecto nuevo, apareciendo el diálogo en el que se puede elegir el tipo de proyecto. Elegimos wxWidgets:
+
+http://i46.tinypic.com/2je2xpf.jpg
+
+Se nos abrirá entonces el asistente de wxWidgets, en el que habrá que elegir la versión de wxWidgets que vamos a usar (hay que tener cuidado con la compatibilidad entre las diversas librerías). Nosotros usamos la 2.8.x, que es la que tenemos instalada:
+
+http://i46.tinypic.com/66yz3b.jpg
+
+Hay que elegir el GUI que vamos a usar, usaremos wxFormBuilder:
+
+http://i47.tinypic.com/2u94enq.jpg
+
+Finalmente, tras poner nombre y ruta del proyecto, compilador que se usará y autor, etc., hay que dar la ruta donde está instalada wxWidgets. En principio, aunque sale una variable de sistema, mejor dar la ruta absoluta porque creo que con la variable no funciona:
+
+http://i46.tinypic.com/n730k.jpg
+
+El asistente crea un proyecto en el que introduce varios archivos:
+
+http://i50.tinypic.com/slqud0.jpg
