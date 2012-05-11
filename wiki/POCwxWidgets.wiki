@@ -1,0 +1,20 @@
+=wxWidgets=
+<wiki:toc max_depth="2" />
+
+==Descripción==
+wxWidgets es una librería que facilita la creación de interfaces gráficas en C++.
+
+Hay bastante información sobre ella en la red. Se puede leer una descripción general en la [http://es.wikipedia.org/wiki/WxWidgets Wikipedia].
+
+Su página oficial es www.wxwidgets.org, de donde se puede descargar la librería.
+
+Existen varias interfaces gráficas para el diseño de las ventanas o diálogos que compondrán la interfaz. Entre ellas está [http://www.wxformbuilder.org/ wxFormBuilder], bastante completa y con un estilo muy similar a Visual Studio 6.
+
+Todas estas librerías se descargan en general como código fuente, lo que obliga a compilarlas para cada sistema operativo, etc. 
+
+Existe un pack de librerías, llamado [http://wxpack.sourceforge.net/Main/Features wxpack], que facilita bastante la instalación y uso de estas librerías puesto que vienen precompiladas para VC y GCC, y permite una cierta personalización en la instalación.
+
+== Instalación ==
+
+Usando wxPack, nos evitamos tener que compilar las librerías, como hemos dicho. Simplemente descargamos la última versión e instalamos, eligiendo para wxWidgets el compilador que queramos, y las versiones dinámicas o estáticas:
+
