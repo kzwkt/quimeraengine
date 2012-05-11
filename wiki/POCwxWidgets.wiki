@@ -6,7 +6,7 @@ wxWidgets es una librería que facilita la creación de interfaces gráficas en 
 
 Hay bastante información sobre ella en la red. Se puede leer una descripción general en la [http://es.wikipedia.org/wiki/WxWidgets Wikipedia].
 
-Su página oficial es [www.wxwidgets.org], de donde se puede descargar la librería.
+Su página oficial es [http://www.wxwidgets.org wxWidgets], de donde se puede descargar la librería.
 
 Existen varias interfaces gráficas para el diseño de las ventanas o diálogos que compondrán la interfaz. Entre ellas está [http://www.wxformbuilder.org/ wxFormBuilder], bastante completa y con un estilo muy similar a Visual Studio 6.
 
