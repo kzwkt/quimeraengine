@@ -28,7 +28,7 @@
     * [DocCodeBlocks Code::Blocks IDE]
       * [CodeSnippets CodeSnippets]
   * [RefAPI API Reference]
-  * [PoC Proofs of Content]
+  * [PoC Proofs of Concept]
     * [POCXMLParsing Lectura/Escritura XML]
       * [POCXMLXerces Xerces-c]
       * [POCXMLplugixml PugiXML]
