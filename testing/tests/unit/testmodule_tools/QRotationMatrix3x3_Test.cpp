@@ -53,8 +53,8 @@ QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
-    const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3, 
-                                        SQFloat::_4, SQFloat::_5, SQFloat::_6, 
+    const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3,
+                                        SQFloat::_4, SQFloat::_5, SQFloat::_6,
                                         SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
     // Execution
@@ -81,8 +81,8 @@ QTEST_CASE ( Constructor3_ExpectedValueIsObtainedWhenUsingCommonAngles_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QBaseMatrix3x3 EXPECTED_VALUE((float_q)0.61237252f,  (float_q)0.70710653f,     (float_q)0.35355330f, 
-                                        (float_q)-0.49999982f, (float_q)3.2782555e-007f, (float_q)0.86602509f, 
+    const QBaseMatrix3x3 EXPECTED_VALUE((float_q)0.61237252f,  (float_q)0.70710653f,     (float_q)0.35355330f,
+                                        (float_q)-0.49999982f, (float_q)3.2782555e-007f, (float_q)0.86602509f,
                                         (float_q)0.61237222f,  (float_q)-0.70710659f,    (float_q)0.35355362f);
 
     // Reference values obtained from following DirectX SDK statement:
@@ -104,7 +104,7 @@ QTEST_CASE ( Constructor3_ExpectedValueIsObtainedWhenUsingCommonAngles_Test )
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
@@ -197,8 +197,8 @@ QTEST_CASE ( Constructor4_ExpectedValueIsObtainedWhenUsingCommonNormalizedAxisAn
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    const QBaseMatrix3x3 EXPECTED_VALUE((float_q)0.72802770f,  (float_q)0.60878855f,   (float_q)-0.31520164f, 
-                                        (float_q)-0.52510482f, (float_q)0.79079056f,   (float_q)0.31450790f, 
+    const QBaseMatrix3x3 EXPECTED_VALUE((float_q)0.72802770f,  (float_q)0.60878855f,   (float_q)-0.31520164f,
+                                        (float_q)-0.52510482f, (float_q)0.79079056f,   (float_q)0.31450790f,
                                         (float_q)0.44072729f,  (float_q)-0.063456565f, (float_q)0.89539528f);
 
     // Reference values obtained from following DirectX SDK statement:
@@ -220,7 +220,7 @@ QTEST_CASE ( Constructor4_ExpectedValueIsObtainedWhenUsingCommonNormalizedAxisAn
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
@@ -256,8 +256,8 @@ QTEST_CASE ( Constructor4_MatrixDiagonalElementsEqualCosineOfAngleWhenUsingNullV
 
     const float_q COS_ANGLE = cos_q(ANGLE);
 
-    const QBaseMatrix3x3 EXPECTED_VALUE(COS_ANGLE,   SQFloat::_0, SQFloat::_0, 
-                                        SQFloat::_0, COS_ANGLE,   SQFloat::_0, 
+    const QBaseMatrix3x3 EXPECTED_VALUE(COS_ANGLE,   SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, COS_ANGLE,   SQFloat::_0,
                                         SQFloat::_0, SQFloat::_0, COS_ANGLE);
 
     // Execution
@@ -265,7 +265,7 @@ QTEST_CASE ( Constructor4_MatrixDiagonalElementsEqualCosineOfAngleWhenUsingNullV
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
@@ -299,7 +299,7 @@ QTEST_CASE ( Constructor4_NeutralRotationIsObtainedWhenUsingNormalizedCommonVect
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
@@ -333,7 +333,7 @@ QTEST_CASE ( Constructor4_NeutralRotationIsObtainedWhenUsingNullVectorAndAngleEq
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
@@ -368,7 +368,7 @@ QTEST_CASE ( Constructor4_ObtainedValueIsDifferentWhenAxisIsNormalizedOrNot_Test
 
     // Verification
     BOOST_CHECK( SQFloat::AreNotEquals(matrixWhenAxisIsNormalizedUT.ij[0][0], matrixWhenAxisIsNotNormalizedUT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreNotEquals(matrixWhenAxisIsNormalizedUT.ij[0][1], matrixWhenAxisIsNotNormalizedUT.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreNotEquals(matrixWhenAxisIsNormalizedUT.ij[0][1], matrixWhenAxisIsNotNormalizedUT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreNotEquals(matrixWhenAxisIsNormalizedUT.ij[0][2], matrixWhenAxisIsNotNormalizedUT.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreNotEquals(matrixWhenAxisIsNormalizedUT.ij[1][0], matrixWhenAxisIsNotNormalizedUT.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreNotEquals(matrixWhenAxisIsNormalizedUT.ij[1][1], matrixWhenAxisIsNotNormalizedUT.ij[1][1]) );
@@ -418,8 +418,8 @@ QTEST_CASE ( Constructor5_ExpectedValueIsObtainedWhenUsingCommonNormalizedQuater
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QBaseMatrix3x3 EXPECTED_VALUE((float_q)0.13333344f,  (float_q)0.93333322f, (float_q)-0.33333325f, 
-                                        (float_q)-0.66666657f, (float_q)0.33333343f, (float_q)0.66666657f, 
+    const QBaseMatrix3x3 EXPECTED_VALUE((float_q)0.13333344f,  (float_q)0.93333322f, (float_q)-0.33333325f,
+                                        (float_q)-0.66666657f, (float_q)0.33333343f, (float_q)0.66666657f,
                                         (float_q)0.73333323f,  (float_q)0.13333333f, (float_q)0.66666675f);
 
     // Reference values obtained from following DirectX SDK statement:
@@ -435,7 +435,7 @@ QTEST_CASE ( Constructor5_ExpectedValueIsObtainedWhenUsingCommonNormalizedQuater
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
@@ -467,7 +467,7 @@ QTEST_CASE ( Constructor5_NeutralRotationIsObtainedWhenQuaternionIsNull_Test )
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
@@ -499,7 +499,7 @@ QTEST_CASE ( Constructor5_NeutralRotationIsObtainedWhenQuaternionIsIdentity_Test
 
     // Verification
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) ); 
+    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
     BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
@@ -716,8 +716,8 @@ QTEST_CASE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     const QRotationMatrix3x3 ROTATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QMatrix4x4(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_7, 
-                                                                      SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0f, 
+    const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QMatrix4x4(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_7,
+                                                                      SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0f,
                                                                       (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
                                                                       (float_q)16.0f, (float_q)17.0f, (float_q)18.0f, (float_q)19.0f));
 
@@ -758,7 +758,7 @@ QTEST_CASE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
     const QRotationMatrix3x3 ROTATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QMatrix4x3(SQFloat::_4,    SQFloat::_5,    SQFloat::_6, 
+    const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QMatrix4x3(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,
                                                                       SQFloat::_8,    SQFloat::_9,    SQFloat::_10,
                                                                       (float_q)12.0f, (float_q)13.0f, (float_q)14.0f,
                                                                       (float_q)16.0f, (float_q)17.0f, (float_q)18.0f));
@@ -766,7 +766,7 @@ QTEST_CASE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test )
     const QMatrix4x3 EXPECTED_VALUE((float_q)12.899189f,  (float_q)14.346177f,  (float_q)15.793165f,
                                     (float_q)-1.3743219f, (float_q)-2.1329894f, (float_q)-2.8916571f,
                                     (float_q)-7.4647269f, (float_q)-8.0397472f, (float_q)-8.614768f,
-                                    (float_q)16.0,        (float_q)17.0f,       (float_q)18.0f);
+                                    (float_q)16.0f,       (float_q)17.0f,       (float_q)18.0f);
 
     // Execution
     QTransformationMatrix<QMatrix4x3> matrixUT = ROTATION * TRANSFORMATION;
@@ -794,8 +794,8 @@ QTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
-    const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3, 
-                                        SQFloat::_4, SQFloat::_5, SQFloat::_6, 
+    const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3,
+                                        SQFloat::_4, SQFloat::_5, SQFloat::_6,
                                         SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
     // Execution
@@ -822,11 +822,12 @@ QTEST_CASE ( Invert_MatrixIsCorrectlyInverted_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
-    const QRotationMatrix3x3 ORIGINAL_VALUE(QBaseMatrix3x3(SQFloat::_1, SQFloat::_2, SQFloat::_3, 
-                                                           SQFloat::_4, SQFloat::_5, SQFloat::_6, 
+    const QRotationMatrix3x3 ORIGINAL_VALUE(QBaseMatrix3x3(SQFloat::_1, SQFloat::_2, SQFloat::_3,
+                                                           SQFloat::_4, SQFloat::_5, SQFloat::_6,
                                                            SQFloat::_7, SQFloat::_8, SQFloat::_9));
-    const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_4, SQFloat::_7, 
-                                        SQFloat::_2, SQFloat::_5, SQFloat::_8, 
+
+    const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_4, SQFloat::_7,
+                                        SQFloat::_2, SQFloat::_5, SQFloat::_8,
                                         SQFloat::_3, SQFloat::_6, SQFloat::_9);
 
     // Execution
@@ -863,8 +864,8 @@ QTEST_CASE ( GetRotation1_AnglesAreCorrectlyExtracted_Test )
         const float_q EXPECTED_ROTATION_Z = SQAngle::_HalfPi;
     #endif
 
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.61237252f,  (float_q)0.70710653f,     (float_q)0.35355330f, 
-                                                     (float_q)-0.49999982f, (float_q)3.2782555e-007f, (float_q)0.86602509f, 
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.61237252f,  (float_q)0.70710653f,     (float_q)0.35355330f,
+                                                     (float_q)-0.49999982f, (float_q)3.2782555e-007f, (float_q)0.86602509f,
                                                      (float_q)0.61237222f,  (float_q)-0.70710659f,    (float_q)0.35355362f));
 
     // Execution
@@ -900,10 +901,10 @@ QTEST_CASE ( GetRotation1_AnglesAreNotWhatExpectedWhenGimbalLockOccurs_Test )
     #endif
 
     // By rotating 90º (or PI/2) two gimbals, they become alligned so rotating any of them results in the same transformation
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.86602545f,      (float_q)-3.7855173e-008f, (float_q)-0.5f, 
-                                                     (float_q)0.5f,             (float_q)-2.1855692e-008f, (float_q)0.86602545f, 
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.86602545f,      (float_q)-3.7855173e-008f, (float_q)-0.5f,
+                                                     (float_q)0.5f,             (float_q)-2.1855692e-008f, (float_q)0.86602545f,
                                                      (float_q)-4.3711388e-008f, (float_q)-1.0f,            (float_q)1.9106855e-015f));
-                                                     
+
     // Execution
     float_q fRotationXUT = SQFloat::_0;
     float_q fRotationYUT = SQFloat::_0;
@@ -939,8 +940,8 @@ QTEST_CASE ( GetRotation2_MatrixIsCorrectlyConvertedInQuaternion_Test )
 
     const QQuaternion EXPECTED_VALUE(ROTATION_X, ROTATION_Y, ROTATION_Z);
 
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.61237252f,  (float_q)0.70710653f,     (float_q)0.35355330f, 
-                                                     (float_q)-0.49999982f, (float_q)3.2782555e-007f, (float_q)0.86602509f, 
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.61237252f,  (float_q)0.70710653f,     (float_q)0.35355330f,
+                                                     (float_q)-0.49999982f, (float_q)3.2782555e-007f, (float_q)0.86602509f,
                                                      (float_q)0.61237222f,  (float_q)-0.70710659f,    (float_q)0.35355362f));
 
     // Execution
@@ -969,8 +970,8 @@ QTEST_CASE ( GetRotation3_MatrixIsCorrectlyConvertedInAxisAndAngle_Test )
 
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
 
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427f,  (float_q)0.76579368f,   (float_q)-0.35576719f, 
-                                                     (float_q)-0.62293649f, (float_q)0.64285713f,   (float_q)0.44574076f, 
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427f,  (float_q)0.76579368f,   (float_q)-0.35576719f,
+                                                     (float_q)-0.62293649f, (float_q)0.64285713f,   (float_q)0.44574076f,
                                                      (float_q)0.57005292f,  (float_q)-0.017169312f, (float_q)0.82142854f));
 
     // Execution
@@ -992,8 +993,8 @@ QTEST_CASE ( GetRotation3_ResultantAxisIsTheOppositeWhenRotationIsTheOpposite_Te
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427f,  (float_q)0.76579368f,   (float_q)-0.35576719f, 
-                                                     (float_q)-0.62293649f, (float_q)0.64285713f,   (float_q)0.44574076f, 
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427f,  (float_q)0.76579368f,   (float_q)-0.35576719f,
+                                                     (float_q)-0.62293649f, (float_q)0.64285713f,   (float_q)0.44574076f,
                                                      (float_q)0.57005292f,  (float_q)-0.017169312f, (float_q)0.82142854f));
     const QRotationMatrix3x3 OPPOSITE_ROTATION = ROTATION.Invert();
 
@@ -1029,8 +1030,8 @@ QTEST_CASE ( GetRotation3_AxisAndAngleAreCalculatedNormallyWhenRotationAngleEqua
 
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
 
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)-0.85714287f, (float_q)0.28571421f,  (float_q)0.42857146f, 
-                                                     (float_q)0.28571433f,  (float_q)-0.42857146f, (float_q)0.85714281f, 
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)-0.85714287f, (float_q)0.28571421f,  (float_q)0.42857146f,
+                                                     (float_q)0.28571433f,  (float_q)-0.42857146f, (float_q)0.85714281f,
                                                      (float_q)0.42857134f,  (float_q)0.85714281f,  (float_q)0.28571415f));
 
     // Execution
@@ -1077,8 +1078,8 @@ QTEST_CASE ( GetRotation3_ResultantAxisIsNormalized_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427f,  (float_q)0.76579368f,   (float_q)-0.35576719f, 
-                                                     (float_q)-0.62293649f, (float_q)0.64285713f,   (float_q)0.44574076f, 
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427f,  (float_q)0.76579368f,   (float_q)-0.35576719f,
+                                                     (float_q)-0.62293649f, (float_q)0.64285713f,   (float_q)0.44574076f,
                                                      (float_q)0.57005292f,  (float_q)-0.017169312f, (float_q)0.82142854f));
 
     // Execution
@@ -1122,7 +1123,6 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QRotationMatrix3x3WhiteBox;
 
@@ -1161,7 +1161,6 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QRotationMatrix3x3WhiteBox;
 
@@ -1208,13 +1207,12 @@ QTEST_CASE ( ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_Test )
 
 /// <summary>
 /// Method used by ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_Test to test
-/// using QMatrix4x3 as template parameter for class QTranslationMatrix.
+/// using QMatrix4x3 as template parameter for class QTransformationMatrix.
 /// </summary>
 void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4x3_Method()
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QRotationMatrix3x3WhiteBox;
 
@@ -1249,19 +1247,18 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
 
 /// <summary>
 /// Method used by ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_Test to test
-/// using QMatrix4x4 as template parameter for class QTranslationMatrix.
+/// using QMatrix4x4 as template parameter for class QTransformationMatrix.
 /// </summary>
 void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4x4_Method()
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QRotationMatrix3x3WhiteBox;
 
     const QRotationMatrix3x3WhiteBox ROTATION(QRotationMatrix3x3(SQFloat::_1, SQFloat::_2, SQFloat::_3));
-    const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QMatrix4x4(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_7, 
-                                                                      SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0f, 
+    const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QMatrix4x4(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_7,
+                                                                      SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0f,
                                                                       (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
                                                                       (float_q)16.0f, (float_q)17.0f, (float_q)18.0f, (float_q)19.0f));
 

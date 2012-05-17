@@ -120,7 +120,7 @@ public:
     /// Multiplies a 3x3 scale matrix by the current matrix, following matrices product rules.
     /// </summary>
     /// <remarks>
-    /// This product is not conmmutative.
+    /// This product is conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] Scale matrix to be multiplied by.</param>
     /// <returns>

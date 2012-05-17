@@ -123,6 +123,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3WhiteBox.h">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

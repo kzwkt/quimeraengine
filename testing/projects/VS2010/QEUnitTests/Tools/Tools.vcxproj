@@ -27,6 +27,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector2_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp" />
@@ -48,6 +49,7 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3WhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3WhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector4Whitebox.h" />
   </ItemGroup>
