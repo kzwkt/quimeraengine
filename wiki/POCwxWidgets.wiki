@@ -40,4 +40,10 @@ http://i46.tinypic.com/n730k.jpg
 
 El asistente crea un proyecto en el que introduce varios archivos:
 
+GUIFrame.cpp (.h): aquí se definen las clases de las ventanas que hayamos creado. Este archivo se regenera cada vez que hagamos una modificación en cualquier ventana vía FormBuilder, por lo que todo código que agreguemos desaparecerá si se hace una modificación posterior. Es mejor, por tanto, no escribir en este archivo.
+
+NombreProyectoApp.cpp (.h): Aquí se define una clase que equivale al método main(), pues este está implementado internamente. Se encarga de llamar a la ventana principal de la aplicación, y de terminar la aplicación cuando se cierre la ventana.
+
+NombreProyectoMain.cpp (.h): Aquí se definen las clases derivadas de las definidas en GUIFrame, y se implementan los eventos.
+
 http://i50.tinypic.com/slqud0.jpg
