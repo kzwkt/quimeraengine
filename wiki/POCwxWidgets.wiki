@@ -22,7 +22,7 @@ http://i50.tinypic.com/2rhmsmt.jpg
 
 == Creación de un proyecto nuevo ==
 
-Desde [CodeBlocks], se crea un proyecto nuevo, apareciendo el diálogo en el que se puede elegir el tipo de proyecto. Elegimos wxWidgets:
+Desde {{{CodeBlocks}}}, se crea un proyecto nuevo, apareciendo el diálogo en el que se puede elegir el tipo de proyecto. Elegimos wxWidgets:
 
 http://i46.tinypic.com/2je2xpf.jpg
 
