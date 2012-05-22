@@ -245,15 +245,15 @@ public:
     /// Checks if a floating point value is lower than or equals to a reference value, taking into account the
     /// system tolerance constant (Epsilon).
     /// </summary>
-    /// <param name="fLowerOrEqualsVaue">The value which is to be compared.</param>
+    /// <param name="fLessOrEqualsValue">The value which is to be compared.</param>
     /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
     /// <returns>
     /// If the first value is lower than or equals to the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsLowerOrEquals(const float_q &fLowerOrEqualsVaue, const float_q &fReferenceValue)
+    inline static bool IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue)
     {
         // If subtraction is lower or equals to Epsilon, the value is lower or equals
-        return (fLowerOrEqualsVaue - fReferenceValue) <= SQFloat::Epsilon;
+        return (fLessOrEqualsVaue - fReferenceValue) <= SQFloat::Epsilon;
     }
 
     /// <summary>
@@ -502,7 +502,6 @@ public:
     }
 
 };
-
 
 } //namespace DataTypes
 } //namespace Tools

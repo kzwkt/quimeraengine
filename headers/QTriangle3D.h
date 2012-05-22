@@ -40,7 +40,7 @@ public:
 	inline QTriangle3D()
     {
     }
-    
+
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
@@ -437,8 +437,8 @@ public:
             return EQSpaceRelation::E_Contained;
         else if ( SQFloat::IsPositive(fdistA) && SQFloat::IsPositive(fdistB) && SQFloat::IsPositive(fdistC) )
             return EQSpaceRelation::E_PositiveSide;
-        else if ( SQFloat::IsLowerOrEquals(fdistA, SQFloat::_0) && SQFloat::IsLowerOrEquals(fdistB, SQFloat::_0) &&
-                  SQFloat::IsLowerOrEquals(fdistC, SQFloat::_0) )
+        else if ( SQFloat::IsLessOrEquals(fdistA, SQFloat::_0) && SQFloat::IsLessOrEquals(fdistB, SQFloat::_0) &&
+                  SQFloat::IsLessOrEquals(fdistC, SQFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_BothSides;

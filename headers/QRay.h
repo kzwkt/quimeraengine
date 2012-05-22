@@ -167,7 +167,7 @@ public:
                 return false;
         }
         else
-            return SQFloat::IsLowerOrEquals(fB, sqrt_q(fD));
+            return SQFloat::IsLessOrEquals(fB, sqrt_q(fD));
 
             // Explanation:
 

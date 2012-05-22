@@ -1632,7 +1632,7 @@ public:
             return EQSpaceRelation::E_Contained;
         else if ( SQFloat::IsGreaterOrEquals(DIST_A, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_B, SQFloat::_0) )
             return EQSpaceRelation::E_PositiveSide;
-        else if ( SQFloat::IsLowerOrEquals(DIST_A, SQFloat::_0) && SQFloat::IsLowerOrEquals(DIST_B, SQFloat::_0) )
+        else if ( SQFloat::IsLessOrEquals(DIST_A, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_B, SQFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_BothSides;
@@ -1721,7 +1721,7 @@ public:
         SQPoint::TransformWithPivot(transformation, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
         return auxLineSegment;
     }
-    
+
     /// <summary>
     /// Transforms the resident line segment with the transformation contained in the dual quaternion provided using a pivot.
     /// </summary>
@@ -1919,7 +1919,7 @@ public:
         SQPoint::ScaleWithPivot(vScale, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
         return auxLineSegment;
     }
-    
+
  	/// <summary>
 	/// Scales the line segment using a pivot.
 	/// </summary>
@@ -1996,7 +1996,7 @@ protected:
         const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
-        return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1);
+        return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1);
     }
 
     // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
@@ -2028,7 +2028,7 @@ protected:
         const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
-        if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1) )
+        if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1) )
             return true;
 
         // Compute new vector
@@ -2050,7 +2050,7 @@ protected:
         const float_q &fV2 = (DOT_00 * DOT_32 - DOT_03 * DOT_02) * INV_DENOM2;
 
         // Check if point is in triangle
-        return SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLowerOrEquals(fU2 + fV2, SQFloat::_1);
+        return SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);
     }
 
     // Calculates if two points are in the same side of a plane defined by 3 points.
