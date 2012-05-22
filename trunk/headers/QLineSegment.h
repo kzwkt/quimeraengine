@@ -49,7 +49,7 @@ public:
 	inline QLineSegment()
     {
     }
-    
+
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
@@ -174,7 +174,7 @@ public:
 		// distance between "the whole segment" and the center of the orb (this is, the
 		// minimum distance between the center of the orb and the closest point inside
 		// the segment) is either lesser or equal to the radius of the orb.
-		return SQFloat::IsLowerOrEquals(this->MinDistance(orb.Center), orb.Radius);
+		return SQFloat::IsLessOrEquals(this->MinDistance(orb.Center), orb.Radius);
 
 	};
 

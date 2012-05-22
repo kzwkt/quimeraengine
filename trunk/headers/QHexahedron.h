@@ -40,7 +40,7 @@ public:
     inline QHexahedron()
     {
     }
-    
+
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
@@ -335,10 +335,10 @@ public:
         else if ( SQFloat::IsPositive(distA) && SQFloat::IsPositive(distB) && SQFloat::IsPositive(distC) && SQFloat::IsPositive(distD) &&
             SQFloat::IsPositive(distE) && SQFloat::IsPositive(distF) && SQFloat::IsPositive(distG) && SQFloat::IsPositive(distH) )
             return EQSpaceRelation::E_PositiveSide;
-        else if ( SQFloat::IsLowerOrEquals(distA, SQFloat::_0) && SQFloat::IsLowerOrEquals(distB, SQFloat::_0) &&
-                  SQFloat::IsLowerOrEquals(distC, SQFloat::_0) && SQFloat::IsLowerOrEquals(distD, SQFloat::_0) &&
-                  SQFloat::IsLowerOrEquals(distE, SQFloat::_0) && SQFloat::IsLowerOrEquals(distF, SQFloat::_0) &&
-                  SQFloat::IsLowerOrEquals(distG, SQFloat::_0) && SQFloat::IsLowerOrEquals(distH, SQFloat::_0) )
+        else if ( SQFloat::IsLessOrEquals(distA, SQFloat::_0) && SQFloat::IsLessOrEquals(distB, SQFloat::_0) &&
+                  SQFloat::IsLessOrEquals(distC, SQFloat::_0) && SQFloat::IsLessOrEquals(distD, SQFloat::_0) &&
+                  SQFloat::IsLessOrEquals(distE, SQFloat::_0) && SQFloat::IsLessOrEquals(distF, SQFloat::_0) &&
+                  SQFloat::IsLessOrEquals(distG, SQFloat::_0) && SQFloat::IsLessOrEquals(distH, SQFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_BothSides;
@@ -402,7 +402,7 @@ public:
 	    SQPoint::Translate(translation, auxHexahedron.template AsPtr<VectorType>(), 8);
         return auxHexahedron;
 	}
-    
+
     /// <summary>
 	/// This method scales the resident hexahedron by the scale contained in the provided scale matrix.
 	/// </summary>

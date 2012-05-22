@@ -500,7 +500,7 @@ QTEST_CASE ( IsGreaterOrEquals_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByM
 /// <summary>
 /// Checks if it returns False when left operand is greater than right one, by more than tolerance.
 /// </summary>
-QTEST_CASE ( IsLowerOrEquals_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByMoreThanTolerance_Test )
+QTEST_CASE ( IsLessOrEquals_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByMoreThanTolerance_Test )
 {
     // Preparation
     const float_q LEFT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
@@ -508,7 +508,7 @@ QTEST_CASE ( IsLowerOrEquals_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByM
     const bool EXPECTED_RESULT = false;
 
 	// Execution
-    bool bResultUT = SQFloat::IsLowerOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
+    bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
@@ -517,7 +517,7 @@ QTEST_CASE ( IsLowerOrEquals_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByM
 /// <summary>
 /// Checks if it returns True when left operand is lower than right one, by exactly tolerance.
 /// </summary>
-QTEST_CASE ( IsLowerOrEquals_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByExactlyTolerance_Test )
+QTEST_CASE ( IsLessOrEquals_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByExactlyTolerance_Test )
 {
     // Preparation
     const float_q LEFT_OPERAND = SQFloat::_0;
@@ -525,7 +525,7 @@ QTEST_CASE ( IsLowerOrEquals_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByExac
     const bool EXPECTED_RESULT = true;
 
 	// Execution
-    bool bResultUT = SQFloat::IsLowerOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
+    bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
@@ -534,7 +534,7 @@ QTEST_CASE ( IsLowerOrEquals_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByExac
 /// <summary>
 /// Checks if it returns True when operands are equal.
 /// </summary>
-QTEST_CASE ( IsLowerOrEquals_ReturnsTrueWhenOperandsAreEqual_Test )
+QTEST_CASE ( IsLessOrEquals_ReturnsTrueWhenOperandsAreEqual_Test )
 {
     // Preparation
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
@@ -542,7 +542,7 @@ QTEST_CASE ( IsLowerOrEquals_ReturnsTrueWhenOperandsAreEqual_Test )
     const bool EXPECTED_RESULT = true;
 
 	// Execution
-    bool bResultUT = SQFloat::IsLowerOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
+    bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
@@ -551,7 +551,7 @@ QTEST_CASE ( IsLowerOrEquals_ReturnsTrueWhenOperandsAreEqual_Test )
 /// <summary>
 /// Checks if it returns True when left operand is lower than right one, by more than tolerance.
 /// </summary>
-QTEST_CASE ( IsLowerOrEquals_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
+QTEST_CASE ( IsLessOrEquals_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
     // Preparation
     const float_q LEFT_OPERAND = SQFloat::_0;
@@ -559,7 +559,7 @@ QTEST_CASE ( IsLowerOrEquals_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMore
     const bool EXPECTED_RESULT = true;
 
 	// Execution
-    bool bResultUT = SQFloat::IsLowerOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
+    bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);

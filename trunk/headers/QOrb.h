@@ -45,7 +45,7 @@ public:
 	inline QOrb()
     {
     }
-    
+
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
@@ -111,7 +111,7 @@ public:
         // The point is inside the orb whenever the minimum squared distance between the point and
         // the center point of the orb is lower or equals the whole square radius of the orb.
         VectorType vDistance(vPoint - this->Center);
-        return SQFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), Radius * Radius);
+        return SQFloat::IsLessOrEquals(vDistance.GetSquaredLength(), Radius * Radius);
     }
 
 	/// <summary>
@@ -127,7 +127,7 @@ public:
 		// between their center points is lower or equals the square sum of their radius.
         VectorType vDistance(orb.Center - this->Center);
         float_q    fRadiusSum = Radius + orb.Radius;
-        return SQFloat::IsLowerOrEquals(vDistance.GetSquaredLength(), fRadiusSum * fRadiusSum);
+        return SQFloat::IsLessOrEquals(vDistance.GetSquaredLength(), fRadiusSum * fRadiusSum);
     }
 
 	/// <summary>

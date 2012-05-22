@@ -264,7 +264,7 @@ public:
                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
                 const float_q PARAM2 = NUMERATOR2 / DENOMINATOR;
-                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLowerOrEquals(fParam2, SQFloat::_1) ) // Remember that the denominator is always positive
+                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLessOrEquals(fParam2, SQFloat::_1) ) // Remember that the denominator is always positive
                 {
                     const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
                     const QVector3 &P_INT2 = ray.Origin + PARAM2 * ray.Direction;
@@ -563,7 +563,7 @@ public:
                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
                 const float_q PARAM2 = NUMERATOR2 / DENOMINATOR;
-                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLowerOrEquals(PARAM2, SQFloat::_1) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLessOrEquals(PARAM2, SQFloat::_1) ) // Remember that fDenominator is always positive
                 {
                     const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
                     const QVector3 &P_INT2 = ray.Origin + PARAM2 * ray.Direction;
@@ -1292,7 +1292,7 @@ public:
         }
         else if ( SQFloat::IsNegative(DIST_ORIGIN) )// Origin point of ray is in negative side
         {
-            if ( SQFloat::IsLowerOrEquals(DIST_AUX, DIST_ORIGIN) ) // Direction vector moves away from plane or is parallel to it.
+            if ( SQFloat::IsLessOrEquals(DIST_AUX, DIST_ORIGIN) ) // Direction vector moves away from plane or is parallel to it.
                 return EQSpaceRelation::E_NegativeSide;
             else // Direction vector is approaching to plane
                 return EQSpaceRelation::E_BothSides;
@@ -1675,7 +1675,7 @@ protected:
         const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
-        return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1);
+        return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1);
     }
 
     // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
@@ -1708,7 +1708,7 @@ protected:
         const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
-        if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLowerOrEquals(fU + fV, SQFloat::_1) )
+        if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1) )
             return true;
 
         // Compute new vector
@@ -1730,7 +1730,7 @@ protected:
         const float_q &fV2 = (DOT_00 * DOT_32 - DOT_03 * DOT_02) * INV_DENOM2;
 
         // Check if point is in triangle
-        return  SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLowerOrEquals(fU2 + fV2, SQFloat::_1);;
+        return  SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);;
     }
 
     // Checks if resident ray intersects the AB line segment and calculates the intersection point if it exists
