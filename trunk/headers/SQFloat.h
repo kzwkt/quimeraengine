@@ -177,7 +177,7 @@ public:
     /// <returns>
     /// If values are the same, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool AreEquals(const float_q &fValueA, const float_q &fValueB)
+    inline static bool AreEqual(const float_q &fValueA, const float_q &fValueB)
     {
         return SQFloat::Abs(fValueA - fValueB) <= SQFloat::Epsilon;
     }
@@ -191,7 +191,7 @@ public:
     /// <returns>
     /// If values are not the same, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool AreNotEquals(const float_q &fValueA, const float_q &fValueB)
+    inline static bool AreNotEqual(const float_q &fValueA, const float_q &fValueB)
     {
         return SQFloat::Abs(fValueA - fValueB) > SQFloat::Epsilon;
     }
@@ -253,7 +253,7 @@ public:
     inline static bool IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue)
     {
         // If subtraction is lower or equals to Epsilon, the value is lower or equals
-        return (fLessOrEqualsVaue - fReferenceValue) <= SQFloat::Epsilon;
+        return (fLessOrEqualsValue - fReferenceValue) <= SQFloat::Epsilon;
     }
 
     /// <summary>
@@ -266,7 +266,7 @@ public:
     /// </returns>
     inline static bool IsZero(const float_q &fValue)
     {
-        return SQFloat::AreEquals(fValue, SQFloat::_0);
+        return SQFloat::AreEqual(fValue, SQFloat::_0);
     }
 
     /// <summary>
@@ -279,7 +279,7 @@ public:
     /// </returns>
     inline static bool IsNotZero(const float_q &fValue)
     {
-        return SQFloat::AreNotEquals(fValue, SQFloat::_0);
+        return SQFloat::AreNotEqual(fValue, SQFloat::_0);
     }
 
     /// <summary>

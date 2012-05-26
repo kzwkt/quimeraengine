@@ -122,10 +122,10 @@ QTEST_CASE ( Constructor3_QuaternionIsCorrectlyFormedWhenUsingArbitraryEulerAngl
     QQuaternion qQuaternionUT(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_W) );
 }
 
 /// <summary>
@@ -171,10 +171,10 @@ QTEST_CASE ( Constructor3_IdentityIsObtainedWhenAllAnglesEqualZero_Test )
     QQuaternion qQuaternionUT(ALL_ANGLES_VALUE, ALL_ANGLES_VALUE, ALL_ANGLES_VALUE);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE.x) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE.y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE.z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE.w) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE.x) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE.y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE.z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE.w) );
 }
 
 /// <summary>
@@ -215,10 +215,10 @@ QTEST_CASE ( Constructor3_FollowsYawPitchRollRotationOrder_Test )
     QQuaternion qQuaternionUT(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE.x) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE.y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE.z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE.w) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE.x) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE.y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE.z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE.w) );
 }
 
 /// <summary>
@@ -352,10 +352,10 @@ QTEST_CASE ( Constructor7_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 
@@ -534,10 +534,10 @@ QTEST_CASE ( Constructor8_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 /// <summary>
@@ -1372,10 +1372,10 @@ QTEST_CASE ( OperatorProduct1_QuaternionIsCorrectlyMultipliedByAnotherQuaternion
     QQuaternion qQuaternionUT = OPERAND1 * OPERAND2;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 /// <summary>
@@ -1582,10 +1582,10 @@ QTEST_CASE ( OperatorDivision1_QuaternionIsCorrectlyDividedByAnotherQuaternion_T
     QQuaternion qQuaternionUT = OPERAND1 / OPERAND2;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 /// <summary>
@@ -1822,10 +1822,10 @@ QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByAnothe
     qQuaternionUT *= OPERAND2;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 /// <summary>
@@ -1937,10 +1937,10 @@ QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByItself
     qQuaternionUT *= qQuaternionUT;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 /// <summary>
@@ -1989,10 +1989,10 @@ QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByOneOfI
     qQuaternionUT *= qQuaternionUT.w; // x 2 x 3
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 /// <summary>
@@ -2094,10 +2094,10 @@ QTEST_CASE ( OperatorDivisionAssignation1_QuaternionIsCorrectlyDividedByAnotherQ
     qQuaternionUT /= OPERAND2;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 /// <summary>
@@ -2236,10 +2236,10 @@ QTEST_CASE ( OperatorDivisionAssignation2_QuaternionIsCorrectlyDivisionByOneOfIt
     qQuaternionUT /= qQuaternionUT.w; // / 2 / 3
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_VALUE_FOR_W) );
 }
 
 /// <summary>
@@ -2304,7 +2304,7 @@ QTEST_CASE ( Normalize_CommonQuaternionIsCorrectlyNormalized_Test )
     // Verification
     float_q fSquaredLength = qQuaternionUT.GetSquaredLength();
 
-    BOOST_CHECK(SQFloat::AreEquals(fSquaredLength, EXPECTED_SQUAREDLENGTH));
+    BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
 }
 
 /// <summary>
@@ -2513,7 +2513,7 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonQuaternions_Test )
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fResultUT, EXPECTED_RESULT) );
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
 /// <summary>
@@ -2765,10 +2765,10 @@ QTEST_CASE ( Slerp_ResultIsAlwaysNormalized_Test )
     QQuaternion qQuaternionUT = OPERAND1.Slerp(OPERAND2, SQFloat::_0_5);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.z, EXPECTED_RESULT.z) );
-    BOOST_CHECK( SQFloat::AreEquals(qQuaternionUT.w, EXPECTED_RESULT.w) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_RESULT.w) );
 }
 
 /// <summary>
@@ -2872,9 +2872,9 @@ QTEST_CASE ( ToEulerAngles_CorrectAnglesAreObtainedFromCommonQuaternion_Test )
     QUATERNION.ToEulerAngles(fAngleXUT, fAngleYUT, fAngleZUT);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fAngleXUT, EXPECTED_X_ANGLE) );
-    BOOST_CHECK( SQFloat::AreEquals(fAngleYUT, EXPECTED_Y_ANGLE) );
-    BOOST_CHECK( SQFloat::AreEquals(fAngleZUT, EXPECTED_Z_ANGLE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleXUT, EXPECTED_X_ANGLE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleYUT, EXPECTED_Y_ANGLE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleZUT, EXPECTED_Z_ANGLE) );
 }
 
 /// <summary>

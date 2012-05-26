@@ -157,8 +157,8 @@ bool QVector4::IsZero() const
 
 bool QVector4::IsVectorOfOnes() const
 {
-    return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1) &&
-            SQFloat::AreEquals(this->z, SQFloat::_1) && SQFloat::AreEquals(this->w, SQFloat::_1);
+    return SQFloat::AreEqual(this->x, SQFloat::_1) && SQFloat::AreEqual(this->y, SQFloat::_1) &&
+            SQFloat::AreEqual(this->z, SQFloat::_1) && SQFloat::AreEqual(this->w, SQFloat::_1);
 }
 
 float_q QVector4::DotProduct(const QBaseVector4 &vVector) const
@@ -268,9 +268,9 @@ string_q QVector4::ToString() const
 template <class MatrixType>
 QVector4 QVector4::TransformImp(const QTranslationMatrix<MatrixType> &translation) const
 {
-    return QVector4(this->x + this->w * translation.ij[3][0], 
-                    this->y + this->w * translation.ij[3][1], 
-                    this->z + this->w * translation.ij[3][2], 
+    return QVector4(this->x + this->w * translation.ij[3][0],
+                    this->y + this->w * translation.ij[3][1],
+                    this->z + this->w * translation.ij[3][2],
                     this->w);
 }
 

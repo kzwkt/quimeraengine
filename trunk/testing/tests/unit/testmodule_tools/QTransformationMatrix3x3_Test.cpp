@@ -190,15 +190,15 @@ QTEST_CASE ( Constructor3_RotationDataIsCorrectlyGenerated_Test )
     QTransformationMatrix3x3 matrixUT(TRANSLATION, ROTATION, SCALE);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
 }
 
 /// <summary>
@@ -376,7 +376,7 @@ QTEST_CASE ( Decompose_CorrectTransformationsAreObtainedFromCommonMatrix_Test )
     // Verification
     BOOST_CHECK(vTranslationUT == EXPECTED_TRANSLATION);
     BOOST_CHECK(vScaleUT == EXPECTED_SCALE);
-    BOOST_CHECK( SQFloat::AreEquals(fRotationUT, EXPECTED_ROTATION) );
+    BOOST_CHECK( SQFloat::AreEqual(fRotationUT, EXPECTED_ROTATION) );
 }
 
 /// <summary>
@@ -405,7 +405,7 @@ QTEST_CASE ( Decompose_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRotati
     TRANSFORMATION_MATRIX.Decompose(vTranslationAux, fRotationUT, vScaleAux);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fRotationUT, EXPECTED_ROTATION) );
+    BOOST_CHECK( SQFloat::AreEqual(fRotationUT, EXPECTED_ROTATION) );
 }
 
 /// <summary>
@@ -556,7 +556,7 @@ QTEST_CASE ( GetRotation_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRota
     TRANSFORMATION_MATRIX.GetRotation(fRotationUT);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fRotationUT, EXPECTED_ROTATION) );
+    BOOST_CHECK( SQFloat::AreEqual(fRotationUT, EXPECTED_ROTATION) );
 }
 
 /// <summary>
@@ -582,7 +582,7 @@ QTEST_CASE ( GetRotation_CorrectRotationIsObtainedFromCommonMatrix_Test )
     TRANSFORMATION_MATRIX.GetRotation(fRotationUT);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fRotationUT, EXPECTED_ROTATION) );
+    BOOST_CHECK( SQFloat::AreEqual(fRotationUT, EXPECTED_ROTATION) );
 }
 
 /// <summary>

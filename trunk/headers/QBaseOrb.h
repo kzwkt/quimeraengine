@@ -60,7 +60,7 @@ public:
     /// </returns>
     inline bool operator== (const QBaseOrb<VectorType> &orb) const
     {
-        return this->Center == orb.Center && SQFloat::AreEquals(this->Radius, orb.Radius);
+        return this->Center == orb.Center && SQFloat::AreEqual(this->Radius, orb.Radius);
     }
 
     /// <summary>

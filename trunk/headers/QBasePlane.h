@@ -101,8 +101,8 @@ public:
     /// </returns>
     inline bool operator==(const QBasePlane &plane) const
     {
-        return ( SQFloat::AreEquals(plane.a, this->a) && SQFloat::AreEquals(plane.b, this->b) &&
-                 SQFloat::AreEquals(plane.c, this->c) && SQFloat::AreEquals(plane.d, this->d) );
+        return ( SQFloat::AreEqual(plane.a, this->a) && SQFloat::AreEqual(plane.b, this->b) &&
+                 SQFloat::AreEqual(plane.c, this->c) && SQFloat::AreEqual(plane.d, this->d) );
     }
 
     /// <summary>

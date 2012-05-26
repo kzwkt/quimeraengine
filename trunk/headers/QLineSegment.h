@@ -702,13 +702,13 @@ public:
 	void Lengthen(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
-		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
+		if ( SQFloat::AreNotEqual(fLengtheningFactor, SQFloat::_1) )
 		{
 			VectorType vCenter;
 			this->GetCenter(vCenter);
 
 			// If Lengthening Factor == 0, just reduce the endpoints to the center.
-			if (SQFloat::AreEquals(fLengtheningFactor, SQFloat::_0))
+			if (SQFloat::AreEqual(fLengtheningFactor, SQFloat::_0))
 			{
 				A = vCenter;
 				B = vCenter;
@@ -733,10 +733,10 @@ public:
 	void LengthenFromA(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
-		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
+		if ( SQFloat::AreNotEqual(fLengtheningFactor, SQFloat::_1) )
 		{
 			// If Lengthening Factor == 0, just reduce the endpoints to A.
-			if ( SQFloat::AreEquals(fLengtheningFactor, SQFloat::_0) )
+			if ( SQFloat::AreEqual(fLengtheningFactor, SQFloat::_0) )
 			{
 				B = A;
 			}
@@ -759,10 +759,10 @@ public:
 	void LengthenFromB(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
-		if ( SQFloat::AreNotEquals(fLengtheningFactor, SQFloat::_1) )
+		if ( SQFloat::AreNotEqual(fLengtheningFactor, SQFloat::_1) )
 		{
 			// If Lengthening Factor == 0, just reduce the endpoints to B.
-			if ( SQFloat::AreEquals(fLengtheningFactor, SQFloat::_0) )
+			if ( SQFloat::AreEqual(fLengtheningFactor, SQFloat::_0) )
 			{
 				A = B;
 			}

@@ -94,10 +94,12 @@ public:
     /// </returns>
     inline bool operator==(const QBaseQuaternion &qQuat) const
     {
-        return   SQFloat::AreEquals(this->x, qQuat.x) &&
-                 SQFloat::AreEquals(this->y, qQuat.y) &&
-                 SQFloat::AreEquals(this->z, qQuat.z) &&
-                 SQFloat::AreEquals(this->w, qQuat.w);
+        return   SQFloat::
+        AreEqual(this->x, qQuat.x) &&
+                 SQFloat::
+                 AreEqual(this->y, qQuat.y) &&
+                 SQFloat::AreEqual(this->z, qQuat.z) &&
+                 SQFloat::AreEqual(this->w, qQuat.w);
     }
 
     /// <summary>

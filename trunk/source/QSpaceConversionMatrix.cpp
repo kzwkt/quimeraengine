@@ -52,7 +52,7 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QVector3 &vTranslation, c
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
 {
     QTransformationMatrix<QMatrix4x4> aux(vTranslation, qRotation, vScale);
-    
+
     *this = aux.As<QSpaceConversionMatrix>();
 }
 
@@ -121,7 +121,7 @@ void QSpaceConversionMatrix::SetViewSpaceMatrix(const QVector4 &vPointOfView, co
 void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
                                                       const float_q &fAspectRatio, const float_q &fVerticalFOV)
 {
-    QE_ASSERT(SQFloat::AreNotEquals(fNearClipPlane, fFarClipPlane))
+    QE_ASSERT(SQFloat::AreNotEqual(fNearClipPlane, fFarClipPlane))
     QE_ASSERT(SQFloat::IsGreaterThan(fAspectRatio, SQFloat::_0))
     QE_ASSERT(SQFloat::IsGreaterThan(fVerticalFOV, SQFloat::_0))
 
@@ -132,7 +132,7 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
         const float_q& HALF_VERT_FOV = fVerticalFOV * SQFloat::_0_5;
     #endif
 
-    QE_ASSERT( SQFloat::AreNotEquals(HALF_VERT_FOV, SQAngle::_HalfPi) )
+    QE_ASSERT( SQFloat::AreNotEqual(HALF_VERT_FOV, SQAngle::_HalfPi) )
 
     const float_q &SCALE_Y  = SQFloat::_1 / tan_q(HALF_VERT_FOV);
     const float_q &SCALE_X  = SCALE_Y / fAspectRatio;
