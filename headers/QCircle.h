@@ -44,7 +44,7 @@ public:
 	inline QCircle()
     {
     }
-    
+
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
@@ -126,7 +126,7 @@ public:
         SQPoint::Translate(fTranslationX, fTranslationY, &auxCircle.Center, 1);
         return auxCircle;
     }
-    
+
 	/// <summary>
 	/// Rotates the circle.
 	/// </summary>
@@ -294,7 +294,7 @@ public:
                 vFirstI = this->Center + vV1 * (this->Radius * cos_q(fAngle)) + vV2 * (this->Radius * sin_q(fAngle));
                 vSecondI = this->Center + vV1 * (this->Radius * cos_q(fAngle)) - vV2 * (this->Radius * sin_q(fAngle));
 
-                if (SQFloat::AreEquals(vFirstI.x, vSecondI.x) && SQFloat::AreEquals(vFirstI.y, vSecondI.y))
+                if (SQFloat::AreEqual(vFirstI.x, vSecondI.x) && SQFloat::AreEqual(vFirstI.y, vSecondI.y))
                 {
                     float_q fRadiusAddition = this->Radius + circle.Radius;
 

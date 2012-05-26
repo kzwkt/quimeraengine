@@ -106,10 +106,10 @@ public:
     /// </returns>
     inline bool operator==(const QBaseMatrix2x2 &matrix) const
     {
-        return SQFloat::AreEquals(this->ij[0][0], matrix.ij[0][0]) &&
-               SQFloat::AreEquals(this->ij[0][1], matrix.ij[0][1]) &&
-               SQFloat::AreEquals(this->ij[1][0], matrix.ij[1][0]) &&
-               SQFloat::AreEquals(this->ij[1][1], matrix.ij[1][1]);
+        return SQFloat::AreEqual(this->ij[0][0], matrix.ij[0][0]) &&
+               SQFloat::AreEqual(this->ij[0][1], matrix.ij[0][1]) &&
+               SQFloat::AreEqual(this->ij[1][0], matrix.ij[1][0]) &&
+               SQFloat::AreEqual(this->ij[1][1], matrix.ij[1][1]);
     }
 
     /// <summary>

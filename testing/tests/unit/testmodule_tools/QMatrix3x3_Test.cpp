@@ -1228,15 +1228,15 @@ QTEST_CASE ( Invert_CommonMatrixIsCorrectlyInverted_Test )
     QMatrix3x3 matrixUT = MATRIX.Invert();
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
 }
 
 /// <summary>

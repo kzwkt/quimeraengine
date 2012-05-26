@@ -466,7 +466,7 @@ public:
 
         return auxRay;
 	}
-    
+
     /// <summary>
 	/// This method rotates the resident ray the provided angle around the coordinate axis centre.
 	/// </summary>
@@ -511,7 +511,7 @@ public:
         SQPoint::Translate(vTranslation, &auxRay.Origin, 1);
         return auxRay;
 	}
-    
+
     /// <summary>
 	/// This method translates the resident ray by the provided amounts for every axis.
 	/// </summary>
@@ -526,7 +526,7 @@ public:
         SQPoint::Translate(fTranslationX, fTranslationY, &auxRay.Origin, 1);
         return auxRay;
 	}
-    
+
     /// <summary>
 	/// This method scales the resident ray by the scale contained in the provided vector.
 	/// </summary>
@@ -543,7 +543,7 @@ public:
         SQPoint::Scale(vScale, auxRay.AsPtr<QVector2>(), 2);
         return QRay2D(auxRay.Origin, auxRay.Direction.Normalize());
 	}
-    
+
     /// <summary>
 	/// This method scales the resident ray by the amounts provided for every axis.
 	/// </summary>
@@ -637,7 +637,7 @@ protected:
             return true;
         else if ( SQFloat::IsZero(this->Direction.x) )
         {
-            if ( SQFloat::AreNotEquals(vPoint.x, this->Origin.x) )
+            if ( SQFloat::AreNotEqual(vPoint.x, this->Origin.x) )
                 return false;
             if ( SQFloat::IsNegative(vPoint.y - this->Origin.y) == SQFloat::IsNegative(this->Direction.y) )
                 return true;
@@ -646,7 +646,7 @@ protected:
         }
         else if ( SQFloat::IsZero(this->Direction.y) )
         {
-            if ( SQFloat::AreNotEquals(vPoint.y, this->Origin.y) )
+            if ( SQFloat::AreNotEqual(vPoint.y, this->Origin.y) )
                 return false;
             if ( SQFloat::IsNegative(vPoint.x - this->Origin.x) == SQFloat::IsNegative(this->Direction.x) )
                 return true;
@@ -658,7 +658,7 @@ protected:
             const float_q &PARAM_X = (vPoint.x - this->Origin.x)/this->Direction.x;
             const float_q &PARAM_Y = (vPoint.y - this->Origin.y)/this->Direction.y;
 
-            if ( SQFloat::AreNotEquals(PARAM_X, PARAM_Y) || SQFloat::IsNegative(PARAM_X))
+            if ( SQFloat::AreNotEqual(PARAM_X, PARAM_Y) || SQFloat::IsNegative(PARAM_X))
                 return false;
             else
                 return true;

@@ -354,10 +354,10 @@ public:
     /// </returns>
     inline bool IsIdentity() const
     {
-        return  SQFloat::AreEquals(this->ij[0][0], SQFloat::_1) &&
+        return  SQFloat::AreEqual(this->ij[0][0], SQFloat::_1) &&
                 SQFloat::IsZero(this->ij[0][1]) &&
                 SQFloat::IsZero(this->ij[1][0]) &&
-                SQFloat::AreEquals(this->ij[1][1], SQFloat::_1);
+                SQFloat::AreEqual(this->ij[1][1], SQFloat::_1);
     }
 
     /// <summary>
@@ -407,7 +407,7 @@ public:
     QMatrix2x2 Invert() const;
 
     /// <summary>
-    /// Calculates whether the matrix has inverse or not. 
+    /// Calculates whether the matrix has inverse or not.
     /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
     /// <returns>

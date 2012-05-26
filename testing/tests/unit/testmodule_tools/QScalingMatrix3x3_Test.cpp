@@ -222,15 +222,15 @@ QTEST_CASE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test )
     QScalingMatrix3x3 matrixUT = OPERAND1 * OPERAND2;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE_FOR_12) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE_FOR_20) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE_FOR_21) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE_FOR_22) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE_FOR_12) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE_FOR_20) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE_FOR_21) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE_FOR_22) );
 }
 
 /// <summary>
@@ -247,15 +247,15 @@ QTEST_CASE ( OperatorProduct1_ProductIsCommutative_Test )
     QScalingMatrix3x3 matrix2UT = OPERAND2 * OPERAND1;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
 }
 
 /// <summary>
@@ -286,15 +286,15 @@ QTEST_CASE ( OperatorProduct1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     QScalingMatrix3x3 matrix2UT = MATRIX_B * MATRIX_OP;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
 }
 
 /// <summary>
@@ -325,22 +325,22 @@ QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE * ROTATION;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
 }
 
 /// <summary>
@@ -374,22 +374,22 @@ QTEST_CASE ( OperatorProduct2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     QTransformationMatrix<QMatrix4x4> matrix2UT = MATRIX_B * MATRIX_OP;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
 }
 
 /// <summary>
@@ -414,22 +414,22 @@ QTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE * TRANSLATION;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
 }
 
 /// <summary>
@@ -463,22 +463,22 @@ QTEST_CASE ( OperatorProduct3_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     QTransformationMatrix<QMatrix4x4> matrix2UT = MATRIX_B * MATRIX_OP;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
 }
 
 /// <summary>
@@ -503,18 +503,18 @@ QTEST_CASE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test )
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE * TRANSLATION;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
 }
 
 /// <summary>
@@ -548,18 +548,18 @@ QTEST_CASE ( OperatorProduct4_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     QTransformationMatrix<QMatrix4x3> matrix2UT = MATRIX_B * MATRIX_OP;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
 }
 
 /// <summary>
@@ -586,22 +586,22 @@ QTEST_CASE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test )
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE * TRANSFORMATION;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
 }
 
 /// <sumary>
@@ -637,22 +637,22 @@ QTEST_CASE ( OperatorProduct5_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     QTransformationMatrix<QMatrix4x4> matrix2UT = MATRIX_B * MATRIX_OP;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
 }
 
 /// <summary>
@@ -679,18 +679,18 @@ QTEST_CASE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test )
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE * TRANSFORMATION;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
 }
 
 /// <sumary>
@@ -726,18 +726,18 @@ QTEST_CASE ( OperatorProduct6_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     QTransformationMatrix<QMatrix4x3> matrix2UT = MATRIX_B * MATRIX_OP;
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
 }
 
 /// <summary>
@@ -904,18 +904,18 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE.ProductOperatorImp<QMatrix4x3>(TRANSLATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
 }
 
 /// <summary>
@@ -942,22 +942,22 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE.ProductOperatorImp<QMatrix4x4>(TRANSLATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
 }
 
 /// <summary>
@@ -999,18 +999,18 @@ void ProductOperatorImp1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3Tr
     QTransformationMatrix<QMatrix4x3> matrix2UT = SCALE_B.ProductOperatorImp<QMatrix4x3>(OPERAND);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
 }
 
 /// <summary>
@@ -1041,22 +1041,22 @@ void ProductOperatorImp1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4Tr
     QTransformationMatrix<QMatrix4x4> matrix2UT = SCALE_B.ProductOperatorImp<QMatrix4x4>(OPERAND);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
 }
 
 /// <summary>
@@ -1097,18 +1097,18 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE.ProductOperatorImp<QMatrix4x3>(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
 }
 
 /// <summary>
@@ -1137,22 +1137,22 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE.ProductOperatorImp<QMatrix4x4>(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
 }
 
 /// <summary>
@@ -1196,18 +1196,18 @@ void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3Tr
     QTransformationMatrix<QMatrix4x3> matrix2UT = SCALE_B.ProductOperatorImp<QMatrix4x3>(OPERAND);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
 }
 
 /// <summary>
@@ -1240,22 +1240,22 @@ void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4Tr
     QTransformationMatrix<QMatrix4x4> matrix2UT = SCALE_B.ProductOperatorImp<QMatrix4x4>(OPERAND);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
-    BOOST_CHECK( SQFloat::AreEquals(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][3], matrix2UT.ij[0][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][0], matrix2UT.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][1], matrix2UT.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][2], matrix2UT.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[1][3], matrix2UT.ij[1][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][0], matrix2UT.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][1], matrix2UT.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][2], matrix2UT.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[2][3], matrix2UT.ij[2][3]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][0], matrix2UT.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][1], matrix2UT.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][2], matrix2UT.ij[3][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[3][3], matrix2UT.ij[3][3]) );
 }
 
 /// <summary>

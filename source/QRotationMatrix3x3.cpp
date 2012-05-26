@@ -216,7 +216,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngleX, float_q &fRotatio
     // \f$ RzRxRy \begin{bmatrix} cos(Z)cos(Y) + sin(Z)sin(X)sin(Y) & sin(Z)cos(X) & cos(Z)(-sin(Y)) + sin(Z)sin(X)cos(Y) \\ -sin(Z)cos(Y) + cos(Z)cos(X)sin(Y) & cos(Z)cos(X) & -sin(Z)(-sin(Y)) + cos(Z)sin(X)cos(Y) \\ cos(X)sin(Y) & -sin(X) & cos(X)cos(Y) \end{bmatrix}\f$
 
     fRotationAngleX = asin_q(-this->ij[2][1]); // m[2,1] == -sin(X)
-    
+
     const float_q COS_X = cos_q(fRotationAngleX);
 
     if( SQFloat::IsGreaterThan(COS_X, SQFloat::_0) )
@@ -229,7 +229,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngleX, float_q &fRotatio
         fRotationAngleZ = atan2_q(-this->ij[1][0], this->ij[0][0]);
         fRotationAngleY = SQFloat::_0;
     }
-    
+
     // Checkout to avoid NaN values
     QE_ASSERT( !SQFloat::IsNaN(fRotationAngleX) && !SQFloat::IsNaN(fRotationAngleY) && !SQFloat::IsNaN(fRotationAngleZ) )
 
@@ -268,19 +268,19 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
     const float_q &COS_AUX = SQFloat::Clamp((this->ij[0][0] + this->ij[1][1] + this->ij[2][2] - SQFloat::_1) * SQFloat::_0_5, -SQFloat::_1, SQFloat::_1);
 
     fRotationAngle = acos_q(COS_AUX);
-    
-    if( SQFloat::AreEquals(COS_AUX, SQFloat::_1) ) // Singularity 1: Angle == 0 -> we choose arbitrary axis.
+
+    if( SQFloat::AreEqual(COS_AUX, SQFloat::_1) ) // Singularity 1: Angle == 0 -> we choose arbitrary axis.
     {
         vRotationAxis = QVector3::GetZeroVector();
     }
-    else if( SQFloat::AreEquals(COS_AUX, -SQFloat::_1) ) // Singularity 2: Angle == PI -> we calculate axis.
+    else if( SQFloat::AreEqual(COS_AUX, -SQFloat::_1) ) // Singularity 2: Angle == PI -> we calculate axis.
     {
         const float_q &HALF_SQRT_2 = sqrt_q(SQFloat::_2) * SQFloat::_0_5;
 
         const float_q &XX = (this->ij[0][0] + SQFloat::_1) * SQFloat::_0_5;
 		const float_q &YY = (this->ij[1][1] + SQFloat::_1) * SQFloat::_0_5;
 		const float_q &ZZ = (this->ij[2][2] + SQFloat::_1) * SQFloat::_0_5;
-        
+
         if( SQFloat::IsGreaterThan(XX, YY) && SQFloat::IsGreaterThan(XX, ZZ) ) // m[0][0] is the largest diagonal term
         {
 			if (SQFloat::IsZero(XX))

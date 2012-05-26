@@ -151,22 +151,22 @@ public:
 	/// </returns>
 	inline bool operator==(const QBaseMatrix4x4 &matrix) const
 	{
-		return	SQFloat::AreEquals(this->ij[0][0], matrix.ij[0][0]) &&
-				SQFloat::AreEquals(this->ij[0][1], matrix.ij[0][1]) &&
-				SQFloat::AreEquals(this->ij[0][2], matrix.ij[0][2]) &&
-				SQFloat::AreEquals(this->ij[0][3], matrix.ij[0][3]) &&
-				SQFloat::AreEquals(this->ij[1][0], matrix.ij[1][0]) &&
-				SQFloat::AreEquals(this->ij[1][1], matrix.ij[1][1]) &&
-				SQFloat::AreEquals(this->ij[1][2], matrix.ij[1][2]) &&
-				SQFloat::AreEquals(this->ij[1][3], matrix.ij[1][3]) &&
-				SQFloat::AreEquals(this->ij[2][0], matrix.ij[2][0]) &&
-				SQFloat::AreEquals(this->ij[2][1], matrix.ij[2][1]) &&
-				SQFloat::AreEquals(this->ij[2][2], matrix.ij[2][2]) &&
-				SQFloat::AreEquals(this->ij[2][3], matrix.ij[2][3]) &&
-				SQFloat::AreEquals(this->ij[3][0], matrix.ij[3][0]) &&
-				SQFloat::AreEquals(this->ij[3][1], matrix.ij[3][1]) &&
-				SQFloat::AreEquals(this->ij[3][2], matrix.ij[3][2]) &&
-				SQFloat::AreEquals(this->ij[3][3], matrix.ij[3][3]);
+		return	SQFloat::AreEqual(this->ij[0][0], matrix.ij[0][0]) &&
+				SQFloat::AreEqual(this->ij[0][1], matrix.ij[0][1]) &&
+				SQFloat::AreEqual(this->ij[0][2], matrix.ij[0][2]) &&
+				SQFloat::AreEqual(this->ij[0][3], matrix.ij[0][3]) &&
+				SQFloat::AreEqual(this->ij[1][0], matrix.ij[1][0]) &&
+				SQFloat::AreEqual(this->ij[1][1], matrix.ij[1][1]) &&
+				SQFloat::AreEqual(this->ij[1][2], matrix.ij[1][2]) &&
+				SQFloat::AreEqual(this->ij[1][3], matrix.ij[1][3]) &&
+				SQFloat::AreEqual(this->ij[2][0], matrix.ij[2][0]) &&
+				SQFloat::AreEqual(this->ij[2][1], matrix.ij[2][1]) &&
+				SQFloat::AreEqual(this->ij[2][2], matrix.ij[2][2]) &&
+				SQFloat::AreEqual(this->ij[2][3], matrix.ij[2][3]) &&
+				SQFloat::AreEqual(this->ij[3][0], matrix.ij[3][0]) &&
+				SQFloat::AreEqual(this->ij[3][1], matrix.ij[3][1]) &&
+				SQFloat::AreEqual(this->ij[3][2], matrix.ij[3][2]) &&
+				SQFloat::AreEqual(this->ij[3][3], matrix.ij[3][3]);
 	}
 
 	/// <summary>

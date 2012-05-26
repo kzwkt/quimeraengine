@@ -451,22 +451,22 @@ public:
 	/// </returns>
 	inline bool IsIdentity() const
 	{
-		return	SQFloat::AreEquals(this->ij[0][0], SQFloat::_1) &&
+		return	SQFloat::AreEqual(this->ij[0][0], SQFloat::_1) &&
 				SQFloat::IsZero(this->ij[0][1]) &&
 				SQFloat::IsZero(this->ij[0][2]) &&
 				SQFloat::IsZero(this->ij[0][3]) &&
 				SQFloat::IsZero(this->ij[1][0]) &&
-				SQFloat::AreEquals(this->ij[1][1], SQFloat::_1) &&
+				SQFloat::AreEqual(this->ij[1][1], SQFloat::_1) &&
 				SQFloat::IsZero(this->ij[1][2]) &&
 				SQFloat::IsZero(this->ij[1][3]) &&
 				SQFloat::IsZero(this->ij[2][0]) &&
 				SQFloat::IsZero(this->ij[2][1]) &&
-				SQFloat::AreEquals(this->ij[2][2], SQFloat::_1) &&
+				SQFloat::AreEqual(this->ij[2][2], SQFloat::_1) &&
 				SQFloat::IsZero(this->ij[2][3]) &&
 				SQFloat::IsZero(this->ij[3][0]) &&
 				SQFloat::IsZero(this->ij[3][1]) &&
 				SQFloat::IsZero(this->ij[3][2]) &&
-				SQFloat::AreEquals(this->ij[3][3], SQFloat::_1);
+				SQFloat::AreEqual(this->ij[3][3], SQFloat::_1);
 	}
 
 	/// <summary>
@@ -518,9 +518,9 @@ public:
 	/// The inverse of the matrix.
 	/// </returns>
 	QMatrix4x4 Invert() const;
-    
+
     /// <summary>
-    /// Calculates whether the matrix has inverse or not. 
+    /// Calculates whether the matrix has inverse or not.
     /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
     /// <returns>

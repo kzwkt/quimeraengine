@@ -99,7 +99,7 @@ bool QVector2::IsZero() const
 
 bool QVector2::IsVectorOfOnes() const
 {
-	return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1);
+	return SQFloat::AreEqual(this->x, SQFloat::_1) && SQFloat::AreEqual(this->y, SQFloat::_1);
 }
 
 float_q QVector2::DotProduct(const QVector2 &vVector) const

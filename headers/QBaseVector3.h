@@ -96,7 +96,7 @@ public:
     /// </returns>
     inline bool operator==(const QBaseVector3 &vVector) const
     {
-        return ( SQFloat::AreEquals(vVector.x, this->x) && SQFloat::AreEquals(vVector.y, this->y) && SQFloat::AreEquals(vVector.z, this->z) );
+        return ( SQFloat::AreEqual(vVector.x, this->x) && SQFloat::AreEqual(vVector.y, this->y) && SQFloat::AreEqual(vVector.z, this->z) );
     }
 
     /// <summary>

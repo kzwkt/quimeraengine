@@ -104,7 +104,7 @@ QTEST_CASE ( Truncate_PositiveAnglesGreaterThanFullRevolutionPositiveAngleAreCor
     float_q fResultUT = SQAngle::Truncate(ANGLE);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fResultUT, EXPECTED_VALUE) );   // Due to precission issues
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_VALUE) );   // Due to precission issues
 }
 
 /// <summary>
@@ -125,7 +125,7 @@ QTEST_CASE ( Truncate_NegativeAnglesLowerThanFullRevolutionNegativeAngleAreCorre
     float_q fResultUT = SQAngle::Truncate(ANGLE);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fResultUT, EXPECTED_VALUE) );   // Due to precission issues
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_VALUE) );   // Due to precission issues
 }
 
 /// <summary>

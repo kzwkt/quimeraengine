@@ -1156,7 +1156,7 @@ QTEST_CASE ( Normalize1_CommonVectorIsCorrectlyNormalized_Test )
     // Verification
     float_q fSquaredLength = vVectorUT.GetSquaredLength();
 
-    BOOST_CHECK(SQFloat::AreEquals(fSquaredLength, EXPECTED_SQUAREDLENGTH));
+    BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
 }
 
 /// <summary>
@@ -1390,7 +1390,7 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fResultUT, EXPECTED_RESULT) );
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
 /// <summary>
@@ -1746,7 +1746,7 @@ QTEST_CASE ( Distance_ForTwoOppositeVectorsResultEqualsSumOfTheirLengths_Test )
     float_q fDistancerUT = OPERAND.Distance(OPPOSITE_OPERAND);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fDistancerUT, EXPECTED_RESULT) );
+    BOOST_CHECK( SQFloat::AreEqual(fDistancerUT, EXPECTED_RESULT) );
 }
 
 /// <summary>
@@ -1772,8 +1772,8 @@ QTEST_CASE ( Transform1_VectorIsCorrectlyRotatedTheGivenAngle_Test )
     QVector2 vVectorUT = OPERAND.Transform(TEST_ANGLE);
 
     // Verification
-    BOOST_CHECK(SQFloat::AreEquals(vVectorUT.x, EXPECTED_VALUE_FOR_X));
-    BOOST_CHECK(SQFloat::AreEquals(vVectorUT.y, EXPECTED_VALUE_FOR_Y));
+    BOOST_CHECK(SQFloat::AreEqual(vVectorUT.x, EXPECTED_VALUE_FOR_X));
+    BOOST_CHECK(SQFloat::AreEqual(vVectorUT.y, EXPECTED_VALUE_FOR_Y));
 }
 
 /// <summary>
@@ -1828,8 +1828,8 @@ QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByAMatrix_Test )
     QVector2 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_VALUE_FOR_X) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_VALUE_FOR_Y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_VALUE_FOR_X) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_VALUE_FOR_Y) );
 }
 
 /// <summary>
@@ -1848,8 +1848,8 @@ QTEST_CASE ( Transform2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
     QVector2 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
 }
 
 /// <summary>

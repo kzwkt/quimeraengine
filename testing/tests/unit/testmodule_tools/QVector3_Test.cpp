@@ -1388,7 +1388,7 @@ QTEST_CASE ( Normalize_CommonVectorIsCorrectlyNormalized_Test )
     // Verification
     float_q fSquaredLength = vVectorUT.GetSquaredLength();
 
-    BOOST_CHECK(SQFloat::AreEquals(fSquaredLength, EXPECTED_SQUAREDLENGTH));
+    BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
 }
 
 /// <summary>
@@ -1649,7 +1649,7 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fResultUT, EXPECTED_RESULT) );
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
 /// <summary>
@@ -2037,7 +2037,7 @@ QTEST_CASE ( Distance_CorrectlyCalculatedForTwoCommonVectors_Test )
     float_q fDistancerUT = OPERAND1.Distance(OPERAND2);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fDistancerUT, EXPECTED_RESULT) );
+    BOOST_CHECK( SQFloat::AreEqual(fDistancerUT, EXPECTED_RESULT) );
 }
 
 /// <summary>
@@ -2070,7 +2070,7 @@ QTEST_CASE ( Distance_ForTwoOppositeVectorsResultEqualsSumOfTheirLengths_Test )
     float_q fDistancerUT = OPERAND.Distance(OPPOSITE_OPERAND);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(fDistancerUT, EXPECTED_RESULT) );
+    BOOST_CHECK( SQFloat::AreEqual(fDistancerUT, EXPECTED_RESULT) );
 }
 
 /// <summary>
@@ -2114,9 +2114,9 @@ QTEST_CASE ( Transform1_VectorIsCorrectlyTransformedByCommonQuaternion_Test )
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2192,9 +2192,9 @@ QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test 
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION); // [TODO] Thund: Fails.
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2213,9 +2213,9 @@ QTEST_CASE ( Transform2_VectorDoesntChangeWhenTransformedByIdentityDualQuaternio
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2280,9 +2280,9 @@ QTEST_CASE ( Transform3_VectorIsCorrectlyTransformedByCommonRotationMatrix_Test 
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2301,9 +2301,9 @@ QTEST_CASE ( Transform3_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2366,9 +2366,9 @@ QTEST_CASE ( Transform3_RotationFollowsLeftHandedRules_Test )
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2388,9 +2388,9 @@ QTEST_CASE ( Transform4_VectorIsCorrectlyTransformedByCommonScaleMatrix_Test )
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2409,9 +2409,9 @@ QTEST_CASE ( Transform4_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2456,9 +2456,9 @@ void Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template()
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2493,9 +2493,9 @@ void Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2589,9 +2589,9 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION); // [TODO] Thund: Fails.
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2626,9 +2626,9 @@ void Transform6_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2712,9 +2712,9 @@ QTEST_CASE ( Transform7_VectorIsCorrectlyTransformedByCommonSpaceConversionMatri
     QVector3 vVectorUT = VECTOR.Transform(CONVERSION); // [TODO] Thund: Fails.
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2734,9 +2734,9 @@ QTEST_CASE ( Transform7_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
     QVector3 vVectorUT = VECTOR.Transform(CONVERSION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2799,9 +2799,9 @@ void TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Templat
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2837,9 +2837,9 @@ void TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2945,9 +2945,9 @@ void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Temp
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION); // [TODO] Thund: Fails.
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -2983,9 +2983,9 @@ void TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>
@@ -3091,9 +3091,9 @@ void TransformImp2_RotationFollowsLeftHandedRules_Template()
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION); // [TODO] Thund: Fails.
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEquals(vVectorUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
 }
 
 /// <summary>

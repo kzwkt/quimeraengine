@@ -246,7 +246,7 @@ QQuaternion QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProport
 
     QE_ASSERT( !SQFloat::IsNaN(ANGLE_B) )
 
-    if( ANGLE_B != SQFloat::_0 && SQFloat::AreNotEquals(ANGLE_B, PI_Q) )
+    if( ANGLE_B != SQFloat::_0 && SQFloat::AreNotEqual(ANGLE_B, PI_Q) )
     {
         const float_q INV_SIN = SQFloat::_1/sin_q(ANGLE_B);
 
@@ -278,7 +278,7 @@ QQuaternion QQuaternion::UnitSlerp(const QQuaternion &qQuat, const float_q &fPro
     QE_ASSERT( !SQFloat::IsNaN(ANGLE_B) )
 
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
-    if(ANGLE_B != SQFloat::_0 && SQFloat::AreNotEquals(ANGLE_B, PI_Q))
+    if(ANGLE_B != SQFloat::_0 && SQFloat::AreNotEqual(ANGLE_B, PI_Q))
     {
         const float_q INV_SIN = SQFloat::_1/sin_q(ANGLE_B);
 
@@ -309,7 +309,7 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
 
 
     // Checks for +-90º singularity
-    if(SQFloat::AreEquals(fRotationAngleX, SQFloat::Abs(SQAngle::_QuarterPi)))
+    if(SQFloat::AreEqual(fRotationAngleX, SQFloat::Abs(SQAngle::_QuarterPi)))
 
     {
         fRotationAngleZ = atan2_q(this->z, this->w);
@@ -317,9 +317,9 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
     }
     else
     {
-        fRotationAngleZ = atan2_q(SQFloat::_2 * (this->w * this->z + this->x * this->y), 
+        fRotationAngleZ = atan2_q(SQFloat::_2 * (this->w * this->z + this->x * this->y),
                                   (SQFloat::_1 - SQFloat::_2 * (this->z * this->z + this->x * this->x)) );
-        fRotationAngleY = atan2_q(SQFloat::_2 * (this->w * this->y + this->z * this->x), 
+        fRotationAngleY = atan2_q(SQFloat::_2 * (this->w * this->y + this->z * this->x),
                                   (SQFloat::_1 - SQFloat::_2 * (this->x * this->x + this->y * this->y)) );
     }
 }
@@ -339,7 +339,7 @@ void QQuaternion::ToAxisAngle(QBaseVector3 &vRotationAxis, float_q &fRotationAng
 		vRotationAxis.z = SQFloat::_0;
 	}
 	// Singularity 2: Angle = PI -> we calculate axis.
-	else if ( SQFloat::AreEquals(fRotationAngle, SQAngle::_Pi) )
+	else if ( SQFloat::AreEqual(fRotationAngle, SQAngle::_Pi) )
 	{
 		vRotationAxis.x = this->x;
 		vRotationAxis.y = this->y;

@@ -143,7 +143,7 @@ bool QVector3::IsZero() const
 
 bool QVector3::IsVectorOfOnes() const
 {
-    return SQFloat::AreEquals(this->x, SQFloat::_1) && SQFloat::AreEquals(this->y, SQFloat::_1) && SQFloat::AreEquals(this->z, SQFloat::_1);
+    return SQFloat::AreEqual(this->x, SQFloat::_1) && SQFloat::AreEqual(this->y, SQFloat::_1) && SQFloat::AreEqual(this->z, SQFloat::_1);
 }
 
 float_q QVector3::DotProduct(const QBaseVector3 &vVector) const
