@@ -579,8 +579,8 @@ public:
     }
 
     /// <summary>
-    /// Converts resident dual quaternion, assuming it's a transformation, in a new transformation which is
-    /// a linear interpolation between it and a transformation provided, by a proportion also provided.<br>
+    /// Returns a dual quaternion, assuming current one is a transformation, which is a linear interpolation
+    /// between it and a transformation provided, by a proportion also provided.<br>
     /// Note that this isn't an interpolation between dual quaternions, only between unitary dual quaternions
     /// which contains transformations.<br>
     /// To take the transformed point or vector interpolating from a transformation,

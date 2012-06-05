@@ -509,17 +509,16 @@ public:
 
 	/// <summary>
 	/// Makes a Linear Interpolation between current vector and other vector provided.<br>
-	/// It stores result in current vector.
 	/// </summary>
-	/// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
+	/// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the provided vector (per one).</param>
 	/// <param name="vVector">[IN] Vector with which to interpolate.</param>
     /// <returns>
     /// The "lerped" vector.
     /// </returns>
 	inline QVector2 Lerp(const float_q &fProportion, const QBaseVector2 &vVector) const
 	{
-        return QVector2(this->x * fProportion + vVector.x * (SQFloat::_1 - fProportion), 
-                        this->y * fProportion + vVector.y * (SQFloat::_1 - fProportion));
+        return QVector2(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
+                        this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion);
 	}
 
 	/// <summary>

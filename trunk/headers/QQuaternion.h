@@ -511,7 +511,7 @@ public:
 	{
 		return QQuaternion(-this->x, -this->y, -this->z, -this->w);
 	}
-	
+
 	/// <summary>
     /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.<br>
     /// A quaternion is normalized when its length is equal to 1.
@@ -600,7 +600,7 @@ public:
     float_q DotProduct(const QBaseQuaternion &qQuat) const;
 
     /// <summary>
-    /// Calculates the angle between resident quaternion and the provided quaternion, via dot product. Both 
+    /// Calculates the angle between resident quaternion and the provided quaternion, via dot product. Both
     /// quaternions have to be normalized to obtain a more precise value.<br>
     /// </summary>
     /// <param name="qQuat">[IN] Multiplying quaternion.</param>
@@ -631,15 +631,15 @@ public:
     ///
     /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <returns>
     /// The "lerped" quaternion. It's normalized.
     /// </returns>
-    QQuaternion Lerp(const QQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
+    QQuaternion Lerp(const float_q &fProportion, const QQuaternion &qQuat) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
 
     /// <summary>
-    /// Calculates the spherical linear interpolation between the quaternion and the input quaternion.
+    /// Calculates the spherical linear interpolation between this quaternion and the input quaternion.
     /// This is calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = w_1Q_1 + w_2Q_2\f$
@@ -656,13 +656,13 @@ public:
     ///
     /// being \f$ Q_1\f$ and \f$ Q_2\f$ two quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above).</param>
     /// <returns>
-    /// The "lerped" quaternion.
+    /// The "lerped" quaternion. If \f$ \beta = 0\f$ or \f$ \beta = \pi\f$, the returned value is the resident quaternion.
     /// </returns>
-    QQuaternion Slerp(const QQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
-    
+    QQuaternion Slerp(const float_q &fProportion, const QQuaternion &qQuat) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
+
     /// <summary>
     /// Calculates the spherical linear interpolation between two normalized quaternions.
     /// This is calculated by the following expression:
@@ -681,12 +681,12 @@ public:
     ///
     /// being \f$ Q_1\f$ and \f$ Q_2\f$ two normalized quaternions and \f$ s\f$ the scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.
     /// </summary>
-    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a normalized quaternion</param>
     /// <param name="fProportion">[IN] The scalar proportion of distance from \f$ Q_1\f$ to \f$ Q_2\f$.</param>
+    /// <param name="qQuat">[IN] The quaternion to interpolate with (\f$ Q_2\f$ in expression above). It must be a normalized quaternion</param>
     /// <returns>
-    /// The "lerped" quaternion.
+    /// The "lerped" quaternion. If \f$ \beta = 0\f$ or \f$ \beta = \pi\f$, the returned value is the resident quaternion.
     /// </returns>
-    QQuaternion UnitSlerp(const QQuaternion &qQuat, const float_q &fProportion) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
+    QQuaternion UnitSlerp(const float_q &fProportion, const QQuaternion &qQuat) const; // DOC Thund: Explain that 1 means input, 0 means resident. Maybe calculus is about to change.
 
     /// <summary>
     /// Obtains Euler angles that represent the same rotation than the quaternion does.<br>
@@ -715,7 +715,7 @@ public:
     /// \f$ Z = 0\f$
     ///
     /// See atan2 documentation for more interesting information.
-    /// Note that obtained angles haven't to match whatever values 
+    /// Note that obtained angles haven't to match whatever values
     /// were used to create the quaternion from 3 Euler angles.
     /// </remarks>
     /// <param name="fRotationAngleX">X Euler angle (pitch).</param>
@@ -754,7 +754,7 @@ public:
 	/// There are two possible singularities: when rotation angle is 0 or \f$ 180^0\f$.
     /// </summary>
     /// <remarks>
-    /// Note that angle and axis haven't to match whatever values were used to create the quaternion from 
+    /// Note that angle and axis haven't to match whatever values were used to create the quaternion from
     /// an axis and an angle.
     /// </remarks>
     /// <param name="vRotationAxis">Vector to store the spin axis.</param>

@@ -2608,7 +2608,7 @@ QTEST_CASE ( Lerp_CorrectLerpedQuaternionIsObtainedForTwoCommonQuaternions_Test 
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)0.032794558, (float_q)0.065589115, (float_q)0.098383665, (float_q)0.99244314);
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Lerp(OPERAND2, SQFloat::_0_25);
+    QQuaternion qQuaternionUT = OPERAND1.Lerp(SQFloat::_0_25, OPERAND2);
 
     // Verification
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
@@ -2623,7 +2623,7 @@ QTEST_CASE ( Lerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuater
     const QQuaternion EXPECTED_RESULT = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
 
 	// Execution
-    QQuaternion qQuaternionUT = EXPECTED_RESULT.Lerp(EXPECTED_RESULT, SQFloat::_0_5);
+    QQuaternion qQuaternionUT = EXPECTED_RESULT.Lerp(SQFloat::_0_5, EXPECTED_RESULT);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
@@ -2640,10 +2640,10 @@ QTEST_CASE ( Lerp_ResultIsAlwaysNormalized_Test )
     // Preparation
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
-    const QQuaternion EXPECTED_RESULT = OPERAND1.Lerp(OPERAND2, SQFloat::_0_5).Normalize();
+    const QQuaternion EXPECTED_RESULT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2).Normalize();
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Lerp(OPERAND2, SQFloat::_0_5);
+    QQuaternion qQuaternionUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
@@ -2663,7 +2663,7 @@ QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfQuaternionsAndItsConjugatedGivesIden
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Lerp(OPERAND2, SQFloat::_0_5);
+    QQuaternion qQuaternionUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
@@ -2684,7 +2684,7 @@ QTEST_CASE ( Lerp_ProportionZeroMeansNormalizedResidentQuaternion_Test )
     const float_q PROPORTION = SQFloat::_0;
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Lerp(OPERAND2, PROPORTION);
+    QQuaternion qQuaternionUT = OPERAND1.Lerp(PROPORTION, OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
@@ -2705,7 +2705,7 @@ QTEST_CASE ( Lerp_ProportionOneMeansNormalizedInputQuaternion_Test )
     const float_q PROPORTION = SQFloat::_1;
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Lerp(OPERAND2, PROPORTION);
+    QQuaternion qQuaternionUT = OPERAND1.Lerp(PROPORTION, OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
@@ -2727,7 +2727,7 @@ QTEST_CASE ( Slerp_CorrectSlerpedQuaternionIsObtainedForTwoCommonQuaternions_Tes
     const QQuaternion EXPECTED_RESULT = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), SQFloat::_0_25).Normalize();
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Slerp(OPERAND2, SQFloat::_0_25);
+    QQuaternion qQuaternionUT = OPERAND1.Slerp(SQFloat::_0_25, OPERAND2);
 
     // Verification
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
@@ -2742,7 +2742,7 @@ QTEST_CASE ( Slerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuate
     const QQuaternion EXPECTED_RESULT = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
 
 	// Execution
-    QQuaternion qQuaternionUT = EXPECTED_RESULT.Slerp(EXPECTED_RESULT, SQFloat::_0_5);
+    QQuaternion qQuaternionUT = EXPECTED_RESULT.Slerp(SQFloat::_0_5, EXPECTED_RESULT);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
@@ -2759,10 +2759,10 @@ QTEST_CASE ( Slerp_ResultIsAlwaysNormalized_Test )
     // Preparation
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8).Normalize();
-    const QQuaternion EXPECTED_RESULT = OPERAND1.Lerp(OPERAND2, SQFloat::_0_5).Normalize();
+    const QQuaternion EXPECTED_RESULT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2).Normalize();
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Slerp(OPERAND2, SQFloat::_0_5);
+    QQuaternion qQuaternionUT = OPERAND1.Slerp(SQFloat::_0_5, OPERAND2);
 
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
@@ -2782,7 +2782,7 @@ QTEST_CASE ( Slerp_InterpolatingInTheMiddleOfQuaternionAndItsConjugatedGivesIden
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Slerp(OPERAND2, SQFloat::_0_5);
+    QQuaternion qQuaternionUT = OPERAND1.Slerp(SQFloat::_0_5, OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
@@ -2803,7 +2803,7 @@ QTEST_CASE ( Slerp_ProportionZeroMeansNormalizedResidentQuaternion_Test )
     const float_q PROPORTION = SQFloat::_0;
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Slerp(OPERAND2, PROPORTION);
+    QQuaternion qQuaternionUT = OPERAND1.Slerp(PROPORTION, OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
@@ -2824,7 +2824,7 @@ QTEST_CASE ( Slerp_ProportionOneMeansNormalizedInputQuaternion_Test )
     const float_q PROPORTION = SQFloat::_1;
 
 	// Execution
-    QQuaternion qQuaternionUT = OPERAND1.Slerp(OPERAND2, PROPORTION);
+    QQuaternion qQuaternionUT = OPERAND1.Slerp(PROPORTION, OPERAND2);
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);

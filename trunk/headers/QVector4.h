@@ -654,22 +654,19 @@ public:
     QVector4 CrossProduct(const QBaseVector4 &vVector) const;
 
     /// <summary>
-    /// Makes a Linear Interpolation between current vector and other vector provided.<br>
-    /// It stores result in current vector.
-    /// </summary>
-    /// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the current vector (per one).</param>
-    /// <param name="vVector">[IN] Vector with which to interpolate.</param>
+	/// Makes a Linear Interpolation between current vector and other vector provided.<br>
+	/// </summary>
+	/// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the provided vector (per one).</param>
+	/// <param name="vVector">[IN] Vector with which to interpolate.</param>
     /// <returns>
     /// The "lerped" vector.
     /// </returns>
     inline QVector4 Lerp(const float_q &fProportion, const QBaseVector4 &vVector) const
     {
-        const float_q DIFF = SQFloat::_1 - fProportion;
-
-        return QVector4(this->x * fProportion + vVector.x * DIFF,
-                        this->y * fProportion + vVector.y * DIFF,
-                        this->z * fProportion + vVector.z * DIFF,
-                        this->w * fProportion + vVector.w * DIFF);
+        return QVector4(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
+                        this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion,
+                        this->z * (SQFloat::_1 - fProportion) + vVector.z * fProportion,
+                        this->w * (SQFloat::_1 - fProportion) + vVector.w * fProportion);
     }
 
     /// <summary>

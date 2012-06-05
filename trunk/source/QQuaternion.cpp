@@ -221,10 +221,13 @@ float_q QQuaternion::DotProductAngle(const QBaseQuaternion &qQuat) const
     return fAngle;
 }
 
-QQuaternion QQuaternion::Lerp(const QQuaternion &qQuat, const float_q &fProportion) const
+QQuaternion QQuaternion::Lerp(const float_q &fProportion, const QQuaternion &qQuat) const
 {
     // Separated from the equation to gain performance
-    QQuaternion qAuxSum = (SQFloat::_1 - fProportion) * (*this) + fProportion * qQuat;
+    QQuaternion qAuxSum(this->x * (SQFloat::_1 - fProportion) + qQuat.x * fProportion,
+                        this->y * (SQFloat::_1 - fProportion) + qQuat.y * fProportion,
+                        this->z * (SQFloat::_1 - fProportion) + qQuat.z * fProportion,
+                        this->w * (SQFloat::_1 - fProportion) + qQuat.w * fProportion);
 
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
@@ -234,7 +237,7 @@ QQuaternion QQuaternion::Lerp(const QQuaternion &qQuat, const float_q &fProporti
     return qAuxSum / fDivisor;
 }
 
-QQuaternion QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProportion) const
+QQuaternion QQuaternion::Slerp(const float_q &fProportion, const QQuaternion &qQuat) const
 {
     QQuaternion qReturnValue;
 
@@ -269,7 +272,7 @@ QQuaternion QQuaternion::Slerp(const QQuaternion &qQuat, const float_q &fProport
     return qReturnValue;
 }
 
-QQuaternion QQuaternion::UnitSlerp(const QQuaternion &qQuat, const float_q &fProportion) const
+QQuaternion QQuaternion::UnitSlerp(const float_q &fProportion, const QQuaternion &qQuat) const
 {
     QQuaternion qReturnValue;
 
