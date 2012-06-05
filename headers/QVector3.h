@@ -564,18 +564,18 @@ public:
     QVector3 CrossProduct(const QBaseVector3 &vVector) const;
 
     /// <summary>
-    /// Makes a Linear Interpolation between resident vector and other vector provided.<br>
-    /// It stores result in resident vector.
-    /// </summary>
-    /// <param name="fProportion">[IN] The proportion of distance bewteen every vector. One means 
-    /// resident vector, whereas zero means input vector.</param>
-    /// <param name="vVector">[IN] Vector with which to interpolate with.</param>
+	/// Makes a Linear Interpolation between current vector and other vector provided.<br>
+	/// </summary>
+	/// <param name="fProportion">[IN] A floating point value which represents how close is the result vector from the provided vector (per one).</param>
+	/// <param name="vVector">[IN] Vector with which to interpolate.</param>
     /// <returns>
     /// The "lerped" vector.
     /// </returns>
     inline QVector3 Lerp(const float_q &fProportion, const QVector3 &vVector) const
     {
-        return *this * fProportion + vVector * (SQFloat::_1 - fProportion);
+        return QVector3(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
+                        this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion,
+                        this->z * (SQFloat::_1 - fProportion) + vVector.z * fProportion);
     }
 
     /// <summary>
@@ -694,7 +694,7 @@ public:
     /// The transformed vector.
     /// </returns>
 	QVector3 Transform(const QSpaceConversionMatrix &spaceConversion) const;
-    
+
     /// <summary>
     /// Converts vector into a string with the following format:<br>
     /// "V3($x,$y,$z)".<br>

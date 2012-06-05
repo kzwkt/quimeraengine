@@ -1974,7 +1974,7 @@ QTEST_CASE ( Lerp_WhenUsedNonNullVectorAndNullVectorTheResultIsAScaledNonNullVec
     // Preparation
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3::GetZeroVector();
-    const QVector3 EXPECTED_RESULT = OPERAND1 * SQFloat::_0_25;
+    const QVector3 EXPECTED_RESULT = OPERAND1 * (SQFloat::_1 - SQFloat::_0_25);
 
 	// Execution
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_25, OPERAND2);
@@ -1986,14 +1986,14 @@ QTEST_CASE ( Lerp_WhenUsedNonNullVectorAndNullVectorTheResultIsAScaledNonNullVec
 }
 
 /// <summary>
-/// Checks that when the proportion equals 0, the returned vector is the input vector.
+/// Checks that when the proportion equals 0, the returned vector is the resident vector.
 /// </summary>
-QTEST_CASE ( Lerp_ProportionZeroMeansInputVector_Test )
+QTEST_CASE ( Lerp_ProportionZeroMeansResidentVector_Test )
 {
     // Preparation
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
-    const QVector3 EXPECTED_RESULT = OPERAND2;
+    const QVector3 EXPECTED_RESULT = OPERAND1;
 
 	// Execution
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0, OPERAND2);
@@ -2005,14 +2005,14 @@ QTEST_CASE ( Lerp_ProportionZeroMeansInputVector_Test )
 }
 
 /// <summary>
-/// Checks that when the proportion equals 1, the returned vector is the resident vector.
+/// Checks that when the proportion equals 1, the returned vector is the input vector.
 /// </summary>
-QTEST_CASE ( Lerp_ProportionOneMeansResidentVector_Test )
+QTEST_CASE ( Lerp_ProportionOneMeansInputVector_Test )
 {
     // Preparation
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
-    const QVector3 EXPECTED_RESULT = OPERAND1;
+    const QVector3 EXPECTED_RESULT = OPERAND2;
 
 	// Execution
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_1, OPERAND2);

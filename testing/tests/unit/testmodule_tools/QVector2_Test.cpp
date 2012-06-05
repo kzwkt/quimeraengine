@@ -1648,34 +1648,109 @@ QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAre
 }
 
 /// <summary>
-/// Checks that a common vector is correctly interpolated.
+/// Checks that a correct vector is obtained as result of interpolating between 2 common vectors.
 /// </summary>
-QTEST_CASE ( Lerp_CommonVectorIsCorrectlyInterpolated_Test )
+QTEST_CASE ( Lerp_CorrectLerpedVectorIsObtainedForTwoCommonVectors_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X_00_PERCENT = SQFloat::_2;
-    const float_q EXPECTED_VALUE_FOR_Y_00_PERCENT = SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_X_50_PERCENT = (float_q) 1.5;
-    const float_q EXPECTED_VALUE_FOR_Y_50_PERCENT = (float_q) 1.5;
-    const float_q EXPECTED_VALUE_FOR_X_100_PERCENT = SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_Y_100_PERCENT = SQFloat::_2;
-
-    const QVector2 vVECTOR1 = QVector2(SQFloat::_1, SQFloat::_2);
-    const QVector2 vVECTOR2 = QVector2(SQFloat::_2, SQFloat::_1);
+    const QVector2 OPERAND1 = QVector2(SQFloat::_1, SQFloat::_2);
+    const QVector2 OPERAND2 = QVector2(SQFloat::_3, SQFloat::_4);
+    const QVector2 EXPECTED_RESULT = QVector2(SQFloat::_2, SQFloat::_3);
 
 	// Execution
-	QVector2 vVectorUT_00_PERCENT  = vVECTOR1.Lerp( (float_q) 0.0,  vVECTOR2 );
-	QVector2 vVectorUT_50_PERCENT  = vVECTOR1.Lerp( (float_q) 0.5,  vVECTOR2 );
-	QVector2 vVectorUT_100_PERCENT = vVECTOR1.Lerp( (float_q) 1.0,  vVECTOR2 );
-
+    QVector2 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
 
     // Verification
-    BOOST_CHECK_EQUAL(vVectorUT_00_PERCENT.x, EXPECTED_VALUE_FOR_X_00_PERCENT);
-    BOOST_CHECK_EQUAL(vVectorUT_00_PERCENT.y, EXPECTED_VALUE_FOR_Y_00_PERCENT);
-    BOOST_CHECK_EQUAL(vVectorUT_50_PERCENT.x, EXPECTED_VALUE_FOR_X_50_PERCENT);
-    BOOST_CHECK_EQUAL(vVectorUT_50_PERCENT.y, EXPECTED_VALUE_FOR_Y_50_PERCENT);
-    BOOST_CHECK_EQUAL(vVectorUT_100_PERCENT.x, EXPECTED_VALUE_FOR_X_100_PERCENT);
-    BOOST_CHECK_EQUAL(vVectorUT_100_PERCENT.y, EXPECTED_VALUE_FOR_Y_100_PERCENT);
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+}
+
+/// <summary>
+/// Checks that the result of interpolating between 2 equivalent vectors is the same vector.
+/// </summary>
+QTEST_CASE ( Lerp_InterpolatingTwoEquivalentVectorsGivesSameVector_Test )
+{
+    // Preparation
+    const QVector2 EXPECTED_RESULT = QVector2(SQFloat::_1, SQFloat::_2);
+
+	// Execution
+    QVector2 vVectorUT = EXPECTED_RESULT.Lerp(SQFloat::_0_5, EXPECTED_RESULT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+}
+
+/// <summary>
+/// Checks that the result of interpolating just in the middle between 2 opposite vectors is a null vector.
+/// </summary>
+QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfTwoOppositeVectorsGivesNullVector_Test )
+{
+    // Preparation
+    const QVector2 OPERAND1 = QVector2(SQFloat::_1, SQFloat::_2);
+    const QVector2 OPERAND2 = -OPERAND1;
+    const QVector2 EXPECTED_RESULT = QVector2::GetZeroVector();
+
+	// Execution
+    QVector2 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+}
+
+/// <summary>
+/// Checks that the vector obtained when using a non-null vector and a null vector is just the proportion of the non-null vector.
+/// </summary>
+QTEST_CASE ( Lerp_WhenUsedNonNullVectorAndNullVectorTheResultIsAScaledNonNullVector_Test )
+{
+    // Preparation
+    const QVector2 OPERAND1 = QVector2(SQFloat::_1, SQFloat::_2);
+    const QVector2 OPERAND2 = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_RESULT = OPERAND1 * (SQFloat::_1 - SQFloat::_0_25);
+
+	// Execution
+    QVector2 vVectorUT = OPERAND1.Lerp(SQFloat::_0_25, OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+}
+
+/// <summary>
+/// Checks that when the proportion equals 0, the returned vector is the resident vector.
+/// </summary>
+QTEST_CASE ( Lerp_ProportionZeroMeansResidentVector_Test )
+{
+    // Preparation
+    const QVector2 OPERAND1 = QVector2(SQFloat::_1, SQFloat::_2);
+    const QVector2 OPERAND2 = QVector2(SQFloat::_3, SQFloat::_4);
+    const QVector2 EXPECTED_RESULT = OPERAND1;
+
+	// Execution
+    QVector2 vVectorUT = OPERAND1.Lerp(SQFloat::_0, OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
+}
+
+/// <summary>
+/// Checks that when the proportion equals 1, the returned vector is the input vector.
+/// </summary>
+QTEST_CASE ( Lerp_ProportionOneMeansInputVector_Test )
+{
+    // Preparation
+    const QVector2 OPERAND1 = QVector2(SQFloat::_1, SQFloat::_2);
+    const QVector2 OPERAND2 = QVector2(SQFloat::_3, SQFloat::_4);
+    const QVector2 EXPECTED_RESULT = OPERAND2;
+
+	// Execution
+    QVector2 vVectorUT = OPERAND1.Lerp(SQFloat::_1, OPERAND2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
 }
 
 /// <summary>
