@@ -170,10 +170,10 @@ QSpaceConversionMatrix QSpaceConversionMatrix::SwitchHandConventionViewSpaceMatr
 
     QVector3 vYAxis = vZAxis.CrossProduct(vXAxis);
 
-    return QSpaceConversionMatrix( vXAxis.x, vYAxis.x, vZAxis.x, SQFloat::_0,
-                                   vXAxis.y, vYAxis.y, vZAxis.y, SQFloat::_0,
-                                   vXAxis.z, vYAxis.z, vZAxis.z, SQFloat::_0,
-                                  -vXAxis.DotProduct(vPOV), -vYAxis.DotProduct(vPOV), -vZAxis.DotProduct(vPOV), SQFloat::_1);
+    return QSpaceConversionMatrix( QMatrix4x4(vXAxis.x, vYAxis.x, vZAxis.x, SQFloat::_0,
+                                              vXAxis.y, vYAxis.y, vZAxis.y, SQFloat::_0,
+                                              vXAxis.z, vYAxis.z, vZAxis.z, SQFloat::_0,
+                                              -vXAxis.DotProduct(vPOV), -vYAxis.DotProduct(vPOV), -vZAxis.DotProduct(vPOV), SQFloat::_1));
 }
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x3> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
