@@ -810,9 +810,9 @@ QTEST_CASE ( GetScale1_ValuesAreCorrectlyExtracted_Test )
     const QScalingMatrix3x3 ORIGINAL_VALUE(QBaseMatrix3x3(SQFloat::_1, SQFloat::_0, SQFloat::_0,
                                                           SQFloat::_0, SQFloat::_2, SQFloat::_0,
                                                           SQFloat::_0, SQFloat::_0, SQFloat::_3));
-    float_q scale_X_UT = SQFloat::_0;
-    float_q scale_Y_UT = SQFloat::_0;
-    float_q scale_Z_UT = SQFloat::_0;
+    float_q fScaleXUT = SQFloat::_0;
+    float_q fScaleYUT = SQFloat::_0;
+    float_q fScaleZUT = SQFloat::_0;
 
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
@@ -820,12 +820,12 @@ QTEST_CASE ( GetScale1_ValuesAreCorrectlyExtracted_Test )
 
      // Execution
     QScalingMatrix3x3 matrix = ORIGINAL_VALUE;
-    matrix.GetScale(scale_X_UT, scale_Y_UT, scale_Z_UT);
+    matrix.GetScale(fScaleXUT, fScaleYUT, fScaleZUT);
 
     // Verification
-    BOOST_CHECK_EQUAL(scale_X_UT, EXPECTED_VALUE_FOR_X);
-    BOOST_CHECK_EQUAL(scale_Y_UT, EXPECTED_VALUE_FOR_Y);
-    BOOST_CHECK_EQUAL(scale_Z_UT, EXPECTED_VALUE_FOR_Z);
+    BOOST_CHECK_EQUAL(fScaleXUT, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(fScaleYUT, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(fScaleZUT, EXPECTED_VALUE_FOR_Z);
 }
 
 /// <summary>
@@ -837,7 +837,7 @@ QTEST_CASE ( GetScale2_3DVectorValuesAreCorrectlyExtracted_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    QVector3 scaling_vectorUT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    QVector3 vScalingVectorUT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
     const QScalingMatrix3x3 ORIGINAL_VALUE(QBaseMatrix3x3(SQFloat::_1, SQFloat::_0, SQFloat::_0,
                                                           SQFloat::_0, SQFloat::_2, SQFloat::_0,
@@ -849,12 +849,12 @@ QTEST_CASE ( GetScale2_3DVectorValuesAreCorrectlyExtracted_Test )
 
      // Execution
     QScalingMatrix3x3 matrix = ORIGINAL_VALUE;
-    matrix.GetScale(scaling_vectorUT);
+    matrix.GetScale(vScalingVectorUT);
 
     // Verification
-    BOOST_CHECK_EQUAL(scaling_vectorUT.x, EXPECTED_VALUE_FOR_X);
-    BOOST_CHECK_EQUAL(scaling_vectorUT.y, EXPECTED_VALUE_FOR_Y);
-    BOOST_CHECK_EQUAL(scaling_vectorUT.z, EXPECTED_VALUE_FOR_Z);
+    BOOST_CHECK_EQUAL(vScalingVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vScalingVectorUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(vScalingVectorUT.z, EXPECTED_VALUE_FOR_Z);
 }
 
 /// <summary>

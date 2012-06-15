@@ -17,6 +17,15 @@
 #define QTEST_CASE( TestCaseName ) BOOST_AUTO_TEST_CASE( TestCaseName )
 
 // --------------------------------------------------------------------------------------------------------
+// QTEST_CASE_TEMPLATE: Use this macro to define the header of a new test case, for testing a template
+//                      function or method.
+//                      It must be enclosed between QTEST_SUITE_BEGIN and QTEST_SUITE_END macros.
+// TestCaseName: The name of the test case, as descriptive as possible (without quotation marks).
+// TemplateTypes: A list of types to be used as template parameter T.
+// --------------------------------------------------------------------------------------------------------
+#define QTEST_CASE_TEMPLATE( TestCaseName, TemplateTypes ) BOOST_AUTO_TEST_CASE_TEMPLATE( TestCaseName, T, TemplateTypes )
+
+// --------------------------------------------------------------------------------------------------------
 // QTEST_SUITE_END: Use this macro to finish defining a test suite.
 // --------------------------------------------------------------------------------------------------------
 #define QTEST_SUITE_END( ) BOOST_AUTO_TEST_SUITE_END( )
