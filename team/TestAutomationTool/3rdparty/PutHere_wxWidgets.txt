@@ -1,0 +1,2 @@
+Create a folder called wxWidgets. Then, create another folder inside, called include. 
+Copy original folders "include" and "lib" from wxWidgets library instalation folder.
