@@ -32,6 +32,9 @@ class QBaseVector4;
 /// We'll normally employ it to represent and execute rigid transformations, that is, transformations which involves
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).
 /// </summary>
+/// <remarks>
+/// This class has been included for experimental purposes only. Use it at your own risk.
+/// </remarks>
 class QDllExport QDualQuaternion : public QBaseDualQuaternion
 {
     // FRIENDS
@@ -302,6 +305,9 @@ public:
     /// \f$ q\cdot q' = r\cdot r' + (r\cdot d' + d\cdot r')\varepsilon\f$
     /// <br>
     /// </summary>
+    /// <remarks>
+    /// Product between dual quaternions is not commutative.
+    /// </remarks>
     /// <param name="dualQuat">[IN] Multiplying dual quaternion.</param>
     /// <returns>
     /// A dual quaternion that is the result of the product.

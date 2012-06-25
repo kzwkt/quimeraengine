@@ -41,7 +41,7 @@ QDualQuaternion QDualQuaternion::operator*(const QBaseDualQuaternion &dualQuat) 
 
 QDualQuaternion QDualQuaternion::operator*(const float_q &fScalar) const
 {
-    return QDualQuaternion(QBaseQuaternion(this->r * fScalar), QBaseQuaternion(this->r * fScalar));
+    return QDualQuaternion(QBaseQuaternion(this->r * fScalar), QBaseQuaternion(this->d * fScalar));
 }
 
 QDualQuaternion operator*(const float_q &fScalar, const QDualQuaternion &dualQuat)
@@ -53,7 +53,7 @@ QDualQuaternion QDualQuaternion::operator*(const QBaseVector3 &vVector) const
 {
     // Vector3 is converted to dual quaternion (0, 0, 0, 1)(x, y, z, 0)
     QDualQuaternion auxQ(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
-                       QBaseQuaternion(vVector.x, vVector.y, vVector.z, SQFloat::_0) );
+                         QBaseQuaternion(vVector.x, vVector.y, vVector.z, SQFloat::_0) );
 
     auxQ = (*this)*auxQ;
 
