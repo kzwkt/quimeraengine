@@ -135,6 +135,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrixWhiteBox.h">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrix_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

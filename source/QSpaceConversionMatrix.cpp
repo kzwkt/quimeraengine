@@ -42,14 +42,14 @@ QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversio
     return *this;
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
 {
     QTransformationMatrix<QMatrix4x4> aux(vTranslation, qRotation, vScale);
 
     *this = aux.As<QSpaceConversionMatrix>();
 }
 
-void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
+void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
 {
     QTransformationMatrix<QMatrix4x4> aux(vTranslation, qRotation, vScale);
 
@@ -83,7 +83,7 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix<QMa
 void QSpaceConversionMatrix::SetViewSpaceMatrix(const QVector3 &vPointOfView, const QVector3 &vTarget,
                                                 const QVector3 &vUpDirection)
 {
-    QVector3 vZAxis = QVector3(vTarget.x - vPointOfView.x, vTarget.y - vPointOfView.y, vTarget.z - vPointOfView.z).Normalize();
+    QVector3 vZAxis = (vTarget - vPointOfView).Normalize();
 
     QVector3 vXAxis = vUpDirection.CrossProduct(vZAxis).Normalize();
 
@@ -158,13 +158,13 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
 
 QSpaceConversionMatrix QSpaceConversionMatrix::SwitchHandConventionViewSpaceMatrix() const
 {
-    QVector3 vPOV(-(this->ij[3][0]*this->ij[0][0] + this->ij[3][1]*this->ij[0][1] + this->ij[3][2]*this->ij[0][2]),
-                  -(this->ij[3][0]*this->ij[1][0] + this->ij[3][1]*this->ij[1][1] + this->ij[3][2]*this->ij[1][2]),
-                  -(this->ij[3][0]*this->ij[2][0] + this->ij[3][1]*this->ij[2][1] + this->ij[3][2]*this->ij[2][2]) );
+    QVector3 vPOV = QVector3(-(this->ij[3][0]*this->ij[0][0] + this->ij[3][1]*this->ij[0][1] + this->ij[3][2]*this->ij[0][2]),
+                             -(this->ij[3][0]*this->ij[1][0] + this->ij[3][1]*this->ij[1][1] + this->ij[3][2]*this->ij[1][2]),
+                             -(this->ij[3][0]*this->ij[2][0] + this->ij[3][1]*this->ij[2][1] + this->ij[3][2]*this->ij[2][2]) );
 
     QVector3 vUp(this->ij[0][1], this->ij[1][1], this->ij[2][1]);
 
-    QVector3 vZAxis(-this->ij[0][2], -this->ij[1][2], -this->ij[2][2]);
+    QVector3 vZAxis = QVector3(-this->ij[0][2], -this->ij[1][2], -this->ij[2][2]);
 
     QVector3 vXAxis = vUp.CrossProduct(vZAxis);
 
