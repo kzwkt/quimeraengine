@@ -53,7 +53,7 @@ public:
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
+    inline explicit QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
     {
     }
 
@@ -90,7 +90,7 @@ public:
     /// <param name="vTranslation">[IN] Vector which contains the translation (position).</param>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
+    void SetWorldSpaceMatrix(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
@@ -98,7 +98,7 @@ public:
     /// <param name="vTranslation">[IN] Vector which contains the translation (position).</param>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation (orientation).</param>
     /// <param name="vScale">[IN] Vector which contains the scale (size).</param>
-    void SetWorldSpaceMatrix(const QVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
+    void SetWorldSpaceMatrix(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale);
 
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
