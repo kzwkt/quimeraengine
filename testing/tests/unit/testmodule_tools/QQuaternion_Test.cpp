@@ -1271,6 +1271,25 @@ QTEST_CASE ( QQuaternionImp_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 }
 
 /// <summary>
+/// Checks that X, Y, and Z equal zero and W equals one.
+/// </summary>
+QTEST_CASE ( GetIdentity_XYZEqualZeroAndWEqualsOne_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_XYZ = SQFloat::_0;
+    const float_q EXPECTED_VALUE_FOR_W = SQFloat::_1;
+
+	// Execution
+    QQuaternion qQuaternionUT = QQuaternion::GetIdentity();
+
+    // Verification
+    BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_XYZ);
+    BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_XYZ);
+    BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_XYZ);
+    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_VALUE_FOR_W);
+}
+
+/// <summary>
 /// Checks if two different quaternions are correctly added.
 /// </summary>
 QTEST_CASE ( OperatorAddition_TwoDifferentQuaternionsAreCorrectlyAdded_Test )
@@ -2256,7 +2275,8 @@ QTEST_CASE ( OperatorAssignation_QuaternionIsAssignedProperlyToAnother_Test )
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
 	// Execution
-    QQuaternion qQuaternionUT = QUATERNION;
+    QQuaternion qQuaternionUT;
+    qQuaternionUT = QUATERNION;
 
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
