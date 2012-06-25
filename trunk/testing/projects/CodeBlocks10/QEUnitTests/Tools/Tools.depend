@@ -27942,14 +27942,14 @@
 
 1299094182 g:\quimeraengine\sandbox2\3rdparty\boost\include\boost\version.hpp
 
-1322047130 g:\quimeraengine\sandbox2\testing\testsystem\testingexternaldefinitions.h
+1339779476 g:\quimeraengine\sandbox2\testing\testsystem\testingexternaldefinitions.h
 
 1327946586 g:\quimeraengine\sandbox2\headers\qbasedualquaternion.h
 	"SQFloat.h"
 	"QQuaternion.h"
 	"QConvertible.h"
 
-1330032207 g:\quimeraengine\sandbox2\headers\sqfloat.h
+1338026168 g:\quimeraengine\sandbox2\headers\sqfloat.h
 	<string>
 	<boost/math/special_functions/trunc.hpp>
 	"DataTypesDefinitions.h"
@@ -28800,24 +28800,24 @@
 1327946586 g:\quimeraengine\sandbox2\headers\externaldefinitions.h
 	"Configuration.h"
 
-1332677037 g:\quimeraengine\sandbox2\headers\configuration.h
+1338638061 g:\quimeraengine\sandbox2\headers\configuration.h
 
-1332621466 g:\quimeraengine\sandbox2\headers\qquaternion.h
+1339004124 g:\quimeraengine\sandbox2\headers\qquaternion.h
 	"SQAngle.h"
 	"QBaseQuaternion.h"
 	"QBaseVector3.h"
 	"QBaseVector4.h"
 
-1330032207 g:\quimeraengine\sandbox2\headers\sqangle.h
+1336761441 g:\quimeraengine\sandbox2\headers\sqangle.h
 	<string>
 	"MathDefinitions.h"
 
-1331506805 g:\quimeraengine\sandbox2\headers\mathdefinitions.h
+1336761441 g:\quimeraengine\sandbox2\headers\mathdefinitions.h
 	"Configuration.h"
 	"SQFloat.h"
 	<math.h>
 
-1332621466 g:\quimeraengine\sandbox2\headers\qbasequaternion.h
+1338026168 g:\quimeraengine\sandbox2\headers\qbasequaternion.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
@@ -28830,12 +28830,12 @@
 1330032207 g:\quimeraengine\sandbox2\headers\qconvertible.h
 	"InternalDefinitions.h"
 
-1327946586 g:\quimeraengine\sandbox2\headers\qbasevector3.h
+1338026168 g:\quimeraengine\sandbox2\headers\qbasevector3.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
 
-1327946586 g:\quimeraengine\sandbox2\headers\qbasevector4.h
+1338026168 g:\quimeraengine\sandbox2\headers\qbasevector4.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
@@ -28846,7 +28846,7 @@
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QBaseMatrix2x2.h"
 
-1328046706 g:\quimeraengine\sandbox2\headers\qbasematrix2x2.h
+1338026168 g:\quimeraengine\sandbox2\headers\qbasematrix2x2.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
@@ -28857,7 +28857,7 @@
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QBaseMatrix3x3.h"
 
-1326666098 g:\quimeraengine\sandbox2\headers\qbasematrix3x3.h
+1338026168 g:\quimeraengine\sandbox2\headers\qbasematrix3x3.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
@@ -28868,7 +28868,7 @@
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QBaseMatrix3x4.h"
 
-1326666098 g:\quimeraengine\sandbox2\headers\qbasematrix3x4.h
+1338026168 g:\quimeraengine\sandbox2\headers\qbasematrix3x4.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
@@ -28879,7 +28879,7 @@
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QBaseMatrix4x3.h"
 
-1326666098 g:\quimeraengine\sandbox2\headers\qbasematrix4x3.h
+1338026168 g:\quimeraengine\sandbox2\headers\qbasematrix4x3.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
@@ -28890,7 +28890,7 @@
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QBaseMatrix4x4.h"
 
-1326666098 g:\quimeraengine\sandbox2\headers\qbasematrix4x4.h
+1338026168 g:\quimeraengine\sandbox2\headers\qbasematrix4x4.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
@@ -28952,7 +28952,7 @@
 	"QBaseMatrix3x3.h"
 	"QBaseMatrix3x4.h"
 
-1330032207 g:\quimeraengine\sandbox2\headers\qmatrix4x3.h
+1335993927 g:\quimeraengine\sandbox2\headers\qmatrix4x3.h
 	"QBaseMatrix3x3.h"
 	"QBaseMatrix3x4.h"
 	"QBaseMatrix4x4.h"
@@ -32966,4 +32966,46 @@
 
 1337449724 g:\quimeraengine\sandbox1\testing\tests\unit\testmodule_tools\qscalingmatrix3x3whitebox.h
 	"QScalingMatrix3x3.h"
+
+1336513405 source:g:\quimeraengine\sandbox2\testing\tests\unit\testmodule_tools\qbasevector2_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QBaseVector2.h"
+	"SQVF32.h"
+
+1338026168 g:\quimeraengine\sandbox2\headers\qbasevector2.h
+	"SQFloat.h"
+	"SQVF32.h"
+	"QConvertible.h"
+
+1336513405 source:g:\quimeraengine\sandbox2\testing\tests\unit\testmodule_tools\qbasevector4_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QBaseVector4.h"
+	"SQVF32.h"
+
+1335999619 source:g:\quimeraengine\sandbox2\testing\tests\unit\testmodule_tools\qmatrix3x4_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QMatrix3x4.h"
+	"QBaseMatrix4x3.h"
+	"QBaseMatrix4x4.h"
+	"QBaseMatrix3x3.h"
+
+1335999619 g:\quimeraengine\sandbox2\headers\qmatrix3x4.h
+	"QBaseMatrix3x3.h"
+	"QBaseMatrix4x4.h"
+	"QBaseMatrix3x4.h"
+	"QBaseMatrix4x3.h"
+
+1335986310 source:g:\quimeraengine\sandbox2\testing\tests\unit\testmodule_tools\qmatrix4x3_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QMatrix4x3.h"
+	"QBaseMatrix4x4.h"
+	"QBaseMatrix4x3.h"
 
