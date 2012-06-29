@@ -3,7 +3,7 @@
 #ifndef __COMMONCONFIGDEFINITIONS__
 #define __COMMONCONFIGDEFINITIONS__
 
-#include "../../headers/ExternalDefinitions.h"
+#include "ExternalDefinitions.h"
 
 /*
 [TODO] Thund: Identificar y añadir al bloque de abajo
