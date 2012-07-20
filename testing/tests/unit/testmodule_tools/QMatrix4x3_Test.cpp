@@ -21,9 +21,9 @@ QTEST_SUITE_BEGIN( QMatrix4x3_TestSuite )
 QTEST_CASE ( FriendOperatorProduct_EveryElementIsMultipliedByTheScalar_Test )
 {
     // Preparation
-    const QMatrix4x3 MATRIX(SQFloat::_1, SQFloat::_2, SQFloat::_3, 
-                            SQFloat::_4, SQFloat::_5, SQFloat::_6, 
-                            SQFloat::_7, SQFloat::_8, SQFloat::_9, 
+    const QMatrix4x3 MATRIX(SQFloat::_1, SQFloat::_2, SQFloat::_3,
+                            SQFloat::_4, SQFloat::_5, SQFloat::_6,
+                            SQFloat::_7, SQFloat::_8, SQFloat::_9,
                             SQFloat::_10, (float_q)11.0f, (float_q)12.0f);
 
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_2;
@@ -85,16 +85,57 @@ QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
     BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE_FOR_ALL);
 }
 
+/// Checks if copy constructor copies every matrix element properly.
+/// </summary>
+QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_3;
+    const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_11 = SQFloat::_5;
+    const float_q EXPECTED_VALUE_FOR_12 = SQFloat::_6;
+    const float_q EXPECTED_VALUE_FOR_20 = SQFloat::_7;
+    const float_q EXPECTED_VALUE_FOR_21 = SQFloat::_8;
+    const float_q EXPECTED_VALUE_FOR_22 = SQFloat::_9;
+    const float_q EXPECTED_VALUE_FOR_30 = SQFloat::_10;
+    const float_q EXPECTED_VALUE_FOR_31 = SQFloat::_10+SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_32 = SQFloat::_10+SQFloat::_2;
+
+    const QMatrix4x3 MATRIX_TO_COPY(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
+                                    EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12,
+                                    EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22,
+                                    EXPECTED_VALUE_FOR_30, EXPECTED_VALUE_FOR_31, EXPECTED_VALUE_FOR_32);
+
+    // Execution
+    QMatrix4x3 matrixUT = MATRIX_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE_FOR_12);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE_FOR_20);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE_FOR_21);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE_FOR_22);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][0], EXPECTED_VALUE_FOR_30);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][1], EXPECTED_VALUE_FOR_31);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE_FOR_32);
+}
+
 /// <summary>
 /// Checks that every matrix element is copied to the right destination matrix element.
 /// </summary>
-QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
+QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x3;
-    const QBaseMatrix4x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3, 
-                                        SQFloat::_4, SQFloat::_5, SQFloat::_6, 
-                                        SQFloat::_7, SQFloat::_8, SQFloat::_9, 
+    const QBaseMatrix4x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3,
+                                        SQFloat::_4, SQFloat::_5, SQFloat::_6,
+                                        SQFloat::_7, SQFloat::_8, SQFloat::_9,
                                         SQFloat::_10, (float_q)11.0f, (float_q)12.0f);
 
     // Execution
@@ -118,7 +159,7 @@ QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
 /// <summary>
 /// Checks if the value provided is set to all the matrix components.
 /// </summary>
-QTEST_CASE ( Constructor3_ValueIsSetForAllComponents_Test )
+QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_5;
@@ -144,7 +185,7 @@ QTEST_CASE ( Constructor3_ValueIsSetForAllComponents_Test )
 /// <summary>
 /// Checks if values used as parameters are properly set to matrix components.
 /// </summary>
-QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
+QTEST_CASE ( Constructor5_ValuesAreSetProperly_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
@@ -184,7 +225,7 @@ QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 /// <summary>
 /// Checks if the matrix components are set to the correct floats stored in a valid memory space.
 /// </summary>
-QTEST_CASE ( Constructor5_MatrixComponentsAreFilledWithValidReferenceTo12Floats_Test )
+QTEST_CASE ( Constructor6_MatrixComponentsAreFilledWithValidReferenceTo12Floats_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
@@ -239,7 +280,7 @@ QTEST_CASE ( Constructor5_MatrixComponentsAreFilledWithValidReferenceTo12Floats_
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
-QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
+QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 {
     // Preparation
     const float_q* NULL_ARRAY = null_q;
@@ -263,7 +304,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 /// <summary>
 /// Checks if matrix components are set to the correct values packed in valid vf32 objects.
 /// </summary>
-QTEST_CASE ( Constructor6_MatrixComponentsAreSetToValidVF32PackedValues_Test )
+QTEST_CASE ( Constructor7_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
@@ -518,9 +559,9 @@ QTEST_CASE ( OperatorProductAssignation1_MatrixIsCorrectlyMultipliedByScalar_Tes
 
     const float_q  SCALAR = SQFloat::_2;
 
-    const QMatrix4x3 EXPECTED_VALUE(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,    
-                                    SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,  
-                                    (float_q)14.0f, (float_q)16.0f, (float_q)18.0f, 
+    const QMatrix4x3 EXPECTED_VALUE(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,
+                                    SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,
+                                    (float_q)14.0f, (float_q)16.0f, (float_q)18.0f,
                                     (float_q)20.0f, (float_q)22.0f, (float_q)24.0f);
 
 	// Execution
@@ -656,9 +697,9 @@ QTEST_CASE ( OperatorProductAssignation2_CommonMatricesAreCorrectlyMultiplied_Te
 QTEST_CASE ( OperatorDivision_EveryElementIsDividedByTheScalar_Test )
 {
     // Preparation
-    const QMatrix4x3 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,    
-                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,  
-                            (float_q)14.0f, (float_q)16.0f, (float_q)18.0f, 
+    const QMatrix4x3 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,
+                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,
+                            (float_q)14.0f, (float_q)16.0f, (float_q)18.0f,
                             (float_q)20.0f, (float_q)22.0f, (float_q)24.0f);
 
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
@@ -815,9 +856,9 @@ QTEST_CASE ( OperatorSubtraction_CommonMatricesAreCorrectlySubtracted_Test )
 QTEST_CASE ( OperatorDivisionAssignation_EveryElementIsDividedByTheScalar_Test )
 {
     // Preparation
-    const QMatrix4x3 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,    
-                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,  
-                            (float_q)14.0f, (float_q)16.0f, (float_q)18.0f, 
+    const QMatrix4x3 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,
+                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,
+                            (float_q)14.0f, (float_q)16.0f, (float_q)18.0f,
                             (float_q)20.0f, (float_q)22.0f, (float_q)24.0f);
 
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
@@ -1143,7 +1184,7 @@ QTEST_CASE ( Transpose_TheRowAndColumOfElementsAreSwapped_Test )
                             SQFloat::_10, (float_q)11.0f, (float_q)12.0f);
 
     const QBaseMatrix3x4 EXPECTED_VALUE(SQFloat::_1,  SQFloat::_4, SQFloat::_7, SQFloat::_10,
-                                        SQFloat::_2,  SQFloat::_5, SQFloat::_8, (float_q)11.0f,    
+                                        SQFloat::_2,  SQFloat::_5, SQFloat::_8, (float_q)11.0f,
                                         SQFloat::_3,  SQFloat::_6, SQFloat::_9, (float_q)12.0f);
 
     // Execution

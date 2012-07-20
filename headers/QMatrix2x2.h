@@ -61,7 +61,15 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
-    /// <param name="matrix">[IN] The 2x2 matrix in which we want the resident matrix to be based.</param>
+    /// <param name="matrix">[IN] The 2x2 matrix from which we want to create a copy in the resident matrix.</param>
+    inline QMatrix2x2(const QMatrix2x2 &matrix) : QBaseMatrix2x2(matrix)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
+    /// <param name="matrix">[IN] The 2x2 base matrix in which we want the resident matrix to be based.</param>
     inline QMatrix2x2(const QBaseMatrix2x2 &matrix) : QBaseMatrix2x2(matrix)
     {
     }

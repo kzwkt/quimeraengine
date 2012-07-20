@@ -35,6 +35,18 @@ public:
     {
     }
 
+    /// <summary>
+	/// Copy constructor. Copies attributes from given vector.
+	/// </summary>
+	/// <param name="vVector">[IN] The 4D vector from which we want to create a copy in the resident vector.</param>
+	inline QBaseVector4(const QBaseVector4 &vVector)
+	{
+	    this->x = vVector.x;
+	    this->y = vVector.y;
+	    this->z = vVector.z;
+	    this->w = vVector.w;
+	}
+
 	/// <summary>
 	/// Constructor that receives 4 FloatTypes, one for each vector components.
 	/// </summary>

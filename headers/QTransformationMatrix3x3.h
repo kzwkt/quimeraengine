@@ -41,12 +41,20 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
+    /// <param name="transformation">[IN] The 3x3 transformation matrix from which we want to create a copy in the resident 3x3 transformation matrix.</param>
+    inline QTransformationMatrix3x3(const QTransformationMatrix3x3 &transformation) : QMatrix3x3(transformation)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
-    /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline QTransformationMatrix3x3(const QBaseMatrix3x3 &matrix) : QMatrix3x3(matrix)
+    /// <param name="transformation">[IN] The 3x3 matrix in which we want the resident 3x3 transformation matrix to be based.</param>
+    inline QTransformationMatrix3x3(const QBaseMatrix3x3 &transformation) : QMatrix3x3(transformation)
     {
     }
 

@@ -67,16 +67,41 @@ QTEST_CASE ( Constructor1_DefaultValuesHasNotChanged_Test )
 }
 
 /// <summary>
-/// Checks that the components of the quaternion are correctly copied to other quaternion.
+/// Checks if copy constructor sets quaternion components properly.
 /// </summary>
-QTEST_CASE ( Constructor2_QuaternionIsCorrectlyCopied_Test )
+QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
     // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
+    const float_q EXPECTED_VALUE_FOR_W = SQFloat::_4;
+
+    const QQuaternion QUAT_TO_COPY(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, EXPECTED_VALUE_FOR_W);
+
+	// Execution
+    QQuaternion qQuatUT = QUAT_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(qQuatUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(qQuatUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(qQuatUT.z, EXPECTED_VALUE_FOR_Z);
+    BOOST_CHECK_EQUAL(qQuatUT.w, EXPECTED_VALUE_FOR_W);
+}
+
+/// <summary>
+/// Checks that the components of the quaternion are correctly copied to other quaternion.
+/// </summary>
+QTEST_CASE ( Constructor3_QuaternionIsCorrectlyCopied_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
+
     const float_q EXPECTED_VALUE_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_Z = SQFloat::_3;
     const float_q EXPECTED_VALUE_W = SQFloat::_4;
-    const QQuaternion QUATERNION(EXPECTED_VALUE_X, EXPECTED_VALUE_Y, EXPECTED_VALUE_Z, EXPECTED_VALUE_W);
+    const QBaseQuaternion QUATERNION(EXPECTED_VALUE_X, EXPECTED_VALUE_Y, EXPECTED_VALUE_Z, EXPECTED_VALUE_W);
 
 	// Execution
     QQuaternion qQuaternionUT(QUATERNION);
@@ -91,7 +116,7 @@ QTEST_CASE ( Constructor2_QuaternionIsCorrectlyCopied_Test )
 /// <summary>
 /// Checks that the quaternion is correctly built when using arbitrary Euler angles.
 /// </summary>
-QTEST_CASE ( Constructor3_QuaternionIsCorrectlyFormedWhenUsingArbitraryEulerAngles_Test )
+QTEST_CASE ( Constructor4_QuaternionIsCorrectlyFormedWhenUsingArbitraryEulerAngles_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -131,7 +156,7 @@ QTEST_CASE ( Constructor3_QuaternionIsCorrectlyFormedWhenUsingArbitraryEulerAngl
 /// <summary>
 /// Checks that the quaternion is correctly built when using arbitrary Euler angles.
 /// </summary>
-QTEST_CASE ( Constructor3_ResultIsNormalizedWhenUsingNonZeroAngles_Test )
+QTEST_CASE ( Constructor4_ResultIsNormalizedWhenUsingNonZeroAngles_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -158,7 +183,7 @@ QTEST_CASE ( Constructor3_ResultIsNormalizedWhenUsingNonZeroAngles_Test )
 /// <summary>
 /// Checks that the identity quaternion is obtained when all the angles equal zero.
 /// </summary>
-QTEST_CASE ( Constructor3_IdentityIsObtainedWhenAllAnglesEqualZero_Test )
+QTEST_CASE ( Constructor4_IdentityIsObtainedWhenAllAnglesEqualZero_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -180,7 +205,7 @@ QTEST_CASE ( Constructor3_IdentityIsObtainedWhenAllAnglesEqualZero_Test )
 /// <summary>
 /// Checks that the quaternion is built by following the Yaw-Pitch-Roll rotation order.
 /// </summary>
-QTEST_CASE ( Constructor3_FollowsYawPitchRollRotationOrder_Test )
+QTEST_CASE ( Constructor4_FollowsYawPitchRollRotationOrder_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -224,7 +249,7 @@ QTEST_CASE ( Constructor3_FollowsYawPitchRollRotationOrder_Test )
 /// <summary>
 /// Checks that every value is set to correct component.
 /// </summary>
-QTEST_CASE ( Constructor4_ValuesAreCorrectlySet_Test )
+QTEST_CASE ( Constructor5_ValuesAreCorrectlySet_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_X = SQFloat::_1;
@@ -245,7 +270,7 @@ QTEST_CASE ( Constructor4_ValuesAreCorrectlySet_Test )
 /// <summary>
 /// Checks that every element of the array is put in the correct component.
 /// </summary>
-QTEST_CASE ( Constructor5_QuaternionComponentsAreFilledWithValidReferenceTo4Floats_Test )
+QTEST_CASE ( Constructor6_QuaternionComponentsAreFilledWithValidReferenceTo4Floats_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
@@ -275,7 +300,7 @@ QTEST_CASE ( Constructor5_QuaternionComponentsAreFilledWithValidReferenceTo4Floa
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
-QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
+QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 {
     // Preparation
     const float_q* NULL_ARRAY = null_q;
@@ -299,7 +324,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 /// <summary>
 /// Checks if quaternion components are set to the correct values packed in a valid vf32 object.
 /// </summary>
-QTEST_CASE ( Constructor6_QuaternionComponentsAreSetToValidVF32PackedValues_Test )
+QTEST_CASE ( Constructor7_QuaternionComponentsAreSetToValidVF32PackedValues_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
@@ -323,7 +348,7 @@ QTEST_CASE ( Constructor6_QuaternionComponentsAreSetToValidVF32PackedValues_Test
 /// <summary>
 /// Checks that the quaternion is correctly formed when using a normalized vector and an arbitrary angle that doesn't equal zero.
 /// </summary>
-QTEST_CASE ( Constructor7_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
+QTEST_CASE ( Constructor8_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -362,7 +387,7 @@ QTEST_CASE ( Constructor7_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
 /// <summary>
 /// Checks that the resultant quaternion is normalized when using a normalized vector and an arbitrary angle that doesn't equal zero.
 /// </summary>
-QTEST_CASE ( Constructor7_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
+QTEST_CASE ( Constructor8_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -388,7 +413,7 @@ QTEST_CASE ( Constructor7_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZ
 /// <summary>
 /// Checks that the quaternion contains no rotation information when using a null vector as axis.
 /// </summary>
-QTEST_CASE ( Constructor7_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_Test )
+QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -423,7 +448,7 @@ QTEST_CASE ( Constructor7_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_
 /// <summary>
 /// Checks that the quaternion contains no rotation information when using zero as angle.
 /// </summary>
-QTEST_CASE ( Constructor7_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test )
+QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -453,7 +478,7 @@ QTEST_CASE ( Constructor7_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test 
 /// <summary>
 /// Checks that the resultant quaternion is not normalized when using a null vector as axis.
 /// </summary>
-QTEST_CASE ( Constructor7_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
+QTEST_CASE ( Constructor8_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -479,7 +504,7 @@ QTEST_CASE ( Constructor7_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 /// <summary>
 /// Checks that the quaternion is not correct when a not normalized vector is used as axis.
 /// </summary>
-QTEST_CASE ( Constructor7_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
+QTEST_CASE ( Constructor8_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -505,7 +530,7 @@ QTEST_CASE ( Constructor7_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 /// <summary>
 /// Checks that the quaternion is correctly formed when using a normalized vector and an arbitrary angle that doesn't equal zero.
 /// </summary>
-QTEST_CASE ( Constructor8_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
+QTEST_CASE ( Constructor9_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -543,7 +568,7 @@ QTEST_CASE ( Constructor8_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
 /// <summary>
 /// Checks that the resultant quaternion is normalized when using a normalized vector and an arbitrary angle that doesn't equal zero.
 /// </summary>
-QTEST_CASE ( Constructor8_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
+QTEST_CASE ( Constructor9_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -569,7 +594,7 @@ QTEST_CASE ( Constructor8_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZ
 /// <summary>
 /// Checks that the quaternion contains no rotation information when using a null vector as axis.
 /// </summary>
-QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_Test )
+QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -606,7 +631,7 @@ QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_
 /// <summary>
 /// Checks that the quaternion contains no rotation information when using zero as angle.
 /// </summary>
-QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test )
+QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -638,7 +663,7 @@ QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test 
 /// <summary>
 /// Checks that the resultant quaternion is not normalized when using a null vector as axis.
 /// </summary>
-QTEST_CASE ( Constructor8_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
+QTEST_CASE ( Constructor9_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -664,7 +689,7 @@ QTEST_CASE ( Constructor8_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 /// <summary>
 /// Checks that the quaternion is not correct when a not normalized vector is used as axis.
 /// </summary>
-QTEST_CASE ( Constructor8_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
+QTEST_CASE ( Constructor9_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -690,7 +715,7 @@ QTEST_CASE ( Constructor8_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 /// <summary>
 /// Checks that the quaternion is correctly formed when a transformation matrix that only contains rotation is used.
 /// </summary>
-QTEST_CASE ( Constructor9_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Test )
+QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -725,7 +750,7 @@ QTEST_CASE ( Constructor9_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotati
 /// <summary>
 /// Checks that the quaternion is correctly formed when a transformation matrix that contains translation, rotation and scale is used.
 /// </summary>
-QTEST_CASE ( Constructor9_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotationAndScale_Test )
+QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotationAndScale_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -760,7 +785,7 @@ QTEST_CASE ( Constructor9_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslatio
 /// <summary>
 /// Checks that a identity quaternion is obtained when using a transformation matrix that contains translation and scale but not rotation.
 /// </summary>
-QTEST_CASE ( Constructor9_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNotRotation_Test )
+QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNotRotation_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -784,7 +809,7 @@ QTEST_CASE ( Constructor9_IdentityIsObtainedWhenMatrixContainsTranslationAndScal
 /// <summary>
 /// Checks that an assertion fails when a transformation matrix whose elements all equal zero is used.
 /// </summary>
-QTEST_CASE ( Constructor9_AssertionFailsWhenUsingNullMatrix_Test )
+QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
@@ -812,7 +837,7 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenUsingNullMatrix_Test )
 /// <summary>
 /// Checks that an identity quaternion is obtained when a transformation matrix is the identity.
 /// </summary>
-QTEST_CASE ( Constructor9_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
+QTEST_CASE ( Constructor10_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
@@ -831,7 +856,7 @@ QTEST_CASE ( Constructor9_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 /// <summary>
 /// Checks that the quaternion is correctly formed when a transformation matrix that only contains rotation is used.
 /// </summary>
-QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Test )
+QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -866,7 +891,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
 /// <summary>
 /// Checks that the quaternion is correctly formed when a transformation matrix that contains translation, rotation and scale is used.
 /// </summary>
-QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotationAndScale_Test )
+QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotationAndScale_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -901,7 +926,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
 /// <summary>
 /// Checks that a identity quaternion is obtained when using a transformation matrix that contains translation and scale but not rotation.
 /// </summary>
-QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNotRotation_Test )
+QTEST_CASE ( Constructor11_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNotRotation_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -925,7 +950,7 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 /// <summary>
 /// Checks that an assertion fails when a transformation matrix whose elements all equal zero is used.
 /// </summary>
-QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
+QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
@@ -953,7 +978,7 @@ QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
 /// <summary>
 /// Checks that an identity quaternion is obtained when a transformation matrix is the identity.
 /// </summary>
-QTEST_CASE ( Constructor10_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
+QTEST_CASE ( Constructor11_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
@@ -972,7 +997,7 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 /// <summary>
 /// Checks that the quaternion is correctly formed when a common rotation matrix is used.
 /// </summary>
-QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenUsingArbitraryRotationMatrix_Test )
+QTEST_CASE ( Constructor12_QuaternionIsCorrectlyBuiltWhenUsingArbitraryRotationMatrix_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -1001,7 +1026,7 @@ QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenUsingArbitraryRotationM
 /// <summary>
 /// Checks that an assertion fails when a rotation matrix whose elements all equal zero is used.
 /// </summary>
-QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
+QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -1028,7 +1053,7 @@ QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
 /// <summary>
 /// Checks that an identity quaternion is obtained when a rotation matrix is the identity.
 /// </summary>
-QTEST_CASE ( Constructor11_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
+QTEST_CASE ( Constructor12_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;

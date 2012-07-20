@@ -49,11 +49,19 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
+    /// <param name="rotation">[IN] The 3x3 rotation matrix from which we want to create a copy in the resident matrix.</param>
+    inline QRotationMatrix3x3(const QRotationMatrix3x3 &rotation) : QMatrix3x3(rotation)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a rotation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
-    /// <param name="rotation">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
+    /// <param name="rotation">[IN] The 3x3 matrix in which we want the resident 3x3 rotation matrix to be based.</param>
     inline QRotationMatrix3x3(const QBaseMatrix3x3 &rotation) : QMatrix3x3(rotation)
     {
     }
@@ -105,7 +113,7 @@ public:
     /// The quaternion must be normalized to construct the rotation matrix properly.
     /// </remarks>
     explicit QRotationMatrix3x3(const QBaseQuaternion &qRotation);
-    
+
 
     // PROPERTIES
 	// ---------------
@@ -231,7 +239,7 @@ public:
     {
         return this->Transpose();
     }
-    
+
     /// <summary>
     /// Converts rotation matrix to Euler angles.<br>
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.

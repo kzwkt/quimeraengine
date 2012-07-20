@@ -49,12 +49,20 @@ public:
 	inline QSphere()
     {
     }
-    
+
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
-	/// <param name="sphere">[IN] The sphere in which we want resident sphere to be based.</param>
+	/// <param name="sphere">[IN] The sphere from which we want to create a copy in the resident sphere.</param>
 	inline QSphere(const QSphere<VectorType> &sphere) : QOrb<VectorType>(sphere)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
+	/// <param name="orb">[IN] The sphere in which we want resident sphere to be based.</param>
+	inline QSphere(const QBaseOrb<VectorType> &orb) : QOrb<VectorType>(orb)
     {
     }
 
@@ -115,7 +123,7 @@ public:
         SQPoint::Translate(vTranslation, &auxSphere.Center, 1);
         return auxSphere;
     }
-    
+
 	/// <summary>
 	/// Translates the sphere.
 	/// </summary>
@@ -131,7 +139,7 @@ public:
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxSphere.Center, 1);
         return auxSphere;
     }
-    
+
 	/// <summary>
 	/// Rotates the sphere.
 	/// </summary>
@@ -145,7 +153,7 @@ public:
         SQPoint::Rotate(qRotation, &auxSphere.Center, 1);
         return auxSphere;
     }
-    
+
 	/// <summary>
 	/// Rotates the sphere using a pivot.
 	/// </summary>
@@ -160,7 +168,7 @@ public:
         SQPoint::RotateWithPivot(qRotation, vPivot, &auxSphere.Center, 1);
         return auxSphere;
     }
-    
+
  	/// <summary>
 	/// Scales the sphere.
 	/// </summary>

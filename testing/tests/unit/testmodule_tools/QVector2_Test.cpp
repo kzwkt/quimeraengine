@@ -54,15 +54,35 @@ QTEST_CASE ( Constructor1_DefaultValuesHasntChanged_Test )
 }
 
 /// <summary>
-/// Checks if base vector components are properly set to vector components.
+/// Checks if copy constructor sets vector components properly.
 /// </summary>
-QTEST_CASE ( Constructor2_ValuesAreSetProperly_Test )
+QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
 
+    const QVector2 VECTOR_TO_COPY(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y);
+
+	// Execution
+    QVector2 vVectorUT = VECTOR_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
+}
+
+/// <summary>
+/// Checks if every input vector's component is copied to the right target vector's component.
+/// </summary>
+QTEST_CASE ( Constructor3_VectorComponentsAreCopiedToRightComponents_Test )
+{
+    // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector2;
+
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+
     QBaseVector2 BASEVECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y);
 
 	// Execution
@@ -76,7 +96,7 @@ QTEST_CASE ( Constructor2_ValuesAreSetProperly_Test )
 /// <summary>
 /// Checks if values used as parameters are properly set to vector components.
 /// </summary>
-QTEST_CASE ( Constructor3_ValuesAreSetProperly_Test )
+QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
@@ -93,7 +113,7 @@ QTEST_CASE ( Constructor3_ValuesAreSetProperly_Test )
 /// <summary>
 /// Checks if the value provided is set to all the vector components.
 /// </summary>
-QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
+QTEST_CASE ( Constructor5_ValueIsSetForAllComponents_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_5;
@@ -109,7 +129,7 @@ QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 /// <summary>
 /// Checks if the vector components are set to the correct floats stored in a valid memory space.
 /// </summary>
-QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo2Floats_Test )
+QTEST_CASE ( Constructor6_VectorComponentsAreFilledWithValidReferenceTo2Floats_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
@@ -133,7 +153,7 @@ QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo2Floats_T
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
-QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
+QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 {
     // Preparation
     const float_q* NULL_ARRAY = null_q;
@@ -157,7 +177,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 /// <summary>
 /// Checks if vector components are set to the correct values packed in a valid vf32 object.
 /// </summary>
-QTEST_CASE ( Constructor6_VectorComponentsAreSetToValidVF32PackedValues_Test )
+QTEST_CASE ( Constructor7_VectorComponentsAreSetToValidVF32PackedValues_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;

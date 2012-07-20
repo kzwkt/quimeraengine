@@ -45,12 +45,20 @@ public:
 	inline QTriangle()
     {
     }
-    
+
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
-	/// <param name="triangle">[IN] The triangle in which we want resident triangle to be based.</param>
+	/// <param name="triangle">[IN] The triangle from which we want to create a copy in the resident triangle.</param>
 	inline QTriangle(const QTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
+	/// <param name="triangle">[IN] The triangle in which we want resident triangle to be based.</param>
+	inline QTriangle(const QBaseTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
     {
     }
 

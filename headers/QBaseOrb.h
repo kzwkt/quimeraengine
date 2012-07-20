@@ -37,7 +37,17 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseOrb() : Center(SQFloat::_0), Radius(SQFloat::_0) { }
+    inline QBaseOrb() : Center(SQFloat::_0), Radius(SQFloat::_0)
+    {
+    }
+
+    /// <summary>
+    /// Copy constructor.
+    /// </sumary>
+    /// <param name="orb">[IN] The orb from which we want to create a copy in the resident orb.</param>
+    inline QBaseOrb(const QBaseOrb &orb) : Center(orb.Center), Radius(orb.Radius)
+    {
+    }
 
     /// <summary>
     /// Constructor from a vector which defines center point and a floating point value which

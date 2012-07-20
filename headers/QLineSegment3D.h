@@ -55,7 +55,15 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
-    /// <param name="segment">[IN] Line segment in which we want resident line segment is based on.</param>
+    /// <param name="segment">[IN] Line segment from which we want to create a copy in the resident segment.</param>
+	inline QLineSegment3D(const QLineSegment3D &segment) : QLineSegment<VectorType>(segment.A, segment.B)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
+    /// <param name="segment">[IN] Line segment in which we want resident segment to be based.</param>
 	inline QLineSegment3D(const QBaseLineSegment<VectorType> &segment) : QLineSegment<VectorType>(segment.A, segment.B)
     {
     }

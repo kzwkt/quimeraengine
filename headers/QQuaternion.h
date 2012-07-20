@@ -72,6 +72,14 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
+    /// <param name="qQuat">[IN] The quaternion from which we want to create a copy in the resident quaternion.</param>
+    inline QQuaternion(const QQuaternion &qQuat) : QBaseQuaternion(qQuat)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
     /// <param name="qQuat">[IN] The quaternion in which we want resident quaternion to be based.</param>
     inline QQuaternion(const QBaseQuaternion &qQuat) : QBaseQuaternion(qQuat)
     {

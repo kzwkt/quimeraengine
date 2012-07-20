@@ -38,13 +38,21 @@ public:
     }
 
     /// <summary>
+    /// Copy constructor.
+    /// </sumary>
+    /// <param name="quad">[IN] The quadrilateral from which we want to create a copy in the resident quadrilateral.</param>
+    inline QBaseQuadrilateral(const QBaseQuadrilateral &quad) : A(quad.A), B(quad.B), C(quad.C), D(quad.D)
+    {
+    }
+
+    /// <summary>
     /// Constructor from four vectors, one for each vertex.
     /// </summary>
     /// <param name="vA">[IN] Vector to define vertex A.</param>
     /// <param name="vB">[IN] Vector to define vertex B.</param>
     /// <param name="vC">[IN] Vector to define vertex C.</param>
     /// <param name="vD">[IN] Vector to define vertex D.</param>
-    inline QBaseQuadrilateral(const QVector2 &vA, const QVector2 &vB, 
+    inline QBaseQuadrilateral(const QVector2 &vA, const QVector2 &vB,
                               const QVector2 &vC, const QVector2 &vD) :
                                 A(vA), B(vB), C(vC), D(vD)
     {

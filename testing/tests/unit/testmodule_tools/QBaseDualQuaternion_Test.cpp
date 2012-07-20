@@ -1,3 +1,4 @@
+
 // [TERMS&CONDITIONS]
 
 #include <boost/test/auto_unit_test.hpp>
@@ -30,7 +31,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHasNotChanged_Test )
 
 	// Execution
     QBaseDualQuaternion dualQuaternionUT;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.x, EXPECTED_VALUE_FOR_DX);
     BOOST_CHECK_EQUAL(dualQuaternionUT.d.y, EXPECTED_VALUE_FOR_DY);
@@ -44,9 +45,30 @@ QTEST_CASE ( Constructor1_DefaultValuesHasNotChanged_Test )
 }
 
 /// <summary>
+/// Checks if copy constructor sets dual quaternion components properly.
+/// </summary>
+QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
+
+    const QQuaternion EXPECTED_VALUE_D = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
+    const QQuaternion EXPECTED_VALUE_R = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
+
+    const QBaseDualQuaternion DQUAT_TO_COPY(EXPECTED_VALUE_R, EXPECTED_VALUE_D);
+
+	// Execution
+    QBaseDualQuaternion dualQuaternionUT = DQUAT_TO_COPY;
+
+    // Verification
+    BOOST_CHECK(dualQuaternionUT.d == EXPECTED_VALUE_D);
+    BOOST_CHECK(dualQuaternionUT.r == EXPECTED_VALUE_R);
+}
+
+/// <summary>
 /// Checks that every value is set to correct quaternion.
 /// </summary>
-QTEST_CASE ( Constructor2_ValuesAreCorrectlySet_Test )
+QTEST_CASE ( Constructor3_ValuesAreCorrectlySet_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -56,7 +78,7 @@ QTEST_CASE ( Constructor2_ValuesAreCorrectlySet_Test )
 
 	// Execution
     QBaseDualQuaternion dualQuaternionUT(EXPECTED_VALUE_R, EXPECTED_VALUE_D);
-    
+
     // Verification
     BOOST_CHECK(dualQuaternionUT.d == EXPECTED_VALUE_D);
     BOOST_CHECK(dualQuaternionUT.r == EXPECTED_VALUE_R);
@@ -70,7 +92,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon), 
+    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon),
                                            QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon));
     const QBaseDualQuaternion RIGHT_OPERAND(QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0),
                                             QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
@@ -88,7 +110,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const float_q VALUE_FOR_LEFT_OPERAND_COMPONENTS = SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
-    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS), 
+    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS),
                                            QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS));
     const QBaseDualQuaternion RIGHT_OPERAND(QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0),
                                             QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
@@ -106,7 +128,7 @@ QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const float_q VALUE_FOR_LEFT_OPERAND_COMPONENTS = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
-    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS), 
+    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS),
                                            QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS));
     const QBaseDualQuaternion RIGHT_OPERAND(QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0),
                                             QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
@@ -122,7 +144,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon), 
+    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon),
                                            QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon));
     const QBaseDualQuaternion RIGHT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon),
                                             QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon));
@@ -139,7 +161,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon), 
+    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon),
                                            QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon));
     const QBaseDualQuaternion RIGHT_OPERAND(QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0),
                                             QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
@@ -157,7 +179,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const float_q VALUE_FOR_LEFT_OPERAND_COMPONENTS = SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
-    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS), 
+    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS),
                                            QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS));
     const QBaseDualQuaternion RIGHT_OPERAND(QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0),
                                             QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
@@ -175,7 +197,7 @@ QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test 
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const float_q VALUE_FOR_LEFT_OPERAND_COMPONENTS = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
-    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS), 
+    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS),
                                            QQuaternion(VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS, VALUE_FOR_LEFT_OPERAND_COMPONENTS));
     const QBaseDualQuaternion RIGHT_OPERAND(QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0),
                                             QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
@@ -192,7 +214,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon), 
+    const QBaseDualQuaternion LEFT_OPERAND(QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon),
                                            QQuaternion(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon));
     const QBaseDualQuaternion RIGHT_OPERAND(QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0),
                                             QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));

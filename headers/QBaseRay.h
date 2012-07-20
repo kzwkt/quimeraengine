@@ -32,9 +32,17 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0) 
+	inline QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0)
     {
     }
+
+    /// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
+	inline QBaseRay(const QBaseRay &ray) : Origin(ray.Origin), Direction(ray.Direction)
+	{
+	}
 
 	/// <summary>
 	/// Constructor from a point and a vector.
@@ -44,9 +52,9 @@ public:
 	/// <remarks>
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
-	inline QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : 
+	inline QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) :
                         Origin(vOrigin), Direction(vDirection)
-    { 
+    {
     }
 
 

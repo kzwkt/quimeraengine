@@ -41,11 +41,19 @@ public:
     {
     }
 
-	/// <summary>
+    /// <summary>
 	/// Copy constructor.
 	/// </summary>
-	/// <param name="triangle">[IN] The 3D triangle in which we want resident triangle to be based.</param>
+	/// <param name="triangle">[IN] The 3D triangle from which we want to create a copy in the resident 3D triangle.</param>
 	inline QTriangle3D(const QTriangle3D<VectorType> &triangle) : QTriangle<VectorType>(triangle)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
+	/// <param name="triangle">[IN] The 3D triangle in which we want resident 3D triangle to be based.</param>
+	inline QTriangle3D(const QBaseTriangle3D<VectorType> &triangle) : QTriangle<VectorType>(triangle)
     {
     }
 

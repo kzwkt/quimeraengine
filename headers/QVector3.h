@@ -70,7 +70,15 @@ public:
     }
 
     /// <summary>
-    /// Copy constructor.
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="vVector">[IN] The 3D vector from which we want to create a copy in the resident vector.</param>
+	inline QVector3(const QVector3 &vVector) : QBaseVector3(vVector)
+	{
+	}
+
+    /// <summary>
+    /// Base type constructor.
     /// </summary>
     /// <param name="vVector">[IN] The 3D vector in which we want resident vector to be based.</param>
     inline QVector3(const QBaseVector3 &vVector) : QBaseVector3(vVector)
@@ -81,7 +89,7 @@ public:
     /// Constructor from a 4D vector.
     /// </summary>
     /// <param name="vVector">[IN] The 4D vector in which we want resident vector to be based.</param>
-    inline explicit QVector3(const QBaseVector4 &vVector) : QBaseVector3(vVector.x, vVector.y, vVector.z)
+    inline QVector3(const QBaseVector4 &vVector) : QBaseVector3(vVector.x, vVector.y, vVector.z)
     {
     }
 

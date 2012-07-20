@@ -39,10 +39,18 @@ public:
     }
 
     /// <summary>
-    /// Copy constructor.
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
+	inline QRay(const QRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
+	{
+	}
+
+    /// <summary>
+    /// Base type constructor.
     /// </summary>
-    /// <param name="baseRay">[IN] The ray in which we want resident ray to be based.</param>
-    inline QRay(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &baseRay) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(baseRay)
+    /// <param name="ray">[IN] The ray in which we want resident ray to be based.</param>
+    inline QRay(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
     {
     }
 

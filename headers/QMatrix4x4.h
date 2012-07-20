@@ -60,8 +60,16 @@ public:
     {
     }
 
+    /// <summary>
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="matrix">[IN] The 4x4 matrix from which we want to create a copy in the resident matrix.</param>
+    inline QMatrix4x4(const QMatrix4x4 &matrix) : QBaseMatrix4x4(matrix)
+    {
+    }
+
 	/// <summary>
-	/// Copy constructor.
+	/// Base type constructor.
 	/// </summary>
 	/// <param name="matrix">[IN] The 4x4 matrix in which we want the resident matrix to be based.</param>
 	inline QMatrix4x4(const QBaseMatrix4x4 &matrix) : QBaseMatrix4x4(matrix)

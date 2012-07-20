@@ -43,6 +43,14 @@ public:
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
+	/// <param name="vVector">[IN] The 2D vector from which we want to create a copy in the resident vector.</param>
+	inline QVector2(const QVector2 &vVector) : QBaseVector2(vVector)
+	{
+	}
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
 	/// <param name="vVector">[IN] The 2D vector in which we want resident vector to be based.</param>
 	inline QVector2(const QBaseVector2 &vVector) : QBaseVector2(vVector)
     {
