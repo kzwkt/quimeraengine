@@ -51,6 +51,14 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
+    /// <param name="matrix">[IN] The matrix from which we want to create a copy in the resident matrix.</param>
+    inline QTranslationMatrix(const QTranslationMatrix<MatrixType> &matrix) : MatrixType(matrix)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a translation matrix,
     /// otherwise unpredictable behavior could happen.
@@ -100,7 +108,7 @@ public:
         this->ij[3][1] = vTranslation.y;
         this->ij[3][2] = vTranslation.z;
      }
-    
+
 
     // PROPERTIES
 	// ---------------
@@ -342,9 +350,9 @@ public:
     {
         return QTranslationMatrix<MatrixType>(-this->ij[3][0], -this->ij[3][1], -this->ij[3][2]);
     }
-    
+
     /// <summary>
-    /// Calculates whether the matrix has inverse or not. 
+    /// Calculates whether the matrix has inverse or not.
     /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
     /// <returns>
@@ -428,8 +436,8 @@ protected:
     template <class MatrixTypeParam>
     QTranslationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix) const
     {
-        return QTranslationMatrix<MatrixType>(this->ij[3][0] + matrix.ij[3][0], 
-                                              this->ij[3][1] + matrix.ij[3][1], 
+        return QTranslationMatrix<MatrixType>(this->ij[3][0] + matrix.ij[3][0],
+                                              this->ij[3][1] + matrix.ij[3][1],
                                               this->ij[3][2] + matrix.ij[3][2]);
     }
 

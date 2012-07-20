@@ -49,11 +49,19 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
+    /// <param name="scale">[IN] The 3x3 scale matrix from which we want to create a copy in the resident 3x3 scale matrix.</param>
+    inline QScalingMatrix3x3(const QScalingMatrix3x3 &scale) : QMatrix3x3(scale)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a scale matrix,
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
-    /// <param name="scale">[IN] The 3x3 matrix in which we want the resident matrix to be based.</param>
+    /// <param name="scale">[IN] The 3x3 matrix in which we want the resident 3x3 scale matrix to be based.</param>
     inline QScalingMatrix3x3(const QBaseMatrix3x3 &scale) : QMatrix3x3(scale)
     {
     }

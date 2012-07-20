@@ -36,6 +36,18 @@ public:
     {
     }
 
+    /// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
+	inline QBasePlane(const QBasePlane &plane)
+	{
+	    this->a = plane.a;
+	    this->b = plane.b;
+	    this->c = plane.c;
+	    this->d = plane.d;
+	}
+
 	/// <summary>
 	/// Constructor from a floating point value for each coefficient.
 	/// </summary>

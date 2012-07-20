@@ -37,6 +37,18 @@ public:
     }
 
     /// <summary>
+	/// Copy constructor. Copies attributes from given quaternion.
+	/// </summary>
+	/// <param name="qQuat">[IN] The quaternion from which we want to create a copy in the resident quaternion.</param>
+	inline QBaseQuaternion(const QBaseQuaternion &qQuat)
+	{
+	    this->x = qQuat.x;
+	    this->y = qQuat.y;
+	    this->z = qQuat.z;
+	    this->w = qQuat.w;
+	}
+
+    /// <summary>
     /// Constructor that receives 4 values, one per quaternion's component.
     /// </summary>
     /// <param name="fValueX">[IN] X component value.</param>

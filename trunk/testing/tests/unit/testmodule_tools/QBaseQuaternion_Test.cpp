@@ -25,7 +25,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHasNotChanged_Test )
 
 	// Execution
     QBaseQuaternion qQuaternionUT;
-    
+
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
@@ -34,9 +34,32 @@ QTEST_CASE ( Constructor1_DefaultValuesHasNotChanged_Test )
 }
 
 /// <summary>
+/// Checks if copy constructor sets quaternion components properly.
+/// </summary>
+QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
+    const float_q EXPECTED_VALUE_FOR_W = SQFloat::_4;
+
+    const QBaseQuaternion QUAT_TO_COPY(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, EXPECTED_VALUE_FOR_W);
+
+	// Execution
+    QBaseQuaternion qQuatUT = QUAT_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(qQuatUT.x, EXPECTED_VALUE_FOR_X);
+    BOOST_CHECK_EQUAL(qQuatUT.y, EXPECTED_VALUE_FOR_Y);
+    BOOST_CHECK_EQUAL(qQuatUT.z, EXPECTED_VALUE_FOR_Z);
+    BOOST_CHECK_EQUAL(qQuatUT.w, EXPECTED_VALUE_FOR_W);
+}
+
+/// <summary>
 /// Checks that every value is set to correct component.
 /// </summary>
-QTEST_CASE ( Constructor2_ValuesAreCorrectlySet_Test )
+QTEST_CASE ( Constructor3_ValuesAreCorrectlySet_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_X = SQFloat::_1;
@@ -46,7 +69,7 @@ QTEST_CASE ( Constructor2_ValuesAreCorrectlySet_Test )
 
 	// Execution
     QBaseQuaternion qQuaternionUT(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_Y);
@@ -54,11 +77,10 @@ QTEST_CASE ( Constructor2_ValuesAreCorrectlySet_Test )
     BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_VALUE_W);
 }
 
-
 /// <summary>
 /// Checks that every element of the array is put in the correct component.
 /// </summary>
-QTEST_CASE ( Constructor3_QuaternionComponentsAreFilledWithValidReferenceTo4Floats_Test )
+QTEST_CASE ( Constructor4_QuaternionComponentsAreFilledWithValidReferenceTo4Floats_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
@@ -88,7 +110,7 @@ QTEST_CASE ( Constructor3_QuaternionComponentsAreFilledWithValidReferenceTo4Floa
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
-QTEST_CASE ( Constructor3_AssertionFailsWhenPointerIsNull_Test )
+QTEST_CASE ( Constructor4_AssertionFailsWhenPointerIsNull_Test )
 {
     // Preparation
     const float_q* NULL_ARRAY = null_q;
@@ -112,7 +134,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenPointerIsNull_Test )
 /// <summary>
 /// Checks if quaternion components are set to the correct values packed in a valid vf32 object.
 /// </summary>
-QTEST_CASE ( Constructor4_QuaternionComponentsAreSetToValidVF32PackedValues_Test )
+QTEST_CASE ( Constructor5_QuaternionComponentsAreSetToValidVF32PackedValues_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;

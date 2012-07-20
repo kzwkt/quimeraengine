@@ -57,9 +57,33 @@ QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 }
 
 /// <summary>
+/// Checks if copy constructor copies every matrix element properly.
+/// </summary>
+QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
+{
+    // Preparation
+    const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_0;
+    const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_11 = SQFloat::_3;
+
+    const QMatrix2x2 MATRIX_TO_COPY(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01,
+                                    EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11);
+
+    // Execution
+    QMatrix2x2 matrixUT = MATRIX_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11);
+}
+
+/// <summary>
 /// Checks that every matrix element is copied to the right destination matrix element.
 /// </summary>
-QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
+QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix2x2;
@@ -79,7 +103,7 @@ QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
 /// <summary>
 /// Checks if the value provided is set to all the matrix components.
 /// </summary>
-QTEST_CASE ( Constructor3_ValueIsSetForAllComponents_Test )
+QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_5;
@@ -97,7 +121,7 @@ QTEST_CASE ( Constructor3_ValueIsSetForAllComponents_Test )
 /// <summary>
 /// Checks if values used as parameters are properly set to matrix components.
 /// </summary>
-QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
+QTEST_CASE ( Constructor5_ValuesAreSetProperly_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
@@ -119,7 +143,7 @@ QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 /// <summary>
 /// Checks if the matrix components are set to the correct floats stored in a valid memory space.
 /// </summary>
-QTEST_CASE ( Constructor5_MatrixComponentsAreFilledWithValidReferenceTo4Floats_Test )
+QTEST_CASE ( Constructor6_MatrixComponentsAreFilledWithValidReferenceTo4Floats_Test )
 {
    // Preparation
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
@@ -150,7 +174,7 @@ QTEST_CASE ( Constructor5_MatrixComponentsAreFilledWithValidReferenceTo4Floats_T
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
-QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
+QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 {
     // Preparation
     const float_q* NULL_ARRAY = null_q;
@@ -174,7 +198,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 /// <summary>
 /// Checks if matrix components are set to the correct values packed in valid vf32 objects.
 /// </summary>
-QTEST_CASE ( Constructor6_MatrixComponentsAreSetToValidVF32PackedValues_Test )
+QTEST_CASE ( Constructor7_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;

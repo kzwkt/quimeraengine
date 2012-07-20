@@ -41,6 +41,14 @@ public:
     }
 
     /// <summary>
+    /// Copy constructor.
+    /// </sumary>
+    /// <param name="hexahedron">[IN] The hexahedron from which we want to create a copy in the resident hexahedron.</param>
+    inline QBaseHexahedron(const QBaseHexahedron &hexahedron) : A(hexahedron.A), B(hexahedron.B), C(hexahedron.C), D(hexahedron.D)
+    {
+    }
+
+    /// <summary>
     /// Constructor from eight vectors, one for each vertex.
     /// </summary>
     /// <param name="vA">[IN] Vector to define vertex A.</param>

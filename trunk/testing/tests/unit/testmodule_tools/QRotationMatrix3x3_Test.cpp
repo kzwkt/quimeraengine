@@ -46,9 +46,48 @@ QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 }
 
 /// <summary>
+/// Checks if copy constructor copies every matrix element properly.
+/// </summary>
+QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
+
+    const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_3;
+    const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_11 = SQFloat::_5;
+    const float_q EXPECTED_VALUE_FOR_12 = SQFloat::_6;
+    const float_q EXPECTED_VALUE_FOR_20 = SQFloat::_7;
+    const float_q EXPECTED_VALUE_FOR_21 = SQFloat::_8;
+    const float_q EXPECTED_VALUE_FOR_22 = SQFloat::_9;
+
+    const QBaseMatrix3x3 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
+                                        EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12,
+                                        EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22);
+
+    const QRotationMatrix3x3 MATRIX_TO_COPY(EXPECTED_VALUE);
+
+    // Execution
+    QRotationMatrix3x3 matrixUT = MATRIX_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE_FOR_12);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE_FOR_20);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE_FOR_21);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE_FOR_22);
+}
+
+/// <summary>
 /// Checks that every matrix element is copied to the right destination matrix element.
 /// </summary>
-QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
+QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -75,7 +114,7 @@ QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
 /// <summary>
 /// Checks that the expected matrix is obtained when using common angles.
 /// </summary>
-QTEST_CASE ( Constructor3_ExpectedValueIsObtainedWhenUsingCommonAngles_Test )
+QTEST_CASE ( Constructor4_ExpectedValueIsObtainedWhenUsingCommonAngles_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -117,7 +156,7 @@ QTEST_CASE ( Constructor3_ExpectedValueIsObtainedWhenUsingCommonAngles_Test )
 /// <summary>
 /// Checks that a neutral rotation matrix (an identity matrix) is obtained when angles equal zero.
 /// </summary>
-QTEST_CASE ( Constructor3_NeutralRotationIsObtainedWhenAnglesEqualZero_Test )
+QTEST_CASE ( Constructor4_NeutralRotationIsObtainedWhenAnglesEqualZero_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -145,7 +184,7 @@ QTEST_CASE ( Constructor3_NeutralRotationIsObtainedWhenAnglesEqualZero_Test )
 /// <summary>
 /// Checks that the rotation follows left-handed rules.
 /// </summary>
-QTEST_CASE ( Constructor3_FollowsLeftHandedRules_Test )
+QTEST_CASE ( Constructor4_FollowsLeftHandedRules_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -190,7 +229,7 @@ QTEST_CASE ( Constructor3_FollowsLeftHandedRules_Test )
 /// <summary>
 /// Checks that the expected matrix is obtained when using a common normalized axis and angle.
 /// </summary>
-QTEST_CASE ( Constructor4_ExpectedValueIsObtainedWhenUsingCommonNormalizedAxisAndAngle_Test )
+QTEST_CASE ( Constructor5_ExpectedValueIsObtainedWhenUsingCommonNormalizedAxisAndAngle_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -233,7 +272,7 @@ QTEST_CASE ( Constructor4_ExpectedValueIsObtainedWhenUsingCommonNormalizedAxisAn
 /// <summary>
 /// Checks that the elements of the matrix's diagonal equal the cosine of the rotation angle when a null vector is used as axis.
 /// </summary>
-QTEST_CASE ( Constructor4_MatrixDiagonalElementsEqualCosineOfAngleWhenUsingNullVectorAsAxisAndNonZeroAngle_Test )
+QTEST_CASE ( Constructor5_MatrixDiagonalElementsEqualCosineOfAngleWhenUsingNullVectorAsAxisAndNonZeroAngle_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -278,7 +317,7 @@ QTEST_CASE ( Constructor4_MatrixDiagonalElementsEqualCosineOfAngleWhenUsingNullV
 /// <summary>
 /// Checks that a neutral rotation matrix (an Identity matrix) is obtained when the angle equals zero and the axis is a normalized common vector.
 /// </summary>
-QTEST_CASE ( Constructor4_NeutralRotationIsObtainedWhenUsingNormalizedCommonVectorAndAngleEqualsZero_Test )
+QTEST_CASE ( Constructor5_NeutralRotationIsObtainedWhenUsingNormalizedCommonVectorAndAngleEqualsZero_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -312,7 +351,7 @@ QTEST_CASE ( Constructor4_NeutralRotationIsObtainedWhenUsingNormalizedCommonVect
 /// <summary>
 /// Checks that a neutral rotation matrix (an Identity matrix) is obtained when the angle equals zero and the axis is a null vector.
 /// </summary>
-QTEST_CASE ( Constructor4_NeutralRotationIsObtainedWhenUsingNullVectorAndAngleEqualsZero_Test )
+QTEST_CASE ( Constructor5_NeutralRotationIsObtainedWhenUsingNullVectorAndAngleEqualsZero_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -346,7 +385,7 @@ QTEST_CASE ( Constructor4_NeutralRotationIsObtainedWhenUsingNullVectorAndAngleEq
 /// <summary>
 /// Checks that the obtained value is different when the input axis vector is normalized or not.
 /// </summary>
-QTEST_CASE ( Constructor4_ObtainedValueIsDifferentWhenAxisIsNormalizedOrNot_Test )
+QTEST_CASE ( Constructor5_ObtainedValueIsDifferentWhenAxisIsNormalizedOrNot_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -381,7 +420,7 @@ QTEST_CASE ( Constructor4_ObtainedValueIsDifferentWhenAxisIsNormalizedOrNot_Test
 /// <summary>
 /// Checks that the rotation follows left-handed rules.
 /// </summary>
-QTEST_CASE ( Constructor4_FollowsLeftHandedRules_Test )
+QTEST_CASE ( Constructor5_FollowsLeftHandedRules_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -412,7 +451,7 @@ QTEST_CASE ( Constructor4_FollowsLeftHandedRules_Test )
 /// <summary>
 /// Checks that the expected matrix is obtained when using a common normalized quaternion.
 /// </summary>
-QTEST_CASE ( Constructor5_ExpectedValueIsObtainedWhenUsingCommonNormalizedQuaternion_Test )
+QTEST_CASE ( Constructor6_ExpectedValueIsObtainedWhenUsingCommonNormalizedQuaternion_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -448,7 +487,7 @@ QTEST_CASE ( Constructor5_ExpectedValueIsObtainedWhenUsingCommonNormalizedQuater
 /// <summary>
 /// Checks that the obtained value is a neutral rotation (an Identity matrix) when the input is a null quaternion.
 /// </summary>
-QTEST_CASE ( Constructor5_NeutralRotationIsObtainedWhenQuaternionIsNull_Test )
+QTEST_CASE ( Constructor6_NeutralRotationIsObtainedWhenQuaternionIsNull_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -480,7 +519,7 @@ QTEST_CASE ( Constructor5_NeutralRotationIsObtainedWhenQuaternionIsNull_Test )
 /// <summary>
 /// Checks that the obtained value is a neutral rotation (an Identity matrix) when the input is an identity quaternion.
 /// </summary>
-QTEST_CASE ( Constructor5_NeutralRotationIsObtainedWhenQuaternionIsIdentity_Test )
+QTEST_CASE ( Constructor6_NeutralRotationIsObtainedWhenQuaternionIsIdentity_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;

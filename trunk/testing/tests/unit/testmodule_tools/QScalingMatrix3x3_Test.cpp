@@ -42,9 +42,48 @@ QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 }
 
 /// <summary>
+/// Checks if copy constructor copies every matrix element properly.
+/// </summary>
+QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
+
+    const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_3;
+    const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_11 = SQFloat::_5;
+    const float_q EXPECTED_VALUE_FOR_12 = SQFloat::_6;
+    const float_q EXPECTED_VALUE_FOR_20 = SQFloat::_7;
+    const float_q EXPECTED_VALUE_FOR_21 = SQFloat::_8;
+    const float_q EXPECTED_VALUE_FOR_22 = SQFloat::_9;
+
+    const QBaseMatrix3x3 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02,
+                                        EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12,
+                                        EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22);
+
+    const QScalingMatrix3x3 MATRIX_TO_COPY(EXPECTED_VALUE);
+
+    // Execution
+    QScalingMatrix3x3 matrixUT = MATRIX_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE_FOR_12);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE_FOR_20);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE_FOR_21);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE_FOR_22);
+}
+
+/// <summary>
 /// Checks that every matrix element is copied to the right destination matrix element.
 /// </summary>
-QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
+QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -71,7 +110,7 @@ QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
 /// <summary>
 /// Checks that the scale matrix is correctly built from its three scaling values.
 /// </summary>
-QTEST_CASE ( Constructor3_ScaleMatrixCorrectlyBuiltFromThreeScalingValues_Test )
+QTEST_CASE ( Constructor4_ScaleMatrixCorrectlyBuiltFromThreeScalingValues_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -98,7 +137,7 @@ QTEST_CASE ( Constructor3_ScaleMatrixCorrectlyBuiltFromThreeScalingValues_Test )
 /// <summary>
 /// Checks that a neutral scale matrix (an identity matrix) is obtained when scaling values equal one.
 /// </summary>
-QTEST_CASE ( Constructor3_NeutralScaleMatrixIsObtainedWhenScalingValuesEqualOne_Test )
+QTEST_CASE ( Constructor4_NeutralScaleMatrixIsObtainedWhenScalingValuesEqualOne_Test )
 {
     // Preparation
     const QScalingMatrix3x3 EXPECTED_VALUE(QScalingMatrix3x3::GetIdentity());
@@ -121,7 +160,7 @@ QTEST_CASE ( Constructor3_NeutralScaleMatrixIsObtainedWhenScalingValuesEqualOne_
 /// <summary>
 /// Checks that the scale matrix is correctly built from a 3D vector.
 /// </summary>
-QTEST_CASE ( Constructor4_ScaleMatrixCorrectlyBuiltFrom3DVector_Test )
+QTEST_CASE ( Constructor5_ScaleMatrixCorrectlyBuiltFrom3DVector_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -151,7 +190,7 @@ QTEST_CASE ( Constructor4_ScaleMatrixCorrectlyBuiltFrom3DVector_Test )
 /// <summary>
 /// Checks that a neutral scale matrix (an identity matrix) is obtained when all components of the scaling 3D vector equal one.
 /// </summary>
-QTEST_CASE ( Constructor4_NeutralScaleMatrixIsObtainedWhenScaling3DVectorComponentsEqualOne_Test )
+QTEST_CASE ( Constructor5_NeutralScaleMatrixIsObtainedWhenScaling3DVectorComponentsEqualOne_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;

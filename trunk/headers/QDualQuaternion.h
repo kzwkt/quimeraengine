@@ -66,7 +66,15 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
-    /// <param name="dualQuat">[IN] A base dual quaternion.</param>
+    /// <param name="dualQuat">[IN] The dual quaternion from which we want to create a copy in the resident dual quaternion.</param>
+    inline QDualQuaternion(const QDualQuaternion &dualQuat) : QBaseDualQuaternion(dualQuat)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
+    /// <param name="dualQuat">[IN] The dual quaternion from which we want to create a copy in the resident dual quaternion.</param>
     inline QDualQuaternion(const QBaseDualQuaternion &dualQuat) : QBaseDualQuaternion(dualQuat)
     {
     }

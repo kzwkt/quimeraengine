@@ -49,6 +49,14 @@ public:
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
+	/// <param name="orb">[IN] The orb from which we want to create a copy in the resident orb.</param>
+	inline QOrb(const QOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
 	/// <param name="orb">[IN] The orb in which we want resident orb to be based.</param>
 	inline QOrb(const QBaseOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
     {

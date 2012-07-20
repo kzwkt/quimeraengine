@@ -46,8 +46,16 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
-    /// <param name="segment">[IN] 2D line segment containing the two endpoints.</param>
-	inline QLineSegment2D(const QLineSegment<QVector2>& segment) : QLineSegment<QVector2>(segment.A, segment.B)
+    /// <param name="segment">[IN] 2D line segment containing the two endpoints from which we want to create a copy in the resident segment.</param>
+	inline QLineSegment2D(const QLineSegment2D &segment) : QLineSegment<QVector2>(segment.A, segment.B)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
+    /// <param name="segment">[IN] The 2D line segment containing the two endpoints in which we want resident segment to be based.</param>
+	inline QLineSegment2D(const QBaseLineSegment<QVector2> &segment) : QLineSegment<QVector2>(segment.A, segment.B)
     {
     }
 
@@ -279,7 +287,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-	inline QLineSegment2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const 
+	inline QLineSegment2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
 	{
         QLineSegment2D auxLineSegment = *this;
 	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
@@ -302,7 +310,7 @@ public:
 	    SQPoint::TransformWithPivot(transformation, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
         return auxLineSegment;
 	}
-    
+
  	/// <summary>
 	/// This method receives another line segment, and computes the intersection point between them,
 	/// if it exists.

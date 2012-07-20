@@ -90,9 +90,51 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaventChanged_Test, TQTemplateTy
 }
 
 /// <summary>
+/// Checks if copy constructor copies every matrix element properly.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor2_EveryMatrixElementCopiedProperly_Test, TQTemplateTypes )
+{
+    // Preparation
+    T EXPECTED_VALUE;
+    EXPECTED_VALUE.ij[0][0] = SQFloat::_1;
+    EXPECTED_VALUE.ij[0][1] = SQFloat::_2;
+    EXPECTED_VALUE.ij[0][2] = SQFloat::_3;
+    EXPECTED_VALUE.ij[1][0] = SQFloat::_5;
+    EXPECTED_VALUE.ij[1][1] = SQFloat::_6;
+    EXPECTED_VALUE.ij[1][2] = SQFloat::_7;
+    EXPECTED_VALUE.ij[2][0] = SQFloat::_9;
+    EXPECTED_VALUE.ij[2][1] = SQFloat::_10;
+    EXPECTED_VALUE.ij[2][2] = (float_q)11.0f;
+    EXPECTED_VALUE.ij[3][0] = (float_q)13.0f;
+    EXPECTED_VALUE.ij[3][1] = (float_q)14.0f;
+    EXPECTED_VALUE.ij[3][2] = (float_q)15.0f;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)23.0f);
+
+    const QTransformationMatrix<T> MATRIX_TO_COPY(EXPECTED_VALUE);
+
+    // Execution
+    QTransformationMatrix<T> matrixUT = MATRIX_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]);
+    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
+}
+
+/// <summary>
 /// Checks that every matrix element is copied to the right destination matrix element.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test, TQTemplateTypes )
 {
     // Preparation
     T EXPECTED_VALUE;
@@ -132,7 +174,7 @@ QTEST_CASE_TEMPLATE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test
 /// <summary>
 /// Checks that a correct transformation matrix is obtained when using common transformations.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -187,7 +229,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_TransformationIsCorrectlyBuiltFromCommonTrans
 /// <summary>
 /// Checks that an identity matrix is obtained when neutral transformations are used.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -229,7 +271,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_IdentityIsObtainedWhenNeutralTransformationsA
 /// <summary>
 /// Checks that the resultant matrix is correct when rotation and scale are neutral but translation is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -266,7 +308,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_CorrectResultObtainedWhenOnlyContainsTranslat
 /// <summary>
 /// Checks that the resultant matrix is correct when translation and scale are neutral but rotation is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -313,7 +355,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_CorrectResultObtainedWhenOnlyContainsRotation
 /// <summary>
 /// Checks that the resultant matrix is correct when translation and rotation are neutral but scale is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -351,7 +393,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_CorrectResultObtainedWhenOnlyContainsScale_Te
 /// <summary>
 /// Checks that zero matrix is obtained when all input objects' components equal zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -386,7 +428,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 /// <summary>
 /// Checks that the result is different when that input quaternion is normalized and when it's not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -408,7 +450,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ResultIsDifferentDependingOnQuaternionNormali
 /// <summary>
 /// Checks that the rotation follows left-handed rules.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_FollowsLeftHandedRules_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -457,7 +499,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// <summary>
 /// Checks that the composition order of the transformations corresponds to scale, then rotation and then translation.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor3_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor4_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -503,7 +545,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_CompositionOrderIsScaleRotationTranslation_Te
 /// <summary>
 /// Checks that a correct transformation matrix is obtained when using common transformations.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -559,7 +601,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_TransformationIsCorrectlyBuiltFromCommonTrans
 /// <summary>
 /// Checks that an identity matrix is obtained when neutral transformations are used.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -602,7 +644,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_IdentityIsObtainedWhenNeutralTransformationsA
 /// <summary>
 /// Checks that the resultant matrix is correct when rotation and scale are neutral but translation is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -640,7 +682,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsTranslat
 /// <summary>
 /// Checks that the resultant matrix is correct when translation and scale are neutral but rotation is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -688,7 +730,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation
 /// <summary>
 /// Checks that the resultant matrix is correct when translation and rotation are neutral but scale is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -727,7 +769,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsScale_Te
 /// <summary>
 /// Checks that zero matrix is obtained when all input objects' components equal zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -763,7 +805,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 /// <summary>
 /// Checks that the result is different when that input quaternion is normalized and when it's not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -786,7 +828,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ResultIsDifferentDependingOnQuaternionNormali
 /// <summary>
 /// Checks that the rotation follows left-handed rules.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_FollowsLeftHandedRules_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -836,7 +878,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// <summary>
 /// Checks that the composition order of the transformations corresponds to scale, then rotation and then translation.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -883,7 +925,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_CompositionOrderIsScaleRotationTranslation_Te
 /// <summary>
 /// Checks that the same result is obtained whether the translation vector's fourth component equals zero or one.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor4_FourthComponentOfTranslationVectorDoesntMatter_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor5_FourthComponentOfTranslationVectorDoesntMatter_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -918,7 +960,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_FourthComponentOfTranslationVectorDoesntMatte
 /// <summary>
 /// Checks that a correct transformation matrix is obtained when using common transformations.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -975,7 +1017,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_TransformationIsCorrectlyBuiltFromCommonTrans
 /// <summary>
 /// Checks that an identity matrix is obtained when neutral transformations are used.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -1019,7 +1061,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_IdentityIsObtainedWhenNeutralTransformationsA
 /// <summary>
 /// Checks that the resultant matrix is correct when rotation and scale are neutral but translation is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -1058,7 +1100,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsTranslat
 /// <summary>
 /// Checks that the resultant matrix is correct when translation and scale are neutral but rotation is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -1107,7 +1149,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation
 /// <summary>
 /// Checks that the resultant matrix is correct when translation and rotation are neutral but scale is not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -1147,7 +1189,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsScale_Te
 /// <summary>
 /// Checks that zero matrix is obtained when all input objects' components equal zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -1184,7 +1226,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 /// <summary>
 /// Checks that the result is different when that input quaternion is normalized and when it's not.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -1210,7 +1252,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_ResultIsDifferentDependingOnQuaternionNormali
 /// <summary>
 /// Checks that the rotation follows left-handed rules.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_FollowsLeftHandedRules_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -1269,7 +1311,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// <summary>
 /// Checks that the composition order of the transformations corresponds to scale, then rotation and then translation.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor5_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor6_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -1327,348 +1369,6 @@ QTEST_CASE_TEMPLATE ( Constructor5_CompositionOrderIsScaleRotationTranslation_Te
 /// <summary>
 /// Checks that a correct transformation matrix is obtained when using common transformations.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor6_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-
-    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
-    const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
-
-    T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
-    EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
-    EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
-    EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
-    FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
-
-    // Execution
-    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
-
-    // Verification
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that an identity matrix is obtained when neutral transformations are used.
-/// </summary>
-QTEST_CASE_TEMPLATE ( Constructor6_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-
-    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
-
-    const T EXPECTED_VALUE = T::GetIdentity();
-
-    // Execution
-    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
-
-    // Verification
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that the resultant matrix is correct when rotation and scale are neutral but translation is not.
-/// </summary>
-QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-
-    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
-
-    T EXPECTED_VALUE = T::GetIdentity();
-    EXPECTED_VALUE.ij[3][0] = TRANSLATION.ij[3][0];
-    EXPECTED_VALUE.ij[3][1] = TRANSLATION.ij[3][1];
-    EXPECTED_VALUE.ij[3][2] = TRANSLATION.ij[3][2];
-
-    // Execution
-    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
-
-    // Verification
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that the resultant matrix is correct when translation and scale are neutral but rotation is not.
-/// </summary>
-QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-
-    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QRotationMatrix3x3 ROTATION(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize());
-    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
-
-    T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
-    EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
-    EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
-    EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
-    FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
-
-    // Execution
-    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
-
-    // Verification
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that the resultant matrix is correct when translation and rotation are neutral but scale is not.
-/// </summary>
-QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-
-    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QScalingMatrix3x3 SCALE(SQFloat::_2, SQFloat::_3, SQFloat::_4);
-
-    T EXPECTED_VALUE = T::GetIdentity();
-    EXPECTED_VALUE.ij[0][0] = SCALE.ij[0][0];
-    EXPECTED_VALUE.ij[1][1] = SCALE.ij[1][1];
-    EXPECTED_VALUE.ij[2][2] = SCALE.ij[2][2];
-    FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
-
-    // Execution
-    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
-
-    // Verification
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that zero matrix is obtained when all input objects' components equal zero.
-/// </summary>
-QTEST_CASE_TEMPLATE ( Constructor6_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
-
-    const T TRANSLATION = T::GetZeroMatrix();
-    const QMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
-    const QMatrix3x3 SCALE = QMatrix3x3::GetZeroMatrix();
-
-    T EXPECTED_VALUE = T::GetZeroMatrix();
-    FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
-
-    // Execution
-    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
-
-    // Verification
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that the rotation follows left-handed rules.
-/// </summary>
-QTEST_CASE_TEMPLATE ( Constructor6_FollowsLeftHandedRules_Test, TQTemplateTypes )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QVector3;
-    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
-
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        const float_q ROTATION_ANGLE = SQAngle::_90;
-    #else
-        const float_q ROTATION_ANGLE = SQAngle::_HalfPi;
-    #endif
-
-    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
-
-    const QRotationMatrix3x3 ROTATION_QUATERNION_AROUND_X(ROTATION_ANGLE, SQFloat::_0, SQFloat::_0);
-    const QRotationMatrix3x3 ROTATION_QUATERNION_AROUND_Y(SQFloat::_0, ROTATION_ANGLE, SQFloat::_0);
-    const QRotationMatrix3x3 ROTATION_QUATERNION_AROUND_Z(SQFloat::_0, SQFloat::_0, ROTATION_ANGLE);
-
-    const QTransformationMatrix<T> ROTATION_AROUND_X(TRANSLATION, ROTATION_QUATERNION_AROUND_X, SCALE);
-    const QTransformationMatrix<T> ROTATION_AROUND_Y(TRANSLATION, ROTATION_QUATERNION_AROUND_Y, SCALE);
-    const QTransformationMatrix<T> ROTATION_AROUND_Z(TRANSLATION, ROTATION_QUATERNION_AROUND_Z, SCALE);
-
-    const QVector3 EXPECTED_POSITION_AFTER_ROTATION_AROUND_X(SQFloat::_0, SQFloat::_0, SQFloat::_1);
-    const QVector3 EXPECTED_POSITION_AFTER_ROTATION_AROUND_Y(SQFloat::_0, SQFloat::_0, SQFloat::_1);
-    const QVector3 EXPECTED_POSITION_AFTER_ROTATION_AROUND_Z(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
-
-    const QVector3 POSITION_BEFORE_ROTATION_AROUND_X(SQFloat::_0, SQFloat::_1, SQFloat::_0);
-    const QVector3 POSITION_BEFORE_ROTATION_AROUND_Y(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
-    const QVector3 POSITION_BEFORE_ROTATION_AROUND_Z(SQFloat::_0, SQFloat::_1, SQFloat::_0);
-
-    // Execution
-    QVector3 vPoint1UT = POSITION_BEFORE_ROTATION_AROUND_X.Transform(ROTATION_AROUND_X);
-    QVector3 vPoint2UT = POSITION_BEFORE_ROTATION_AROUND_Y.Transform(ROTATION_AROUND_Y);
-    QVector3 vPoint3UT = POSITION_BEFORE_ROTATION_AROUND_Z.Transform(ROTATION_AROUND_Z);
-
-    // Verification
-    BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.x) );
-    BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.y) );
-    BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.z) );
-    BOOST_CHECK( SQFloat::AreEqual(vPoint2UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Y.x) );
-    BOOST_CHECK( SQFloat::AreEqual(vPoint2UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Y.y) );
-    BOOST_CHECK( SQFloat::AreEqual(vPoint2UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Y.z) );
-    BOOST_CHECK( SQFloat::AreEqual(vPoint3UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Z.x) );
-    BOOST_CHECK( SQFloat::AreEqual(vPoint3UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Z.y) );
-    BOOST_CHECK( SQFloat::AreEqual(vPoint3UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Z.z) );
-}
-
-/// <summary>
-/// Checks that the composition order of the transformations corresponds to scale, then rotation and then translation.
-/// </summary>
-QTEST_CASE_TEMPLATE ( Constructor6_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-
-    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
-    const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
-
-    const T NEUTRAL_TRANSLATION = T::GetZeroMatrix();
-    const QRotationMatrix3x3 NEUTRAL_ROTATION = QRotationMatrix3x3::GetIdentity();
-    const QScalingMatrix3x3 NEUTRAL_SCALE = QScalingMatrix3x3::GetIdentity();
-
-    const QTransformationMatrix<T> TRANSLATION_MATRIX(TRANSLATION, NEUTRAL_ROTATION, NEUTRAL_SCALE);
-    const QTransformationMatrix<T> ROTATION_MATRIX(NEUTRAL_TRANSLATION, ROTATION, NEUTRAL_SCALE);
-    const QTransformationMatrix<T> SCALE_MATRIX(NEUTRAL_TRANSLATION, NEUTRAL_ROTATION, SCALE);
-
-    const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
-
-    // Execution
-    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
-
-    // Verification
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
-    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
-    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
-}
-
-/// <summary>
-/// Checks that a correct transformation matrix is obtained when using common transformations.
-/// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
     // Preparation
@@ -1677,7 +1377,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_TransformationIsCorrectlyBuiltFromCommonTrans
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
@@ -1725,7 +1425,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_IdentityIsObtainedWhenNeutralTransformationsA
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
@@ -1760,7 +1460,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsTranslat
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
@@ -1799,7 +1499,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsRotation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QRotationMatrix3x3 ROTATION(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize());
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
@@ -1847,7 +1547,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsScale_Te
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QScalingMatrix3x3 SCALE(SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
@@ -1928,7 +1628,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_FollowsLeftHandedRules_Test, TQTemplateTypes 
         const float_q ROTATION_ANGLE = SQAngle::_HalfPi;
     #endif
 
-    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     const QRotationMatrix3x3 ROTATION_QUATERNION_AROUND_X(ROTATION_ANGLE, SQFloat::_0, SQFloat::_0);
@@ -1968,6 +1668,348 @@ QTEST_CASE_TEMPLATE ( Constructor7_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// Checks that the composition order of the transformations corresponds to scale, then rotation and then translation.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
+
+    const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
+    const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
+
+    const T NEUTRAL_TRANSLATION = T::GetZeroMatrix();
+    const QRotationMatrix3x3 NEUTRAL_ROTATION = QRotationMatrix3x3::GetIdentity();
+    const QScalingMatrix3x3 NEUTRAL_SCALE = QScalingMatrix3x3::GetIdentity();
+
+    const QTransformationMatrix<T> TRANSLATION_MATRIX(TRANSLATION, NEUTRAL_ROTATION, NEUTRAL_SCALE);
+    const QTransformationMatrix<T> ROTATION_MATRIX(NEUTRAL_TRANSLATION, ROTATION, NEUTRAL_SCALE);
+    const QTransformationMatrix<T> SCALE_MATRIX(NEUTRAL_TRANSLATION, NEUTRAL_ROTATION, SCALE);
+
+    const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
+
+    // Execution
+    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that a correct transformation matrix is obtained when using common transformations.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor8_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
+
+    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
+    const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
+
+    T EXPECTED_VALUE;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
+    EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
+    EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
+    FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+
+    // Execution
+    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that an identity matrix is obtained when neutral transformations are used.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor8_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
+
+    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+
+    const T EXPECTED_VALUE = T::GetIdentity();
+
+    // Execution
+    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the resultant matrix is correct when rotation and scale are neutral but translation is not.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
+
+    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+
+    T EXPECTED_VALUE = T::GetIdentity();
+    EXPECTED_VALUE.ij[3][0] = TRANSLATION.ij[3][0];
+    EXPECTED_VALUE.ij[3][1] = TRANSLATION.ij[3][1];
+    EXPECTED_VALUE.ij[3][2] = TRANSLATION.ij[3][2];
+
+    // Execution
+    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the resultant matrix is correct when translation and scale are neutral but rotation is not.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
+
+    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QRotationMatrix3x3 ROTATION(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize());
+    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+
+    T EXPECTED_VALUE;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
+    EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
+    EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+
+    // Execution
+    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the resultant matrix is correct when translation and rotation are neutral but scale is not.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
+
+    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QRotationMatrix3x3 ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QScalingMatrix3x3 SCALE(SQFloat::_2, SQFloat::_3, SQFloat::_4);
+
+    T EXPECTED_VALUE = T::GetIdentity();
+    EXPECTED_VALUE.ij[0][0] = SCALE.ij[0][0];
+    EXPECTED_VALUE.ij[1][1] = SCALE.ij[1][1];
+    EXPECTED_VALUE.ij[2][2] = SCALE.ij[2][2];
+    FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+
+    // Execution
+    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that zero matrix is obtained when all input objects' components equal zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor8_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
+
+    const T TRANSLATION = T::GetZeroMatrix();
+    const QMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
+    const QMatrix3x3 SCALE = QMatrix3x3::GetZeroMatrix();
+
+    T EXPECTED_VALUE = T::GetZeroMatrix();
+    FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
+
+    // Execution
+    QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
+    CheckFourthColumnIfExists(matrixUT, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that the rotation follows left-handed rules.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor8_FollowsLeftHandedRules_Test, TQTemplateTypes )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
+    using Kinesis::QuimeraEngine::Tools::Math::QVector3;
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        const float_q ROTATION_ANGLE = SQAngle::_90;
+    #else
+        const float_q ROTATION_ANGLE = SQAngle::_HalfPi;
+    #endif
+
+    const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
+
+    const QRotationMatrix3x3 ROTATION_QUATERNION_AROUND_X(ROTATION_ANGLE, SQFloat::_0, SQFloat::_0);
+    const QRotationMatrix3x3 ROTATION_QUATERNION_AROUND_Y(SQFloat::_0, ROTATION_ANGLE, SQFloat::_0);
+    const QRotationMatrix3x3 ROTATION_QUATERNION_AROUND_Z(SQFloat::_0, SQFloat::_0, ROTATION_ANGLE);
+
+    const QTransformationMatrix<T> ROTATION_AROUND_X(TRANSLATION, ROTATION_QUATERNION_AROUND_X, SCALE);
+    const QTransformationMatrix<T> ROTATION_AROUND_Y(TRANSLATION, ROTATION_QUATERNION_AROUND_Y, SCALE);
+    const QTransformationMatrix<T> ROTATION_AROUND_Z(TRANSLATION, ROTATION_QUATERNION_AROUND_Z, SCALE);
+
+    const QVector3 EXPECTED_POSITION_AFTER_ROTATION_AROUND_X(SQFloat::_0, SQFloat::_0, SQFloat::_1);
+    const QVector3 EXPECTED_POSITION_AFTER_ROTATION_AROUND_Y(SQFloat::_0, SQFloat::_0, SQFloat::_1);
+    const QVector3 EXPECTED_POSITION_AFTER_ROTATION_AROUND_Z(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
+
+    const QVector3 POSITION_BEFORE_ROTATION_AROUND_X(SQFloat::_0, SQFloat::_1, SQFloat::_0);
+    const QVector3 POSITION_BEFORE_ROTATION_AROUND_Y(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QVector3 POSITION_BEFORE_ROTATION_AROUND_Z(SQFloat::_0, SQFloat::_1, SQFloat::_0);
+
+    // Execution
+    QVector3 vPoint1UT = POSITION_BEFORE_ROTATION_AROUND_X.Transform(ROTATION_AROUND_X);
+    QVector3 vPoint2UT = POSITION_BEFORE_ROTATION_AROUND_Y.Transform(ROTATION_AROUND_Y);
+    QVector3 vPoint3UT = POSITION_BEFORE_ROTATION_AROUND_Z.Transform(ROTATION_AROUND_Z);
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vPoint2UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Y.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vPoint2UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Y.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vPoint2UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Y.z) );
+    BOOST_CHECK( SQFloat::AreEqual(vPoint3UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Z.x) );
+    BOOST_CHECK( SQFloat::AreEqual(vPoint3UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Z.y) );
+    BOOST_CHECK( SQFloat::AreEqual(vPoint3UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_Z.z) );
+}
+
+/// <summary>
+/// Checks that the composition order of the transformations corresponds to scale, then rotation and then translation.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Constructor8_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;

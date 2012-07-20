@@ -42,10 +42,18 @@ public:
     }
 
     /// <summary>
-    /// Copy constructor.
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="ray">[IN] The 2D ray from which we want to create a copy in the resident 2D ray.</param>
+	inline QRay2D(const QRay2D &ray) : QRay<QVector2, QVector2>(ray)
+	{
+	}
+
+    /// <summary>
+    /// Base type constructor.
     /// </summary>
-    /// <param name="ray">[IN] The ray in which we want resident ray to be based.</param>
-    inline QRay2D(const QRay<QVector2, QVector2> &ray) : QRay<QVector2, QVector2>(ray)
+    /// <param name="ray">[IN] The 2D ray in which we want resident 2D ray to be based.</param>
+    inline QRay2D(const QBaseRay<QVector2, QVector2> &ray) : QRay<QVector2, QVector2>(ray)
     {
     }
 

@@ -64,7 +64,15 @@ public:
     }
 
     /// <summary>
-    /// Copy constructor.
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
+	inline QPlane(const QPlane &plane) : QBasePlane(plane)
+	{
+	}
+
+    /// <summary>
+    /// Base type constructor.
     /// </summary>
     /// <param name="plane">The plane on which we base the resident plane.</param>
     inline QPlane(const QBasePlane &plane) : QBasePlane(plane)
@@ -627,9 +635,9 @@ public:
     /// </returns>
     inline QPlane Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
     {
-        return QPlane(this->a, 
-                      this->b, 
-                      this->c, 
+        return QPlane(this->a,
+                      this->b,
+                      this->c,
                       this->d - (this->a * translation.ij[3][0] + this->b * translation.ij[3][1] + this->c * translation.ij[3][2]));
     }
 
@@ -643,9 +651,9 @@ public:
     /// </returns>
     inline QPlane Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
     {
-        return QPlane(this->a, 
-                      this->b, 
-                      this->c, 
+        return QPlane(this->a,
+                      this->b,
+                      this->c,
                       this->d - (this->a * translation.ij[3][0] + this->b * translation.ij[3][1] + this->c * translation.ij[3][2]));
     }
 
@@ -660,9 +668,9 @@ public:
     /// </returns>
     inline QPlane Translate(const QBaseVector3 &vTranslation) const
     {
-        return QPlane(this->a, 
-                      this->b, 
-                      this->c, 
+        return QPlane(this->a,
+                      this->b,
+                      this->c,
                       this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
     }
 
@@ -677,9 +685,9 @@ public:
     /// </returns>
     inline QPlane Translate(const QBaseVector4 &vTranslation) const
     {
-        return QPlane(this->a, 
-                      this->b, 
-                      this->c, 
+        return QPlane(this->a,
+                      this->b,
+                      this->c,
                       this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
     }
 
@@ -696,9 +704,9 @@ public:
     /// </returns>
     inline QPlane Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
     {
-        return QPlane(this->a, 
-                      this->b, 
-                      this->c, 
+        return QPlane(this->a,
+                      this->b,
+                      this->c,
                       this->d - (this->a * fTranslationX + this->b * fTranslationY + this->c * fTranslationZ));
     }
 
@@ -823,7 +831,7 @@ public:
     {
         return this->RotateWithPivotImp(rotation, vPivot);
     }
-    
+
     /// <summary>
     /// Applies the scale contained in the provided vector to the resident plane,
     /// acting the given point as pivot of scale.
@@ -997,7 +1005,7 @@ public:
     {
         return this->TransformWithPivotImp(transformation, vPivot);
     }
-    
+
     /// <summary>
     /// Converts plane into a string with the following format:<br>
     /// "PL($a,$b,$c,$d)".<br>

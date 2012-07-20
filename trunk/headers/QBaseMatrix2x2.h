@@ -3,6 +3,8 @@
 #ifndef __QBASEMATRIX2X2__
 #define __QBASEMATRIX2X2__
 
+#include <memory>
+
 #include "SQFloat.h"
 #include "SQVF32.h"
 #include "QConvertible.h"
@@ -37,6 +39,15 @@ public:
 		ij[0][1] = SQFloat::_0;
 		ij[1][0] = SQFloat::_0;
 		ij[1][1] = SQFloat::_0;
+	}
+
+	/// <summary>
+	/// Copy constructor. Copies attributes from given matrix.
+	/// </summary>
+	/// <param name="matrix">[IN] The 2x2 matrix from which we want to create a copy in the resident matrix.</param>
+	inline QBaseMatrix2x2(const QBaseMatrix2x2 &matrix)
+	{
+        memcpy(this->ij, matrix.ij, sizeof(float_q) * 4);
 	}
 
 	/// <summary>

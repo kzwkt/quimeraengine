@@ -48,15 +48,22 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
+    /// <param name="matrix">[IN] The space conversion matrix from which we want to create a copy in the resident space conversion matrix.</param>
+    inline QSpaceConversionMatrix(const QSpaceConversionMatrix &matrix) : QMatrix4x4(matrix)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
-    /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline explicit QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
+    /// <param name="matrix">[IN] The 4x4 matrix in which we want the resident space conversion matrix to be based.</param>
+    inline QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
     {
     }
-
 
     // METHODS
     // ---------------
@@ -163,7 +170,7 @@ public:
     /// The switched matrix.
     /// </returns>
     QSpaceConversionMatrix SwitchHandConventionWorldSpaceMatrix() const;
-    
+
     /// <summary>
     /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
     /// Remember that Quimera Engine works with left-hand convention by default.<br>
@@ -189,7 +196,7 @@ public:
         switchedMatrix.ij[2][3] = -this->ij[2][3];
         return switchedMatrix;
     }
-    
+
 protected:
 
     // Hidden method to prevent it could be used.

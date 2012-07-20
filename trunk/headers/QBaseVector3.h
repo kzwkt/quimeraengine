@@ -36,6 +36,17 @@ public:
     {
     }
 
+    /// <summary>
+	/// Copy constructor. Copies attributes from given vector.
+	/// </summary>
+	/// <param name="vVector">[IN] The 3D vector from which we want to create a copy in the resident vector.</param>
+	inline QBaseVector3(const QBaseVector3 &vVector)
+	{
+	    this->x = vVector.x;
+	    this->y = vVector.y;
+	    this->z = vVector.z;
+	}
+
 	/// <summary>
 	/// Constructor from a floating point value for each component.
 	/// </summary>

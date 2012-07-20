@@ -44,6 +44,14 @@ public:
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
+	/// <param name="hexahedron">[IN] The hexahedron from which we want to create a copy in the resident hexahedron.</param>
+	inline QHexahedron(const QHexahedron<VectorType> &hexahedron) : QBaseHexahedron<VectorType>(hexahedron)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
 	/// <param name="hexahedron">[IN] The hexahedron in which we want resident hexahedron to be based.</param>
 	inline QHexahedron(const QBaseHexahedron<VectorType> &hexahedron) : QBaseHexahedron<VectorType>(hexahedron)
     {

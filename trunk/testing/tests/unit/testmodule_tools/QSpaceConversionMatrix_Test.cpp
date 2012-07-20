@@ -50,10 +50,63 @@ QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
     BOOST_CHECK_EQUAL(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]);
 }
 
+/// Checks if copy constructor copies every matrix element properly.
+/// </summary>
+QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
+
+    const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_3;
+    const float_q EXPECTED_VALUE_FOR_03 = SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_5;
+    const float_q EXPECTED_VALUE_FOR_11 = SQFloat::_6;
+    const float_q EXPECTED_VALUE_FOR_12 = SQFloat::_7;
+    const float_q EXPECTED_VALUE_FOR_13 = SQFloat::_8;
+    const float_q EXPECTED_VALUE_FOR_20 = SQFloat::_9;
+    const float_q EXPECTED_VALUE_FOR_21 = SQFloat::_10;
+    const float_q EXPECTED_VALUE_FOR_22 = SQFloat::_10+SQFloat::_1;
+    const float_q EXPECTED_VALUE_FOR_23 = SQFloat::_10+SQFloat::_2;
+    const float_q EXPECTED_VALUE_FOR_30 = SQFloat::_10+SQFloat::_3;
+    const float_q EXPECTED_VALUE_FOR_31 = SQFloat::_10+SQFloat::_4;
+    const float_q EXPECTED_VALUE_FOR_32 = SQFloat::_10+SQFloat::_5;
+    const float_q EXPECTED_VALUE_FOR_33 = SQFloat::_10+SQFloat::_6;
+
+    const QBaseMatrix4x4 EXPECTED_VALUE(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02, EXPECTED_VALUE_FOR_03,
+                                        EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12, EXPECTED_VALUE_FOR_13,
+                                        EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22, EXPECTED_VALUE_FOR_23,
+                                        EXPECTED_VALUE_FOR_30, EXPECTED_VALUE_FOR_31, EXPECTED_VALUE_FOR_32, EXPECTED_VALUE_FOR_33);
+
+    const QSpaceConversionMatrix MATRIX_TO_COPY(EXPECTED_VALUE);
+
+    // Execution
+    QSpaceConversionMatrix matrixUT = MATRIX_TO_COPY;
+
+    // Verification
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][3], EXPECTED_VALUE_FOR_03);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE_FOR_12);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][3], EXPECTED_VALUE_FOR_13);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE_FOR_20);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE_FOR_21);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE_FOR_22);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][3], EXPECTED_VALUE_FOR_23);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][0], EXPECTED_VALUE_FOR_30);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][1], EXPECTED_VALUE_FOR_31);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE_FOR_32);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][3], EXPECTED_VALUE_FOR_33);
+}
+
 /// <summary>
 /// Checks that every matrix element is copied to the right destination matrix element.
 /// </summary>
-QTEST_CASE ( Constructor2_EveryElementCopiedToCorrespondingElement_Test )
+QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
@@ -2307,7 +2360,7 @@ QTEST_CASE( SetViewSpaceMatrix1_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     const QVector3 UP_DIRECTION = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 POINT_OF_VIEW = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QVector3 TARGET = QVector3(SQFloat::_7, SQFloat::_8, SQFloat::_9);
-    
+
     // Reference values obtained by using DirectX SDK:
     // D3DXVECTOR3 vUp(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     // D3DXVECTOR3 vEye(SQFloat::_4, SQFloat::_5, SQFloat::_6);
@@ -2319,7 +2372,7 @@ QTEST_CASE( SetViewSpaceMatrix1_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
                                                                (float_q)0.81649655f,  SQFloat::_0,           (float_q)0.57735026f, SQFloat::_0,
                                                                (float_q)-0.40824828f, (float_q)0.70710671f,  (float_q)0.57735026f, SQFloat::_0,
                                                                SQFloat::_0,           (float_q)-1.4142137f,  (float_q)-8.6602535f, SQFloat::_1));
-    
+
     // Execution
     QSpaceConversionMatrix matrixUT;
     matrixUT.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
@@ -2420,7 +2473,7 @@ QTEST_CASE( SetViewSpaceMatrix2_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     const QVector4 UP_DIRECTION = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_10);
     const QVector4 POINT_OF_VIEW = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, (float_q)11.0f);
     const QVector4 TARGET = QVector4(SQFloat::_7, SQFloat::_8, SQFloat::_9, (float_q)12.0f);
-    
+
     // Reference values obtained by using DirectX SDK:
     // D3DXVECTOR3 vUp(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     // D3DXVECTOR3 vEye(SQFloat::_4, SQFloat::_5, SQFloat::_6);
@@ -2432,7 +2485,7 @@ QTEST_CASE( SetViewSpaceMatrix2_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
                                                                (float_q)0.81649655f,  SQFloat::_0,           (float_q)0.57735026f, SQFloat::_0,
                                                                (float_q)-0.40824828f, (float_q)0.70710671f,  (float_q)0.57735026f, SQFloat::_0,
                                                                SQFloat::_0,           (float_q)-1.4142137f,  (float_q)-8.6602535f, SQFloat::_1));
-    
+
     // Execution
     QSpaceConversionMatrix matrixUT;
     matrixUT.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
@@ -2532,7 +2585,7 @@ QTEST_CASE( SetProjectionSpaceMatrix_ProjectionMatrixIsCorrectlyBuiltFromCommonI
     const float_q FAR_CLIP_PLANE = SQFloat::_2;
     const float_q VERTICAL_FOV = SQFloat::_3;
     const float_q ASPECT_RATIO = SQFloat::_4;
-    
+
     // Reference values obtained by using DirectX SDK:
     // float_q fNearClipPlane = SQFloat::_1;
     // float_q fFarClipPlane = SQFloat::_2;
@@ -2545,7 +2598,7 @@ QTEST_CASE( SetProjectionSpaceMatrix_ProjectionMatrixIsCorrectlyBuiltFromCommonI
                                                                (float_q)SQFloat::_0,  (float_q)0.070914842f, SQFloat::_0,  SQFloat::_0,
                                                                SQFloat::_0,           SQFloat::_0,           SQFloat::_2,  SQFloat::_1,
                                                                SQFloat::_0,           SQFloat::_0,           -SQFloat::_2, SQFloat::_0));
-    
+
     // Execution
     QSpaceConversionMatrix matrixUT;
     matrixUT.SetProjectionSpaceMatrix(NEAR_CLIP_PLANE, FAR_CLIP_PLANE, ASPECT_RATIO, VERTICAL_FOV);
@@ -2579,7 +2632,7 @@ QTEST_CASE( SetProjectionSpaceMatrix_AssertionFailsWhenNearAndFarClipPlanesAreTh
     const float_q FAR_CLIP_PLANE = NEAR_CLIP_PLANE;
     const float_q VERTICAL_FOV = SQFloat::_3;
     const float_q ASPECT_RATIO = SQFloat::_4;
-    
+
     const bool EXPECTED_VALUE = true;
 
     // Execution
@@ -2609,7 +2662,7 @@ QTEST_CASE( SetProjectionSpaceMatrix_AssertionFailsWhenVerticalFovEqualsZero_Tes
     const float_q FAR_CLIP_PLANE = SQFloat::_1;
     const float_q VERTICAL_FOV = SQFloat::_0;
     const float_q ASPECT_RATIO = SQFloat::_4;
-    
+
     const bool EXPECTED_VALUE = true;
 
     // Execution
@@ -2639,7 +2692,7 @@ QTEST_CASE( SetProjectionSpaceMatrix_AssertionFailsWhenAspectRatioEqualsZero_Tes
     const float_q FAR_CLIP_PLANE = SQFloat::_1;
     const float_q VERTICAL_FOV = SQFloat::_3;
     const float_q ASPECT_RATIO = SQFloat::_0;
-    
+
     const bool EXPECTED_VALUE = true;
 
     // Execution
@@ -2776,7 +2829,7 @@ QTEST_CASE( SwitchHandConventionViewSpaceMatrix_HandRulesAreCorrectlySwitched_Te
     const QVector3 UP_DIRECTION = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 POINT_OF_VIEW = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QVector3 TARGET = QVector3(SQFloat::_7, SQFloat::_8, SQFloat::_9);
-    
+
     // Reference values obtained by using DirectX SDK:
     // D3DXVECTOR3 vUp(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     // D3DXVECTOR3 vEye(SQFloat::_4, SQFloat::_5, SQFloat::_6);
@@ -2791,7 +2844,7 @@ QTEST_CASE( SwitchHandConventionViewSpaceMatrix_HandRulesAreCorrectlySwitched_Te
                                                                (float_q)-0.81649655f,  SQFloat::_0,           (float_q)-0.57735026f, SQFloat::_0,
                                                                (float_q)0.40824828f, (float_q)0.70710671f,  (float_q)-0.57735026f, SQFloat::_0,
                                                                SQFloat::_0,           (float_q)-1.4142137f,  (float_q)8.6602554f, SQFloat::_1));
-    
+
     // Execution
     QSpaceConversionMatrix matrixUT = ORIGINAL_VALUE.SwitchHandConventionViewSpaceMatrix();
 
@@ -2830,7 +2883,7 @@ QTEST_CASE( SwitchHandConventionViewSpaceMatrix_SwitchingIsReversible_Test )
 
     QSpaceConversionMatrix ORIGINAL_VALUE;
     ORIGINAL_VALUE.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
-    
+
     const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)-0.40824845f, (float_q)-0.70710713f, (float_q)0.57735032f, SQFloat::_0,
                                                                (float_q)0.81649691f,  SQFloat::_0,           (float_q)0.57735032f, SQFloat::_0,
                                                                (float_q)-0.40824845f, (float_q)0.70710713f,  (float_q)0.57735032f, SQFloat::_0,
@@ -2870,7 +2923,7 @@ QTEST_CASE( SwitchHandConventionProjectionSpaceMatrix_HandRulesAreCorrectlySwitc
     const float_q FAR_CLIP_PLANE = SQFloat::_2;
     const float_q VERTICAL_FOV = SQFloat::_3;
     const float_q ASPECT_RATIO = SQFloat::_4;
-    
+
     // Reference values obtained by using DirectX SDK:
     // float_q fNearClipPlane = SQFloat::_1;
     // float_q fFarClipPlane = SQFloat::_2;

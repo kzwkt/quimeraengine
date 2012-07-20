@@ -49,6 +49,22 @@ public:
     }
 
     /// <summary>
+	/// Copy constructor. Copies attributes from given dual quaternion.
+	/// </summary>
+	/// <param name="dualQuat">[IN] The dual quaternion from which we want to create a copy in the resident dual quaternion.</param>
+	inline QBaseDualQuaternion(const QBaseDualQuaternion &dualQuat)
+	{
+	    this->r.x = dualQuat.r.x;
+	    this->d.x = dualQuat.d.x;
+	    this->r.y = dualQuat.r.y;
+	    this->d.y = dualQuat.d.y;
+	    this->r.z = dualQuat.r.z;
+	    this->d.z = dualQuat.d.z;
+	    this->r.w = dualQuat.r.w;
+        this->d.w = dualQuat.d.w;
+    }
+
+    /// <summary>
     /// Constructor from two quaternions, one to initialize the non-dual part and another to do it with the dual part.
     /// </summary>
     /// <param name="qReal">[IN] Quaternion which is the non-dual part of the dual quaternion.</param>

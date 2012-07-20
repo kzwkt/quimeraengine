@@ -48,8 +48,16 @@ public:
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
-	/// <param name="orb">[IN] The orb in which we want resident orb to be based.</param>
-	inline QCircle(const QOrb<QVector2> &orb) : QOrb<QVector2>(orb)
+	/// <param name="circle">[IN] The circle from which we want to create a copy in the resident circle.</param>
+	inline QCircle(const QCircle &circle) : QOrb<QVector2>(circle)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
+	/// <param name="orb">[IN] The orb in which we want resident circle to be based.</param>
+	inline QCircle(const QBaseOrb<QVector2> &orb) : QOrb<QVector2>(orb)
     {
     }
 

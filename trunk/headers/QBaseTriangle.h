@@ -40,6 +40,14 @@ public:
     {
     }
 
+    /// <summary>
+	/// Copy constructor.
+	/// </summary>
+	/// <param name="triangle">[IN] The triangle from which we want to create a copy in the resident triangle.</param>
+	inline QBaseTriangle(const QBaseTriangle &triangle) : A(triangle.A), B(triangle.B), C(triangle.C)
+	{
+	}
+
 	/// <summary>
 	/// Constructor from three vectors.
 	/// </summary>

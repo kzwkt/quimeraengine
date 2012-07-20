@@ -36,12 +36,20 @@ public:
     inline QQuadrilateral()
     {
     }
-    
+
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
-	/// <param name="segment">[IN] The quadrilateral in which we want resident quadrilateral to be based.</param>
+	/// <param name="quad">[IN] The quadrilateral from which we want to create a copy in the resident quadrilateral.</param>
 	inline QQuadrilateral(const QQuadrilateral &quad) : QBaseQuadrilateral(quad)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
+	/// <param name="quad">[IN] The quadrilateral in which we want resident quadrilateral to be based.</param>
+	inline QQuadrilateral(const QBaseQuadrilateral &quad) : QBaseQuadrilateral(quad)
     {
     }
 
@@ -205,7 +213,7 @@ public:
         SQPoint::Rotate(fRotationAngle, auxQuadrilateral.AsPtr<QVector2>(), 4);
         return auxQuadrilateral;
 	}
-    
+
 	/// <summary>
 	/// This method performs a translation of the resident quadrilateral given by the provided vector.
 	/// </summary>
@@ -263,7 +271,7 @@ public:
         SQPoint::Scale(fScaleX, fScaleY, auxQuadrilateral.AsPtr<QVector2>(), 4);
         return auxQuadrilateral;
 	}
-    
+
 	/// <summary>
 	/// Receives a transformation matrix and applies the transformations to the resident quadrilateral.<br>
 	/// The transformation pivot is the origin of coordinates.

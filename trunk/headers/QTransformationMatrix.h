@@ -61,6 +61,14 @@ public:
     /// <summary>
     /// Copy constructor.
     /// </summary>
+    /// <param name="matrix">[IN] The matrix from which we want to create a copy in the resident matrix.</param>
+    inline QTransformationMatrix(const QTransformationMatrix<MatrixType> &matrix) : MatrixType(matrix)
+    {
+    }
+
+    /// <summary>
+    /// Base type constructor.
+    /// </summary>
     /// <remarks>
     /// If you use this constructor, be sure that you are constructing a transformation matrix,
     /// otherwise unpredictable behavior could happen.
@@ -120,7 +128,7 @@ public:
                          fRotationX, fRotationY, fRotationZ, fRotationw,
                          fScaleX, fScaleY, fScaleZ);
     }
-    
+
     /// <summary>
     /// Constructor from a translation matrix, a 3x3 rotation matrix and a 3x3 scale matrix.
     /// </summary>
@@ -408,9 +416,9 @@ public:
                this->ij[0][0] * this->ij[1][2] * this->ij[2][1] -
                this->ij[0][1] * this->ij[1][0] * this->ij[2][2];
     }
-    
+
     /// <summary>
-    /// Calculates whether the matrix has inverse or not. 
+    /// Calculates whether the matrix has inverse or not.
     /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
     /// <returns>

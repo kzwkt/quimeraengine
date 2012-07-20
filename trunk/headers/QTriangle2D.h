@@ -36,12 +36,20 @@ public:
 	inline QTriangle2D()
     {
     }
-    
-	/// <summary>
+
+    /// <summary>
 	/// Copy constructor.
 	/// </summary>
-	/// <param name="triangle">[IN] The 2D triangle in which we want resident triangle to be based.</param>
+	/// <param name="triangle">[IN] The 2D triangle from which we want to create a copy in the resident 2D triangle.</param>
 	inline QTriangle2D(const QTriangle2D &triangle) : QTriangle<QVector2>(triangle)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
+	/// <param name="triangle">[IN] The 2D triangle in which we want resident 2D triangle to be based.</param>
+	inline QTriangle2D(const QBaseTriangle<QVector2> &triangle) : QTriangle<QVector2>(triangle)
     {
     }
 

@@ -53,8 +53,16 @@ public:
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
-	/// <param name="segment">[IN] The segment in which we want resident segment to be based.</param>
+	/// <param name="segment">[IN] The segment from which we want to create a copy in the resident segment.</param>
 	inline QLineSegment(const QLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
+    {
+    }
+
+	/// <summary>
+	/// Base type constructor.
+	/// </summary>
+	/// <param name="segment">[IN] The segment in which we want resident segment to be based.</param>
+	inline QLineSegment(const QBaseLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
     {
     }
 
@@ -66,15 +74,6 @@ public:
 	inline QLineSegment(const VectorType &vA, const VectorType &vB) : QBaseLineSegment<VectorType>(vA,vB)
     {
     }
-
-	/// <summary>
-    /// Constructor from a line segment.
-    /// </summary>
-    /// <param name="segment">[IN] Line segment containing the two endpoints.</param>
-	inline explicit QLineSegment(const QBaseLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
-    {
-    }
-
 
     // PROPERTIES
     // ---------------
