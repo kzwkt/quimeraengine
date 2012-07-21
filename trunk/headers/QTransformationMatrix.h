@@ -564,7 +564,7 @@ public:
     /// Extracts the rotation from the transformation matrix, obtaining the Euler angles.
     /// </summary>
     /// <remarks>
-    /// Be aware of getting the rotation of transformation matrices which were compound of negative scales, it may
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
     /// cause that obtained angles don't match those used to build the matrix.
     /// </remarks>
     /// <param name="fRotationAngleX">[OUT] Resultant rotation around X axis.</param>
@@ -580,7 +580,7 @@ public:
     /// Extracts the rotation from the transformation matrix, obtaining a rotation quaternion.
     /// </summary>
     /// <remarks>
-    /// Be aware of getting the rotation of transformation matrices which were compound of negative scales, it may
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
     /// cause that obtained quaternion doesn't match that used to build the matrix.
     /// </remarks>
     /// <param name="qRotation">[OUT] Quaternion where to store the extracted rotation.</param>
@@ -604,6 +604,10 @@ public:
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated variables.
     /// </summary>
+    /// <remarks>
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
+    /// cause that obtained quaternion doesn't match that used to build the matrix.
+    /// </remarks>
     /// <param name="vTranslation">[OUT] Vector to store the translation.</param>
     /// <param name="qRotation">[OUT] Quaternion to store the rotation.</param>
     /// <param name="vScale">[OUT] Vector to store the scale.</param>
@@ -617,6 +621,10 @@ public:
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated variables.
     /// </summary>
+    /// <remarks>
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
+    /// cause that obtained quaternion doesn't match that used to build the matrix.
+    /// </remarks>
     /// <param name="vTranslation">[OUT] Vector to store the translation.</param>
     /// <param name="qRotation">[OUT] Quaternion to store the rotation.</param>
     /// <param name="vScale">[OUT] Vector to store the scale.</param>
@@ -630,6 +638,10 @@ public:
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated transformation matrices.
     /// </summary>
+    /// <remarks>
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
+    /// cause that obtained rotation matrix doesn't match that used to build the matrix.
+    /// </remarks>
     /// <param name="translation">[OUT] Matrix to store the translation.</param>
     /// <param name="rotation">[OUT] Matrix to store the rotation.</param>
     /// <param name="scale">[OUT] Matrix to store the scale.</param>
@@ -643,6 +655,10 @@ public:
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated transformation matrices.
     /// </summary>
+    /// <remarks>
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
+    /// cause that obtained rotation matrix doesn't match that used to build the matrix.
+    /// </remarks>
     /// <param name="translation">[OUT] Matrix to store the translation.</param>
     /// <param name="rotation">[OUT] Matrix to store the rotation.</param>
     /// <param name="scale">[OUT] Matrix to store the scale.</param>
@@ -656,6 +672,10 @@ public:
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
     /// </summary>
+    /// <remarks>
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
+    /// cause that obtained rotation matrix doesn't match that used to build the matrix.
+    /// </remarks>
     /// <param name="translation">[OUT] Matrix to store the translation.</param>
     /// <param name="rotation">[OUT] Matrix to store the rotation.</param>
     /// <param name="scale">[OUT] Matrix to store the scale.</param>
@@ -669,6 +689,10 @@ public:
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
     /// </summary>
+    /// <remarks>
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
+    /// cause that obtained rotation matrix doesn't match that used to build the matrix.
+    /// </remarks>
     /// <param name="translation">[OUT] Matrix to store the translation.</param>
     /// <param name="rotation">[OUT] Matrix to store the rotation.</param>
     /// <param name="scale">[OUT] Matrix to store the scale.</param>

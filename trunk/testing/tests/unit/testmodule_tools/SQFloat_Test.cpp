@@ -758,42 +758,6 @@ QTEST_CASE ( IsNotZero_ReturnsFalseWhenValueExactlyEqualsZero_Test )
 }
 
 /// <summary>
-/// Checks if the string returned for a NaN is what expected.
-/// </summary>
-QTEST_CASE ( ToString_NaNIsCorrectlyConverted_Test )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
-
-    const float_q NAN_VALUE = SQFloat::_0 / SQFloat::_0;
-    string_q EXPECTED_RESULT = QE_L("-1.#IND");
-
-	// Execution
-    string_q strResultUT = SQFloat::ToString(NAN_VALUE);
-
-    // Verification
-    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
-}
-
-/// <summary>
-/// Checks if the string returned for an infinite number is what expected.
-/// </summary>
-QTEST_CASE ( ToString_InfiniteIsCorrectlyConverted_Test )
-{
-    // Preparation
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
-
-    const float_q INFINITE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
-    string_q EXPECTED_RESULT = QE_L("1.#INF");
-
-	// Execution
-    string_q strResultUT = SQFloat::ToString(INFINITE);
-
-    // Verification
-    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
-}
-
-/// <summary>
 /// Checks if the string returned for an high number (which requires scientific notation) is what expected.
 /// </summary>
 QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )

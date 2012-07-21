@@ -285,6 +285,9 @@ public:
     /// <summary>
     /// Converts the floating point number to a readable character string that represents it.
     /// </summary>
+    /// <remarks>
+    /// String representation for NaN or Infinite values are not guaranteed to be the same for different compilers.
+    /// </remarks>
     /// <param name="fValue">[IN] The floating point number to be converted.</param>
     /// <returns>
     /// The string that represents the number (using a dot as decimal separator).
