@@ -772,11 +772,11 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
 
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QTranslationMatrix<QMatrix4x3>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
-	QQuaternion qQuaternionUT(TRANSFORMATION); // [TODO] Thund: Fails due to QTransformationMatrix problems
+	QQuaternion qQuaternionUT(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
@@ -796,11 +796,11 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QTranslationMatrix<QMatrix4x3>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
-	QQuaternion qQuaternionUT(TRANSFORMATION); // [TODO] Thund: Fails due to QTransformationMatrix problems
+	QQuaternion qQuaternionUT(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
@@ -913,11 +913,11 @@ QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
 
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTranslationMatrix<QMatrix4x4>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
-	QQuaternion qQuaternionUT(TRANSFORMATION); // [TODO] Thund: Fails due to QTransformationMatrix problems
+	QQuaternion qQuaternionUT(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
@@ -937,11 +937,11 @@ QTEST_CASE ( Constructor11_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTranslationMatrix<QMatrix4x4>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
-	QQuaternion qQuaternionUT(TRANSFORMATION); // [TODO] Thund: Fails due to QTransformationMatrix problems
+	QQuaternion qQuaternionUT(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
@@ -1147,12 +1147,12 @@ void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotat
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION(QTranslationMatrix<MatrixType>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
 	QQuaternionWhiteBox qQuaternionUT;
-    qQuaternionUT.QQuaternionImp(TRANSFORMATION); // [TODO] Thund: Fails due to QTransformationMatrix problems
+    qQuaternionUT.QQuaternionImp(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
@@ -1188,12 +1188,12 @@ void QQuaternionImp_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNo
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION(QTranslationMatrix<MatrixType>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, -SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
 	QQuaternionWhiteBox qQuaternionUT;
-    qQuaternionUT.QQuaternionImp(TRANSFORMATION); // [TODO] Thund: Fails due to QTransformationMatrix problems
+    qQuaternionUT.QQuaternionImp(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );

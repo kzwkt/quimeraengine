@@ -2209,12 +2209,12 @@ QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QDualQuaternion TRANSFORMATION = QDualQuaternion(QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_5),
                                                            QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z));
-    const QVector3 EXPECTED_RESULT = QVector3( (float_q)-6.5355339,
-                                               (float_q)-6.1213205,
-                                               (float_q)-6.9999995);
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)-9.1923866,
+                                               (float_q)-3.5355341,
+                                               (float_q)-5.9999995);
 
 	// Execution
-    QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION); // [TODO] Thund: Fails.
+    QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
@@ -2596,7 +2596,7 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    const QVector3 EXPECTED_RESULT = QVector3((float_q)4.0658631, (float_q)4.0000000, (float_q)-4.4194174);
+    const QVector3 EXPECTED_RESULT = QVector3((float_q)6.0658627f, (float_q)7.999999f, (float_q)-10.419417f);
 
     // Results calculated using DirectX SDK
     // float_q fYaw = SQAngle::_Pi;
@@ -2608,10 +2608,10 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
     // D3DXMatrixTranslation(&translation, SQFloat::_2, SQFloat::_4, -SQFloat::_6);
     // D3DXVECTOR3 vVector(1, 2, 4);
     // transformation = scaling * rotation * translation;
-    // D3DXVec3TransformNormal(&vVector, &vVector, &transformation);
+    // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
 
 	// Execution
-    QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION); // [TODO] Thund: Fails.
+    QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
@@ -2723,18 +2723,19 @@ QTEST_CASE ( Transform7_VectorIsCorrectlyTransformedByCommonSpaceConversionMatri
                                   QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1),
                                   QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0));
 
-    const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.89442724,
-                                               (float_q)-1.1925696,
-                                               (float_q)-4.3333330);
-
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.44721368f,
+                                               (float_q)-0.59628481f,
+                                               (float_q)-0.66666645f);
+    
     // Results calculated with DirectX SDK
     // D3DXMATRIX transformation;
+    // D3DXVECTOR3 vVector(1, 2, 4);
     // D3DXVECTOR3 vEye(1, 2, 3), vUp(0, 1, 0), vAt(0, 0, 1);
     // D3DXMatrixLookAtLH(&transformation, &vEye, &vAt, &vUp);
-    // D3DXVec3TransformNormal(&vVector, &vVector, &transformation);
+    // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
 
 	// Execution
-    QVector3 vVectorUT = VECTOR.Transform(CONVERSION); // [TODO] Thund: Fails.
+    QVector3 vVectorUT = VECTOR.Transform(CONVERSION);
 
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
@@ -2952,7 +2953,7 @@ void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Temp
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    const QVector3 EXPECTED_RESULT = QVector3((float_q)4.0658631, (float_q)4.0000000, (float_q)-4.4194174);
+    const QVector3 EXPECTED_RESULT = QVector3((float_q)6.0658627f, (float_q)7.999999f, (float_q)-10.419417f);
 
     // Results calculated using DirectX SDK
     // float_q fYaw = SQAngle::_Pi;
@@ -2964,10 +2965,10 @@ void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Temp
     // D3DXMatrixTranslation(&translation, SQFloat::_2, SQFloat::_4, -SQFloat::_6);
     // D3DXVECTOR3 vVector(1, 2, 4);
     // transformation = scaling * rotation * translation;
-    // D3DXVec3TransformNormal(&vVector, &vVector, &transformation);
+    // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
 
 	// Execution
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION); // [TODO] Thund: Fails.
+    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
@@ -3110,10 +3111,10 @@ void TransformImp2_RotationFollowsLeftHandedRules_Template()
     // D3DXMatrixTranslation(&translation, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     // D3DXVECTOR3 vVector(1, 0, 0);
     // transformation = scaling * rotation * translation;
-    // D3DXVec3TransformNormal(&vVector, &vVector, &transformation);
+    // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
 
 	// Execution
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION); // [TODO] Thund: Fails.
+    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );

@@ -164,6 +164,8 @@ public:
     /// </summary>
     /// <param name="transformation">[IN] A transformation matrix.</param>
     /// <remarks>
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
+    /// cause that obtained quaternion doesn't match the one used to build the matrix.
     /// This method produces a normalized quaternion.
     /// </remarks>
 	explicit QQuaternion(const QTransformationMatrix<QMatrix4x3> &transformation);
@@ -171,6 +173,11 @@ public:
 	/// <summary>
 	/// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
     /// </summary>
+    /// <remarks>
+    /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
+    /// cause that obtained quaternion doesn't match the one used to build the matrix.
+    /// This method produces a normalized quaternion.
+    /// </remarks>
     /// <param name="transformation">[IN] A transformation matrix.</param>
 	explicit QQuaternion(const QTransformationMatrix<QMatrix4x4> &transformation);
 
