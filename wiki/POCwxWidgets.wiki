@@ -47,3 +47,28 @@ El asistente crea un proyecto en el que introduce varios archivos:
   * {{{NombreProyectoMain.cpp (.h)}}}: Aquí se definen las clases derivadas de las definidas en GUIFrame, y se implementan los eventos.
 
 http://i50.tinypic.com/slqud0.jpg
+
+== Diseñando una ventana ==
+
+Para el diseño de las ventanas/diálogos, wxFormBuilder incorpora el concepto de sizers. 
+
+Los sizers son contenedores, invisibles en tiempo de ejecución, cuya misión es asegurar que la distribución de controles, las fuentes etc, es decir, la apariencia de la ventana permanece proporcional sea cual sea el equipo o el sistema operativo en el que se ejecute.
+
+Estos contenedores se introducen de forma jerárquica, de manera que hay siempre un sizer principal o padre, al que se le añaden tantos sizers hijos como se quiera (imagino que habrá un límite), que a su vez contienen otros sizers, distribuyendo todos ellos en función de la distribución final de controles deseada.
+
+Cada sizer tiende a ocupar todo el espacio proporcionado por su padre. Así, el sizer inicial ocupa todo el frame en el que está:
+
+http://i50.tinypic.com/24fwmk7.png
+
+Según vamos añadiendo sizers, estos se reparten el espacio de su sizer padre, aunque variando la propiedad Proportion pueden distribuirse asimétricamente:
+
+http://i47.tinypic.com/14c9ye0.png
+
+Se añaden controles y se centran vertical u horizontalmente según el sizer se haya definido vertical u horizontal, se pueden expandir a lo ancho, a lo alto o de ambas formas, con las herramientas de la barra:
+
+http://i48.tinypic.com/ok0co2.png
+
+
+http://i47.tinypic.com/33yo13t.png
+
+En fin, es una cuestión de pelearse con la jerarquía de sizers y sus propiedades hasta dar con el diseño que buscamos.
