@@ -324,6 +324,10 @@ public:
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
+    /// <remarks>
+    /// If you use this operator, be sure that you are assigning a translation matrix.
+    /// Otherwise, unpredictable behavior could be happen.
+    /// </remarks>
     /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
     /// A reference to the modified matrix.

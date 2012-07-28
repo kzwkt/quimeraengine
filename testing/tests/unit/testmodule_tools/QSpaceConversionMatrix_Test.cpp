@@ -138,6 +138,42 @@ QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 }
 
 /// <summary>
+/// Checks that every matrix element is assigned to the right destination matrix element.
+/// </summary>
+QTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test )
+{
+    // Preparation
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
+
+    const QBaseMatrix4x4 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4, 
+                                        SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8, 
+                                        SQFloat::_9, SQFloat::_10, (float)11.0f, (float)12.0f,
+                                        (float)13.0f, (float)14.0f, (float)15.0f, (float)16.0f);
+
+    // Execution
+    QSpaceConversionMatrix matrixUT;
+    matrixUT = EXPECTED_VALUE;
+
+    // Verification
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[0][3], EXPECTED_VALUE.ij[0][3]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE.ij[1][0]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][2], EXPECTED_VALUE.ij[1][2]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[1][3], EXPECTED_VALUE.ij[1][3]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][0], EXPECTED_VALUE.ij[2][0]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][1], EXPECTED_VALUE.ij[2][1]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][2], EXPECTED_VALUE.ij[2][2]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[2][3], EXPECTED_VALUE.ij[2][3]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][0], EXPECTED_VALUE.ij[3][0]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][1], EXPECTED_VALUE.ij[3][1]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]);
+    BOOST_CHECK_EQUAL(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]);
+}
+
+/// <summary>
 /// Checks that two common matrices are correctly multiplied.
 /// </summary>
 QTEST_CASE ( OperatorProduct_CommonMatricesAreCorrectlyMultiplied_Test )

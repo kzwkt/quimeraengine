@@ -199,6 +199,10 @@ public:
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
+    /// <remarks>
+    /// If you use this operator, be sure that you are assigning a scaling matrix.
+    /// Otherwise, unpredictable behavior could be happen.
+    /// </remarks>
     /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
     /// A reference to the modified matrix.
@@ -208,6 +212,15 @@ public:
         QBaseMatrix3x3::operator=(matrix);
         return *this;
     }
+
+    /// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
+    /// <returns>
+    /// The modified matrix.
+    /// </returns>
+    QScalingMatrix3x3& operator*=(const QScalingMatrix3x3 &matrix);
 
     /// <summary>
     /// Inverts the matrix.<br>

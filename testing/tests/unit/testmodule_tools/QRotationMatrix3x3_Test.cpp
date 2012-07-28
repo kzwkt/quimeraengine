@@ -854,6 +854,85 @@ QTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test
 }
 
 /// <summary>
+/// Checks that two common matrices are correctly multiplied and assigned.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation_CommonMatricesAreCorrectlyMultipliedAndAssigned_Test )
+{
+    // Preparation
+    const QRotationMatrix3x3 OPERAND1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QRotationMatrix3x3 OPERAND2(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+
+    // Reference values obtained from following DirectX SDK statements:
+    // D3DXMATRIX rotm1;
+    // D3DXMatrixRotationYawPitchRoll(&rotm1, 2, 1, 3);
+    // D3DXMATRIX rotm2;
+    // D3DXMatrixRotationYawPitchRoll(&rotm2, 5, 4, 6);
+    // D3DXMATRIX rotm = rotm1 * rotm2;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)0.62862116f;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)0.69098401f;
+    const float_q EXPECTED_VALUE_FOR_02 = (float_q)0.35689855f;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)-0.16601980f;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)0.56755888f;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)-0.80642086f;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)-0.75978482f;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)0.44768098f;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)0.47149658f;
+
+    // Execution
+    QRotationMatrix3x3 matrixUT = OPERAND1;
+    matrixUT *= OPERAND2;
+
+    // Verification
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[1][2], EXPECTED_VALUE_FOR_12) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][0], EXPECTED_VALUE_FOR_20) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][1], EXPECTED_VALUE_FOR_21) );
+    BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[2][2], EXPECTED_VALUE_FOR_22) );
+}
+
+/// <summary>
+/// Checks that product operation is not commutative.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation_ProductIsNotCommutative_Test )
+{
+    // Preparation
+    const QRotationMatrix3x3 OPERAND1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QRotationMatrix3x3 OPERAND2(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+
+    // Execution
+    QRotationMatrix3x3 matrix1UT = OPERAND1;
+    matrix1UT *= OPERAND2;
+    QRotationMatrix3x3 matrix2UT = OPERAND2;
+    matrix2UT *= OPERAND1;
+
+    // Verification
+    BOOST_CHECK( matrix1UT != matrix2UT );
+}
+
+/// <summary>
+/// Checks if a matrix object is correctly multiplied and assigned when using itself (the object) as the other operand.
+/// </summary>
+QTEST_CASE ( OperatorProductAssignation_MatrixObjectIsCorrectlyMultipliedAndAssignedToItself_Test )
+{
+    // Preparation
+    const QRotationMatrix3x3 OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+
+    QRotationMatrix3x3 EXPECTED_VALUE = OPERAND;
+    EXPECTED_VALUE *= OPERAND;
+
+	// Execution
+    QRotationMatrix3x3 matrixUT = OPERAND;
+    matrixUT *= matrixUT;
+
+    // Verification
+    BOOST_CHECK(matrixUT == EXPECTED_VALUE);
+}
+
+/// <summary>
 /// Checks that the matrix is correctly inverted.
 /// </summary>
 QTEST_CASE ( Invert_MatrixIsCorrectlyInverted_Test )
