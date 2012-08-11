@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Tests">
+      <UniqueIdentifier>{87c71125-8d77-49cc-b6f0-e2e4a47d85cd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TestSystem">
+      <UniqueIdentifier>{a0a9a6ac-b120-439f-be19-0d3338ba20eb}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TestModule_TestAutomationTool.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\EQTestType.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QuimeraEngineFixtures.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt">
+      <Filter>TestSystem</Filter>
+    </None>
+  </ItemGroup>
+</Project>
