@@ -3,6 +3,8 @@
 #include "QCommonTestConfig.h"
 #include "CommonConfigDefinitions.h"
 
+#include <iostream>
+
 namespace Kinesis
 {
 namespace QuimeraEngine

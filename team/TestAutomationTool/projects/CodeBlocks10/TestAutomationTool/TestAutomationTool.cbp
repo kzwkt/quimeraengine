@@ -9,9 +9,9 @@
 		<Build>
 			<Target title="DebugWin32">
 				<Option platforms="Windows;" />
-				<Option output="..\..\..\bin\DebugWin32\TestAutomationTool" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\..\..\bin\DebugWin32" />
-				<Option object_output="..\..\..\garbage\DebugWin32" />
+				<Option output="..\..\..\bin\CodeBlocks10\DebugWin32\TestAutomationTool" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\..\..\bin\CodeBlocks10\DebugWin32" />
+				<Option object_output="..\..\..\garbage\CodeBlocks10\DebugWin32" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
@@ -37,9 +37,9 @@
 			</Target>
 			<Target title="ReleaseWin32">
 				<Option platforms="Windows;" />
-				<Option output="..\..\..\bin\ReleaseWin32\TestAutomationTool" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="..\..\..\bin\ReleaseWin32" />
-				<Option object_output="..\..\..\garbage\ReleaseWin32" />
+				<Option output="..\..\..\bin\CodeBlocks10\ReleaseWin32\TestAutomationTool" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="..\..\..\bin\CodeBlocks10\ReleaseWin32" />
+				<Option object_output="..\..\..\garbage\CodeBlocks10\ReleaseWin32" />
 				<Option type="0" />
 				<Option compiler="gcc" />
 				<Option projectLinkerOptionsRelation="2" />
