@@ -1,11 +1,4 @@
-/***************************************************************
- * Name:      TestAutomationToolUIMain.cpp
- * Purpose:   Code for Application Frame
- * Author:    Kinesis Team ()
- * Created:   2012-06-14
- * Copyright: Kinesis Team ()
- * License:
- **************************************************************/
+// [TERMS&CONDITIONS]
 
 #ifdef WX_PRECOMP
 #include "wx_pch.h"
