@@ -9,15 +9,24 @@
 #endif //__BORLANDC__
 
 #include "TestAutomationToolUIApp.h"
-#include "TestAutomationToolUIMain.h"
+#include "SplashScreen/KSplashScreen.h"
+
+using Kinesis::TestAutomationTool::UI::KSplashScreen;
+
+namespace Kinesis
+{
+namespace TestAutomationTool
+{
 
 IMPLEMENT_APP(TestAutomationToolUIApp);
 
 bool TestAutomationToolUIApp::OnInit()
 {
     
-    TestAutomationToolUIDialog* dlg = new TestAutomationToolUIDialog(0L);
-    dlg->SetIcon(wxICON(aaaa)); // To Set App Icon
-    dlg->Show();
+    KSplashScreen* splashScreen = new KSplashScreen(0L);
+    splashScreen->Show();
     return true;
 }
+
+}//namespace TestAutomationTool
+}//namespace Kinesis
