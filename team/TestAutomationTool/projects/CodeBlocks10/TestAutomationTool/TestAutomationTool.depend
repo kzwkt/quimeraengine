@@ -5849,3 +5849,9 @@
 	<wx/image.h>
 	<wx/bitmap.h>
 
+1344726566 source:j:\quimeraengine\qesvn\team\testautomationtool\source\splashscreen\tatsplashscreen.cpp
+	"SplashScreen/TATSplashScreen.h"
+
+1344726566 j:\quimeraengine\qesvn\team\testautomationtool\headers\splashscreen\tatsplashscreen.h
+	"SplashScreen.h"
+

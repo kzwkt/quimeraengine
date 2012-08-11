@@ -1,6 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "SplashScreen/KSplashScreen.h"
+#include "SplashScreen/TATSplashScreen.h"
 
 namespace Kinesis
 {
@@ -29,11 +29,11 @@ namespace UI
 //##################													   ##################
 //##################=======================================================##################
 
-KSplashScreen::KSplashScreen(wxWindow *wnd) : SplashScreenBase(wnd)
+TATSplashScreen::TATSplashScreen(wxWindow *wnd) : SplashScreenBase(wnd)
 {
 }
-	
-	
+
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -43,7 +43,7 @@ KSplashScreen::KSplashScreen(wxWindow *wnd) : SplashScreenBase(wnd)
 //##################													   ##################
 //##################=======================================================##################
 
-KSplashScreen::~KSplashScreen()
+TATSplashScreen::~TATSplashScreen()
 {
 }
 

@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __KSPLASHSCREEN__
-#define __KSPLASHSCREEN__
+#ifndef __TATSPLASHSCREEN__
+#define __TATSPLASHSCREEN__
 
 #include "SplashScreen.h"
 
@@ -16,7 +16,7 @@ namespace UI
 /// <summary>
 /// [DOC]
 /// </summary>
-class KSplashScreen : public SplashScreenBase
+class TATSplashScreen : public SplashScreenBase
 {
 	// CONSTRUCTORS
 	// ---------------
@@ -25,7 +25,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	KSplashScreen(wxWindow *wnd);
+	TATSplashScreen(wxWindow *wnd);
 
 
 	// DESTRUCTOR
@@ -34,8 +34,8 @@ public:
 
 	/// <summary>
 	/// Destructor.
-	/// </summary>		
-	virtual ~KSplashScreen();
+	/// </summary>
+	virtual ~TATSplashScreen();
 
 
 	// METHODS
@@ -64,4 +64,4 @@ protected:
 } //namespace TestAutomationTool
 } //namespace Kinesis
 
-#endif // __KSPLASHSCREEN__
+#endif // __TATSPLASHSCREEN__

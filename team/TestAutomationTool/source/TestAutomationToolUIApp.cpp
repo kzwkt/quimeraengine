@@ -9,9 +9,9 @@
 #endif //__BORLANDC__
 
 #include "TestAutomationToolUIApp.h"
-#include "SplashScreen/KSplashScreen.h"
+#include "SplashScreen/TATSplashScreen.h"
 
-using Kinesis::TestAutomationTool::UI::KSplashScreen;
+using Kinesis::TestAutomationTool::UI::TATSplashScreen;
 
 namespace Kinesis
 {
@@ -22,8 +22,8 @@ IMPLEMENT_APP(TestAutomationToolUIApp);
 
 bool TestAutomationToolUIApp::OnInit()
 {
-    
-    KSplashScreen* splashScreen = new KSplashScreen(0L);
+
+    TATSplashScreen* splashScreen = new TATSplashScreen(0L);
     splashScreen->Show();
     return true;
 }
