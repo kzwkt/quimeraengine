@@ -31,6 +31,7 @@ namespace Kinesis
 	{
 		namespace UI
 		{
+			#define ID_SPLASH_SCREEN_FRAME 1000
 			
 			///////////////////////////////////////////////////////////////////////////////
 			/// Class SplashScreenBase
@@ -44,7 +45,7 @@ namespace Kinesis
 				
 				public:
 					
-					SplashScreenBase( wxWindow* parent, wxWindowID id = wxID_ANY, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = 0|wxTAB_TRAVERSAL );
+					SplashScreenBase( wxWindow* parent, wxWindowID id = ID_SPLASH_SCREEN_FRAME, const wxString& title = wxEmptyString, const wxPoint& pos = wxDefaultPosition, const wxSize& size = wxSize( 500,300 ), long style = 0|wxTAB_TRAVERSAL );
 					
 					~SplashScreenBase();
 				

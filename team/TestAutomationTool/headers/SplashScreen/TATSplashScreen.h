@@ -3,7 +3,7 @@
 #ifndef __TATSPLASHSCREEN__
 #define __TATSPLASHSCREEN__
 
-#include "SplashScreen.h"
+#include "SplashScreen\SplashScreen.h"
 
 
 namespace Kinesis
@@ -14,7 +14,7 @@ namespace UI
 {
 
 /// <summary>
-/// [DOC]
+/// Frame that shows the application title along some logos during a short period of time before the application starts.
 /// </summary>
 class TATSplashScreen : public SplashScreenBase
 {
@@ -23,8 +23,9 @@ class TATSplashScreen : public SplashScreenBase
 public:
 
 	/// <summary>
-	/// Default constructor.
+	/// Constructor that receives a parent window reference.
 	/// </summary>
+    /// <param name="wnd">A parent window. Should be null for now.</param>
 	TATSplashScreen(wxWindow *wnd);
 
 

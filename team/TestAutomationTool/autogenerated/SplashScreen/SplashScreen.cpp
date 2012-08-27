@@ -7,7 +7,7 @@
 
 #include "SplashScreen.h"
 
-#include "../resources/embedded/KinesisLogoTiny.bmp.h"
+#include "../../resources/embedded/KinesisLogoTiny.bmp.h"
 
 ///////////////////////////////////////////////////////////////////////////
 using namespace Kinesis::TestAutomationTool::UI;
