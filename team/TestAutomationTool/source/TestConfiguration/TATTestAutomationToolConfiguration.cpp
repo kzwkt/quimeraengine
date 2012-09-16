@@ -1,12 +1,12 @@
 // [TERMS&CONDITIONS]
 
-#include "SplashScreen/TATSplashScreen.h"
+#include "TestConfiguration\TATTestAutomationToolConfiguration.h"
 
 namespace Kinesis
 {
 namespace TestAutomationTool
 {
-namespace UI
+namespace Backend
 {
 
 //##################=======================================================##################
@@ -18,7 +18,7 @@ namespace UI
 //##################													   ##################
 //##################=======================================================##################
 
-const int TATSplashScreen::VISIBILITY_INTERVAL = 1000;
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -29,14 +29,11 @@ const int TATSplashScreen::VISIBILITY_INTERVAL = 1000;
 //##################													   ##################
 //##################=======================================================##################
 
-TATSplashScreen::TATSplashScreen(wxWindow *wnd) : SplashScreenBase(wnd)
+TATTestAutomationToolConfiguration::TATTestAutomationToolConfiguration()
 {
-    m_timer.SetOwner(this);
-    this->Connect(wxEVT_TIMER, wxTimerEventHandler(TATSplashScreen::OnTimerTick));
-    m_timer.Start(VISIBILITY_INTERVAL, true);
 }
-
-
+	
+	
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -46,7 +43,7 @@ TATSplashScreen::TATSplashScreen(wxWindow *wnd) : SplashScreenBase(wnd)
 //##################													   ##################
 //##################=======================================================##################
 
-TATSplashScreen::~TATSplashScreen()
+TATTestAutomationToolConfiguration::~TATTestAutomationToolConfiguration()
 {
 }
 
@@ -65,26 +62,6 @@ TATSplashScreen::~TATSplashScreen()
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
-//##################		    |		EVENT HANDLERS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-void TATSplashScreen::OnFrameClose( wxCloseEvent& event )
-{
-    this->Destroy();
-}
-
-void TATSplashScreen::OnTimerTick( wxTimerEvent& event )
-{
-    this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TATSplashScreen::OnTimerTick));
-    this->Close(true);
-}
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
 //##################		    |         PROPERTIES		 |			   ##################
 //##################		   /|							 |\			   ##################
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
@@ -93,6 +70,6 @@ void TATSplashScreen::OnTimerTick( wxTimerEvent& event )
 
 
 
-} //namespace UI
+} //namespace Backend
 } //namespace TestAutomationTool
 } //namespace Kinesis

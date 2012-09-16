@@ -54,6 +54,16 @@ namespace Kinesis
 					wxGrid* m_gridFlagValues;
 					wxButton* m_btnEditor;
 					wxButton* m_btnLaunch;
+					
+					// Virtual event handlers, overide them in your derived class
+					virtual void OnDialogClose( wxCloseEvent& event ) { event.Skip(); }
+					virtual void OnInitDialog( wxInitDialogEvent& event ) { event.Skip(); }
+					virtual void OnCompilationConfigurationCheckListBoxToggled( wxCommandEvent& event ) { event.Skip(); }
+					virtual void OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event ) { event.Skip(); }
+					virtual void OnFlagCombinationsCheckListBoxToggled( wxCommandEvent& event ) { event.Skip(); }
+					virtual void OnEditorButtonClick( wxCommandEvent& event ) { event.Skip(); }
+					virtual void OnLaunchButtonClick( wxCommandEvent& event ) { event.Skip(); }
+					
 				
 				public:
 					

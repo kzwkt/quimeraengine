@@ -1,6 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "SplashScreen/TATSplashScreen.h"
+#include "TestConfiguration\TATTestConfigurationForm.h"
 
 namespace Kinesis
 {
@@ -18,7 +18,7 @@ namespace UI
 //##################													   ##################
 //##################=======================================================##################
 
-const int TATSplashScreen::VISIBILITY_INTERVAL = 1000;
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -29,14 +29,11 @@ const int TATSplashScreen::VISIBILITY_INTERVAL = 1000;
 //##################													   ##################
 //##################=======================================================##################
 
-TATSplashScreen::TATSplashScreen(wxWindow *wnd) : SplashScreenBase(wnd)
+TATTestConfigurationForm::TATTestConfigurationForm() : TestConfigurationBaseForm(NULL)
 {
-    m_timer.SetOwner(this);
-    this->Connect(wxEVT_TIMER, wxTimerEventHandler(TATSplashScreen::OnTimerTick));
-    m_timer.Start(VISIBILITY_INTERVAL, true);
 }
-
-
+	
+	
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -46,7 +43,7 @@ TATSplashScreen::TATSplashScreen(wxWindow *wnd) : SplashScreenBase(wnd)
 //##################													   ##################
 //##################=======================================================##################
 
-TATSplashScreen::~TATSplashScreen()
+TATTestConfigurationForm::~TATTestConfigurationForm()
 {
 }
 
@@ -71,16 +68,35 @@ TATSplashScreen::~TATSplashScreen()
 //##################													   ##################
 //##################=======================================================##################
 
-void TATSplashScreen::OnFrameClose( wxCloseEvent& event )
+void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
+{
+}
+
+void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
 {
     this->Destroy();
 }
 
-void TATSplashScreen::OnTimerTick( wxTimerEvent& event )
+void TATTestConfigurationForm::OnCompilationConfigurationCheckListBoxToggled( wxCommandEvent& event )
 {
-    this->Disconnect(wxEVT_TIMER, wxTimerEventHandler(TATSplashScreen::OnTimerTick));
-    this->Close(true);
 }
+
+void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event )
+{
+}
+
+void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxToggled( wxCommandEvent& event )
+{
+}
+
+void TATTestConfigurationForm::OnEditorButtonClick( wxCommandEvent& event )
+{
+}
+
+void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
+{
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

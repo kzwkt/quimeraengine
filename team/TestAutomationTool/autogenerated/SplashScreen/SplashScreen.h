@@ -42,6 +42,10 @@ namespace Kinesis
 				
 				protected:
 					wxStaticBitmap* m_imgLogo;
+					
+					// Virtual event handlers, overide them in your derived class
+					virtual void OnFrameClose( wxCloseEvent& event ) { event.Skip(); }
+					
 				
 				public:
 					

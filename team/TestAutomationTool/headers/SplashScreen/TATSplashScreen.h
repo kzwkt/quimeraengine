@@ -5,6 +5,7 @@
 
 #include "SplashScreen\SplashScreen.h"
 
+#include <wx/timer.h>
 
 namespace Kinesis
 {
@@ -18,6 +19,16 @@ namespace UI
 /// </summary>
 class TATSplashScreen : public SplashScreenBase
 {
+    // CONSTANTS
+    // ---------------
+protected:
+
+    /// <summary>
+	/// The ammount of time the splash screen is to be shown in the screen, in milliseconds.
+	/// </summary>
+    static const int VISIBILITY_INTERVAL;
+
+
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -48,6 +59,18 @@ public:
 	// ---------------
 public:
 
+    /// <summary>
+	/// Event handler called when the window is to be closed.
+	/// </summary>
+    /// <param name="event">The event argument.</param>
+    virtual void OnFrameClose( wxCloseEvent& event );
+
+    /// <summary>
+	/// Event handler called when the timer activates.
+	/// </summary>
+    /// <param name="event">The event argument.</param>
+    virtual void OnTimerTick( wxTimerEvent& event );
+
 
 	// PROPERTIES
 	// ---------------
@@ -58,6 +81,10 @@ public:
 	// ---------------
 protected:
 
+    /// <summary>
+	/// A timer object to be used for closing the window after some time.
+	/// </summary>
+    wxTimer m_timer;
 
 };
 

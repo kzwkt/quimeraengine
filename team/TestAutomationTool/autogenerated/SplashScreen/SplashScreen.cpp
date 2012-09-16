@@ -26,8 +26,14 @@ SplashScreenBase::SplashScreenBase( wxWindow* parent, wxWindowID id, const wxStr
 	this->Layout();
 	
 	this->Centre( wxBOTH );
+	
+	// Connect Events
+	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( SplashScreenBase::OnFrameClose ) );
 }
 
 SplashScreenBase::~SplashScreenBase()
 {
+	// Disconnect Events
+	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( SplashScreenBase::OnFrameClose ) );
+	
 }

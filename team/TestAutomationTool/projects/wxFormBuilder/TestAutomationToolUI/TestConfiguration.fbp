@@ -91,13 +91,13 @@
             <event name="OnAuiPaneRestore"></event>
             <event name="OnAuiRender"></event>
             <event name="OnChar"></event>
-            <event name="OnClose"></event>
+            <event name="OnClose">OnDialogClose</event>
             <event name="OnEnterWindow"></event>
             <event name="OnEraseBackground"></event>
             <event name="OnHibernate"></event>
             <event name="OnIconize"></event>
             <event name="OnIdle"></event>
-            <event name="OnInitDialog"></event>
+            <event name="OnInitDialog">OnInitDialog</event>
             <event name="OnKeyDown"></event>
             <event name="OnKeyUp"></event>
             <event name="OnKillFocus"></event>
@@ -274,7 +274,7 @@
                         <event name="OnChar"></event>
                         <event name="OnCheckListBox"></event>
                         <event name="OnCheckListBoxDClick"></event>
-                        <event name="OnCheckListBoxToggled"></event>
+                        <event name="OnCheckListBoxToggled">OnCompilationConfigurationCheckListBoxToggled</event>
                         <event name="OnEnterWindow"></event>
                         <event name="OnEraseBackground"></event>
                         <event name="OnKeyDown"></event>
@@ -535,9 +535,9 @@
                         <property name="window_name"></property>
                         <property name="window_style"></property>
                         <event name="OnChar"></event>
-                        <event name="OnCheckListBox"></event>
+                        <event name="OnCheckListBox">OnFlagCombinationsCheckListBoxSelected</event>
                         <event name="OnCheckListBoxDClick"></event>
-                        <event name="OnCheckListBoxToggled"></event>
+                        <event name="OnCheckListBoxToggled">OnFlagCombinationsCheckListBoxToggled</event>
                         <event name="OnEnterWindow"></event>
                         <event name="OnEraseBackground"></event>
                         <event name="OnKeyDown"></event>
@@ -796,20 +796,20 @@
                         <event name="OnUpdateUI"></event>
                     </object>
                 </object>
-                <object class="sizeritem" expanded="1">
+                <object class="sizeritem" expanded="0">
                     <property name="border">5</property>
                     <property name="flag">wxEXPAND</property>
                     <property name="proportion">0</property>
-                    <object class="wxBoxSizer" expanded="1">
+                    <object class="wxBoxSizer" expanded="0">
                         <property name="minimum_size">-1,30</property>
                         <property name="name">bSizer2</property>
                         <property name="orient">wxHORIZONTAL</property>
                         <property name="permission">none</property>
-                        <object class="sizeritem" expanded="1">
+                        <object class="sizeritem" expanded="0">
                             <property name="border">5</property>
                             <property name="flag"></property>
                             <property name="proportion">0</property>
-                            <object class="wxBoxSizer" expanded="1">
+                            <object class="wxBoxSizer" expanded="0">
                                 <property name="minimum_size"></property>
                                 <property name="name">bSizer3</property>
                                 <property name="orient">wxVERTICAL</property>
@@ -876,7 +876,7 @@
                                         <property name="window_extra_style"></property>
                                         <property name="window_name"></property>
                                         <property name="window_style"></property>
-                                        <event name="OnButtonClick"></event>
+                                        <event name="OnButtonClick">OnEditorButtonClick</event>
                                         <event name="OnChar"></event>
                                         <event name="OnEnterWindow"></event>
                                         <event name="OnEraseBackground"></event>
@@ -904,11 +904,11 @@
                                 </object>
                             </object>
                         </object>
-                        <object class="sizeritem" expanded="1">
+                        <object class="sizeritem" expanded="0">
                             <property name="border">5</property>
                             <property name="flag"></property>
                             <property name="proportion">1</property>
-                            <object class="wxBoxSizer" expanded="1">
+                            <object class="wxBoxSizer" expanded="0">
                                 <property name="minimum_size"></property>
                                 <property name="name">bSizer4</property>
                                 <property name="orient">wxVERTICAL</property>
@@ -975,7 +975,7 @@
                                         <property name="window_extra_style"></property>
                                         <property name="window_name"></property>
                                         <property name="window_style"></property>
-                                        <event name="OnButtonClick"></event>
+                                        <event name="OnButtonClick">OnLaunchButtonClick</event>
                                         <event name="OnChar"></event>
                                         <event name="OnEnterWindow"></event>
                                         <event name="OnEraseBackground"></event>

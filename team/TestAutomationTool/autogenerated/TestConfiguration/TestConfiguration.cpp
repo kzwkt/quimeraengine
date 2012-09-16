@@ -104,8 +104,26 @@ TestConfigurationBaseForm::TestConfigurationBaseForm( wxWindow* parent, wxWindow
 	this->Layout();
 	
 	this->Centre( wxBOTH );
+	
+	// Connect Events
+	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TestConfigurationBaseForm::OnDialogClose ) );
+	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( TestConfigurationBaseForm::OnInitDialog ) );
+	m_clCompilationConfiguration->Connect( wxEVT_COMMAND_CHECKLISTBOX_TOGGLED, wxCommandEventHandler( TestConfigurationBaseForm::OnCompilationConfigurationCheckListBoxToggled ), NULL, this );
+	m_clFlagCombinations->Connect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( TestConfigurationBaseForm::OnFlagCombinationsCheckListBoxSelected ), NULL, this );
+	m_clFlagCombinations->Connect( wxEVT_COMMAND_CHECKLISTBOX_TOGGLED, wxCommandEventHandler( TestConfigurationBaseForm::OnFlagCombinationsCheckListBoxToggled ), NULL, this );
+	m_btnEditor->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnEditorButtonClick ), NULL, this );
+	m_btnLaunch->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnLaunchButtonClick ), NULL, this );
 }
 
 TestConfigurationBaseForm::~TestConfigurationBaseForm()
 {
+	// Disconnect Events
+	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TestConfigurationBaseForm::OnDialogClose ) );
+	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( TestConfigurationBaseForm::OnInitDialog ) );
+	m_clCompilationConfiguration->Disconnect( wxEVT_COMMAND_CHECKLISTBOX_TOGGLED, wxCommandEventHandler( TestConfigurationBaseForm::OnCompilationConfigurationCheckListBoxToggled ), NULL, this );
+	m_clFlagCombinations->Disconnect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( TestConfigurationBaseForm::OnFlagCombinationsCheckListBoxSelected ), NULL, this );
+	m_clFlagCombinations->Disconnect( wxEVT_COMMAND_CHECKLISTBOX_TOGGLED, wxCommandEventHandler( TestConfigurationBaseForm::OnFlagCombinationsCheckListBoxToggled ), NULL, this );
+	m_btnEditor->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnEditorButtonClick ), NULL, this );
+	m_btnLaunch->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnLaunchButtonClick ), NULL, this );
+	
 }

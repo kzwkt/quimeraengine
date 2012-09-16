@@ -10,12 +10,12 @@
 
 #include "TestAutomationToolUIApp.h"
 #include "SplashScreen\TATSplashScreen.h"
-#include "TestConfiguration\TestConfiguration.h"
+#include "TestConfiguration\TATTestConfigurationForm.h"
 
 #include <wx/stdpaths.h>
 
 using Kinesis::TestAutomationTool::UI::TATSplashScreen;
-using Kinesis::TestAutomationTool::UI::TestConfigurationBaseForm;
+using Kinesis::TestAutomationTool::UI::TATTestConfigurationForm;
 
 namespace Kinesis
 {
@@ -36,14 +36,11 @@ IMPLEMENT_APP(TestAutomationToolUIApp);
 bool TestAutomationToolUIApp::OnInit()
 {
     // I18n initialization
-    InitializeI18n(wxLANGUAGE_ENGLISH);
+    this->InitializeI18n(wxLANGUAGE_ENGLISH);
 
     // UI presentation
+    this->ShowSplashScreen();
 
-    //TATSplashScreen* splashScreen = new TATSplashScreen(0L);
-    //splashScreen->Show();
-    TestConfigurationBaseForm* pForm = new TestConfigurationBaseForm(0L);
-    pForm->Show();
     return true;
 }
 
@@ -59,6 +56,36 @@ void TestAutomationToolUIApp::InitializeI18n(wxLanguage currentLang)
     m_locale.AddCatalog(wxT("TestExecution"));
     m_locale.AddCatalog(wxT("Editor"));
 }
+
+void TestAutomationToolUIApp::ShowSplashScreen()
+{
+    m_pSplashScreen = new TATSplashScreen(0L);
+    m_pSplashScreen->Connect(wxEVT_CLOSE_WINDOW, wxCloseEventHandler(TestAutomationToolUIApp::OnSplashScreenClose));
+    m_pSplashScreen->Show();
+}
+
+void TestAutomationToolUIApp::ShowFirstWindow()
+{
+    m_pFirstWindow = new TATTestConfigurationForm();
+    m_pFirstWindow->Show();
+}
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |		EVENT HANDLERS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+void TestAutomationToolUIApp::OnSplashScreenClose( wxCloseEvent& event )
+{
+    this->ShowFirstWindow();
+    event.Skip();
+}
+
 
 }//namespace TestAutomationTool
 }//namespace Kinesis
