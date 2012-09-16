@@ -561,6 +561,9 @@ public:
     /// <summary>
     /// Makes current vector unitary.
     /// </summary>
+    /// <returns>
+    /// The normalized vector.
+    /// </returns>
     inline QVector4 Normalize() const
     {
         // Checkout to avoid division by 0
@@ -576,6 +579,9 @@ public:
     /// <summary>
     /// Convert current vector in its opposite vector.
     /// </summary>
+    /// <returns>
+    /// The inverted vector.
+    /// </returns>
     inline QVector4 Invert() const
     {
         return QVector4(-this->x, -this->y, -this->z, -this->w);

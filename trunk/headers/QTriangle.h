@@ -102,6 +102,9 @@ public:
 	/// Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle that will be assigned to current triangle.</param>
+    /// <returns>
+    /// The assigned value.
+    /// </returns>
 	inline QTriangle<VectorType>& operator=(const QBaseTriangle<VectorType> &triangle)
 	{
         QBaseTriangle<VectorType>::operator=(triangle);
@@ -113,6 +116,9 @@ public:
 	/// Checks if the triangle recieved in the parameter is equal to the current triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle to compare with current triangle.</param>
+    /// <returns>
+    /// True when triangles are equal, false otherwise.
+    /// </returns>
 	bool operator==(const QBaseTriangle<VectorType> &triangle) const
 	{
 		return (this->A == triangle.A) && (this->B == triangle.B) && (this->C == triangle.C);

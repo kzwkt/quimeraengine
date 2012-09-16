@@ -34,6 +34,7 @@ public:
 	/// <summary>
 	/// Converts an input boolean type to an output string type.
 	/// </summary>
+    /// <param name="bValue">[IN] The boolean value to be converted.</param>
 	/// <returns>
 	/// The strings "true" or "false".
 	/// </returns>

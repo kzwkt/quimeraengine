@@ -39,7 +39,7 @@ public:
 
     /// <summary>
     /// Copy constructor.
-    /// </sumary>
+    /// </summary>
     /// <param name="quad">[IN] The quadrilateral from which we want to create a copy in the resident quadrilateral.</param>
     inline QBaseQuadrilateral(const QBaseQuadrilateral &quad) : A(quad.A), B(quad.B), C(quad.C), D(quad.D)
     {
