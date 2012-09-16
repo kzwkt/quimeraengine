@@ -43,7 +43,7 @@ public:
 
     /// <summary>
     /// Copy constructor.
-    /// </sumary>
+    /// </summary>
     /// <param name="orb">[IN] The orb from which we want to create a copy in the resident orb.</param>
     inline QBaseOrb(const QBaseOrb &orb) : Center(orb.Center), Radius(orb.Radius)
     {
