@@ -155,9 +155,7 @@ public:
     /// </returns>
     QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const
     {
-        QTranslationMatrix<MatrixType> outMatrix;
-        ProductOperatorImp(matrix, outMatrix);
-        return outMatrix;
+        return ProductOperatorImp(matrix);
     }
 
     /// <summary>
@@ -177,10 +175,7 @@ public:
     /// </returns>
     QTranslationMatrix<MatrixType> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const
     {
-        QTranslationMatrix<MatrixType> outMatrix;
-        ProductOperatorImp(matrix, outMatrix);
-        return outMatrix;
-
+        return ProductOperatorImp(matrix);
     }
 
 	/// <summary>
@@ -256,10 +251,7 @@ public:
     /// </returns>
     QTransformationMatrix<MatrixType> operator*(const QTransformationMatrix<MatrixType> &matrix) const
     {
-        QTransformationMatrix<MatrixType> aux;
-
-        aux.ij[0][3] = aux.ij[1][3] = aux.ij[2][3] = SQFloat::_0;
-        aux.ij[3][3] = SQFloat::_1;
+        QTransformationMatrix<MatrixType> aux = QTransformationMatrix<MatrixType>::GetIdentity();
 
         aux.ij[0][0] = matrix.ij[0][0];
         aux.ij[0][1] = matrix.ij[0][1];

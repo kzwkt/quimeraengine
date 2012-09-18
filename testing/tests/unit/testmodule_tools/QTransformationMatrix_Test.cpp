@@ -3627,7 +3627,8 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_EveryElementIsAssignedToRightTargetEle
     const QTransformationMatrix<T> EXPECTED_VALUE = MATRIX;
 
     // Execution
-    QTransformationMatrix<T> matrixUT = MATRIX;
+    QTransformationMatrix<T> matrixUT;
+    matrixUT = MATRIX;
 
     // Verification
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
