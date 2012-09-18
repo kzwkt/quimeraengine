@@ -150,6 +150,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrixWhiteBox.h">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector2_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

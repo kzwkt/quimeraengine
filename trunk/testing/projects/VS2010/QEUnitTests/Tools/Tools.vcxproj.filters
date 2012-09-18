@@ -111,6 +111,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -162,6 +165,9 @@
       <Filter>Tests\Math</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h">
+      <Filter>Tests\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrixWhiteBox.h">
       <Filter>Tests\Math</Filter>
     </ClInclude>
   </ItemGroup>
