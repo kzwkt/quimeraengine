@@ -5,6 +5,7 @@
 		<Option title="Backend" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
+		<Option virtualFolders="Common\;FG1 - Test Configuration\;FG2 - Test Execution\;FG3 - Editor\;" />
 		<Build>
 			<Target title="DebugWin32">
 				<Option platforms="Windows;" />
@@ -42,8 +43,21 @@
 			<Add directory="..\..\..\headers" />
 			<Add directory="..\..\..\3rdparty\wxWidgets\include\include" />
 		</Compiler>
-		<Unit filename="..\..\..\headers\TATNode.h" />
-		<Unit filename="..\..\..\source\TATNode.cpp" />
+		<Unit filename="..\..\..\headers\TATNode.h">
+			<Option virtualFolder="Common\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\ITATConfigLoader.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TATNode.cpp">
+			<Option virtualFolder="Common\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
 		<Extensions>
 			<code_completion />
 			<debugger />
