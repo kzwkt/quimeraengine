@@ -21,6 +21,9 @@
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
       <Filter>TestSystem</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNode_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -49,6 +52,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h">
       <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNodeMock.h">
+      <Filter>Tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

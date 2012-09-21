@@ -3,7 +3,7 @@
 #ifndef __TATSPLASHSCREEN__
 #define __TATSPLASHSCREEN__
 
-#include "SplashScreen\SplashScreen.h"
+#include "SplashScreen/SplashScreen.h"
 
 #include <wx/timer.h>
 

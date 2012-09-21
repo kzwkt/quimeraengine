@@ -8,7 +8,7 @@ using namespace boost::unit_test;
 
 #include "ClassToTest.h"
 
-using Kinesis::QuimeraEngine:::ClassToTest;
+using Kinesis::TestAutomationTool:::ClassToTest;
 
 QTEST_SUITE_BEGIN( ClassToTest_TestSuite )
 
