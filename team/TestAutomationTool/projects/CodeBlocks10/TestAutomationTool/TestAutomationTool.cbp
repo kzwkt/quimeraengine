@@ -50,6 +50,9 @@
 					<Add directory="..\..\..\bin\CodeBlocks10\DebugWin32" />
 					<Add directory="..\..\..\3rdparty\wxWidgets\include\lib\windows_lib" />
 				</Linker>
+				<ExtraCommands>
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\config.ini&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+				</ExtraCommands>
 			</Target>
 			<Target title="ReleaseWin32">
 				<Option platforms="Windows;" />
@@ -94,6 +97,9 @@
 					<Add directory="..\..\..\bin\CodeBlocks10\ReleaseWin32" />
 					<Add directory="..\..\..\3rdparty\wxWidgets\include\lib\windows_lib" />
 				</Linker>
+				<ExtraCommands>
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\config.ini&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+				</ExtraCommands>
 			</Target>
 		</Build>
 		<Compiler>
