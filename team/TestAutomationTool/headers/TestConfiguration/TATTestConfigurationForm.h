@@ -3,8 +3,8 @@
 #ifndef __TATTESTCONFIGURATIONFORM__
 #define __TATTESTCONFIGURATIONFORM__
 
-#include "TestConfiguration\TestConfiguration.h"
-#include "TestConfiguration\TATTestAutomationToolConfiguration.h"
+#include "TestConfiguration/TestConfiguration.h"
+#include "TestConfiguration/TATTestAutomationToolConfiguration.h"
 
 using Kinesis::TestAutomationTool::UI::TestConfigurationBaseForm;
 using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolConfiguration;
@@ -15,6 +15,10 @@ namespace TestAutomationTool
 {
 namespace UI
 {
+
+// Forward declarations
+class TestExecutionBaseForm;
+
 
 /// <summary>
 /// Dialog that lets the user configure the testing process before executing it.
@@ -37,13 +41,18 @@ public:
 
 	/// <summary>
 	/// Destructor.
-	/// </summary>		
+	/// </summary>
 	virtual ~TATTestConfigurationForm();
 
 
 	// METHODS
 	// ---------------
 public:
+
+    /// <summary>
+	/// DOC
+	/// </summary>
+    void ShowExecutionWindow();
 
 
     // EVENT HANDLERS
@@ -107,6 +116,10 @@ protected:
 	/// </summary>	
     TATTestAutomationToolConfiguration m_backend;
 
+    /// <summary>
+	/// DOC
+	/// </summary>	
+    TestExecutionBaseForm* m_pExecutionForm;
 };
 
 } //namespace UI

@@ -5,9 +5,9 @@
 
 #include <list>
 
-#include <wx\string.h>
+#include <wx/string.h>
 
-#include "TestConfiguration\ITATConfigLoader.h"
+#include "TestConfiguration/ITATConfigLoader.h"
 
 using Kinesis::TestAutomationTool::Backend::ITATConfigLoader;
 

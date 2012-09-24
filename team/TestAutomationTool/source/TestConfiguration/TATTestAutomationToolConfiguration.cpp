@@ -1,6 +1,6 @@
 // [TERMS&CONDITIONS]
 
-#include "TestConfiguration\TATTestAutomationToolConfiguration.h"
+#include "TestConfiguration/TATTestAutomationToolConfiguration.h"
 
 namespace Kinesis
 {

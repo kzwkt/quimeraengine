@@ -9,8 +9,8 @@
 #endif //__BORLANDC__
 
 #include "TestAutomationToolUIApp.h"
-#include "SplashScreen\TATSplashScreen.h"
-#include "TestConfiguration\TATTestConfigurationForm.h"
+#include "SplashScreen/TATSplashScreen.h"
+#include "TestConfiguration/TATTestConfigurationForm.h"
 
 #include <wx/stdpaths.h>
 
@@ -49,7 +49,7 @@ void TestAutomationToolUIApp::InitializeI18n(wxLanguage currentLang)
     m_locale.Init(currentLang, wxLOCALE_DONT_LOAD_DEFAULT);
 
     // - Adds the relative path of all the translation dictionaries
-    wxLocale::AddCatalogLookupPathPrefix(wxT("..\\..\\..\\resources\\i18n\\"));
+    wxLocale::AddCatalogLookupPathPrefix(wxT("../../../resources/i18n/"));
 
     // - Adds translation dictionaries
     m_locale.AddCatalog(wxT("TestConfiguration"));

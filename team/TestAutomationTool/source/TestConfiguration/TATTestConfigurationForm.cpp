@@ -1,6 +1,8 @@
 // [TERMS&CONDITIONS]
 
-#include "TestConfiguration\TATTestConfigurationForm.h"
+#include "TestConfiguration/TATTestConfigurationForm.h"
+
+#include "TestExecution/TestExecution.h"
 
 namespace Kinesis
 {
@@ -57,6 +59,11 @@ TATTestConfigurationForm::~TATTestConfigurationForm()
 //##################													   ##################
 //##################=======================================================##################
 
+void TATTestConfigurationForm::ShowExecutionWindow()
+{
+    m_pExecutionForm = new TestExecutionBaseForm(this);
+    m_pExecutionForm->Show();
+}
 
 
 //##################=======================================================##################
@@ -95,6 +102,7 @@ void TATTestConfigurationForm::OnEditorButtonClick( wxCommandEvent& event )
 
 void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
 {
+    ShowExecutionWindow();
 }
 
 
