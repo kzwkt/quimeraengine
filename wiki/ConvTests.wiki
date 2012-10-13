@@ -75,6 +75,8 @@ Aquella variable que es instancia de la clase bajo pruebas y que ejecutará las 
 
 _triangleUT_
 
+Dado que en muchas ocasiones es difícil identificar al objeto de pruebas, esta norma es opcional.
+
 ==Organización interna==
 
 Cada test case deberá estar mínimamente organizado, al menos, en las 4 fases siguientes (cuando proceda):
