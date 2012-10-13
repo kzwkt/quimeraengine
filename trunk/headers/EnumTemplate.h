@@ -182,25 +182,16 @@ public:
     {
         return scast_q(m_value, IntegerType);
     }
-
+    
     /// <summary>
     /// Casting operator that converts the enumerated type value into its corresponding name.
     /// </summary>
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    operator const string_q() const
+    operator const wxString() const
     {
-        TNameValueMap::iterator itValueName = EQEnumeration::sm_mapValueName.begin();
-        TNameValueMap::const_iterator itValueNameEnd = EQEnumeration::sm_mapValueName.end();
-
-        while(itValueName != itValueNameEnd && itValueName->second != m_value)
-            ++itValueName;
-
-        if(itValueName != itValueNameEnd)
-            return itValueName->first;
-        else
-            return QE_L(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
+        return ConvertToString(m_value, EQEnumeration::sm_mapValueName);
     }
 
     /// <summary>
@@ -209,9 +200,33 @@ public:
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    const string_q ToString()
+    const wxString ToString() const
     {
-        return *this;
+        return ConvertToString(m_value, EQEnumeration::sm_mapValueName);
+    }
+
+private:
+
+    // <summary>
+    // Uses an enumerated value as a key to retrieve his own string representation from a dictionary.
+    // </summary>
+    // <param name="eValue">The enumeration value.</param>
+    // <param name="nameValueDictionary">The dictionary where enumeration's string representations are stored.</param>
+    // <returns>
+    // The enumerated value's string representation.
+    // </returns>
+    const wxString& ConvertToString(const EQEnumeration::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    {
+        TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
+        TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
+
+        while(itValueName != itValueNameEnd && itValueName->second != eValue)
+            ++itValueName;
+
+        if(itValueName != itValueNameEnd)
+            return itValueName->first;
+        else
+            return wxT(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
     }
 
 
