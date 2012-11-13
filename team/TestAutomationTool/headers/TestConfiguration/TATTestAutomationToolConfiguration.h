@@ -7,9 +7,6 @@
 
 #include <wx/string.h>
 
-#include "TestConfiguration/ITATConfigLoader.h"
-
-using Kinesis::TestAutomationTool::Backend::ITATConfigLoader;
 
 namespace Kinesis
 {
@@ -17,6 +14,8 @@ namespace TestAutomationTool
 {
 namespace Backend
 {
+
+class ITATConfigLoader;
 
 /// <summary>
 /// Manages the business logic of a functional sector of the application in a UI-independent way.
@@ -60,6 +59,11 @@ protected:
     /// </summary>
     void CombineFlags();
 
+    /// <summary>
+    /// Releases all the resources.
+    /// </summary>
+    void Destroy();
+
 
 	// PROPERTIES
 	// ---------------
@@ -71,7 +75,7 @@ public:
     /// <returns>
     /// A list of the name of the selected compiler configurations.
     /// </returns>
-    std::list<wxString> GetCompilerConfigurationSelection();
+    std::list<wxString> GetCompilerConfigurationSelection() const;
 
     /// <summary>
     /// Gets the list of selected flag value combinations.
@@ -79,7 +83,7 @@ public:
     /// <returns>
     /// A list of the name of the selected flag combinations.
     /// </returns>
-    std::list<wxString> GetFlagCombinationSelection();
+    std::list<wxString> GetFlagCombinationSelection() const;
 
     /// <summary>
     /// Gets the generated list of flag value combinations.
@@ -87,7 +91,7 @@ public:
     /// <returns>
     /// A list of all the flag value combinations possible.
     /// </returns>
-    std::list<wxString> GetFlagCombinations();
+    std::list<wxString> GetFlagCombinations() const;
 
     /// <summary>
     /// Gets an instance of a configuration loader.
@@ -95,7 +99,7 @@ public:
     /// <returns>
     /// The configuration loader.
     /// </returns>
-    ITATConfigLoader* GetConfigLoader();
+    ITATConfigLoader* GetConfigLoader() const;
 
 
 	// ATTRIBUTES

@@ -19,7 +19,6 @@ namespace UI
 // Forward declarations
 class TestExecutionBaseForm;
 
-
 /// <summary>
 /// Dialog that lets the user configure the testing process before executing it.
 /// </summary>
@@ -50,9 +49,14 @@ public:
 public:
 
     /// <summary>
-	/// DOC
+	/// Shows the test execution window.
 	/// </summary>
     void ShowExecutionWindow();
+
+    /// <summary>
+	/// Initializes the backend components.
+	/// </summary>
+    void InitializeBackend();
 
 
     // EVENT HANDLERS
@@ -117,8 +121,8 @@ protected:
     TATTestAutomationToolConfiguration m_backend;
 
     /// <summary>
-	/// DOC
-	/// </summary>	
+	/// The form created when navigation to the test execution functional group.
+	/// </summary>
     TestExecutionBaseForm* m_pExecutionForm;
 };
 

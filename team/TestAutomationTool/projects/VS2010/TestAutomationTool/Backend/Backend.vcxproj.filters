@@ -24,6 +24,27 @@
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h">
       <Filter>FG1 - Test Configuration</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigLoaderFactory.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigLoaderFromIniFile.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigurationSource.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigNode.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATRuleNode.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigNodeType.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\STATAppSettings.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
@@ -31,6 +52,27 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\TATNode.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigLoaderFactory.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigLoaderFromIniFile.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\ETATConfigurationSource.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigNode.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATRuleNode.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\ETATConfigNodeType.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\STATAppSettings.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

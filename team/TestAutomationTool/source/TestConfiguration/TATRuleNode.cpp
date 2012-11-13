@@ -1,14 +1,13 @@
 // [TERMS&CONDITIONS]
 
-#include "TestConfiguration/TATTestConfigurationForm.h"
+#include "TestConfiguration/TATRuleNode.h"
 
-#include "TestExecution/TestExecution.h"
 
 namespace Kinesis
 {
 namespace TestAutomationTool
 {
-namespace UI
+namespace Backend
 {
 
 //##################=======================================================##################
@@ -31,23 +30,20 @@ namespace UI
 //##################													   ##################
 //##################=======================================================##################
 
-TATTestConfigurationForm::TATTestConfigurationForm() : TestConfigurationBaseForm(NULL)
+TATRuleNode::TATRuleNode() : m_bCanBeEmpty(false),
+                             m_bIsObligatory(false),
+                             m_nMaxCount(false)
 {
-    InitializeBackend();
 }
-	
-	
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		  DESTRUCTOR		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
 
-TATTestConfigurationForm::~TATTestConfigurationForm()
+TATRuleNode::TATRuleNode(const wxString& strName, const int nMaxCount, const bool& bCanBeEmpty,
+                         const bool& bIsObligatory, const ETATConfigNodeType& type) :
+                            m_bCanBeEmpty(bCanBeEmpty),
+                            m_bIsObligatory(bIsObligatory),
+                            m_nMaxCount(nMaxCount)
 {
+    m_strName = strName;
+    m_type = type;
 }
 
 
@@ -60,56 +56,6 @@ TATTestConfigurationForm::~TATTestConfigurationForm()
 //##################													   ##################
 //##################=======================================================##################
 
-void TATTestConfigurationForm::ShowExecutionWindow()
-{
-    m_pExecutionForm = new TestExecutionBaseForm(this);
-    m_pExecutionForm->Show();
-}
-
-void TATTestConfigurationForm::InitializeBackend()
-{
-
-}
-
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		EVENT HANDLERS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
-{
-    this->Destroy();
-}
-
-void TATTestConfigurationForm::OnCompilationConfigurationCheckListBoxToggled( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxToggled( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnEditorButtonClick( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
-{
-    ShowExecutionWindow();
-}
 
 
 //##################=======================================================##################
@@ -121,8 +67,37 @@ void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
 //##################													   ##################
 //##################=======================================================##################
 
+int TATRuleNode::GetMaxCount() const
+{
+    return m_nMaxCount;
+}
+
+void TATRuleNode::SetMaxCount(const int& nMaxCount)
+{
+    m_nMaxCount = nMaxCount;
+}
+
+bool TATRuleNode::GetIsObligatory() const
+{
+    return m_bIsObligatory;
+}
+
+void TATRuleNode::SetIsObligatory(const bool& bIsObligatory)
+{
+    m_bIsObligatory = bIsObligatory;
+}
+
+bool TATRuleNode::GetCanBeEmpty() const
+{
+    return m_bCanBeEmpty;
+}
+
+void TATRuleNode::SetCanBeEmpty(const bool& bCanBeEmpty)
+{
+    m_bCanBeEmpty = bCanBeEmpty;
+}
 
 
-} //namespace UI
+} //namespace Backend
 } //namespace TestAutomationTool
 } //namespace Kinesis

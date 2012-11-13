@@ -2,6 +2,10 @@
 
 #include "TestConfiguration/TATTestAutomationToolConfiguration.h"
 
+#include "TestConfiguration/ITATConfigLoader.h"
+#include "TestConfiguration/TATConfigLoaderFactory.h"
+#include "TestConfiguration/STATAppSettings.h"
+
 namespace Kinesis
 {
 namespace TestAutomationTool
@@ -31,6 +35,9 @@ namespace Backend
 
 TATTestAutomationToolConfiguration::TATTestAutomationToolConfiguration()
 {
+    TATConfigLoaderFactory factory;
+    m_pConfigLoader = factory.CreateConfigLoader(ETATConfigurationSource::E_INI_FILE);
+    m_pConfigLoader->SetSource(STATAppSettings::GetConfigurationFilePath());
 }
 	
 	
@@ -45,6 +52,7 @@ TATTestAutomationToolConfiguration::TATTestAutomationToolConfiguration()
 
 TATTestAutomationToolConfiguration::~TATTestAutomationToolConfiguration()
 {
+    this->Destroy();
 }
 
 
@@ -57,7 +65,14 @@ TATTestAutomationToolConfiguration::~TATTestAutomationToolConfiguration()
 //##################													   ##################
 //##################=======================================================##################
 
-
+void TATTestAutomationToolConfiguration::Destroy()
+{
+    if(m_pConfigLoader)
+    {
+        delete m_pConfigLoader;
+        m_pConfigLoader = NULL;
+    }
+}
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -68,7 +83,10 @@ TATTestAutomationToolConfiguration::~TATTestAutomationToolConfiguration()
 //##################													   ##################
 //##################=======================================================##################
 
-
+ITATConfigLoader* TATTestAutomationToolConfiguration::GetConfigLoader() const
+{
+    return m_pConfigLoader;
+}
 
 } //namespace Backend
 } //namespace TestAutomationTool

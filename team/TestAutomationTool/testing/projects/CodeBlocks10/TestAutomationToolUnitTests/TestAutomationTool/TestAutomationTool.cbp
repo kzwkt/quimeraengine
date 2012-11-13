@@ -21,7 +21,6 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
-					<Add library="libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
 					<Add directory="..\..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
@@ -92,10 +91,40 @@
 			<Add library="libBackend.a" />
 			<Add directory="..\..\..\..\..\3rdparty\wxWidgets\include\lib\gcc_lib" />
 		</Linker>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\STATAppSettings_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactoryWhiteBox.h">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactory_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFileWhiteBox.h">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFile_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigNode_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNodeMock.h">
 			<Option virtualFolder="Tests\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNode_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNodeMock.h">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNode_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfigurationWhiteBox.h">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfiguration_Tests.cpp">
 			<Option virtualFolder="Tests\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TestModule_TestAutomationTool.cpp">

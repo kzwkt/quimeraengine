@@ -1,14 +1,13 @@
 // [TERMS&CONDITIONS]
 
-#include "TestConfiguration/TATTestConfigurationForm.h"
+#include "TestConfiguration/TATConfigNode.h"
 
-#include "TestExecution/TestExecution.h"
 
 namespace Kinesis
 {
 namespace TestAutomationTool
 {
-namespace UI
+namespace Backend
 {
 
 //##################=======================================================##################
@@ -31,22 +30,7 @@ namespace UI
 //##################													   ##################
 //##################=======================================================##################
 
-TATTestConfigurationForm::TATTestConfigurationForm() : TestConfigurationBaseForm(NULL)
-{
-    InitializeBackend();
-}
-	
-	
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		  DESTRUCTOR		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-TATTestConfigurationForm::~TATTestConfigurationForm()
+TATConfigNode::TATConfigNode() : m_type(ETATConfigNodeType::E_ROOT)
 {
 }
 
@@ -60,55 +44,16 @@ TATTestConfigurationForm::~TATTestConfigurationForm()
 //##################													   ##################
 //##################=======================================================##################
 
-void TATTestConfigurationForm::ShowExecutionWindow()
+TATNode::TNodeCollection TATConfigNode::GetChildrenByType(const ETATConfigNodeType& type) const
 {
-    m_pExecutionForm = new TestExecutionBaseForm(this);
-    m_pExecutionForm->Show();
-}
+    TNodeCollection foundChildren;
+    TNodeCollection::const_iterator it = m_children.begin();
 
-void TATTestConfigurationForm::InitializeBackend()
-{
+    for(; it != m_children.end(); ++it)
+        if(dynamic_cast<TATConfigNode*>(it->second)->GetType() == type)
+            foundChildren.insert( TNodeNamePair(it->first, it->second) );
 
-}
-
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		EVENT HANDLERS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
-{
-    this->Destroy();
-}
-
-void TATTestConfigurationForm::OnCompilationConfigurationCheckListBoxToggled( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxToggled( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnEditorButtonClick( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
-{
-    ShowExecutionWindow();
+    return foundChildren;
 }
 
 
@@ -121,8 +66,17 @@ void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
 //##################													   ##################
 //##################=======================================================##################
 
+ETATConfigNodeType TATConfigNode::GetType() const
+{
+    return m_type;
+}
+
+void TATConfigNode::SetType(const ETATConfigNodeType& type)
+{
+    m_type = type;
+}
 
 
-} //namespace UI
+} //namespace Backend
 } //namespace TestAutomationTool
 } //namespace Kinesis

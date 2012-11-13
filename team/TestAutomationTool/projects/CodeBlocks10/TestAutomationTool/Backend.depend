@@ -1,1 +1,950 @@
 # depslib dependency file v1.0
+1348264692 source:j:\quimeraengine\qesvn\team\testautomationtool\source\tatnode.cpp
+	"TATNode.h"
+
+1348264692 j:\quimeraengine\qesvn\team\testautomationtool\headers\tatnode.h
+	<wx/string.h>
+	<map>
+	<list>
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\string.h
+	"wx/defs.h"
+	<ctype.h>
+	<stdio.h>
+	<string.h>
+	<stdarg.h>
+	<limits.h>
+	<string.h>
+	<stdio.h>
+	<stdarg.h>
+	<limits.h>
+	<stdlib.h>
+	<strings.h>
+	"wx/wxcrtbase.h"
+	"wx/strvararg.h"
+	"wx/buffer.h"
+	"wx/strconv.h"
+	"wx/stringimpl.h"
+	"wx/stringops.h"
+	"wx/unichar.h"
+	"wx/tls.h"
+	"wx/iosfwrap.h"
+	"wx/crt.h"
+
+1341906084 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\defs.h
+	"wx/platform.h"
+	"wx/version.h"
+	"wx/dlimpexp.h"
+	<stddef.h>
+	"wx/debug.h"
+	<sys/types.h>
+	<sys/types.h>
+	"wx/windowid.h"
+	<unistd.h>
+	"wx/msw/winundef.h"
+	"wx/features.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\platform.h
+	<unistd.h>
+	<TargetConditionals.h>
+	<AvailabilityMacros.h>
+	"wx/osx/config_xcode.h"
+	"wx/android/config_android.h"
+	"wx/setup.h"
+	"wx/msw/wince/libraries.h"
+	"wx/msw/libraries.h"
+	"wx/msw/gccpriv.h"
+	<TargetConditionals.h>
+	<AvailabilityMacros.h>
+	"wx/chkconf.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\config_xcode.h
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\android\config_android.h
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\lib\gcc_lib\mswud\wx\setup.h
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\wince\libraries.h
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\libraries.h
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\gccpriv.h
+	<_mingw.h>
+	<w32api.h>
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\chkconf.h
+	"wx/msw/wince/chkconf.h"
+	"wx/msw/chkconf.h"
+	"wx/gtk/chkconf.h"
+	"wx/cocoa/chkconf.h"
+	"wx/osx/chkconf.h"
+	"wx/os2/chkconf.h"
+	"wx/dfb/chkconf.h"
+	"wx/motif/chkconf.h"
+	"wx/x11/chkconf.h"
+	"wx/android/chkconf.h"
+	"wx/unix/chkconf.h"
+	"wx/univ/chkconf.h"
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\wince\chkconf.h
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\chkconf.h
+
+1341906068 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\chkconf.h
+	"wx/osx/iphone/chkconf.h"
+	"wx/osx/carbon/chkconf.h"
+	"wx/osx/cocoa/chkconf.h"
+
+1341906068 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\iphone\chkconf.h
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\carbon\chkconf.h
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\android\chkconf.h
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\unix\chkconf.h
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\univ\chkconf.h
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\version.h
+	"wx/cpp.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\cpp.h
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\dlimpexp.h
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\debug.h
+	<assert.h>
+	<limits.h>
+	"wx/chartype.h"
+	"wx/cpp.h"
+	"wx/dlimpexp.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\chartype.h
+	"wx/platform.h"
+	<sys/types.h>
+	<wchar.h>
+	<wcstr.h>
+	<stdlib.h>
+	<widec.h>
+	<ctype.h>
+	<stddef.h>
+	<string.h>
+	<ctype.h>
+	<tchar.h>
+	<ctype.h>
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\windowid.h
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\winundef.h
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\features.h
+
+1341906082 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\wxcrtbase.h
+	"wx/chartype.h"
+	<stdio.h>
+	<string.h>
+	<ctype.h>
+	<wctype.h>
+	<time.h>
+	<io.h>
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\strvararg.h
+	"wx/platform.h"
+	"wx/cpp.h"
+	"wx/chartype.h"
+	"wx/strconv.h"
+	"wx/buffer.h"
+	"wx/unichar.h"
+	<type_traits>
+	<type_traits>
+	<tr1/type_traits>
+	"wx/stringimpl.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\strconv.h
+	"wx/defs.h"
+	"wx/chartype.h"
+	"wx/buffer.h"
+	"typeinfo.h"
+	<stdlib.h>
+	"wx/fontenc.h"
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\buffer.h
+	"wx/chartype.h"
+	"wx/wxcrtbase.h"
+	<stdlib.h>
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\typeinfo.h
+	"wx/defs.h"
+	<typeinfo>
+	<string.h>
+
+1341906082 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\fontenc.h
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\unichar.h
+	"wx/defs.h"
+	"wx/chartype.h"
+	"wx/stringimpl.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\stringimpl.h
+	"wx/defs.h"
+	"wx/chartype.h"
+	"wx/wxcrtbase.h"
+	<stdlib.h>
+	"wx/beforestd.h"
+	<string>
+	"wx/afterstd.h"
+
+1341906084 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\beforestd.h
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\afterstd.h
+	"wx/msw/winundef.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\stringops.h
+	"wx/chartype.h"
+	"wx/stringimpl.h"
+	"wx/unichar.h"
+	"wx/buffer.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\tls.h
+	"wx/defs.h"
+	"wx/msw/tls.h"
+	"wx/os2/tls.h"
+	"wx/unix/tls.h"
+	<stdlib.h>
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\tls.h
+	"wx/msw/wrapwin.h"
+	"wx/thread.h"
+	"wx/vector.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\wrapwin.h
+	"wx/platform.h"
+	<winsock2.h>
+	<windows.h>
+	"wx/msw/winundef.h"
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\thread.h
+	"wx/defs.h"
+
+1341906082 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\vector.h
+	"wx/defs.h"
+	<vector>
+	<algorithm>
+	"wx/utils.h"
+	"wx/scopeguard.h"
+	"wx/meta/movable.h"
+	"wx/meta/if.h"
+	"wx/beforestd.h"
+	<new>
+	"wx/afterstd.h"
+
+1341906056 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\utils.h
+	"wx/object.h"
+	"wx/list.h"
+	"wx/filefn.h"
+	"wx/hashmap.h"
+	"wx/versioninfo.h"
+	"wx/meta/implicitconversion.h"
+	"wx/gdicmn.h"
+	"wx/mousestate.h"
+	"wx/longlong.h"
+	"wx/platinfo.h"
+	<direct.h>
+	<dirent.h>
+	<unistd.h>
+	<stdio.h>
+
+1341906054 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\object.h
+	"wx/memory.h"
+	"wx/xti.h"
+	"wx/rtti.h"
+	"wx/xti2.h"
+	"wx/msw/msvcrt.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\memory.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/msgout.h"
+	<stddef.h>
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msgout.h
+	"wx/defs.h"
+	"wx/chartype.h"
+	"wx/strvararg.h"
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\xti.h
+	"wx/defs.h"
+	"wx/xtitypes.h"
+	"wx/xtihandler.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\xtitypes.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/hashmap.h"
+	"wx/arrstr.h"
+	"wx/flags.h"
+	"wx/intl.h"
+	"wx/log.h"
+	<typeinfo>
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\hashmap.h
+	"wx/string.h"
+	"wx/wxcrt.h"
+	<unordered_map>
+	<tr1/unordered_map>
+	<ext/hash_map>
+	<hash_map>
+	<stddef.h>
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\wxcrt.h
+	"wx/wxcrtbase.h"
+	"wx/string.h"
+	<string.h>
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\arrstr.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/dynarray.h"
+	"wx/beforestd.h"
+	<iterator>
+	"wx/afterstd.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\dynarray.h
+	"wx/defs.h"
+	"wx/beforestd.h"
+	<vector>
+	<algorithm>
+	"wx/afterstd.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\flags.h
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\intl.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/translation.h"
+	"wx/fontenc.h"
+	"wx/language.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\translation.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/buffer.h"
+	"wx/language.h"
+	"wx/hashmap.h"
+	"wx/strconv.h"
+	"wx/scopedptr.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\language.h
+	"wx/defs.h"
+
+1341906056 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\scopedptr.h
+	"wx/defs.h"
+	"wx/checkeddelete.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\checkeddelete.h
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\log.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/strvararg.h"
+	"wx/arrstr.h"
+	<time.h>
+	"wx/dynarray.h"
+	"wx/hashmap.h"
+	"wx/thread.h"
+	"wx/iosfwrap.h"
+	"wx/generic/logg.h"
+	"wx/cocoa/log.h"
+
+1341906082 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\iosfwrap.h
+	<iostream.h>
+	<iosfwd>
+	"wx/msw/winundef.h"
+
+1341906080 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\logg.h
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\xtihandler.h
+	"wx/defs.h"
+	"wx/xti.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\rtti.h
+	"wx/memory.h"
+	"wx/flags.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\xti2.h
+	"wx/xtiprop.h"
+	"wx/xtictor.h"
+
+1341906054 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\xtiprop.h
+	"wx/defs.h"
+	"wx/xti.h"
+	"wx/any.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\any.h
+	"wx/defs.h"
+	<new>
+	"wx/string.h"
+	"wx/meta/if.h"
+	"wx/typeinfo.h"
+	"wx/list.h"
+	"wx/datetime.h"
+	"wx/variant.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\meta\if.h
+	"wx/defs.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\list.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/string.h"
+	"wx/beforestd.h"
+	<algorithm>
+	<iterator>
+	<list>
+	"wx/afterstd.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\datetime.h
+	"wx/defs.h"
+	"wx/msw/wince/time.h"
+	<time.h>
+	<limits.h>
+	"wx/longlong.h"
+	"wx/anystr.h"
+	"wx/dynarray.h"
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\wince\time.h
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\longlong.h
+	"wx/defs.h"
+	"wx/string.h"
+	<limits.h>
+	"wx/iosfwrap.h"
+	<limits>
+	"wx/strvararg.h"
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\anystr.h
+	"wx/string.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\variant.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/string.h"
+	"wx/arrstr.h"
+	"wx/list.h"
+	"wx/cpp.h"
+	"wx/longlong.h"
+	"wx/datetime.h"
+	"wx/iosfwrap.h"
+	"wx/any.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\xtictor.h
+	"wx/defs.h"
+	"wx/xti.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\msvcrt.h
+	<stdlib.h>
+	<crtdbg.h>
+
+1341906056 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\filefn.h
+	"wx/list.h"
+	"wx/arrstr.h"
+	"wx/msw/wince/time.h"
+	"wx/msw/private.h"
+	<time.h>
+	<sys/types.h>
+	<sys/stat.h>
+	<process.h>
+	"wx/os2/private.h"
+	<direct.h>
+	<io.h>
+	<unistd.h>
+	<unistd.h>
+	<dirent.h>
+	<direct.h>
+	<dos.h>
+	<io.h>
+	<direct.h>
+	<dos.h>
+	<io.h>
+	<io.h>
+	<unistd.h>
+	<dir.h>
+	<fcntl.h>
+	<sys/types.h>
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\private.h
+	"wx/msw/wrapwin.h"
+	"wx/msw/microwin.h"
+	"wx/log.h"
+	"wx/window.h"
+	"wx/gdicmn.h"
+	"wx/colour.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\microwin.h
+
+1341906084 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\window.h
+	"wx/event.h"
+	"wx/list.h"
+	"wx/cursor.h"
+	"wx/font.h"
+	"wx/colour.h"
+	"wx/region.h"
+	"wx/utils.h"
+	"wx/intl.h"
+	"wx/validate.h"
+	"wx/palette.h"
+	"wx/accel.h"
+	"wx/access.h"
+	"wx/msw/window.h"
+	"wx/motif/window.h"
+	"wx/gtk/window.h"
+	"wx/gtk1/window.h"
+	"wx/x11/window.h"
+	"wx/dfb/window.h"
+	"wx/osx/window.h"
+	"wx/cocoa/window.h"
+	"wx/os2/window.h"
+	"wx/univ/window.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\event.h
+	"wx/defs.h"
+	"wx/cpp.h"
+	"wx/object.h"
+	"wx/clntdata.h"
+	"wx/gdicmn.h"
+	"wx/cursor.h"
+	"wx/mousestate.h"
+	"wx/dynarray.h"
+	"wx/thread.h"
+	"wx/tracker.h"
+	"wx/typeinfo.h"
+	"wx/any.h"
+	"wx/meta/convertible.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\clntdata.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/hashmap.h"
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\gdicmn.h
+	"wx/defs.h"
+	"wx/list.h"
+	"wx/string.h"
+	"wx/fontenc.h"
+	"wx/hashmap.h"
+	"wx/math.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\math.h
+	"wx/defs.h"
+	<math.h>
+	<float.h>
+	<ieeefp.h>
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\cursor.h
+	"wx/defs.h"
+	"wx/msw/cursor.h"
+	"wx/motif/cursor.h"
+	"wx/gtk/cursor.h"
+	"wx/gtk1/cursor.h"
+	"wx/x11/cursor.h"
+	"wx/dfb/cursor.h"
+	"wx/osx/cursor.h"
+	"wx/cocoa/cursor.h"
+	"wx/os2/cursor.h"
+	"wx/utils.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\cursor.h
+	"wx/msw/gdiimage.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\gdiimage.h
+	"wx/gdiobj.h"
+	"wx/gdicmn.h"
+	"wx/list.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\gdiobj.h
+	"wx/object.h"
+
+1341906070 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\cursor.h
+	"wx/bitmap.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\bitmap.h
+	"wx/string.h"
+	"wx/gdicmn.h"
+	"wx/colour.h"
+	"wx/image.h"
+	"wx/variant.h"
+	"wx/msw/bitmap.h"
+	"wx/x11/bitmap.h"
+	"wx/gtk/bitmap.h"
+	"wx/gtk1/bitmap.h"
+	"wx/x11/bitmap.h"
+	"wx/dfb/bitmap.h"
+	"wx/osx/bitmap.h"
+	"wx/cocoa/bitmap.h"
+	"wx/os2/bitmap.h"
+	"wx/generic/mask.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\colour.h
+	"wx/defs.h"
+	"wx/gdiobj.h"
+	"wx/variant.h"
+	"wx/msw/colour.h"
+	"wx/motif/colour.h"
+	"wx/gtk/colour.h"
+	"wx/gtk1/colour.h"
+	"wx/generic/colour.h"
+	"wx/x11/colour.h"
+	"wx/osx/colour.h"
+	"wx/cocoa/colour.h"
+	"wx/os2/colour.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\colour.h
+	"wx/object.h"
+
+1341906078 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\colour.h
+	"wx/object.h"
+
+1341906070 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\colour.h
+	"wx/osx/core/colour.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\core\colour.h
+	"wx/object.h"
+	"wx/string.h"
+	"wx/osx/core/cfref.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\core\cfref.h
+	<unistd.h>
+	<AvailabilityMacros.h>
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\image.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/string.h"
+	"wx/gdicmn.h"
+	"wx/hashmap.h"
+	"wx/arrstr.h"
+	"wx/stream.h"
+	"wx/variant.h"
+	"wx/imagbmp.h"
+	"wx/imagpng.h"
+	"wx/imaggif.h"
+	"wx/imagpcx.h"
+	"wx/imagjpeg.h"
+	"wx/imagtga.h"
+	"wx/imagtiff.h"
+	"wx/imagpnm.h"
+	"wx/imagxpm.h"
+	"wx/imagiff.h"
+
+1341906082 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\stream.h
+	"wx/defs.h"
+	<stdio.h>
+	"wx/object.h"
+	"wx/string.h"
+	"wx/filefn.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagbmp.h
+	"wx/image.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagpng.h
+	"wx/defs.h"
+	"wx/image.h"
+	"wx/versioninfo.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\versioninfo.h
+	"wx/string.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imaggif.h
+	"wx/image.h"
+
+1341906082 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagpcx.h
+	"wx/image.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagjpeg.h
+	"wx/defs.h"
+	"wx/image.h"
+	"wx/versioninfo.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagtga.h
+	"wx/image.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagtiff.h
+	"wx/defs.h"
+	"wx/image.h"
+	"wx/versioninfo.h"
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagpnm.h
+	"wx/image.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagxpm.h
+	"wx/image.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\imagiff.h
+	"wx/image.h"
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\bitmap.h
+	"wx/msw/gdiimage.h"
+	"wx/palette.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\palette.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/gdiobj.h"
+	"wx/msw/palette.h"
+	"wx/x11/palette.h"
+	"wx/generic/paletteg.h"
+	"wx/osx/palette.h"
+	"wx/os2/palette.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\palette.h
+	"wx/gdiobj.h"
+
+1341906078 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\paletteg.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/gdiobj.h"
+	"wx/gdicmn.h"
+
+1341906068 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\palette.h
+	"wx/gdiobj.h"
+
+1341906070 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\bitmap.h
+	"wx/palette.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\mask.h
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\mousestate.h
+	"wx/gdicmn.h"
+	"wx/kbdstate.h"
+
+1341906074 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\kbdstate.h
+	"wx/defs.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\tracker.h
+	"wx/defs.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\meta\convertible.h
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\font.h
+	"wx/defs.h"
+	"wx/fontenc.h"
+	"wx/gdiobj.h"
+	"wx/gdicmn.h"
+	"wx/msw/font.h"
+	"wx/motif/font.h"
+	"wx/gtk/font.h"
+	"wx/gtk1/font.h"
+	"wx/x11/font.h"
+	"wx/dfb/font.h"
+	"wx/osx/font.h"
+	"wx/cocoa/font.h"
+	"wx/os2/font.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\font.h
+	"wx/gdicmn.h"
+
+1341906068 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\font.h
+
+1341906054 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\region.h
+	"wx/gdiobj.h"
+	"wx/gdicmn.h"
+	"wx/msw/region.h"
+	"wx/gtk/region.h"
+	"wx/gtk1/region.h"
+	"wx/x11/region.h"
+	"wx/dfb/region.h"
+	"wx/osx/region.h"
+	"wx/cocoa/region.h"
+	"wx/os2/region.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\region.h
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\region.h
+	"wx/osx/carbon/region.h"
+	"wx/generic/region.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\carbon\region.h
+	"wx/list.h"
+
+1341906080 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\region.h
+
+1341906056 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\validate.h
+	"wx/defs.h"
+	"wx/event.h"
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\accel.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/generic/accel.h"
+	"wx/msw/accel.h"
+	"wx/motif/accel.h"
+	"wx/gtk/accel.h"
+	"wx/gtk1/accel.h"
+	"wx/osx/accel.h"
+	"wx/generic/accel.h"
+	"wx/os2/accel.h"
+
+1341906080 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\accel.h
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\accel.h
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\accel.h
+	"wx/string.h"
+	"wx/event.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\access.h
+	"wx/defs.h"
+	"wx/variant.h"
+	"wx/msw/ole/access.h"
+
+1341906060 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\ole\access.h
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\window.h
+	"wx/settings.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\settings.h
+	"wx/colour.h"
+	"wx/font.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\window.h
+	"wx/brush.h"
+	"wx/dc.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\brush.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/gdiobj.h"
+	"wx/gdicmn.h"
+	"wx/msw/brush.h"
+	"wx/x11/brush.h"
+	"wx/gtk/brush.h"
+	"wx/gtk1/brush.h"
+	"wx/dfb/brush.h"
+	"wx/osx/brush.h"
+	"wx/cocoa/brush.h"
+	"wx/os2/brush.h"
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\brush.h
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\brush.h
+	"wx/gdicmn.h"
+	"wx/gdiobj.h"
+	"wx/bitmap.h"
+
+1341906066 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\dc.h
+	"wx/object.h"
+	"wx/intl.h"
+	"wx/cursor.h"
+	"wx/font.h"
+	"wx/colour.h"
+	"wx/bitmap.h"
+	"wx/brush.h"
+	"wx/pen.h"
+	"wx/palette.h"
+	"wx/dynarray.h"
+	"wx/math.h"
+	"wx/image.h"
+	"wx/region.h"
+	"wx/affinematrix2d.h"
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\pen.h
+	"wx/gdiobj.h"
+	"wx/gdicmn.h"
+	"wx/msw/pen.h"
+	"wx/x11/pen.h"
+	"wx/gtk/pen.h"
+	"wx/gtk1/pen.h"
+	"wx/dfb/pen.h"
+	"wx/osx/pen.h"
+	"wx/cocoa/pen.h"
+	"wx/os2/pen.h"
+
+1341906062 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\pen.h
+	"wx/gdiobj.h"
+	"wx/gdicmn.h"
+
+1341906072 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\pen.h
+	"wx/gdiobj.h"
+	"wx/colour.h"
+	"wx/bitmap.h"
+
+1341906064 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\affinematrix2d.h
+	"wx/defs.h"
+	"wx/affinematrix2dbase.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\affinematrix2dbase.h
+	"wx/defs.h"
+	"wx/geometry.h"
+
+1341906076 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\geometry.h
+	"wx/defs.h"
+	"wx/utils.h"
+	"wx/gdicmn.h"
+	"wx/math.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\univ\window.h
+	"wx/bitmap.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\meta\implicitconversion.h
+	"wx/defs.h"
+	"wx/meta/if.h"
+
+1341906050 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\platinfo.h
+	"wx/string.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\scopeguard.h
+	"wx/defs.h"
+	"wx/except.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\except.h
+	"wx/defs.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\meta\movable.h
+	"wx/meta/pod.h"
+	"wx/string.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\meta\pod.h
+	"wx/defs.h"
+
+1341906052 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\unix\tls.h
+	<pthread.h>
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\crt.h
+	"wx/defs.h"
+	"wx/chartype.h"
+	"wx/wxcrt.h"
+	"wx/wxcrtvararg.h"
+
+1341906058 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\wxcrtvararg.h
+	"wx/wxcrt.h"
+	"wx/strvararg.h"
+	"wx/string.h"
+	<stdarg.h>
+
+1348699006 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\etatconfignodetype.cpp
+	"TestConfiguration/ETATConfigNodeType.h"
+
+1350158377 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\etatconfignodetype.h
+	<map>
+	<wx/string.h>
+
+1348613848 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\etatconfigurationsource.cpp
+	"TestConfiguration/ETATConfigurationSource.h"
+
+1350158377 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\etatconfigurationsource.h
+	<map>
+	<wx/string.h>
+
+1349004816 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\statappsettings.cpp
+	"TestConfiguration/STATAppSettings.h"
+
+1350158377 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\statappsettings.h
+	<wx/string.h>
+
+1349296878 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\tatconfignode.cpp
+	"TestConfiguration/TATConfigNode.h"
+
+1349730234 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatconfignode.h
+	"TATNode.h"
+	"TestConfiguration/ETATConfigNodeType.h"
+

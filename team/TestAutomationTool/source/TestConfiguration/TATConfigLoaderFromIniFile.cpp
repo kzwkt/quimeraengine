@@ -1,14 +1,14 @@
 // [TERMS&CONDITIONS]
 
-#include "TestConfiguration/TATTestConfigurationForm.h"
+#include "TestConfiguration/TATConfigLoaderFromIniFile.h"
 
-#include "TestExecution/TestExecution.h"
+#include "TestConfiguration/TATRuleNode.h"
 
 namespace Kinesis
 {
 namespace TestAutomationTool
 {
-namespace UI
+namespace Backend
 {
 
 //##################=======================================================##################
@@ -31,9 +31,9 @@ namespace UI
 //##################													   ##################
 //##################=======================================================##################
 
-TATTestConfigurationForm::TATTestConfigurationForm() : TestConfigurationBaseForm(NULL)
+TATConfigLoaderFromIniFile::TATConfigLoaderFromIniFile(TATRuleNode* pRuleTree) : m_strSource(wxT("")),
+                                                                                 m_pRuleTree(pRuleTree)
 {
-    InitializeBackend();
 }
 	
 	
@@ -46,8 +46,9 @@ TATTestConfigurationForm::TATTestConfigurationForm() : TestConfigurationBaseForm
 //##################													   ##################
 //##################=======================================================##################
 
-TATTestConfigurationForm::~TATTestConfigurationForm()
+TATConfigLoaderFromIniFile::~TATConfigLoaderFromIniFile()
 {
+    this->Destroy();
 }
 
 
@@ -60,55 +61,13 @@ TATTestConfigurationForm::~TATTestConfigurationForm()
 //##################													   ##################
 //##################=======================================================##################
 
-void TATTestConfigurationForm::ShowExecutionWindow()
+void TATConfigLoaderFromIniFile::Destroy()
 {
-    m_pExecutionForm = new TestExecutionBaseForm(this);
-    m_pExecutionForm->Show();
-}
-
-void TATTestConfigurationForm::InitializeBackend()
-{
-
-}
-
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		EVENT HANDLERS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
-{
-    this->Destroy();
-}
-
-void TATTestConfigurationForm::OnCompilationConfigurationCheckListBoxToggled( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxToggled( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnEditorButtonClick( wxCommandEvent& event )
-{
-}
-
-void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
-{
-    ShowExecutionWindow();
+    if(m_pRuleTree != NULL)
+    {
+        delete m_pRuleTree;
+        m_pRuleTree = NULL;
+    }
 }
 
 
@@ -121,8 +80,22 @@ void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
 //##################													   ##################
 //##################=======================================================##################
 
+TATRuleNode* TATConfigLoaderFromIniFile::GetRuleTree() const
+{
+    return m_pRuleTree;
+}
+
+wxString TATConfigLoaderFromIniFile::GetSource() const
+{
+    return m_strSource;
+}
+
+void TATConfigLoaderFromIniFile::SetSource(const wxString& strSource)
+{
+    m_strSource = strSource;
+}
 
 
-} //namespace UI
+} //namespace Backend
 } //namespace TestAutomationTool
 } //namespace Kinesis

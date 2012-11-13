@@ -46,7 +46,28 @@
 		<Unit filename="..\..\..\headers\TATNode.h">
 			<Option virtualFolder="Common\" />
 		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\ETATConfigNodeType.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\ETATConfigurationSource.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
 		<Unit filename="..\..\..\headers\TestConfiguration\ITATConfigLoader.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\STATAppSettings.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\TATConfigLoaderFactory.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\TATConfigLoaderFromIniFile.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\TATConfigNode.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\TATRuleNode.h">
 			<Option virtualFolder="FG1 - Test Configuration\" />
 		</Unit>
 		<Unit filename="..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h">
@@ -54,6 +75,27 @@
 		</Unit>
 		<Unit filename="..\..\..\source\TATNode.cpp">
 			<Option virtualFolder="Common\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\ETATConfigNodeType.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\ETATConfigurationSource.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\STATAppSettings.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\TATConfigLoaderFactory.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\TATConfigLoaderFromIniFile.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\TATConfigNode.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\TATRuleNode.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
 			<Option virtualFolder="FG1 - Test Configuration\" />
