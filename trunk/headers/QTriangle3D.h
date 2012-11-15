@@ -53,7 +53,7 @@ public:
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="triangle">[IN] The 3D triangle in which we want resident 3D triangle to be based.</param>
-	inline QTriangle3D(const QBaseTriangle3D<VectorType> &triangle) : QTriangle<VectorType>(triangle)
+	inline QTriangle3D(const QBaseTriangle<VectorType> &triangle) : QTriangle<VectorType>(triangle)
     {
     }
 

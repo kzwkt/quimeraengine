@@ -47,7 +47,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="ray">[IN] The 3D ray from which we want to create a copy in the resident 3D ray.</param>
-	inline QRay3D(const QRay3D<VectorType, QVector3> &ray) : QRay<VectorType, QVector3>(ray)
+	inline QRay3D(const QRay3D<VectorType> &ray) : QRay<VectorType, QVector3>(ray)
 	{
 	}
 
