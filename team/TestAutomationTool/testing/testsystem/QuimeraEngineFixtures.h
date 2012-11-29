@@ -1,9 +1,9 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QUIMERAENGINEFIXTURES__
-#define __QUIMERAENGINEFIXTURES__
+#ifndef __TATFIXTURES__
+#define __TATFIXTURES__
 
-#define QTEST_SUITE_FIXTURE( fixture_class_name, suite_name )                   \
+#define TATTEST_SUITE_FIXTURE( fixture_class_name, suite_name )                   \
 class fixture_class_name                                                        \
 {                                                                               \
 public:                                                                         \
@@ -18,4 +18,4 @@ public:                                                                         
     }                                                                           \
 };
 
-#endif // __QUIMERAENGINEFIXTURES__
+#endif // __TATFIXTURES__

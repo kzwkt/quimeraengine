@@ -94,6 +94,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\STATFileSystemHelper.h" />
     <ClInclude Include="..\..\..\..\headers\TATNode.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigNodeType.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigurationSource.h" />
@@ -104,6 +106,7 @@
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigNode.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATRuleNode.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h" />
+    <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TATNode.cpp" />

@@ -69,7 +69,9 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)$(MSBuildProjectName).log</Path>
     </BuildLog>
     <PostBuildEvent>
-      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)
+copy $(TargetDir)..\..\TestFile.txt $(TargetDir)
+copy $(TargetDir)..\..\TestFile.exe $(TargetDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
@@ -95,12 +97,18 @@
     <BuildLog>
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)$(MSBuildProjectName).log</Path>
     </BuildLog>
+    <PostBuildEvent>
+      <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)
+copy $(TargetDir)..\..\TestFile.txt $(TargetDir)
+copy $(TargetDir)..\..\TestFile.exe $(TargetDir)</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATAppSettings_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATFileSystemHelper_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactory_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFile_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigNode_Tests.cpp" />
@@ -111,7 +119,10 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\Configuration.h" />
     <ClInclude Include="..\..\..\..\testsystem\EQTestType.h" />
+    <ClInclude Include="..\..\..\..\testsystem\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\testsystem\InternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h" />
     <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h" />
     <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h" />

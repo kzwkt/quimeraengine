@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QUNITTESTMODULEBASE__
-#define __QUNITTESTMODULEBASE__
+#ifndef __TATUNITTESTMODULEBASE__
+#define __TATUNITTESTMODULEBASE__
 
 #include <string>
 
@@ -11,12 +11,12 @@
 #include "../testsystem/CommonConfigDefinitions.h"
 #include "../testsystem/QCommonTestConfig.h"
 
-using Kinesis::QuimeraEngine::Test::QCommonTestConfig;
-using Kinesis::QuimeraEngine::Test::EQTestType;
+using Kinesis::TestAutomationTool::Test::TATCommonTestConfig;
+using Kinesis::TestAutomationTool::Test::ETATTestType;
 
 namespace Kinesis
 {
-namespace QuimeraEngine
+namespace TestAutomationTool
 {
 namespace Test
 {
@@ -24,7 +24,7 @@ namespace Test
 /// <summary>
 /// Base class for unit test modules. Always inherit from this class to define a new unit test module.
 /// </summary>
-class QDllExport QUnitTestModuleBase
+class TATUnitTestModuleBase
 {
 	// CONSTRUCTORS
 	// ---------------
@@ -34,9 +34,9 @@ public:
 	/// Constructor that receives the name of the module.
 	/// </summary>
     /// <param name="strModuleName">The name of the module.</param>
-	QUnitTestModuleBase(const std::string &strModuleName)
+	TATUnitTestModuleBase(const std::string &strModuleName)
     {
-        QCommonTestConfig config(strModuleName, EQTestType::E_UnitTest);
+        TATCommonTestConfig config(strModuleName, ETATTestType::E_UnitTest);
     }
 
 
@@ -47,14 +47,14 @@ public:
 	/// <summary>
 	/// Destructor.
 	/// </summary>		
-	virtual ~QUnitTestModuleBase()
+	virtual ~TATUnitTestModuleBase()
     {
     }
 
 };
 
 } //namespace Test
-} //namespace QuimeraEngine
+} //namespace TestAutomationTool
 } //namespace Kinesis
 
-#endif // __QUNITTESTMODULEBASE__
+#endif // __TATUNITTESTMODULEBASE__

@@ -19,7 +19,7 @@ namespace Backend
 //##################													   ##################
 //##################=======================================================##################
 
-const wxString STATAppSettings::m_strConfigurationFilePath = wxT("config.ini");
+const wxString STATAppSettings::sm_strConfigurationFilePath = wxT("config.ini");
 
 
 //##################=======================================================##################
@@ -33,7 +33,7 @@ const wxString STATAppSettings::m_strConfigurationFilePath = wxT("config.ini");
 
 const wxString& STATAppSettings::GetConfigurationFilePath()
 {
-    return m_strConfigurationFilePath;
+    return STATAppSettings::sm_strConfigurationFilePath;
 }
 
 

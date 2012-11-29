@@ -1,18 +1,16 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __EQTESTTYPE__
-#define __EQTESTTYPE__
+#ifndef __ETATTESTTYPE__
+#define __ETATTESTTYPE__
 
 #include <map>
 
-#include "DataTypesDefinitions.h"
-
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+#include <wx/string.h>
 
 
 namespace Kinesis
 {
-namespace QuimeraEngine
+namespace TestAutomationTool
 {
 namespace Test
 {
@@ -20,7 +18,7 @@ namespace Test
 /// <summary>
 /// Represents the types of test available in the testing system.
 /// </summary>
-class EQTestType
+class ETATTestType
 {
     // ENUMERATIONS
     // ---------------
@@ -31,19 +29,19 @@ public:
     /// </summary>
     enum EnumType
     {
-        E_UnitTest = QE_ENUMERATION_MIN_VALUE ,/*!< Unit test. */
+        E_UnitTest = 0 ,/*!< Unit test. */
         E_PerformanceTest,/*!< Performance test. */
         E_EnduranceTest,/*!< Endurance test. */
 
-        _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
+        _NotEnumValue = -1 /*!< Not valid value. */
     };
 
     // TYPEDEFS
     // ---------------
 public:
 
-    typedef std::map<string_q, EQTestType::EnumType> TNameValueMap;
-    typedef std::pair<string_q, EQTestType::EnumType> TNameValuePair;
+    typedef std::map<wxString, ETATTestType::EnumType> TNameValueMap;
+    typedef std::pair<wxString, ETATTestType::EnumType> TNameValuePair;
 
 
 	// METHODS
@@ -54,7 +52,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">A valid enumeration value.</param>
-    inline EQTestType(const EQTestType::EnumType &eValue) : m_value(eValue) 
+    inline ETATTestType(const ETATTestType::EnumType &eValue) : m_value(eValue) 
     {}
 
     /// <summary>
@@ -62,7 +60,7 @@ public:
     /// </summary>
     /// <param name="nValue">An integer number.</param>
     template<typename IntegerType>
-    inline EQTestType(const IntegerType &nValue) : m_value(static_cast<const EQTestType::EnumType>(nValue))
+    inline ETATTestType(const IntegerType &nValue) : m_value(static_cast<const ETATTestType::EnumType>(nValue))
     {}
 
     /// <summary>
@@ -70,7 +68,7 @@ public:
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">The name of a valid enumeration value.</param>
-    inline EQTestType(const string_q &strValueName)
+    inline ETATTestType(const wxString &strValueName)
     {
         *this = strValueName;
     }
@@ -83,9 +81,9 @@ public:
     /// The enumerated type itself.
     /// </returns>
     template<typename IntegerType>
-    inline EQTestType& operator=(const IntegerType &nValue)
+    inline ETATTestType& operator=(const IntegerType &nValue)
     {
-        m_value = static_cast<const EQTestType::EnumType>(nValue);
+        m_value = static_cast<const ETATTestType::EnumType>(nValue);
         return *this;
     }
 
@@ -96,12 +94,12 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQTestType& operator=(const string_q &strValueName)
+    inline ETATTestType& operator=(const wxString &strValueName)
     {
-        if(EQTestType::sm_mapValueName.find(strValueName) != EQTestType::sm_mapValueName.end())
+        if(ETATTestType::sm_mapValueName.find(strValueName) != ETATTestType::sm_mapValueName.end())
             m_value = sm_mapValueName[strValueName];
         else
-            m_value = EQTestType::_NotEnumValue;
+            m_value = ETATTestType::_NotEnumValue;
 
         return *this;
     }
@@ -113,7 +111,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQTestType& operator=(const EQTestType::EnumType &eValue)
+    inline ETATTestType& operator=(const ETATTestType::EnumType &eValue)
     {
         m_value = eValue;
         return *this;
@@ -127,9 +125,9 @@ public:
     /// <returns>
     /// True if the name corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    inline bool operator==(const string_q &strValueName) const
+    inline bool operator==(const wxString &strValueName) const
     {
-        if(EQTestType::sm_mapValueName.find(strValueName) != EQTestType::sm_mapValueName.end())
+        if(ETATTestType::sm_mapValueName.find(strValueName) != ETATTestType::sm_mapValueName.end())
             return m_value == sm_mapValueName[strValueName];
         else
             return false;
@@ -145,7 +143,7 @@ public:
     template<typename IntegerType>
     inline bool operator==(const IntegerType &nValue) const
     {
-        return m_value == static_cast<const EQTestType::EnumType>(nValue);
+        return m_value == static_cast<const ETATTestType::EnumType>(nValue);
     }
 
     /// <summary>
@@ -155,7 +153,7 @@ public:
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
-    bool operator==(const EQTestType::EnumType &eValue) const
+    bool operator==(const ETATTestType::EnumType &eValue) const
     {
         return m_value == eValue;
     }
@@ -166,7 +164,7 @@ public:
     /// <returns>
     /// The contained enumeration value.
     /// </returns>
-    inline operator EQTestType::EnumType() const
+    inline operator ETATTestType::EnumType() const
     {
         return m_value;
     }
@@ -189,18 +187,9 @@ public:
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    operator const string_q() const
+    operator const wxString() const
     {
-        TNameValueMap::iterator itValueName = EQTestType::sm_mapValueName.begin();
-        TNameValueMap::const_iterator itValueNameEnd = EQTestType::sm_mapValueName.end();
-
-        while(itValueName != itValueNameEnd && itValueName->second != m_value)
-            ++itValueName;
-   
-        if(itValueName != itValueNameEnd)
-            return itValueName->first;
-        else
-            return QE_L(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
+        return ConvertToString(m_value, ETATTestType::sm_mapValueName);
     }
 
     /// <summary>
@@ -209,9 +198,33 @@ public:
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    const string_q ToString()
+    const wxString ToString() const
     {
-        return *this;
+        return ConvertToString(m_value, ETATTestType::sm_mapValueName);
+    }
+
+private:
+
+    // <summary>
+    // Uses an enumerated value as a key to retrieve his own string representation from a dictionary.
+    // </summary>
+    // <param name="eValue">The enumeration value.</param>
+    // <param name="nameValueDictionary">The dictionary where enumeration's string representations are stored.</param>
+    // <returns>
+    // The enumerated value's string representation.
+    // </returns>
+    const wxString& ConvertToString(const ETATTestType::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    {
+        TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
+        TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
+
+        while(itValueName != itValueNameEnd && itValueName->second != eValue)
+            ++itValueName;
+
+        if(itValueName != itValueNameEnd)
+            return itValueName->first;
+        else
+            return wxT(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
     }
 
 
@@ -232,12 +245,12 @@ private:
     /// <summary>
     /// The contained enumeration value.
     /// </summary>
-    EQTestType::EnumType m_value;
+    ETATTestType::EnumType m_value;
 
 };
 
 } //namespace Test
-} //namespace QuimeraEngine
+} //namespace TestAutomationTool
 } //namespace Kinesis
 
-#endif // __EQTESTTYPE__
+#endif // __ETATTESTTYPE__

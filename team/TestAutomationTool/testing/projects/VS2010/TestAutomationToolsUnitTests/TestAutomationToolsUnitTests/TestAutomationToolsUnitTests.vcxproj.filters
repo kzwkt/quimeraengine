@@ -42,6 +42,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfiguration_Tests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATFileSystemHelper_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -85,6 +88,15 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNodeMock.h">
       <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\ExternalDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\InternalDefinitions.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\Configuration.h">
+      <Filter>TestSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

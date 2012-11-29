@@ -45,6 +45,12 @@
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\STATAppSettings.h">
       <Filter>FG1 - Test Configuration</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\STATFileSystemHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
@@ -73,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\TestConfiguration\STATAppSettings.cpp">
       <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

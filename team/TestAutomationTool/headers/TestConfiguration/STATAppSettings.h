@@ -62,7 +62,7 @@ protected:
     /// <summary>
 	/// The full path (including file name) where the test configuration file can be found.
 	/// </summary>
-    static const wxString m_strConfigurationFilePath;
+    static const wxString sm_strConfigurationFilePath;
 
 };
 

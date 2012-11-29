@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __QCOMMONTESTCONFIG__
-#define __QCOMMONTESTCONFIG__
+#ifndef __TATCOMMONTESTCONFIG__
+#define __TATCOMMONTESTCONFIG__
 
 #include <boost/test/unit_test.hpp>
 #include <boost/test/unit_test_log.hpp>
@@ -17,7 +17,7 @@ using namespace boost::unit_test;
 
 namespace Kinesis
 {
-namespace QuimeraEngine
+namespace TestAutomationTool
 {
 namespace Test
 {
@@ -27,7 +27,7 @@ namespace Test
 /// When instantiated, it reads the test configuration file and sets up, for example, the test 
 /// logging objects.
 /// </summary>
-class QCommonTestConfig
+class TATCommonTestConfig
 {
 
     // CONSTANTS
@@ -47,14 +47,14 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    QCommonTestConfig();
+    TATCommonTestConfig();
 
     /// <summary>
     /// Constructor that receives the name of the test module and the type of test.
     /// </summary>
     /// <param name="strTestModuleName">The name of the module.</param>
     /// <param name="testType">The type of test.</param>
-    QCommonTestConfig(const std::string &strTestModuleName, const EQTestType& testType);
+    TATCommonTestConfig(const std::string &strTestModuleName, const ETATTestType& testType);
 
 
 	// DESTRUCTOR
@@ -64,7 +64,7 @@ public:
 	/// <summary>
 	/// Destructor.
 	/// </summary>		
-	virtual ~QCommonTestConfig();
+	virtual ~TATCommonTestConfig();
 
 
 	// ATTRIBUTES
@@ -92,8 +92,8 @@ protected:
 };
 
 } //namespace Test
-} //namespace QuimeraEngine
+} //namespace TestAutomationTool
 } //namespace Kinesis
 
-#endif // __QCOMMONTESTCONFIG__
+#endif // __TATCOMMONTESTCONFIG__
 

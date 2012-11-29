@@ -43,6 +43,9 @@
 			<Add directory="..\..\..\headers" />
 			<Add directory="..\..\..\3rdparty\wxWidgets\include\include" />
 		</Compiler>
+		<Unit filename="..\..\..\headers\STATFileSystemHelper.h">
+			<Option virtualFolder="Common\" />
+		</Unit>
 		<Unit filename="..\..\..\headers\TATNode.h">
 			<Option virtualFolder="Common\" />
 		</Unit>
@@ -72,6 +75,9 @@
 		</Unit>
 		<Unit filename="..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h">
 			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\STATFileSystemHelper.cpp">
+			<Option virtualFolder="Common\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TATNode.cpp">
 			<Option virtualFolder="Common\" />

@@ -3,6 +3,8 @@
 #ifndef __TESTINGEXTERNALDEFINITIONS__
 #define __TESTINGEXTERNALDEFINITIONS__
 
+#include "ExternalDefinitions.h"
+
 // --------------------------------------------------------------------------------------------------------
 // QTEST_SUITE_BEGIN: Use this macro to start defining a test suite.
 // TestSuiteName: The name of the test suite (without quotation marks).

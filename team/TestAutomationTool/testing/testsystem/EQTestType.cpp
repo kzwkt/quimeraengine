@@ -4,7 +4,7 @@
 
 namespace Kinesis
 {
-namespace QuimeraEngine
+namespace TestAutomationTool
 {
 namespace Test
 {
@@ -18,19 +18,19 @@ namespace Test
 //##################													   ##################
 //##################=======================================================##################
     
-EQTestType::TNameValuePair EQTestType::sm_arValueName[] =
+ETATTestType::TNameValuePair ETATTestType::sm_arValueName[] =
     {
-        std::pair<string_q, EQTestType::EnumType>(QE_L("UnitTest"),    EQTestType::E_UnitTest),
-        std::pair<string_q, EQTestType::EnumType>(QE_L("PerformanceTest"),    EQTestType::E_PerformanceTest),
-        std::pair<string_q, EQTestType::EnumType>(QE_L("EnduranceTest"),    EQTestType::E_EnduranceTest),
+        std::pair<wxString, ETATTestType::EnumType>(wxT("UnitTest"),    ETATTestType::E_UnitTest),
+        std::pair<wxString, ETATTestType::EnumType>(wxT("PerformanceTest"),    ETATTestType::E_PerformanceTest),
+        std::pair<wxString, ETATTestType::EnumType>(wxT("EnduranceTest"),    ETATTestType::E_EnduranceTest),
     };
 
-EQTestType::TNameValueMap EQTestType::sm_mapValueName(
-        EQTestType::sm_arValueName ,
-        &EQTestType::sm_arValueName[0] + sizeof(EQTestType::sm_arValueName) / sizeof(EQTestType::sm_arValueName[0])
+ETATTestType::TNameValueMap ETATTestType::sm_mapValueName(
+        ETATTestType::sm_arValueName ,
+        &ETATTestType::sm_arValueName[0] + sizeof(ETATTestType::sm_arValueName) / sizeof(ETATTestType::sm_arValueName[0])
     );
 
 
 } //namespace Test
-} //namespace QuimeraEngine
+} //namespace TestAutomationTool
 } //namespace Kinesis
