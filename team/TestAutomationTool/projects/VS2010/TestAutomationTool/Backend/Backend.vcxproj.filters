@@ -51,6 +51,15 @@
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h">
       <Filter>Common</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATKeyValueNode.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\STATStringHelper.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATValidationException.h">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
@@ -81,6 +90,12 @@
       <Filter>FG1 - Test Configuration</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp">
+      <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATKeyValueNode.cpp">
+      <Filter>FG1 - Test Configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\STATStringHelper.cpp">
       <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>

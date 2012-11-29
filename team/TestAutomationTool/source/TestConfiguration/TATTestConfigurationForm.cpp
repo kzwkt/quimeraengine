@@ -2,7 +2,15 @@
 
 #include "TestConfiguration/TATTestConfigurationForm.h"
 
+#include <map>
+#include <wx/msgdlg.h>
+
 #include "TestExecution/TestExecution.h"
+#include "TestConfiguration/STATAppSettings.h"
+#include "TestConfiguration/TATValidationException.h"
+
+using Kinesis::TestAutomationTool::Backend::STATAppSettings;
+using Kinesis::TestAutomationTool::Backend::TATValidationException;
 
 namespace Kinesis
 {
@@ -68,7 +76,21 @@ void TATTestConfigurationForm::ShowExecutionWindow()
 
 void TATTestConfigurationForm::InitializeBackend()
 {
+    try
+    {
+        m_backend.LoadConfiguration(STATAppSettings::GetConfigurationFilePath());
+    }
+    catch(const TATValidationException& validationEx)
+    {
+        std::map<wxString, wxString> translationDictionary;
+        translationDictionary.insert(std::pair<wxString, wxString>("MULTIPLE_RULES", _("ERROR_MESSAGE_DUPLICATED_RULE")));
+        translationDictionary.insert(std::pair<wxString, wxString>("MAXCOUNT", _("ERROR_MESSAGE_MAXCOUNT_RULE_VIOLATED")));
+        translationDictionary.insert(std::pair<wxString, wxString>("CANTBEEMPTY", _("ERROR_MESSAGE_CANTBEEMPTY_RULE_VIOLATED")));
+        translationDictionary.insert(std::pair<wxString, wxString>("ISOBLIGATORY", _("ERROR_MESSAGE_ISOBLIGATORY_RULE_VIOLATED")));
 
+        wxMessageDialog messageBox(this, translationDictionary[validationEx.what()] + validationEx.GetNodeName(), _("ERROR_OCURRED_WHEN_LOADING_CONFIG"), wxOK | wxICON_ERROR);
+        messageBox.ShowModal();
+    }
 }
 
 

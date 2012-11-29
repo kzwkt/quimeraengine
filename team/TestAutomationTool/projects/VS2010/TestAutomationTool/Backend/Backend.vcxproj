@@ -61,6 +61,7 @@
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\headers;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -91,11 +92,14 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\STATFileSystemHelper.h" />
+    <ClInclude Include="..\..\..\..\headers\STATStringHelper.h" />
     <ClInclude Include="..\..\..\..\headers\TATNode.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigNodeType.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigurationSource.h" />
@@ -104,11 +108,14 @@
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigLoaderFactory.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigLoaderFromIniFile.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATConfigNode.h" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATKeyValueNode.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATRuleNode.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h" />
     <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp" />
+    <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATValidationException.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\STATStringHelper.cpp" />
     <ClCompile Include="..\..\..\..\source\TATNode.cpp" />
     <ClCompile Include="..\..\..\..\source\TestConfiguration\ETATConfigNodeType.cpp" />
     <ClCompile Include="..\..\..\..\source\TestConfiguration\ETATConfigurationSource.cpp" />
@@ -116,6 +123,7 @@
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigLoaderFactory.cpp" />
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigLoaderFromIniFile.cpp" />
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATConfigNode.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestConfiguration\TATKeyValueNode.cpp" />
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATRuleNode.cpp" />
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp" />
   </ItemGroup>

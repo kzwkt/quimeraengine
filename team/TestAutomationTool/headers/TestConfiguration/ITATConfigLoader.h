@@ -14,6 +14,7 @@ namespace Backend
 {
 
 class TATRuleNode;
+class TATKeyValueNode;
 
 /// <summary>
 /// Loads the test system configuration.
@@ -44,6 +45,11 @@ public:
 	// ---------------
 public:
 
+    /// <summary>
+    /// Access to the configuration source and transforms that information into a value tree.
+    /// </summary>
+    virtual void Load()=0;
+
 
 	// PROPERTIES
 	// ---------------
@@ -56,6 +62,14 @@ public:
     /// A rule tree.
     /// </returns>
     virtual TATRuleNode* GetRuleTree() const=0;
+
+    /// <summary>
+	/// Gets the value tree generated after parsing the configuration source.
+	/// </summary>
+    /// <returns>
+    /// A value tree.
+    /// </returns>
+    virtual TATKeyValueNode* GetValueTree() const=0;
 
     /// <summary>
 	/// Gets the configuration source. It can be a file name, a connection string, a URL... it depends

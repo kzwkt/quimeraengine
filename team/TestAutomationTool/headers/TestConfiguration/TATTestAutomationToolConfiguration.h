@@ -50,7 +50,8 @@ public:
     /// <summary>
     /// Loads the test system configuration and parses it to create an internal data structure.
     /// </summary>
-    void LoadConfiguration();
+    /// <param name="strConfigurationSource">The source of the configuration (a file path, a connection string, etc.)</param>    
+    void LoadConfiguration(const wxString& strConfigurationSource);
 
 protected:
 

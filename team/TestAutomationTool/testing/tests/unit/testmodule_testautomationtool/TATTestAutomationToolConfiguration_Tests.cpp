@@ -36,6 +36,32 @@ QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
 }
 
 /// <summary>
+/// Checks that no exceptions are thrown when the configuration source exists and is completely valid.
+/// </summary>
+QTEST_CASE ( LoadConfiguration_NoExceptionIsThrownWhenUsingExistingAndValidSource_Test )
+{
+    // Preparation
+    TATTestAutomationToolConfiguration TESTAUTOMATIONTOOL_CONFIGURATION;
+    const wxString EXISTING_VALID_SOURCE = wxT("ConfigFileMock.ini");
+    const bool NO_EXCEPTIONS_THROWN_VALUE = false;
+
+	// Execution
+    bool bExceptionThrown = false;
+
+    try
+    {
+        TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(EXISTING_VALID_SOURCE);
+    }
+    catch(...)
+    {
+        bExceptionThrown = true;
+    }
+
+    // Verification
+    BOOST_CHECK_EQUAL(bExceptionThrown, NO_EXCEPTIONS_THROWN_VALUE);
+}
+
+/// <summary>
 /// Checks if any error occurs during destruction.
 /// </summary>
 QTEST_CASE ( Destroy_NoErrorOccurred_Test )

@@ -39,6 +39,36 @@ public:
     {
         TATConfigLoaderFromIniFile::Destroy();
     }
+
+    void ApplyRule(TATKeyValueNode* pValueNode, TATRuleNode* pRuleNode, TATKeyValueNode* pRootNode)
+    {
+        TATConfigLoaderFromIniFile::ApplyRule(pValueNode, pRuleNode, pRootNode);
+    }
+
+    void ApplyFinalRules(TATRuleNode* pRuleTree, TATKeyValueNode* pValueTree)
+    {
+        TATConfigLoaderFromIniFile::ApplyFinalRules(pRuleTree, pValueTree);
+    }
+
+    ETATConfigNodeType GetTypeOfNode(const wxString& strLine) const
+    {
+        return TATConfigLoaderFromIniFile::GetTypeOfNode(strLine);
+    }
+
+    wxString GetNameOfNode(const wxString& strLine) const
+    {
+        return TATConfigLoaderFromIniFile::GetNameOfNode(strLine);
+    }
+
+    wxString GetValueOfNode(const wxString& strLine) const
+    {
+        return TATConfigLoaderFromIniFile::GetValueOfNode(strLine);
+    }
+
+    void SetValueTreeForTesting(TATKeyValueNode* pValueTree)
+    {
+        m_pValueTree = pValueTree;
+    }
 };
 
 } //namespace Test

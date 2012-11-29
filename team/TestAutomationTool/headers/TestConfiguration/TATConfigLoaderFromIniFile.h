@@ -7,6 +7,7 @@
 
 #include <wx/string.h>
 
+#include "TestConfiguration/ETATConfigNodeType.h"
 
 namespace Kinesis
 {
@@ -67,12 +68,59 @@ public:
 
 	// METHODS
 	// ---------------
+public:
+
+    //! @copydoc ITATConfigLoader::Load()
+    virtual void Load();
+
 protected:
-        
+
     /// <summary>
 	/// Releases all the resources.
 	/// </summary>
     void Destroy();
+
+    /// <summary>
+    /// Validates a node of a value tree based on a rule. If the validation fails, an exception is thrown.
+    /// </summary>
+    /// <param name="pValueNode">The value node to validate.</param>
+    /// <param name="pRuleNode">The validation rule.</param>
+    /// <param name="pRootNode">The parent of the value node.</param>
+    void ApplyRule(TATKeyValueNode* pValueNode, TATRuleNode* pRuleNode, TATKeyValueNode* pRootNode);
+
+    /// <summary>
+    /// Validates the nodes of a value tree, applying some rules after the tree has been created.
+    /// </summary>
+    /// <param name="pRuleTree">A rule tree.</param>
+    /// <param name="pValueTree">The value tree to validate.</param>
+    void ApplyFinalRules(TATRuleNode* pRuleTree, TATKeyValueNode* pValueTree);
+
+    /// <summary>
+    /// Identifies which type of node does a line of text represents.
+    /// </summary>
+    /// <param name="strLine">A line of text.</param>
+    /// <returns>
+    /// The type of the node represented.
+    /// </returns>
+    ETATConfigNodeType GetTypeOfNode(const wxString& strLine) const;
+
+    /// <summary>
+    /// Extracts the "name" part from a line of text that is supossed to be divided by an equals (=) character.
+    /// </summary>
+    /// <param name="strLine">A line of text.</param>
+    /// <returns>
+    /// The name of the node represented by the line.
+    /// </returns>
+    wxString GetNameOfNode(const wxString& strLine) const;
+
+    /// <summary>
+    /// Extracts the "value" part from a line of text that is supposed to be divided by an equals (=) character.
+    /// </summary>
+    /// <param name="strLine">A line of text.</param>
+    /// <returns>
+    /// The value of the node represented by the line.
+    /// </returns>
+    wxString GetValueOfNode(const wxString& strLine) const;
 
 
 	// PROPERTIES
@@ -81,6 +129,9 @@ public:
 
     //! @copydoc ITATConfigLoader::GetRuleTree()
     virtual TATRuleNode* GetRuleTree() const;
+
+    //! @copydoc ITATConfigLoader::GetValueTree()
+    virtual TATKeyValueNode* GetValueTree() const;
 
     //! @copydoc ITATConfigLoader::GetSource()
     virtual wxString GetSource() const;
@@ -102,6 +153,11 @@ protected:
 	/// The rule tree.
 	/// </summary>
     TATRuleNode* m_pRuleTree;
+
+    /// <summary>
+    /// The value tree.
+    /// </summary>
+    TATKeyValueNode* m_pValueTree;
 
 };
 

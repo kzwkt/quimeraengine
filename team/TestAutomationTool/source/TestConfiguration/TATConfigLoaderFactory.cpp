@@ -79,11 +79,6 @@ TATRuleNode* TATConfigLoaderFactory::CreateRuleTree() const
     // It can’t be empty.
     pProjectNode->AddChild( new TATRuleNode(wxT("CompilationInfoPath"), 1, false, true, ETATConfigNodeType::E_VALUE) );
 
-    // --CompilerConfiguration
-    // The name of a compilation configuration that is considered in the file specified in CompilationInfoPath. 
-    // It can appear 1 to N times and can’t be empty.
-    pProjectNode->AddChild( new TATRuleNode(wxT("CompilerConfiguration"), 0, false, true, ETATConfigNodeType::E_VALUE) );
-
     // --Compiler
     // The name of the compiler used to compile the project. It has to coincide with the header value of one of the declared 
     // compiler settings. It can appear once and only once.
@@ -108,6 +103,11 @@ TATRuleNode* TATConfigLoaderFactory::CreateRuleTree() const
     // The relative path of the configuration file of the SUT, in this case, the “Configuration.h” file. 
     // It must appear once and only once, and it can’t be empty.
     pSUTNode->AddChild( new TATRuleNode( wxT("ConfigurationFilePath"), 1, false, true, ETATConfigNodeType::E_VALUE) );
+
+    // --CompilerConfiguration
+    // The name of a compilation configuration that is considered in the file specified in CompilationInfoPath. 
+    // It can appear 1 to N times and can’t be empty.
+    pSUTNode->AddChild( new TATRuleNode( wxT("CompilerConfiguration"), 0, false, true, ETATConfigNodeType::E_VALUE) );
 
     // -Test system settings
     // This section groups some parameters and information about the testing system that is to be executed. 

@@ -65,6 +65,9 @@
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.exe&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\ConfigFileMock.ini&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -94,6 +97,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\STATAppSettings_Tests.cpp">
 			<Option virtualFolder="Tests\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\STATFileSystemHelper_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\STATStringHelper_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactoryWhiteBox.h">
 			<Option virtualFolder="Tests\" />
 		</Unit>
@@ -107,6 +116,9 @@
 			<Option virtualFolder="Tests\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigNode_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATKeyValueNode_Tests.cpp">
 			<Option virtualFolder="Tests\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNodeMock.h">

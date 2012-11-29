@@ -45,6 +45,12 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATFileSystemHelper_Tests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATKeyValueNode_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATStringHelper_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

@@ -102,6 +102,25 @@ QTEST_CASE ( AddChild_ChildIsAdded_Test )
 }
 
 /// <summary>
+/// Checks that more than one child node with the same name can be added with no errors nor replacements.
+/// </summary>
+QTEST_CASE ( AddChild_MoreThanOneChildWithSameNameCanBeAdded_Test )
+{
+    // Preparation
+    const size_t ELEMENTS_IN_COLLECTION = 2;
+    TATNode* NODE_TO_ADD1 = new TATNode(wxT("RepeatedName"));
+    TATNode* NODE_TO_ADD2 = new TATNode(wxT("RepeatedName"));
+
+	// Execution
+    TATNode nodeUT;
+    nodeUT.AddChild(NODE_TO_ADD1);
+    nodeUT.AddChild(NODE_TO_ADD2);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(nodeUT.GetChildren().size(), ELEMENTS_IN_COLLECTION);
+}
+
+/// <summary>
 /// Checks that the nodes are added successfully.
 /// </summary>
 QTEST_CASE ( AddChildren_ChildIsAdded_Test )

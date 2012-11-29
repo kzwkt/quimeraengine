@@ -56,6 +56,12 @@ bool STATFileSystemHelper::Read(const wxString& strFilePath, wxString& strReadSt
             for(size_t i = 0; i < LINE_COUNT_IN_FILE; ++i)
             {
                 strCompleteFile += file.GetLine(i);
+
+                if(i < LINE_COUNT_IN_FILE - 1)
+                {
+                    // Only appends new line characters when not reading the last line
+                    strCompleteFile += TAT_NEWLINE_TOKEN;
+                }
             }
         }
         catch(std::exception ex)

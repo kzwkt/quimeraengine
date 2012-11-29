@@ -74,6 +74,12 @@ void TATTestAutomationToolConfiguration::Destroy()
     }
 }
 
+void TATTestAutomationToolConfiguration::LoadConfiguration(const wxString& strConfigurationSource)
+{
+    m_pConfigLoader->SetSource(strConfigurationSource);
+    m_pConfigLoader->Load();
+}
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################

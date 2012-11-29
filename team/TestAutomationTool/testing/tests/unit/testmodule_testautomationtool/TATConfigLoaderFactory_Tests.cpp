@@ -144,12 +144,12 @@ QTEST_CASE ( CreateRuleTree_HasNotChanged_Test )
     const TATRuleNode COMPILER_BUILD_PARAMS_NODE(wxT("CompilerBuildParams"), 1, true, true, ETATConfigNodeType::E_VALUE);
     const TATRuleNode PROJECT_SETTINGS_NODE(wxT("P"), 0, false, true, ETATConfigNodeType::E_HEADER);
     const TATRuleNode COMPILATION_INFO_PATH_NODE(wxT("CompilationInfoPath"), 1, false, true, ETATConfigNodeType::E_VALUE);
-    const TATRuleNode COMPILER_CONFIGURATION_NODE(wxT("CompilerConfiguration"), 0, false, true, ETATConfigNodeType::E_VALUE);
     const TATRuleNode COMPILER_NODE(wxT("Compiler"), 1, false, true, ETATConfigNodeType::E_VALUE);
     const TATRuleNode FLAG_NODE(wxT("F"), 0, false, false, ETATConfigNodeType::E_HEADER);
     const TATRuleNode OPTION_NODE( wxT("Option"), 0, false, true, ETATConfigNodeType::E_VALUE);
     const TATRuleNode SUT_NODE(wxT("S"), 1, false, true, ETATConfigNodeType::E_HEADER);
     const TATRuleNode CONFIGURATION_FILE_PATH_NODE( wxT("ConfigurationFilePath"), 1, false, true, ETATConfigNodeType::E_VALUE);
+    const TATRuleNode COMPILER_CONFIGURATION_NODE(wxT("CompilerConfiguration"), 0, false, true, ETATConfigNodeType::E_VALUE);
     const TATRuleNode TEST_SYSTEM_NODE(wxT("T"), 0, false, true, ETATConfigNodeType::E_HEADER);
     const TATRuleNode TEST_MODULES_PATH_NODE(wxT("TestModulesPath"), 1, false, true, ETATConfigNodeType::E_VALUE);
     const TATRuleNode RESULTS_PATH_NODE(wxT("ResultsPath"), 1, false, true, ETATConfigNodeType::E_VALUE);
@@ -172,7 +172,6 @@ QTEST_CASE ( CreateRuleTree_HasNotChanged_Test )
     TATRuleNode* pProjectSettingsNode = dynamic_cast<TATRuleNode*>(pRuleTreeUT->GetChild(PROJECT_SETTINGS_NODE.GetName()).begin()->second);
     BOOST_CHECK(RuleNodesAreEqual_Utility(*pProjectSettingsNode, PROJECT_SETTINGS_NODE));
     BOOST_CHECK(RuleNodesAreEqual_Utility(*dynamic_cast<TATRuleNode*>(pProjectSettingsNode->GetChild(COMPILATION_INFO_PATH_NODE.GetName()).begin()->second), COMPILATION_INFO_PATH_NODE));
-    BOOST_CHECK(RuleNodesAreEqual_Utility(*dynamic_cast<TATRuleNode*>(pProjectSettingsNode->GetChild(COMPILER_CONFIGURATION_NODE.GetName()).begin()->second), COMPILER_CONFIGURATION_NODE));
     BOOST_CHECK(RuleNodesAreEqual_Utility(*dynamic_cast<TATRuleNode*>(pProjectSettingsNode->GetChild(COMPILER_NODE.GetName()).begin()->second), COMPILER_NODE));
 
     TATRuleNode* pFlagNode = dynamic_cast<TATRuleNode*>(pRuleTreeUT->GetChild(FLAG_NODE.GetName()).begin()->second);
@@ -182,6 +181,7 @@ QTEST_CASE ( CreateRuleTree_HasNotChanged_Test )
     TATRuleNode* pSUTNode = dynamic_cast<TATRuleNode*>(pRuleTreeUT->GetChild(SUT_NODE.GetName()).begin()->second);
     BOOST_CHECK(RuleNodesAreEqual_Utility(*pSUTNode, SUT_NODE));
     BOOST_CHECK(RuleNodesAreEqual_Utility(*dynamic_cast<TATRuleNode*>(pSUTNode->GetChild(CONFIGURATION_FILE_PATH_NODE.GetName()).begin()->second), CONFIGURATION_FILE_PATH_NODE));
+    BOOST_CHECK(RuleNodesAreEqual_Utility(*dynamic_cast<TATRuleNode*>(pSUTNode->GetChild(COMPILER_CONFIGURATION_NODE.GetName()).begin()->second), COMPILER_CONFIGURATION_NODE));
 
     TATRuleNode* pTestSystemNode = dynamic_cast<TATRuleNode*>(pRuleTreeUT->GetChild(TEST_SYSTEM_NODE.GetName()).begin()->second);
     BOOST_CHECK(RuleNodesAreEqual_Utility(*pTestSystemNode, TEST_SYSTEM_NODE));

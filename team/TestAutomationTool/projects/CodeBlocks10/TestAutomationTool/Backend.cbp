@@ -46,6 +46,9 @@
 		<Unit filename="..\..\..\headers\STATFileSystemHelper.h">
 			<Option virtualFolder="Common\" />
 		</Unit>
+		<Unit filename="..\..\..\headers\STATStringHelper.h">
+			<Option virtualFolder="Common\" />
+		</Unit>
 		<Unit filename="..\..\..\headers\TATNode.h">
 			<Option virtualFolder="Common\" />
 		</Unit>
@@ -70,13 +73,22 @@
 		<Unit filename="..\..\..\headers\TestConfiguration\TATConfigNode.h">
 			<Option virtualFolder="FG1 - Test Configuration\" />
 		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\TATKeyValueNode.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
 		<Unit filename="..\..\..\headers\TestConfiguration\TATRuleNode.h">
 			<Option virtualFolder="FG1 - Test Configuration\" />
 		</Unit>
 		<Unit filename="..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h">
 			<Option virtualFolder="FG1 - Test Configuration\" />
 		</Unit>
+		<Unit filename="..\..\..\headers\TestConfiguration\TATValidationException.h">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
 		<Unit filename="..\..\..\source\STATFileSystemHelper.cpp">
+			<Option virtualFolder="Common\" />
+		</Unit>
+		<Unit filename="..\..\..\source\STATStringHelper.cpp">
 			<Option virtualFolder="Common\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TATNode.cpp">
@@ -98,6 +110,9 @@
 			<Option virtualFolder="FG1 - Test Configuration\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TestConfiguration\TATConfigNode.cpp">
+			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestConfiguration\TATKeyValueNode.cpp">
 			<Option virtualFolder="FG1 - Test Configuration\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TestConfiguration\TATRuleNode.cpp">

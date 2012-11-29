@@ -71,7 +71,8 @@
     <PostBuildEvent>
       <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)
 copy $(TargetDir)..\..\TestFile.txt $(TargetDir)
-copy $(TargetDir)..\..\TestFile.exe $(TargetDir)</Command>
+copy $(TargetDir)..\..\TestFile.exe $(TargetDir)
+copy $(TargetDir)..\..\ConfigFileMock.ini $(TargetDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
@@ -100,7 +101,8 @@ copy $(TargetDir)..\..\TestFile.exe $(TargetDir)</Command>
     <PostBuildEvent>
       <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)
 copy $(TargetDir)..\..\TestFile.txt $(TargetDir)
-copy $(TargetDir)..\..\TestFile.exe $(TargetDir)</Command>
+copy $(TargetDir)..\..\TestFile.exe $(TargetDir)
+copy $(TargetDir)..\..\ConfigFileMock.ini $(TargetDir)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -109,9 +111,11 @@ copy $(TargetDir)..\..\TestFile.exe $(TargetDir)</Command>
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATAppSettings_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATFileSystemHelper_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATStringHelper_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFactory_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFile_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigNode_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATKeyValueNode_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNode_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNode_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfiguration_Tests.cpp" />
