@@ -106,12 +106,34 @@ void TATTestAutomationToolConfiguration::SelectCompilerConfiguration(const wxStr
     }
 }
 
+void TATTestAutomationToolConfiguration::SelectFlagCombination(const wxString& strFlagCombination, const bool& bSelected)
+{
+    if(bSelected)
+    {
+        m_flagCombinationSelection.push_back(strFlagCombination);
+    }
+    else
+    {
+        m_flagCombinationSelection.remove(strFlagCombination);
+    }
+}
+
 void TATTestAutomationToolConfiguration::CombineFlags(const std::list<TATKeyValueNode*>& flags)
 {
     if(flags.size() > 0)
     {
         // Combines the flag value with values of the rest of the flags
-        this->CombineFlagValue(flags.begin(), flags.end(), std::map<wxString, wxString>(), m_flagCombinations);
+        std::list< std::map<wxString, wxString> > flagCombinations;
+        this->CombineFlagValue(flags.begin(), flags.end(), std::map<wxString, wxString>(), flagCombinations);
+
+        // Stores the combinations using numerated keys
+        int nCombinationNumber = 0;
+
+        for(std::list< std::map<wxString, wxString> >::const_iterator iCombination = flagCombinations.begin(); iCombination != flagCombinations.end(); ++iCombination)
+        {
+            m_flagCombinations.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C") + wxString::FromDouble(nCombinationNumber), *iCombination));
+            ++nCombinationNumber;
+        }
     }
 }
 
@@ -187,6 +209,16 @@ ITATConfigLoader* TATTestAutomationToolConfiguration::GetConfigLoader() const
 std::list<wxString> TATTestAutomationToolConfiguration::GetCompilerConfigurationSelection() const
 {
     return m_compilerConfigurationSelection;
+}
+
+std::list<wxString> TATTestAutomationToolConfiguration::GetFlagCombinationSelection() const
+{
+    return m_flagCombinationSelection;
+}
+
+TATTestAutomationToolConfiguration::TFlagCombinationCollection TATTestAutomationToolConfiguration::GetFlagCombinations() const
+{
+    return m_flagCombinations;
 }
 
 } //namespace Backend

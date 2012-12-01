@@ -58,6 +58,14 @@ public:
 	/// </summary>
     void InitializeBackend();
 
+protected:
+
+    /// <summary>
+    /// Removes all the cells in a grid.
+    /// </summary>
+    /// <param name="pGrid">The grid to be cleared.</param>
+    void ClearGrid(wxGrid* pGrid) const;
+
 
     // EVENT HANDLERS
 	// ---------------

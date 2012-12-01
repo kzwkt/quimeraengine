@@ -51,7 +51,7 @@ TestConfigurationBaseForm::TestConfigurationBaseForm( wxWindow* parent, wxWindow
 	
 	// Grid
 	m_gridFlagValues->CreateGrid( 5, 5 );
-	m_gridFlagValues->EnableEditing( true );
+	m_gridFlagValues->EnableEditing( false );
 	m_gridFlagValues->EnableGridLines( true );
 	m_gridFlagValues->EnableDragGridSize( false );
 	m_gridFlagValues->SetMargins( 0, 0 );
@@ -62,6 +62,7 @@ TestConfigurationBaseForm::TestConfigurationBaseForm( wxWindow* parent, wxWindow
 	m_gridFlagValues->SetColSize( 2, 80 );
 	m_gridFlagValues->SetColSize( 3, 80 );
 	m_gridFlagValues->SetColSize( 4, 80 );
+	m_gridFlagValues->AutoSizeColumns();
 	m_gridFlagValues->EnableDragColMove( false );
 	m_gridFlagValues->EnableDragColSize( true );
 	m_gridFlagValues->SetColLabelSize( 30 );
@@ -69,7 +70,7 @@ TestConfigurationBaseForm::TestConfigurationBaseForm( wxWindow* parent, wxWindow
 	
 	// Rows
 	m_gridFlagValues->EnableDragRowSize( true );
-	m_gridFlagValues->SetRowLabelSize( 80 );
+	m_gridFlagValues->SetRowLabelSize( 0 );
 	m_gridFlagValues->SetRowLabelAlignment( wxALIGN_CENTRE, wxALIGN_CENTRE );
 	
 	// Label Appearance

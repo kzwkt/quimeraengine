@@ -93,6 +93,19 @@ void TATTestConfigurationForm::InitializeBackend()
     }
 }
 
+void TATTestConfigurationForm::ClearGrid(wxGrid* pGrid) const
+{
+    if(pGrid->GetNumberRows() > 0)
+    {
+        pGrid->DeleteRows(0, pGrid->GetNumberRows());
+    }
+
+    if(pGrid->GetNumberCols() > 0)
+    {
+        pGrid->DeleteCols(0, pGrid->GetNumberCols());
+    }
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -105,12 +118,29 @@ void TATTestConfigurationForm::InitializeBackend()
 
 void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
 {
+    // Loads the compiler configurations on the UI
     std::list<wxString> compilerConfigurations = m_backend.GetCompilerConfigurations();
 
     for(std::list<wxString>::iterator iCompilerConfigName = compilerConfigurations.begin(); iCompilerConfigName != compilerConfigurations.end(); ++iCompilerConfigName)
     {
         m_clCompilationConfiguration->Insert(*iCompilerConfigName, 0);
+
+        // Checked by default
+        m_clCompilationConfiguration->Check(0);
+        m_backend.SelectCompilerConfiguration(*iCompilerConfigName, true);
     }
+
+    // Loads the flag combinations on the UI
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection flagCombinations = m_backend.GetFlagCombinations();
+
+    for(TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iFlagCombination = flagCombinations.begin(); iFlagCombination != flagCombinations.end(); ++iFlagCombination)
+    {
+        m_clFlagCombinations->Insert(iFlagCombination->first, 0);
+        m_clFlagCombinations->Check(0);
+    }
+
+    // Clears the flag values grid
+    this->ClearGrid(m_gridFlagValues);
 }
 
 void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
@@ -125,10 +155,39 @@ void TATTestConfigurationForm::OnCompilationConfigurationCheckListBoxToggled( wx
 
 void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event )
 {
+    // Updates the UI, showing all the values in the selected flag combination
+    std::map<wxString, wxString> flagValues = m_backend.GetFlagCombinations()[event.GetString()];
+
+    // Clears the grid
+    this->ClearGrid(m_gridFlagValues);
+
+    // One row per flag value
+    m_gridFlagValues->AppendRows(flagValues.size());
+    m_gridFlagValues->AppendCols(2);
+
+    const int FLAG_NAME_COLUMN = 0;
+    const int FLAG_VALUE_COLUMN = 1;
+    int nRow = 0;
+
+    // Configures the labels
+    m_gridFlagValues->SetColLabelValue(FLAG_NAME_COLUMN, _("FLAG_NAME"));
+    m_gridFlagValues->SetColLabelValue(FLAG_VALUE_COLUMN, _("FLAG_VALUE"));
+
+    for(std::map<wxString, wxString>::iterator iFlagValue = flagValues.begin(); iFlagValue != flagValues.end(); ++iFlagValue)
+    {
+        // Headers: Flag name - Flag value
+        m_gridFlagValues->SetCellValue(iFlagValue->first, nRow, FLAG_NAME_COLUMN);
+        m_gridFlagValues->SetCellValue(iFlagValue->second, nRow, FLAG_VALUE_COLUMN);
+
+        ++nRow;
+    }
+
+    m_gridFlagValues->AutoSizeColumns();
 }
 
 void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxToggled( wxCommandEvent& event )
 {
+    m_backend.SelectFlagCombination(event.GetString(), m_clFlagCombinations->IsChecked(event.GetInt()));
 }
 
 void TATTestConfigurationForm::OnEditorButtonClick( wxCommandEvent& event )

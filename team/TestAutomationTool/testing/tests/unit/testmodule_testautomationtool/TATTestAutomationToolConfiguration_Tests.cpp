@@ -77,12 +77,34 @@ QTEST_CASE ( SelectCompilerConfiguration_OnlySelectedCompilerCondigurationAreRet
     TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(SOURCE);
 
 	// Execution
-    TESTAUTOMATIONTOOL_CONFIGURATION.SelectCompilerConfiguration(wxT("CompilerConfigurationValue2"), true);
+    TESTAUTOMATIONTOOL_CONFIGURATION.SelectCompilerConfiguration(EXPECTED_CONFIGURATION_NAME2, true);
 
     // Verification
     std::list<wxString> compilerConfigurationNames = TESTAUTOMATIONTOOL_CONFIGURATION.GetCompilerConfigurationSelection();
     BOOST_CHECK_EQUAL(compilerConfigurationNames.size(), EXPECTED_NUMBER_OF_COMPILER_CONFIGS);
     BOOST_CHECK_EQUAL(*compilerConfigurationNames.begin(), EXPECTED_CONFIGURATION_NAME2);
+}
+
+/// <summary>
+/// Checks if all the selected flag combination names are returned, and only them.
+/// </summary>
+QTEST_CASE ( SelectFlagCombination_OnlySelectedFlagCombinationsAreReturned_Test )
+{
+    // Preparation
+    const wxString EXPECTED_COMBINATION_NAME2 = wxT("FlagCombination2");
+    const int EXPECTED_NUMBER_OF_FLAG_COMBINATIONS = 1;
+
+    TATTestAutomationToolConfiguration testAutomationToolConfigUT;
+    const wxString SOURCE = wxT("ConfigFileMock.ini");
+    testAutomationToolConfigUT.LoadConfiguration(SOURCE);
+
+	// Execution
+    testAutomationToolConfigUT.SelectFlagCombination(EXPECTED_COMBINATION_NAME2, true);
+
+    // Verification
+    std::list<wxString> flagCombinationNames = testAutomationToolConfigUT.GetFlagCombinationSelection();
+    BOOST_CHECK_EQUAL(flagCombinationNames.size(), EXPECTED_NUMBER_OF_FLAG_COMBINATIONS);
+    BOOST_CHECK_EQUAL(*flagCombinationNames.begin(), EXPECTED_COMBINATION_NAME2);
 }
 
 /// <summary>
@@ -96,27 +118,27 @@ QTEST_CASE ( CombineFlags_FlasgAreCombinedAsExpectedWhenThereAreMoreThanOne_Test
 
     // Preparation
     const int EXPECTED_NUMBER_OF_COMBINATIONS = 4;
-    std::list< std::map<wxString, wxString> > EXPECTED_FLAG_COMBINATIONS;
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection EXPECTED_FLAG_COMBINATIONS;
 
-    std::map<wxString, wxString> COMBINATION1 = std::map<wxString, wxString>();
+    std::map<wxString, wxString> COMBINATION1;
     COMBINATION1.insert(std::pair<wxString, wxString>(wxT("Flag1"), wxT("Value1_1")));
     COMBINATION1.insert(std::pair<wxString, wxString>(wxT("Flag2"), wxT("Value2_1")));
-    EXPECTED_FLAG_COMBINATIONS.push_back(COMBINATION1);
+    EXPECTED_FLAG_COMBINATIONS.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C0"), COMBINATION1));
 
-    std::map<wxString, wxString> COMBINATION2 = std::map<wxString, wxString>();
+    std::map<wxString, wxString> COMBINATION2;
     COMBINATION2.insert(std::pair<wxString, wxString>(wxT("Flag1"), wxT("Value1_1")));
     COMBINATION2.insert(std::pair<wxString, wxString>(wxT("Flag2"), wxT("Value2_2")));
-    EXPECTED_FLAG_COMBINATIONS.push_back(COMBINATION2);
+    EXPECTED_FLAG_COMBINATIONS.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C1"), COMBINATION2));
 
-    std::map<wxString, wxString> COMBINATION3 = std::map<wxString, wxString>();
+    std::map<wxString, wxString> COMBINATION3;
     COMBINATION3.insert(std::pair<wxString, wxString>(wxT("Flag1"), wxT("Value1_2")));
     COMBINATION3.insert(std::pair<wxString, wxString>(wxT("Flag2"), wxT("Value2_1")));
-    EXPECTED_FLAG_COMBINATIONS.push_back(COMBINATION3);
+    EXPECTED_FLAG_COMBINATIONS.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C2"), COMBINATION3));
 
-    std::map<wxString, wxString> COMBINATION4 = std::map<wxString, wxString>();
+    std::map<wxString, wxString> COMBINATION4;
     COMBINATION4.insert(std::pair<wxString, wxString>(wxT("Flag1"), wxT("Value1_2")));
     COMBINATION4.insert(std::pair<wxString, wxString>(wxT("Flag2"), wxT("Value2_2")));
-    EXPECTED_FLAG_COMBINATIONS.push_back(COMBINATION4);
+    EXPECTED_FLAG_COMBINATIONS.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C3"), COMBINATION4));
 
     std::list<TATKeyValueNode*> INPUT_FLAGS;
 
@@ -136,18 +158,20 @@ QTEST_CASE ( CombineFlags_FlasgAreCombinedAsExpectedWhenThereAreMoreThanOne_Test
     TESTAUTOMATIONTOOL_CONFIGURATION.CombineFlags(INPUT_FLAGS);
 
     // Verification
-    std::list< std::map<wxString, wxString> > flagCombinationsGenerated = TESTAUTOMATIONTOOL_CONFIGURATION.GetExpectedFlagCombinations();
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection flagCombinationsGenerated = TESTAUTOMATIONTOOL_CONFIGURATION.GetExpectedFlagCombinations();
     BOOST_CHECK_EQUAL(flagCombinationsGenerated.size(), EXPECTED_NUMBER_OF_COMBINATIONS);
     
-    std::list< std::map<wxString, wxString> >::iterator iCombination = flagCombinationsGenerated.begin();
-    std::list< std::map<wxString, wxString> >::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iCombination = flagCombinationsGenerated.begin();
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
 
     for(; iCombination != flagCombinationsGenerated.end(); ++iCombination, ++iExpected)
     {
-        std::map<wxString, wxString>::iterator iFlagValue = iCombination->begin();
-        std::map<wxString, wxString>::iterator iExpectedFlagValue = iExpected->begin();
+        BOOST_CHECK_EQUAL(iCombination->first, iExpected->first);
 
-        for(; iFlagValue != iCombination->end(); ++iFlagValue, ++iExpectedFlagValue)
+        std::map<wxString, wxString>::iterator iFlagValue = iCombination->second.begin();
+        std::map<wxString, wxString>::iterator iExpectedFlagValue = iExpected->second.begin();
+
+        for(; iFlagValue != iCombination->second.end(); ++iFlagValue, ++iExpectedFlagValue)
         {
             BOOST_CHECK_EQUAL(iFlagValue->first, iExpectedFlagValue->first);
             BOOST_CHECK_EQUAL(iFlagValue->second, iExpectedFlagValue->second);
@@ -170,15 +194,15 @@ QTEST_CASE ( CombineFlags_WhenThereIsOnlyOneFlagThereIsOneCombinationPerValue_Te
 
     // Preparation
     const int EXPECTED_NUMBER_OF_COMBINATIONS = 2;
-    std::list< std::map<wxString, wxString> > EXPECTED_FLAG_COMBINATIONS;
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection EXPECTED_FLAG_COMBINATIONS;
 
     std::map<wxString, wxString> COMBINATION1 = std::map<wxString, wxString>();
     COMBINATION1.insert(std::pair<wxString, wxString>(wxT("Flag1"), wxT("Value1_1")));
-    EXPECTED_FLAG_COMBINATIONS.push_back(COMBINATION1);
+    EXPECTED_FLAG_COMBINATIONS.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C0"), COMBINATION1));
 
     std::map<wxString, wxString> COMBINATION2 = std::map<wxString, wxString>();
     COMBINATION2.insert(std::pair<wxString, wxString>(wxT("Flag1"), wxT("Value1_2")));
-    EXPECTED_FLAG_COMBINATIONS.push_back(COMBINATION2);
+    EXPECTED_FLAG_COMBINATIONS.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C1"), COMBINATION2));
 
     std::list<TATKeyValueNode*> INPUT_FLAGS;
 
@@ -193,18 +217,20 @@ QTEST_CASE ( CombineFlags_WhenThereIsOnlyOneFlagThereIsOneCombinationPerValue_Te
     TESTAUTOMATIONTOOL_CONFIGURATION.CombineFlags(INPUT_FLAGS);
 
     // Verification
-    std::list< std::map<wxString, wxString> > flagCombinationsGenerated = TESTAUTOMATIONTOOL_CONFIGURATION.GetExpectedFlagCombinations();
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection flagCombinationsGenerated = TESTAUTOMATIONTOOL_CONFIGURATION.GetExpectedFlagCombinations();
     BOOST_CHECK_EQUAL(flagCombinationsGenerated.size(), EXPECTED_NUMBER_OF_COMBINATIONS);
     
-    std::list< std::map<wxString, wxString> >::iterator iCombination = flagCombinationsGenerated.begin();
-    std::list< std::map<wxString, wxString> >::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iCombination = flagCombinationsGenerated.begin();
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
 
     for(; iCombination != flagCombinationsGenerated.end(); ++iCombination, ++iExpected)
     {
-        std::map<wxString, wxString>::iterator iFlagValue = iCombination->begin();
-        std::map<wxString, wxString>::iterator iExpectedFlagValue = iExpected->begin();
+        BOOST_CHECK_EQUAL(iCombination->first, iExpected->first);
 
-        for(; iFlagValue != iCombination->end(); ++iFlagValue, ++iExpectedFlagValue)
+        std::map<wxString, wxString>::iterator iFlagValue = iCombination->second.begin();
+        std::map<wxString, wxString>::iterator iExpectedFlagValue = iExpected->second.begin();
+
+        for(; iFlagValue != iCombination->second.end(); ++iFlagValue, ++iExpectedFlagValue)
         {
             BOOST_CHECK_EQUAL(iFlagValue->first, iExpectedFlagValue->first);
             BOOST_CHECK_EQUAL(iFlagValue->second, iExpectedFlagValue->second);
@@ -389,6 +415,54 @@ QTEST_CASE ( GetCompilerConfigurationSelection_OnlySelectedCompilerCondiguration
     // Verification
     BOOST_CHECK_EQUAL(compilerConfigurationNames.size(), EXPECTED_NUMBER_OF_COMPILER_CONFIGS);
     BOOST_CHECK_EQUAL(*compilerConfigurationNames.begin(), EXPECTED_CONFIGURATION_NAME2);
+}
+
+/// <summary>
+/// Checks if all the expected flag combination names are returned.
+/// </summary>
+QTEST_CASE ( GetFlagCombinations_RetrievedFlagCombinationNamesAreWhatExpected_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::Test::TATTestAutomationToolConfigurationWhiteBox;
+    using Kinesis::TestAutomationTool::Backend::TATKeyValueNode;
+    using Kinesis::TestAutomationTool::Backend::ETATConfigNodeType;
+
+    // Preparation
+    const int EXPECTED_NUMBER_OF_COMBINATIONS = 2;
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection EXPECTED_FLAG_COMBINATIONS;
+
+    std::map<wxString, wxString> COMBINATION1 = std::map<wxString, wxString>();
+    COMBINATION1.insert(std::pair<wxString, wxString>(wxT("Flag1"), wxT("Value1_1")));
+    EXPECTED_FLAG_COMBINATIONS.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C0"), COMBINATION1));
+
+    std::map<wxString, wxString> COMBINATION2 = std::map<wxString, wxString>();
+    COMBINATION2.insert(std::pair<wxString, wxString>(wxT("Flag1"), wxT("Value1_2")));
+    EXPECTED_FLAG_COMBINATIONS.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C1"), COMBINATION2));
+
+    TATTestAutomationToolConfigurationWhiteBox testAutomationToolConfigUT;
+    testAutomationToolConfigUT.SetExpectedFlagCombinations(EXPECTED_FLAG_COMBINATIONS);
+
+	// Execution
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection flagCombinations = testAutomationToolConfigUT.GetFlagCombinations();
+
+    // Verification
+    BOOST_CHECK_EQUAL(flagCombinations.size(), EXPECTED_NUMBER_OF_COMBINATIONS);
+    
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iCombination = flagCombinations.begin();
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
+
+    for(; iCombination != flagCombinations.end(); ++iCombination, ++iExpected)
+    {
+        BOOST_CHECK_EQUAL(iCombination->first, iExpected->first);
+
+        std::map<wxString, wxString>::iterator iFlagValue = iCombination->second.begin();
+        std::map<wxString, wxString>::iterator iExpectedFlagValue = iExpected->second.begin();
+
+        for(; iFlagValue != iCombination->second.end(); ++iFlagValue, ++iExpectedFlagValue)
+        {
+            BOOST_CHECK_EQUAL(iFlagValue->first, iExpectedFlagValue->first);
+            BOOST_CHECK_EQUAL(iFlagValue->second, iExpectedFlagValue->second);
+        }
+    }
 }
 
 // End - Test Suite: TATTestAutomationToolConfiguration

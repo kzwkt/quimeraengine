@@ -25,6 +25,13 @@ class TATKeyValueNode;
 /// </summary>
 class TATTestAutomationToolConfiguration
 {
+    // TYPEDEFS
+    // ---------------
+public:
+
+    typedef std::map< wxString, std::map<wxString, wxString> > TFlagCombinationCollection;
+
+    
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -61,6 +68,13 @@ public:
     /// <param name="strCompilerConfig">The value to be selected.</param>
     /// <param name="bSelected">True means selection while False means unselection.</param>
     void SelectCompilerConfiguration(const wxString& strCompilerConfig, const bool& bSelected);
+
+    /// <summary>
+    /// Stores or removes a flag combination in the list of selected combinations.
+    /// </summary>
+    /// <param name="strCompilerConfig">The flag combination to be selected.</param>
+    /// <param name="bSelected">True means selection while False means unselection.</param>
+    void SelectFlagCombination(const wxString& strFlagCombination, const bool& bSelected);
 
 protected:
 
@@ -116,12 +130,12 @@ public:
     std::list<wxString> GetFlagCombinationSelection() const;
 
     /// <summary>
-    /// Gets the generated list of flag value combinations.
+    /// Gets the generated collection of flag value combinations.
     /// </summary>
     /// <returns>
-    /// A list of all the flag value combinations possible.
+    /// A collection of all the flag value combinations possible.
     /// </returns>
-    std::list<wxString> GetFlagCombinations() const;
+    TFlagCombinationCollection GetFlagCombinations() const;
 
     /// <summary>
     /// Gets an instance of a configuration loader.
@@ -147,9 +161,9 @@ protected:
     std::list<wxString> m_flagCombinationSelection;
     
     /// <summary>
-    /// A list of all the flag value combinations possible.
+    /// A collection of all the flag value combinations possible.
     /// </summary>
-    std::list< std::map<wxString, wxString> > m_flagCombinations;
+    TFlagCombinationCollection m_flagCombinations;
     
     /// <summary>
     /// The configuration loader.

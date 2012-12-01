@@ -49,9 +49,14 @@ public:
         return m_pConfigLoader;
     }
 
-    const std::list< std::map<wxString, wxString> >& GetExpectedFlagCombinations() const
+    const std::map< wxString, std::map<wxString, wxString> >& GetExpectedFlagCombinations() const
     {
         return m_flagCombinations;
+    }
+
+    void SetExpectedFlagCombinations(const TATTestAutomationToolConfiguration::TFlagCombinationCollection& flagCombinations)
+    {
+        m_flagCombinations = flagCombinations;
     }
 };
 
