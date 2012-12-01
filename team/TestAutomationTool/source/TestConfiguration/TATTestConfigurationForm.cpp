@@ -105,6 +105,12 @@ void TATTestConfigurationForm::InitializeBackend()
 
 void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
 {
+    std::list<wxString> compilerConfigurations = m_backend.GetCompilerConfigurations();
+
+    for(std::list<wxString>::iterator iCompilerConfigName = compilerConfigurations.begin(); iCompilerConfigName != compilerConfigurations.end(); ++iCompilerConfigName)
+    {
+        m_clCompilationConfiguration->Insert(*iCompilerConfigName, 0);
+    }
 }
 
 void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
@@ -114,6 +120,7 @@ void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
 
 void TATTestConfigurationForm::OnCompilationConfigurationCheckListBoxToggled( wxCommandEvent& event )
 {
+    m_backend.SelectCompilerConfiguration(event.GetString(), m_clCompilationConfiguration->IsChecked(event.GetInt()));
 }
 
 void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event )

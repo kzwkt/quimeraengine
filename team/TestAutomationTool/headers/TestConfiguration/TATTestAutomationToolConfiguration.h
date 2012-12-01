@@ -53,6 +53,13 @@ public:
     /// <param name="strConfigurationSource">The source of the configuration (a file path, a connection string, etc.)</param>    
     void LoadConfiguration(const wxString& strConfigurationSource);
 
+    /// <summary>
+    /// [DOC]
+    /// </summary>
+    /// <param name="strCompilerConfig">[DOC]</param>
+    /// <param name="bSelected">[DOC]</param>
+    void SelectCompilerConfiguration(const wxString& strCompilerConfig, const bool& bSelected);
+
 protected:
 
     /// <summary>
@@ -65,10 +72,17 @@ protected:
     /// </summary>
     void Destroy();
 
-
 	// PROPERTIES
 	// ---------------
 public:
+
+    /// <summary>
+    /// Gets all the compiler configurations.
+    /// </summary>
+    /// <returns>
+    /// A list of the name of all the compiler configurations available.
+    /// </returns>
+    std::list<wxString> GetCompilerConfigurations() const;
 
     /// <summary>
     /// Gets the list of selected compiler configurations.

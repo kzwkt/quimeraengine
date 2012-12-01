@@ -5,6 +5,7 @@
 #include "TestConfiguration/ITATConfigLoader.h"
 #include "TestConfiguration/TATConfigLoaderFactory.h"
 #include "TestConfiguration/STATAppSettings.h"
+#include "TestConfiguration/TATKeyValueNode.h"
 
 namespace Kinesis
 {
@@ -80,6 +81,19 @@ void TATTestAutomationToolConfiguration::LoadConfiguration(const wxString& strCo
     m_pConfigLoader->Load();
 }
 
+void TATTestAutomationToolConfiguration::SelectCompilerConfiguration(const wxString& strCompilerConfig, const bool& bSelected)
+{
+    if(bSelected)
+    {
+        m_compilerConfigurationSelection.push_back(strCompilerConfig);
+    }
+    else
+    {
+        m_compilerConfigurationSelection.remove(strCompilerConfig);
+    }
+}
+
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -89,9 +103,34 @@ void TATTestAutomationToolConfiguration::LoadConfiguration(const wxString& strCo
 //##################													   ##################
 //##################=======================================================##################
 
+std::list<wxString> TATTestAutomationToolConfiguration::GetCompilerConfigurations() const
+{
+    // Gets the value tree
+    TATKeyValueNode* pValueTree = m_pConfigLoader->GetValueTree();
+    // Gets the SUT node, which contains the available compiler configurations
+    TATNode* pSutNode = pValueTree->GetChild(wxT("S")).begin()->second;
+    // Gets the available compiler configurations
+    TATKeyValueNode::TNodeCollection compileConfigurations = pSutNode->GetChild(wxT("CompilerConfiguration"));
+
+    // Collects the compiler configuration names
+    std::list<wxString> compilerConfigurationNames = std::list<wxString>();
+
+    for(TATKeyValueNode::TNodeCollection::iterator iNode = compileConfigurations.begin(); iNode != compileConfigurations.end(); ++iNode)
+    {
+        compilerConfigurationNames.push_back(dynamic_cast<TATKeyValueNode*>(iNode->second)->GetValue());
+    }
+
+    return compilerConfigurationNames;
+}
+
 ITATConfigLoader* TATTestAutomationToolConfiguration::GetConfigLoader() const
 {
     return m_pConfigLoader;
+}
+
+std::list<wxString> TATTestAutomationToolConfiguration::GetCompilerConfigurationSelection() const
+{
+    return m_compilerConfigurationSelection;
 }
 
 } //namespace Backend

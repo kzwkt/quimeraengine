@@ -62,6 +62,28 @@ QTEST_CASE ( LoadConfiguration_NoExceptionIsThrownWhenUsingExistingAndValidSourc
 }
 
 /// <summary>
+/// Checks if all the selected compiler configuration names are returned, and only them.
+/// </summary>
+QTEST_CASE ( SelectCompilerConfiguration_OnlySelectedCompilerCondigurationAreReturned_Test )
+{
+    // Preparation
+    const wxString EXPECTED_CONFIGURATION_NAME2 = wxT("CompilerConfigurationValue2");
+    const int EXPECTED_NUMBER_OF_COMPILER_CONFIGS = 1;
+
+    TATTestAutomationToolConfiguration TESTAUTOMATIONTOOL_CONFIGURATION;
+    const wxString SOURCE = wxT("ConfigFileMock.ini");
+    TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(SOURCE);
+
+	// Execution
+    TESTAUTOMATIONTOOL_CONFIGURATION.SelectCompilerConfiguration(wxT("CompilerConfigurationValue2"), true);
+
+    // Verification
+    std::list<wxString> compilerConfigurationNames = TESTAUTOMATIONTOOL_CONFIGURATION.GetCompilerConfigurationSelection();
+    BOOST_CHECK_EQUAL(compilerConfigurationNames.size(), EXPECTED_NUMBER_OF_COMPILER_CONFIGS);
+    BOOST_CHECK_EQUAL(*compilerConfigurationNames.begin(), EXPECTED_CONFIGURATION_NAME2);
+}
+
+/// <summary>
 /// Checks if any error occurs during destruction.
 /// </summary>
 QTEST_CASE ( Destroy_NoErrorOccurred_Test )
@@ -104,6 +126,27 @@ QTEST_CASE ( Destroy_AllResourcesAreReleased_Test )
 }
 
 /// <summary>
+/// Checks if all the expected compiler configuration names are returned.
+/// </summary>
+QTEST_CASE ( GetCompilerConfigurations_RetrievedCompilerConfigurationNamesAreWhatExpected_Test )
+{
+    // Preparation
+    const wxString EXPECTED_CONFIGURATION_NAME1 = wxT("CompilerConfigurationValue");
+    const wxString EXPECTED_CONFIGURATION_NAME2 = wxT("CompilerConfigurationValue2");
+
+    TATTestAutomationToolConfiguration TESTAUTOMATIONTOOL_CONFIGURATION;
+    const wxString SOURCE = wxT("ConfigFileMock.ini");
+    TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(SOURCE);
+
+	// Execution
+    std::list<wxString> compilerConfigurationNames = TESTAUTOMATIONTOOL_CONFIGURATION.GetCompilerConfigurations();
+
+    // Verification
+    BOOST_CHECK_EQUAL(*compilerConfigurationNames.begin(), EXPECTED_CONFIGURATION_NAME1);
+    BOOST_CHECK_EQUAL(*compilerConfigurationNames.rbegin(), EXPECTED_CONFIGURATION_NAME2);
+}
+
+/// <summary>
 /// Checks if the property returns what's expected.
 /// </summary>
 QTEST_CASE ( GetConfigLoader_ExpectedValueIsReturned_Test )
@@ -117,6 +160,28 @@ QTEST_CASE ( GetConfigLoader_ExpectedValueIsReturned_Test )
 
     // Verification
     BOOST_CHECK_EQUAL(pReturnedValue, EXPECTED_CONFIGLOADER);
+}
+
+/// <summary>
+/// Checks if all the selected compiler configuration names are returned, and only them.
+/// </summary>
+QTEST_CASE ( GetCompilerConfigurationSelection_OnlySelectedCompilerCondigurationAreReturned_Test )
+{
+    // Preparation
+    const wxString EXPECTED_CONFIGURATION_NAME2 = wxT("CompilerConfigurationValue2");
+    const int EXPECTED_NUMBER_OF_COMPILER_CONFIGS = 1;
+
+    TATTestAutomationToolConfiguration TESTAUTOMATIONTOOL_CONFIGURATION;
+    const wxString SOURCE = wxT("ConfigFileMock.ini");
+    TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(SOURCE);
+    TESTAUTOMATIONTOOL_CONFIGURATION.SelectCompilerConfiguration(wxT("CompilerConfigurationValue2"), true);
+
+	// Execution
+    std::list<wxString> compilerConfigurationNames = TESTAUTOMATIONTOOL_CONFIGURATION.GetCompilerConfigurationSelection();
+
+    // Verification
+    BOOST_CHECK_EQUAL(compilerConfigurationNames.size(), EXPECTED_NUMBER_OF_COMPILER_CONFIGS);
+    BOOST_CHECK_EQUAL(*compilerConfigurationNames.begin(), EXPECTED_CONFIGURATION_NAME2);
 }
 
 // End - Test Suite: TATTestAutomationToolConfiguration
