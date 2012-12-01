@@ -4,6 +4,7 @@
 #define __TATTESTAUTOMATIONTOOLCONFIGURATION__
 
 #include <list>
+#include <map>
 
 #include <wx/string.h>
 
@@ -16,6 +17,7 @@ namespace Backend
 {
 
 class ITATConfigLoader;
+class TATKeyValueNode;
 
 /// <summary>
 /// Manages the business logic of a functional sector of the application in a UI-independent way.
@@ -54,10 +56,10 @@ public:
     void LoadConfiguration(const wxString& strConfigurationSource);
 
     /// <summary>
-    /// [DOC]
+    /// Stores or removes a compiler configuration value in the list of selected values.
     /// </summary>
-    /// <param name="strCompilerConfig">[DOC]</param>
-    /// <param name="bSelected">[DOC]</param>
+    /// <param name="strCompilerConfig">The value to be selected.</param>
+    /// <param name="bSelected">True means selection while False means unselection.</param>
     void SelectCompilerConfiguration(const wxString& strCompilerConfig, const bool& bSelected);
 
 protected:
@@ -65,12 +67,25 @@ protected:
     /// <summary>
     /// Generates a list of flag values combinations.
     /// </summary>
-    void CombineFlags();
+    /// <param name="flags">List of flags to be combine.</param>
+    void CombineFlags(const std::list<TATKeyValueNode*>& flags);
 
     /// <summary>
     /// Releases all the resources.
     /// </summary>
     void Destroy();
+
+    /// <summary>
+    /// Combines sets of flag values recursively, creating a cartesian product.
+    /// </summary>
+    /// <param name="flagToCombine">Flag whose values are to be combined.</param>
+    /// <param name="flagListEnd">Marks the end of the flag list.</param>
+    /// <param name="flagCombination">Current combination of flag values in process.</param>
+    /// <param name="outFlagCombinations">Output parameter. It's the generated list of combinations.</param>
+    void CombineFlagValue(std::list<TATKeyValueNode*>::const_iterator flagToCombine, 
+                          std::list<TATKeyValueNode*>::const_iterator flagListEnd,
+                          std::map<wxString, wxString> flagCombination,
+                          std::list< std::map<wxString, wxString> >& outFlagCombinations) const;
 
 	// PROPERTIES
 	// ---------------
@@ -134,7 +149,7 @@ protected:
     /// <summary>
     /// A list of all the flag value combinations possible.
     /// </summary>
-    std::list<wxString> m_flagCombinations;
+    std::list< std::map<wxString, wxString> > m_flagCombinations;
     
     /// <summary>
     /// The configuration loader.

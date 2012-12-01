@@ -77,8 +77,21 @@ void TATTestAutomationToolConfiguration::Destroy()
 
 void TATTestAutomationToolConfiguration::LoadConfiguration(const wxString& strConfigurationSource)
 {
+    // Loads the configuration source and creates the value tree
     m_pConfigLoader->SetSource(strConfigurationSource);
     m_pConfigLoader->Load();
+
+    // Creates a list of flags
+    TATKeyValueNode::TNodeCollection flags = m_pConfigLoader->GetValueTree()->GetChild(wxT("F"));
+    std::list<TATKeyValueNode*> flagList = std::list<TATKeyValueNode*>();
+
+    for(TATKeyValueNode::TNodeCollection::const_iterator iFlagNode = flags.begin(); iFlagNode != flags.end(); ++iFlagNode)
+    {
+        flagList.push_back(dynamic_cast<TATKeyValueNode*>(iFlagNode->second));
+    }
+
+    // Generates flag combinations
+    this->CombineFlags(flagList);
 }
 
 void TATTestAutomationToolConfiguration::SelectCompilerConfiguration(const wxString& strCompilerConfig, const bool& bSelected)
@@ -93,6 +106,49 @@ void TATTestAutomationToolConfiguration::SelectCompilerConfiguration(const wxStr
     }
 }
 
+void TATTestAutomationToolConfiguration::CombineFlags(const std::list<TATKeyValueNode*>& flags)
+{
+    if(flags.size() > 0)
+    {
+        // Combines the flag value with values of the rest of the flags
+        this->CombineFlagValue(flags.begin(), flags.end(), std::map<wxString, wxString>(), m_flagCombinations);
+    }
+}
+
+void TATTestAutomationToolConfiguration::CombineFlagValue(std::list<TATKeyValueNode*>::const_iterator flagToCombine, 
+                                                          std::list<TATKeyValueNode*>::const_iterator flagListEnd,
+                                                          std::map<wxString, wxString> flagCombination,
+                                                          std::list< std::map<wxString, wxString> >& outFlagCombinations) const
+{
+    // Obtains the first flag and its values
+    TATKeyValueNode* pFlagToCombine = dynamic_cast<TATKeyValueNode*>(*flagToCombine);
+    TATKeyValueNode::TNodeCollection flagValues = pFlagToCombine->GetChildren();
+
+    // Gets the next flag in the list of flags to combine
+    std::list<TATKeyValueNode*>::const_iterator nextFlagToCombineWith = flagToCombine;
+    nextFlagToCombineWith++;
+    
+    // Combines the flag values with other flags' values or stores the current combination if there are no more flags to combine
+    for(TATKeyValueNode::TNodeCollection::const_iterator iFlagValue = flagValues.begin(); iFlagValue != flagValues.end(); ++iFlagValue)
+    {
+        TATKeyValueNode* pFlagValue = dynamic_cast<TATKeyValueNode*>(iFlagValue->second);
+
+        // Stores the flag value in the current combination (flag name, flag value)
+        std::map<wxString, wxString> modifiedCombination = flagCombination;
+        modifiedCombination.insert(std::pair<wxString, wxString>(pFlagToCombine->GetValue(), pFlagValue->GetValue()));
+
+        if(nextFlagToCombineWith != flagListEnd)
+        {
+            // Combines the flag value with values of the next flag
+            this->CombineFlagValue(nextFlagToCombineWith, flagListEnd, modifiedCombination, outFlagCombinations);
+        }
+        else // There are no more flags to combine
+        {
+            // Combination is stored in the list
+            outFlagCombinations.push_back(modifiedCombination);
+        }
+    }
+}
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

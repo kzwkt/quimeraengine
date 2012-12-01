@@ -5934,8 +5934,9 @@
 	"TestConfiguration/TestConfiguration.h"
 	"TestConfiguration/TATTestAutomationToolConfiguration.h"
 
-1353247104 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tattestautomationtoolconfiguration.h
+1354390714 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tattestautomationtoolconfiguration.h
 	<list>
+	<map>
 	<wx/string.h>
 
 1345835284 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\itatconfigloader.h
@@ -7653,7 +7654,7 @@
 	"wx/treebase.h"
 	"wx/hashmap.h"
 
-1353444353 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\tattestconfigurationform.cpp
+1354318645 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\tattestconfigurationform.cpp
 	"TestConfiguration/TATTestConfigurationForm.h"
 	<map>
 	<wx/msgdlg.h>

@@ -30,12 +30,29 @@ public:
         TATTestAutomationToolConfiguration::Destroy();
     }
 
+    void CombineFlags(const std::list<TATKeyValueNode*>& flags)
+    {
+        TATTestAutomationToolConfiguration::CombineFlags(flags);
+    }
+
+    void CombineFlagValue(std::list<TATKeyValueNode*>::const_iterator flagToCombine,
+                          std::list<TATKeyValueNode*>::const_iterator flagListEnd,
+                          std::map<wxString, wxString>& flagCombination,
+                          std::list< std::map<wxString, wxString> >& flagCombinations) const
+    {
+        TATTestAutomationToolConfiguration::CombineFlagValue(flagToCombine, flagListEnd, flagCombination, flagCombinations);
+    }
+
     // Method needed for tests
     ITATConfigLoader* GetExpectedConfigLoader() const
     {
         return m_pConfigLoader;
     }
 
+    const std::list< std::map<wxString, wxString> >& GetExpectedFlagCombinations() const
+    {
+        return m_flagCombinations;
+    }
 };
 
 } //namespace Test
