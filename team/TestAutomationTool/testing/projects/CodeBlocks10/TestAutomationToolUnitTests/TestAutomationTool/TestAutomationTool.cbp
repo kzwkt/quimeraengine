@@ -139,6 +139,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfiguration_Tests.cpp">
 			<Option virtualFolder="Tests\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionWhiteBox.h">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecution_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TestModule_TestAutomationTool.cpp">
 			<Option virtualFolder="Tests\" />
 		</Unit>
