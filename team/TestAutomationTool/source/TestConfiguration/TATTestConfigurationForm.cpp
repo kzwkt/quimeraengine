@@ -8,9 +8,14 @@
 #include "TestExecution/TestExecution.h"
 #include "TestConfiguration/STATAppSettings.h"
 #include "TestConfiguration/TATValidationException.h"
+#include "TestExecution/TATTestExecutionForm.h"
+#include "TestConfiguration/ITATConfigLoader.h"
+#include "TestConfiguration/TATKeyValueNode.h"
 
+using Kinesis::TestAutomationTool::Backend::TATKeyValueNode;
 using Kinesis::TestAutomationTool::Backend::STATAppSettings;
 using Kinesis::TestAutomationTool::Backend::TATValidationException;
+
 
 namespace Kinesis
 {
@@ -70,7 +75,11 @@ TATTestConfigurationForm::~TATTestConfigurationForm()
 
 void TATTestConfigurationForm::ShowExecutionWindow()
 {
-    m_pExecutionForm = new TestExecutionBaseForm(this);
+    m_pExecutionForm = new TATTestExecutionForm(this, 
+                                                m_backend.GetConfigLoader()->GetValueTree(), 
+                                                m_backend.GetFlagCombinations(),
+                                                m_backend.GetCompilerConfigurationSelection(), 
+                                                m_backend.GetFlagCombinationSelection());
     m_pExecutionForm->Show();
 }
 
@@ -135,8 +144,8 @@ void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
 
     for(TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iFlagCombination = flagCombinations.begin(); iFlagCombination != flagCombinations.end(); ++iFlagCombination)
     {
-        m_clFlagCombinations->Insert(iFlagCombination->first, 0);
-        m_clFlagCombinations->Check(0);
+        m_clFlagCombinations->Append(iFlagCombination->first);
+        m_clFlagCombinations->Check(m_clFlagCombinations->GetCount()-1);
     }
 
     // Clears the flag values grid

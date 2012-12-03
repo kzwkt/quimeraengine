@@ -47,6 +47,13 @@ namespace Kinesis
 					wxTreeCtrl* m_treeResults;
 					wxButton* m_btnStop;
 					wxButton* m_btnRestart;
+					
+					// Virtual event handlers, overide them in your derived class
+					virtual void OnDialogClose( wxCloseEvent& event ) { event.Skip(); }
+					virtual void OnInitDialog( wxInitDialogEvent& event ) { event.Skip(); }
+					virtual void OnStopButtonClick( wxCommandEvent& event ) { event.Skip(); }
+					virtual void OnRestartButtonClick( wxCommandEvent& event ) { event.Skip(); }
+					
 				
 				public:
 					

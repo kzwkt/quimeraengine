@@ -60,6 +60,9 @@
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATValidationException.h">
       <Filter>FG1 - Test Configuration</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
@@ -97,6 +100,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\STATStringHelper.cpp">
       <Filter>Common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp">
+      <Filter>FG2 - Test Execution</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

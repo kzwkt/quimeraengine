@@ -85,6 +85,9 @@
 		<Unit filename="..\..\..\headers\TestConfiguration\TATValidationException.h">
 			<Option virtualFolder="FG1 - Test Configuration\" />
 		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
 		<Unit filename="..\..\..\source\STATFileSystemHelper.cpp">
 			<Option virtualFolder="Common\" />
 		</Unit>
@@ -120,6 +123,9 @@
 		</Unit>
 		<Unit filename="..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
 			<Option virtualFolder="FG1 - Test Configuration\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Extensions>
 			<code_completion />

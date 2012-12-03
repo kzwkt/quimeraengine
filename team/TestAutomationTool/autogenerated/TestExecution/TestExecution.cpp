@@ -56,8 +56,20 @@ TestExecutionBaseForm::TestExecutionBaseForm( wxWindow* parent, wxWindowID id, c
 	this->Layout();
 	
 	this->Centre( wxBOTH );
+	
+	// Connect Events
+	this->Connect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TestExecutionBaseForm::OnDialogClose ) );
+	this->Connect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( TestExecutionBaseForm::OnInitDialog ) );
+	m_btnStop->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestExecutionBaseForm::OnStopButtonClick ), NULL, this );
+	m_btnRestart->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestExecutionBaseForm::OnRestartButtonClick ), NULL, this );
 }
 
 TestExecutionBaseForm::~TestExecutionBaseForm()
 {
+	// Disconnect Events
+	this->Disconnect( wxEVT_CLOSE_WINDOW, wxCloseEventHandler( TestExecutionBaseForm::OnDialogClose ) );
+	this->Disconnect( wxEVT_INIT_DIALOG, wxInitDialogEventHandler( TestExecutionBaseForm::OnInitDialog ) );
+	m_btnStop->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestExecutionBaseForm::OnStopButtonClick ), NULL, this );
+	m_btnRestart->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestExecutionBaseForm::OnRestartButtonClick ), NULL, this );
+	
 }

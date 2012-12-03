@@ -97,6 +97,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\STATFileSystemHelper.h" />
     <ClInclude Include="..\..\..\..\headers\STATStringHelper.h" />
@@ -113,6 +114,7 @@
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h" />
     <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATValidationException.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\STATStringHelper.cpp" />

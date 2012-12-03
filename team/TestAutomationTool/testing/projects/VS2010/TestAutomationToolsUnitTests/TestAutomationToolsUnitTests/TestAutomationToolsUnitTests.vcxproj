@@ -119,6 +119,7 @@ copy $(TargetDir)..\..\ConfigFileMock.ini $(TargetDir)</Command>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNode_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRuleNode_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfiguration_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecution_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TestModule_TestAutomationTool.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +140,7 @@ copy $(TargetDir)..\..\ConfigFileMock.ini $(TargetDir)</Command>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATConfigLoaderFromIniFileWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNodeMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfigurationWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionWhiteBox.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt" />
