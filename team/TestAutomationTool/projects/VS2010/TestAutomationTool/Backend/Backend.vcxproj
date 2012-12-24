@@ -97,11 +97,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\TATShellProcess.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\ETATColor.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATCompilerInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATFormattedMessage.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATMessageFormat.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestModulesExecutionInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATwxWidgetsControlLogger.cpp" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\STATFileSystemHelper.h" />
     <ClInclude Include="..\..\..\..\headers\STATStringHelper.h" />
     <ClInclude Include="..\..\..\..\headers\TATNode.h" />
+    <ClInclude Include="..\..\..\..\headers\TATShellProcess.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigNodeType.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\ETATConfigurationSource.h" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\ITATConfigLoader.h" />
@@ -114,7 +122,14 @@
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATTestAutomationToolConfiguration.h" />
     <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATValidationException.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ETATColor.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ITATLogger.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATCompilerInfo.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATFormattedMessage.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATMessageFormat.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestModulesExecutionInfo.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATwxWidgetsControlLogger.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\STATStringHelper.cpp" />

@@ -12,9 +12,12 @@
 #include "TestConfiguration/ITATConfigLoader.h"
 #include "TestConfiguration/TATKeyValueNode.h"
 
+using Kinesis::TestAutomationTool::Backend::TATNode;
 using Kinesis::TestAutomationTool::Backend::TATKeyValueNode;
 using Kinesis::TestAutomationTool::Backend::STATAppSettings;
 using Kinesis::TestAutomationTool::Backend::TATValidationException;
+using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
+using Kinesis::TestAutomationTool::Backend::TATTestModulesExecutionInfo;
 
 
 namespace Kinesis
@@ -75,12 +78,154 @@ TATTestConfigurationForm::~TATTestConfigurationForm()
 
 void TATTestConfigurationForm::ShowExecutionWindow()
 {
+    wxString strConfigurationFilePath;
+    std::map<wxString, TATCompilerInfo> compilerInfos;
+    std::map< wxString, std::map<wxString, wxString> > filteredFlagCombinations;
+    std::list<wxString> compilationConfigurations;
+
+    // Gets the configuration file path
+    TATKeyValueNode* pValueTree = m_backend.GetConfigLoader()->GetValueTree();
+    TATNode* pSUTNode = pValueTree->GetChild(wxT("S")).begin()->second;
+    TATNode* pConfigurationFilePathNode = pSUTNode->GetChild(wxT("ConfigurationFilePath")).begin()->second;
+    strConfigurationFilePath = dynamic_cast<TATKeyValueNode*>(pConfigurationFilePathNode)->GetValue();
+
+    // Gets the selected compilation configurations
+    compilationConfigurations = m_backend.GetCompilerConfigurationSelection();
+
+    // Gets compilers information
+    this->ExtractCompilerInfosFromValueTree(pValueTree, compilerInfos);
+
+    // Filters flag combinations by selection
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection flagsCombination = m_backend.GetFlagCombinations();
+    std::list<wxString> flagsSelection = m_backend.GetFlagCombinationSelection();
+    this->FilterFlagCombinationListBySelection(flagsCombination, flagsSelection, filteredFlagCombinations);
+
+    // Creates the test execution forms, using the calculated values
     m_pExecutionForm = new TATTestExecutionForm(this, 
-                                                m_backend.GetConfigLoader()->GetValueTree(), 
-                                                m_backend.GetFlagCombinations(),
-                                                m_backend.GetCompilerConfigurationSelection(), 
-                                                m_backend.GetFlagCombinationSelection());
+                                                strConfigurationFilePath,
+                                                filteredFlagCombinations,
+                                                compilationConfigurations,
+                                                compilerInfos);
     m_pExecutionForm->Show();
+}
+
+void TATTestConfigurationForm::ExtractCompilerInfosFromValueTree(TATKeyValueNode* pValueTree, std::map<wxString, TATCompilerInfo>& compilerInfos) const
+{
+    TATKeyValueNode::TNodeCollection compilersData = pValueTree->GetChild(wxT("C"));
+    TATKeyValueNode::TNodeCollection testModulesData = pValueTree->GetChild(wxT("T"));
+    TATKeyValueNode::TNodeCollection projectsData = pValueTree->GetChild(wxT("P"));
+
+    TATKeyValueNode* pCompilerNode = NULL;
+    TATKeyValueNode::TNodeCollection::const_iterator iCompilerData = compilersData.begin();
+
+    for(; iCompilerData != compilersData.end(); ++iCompilerData)
+    {
+        pCompilerNode = dynamic_cast<TATKeyValueNode*>(iCompilerData->second);
+
+        wxString strCompilerName = pCompilerNode->GetValue();
+
+        // Fills the compiler data's fields
+        TATCompilerInfo compilerInfo;
+        compilerInfo.SetName(strCompilerName);
+
+        TATKeyValueNode* pCompilerValueNode = NULL;
+        TATKeyValueNode::TNodeCollection::const_iterator iCompilerDataField = pCompilerNode->GetChildren().begin();
+
+        for(; iCompilerDataField != pCompilerNode->GetChildren().end(); ++iCompilerDataField)
+        {
+            wxString strFieldValue = dynamic_cast<TATKeyValueNode*>(iCompilerDataField->second)->GetValue();
+
+            if(iCompilerDataField->first == wxT("CompilerPath"))
+            {
+                compilerInfo.SetCompilerPath(strFieldValue);
+            }
+
+            if(iCompilerDataField->first == wxT("CompilerCleanCommand"))
+            {
+                compilerInfo.SetCleanCommand(strFieldValue);
+            }
+
+            if(iCompilerDataField->first == wxT("CompilerBuildCommand"))
+            {
+                compilerInfo.SetBuildCommand(strFieldValue);
+            }
+
+            if(iCompilerDataField->first == wxT("CompilerBuildParams"))
+            {
+                compilerInfo.SetBuildParams(strFieldValue);
+            }
+        }
+
+        // Gets projects related to the current compiler
+        TATKeyValueNode::TNodeCollection::const_iterator iSUTProject = projectsData.begin();
+        TATKeyValueNode* pSutProject = NULL;
+        std::list<wxString> sutProjects;
+
+        for(; iSUTProject != projectsData.end(); ++iSUTProject)
+        {
+            wxString strCompilerNameForProject = dynamic_cast<TATKeyValueNode*>(iSUTProject->second->GetChild(wxT("Compiler")).begin()->second)->GetValue();
+
+            if(strCompilerNameForProject == strCompilerName)
+            {
+                pSutProject = dynamic_cast<TATKeyValueNode*>(iSUTProject->second);
+                wxString strProjectPath = dynamic_cast<TATKeyValueNode*>(pSutProject->GetChild(wxT("CompilationInfoPath")).begin()->second)->GetValue();
+                sutProjects.push_back(strProjectPath);
+            }
+        }
+
+        compilerInfo.SetSUTProjects(sutProjects);
+
+        // Gets test modules execution information related to the current compiler
+        TATKeyValueNode::TNodeCollection::const_iterator iTestModuleInfo = testModulesData.begin();
+        TATKeyValueNode* pTestModulesInfo = NULL;
+        std::list<TATTestModulesExecutionInfo> testModulesExecutionInfo;
+
+        for(; iTestModuleInfo != testModulesData.end(); ++iTestModuleInfo)
+        {
+            wxString strCompilerNameForTestModules = dynamic_cast<TATKeyValueNode*>(iTestModuleInfo->second->GetChild(wxT("Compiler")).begin()->second)->GetValue();
+
+            if(strCompilerNameForTestModules == strCompilerName)
+            {
+                pTestModulesInfo = dynamic_cast<TATKeyValueNode*>(iTestModuleInfo->second);
+                wxString strTestProjectPath = dynamic_cast<TATKeyValueNode*>(pTestModulesInfo->GetChild(wxT("CompilationInfoPath")).begin()->second)->GetValue();
+                wxString strResultsPath = dynamic_cast<TATKeyValueNode*>(pTestModulesInfo->GetChild(wxT("ResultsPath")).begin()->second)->GetValue();
+                wxString strModulesPath = dynamic_cast<TATKeyValueNode*>(pTestModulesInfo->GetChild(wxT("TestModulesPath")).begin()->second)->GetValue();
+
+                TATTestModulesExecutionInfo executionInfo;
+                executionInfo.SetResultsPath(strResultsPath);
+                executionInfo.SetTestModulesPath(strModulesPath);
+                executionInfo.SetTestProjectPath(strTestProjectPath);
+
+                testModulesExecutionInfo.push_back(executionInfo);
+            }
+        }
+
+        compilerInfo.SetTestModulesExecutionInfo(testModulesExecutionInfo);
+
+        compilerInfos.insert(std::pair<wxString, TATCompilerInfo>(strCompilerName, compilerInfo));
+    }
+}
+
+void TATTestConfigurationForm::FilterFlagCombinationListBySelection(const TATTestAutomationToolConfiguration::TFlagCombinationCollection& flagsCombination, 
+                                                                    const std::list<wxString>& flagsSelection, 
+                                                                    TATTestAutomationToolConfiguration::TFlagCombinationCollection& filteredFlagCombinations) const
+{
+    for(TATTestAutomationToolConfiguration::TFlagCombinationCollection::const_iterator iFlagComb = flagsCombination.begin(); iFlagComb != flagsCombination.end(); ++iFlagComb)
+    {
+        // Checks if the combination is selected
+        std::list<wxString>::const_iterator iSelectedFlag = flagsSelection.begin();
+
+        while(iSelectedFlag != flagsSelection.end() && (*iSelectedFlag) != iFlagComb->first)
+        {
+            ++iSelectedFlag;
+        }
+
+        if(iSelectedFlag != flagsSelection.end())
+        {
+            // If it's the case, adds it to the result
+            filteredFlagCombinations.insert(TATTestAutomationToolConfiguration::TFlagCombination(iFlagComb->first, iFlagComb->second));
+        }
+    }
 }
 
 void TATTestConfigurationForm::InitializeBackend()
@@ -146,6 +291,7 @@ void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
     {
         m_clFlagCombinations->Append(iFlagCombination->first);
         m_clFlagCombinations->Check(m_clFlagCombinations->GetCount()-1);
+        m_backend.SelectFlagCombination(iFlagCombination->first, true);
     }
 
     // Clears the flag values grid

@@ -30,7 +30,7 @@ QTEST_CASE ( CreateConfigLoader_ThereIsAConfigLoaderForEverySource_Test )
     const TATConfigLoaderFactory FACTORY_UT = TATConfigLoaderFactory();
 
     ETATConfigurationSource INI_FILE_SOURCE = ETATConfigurationSource::E_INI_FILE;
-    ITATConfigLoader* NON_EXISTENT_IMPLEMENTATION = NULL;
+    ITATConfigLoader* NON_EXISTENT_IMPLEMENTATION = null_t;
 
 	// Execution
     ITATConfigLoader* pConfigLoaderFromIniFile = FACTORY_UT.CreateConfigLoader(INI_FILE_SOURCE);
@@ -51,7 +51,7 @@ QTEST_CASE ( CreateConfigLoader_ReturnsNullWhenTheSourceIsNotAvailable_Test )
     const TATConfigLoaderFactory FACTORY_UT = TATConfigLoaderFactory();
 
     ETATConfigurationSource NON_EXISTENT_SOURCE = ETATConfigurationSource::_NotEnumValue;
-    ITATConfigLoader* NON_EXISTENT_IMPLEMENTATION = NULL;
+    ITATConfigLoader* NON_EXISTENT_IMPLEMENTATION = null_t;
 
 	// Execution
     ITATConfigLoader* pConfigLoaderFromIniFile = FACTORY_UT.CreateConfigLoader(NON_EXISTENT_SOURCE);
@@ -70,7 +70,7 @@ QTEST_CASE ( CreateConfigLoaderFromIniFile_AnImplementationIsReturned_Test )
 {
     // Preparation
     const TATConfigLoaderFactoryWhiteBox FACTORY_UT = TATConfigLoaderFactoryWhiteBox();
-    ITATConfigLoader* NON_EXISTENT_IMPLEMENTATION = NULL;
+    ITATConfigLoader* NON_EXISTENT_IMPLEMENTATION = null_t;
 
 	// Execution
     ITATConfigLoader* pConfigLoaderFromIniFile = FACTORY_UT.CreateConfigLoaderFromIniFile();
@@ -89,7 +89,7 @@ QTEST_CASE ( CreateConfigLoaderFromIniFile_ObjectIsInitializedAsExpected_Test )
 {
     // Preparation
     const TATConfigLoaderFactoryWhiteBox FACTORY_UT = TATConfigLoaderFactoryWhiteBox();
-    const TATRuleNode* NULL_VALUE = NULL;
+    const TATRuleNode* null_t_VALUE = null_t;
     const ETATConfigNodeType ROOT_NODE_TYPE = ETATConfigNodeType::E_ROOT;
     const wxString EXPECTED_SOURCE = wxT("");
 
@@ -100,7 +100,7 @@ QTEST_CASE ( CreateConfigLoaderFromIniFile_ObjectIsInitializedAsExpected_Test )
 
     // Verification
     BOOST_CHECK_EQUAL(source, EXPECTED_SOURCE);
-    BOOST_CHECK_NE(pRuleTree, NULL_VALUE);
+    BOOST_CHECK_NE(pRuleTree, null_t_VALUE);
 
     if(pRuleTree)
     {

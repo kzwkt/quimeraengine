@@ -6,16 +6,21 @@
 #include "ExternalDefinitions.h"
 
 // --------------------------------------------------------------------------------------------------------
+// Test artifacts directory: Defines the directory where the artifacts used by the tests are allocated.
+// --------------------------------------------------------------------------------------------------------
+#define TAT_ARTIFACTS_DIRECTORY "TestArtifacts"
+
+// --------------------------------------------------------------------------------------------------------
 // Null Pointer: Defines the value that identifies a null pointer, depending on the compiler.
 // --------------------------------------------------------------------------------------------------------
 #ifdef TAT_COMPILER_MSVC
     #if TAT_COMPILER_MSVC >= 10
-        #define null_q nullptr // Microsoft Visual C++ 2010 definition for null pointers
+        #define null_t nullptr // Microsoft Visual C++ 2010 definition for null pointers
     #else
-        #define null_q 0
+        #define null_t 0
     #endif
 #elif TAT_COMPILER_GCC
-    #define null_q 0
+    #define null_t 0
 #endif
 
 // --------------------------------------------------------------------------------------------------------

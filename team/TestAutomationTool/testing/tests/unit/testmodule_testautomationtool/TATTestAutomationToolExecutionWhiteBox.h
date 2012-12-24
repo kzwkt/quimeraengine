@@ -20,6 +20,27 @@ namespace Test
 /// </summary>
 class TATTestAutomationToolExecutionWhiteBox : public TATTestAutomationToolExecution
 {
+    // INTERNAL CLASSES
+    // ----------------
+public:
+
+    class TATTestExecutionThread : public TATTestAutomationToolExecution::TATTestExecutionThread
+    {
+    public:
+
+        TATTestExecutionThread(TATTestAutomationToolExecution* pHandler) : TATTestAutomationToolExecution::TATTestExecutionThread(pHandler)
+        {
+        }
+    };
+
+    // TYPEDEFS
+    // ---------------
+public:
+
+    typedef std::map< wxString, std::map<wxString, wxString> > TFlagCombinationCollection;
+    typedef std::map< wxString, wxString > TFlagCombinationValues;
+
+
 	// METHODS
 	// ---------------
 public:

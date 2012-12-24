@@ -30,6 +30,7 @@ class TATTestAutomationToolConfiguration
 public:
 
     typedef std::map< wxString, std::map<wxString, wxString> > TFlagCombinationCollection;
+    typedef std::pair< wxString, std::map<wxString, wxString> > TFlagCombination;
 
     
 	// CONSTRUCTORS

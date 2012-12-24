@@ -10,6 +10,7 @@
 #include "TestExecution/TATTestAutomationToolExecution.h"
 
 using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolExecution;
+using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
 
 namespace Kinesis
 {
@@ -40,15 +41,19 @@ class TATTestExecutionForm : public TestExecutionBaseForm
 	// ---------------
 public:
 
-	/// <summary>
-	/// Constructor that receives a parent window.
-	/// </summary>
+    /// <summary>
+    /// Constructor that receives the parent window and some data to be processed later during the tests execution.
+    /// </summary>
     /// <param name="parent">The parent window.</param>
+    /// <param name="strConfigurationFilePath">The path of the configuration file used by the SUT.</param>
+    /// <param name="flagCombinations">Flag combinations to apply replacements to the configuration file.</param>
+    /// <param name="compilationConfigurations">Compilation configurations that will be compiled.</param>
+    /// <param name="compilerInfos">Information about compilers to be used for building the SUT and the test modules.</param>
 	TATTestExecutionForm(wxWindow* parent, 
-                         TATKeyValueNode* pValueTree, 
-                         std::map< wxString, std::map<wxString, wxString> > flagCombinations,
-                         std::list<wxString> selectedCompilerConfigurations, 
-                         std::list<wxString> selectedFlagCombinations);
+                         const wxString& strConfigurationFilePath, 
+                         const std::map< wxString, std::map<wxString, wxString> >& flagCombinations,
+                         const std::list<wxString>& compilationConfigurations,
+                         const std::map<wxString, TATCompilerInfo>& compilerInfos);
 
 
 	// DESTRUCTOR
@@ -63,12 +68,20 @@ public:
 
 	// METHODS
 	// ---------------
-public:
+protected:
 
     /// <summary>
 	/// Initializes the backend components.
 	/// </summary>
-    void InitializeBackend();
+    void InitializeBackend(const wxString& strConfigurationFilePath, 
+                           const std::map< wxString, std::map<wxString, wxString> >& flagCombinations,
+                           const std::list<wxString>& compilationConfigurations,
+                           const std::map<wxString, TATCompilerInfo>& compilerInfos);
+
+    /// <summary>
+    /// Prepares the UI for starting the execution of the tests and instructs the backend to start the test execution process.
+    /// </summary>
+    void StartTestExecution();
 
 
     // EVENT HANDLERS

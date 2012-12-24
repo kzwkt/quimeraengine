@@ -189,7 +189,7 @@ public:
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    operator const wxString() const
+    operator const string_q() const
     {
         return ConvertToString(m_value, EQEnumeration::sm_mapValueName);
     }
@@ -200,7 +200,7 @@ public:
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    const wxString ToString() const
+    const string_q ToString() const
     {
         return ConvertToString(m_value, EQEnumeration::sm_mapValueName);
     }
@@ -215,7 +215,7 @@ private:
     // <returns>
     // The enumerated value's string representation.
     // </returns>
-    const wxString& ConvertToString(const EQEnumeration::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    const string_q& ConvertToString(const EQEnumeration::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
     {
         TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
         TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
@@ -226,7 +226,7 @@ private:
         if(itValueName != itValueNameEnd)
             return itValueName->first;
         else
-            return wxT(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
+            return QE_L(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
     }
 
 

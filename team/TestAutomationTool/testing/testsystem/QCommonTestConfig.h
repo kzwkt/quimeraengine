@@ -11,6 +11,15 @@
 
 #include "QSimpleConfigLoader.h"
 #include "EQTestType.h"
+#include "InternalDefinitions.h"
+
+#ifdef TAT_OS_WINDOWS
+    #include <direct.h>
+    #define getcwd_t _getcwd
+#else
+    #include <unistd.h>
+    #define getcwd_t getcwd
+#endif
 
 using namespace boost::unit_test;
 

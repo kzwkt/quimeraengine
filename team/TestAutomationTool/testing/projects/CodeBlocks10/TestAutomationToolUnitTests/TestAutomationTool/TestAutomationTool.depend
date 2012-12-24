@@ -39198,13 +39198,16 @@
 
 1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\configuration.h
 
-1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qcommontestconfig.h
+1355673257 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qcommontestconfig.h
 	<boost/test/unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	<fstream>
 	<string>
 	"QSimpleConfigLoader.h"
 	"EQTestType.h"
+	"InternalDefinitions.h"
+	<direct.h>
+	<unistd.h>
 
 1344278933 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qsimpleconfigloader.h
 	<string>
@@ -39220,7 +39223,7 @@
 	<xmmintrin.h>
 	<tchar.h>
 
-1344629671 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\internaldefinitions.h
+1356286814 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\internaldefinitions.h
 	"ExternalDefinitions.h"
 	<exception>
 	<boost/assert.hpp>
@@ -39243,8 +39246,8 @@
 1223860826 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\boost\include\boost\test\auto_unit_test.hpp
 	<boost/test/unit_test.hpp>
 
-1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\testingexternaldefinitions.h
-	"ExternalDefinitions.h"
+1355673307 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\testingexternaldefinitions.h
+	"InternalDefinitions.h"
 
 1353152255 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\statappsettings.h
 	<wx/string.h>
@@ -40163,7 +40166,7 @@
 	"wx/string.h"
 	<stdarg.h>
 
-1354051310 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfrominifile_tests.cpp
+1355673202 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfrominifile_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40198,7 +40201,7 @@
 1348261092 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatnodemock.h
 	"TATNode.h"
 
-1354403703 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolconfiguration_tests.cpp
+1356290612 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolconfiguration_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40208,17 +40211,17 @@
 	"TestConfiguration/TATKeyValueNode.h"
 	"TestConfiguration/ETATConfigNodeType.h"
 
-1354393730 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tattestautomationtoolconfiguration.h
+1354905416 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tattestautomationtoolconfiguration.h
 	<list>
 	<map>
 	<wx/string.h>
 
-1353152256 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qcommontestconfig.cpp
+1355673236 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qcommontestconfig.cpp
 	"QCommonTestConfig.h"
 	"CommonConfigDefinitions.h"
 	<iostream>
 
-1353446728 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfactory_tests.cpp
+1355673202 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfactory_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40262,7 +40265,7 @@
 	"TestConfiguration/TATConfigNode.h"
 	"TestConfiguration/ETATConfigNodeType.h"
 
-1349804670 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrulenode_tests.cpp
+1356184971 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrulenode_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40274,15 +40277,19 @@
 1354221932 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatkeyvaluenode.h
 	"TestConfiguration/TATConfigNode.h"
 
-1353536813 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\statfilesystemhelper_tests.cpp
+1356291318 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\statfilesystemhelper_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"STATFileSystemHelper.h"
+	"TATShellProcessListenerMock.h"
+	"InternalDefinitions.h"
 	<wx/filefn.h>
 
-1353102251 j:\quimeraengine\qesvn\team\testautomationtool\headers\statfilesystemhelper.h
+1356039418 j:\quimeraengine\qesvn\team\testautomationtool\headers\statfilesystemhelper.h
+	<list>
 	<wx/string.h>
+	"TATShellProcess.h"
 
 1353625371 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatkeyvaluenode_tests.cpp
 	<boost/test/auto_unit_test.hpp>
@@ -40304,4 +40311,384 @@
 1354222206 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatvalidationexception.h
 	<wx/string.h>
 	<exception>
+
+1356187992 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatcompilerinfo_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	"TestExecution/TATCompilerInfo.h"
+	"TestExecution/TATTestModulesExecutionInfo.h"
+
+1355788580 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatcompilerinfo.h
+	<list>
+	<wx/string.h>
+	"TestExecution/TATTestModulesExecutionInfo.h"
+
+1355957769 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestmodulesexecutioninfo.h
+	<wx/string.h>
+
+1356201178 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatformattedmessage_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	"TestExecution/TATFormattedMessage.h"
+
+1355868376 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatformattedmessage.h
+	<list>
+	"TestExecution/TATMessageFormat.h"
+
+1356202802 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatmessageformat.h
+	"TestExecution/ETATColor.h"
+
+1356310409 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatcolor.h
+	<map>
+	<wx/string.h>
+
+1356204681 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatmessageformat_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	"TestExecution/TATMessageFormat.h"
+
+1356291372 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatshellprocess_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	<wx/filefn.h>
+	"TATShellProcess.h"
+	"TATShellProcessListenerMock.h"
+
+1356202802 j:\quimeraengine\qesvn\team\testautomationtool\headers\tatshellprocess.h
+	<wx/string.h>
+
+1356179496 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatshellprocesslistenermock.h
+	"TATShellProcess.h"
+
+1356300215 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecution_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	"TestExecution/TATTestAutomationToolExecution.h"
+	"TATTestAutomationToolExecutionWhiteBox.h"
+	"TATLoggerMock.h"
+
+1355955135 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestautomationtoolexecution.h
+	<map>
+	<wx/thread.h>
+	<wx/event.h>
+	"TestExecution/TATCompilerInfo.h"
+	"TestExecution/TATFormattedMessage.h"
+	"TATShellProcess.h"
+
+1356296036 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecutionwhitebox.h
+	"TestExecution/TATTestAutomationToolExecution.h"
+
+1356291318 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestexecutionthread_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	<wx/textfile.h>
+	"TestExecution/TATTestAutomationToolExecution.h"
+	"TATTestExecutionThreadWhiteBox.h"
+	"TATTestAutomationToolExecutionWhiteBox.h"
+	"TATTestAutomationToolExecutionMock.h"
+	"TATLoggerMock.h"
+	"InternalDefinitions.h"
+
+1341902466 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\textfile.h
+	"wx/defs.h"
+	"wx/textbuf.h"
+	"wx/file.h"
+
+1341902458 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\textbuf.h
+	"wx/defs.h"
+	"wx/arrstr.h"
+	"wx/convauto.h"
+	"wx/string.h"
+	"wx/dynarray.h"
+
+1341902466 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\convauto.h
+	"wx/strconv.h"
+	"wx/fontenc.h"
+
+1341902484 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\file.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/filefn.h"
+	"wx/strconv.h"
+
+1356271507 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestexecutionthreadwhitebox.h
+	"TestExecution/TATTestAutomationToolExecution.h"
+	"TATTestAutomationToolExecutionWhiteBox.h"
+
+1356214204 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecutionmock.h
+	"TestExecution/TATTestAutomationToolExecution.h"
+
+1356214614 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatloggermock.h
+	<wx/string.h>
+	"TestExecution/ITATLogger.h"
+	"TestExecution/TATFormattedMessage.h"
+
+1355779766 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\itatlogger.h
+
+1356352208 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestmodulesexecutioninfo_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	"TestExecution/TATTestModulesExecutionInfo.h"
+
+1356311848 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatwxwidgetscontrollogger_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	"TestExecution/TATwxWidgetsControlLogger.h"
+	"TATwxWidgetsControlLoggerWhiteBox.h"
+	"TATRichTextCtrlMock.h"
+
+1356309742 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatwxwidgetscontrollogger.h
+	<queue>
+	<wx/colour.h>
+	<wx/thread.h>
+	"TestExecution/ITATLogger.h"
+	"TestExecution/TATFormattedMessage.h"
+	"TestExecution/ETATColor.h"
+
+1356310438 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatwxwidgetscontrolloggerwhitebox.h
+	"TestExecution/TATwxWidgetsControlLogger.h"
+
+1356306240 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrichtextctrlmock.h
+	<wx/richtext/richtextctrl.h>
+
+1341902474 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\richtext\richtextctrl.h
+	"wx/richtext/richtextbuffer.h"
+	"wx/scrolwin.h"
+	"wx/caret.h"
+	"wx/textctrl.h"
+	"wx/dnd.h"
+
+1341902474 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\richtext\richtextbuffer.h
+	"wx/defs.h"
+	"wx/list.h"
+	"wx/textctrl.h"
+	"wx/bitmap.h"
+	"wx/image.h"
+	"wx/cmdproc.h"
+	"wx/txtstrm.h"
+	"wx/variant.h"
+	"wx/dataobj.h"
+
+1341902460 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\textctrl.h
+	"wx/defs.h"
+	"wx/control.h"
+	"wx/textentry.h"
+	"wx/dynarray.h"
+	"wx/gdicmn.h"
+	"wx/ioswrap.h"
+	"wx/x11/textctrl.h"
+	"wx/univ/textctrl.h"
+	"wx/msw/wince/textctrlce.h"
+	"wx/msw/textctrl.h"
+	"wx/motif/textctrl.h"
+	"wx/gtk/textctrl.h"
+	"wx/gtk1/textctrl.h"
+	"wx/osx/textctrl.h"
+	"wx/cocoa/textctrl.h"
+	"wx/os2/textctrl.h"
+
+1341902450 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\control.h
+	"wx/defs.h"
+	"wx/window.h"
+	"wx/univ/control.h"
+	"wx/msw/control.h"
+	"wx/motif/control.h"
+	"wx/gtk/control.h"
+	"wx/gtk1/control.h"
+	"wx/osx/control.h"
+	"wx/cocoa/control.h"
+	"wx/os2/control.h"
+
+1341902452 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\univ\control.h
+	"wx/univ/inphand.h"
+	"wx/univ/inpcons.h"
+
+1341902452 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\univ\inphand.h
+	"wx/univ/inpcons.h"
+
+1341902452 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\univ\inpcons.h
+	"wx/object.h"
+	"wx/event.h"
+
+1341902460 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\control.h
+	"wx/dynarray.h"
+
+1341902468 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\control.h
+
+1341902484 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\textentry.h
+	"wx/filefn.h"
+	"wx/gdicmn.h"
+	"wx/gtk/textentry.h"
+	"wx/osx/textentry.h"
+	"wx/msw/textentry.h"
+	"wx/motif/textentry.h"
+	"wx/os2/textentry.h"
+
+1341902472 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\textentry.h
+	"wx/control.h"
+
+1341902462 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\textentry.h
+
+1341902472 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\ioswrap.h
+	"wx/beforestd.h"
+	<iostream.h>
+	<iostream>
+	"wx/afterstd.h"
+	"wx/msw/winundef.h"
+
+1341902452 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\univ\textctrl.h
+	"wx/scrolwin.h"
+	"wx/univ/inphand.h"
+
+1341902464 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\scrolwin.h
+	"wx/panel.h"
+	"wx/gtk/scrolwin.h"
+	"wx/gtk1/scrolwin.h"
+	"wx/generic/scrolwin.h"
+
+1341902458 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\panel.h
+	"wx/window.h"
+	"wx/containr.h"
+	"wx/univ/panel.h"
+	"wx/msw/panel.h"
+	"wx/generic/panelg.h"
+
+1341902450 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\containr.h
+	"wx/defs.h"
+	"wx/event.h"
+
+1341902452 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\univ\panel.h
+
+1341902462 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\panel.h
+
+1341902478 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\panelg.h
+	"wx/bitmap.h"
+
+1341902476 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\scrolwin.h
+
+1341902462 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\wince\textctrlce.h
+	"wx/dynarray.h"
+
+1341902462 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\textctrl.h
+
+1341902472 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\textctrl.h
+	"wx/control.h"
+	"wx/textctrl.h"
+
+1341902484 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\cmdproc.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/list.h"
+
+1341902466 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\txtstrm.h
+	"wx/stream.h"
+	"wx/convauto.h"
+
+1341902456 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\dataobj.h
+	"wx/defs.h"
+	"wx/string.h"
+	"wx/bitmap.h"
+	"wx/list.h"
+	"wx/arrstr.h"
+	"wx/msw/ole/dataform.h"
+	"wx/motif/dataform.h"
+	"wx/gtk/dataform.h"
+	"wx/gtk1/dataform.h"
+	"wx/x11/dataform.h"
+	"wx/osx/dataform.h"
+	"wx/cocoa/dataform.h"
+	"wx/os2/dataform.h"
+	"wx/msw/ole/dataobj.h"
+	"wx/motif/dataobj.h"
+	"wx/x11/dataobj.h"
+	"wx/gtk/dataobj.h"
+	"wx/gtk1/dataobj.h"
+	"wx/osx/dataobj.h"
+	"wx/cocoa/dataobj.h"
+	"wx/os2/dataobj.h"
+	"wx/msw/ole/dataobj2.h"
+	"wx/gtk/dataobj2.h"
+	"wx/gtk1/dataobj2.h"
+	"wx/x11/dataobj2.h"
+	"wx/motif/dataobj2.h"
+	"wx/osx/dataobj2.h"
+	"wx/cocoa/dataobj2.h"
+	"wx/os2/dataobj2.h"
+
+1341902460 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\ole\dataform.h
+
+1341902470 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\dataform.h
+
+1341902460 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\ole\dataobj.h
+
+1341902472 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\dataobj.h
+
+1341902460 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\ole\dataobj2.h
+
+1341902472 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\dataobj2.h
+
+1341902464 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\caret.h
+	"wx/defs.h"
+	"wx/gdicmn.h"
+	"wx/msw/caret.h"
+	"wx/generic/caret.h"
+
+1341902460 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\caret.h
+
+1341902478 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\generic\caret.h
+	"wx/timer.h"
+	"wx/dc.h"
+	"wx/overlay.h"
+
+1341902484 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\timer.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/longlong.h"
+	"wx/event.h"
+	"wx/stopwatch.h"
+	"wx/utils.h"
+
+1341902456 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\stopwatch.h
+	"wx/defs.h"
+	"wx/longlong.h"
+	"wx/time.h"
+
+1341902464 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\time.h
+	"wx/longlong.h"
+
+1341902466 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\overlay.h
+	"wx/defs.h"
+
+1341902482 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\dnd.h
+	"wx/defs.h"
+	"wx/dataobj.h"
+	"wx/cursor.h"
+	"wx/msw/ole/dropsrc.h"
+	"wx/msw/ole/droptgt.h"
+	"wx/motif/dnd.h"
+	"wx/x11/dnd.h"
+	"wx/gtk/dnd.h"
+	"wx/gtk1/dnd.h"
+	"wx/osx/dnd.h"
+	"wx/os2/dnd.h"
+
+1341902460 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\ole\dropsrc.h
+
+1341902460 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\msw\ole\droptgt.h
+
+1341902472 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\osx\dnd.h
+	"wx/defs.h"
+	"wx/object.h"
+	"wx/string.h"
+	"wx/string.h"
+	"wx/dataobj.h"
+	"wx/cursor.h"
 

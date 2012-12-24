@@ -99,7 +99,7 @@ void TATConfigLoaderFromIniFile::Load()
             for(std::list<wxString>::iterator iLine = lines.begin(); iLine != lines.end(); ++iLine)
             {
                 // Skips empty lines
-                if(iLine->IsEmpty())
+                if(iLine->IsEmpty() || iLine->GetChar(0) == wxT(';'))
                     continue;
 
                 // Extract the information from the text line
@@ -288,7 +288,16 @@ wxString TATConfigLoaderFromIniFile::GetValueOfNode(const wxString& strLine) con
     {
         const size_t QUOTES_SIZE = 1; // " = 1 character
         const size_t VALUE_WITHOUT_QUOTES_POS = nSeparatorPos + KEYVALUE_SEPARATOR_TOKEN.size() + QUOTES_SIZE;
-        strValue = strLineWithoutBrackets.substr(VALUE_WITHOUT_QUOTES_POS, strLineWithoutBrackets.size() - VALUE_WITHOUT_QUOTES_POS - QUOTES_SIZE);
+
+        if(VALUE_WITHOUT_QUOTES_POS >= strLineWithoutBrackets.size())
+        {
+            // It's likely that the value is empty and no quotes were written there
+            strValue = wxT("");
+        }
+        else
+        {
+            strValue = strLineWithoutBrackets.substr(VALUE_WITHOUT_QUOTES_POS, strLineWithoutBrackets.size() - VALUE_WITHOUT_QUOTES_POS - QUOTES_SIZE);
+        }
     }
     else // Header node assumed
     {

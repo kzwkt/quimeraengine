@@ -63,7 +63,7 @@ QTEST_CASE ( Constructor_BuiltInstanceIsSetUpAsIntended_Test )
 QTEST_CASE ( Destructor_NoErrorsOccur_Test )
 {
     // Preparation
-    TATConfigLoaderFromIniFile* CONFIG_LOADER = new TATConfigLoaderFromIniFile(NULL);
+    TATConfigLoaderFromIniFile* CONFIG_LOADER = new TATConfigLoaderFromIniFile(null_t);
     const bool NO_ERRORS_OCCURRED = true;
 
 	// Execution
@@ -178,14 +178,14 @@ QTEST_CASE ( Destroy_RuleTreeIsReleased_Test )
     // Preparation
     TATConfigLoaderFromIniFileWhiteBox CONFIG_LOADER(new TATRuleNodeMock());
     const int EXPECTED_CALLS_TO_DESTRUCTOR = 1;
-    const TATRuleNode* NULL_RULE_TREE = NULL;
+    const TATRuleNode* null_t_RULE_TREE = null_t;
 
 	// Execution
     CONFIG_LOADER.Destroy();
 
     // Verification
     BOOST_CHECK_EQUAL(TATRuleNodeMock::sm_nDestructorCallCounter, EXPECTED_CALLS_TO_DESTRUCTOR);
-    BOOST_CHECK_EQUAL(CONFIG_LOADER.GetRuleTree(), NULL_RULE_TREE);
+    BOOST_CHECK_EQUAL(CONFIG_LOADER.GetRuleTree(), null_t_RULE_TREE);
 }
 
 /// <summary>
@@ -623,7 +623,7 @@ QTEST_CASE ( GetSource_ReturnedCorrectValue_Test )
 {
     // Preparation
     const wxString EXPECTED_VALUE = wxT("SOURCE");
-    TATConfigLoaderFromIniFile CONFIG_LOADER(NULL);
+    TATConfigLoaderFromIniFile CONFIG_LOADER(null_t);
     CONFIG_LOADER.SetSource(EXPECTED_VALUE);
 
 	// Execution
@@ -640,7 +640,7 @@ QTEST_CASE ( SetSource_ValueIsCorrectlyStored_Test )
 {
     // Preparation
     const wxString EXPECTED_VALUE = wxT("SOURCE");
-    TATConfigLoaderFromIniFile CONFIG_LOADER(NULL);
+    TATConfigLoaderFromIniFile CONFIG_LOADER(null_t);
     
 	// Execution
     CONFIG_LOADER.SetSource(EXPECTED_VALUE);

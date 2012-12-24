@@ -2,6 +2,10 @@
 
 #include "TestExecution/TATTestExecutionForm.h"
 
+#include "TestExecution/TATwxWidgetsControlLogger.h"
+
+using Kinesis::TestAutomationTool::Backend::TATwxWidgetsControlLogger;
+using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
 
 namespace Kinesis
 {
@@ -31,13 +35,16 @@ namespace UI
 //##################=======================================================##################
 
 TATTestExecutionForm::TATTestExecutionForm(wxWindow* parent, 
-                                           TATKeyValueNode* pValueTree, 
-                                           std::map< wxString, std::map<wxString, wxString> > flagCombinations,
-                                           std::list<wxString> selectedCompilerConfigurations, 
-                                           std::list<wxString> selectedFlagCombinations) 
+                                           const wxString& strConfigurationFilePath, 
+                                           const std::map< wxString, std::map<wxString, wxString> >& flagCombinations,
+                                           const std::list<wxString>& compilationConfigurations,
+                                           const std::map<wxString, TATCompilerInfo>& compilerInfos) 
                                            : TestExecutionBaseForm(parent)
 {
-    this->InitializeBackend();
+    this->InitializeBackend(strConfigurationFilePath,
+                            flagCombinations,
+                            compilationConfigurations,
+                            compilerInfos);
 }
 	
 	
@@ -64,8 +71,24 @@ TATTestExecutionForm::~TATTestExecutionForm()
 //##################													   ##################
 //##################=======================================================##################
 
-void TATTestExecutionForm::InitializeBackend()
+void TATTestExecutionForm::InitializeBackend(const wxString& strConfigurationFilePath, 
+                                             const std::map< wxString, std::map<wxString, wxString> >& flagCombinations,
+                                             const std::list<wxString>& compilationConfigurations,
+                                             const std::map<wxString, TATCompilerInfo>& compilerInfos)
 {
+    m_backend.SetCompilerInfos(compilerInfos);
+    m_backend.SetConfigurationFilePath(strConfigurationFilePath);
+    m_backend.SetFlagCombinations(flagCombinations);
+    m_backend.SetCompilationConfigurations(compilationConfigurations);
+
+    // Sets the logger
+    m_backend.SetLogger(new TATwxWidgetsControlLogger(m_rtbLog, false));
+}
+
+void TATTestExecutionForm::StartTestExecution()
+{
+    m_rtbLog->Clear();
+    m_backend.ExecuteTests();
 }
 
 
@@ -80,6 +103,7 @@ void TATTestExecutionForm::InitializeBackend()
 
 void TATTestExecutionForm::OnInitDialog( wxInitDialogEvent& event )
 {
+    this->StartTestExecution();
 }
 
 void TATTestExecutionForm::OnDialogClose( wxCloseEvent& event )
@@ -93,6 +117,7 @@ void TATTestExecutionForm::OnStopButtonClick( wxCommandEvent& event )
 
 void TATTestExecutionForm::OnRestartButtonClick( wxCommandEvent& event )
 {
+    this->StartTestExecution();
 }
 
 

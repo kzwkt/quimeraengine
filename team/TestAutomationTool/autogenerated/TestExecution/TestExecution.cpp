@@ -23,8 +23,8 @@ TestExecutionBaseForm::TestExecutionBaseForm( wxWindow* parent, wxWindowID id, c
 	
 	bSizer5->Add( m_txtLog, 0, wxALL, 5 );
 	
-	m_rtbLog = new wxRichTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
-	m_rtbLog->SetFont( wxFont( 7, 70, 90, 90, false, wxEmptyString ) );
+	m_rtbLog = new wxRichTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, wxTE_READONLY|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	m_rtbLog->SetFont( wxFont( 8, 74, 90, 90, false, wxT("Tahoma") ) );
 	m_rtbLog->SetForegroundColour( wxColour( 255, 255, 255 ) );
 	m_rtbLog->SetBackgroundColour( wxColour( 0, 0, 0 ) );
 	

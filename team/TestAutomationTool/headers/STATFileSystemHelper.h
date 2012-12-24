@@ -3,7 +3,10 @@
 #ifndef __STATFILESYSTEMHELPER__
 #define __STATFILESYSTEMHELPER__
 
+#include <list>
 #include <wx/string.h>
+
+#include "TATShellProcess.h"
 
 
 namespace Kinesis
@@ -92,10 +95,11 @@ public:
     /// </summary>
     /// <param name="strFilePath">Full path to the file (including file name).</param>
     /// <param name="strParams">Optional. Parameters to be used to execute the file.</param>
+    /// <param name="pListener">Optional. Handler for the process' events.</param>
     /// <returns>
     /// True if the operation was successful; false otherwise.
     /// </returns>
-    static bool Execute(const wxString& strFilePath, const wxString& strParams=wxT(""));
+    static bool Execute(const wxString& strFilePath, const wxString& strParams=wxT(""), TATShellProcess::ITATShellProcessListener* pListener=NULL);
 
     /// <summary>
     /// Verifies whether a file exists or not.
@@ -118,6 +122,30 @@ public:
     /// True if the operation was successful; false otherwise.
     /// </returns>
     static bool Copy(const wxString& strFromFilePath, const wxString& strToFilePath);
+    
+    /// <summary>
+    /// Creates a file and fills it with a given text.
+    /// </summary>
+    /// <remarks>
+    /// If the destination file already exists, it will be overwritten.
+    /// </remarks>
+    /// <param name="strFilePath">Full path to the file (including file name).</param>
+    /// <param name="strTextContent">The text content of the file.</param>
+    /// <returns>
+    /// True if the operation was successful; false otherwise.
+    /// </returns>
+    static bool Write(const wxString& strFilePath, const wxString& strTextContent);
+
+    /// <summary>
+    /// Explores a folder and gets a list of the files it contains.
+    /// </summary>
+    /// <param name="strFolderToExplore">The path to the folder to explore.</param>
+    /// <param name="strExtensionFilter">Optional. When filled, only the files whose extension matches the given 
+    /// one are included in the result list.</param>
+    /// <returns>
+    /// A list with the names (and extension) of the found files.
+    /// </returns>
+    static std::list<wxString> ListFolderContent(const wxString& strFolderToExplore, const wxString& strExtensionFilter=wxT("*"));
 
     
 	// PROPERTIES

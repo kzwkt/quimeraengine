@@ -7,6 +7,8 @@ using namespace boost::unit_test;
 #include "../../../testsystem/TestingExternalDefinitions.h"
 
 #include "STATFileSystemHelper.h"
+#include "TATShellProcessListenerMock.h"
+#include "InternalDefinitions.h"
 
 #include <wx/filefn.h>
 
@@ -19,14 +21,14 @@ using Kinesis::TestAutomationTool::Backend::STATFileSystemHelper;
 // REMEMBER ALWAYS TO CLEAN THE TESTING ENVIRONMENT AFTER EVERY TEST SO THE STATE IS ALWAYS THE SAME AT THE BEGINNING OF THE TEST EXECUTION.
 
 QTEST_SUITE_BEGIN( STATFileSystemHelper_TestSuite )
-    
+
 /// <summary>
 /// Path to the prerequired text file used by many unit tests.
 /// </summary>
 #ifdef TAT_OS_WINDOWS
-    const wxString PATH_TO_EXECUTABLE_FILE = wxT("TestFile.exe");
+    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + wxString(TAT_ARTIFACTS_DIRECTORY) + wxT("/TestFile.exe");
 #elif defined(TAT_OS_LINUX)
-    const wxString PATH_TO_EXECUTABLE_FILE = wxT("TestFile.sh");
+    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + wxString(TAT_ARTIFACTS_DIRECTORY) + wxT("/TestFile.sh");
 #elif defined(TAT_OS_MAC)
     // TODO [Thund]: Complete this with Mac configuration.
 #endif
@@ -34,7 +36,7 @@ QTEST_SUITE_BEGIN( STATFileSystemHelper_TestSuite )
 /// <summary>
 /// Path to the prerequired text file used by many unit tests.
 /// </summary>
-const wxString PATH_TO_TEXT_FILE = wxT("TestFile.txt");
+const wxString PATH_TO_TEXT_FILE = wxGetCwd() + wxT("/") + wxString(TAT_ARTIFACTS_DIRECTORY) + wxT("/TestFile.txt");
 
 /// <summary>
 /// The prerequired text file's name used by many unit tests.
@@ -53,7 +55,7 @@ QTEST_CASE ( Read_ReturnsFalseWhenTheFileDoesntExist_Test )
 	// Execution
     wxString strContent;
     bool bSuccess = STATFileSystemHelper::Read(PATH_TO_FILE, strContent);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bSuccess, EXPECTED_VALUE);
 }
@@ -70,7 +72,7 @@ QTEST_CASE ( Read_ReturnsTrueWhenTheOperationWasSuccessful_Test )
 	// Execution
     wxString strContent;
     bool bSuccess = STATFileSystemHelper::Read(PATH_TO_FILE, strContent);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bSuccess, EXPECTED_VALUE);
 }
@@ -87,7 +89,7 @@ QTEST_CASE ( Read_ObtainedStringIsEmptyWhenTheOperationFails_Test )
 	// Execution
     wxString strContent = wxT("WHATEVER");
     STATFileSystemHelper::Read(PATH_TO_FILE, strContent);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(strContent, EXPECTED_CONTENT);
 }
@@ -104,7 +106,7 @@ QTEST_CASE ( Read_ObtainedStringIsProperlyFilledWhenTheOperationSuccess_Test )
 	// Execution
     wxString strContent;
     STATFileSystemHelper::Read(PATH_TO_FILE, strContent);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(strContent, EXPECTED_CONTENT);
 }
@@ -115,14 +117,14 @@ QTEST_CASE ( Read_ObtainedStringIsProperlyFilledWhenTheOperationSuccess_Test )
 QTEST_CASE ( Delete_ReturnsTrueWhenTheFileExists_Test )
 {
     // Preparation
-    const wxString PATH_TO_FILE = wxT("DELETE") + PATH_TO_TEXT_FILE;
+    const wxString PATH_TO_FILE = PATH_TO_TEXT_FILE + wxT("DELETE");
     wxCopyFile(PATH_TO_TEXT_FILE, PATH_TO_FILE, true);
 
     const bool EXPECTED_RESULT = true;
 
 	// Execution
     bool bResult = STATFileSystemHelper::Delete(PATH_TO_FILE);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -138,7 +140,7 @@ QTEST_CASE ( Delete_ReturnsFalseWhenTheFileDidntExist_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Delete(PATH_TO_FILE);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -149,14 +151,14 @@ QTEST_CASE ( Delete_ReturnsFalseWhenTheFileDidntExist_Test )
 QTEST_CASE ( Delete_FileIsActuallyRemoved_Test )
 {
     // Preparation
-    const wxString PATH_TO_FILE = wxT("DELETE") + PATH_TO_TEXT_FILE;
+    const wxString PATH_TO_FILE = PATH_TO_TEXT_FILE + wxT("DELETE");
     wxCopyFile(PATH_TO_TEXT_FILE, PATH_TO_FILE, true);
 
     const bool FILE_WAS_REMOVED = !wxFileExists(PATH_TO_FILE);
 
 	// Execution
     STATFileSystemHelper::Delete(PATH_TO_FILE);
-    
+
     // Verification
     const bool FILE_EXISTS = wxFileExists(PATH_TO_FILE);
     BOOST_CHECK_EQUAL(FILE_EXISTS, FILE_WAS_REMOVED);
@@ -173,7 +175,7 @@ QTEST_CASE ( Move_ReturnsFalseWhenDestinationDoesntExist_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Move(PATH_TO_TEXT_FILE, DESTINATION);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -190,7 +192,7 @@ QTEST_CASE ( Move_ReturnsFalseWhenSourceDoesntExist_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Move(SOURCE, DESTINATION);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -202,12 +204,12 @@ QTEST_CASE ( Move_ReturnsTrueWhenSourceAndDestinationExist_Test )
 {
     // Preparation
     const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = wxGetCwd() + wxT("MOVED") + TEXT_FILE_NAME;
+    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("MOVED");
     const bool EXPECTED_RESULT = true;
 
 	// Execution
     bool bResult = STATFileSystemHelper::Move(SOURCE, DESTINATION);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 
@@ -223,12 +225,12 @@ QTEST_CASE ( Move_TheFileIsMoved_Test )
 {
     // Preparation
     const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = wxGetCwd() + wxT("MOVED") + TEXT_FILE_NAME;
+    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("MOVED");
     const bool FILE_WAS_MOVED = true;
 
 	// Execution
     STATFileSystemHelper::Move(SOURCE, DESTINATION);
-    
+
     // Verification
     const bool FILE_DOESNT_EXIST_IN_SOURCE = !wxFileExists(SOURCE);
     const bool FILE_EXISTS_IN_DESTINATION = wxFileExists(DESTINATION);
@@ -252,7 +254,7 @@ QTEST_CASE ( Rename_ReturnsFalseWhenFileDoesntExist_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Rename(SOURCE, NEW_NAME);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -264,17 +266,18 @@ QTEST_CASE ( Rename_ReturnsTrueWhenOperationIsSuccessful_Test )
 {
     // Preparation
     const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString NEW_NAME = wxT("RENAMED") + TEXT_FILE_NAME;
+    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("RENAMED");
+    const wxString NEW_NAME = TEXT_FILE_NAME + wxT("RENAMED");
     const bool EXPECTED_RESULT = true;
 
 	// Execution
     bool bResult = STATFileSystemHelper::Rename(SOURCE, NEW_NAME);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 
     // Cleaning
-    wxRenameFile(NEW_NAME, SOURCE);
+    wxRenameFile(DESTINATION, SOURCE);
 }
 
 /// <summary>
@@ -284,20 +287,21 @@ QTEST_CASE ( Rename_TheFileIsRenamed_Test )
 {
     // Preparation
     const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString NEW_NAME = wxT("RENAMED") + TEXT_FILE_NAME;
+    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("RENAMED");
+    const wxString NEW_NAME = TEXT_FILE_NAME + wxT("RENAMED");
     const bool FILE_WAS_RENAMED = true;
 
 	// Execution
     STATFileSystemHelper::Rename(SOURCE, NEW_NAME);
-    
+
     // Verification
     const bool OLD_FILE_DOESNT_EXIST = !wxFileExists(SOURCE);
-    const bool NEW_FILE_EXISTS = wxFileExists(NEW_NAME);
+    const bool NEW_FILE_EXISTS = wxFileExists(DESTINATION);
     BOOST_CHECK_EQUAL(OLD_FILE_DOESNT_EXIST, FILE_WAS_RENAMED);
     BOOST_CHECK_EQUAL(NEW_FILE_EXISTS, FILE_WAS_RENAMED);
 
     // Cleaning
-    wxRenameFile(NEW_NAME, SOURCE);
+    wxRenameFile(DESTINATION, SOURCE);
 }
 
 /// <summary>
@@ -311,7 +315,7 @@ QTEST_CASE ( Execute_ReturnsFalseWhenFileDoesntExist_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Execute(EXECUTABLE_FILE);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -327,9 +331,47 @@ QTEST_CASE ( Execute_ReturnsTrueWhenFileIsExecuted_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Execute(EXECUTABLE_FILE);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that a listener passed as parameter is notified about process' output updates.
+/// </summary>
+QTEST_CASE ( Execute_TheListenerIsNotifiedAboutProcessOutputUpdate_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::Test::TATShellProcessListenerMock;
+
+    // Preparation
+    const wxString EXECUTABLE_FILE = PATH_TO_EXECUTABLE_FILE;
+    const bool EXPECTED_RESULT = true;
+    TATShellProcessListenerMock LISTENER;
+
+	// Execution
+    STATFileSystemHelper::Execute(EXECUTABLE_FILE, wxT(""), &LISTENER);
+
+    // Verification
+    BOOST_CHECK_EQUAL(LISTENER.WasProcessOutputHandlerCalled(), EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that a listener passed as parameter is notified about process' completion.
+/// </summary>
+QTEST_CASE ( Execute_TheListenerIsNotifiedAboutProcessCompletion_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::Test::TATShellProcessListenerMock;
+
+    // Preparation
+    const wxString EXECUTABLE_FILE = PATH_TO_EXECUTABLE_FILE;
+    const bool EXPECTED_RESULT = true;
+    TATShellProcessListenerMock LISTENER;;
+
+	// Execution
+    STATFileSystemHelper::Execute(EXECUTABLE_FILE, wxT(""), &LISTENER);
+
+    // Verification
+    BOOST_CHECK_EQUAL(LISTENER.WasProcessCompletedHandlerCalled(), EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -343,7 +385,7 @@ QTEST_CASE ( Exists_ReturnsTrueWhenFileExists_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Exists(FILE_TO_VERIFY);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -359,7 +401,7 @@ QTEST_CASE ( Exists_ReturnsFalseWhenFileDoesntExist_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Exists(FILE_TO_VERIFY);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -375,7 +417,7 @@ QTEST_CASE ( Copy_ReturnsFalseWhenDestinationDoesntExist_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Copy(PATH_TO_TEXT_FILE, DESTINATION);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -392,7 +434,7 @@ QTEST_CASE ( Copy_ReturnsFalseWhenSourceDoesntExist_Test )
 
 	// Execution
     bool bResult = STATFileSystemHelper::Copy(SOURCE, DESTINATION);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -404,12 +446,12 @@ QTEST_CASE ( Copy_ReturnsTrueWhenSourceAndDestinationExist_Test )
 {
     // Preparation
     const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = wxGetCwd() + wxT("COPIED") + TEXT_FILE_NAME;
+    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("COPIED");
     const bool EXPECTED_RESULT = true;
 
 	// Execution
     bool bResult = STATFileSystemHelper::Copy(SOURCE, DESTINATION);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 
@@ -424,12 +466,12 @@ QTEST_CASE ( Copy_TheFileIsCopied_Test )
 {
     // Preparation
     const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = wxGetCwd() + wxT("COPIED") + TEXT_FILE_NAME;
+    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("COPIED");
     const bool FILE_WAS_COPIED = true;
 
 	// Execution
     STATFileSystemHelper::Copy(SOURCE, DESTINATION);
-    
+
     // Verification
     const bool FILE_EXISTS_IN_SOURCE = wxFileExists(SOURCE);
     const bool FILE_EXISTS_IN_DESTINATION = wxFileExists(DESTINATION);
@@ -438,6 +480,78 @@ QTEST_CASE ( Copy_TheFileIsCopied_Test )
 
     // Cleaning
     wxRemove(DESTINATION);
+}
+
+/// <summary>
+/// Checks that the file is written with the expected content.
+/// </summary>
+QTEST_CASE ( Write_FileIsWrittenAndFilledWithExpectedContent_Test )
+{
+    // Preparation
+    const wxString WRITTEN_FILE_PATH = PATH_TO_TEXT_FILE + wxT("WRITTEN");
+    const wxString WRITTEN_FILE_CONTENT = wxT("WRITE TEST");
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    wxString strWrittenContent;
+    bool bResult = STATFileSystemHelper::Write(WRITTEN_FILE_PATH, WRITTEN_FILE_CONTENT);
+    STATFileSystemHelper::Read(WRITTEN_FILE_PATH, strWrittenContent);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(strWrittenContent, WRITTEN_FILE_CONTENT);
+
+    // Cleaning
+    wxRemove(WRITTEN_FILE_PATH);
+}
+
+/// <summary>
+/// Checks that the file is written when it already exists.
+/// </summary>
+QTEST_CASE ( Write_OperationIsSuccessfullWhenFileAlreadyExists_Test )
+{
+    // Preparation
+    const wxString WRITTEN_FILE_PATH = PATH_TO_TEXT_FILE + wxT("WRITTEN");
+    const wxString WRITTEN_FILE_CONTENT = wxT("WRITE TEST");
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    wxString strWrittenContent;
+    STATFileSystemHelper::Write(WRITTEN_FILE_PATH, WRITTEN_FILE_CONTENT);
+    bool bResult = STATFileSystemHelper::Write(WRITTEN_FILE_PATH, WRITTEN_FILE_CONTENT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+
+    // Cleaning
+    wxRemove(WRITTEN_FILE_PATH);
+}
+
+/// <summary>
+/// Checks that all the files in a folder which match the extension filter are listed.
+/// </summary>
+QTEST_CASE ( ListFolderContent_AllFilesInFolderWithSpecificExtensionAreListed_Test )
+{
+    // Preparation
+    const wxString FOLDER = wxGetCwd() + wxT("\\") + TAT_ARTIFACTS_DIRECTORY;
+    const wxString EXTENSION = wxT("txt");
+    std::list<wxString> EXPECTED_FILES;
+    EXPECTED_FILES.push_back(wxT("TestConfig.txt"));
+    EXPECTED_FILES.push_back(wxT("TestFile.txt"));
+
+	// Execution
+    std::list<wxString> listedFiles = STATFileSystemHelper::ListFolderContent(FOLDER, EXTENSION);
+
+    // Verification
+    BOOST_CHECK_EQUAL(listedFiles.size(), EXPECTED_FILES.size());
+
+    std::list<wxString>::const_iterator iResult = listedFiles.begin();
+    std::list<wxString>::const_iterator iExpected = EXPECTED_FILES.begin();
+
+    for(; iResult != listedFiles.end() && iExpected != EXPECTED_FILES.end(); ++iResult, ++iExpected)
+    {
+        BOOST_CHECK_EQUAL(*iResult, *iExpected);
+    }
 }
 
 /// <summary>
@@ -455,7 +569,7 @@ QTEST_CASE ( GetExecutableFileExtension_TheValueIsReturnedCorrectly_Test )
 
 	// Execution
     wxString strObtainedFileExtension = STATFileSystemHelper::GetExecutableFileExtension();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(strObtainedFileExtension, EXPECTED_FILE_EXTENSION);
 }

@@ -14,9 +14,9 @@ using Kinesis::TestAutomationTool::Backend::ETATConfigNodeType;
 QTEST_SUITE_BEGIN( TATRuleNode_TestSuite )
 
 /// <summary>
-/// Checks that default values has not changed.
+/// Checks that default values have not changed.
 /// </summary>
-QTEST_CASE ( Constructor1_DefaultValuesHasNotChanged_Test )
+QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // Preparation
     const int EXPECTED_MAXCOUNT_VALUE = 0;

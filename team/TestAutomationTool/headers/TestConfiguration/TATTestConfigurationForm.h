@@ -11,6 +11,21 @@ using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolConfiguration;
 
 namespace Kinesis
 {
+    namespace TestAutomationTool
+    {
+        namespace Backend
+        {
+            class TATKeyValueNode;
+            class TATCompilerInfo;
+        }
+    }
+}
+
+using Kinesis::TestAutomationTool::Backend::TATKeyValueNode;
+using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
+
+namespace Kinesis
+{
 namespace TestAutomationTool
 {
 namespace UI
@@ -53,11 +68,6 @@ public:
 	/// </summary>
     void ShowExecutionWindow();
 
-    /// <summary>
-	/// Initializes the backend components.
-	/// </summary>
-    void InitializeBackend();
-
 protected:
 
     /// <summary>
@@ -65,6 +75,28 @@ protected:
     /// </summary>
     /// <param name="pGrid">The grid to be cleared.</param>
     void ClearGrid(wxGrid* pGrid) const;
+    
+    /// <summary>
+	/// Initializes the backend components.
+	/// </summary>
+    void InitializeBackend();
+
+    /// <summary>
+    /// Builds compiler information structures using the data stored in a value tree.
+    /// </summary>
+    /// <param name="pValueTree">The value true that provides the compiler data.</param>
+    /// <param name="compilerInfos">The output list that holds the compiler information structures.</param>
+    void ExtractCompilerInfosFromValueTree(TATKeyValueNode* pValueTree, std::map<wxString, TATCompilerInfo>& compilerInfos) const;
+
+    /// <summary>
+    /// Obtains a subset of a flag combination list, filtering by their name.
+    /// </summary>
+    /// <param name="flagsCombination">The flag combination list with the full set.</param>
+    /// <param name="flagsSelection">The list of flag combination names to filter by.</param>
+    /// <param name="filteredFlagCombinations">The output subset of flag combinations.</param>
+    void FilterFlagCombinationListBySelection(const TATTestAutomationToolConfiguration::TFlagCombinationCollection& flagsCombination, 
+                                              const std::list<wxString>& flagsSelection, 
+                                              TATTestAutomationToolConfiguration::TFlagCombinationCollection& filteredFlagCombinations) const;
 
 
     // EVENT HANDLERS

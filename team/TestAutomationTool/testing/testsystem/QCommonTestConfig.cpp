@@ -43,7 +43,12 @@ TATCommonTestConfig::TATCommonTestConfig(const std::string &strTestModuleName, c
 {
     // Loads configuration values from disk
     // -------------------------------------
-    Kinesis::QuimeraEngine::Test::QSimpleConfigLoader config(TATCommonTestConfig::TestConfigFileName);
+
+   char* szCurrentWorkingDirectory = getcwd_t(null_t, 0);
+    std::string strCurrentWorkingDirectory(szCurrentWorkingDirectory);
+    delete[] szCurrentWorkingDirectory;
+
+    Kinesis::QuimeraEngine::Test::QSimpleConfigLoader config(strCurrentWorkingDirectory + "/" + TATCommonTestConfig::TestConfigFileName);
 
     if(config.LoadEntries())
     {

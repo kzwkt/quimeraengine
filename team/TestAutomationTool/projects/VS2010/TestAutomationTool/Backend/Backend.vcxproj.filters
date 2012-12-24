@@ -63,6 +63,30 @@
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h">
       <Filter>FG2 - Test Execution</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ITATLogger.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATwxWidgetsControlLogger.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATFormattedMessage.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATMessageFormat.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ETATColor.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATCompilerInfo.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestModulesExecutionInfo.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TATShellProcess.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
@@ -103,6 +127,27 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp">
       <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATwxWidgetsControlLogger.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATFormattedMessage.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATMessageFormat.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\ETATColor.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATCompilerInfo.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestModulesExecutionInfo.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TATShellProcess.cpp">
+      <Filter>Common</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

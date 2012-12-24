@@ -131,7 +131,7 @@ void TATTestAutomationToolConfiguration::CombineFlags(const std::list<TATKeyValu
 
         for(std::list< std::map<wxString, wxString> >::const_iterator iCombination = flagCombinations.begin(); iCombination != flagCombinations.end(); ++iCombination)
         {
-            m_flagCombinations.insert(std::pair<wxString, std::map<wxString, wxString> >(wxT("C") + wxString::FromDouble(nCombinationNumber), *iCombination));
+            m_flagCombinations.insert(TATTestAutomationToolConfiguration::TFlagCombination(wxT("C") + wxString::FromDouble(nCombinationNumber), *iCombination));
             ++nCombinationNumber;
         }
     }

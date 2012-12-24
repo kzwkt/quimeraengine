@@ -26,14 +26,14 @@ QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
     // TODO [Thund]: This test has to be completed when more properties are initialized in future tasks.
 
     // Preparation
-    ITATConfigLoader* CONFIGURATION_LOADER_NULL = NULL;
+    ITATConfigLoader* CONFIGURATION_LOADER_null_t = null_t;
     const wxString CONFIGURATION_LOADER_SOURCE = wxT("config.ini");
     
 	// Execution
     TATTestAutomationToolConfiguration testAutomationToolConfigurationUT;
     
     // Verification
-    BOOST_CHECK_NE(testAutomationToolConfigurationUT.GetConfigLoader(), CONFIGURATION_LOADER_NULL);
+    BOOST_CHECK_NE(testAutomationToolConfigurationUT.GetConfigLoader(), CONFIGURATION_LOADER_null_t);
     BOOST_CHECK_EQUAL(testAutomationToolConfigurationUT.GetConfigLoader()->GetSource(), CONFIGURATION_LOADER_SOURCE);
 }
 
@@ -44,7 +44,7 @@ QTEST_CASE ( LoadConfiguration_NoExceptionIsThrownWhenUsingExistingAndValidSourc
 {
     // Preparation
     TATTestAutomationToolConfiguration TESTAUTOMATIONTOOL_CONFIGURATION;
-    const wxString EXISTING_VALID_SOURCE = wxT("ConfigFileMock.ini");
+    const wxString EXISTING_VALID_SOURCE = wxString(TAT_ARTIFACTS_DIRECTORY) + wxT("/ConfigFileMock.ini");
     const bool NO_EXCEPTIONS_THROWN_VALUE = false;
 
 	// Execution
@@ -273,14 +273,14 @@ QTEST_CASE ( Destroy_NoErrorOccurred_Test )
 QTEST_CASE ( Destroy_AllResourcesAreReleased_Test )
 {
     // Preparation
-    ITATConfigLoader* CONFIGURATION_LOADER_NULL = NULL;
+    ITATConfigLoader* CONFIGURATION_LOADER_null_t = null_t;
     TATTestAutomationToolConfigurationWhiteBox TESTAUTOMATIONTOOL_CONFIGURATION;
 
 	// Execution
     TESTAUTOMATIONTOOL_CONFIGURATION.Destroy();
 
     // Verification
-    BOOST_CHECK_EQUAL(TESTAUTOMATIONTOOL_CONFIGURATION.GetConfigLoader(), CONFIGURATION_LOADER_NULL);
+    BOOST_CHECK_EQUAL(TESTAUTOMATIONTOOL_CONFIGURATION.GetConfigLoader(), CONFIGURATION_LOADER_null_t);
 }
 
 /// <summary>
