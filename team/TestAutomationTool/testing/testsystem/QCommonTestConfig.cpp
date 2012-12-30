@@ -3,6 +3,8 @@
 #include "QCommonTestConfig.h"
 #include "CommonConfigDefinitions.h"
 
+#include <boost/date_time.hpp>
+
 #include <iostream>
 
 namespace Kinesis
@@ -73,7 +75,7 @@ TATCommonTestConfig::TATCommonTestConfig(const std::string &strTestModuleName, c
             }
         }
 
-        TATCommonTestConfig::s_strLogFilePath = (config[nEntryToReadResultsPathFrom] + strTestModuleName + "_" + TAT_TEST_CONFIG_NAME + ".xml");
+        TATCommonTestConfig::s_strLogFilePath = (config[nEntryToReadResultsPathFrom] + strTestModuleName + "_" + TAT_TEST_CONFIG_NAME + "_" + this->GetCurrentTime() + ".xml");
         TATCommonTestConfig::s_resultsFileStream.open(TATCommonTestConfig::s_strLogFilePath.c_str(), std::ofstream::out);
 
         // Log configuration
@@ -103,6 +105,33 @@ TATCommonTestConfig::TATCommonTestConfig(const std::string &strTestModuleName, c
 
 TATCommonTestConfig::~TATCommonTestConfig()
 {
+}
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |		    METHODS	    	 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+std::string TATCommonTestConfig::GetCurrentTime()
+{
+    // Read from http://stackoverflow.com/questions/2612938/simplest-way-to-get-current-time-in-current-timezone-using-boostdate-time
+
+    std::string strResult;
+
+    std::ostringstream stringStream;
+    const boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
+    boost::posix_time::time_facet *const facet = new boost::posix_time::time_facet("%Y-%m-%d-%H-%M-%S");
+    stringStream.imbue(std::locale(stringStream.getloc(), facet));
+    stringStream << now;
+
+    strResult = stringStream.str();
+
+    return strResult;
 }
 
 } //namespace Test

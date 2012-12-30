@@ -23,18 +23,24 @@ QTEST_SUITE_BEGIN( TATTestAutomationToolConfiguration_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
 {
-    // TODO [Thund]: This test has to be completed when more properties are initialized in future tasks.
-
     // Preparation
-    ITATConfigLoader* CONFIGURATION_LOADER_null_t = null_t;
+    ITATConfigLoader* CONFIGURATION_LOADER_NULL = null_t;
     const wxString CONFIGURATION_LOADER_SOURCE = wxT("config.ini");
+    std::list<wxString> EXPECTED_COMPILER_CONFIGURATIONS;
+    std::list<wxString> EXPECTED_COMPILER_CONFIGURATION_SELECTION;
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection EXPECTED_FLAG_COMBINATIONS;
+    std::list<wxString> EXPECTED_FLAG_COMBINATION_SELECTION;
     
 	// Execution
     TATTestAutomationToolConfiguration testAutomationToolConfigurationUT;
     
     // Verification
-    BOOST_CHECK_NE(testAutomationToolConfigurationUT.GetConfigLoader(), CONFIGURATION_LOADER_null_t);
+    BOOST_CHECK_NE(testAutomationToolConfigurationUT.GetConfigLoader(), CONFIGURATION_LOADER_NULL);
     BOOST_CHECK_EQUAL(testAutomationToolConfigurationUT.GetConfigLoader()->GetSource(), CONFIGURATION_LOADER_SOURCE);
+    BOOST_CHECK(testAutomationToolConfigurationUT.GetCompilerConfigurations() == EXPECTED_COMPILER_CONFIGURATIONS);
+    BOOST_CHECK(testAutomationToolConfigurationUT.GetCompilerConfigurationSelection() == EXPECTED_COMPILER_CONFIGURATION_SELECTION);
+    BOOST_CHECK(testAutomationToolConfigurationUT.GetFlagCombinations() == EXPECTED_FLAG_COMBINATIONS);
+    BOOST_CHECK(testAutomationToolConfigurationUT.GetFlagCombinationSelection() == EXPECTED_FLAG_COMBINATION_SELECTION);
 }
 
 /// <summary>

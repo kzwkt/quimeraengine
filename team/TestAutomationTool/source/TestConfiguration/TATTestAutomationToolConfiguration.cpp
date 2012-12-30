@@ -183,19 +183,22 @@ void TATTestAutomationToolConfiguration::CombineFlagValue(std::list<TATKeyValueN
 
 std::list<wxString> TATTestAutomationToolConfiguration::GetCompilerConfigurations() const
 {
-    // Gets the value tree
-    TATKeyValueNode* pValueTree = m_pConfigLoader->GetValueTree();
-    // Gets the SUT node, which contains the available compiler configurations
-    TATNode* pSutNode = pValueTree->GetChild(wxT("S")).begin()->second;
-    // Gets the available compiler configurations
-    TATKeyValueNode::TNodeCollection compileConfigurations = pSutNode->GetChild(wxT("CompilerConfiguration"));
+    std::list<wxString> compilerConfigurationNames;
 
-    // Collects the compiler configuration names
-    std::list<wxString> compilerConfigurationNames = std::list<wxString>();
-
-    for(TATKeyValueNode::TNodeCollection::iterator iNode = compileConfigurations.begin(); iNode != compileConfigurations.end(); ++iNode)
+    if(m_pConfigLoader->GetValueTree() != NULL)
     {
-        compilerConfigurationNames.push_back(dynamic_cast<TATKeyValueNode*>(iNode->second)->GetValue());
+        // Gets the value tree
+        TATKeyValueNode* pValueTree = m_pConfigLoader->GetValueTree();
+        // Gets the SUT node, which contains the available compiler configurations
+        TATNode* pSutNode = pValueTree->GetChild(wxT("S")).begin()->second;
+        // Gets the available compiler configurations
+        TATKeyValueNode::TNodeCollection compileConfigurations = pSutNode->GetChild(wxT("CompilerConfiguration"));
+
+        // Collects the compiler configuration names
+        for(TATKeyValueNode::TNodeCollection::iterator iNode = compileConfigurations.begin(); iNode != compileConfigurations.end(); ++iNode)
+        {
+            compilerConfigurationNames.push_back(dynamic_cast<TATKeyValueNode*>(iNode->second)->GetValue());
+        }
     }
 
     return compilerConfigurationNames;

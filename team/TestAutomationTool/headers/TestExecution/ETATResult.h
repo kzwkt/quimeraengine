@@ -1,7 +1,7 @@
 // [TERMS&CONDITIONS]
 
-#ifndef __ETATCOLOR__
-#define __ETATCOLOR__
+#ifndef __ETATRESULT__
+#define __ETATRESULT__
 
 #include <map>
 
@@ -16,9 +16,9 @@ namespace Backend
 {
 
 /// <summary>
-/// Represents a color.
+/// Represents a test result.
 /// </summary>
-class ETATColor
+class ETATResult
 {
     // ENUMERATIONS
     // ---------------
@@ -29,24 +29,20 @@ public:
     /// </summary>
     enum EnumType
     {
-        E_Black  = 0, /*!< Black color => ARGB(255, 0, 0, 0). */
-        E_White  = 1, /*!< White color => ARGB(255, 255, 255, 255). */
-        E_Red    = 2, /*!< Red color => ARGB(255, 255, 0, 0). */
-        E_Yellow = 3, /*!< Yellow color => ARGB(255, 255, 255, 0). */
-        E_Blue   = 4, /*!< Blue color => ARGB(255, 0, 0, 255). */
-        E_Green  = 5, /*!< Green color => ARGB(255, 0, 255, 0). */
-        E_Purple = 6, /*!< Purple color => ARGB(255, 255, 0, 255). */
-        E_Grey   = 7, /*!< Gray color => ARGB(255, 127, 127, 127). */
+        E_Success  = 0, /*!< The test passed. */
+        E_Fail     = 1, /*!< The test failed. */
+        E_Error    = 2, /*!< Unexpected errors occurred during the test, unhandled exceptions were thrown. */
+        E_NoResult = 3, /*!< There is no result. No test was executed. */
 
-        _NotEnumValue = 8 /*!< Not valid value. */
+        _NotEnumValue = 4 /*!< Not valid value. */
     };
 
     // TYPEDEFS
     // ---------------
 public:
 
-    typedef std::map<wxString, ETATColor::EnumType> TNameValueMap;
-    typedef std::pair<wxString, ETATColor::EnumType> TNameValuePair;
+    typedef std::map<wxString, ETATResult::EnumType> TNameValueMap;
+    typedef std::pair<wxString, ETATResult::EnumType> TNameValuePair;
 
 
 	// METHODS
@@ -57,7 +53,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">A valid enumeration value.</param>
-    inline ETATColor(const ETATColor::EnumType &eValue) : m_value(eValue)
+    inline ETATResult(const ETATResult::EnumType &eValue) : m_value(eValue)
     {
     }
 
@@ -66,7 +62,7 @@ public:
     /// </summary>
     /// <param name="nValue">An integer number.</param>
     template<typename IntegerType>
-    inline ETATColor(const IntegerType &nValue) : m_value(static_cast<const ETATColor::EnumType>(nValue))
+    inline ETATResult(const IntegerType &nValue) : m_value(static_cast<const ETATResult::EnumType>(nValue))
     {
     }
 
@@ -75,7 +71,7 @@ public:
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">The name of a valid enumeration value.</param>
-    inline ETATColor(const wxString &strValueName)
+    inline ETATResult(const wxString &strValueName)
     {
         *this = strValueName;
     }
@@ -88,9 +84,9 @@ public:
     /// The enumerated type itself.
     /// </returns>
     template<typename IntegerType>
-    inline ETATColor& operator=(const IntegerType &nValue)
+    inline ETATResult& operator=(const IntegerType &nValue)
     {
-        m_value = static_cast<const ETATColor::EnumType>(nValue);
+        m_value = static_cast<const ETATResult::EnumType>(nValue);
         return *this;
     }
 
@@ -101,12 +97,12 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline ETATColor& operator=(const wxString &strValueName)
+    inline ETATResult& operator=(const wxString &strValueName)
     {
-        if(ETATColor::sm_mapValueName.find(strValueName) != ETATColor::sm_mapValueName.end())
+        if(ETATResult::sm_mapValueName.find(strValueName) != ETATResult::sm_mapValueName.end())
             m_value = sm_mapValueName[strValueName];
         else
-            m_value = ETATColor::_NotEnumValue;
+            m_value = ETATResult::_NotEnumValue;
 
         return *this;
     }
@@ -118,7 +114,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline ETATColor& operator=(const ETATColor::EnumType &eValue)
+    inline ETATResult& operator=(const ETATResult::EnumType &eValue)
     {
         m_value = eValue;
         return *this;
@@ -134,7 +130,7 @@ public:
     /// </returns>
     inline bool operator==(const wxString &strValueName) const
     {
-        if(ETATColor::sm_mapValueName.find(strValueName) != ETATColor::sm_mapValueName.end())
+        if(ETATResult::sm_mapValueName.find(strValueName) != ETATResult::sm_mapValueName.end())
             return m_value == sm_mapValueName[strValueName];
         else
             return false;
@@ -150,7 +146,7 @@ public:
     template<typename IntegerType>
     inline bool operator==(const IntegerType &nValue) const
     {
-        return m_value == static_cast<const ETATColor::EnumType>(nValue);
+        return m_value == static_cast<const ETATResult::EnumType>(nValue);
     }
 
     /// <summary>
@@ -160,7 +156,7 @@ public:
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
-    bool operator==(const ETATColor::EnumType &eValue) const
+    bool operator==(const ETATResult::EnumType &eValue) const
     {
         return m_value == eValue;
     }
@@ -171,7 +167,7 @@ public:
     /// <returns>
     /// The contained enumeration value.
     /// </returns>
-    inline operator ETATColor::EnumType() const
+    inline operator ETATResult::EnumType() const
     {
         return m_value;
     }
@@ -196,7 +192,7 @@ public:
     /// </returns>
     operator const wxString() const
     {
-        return ConvertToString(m_value, ETATColor::sm_mapValueName);
+        return ConvertToString(m_value, ETATResult::sm_mapValueName);
     }
 
     /// <summary>
@@ -207,7 +203,7 @@ public:
     /// </returns>
     const wxString ToString() const
     {
-        return ConvertToString(m_value, ETATColor::sm_mapValueName);
+        return ConvertToString(m_value, ETATResult::sm_mapValueName);
     }
 
 private:
@@ -220,7 +216,7 @@ private:
     // <returns>
     // The enumerated value's string representation.
     // </returns>
-    const wxString& ConvertToString(const ETATColor::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    const wxString& ConvertToString(const ETATResult::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
     {
         TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
         TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
@@ -252,7 +248,7 @@ private:
     /// <summary>
     /// The contained enumeration value.
     /// </summary>
-    ETATColor::EnumType m_value;
+    ETATResult::EnumType m_value;
 
 };
 
@@ -261,4 +257,4 @@ private:
 } //namespace TestAutomationTool
 } //namespace Kinesis
 
-#endif // __ETATCOLOR__
+#endif // __ETATRESULT__

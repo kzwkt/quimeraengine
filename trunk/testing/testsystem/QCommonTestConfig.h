@@ -66,6 +66,18 @@ public:
 	/// </summary>		
 	virtual ~QCommonTestConfig();
 
+    // METHODS
+    // ---------------
+protected:
+
+    /// <summary>
+    /// Gets the current date and time.
+    /// </summary>
+    /// <returns>
+    /// The date and the time following this format: "YYYY-MM-DD-hh-mm-ss".
+    /// </returns>
+    std::string GetCurrentTime();
+
 
 	// ATTRIBUTES
 	// ---------------

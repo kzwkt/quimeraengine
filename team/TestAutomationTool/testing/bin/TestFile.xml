@@ -1,0 +1,30 @@
+<TestLog>
+  <TestSuite name="TestModule1">
+    <TestSuite name="TestSuite1">
+      <TestCase name="TestCase1">
+        <Info file="file1" line="1"><![CDATA[Message1]]></Info>
+        <TestingTime>1</TestingTime>
+      </TestCase>
+    </TestSuite>
+    <TestSuite name="TestSuite2">
+      <TestCase name="TestCase1">
+		<Error file="file2" line="1"><![CDATA[Message1]]></Error>
+		<Exception file="file2" line="2"><![CDATA[Message2]]></Exception>
+        <TestingTime>2</TestingTime>
+      </TestCase>
+	  <TestCase name="TestCase2">
+        <Info file="file2" line="1"><![CDATA[Message1]]></Info>
+        <Message file="file2" line="2"><![CDATA[Message2]]></Message>
+        <TestingTime>3</TestingTime>
+      </TestCase>
+    </TestSuite>
+  </TestSuite>
+  <TestSuite name="TestModule2">
+    <TestSuite name="TestSuite1">
+      <TestCase name="TestCase1">
+        <Info file="file3" line="1"><![CDATA[Message1]]></Info>
+        <TestingTime>4</TestingTime>
+      </TestCase>
+    </TestSuite>
+  </TestSuite>
+</TestLog>

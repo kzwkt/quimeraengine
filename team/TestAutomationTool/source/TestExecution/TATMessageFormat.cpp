@@ -84,16 +84,6 @@ ETATColor TATMessageFormat::GetColor() const
     return m_eColor;
 }
 
-void TATMessageFormat::SetTextReplacements(const std::map<wxString, wxString>& replacements)
-{
-    m_replacements = replacements;
-}
-
-std::map<wxString, wxString> TATMessageFormat::GetTextReplacements() const
-{
-    return m_replacements;
-}
-
 void TATMessageFormat::SetTextStyle(const unsigned int& uTextStyle)
 {
     m_uTextStyle = uTextStyle;

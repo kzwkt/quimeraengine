@@ -39,7 +39,8 @@ const wxString TATConfigLoaderFromIniFile::HEADER_CLOSING_TOKEN = wxT("]");
 //##################=======================================================##################
 
 TATConfigLoaderFromIniFile::TATConfigLoaderFromIniFile(TATRuleNode* pRuleTree) : m_strSource(wxT("")),
-                                                                                 m_pRuleTree(pRuleTree)
+                                                                                 m_pRuleTree(pRuleTree),
+                                                                                 m_pValueTree(NULL)
 {
 }
 	

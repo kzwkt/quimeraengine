@@ -79,6 +79,7 @@
 					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.exe&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
 					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\ConfigFileMock.ini&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
 					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.h&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
+					<Add after='cmd /c xcopy &quot;$(TARGET_OUTPUT_DIR)..\..\TestFile.xml&quot; &quot;$(TARGET_OUTPUT_DIR)TestArtifacts\&quot; /I /Y' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -187,6 +188,24 @@
 			<Option virtualFolder="Tests\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestModulesExecutionInfo_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactoryWhiteBox.h">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactory_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderWhiteBox.h">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoader_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultNode_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATXmlReader_Tests.cpp">
 			<Option virtualFolder="Tests\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATwxWidgetsControlLoggerWhiteBox.h">

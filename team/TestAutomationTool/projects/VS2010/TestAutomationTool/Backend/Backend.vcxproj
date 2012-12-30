@@ -59,7 +59,7 @@
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\headers;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\3rdparty\Boost\include;$(SolutionDir)\..\..\..\headers;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswud;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
     </ClCompile>
@@ -77,7 +77,7 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>WIN32;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
-      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\headers;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)\..\..\..\3rdparty\Boost\include;$(SolutionDir)\..\..\..\headers;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\include;$(SolutionDir)\..\..\..\3rdparty\wxWidgets\include\lib\vc_lib\mswu;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
@@ -99,11 +99,16 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TATShellProcess.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\ETATColor.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\ETATResult.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\ETATResultSource.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATCompilerInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATFormattedMessage.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATMessageFormat.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestModulesExecutionInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultLoader.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultLoaderFactory.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultNode.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATwxWidgetsControlLogger.cpp" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\STATFileSystemHelper.h" />
@@ -123,13 +128,20 @@
     <ClCompile Include="..\..\..\..\source\STATFileSystemHelper.cpp" />
     <ClInclude Include="..\..\..\..\headers\TestConfiguration\TATValidationException.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\ETATColor.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ETATResult.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ETATResultSource.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\ITATLogger.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ITATTestResultLoader.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATCompilerInfo.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATFormattedMessage.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATMessageFormat.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestModulesExecutionInfo.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultLoader.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultLoaderFactory.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultNode.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATwxWidgetsControlLogger.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATXmlReader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\STATStringHelper.cpp" />

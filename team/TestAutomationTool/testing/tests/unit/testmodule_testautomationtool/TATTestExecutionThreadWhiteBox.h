@@ -42,6 +42,9 @@ public:
     using TATTestAutomationToolExecutionWhiteBox::TATTestExecutionThread::ExecuteTestModule;
     using TATTestAutomationToolExecutionWhiteBox::TATTestExecutionThread::ReadTestModuleFiles;
     using TATTestAutomationToolExecutionWhiteBox::TATTestExecutionThread::Log;
+    using TATTestAutomationToolExecutionWhiteBox::TATTestExecutionThread::ReadTestResultFiles;
+    using TATTestAutomationToolExecutionWhiteBox::TATTestExecutionThread::ParseTestResultFile;
+    using TATTestAutomationToolExecutionWhiteBox::TATTestExecutionThread::DeletePreviousResultFiles;
 };
 
 } //namespace Test

@@ -48,6 +48,7 @@ QTEST_CASE ( Constructor_BuiltInstanceIsSetUpAsIntended_Test )
     // Preparation
     TATRuleNode* EXPECTED_RULE_TREE = new TATRuleNode();
     const wxString EXPECTED_SOURCE = wxT("");
+    TATKeyValueNode* EXPECTED_VALUE_TREE = null_t;
 
 	// Execution
     TATConfigLoaderFromIniFile configLoader(EXPECTED_RULE_TREE);
@@ -55,6 +56,7 @@ QTEST_CASE ( Constructor_BuiltInstanceIsSetUpAsIntended_Test )
     // Verification
     BOOST_CHECK_EQUAL(configLoader.GetRuleTree(), EXPECTED_RULE_TREE);
     BOOST_CHECK_EQUAL(configLoader.GetSource(), EXPECTED_SOURCE);
+    BOOST_CHECK_EQUAL(configLoader.GetValueTree(), EXPECTED_VALUE_TREE);
 }
 
 /// <summary>

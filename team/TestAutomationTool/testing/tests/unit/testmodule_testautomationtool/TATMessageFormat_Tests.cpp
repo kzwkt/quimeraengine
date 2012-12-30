@@ -27,12 +27,10 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
     TATMessageFormat messageFormatUT;
     
     ETATColor eColor = messageFormatUT.GetColor();
-    std::map<wxString, wxString> textReplacements = messageFormatUT.GetTextReplacements();
     unsigned int uTextStyle = messageFormatUT.GetTextStyle();
 
     // [Verification]
     BOOST_CHECK_EQUAL(eColor.ToString(), EXPECTED_COLOR.ToString());
-    BOOST_CHECK_EQUAL(textReplacements.size(), EXPECTED_REPLACEMENTS.size());
     BOOST_CHECK_EQUAL(uTextStyle, EXPECTED_TEXTSTYLE);
 }
 
@@ -50,12 +48,10 @@ QTEST_CASE ( Constructor2_ValueIsCorrectlyStored_Test )
     TATMessageFormat messageFormatUT(EXPECTED_COLOR);
     
     ETATColor eColor = messageFormatUT.GetColor();
-    std::map<wxString, wxString> textReplacements = messageFormatUT.GetTextReplacements();
     unsigned int uTextStyle = messageFormatUT.GetTextStyle();
 
     // [Verification]
     BOOST_CHECK_EQUAL(eColor.ToString(), EXPECTED_COLOR.ToString());
-    BOOST_CHECK_EQUAL(textReplacements.size(), EXPECTED_DEFAULT_REPLACEMENTS.size());
     BOOST_CHECK_EQUAL(uTextStyle, EXPECTED_DEFAULT_TEXTSTYLE);
 }
 
@@ -73,12 +69,10 @@ QTEST_CASE ( Constructor3_ValuesAreCorrectlyStored_Test )
     TATMessageFormat messageFormatUT(EXPECTED_COLOR, EXPECTED_TEXTSTYLE);
     
     ETATColor eColor = messageFormatUT.GetColor();
-    std::map<wxString, wxString> textReplacements = messageFormatUT.GetTextReplacements();
     unsigned int uTextStyle = messageFormatUT.GetTextStyle();
 
     // [Verification]
     BOOST_CHECK_EQUAL(eColor.ToString(), EXPECTED_COLOR.ToString());
-    BOOST_CHECK_EQUAL(textReplacements.size(), EXPECTED_DEFAULT_REPLACEMENTS.size());
     BOOST_CHECK_EQUAL(uTextStyle, EXPECTED_TEXTSTYLE);
 }
 
@@ -113,46 +107,6 @@ QTEST_CASE ( SetColor_ColorIsCorrectlyStored_Test )
     
     // Verification
     BOOST_CHECK_EQUAL(messageFormatUT.GetColor().ToString(), EXPECTED_COLOR.ToString());
-}
-
-/// <summary>
-/// Checks that the text replacements are correctly retrieved.
-/// </summary>
-QTEST_CASE ( GetTextReplacements_TextReplacementsAreCorrectlyRetrieved_Test )
-{
-    // Preparation
-    TATMessageFormat messageFormatUT;
-    std::map<wxString, wxString> EXPECTED_TEXTREPLACEMENTS;
-    EXPECTED_TEXTREPLACEMENTS.insert(std::pair<wxString, wxString>(wxT("REPLACED"), wxT("REPLACEMENT")));
-    messageFormatUT.SetTextReplacements(EXPECTED_TEXTREPLACEMENTS);
-
-	// Execution
-    std::map<wxString, wxString> textReplacements = messageFormatUT.GetTextReplacements();
-    
-    // Verification
-    BOOST_CHECK_EQUAL(textReplacements.size(), EXPECTED_TEXTREPLACEMENTS.size());
-    BOOST_CHECK_EQUAL(textReplacements.begin()->first, EXPECTED_TEXTREPLACEMENTS.begin()->first);
-    BOOST_CHECK_EQUAL(textReplacements.begin()->second, EXPECTED_TEXTREPLACEMENTS.begin()->second);
-}
-
-/// <summary>
-/// Checks that the text replacements are correctly stored.
-/// </summary>
-QTEST_CASE ( SetTextReplacements_TextReplacementsAreCorrectlyStored_Test )
-{
-    // Preparation
-    std::map<wxString, wxString> EXPECTED_TEXTREPLACEMENTS;
-    EXPECTED_TEXTREPLACEMENTS.insert(std::pair<wxString, wxString>(wxT("REPLACED"), wxT("REPLACEMENT")));
-
-	// Execution
-    TATMessageFormat messageFormatUT;
-    messageFormatUT.SetTextReplacements(EXPECTED_TEXTREPLACEMENTS);
-    
-    // Verification
-    std::map<wxString, wxString> textReplacements = messageFormatUT.GetTextReplacements();
-    BOOST_CHECK_EQUAL(textReplacements.size(), EXPECTED_TEXTREPLACEMENTS.size());
-    BOOST_CHECK_EQUAL(textReplacements.begin()->first, EXPECTED_TEXTREPLACEMENTS.begin()->first);
-    BOOST_CHECK_EQUAL(textReplacements.begin()->second, EXPECTED_TEXTREPLACEMENTS.begin()->second);
 }
 
 /// <summary>

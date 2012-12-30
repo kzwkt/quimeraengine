@@ -73,7 +73,8 @@
 xcopy "$(TargetDir)..\..\TestFile.txt" "$(TargetDir)TestArtifacts\" /I /Y
 xcopy "$(TargetDir)..\..\TestFile.exe" "$(TargetDir)TestArtifacts\" /I /Y
 xcopy "$(TargetDir)..\..\ConfigFileMock.ini" "$(TargetDir)TestArtifacts\" /I /Y
-xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y</Command>
+xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.xml" "$(TargetDir)TestArtifacts\" /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='ReleaseWin32|Win32'">
@@ -104,7 +105,8 @@ xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y</Command
 xcopy "$(TargetDir)..\..\TestFile.txt" "$(TargetDir)TestArtifacts\" /I /Y
 xcopy "$(TargetDir)..\..\TestFile.exe" "$(TargetDir)TestArtifacts\" /I /Y
 xcopy "$(TargetDir)..\..\ConfigFileMock.ini" "$(TargetDir)TestArtifacts\" /I /Y
-xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y</Command>
+xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y
+xcopy "$(TargetDir)..\..\TestFile.xml" "$(TargetDir)TestArtifacts\" /I /Y</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -128,7 +130,11 @@ xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y</Command
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecution_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestExecutionThread_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestModulesExecutionInfo_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactory_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoader_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultNode_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATwxWidgetsControlLogger_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATXmlReader_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TestModule_TestAutomationTool.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -155,6 +161,8 @@ xcopy "$(TargetDir)..\..\TestFile.h" "$(TargetDir)TestArtifacts\" /I /Y</Command
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestExecutionThreadWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactoryWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATwxWidgetsControlLoggerWhiteBox.h" />
   </ItemGroup>
   <ItemGroup>

@@ -89,20 +89,6 @@ public:
     ETATColor GetColor() const;
 
     /// <summary>
-    /// Sets the text replacements to apply to the message.
-    /// </summary>
-    /// <param name="replacements">A list of text replacements.</param>
-    void SetTextReplacements(const std::map<wxString, wxString>& replacements);
-
-    /// <summary>
-    /// Gets the text replacements to apply to the message.
-    /// </summary>
-    /// <returns>
-    /// A list of text replacements.
-    /// </returns>
-    std::map<wxString, wxString> GetTextReplacements() const;
-
-    /// <summary>
     /// Sets the style of the text.
     /// </summary>
     /// <param name="uTextStyle">A bit mask, combining the text style flags.</param>

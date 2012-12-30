@@ -25,6 +25,11 @@ public:
     {
         m_pLogger = logger;
     }
+
+    TATTestAutomationToolExecutionMock(ITATTestResultLoader* pTestResultLoader)
+    {
+        m_pTestResultLoader = pTestResultLoader;
+    }
 };
 
 

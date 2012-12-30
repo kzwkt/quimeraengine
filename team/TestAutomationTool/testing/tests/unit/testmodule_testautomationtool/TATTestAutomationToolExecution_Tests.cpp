@@ -9,6 +9,7 @@ using namespace boost::unit_test;
 #include "TestExecution/TATTestAutomationToolExecution.h"
 #include "TATTestAutomationToolExecutionWhiteBox.h"
 #include "TATLoggerMock.h"
+#include "TestExecution/TATTestResultLoaderFactory.h"
 
 using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolExecution;
 using Kinesis::TestAutomationTool::Backend::Test::TATTestAutomationToolExecutionWhiteBox;
@@ -21,15 +22,18 @@ QTEST_SUITE_BEGIN( TATTestAutomationToolExecution_TestSuite )
 QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
 {
     using Kinesis::TestAutomationTool::Backend::ITATLogger;
+    using Kinesis::TestAutomationTool::Backend::ITATTestResultLoader;
 
     // Preparation
-    ITATLogger* EXPECTED_LOGGER = null_t;    
+    ITATLogger* EXPECTED_LOGGER = null_t;
+    ITATTestResultLoader* EXPECTED_TESTRESULTLOADER = null_t;
 
 	// Execution
     TATTestAutomationToolExecution testExecution;
     
     // Verification
     BOOST_CHECK_EQUAL(testExecution.GetLogger(), EXPECTED_LOGGER);
+    BOOST_CHECK_EQUAL(testExecution.GetTestResultLoader(), EXPECTED_TESTRESULTLOADER);
 }
 
 /// <summary>
@@ -64,9 +68,11 @@ QTEST_CASE ( Destroy_NoErrorOccurred_Test )
 QTEST_CASE ( Destroy_AllDependenciesAreDestroyed_Test )
 {
     using Kinesis::TestAutomationTool::Backend::ITATLogger;
+    using Kinesis::TestAutomationTool::Backend::ITATTestResultLoader;
 
     // Preparation
     const ITATLogger* EXPECTED_LOGGER = NULL;
+    const ITATTestResultLoader* EXPECTED_TESTRESULTLOADER = NULL;
     TATTestAutomationToolExecutionWhiteBox TESTAUTOMATIONTOOL_EXECUTION;
 
 	// Execution
@@ -74,6 +80,7 @@ QTEST_CASE ( Destroy_AllDependenciesAreDestroyed_Test )
 
     // Verification
     BOOST_CHECK_EQUAL(TESTAUTOMATIONTOOL_EXECUTION.GetLogger(), EXPECTED_LOGGER);
+    BOOST_CHECK_EQUAL(TESTAUTOMATIONTOOL_EXECUTION.GetTestResultLoader(), EXPECTED_TESTRESULTLOADER);
 }
 
 /// <summary>
@@ -87,7 +94,15 @@ QTEST_CASE ( ExecuteTests_NotTested_Test )
 /// <summary>
 /// Not tested. It's an event handler.
 /// </summary>
-QTEST_CASE ( OnTestExecutionThreadUpdate_NotTested_Test )
+QTEST_CASE ( OnTestExecutionThreadLogUpdate_NotTested_Test )
+{
+    BOOST_MESSAGE(wxT("It's an event handler."));
+}
+
+/// <summary>
+/// Not tested. It's an event handler.
+/// </summary>
+QTEST_CASE ( OnTestExecutionThreadResultUpdate_NotTested_Test )
 {
     BOOST_MESSAGE(wxT("It's an event handler."));
 }
@@ -290,6 +305,50 @@ QTEST_CASE ( SetLogger_IsCorrectlyStored_Test )
     
     // Verification
     BOOST_CHECK_EQUAL(testExecutionUT.GetLogger(), EXPECTED_LOGGER);
+}
+
+/// <summary>
+/// Checks that the test result loader is correctly retrieved.
+/// </summary>
+QTEST_CASE ( GetTestResultLoader_IsCorrectlyRetrieved_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::TATTestResultLoaderFactory;
+    using Kinesis::TestAutomationTool::Backend::ITATTestResultLoader;
+    using Kinesis::TestAutomationTool::Backend::ETATResultSource;
+
+    // Preparation
+    TATTestResultLoaderFactory TESTRESULTLOADER_FACTORY;
+    ITATTestResultLoader* EXPECTED_TESTRESULTLOADER = TESTRESULTLOADER_FACTORY.CreateConfigLoader(ETATResultSource::E_XmlFile);
+
+    TATTestAutomationToolExecution testExecutionUT;
+    testExecutionUT.SetTestResultLoader(EXPECTED_TESTRESULTLOADER);
+
+	// Execution
+    ITATTestResultLoader* pTestResultLoader = testExecutionUT.GetTestResultLoader();
+
+    // Verification
+    BOOST_CHECK_EQUAL(pTestResultLoader, EXPECTED_TESTRESULTLOADER);
+}
+
+/// <summary>
+/// Checks that the test result loader is correctly stored.
+/// </summary>
+QTEST_CASE ( SetTestResultLoader_IsCorrectlyStored_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::TATTestResultLoaderFactory;
+    using Kinesis::TestAutomationTool::Backend::ITATTestResultLoader;
+    using Kinesis::TestAutomationTool::Backend::ETATResultSource;
+
+    // Preparation
+    TATTestResultLoaderFactory TESTRESULTLOADER_FACTORY;
+    ITATTestResultLoader* EXPECTED_TESTRESULTLOADER = TESTRESULTLOADER_FACTORY.CreateConfigLoader(ETATResultSource::E_XmlFile);
+
+	// Execution
+    TATTestAutomationToolExecution testExecutionUT;
+    testExecutionUT.SetTestResultLoader(EXPECTED_TESTRESULTLOADER);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(testExecutionUT.GetTestResultLoader(), EXPECTED_TESTRESULTLOADER);
 }
 
 // End - Test Suite: TATTestAutomationToolExecution

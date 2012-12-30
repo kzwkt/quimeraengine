@@ -42,6 +42,7 @@
 		<Compiler>
 			<Add directory="..\..\..\headers" />
 			<Add directory="..\..\..\3rdparty\wxWidgets\include\include" />
+			<Add directory="..\..\..\3rdparty\Boost\include" />
 		</Compiler>
 		<Unit filename="..\..\..\headers\ExternalDefinitions.h">
 			<Option virtualFolder="Common\" />
@@ -94,7 +95,16 @@
 		<Unit filename="..\..\..\headers\TestExecution\ETATColor.h">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\ETATResult.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\ETATResultSource.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
 		<Unit filename="..\..\..\headers\TestExecution\ITATLogger.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\ITATTestResultLoader.h">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\headers\TestExecution\TATCompilerInfo.h">
@@ -110,6 +120,18 @@
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\headers\TestExecution\TATTestModulesExecutionInfo.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\TATTestResultLoader.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\TATTestResultLoaderFactory.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\TATTestResultNode.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\TATXmlReader.h">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\headers\TestExecution\TATwxWidgetsControlLogger.h">
@@ -157,6 +179,12 @@
 		<Unit filename="..\..\..\source\TestExecution\ETATColor.cpp">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\ETATResult.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\ETATResultSource.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
 		<Unit filename="..\..\..\source\TestExecution\TATCompilerInfo.cpp">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
@@ -170,6 +198,15 @@
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TestExecution\TATTestModulesExecutionInfo.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\TATTestResultLoader.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\TATTestResultLoaderFactory.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\TATTestResultNode.cpp">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TestExecution\TATwxWidgetsControlLogger.cpp">

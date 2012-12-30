@@ -2,6 +2,8 @@
 
 #include "TestExecution/TATTestAutomationToolExecution.h"
 
+#include <algorithm>
+
 #include "TestExecution/TATwxWidgetsControlLogger.h"
 #include "TestExecution/TATFormattedMessage.h"
 #include "TestExecution/ETATColor.h"
@@ -11,7 +13,11 @@
 
 // Defines the events related to multithread test execution
 wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_COMPLETED, wxThreadEvent);
-wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_UPDATE, wxThreadEvent);
+wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_LOG_UPDATE, wxThreadEvent);
+wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE, wxThreadEvent);
+// Defines the events related to the test execution process
+// TODO wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_FINISHED, wxCommandEvent);
+// TODO wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEvent);
 
 namespace Kinesis
 {
@@ -41,13 +47,13 @@ const wxString TATTestAutomationToolExecution::BACKUP_SUFFIX = wxT(".bak");
 //##################													   ##################
 //##################=======================================================##################
 
-TATTestAutomationToolExecution::TATTestAutomationToolExecution()
+TATTestAutomationToolExecution::TATTestAutomationToolExecution() : m_pExecutionThread(NULL),
+                                                                   m_pLogger(NULL),
+                                                                   m_pTestResultLoader(NULL)
 {
-    m_pExecutionThread = NULL;
-    m_pLogger = NULL;
-
     // Subscribes to thread events
-    this->Connect( wxEVT_COMMAND_TESTEXECUTION_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadUpdate) );
+    this->Connect( wxEVT_COMMAND_TESTEXECUTION_LOG_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadLogUpdate) );
+    this->Connect( wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadResultUpdate) );
     this->Connect( wxEVT_COMMAND_TESTEXECUTION_COMPLETED, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadCompletion) );
 }
 
@@ -98,6 +104,12 @@ void TATTestAutomationToolExecution::Destroy()
     {
         delete m_pLogger;
         m_pLogger = NULL;
+    }
+
+    if(m_pTestResultLoader != NULL)
+    {
+        delete m_pTestResultLoader;
+        m_pTestResultLoader = NULL;
     }
 }
 
@@ -251,6 +263,11 @@ std::list<wxString> TATTestAutomationToolExecution::TATTestExecutionThread::Read
     return STATFileSystemHelper::ListFolderContent(strFolderPath, STATFileSystemHelper::GetExecutableFileExtension());
 }
 
+std::list<wxString> TATTestAutomationToolExecution::TATTestExecutionThread::ReadTestResultFiles(const wxString& strFolderPath) const
+{
+    return STATFileSystemHelper::ListFolderContent(strFolderPath, wxT("xml"));
+}
+
 wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry()
 {
     // [TODO] Thund: This method has to be split and refactored, there is no time to do it at the moment
@@ -265,12 +282,16 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
     try
     {
+        std::list<wxString> parsedResultFiles;
         wxString strConfigurationFilePath = m_pHandler->GetConfigurationFilePath();
         TFlagCombinationCollection flagCombinations = m_pHandler->GetFlagCombinations();
         std::list<wxString> compilationConfigurations = m_pHandler->GetCompilationConfigurations();
         std::map<wxString, TATCompilerInfo> compilerInfos = m_pHandler->GetCompilerInfos();
 
         this->Log(TATFormattedMessage(wxT("Test execution process starts."), LOG_FORMAT_PROCESS_TITLE));
+
+        // Removes previous test results from the loader
+        m_pHandler->GetTestResultLoader()->Clear();
 
         // 1. Creates a backup of the configuration file
         this->Log(TATFormattedMessage(wxT("Creating a back-up copy of the configuration file at '"), LOG_FORMAT_NORMAL).
@@ -400,10 +421,26 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
                             if(this->TestDestroy()) throw std::exception();
 
+                            // 2.2.1.2.1 Removes test result files of previous executions
+
+                            // If this is the first test result file to write for this execution...
+                            if(parsedResultFiles.size() == 0)
+                            {
+                                this->Log(TATFormattedMessage(wxT("Removing previous test result files from '"), LOG_FORMAT_NORMAL).
+                                                    Append(iTestModuleInfo->GetResultsPath(), LOG_FORMAT_DATA_HIGHLIGHT).
+                                                    Append(wxT("'..."), LOG_FORMAT_NORMAL));
+
+                                if(this->DeletePreviousResultFiles(iTestModuleInfo->GetResultsPath()))
+                                {
+                                    this->Log(TATFormattedMessage(wxT("Result files removed."), LOG_FORMAT_NORMAL));
+                                }
+                            }
+
+                            // 2.2.1.2.2 Execute every test module...
+
                             // Obtains the paths of all the test modules
                             std::list<wxString> testModulePaths = this->ReadTestModuleFiles(iTestModuleInfo->GetTestModulesPath() + *iCompilationConfig);
 
-                            // 2.2.1.2.1 Execute every test module...
                             for(std::list<wxString>::const_iterator iTestModulePath = testModulePaths.begin(); iTestModulePath != testModulePaths.end(); ++iTestModulePath)
                             {
                                 if(this->TestDestroy()) throw std::exception();
@@ -426,6 +463,30 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
                                 // Restores the working directory
                                 wxSetWorkingDirectory(strPreviousWorkingDirectory);
+
+                                // 2.2.1.2.1.1 Parses the test result files
+
+                                // Obtains a list with all the existent result files
+                                std::list<wxString> testResultFiles = this->ReadTestResultFiles(iTestModuleInfo->GetResultsPath());
+
+                                // Checks if there are new files to parse
+                                for(std::list<wxString>::const_iterator iResultFilePath = testResultFiles.begin(); iResultFilePath != testResultFiles.end(); ++iResultFilePath)
+                                {
+                                    if(std::find(parsedResultFiles.begin(), parsedResultFiles.end(), *iResultFilePath) == parsedResultFiles.end())
+                                    {
+                                        // If the file was not already parsed, parse it now
+                                        this->Log(TATFormattedMessage(wxT("Parsing test result file '"), LOG_FORMAT_NORMAL).
+                                                       Append(*iResultFilePath, LOG_FORMAT_DATA_HIGHLIGHT).
+                                                       Append(wxT("'..."), LOG_FORMAT_NORMAL));
+
+                                        this->ParseTestResultFile(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
+
+                                        // Saves the path of the file in the list of parsed files
+                                        parsedResultFiles.push_back(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
+
+                                        this->Log(TATFormattedMessage(wxT("Test result file parsed."), LOG_FORMAT_NORMAL));
+                                    }
+                                }
                             }
                         }
                     }
@@ -470,9 +531,31 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 void TATTestAutomationToolExecution::TATTestExecutionThread::Log(TATFormattedMessage message)
 {
     m_pHandler->GetLogger()->Log(message);
-    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_TESTEXECUTION_UPDATE));
+    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_TESTEXECUTION_LOG_UPDATE));
     this->Sleep(10); // To let the UI refresh
 }
+
+void TATTestAutomationToolExecution::TATTestExecutionThread::ParseTestResultFile(const wxString &strTestResultFilePath)
+{
+    m_pHandler->GetTestResultLoader()->Load(strTestResultFilePath);
+    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE));
+    this->Sleep(10); // To let the UI refresh
+}
+
+bool TATTestAutomationToolExecution::TATTestExecutionThread::DeletePreviousResultFiles(const wxString &strTestResultFilePath)
+{
+    bool bResult = false;
+
+    std::list<wxString> filesToDelete = this->ReadTestResultFiles(strTestResultFilePath);
+
+    for(std::list<wxString>::const_iterator iResultFile = filesToDelete.begin(); iResultFile != filesToDelete.end(); ++iResultFile)
+    {
+        bResult |= STATFileSystemHelper::Delete(strTestResultFilePath + *iResultFile);
+    }
+
+    return bResult;
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -483,15 +566,21 @@ void TATTestAutomationToolExecution::TATTestExecutionThread::Log(TATFormattedMes
 //##################													   ##################
 //##################=======================================================##################
 
-void TATTestAutomationToolExecution::OnTestExecutionThreadUpdate(wxThreadEvent& event)
+void TATTestAutomationToolExecution::OnTestExecutionThreadLogUpdate(wxThreadEvent& event)
 {
     m_pLogger->Flush();
+}
+
+void TATTestAutomationToolExecution::OnTestExecutionThreadResultUpdate(wxThreadEvent& event)
+{
+    // TODO wxQueueEvent(this, new wxThreadEvent(wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE));
 }
 
 void TATTestAutomationToolExecution::OnTestExecutionThreadCompletion(wxThreadEvent& event)
 {
     m_pExecutionThread = NULL;
 
+    // TODO wxQueueEvent(this, new wxCommandEvent(wxEVT_COMMAND_TESTEXECUTION_FINISHED));
     // TODO Show, hide, enable, disable buttons...
 }
 
@@ -562,6 +651,16 @@ ITATLogger* TATTestAutomationToolExecution::GetLogger() const
 void TATTestAutomationToolExecution::SetLogger(ITATLogger* pLogger)
 {
     m_pLogger = pLogger;
+}
+
+ITATTestResultLoader* TATTestAutomationToolExecution::GetTestResultLoader() const
+{
+    return m_pTestResultLoader;
+}
+
+void TATTestAutomationToolExecution::SetTestResultLoader(ITATTestResultLoader* pTestResultLoader)
+{
+    m_pTestResultLoader = pTestResultLoader;
 }
 
 } //namespace Backend

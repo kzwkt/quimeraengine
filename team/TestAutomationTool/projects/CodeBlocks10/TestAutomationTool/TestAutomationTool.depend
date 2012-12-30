@@ -7655,7 +7655,7 @@
 	"wx/treebase.h"
 	"wx/hashmap.h"
 
-1354969209 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\tattestconfigurationform.cpp
+1356648241 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\tattestconfigurationform.cpp
 	"TestConfiguration/TATTestConfigurationForm.h"
 	<map>
 	<wx/msgdlg.h>
@@ -7897,13 +7897,14 @@
 	"TestExecution/TestExecution.h"
 	"TestExecution/TATTestAutomationToolExecution.h"
 
-1355955135 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestautomationtoolexecution.h
+1356643803 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestautomationtoolexecution.h
 	<map>
 	<wx/thread.h>
 	<wx/event.h>
 	"TestExecution/TATCompilerInfo.h"
 	"TestExecution/TATFormattedMessage.h"
 	"TATShellProcess.h"
+	"TestExecution/ITATTestResultLoader.h"
 
 1354221932 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatkeyvaluenode.h
 	"TestConfiguration/TATConfigNode.h"
@@ -7921,9 +7922,12 @@
 	<map>
 	<wx/string.h>
 
-1355614312 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testexecution\tattestexecutionform.cpp
+1356557280 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testexecution\tattestexecutionform.cpp
 	"TestExecution/TATTestExecutionForm.h"
 	"TestExecution/TATwxWidgetsControlLogger.h"
+	"TestExecution/ETATResultSource.h"
+	"TestExecution/TATTestResultLoaderFactory.h"
+	"TestExecution/ITATTestResultLoader.h"
 
 1355788580 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatcompilerinfo.h
 	<list>
@@ -7937,17 +7941,17 @@
 	<list>
 	"TestExecution/TATMessageFormat.h"
 
-1356202802 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatmessageformat.h
+1356361095 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatmessageformat.h
 	"TestExecution/ETATColor.h"
 
-1355779221 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatcolor.h
+1356529525 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatcolor.h
 	<map>
 	<wx/string.h>
 
 1356202802 j:\quimeraengine\qesvn\team\testautomationtool\headers\tatshellprocess.h
 	<wx/string.h>
 
-1355957077 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatwxwidgetscontrollogger.h
+1356309742 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatwxwidgetscontrollogger.h
 	<queue>
 	<wx/colour.h>
 	<wx/thread.h>
@@ -7956,4 +7960,28 @@
 	"TestExecution/ETATColor.h"
 
 1355779766 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\itatlogger.h
+
+1356642905 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\itattestresultloader.h
+	<wx/string.h>
+	"TestExecution/TATTestResultNode.h"
+
+1356645206 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultnode.h
+	"TATNode.h"
+	"TestExecution/ETATResult.h"
+
+1356734671 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatresult.h
+	<map>
+	<wx/string.h>
+
+1356641731 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatresultsource.h
+	<map>
+	<wx/string.h>
+
+1356645206 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultloaderfactory.h
+	"TestExecution/ETATResultSource.h"
+	"TestExecution/ITATTestResultLoader.h"
+	"TestExecution/TATTestResultLoader.h"
+
+1356643803 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultloader.h
+	"TestExecution/ITATTestResultLoader.h"
 

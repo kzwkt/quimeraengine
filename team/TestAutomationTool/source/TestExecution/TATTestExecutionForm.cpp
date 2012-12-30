@@ -3,9 +3,15 @@
 #include "TestExecution/TATTestExecutionForm.h"
 
 #include "TestExecution/TATwxWidgetsControlLogger.h"
+#include "TestExecution/ETATResultSource.h"
+#include "TestExecution/TATTestResultLoaderFactory.h"
+#include "TestExecution/ITATTestResultLoader.h"
 
 using Kinesis::TestAutomationTool::Backend::TATwxWidgetsControlLogger;
 using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
+using Kinesis::TestAutomationTool::Backend::ETATResultSource;
+using Kinesis::TestAutomationTool::Backend::TATTestResultLoaderFactory;
+using Kinesis::TestAutomationTool::Backend::ITATTestResultLoader;
 
 namespace Kinesis
 {
@@ -83,6 +89,11 @@ void TATTestExecutionForm::InitializeBackend(const wxString& strConfigurationFil
 
     // Sets the logger
     m_backend.SetLogger(new TATwxWidgetsControlLogger(m_rtbLog, false));
+
+    // Sets the test result loader
+    TATTestResultLoaderFactory testResultLoaderFactory;
+    ITATTestResultLoader* pTestResultLoader = testResultLoaderFactory.CreateConfigLoader(ETATResultSource::E_XmlFile);
+    m_backend.SetTestResultLoader(pTestResultLoader);
 }
 
 void TATTestExecutionForm::StartTestExecution()

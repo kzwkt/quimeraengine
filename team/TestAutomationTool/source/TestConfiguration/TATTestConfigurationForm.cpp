@@ -51,8 +51,8 @@ TATTestConfigurationForm::TATTestConfigurationForm() : TestConfigurationBaseForm
 {
     InitializeBackend();
 }
-	
-	
+
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -101,7 +101,7 @@ void TATTestConfigurationForm::ShowExecutionWindow()
     this->FilterFlagCombinationListBySelection(flagsCombination, flagsSelection, filteredFlagCombinations);
 
     // Creates the test execution forms, using the calculated values
-    m_pExecutionForm = new TATTestExecutionForm(this, 
+    m_pExecutionForm = new TATTestExecutionForm(this,
                                                 strConfigurationFilePath,
                                                 filteredFlagCombinations,
                                                 compilationConfigurations,
@@ -128,7 +128,6 @@ void TATTestConfigurationForm::ExtractCompilerInfosFromValueTree(TATKeyValueNode
         TATCompilerInfo compilerInfo;
         compilerInfo.SetName(strCompilerName);
 
-        TATKeyValueNode* pCompilerValueNode = NULL;
         TATKeyValueNode::TNodeCollection::const_iterator iCompilerDataField = pCompilerNode->GetChildren().begin();
 
         for(; iCompilerDataField != pCompilerNode->GetChildren().end(); ++iCompilerDataField)
@@ -206,8 +205,8 @@ void TATTestConfigurationForm::ExtractCompilerInfosFromValueTree(TATKeyValueNode
     }
 }
 
-void TATTestConfigurationForm::FilterFlagCombinationListBySelection(const TATTestAutomationToolConfiguration::TFlagCombinationCollection& flagsCombination, 
-                                                                    const std::list<wxString>& flagsSelection, 
+void TATTestConfigurationForm::FilterFlagCombinationListBySelection(const TATTestAutomationToolConfiguration::TFlagCombinationCollection& flagsCombination,
+                                                                    const std::list<wxString>& flagsSelection,
                                                                     TATTestAutomationToolConfiguration::TFlagCombinationCollection& filteredFlagCombinations) const
 {
     for(TATTestAutomationToolConfiguration::TFlagCombinationCollection::const_iterator iFlagComb = flagsCombination.begin(); iFlagComb != flagsCombination.end(); ++iFlagComb)
