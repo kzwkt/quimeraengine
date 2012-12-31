@@ -70,7 +70,7 @@ void TATTestResultLoader::Load(const wxString &strSource)
         pResultTree = this->ParseXmlToTree(strFileContent, reader);
 
         // Processes the result
-
+        pResultTree->SetMessage(strSource);
     }
 
     if(pResultTree != NULL)

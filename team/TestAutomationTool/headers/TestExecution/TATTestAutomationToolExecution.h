@@ -18,8 +18,8 @@ wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_COMPLETED, wxThreadEvent);
 wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_LOG_UPDATE, wxThreadEvent);
 wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE, wxThreadEvent);
 // Events for test execution process
-// TODO wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_FINISHED, wxCommandEvent);
-// TODO wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEvent);
+wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_FINISHED, wxCommandEvent);
+wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEvent);
 
 namespace Kinesis
 {
@@ -243,6 +243,14 @@ public:
     /// </summary>
     void ExecuteTests();
 
+    /// <summary>
+    /// Stops the execution of the tests as soon as possible.
+    /// </summary>
+    /// <remarks>
+    /// It depends on how often the execution thread checks for destruction requests.
+    /// </remarks>
+    void StopTestExecution();
+
 
     // EVENT HANDLERS
     // ---------------
@@ -355,6 +363,12 @@ public:
     /// <param name="pTestResultLoader">A test result loader to parse test result files.</param>
     void SetTestResultLoader(ITATTestResultLoader* pTestResultLoader);
 
+    /// <summary>
+    /// Sets the component that will react to some events.
+    /// </summary>
+    /// <param name="pListener">A component that will react to some events.</param>
+    void SetTestExecutionEventListener(wxEvtHandler* pListener);
+
 
 	// ATTRIBUTES
 	// ---------------
@@ -394,6 +408,11 @@ protected:
     /// The component that loads test result files and convertes them into internal structures.
     /// </summary>
     ITATTestResultLoader* m_pTestResultLoader;
+
+    /// <summary>
+    /// A component that will react to some events.
+    /// </summary>
+    wxEvtHandler* m_pTestExecutionEventListener;
 
 };
 

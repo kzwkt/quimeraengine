@@ -92,7 +92,7 @@ void TATTestResultNode::SetTime(const int &nTime)
 
 bool TATTestResultNode::HasErrors() const
 {
-    bool bHasErrors = (m_eResult == ETATResult::E_Error);
+    bool bHasErrors = (m_eResult == ETATResult::E_Fail || m_eResult == ETATResult::E_Error);
 
     if(!bHasErrors)
     {

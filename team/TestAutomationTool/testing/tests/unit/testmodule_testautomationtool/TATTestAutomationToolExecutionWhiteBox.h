@@ -46,10 +46,13 @@ public:
 public:
 
     // Exposed methods
-    void Destroy()
+    using TATTestAutomationToolExecution::Destroy;
+
+    wxEvtHandler* GetTestExecutionEventListener_ForTestingPurposes() const
     {
-        TATTestAutomationToolExecution::Destroy();
+        return m_pTestExecutionEventListener;
     }
+
 };
 
 } //namespace Test

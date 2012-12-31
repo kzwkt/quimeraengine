@@ -92,6 +92,14 @@ QTEST_CASE ( ExecuteTests_NotTested_Test )
 }
 
 /// <summary>
+/// Not tested. It's not a testable method: no inputs, no outputs, just executes a method of a component.
+/// </summary>
+QTEST_CASE ( StopTestExecution_NotTested_Test )
+{
+    BOOST_MESSAGE(wxT("It's not a testable method: no inputs, no outputs, just executes a method of a component."));
+}
+
+/// <summary>
 /// Not tested. It's an event handler.
 /// </summary>
 QTEST_CASE ( OnTestExecutionThreadLogUpdate_NotTested_Test )
@@ -349,6 +357,22 @@ QTEST_CASE ( SetTestResultLoader_IsCorrectlyStored_Test )
     
     // Verification
     BOOST_CHECK_EQUAL(testExecutionUT.GetTestResultLoader(), EXPECTED_TESTRESULTLOADER);
+}
+
+/// <summary>
+/// Checks that the listener is correctly stored.
+/// </summary>
+QTEST_CASE ( SetTestExecutionEventListener_IsCorrectlyStored_Test )
+{
+    // Preparation
+    TATTestAutomationToolExecutionWhiteBox testExecutionUT;
+    wxEvtHandler EVENT_LISTENER;
+
+	// Execution
+    testExecutionUT.SetTestExecutionEventListener(&EVENT_LISTENER);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(testExecutionUT.GetTestExecutionEventListener_ForTestingPurposes(), &EVENT_LISTENER);
 }
 
 // End - Test Suite: TATTestAutomationToolExecution

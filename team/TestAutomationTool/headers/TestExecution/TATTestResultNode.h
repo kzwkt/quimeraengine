@@ -92,7 +92,7 @@ public:
     void SetTime(const int &nTime);
 
     /// <summary>
-    /// Checks whether the test result or one of its children contains errors.
+    /// Checks whether the test result or one of its children contains errors (result equals E_Fail or E_Error).
     /// </summary>
     /// <returns>
     /// True if the node or at least one of its children has errors.

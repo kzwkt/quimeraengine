@@ -200,5 +200,67 @@ QTEST_CASE ( SetTime_TimeIsCorrectlyStored_Test )
     BOOST_CHECK_EQUAL(nodeUT.GetTime(), EXPECTED_TIME);
 }
 
+/// <summary>
+/// Checks that it returns true when the result is a fail.
+/// </summary>
+QTEST_CASE ( HasErrors_ReturnsTrueWhenTheResultIsAFail_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::ETATResult;
+
+    // [Preparation]
+    TATTestResultNode nodeUT(wxT(""), ETATResult::E_Fail, wxT(""), 0);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = nodeUT.HasErrors();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns true when the result is not a fail but one of its children is.
+/// </summary>
+QTEST_CASE ( HasErrors_ReturnsTrueWhenOneChildIsAFail_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::ETATResult;
+
+    // [Preparation]
+    TATTestResultNode nodeUT(wxT(""), ETATResult::E_NoResult, wxT(""), 0);
+    nodeUT.AddChild(new TATTestResultNode(wxT(""), ETATResult::E_Fail, wxT(""), 0));
+    nodeUT.AddChild(new TATTestResultNode(wxT(""), ETATResult::E_NoResult, wxT(""), 0));
+    nodeUT.AddChild(new TATTestResultNode(wxT(""), ETATResult::E_Success, wxT(""), 0));
+    nodeUT.AddChild(new TATTestResultNode(wxT(""), ETATResult::E_Error, wxT(""), 0));
+
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = nodeUT.HasErrors();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns false when the result and its children are not fails.
+/// </summary>
+QTEST_CASE ( HasErrors_ReturnsFalseWhenNeitherTheResultNorItsChildrenAreFails_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::ETATResult;
+
+    // [Preparation]
+    TATTestResultNode nodeUT(wxT(""), ETATResult::E_NoResult, wxT(""), 0);
+    nodeUT.AddChild(new TATTestResultNode(wxT(""), ETATResult::E_NoResult, wxT(""), 0));
+    nodeUT.AddChild(new TATTestResultNode(wxT(""), ETATResult::E_Success, wxT(""), 0));
+
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = nodeUT.HasErrors();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
 // End - Test Suite: TATTestResultNode
 QTEST_SUITE_END()

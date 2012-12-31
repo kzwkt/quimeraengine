@@ -570,7 +570,7 @@ QTEST_CASE ( ParseTestResultFile_TestResultTreeIsCreatedFromTestResultFile_Test 
     TATTestExecutionThreadWhiteBox executionThreadUT(&testExecutionMock);
 
     TATTestResultNode EXPECTED_TESTRESULT_TREE("ROOT");
-    TATTestResultNode* TESTLOG1 = new TATTestResultNode(wxT("ROOT"), ETATResult::E_NoResult, wxT(""), 10);
+    TATTestResultNode* TESTLOG1 = new TATTestResultNode(wxT("ROOT"), ETATResult::E_NoResult, GetPathToTestResultFile_UtilityMethod(), 10);
         TATTestResultNode* TESTMODULE1 = new TATTestResultNode(wxT("TestModule1"), ETATResult::E_NoResult, wxT(""), 6);
             TATTestResultNode* TESTSUITE1 = new TATTestResultNode(wxT("TestSuite1"), ETATResult::E_NoResult, wxT("file1"), 1);
                 TATTestResultNode* TESTCASE1 = new TATTestResultNode(wxT("TestCase1"), ETATResult::E_NoResult, wxT(""), 1);
