@@ -18,9 +18,10 @@
 #include <wx/colour.h>
 #include <wx/settings.h>
 #include <wx/richtext/richtextctrl.h>
+#include <wx/listctrl.h>
+#include <wx/sizer.h>
 #include <wx/treectrl.h>
 #include <wx/button.h>
-#include <wx/sizer.h>
 #include <wx/dialog.h>
 
 ///////////////////////////////////////////////////////////////////////////
@@ -43,14 +44,17 @@ namespace Kinesis
 				protected:
 					wxStaticText* m_txtLog;
 					wxRichTextCtrl* m_rtbLog;
+					wxListCtrl* m_lstLogEvents;
 					wxStaticText* m_txtResultsTitle;
 					wxTreeCtrl* m_treeResults;
+					wxRichTextCtrl* m_rtbResultInfo;
 					wxButton* m_btnStop;
 					wxButton* m_btnRestart;
 					
 					// Virtual event handlers, overide them in your derived class
 					virtual void OnDialogClose( wxCloseEvent& event ) { event.Skip(); }
 					virtual void OnInitDialog( wxInitDialogEvent& event ) { event.Skip(); }
+					virtual void OnLogEventItemSelected( wxListEvent& event ) { event.Skip(); }
 					virtual void OnStopButtonClick( wxCommandEvent& event ) { event.Skip(); }
 					virtual void OnRestartButtonClick( wxCommandEvent& event ) { event.Skip(); }
 					

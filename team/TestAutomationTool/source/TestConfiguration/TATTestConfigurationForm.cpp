@@ -259,6 +259,13 @@ void TATTestConfigurationForm::ClearGrid(wxGrid* pGrid) const
     }
 }
 
+void TATTestConfigurationForm::EnableLaunchButtonDependingOnSelection()
+{
+    bool bThereIsAtLeastOneItemSelectedInBothLists = m_backend.GetCompilerConfigurationSelection().size() > 0 && 
+                                                     m_backend.GetFlagCombinationSelection().size() > 0;
+    m_btnLaunch->Enable(bThereIsAtLeastOneItemSelectedInBothLists);
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -295,6 +302,9 @@ void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
 
     // Clears the flag values grid
     this->ClearGrid(m_gridFlagValues);
+
+    // Refreshes the status of the launch button
+    this->EnableLaunchButtonDependingOnSelection();
 }
 
 void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
@@ -305,6 +315,9 @@ void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )
 void TATTestConfigurationForm::OnCompilationConfigurationCheckListBoxToggled( wxCommandEvent& event )
 {
     m_backend.SelectCompilerConfiguration(event.GetString(), m_clCompilationConfiguration->IsChecked(event.GetInt()));
+
+    // Refreshes the status of the launch button
+    this->EnableLaunchButtonDependingOnSelection();
 }
 
 void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event )
@@ -342,6 +355,9 @@ void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxSelected( wxCommand
 void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxToggled( wxCommandEvent& event )
 {
     m_backend.SelectFlagCombination(event.GetString(), m_clFlagCombinations->IsChecked(event.GetInt()));
+
+    // Refreshes the status of the launch button
+    this->EnableLaunchButtonDependingOnSelection();
 }
 
 void TATTestConfigurationForm::OnEditorButtonClick( wxCommandEvent& event )

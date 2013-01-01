@@ -174,6 +174,38 @@ protected:
     /// <param name="pTreeControl">The tree control that will represent the test results.</param>
     /// <param name="pResultTree">The test results to be painted.</param>
     virtual void BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResultNode* pResultTree);
+    
+    /// <summary>
+    /// Selects the index of an image that represents the status of a test result (has errors or not).
+    /// </summary>
+    /// <param name="pNode">The test result node to be evaluated.</param>
+    /// <returns>
+    /// The index of the image in the internal image list.
+    /// </returns>
+    int SelectImageIndexForResult(TATTestResultNode* pNode);
+
+    /// <summary>
+    /// Shows a tooltip over a tree control and fills it with information about a test result.
+    /// </summary>
+    /// <param name="pTreeControl">The tree control where the tooltip will be placed on.</param>
+    /// <param name="itemId">The ID of the item that holds the data about the test result.</param>
+    void ShowToolTipWithAdditionalInfo(wxTreeCtrl* pTreeControl, const wxTreeItemId& itemId);
+
+    /// <summary>
+    /// Adds a new item to the log event list.
+    /// </summary>
+    /// <remarks>
+    /// It's expected that the messages start with "[i]" and "[E]" prefixes, which will affect to the item appearance.
+    /// </remarks>
+    /// <param name="strMessage">The text of the item.</param>
+    void AddLogEvent(const wxString &strMessage);
+
+    /// <summary>
+    /// Enables and disables the log event list depending on whether the tests are being executed or not.
+    /// The list has to be disabled during execution.
+    /// </summary>
+    /// <param name="bExecuting">True when the tests are being executed, false if they are not.</param>
+    void EnableLogEventListDependingOnExecution(bool bExecuting);
 
 
     // EVENT HANDLERS
@@ -223,20 +255,16 @@ public:
     virtual void OnTreeItemSelected(wxTreeEvent& event);
 
     /// <summary>
-    /// Selects the index of an image that represents the status of a test result (has errors or not).
+    /// Event handler called when a notification of the backend regarding the test execution "events" are received.
     /// </summary>
-    /// <param name="pNode">The test result node to be evaluated.</param>
-    /// <returns>
-    /// The index of the image in the internal image list.
-    /// </returns>
-    int SelectImageIndexForResult(TATTestResultNode* pNode);
+    /// <param name="event">The event argument that holds the message.</param>
+    virtual void OnTestExecutionNotificationReceived(wxCommandEvent& event);
 
     /// <summary>
-    /// Shows a tooltip over a tree control and fills it with information about a test result.
+    /// Event handler called when an item of the log event list is selected.
     /// </summary>
-    /// <param name="pTreeControl">The tree control where the tooltip will be placed on.</param>
-    /// <param name="itemId">The ID of the item that holds the data about the test result.</param>
-    void ShowToolTipWithAdditionalInfo(wxTreeCtrl* pTreeControl, const wxTreeItemId& itemId);
+    /// <param name="event">The event argument.</param>
+    virtual void OnLogEventItemSelected( wxListEvent& event );
 
 
 	// PROPERTIES

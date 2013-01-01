@@ -100,6 +100,14 @@ QTEST_CASE ( StopTestExecution_NotTested_Test )
 }
 
 /// <summary>
+/// Not tested. It's not a testable method: no outputs and event system can't be mocked up.
+/// </summary>
+QTEST_CASE ( NotifyEvent_NotTested_Test )
+{
+    BOOST_MESSAGE(wxT("Not tested. It's not a testable method: no outputs and event system can't be mocked up."));
+}
+
+/// <summary>
 /// Not tested. It's an event handler.
 /// </summary>
 QTEST_CASE ( OnTestExecutionThreadLogUpdate_NotTested_Test )
@@ -119,6 +127,14 @@ QTEST_CASE ( OnTestExecutionThreadResultUpdate_NotTested_Test )
 /// Not tested. It's an event handler.
 /// </summary>
 QTEST_CASE ( OnTestExecutionThreadCompletion_NotTested_Test )
+{
+    BOOST_MESSAGE(wxT("It's an event handler."));
+}
+
+/// <summary>
+/// Not tested. It's an event handler.
+/// </summary>
+QTEST_CASE ( OnTestExecutionThreadNotification_NotTested_Test )
 {
     BOOST_MESSAGE(wxT("It's an event handler."));
 }

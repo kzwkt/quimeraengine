@@ -68,6 +68,12 @@ public:
 	/// </summary>
     void ShowExecutionWindow();
 
+    /// <summary>
+    /// Checks that there are, at least, one compilation configuration and one flag combination selected and,
+    /// if so, enables the Launch button. Otherwise, it's disabled.
+    /// </summary>
+    void EnableLaunchButtonDependingOnSelection();
+
 protected:
 
     /// <summary>

@@ -65,10 +65,12 @@ TATTestExecutionForm::TATTestExecutionForm(wxWindow* parent,
     m_imgList->Add(cross_bmp_to_wx_bitmap(), *wxWHITE);
 
     m_treeResults->SetImageList(m_imgList);
+    m_lstLogEvents->SetImageList(m_imgList, wxIMAGE_LIST_SMALL);
 
     this->Connect( wxEVT_COMMAND_TREE_SEL_CHANGED, wxTreeEventHandler(TATTestExecutionForm::OnTreeItemSelected) );
     this->Connect( wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEventHandler(TATTestExecutionForm::OnResultUpdate) );
     this->Connect( wxEVT_COMMAND_TESTEXECUTION_FINISHED, wxCommandEventHandler(TATTestExecutionForm::OnTestExecutionFinished) );
+    this->Connect( wxEVT_COMMAND_TESTEXECUTION_NOTIFICATION, wxCommandEventHandler(TATTestExecutionForm::OnTestExecutionNotificationReceived) );
 
     // Initializes the backend
     this->InitializeBackend(strConfigurationFilePath,
@@ -127,9 +129,13 @@ void TATTestExecutionForm::InitializeBackend(const wxString& strConfigurationFil
 void TATTestExecutionForm::StartTestExecution()
 {
     m_bStoppedByUser = false;
-    ShowButtonsDependingOnExecutionStatus(true);
+    this->ShowButtonsDependingOnExecutionStatus(true);
     m_rtbLog->Clear();
+    m_lstLogEvents->ClearAll();
+    m_lstLogEvents->InsertColumn(0, wxT(""), 0);
     m_treeResults->DeleteAllItems();
+    m_rtbResultInfo->Clear();
+    this->EnableLogEventListDependingOnExecution(true);
     m_backend.ExecuteTests();
 }
 
@@ -300,6 +306,42 @@ void TATTestExecutionForm::ShowToolTipWithAdditionalInfo(wxTreeCtrl* pTreeContro
     pTreeControl->SetToolTip(_("TestingTime") + wxT(" ") + streamForConversion.str());
 }
 
+void TATTestExecutionForm::AddLogEvent(const wxString &strMessage)
+{
+    // Expected prefixes
+    const wxString INFO_NOTIFICATION = wxT("[i] ");
+    const wxString ERROR_NOTIFICATION = wxT("[E] ");
+
+    int nImageIndex;
+    wxString itemText;
+
+    if(strMessage.StartsWith(INFO_NOTIFICATION))
+    {
+        nImageIndex = IMAGE_INDEX_FOR_UNDEFINED_TREE_ITEM;
+        itemText = strMessage.substr(INFO_NOTIFICATION.size());
+    }
+    else if(strMessage.StartsWith(ERROR_NOTIFICATION))
+    {
+        nImageIndex = IMAGE_INDEX_FOR_FAILED_TREE_ITEM;
+        itemText = strMessage.substr(ERROR_NOTIFICATION.size());
+    }
+
+    wxListItem newItem;
+    newItem.SetMask(wxLIST_MASK_TEXT);
+    newItem.SetImage(nImageIndex);
+    newItem.SetText(itemText);
+    newItem.SetId(m_lstLogEvents->GetItemCount()); // Always at the end
+    newItem.SetData(m_rtbLog->GetCaretPosition()); // Saves the current position of the log cursor. This is not the purpose of the property but it does the trick
+    newItem.SetColumn(0);
+
+    m_lstLogEvents->InsertItem(newItem);
+}
+
+void TATTestExecutionForm::EnableLogEventListDependingOnExecution(bool bExecuting)
+{
+    m_lstLogEvents->Enable(!bExecuting);
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -349,6 +391,7 @@ void TATTestExecutionForm::OnTestExecutionFinished(wxCommandEvent& event)
 
     this->ShowButtonsDependingOnExecutionStatus(false);
     this->SwitchStopButtonText(true);
+    this->EnableLogEventListDependingOnExecution(false);
 
     // If it was stopped by the user, writes a note in the log
     if(m_bStoppedByUser)
@@ -363,6 +406,18 @@ void TATTestExecutionForm::OnTreeItemSelected(wxTreeEvent& event)
     // Show tooltip with additional information
     this->ShowToolTipWithAdditionalInfo(m_treeResults, event.GetItem());
 
+}
+
+void TATTestExecutionForm::OnTestExecutionNotificationReceived(wxCommandEvent& event)
+{
+    this->AddLogEvent(event.GetString());
+}
+
+void TATTestExecutionForm::OnLogEventItemSelected(wxListEvent& event)
+{
+    long nLogCaretPosition = event.GetItem().GetData();
+    m_rtbLog->SetCaretPosition(nLogCaretPosition, true);
+    m_rtbLog->ShowPosition(nLogCaretPosition);
 }
 
 

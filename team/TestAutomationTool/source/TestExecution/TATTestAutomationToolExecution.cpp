@@ -12,12 +12,14 @@
 #include "STATFileSystemHelper.h"
 
 // Defines the events related to multithread test execution
-wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_COMPLETED, wxThreadEvent);
-wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_LOG_UPDATE, wxThreadEvent);
-wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE, wxThreadEvent);
+wxDEFINE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_COMPLETED, wxThreadEvent);
+wxDEFINE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_LOG_UPDATE, wxThreadEvent);
+wxDEFINE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE, wxThreadEvent);
+wxDEFINE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_NOTIFICATION, wxThreadEvent);
 // Defines the events related to the test execution process
 wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_FINISHED, wxCommandEvent);
 wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEvent);
+wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_NOTIFICATION, wxCommandEvent);
 
 namespace Kinesis
 {
@@ -50,12 +52,13 @@ const wxString TATTestAutomationToolExecution::BACKUP_SUFFIX = wxT(".bak");
 TATTestAutomationToolExecution::TATTestAutomationToolExecution() : m_pExecutionThread(NULL),
                                                                    m_pLogger(NULL),
                                                                    m_pTestResultLoader(NULL),
-                                                                   m_pTestExecutionEventListener(NULL) // TODO: Update test
+                                                                   m_pTestExecutionEventListener(NULL)
 {
     // Subscribes to thread events
-    this->Connect( wxEVT_COMMAND_TESTEXECUTION_LOG_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadLogUpdate) );
-    this->Connect( wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadResultUpdate) );
-    this->Connect( wxEVT_COMMAND_TESTEXECUTION_COMPLETED, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadCompletion) );
+    this->Connect( wxEVT_COMMAND_EXECUTIONTHREAD_LOG_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadLogUpdate) );
+    this->Connect( wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadResultUpdate) );
+    this->Connect( wxEVT_COMMAND_EXECUTIONTHREAD_COMPLETED, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadCompletion) );
+    this->Connect( wxEVT_COMMAND_EXECUTIONTHREAD_NOTIFICATION, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadNotification) );
 }
 
 TATTestAutomationToolExecution::TATTestExecutionThread::TATTestExecutionThread(TATTestAutomationToolExecution* pHandler)
@@ -277,6 +280,7 @@ std::list<wxString> TATTestAutomationToolExecution::TATTestExecutionThread::Read
 wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry()
 {
     // [TODO] Thund: This method has to be split and refactored, there is no time to do it at the moment
+    // [TODO] Thund: It would be good to localize all the literals of this method
 
     const int SUCCESS = 0;
 
@@ -285,6 +289,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
     const TATMessageFormat LOG_FORMAT_ERROR(ETATColor::E_Red, TATMessageFormat::TEXT_STYLE_BOLD);
     const TATMessageFormat LOG_FORMAT_PROCESS_TITLE(ETATColor::E_White, TATMessageFormat::TEXT_STYLE_UNDERLINE);
     const TATMessageFormat LOG_FORMAT_DATA_HIGHLIGHT(ETATColor::E_Yellow, TATMessageFormat::TEXT_STYLE_ITALIC);
+
+    const wxString INFO_NOTIFICATION = wxT("[i] ");
+    const wxString ERROR_NOTIFICATION = wxT("[E] ");
 
     try
     {
@@ -295,6 +302,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
         std::map<wxString, TATCompilerInfo> compilerInfos = m_pHandler->GetCompilerInfos();
 
         this->Log(TATFormattedMessage(wxT("Test execution process starts."), LOG_FORMAT_PROCESS_TITLE));
+        this->NotifyEvent(INFO_NOTIFICATION + wxT("START"));
 
         // Removes previous test results from the loader
         m_pHandler->GetTestResultLoader()->Clear();
@@ -317,6 +325,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                 this->Log(TATFormattedMessage(wxT("Setting flag values of the combination '"), LOG_FORMAT_NORMAL).
                                        Append(iFlagCombination->first, LOG_FORMAT_DATA_HIGHLIGHT).
                                        Append(wxT("' in the configuration file..."), LOG_FORMAT_NORMAL));
+                this->NotifyEvent(INFO_NOTIFICATION + iFlagCombination->first + wxT(" flag values"));
 
                 const TFlagCombinationValues& flagCombinationValues = iFlagCombination->second;
 
@@ -342,6 +351,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                     this->Log(TATFormattedMessage(wxT("Preparing to compile with configuration '"), LOG_FORMAT_NORMAL).
                                            Append(*iCompilationConfig, LOG_FORMAT_DATA_HIGHLIGHT).
                                            Append(wxT("'..."), LOG_FORMAT_NORMAL));
+                    this->NotifyEvent(INFO_NOTIFICATION + *iCompilationConfig + wxT(" configuration"));
 
                     // 2.2.1 For each compiler...
                     for(std::map<wxString, TATCompilerInfo>::const_iterator iCompilerInfo = compilerInfos.begin(); iCompilerInfo != compilerInfos.end(); ++iCompilerInfo)
@@ -355,6 +365,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                                Append(wxT("' located at '"), LOG_FORMAT_NORMAL).
                                                Append(compilerInfo.GetCompilerPath(), LOG_FORMAT_DATA_HIGHLIGHT).
                                                Append(wxT("'."), LOG_FORMAT_NORMAL));
+                        this->NotifyEvent(INFO_NOTIFICATION + compilerInfo.GetName() + wxT(" compiler"));
 
                         // 2.2.1.1 Rebuilds every project of the SUT...
                         const std::list<wxString>& sutProjects = compilerInfo.GetSUTProjects();
@@ -366,6 +377,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->Log(TATFormattedMessage(wxT("Compiling SUT project: '"), LOG_FORMAT_NORMAL).
                                                    Append(*iProject, LOG_FORMAT_DATA_HIGHLIGHT).
                                                    Append(wxT("'..."), LOG_FORMAT_NORMAL));
+                            this->NotifyEvent(INFO_NOTIFICATION + *iProject + wxT(" project"));
 
                             this->Log(TATFormattedMessage(wxT("Cleaning..."), LOG_FORMAT_NORMAL));
                             this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" \"") + *iProject + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig, LOG_FORMAT_DATA_HIGHLIGHT));
@@ -375,6 +387,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             if(m_nLastProcessResult != SUCCESS)
                             {
                                 this->Log(TATFormattedMessage(wxT("The execution of the command failed."), LOG_FORMAT_ERROR));
+                                this->NotifyEvent(ERROR_NOTIFICATION + wxT("Clean command failed"));
                             }
 
                             if(this->TestDestroy()) throw std::exception();
@@ -387,6 +400,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             if(m_nLastProcessResult != SUCCESS)
                             {
                                 this->Log(TATFormattedMessage(wxT("The execution of the command failed."), LOG_FORMAT_ERROR));
+                                this->NotifyEvent(ERROR_NOTIFICATION + wxT("Build command failed"));
                             }
 
                             if(this->TestDestroy()) throw std::exception();
@@ -402,6 +416,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->Log(TATFormattedMessage(wxT("Compiling test project: '"), LOG_FORMAT_NORMAL).
                                                    Append(iTestModuleInfo->GetTestProjectPath(), LOG_FORMAT_DATA_HIGHLIGHT).
                                                    Append(wxT("'..."), LOG_FORMAT_NORMAL));
+                            this->NotifyEvent(INFO_NOTIFICATION + iTestModuleInfo->GetTestProjectPath() + wxT(" test project"));
 
                             this->Log(TATFormattedMessage(wxT("Cleaning..."), LOG_FORMAT_NORMAL));
                             this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig, LOG_FORMAT_DATA_HIGHLIGHT));
@@ -411,6 +426,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             if(m_nLastProcessResult != SUCCESS)
                             {
                                 this->Log(TATFormattedMessage(wxT("The execution of the command failed."), LOG_FORMAT_ERROR));
+                                this->NotifyEvent(ERROR_NOTIFICATION + wxT("Clean command failed"));
                             }
 
                             if(this->TestDestroy()) throw std::exception();
@@ -423,6 +439,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             if(m_nLastProcessResult != SUCCESS)
                             {
                                 this->Log(TATFormattedMessage(wxT("The execution of the command failed."), LOG_FORMAT_ERROR));
+                                this->NotifyEvent(ERROR_NOTIFICATION + wxT("Build command failed"));
                             }
 
                             if(this->TestDestroy()) throw std::exception();
@@ -454,6 +471,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                 this->Log(TATFormattedMessage(wxT("Executing test module '"), LOG_FORMAT_NORMAL).
                                                        Append(*iTestModulePath, LOG_FORMAT_DATA_HIGHLIGHT).
                                                        Append(wxT("'..."), LOG_FORMAT_NORMAL));
+                                this->NotifyEvent(INFO_NOTIFICATION + *iTestModulePath + wxT(" test module"));
 
                                 // Sets the working directory. Many modules needs to read configuration files refered to by relative paths
                                 wxString strPreviousWorkingDirectory = wxGetCwd();
@@ -465,6 +483,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                 if(m_nLastProcessResult != SUCCESS && m_nLastProcessResult != TEST_MODULE_SUCESS)
                                 {
                                     this->Log(TATFormattedMessage(wxT("The execution of the test module failed."), LOG_FORMAT_ERROR));
+                                    this->NotifyEvent(ERROR_NOTIFICATION + wxT("Test module failed"));
                                 }
 
                                 // Restores the working directory
@@ -484,8 +503,10 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                     {
                                         // If the file was not already parsed, parse it now
                                         this->Log(TATFormattedMessage(wxT("Parsing test result file '"), LOG_FORMAT_NORMAL).
-                                                       Append(*iResultFilePath, LOG_FORMAT_DATA_HIGHLIGHT).
-                                                       Append(wxT("'..."), LOG_FORMAT_NORMAL));
+                                                               Append(*iResultFilePath, LOG_FORMAT_DATA_HIGHLIGHT).
+                                                               Append(wxT("'..."), LOG_FORMAT_NORMAL));
+                                        this->NotifyEvent(INFO_NOTIFICATION + *iResultFilePath + wxT(" result file"));
+
 
                                         this->ParseTestResultFile(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
 
@@ -511,6 +532,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
             else
             {
                 this->Log(TATFormattedMessage(wxT("The configuration file or the back-up copy were not accessible. Configuration file couldn't be restored."), LOG_FORMAT_ERROR));
+                this->NotifyEvent(ERROR_NOTIFICATION + wxT("Configuration file couldn't be restored"));
             }
         }
         else
@@ -518,6 +540,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
             this->Log(TATFormattedMessage(wxT("The configuration file was not accessible. Back-up copy couldn't be created. Please, verify that the path is correct: '"), LOG_FORMAT_ERROR).
                                    Append(strConfigurationFilePath, LOG_FORMAT_DATA_HIGHLIGHT).
                                    Append(wxT("'."), LOG_FORMAT_ERROR));
+            this->NotifyEvent(ERROR_NOTIFICATION + wxT("Configuration file was not accessible"));
         }
 
         this->Log(TATFormattedMessage(wxT("Finalizing test execution process."), LOG_FORMAT_NORMAL));
@@ -525,13 +548,17 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
     catch(const std::exception& ex)
     {
         this->Log(TATFormattedMessage(wxT("Abnormal termination: ") + wxString(ex.what()), LOG_FORMAT_ERROR));
+        this->NotifyEvent(ERROR_NOTIFICATION + wxT("Abnormal termination"));
     }
     catch(...)
     {
         this->Log(TATFormattedMessage(wxT("Abnormal termination. Unknown reason."), LOG_FORMAT_ERROR));
+        this->NotifyEvent(ERROR_NOTIFICATION + wxT("Abnormal termination"));
     }
 
-    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_TESTEXECUTION_COMPLETED));
+    this->NotifyEvent(INFO_NOTIFICATION + wxT("FINISH"));
+
+    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_EXECUTIONTHREAD_COMPLETED));
 
     return static_cast<wxThread::ExitCode>(0);
 }
@@ -539,14 +566,14 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 void TATTestAutomationToolExecution::TATTestExecutionThread::Log(TATFormattedMessage message)
 {
     m_pHandler->GetLogger()->Log(message);
-    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_TESTEXECUTION_LOG_UPDATE));
+    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_EXECUTIONTHREAD_LOG_UPDATE));
     this->Sleep(10); // To let the UI refresh
 }
 
 void TATTestAutomationToolExecution::TATTestExecutionThread::ParseTestResultFile(const wxString &strTestResultFilePath)
 {
     m_pHandler->GetTestResultLoader()->Load(strTestResultFilePath);
-    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE));
+    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE));
     this->Sleep(10); // To let the UI refresh
 }
 
@@ -562,6 +589,15 @@ bool TATTestAutomationToolExecution::TATTestExecutionThread::DeletePreviousResul
     }
 
     return bResult;
+}
+
+void TATTestAutomationToolExecution::TATTestExecutionThread::NotifyEvent(const wxString &strMessage)
+{
+    wxThreadEvent* pEventData = new wxThreadEvent(wxEVT_COMMAND_EXECUTIONTHREAD_NOTIFICATION);
+    pEventData->SetString(strMessage);
+
+    // Raises the event
+    wxQueueEvent(m_pHandler, pEventData);
 }
 
 
@@ -598,6 +634,15 @@ void TATTestAutomationToolExecution::OnTestExecutionThreadCompletion(wxThreadEve
 
     // Raises the event
     wxQueueEvent(m_pTestExecutionEventListener, new wxCommandEvent(wxEVT_COMMAND_TESTEXECUTION_FINISHED));
+}
+
+void TATTestAutomationToolExecution::OnTestExecutionThreadNotification(wxThreadEvent& event)
+{
+    wxCommandEvent* pEventData = new wxCommandEvent(wxEVT_COMMAND_TESTEXECUTION_NOTIFICATION);
+    pEventData->SetString(event.GetString());
+
+    // Raises the event
+    wxQueueEvent(m_pTestExecutionEventListener, pEventData);
 }
 
 void TATTestAutomationToolExecution::TATTestExecutionThread::ProcessOutputHandler(const wxString& strOutput)

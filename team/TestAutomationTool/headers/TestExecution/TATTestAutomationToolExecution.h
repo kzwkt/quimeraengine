@@ -14,12 +14,15 @@
 
 
 // Events for multithreading tasks
-wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_COMPLETED, wxThreadEvent);
-wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_LOG_UPDATE, wxThreadEvent);
-wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_RESULT_UPDATE, wxThreadEvent);
+wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_COMPLETED, wxThreadEvent);
+wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_LOG_UPDATE, wxThreadEvent);
+wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE, wxThreadEvent);
+wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_NOTIFICATION, wxThreadEvent);
 // Events for test execution process
 wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_FINISHED, wxCommandEvent);
 wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEvent);
+wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_NOTIFICATION, wxCommandEvent);
+
 
 namespace Kinesis
 {
@@ -177,6 +180,12 @@ protected:
         /// </returns>
         bool DeletePreviousResultFiles(const wxString &strTestResultFilePath);
 
+        /// <summary>
+        /// Sends a notification regarding test process events.
+        /// </summary>
+        /// <param name="strMessage">Notification message.</param>
+        void NotifyEvent(const wxString &strMessage);
+
     protected:
 
         /// <summary>
@@ -273,6 +282,12 @@ public:
     /// </summary>
     /// <param name="wxThreadEvent">The event arguments.</param>
     virtual void OnTestExecutionThreadCompletion( wxThreadEvent& event );
+
+    /// <summary>
+    /// Event handler for catching notification messages.
+    /// </summary>
+    /// <param name="event">The event argument that holds the notification message.</param>
+    virtual void OnTestExecutionThreadNotification( wxThreadEvent& event );
 
 
 	// PROPERTIES
