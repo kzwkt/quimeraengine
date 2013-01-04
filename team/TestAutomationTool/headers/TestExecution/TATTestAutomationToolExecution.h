@@ -11,7 +11,7 @@
 #include "TestExecution/TATFormattedMessage.h"
 #include "TATShellProcess.h"
 #include "TestExecution/ITATTestResultLoader.h"
-
+#include "TestExecution/TATTestResultInfo.h"
 
 // Events for multithreading tasks
 wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_COMPLETED, wxThreadEvent);
@@ -185,6 +185,12 @@ protected:
         /// </summary>
         /// <param name="strMessage">Notification message.</param>
         void NotifyEvent(const wxString &strMessage);
+
+        /// <summary>
+        /// Notifies that the test result tree has been updated with new content.
+        /// </summary>
+        /// <param name="testResultInfo">Test result information.</param>
+        void NotifyTestResult(const TATTestResultInfo &testResultInfo);
 
     protected:
 

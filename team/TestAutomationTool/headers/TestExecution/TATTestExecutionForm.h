@@ -8,9 +8,11 @@
 
 #include "TestExecution/TestExecution.h"
 #include "TestExecution/TATTestAutomationToolExecution.h"
+#include "TestExecution/ETATResult.h"
 
 using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolExecution;
 using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
+using Kinesis::TestAutomationTool::Backend::ETATResult;
 
 namespace Kinesis
 {
@@ -20,6 +22,7 @@ namespace Kinesis
         {
             class TATKeyValueNode;
             class TATTestResultNode;
+            class TATTestResultInfo;
         }
     }
 }
@@ -28,6 +31,7 @@ class wxImageList;
 
 using Kinesis::TestAutomationTool::Backend::TATKeyValueNode;
 using Kinesis::TestAutomationTool::Backend::TATTestResultNode;
+using Kinesis::TestAutomationTool::Backend::TATTestResultInfo;
 
 namespace Kinesis
 {
@@ -53,12 +57,22 @@ protected:
     public:
 
         /// <summary>
-        /// Constructor that receives the test result node associated to the item.
+        /// Constructor that receives the test result associated to the item.
         /// </summary>
+        /// <remarks>
+        /// The test result will be deleted when this object is destroyed.
+        /// </remarks>
+        /// <param name="result">Test result information structure.</param>
         /// <param name="pNode">A node of a test result tree.</param>
-        TATResultTreeItemData(TATTestResultNode* pNode) : m_pTestResultNode(pNode)
-        {
-        }
+        TATResultTreeItemData(const TATTestResultInfo result, TATTestResultNode* pNode);
+
+        /// <summary>
+        /// Gets the test result associated to the item.
+        /// </summary>
+        /// <returns>
+        /// A test result information structure.
+        /// </returns>
+        TATTestResultInfo GetTestResult() const;
 
         /// <summary>
         /// Gets the test result node associated to the item.
@@ -66,10 +80,12 @@ protected:
         /// <returns>
         /// A test result node.
         /// </returns>
-        TATTestResultNode* GetTestResultNode()
-        {
-            return m_pTestResultNode;
-        }
+        TATTestResultNode* GetTestResultNode() const;
+
+        /// <summary>
+        /// The test result associated to the item.
+        /// </summary>
+        TATTestResultInfo m_testResult;
 
         /// <summary>
         /// The test result node associated to the item.
@@ -172,8 +188,8 @@ protected:
     /// Creates the visual representation of the test result tree on a tree control.
     /// </summary>
     /// <param name="pTreeControl">The tree control that will represent the test results.</param>
-    /// <param name="pResultTree">The test results to be painted.</param>
-    virtual void BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResultNode* pResultTree);
+    /// <param name="pResult">The test results to be painted.</param>
+    virtual void BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResultInfo* pResult);
     
     /// <summary>
     /// Selects the index of an image that represents the status of a test result (has errors or not).
@@ -185,11 +201,12 @@ protected:
     int SelectImageIndexForResult(TATTestResultNode* pNode);
 
     /// <summary>
-    /// Shows a tooltip over a tree control and fills it with information about a test result.
+    /// Shows information about a test result into a rich text control.
     /// </summary>
-    /// <param name="pTreeControl">The tree control where the tooltip will be placed on.</param>
+    /// <param name="pTreeControl">The tree control that will represent the test results.</param>
     /// <param name="itemId">The ID of the item that holds the data about the test result.</param>
-    void ShowToolTipWithAdditionalInfo(wxTreeCtrl* pTreeControl, const wxTreeItemId& itemId);
+    /// <param name="pInformationPanel">The control where the information will be displayed.</param>
+    void ShowAdditionalInformation(wxTreeCtrl* pTreeControl, const wxTreeItemId& itemId, wxRichTextCtrl* pInformationPanel);
 
     /// <summary>
     /// Adds a new item to the log event list.
@@ -206,6 +223,15 @@ protected:
     /// </summary>
     /// <param name="bExecuting">True when the tests are being executed, false if they are not.</param>
     void EnableLogEventListDependingOnExecution(bool bExecuting);
+
+    /// <summary>
+    /// Obtains the corresponding title for a test result to be displayed in the result tree.
+    /// </summary>
+    /// <param name="eResult">The result represented by the tree node.</param>
+    /// <returns>
+    /// A title for the result node.
+    /// </returns>
+    wxString GetLocalizedTitleForResult(const ETATResult &eResult) const;
 
 
     // EVENT HANDLERS

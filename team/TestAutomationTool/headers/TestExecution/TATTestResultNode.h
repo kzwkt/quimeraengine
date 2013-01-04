@@ -5,6 +5,7 @@
 
 #include "TATNode.h"
 #include "TestExecution/ETATResult.h"
+#include "TestExecution/ETATTestResultNodeType.h"
 
 namespace Kinesis
 {
@@ -42,7 +43,12 @@ public:
     /// <param name="eResult">The result of the test.</param>
     /// <param name="strMessage">The message or textual information of the test.</param>
     /// <param name="nTime">The time the test took.</param>
-    TATTestResultNode(const wxString &strName, const ETATResult &eResult, const wxString &strMessage, const int &nTime);
+    /// <param name="eType">The type of the node.</param>
+    TATTestResultNode(const wxString &strName, 
+                      const ETATResult &eResult, 
+                      const wxString &strMessage, 
+                      const int &nTime, 
+                      const ETATTestResultNodeType &eType);
 
 
 	// PROPERTIES
@@ -90,6 +96,20 @@ public:
     /// </summary>
     /// <param name="nTime">The ammout of time the test took, in microseconds.</param>
     void SetTime(const int &nTime);
+    
+    /// <summary>
+    /// Gets the type of the node (the level in the result tree).
+    /// </summary>
+    /// <returns>
+    /// The type of the node (the level in the result tree).
+    /// </returns>
+    ETATTestResultNodeType GetNodeType() const;
+
+    /// <summary>
+    /// Sets the type of the node (the level in the result tree).
+    /// </summary>
+    /// <param name="eType">The type of the node (the level in the result tree).</param>
+    void SetNodeType(const ETATTestResultNodeType &eType);
 
     /// <summary>
     /// Checks whether the test result or one of its children contains errors (result equals E_Fail or E_Error).
@@ -118,6 +138,11 @@ protected:
     /// The time the test took.
     /// </summary>
     int m_nTime;
+
+    /// <summary>
+    /// The type of the node (regarding the level in the tree).
+    /// </summary>
+    ETATTestResultNodeType m_eType;
 };
 
 } //namespace Backend

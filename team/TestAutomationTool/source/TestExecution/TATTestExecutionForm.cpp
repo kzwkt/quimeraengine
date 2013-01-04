@@ -13,6 +13,10 @@
 #include "TestExecution/ITATTestResultLoader.h"
 #include "../../resources/embedded/tick.bmp.h"
 #include "../../resources/embedded/cross.bmp.h"
+#include "TestExecution/TATTestResultInfo.h"
+#include "TestExecution/TATTestResultConsultant.h"
+#include "TestExecution/ETATTestResultNodeType.h"
+#include "ExternalDefinitions.h"
 
 using Kinesis::TestAutomationTool::Backend::TATwxWidgetsControlLogger;
 using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
@@ -20,6 +24,10 @@ using Kinesis::TestAutomationTool::Backend::ETATResultSource;
 using Kinesis::TestAutomationTool::Backend::TATTestResultLoaderFactory;
 using Kinesis::TestAutomationTool::Backend::ITATTestResultLoader;
 using Kinesis::TestAutomationTool::Backend::TATTestResultNode;
+using Kinesis::TestAutomationTool::Backend::TATTestResultInfo;
+using Kinesis::TestAutomationTool::Backend::TATTestResultConsultant;
+using Kinesis::TestAutomationTool::Backend::ETATTestResultNodeType;
+using Kinesis::TestAutomationTool::Backend::ETATResult;
 
 namespace Kinesis
 {
@@ -66,6 +74,7 @@ TATTestExecutionForm::TATTestExecutionForm(wxWindow* parent,
 
     m_treeResults->SetImageList(m_imgList);
     m_lstLogEvents->SetImageList(m_imgList, wxIMAGE_LIST_SMALL);
+    m_rtbResultInfo->ShowScrollbars(wxSHOW_SB_ALWAYS, wxSHOW_SB_ALWAYS);
 
     this->Connect( wxEVT_COMMAND_TREE_SEL_CHANGED, wxTreeEventHandler(TATTestExecutionForm::OnTreeItemSelected) );
     this->Connect( wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEventHandler(TATTestExecutionForm::OnResultUpdate) );
@@ -172,10 +181,12 @@ void TATTestExecutionForm::SwitchStopButtonText(const bool &bStopped)
     }
 }
 
-void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResultNode* pResultTree)
+void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResultInfo* pResult)
 {
     typedef TATTestResultNode::TNodeCollection::const_iterator TTATResultIterator;
     const int NO_SELECTED_IMAGE_PROVIDED = -1;
+
+    TATTestResultNode* pResultTree = pResult->GetResultTree();
 
     // Root node
     wxTreeItemId rootID;
@@ -189,12 +200,14 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
         rootID = pTreeControl->GetRootItem();
     }
 
+    pTreeControl->SetItemData(rootID, NULL);
+
     // Tree root
     wxTreeItemId treeRootID = pTreeControl->AppendItem(rootID,
                                                        pResultTree->GetMessage(),
                                                        this->SelectImageIndexForResult(pResultTree),
                                                        NO_SELECTED_IMAGE_PROVIDED,
-                                                       new TATTestExecutionForm::TATResultTreeItemData(pResultTree));
+                                                       new TATTestExecutionForm::TATResultTreeItemData(*pResult, pResultTree));
 
     // Test modules
     for(TTATResultIterator iTestModule = pResultTree->GetChildren().begin(); iTestModule != pResultTree->GetChildren().end(); ++iTestModule)
@@ -205,7 +218,7 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
                                                          pTestModule->GetName(),
                                                          this->SelectImageIndexForResult(pTestModule),
                                                          NO_SELECTED_IMAGE_PROVIDED,
-                                                         new TATTestExecutionForm::TATResultTreeItemData(pTestModule));
+                                                         new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestModule));
 
         // Test suites
         for(TTATResultIterator iTestSuite = pTestModule->GetChildren().begin(); iTestSuite != pTestModule->GetChildren().end(); ++iTestSuite)
@@ -216,7 +229,7 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
                                                             pTestSuite->GetName(),
                                                             this->SelectImageIndexForResult(pTestSuite),
                                                             NO_SELECTED_IMAGE_PROVIDED,
-                                                            new TATTestExecutionForm::TATResultTreeItemData(pTestSuite));
+                                                            new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestSuite));
 
             // Test cases
             for(TTATResultIterator iTestCase = pTestSuite->GetChildren().begin(); iTestCase != pTestSuite->GetChildren().end(); ++iTestCase)
@@ -227,7 +240,7 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
                                                                pTestCase->GetName(),
                                                                this->SelectImageIndexForResult(pTestCase),
                                                                NO_SELECTED_IMAGE_PROVIDED,
-                                                               new TATTestExecutionForm::TATResultTreeItemData(pTestCase));
+                                                               new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestCase));
 
                 // Test results
                 for(TTATResultIterator iTestResult = pTestCase->GetChildren().begin(); iTestResult != pTestCase->GetChildren().end(); ++iTestResult)
@@ -235,10 +248,10 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
                     TATTestResultNode* pTestResult = dynamic_cast<TATTestResultNode*>(iTestResult->second);
 
                     wxTreeItemId resultID = pTreeControl->AppendItem(caseID,
-                                                                     pTestResult->GetMessage(),
+                                                                     this->GetLocalizedTitleForResult(pTestResult->GetResult()) + wxT(": ") + pTestResult->GetMessage(),
                                                                      this->SelectImageIndexForResult(pTestResult),
                                                                      NO_SELECTED_IMAGE_PROVIDED,
-                                                                     new TATTestExecutionForm::TATResultTreeItemData(pTestResult));
+                                                                     new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestResult));
                 } // Test results
 
                 // Erroneous nodes are expanded
@@ -263,7 +276,7 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
             pTreeControl->Expand(moduleID);
         }
 
-    }// Test modules
+    } // Test modules
 
     // Erroneous nodes are expanded
     if(pResultTree->HasErrors())
@@ -290,20 +303,216 @@ int TATTestExecutionForm::SelectImageIndexForResult(TATTestResultNode* pNode)
     return nImageIndex;
 }
 
-void TATTestExecutionForm::ShowToolTipWithAdditionalInfo(wxTreeCtrl* pTreeControl, const wxTreeItemId& itemId)
+void TATTestExecutionForm::ShowAdditionalInformation(wxTreeCtrl* pTreeControl, const wxTreeItemId& itemId, wxRichTextCtrl* pInformationPanel)
 {
     TATTestExecutionForm::TATResultTreeItemData* pData = dynamic_cast<TATTestExecutionForm::TATResultTreeItemData*>(pTreeControl->GetItemData(itemId));
 
-    // Converts from microseconds to seconds
-    float fTestingTime = static_cast<float>(pData->GetTestResultNode()->GetTime());
-    fTestingTime /= 1000000.0f;
+    // Resets the panel
+    pInformationPanel->Clear();
 
-    // And to string...
-    std::ostringstream streamForConversion;
-    streamForConversion << fTestingTime;
+    if(pData != NULL) // It's possible, for example, clicking on the root of the tree, which doesn't correspond to a result
+    {
+        TATTestResultNode* pResultNode = pData->GetTestResultNode();
+    
+        TATTestResultConsultant resultConsultant;
 
-    // Shows the tooltip
-    pTreeControl->SetToolTip(_("TestingTime") + wxT(" ") + streamForConversion.str());
+        // Writes the name of the item
+        pInformationPanel->EndUnderline(); // Sometimes, after clearing the content, the text starts with underline due to a bad content cleaning...
+        pInformationPanel->BeginUnderline();
+
+        switch(pResultNode->GetNodeType())
+        {
+        case ETATTestResultNodeType::E_Root:
+            pInformationPanel->WriteText(pResultNode->GetMessage());
+            break;
+        case ETATTestResultNodeType::E_Module:
+            pInformationPanel->WriteText(pResultNode->GetName());
+            break;
+        case ETATTestResultNodeType::E_Suite:
+            pInformationPanel->WriteText(pResultNode->GetName());
+            break;
+        case ETATTestResultNodeType::E_Case:
+            pInformationPanel->WriteText(pResultNode->GetName());
+            break;
+        case ETATTestResultNodeType::E_Result:
+            pInformationPanel->WriteText(this->GetLocalizedTitleForResult(pResultNode->GetResult()));
+            break;
+        }
+        
+        pInformationPanel->EndUnderline();
+        pInformationPanel->Newline();
+        pInformationPanel->Newline();
+
+        // Writes the test information
+        if(pResultNode->GetNodeType() == ETATTestResultNodeType::E_Root)
+        {
+            // If the entire set of tests passed, then it's not useful to show which failed
+            if(pResultNode->HasErrors())
+            {
+                pInformationPanel->WriteText(_("FailedModules") + wxT(": "));
+                pInformationPanel->WriteText(wxString::FromDouble(resultConsultant.GetFailedTestModuleCount(pData->GetTestResultNode())));
+                pInformationPanel->WriteText(wxT("/"));
+            }
+            else
+            {
+                pInformationPanel->WriteText(_("ModulesInTestLog") + wxT(": "));
+            }
+            pInformationPanel->WriteText(wxString::FromDouble(resultConsultant.GetTestModuleCount(pData->GetTestResultNode())));
+            pInformationPanel->WriteText(wxT("."));
+            pInformationPanel->Newline();
+        }
+
+        if(pResultNode->GetNodeType() == ETATTestResultNodeType::E_Root ||
+            pResultNode->GetNodeType() == ETATTestResultNodeType::E_Module)
+        {
+            // If the entire set of tests passed, then it's not useful to show which failed
+            if(pResultNode->HasErrors())
+            {
+                pInformationPanel->WriteText(_("FailedSuites") + wxT(": "));
+                pInformationPanel->WriteText(wxString::FromDouble(resultConsultant.GetFailedTestSuiteCount(pResultNode)));
+                pInformationPanel->WriteText(wxT("/"));
+            }
+            else
+            {
+                pInformationPanel->WriteText(_("SuitesInTestModule") + wxT(": "));
+            }
+            pInformationPanel->WriteText(wxString::FromDouble(resultConsultant.GetTestSuiteCount(pResultNode)));
+            pInformationPanel->WriteText(wxT("."));
+            pInformationPanel->Newline();
+        }
+    
+        if(pResultNode->GetNodeType() == ETATTestResultNodeType::E_Root   ||
+            pResultNode->GetNodeType() == ETATTestResultNodeType::E_Module ||
+            pResultNode->GetNodeType() == ETATTestResultNodeType::E_Suite)
+        {
+            // If the entire set of tests passed, then it's not useful to show which failed
+            if(pResultNode->HasErrors())
+            {
+                pInformationPanel->WriteText(_("FailedCases") + wxT(": "));
+                pInformationPanel->WriteText(wxString::FromDouble(resultConsultant.GetFailedTestCaseCount(pResultNode)));
+                pInformationPanel->WriteText(wxT("/"));
+            }
+            else
+            {
+                pInformationPanel->WriteText(_("CasesInTestSuite") + wxT(": "));
+            }
+            pInformationPanel->WriteText(wxString::FromDouble(resultConsultant.GetTestCaseCount(pResultNode)));
+            pInformationPanel->WriteText(wxT("."));
+            pInformationPanel->Newline();
+        }
+
+        if(pResultNode->GetNodeType() == ETATTestResultNodeType::E_Root   ||
+            pResultNode->GetNodeType() == ETATTestResultNodeType::E_Module ||
+            pResultNode->GetNodeType() == ETATTestResultNodeType::E_Suite  ||
+            pResultNode->GetNodeType() == ETATTestResultNodeType::E_Case)
+        {
+            // If the entire set of tests passed, then it's not useful to show which failed
+            if(pResultNode->HasErrors())
+            {
+                pInformationPanel->WriteText(_("FailedResults") + wxT(": "));
+                pInformationPanel->WriteText(wxString::FromDouble(resultConsultant.GetFailedTestResultCount(pResultNode)));
+                pInformationPanel->WriteText(wxT("/"));
+            }
+            else
+            {
+                pInformationPanel->WriteText(_("ResultsInTestCase") + wxT(": "));
+            }
+            pInformationPanel->WriteText(wxString::FromDouble(resultConsultant.GetTestResultCount(pResultNode)));
+            pInformationPanel->WriteText(wxT("."));
+            pInformationPanel->Newline();
+        }
+
+        if(pResultNode->GetNodeType() == ETATTestResultNodeType::E_Result)
+        {
+            pInformationPanel->WriteText(pResultNode->GetMessage());
+            pInformationPanel->Newline();
+        }
+
+        // Converts from microseconds to seconds
+        pInformationPanel->Newline();
+        float fTestingTime = static_cast<float>(pResultNode->GetTime());
+        fTestingTime /= 1000000.0f;
+
+        // And to string...
+        std::ostringstream streamForConversion;
+        streamForConversion << fTestingTime;
+
+        pInformationPanel->WriteText(_("TestingTime") + wxT(" ") + streamForConversion.str());
+        pInformationPanel->Newline();
+
+        // Adds the situation of the test
+        // ---------------------------------
+        pInformationPanel->Newline();
+        pInformationPanel->BeginUnderline();
+        pInformationPanel->WriteText(_("Context"));
+        pInformationPanel->EndUnderline();
+        pInformationPanel->Newline();
+        pInformationPanel->Newline();
+
+        // Path to the node
+        pInformationPanel->WriteText(_("At") + wxT(":"));
+        pInformationPanel->Newline();
+        pInformationPanel->Newline();
+
+        wxTreeItemId parentId = pTreeControl->GetItemParent(itemId);
+        wxString strPathToNode;
+
+        while(parentId.IsOk())
+        {
+            TATTestExecutionForm::TATResultTreeItemData* pParentData = dynamic_cast<TATTestExecutionForm::TATResultTreeItemData*>(pTreeControl->GetItemData(parentId));
+            
+            if(pParentData != NULL)
+            {
+                TATTestResultNode* pParentNode = pParentData->GetTestResultNode();
+
+                switch(pParentNode->GetNodeType())
+                {
+                case ETATTestResultNodeType::E_Root:
+                    strPathToNode = wxT("--") + pParentNode->GetMessage() + TAT_NEWLINE_TOKEN + strPathToNode;
+                    break;
+                case ETATTestResultNodeType::E_Module:
+                    strPathToNode = wxT("    |") + TAT_NEWLINE_TOKEN + wxT("   +--") + pParentNode->GetName() + TAT_NEWLINE_TOKEN + strPathToNode;
+                    break;
+                case ETATTestResultNodeType::E_Suite:
+                    strPathToNode = wxT("      |") + TAT_NEWLINE_TOKEN + wxT("     +--") + pParentNode->GetName() + TAT_NEWLINE_TOKEN + strPathToNode;
+                    break;
+                case ETATTestResultNodeType::E_Case:
+                    strPathToNode = wxT("        |") + TAT_NEWLINE_TOKEN + wxT("       +--") + pParentNode->GetName() + TAT_NEWLINE_TOKEN;
+                    break;
+                }
+            }
+
+            parentId = pTreeControl->GetItemParent(parentId);
+        }
+
+        if(!strPathToNode.empty())
+        {
+            pInformationPanel->WriteText(strPathToNode);
+            pInformationPanel->Newline();
+        }
+
+        pInformationPanel->WriteText(_("WithConfiguration") + wxT(":"));
+        pInformationPanel->Newline();
+        pInformationPanel->Newline();
+
+        // Compilation confifuration
+        pInformationPanel->WriteText(_("Configuration") + wxT(": ") + pData->GetTestResult().GetCompilationConfiguration());
+        pInformationPanel->Newline();
+
+        // Compiler name
+        pInformationPanel->WriteText(_("Compiler") + wxT(": ") + pData->GetTestResult().GetCompilerName());
+        pInformationPanel->Newline();
+
+        // Flag combination name
+        pInformationPanel->WriteText(_("FlagCombination") + wxT(": ") + pData->GetTestResult().GetFlagCombinationName());
+        pInformationPanel->Newline();
+
+        // Flag combination values
+        pInformationPanel->WriteText(_("FlagValues") + wxT(": "));
+        pInformationPanel->Newline();
+        pInformationPanel->WriteText(pData->GetTestResult().GetFlagCombinationValues());
+        pInformationPanel->Newline();
+    }
 }
 
 void TATTestExecutionForm::AddLogEvent(const wxString &strMessage)
@@ -342,6 +551,46 @@ void TATTestExecutionForm::EnableLogEventListDependingOnExecution(bool bExecutin
     m_lstLogEvents->Enable(!bExecuting);
 }
 
+wxString TATTestExecutionForm::GetLocalizedTitleForResult(const ETATResult &eResult) const
+{
+    wxString strResult;
+
+    switch(eResult)
+    {
+    case ETATResult::E_Success:
+        strResult = _("SuccessResult");
+        break;
+    case ETATResult::E_Fail:
+        strResult = _("FailResult");
+        break;
+    case ETATResult::E_NoResult:
+        strResult = _("NotATestResult");
+        break;
+        case ETATResult::E_Error:
+        strResult = _("ErrorResult");
+        break;
+    }
+
+    return strResult;
+}
+                    
+TATTestExecutionForm::TATResultTreeItemData::TATResultTreeItemData(const TATTestResultInfo result, 
+                                                                   TATTestResultNode* pNode) : 
+                                                                                  m_testResult(result),
+                                                                                  m_pTestResultNode(pNode)
+{
+}
+
+TATTestResultInfo TATTestExecutionForm::TATResultTreeItemData::GetTestResult() const
+{
+    return m_testResult;
+}
+
+TATTestResultNode* TATTestExecutionForm::TATResultTreeItemData::GetTestResultNode() const
+{
+    return m_pTestResultNode;
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -378,9 +627,9 @@ void TATTestExecutionForm::OnResultUpdate(wxCommandEvent& event)
 {
     using Kinesis::TestAutomationTool::Backend::TATTestResultNode;
 
-    TATTestResultNode* pNewResultTree = static_cast<TATTestResultNode*>(event.GetClientData());
+    TATTestResultInfo* pResult = static_cast<TATTestResultInfo*>(event.GetClientData());
 
-    this->BuildResultTree(m_treeResults, pNewResultTree);
+    this->BuildResultTree(m_treeResults, pResult);
 }
 
 void TATTestExecutionForm::OnTestExecutionFinished(wxCommandEvent& event)
@@ -403,8 +652,8 @@ void TATTestExecutionForm::OnTestExecutionFinished(wxCommandEvent& event)
 
 void TATTestExecutionForm::OnTreeItemSelected(wxTreeEvent& event)
 {
-    // Show tooltip with additional information
-    this->ShowToolTipWithAdditionalInfo(m_treeResults, event.GetItem());
+    // Shows additional information about the result selected
+    this->ShowAdditionalInformation(m_treeResults, event.GetItem(), m_rtbResultInfo);
 
 }
 

@@ -190,6 +190,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestModulesExecutionInfo_Tests.cpp">
 			<Option virtualFolder="Tests\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultConsultant_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultInfo_Tests.cpp">
+			<Option virtualFolder="Tests\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactoryWhiteBox.h">
 			<Option virtualFolder="Tests\" />
 		</Unit>

@@ -130,6 +130,7 @@ TATTestResultNode* TATTestResultLoader::ParseXmlToTree(const wxString &strXmlDat
             wxString strTestSuiteName = xmlReader.GetAttribute<std::string>(iTestModule->second, NAME_ATTRIB.ToStdString());
 
             TATTestResultNode* pTestModuleNode = new TATTestResultNode(strTestSuiteName);
+            pTestModuleNode->SetNodeType(ETATTestResultNodeType::E_Module);
 
             for(TXmlTreeIterator iTestSuite = iTestModule->second.begin(); iTestSuite != iTestModule->second.end(); ++iTestSuite)
             {
@@ -139,6 +140,7 @@ TATTestResultNode* TATTestResultLoader::ParseXmlToTree(const wxString &strXmlDat
                     wxString strTestSuiteName = xmlReader.GetAttribute<std::string>(iTestSuite->second, NAME_ATTRIB.ToStdString());
 
                     TATTestResultNode* pTestSuiteNode = new TATTestResultNode(strTestSuiteName);
+                    pTestSuiteNode->SetNodeType(ETATTestResultNodeType::E_Suite);
 
                     // Test cases
                     for(TXmlTreeIterator iTestCase = iTestSuite->second.begin(); iTestCase != iTestSuite->second.end(); ++iTestCase)
@@ -149,8 +151,19 @@ TATTestResultNode* TATTestResultLoader::ParseXmlToTree(const wxString &strXmlDat
                             wxString strTestCaseName = xmlReader.GetAttribute<std::string>(iTestCase->second, NAME_ATTRIB.ToStdString());
 
                             TATTestResultNode* pTestCaseNode = new TATTestResultNode(strTestCaseName);
+                            pTestCaseNode->SetNodeType(ETATTestResultNodeType::E_Case);
 
-                            // Test case case results
+                            if(iTestCase->second.size() == 0)
+                            {
+                                // This is an strange case, a test case without results. Normally, this is due to a malfunction or unexpected errors
+                                pTestCaseNode->AddChild(new TATTestResultNode(ERROR_TAG, 
+                                                                              ETATResult::E_Error, 
+                                                                              wxT("Empty test case. Maybe some unexpected errors occurred during test execution."), 
+                                                                              0, 
+                                                                              ETATTestResultNodeType::E_Result));
+                            }
+
+                            // Test results
                             for(TXmlTreeIterator iTestResult = iTestCase->second.begin(); iTestResult != iTestCase->second.end(); ++iTestResult)
                             {
                                 TATTestResultNode* pTestResultNode = NULL;
@@ -179,19 +192,19 @@ TATTestResultNode* TATTestResultLoader::ParseXmlToTree(const wxString &strXmlDat
 
                                     if(iTestResult->first == MESSAGE_TAG)
                                     {
-                                        pTestResultNode = new TATTestResultNode(MESSAGE_TAG, ETATResult::E_NoResult, strTestResultContent, 0);
+                                        pTestResultNode = new TATTestResultNode(MESSAGE_TAG, ETATResult::E_NoResult, strTestResultContent, 0, ETATTestResultNodeType::E_Result);
                                     }
                                     else if(iTestResult->first == ERROR_TAG)
                                     {
-                                        pTestResultNode = new TATTestResultNode(ERROR_TAG, ETATResult::E_Fail, strTestResultContent, 0);
+                                        pTestResultNode = new TATTestResultNode(ERROR_TAG, ETATResult::E_Fail, strTestResultContent, 0, ETATTestResultNodeType::E_Result);
                                     }
                                     else if(iTestResult->first == INFO_TAG)
                                     {
-                                        pTestResultNode = new TATTestResultNode(INFO_TAG, ETATResult::E_Success, strTestResultContent, 0);
+                                        pTestResultNode = new TATTestResultNode(INFO_TAG, ETATResult::E_Success, strTestResultContent, 0, ETATTestResultNodeType::E_Result);
                                     }
                                     else if(iTestResult->first == EXCEPTION_TAG)
                                     {
-                                        pTestResultNode = new TATTestResultNode(EXCEPTION_TAG, ETATResult::E_Error, strTestResultContent, 0);
+                                        pTestResultNode = new TATTestResultNode(EXCEPTION_TAG, ETATResult::E_Error, strTestResultContent, 0, ETATTestResultNodeType::E_Result);
                                     }
                                 }
 

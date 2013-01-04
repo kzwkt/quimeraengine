@@ -108,6 +108,15 @@
     <ClInclude Include="..\..\..\..\headers\TestExecution\ETATResultSource.h">
       <Filter>FG2 - Test Execution</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultConsultant.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ETATTestResultNodeType.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultInfo.h">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TestConfiguration\TATTestAutomationToolConfiguration.cpp">
@@ -183,6 +192,15 @@
       <Filter>FG2 - Test Execution</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\TestExecution\ETATResultSource.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultConsultant.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\ETATTestResultNodeType.cpp">
+      <Filter>FG2 - Test Execution</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultInfo.cpp">
       <Filter>FG2 - Test Execution</Filter>
     </ClCompile>
   </ItemGroup>

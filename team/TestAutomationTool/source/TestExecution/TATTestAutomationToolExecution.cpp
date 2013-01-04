@@ -329,8 +329,11 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
                 const TFlagCombinationValues& flagCombinationValues = iFlagCombination->second;
 
+                wxString strFlagValues;
+
                 for(std::map<wxString, wxString>::const_iterator iFlagValue = flagCombinationValues.begin(); iFlagValue != flagCombinationValues.end(); ++iFlagValue)
                 {
+                    strFlagValues += iFlagValue->first + wxT(" = ") + iFlagValue->second + TAT_NEWLINE_TOKEN;
                     this->Log(TATFormattedMessage(iFlagValue->first + wxT(" = ") + iFlagValue->second, LOG_FORMAT_NORMAL));
                 }
 
@@ -510,6 +513,19 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
                                         this->ParseTestResultFile(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
 
+                                        // Notifies that there is new content in the test result tree
+                                        TATTestResultInfo resultInfo;
+                                        resultInfo.SetCompilationConfiguration(*iCompilationConfig);
+                                        resultInfo.SetCompilerName(iCompilerInfo->second.GetName());
+                                        resultInfo.SetFlagCombinationName(iFlagCombination->first);
+                                        resultInfo.SetFlagCombinationValues(strFlagValues);
+                                        // Gets the last added result tree and stores it into the event argument
+                                        // It's assumed that the result tree contains, at least, the last added tree
+                                        TATTestResultNode* pNewTestResultTree = dynamic_cast<TATTestResultNode*>(m_pHandler->GetTestResultLoader()->GetTestResultTree()->GetChildren().rbegin()->second);
+                                        resultInfo.SetResultTree(pNewTestResultTree);
+
+                                        this->NotifyTestResult(resultInfo);
+
                                         // Saves the path of the file in the list of parsed files
                                         parsedResultFiles.push_back(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
 
@@ -573,7 +589,13 @@ void TATTestAutomationToolExecution::TATTestExecutionThread::Log(TATFormattedMes
 void TATTestAutomationToolExecution::TATTestExecutionThread::ParseTestResultFile(const wxString &strTestResultFilePath)
 {
     m_pHandler->GetTestResultLoader()->Load(strTestResultFilePath);
-    wxQueueEvent(m_pHandler, new wxThreadEvent(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE));
+}
+
+void TATTestAutomationToolExecution::TATTestExecutionThread::NotifyTestResult(const TATTestResultInfo &testResultInfo)
+{
+    wxThreadEvent* pEventData = new wxThreadEvent(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE);
+    pEventData->SetPayload<TATTestResultInfo>(testResultInfo);
+    wxQueueEvent(m_pHandler, pEventData);
     this->Sleep(10); // To let the UI refresh
 }
 
@@ -618,11 +640,7 @@ void TATTestAutomationToolExecution::OnTestExecutionThreadLogUpdate(wxThreadEven
 void TATTestAutomationToolExecution::OnTestExecutionThreadResultUpdate(wxThreadEvent& event)
 {
     wxCommandEvent* pEventData = new wxCommandEvent(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED);
-
-    // Gets the last added result tree and stores it into the event argument
-    // It's assumed that the result tree contains, at least, the last added tree
-    TATTestResultNode* pNewTestResultTree = dynamic_cast<TATTestResultNode*>(m_pTestResultLoader->GetTestResultTree()->GetChildren().rbegin()->second);
-    pEventData->SetClientData((void*)pNewTestResultTree);
+    pEventData->SetClientData((void*)new TATTestResultInfo(event.GetPayload<TATTestResultInfo>()));
 
     // Raises the event
     wxQueueEvent(m_pTestExecutionEventListener, pEventData);

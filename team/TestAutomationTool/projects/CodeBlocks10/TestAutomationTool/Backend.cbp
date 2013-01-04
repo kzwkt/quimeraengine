@@ -101,6 +101,9 @@
 		<Unit filename="..\..\..\headers\TestExecution\ETATResultSource.h">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\ETATTestResultNodeType.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
 		<Unit filename="..\..\..\headers\TestExecution\ITATLogger.h">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
@@ -120,6 +123,12 @@
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\headers\TestExecution\TATTestModulesExecutionInfo.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\TATTestResultConsultant.h">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\headers\TestExecution\TATTestResultInfo.h">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\headers\TestExecution\TATTestResultLoader.h">
@@ -185,6 +194,9 @@
 		<Unit filename="..\..\..\source\TestExecution\ETATResultSource.cpp">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\ETATTestResultNodeType.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
 		<Unit filename="..\..\..\source\TestExecution\TATCompilerInfo.cpp">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
@@ -198,6 +210,12 @@
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TestExecution\TATTestModulesExecutionInfo.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\TATTestResultConsultant.cpp">
+			<Option virtualFolder="FG2 - Test Execution\" />
+		</Unit>
+		<Unit filename="..\..\..\source\TestExecution\TATTestResultInfo.cpp">
 			<Option virtualFolder="FG2 - Test Execution\" />
 		</Unit>
 		<Unit filename="..\..\..\source\TestExecution\TATTestResultLoader.cpp">

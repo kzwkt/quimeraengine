@@ -32,22 +32,29 @@ namespace Backend
 
 TATTestResultNode::TATTestResultNode() : m_eResult(ETATResult::E_NoResult),
                                          m_strMessage(wxT("")),
-                                         m_nTime(0)
+                                         m_nTime(0),
+                                         m_eType(ETATTestResultNodeType::E_Root)
 {
 }
 
 TATTestResultNode::TATTestResultNode(const wxString &strName) : TATNode(strName),
                                                                 m_eResult(ETATResult::E_NoResult),
                                                                 m_strMessage(wxT("")),
-                                                                m_nTime(0)
+                                                                m_nTime(0),
+                                                                m_eType(ETATTestResultNodeType::E_Root)
 {
 }
 
-TATTestResultNode::TATTestResultNode(const wxString &strName, const ETATResult &eResult, const wxString &strMessage, const int &nTime) :
+TATTestResultNode::TATTestResultNode(const wxString &strName, 
+                                     const ETATResult &eResult, 
+                                     const wxString &strMessage, 
+                                     const int &nTime, 
+                                     const ETATTestResultNodeType &eType) :
                                                                 TATNode(strName),
                                                                 m_eResult(eResult),
                                                                 m_strMessage(strMessage),
-                                                                m_nTime(nTime)
+                                                                m_nTime(nTime),
+                                                                m_eType(eType)
 {
 }
 
@@ -88,6 +95,16 @@ int TATTestResultNode::GetTime() const
 void TATTestResultNode::SetTime(const int &nTime)
 {
     m_nTime = nTime;
+}
+
+ETATTestResultNodeType TATTestResultNode::GetNodeType() const
+{
+    return m_eType;
+}
+
+void TATTestResultNode::SetNodeType(const ETATTestResultNodeType &eType)
+{
+    m_eType = eType;
 }
 
 bool TATTestResultNode::HasErrors() const

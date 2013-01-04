@@ -101,11 +101,14 @@
     <ClCompile Include="..\..\..\..\source\TestExecution\ETATColor.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\ETATResult.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\ETATResultSource.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\ETATTestResultNodeType.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATCompilerInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATFormattedMessage.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATMessageFormat.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestAutomationToolExecution.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestModulesExecutionInfo.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultConsultant.cpp" />
+    <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultInfo.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultLoader.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultLoaderFactory.cpp" />
     <ClCompile Include="..\..\..\..\source\TestExecution\TATTestResultNode.cpp" />
@@ -130,6 +133,7 @@
     <ClInclude Include="..\..\..\..\headers\TestExecution\ETATColor.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\ETATResult.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\ETATResultSource.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\ETATTestResultNodeType.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\ITATLogger.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\ITATTestResultLoader.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATCompilerInfo.h" />
@@ -137,6 +141,8 @@
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATMessageFormat.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestAutomationToolExecution.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestModulesExecutionInfo.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultConsultant.h" />
+    <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultInfo.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultLoader.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultLoaderFactory.h" />
     <ClInclude Include="..\..\..\..\headers\TestExecution\TATTestResultNode.h" />
