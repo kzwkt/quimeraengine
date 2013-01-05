@@ -6,7 +6,6 @@
 #include "TestConfiguration/TestConfiguration.h"
 #include "TestConfiguration/TATTestAutomationToolConfiguration.h"
 
-using Kinesis::TestAutomationTool::UI::TestConfigurationBaseForm;
 using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolConfiguration;
 
 namespace Kinesis
@@ -33,6 +32,7 @@ namespace UI
 
 // Forward declarations
 class TestExecutionBaseForm;
+class EditorBaseForm;
 
 /// <summary>
 /// Dialog that lets the user configure the testing process before executing it.
@@ -67,6 +67,11 @@ public:
 	/// Shows the test execution window.
 	/// </summary>
     void ShowExecutionWindow();
+
+    /// <summary>
+	/// Shows the editor window.
+	/// </summary>
+    void ShowEditorWindow();
 
     /// <summary>
     /// Checks that there are, at least, one compilation configuration and one flag combination selected and,
@@ -167,9 +172,14 @@ protected:
     TATTestAutomationToolConfiguration m_backend;
 
     /// <summary>
-	/// The form created when navigation to the test execution functional group.
+	/// The form created when navigating to the test execution functional group.
 	/// </summary>
     TestExecutionBaseForm* m_pExecutionForm;
+
+    /// <summary>
+    /// The form created when navigating to the editor functional group.
+    /// </summary>
+    EditorBaseForm* m_pEditorForm;
 };
 
 } //namespace UI

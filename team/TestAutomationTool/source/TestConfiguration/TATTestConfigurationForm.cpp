@@ -6,6 +6,7 @@
 #include <wx/msgdlg.h>
 
 #include "TestExecution/TestExecution.h"
+#include "Editor/Editor.h"
 #include "TestConfiguration/STATAppSettings.h"
 #include "TestConfiguration/TATValidationException.h"
 #include "TestExecution/TATTestExecutionForm.h"
@@ -107,6 +108,13 @@ void TATTestConfigurationForm::ShowExecutionWindow()
                                                 compilationConfigurations,
                                                 compilerInfos);
     m_pExecutionForm->Show();
+}
+
+void TATTestConfigurationForm::ShowEditorWindow()
+{
+    // Creates the test execution forms, using the calculated values
+    m_pEditorForm = new EditorBaseForm(this);
+    m_pEditorForm->ShowModal();
 }
 
 void TATTestConfigurationForm::ExtractCompilerInfosFromValueTree(TATKeyValueNode* pValueTree, std::map<wxString, TATCompilerInfo>& compilerInfos) const
@@ -362,6 +370,7 @@ void TATTestConfigurationForm::OnFlagCombinationsCheckListBoxToggled( wxCommandE
 
 void TATTestConfigurationForm::OnEditorButtonClick( wxCommandEvent& event )
 {
+    ShowEditorWindow();
 }
 
 void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
