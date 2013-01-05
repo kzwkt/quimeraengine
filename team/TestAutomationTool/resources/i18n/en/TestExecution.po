@@ -2,8 +2,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Quimera Engine\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-01-03 01:31+0100\n"
-"PO-Revision-Date: 2013-01-03 01:32+0100\n"
+"POT-Creation-Date: 2013-01-05 01:46+0100\n"
+"PO-Revision-Date: 2013-01-05 01:46+0100\n"
 "Last-Translator: Thund <lince3d@gmail.com>\n"
 "Language-Team: Kinesis <lince3d@gmail.com>\n"
 "Language: en\n"
@@ -27,87 +27,91 @@ msgstr "STOP"
 msgid "ButtonStopping"
 msgstr "Stopping..."
 
-#: source/TestExecution/TATTestExecutionForm.cpp:349
+#: source/TestExecution/TATTestExecutionForm.cpp:357
+msgid "Method"
+msgstr ""
+
+#: source/TestExecution/TATTestExecutionForm.cpp:380
 msgid "FailedModules"
 msgstr "Failed modules"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:355
+#: source/TestExecution/TATTestExecutionForm.cpp:386
 msgid "ModulesInTestLog"
 msgstr "Modules in test log"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:368
+#: source/TestExecution/TATTestExecutionForm.cpp:399
 msgid "FailedSuites"
 msgstr "Failed suites"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:374
+#: source/TestExecution/TATTestExecutionForm.cpp:405
 msgid "SuitesInTestModule"
 msgstr "Suites in test module"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:388
+#: source/TestExecution/TATTestExecutionForm.cpp:419
 msgid "FailedCases"
 msgstr "Failed cases"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:394
+#: source/TestExecution/TATTestExecutionForm.cpp:425
 msgid "CasesInTestSuite"
 msgstr "Cases in test suite"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:409
+#: source/TestExecution/TATTestExecutionForm.cpp:440
 msgid "FailedResults"
 msgstr "Failed results"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:415
+#: source/TestExecution/TATTestExecutionForm.cpp:446
 msgid "ResultsInTestCase"
 msgstr "Results in test case"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:437
+#: source/TestExecution/TATTestExecutionForm.cpp:468
 msgid "TestingTime"
 msgstr "Testing time (total, in seconds):"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:444
+#: source/TestExecution/TATTestExecutionForm.cpp:475
 msgid "Context"
 msgstr "Context"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:450
+#: source/TestExecution/TATTestExecutionForm.cpp:481
 msgid "At"
 msgstr "At"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:491
+#: source/TestExecution/TATTestExecutionForm.cpp:522
 msgid "WithConfiguration"
 msgstr "With configuration"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:496
+#: source/TestExecution/TATTestExecutionForm.cpp:527
 msgid "Configuration"
 msgstr "Compilation configuration"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:500
+#: source/TestExecution/TATTestExecutionForm.cpp:531
 msgid "Compiler"
 msgstr "Compiler"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:504
+#: source/TestExecution/TATTestExecutionForm.cpp:535
 msgid "FlagCombination"
 msgstr "Flag combination"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:508
+#: source/TestExecution/TATTestExecutionForm.cpp:539
 msgid "FlagValues"
 msgstr "Flag combination values"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:558
+#: source/TestExecution/TATTestExecutionForm.cpp:589
 msgid "SuccessResult"
 msgstr "Passed"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:561
+#: source/TestExecution/TATTestExecutionForm.cpp:592
 msgid "FailResult"
 msgstr "Failed"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:564
+#: source/TestExecution/TATTestExecutionForm.cpp:595
 msgid "NotATestResult"
 msgstr "Information"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:567
+#: source/TestExecution/TATTestExecutionForm.cpp:598
 msgid "ErrorResult"
 msgstr "Exception"
 
-#: source/TestExecution/TATTestExecutionForm.cpp:628
+#: source/TestExecution/TATTestExecutionForm.cpp:722
 msgid "LogTestExecutionCancelled"
 msgstr "Test execution cancelled by the user."
 

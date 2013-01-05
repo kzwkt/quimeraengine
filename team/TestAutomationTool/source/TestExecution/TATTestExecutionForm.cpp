@@ -215,7 +215,7 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
         TATTestResultNode* pTestModule = dynamic_cast<TATTestResultNode*>(iTestModule->second);
 
         wxTreeItemId moduleID = pTreeControl->AppendItem(treeRootID,
-                                                         pTestModule->GetName(),
+                                                         this->GetCleanTestNodeName(pTestModule->GetName(), ETATTestResultNodeType::E_Module),
                                                          this->SelectImageIndexForResult(pTestModule),
                                                          NO_SELECTED_IMAGE_PROVIDED,
                                                          new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestModule));
@@ -226,21 +226,40 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
             TATTestResultNode* pTestSuite = dynamic_cast<TATTestResultNode*>(iTestSuite->second);
 
             wxTreeItemId suiteID = pTreeControl->AppendItem(moduleID,
-                                                            pTestSuite->GetName(),
+                                                            this->GetCleanTestNodeName(pTestSuite->GetName(), ETATTestResultNodeType::E_Suite),
                                                             this->SelectImageIndexForResult(pTestSuite),
                                                             NO_SELECTED_IMAGE_PROVIDED,
                                                             new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestSuite));
+            // Used to know when the case refers to a different method
+            wxString strLastMethodNameAux = wxT("");
+            wxTreeItemId methodID;
 
             // Test cases
             for(TTATResultIterator iTestCase = pTestSuite->GetChildren().begin(); iTestCase != pTestSuite->GetChildren().end(); ++iTestCase)
             {
+                // Note: Test cases are divided into 2 nodes, one node represents the method and the other the case applied to that method
+
                 TATTestResultNode* pTestCase = dynamic_cast<TATTestResultNode*>(iTestCase->second);
 
-                wxTreeItemId caseID = pTreeControl->AppendItem(suiteID,
-                                                               pTestCase->GetName(),
+                wxString strMethodName = this->GetCleanTestNodeName(pTestCase->GetName(), ETATTestResultNodeType::E_Case, true);
+
+                // A new method has been reached
+                if(strMethodName != strLastMethodNameAux)
+                {
+                    methodID = pTreeControl->AppendItem(suiteID,
+                                                        this->GetCleanTestNodeName(pTestCase->GetName(), ETATTestResultNodeType::E_Case),
+                                                        this->SelectImageIndexForResult(pTestCase),
+                                                        NO_SELECTED_IMAGE_PROVIDED,
+                                                        new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestCase, true));
+                    strLastMethodNameAux = strMethodName;
+                }
+
+                // Appends the test case to the current method
+                wxTreeItemId caseID = pTreeControl->AppendItem(methodID,
+                                                               this->GetCleanTestNodeName(pTestCase->GetName(), ETATTestResultNodeType::E_Case, false),
                                                                this->SelectImageIndexForResult(pTestCase),
                                                                NO_SELECTED_IMAGE_PROVIDED,
-                                                               new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestCase));
+                                                               new TATTestExecutionForm::TATResultTreeItemData(*pResult, pTestCase, false));
 
                 // Test results
                 for(TTATResultIterator iTestResult = pTestCase->GetChildren().begin(); iTestResult != pTestCase->GetChildren().end(); ++iTestResult)
@@ -258,6 +277,10 @@ void TATTestExecutionForm::BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResu
                 if(pTestCase->HasErrors())
                 {
                     pTreeControl->Expand(caseID);
+
+                    // The method node has to be expanded too and its image has to be the corresponding for a failed test
+                    pTreeControl->SetItemImage(methodID, this->SelectImageIndexForResult(pTestCase));
+                    pTreeControl->Expand(methodID);
                 }
 
             } // Test cases
@@ -332,7 +355,16 @@ void TATTestExecutionForm::ShowAdditionalInformation(wxTreeCtrl* pTreeControl, c
             pInformationPanel->WriteText(pResultNode->GetName());
             break;
         case ETATTestResultNodeType::E_Case:
-            pInformationPanel->WriteText(pResultNode->GetName());
+            {
+                if(pData->IsMethod())
+                {
+                    pInformationPanel->WriteText(_("Method") + wxT(": ") + pTreeControl->GetItemText(itemId));
+                }
+                else
+                {
+                    pInformationPanel->WriteText(pResultNode->GetName());
+                }
+            }
             break;
         case ETATTestResultNodeType::E_Result:
             pInformationPanel->WriteText(this->GetLocalizedTitleForResult(pResultNode->GetResult()));
@@ -573,11 +605,52 @@ wxString TATTestExecutionForm::GetLocalizedTitleForResult(const ETATResult &eRes
 
     return strResult;
 }
-                    
+
+wxString TATTestExecutionForm::GetCleanTestNodeName(const wxString &strNodeName, 
+                                                    const ETATTestResultNodeType &eType, 
+                                                    const bool &bMethodOrCase) const
+{
+    wxString strResult = strNodeName;
+
+    if(eType == ETATTestResultNodeType::E_Case)
+    {
+        const bool IS_METHOD = true;
+        const wxString PREFIX_SEPARATOR = wxT("_");
+        const wxString SUFFIX_TO_REMOVE = wxT("_Test");
+
+        strResult.Replace(SUFFIX_TO_REMOVE, wxT(""));
+
+        if(bMethodOrCase == IS_METHOD)
+        {
+            strResult.Truncate(strResult.Find(PREFIX_SEPARATOR));
+        }
+        else
+        {
+            strResult.Remove(0, strResult.Find(PREFIX_SEPARATOR) + 1);
+        }
+    }
+    else if(eType == ETATTestResultNodeType::E_Module)
+    {
+        const wxString PREFIX_SEPARATOR = wxT("_");
+
+        strResult.Remove(0, strResult.First(PREFIX_SEPARATOR) + 1);
+    }
+    else if(eType == ETATTestResultNodeType::E_Suite)
+    {
+        const wxString SUFFIX_TO_REMOVE = wxT("_TestSuite");
+
+        strResult.Replace(SUFFIX_TO_REMOVE, wxT(""));
+    }
+
+    return strResult;
+}
+
 TATTestExecutionForm::TATResultTreeItemData::TATResultTreeItemData(const TATTestResultInfo result, 
-                                                                   TATTestResultNode* pNode) : 
+                                                                   TATTestResultNode* pNode,
+                                                                   const bool &bIsMethod) : 
                                                                                   m_testResult(result),
-                                                                                  m_pTestResultNode(pNode)
+                                                                                  m_pTestResultNode(pNode),
+                                                                                  m_bIsMethod(bIsMethod)
 {
 }
 
@@ -589,6 +662,11 @@ TATTestResultInfo TATTestExecutionForm::TATResultTreeItemData::GetTestResult() c
 TATTestResultNode* TATTestExecutionForm::TATResultTreeItemData::GetTestResultNode() const
 {
     return m_pTestResultNode;
+}
+
+bool TATTestExecutionForm::TATResultTreeItemData::IsMethod() const
+{
+    return m_bIsMethod;
 }
 
 

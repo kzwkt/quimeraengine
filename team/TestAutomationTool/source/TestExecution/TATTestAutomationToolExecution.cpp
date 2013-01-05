@@ -303,6 +303,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
         this->Log(TATFormattedMessage(wxT("Test execution process starts."), LOG_FORMAT_PROCESS_TITLE));
         this->NotifyEvent(INFO_NOTIFICATION + wxT("START"));
+        this->Log(TATFormattedMessage(wxT("Current working directory: '"), LOG_FORMAT_NORMAL).
+                               Append(wxGetCwd(), LOG_FORMAT_DATA_HIGHLIGHT).
+                               Append(wxT("'."), LOG_FORMAT_NORMAL));
 
         // Removes previous test results from the loader
         m_pHandler->GetTestResultLoader()->Clear();
@@ -602,7 +605,7 @@ void TATTestAutomationToolExecution::TATTestExecutionThread::NotifyTestResult(co
 bool TATTestAutomationToolExecution::TATTestExecutionThread::DeletePreviousResultFiles(const wxString &strTestResultFilePath)
 {
     bool bResult = false;
-
+    
     std::list<wxString> filesToDelete = this->ReadTestResultFiles(strTestResultFilePath);
 
     for(std::list<wxString>::const_iterator iResultFile = filesToDelete.begin(); iResultFile != filesToDelete.end(); ++iResultFile)

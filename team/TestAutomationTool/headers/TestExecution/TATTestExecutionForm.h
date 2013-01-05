@@ -9,6 +9,7 @@
 #include "TestExecution/TestExecution.h"
 #include "TestExecution/TATTestAutomationToolExecution.h"
 #include "TestExecution/ETATResult.h"
+#include "TestExecution/ETATTestResultNodeType.h"
 
 using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolExecution;
 using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
@@ -32,6 +33,7 @@ class wxImageList;
 using Kinesis::TestAutomationTool::Backend::TATKeyValueNode;
 using Kinesis::TestAutomationTool::Backend::TATTestResultNode;
 using Kinesis::TestAutomationTool::Backend::TATTestResultInfo;
+using Kinesis::TestAutomationTool::Backend::ETATTestResultNodeType;
 
 namespace Kinesis
 {
@@ -64,7 +66,8 @@ protected:
         /// </remarks>
         /// <param name="result">Test result information structure.</param>
         /// <param name="pNode">A node of a test result tree.</param>
-        TATResultTreeItemData(const TATTestResultInfo result, TATTestResultNode* pNode);
+        /// <param name="bIsMethod">Optional. DOC.</param>
+        TATResultTreeItemData(const TATTestResultInfo result, TATTestResultNode* pNode, const bool &bIsMethod=true);
 
         /// <summary>
         /// Gets the test result associated to the item.
@@ -83,6 +86,14 @@ protected:
         TATTestResultNode* GetTestResultNode() const;
 
         /// <summary>
+        /// DOC
+        /// </summary>
+        /// <returns>
+        /// DOC
+        /// </returns>
+        bool IsMethod() const;
+
+        /// <summary>
         /// The test result associated to the item.
         /// </summary>
         TATTestResultInfo m_testResult;
@@ -91,6 +102,11 @@ protected:
         /// The test result node associated to the item.
         /// </summary>
         TATTestResultNode* m_pTestResultNode;
+
+        /// <summary>
+        /// [DOC]
+        /// </summary>
+        bool m_bIsMethod;
     };
 
 
@@ -232,6 +248,17 @@ protected:
     /// A title for the result node.
     /// </returns>
     wxString GetLocalizedTitleForResult(const ETATResult &eResult) const;
+
+    /// <summary>
+    /// [DOC]
+    /// </summary>
+    /// <param name="strNodeName">[DOC]</param>
+    /// <param name="eType">[DOC]</param>
+    /// <param name="bMethodOrCase">Optional. [DOC]</param>
+    /// <returns>
+    /// [DOC]
+    /// </returns>
+    wxString GetCleanTestNodeName(const wxString &strNodeName, const ETATTestResultNodeType &eType, const bool &bMethodOrCase=true) const;
 
 
     // EVENT HANDLERS

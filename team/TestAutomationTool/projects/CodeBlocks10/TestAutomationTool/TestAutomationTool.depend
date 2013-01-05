@@ -7892,12 +7892,13 @@
 	<wx/string.h>
 	<exception>
 
-1357252067 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestexecutionform.h
+1357346128 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestexecutionform.h
 	<list>
 	<map>
 	"TestExecution/TestExecution.h"
 	"TestExecution/TATTestAutomationToolExecution.h"
 	"TestExecution/ETATResult.h"
+	"TestExecution/ETATTestResultNodeType.h"
 
 1357050132 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestautomationtoolexecution.h
 	<map>
@@ -7925,7 +7926,7 @@
 	<map>
 	<wx/string.h>
 
-1357252067 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testexecution\tattestexecutionform.cpp
+1357346494 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testexecution\tattestexecutionform.cpp
 	"TestExecution/TATTestExecutionForm.h"
 	<iostream>
 	<sstream>
