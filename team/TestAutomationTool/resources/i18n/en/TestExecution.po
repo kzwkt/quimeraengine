@@ -3,7 +3,7 @@ msgstr ""
 "Project-Id-Version: Quimera Engine\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-01-05 01:46+0100\n"
-"PO-Revision-Date: 2013-01-05 01:46+0100\n"
+"PO-Revision-Date: 2013-01-05 23:14+0100\n"
 "Last-Translator: Thund <lince3d@gmail.com>\n"
 "Language-Team: Kinesis <lince3d@gmail.com>\n"
 "Language: en\n"
@@ -29,7 +29,7 @@ msgstr "Stopping..."
 
 #: source/TestExecution/TATTestExecutionForm.cpp:357
 msgid "Method"
-msgstr ""
+msgstr "Method"
 
 #: source/TestExecution/TATTestExecutionForm.cpp:380
 msgid "FailedModules"
