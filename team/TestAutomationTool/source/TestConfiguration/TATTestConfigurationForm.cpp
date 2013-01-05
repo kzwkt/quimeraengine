@@ -6,7 +6,7 @@
 #include <wx/msgdlg.h>
 
 #include "TestExecution/TestExecution.h"
-#include "Editor/Editor.h"
+#include "Editor/TATEditorForm.h"
 #include "TestConfiguration/STATAppSettings.h"
 #include "TestConfiguration/TATValidationException.h"
 #include "TestExecution/TATTestExecutionForm.h"
@@ -77,6 +77,50 @@ TATTestConfigurationForm::~TATTestConfigurationForm()
 //##################													   ##################
 //##################=======================================================##################
 
+void TATTestConfigurationForm::LoadConfiguration()
+{
+    this->ResetConfiguration();
+
+    // Loads the compiler configurations on the UI
+    std::list<wxString> compilerConfigurations = m_backend.GetCompilerConfigurations();
+
+    for(std::list<wxString>::iterator iCompilerConfigName = compilerConfigurations.begin(); iCompilerConfigName != compilerConfigurations.end(); ++iCompilerConfigName)
+    {
+        m_clCompilationConfiguration->Insert(*iCompilerConfigName, 0);
+
+        // Checked by default
+        m_clCompilationConfiguration->Check(0);
+        m_backend.SelectCompilerConfiguration(*iCompilerConfigName, true);
+    }
+
+    // Loads the flag combinations on the UI
+    TATTestAutomationToolConfiguration::TFlagCombinationCollection flagCombinations = m_backend.GetFlagCombinations();
+
+    for(TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iFlagCombination = flagCombinations.begin(); iFlagCombination != flagCombinations.end(); ++iFlagCombination)
+    {
+        m_clFlagCombinations->Append(iFlagCombination->first);
+        m_clFlagCombinations->Check(m_clFlagCombinations->GetCount()-1);
+        m_backend.SelectFlagCombination(iFlagCombination->first, true);
+    }
+
+    // Refreshes the status of the launch button
+    this->EnableLaunchButtonDependingOnSelection();
+}
+
+void TATTestConfigurationForm::ResetConfiguration()
+{
+    // Clears the compilation configuration list
+    this->m_clCompilationConfiguration->Clear();
+
+    // Clears the flag combination list
+    this->m_clFlagCombinations->Clear();
+
+    // Clears the flag values grid
+    this->ClearGrid(m_gridFlagValues);
+
+    this->EnableLaunchButtonDependingOnSelection();
+}
+
 void TATTestConfigurationForm::ShowExecutionWindow()
 {
     wxString strConfigurationFilePath;
@@ -113,7 +157,7 @@ void TATTestConfigurationForm::ShowExecutionWindow()
 void TATTestConfigurationForm::ShowEditorWindow()
 {
     // Creates the test execution forms, using the calculated values
-    m_pEditorForm = new EditorBaseForm(this);
+    m_pEditorForm = new TATEditorForm(this);
     m_pEditorForm->ShowModal();
 }
 
@@ -286,33 +330,7 @@ void TATTestConfigurationForm::EnableLaunchButtonDependingOnSelection()
 
 void TATTestConfigurationForm::OnInitDialog( wxInitDialogEvent& event )
 {
-    // Loads the compiler configurations on the UI
-    std::list<wxString> compilerConfigurations = m_backend.GetCompilerConfigurations();
-
-    for(std::list<wxString>::iterator iCompilerConfigName = compilerConfigurations.begin(); iCompilerConfigName != compilerConfigurations.end(); ++iCompilerConfigName)
-    {
-        m_clCompilationConfiguration->Insert(*iCompilerConfigName, 0);
-
-        // Checked by default
-        m_clCompilationConfiguration->Check(0);
-        m_backend.SelectCompilerConfiguration(*iCompilerConfigName, true);
-    }
-
-    // Loads the flag combinations on the UI
-    TATTestAutomationToolConfiguration::TFlagCombinationCollection flagCombinations = m_backend.GetFlagCombinations();
-
-    for(TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iFlagCombination = flagCombinations.begin(); iFlagCombination != flagCombinations.end(); ++iFlagCombination)
-    {
-        m_clFlagCombinations->Append(iFlagCombination->first);
-        m_clFlagCombinations->Check(m_clFlagCombinations->GetCount()-1);
-        m_backend.SelectFlagCombination(iFlagCombination->first, true);
-    }
-
-    // Clears the flag values grid
-    this->ClearGrid(m_gridFlagValues);
-
-    // Refreshes the status of the launch button
-    this->EnableLaunchButtonDependingOnSelection();
+    this->LoadConfiguration();
 }
 
 void TATTestConfigurationForm::OnDialogClose( wxCloseEvent& event )

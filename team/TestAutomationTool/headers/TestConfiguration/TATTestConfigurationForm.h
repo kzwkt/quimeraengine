@@ -64,6 +64,18 @@ public:
 public:
 
     /// <summary>
+    /// [DOC]
+    /// </summary>
+    void LoadConfiguration();
+
+    /// <summary>
+    /// [DOC]
+    /// </summary>
+    void ResetConfiguration();
+
+protected:
+
+    /// <summary>
 	/// Shows the test execution window.
 	/// </summary>
     void ShowExecutionWindow();
@@ -78,8 +90,6 @@ public:
     /// if so, enables the Launch button. Otherwise, it's disabled.
     /// </summary>
     void EnableLaunchButtonDependingOnSelection();
-
-protected:
 
     /// <summary>
     /// Removes all the cells in a grid.

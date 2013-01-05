@@ -76,10 +76,19 @@ void TATConfigLoaderFromIniFile::Destroy()
         delete m_pRuleTree;
         m_pRuleTree = NULL;
     }
+
+    if(m_pValueTree != NULL)
+    {
+        delete m_pValueTree;
+        m_pValueTree = NULL;
+    }
 }
 
 void TATConfigLoaderFromIniFile::Load()
 {
+    // First, resets the contents
+    this->Reset();
+
     wxString strConfigurationFile;
     
     // Reads the configuration file
@@ -158,6 +167,15 @@ void TATConfigLoaderFromIniFile::Load()
     else
     {
         throw std::exception(); // [TODO] Thund: Create a concrete exception for this
+    }
+}
+
+void TATConfigLoaderFromIniFile::Reset()
+{
+    if(m_pValueTree != NULL)
+    {
+        delete m_pValueTree;
+        m_pValueTree = NULL;
     }
 }
 

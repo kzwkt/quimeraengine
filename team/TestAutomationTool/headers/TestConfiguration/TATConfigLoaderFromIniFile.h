@@ -73,6 +73,9 @@ public:
     //! @copydoc ITATConfigLoader::Load()
     virtual void Load();
 
+    //! @copydoc ITATConfigLoader::Reset()
+    virtual void Reset();
+
 protected:
 
     /// <summary>

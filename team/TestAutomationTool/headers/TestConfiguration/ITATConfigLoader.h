@@ -50,6 +50,11 @@ public:
     /// </summary>
     virtual void Load()=0;
 
+    /// <summary>
+    /// [DOC]
+    /// </summary>
+    virtual void Reset()=0;
+
 
 	// PROPERTIES
 	// ---------------
