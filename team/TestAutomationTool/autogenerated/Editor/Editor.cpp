@@ -18,17 +18,20 @@ EditorBaseForm::EditorBaseForm( wxWindow* parent, wxWindowID id, const wxString&
 	bSizer5 = new wxBoxSizer( wxVERTICAL );
 	
 	m_rtbConfigurationFile = new wxRichTextCtrl( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0|wxVSCROLL|wxHSCROLL|wxNO_BORDER|wxWANTS_CHARS );
+	m_rtbConfigurationFile->SetFont( wxFont( 8, 70, 90, 90, false, wxEmptyString ) );
+	
 	bSizer5->Add( m_rtbConfigurationFile, 1, wxEXPAND | wxALL, 5 );
 	
 	m_lblReminder = new wxStaticText( this, wxID_ANY, _("ReminderAboutConfigurationForm"), wxDefaultPosition, wxDefaultSize, 0 );
 	m_lblReminder->Wrap( -1 );
-	m_lblReminder->SetForegroundColour( wxColour( 255, 0, 0 ) );
+	m_lblReminder->SetFont( wxFont( wxNORMAL_FONT->GetPointSize(), 70, 90, 92, false, wxEmptyString ) );
+	m_lblReminder->SetForegroundColour( wxSystemSettings::GetColour( wxSYS_COLOUR_WINDOWTEXT ) );
 	
 	bSizer5->Add( m_lblReminder, 0, wxALL|wxEXPAND, 5 );
 	
 	m_lblMessages = new wxStaticText( this, wxID_ANY, wxEmptyString, wxDefaultPosition, wxDefaultSize, 0 );
 	m_lblMessages->Wrap( -1 );
-	m_lblMessages->SetForegroundColour( wxColour( 0, 128, 0 ) );
+	m_lblMessages->SetForegroundColour( wxColour( 0, 70, 234 ) );
 	
 	bSizer5->Add( m_lblMessages, 0, wxALL, 5 );
 	

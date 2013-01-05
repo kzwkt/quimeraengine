@@ -31,7 +31,7 @@ std::list<wxString> STATStringHelper::Split(const wxString& strSource, const wxS
     do
     {
         // Searches for the next separator
-        nCurrentPos = strSource.find_first_of(strSeparator, nCurrentPos);
+        nCurrentPos = strSource.find(strSeparator, nCurrentPos);
 
         // No separator found
         if(nCurrentPos == wxString::npos)

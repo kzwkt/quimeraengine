@@ -184,14 +184,14 @@ bool STATFileSystemHelper::Write(const wxString& strFilePath, const wxString& st
         if(bResult)
         {
             bResult = file.Open();
-
+            
             std::list<wxString> textLines = STATStringHelper::Split(strTextContent, TAT_NEWLINE_TOKEN);
 
             for(std::list<wxString>::const_iterator iLine = textLines.begin(); iLine != textLines.end(); ++iLine)
             {
                 file.AddLine(*iLine);
             }
-
+            
             if(bResult)
             {
                 file.Write();

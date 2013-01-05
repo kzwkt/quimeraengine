@@ -6,7 +6,9 @@
 #include <wx/msgdlg.h>
 
 #include "TestConfiguration/TATTestConfigurationForm.h"
+#include "STATFileSystemHelper.h"
 
+using Kinesis::TestAutomationTool::Backend::STATFileSystemHelper;
 
 namespace Kinesis
 {
@@ -35,9 +37,12 @@ namespace UI
 //##################													   ##################
 //##################=======================================================##################
 
-TATEditorForm::TATEditorForm(wxWindow* pParent) : EditorBaseForm(pParent),
-                                                  m_bIsModified(false),
-                                                  m_bWasModified(false)
+TATEditorForm::TATEditorForm(wxWindow* pParent, const wxString &strConfigurationFilePath) : 
+                                                                      EditorBaseForm(pParent),
+                                                                      m_bIsModified(false),
+                                                                      m_bWasModified(false),
+                                                                      m_bFileLoaded(false),
+                                                                      m_strConfigurationFilePath(strConfigurationFilePath)
 {
     m_btnSave->Enable(false);
 }
@@ -66,6 +71,45 @@ TATEditorForm::~TATEditorForm()
 //##################													   ##################
 //##################=======================================================##################
 
+bool TATEditorForm::SaveConfigurationFile(const wxString &strFilePath)
+{
+    // Sets the moification flags
+    m_bIsModified = false;
+    m_bWasModified = true;
+
+    m_btnSave->Enable(false);
+
+    // Saves the file
+    wxString strFileContent = m_rtbConfigurationFile->GetValue();
+    return STATFileSystemHelper::Write(strFilePath, strFileContent);
+}
+
+bool TATEditorForm::LoadConfigurationFile(const wxString &strFilePath)
+{
+    // Loads the file
+    wxString strFileContent;
+    bool bResult = STATFileSystemHelper::Read(strFilePath, strFileContent);
+
+    // Puts the text in the box
+    m_rtbConfigurationFile->WriteText(strFileContent);
+    
+    if(bResult)
+    {
+        m_bFileLoaded = true;
+    }
+
+    return bResult;
+}
+
+void TATEditorForm::ForceConfigurationFormToReload()
+{
+    if(m_bWasModified)
+    {
+        TATTestConfigurationForm* pConfigurationForm = dynamic_cast<TATTestConfigurationForm*>(m_parent);
+        pConfigurationForm->LoadConfiguration();
+    }
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -79,34 +123,44 @@ TATEditorForm::~TATEditorForm()
 void TATEditorForm::OnInitDialog( wxInitDialogEvent& event )
 {
     // Loads the configuration file
+    if(!this->LoadConfigurationFile(m_strConfigurationFilePath))
+    {
+        m_lblMessages->SetLabelText(_("ErrorOccurredWhileLoadingFile"));
+        m_rtbConfigurationFile->Enable(false);
+    }
+    else
+    {
+        m_lblMessages->SetLabelText(_("FileLoaded"));
+        m_rtbConfigurationFile->Enable(true);
+    }
 }
 
 void TATEditorForm::OnDialogClose( wxCloseEvent& event )
 {
-    if(m_bWasModified)
-    {
-        TATTestConfigurationForm* pConfigurationForm = dynamic_cast<TATTestConfigurationForm*>(m_parent);
-        pConfigurationForm->LoadConfiguration();
-    }
+    this->ForceConfigurationFormToReload();
 
     this->Destroy();
 }
 
 void TATEditorForm::OnConfigurationFileTextChanged( wxCommandEvent& event )
 {
-    m_bIsModified = true;
-    m_btnSave->Enable(true);
+    if(m_bFileLoaded)
+    {
+        m_bIsModified = true;
+        m_btnSave->Enable(true);
+    }
 }
 
 void TATEditorForm::OnSaveButtonClick( wxCommandEvent& event )
 {
-    // Saves the file
-
-    // Sets the moification flags
-    m_bIsModified = false;
-    m_bWasModified = true;
-
-    m_btnSave->Enable(false);
+    if(!this->SaveConfigurationFile(m_strConfigurationFilePath))
+    {
+        m_lblMessages->SetLabelText(_("ErrorOccurredWhileSavingFile"));
+    }
+    else
+    {
+        m_lblMessages->SetLabelText(_("FileSaved"));
+    }
 }
 
 void TATEditorForm::OnCloseButtonClick( wxCommandEvent& event )

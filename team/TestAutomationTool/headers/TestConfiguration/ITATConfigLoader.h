@@ -51,7 +51,7 @@ public:
     virtual void Load()=0;
 
     /// <summary>
-    /// [DOC]
+    /// Returns the component to its initial status (value tree will be deleted, for example).
     /// </summary>
     virtual void Reset()=0;
 

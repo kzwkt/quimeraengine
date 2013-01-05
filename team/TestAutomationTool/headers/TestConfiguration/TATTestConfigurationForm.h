@@ -64,12 +64,15 @@ public:
 public:
 
     /// <summary>
-    /// [DOC]
+    /// Loads the test configuration file and fills the UI.
     /// </summary>
+    /// <remarks>
+    /// It calls ResetConfiguration internally.
+    /// </remarks>
     void LoadConfiguration();
 
     /// <summary>
-    /// [DOC]
+    /// Clears the UI controls and re-initializes the backend.
     /// </summary>
     void ResetConfiguration();
 

@@ -66,7 +66,7 @@ protected:
         /// </remarks>
         /// <param name="result">Test result information structure.</param>
         /// <param name="pNode">A node of a test result tree.</param>
-        /// <param name="bIsMethod">Optional. DOC.</param>
+        /// <param name="bIsMethod">Optional. Indicates whether the item represents a method (true) or a use case of a method (false).</param>
         TATResultTreeItemData(const TATTestResultInfo result, TATTestResultNode* pNode, const bool &bIsMethod=true);
 
         /// <summary>
@@ -86,10 +86,10 @@ protected:
         TATTestResultNode* GetTestResultNode() const;
 
         /// <summary>
-        /// DOC
+        /// Indicates whether the item represents a method (true) or a use case of a method (false).
         /// </summary>
         /// <returns>
-        /// DOC
+        /// True if the item is a method, flse otherwise.
         /// </returns>
         bool IsMethod() const;
 
@@ -104,7 +104,7 @@ protected:
         TATTestResultNode* m_pTestResultNode;
 
         /// <summary>
-        /// [DOC]
+        /// Flag that indicates whether the item represents a method (true) or a use case of a method (false).
         /// </summary>
         bool m_bIsMethod;
     };
@@ -250,13 +250,15 @@ protected:
     wxString GetLocalizedTitleForResult(const ETATResult &eResult) const;
 
     /// <summary>
-    /// [DOC]
+    /// Generates a more friendly or readable name for an item. The way to transform the input name
+    /// depends on the type of the test result node.
     /// </summary>
-    /// <param name="strNodeName">[DOC]</param>
-    /// <param name="eType">[DOC]</param>
-    /// <param name="bMethodOrCase">Optional. [DOC]</param>
+    /// <param name="strNodeName">Original name of the test result node.</param>
+    /// <param name="eType">The type of the test result node.</param>
+    /// <param name="bMethodOrCase">Optional. Indicates whether the item represents a method (true) or a use case of 
+    /// a method (false). Should be used for test cases only.</param>
     /// <returns>
-    /// [DOC]
+    /// The transformed name that is intended to be more friendly.
     /// </returns>
     wxString GetCleanTestNodeName(const wxString &strNodeName, const ETATTestResultNodeType &eType, const bool &bMethodOrCase=true) const;
 

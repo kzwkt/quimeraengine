@@ -50,7 +50,6 @@ namespace UI
 
 TATTestConfigurationForm::TATTestConfigurationForm() : TestConfigurationBaseForm(NULL)
 {
-    InitializeBackend();
 }
 
 
@@ -109,6 +108,8 @@ void TATTestConfigurationForm::LoadConfiguration()
 
 void TATTestConfigurationForm::ResetConfiguration()
 {
+    this->InitializeBackend();
+
     // Clears the compilation configuration list
     this->m_clCompilationConfiguration->Clear();
 
@@ -157,7 +158,7 @@ void TATTestConfigurationForm::ShowExecutionWindow()
 void TATTestConfigurationForm::ShowEditorWindow()
 {
     // Creates the test execution forms, using the calculated values
-    m_pEditorForm = new TATEditorForm(this);
+    m_pEditorForm = new TATEditorForm(this, STATAppSettings::GetConfigurationFilePath());
     m_pEditorForm->ShowModal();
 }
 
