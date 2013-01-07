@@ -123,11 +123,13 @@ protected:
         /// <param name="strConfiguration">The compilation configuration.</param>
         /// <param name="strProjectFilePath">Optional. The project file to operate with.</param>
         /// <param name="strParams">Optional. A list of parameters expected by the compiler for the given command.</param>
+        /// <param name="strParams">Optional. The token used by the compiler to specify the project file path.</param>
         /// <returns>
         /// True if the command was executed successfully, false otherwise.
         /// </returns>
         bool ExecuteCompilerCommand(const wxString& strCompilerPath, const wxString& strCommand, const wxString& strConfiguration,
-                                    const wxString& strProjectFilePath=wxT(""), const wxString& strParams=wxT(""));
+                                    const wxString& strProjectFilePath=wxT(""), const wxString& strParams=wxT(""),
+                                    const wxString& strFileSpecifier=wxT(""));
 
         /// <summary>
         /// Executes a test module.

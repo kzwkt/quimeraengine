@@ -206,6 +206,16 @@ void TATTestConfigurationForm::ExtractCompilerInfosFromValueTree(TATKeyValueNode
             {
                 compilerInfo.SetBuildParams(strFieldValue);
             }
+
+            if(iCompilerDataField->first == wxT("CompilerCleanParams"))
+            {
+                compilerInfo.SetCleanParams(strFieldValue);
+            }
+            
+            if(iCompilerDataField->first == wxT("CompilerFileSpecifier"))
+            {
+                compilerInfo.SetFileSpecifier(strFieldValue);
+            }
         }
 
         // Gets projects related to the current compiler

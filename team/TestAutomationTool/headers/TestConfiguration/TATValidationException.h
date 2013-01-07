@@ -35,7 +35,8 @@ public:
     /// </summary>
     /// <param name="strErrorCode">An error code.</param>
     /// <param name="strNodeName">The name of the node which validation failed.</param>
-    TATValidationException(const wxString& strErrorCode, const wxString& strNodeName) : m_strNodeName(strNodeName)
+    TATValidationException(const wxString& strErrorCode, const wxString& strNodeName) : m_strNodeName(strNodeName),
+                                                                                        m_strErrorCode(strErrorCode)
     {
     }
 

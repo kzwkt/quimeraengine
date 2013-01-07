@@ -221,7 +221,8 @@ bool TATTestAutomationToolExecution::TATTestExecutionThread::ExecuteCompilerComm
                                                                                     const wxString& strCommand,
                                                                                     const wxString& strConfiguration,
                                                                                     const wxString& strProjectFilePath,
-                                                                                    const wxString& strParams)
+                                                                                    const wxString& strParams,
+                                                                                    const wxString& strFileSpecifier)
 {
     bool bResult = false;
 
@@ -231,7 +232,7 @@ bool TATTestAutomationToolExecution::TATTestExecutionThread::ExecuteCompilerComm
         m_pHandler->GetLogger()->SetAutoNewLinePrint(false);
         m_pHandler->GetLogger()->SetAutoTimePrint(false);
 
-        bResult = STATFileSystemHelper::Execute(strCompilerPath, wxT(" \"") + strProjectFilePath + wxT("\" ") + strCommand + strConfiguration + wxT(" ") + strParams, this);
+        bResult = STATFileSystemHelper::Execute(strCompilerPath, strFileSpecifier + wxT(" ") + wxT(" \"") + strProjectFilePath + wxT("\" ") + strCommand + strConfiguration + wxT(" ") + strParams, this);
 
         m_pHandler->GetLogger()->SetAutoNewLinePrint(true);
         m_pHandler->GetLogger()->SetAutoTimePrint(true);
@@ -386,9 +387,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->NotifyEvent(INFO_NOTIFICATION + *iProject + wxT(" project"));
 
                             this->Log(TATFormattedMessage(wxT("Cleaning..."), LOG_FORMAT_NORMAL));
-                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" \"") + *iProject + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig, LOG_FORMAT_DATA_HIGHLIGHT));
+                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + *iProject + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetCleanParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, *iProject);
+                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, *iProject, compilerInfo.GetCleanParams(), compilerInfo.GetFileSpecifier());
 
                             if(m_nLastProcessResult != SUCCESS)
                             {
@@ -399,9 +400,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             if(this->TestDestroy()) throw std::exception();
 
                             this->Log(TATFormattedMessage(wxT("Building..."), LOG_FORMAT_NORMAL));
-                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" \"") + *iProject + wxT("\" ") + compilerInfo.GetBuildCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetBuildParams(), LOG_FORMAT_DATA_HIGHLIGHT));
+                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + *iProject + wxT("\" ") + compilerInfo.GetBuildCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetBuildParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, *iProject, compilerInfo.GetBuildParams());
+                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, *iProject, compilerInfo.GetBuildParams(), compilerInfo.GetFileSpecifier());
 
                             if(m_nLastProcessResult != SUCCESS)
                             {
@@ -425,9 +426,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->NotifyEvent(INFO_NOTIFICATION + iTestModuleInfo->GetTestProjectPath() + wxT(" test project"));
 
                             this->Log(TATFormattedMessage(wxT("Cleaning..."), LOG_FORMAT_NORMAL));
-                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig, LOG_FORMAT_DATA_HIGHLIGHT));
+                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetCleanParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath());
+                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetCleanParams(), compilerInfo.GetFileSpecifier());
 
                             if(m_nLastProcessResult != SUCCESS)
                             {
@@ -438,9 +439,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             if(this->TestDestroy()) throw std::exception();
 
                             this->Log(TATFormattedMessage(wxT("Building..."), LOG_FORMAT_NORMAL));
-                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetBuildCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetBuildParams(), LOG_FORMAT_DATA_HIGHLIGHT));
+                            this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetBuildCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetBuildParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetBuildParams());
+                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetBuildParams(), compilerInfo.GetFileSpecifier());
 
                             if(m_nLastProcessResult != SUCCESS)
                             {
@@ -464,11 +465,19 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                     this->Log(TATFormattedMessage(wxT("Result files removed."), LOG_FORMAT_NORMAL));
                                 }
                             }
-
+                            
                             // 2.2.1.2.2 Execute every test module...
-
+                            
                             // Obtains the paths of all the test modules
                             std::list<wxString> testModulePaths = this->ReadTestModuleFiles(iTestModuleInfo->GetTestModulesPath() + *iCompilationConfig);
+                            
+                            if(testModulePaths.empty())
+                            {
+                                this->Log(TATFormattedMessage(wxT("No modules were found at '"), LOG_FORMAT_ERROR).
+                                                       Append(iTestModuleInfo->GetTestModulesPath() + *iCompilationConfig, LOG_FORMAT_DATA_HIGHLIGHT).
+                                                       Append(wxT("'."), LOG_FORMAT_ERROR));
+                                this->NotifyEvent(ERROR_NOTIFICATION + iTestModuleInfo->GetTestModulesPath() + *iCompilationConfig + wxT(" modules folder"));
+                            }
 
                             for(std::list<wxString>::const_iterator iTestModulePath = testModulePaths.begin(); iTestModulePath != testModulePaths.end(); ++iTestModulePath)
                             {
@@ -599,7 +608,7 @@ void TATTestAutomationToolExecution::TATTestExecutionThread::NotifyTestResult(co
     wxThreadEvent* pEventData = new wxThreadEvent(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE);
     pEventData->SetPayload<TATTestResultInfo>(testResultInfo);
     wxQueueEvent(m_pHandler, pEventData);
-    this->Sleep(10); // To let the UI refresh
+    this->Sleep(500); // To let the UI refresh
 }
 
 bool TATTestAutomationToolExecution::TATTestExecutionThread::DeletePreviousResultFiles(const wxString &strTestResultFilePath)

@@ -109,6 +109,26 @@ void TATCompilerInfo::SetBuildParams(const wxString& strParams)
     m_strBuildParams = strParams;
 }
 
+wxString TATCompilerInfo::GetCleanParams() const
+{
+    return m_strCleanParams;
+}
+
+void TATCompilerInfo::SetCleanParams(const wxString& strParams)
+{
+    m_strCleanParams = strParams;
+}
+
+wxString TATCompilerInfo::GetFileSpecifier() const
+{
+    return m_strFileSpecifier;
+}
+
+void TATCompilerInfo::SetFileSpecifier(const wxString& strToken)
+{
+    m_strFileSpecifier = strToken;
+}
+
 wxString TATCompilerInfo::GetCompilerPath() const
 {
     return m_strCompilerPath;

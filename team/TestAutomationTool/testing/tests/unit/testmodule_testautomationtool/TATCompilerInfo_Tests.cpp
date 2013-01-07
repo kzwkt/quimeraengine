@@ -85,9 +85,9 @@ QTEST_CASE ( SetBuildCommand_BuildCommandIsCorrectlyStored_Test )
 }
 
 /// <summary>
-/// Checks that the build params is correctly retrieved.
+/// Checks that the build parameters are correctly retrieved.
 /// </summary>
-QTEST_CASE ( GetBuildParams_BuildParamsIsCorrectlyRetrieved_Test )
+QTEST_CASE ( GetBuildParams_BuildParamsAreCorrectlyRetrieved_Test )
 {
     // Preparation
     TATCompilerInfo compilerInfoUT;
@@ -102,9 +102,9 @@ QTEST_CASE ( GetBuildParams_BuildParamsIsCorrectlyRetrieved_Test )
 }
 
 /// <summary>
-/// Checks that the build params is correctly stored.
+/// Checks that the build parameters are correctly stored.
 /// </summary>
-QTEST_CASE ( SetBuildParams_BuildParamsIsCorrectlyStored_Test )
+QTEST_CASE ( SetBuildParams_BuildParamsAreCorrectlyStored_Test )
 {
     // Preparation
     const wxString EXPECTED_BUILDPARAMS = wxT("BUILDPARAMS");
@@ -115,6 +115,72 @@ QTEST_CASE ( SetBuildParams_BuildParamsIsCorrectlyStored_Test )
     
     // Verification
     BOOST_CHECK_EQUAL(compilerInfoUT.GetBuildParams(), EXPECTED_BUILDPARAMS);
+}
+
+/// <summary>
+/// Checks that the clean parameters are correctly retrieved.
+/// </summary>
+QTEST_CASE ( GetCleanParams_CleanParamsAreCorrectlyRetrieved_Test )
+{
+    // Preparation
+    TATCompilerInfo compilerInfoUT;
+    const wxString EXPECTED_CLEANPARAMS = wxT("CLEANPARAMS");
+    compilerInfoUT.SetCleanParams(EXPECTED_CLEANPARAMS);
+
+	// Execution
+    wxString strCleanParams = compilerInfoUT.GetCleanParams();
+    
+    // Verification
+    BOOST_CHECK_EQUAL(strCleanParams, EXPECTED_CLEANPARAMS);
+}
+
+/// <summary>
+/// Checks that the clean parmeters are correctly stored.
+/// </summary>
+QTEST_CASE ( SetCleanParams_CleanParamsAreCorrectlyStored_Test )
+{
+    // Preparation
+    const wxString EXPECTED_CLEANPARAMS = wxT("CLEANPARAMS");
+
+	// Execution
+    TATCompilerInfo compilerInfoUT;
+    compilerInfoUT.SetCleanParams(EXPECTED_CLEANPARAMS);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(compilerInfoUT.GetCleanParams(), EXPECTED_CLEANPARAMS);
+}
+
+/// <summary>
+/// Checks that the file specifier is correctly retrieved.
+/// </summary>
+QTEST_CASE ( GetFileSpecifier_FileSpecifierIsCorrectlyRetrieved_Test )
+{
+    // Preparation
+    TATCompilerInfo compilerInfoUT;
+    const wxString EXPECTED_FILESPECIFIER = wxT("FILESPECIFIER");
+    compilerInfoUT.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+
+	// Execution
+    wxString strFileSpecifier = compilerInfoUT.GetFileSpecifier();
+    
+    // Verification
+    BOOST_CHECK_EQUAL(strFileSpecifier, EXPECTED_FILESPECIFIER);
+}
+
+/// <summary>
+/// Checks that the file specifier is correctly stored.
+/// </summary>
+QTEST_CASE ( SetFileSpecifier_FileSpecifierIsCorrectlyStored_Test )
+{
+    // Preparation
+    const wxString EXPECTED_FILESPECIFIER = wxT("FILESPECIFIER");
+
+	// Execution
+    TATCompilerInfo compilerInfoUT;
+    compilerInfoUT.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(compilerInfoUT.GetFileSpecifier(), EXPECTED_FILESPECIFIER);
 }
 
 /// <summary>

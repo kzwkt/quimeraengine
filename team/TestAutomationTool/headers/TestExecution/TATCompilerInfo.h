@@ -108,6 +108,34 @@ public:
     void SetBuildParams(const wxString& strParams);
     
     /// <summary>
+    /// Gets a string that contains all the parameters for the "clean" command.
+    /// </summary>
+    /// <returns>
+    /// The parameters for the "clean" command.
+    /// </returns>
+    wxString GetCleanParams() const;
+
+    /// <summary>
+    /// Sets a string that contains all the parameters for the "clean" command.
+    /// </summary>
+    /// <param name="strParams">The parameters for the "clean" command.</param>
+    void SetCleanParams(const wxString& strParams);
+    
+    /// <summary>
+    /// Gets a string that contains the token used by the compiler to specify the project file.
+    /// </summary>
+    /// <returns>
+    /// The token used by the compiler to specify the project file.
+    /// </returns>
+    wxString GetFileSpecifier() const;
+
+    /// <summary>
+    /// Sets a string that contains the token used by the compiler to specify the project file.
+    /// </summary>
+    /// <param name="strToken">The token used by the compiler to specify the project file.</param>
+    void SetFileSpecifier(const wxString& strToken);
+
+    /// <summary>
     /// Gets the physical path of the compiler.
     /// </summary>
     /// <returns>
@@ -173,6 +201,16 @@ protected:
     /// The parameters for the "build" command.
     /// </summary>
     wxString m_strBuildParams;
+
+    /// <summary>
+    /// The parameters for the "clean" command.
+    /// </summary>
+    wxString m_strCleanParams;
+    
+    /// <summary>
+    /// The token used by the compiler to specify the file of the project.
+    /// </summary>
+    wxString m_strFileSpecifier;
 
     /// <summary>
     /// The file path of the compiler.

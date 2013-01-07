@@ -55,7 +55,7 @@ QTEST_CASE ( LoadConfiguration_NoExceptionIsThrownWhenUsingExistingAndValidSourc
 
 	// Execution
     bool bExceptionThrown = false;
-
+    
     try
     {
         TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(EXISTING_VALID_SOURCE);

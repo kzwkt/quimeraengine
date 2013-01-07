@@ -67,6 +67,16 @@ TATRuleNode* TATConfigLoaderFactory::CreateRuleTree() const
     // Compilation options, known by the compiler that will be added every time the SUT is compiled. It must appear once and only once, 
     // although it can be empty.
     pCompilerNode->AddChild( new TATRuleNode(wxT("CompilerBuildParams"), 1, true, true, ETATConfigNodeType::E_VALUE) );
+    
+    // --CompilerCleanParams
+    // Compilation options, known by the compiler that will be added every time the SUT is cleaned. It must appear once and only once, 
+    // although it can be empty.
+    pCompilerNode->AddChild( new TATRuleNode(wxT("CompilerCleanParams"), 1, true, true, ETATConfigNodeType::E_VALUE) );
+    
+    // --CompilerFileSpecifier
+    // Token known by the compiler that will be added before the path of the project file. It must appear once and only once, 
+    // although it can be empty.
+    pCompilerNode->AddChild( new TATRuleNode(wxT("CompilerFileSpecifier"), 1, true, true, ETATConfigNodeType::E_VALUE) );
 
     // -Project settings node
     // This section describes the configuration parameters for a given project (a solution or a workspace). 

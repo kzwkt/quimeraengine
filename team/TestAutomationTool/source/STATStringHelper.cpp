@@ -23,33 +23,41 @@ std::list<wxString> STATStringHelper::Split(const wxString& strSource, const wxS
 {
     std::list<wxString> result;
 
-    const int LENGTH = strSource.size();
-
-    int nCurrentPos = 0;
-    int nLastFoundPos = 0;
-
-    do
+    if(strSource.size() > 0 && strSeparator.size() > 0)
     {
-        // Searches for the next separator
-        nCurrentPos = strSource.find(strSeparator, nCurrentPos);
+        const int LENGTH = strSource.size();
 
-        // No separator found
-        if(nCurrentPos == wxString::npos)
-            break;
+        int nCurrentPos = 0;
+        int nLastFoundPos = 0;
 
-        // Saves the chuck of string from the last separator to the current one
-        result.push_back(strSource.substr(nLastFoundPos, nCurrentPos - nLastFoundPos));
+        do
+        {
+            // Searches for the next separator
+            nCurrentPos = strSource.find(strSeparator, nCurrentPos);
 
-        // Step forward
-        nCurrentPos += strSeparator.size();
-        nLastFoundPos = nCurrentPos;
+            // No separator found
+            if(nCurrentPos == -1)
+                break;
 
-    } while(nCurrentPos < LENGTH);
+            // Saves the chuck of string from the last separator to the current one
+            result.push_back(strSource.substr(nLastFoundPos, nCurrentPos - nLastFoundPos));
 
-    if(nLastFoundPos < LENGTH)
+            // Step forward
+            nCurrentPos += strSeparator.size();
+            nLastFoundPos = nCurrentPos;
+
+        } while(nCurrentPos < LENGTH);
+
+        if(nLastFoundPos < LENGTH)
+        {
+            // Stores the last chunk (when the string doesn't ends with a separator)
+            result.push_back(strSource.substr(nLastFoundPos));
+        }
+    }
+    else if(strSource.size() > 0 && strSeparator.size() == 0)
     {
-        // Stores the last chunk (when the string doesn't ends with a separator)
-        result.push_back(strSource.substr(nLastFoundPos));
+        // The full string is returned
+        result.push_back(strSource);
     }
 
     return result;

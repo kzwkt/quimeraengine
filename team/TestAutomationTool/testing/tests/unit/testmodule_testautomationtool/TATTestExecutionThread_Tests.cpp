@@ -423,7 +423,7 @@ QTEST_CASE ( ExecuteCompilerCommand_ReturnsTrueWhenExecutableFileExists_Test )
 /// <summary>
 /// Checks that it returns False when the executable file doesn't exist.
 /// </summary>
-QTEST_CASE ( ExecuteCompilerCommand_ReturnsFalseWhenExecutableFileExists_Test )
+QTEST_CASE ( ExecuteCompilerCommand_ReturnsFalseWhenExecutableFileDoesNotExist_Test )
 {
     using Kinesis::TestAutomationTool::Backend::Test::TATLoggerMock;
 
