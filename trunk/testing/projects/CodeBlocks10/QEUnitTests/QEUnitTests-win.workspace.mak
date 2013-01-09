@@ -8,12 +8,12 @@ WRKDIR = %cd%
 buildDebugWin32SharedrtStatic: tools_debugwin32sharedrtstatic
 
 tools_debugwin32sharedrtstatic: 
-	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/testing/projects/CodeBlocks10/QEUnitTests/Tools/Tools.cbp.mak
+	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/testing/projects/CodeBlocks10/QEUnitTests/Tools/Tools-win.cbp.mak
 
 cleanDebugWin32SharedrtStatic: clean_tools_debugwin32sharedrtstatic
 
 clean_tools_debugwin32sharedrtstatic: 
-	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/testing/projects/CodeBlocks10/QEUnitTests/Tools/Tools.cbp.mak
+	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/testing/projects/CodeBlocks10/QEUnitTests/Tools/Tools-win.cbp.mak
 
 .PHONY: clean_tools_tools
 

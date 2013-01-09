@@ -8,24 +8,24 @@ WRKDIR = %cd%
 buildDebugWin32SharedrtStatic: core_debugwin32sharedrtstatic system_debugwin32sharedrtstatic tools_debugwin32sharedrtstatic
 
 core_debugwin32sharedrtstatic:
-	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
+	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-win.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
 
 system_debugwin32sharedrtstatic:
-	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/System/System.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
+	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/System/System-win.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
 
 tools_debugwin32sharedrtstatic:
-	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
+	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-win.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
 	
 cleanDebugWin32SharedrtStatic: clean_core_debugwin32sharedrtstatic clean_system_debugwin32sharedrtstatic clean_tools_debugwin32sharedrtstatic
 
 clean_core_debugwin32sharedrtstatic: 
-	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core.cbp.mak
+	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-win.cbp.mak
 
 clean_system_debugwin32sharedrtstatic: 
-	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/System/System.cbp.mak
+	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/System/System-win.cbp.mak
 
 clean_tools_debugwin32sharedrtstatic: 
-	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools.cbp.mak
+	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-win.cbp.mak
 
 .PHONY: clean_core_core clean_system_system clean_tools_tools
 
