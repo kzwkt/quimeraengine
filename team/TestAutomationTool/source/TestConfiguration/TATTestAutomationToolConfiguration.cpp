@@ -40,8 +40,8 @@ TATTestAutomationToolConfiguration::TATTestAutomationToolConfiguration()
     m_pConfigLoader = factory.CreateConfigLoader(ETATConfigurationSource::E_INI_FILE);
     m_pConfigLoader->SetSource(STATAppSettings::GetConfigurationFilePath());
 }
-	
-	
+
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
@@ -92,6 +92,10 @@ void TATTestAutomationToolConfiguration::LoadConfiguration(const wxString& strCo
 
     // Generates flag combinations
     this->CombineFlags(flagList);
+
+    // Resets selections to avoid inconsistences
+    m_compilerConfigurationSelection.clear();
+    m_flagCombinationSelection.clear();
 }
 
 void TATTestAutomationToolConfiguration::SelectCompilerConfiguration(const wxString& strCompilerConfig, const bool& bSelected)
@@ -137,7 +141,7 @@ void TATTestAutomationToolConfiguration::CombineFlags(const std::list<TATKeyValu
     }
 }
 
-void TATTestAutomationToolConfiguration::CombineFlagValue(std::list<TATKeyValueNode*>::const_iterator flagToCombine, 
+void TATTestAutomationToolConfiguration::CombineFlagValue(std::list<TATKeyValueNode*>::const_iterator flagToCombine,
                                                           std::list<TATKeyValueNode*>::const_iterator flagListEnd,
                                                           std::map<wxString, wxString> flagCombination,
                                                           std::list< std::map<wxString, wxString> >& outFlagCombinations) const
@@ -149,7 +153,7 @@ void TATTestAutomationToolConfiguration::CombineFlagValue(std::list<TATKeyValueN
     // Gets the next flag in the list of flags to combine
     std::list<TATKeyValueNode*>::const_iterator nextFlagToCombineWith = flagToCombine;
     nextFlagToCombineWith++;
-    
+
     // Combines the flag values with other flags' values or stores the current combination if there are no more flags to combine
     for(TATKeyValueNode::TNodeCollection::const_iterator iFlagValue = flagValues.begin(); iFlagValue != flagValues.end(); ++iFlagValue)
     {

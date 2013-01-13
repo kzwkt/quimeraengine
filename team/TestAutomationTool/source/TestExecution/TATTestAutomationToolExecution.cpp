@@ -3,6 +3,7 @@
 #include "TestExecution/TATTestAutomationToolExecution.h"
 
 #include <algorithm>
+#include <boost/property_tree/detail/xml_parser_error.hpp>
 
 #include "TestExecution/TATwxWidgetsControlLogger.h"
 #include "TestExecution/TATFormattedMessage.h"
@@ -377,6 +378,8 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                         // 2.2.1.1 Rebuilds every project of the SUT...
                         const std::list<wxString>& sutProjects = compilerInfo.GetSUTProjects();
 
+                        bool bExecSucceeded;
+
                         for(std::list<wxString>::const_iterator iProject = sutProjects.begin(); iProject != sutProjects.end(); ++iProject)
                         {
                             if(this->TestDestroy()) throw std::exception();
@@ -389,9 +392,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->Log(TATFormattedMessage(wxT("Cleaning..."), LOG_FORMAT_NORMAL));
                             this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + *iProject + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetCleanParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, *iProject, compilerInfo.GetCleanParams(), compilerInfo.GetFileSpecifier());
+                            bExecSucceeded = this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, *iProject, compilerInfo.GetCleanParams(), compilerInfo.GetFileSpecifier());
 
-                            if(m_nLastProcessResult != SUCCESS)
+                            if(m_nLastProcessResult < SUCCESS || !bExecSucceeded)
                             {
                                 this->Log(TATFormattedMessage(wxT("The execution of the command failed."), LOG_FORMAT_ERROR));
                                 this->NotifyEvent(ERROR_NOTIFICATION + wxT("Clean command failed"));
@@ -402,9 +405,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->Log(TATFormattedMessage(wxT("Building..."), LOG_FORMAT_NORMAL));
                             this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + *iProject + wxT("\" ") + compilerInfo.GetBuildCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetBuildParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, *iProject, compilerInfo.GetBuildParams(), compilerInfo.GetFileSpecifier());
+                            bExecSucceeded = this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, *iProject, compilerInfo.GetBuildParams(), compilerInfo.GetFileSpecifier());
 
-                            if(m_nLastProcessResult != SUCCESS)
+                            if(m_nLastProcessResult < SUCCESS || !bExecSucceeded)
                             {
                                 this->Log(TATFormattedMessage(wxT("The execution of the command failed."), LOG_FORMAT_ERROR));
                                 this->NotifyEvent(ERROR_NOTIFICATION + wxT("Build command failed"));
@@ -428,9 +431,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->Log(TATFormattedMessage(wxT("Cleaning..."), LOG_FORMAT_NORMAL));
                             this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetCleanCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetCleanParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetCleanParams(), compilerInfo.GetFileSpecifier());
+                            bExecSucceeded = this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetCleanCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetCleanParams(), compilerInfo.GetFileSpecifier());
 
-                            if(m_nLastProcessResult != SUCCESS)
+                            if(m_nLastProcessResult < SUCCESS || !bExecSucceeded)
                             {
                                 this->Log(TATFormattedMessage(wxT("The execution of the command failed."), LOG_FORMAT_ERROR));
                                 this->NotifyEvent(ERROR_NOTIFICATION + wxT("Clean command failed"));
@@ -441,9 +444,9 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                             this->Log(TATFormattedMessage(wxT("Building..."), LOG_FORMAT_NORMAL));
                             this->Log(TATFormattedMessage(compilerInfo.GetCompilerPath() + wxT(" ") + compilerInfo.GetFileSpecifier() + wxT(" \"") + iTestModuleInfo->GetTestProjectPath() + wxT("\" ") + compilerInfo.GetBuildCommand() + *iCompilationConfig + wxT(" ") + compilerInfo.GetBuildParams(), LOG_FORMAT_DATA_HIGHLIGHT));
 
-                            this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetBuildParams(), compilerInfo.GetFileSpecifier());
+                            bExecSucceeded = this->ExecuteCompilerCommand(compilerInfo.GetCompilerPath(), compilerInfo.GetBuildCommand(), *iCompilationConfig, iTestModuleInfo->GetTestProjectPath(), compilerInfo.GetBuildParams(), compilerInfo.GetFileSpecifier());
 
-                            if(m_nLastProcessResult != SUCCESS)
+                            if(m_nLastProcessResult < SUCCESS || !bExecSucceeded)
                             {
                                 this->Log(TATFormattedMessage(wxT("The execution of the command failed."), LOG_FORMAT_ERROR));
                                 this->NotifyEvent(ERROR_NOTIFICATION + wxT("Build command failed"));
@@ -465,12 +468,12 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                     this->Log(TATFormattedMessage(wxT("Result files removed."), LOG_FORMAT_NORMAL));
                                 }
                             }
-                            
+
                             // 2.2.1.2.2 Execute every test module...
-                            
+
                             // Obtains the paths of all the test modules
                             std::list<wxString> testModulePaths = this->ReadTestModuleFiles(iTestModuleInfo->GetTestModulesPath() + *iCompilationConfig);
-                            
+
                             if(testModulePaths.empty())
                             {
                                 this->Log(TATFormattedMessage(wxT("No modules were found at '"), LOG_FORMAT_ERROR).
@@ -492,10 +495,19 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                 wxString strPreviousWorkingDirectory = wxGetCwd();
                                 wxSetWorkingDirectory(strPreviousWorkingDirectory + wxT("/") + iTestModuleInfo->GetTestModulesPath() + *iCompilationConfig);
 
-                                this->ExecuteTestModule(*iTestModulePath);
+                                wxString strTestModulePath;
+#ifdef TAT_OS_WINDOWS
+                                strTestModulePath = *iTestModulePath;
+#elif defined(TAT_OS_LINUX)
+                                // Linux needs to specify the folder of the executable file, since it's not registered as a command
+                                strTestModulePath = wxT("./") + *iTestModulePath;
+#else
+    #error Test module path not defined!
+#endif
 
-                                const int TEST_MODULE_SUCESS = 201;
-                                if(m_nLastProcessResult != SUCCESS && m_nLastProcessResult != TEST_MODULE_SUCESS)
+                                bExecSucceeded = this->ExecuteTestModule(strTestModulePath);
+
+                                if(m_nLastProcessResult < SUCCESS || !bExecSucceeded)
                                 {
                                     this->Log(TATFormattedMessage(wxT("The execution of the test module failed."), LOG_FORMAT_ERROR));
                                     this->NotifyEvent(ERROR_NOTIFICATION + wxT("Test module failed"));
@@ -508,6 +520,14 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
                                 // Obtains a list with all the existent result files
                                 std::list<wxString> testResultFiles = this->ReadTestResultFiles(iTestModuleInfo->GetResultsPath());
+
+                                if(testResultFiles.empty())
+                                {
+                                    this->Log(TATFormattedMessage(wxT("No result files were found at '"), LOG_FORMAT_ERROR).
+                                                           Append(iTestModuleInfo->GetResultsPath(), LOG_FORMAT_DATA_HIGHLIGHT).
+                                                           Append(wxT("'."), LOG_FORMAT_ERROR));
+                                    this->NotifyEvent(ERROR_NOTIFICATION + iTestModuleInfo->GetResultsPath() + wxT(" result files folder"));
+                                }
 
                                 // Checks if there are new files to parse
                                 for(std::list<wxString>::const_iterator iResultFilePath = testResultFiles.begin(); iResultFilePath != testResultFiles.end(); ++iResultFilePath)
@@ -522,9 +542,16 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                                                Append(wxT("'..."), LOG_FORMAT_NORMAL));
                                         this->NotifyEvent(INFO_NOTIFICATION + *iResultFilePath + wxT(" result file"));
 
-
-                                        this->ParseTestResultFile(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
-
+                                        try
+                                        {
+                                            this->ParseTestResultFile(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
+                                        }
+                                        catch(const boost::property_tree::xml_parser::xml_parser_error &ex)
+                                        {
+                                            this->Log(TATFormattedMessage(wxString(wxT("Failed to parse the result file:")) + ex.what(), LOG_FORMAT_ERROR));
+                                            this->NotifyEvent(ERROR_NOTIFICATION + wxT("Parsing test result failed"));
+                                        }
+                                        
                                         // Notifies that there is new content in the test result tree
                                         TATTestResultInfo resultInfo;
                                         resultInfo.SetCompilationConfiguration(*iCompilationConfig);
@@ -614,7 +641,7 @@ void TATTestAutomationToolExecution::TATTestExecutionThread::NotifyTestResult(co
 bool TATTestAutomationToolExecution::TATTestExecutionThread::DeletePreviousResultFiles(const wxString &strTestResultFilePath)
 {
     bool bResult = false;
-    
+
     std::list<wxString> filesToDelete = this->ReadTestResultFiles(strTestResultFilePath);
 
     for(std::list<wxString>::const_iterator iResultFile = filesToDelete.begin(); iResultFile != filesToDelete.end(); ++iResultFile)

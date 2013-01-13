@@ -17,11 +17,6 @@
 using Kinesis::TestAutomationTool::UI::TATSplashScreen;
 using Kinesis::TestAutomationTool::UI::TATTestConfigurationForm;
 
-namespace Kinesis
-{
-namespace TestAutomationTool
-{
-
 IMPLEMENT_APP(TestAutomationToolUIApp);
 
 //##################=======================================================##################
@@ -35,6 +30,9 @@ IMPLEMENT_APP(TestAutomationToolUIApp);
 
 bool TestAutomationToolUIApp::OnInit()
 {
+    // Image handlers initialization (necessary for using PNG images)
+    wxImage::AddHandler(new wxPNGHandler());
+
     // I18n initialization
     this->InitializeI18n(wxLANGUAGE_ENGLISH);
 
@@ -86,6 +84,3 @@ void TestAutomationToolUIApp::OnSplashScreenClose( wxCloseEvent& event )
     event.Skip();
 }
 
-
-}//namespace TestAutomationTool
-}//namespace Kinesis

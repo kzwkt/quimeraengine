@@ -5,7 +5,13 @@
 #include <vector>
 
 #include <stdio.h>
-#include <process.h>
+
+#ifdef TAT_OS_WINDOWS
+    #include <process.h>
+#elif defined(TAT_OS_LINUX)
+    #include <unistd.h>
+#endif
+
 
 #include <wx/filefn.h>
 #include <wx/textfile.h>
@@ -33,7 +39,7 @@ namespace Backend
 #ifdef TAT_OS_WINDOWS
     const wxString STATFileSystemHelper::sm_strExecutableFileExtension = wxT("exe");
 #elif defined(TAT_OS_LINUX)
-    const wxString STATFileSystemHelper::sm_strExecutableFileExtension = wxT("sh");
+    const wxString STATFileSystemHelper::sm_strExecutableFileExtension = wxT("");
 // TODO [Thund]: Port for Mac
 #endif
 
@@ -131,22 +137,15 @@ bool STATFileSystemHelper::Execute(const wxString& strFilePath, const wxString& 
 
     bool bResult = false;
 
-    if(wxFileExists(strFilePath))
+    try
     {
-        try
-        {
-            TATShellProcess buildingProcess(strFilePath + wxT(" ") + strParams,
-                                            pListener);
-            buildingProcess.Execute(true);
+        TATShellProcess buildingProcess(strFilePath + wxT(" ") + strParams,
+                                        pListener);
+        buildingProcess.Execute(true);
 
-            bResult = true;
-        }
-        catch(...)
-        {
-            bResult = false;
-        }
+        bResult = true;
     }
-    else
+    catch(...)
     {
         bResult = false;
     }
@@ -184,14 +183,14 @@ bool STATFileSystemHelper::Write(const wxString& strFilePath, const wxString& st
         if(bResult)
         {
             bResult = file.Open();
-            
+
             std::list<wxString> textLines = STATStringHelper::Split(strTextContent, TAT_NEWLINE_TOKEN);
 
             for(std::list<wxString>::const_iterator iLine = textLines.begin(); iLine != textLines.end(); ++iLine)
             {
                 file.AddLine(*iLine);
             }
-            
+
             if(bResult)
             {
                 file.Write();
@@ -206,7 +205,9 @@ std::list<wxString> STATFileSystemHelper::ListFolderContent(const wxString& strF
 {
     std::list<wxString> result;
 
-    const wxString EXTENSION_FILTER = wxT("*.") + strExtensionFilter;
+    const wxString EXTENSION_FILTER = strExtensionFilter == wxT("") ?
+                                            wxT("") :
+                                            wxT("*.") + strExtensionFilter;
 
     wxDir directory(strFolderToExplore);
 

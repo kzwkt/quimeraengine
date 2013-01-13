@@ -141,7 +141,7 @@ void TATTestExecutionForm::StartTestExecution()
     this->ShowButtonsDependingOnExecutionStatus(true);
     m_rtbLog->Clear();
     m_lstLogEvents->ClearAll();
-    m_lstLogEvents->InsertColumn(0, wxT(""), 150);
+    m_lstLogEvents->InsertColumn(0, wxT(""));
     m_treeResults->DeleteAllItems();
     m_rtbResultInfo->Clear();
     this->EnableLogEventListDependingOnExecution(true);
@@ -509,7 +509,11 @@ void TATTestExecutionForm::ShowAdditionalInformation(wxTreeCtrl* pTreeControl, c
                     strPathToNode = wxT("      |") + TAT_NEWLINE_TOKEN + wxT("     +--") + pParentNode->GetName() + TAT_NEWLINE_TOKEN + strPathToNode;
                     break;
                 case ETATTestResultNodeType::E_Case:
-                    strPathToNode = wxT("        |") + TAT_NEWLINE_TOKEN + wxT("       +--") + pParentNode->GetName() + TAT_NEWLINE_TOKEN;
+                    if(!dynamic_cast<TATTestExecutionForm::TATResultTreeItemData*>(pTreeControl->GetItemData(parentId))->IsMethod())
+                    {
+                        // Only writes this node if it's not a method but a use case
+                        strPathToNode = wxT("        |") + TAT_NEWLINE_TOKEN + wxT("       +--") + pParentNode->GetName() + TAT_NEWLINE_TOKEN;
+                    }
                     break;
                 }
             }
@@ -574,6 +578,8 @@ void TATTestExecutionForm::AddLogEvent(const wxString &strMessage)
     newItem.SetId(m_lstLogEvents->GetItemCount()); // Always at the end
     newItem.SetData(m_rtbLog->GetCaretPosition()); // Saves the current position of the log cursor. This is not the purpose of the property but it does the trick
     newItem.SetColumn(0);
+    newItem.SetAlign(wxLIST_FORMAT_LEFT);
+    newItem.SetWidth(150);
 
     m_lstLogEvents->InsertItem(newItem);
 }

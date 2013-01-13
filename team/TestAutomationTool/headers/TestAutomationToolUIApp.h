@@ -5,21 +5,17 @@
 
 #include <wx/app.h>
 
-namespace Kinesis
-{
-namespace TestAutomationTool
-{
+// At global namespace
 
 /// <summary>
 /// The class that defines the application to be executed.
 /// </summary>
 class TestAutomationToolUIApp : public wxApp
 {
-
     // METHODS
 	// ---------------
 public:
-    
+
     /*! @copydoc wxApp::OnInit() */
     virtual bool OnInit();
 
@@ -31,7 +27,7 @@ protected:
     /// </summary>
     /// <param name="currentLang">The language identifier.</param>
     void InitializeI18n(wxLanguage currentLang);
-    
+
     /// <summary>
     /// Shows the splash screen window.
     /// </summary>
@@ -74,7 +70,5 @@ protected:
     wxWindow* m_pFirstWindow;
 };
 
-}//namespace TestAutomationTool
-}//namespace Kinesis
 
 #endif // __TESTAUTOMATIONTOOLUIAPP__

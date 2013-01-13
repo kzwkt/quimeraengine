@@ -36606,11 +36606,11 @@
 1347206771 j:\quimeraengine\tat\testing\tests\unit\testmodule_testautomationtool\tatnodemock.h
 	"TATNode.h"
 
-1344278932 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\testmodule_testautomationtool.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\testmodule_testautomationtool.cpp
 	"QUnitTestModuleBase.h"
 	"TestingHelperDefinitions.h"
 
-1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qunittestmodulebase.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qunittestmodulebase.h
 	<string>
 	<boost/test/unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
@@ -39190,15 +39190,15 @@
 
 1299086982 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\boost\include\boost\version.hpp
 
-1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\commonconfigdefinitions.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\commonconfigdefinitions.h
 	"ExternalDefinitions.h"
 
-1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\externaldefinitions.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\externaldefinitions.h
 	"Configuration.h"
 
-1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\configuration.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\configuration.h
 
-1356637151 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qcommontestconfig.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qcommontestconfig.h
 	<boost/test/unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	<fstream>
@@ -39209,11 +39209,11 @@
 	<direct.h>
 	<unistd.h>
 
-1344278933 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qsimpleconfigloader.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qsimpleconfigloader.h
 	<string>
 	<vector>
 
-1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\eqtesttype.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\eqtesttype.h
 	<map>
 	<wx/string.h>
 
@@ -39223,21 +39223,21 @@
 	<xmmintrin.h>
 	<tchar.h>
 
-1356286814 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\internaldefinitions.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\internaldefinitions.h
 	"ExternalDefinitions.h"
 	<exception>
 	<boost/assert.hpp>
 
-1353152256 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\testinghelperdefinitions.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\testinghelperdefinitions.h
 
-1353152256 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\eqtesttype.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\eqtesttype.cpp
 	"EQTestType.h"
 
-1344278933 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qsimpleconfigloader.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qsimpleconfigloader.cpp
 	<fstream>
 	"QSimpleConfigLoader.h"
 
-1349291814 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\statappsettings_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\statappsettings_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -39246,10 +39246,10 @@
 1223860826 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\boost\include\boost\test\auto_unit_test.hpp
 	<boost/test/unit_test.hpp>
 
-1355673307 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\testingexternaldefinitions.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\testingexternaldefinitions.h
 	"InternalDefinitions.h"
 
-1353152255 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\statappsettings.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\statappsettings.h
 	<wx/string.h>
 
 1341902466 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\string.h
@@ -40166,7 +40166,7 @@
 	"wx/string.h"
 	<stdarg.h>
 
-1356831526 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfrominifile_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfrominifile_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40178,30 +40178,30 @@
 	"TestConfiguration/TATConfigLoaderFactory.h"
 	"TestConfiguration/TATValidationException.h"
 
-1354221981 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatconfigloaderfrominifile.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatconfigloaderfrominifile.h
 	"TestConfiguration/ITATConfigLoader.h"
 	<wx/string.h>
 	"TestConfiguration/ETATConfigNodeType.h"
 
-1354221788 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\itatconfigloader.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\itatconfigloader.h
 	<wx/string.h>
 
-1354046141 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatnode_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatnode_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"TestingExternalDefinitions.h"
 	"TATNode.h"
 	"TATNodeMock.h"
 
-1348261092 j:\quimeraengine\qesvn\team\testautomationtool\headers\tatnode.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\headers\tatnode.h
 	<wx/string.h>
 	<map>
 	<list>
 
-1348261092 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatnodemock.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatnodemock.h
 	"TATNode.h"
 
-1356830895 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolconfiguration_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolconfiguration_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40211,18 +40211,18 @@
 	"TestConfiguration/TATKeyValueNode.h"
 	"TestConfiguration/ETATConfigNodeType.h"
 
-1354905416 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tattestautomationtoolconfiguration.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tattestautomationtoolconfiguration.h
 	<list>
 	<map>
 	<wx/string.h>
 
-1356733860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qcommontestconfig.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\testsystem\qcommontestconfig.cpp
 	"QCommonTestConfig.h"
 	"CommonConfigDefinitions.h"
 	<boost/date_time.hpp>
 	<iostream>
 
-1355673202 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfactory_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfactory_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40231,54 +40231,54 @@
 	"TestConfiguration/TATRuleNode.h"
 	"TATConfigLoaderFactoryWhiteBox.h"
 
-1350135318 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatconfigloaderfactory.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatconfigloaderfactory.h
 	"TestConfiguration/TATConfigLoaderFromIniFile.h"
 	"TestConfiguration/ETATConfigurationSource.h"
 
-1350154777 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\etatconfigurationsource.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\etatconfigurationsource.h
 	<map>
 	<wx/string.h>
 
-1350154777 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\etatconfignodetype.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\etatconfignodetype.h
 	<map>
 	<wx/string.h>
 
-1350147038 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatrulenode.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatrulenode.h
 	"TestConfiguration/TATConfigNode.h"
 
-1349726634 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatconfignode.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatconfignode.h
 	"TATNode.h"
 	"TestConfiguration/ETATConfigNodeType.h"
 
-1350065661 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfactorywhitebox.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfactorywhitebox.h
 	"TestConfiguration/TATConfigLoaderFactory.h"
 
-1354051310 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfrominifilewhitebox.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfigloaderfrominifilewhitebox.h
 	"TestConfiguration/TATConfigLoaderFromIniFile.h"
 
-1350144521 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrulenodemock.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrulenodemock.h
 	"TestConfiguration/TATRuleNode.h"
 
-1349734019 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfignode_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatconfignode_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestConfiguration/TATConfigNode.h"
 	"TestConfiguration/ETATConfigNodeType.h"
 
-1356184971 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrulenode_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrulenode_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestConfiguration/TATRuleNode.h"
 
-1354403603 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolconfigurationwhitebox.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolconfigurationwhitebox.h
 	"TestConfiguration/TATTestAutomationToolConfiguration.h"
 
-1354221932 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatkeyvaluenode.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatkeyvaluenode.h
 	"TestConfiguration/TATConfigNode.h"
 
-1356291318 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\statfilesystemhelper_tests.cpp
+1358116710 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\statfilesystemhelper_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40287,71 +40287,71 @@
 	"InternalDefinitions.h"
 	<wx/filefn.h>
 
-1356039418 j:\quimeraengine\qesvn\team\testautomationtool\headers\statfilesystemhelper.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\headers\statfilesystemhelper.h
 	<list>
 	<wx/string.h>
 	"TATShellProcess.h"
 
-1353625371 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatkeyvaluenode_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatkeyvaluenode_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestConfiguration/TATKeyValueNode.h"
 	"TestConfiguration/ETATConfigNodeType.h"
 
-1354056806 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\statstringhelper_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\statstringhelper_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"STATStringHelper.h"
 
-1354220789 j:\quimeraengine\qesvn\team\testautomationtool\headers\statstringhelper.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\headers\statstringhelper.h
 	<list>
 	<wx/string.h>
 
-1354222206 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatvalidationexception.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testconfiguration\tatvalidationexception.h
 	<wx/string.h>
 	<exception>
 
-1356187992 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatcompilerinfo_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatcompilerinfo_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestExecution/TATCompilerInfo.h"
 	"TestExecution/TATTestModulesExecutionInfo.h"
 
-1355788580 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatcompilerinfo.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatcompilerinfo.h
 	<list>
 	<wx/string.h>
 	"TestExecution/TATTestModulesExecutionInfo.h"
 
-1355957769 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestmodulesexecutioninfo.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestmodulesexecutioninfo.h
 	<wx/string.h>
 
-1356201178 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatformattedmessage_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatformattedmessage_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestExecution/TATFormattedMessage.h"
 
-1355868376 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatformattedmessage.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatformattedmessage.h
 	<list>
 	"TestExecution/TATMessageFormat.h"
 
-1356361095 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatmessageformat.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatmessageformat.h
 	"TestExecution/ETATColor.h"
 
-1356529525 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatcolor.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatcolor.h
 	<map>
 	<wx/string.h>
 
-1356637234 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatmessageformat_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatmessageformat_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestExecution/TATMessageFormat.h"
 
-1356291372 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatshellprocess_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatshellprocess_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40359,13 +40359,13 @@
 	"TATShellProcess.h"
 	"TATShellProcessListenerMock.h"
 
-1356202802 j:\quimeraengine\qesvn\team\testautomationtool\headers\tatshellprocess.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\headers\tatshellprocess.h
 	<wx/string.h>
 
-1356179496 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatshellprocesslistenermock.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatshellprocesslistenermock.h
 	"TATShellProcess.h"
 
-1356740195 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecution_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecution_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40374,7 +40374,7 @@
 	"TATLoggerMock.h"
 	"TestExecution/TATTestResultLoaderFactory.h"
 
-1356643803 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestautomationtoolexecution.h
+1358102096 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestautomationtoolexecution.h
 	<map>
 	<wx/thread.h>
 	<wx/event.h>
@@ -40382,11 +40382,12 @@
 	"TestExecution/TATFormattedMessage.h"
 	"TATShellProcess.h"
 	"TestExecution/ITATTestResultLoader.h"
+	"TestExecution/TATTestResultInfo.h"
 
-1356296036 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecutionwhitebox.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecutionwhitebox.h
 	"TestExecution/TATTestAutomationToolExecution.h"
 
-1356739303 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestexecutionthread_tests.cpp
+1358116506 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestexecutionthread_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40423,27 +40424,27 @@
 	"wx/filefn.h"
 	"wx/strconv.h"
 
-1356725938 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestexecutionthreadwhitebox.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestexecutionthreadwhitebox.h
 	"TestExecution/TATTestAutomationToolExecution.h"
 	"TATTestAutomationToolExecutionWhiteBox.h"
 
-1356725938 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecutionmock.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestautomationtoolexecutionmock.h
 	"TestExecution/TATTestAutomationToolExecution.h"
 
-1356214614 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatloggermock.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatloggermock.h
 	<wx/string.h>
 	"TestExecution/ITATLogger.h"
 	"TestExecution/TATFormattedMessage.h"
 
-1355779766 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\itatlogger.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\itatlogger.h
 
-1356352208 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestmodulesexecutioninfo_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestmodulesexecutioninfo_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestExecution/TATTestModulesExecutionInfo.h"
 
-1356311848 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatwxwidgetscontrollogger_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatwxwidgetscontrollogger_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40451,7 +40452,7 @@
 	"TATwxWidgetsControlLoggerWhiteBox.h"
 	"TATRichTextCtrlMock.h"
 
-1356309742 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatwxwidgetscontrollogger.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatwxwidgetscontrollogger.h
 	<queue>
 	<wx/colour.h>
 	<wx/thread.h>
@@ -40459,10 +40460,10 @@
 	"TestExecution/TATFormattedMessage.h"
 	"TestExecution/ETATColor.h"
 
-1356310438 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatwxwidgetscontrolloggerwhitebox.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatwxwidgetscontrolloggerwhitebox.h
 	"TestExecution/TATwxWidgetsControlLogger.h"
 
-1356306240 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrichtextctrlmock.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatrichtextctrlmock.h
 	<wx/richtext/richtextctrl.h>
 
 1341902474 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\richtext\richtextctrl.h
@@ -40698,29 +40699,29 @@
 	"wx/dataobj.h"
 	"wx/cursor.h"
 
-1356642905 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\itattestresultloader.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\itattestresultloader.h
 	<wx/string.h>
 	"TestExecution/TATTestResultNode.h"
 
-1357253572 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultnode.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultnode.h
 	"TATNode.h"
 	"TestExecution/ETATResult.h"
 	"TestExecution/ETATTestResultNodeType.h"
 
-1356734671 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatresult.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatresult.h
 	<map>
 	<wx/string.h>
 
-1356645206 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultloaderfactory.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultloaderfactory.h
 	"TestExecution/ETATResultSource.h"
 	"TestExecution/ITATTestResultLoader.h"
 	"TestExecution/TATTestResultLoader.h"
 
-1356641731 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatresultsource.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etatresultsource.h
 	<map>
 	<wx/string.h>
 
-1356643803 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultloader.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultloader.h
 	"TestExecution/ITATTestResultLoader.h"
 
 1341902466 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\wxwidgets\include\include\wx\dir.h
@@ -40728,17 +40729,17 @@
 	"wx/string.h"
 	"wx/filefn.h"
 
-1356830284 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultloaderfactory_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultloaderfactory_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestExecution/TATTestResultLoaderFactory.h"
 	"TATTestResultLoaderFactoryWhiteBox.h"
 
-1356807720 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultloaderfactorywhitebox.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultloaderfactorywhitebox.h
 	"TestExecution/TATTestResultLoaderFactory.h"
 
-1356749263 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultloader_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultloader_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -40748,10 +40749,10 @@
 	"TATTestResultLoaderWhiteBox.h"
 	"TestExecution/TATXmlReader.h"
 
-1356741379 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultloaderwhitebox.h
+1357754860 j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultloaderwhitebox.h
 	"TestExecution/TATTestResultLoader.h"
 
-1356646831 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatxmlreader.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tatxmlreader.h
 	<boost/property_tree/xml_parser.hpp>
 	<boost/property_tree/ptree.hpp>
 	<boost/foreach.hpp>
@@ -43476,13 +43477,13 @@
 
 1276158148 j:\quimeraengine\qesvn\team\testautomationtool\3rdparty\boost\include\boost\foreach_fwd.hpp
 
-1356792666 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultnode_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultnode_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
 	"TestExecution/TATTestResultNode.h"
 
-1356830362 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatxmlreader_tests.cpp
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tatxmlreader_tests.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../../testsystem/TestingExternalDefinitions.h"
@@ -44619,7 +44620,27 @@
 	<boost/date_time/time_zone_base.hpp>
 	<boost/date_time/time_parsing.hpp>
 
-1357045399 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etattestresultnodetype.h
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\etattestresultnodetype.h
 	<map>
 	<wx/string.h>
+
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultinfo.h
+	<wx/string.h>
+
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultconsultant_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	"TestExecution/TATTestResultConsultant.h"
+	"TestExecution/TATTestResultNode.h"
+
+1357754858 j:\quimeraengine\qesvn\team\testautomationtool\headers\testexecution\tattestresultconsultant.h
+	<wx/string.h>
+
+1357754860 source:j:\quimeraengine\qesvn\team\testautomationtool\testing\tests\unit\testmodule_testautomationtool\tattestresultinfo_tests.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../../testsystem/TestingExternalDefinitions.h"
+	"TestExecution/TATTestResultInfo.h"
+	"TestExecution/TATTestResultNode.h"
 

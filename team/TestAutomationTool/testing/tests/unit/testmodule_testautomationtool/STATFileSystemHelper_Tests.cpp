@@ -305,22 +305,6 @@ QTEST_CASE ( Rename_TheFileIsRenamed_Test )
 }
 
 /// <summary>
-/// Checks that the operation returns False when the file to be executed doesn't exist.
-/// </summary>
-QTEST_CASE ( Execute_ReturnsFalseWhenFileDoesntExist_Test )
-{
-    // Preparation
-    const wxString EXECUTABLE_FILE = wxT("SOURCE.DOESNT.EXIST");
-    const bool EXPECTED_RESULT = false;
-
-	// Execution
-    bool bResult = STATFileSystemHelper::Execute(EXECUTABLE_FILE);
-
-    // Verification
-    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
-}
-
-/// <summary>
 /// Checks that the operation returns True when the file was executed.
 /// </summary>
 QTEST_CASE ( Execute_ReturnsTrueWhenFileIsExecuted_Test )
