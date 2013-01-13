@@ -141,7 +141,7 @@ void TATTestExecutionForm::StartTestExecution()
     this->ShowButtonsDependingOnExecutionStatus(true);
     m_rtbLog->Clear();
     m_lstLogEvents->ClearAll();
-    m_lstLogEvents->InsertColumn(0, wxT(""), 0);
+    m_lstLogEvents->InsertColumn(0, wxT(""), 150);
     m_treeResults->DeleteAllItems();
     m_rtbResultInfo->Clear();
     this->EnableLogEventListDependingOnExecution(true);
@@ -336,7 +336,7 @@ void TATTestExecutionForm::ShowAdditionalInformation(wxTreeCtrl* pTreeControl, c
     if(pData != NULL) // It's possible, for example, clicking on the root of the tree, which doesn't correspond to a result
     {
         TATTestResultNode* pResultNode = pData->GetTestResultNode();
-    
+
         TATTestResultConsultant resultConsultant;
 
         // Writes the name of the item
@@ -370,7 +370,7 @@ void TATTestExecutionForm::ShowAdditionalInformation(wxTreeCtrl* pTreeControl, c
             pInformationPanel->WriteText(this->GetLocalizedTitleForResult(pResultNode->GetResult()));
             break;
         }
-        
+
         pInformationPanel->EndUnderline();
         pInformationPanel->Newline();
         pInformationPanel->Newline();
@@ -412,7 +412,7 @@ void TATTestExecutionForm::ShowAdditionalInformation(wxTreeCtrl* pTreeControl, c
             pInformationPanel->WriteText(wxT("."));
             pInformationPanel->Newline();
         }
-    
+
         if(pResultNode->GetNodeType() == ETATTestResultNodeType::E_Root   ||
             pResultNode->GetNodeType() == ETATTestResultNodeType::E_Module ||
             pResultNode->GetNodeType() == ETATTestResultNodeType::E_Suite)
@@ -492,7 +492,7 @@ void TATTestExecutionForm::ShowAdditionalInformation(wxTreeCtrl* pTreeControl, c
         while(parentId.IsOk())
         {
             TATTestExecutionForm::TATResultTreeItemData* pParentData = dynamic_cast<TATTestExecutionForm::TATResultTreeItemData*>(pTreeControl->GetItemData(parentId));
-            
+
             if(pParentData != NULL)
             {
                 TATTestResultNode* pParentNode = pParentData->GetTestResultNode();
@@ -606,8 +606,8 @@ wxString TATTestExecutionForm::GetLocalizedTitleForResult(const ETATResult &eRes
     return strResult;
 }
 
-wxString TATTestExecutionForm::GetCleanTestNodeName(const wxString &strNodeName, 
-                                                    const ETATTestResultNodeType &eType, 
+wxString TATTestExecutionForm::GetCleanTestNodeName(const wxString &strNodeName,
+                                                    const ETATTestResultNodeType &eType,
                                                     const bool &bMethodOrCase) const
 {
     wxString strResult = strNodeName;
@@ -645,9 +645,9 @@ wxString TATTestExecutionForm::GetCleanTestNodeName(const wxString &strNodeName,
     return strResult;
 }
 
-TATTestExecutionForm::TATResultTreeItemData::TATResultTreeItemData(const TATTestResultInfo result, 
+TATTestExecutionForm::TATResultTreeItemData::TATResultTreeItemData(const TATTestResultInfo result,
                                                                    TATTestResultNode* pNode,
-                                                                   const bool &bIsMethod) : 
+                                                                   const bool &bIsMethod) :
                                                                                   m_testResult(result),
                                                                                   m_pTestResultNode(pNode),
                                                                                   m_bIsMethod(bIsMethod)
