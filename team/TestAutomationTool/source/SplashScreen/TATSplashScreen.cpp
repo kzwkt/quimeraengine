@@ -2,8 +2,6 @@
 
 #include "SplashScreen/TATSplashScreen.h"
 
-#include "../resources/embedded/resources.h"
-
 namespace Kinesis
 {
 namespace TestAutomationTool
@@ -33,7 +31,6 @@ const int TATSplashScreen::VISIBILITY_INTERVAL = 1000;
 
 TATSplashScreen::TATSplashScreen(wxWindow *wnd) : SplashScreenBase(wnd)
 {
-    this->SetIcon(wxIcon(TAT_ICON_APP));
     m_timer.SetOwner(this);
     this->Connect(wxEVT_TIMER, wxTimerEventHandler(TATSplashScreen::OnTimerTick));
     m_timer.Start(VISIBILITY_INTERVAL, true);

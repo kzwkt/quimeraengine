@@ -234,9 +234,6 @@
 			<Option link="0" />
 			<Option virtualFolder="Res\" />
 		</Unit>
-		<Unit filename="..\..\..\resources\embedded\resources.h">
-			<Option virtualFolder="Res\" />
-		</Unit>
 		<Unit filename="..\..\..\resources\images\KinesisLogoTiny.bmp">
 			<Option virtualFolder="Res\" />
 		</Unit>

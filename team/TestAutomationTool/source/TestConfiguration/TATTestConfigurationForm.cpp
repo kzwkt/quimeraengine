@@ -5,7 +5,6 @@
 #include <map>
 #include <wx/msgdlg.h>
 
-#include "../resources/embedded/resources.h"
 #include "TestExecution/TestExecution.h"
 #include "Editor/TATEditorForm.h"
 #include "TestConfiguration/STATAppSettings.h"
@@ -51,7 +50,6 @@ namespace UI
 
 TATTestConfigurationForm::TATTestConfigurationForm() : TestConfigurationBaseForm(NULL)
 {
-    this->SetIcon(wxIcon(TAT_ICON_APP));
 }
 
 

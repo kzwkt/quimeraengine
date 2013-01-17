@@ -63,9 +63,6 @@
     <ClInclude Include="..\..\..\..\headers\Editor\TATEditorForm.h">
       <Filter>ApplicationUI\FG3 - Editor</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\resources\embedded\resources.h">
-      <Filter>Res</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\TestAutomationToolUIApp.cpp">

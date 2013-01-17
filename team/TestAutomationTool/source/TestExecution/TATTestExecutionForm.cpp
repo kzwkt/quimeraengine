@@ -7,7 +7,6 @@
 #include <wx/imaglist.h>
 #include <wx/tooltip.h>
 
-#include "../resources/embedded/resources.h"
 #include "TestExecution/TATwxWidgetsControlLogger.h"
 #include "TestExecution/ETATResultSource.h"
 #include "TestExecution/TATTestResultLoaderFactory.h"
@@ -68,8 +67,6 @@ TATTestExecutionForm::TATTestExecutionForm(wxWindow* parent,
                                            : TestExecutionBaseForm(parent),
                                              m_bStoppedByUser(false)
 {
-    this->SetIcon(wxIcon(TAT_ICON_APP));
-
     // Loads the images for the items in the result tree
     m_imgList = new wxImageList(8, 8);
     m_imgList->Add(tick_bmp_to_wx_bitmap(), *wxWHITE);

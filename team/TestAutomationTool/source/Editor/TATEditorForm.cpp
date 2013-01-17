@@ -5,7 +5,6 @@
 #include <map>
 #include <wx/msgdlg.h>
 
-#include "../resources/embedded/resources.h"
 #include "TestConfiguration/TATTestConfigurationForm.h"
 #include "STATFileSystemHelper.h"
 
@@ -45,8 +44,6 @@ TATEditorForm::TATEditorForm(wxWindow* pParent, const wxString &strConfiguration
                                                                       m_bFileLoaded(false),
                                                                       m_strConfigurationFilePath(strConfigurationFilePath)
 {
-    this->SetIcon(wxIcon(TAT_ICON_APP));
-
     m_btnSave->Enable(false);
 }
 

@@ -6315,9 +6315,8 @@
 	<wx/image.h>
 	<wx/bitmap.h>
 
-1358456729 source:j:\quimeraengine\qesvn\team\testautomationtool\source\splashscreen\tatsplashscreen.cpp
+1358462491 source:j:\quimeraengine\qesvn\team\testautomationtool\source\splashscreen\tatsplashscreen.cpp
 	"SplashScreen/TATSplashScreen.h"
-	"../resources/embedded/resources.h"
 
 1347831973 een/TATSplashScreen.h"
 
@@ -8156,11 +8155,10 @@
 	"wx/treebase.h"
 	"wx/hashmap.h"
 
-1358456729 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\tattestconfigurationform.cpp
+1358462491 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testconfiguration\tattestconfigurationform.cpp
 	"TestConfiguration/TATTestConfigurationForm.h"
 	<map>
 	<wx/msgdlg.h>
-	"../resources/embedded/resources.h"
 	"TestExecution/TestExecution.h"
 	"Editor/TATEditorForm.h"
 	"TestConfiguration/STATAppSettings.h"
@@ -8438,13 +8436,12 @@
 	<map>
 	<wx/string.h>
 
-1358457345 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testexecution\tattestexecutionform.cpp
+1358462867 source:j:\quimeraengine\qesvn\team\testautomationtool\source\testexecution\tattestexecutionform.cpp
 	"TestExecution/TATTestExecutionForm.h"
 	<iostream>
 	<sstream>
 	<wx/imaglist.h>
 	<wx/tooltip.h>
-	"../resources/embedded/resources.h"
 	"TestExecution/TATwxWidgetsControlLogger.h"
 	"TestExecution/ETATResultSource.h"
 	"TestExecution/TATTestResultLoaderFactory.h"
@@ -8568,11 +8565,10 @@
 	<wx/sizer.h>
 	<wx/dialog.h>
 
-1358457345 source:j:\quimeraengine\qesvn\team\testautomationtool\source\editor\tateditorform.cpp
+1358462491 source:j:\quimeraengine\qesvn\team\testautomationtool\source\editor\tateditorform.cpp
 	"Editor/TATEditorForm.h"
 	<map>
 	<wx/msgdlg.h>
-	"../resources/embedded/resources.h"
 	"TestConfiguration/TATTestConfigurationForm.h"
 	"STATFileSystemHelper.h"
 
