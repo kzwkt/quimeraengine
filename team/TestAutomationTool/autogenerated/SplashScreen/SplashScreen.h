@@ -11,15 +11,16 @@
 #include <wx/artprov.h>
 #include <wx/xrc/xmlres.h>
 #include <wx/intl.h>
-#include <wx/bitmap.h>
-#include <wx/image.h>
-#include <wx/icon.h>
-#include <wx/statbmp.h>
 #include <wx/string.h>
+#include <wx/stattext.h>
 #include <wx/gdicmn.h>
 #include <wx/font.h>
 #include <wx/colour.h>
 #include <wx/settings.h>
+#include <wx/bitmap.h>
+#include <wx/image.h>
+#include <wx/icon.h>
+#include <wx/statbmp.h>
 #include <wx/sizer.h>
 #include <wx/frame.h>
 
@@ -41,7 +42,11 @@ namespace Kinesis
 				private:
 				
 				protected:
-					wxStaticBitmap* m_imgLogo;
+					wxStaticText* m_staticText1;
+					wxStaticBitmap* m_bitmap3;
+					wxStaticBitmap* m_bitmap4;
+					wxStaticBitmap* m_bitmap41;
+					wxStaticText* m_lblLicense;
 					
 					// Virtual event handlers, overide them in your derived class
 					virtual void OnFrameClose( wxCloseEvent& event ) { event.Skip(); }

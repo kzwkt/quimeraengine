@@ -1,0 +1,1 @@
+#define TAT_ICON_APP wxT("..\\..\\resources\\images\\TATLogo.png")
