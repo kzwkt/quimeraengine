@@ -15,21 +15,22 @@ using Kinesis::TestAutomationTool::Backend::TATShellProcess;
 
 QTEST_SUITE_BEGIN( TATShellProcess_TestSuite )
 
-          
+
 /// <summary>
-/// Utility method for testing purposes. Path to the prerequired text file used by many unit tests.
+/// Utility method for testing purposes. Path to the prerequired executable file used by many unit tests.
 /// </summary>
 /// <returns>
-/// The path to the prerequired text file used by many unit tests. 
+/// The path to the prerequired executable file used by many unit tests.
 /// </returns>
 wxString GetPathToExecutableFile_UtilityMethod()
 {
 #ifdef TAT_OS_WINDOWS
     const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile.exe");
 #elif defined(TAT_OS_LINUX)
-    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile.sh");
+    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile");
 #elif defined(TAT_OS_MAC)
     // TODO [Thund]: Complete this with Mac configuration.
+    #error Not defined for Mac
 #endif
 
     return PATH_TO_EXECUTABLE_FILE;
@@ -178,7 +179,7 @@ QTEST_CASE ( GetCommand_CommandIsCorrectlyRetrieved_Test )
 
 	// Execution
     wxString strCommand = processUT.GetCommand();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(strCommand, COMMAND);
 }
@@ -194,7 +195,7 @@ QTEST_CASE ( SetCommand_CommandIsCorrectlyStored_Test )
 	// Execution
     TATShellProcess processUT;
     processUT.SetCommand(COMMAND);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(processUT.GetCommand(), COMMAND);
 }
@@ -213,7 +214,7 @@ QTEST_CASE ( GetListener_ListenerIsCorrectlyRetrieved_Test )
 
 	// Execution
     TATShellProcess::ITATShellProcessListener* pListener = processUT.GetListener();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(pListener, &LISTENER);
 }
@@ -231,7 +232,7 @@ QTEST_CASE ( SetListener_ListenerIsCorrectlyStored_Test )
 	// Execution
     TATShellProcess processUT;
     processUT.SetListener(&LISTENER);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(processUT.GetListener(), &LISTENER);
 }

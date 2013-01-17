@@ -46,7 +46,7 @@ TATCommonTestConfig::TATCommonTestConfig(const std::string &strTestModuleName, c
     // Loads configuration values from disk
     // -------------------------------------
 
-   char* szCurrentWorkingDirectory = getcwd_t(null_t, 0);
+    char* szCurrentWorkingDirectory = getcwd_t(null_t, 0);
     std::string strCurrentWorkingDirectory(szCurrentWorkingDirectory);
     delete[] szCurrentWorkingDirectory;
 
@@ -57,7 +57,7 @@ TATCommonTestConfig::TATCommonTestConfig(const std::string &strTestModuleName, c
         // Entries order in the configuration file
         const int FILE_UNITTEST_RESULTSPATH_ENTRY_POSITION = 0;
         const int FILE_PERFORMANCETEST_RESULTSPATH_ENTRY_POSITION = 1;
-        
+
         // Depending on the test type, a path is selected to store the results file
         int nEntryToReadResultsPathFrom = 0;
 
@@ -93,7 +93,7 @@ TATCommonTestConfig::TATCommonTestConfig(const std::string &strTestModuleName, c
     }
 }
 
-	
+
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################

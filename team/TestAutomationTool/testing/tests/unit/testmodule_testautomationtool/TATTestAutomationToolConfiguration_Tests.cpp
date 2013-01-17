@@ -6,6 +6,8 @@ using namespace boost::unit_test;
 
 #include "../../../testsystem/TestingExternalDefinitions.h"
 
+#include <wx/filefn.h>
+
 #include "TestConfiguration/TATTestAutomationToolConfiguration.h"
 #include "TestConfiguration/ITATConfigLoader.h"
 #include "TATTestAutomationToolConfigurationWhiteBox.h"
@@ -30,10 +32,10 @@ QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
     std::list<wxString> EXPECTED_COMPILER_CONFIGURATION_SELECTION;
     TATTestAutomationToolConfiguration::TFlagCombinationCollection EXPECTED_FLAG_COMBINATIONS;
     std::list<wxString> EXPECTED_FLAG_COMBINATION_SELECTION;
-    
+
 	// Execution
     TATTestAutomationToolConfiguration testAutomationToolConfigurationUT;
-    
+
     // Verification
     BOOST_CHECK_NE(testAutomationToolConfigurationUT.GetConfigLoader(), CONFIGURATION_LOADER_NULL);
     BOOST_CHECK_EQUAL(testAutomationToolConfigurationUT.GetConfigLoader()->GetSource(), CONFIGURATION_LOADER_SOURCE);
@@ -55,7 +57,7 @@ QTEST_CASE ( LoadConfiguration_NoExceptionIsThrownWhenUsingExistingAndValidSourc
 
 	// Execution
     bool bExceptionThrown = false;
-    
+
     try
     {
         TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(EXISTING_VALID_SOURCE);
@@ -79,7 +81,7 @@ QTEST_CASE ( SelectCompilerConfiguration_OnlySelectedCompilerCondigurationAreRet
     const int EXPECTED_NUMBER_OF_COMPILER_CONFIGS = 1;
 
     TATTestAutomationToolConfiguration TESTAUTOMATIONTOOL_CONFIGURATION;
-    const wxString SOURCE = wxT("ConfigFileMock.ini");
+    const wxString SOURCE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/ConfigFileMock.ini");
     TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(SOURCE);
 
 	// Execution
@@ -101,7 +103,7 @@ QTEST_CASE ( SelectFlagCombination_OnlySelectedFlagCombinationsAreReturned_Test 
     const int EXPECTED_NUMBER_OF_FLAG_COMBINATIONS = 1;
 
     TATTestAutomationToolConfiguration testAutomationToolConfigUT;
-    const wxString SOURCE = wxT("ConfigFileMock.ini");
+    const wxString SOURCE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/ConfigFileMock.ini");
     testAutomationToolConfigUT.LoadConfiguration(SOURCE);
 
 	// Execution
@@ -166,7 +168,7 @@ QTEST_CASE ( CombineFlags_FlasgAreCombinedAsExpectedWhenThereAreMoreThanOne_Test
     // Verification
     TATTestAutomationToolConfiguration::TFlagCombinationCollection flagCombinationsGenerated = TESTAUTOMATIONTOOL_CONFIGURATION.GetExpectedFlagCombinations();
     BOOST_CHECK_EQUAL(flagCombinationsGenerated.size(), EXPECTED_NUMBER_OF_COMBINATIONS);
-    
+
     TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iCombination = flagCombinationsGenerated.begin();
     TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
 
@@ -225,7 +227,7 @@ QTEST_CASE ( CombineFlags_WhenThereIsOnlyOneFlagThereIsOneCombinationPerValue_Te
     // Verification
     TATTestAutomationToolConfiguration::TFlagCombinationCollection flagCombinationsGenerated = TESTAUTOMATIONTOOL_CONFIGURATION.GetExpectedFlagCombinations();
     BOOST_CHECK_EQUAL(flagCombinationsGenerated.size(), EXPECTED_NUMBER_OF_COMBINATIONS);
-    
+
     TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iCombination = flagCombinationsGenerated.begin();
     TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
 
@@ -254,7 +256,7 @@ QTEST_CASE ( Destroy_NoErrorOccurred_Test )
 {
     // Preparation
     const bool NO_ERROR_OCURRED = true;
-    
+
     TATTestAutomationToolConfigurationWhiteBox* TESTAUTOMATIONTOOL_CONFIGURATION = new TATTestAutomationToolConfigurationWhiteBox();
 
 	// Execution
@@ -343,7 +345,7 @@ QTEST_CASE ( CombineFlagValue_FlasgAreCombinedAsExpected_Test )
 
     // Verification
     BOOST_CHECK_EQUAL(flagCombinations.size(), EXPECTED_NUMBER_OF_COMBINATIONS);
-    
+
     std::list< std::map<wxString, wxString> >::iterator iCombination = flagCombinations.begin();
     std::list< std::map<wxString, wxString> >::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
 
@@ -374,7 +376,7 @@ QTEST_CASE ( GetCompilerConfigurations_RetrievedCompilerConfigurationNamesAreWha
     const wxString EXPECTED_CONFIGURATION_NAME2 = wxT("CompilerConfigurationValue2");
 
     TATTestAutomationToolConfiguration TESTAUTOMATIONTOOL_CONFIGURATION;
-    const wxString SOURCE = wxT("ConfigFileMock.ini");
+    const wxString SOURCE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/ConfigFileMock.ini");
     TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(SOURCE);
 
 	// Execution
@@ -411,7 +413,7 @@ QTEST_CASE ( GetCompilerConfigurationSelection_OnlySelectedCompilerCondiguration
     const int EXPECTED_NUMBER_OF_COMPILER_CONFIGS = 1;
 
     TATTestAutomationToolConfiguration TESTAUTOMATIONTOOL_CONFIGURATION;
-    const wxString SOURCE = wxT("ConfigFileMock.ini");
+    const wxString SOURCE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/ConfigFileMock.ini");
     TESTAUTOMATIONTOOL_CONFIGURATION.LoadConfiguration(SOURCE);
     TESTAUTOMATIONTOOL_CONFIGURATION.SelectCompilerConfiguration(wxT("CompilerConfigurationValue2"), true);
 
@@ -452,7 +454,7 @@ QTEST_CASE ( GetFlagCombinations_RetrievedFlagCombinationNamesAreWhatExpected_Te
 
     // Verification
     BOOST_CHECK_EQUAL(flagCombinations.size(), EXPECTED_NUMBER_OF_COMBINATIONS);
-    
+
     TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iCombination = flagCombinations.begin();
     TATTestAutomationToolConfiguration::TFlagCombinationCollection::iterator iExpected = EXPECTED_FLAG_COMBINATIONS.begin();
 

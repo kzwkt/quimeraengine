@@ -28,8 +28,8 @@ using Kinesis::TestAutomationTool::Backend::TATTestResultNode;
 //       it's necessary to use the white box version to expose it and be able to access to it.
 
 QTEST_SUITE_BEGIN( TATTestExecutionThread_TestSuite )
-    
-      
+
+
 /// <summary>
 /// Utility method for testing purposes. Checks whether 2 test result nodes are equal or not.
 /// </summary>
@@ -118,7 +118,7 @@ void CheckTestResultTreeEquality_UtilityMethod(TATTestResultNode* pNodeA, TATTes
                     {
                         TATTestResultNode* pTestResultA = dynamic_cast<TATTestResultNode*>(iTestResultA->second);
                         TATTestResultNode* pTestResultB = dynamic_cast<TATTestResultNode*>(iTestResultB->second);
-                        
+
                         // Test cases are equal?
                         CheckTestResultNodeEquality_UtilityMethod(pTestResultA, pTestResultB);
                     }
@@ -132,14 +132,14 @@ void CheckTestResultTreeEquality_UtilityMethod(TATTestResultNode* pNodeA, TATTes
 /// Utility method for testing purposes. Path to the prerequired text file used by many unit tests.
 /// </summary>
 /// <returns>
-/// The path to the prerequired text file used by many unit tests. 
+/// The path to the prerequired text file used by many unit tests.
 /// </returns>
 wxString GetPathToExecutableFile_UtilityMethod()
 {
 #ifdef TAT_OS_WINDOWS
     const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile.exe");
 #elif defined(TAT_OS_LINUX)
-    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile.sh");
+    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile");
 #elif defined(TAT_OS_MAC)
     // TODO [Thund]: Complete this with Mac configuration.
 #endif
@@ -199,15 +199,19 @@ wxString GetNewLineToken_UtilityMethod()
 /// </summary>
 QTEST_CASE ( ProcessCompletedHandler_ExitCodeIsStored_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
     TATTestExecutionThreadWhiteBox executionThreadUT(null_t);
     const int EXPECTED_EXITCODE = 1;
 
 	// [Execution]
     executionThreadUT.ProcessCompletedHandler(EXPECTED_EXITCODE);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(executionThreadUT.GetExpectedLastExitCode(), EXPECTED_EXITCODE);
+#endif
 }
 
 /// <summary>
@@ -215,6 +219,9 @@ QTEST_CASE ( ProcessCompletedHandler_ExitCodeIsStored_Test )
 /// </summary>
 QTEST_CASE ( ProcessOutputHandler_TheOutputIsLoggedByLoggerOfHandler_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     using Kinesis::TestAutomationTool::Backend::Test::TATLoggerMock;
 
     // [Preparation]
@@ -226,9 +233,10 @@ QTEST_CASE ( ProcessOutputHandler_TheOutputIsLoggedByLoggerOfHandler_Test )
 
 	// [Execution]
     executionThreadUT.ProcessOutputHandler(EXPECTED_OUTPUT);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(pLogger->GetLog(), EXPECTED_OUTPUT);
+#endif
 }
 
 /// <summary>
@@ -244,6 +252,9 @@ QTEST_CASE ( Entry_NotTested_Test )
 /// </summary>
 QTEST_CASE ( CreateConfigurationFileBackup_TheBackupFileIsCreated_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
     TATTestExecutionThreadWhiteBox executionThreadUT(null_t);
 
@@ -255,7 +266,7 @@ QTEST_CASE ( CreateConfigurationFileBackup_TheBackupFileIsCreated_Test )
     bool bResult = executionThreadUT.CreateConfigurationFileBackup(FILEPATH);
 
     bool bFileWasCreated = wxFileExists(EXPECTED_FILEPATH);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bFileWasCreated, FILE_WAS_CREATED);
     BOOST_CHECK_EQUAL(bResult, FILE_WAS_CREATED); // This should be in another 2 tests, but there is no time for that now
@@ -265,6 +276,7 @@ QTEST_CASE ( CreateConfigurationFileBackup_TheBackupFileIsCreated_Test )
     {
         wxRemoveFile(EXPECTED_FILEPATH);
     }
+#endif
 }
 
 /// <summary>
@@ -272,6 +284,9 @@ QTEST_CASE ( CreateConfigurationFileBackup_TheBackupFileIsCreated_Test )
 /// </summary>
 QTEST_CASE ( RestoreConfigurationFileBackup_TheBackupFileIsCreated_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
     TATTestExecutionThreadWhiteBox executionThreadUT(null_t);
 
@@ -285,7 +300,7 @@ QTEST_CASE ( RestoreConfigurationFileBackup_TheBackupFileIsCreated_Test )
     bool bResult = executionThreadUT.RestoreConfigurationFileBackup(FILEPATH);
 
     bool bFileWasRestored = wxFileExists(FILEPATH);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bFileWasRestored, FILE_WAS_RESTORED);
     BOOST_CHECK_EQUAL(bResult, FILE_WAS_RESTORED); // This should be in another 2 tests, but there is no time for that now
@@ -295,6 +310,7 @@ QTEST_CASE ( RestoreConfigurationFileBackup_TheBackupFileIsCreated_Test )
     {
         wxRenameFile(EXPECTED_FILEPATH, FILEPATH);
     }
+#endif
 }
 
 /// <summary>
@@ -302,6 +318,9 @@ QTEST_CASE ( RestoreConfigurationFileBackup_TheBackupFileIsCreated_Test )
 /// </summary>
 QTEST_CASE ( ReplaceFlagValuesInConfigurationFile_TheContentOfTheFileIsReplaced_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
     const wxString NEWLINE = GetNewLineToken_UtilityMethod();
 
@@ -346,6 +365,7 @@ QTEST_CASE ( ReplaceFlagValuesInConfigurationFile_TheContentOfTheFileIsReplaced_
 
     // [Cleaning]
     wxRemoveFile(MODIFIED_FILEPATH);
+#endif
 }
 
 /// <summary>
@@ -353,6 +373,9 @@ QTEST_CASE ( ReplaceFlagValuesInConfigurationFile_TheContentOfTheFileIsReplaced_
 /// </summary>
 QTEST_CASE ( ReplaceFlagValues_TheContentOfTheStringIsReplaced_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
     const wxString NEWLINE = GetNewLineToken_UtilityMethod();
 
@@ -362,7 +385,7 @@ QTEST_CASE ( ReplaceFlagValues_TheContentOfTheStringIsReplaced_Test )
     FLAGVALUES.insert(std::pair<wxString, wxString>(wxT("FLAG1"), wxT("NEWVALUE1")));
     FLAGVALUES.insert(std::pair<wxString, wxString>(wxT("FLAG2"), wxT("NEWVALUE2")));
     FLAGVALUES.insert(std::pair<wxString, wxString>(wxT("FLAG3"), wxT("NEWVALUE3")));
-    
+
     const wxString INPUT_STRING = wxT("#define FLAG1 VALUE1") + NEWLINE + wxT("#define FLAG2 VALUE2") + NEWLINE + wxT("#define FLAG3 VALUE3") + NEWLINE;
     const wxString EXPECTED_RESULT = wxT("#define FLAG1 NEWVALUE1") + NEWLINE + wxT("#define FLAG2 NEWVALUE2") + NEWLINE + wxT("#define FLAG3 NEWVALUE3") + NEWLINE;
 
@@ -371,6 +394,7 @@ QTEST_CASE ( ReplaceFlagValues_TheContentOfTheStringIsReplaced_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(strResult, EXPECTED_RESULT);
+#endif
 }
 
 /// <summary>
@@ -378,6 +402,9 @@ QTEST_CASE ( ReplaceFlagValues_TheContentOfTheStringIsReplaced_Test )
 /// </summary>
 QTEST_CASE ( ReplaceFlagValues_TheContentOfTheStringIsReplacedWhenLastLineDoesNotEndWithNewLineToken_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
     const wxString NEWLINE = GetNewLineToken_UtilityMethod();
 
@@ -387,7 +414,7 @@ QTEST_CASE ( ReplaceFlagValues_TheContentOfTheStringIsReplacedWhenLastLineDoesNo
     FLAGVALUES.insert(std::pair<wxString, wxString>(wxT("FLAG1"), wxT("NEWVALUE1")));
     FLAGVALUES.insert(std::pair<wxString, wxString>(wxT("FLAG2"), wxT("NEWVALUE2")));
     FLAGVALUES.insert(std::pair<wxString, wxString>(wxT("FLAG3"), wxT("NEWVALUE3")));
-    
+
     const wxString INPUT_STRING = wxT("#define FLAG1 VALUE1") + NEWLINE + wxT("#define FLAG2 VALUE2") + NEWLINE + wxT("#define FLAG3 VALUE3");
     const wxString EXPECTED_RESULT = wxT("#define FLAG1 NEWVALUE1") + NEWLINE + wxT("#define FLAG2 NEWVALUE2") + NEWLINE + wxT("#define FLAG3 NEWVALUE3");
 
@@ -396,6 +423,7 @@ QTEST_CASE ( ReplaceFlagValues_TheContentOfTheStringIsReplacedWhenLastLineDoesNo
 
     // [Verification]
     BOOST_CHECK_EQUAL(strResult, EXPECTED_RESULT);
+#endif
 }
 
 /// <summary>
@@ -403,14 +431,17 @@ QTEST_CASE ( ReplaceFlagValues_TheContentOfTheStringIsReplacedWhenLastLineDoesNo
 /// </summary>
 QTEST_CASE ( ReadTestModuleFiles_OnlyExecutableFilesAreListed_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
-#ifdef TAT_OS_WINDOWS
+    #ifdef TAT_OS_WINDOWS
     const wxString EXISTING_EXECURABLE_FILE = wxT("TestFile.exe");
-#elif defined(TAT_OS_LINUX)
-    const wxString EXISTING_EXECURABLE_FILE = wxT("TestFile.sh");
-#elif defined(TAT_OS_MAC)
+    #elif defined(TAT_OS_LINUX)
+    const wxString EXISTING_EXECURABLE_FILE = wxT("TestFile");
+    #elif defined(TAT_OS_MAC)
     // TODO [Thund]: Complete this with Mac configuration.
-#endif
+    #endif
 
     const wxString FOLDER_TO_SEARCH_INTO = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY;
     const size_t EXPECTED_NUMBER_OF_FILES = 1;
@@ -423,6 +454,7 @@ QTEST_CASE ( ReadTestModuleFiles_OnlyExecutableFilesAreListed_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(foundFiles.size(), EXPECTED_NUMBER_OF_FILES);
     BOOST_CHECK_EQUAL(*foundFiles.begin(), EXISTING_EXECURABLE_FILE);
+#endif
 }
 
 /// <summary>
@@ -430,6 +462,9 @@ QTEST_CASE ( ReadTestModuleFiles_OnlyExecutableFilesAreListed_Test )
 /// </summary>
 QTEST_CASE ( ReadTestResultFiles_OnlyTestResultFilesAreListed_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
     const wxString FOLDER_TO_SEARCH_INTO = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY;
     const wxString EXISTING_TESTRESULT_FILE = wxT("TestFile.xml");
@@ -443,6 +478,7 @@ QTEST_CASE ( ReadTestResultFiles_OnlyTestResultFilesAreListed_Test )
     // [Verification]
     BOOST_CHECK_EQUAL(foundFiles.size(), EXPECTED_NUMBER_OF_FILES);
     BOOST_CHECK_EQUAL(*foundFiles.begin(), EXISTING_TESTRESULT_FILE);
+#endif
 }
 
 /// <summary>
@@ -450,6 +486,9 @@ QTEST_CASE ( ReadTestResultFiles_OnlyTestResultFilesAreListed_Test )
 /// </summary>
 QTEST_CASE ( Log_LoggerOfHandlerReceivesMessages_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     using Kinesis::TestAutomationTool::Backend::Test::TATLoggerMock;
     using Kinesis::TestAutomationTool::Backend::TATFormattedMessage;
 
@@ -464,6 +503,7 @@ QTEST_CASE ( Log_LoggerOfHandlerReceivesMessages_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(LOGGER->GetLog(), MESSAGE.GetFullMessage());
+#endif
 }
 
 /// <summary>
@@ -471,6 +511,9 @@ QTEST_CASE ( Log_LoggerOfHandlerReceivesMessages_Test )
 /// </summary>
 QTEST_CASE ( ParseTestResultFile_TestResultTreeIsCreatedFromTestResultFile_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     using Kinesis::TestAutomationTool::Backend::ITATTestResultLoader;
     using Kinesis::TestAutomationTool::Backend::TATTestResultLoaderFactory;
     using Kinesis::TestAutomationTool::Backend::ETATResultSource;
@@ -501,7 +544,7 @@ QTEST_CASE ( ParseTestResultFile_TestResultTreeIsCreatedFromTestResultFile_Test 
             TATTestResultNode* TESTSUITE1_2 = new TATTestResultNode(wxT("TestSuite1"), ETATResult::E_NoResult, wxT("file3"), 4, ETATTestResultNodeType::E_Suite);
                 TATTestResultNode* TESTCASE1_2_2 = new TATTestResultNode(wxT("TestCase1"), ETATResult::E_NoResult, wxT(""), 4, ETATTestResultNodeType::E_Case);
                     TATTestResultNode* TESTRESULT6 = new TATTestResultNode(wxT("Info"), ETATResult::E_Success, wxT("Message1"), 0, ETATTestResultNodeType::E_Result);
-    
+
     EXPECTED_TESTRESULT_TREE.AddChild(TESTLOG1);
         TESTLOG1->AddChild(TESTMODULE1);
             TESTMODULE1->AddChild(TESTSUITE1);
@@ -524,6 +567,7 @@ QTEST_CASE ( ParseTestResultFile_TestResultTreeIsCreatedFromTestResultFile_Test 
 
     // [Verification]
     CheckTestResultTreeEquality_UtilityMethod(testExecutionMock.GetTestResultLoader()->GetTestResultTree(), &EXPECTED_TESTRESULT_TREE);
+#endif
 }
 
 /// <summary>
@@ -531,6 +575,9 @@ QTEST_CASE ( ParseTestResultFile_TestResultTreeIsCreatedFromTestResultFile_Test 
 /// </summary>
 QTEST_CASE ( DeletePreviousResultFiles_TestResultFilesAreDeleted_Test )
 {
+#ifdef TAT_OS_LINUX
+    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
+#else
     // [Preparation]
     const wxString TESTRESULTFILES_FOLDER = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/");
     TATTestExecutionThreadWhiteBox executionThreadUT(null_t);
@@ -551,6 +598,7 @@ QTEST_CASE ( DeletePreviousResultFiles_TestResultFilesAreDeleted_Test )
 
     // [Cleaning]
     wxRenameFile(GetPathToTestResultFile_UtilityMethod() + wxT(".bak"), GetPathToTestResultFile_UtilityMethod());
+#endif
 }
 
 

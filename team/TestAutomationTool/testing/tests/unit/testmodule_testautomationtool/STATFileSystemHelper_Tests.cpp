@@ -23,25 +23,42 @@ using Kinesis::TestAutomationTool::Backend::STATFileSystemHelper;
 QTEST_SUITE_BEGIN( STATFileSystemHelper_TestSuite )
 
 /// <summary>
-/// Path to the prerequired text file used by many unit tests.
-/// </summary>
-#ifdef TAT_OS_WINDOWS
-    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + wxString(TAT_ARTIFACTS_DIRECTORY) + wxT("/TestFile.exe");
-#elif defined(TAT_OS_LINUX)
-    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + wxString(TAT_ARTIFACTS_DIRECTORY) + wxT("/TestFile.sh");
-#elif defined(TAT_OS_MAC)
-    // TODO [Thund]: Complete this with Mac configuration.
-#endif
-
-/// <summary>
-/// Path to the prerequired text file used by many unit tests.
-/// </summary>
-const wxString PATH_TO_TEXT_FILE = wxGetCwd() + wxT("/") + wxString(TAT_ARTIFACTS_DIRECTORY) + wxT("/TestFile.txt");
-
-/// <summary>
 /// The prerequired text file's name used by many unit tests.
 /// </summary>
 const wxString TEXT_FILE_NAME = wxT("TestFile.txt");
+
+/// <summary>
+/// Utility method for testing purposes. Path to the prerequired executable file used by many unit tests.
+/// </summary>
+/// <returns>
+/// The path to the prerequired executable file used by many unit tests.
+/// </returns>
+wxString GetPathToExecutableFile_UtilityMethod()
+{
+#ifdef TAT_OS_WINDOWS
+    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile.exe");
+#elif defined(TAT_OS_LINUX)
+    const wxString PATH_TO_EXECUTABLE_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile");
+#elif defined(TAT_OS_MAC)
+    // TODO [Thund]: Complete this with Mac configuration.
+    #error Not defined for Mac
+#endif
+
+    return PATH_TO_EXECUTABLE_FILE;
+}
+
+/// <summary>
+/// Utility method for testing purposes. Path to the prerequired text file used by many unit tests.
+/// </summary>
+/// <returns>
+/// The path to the prerequired text file used by many unit tests.
+/// </returns>
+wxString GetPathToTextFile_UtilityMethod()
+{
+    const wxString PATH_TO_TEXT_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile.txt");
+
+    return PATH_TO_TEXT_FILE;
+}
 
 /// <summary>
 /// Checks that the operation returns False when trying to read from a file that doesn't exist.
@@ -66,7 +83,7 @@ QTEST_CASE ( Read_ReturnsFalseWhenTheFileDoesntExist_Test )
 QTEST_CASE ( Read_ReturnsTrueWhenTheOperationWasSuccessful_Test )
 {
     // Preparation
-    const wxString PATH_TO_FILE = PATH_TO_TEXT_FILE;
+    const wxString PATH_TO_FILE = GetPathToTextFile_UtilityMethod();
     const bool EXPECTED_VALUE = true;
 
 	// Execution
@@ -100,7 +117,7 @@ QTEST_CASE ( Read_ObtainedStringIsEmptyWhenTheOperationFails_Test )
 QTEST_CASE ( Read_ObtainedStringIsProperlyFilledWhenTheOperationSuccess_Test )
 {
     // Preparation
-    const wxString PATH_TO_FILE = PATH_TO_TEXT_FILE;
+    const wxString PATH_TO_FILE = GetPathToTextFile_UtilityMethod();
     const wxString EXPECTED_CONTENT = wxT("FILE CREATED FOR TESTING PURPOSES. DON'T DELETE.");
 
 	// Execution
@@ -117,8 +134,8 @@ QTEST_CASE ( Read_ObtainedStringIsProperlyFilledWhenTheOperationSuccess_Test )
 QTEST_CASE ( Delete_ReturnsTrueWhenTheFileExists_Test )
 {
     // Preparation
-    const wxString PATH_TO_FILE = PATH_TO_TEXT_FILE + wxT("DELETE");
-    wxCopyFile(PATH_TO_TEXT_FILE, PATH_TO_FILE, true);
+    const wxString PATH_TO_FILE = GetPathToTextFile_UtilityMethod() + wxT("DELETE");
+    wxCopyFile(GetPathToTextFile_UtilityMethod(), PATH_TO_FILE, true);
 
     const bool EXPECTED_RESULT = true;
 
@@ -151,8 +168,8 @@ QTEST_CASE ( Delete_ReturnsFalseWhenTheFileDidntExist_Test )
 QTEST_CASE ( Delete_FileIsActuallyRemoved_Test )
 {
     // Preparation
-    const wxString PATH_TO_FILE = PATH_TO_TEXT_FILE + wxT("DELETE");
-    wxCopyFile(PATH_TO_TEXT_FILE, PATH_TO_FILE, true);
+    const wxString PATH_TO_FILE = GetPathToTextFile_UtilityMethod() + wxT("DELETE");
+    wxCopyFile(GetPathToTextFile_UtilityMethod(), PATH_TO_FILE, true);
 
     const bool FILE_WAS_REMOVED = !wxFileExists(PATH_TO_FILE);
 
@@ -174,7 +191,7 @@ QTEST_CASE ( Move_ReturnsFalseWhenDestinationDoesntExist_Test )
     const bool EXPECTED_RESULT = false;
 
 	// Execution
-    bool bResult = STATFileSystemHelper::Move(PATH_TO_TEXT_FILE, DESTINATION);
+    bool bResult = STATFileSystemHelper::Move(GetPathToTextFile_UtilityMethod(), DESTINATION);
 
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
@@ -203,8 +220,8 @@ QTEST_CASE ( Move_ReturnsFalseWhenSourceDoesntExist_Test )
 QTEST_CASE ( Move_ReturnsTrueWhenSourceAndDestinationExist_Test )
 {
     // Preparation
-    const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("MOVED");
+    const wxString SOURCE = GetPathToTextFile_UtilityMethod();
+    const wxString DESTINATION = GetPathToTextFile_UtilityMethod() + wxT("MOVED");
     const bool EXPECTED_RESULT = true;
 
 	// Execution
@@ -224,8 +241,8 @@ QTEST_CASE ( Move_ReturnsTrueWhenSourceAndDestinationExist_Test )
 QTEST_CASE ( Move_TheFileIsMoved_Test )
 {
     // Preparation
-    const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("MOVED");
+    const wxString SOURCE = GetPathToTextFile_UtilityMethod();
+    const wxString DESTINATION = GetPathToTextFile_UtilityMethod() + wxT("MOVED");
     const bool FILE_WAS_MOVED = true;
 
 	// Execution
@@ -265,8 +282,8 @@ QTEST_CASE ( Rename_ReturnsFalseWhenFileDoesntExist_Test )
 QTEST_CASE ( Rename_ReturnsTrueWhenOperationIsSuccessful_Test )
 {
     // Preparation
-    const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("RENAMED");
+    const wxString SOURCE = GetPathToTextFile_UtilityMethod();
+    const wxString DESTINATION = GetPathToTextFile_UtilityMethod() + wxT("RENAMED");
     const wxString NEW_NAME = TEXT_FILE_NAME + wxT("RENAMED");
     const bool EXPECTED_RESULT = true;
 
@@ -277,7 +294,7 @@ QTEST_CASE ( Rename_ReturnsTrueWhenOperationIsSuccessful_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 
     // Cleaning
-    wxRenameFile(DESTINATION, SOURCE);
+    wxRenameFile(DESTINATION, SOURCE, true);
 }
 
 /// <summary>
@@ -286,8 +303,8 @@ QTEST_CASE ( Rename_ReturnsTrueWhenOperationIsSuccessful_Test )
 QTEST_CASE ( Rename_TheFileIsRenamed_Test )
 {
     // Preparation
-    const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("RENAMED");
+    const wxString SOURCE = GetPathToTextFile_UtilityMethod();
+    const wxString DESTINATION = GetPathToTextFile_UtilityMethod() + wxT("RENAMED");
     const wxString NEW_NAME = TEXT_FILE_NAME + wxT("RENAMED");
     const bool FILE_WAS_RENAMED = true;
 
@@ -301,7 +318,7 @@ QTEST_CASE ( Rename_TheFileIsRenamed_Test )
     BOOST_CHECK_EQUAL(NEW_FILE_EXISTS, FILE_WAS_RENAMED);
 
     // Cleaning
-    wxRenameFile(DESTINATION, SOURCE);
+    wxRenameFile(DESTINATION, SOURCE, true);
 }
 
 /// <summary>
@@ -310,7 +327,7 @@ QTEST_CASE ( Rename_TheFileIsRenamed_Test )
 QTEST_CASE ( Execute_ReturnsTrueWhenFileIsExecuted_Test )
 {
     // Preparation
-    const wxString EXECUTABLE_FILE = PATH_TO_EXECUTABLE_FILE;
+    const wxString EXECUTABLE_FILE = GetPathToExecutableFile_UtilityMethod();
     const bool EXPECTED_RESULT = true;
 
 	// Execution
@@ -328,7 +345,7 @@ QTEST_CASE ( Execute_TheListenerIsNotifiedAboutProcessOutputUpdate_Test )
     using Kinesis::TestAutomationTool::Backend::Test::TATShellProcessListenerMock;
 
     // Preparation
-    const wxString EXECUTABLE_FILE = PATH_TO_EXECUTABLE_FILE;
+    const wxString EXECUTABLE_FILE = GetPathToExecutableFile_UtilityMethod();
     const bool EXPECTED_RESULT = true;
     TATShellProcessListenerMock LISTENER;
 
@@ -347,7 +364,7 @@ QTEST_CASE ( Execute_TheListenerIsNotifiedAboutProcessCompletion_Test )
     using Kinesis::TestAutomationTool::Backend::Test::TATShellProcessListenerMock;
 
     // Preparation
-    const wxString EXECUTABLE_FILE = PATH_TO_EXECUTABLE_FILE;
+    const wxString EXECUTABLE_FILE = GetPathToExecutableFile_UtilityMethod();
     const bool EXPECTED_RESULT = true;
     TATShellProcessListenerMock LISTENER;;
 
@@ -364,7 +381,7 @@ QTEST_CASE ( Execute_TheListenerIsNotifiedAboutProcessCompletion_Test )
 QTEST_CASE ( Exists_ReturnsTrueWhenFileExists_Test )
 {
     // Preparation
-    const wxString FILE_TO_VERIFY = PATH_TO_TEXT_FILE;
+    const wxString FILE_TO_VERIFY = GetPathToTextFile_UtilityMethod();
     const bool EXPECTED_RESULT = true;
 
 	// Execution
@@ -400,7 +417,7 @@ QTEST_CASE ( Copy_ReturnsFalseWhenDestinationDoesntExist_Test )
     const bool EXPECTED_RESULT = false;
 
 	// Execution
-    bool bResult = STATFileSystemHelper::Copy(PATH_TO_TEXT_FILE, DESTINATION);
+    bool bResult = STATFileSystemHelper::Copy(GetPathToTextFile_UtilityMethod(), DESTINATION);
 
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
@@ -429,8 +446,8 @@ QTEST_CASE ( Copy_ReturnsFalseWhenSourceDoesntExist_Test )
 QTEST_CASE ( Copy_ReturnsTrueWhenSourceAndDestinationExist_Test )
 {
     // Preparation
-    const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("COPIED");
+    const wxString SOURCE = GetPathToTextFile_UtilityMethod();
+    const wxString DESTINATION = GetPathToTextFile_UtilityMethod() + wxT("COPIED");
     const bool EXPECTED_RESULT = true;
 
 	// Execution
@@ -449,8 +466,8 @@ QTEST_CASE ( Copy_ReturnsTrueWhenSourceAndDestinationExist_Test )
 QTEST_CASE ( Copy_TheFileIsCopied_Test )
 {
     // Preparation
-    const wxString SOURCE = PATH_TO_TEXT_FILE;
-    const wxString DESTINATION = PATH_TO_TEXT_FILE + wxT("COPIED");
+    const wxString SOURCE = GetPathToTextFile_UtilityMethod();
+    const wxString DESTINATION = GetPathToTextFile_UtilityMethod() + wxT("COPIED");
     const bool FILE_WAS_COPIED = true;
 
 	// Execution
@@ -472,7 +489,7 @@ QTEST_CASE ( Copy_TheFileIsCopied_Test )
 QTEST_CASE ( Write_FileIsWrittenAndFilledWithExpectedContent_Test )
 {
     // Preparation
-    const wxString WRITTEN_FILE_PATH = PATH_TO_TEXT_FILE + wxT("WRITTEN");
+    const wxString WRITTEN_FILE_PATH = GetPathToTextFile_UtilityMethod() + wxT("WRITTEN");
     const wxString WRITTEN_FILE_CONTENT = wxT("WRITE TEST");
     const bool EXPECTED_RESULT = true;
 
@@ -495,7 +512,7 @@ QTEST_CASE ( Write_FileIsWrittenAndFilledWithExpectedContent_Test )
 QTEST_CASE ( Write_OperationIsSuccessfullWhenFileAlreadyExists_Test )
 {
     // Preparation
-    const wxString WRITTEN_FILE_PATH = PATH_TO_TEXT_FILE + wxT("WRITTEN");
+    const wxString WRITTEN_FILE_PATH = GetPathToTextFile_UtilityMethod() + wxT("WRITTEN");
     const wxString WRITTEN_FILE_CONTENT = wxT("WRITE TEST");
     const bool EXPECTED_RESULT = true;
 
@@ -517,10 +534,9 @@ QTEST_CASE ( Write_OperationIsSuccessfullWhenFileAlreadyExists_Test )
 QTEST_CASE ( ListFolderContent_AllFilesInFolderWithSpecificExtensionAreListed_Test )
 {
     // Preparation
-    const wxString FOLDER = wxGetCwd() + wxT("\\") + TAT_ARTIFACTS_DIRECTORY;
+    const wxString FOLDER = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY;
     const wxString EXTENSION = wxT("txt");
     std::list<wxString> EXPECTED_FILES;
-    EXPECTED_FILES.push_back(wxT("TestConfig.txt"));
     EXPECTED_FILES.push_back(wxT("TestFile.txt"));
 
 	// Execution
@@ -547,7 +563,7 @@ QTEST_CASE ( GetExecutableFileExtension_TheValueIsReturnedCorrectly_Test )
 #ifdef TAT_OS_WINDOWS
     const wxString EXPECTED_FILE_EXTENSION = wxT("exe");
 #elif defined(TAT_OS_LINUX)
-    const wxString EXPECTED_FILE_EXTENSION = wxT("sh");
+    const wxString EXPECTED_FILE_EXTENSION = wxT("");
 // TODO [Thund]: Port for Mac
 #endif
 

@@ -6,6 +6,8 @@ using namespace boost::unit_test;
 
 #include "../../../testsystem/TestingExternalDefinitions.h"
 
+#include <wx/filefn.h>
+
 #include "TestConfiguration/TATConfigLoaderFromIniFile.h"
 #include "TATConfigLoaderFromIniFileWhiteBox.h"
 #include "TestConfiguration/TATRuleNode.h"
@@ -95,7 +97,7 @@ QTEST_CASE ( Load_ValueTreeIsCorrectlyCreated_Test )
     using Kinesis::TestAutomationTool::Backend::TATKeyValueNode;
 
     // Preparation
-    const wxString SOURCE_OF_TEST_CONFIG_FILE = wxT("ConfigFileMock.ini");
+    const wxString SOURCE_OF_TEST_CONFIG_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/ConfigFileMock.ini");
 
     TATConfigLoaderFactory CONFIG_LOADER_FACTORY;
     TATConfigLoaderFromIniFile* CONFIG_LOADER = dynamic_cast<TATConfigLoaderFromIniFile*>(CONFIG_LOADER_FACTORY.CreateConfigLoader(ETATConfigurationSource::E_INI_FILE));
@@ -515,7 +517,7 @@ QTEST_CASE ( GetTypeOfNode_HeaderTypeIsReturnedWhenTheLineOfTextContainsAHeader_
 
 	// Execution
     ETATConfigNodeType eReturnedType = CONFIG_LOADER.GetTypeOfNode(INPUT_TEXT_LINE);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eReturnedType.ToString(), EXPECTED_TYPE.ToString());
 }
@@ -536,7 +538,7 @@ QTEST_CASE ( GetTypeOfNode_ValueTypeIsReturnedWhenTheLineOfTextContainsAValue_Te
 
 	// Execution
     ETATConfigNodeType eReturnedType = CONFIG_LOADER.GetTypeOfNode(INPUT_TEXT_LINE);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eReturnedType.ToString(), EXPECTED_TYPE.ToString());
 }
@@ -555,7 +557,7 @@ QTEST_CASE ( GetNameOfNode_TheNamePartIsCorrectlyReturned_Test )
 
 	// Execution
     wxString strName = CONFIG_LOADER.GetNameOfNode(INPUT_TEXT_LINE);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(strName, EXPECTED_NAME);
 }
@@ -574,7 +576,7 @@ QTEST_CASE ( GetValueOfNode_TheValuePartIsCorrectlyReturned_Test )
 
 	// Execution
     wxString strValue = CONFIG_LOADER.GetValueOfNode(INPUT_TEXT_LINE);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(strValue, EXPECTED_VALUE);
 }
@@ -592,7 +594,7 @@ QTEST_CASE ( GetRuleTree_ReturnedCorrectValue_Test )
 
 	// Execution
     TATRuleNode* pReturnedValue = CONFIG_LOADER.GetRuleTree();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(pReturnedValue, EXPECTED_VALUE);
 }
@@ -613,7 +615,7 @@ QTEST_CASE ( GetValueTree_ReturnedCorrectValue_Test )
 
 	// Execution
     TATKeyValueNode* pReturnedValue = CONFIG_LOADER.GetValueTree();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(pReturnedValue, EXPECTED_VALUE);
 }
@@ -630,7 +632,7 @@ QTEST_CASE ( GetSource_ReturnedCorrectValue_Test )
 
 	// Execution
     wxString strReturnedValue = CONFIG_LOADER.GetSource();
-    
+
     // Verification
     BOOST_CHECK_EQUAL(strReturnedValue, EXPECTED_VALUE);
 }
@@ -643,10 +645,10 @@ QTEST_CASE ( SetSource_ValueIsCorrectlyStored_Test )
     // Preparation
     const wxString EXPECTED_VALUE = wxT("SOURCE");
     TATConfigLoaderFromIniFile CONFIG_LOADER(null_t);
-    
+
 	// Execution
     CONFIG_LOADER.SetSource(EXPECTED_VALUE);
-    
+
     // Verification
     wxString strReturnedValue = CONFIG_LOADER.GetSource();
     BOOST_CHECK_EQUAL(CONFIG_LOADER.GetSource(), EXPECTED_VALUE);

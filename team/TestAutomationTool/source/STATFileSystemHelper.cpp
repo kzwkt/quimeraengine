@@ -125,7 +125,7 @@ bool STATFileSystemHelper::Move(const wxString& strFromFilePath, const wxString&
 bool STATFileSystemHelper::Rename(const wxString& strFilePath, const wxString& strNewFileName)
 {
     if(wxFileExists(strFilePath))
-        return wxRenameFile(strFilePath, wxPathOnly(strFilePath) + wxT("\\") + strNewFileName, false);
+        return wxRenameFile(strFilePath, wxPathOnly(strFilePath) + wxT("/") + strNewFileName, false);
     else
         return false;
 }
