@@ -1,12 +1,5 @@
 = Tracker =
 
-<table>
-<tr>
-<td width="56px" align="center">[http://quimeraengine.googlecode.com/svn/wiki/images/Libros.png]</td>
-<td>[Workflow Work Flow]</td>
-</tr>
-</table>
-
 == Phase 0 ==
 
 <table>
