@@ -44,7 +44,8 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="hexahedron">[IN] The hexahedron from which we want to create a copy in the resident hexahedron.</param>
-    inline QBaseHexahedron(const QBaseHexahedron &hexahedron) : A(hexahedron.A), B(hexahedron.B), C(hexahedron.C), D(hexahedron.D)
+    inline QBaseHexahedron(const QBaseHexahedron &hexahedron) : A(hexahedron.A), B(hexahedron.B), C(hexahedron.C), D(hexahedron.D),
+                                                                E(hexahedron.E), F(hexahedron.F), G(hexahedron.G), H(hexahedron.H)
     {
     }
 
