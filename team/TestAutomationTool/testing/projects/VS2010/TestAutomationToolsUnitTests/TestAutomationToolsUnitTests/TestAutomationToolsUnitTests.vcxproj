@@ -110,9 +110,9 @@ xcopy "$(TargetDir)..\..\TestFile.xml" "$(TargetDir)TestArtifacts\" /I /Y</Comma
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
-    <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
-    <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\ETATTestType.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\TATCommonTestConfig.cpp" />
+    <ClCompile Include="..\..\..\..\testsystem\TATSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATAppSettings_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATFileSystemHelper_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\STATStringHelper_Tests.cpp" />
@@ -142,14 +142,14 @@ xcopy "$(TargetDir)..\..\TestFile.xml" "$(TargetDir)TestArtifacts\" /I /Y</Comma
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\Configuration.h" />
-    <ClInclude Include="..\..\..\..\testsystem\EQTestType.h" />
+    <ClInclude Include="..\..\..\..\testsystem\ETATTestType.h" />
     <ClInclude Include="..\..\..\..\testsystem\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\InternalDefinitions.h" />
-    <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h" />
-    <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h" />
-    <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h" />
-    <ClInclude Include="..\..\..\..\testsystem\QuimeraEngineFixtures.h" />
-    <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATCommonTestConfig.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATPerformanceTestModuleBase.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATSimpleConfigLoader.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATFixtures.h" />
+    <ClInclude Include="..\..\..\..\testsystem\TATUnitTestModuleBase.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATRichTextCtrlMock.h" />

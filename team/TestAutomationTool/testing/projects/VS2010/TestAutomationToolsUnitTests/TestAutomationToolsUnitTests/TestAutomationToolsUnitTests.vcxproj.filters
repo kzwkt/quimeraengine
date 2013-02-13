@@ -12,15 +12,6 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TestModule_TestAutomationTool.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
-      <Filter>TestSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp">
-      <Filter>TestSystem</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
-      <Filter>TestSystem</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATNode_Tests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
@@ -93,27 +84,18 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultConsultant_Tests.cpp">
       <Filter>Tests</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\ETATTestType.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\TATCommonTestConfig.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\testsystem\TATSimpleConfigLoader.cpp">
+      <Filter>TestSystem</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
-      <Filter>TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\testsystem\EQTestType.h">
-      <Filter>TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\testsystem\QCommonTestConfig.h">
-      <Filter>TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\testsystem\QPerformanceTestModuleBase.h">
-      <Filter>TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\testsystem\QSimpleConfigLoader.h">
-      <Filter>TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\testsystem\QuimeraEngineFixtures.h">
-      <Filter>TestSystem</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h">
       <Filter>TestSystem</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h">
@@ -172,6 +154,24 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactoryWhiteBox.h">
       <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\ETATTestType.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATCommonTestConfig.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATPerformanceTestModuleBase.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATSimpleConfigLoader.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATFixtures.h">
+      <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\testsystem\TATUnitTestModuleBase.h">
+      <Filter>TestSystem</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

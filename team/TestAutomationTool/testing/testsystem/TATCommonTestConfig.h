@@ -33,8 +33,8 @@
 #include <fstream>
 #include <string>
 
-#include "QSimpleConfigLoader.h"
-#include "EQTestType.h"
+#include "TATSimpleConfigLoader.h"
+#include "ETATTestType.h"
 #include "InternalDefinitions.h"
 
 #ifdef TAT_OS_WINDOWS

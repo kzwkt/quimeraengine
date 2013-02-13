@@ -23,16 +23,34 @@
 //                                                                               //
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
-#include <fstream>
 
-#include "QSimpleConfigLoader.h"
+#include "TATCommonTestConfig.h"
+#include "CommonConfigDefinitions.h"
+
+#include <boost/date_time.hpp>
+
+#include <iostream>
 
 namespace Kinesis
 {
-namespace QuimeraEngine
+namespace TestAutomationTool
 {
 namespace Test
 {
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |  ATTRIBUTES INITIALIZATION |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const std::string TATCommonTestConfig::TestConfigFileName("TestConfig.txt");
+std::string TATCommonTestConfig::s_strLogFilePath;
+std::ofstream TATCommonTestConfig::s_resultsFileStream;
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -43,13 +61,60 @@ namespace Test
 //##################													   ##################
 //##################=======================================================##################
 
-QSimpleConfigLoader::QSimpleConfigLoader()
+TATCommonTestConfig::TATCommonTestConfig()
 {
 }
-	
-QSimpleConfigLoader::QSimpleConfigLoader(const std::string &strPath)
+
+TATCommonTestConfig::TATCommonTestConfig(const std::string &strTestModuleName, const ETATTestType &testType)
 {
-    this->SetFilePath(strPath);
+    // Loads configuration values from disk
+    // -------------------------------------
+
+    char* szCurrentWorkingDirectory = getcwd_t(null_t, 0);
+    std::string strCurrentWorkingDirectory(szCurrentWorkingDirectory);
+    delete[] szCurrentWorkingDirectory;
+
+    Kinesis::QuimeraEngine::Test::QSimpleConfigLoader config(strCurrentWorkingDirectory + "/" + TATCommonTestConfig::TestConfigFileName);
+
+    if(config.LoadEntries())
+    {
+        // Entries order in the configuration file
+        const int FILE_UNITTEST_RESULTSPATH_ENTRY_POSITION = 0;
+        const int FILE_PERFORMANCETEST_RESULTSPATH_ENTRY_POSITION = 1;
+
+        // Depending on the test type, a path is selected to store the results file
+        int nEntryToReadResultsPathFrom = 0;
+
+        switch(testType)
+        {
+        case ETATTestType::E_UnitTest:
+            {
+                nEntryToReadResultsPathFrom = FILE_UNITTEST_RESULTSPATH_ENTRY_POSITION;
+                break;
+            }
+        case ETATTestType::E_PerformanceTest:
+            {
+                nEntryToReadResultsPathFrom = FILE_PERFORMANCETEST_RESULTSPATH_ENTRY_POSITION;
+                break;
+            }
+        }
+
+        TATCommonTestConfig::s_strLogFilePath = (config[nEntryToReadResultsPathFrom] + strTestModuleName + "_" + TAT_TEST_CONFIG_NAME + "_" + this->GetCurrentTime() + ".xml");
+        TATCommonTestConfig::s_resultsFileStream.open(TATCommonTestConfig::s_strLogFilePath.c_str(), std::ofstream::out);
+
+        // Log configuration
+        // -------------------
+        // Output file format
+        unit_test_log.set_format(XML);
+        // Output stream
+        unit_test_log.set_stream(TATCommonTestConfig::s_resultsFileStream);
+        // Threshold level
+        unit_test_log.set_threshold_level(log_successful_tests);
+    }
+    else
+    {
+        std::cout << "An error occured when loading the test configuration file (" << TATCommonTestConfig::TestConfigFileName << ").";
+    }
 }
 
 
@@ -62,7 +127,7 @@ QSimpleConfigLoader::QSimpleConfigLoader(const std::string &strPath)
 //##################													   ##################
 //##################=======================================================##################
 
-QSimpleConfigLoader::~QSimpleConfigLoader()
+TATCommonTestConfig::~TATCommonTestConfig()
 {
 }
 
@@ -70,70 +135,27 @@ QSimpleConfigLoader::~QSimpleConfigLoader()
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
+//##################		    |		    METHODS	    	 |			   ##################
 //##################		   /|							 |\			   ##################
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
 
-const std::string& QSimpleConfigLoader::operator[](const int &index) const
+std::string TATCommonTestConfig::GetCurrentTime()
 {
-    return _arConfigEntries[index];
-}
+    // Read from http://stackoverflow.com/questions/2612938/simplest-way-to-get-current-time-in-current-timezone-using-boostdate-time
 
-bool QSimpleConfigLoader::LoadEntries()
-{
-    if(!_strPath.empty())
-    {
-        try
-        {
-            // Opens the file
-            std::ifstream inputFile(_strPath.c_str());
-        
-            if(inputFile.is_open())
-            {
-                // For each text line, until reaches the end of the file
-                std::string strLine;
-                bool bEOF = false;
+    std::string strResult;
 
-                while(!bEOF)
-                {
-                    bEOF = (inputFile >> strLine).eof();
-                    _arConfigEntries.push_back(strLine);
-                }
+    std::ostringstream stringStream;
+    const boost::posix_time::ptime now = boost::posix_time::second_clock::local_time();
+    boost::posix_time::time_facet *const facet = new boost::posix_time::time_facet("%Y-%m-%d-%H-%M-%S");
+    stringStream.imbue(std::locale(stringStream.getloc(), facet));
+    stringStream << now;
 
-                // All entries were read, if any
-                return true;
-            }
-        }
-        catch(std::exception ex)
-        {
-            // Silences the exception, it doesn't matters
-        }
-    }
+    strResult = stringStream.str();
 
-    // If there was any problem, the execution path ends here
-    return false;
-}
-
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |         PROPERTIES		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-std::string QSimpleConfigLoader::GetFilePath() const
-{
-    return this->_strPath;
-}
-
-void QSimpleConfigLoader::SetFilePath(const std::string &strPath)
-{
-    this->_strPath = strPath;
+    return strResult;
 }
 
 } //namespace Test

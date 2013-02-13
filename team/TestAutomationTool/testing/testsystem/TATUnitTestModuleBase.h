@@ -24,7 +24,19 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "EQTestType.h"
+#ifndef __TATUNITTESTMODULEBASE__
+#define __TATUNITTESTMODULEBASE__
+
+#include <string>
+
+#include <boost/test/unit_test.hpp>
+#include <boost/test/unit_test_log.hpp>
+
+#include "../testsystem/CommonConfigDefinitions.h"
+#include "../testsystem/TATCommonTestConfig.h"
+
+using Kinesis::TestAutomationTool::Test::TATCommonTestConfig;
+using Kinesis::TestAutomationTool::Test::ETATTestType;
 
 namespace Kinesis
 {
@@ -33,28 +45,40 @@ namespace TestAutomationTool
 namespace Test
 {
 
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |  ATTRIBUTES INITIALIZATION |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-    
-ETATTestType::TNameValuePair ETATTestType::sm_arValueName[] =
+/// <summary>
+/// Base class for unit test modules. Always inherit from this class to define a new unit test module.
+/// </summary>
+class TATUnitTestModuleBase
+{
+	// CONSTRUCTORS
+	// ---------------
+public:
+
+	/// <summary>
+	/// Constructor that receives the name of the module.
+	/// </summary>
+    /// <param name="strModuleName">The name of the module.</param>
+	TATUnitTestModuleBase(const std::string &strModuleName)
     {
-        std::pair<wxString, ETATTestType::EnumType>(wxT("UnitTest"),    ETATTestType::E_UnitTest),
-        std::pair<wxString, ETATTestType::EnumType>(wxT("PerformanceTest"),    ETATTestType::E_PerformanceTest),
-        std::pair<wxString, ETATTestType::EnumType>(wxT("EnduranceTest"),    ETATTestType::E_EnduranceTest),
-    };
+        TATCommonTestConfig config(strModuleName, ETATTestType::E_UnitTest);
+    }
 
-ETATTestType::TNameValueMap ETATTestType::sm_mapValueName(
-        ETATTestType::sm_arValueName ,
-        &ETATTestType::sm_arValueName[0] + sizeof(ETATTestType::sm_arValueName) / sizeof(ETATTestType::sm_arValueName[0])
-    );
 
+	// DESTRUCTOR
+	// ---------------
+public:
+
+	/// <summary>
+	/// Destructor.
+	/// </summary>		
+	virtual ~TATUnitTestModuleBase()
+    {
+    }
+
+};
 
 } //namespace Test
 } //namespace TestAutomationTool
 } //namespace Kinesis
+
+#endif // __TATUNITTESTMODULEBASE__
