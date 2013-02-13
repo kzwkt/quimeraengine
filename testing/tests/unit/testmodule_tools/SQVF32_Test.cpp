@@ -17,9 +17,8 @@ QTEST_SUITE_BEGIN( SQVF32_TestSuite )
 
 /// <summary>
 /// Checks if every floating point value is set in the correct place into the vector.
-/// This test verifies 2 complementary methods: Pack and Unpack.
 /// </summary>
-QTEST_CASE ( Pack_Unpack_EveryValueIsSetInTheRightPlace_Test )
+QTEST_CASE ( Pack_EveryValueIsSetInTheRightPlace_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_FLOAT1 = SQFloat::_1;
@@ -50,6 +49,14 @@ QTEST_CASE ( Pack_Unpack_EveryValueIsSetInTheRightPlace_Test )
     BOOST_CHECK_EQUAL(fFloatValueInPosition2, EXPECTED_VALUE_FOR_FLOAT2);
     BOOST_CHECK_EQUAL(fFloatValueInPosition3, EXPECTED_VALUE_FOR_FLOAT3);
     BOOST_CHECK_EQUAL(fFloatValueInPosition4, EXPECTED_VALUE_FOR_FLOAT4);
+}
+
+/// <summary>
+/// Not tested. It's the same as Pack so it's not repeated.
+/// </summary>
+QTEST_CASE ( Unpack_NotTested_Test )
+{
+    BOOST_MESSAGE(QE_L("It's not a testable method: no inputs, no outputs, just executes a method of a component."));
 }
 
 // End - Test Suite: SQVF32

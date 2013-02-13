@@ -81,9 +81,6 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp">
-      <Filter>Tests\Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
@@ -113,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp">
       <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
