@@ -1,22 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "TestSystem", "TestSystem", "{3FAC7DF2-4659-4F95-AD53-9418F07F673D}"
-	ProjectSection(SolutionItems) = preProject
-		..\..\..\testsystem\CommonConfigDefinitions.h = ..\..\..\testsystem\CommonConfigDefinitions.h
-		..\..\..\testsystem\EQTestType.cpp = ..\..\..\testsystem\EQTestType.cpp
-		..\..\..\testsystem\EQTestType.h = ..\..\..\testsystem\EQTestType.h
-		..\..\..\testsystem\QCommonTestConfig.cpp = ..\..\..\testsystem\QCommonTestConfig.cpp
-		..\..\..\testsystem\QCommonTestConfig.h = ..\..\..\testsystem\QCommonTestConfig.h
-		..\..\..\testsystem\QPerformanceTestModuleBase.h = ..\..\..\testsystem\QPerformanceTestModuleBase.h
-		..\..\..\testsystem\QSimpleConfigLoader.cpp = ..\..\..\testsystem\QSimpleConfigLoader.cpp
-		..\..\..\testsystem\QSimpleConfigLoader.h = ..\..\..\testsystem\QSimpleConfigLoader.h
-		..\..\..\testsystem\QuimeraEngineFixtures.h = ..\..\..\testsystem\QuimeraEngineFixtures.h
-		..\..\..\testsystem\QUnitTestModuleBase.h = ..\..\..\testsystem\QUnitTestModuleBase.h
-		..\..\..\testsystem\TestingExternalDefinitions.h = ..\..\..\testsystem\TestingExternalDefinitions.h
-		..\..\..\testsystem\TestingHelperDefinitions.h = ..\..\..\testsystem\TestingHelperDefinitions.h
-	EndProjectSection
-EndProject
+# Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tools", "Tools\Tools.vcxproj", "{40B8A776-0BED-40E6-B2F2-5CE7386733D8}"
 EndProject
 Global
