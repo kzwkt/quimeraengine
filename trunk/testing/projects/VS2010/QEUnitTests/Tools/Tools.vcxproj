@@ -10,6 +10,7 @@
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_core\EQEnumeration_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix2x2_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix3x3_Test.cpp" />
@@ -51,6 +52,7 @@
     <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_core\EQEnumerationMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternionWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3WhiteBox.h" />

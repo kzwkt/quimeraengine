@@ -28,6 +28,7 @@
 #define __ETATTESTTYPE__
 
 #include <map>
+#include <vector>
 
 #include <wx/string.h>
 
@@ -57,7 +58,7 @@ public:
         E_PerformanceTest,/*!< Performance test. */
         E_EnduranceTest,/*!< Endurance test. */
 
-        _NotEnumValue = -1 /*!< Not valid value. */
+        _NotEnumValue = 0xFFFFFFFF /*!< Not valid value. */
     };
 
     // TYPEDEFS
@@ -67,22 +68,22 @@ public:
     typedef std::map<wxString, ETATTestType::EnumType> TNameValueMap;
     typedef std::pair<wxString, ETATTestType::EnumType> TNameValuePair;
 
-
-	// METHODS
+    
+	// CONSTRUCTORS
 	// ---------------
 public:
 
     /// <summary>
     /// Constructor that receives a valid enumeration value.
     /// </summary>
-    /// <param name="eValue">A valid enumeration value.</param>
+    /// <param name="eValue">[IN] A valid enumeration value.</param>
     inline ETATTestType(const ETATTestType::EnumType &eValue) : m_value(eValue) 
     {}
 
     /// <summary>
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">An integer number.</param>
+    /// <param name="nValue">[IN] An integer number.</param>
     template<typename IntegerType>
     inline ETATTestType(const IntegerType &nValue) : m_value(static_cast<const ETATTestType::EnumType>(nValue))
     {}
@@ -91,16 +92,29 @@ public:
     /// Constructor that receives the name of a valid enumeration value. Note that enumeration value names don't include
     /// the enumeration prefix.
     /// </summary>
-    /// <param name="strValueName">The name of a valid enumeration value.</param>
+    /// <param name="strValueName">[IN] The name of a valid enumeration value.</param>
     inline ETATTestType(const wxString &strValueName)
     {
         *this = strValueName;
     }
+    
+    /// <summary>
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="eValue">[IN] Another enumeration.</param>
+    inline ETATTestType(const ETATTestType &eValue) : m_value(eValue.m_value)
+    {
+    }
+
+
+	// METHODS
+	// ---------------
+public:
 
     /// <summary>
     /// Assign operator that accepts an integer number that corresponds to a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">An integer number.</param>
+    /// <param name="nValue">[IN] An integer number.</param>
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
@@ -114,7 +128,7 @@ public:
     /// <summary>
     /// Assign operator that accepts a valid enumeration value name.
     /// </summary>
-    /// <param name="strValueName">The enumeration value name.</param>
+    /// <param name="strValueName">[IN] The enumeration value name.</param>
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
@@ -131,7 +145,7 @@ public:
     /// <summary>
     /// Assign operator that accepts a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">A valid enumeration value.</param>
+    /// <param name="nValue">[IN] A valid enumeration value.</param>
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
@@ -140,12 +154,37 @@ public:
         m_value = eValue;
         return *this;
     }
+    
+    /// <summary>
+    /// Assign operator that accepts another enumeration.
+    /// </summary>
+    /// <param name="eValue">[IN] Another enumeration.</param>
+    /// <returns>
+    /// The enumerated type itself.
+    /// </returns>
+    inline ETATTestType& operator=(const ETATTestType &eValue)
+    {
+        m_value = eValue.m_value;
+        return *this;
+    }
+    
+    /// <summary>
+    /// Equality operator that receives another enumeration.
+    /// </summary>
+    /// <param name="eValue">[IN] The other enumeration.</param>
+    /// <returns>
+    /// True if it equals the enumeration value. False otherwise.
+    /// </returns>
+    bool operator==(const ETATTestType &eValue) const
+    {
+        return m_value == eValue.m_value;
+    }
 
     /// <summary>
     /// Equality operator that accepts the name of a valid enumeration value. Note that enumeration value names don't include
     /// the enumeration prefix.
     /// </summary>
-    /// <param name="strValueName">The enumeration value name.</param>
+    /// <param name="strValueName">[IN] The enumeration value name.</param>
     /// <returns>
     /// True if the name corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
@@ -160,7 +199,7 @@ public:
     /// <summary>
     /// Equality operator that accepts an integer number which must correspond to a valid enumeration value.
     /// </summary>
-    /// <param name="strValueName">An integer number.</param>
+    /// <param name="strValueName">[IN] An integer number.</param>
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
@@ -173,13 +212,38 @@ public:
     /// <summary>
     /// Equality operator that receives a valid enumeration value.
     /// </summary>
-    /// <param name="eValue">The enumeration value.</param>
+    /// <param name="eValue">[IN] The enumeration value.</param>
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
     bool operator==(const ETATTestType::EnumType &eValue) const
     {
         return m_value == eValue;
+    }
+    
+    /// <summary>
+    /// Retrieves a list of all the values of the enumeration.
+    /// </summary>
+    /// <returns>
+    /// A list of all the values of the enumeration.
+    /// </returns>
+    static const std::vector<EnumType>& GetValues()
+    {
+        static std::vector<EnumType> arValues;
+
+        // If it's not been initialized yet...
+        if(arValues.empty())
+        {
+            const size_t ENUM_ARRAY_COUNT = ETATTestType::sm_mapValueName.size();
+
+            // An empty enumeration makes no sense
+            wxASSERT(ENUM_ARRAY_COUNT > 0);
+
+            for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
+                arValues.push_back(ETATTestType::sm_arValueName[i].second);
+        }
+
+        return arValues;
     }
 
     /// <summary>
@@ -204,7 +268,7 @@ public:
     {
         return static_cast<IntegerType>(m_value);
     }
-
+    
     /// <summary>
     /// Casting operator that converts the enumerated type value into its corresponding name.
     /// </summary>
@@ -232,8 +296,8 @@ private:
     // <summary>
     // Uses an enumerated value as a key to retrieve his own string representation from a dictionary.
     // </summary>
-    // <param name="eValue">The enumeration value.</param>
-    // <param name="nameValueDictionary">The dictionary where enumeration's string representations are stored.</param>
+    // <param name="eValue">[IN] The enumeration value.</param>
+    // <param name="nameValueDictionary">[IN] The dictionary where enumeration's string representations are stored.</param>
     // <returns>
     // The enumerated value's string representation.
     // </returns>
@@ -248,7 +312,7 @@ private:
         if(itValueName != itValueNameEnd)
             return itValueName->first;
         else
-            return wxT(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
+            { static const wxString EMPTY_STRING; return EMPTY_STRING; }// [TODO] Thund: This must be replaced by a QString constant.
     }
 
 
