@@ -28,6 +28,7 @@
 #define __EQTESTTYPE__
 
 #include <map>
+#include <vector>
 
 #include "DataTypesDefinitions.h"
 
@@ -69,22 +70,22 @@ public:
     typedef std::map<string_q, EQTestType::EnumType> TNameValueMap;
     typedef std::pair<string_q, EQTestType::EnumType> TNameValuePair;
 
-
-	// METHODS
+    
+	// CONSTRUCTORS
 	// ---------------
 public:
 
     /// <summary>
     /// Constructor that receives a valid enumeration value.
     /// </summary>
-    /// <param name="eValue">A valid enumeration value.</param>
+    /// <param name="eValue">[IN] A valid enumeration value.</param>
     inline EQTestType(const EQTestType::EnumType &eValue) : m_value(eValue) 
     {}
 
     /// <summary>
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">An integer number.</param>
+    /// <param name="nValue">[IN] An integer number.</param>
     template<typename IntegerType>
     inline EQTestType(const IntegerType &nValue) : m_value(static_cast<const EQTestType::EnumType>(nValue))
     {}
@@ -93,16 +94,29 @@ public:
     /// Constructor that receives the name of a valid enumeration value. Note that enumeration value names don't include
     /// the enumeration prefix.
     /// </summary>
-    /// <param name="strValueName">The name of a valid enumeration value.</param>
+    /// <param name="strValueName">[IN] The name of a valid enumeration value.</param>
     inline EQTestType(const string_q &strValueName)
     {
         *this = strValueName;
     }
+    
+    /// <summary>
+    /// Copy constructor.
+    /// </summary>
+    /// <param name="eValue">[IN] Another enumeration.</param>
+    inline EQTestType(const EQTestType &eValue) : m_value(eValue.m_value)
+    {
+    }
+
+
+	// METHODS
+	// ---------------
+public:
 
     /// <summary>
     /// Assign operator that accepts an integer number that corresponds to a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">An integer number.</param>
+    /// <param name="nValue">[IN] An integer number.</param>
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
@@ -116,7 +130,7 @@ public:
     /// <summary>
     /// Assign operator that accepts a valid enumeration value name.
     /// </summary>
-    /// <param name="strValueName">The enumeration value name.</param>
+    /// <param name="strValueName">[IN] The enumeration value name.</param>
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
@@ -133,7 +147,7 @@ public:
     /// <summary>
     /// Assign operator that accepts a valid enumeration value.
     /// </summary>
-    /// <param name="nValue">A valid enumeration value.</param>
+    /// <param name="nValue">[IN] A valid enumeration value.</param>
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
@@ -142,12 +156,37 @@ public:
         m_value = eValue;
         return *this;
     }
+    
+    /// <summary>
+    /// Assign operator that accepts another enumeration.
+    /// </summary>
+    /// <param name="eValue">[IN] Another enumeration.</param>
+    /// <returns>
+    /// The enumerated type itself.
+    /// </returns>
+    inline EQTestType& operator=(const EQTestType &eValue)
+    {
+        m_value = eValue.m_value;
+        return *this;
+    }
+    
+    /// <summary>
+    /// Equality operator that receives another enumeration.
+    /// </summary>
+    /// <param name="eValue">[IN] The other enumeration.</param>
+    /// <returns>
+    /// True if it equals the enumeration value. False otherwise.
+    /// </returns>
+    bool operator==(const EQTestType &eValue) const
+    {
+        return m_value == eValue.m_value;
+    }
 
     /// <summary>
     /// Equality operator that accepts the name of a valid enumeration value. Note that enumeration value names don't include
     /// the enumeration prefix.
     /// </summary>
-    /// <param name="strValueName">The enumeration value name.</param>
+    /// <param name="strValueName">[IN] The enumeration value name.</param>
     /// <returns>
     /// True if the name corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
@@ -162,7 +201,7 @@ public:
     /// <summary>
     /// Equality operator that accepts an integer number which must correspond to a valid enumeration value.
     /// </summary>
-    /// <param name="strValueName">An integer number.</param>
+    /// <param name="strValueName">[IN] An integer number.</param>
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
@@ -175,13 +214,38 @@ public:
     /// <summary>
     /// Equality operator that receives a valid enumeration value.
     /// </summary>
-    /// <param name="eValue">The enumeration value.</param>
+    /// <param name="eValue">[IN] The enumeration value.</param>
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
     bool operator==(const EQTestType::EnumType &eValue) const
     {
         return m_value == eValue;
+    }
+    
+    /// <summary>
+    /// Retrieves a list of all the values of the enumeration.
+    /// </summary>
+    /// <returns>
+    /// A list of all the values of the enumeration.
+    /// </returns>
+    static const std::vector<EnumType>& GetValues()
+    {
+        static std::vector<EnumType> arValues;
+
+        // If it's not been initialized yet...
+        if(arValues.empty())
+        {
+            const size_t ENUM_ARRAY_COUNT = EQTestType::sm_mapValueName.size();
+
+            // An empty enumeration makes no sense
+            QE_ASSERT(ENUM_ARRAY_COUNT > 0);
+
+            for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
+                arValues.push_back(EQTestType::sm_arValueName[i].second);
+        }
+
+        return arValues;
     }
 
     /// <summary>
@@ -206,7 +270,7 @@ public:
     {
         return static_cast<IntegerType>(m_value);
     }
-
+    
     /// <summary>
     /// Casting operator that converts the enumerated type value into its corresponding name.
     /// </summary>
@@ -215,16 +279,7 @@ public:
     /// </returns>
     operator const string_q() const
     {
-        TNameValueMap::iterator itValueName = EQTestType::sm_mapValueName.begin();
-        TNameValueMap::const_iterator itValueNameEnd = EQTestType::sm_mapValueName.end();
-
-        while(itValueName != itValueNameEnd && itValueName->second != m_value)
-            ++itValueName;
-   
-        if(itValueName != itValueNameEnd)
-            return itValueName->first;
-        else
-            return QE_L(""); // [TODO] Thund: Esto debe cambiarse por una constante de QString.
+        return ConvertToString(m_value, EQTestType::sm_mapValueName);
     }
 
     /// <summary>
@@ -233,9 +288,33 @@ public:
     /// <returns>
     /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
     /// </returns>
-    const string_q ToString()
+    const string_q ToString() const
     {
-        return *this;
+        return ConvertToString(m_value, EQTestType::sm_mapValueName);
+    }
+
+private:
+
+    // <summary>
+    // Uses an enumerated value as a key to retrieve his own string representation from a dictionary.
+    // </summary>
+    // <param name="eValue">[IN] The enumeration value.</param>
+    // <param name="nameValueDictionary">[IN] The dictionary where enumeration's string representations are stored.</param>
+    // <returns>
+    // The enumerated value's string representation.
+    // </returns>
+    const string_q& ConvertToString(const EQTestType::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    {
+        TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
+        TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
+
+        while(itValueName != itValueNameEnd && itValueName->second != eValue)
+            ++itValueName;
+
+        if(itValueName != itValueNameEnd)
+            return itValueName->first;
+        else
+            { static const string_q EMPTY_STRING; return EMPTY_STRING; }// [TODO] Thund: This must be replaced by a QString constant.
     }
 
 

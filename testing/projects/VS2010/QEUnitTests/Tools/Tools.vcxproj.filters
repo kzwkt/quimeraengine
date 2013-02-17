@@ -13,6 +13,9 @@
     <Filter Include="Tests\DataTypes">
       <UniqueIdentifier>{539ea320-355d-4181-9c79-5e4fa6eff11f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\General">
+      <UniqueIdentifier>{8cc96c95-271b-4301-abf4-4108d835eb8f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -114,6 +117,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp">
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_core\EQEnumeration_Test.cpp">
+      <Filter>Tests\General</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -169,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrixWhiteBox.h">
       <Filter>Tests\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_core\EQEnumerationMock.h">
+      <Filter>Tests\General</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

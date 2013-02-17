@@ -39,13 +39,14 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace NAMESPACE
+namespace Test
 {
 
 /// <summary>
-/// [DOC]
+/// Mocked-up enumeration to test the EQEnumeration template in which are based all the enumeration
+/// classes in Quimera Engine.
 /// </summary>
-class EQEnumeration
+class EQEnumerationMock
 {
     // ENUMERATIONS
     // ---------------
@@ -56,7 +57,9 @@ public:
     /// </summary>
     enum EnumType
     {
-        E_<> = QE_ENUMERATION_MIN_VALUE ,/*!< [DOC] */
+        E_Value1 = QE_ENUMERATION_MIN_VALUE ,/*!< Mocked value 1 */
+        E_Value2,/*!< Mocked value 1 */
+        E_Value3,/*!< Mocked value 1 */
 
         _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };
@@ -65,8 +68,8 @@ public:
     // ---------------
 public:
 
-    typedef std::map<string_q, EQEnumeration::EnumType> TNameValueMap;
-    typedef std::pair<string_q, EQEnumeration::EnumType> TNameValuePair;
+    typedef std::map<string_q, EQEnumerationMock::EnumType> TNameValueMap;
+    typedef std::pair<string_q, EQEnumerationMock::EnumType> TNameValuePair;
 
 
 	// CONSTRUCTORS
@@ -77,7 +80,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">[IN] A valid enumeration value.</param>
-    inline EQEnumeration(const EQEnumeration::EnumType &eValue) : m_value(eValue)
+    inline EQEnumerationMock(const EQEnumerationMock::EnumType &eValue) : m_value(eValue)
     {
     }
 
@@ -86,7 +89,7 @@ public:
     /// </summary>
     /// <param name="nValue">[IN] An integer number.</param>
     template<typename IntegerType>
-    inline EQEnumeration(const IntegerType &nValue) : m_value(scast_q(nValue, const EQEnumeration::EnumType))
+    inline EQEnumerationMock(const IntegerType &nValue) : m_value(scast_q(nValue, const EQEnumerationMock::EnumType))
     {
     }
 
@@ -95,7 +98,7 @@ public:
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">[IN] The name of a valid enumeration value.</param>
-    inline explicit EQEnumeration(const string_q &strValueName)
+    inline EQEnumerationMock(const string_q &strValueName)
     {
         *this = strValueName;
     }
@@ -104,7 +107,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="eValue">[IN] Another enumeration.</param>
-    inline EQEnumeration(const EQEnumeration &eValue) : m_value(eValue.m_value)
+    inline EQEnumerationMock(const EQEnumerationMock &eValue) : m_value(eValue.m_value)
     {
     }
 
@@ -121,9 +124,9 @@ public:
     /// The enumerated type itself.
     /// </returns>
     template<typename IntegerType>
-    inline EQEnumeration& operator=(const IntegerType &nValue)
+    inline EQEnumerationMock& operator=(const IntegerType &nValue)
     {
-        m_value = scast_q(nValue, const EQEnumeration::EnumType);
+        m_value = scast_q(nValue, const EQEnumerationMock::EnumType);
         return *this;
     }
 
@@ -134,12 +137,12 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const string_q &strValueName)
+    inline EQEnumerationMock& operator=(const string_q &strValueName)
     {
-        if(EQEnumeration::sm_mapValueName.find(strValueName) != EQEnumeration::sm_mapValueName.end())
+        if(EQEnumerationMock::sm_mapValueName.find(strValueName) != EQEnumerationMock::sm_mapValueName.end())
             m_value = sm_mapValueName[strValueName];
         else
-            m_value = EQEnumeration::_NotEnumValue;
+            m_value = EQEnumerationMock::_NotEnumValue;
 
         return *this;
     }
@@ -151,7 +154,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const EQEnumeration::EnumType &eValue)
+    inline EQEnumerationMock& operator=(const EQEnumerationMock::EnumType &eValue)
     {
         m_value = eValue;
         return *this;
@@ -164,12 +167,12 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQEnumeration& operator=(const EQEnumeration &eValue)
+    inline EQEnumerationMock& operator=(const EQEnumerationMock &eValue)
     {
         m_value = eValue.m_value;
         return *this;
     }
-    
+
     /// <summary>
     /// Equality operator that receives another enumeration.
     /// </summary>
@@ -177,7 +180,7 @@ public:
     /// <returns>
     /// True if it equals the enumeration value. False otherwise.
     /// </returns>
-    bool operator==(const EQEnumeration &eValue) const
+    bool operator==(const EQEnumerationMock &eValue) const
     {
         return m_value == eValue.m_value;
     }
@@ -192,7 +195,7 @@ public:
     /// </returns>
     inline bool operator==(const string_q &strValueName) const
     {
-        if(EQEnumeration::sm_mapValueName.find(strValueName) != EQEnumeration::sm_mapValueName.end())
+        if(EQEnumerationMock::sm_mapValueName.find(strValueName) != EQEnumerationMock::sm_mapValueName.end())
             return m_value == sm_mapValueName[strValueName];
         else
             return false;
@@ -208,7 +211,7 @@ public:
     template<typename IntegerType>
     inline bool operator==(const IntegerType &nValue) const
     {
-        return m_value == scast_q(nValue, const EQEnumeration::EnumType);
+        return m_value == scast_q(nValue, const EQEnumerationMock::EnumType);
     }
 
     /// <summary>
@@ -218,11 +221,11 @@ public:
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
-    bool operator==(const EQEnumeration::EnumType &eValue) const
+    bool operator==(const EQEnumerationMock::EnumType &eValue) const
     {
         return m_value == eValue;
     }
-    
+
     /// <summary>
     /// Retrieves a list of all the values of the enumeration.
     /// </summary>
@@ -236,13 +239,13 @@ public:
         // If it's not been initialized yet...
         if(arValues.empty())
         {
-            const size_t ENUM_ARRAY_COUNT = EQEnumeration::sm_mapValueName.size();
+            const size_t ENUM_ARRAY_COUNT = EQEnumerationMock::sm_mapValueName.size();
 
             // An empty enumeration makes no sense
             QE_ASSERT(ENUM_ARRAY_COUNT > 0);
 
             for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
-                arValues.push_back(EQEnumeration::sm_arValueName[i].second);
+                arValues.push_back(EQEnumerationMock::sm_arValueName[i].second);
         }
 
         return arValues;
@@ -254,7 +257,7 @@ public:
     /// <returns>
     /// The contained enumeration value.
     /// </returns>
-    inline operator EQEnumeration::EnumType() const
+    inline operator EQEnumerationMock::EnumType() const
     {
         return m_value;
     }
@@ -279,7 +282,7 @@ public:
     /// </returns>
     operator const string_q() const
     {
-        return ConvertToString(m_value, EQEnumeration::sm_mapValueName);
+        return ConvertToString(m_value, EQEnumerationMock::sm_mapValueName);
     }
 
     /// <summary>
@@ -290,7 +293,7 @@ public:
     /// </returns>
     const string_q ToString() const
     {
-        return ConvertToString(m_value, EQEnumeration::sm_mapValueName);
+        return ConvertToString(m_value, EQEnumerationMock::sm_mapValueName);
     }
 
 private:
@@ -303,7 +306,7 @@ private:
     // <returns>
     // The enumerated value's string representation.
     // </returns>
-    const string_q& ConvertToString(const EQEnumeration::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    const string_q& ConvertToString(const EQEnumerationMock::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
     {
         TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
         TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
@@ -325,37 +328,39 @@ private:
     /// <summary>
     /// A list of enumeration values with their names.
     /// </summary>
-    static TNameValuePair sm_arValueName[];  REMEMBER TO INITIALIZE IT IN THE CPP FILE
+    static TNameValuePair sm_arValueName[];
 
     /// <summary>
     /// The dictionary which contains each enumeration value by its name.
     /// </summary>
-    static TNameValueMap  sm_mapValueName;  REMEMBER TO INITIALIZE IT IN THE CPP FILE
+    static TNameValueMap  sm_mapValueName;
 
     /// <summary>
     /// The contained enumeration value.
     /// </summary>
-    EQEnumeration::EnumType m_value;
+    EQEnumerationMock::EnumType m_value;
 
 };
 
 
 // CONSTANTS INITIALIZATION
 // ----------------------------
-THIS MUST BE PLACED IN THE CPP FILE
-EQEnumeration::TNameValuePair EQEnumeration::sm_arValueName[] =
+
+EQEnumerationMock::TNameValuePair EQEnumerationMock::sm_arValueName[] =
     {
-        std::pair<string_q, EQEnumeration::EnumType>(QE_L("<>"),    EQEnumeration::E_<>),
+        std::pair<string_q, EQEnumerationMock::EnumType>(QE_L("Value1"),    EQEnumerationMock::E_Value1),
+        std::pair<string_q, EQEnumerationMock::EnumType>(QE_L("Value2"),    EQEnumerationMock::E_Value2),
+        std::pair<string_q, EQEnumerationMock::EnumType>(QE_L("Value3"),    EQEnumerationMock::E_Value3),
     };
 
-EQEnumeration::TNameValueMap EQEnumeration::sm_mapValueName(
-        EQEnumeration::sm_arValueName ,
-        &EQEnumeration::sm_arValueName[0] + sizeof(EQEnumeration::sm_arValueName) / sizeof(EQEnumeration::sm_arValueName[0])
+EQEnumerationMock::TNameValueMap EQEnumerationMock::sm_mapValueName(
+        EQEnumerationMock::sm_arValueName ,
+        &EQEnumerationMock::sm_arValueName[0] + sizeof(EQEnumerationMock::sm_arValueName) / sizeof(EQEnumerationMock::sm_arValueName[0])
     );
 
 
 
-} //namespace NAMESPACE
+} //namespace Test
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
