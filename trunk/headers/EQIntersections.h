@@ -33,6 +33,7 @@
 #include "DataTypesDefinitions.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::enum_int_q;
 
 
 namespace Kinesis
@@ -91,8 +92,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">An integer number.</param>
-    template<typename IntegerType>
-    inline EQIntersections(const IntegerType &nValue) : m_value(scast_q(nValue, const EQIntersections::EnumType))
+    inline EQIntersections(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQIntersections::EnumType))
     {
     }
 
@@ -121,8 +121,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    template<typename IntegerType>
-    inline EQIntersections& operator=(const IntegerType &nValue)
+    inline EQIntersections& operator=(const enum_int_q &nValue)
     {
         m_value = scast_q(nValue, const EQIntersections::EnumType);
         return *this;
@@ -207,8 +206,7 @@ public:
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    template<typename IntegerType>
-    inline bool operator==(const IntegerType &nValue) const
+    inline bool operator==(const enum_int_q &nValue) const
     {
         return m_value == scast_q(nValue, const EQIntersections::EnumType);
     }
@@ -263,19 +261,6 @@ public:
     }
 
     /// <summary>
-    /// Casting operator that converts the enumerated type value into its corresponding integer number.
-    /// </summary>
-    /// <returns>
-    /// The integer number which corresponds to the contained enumeration value.
-    /// </returns>
-    template<typename IntegerType>
-    operator IntegerType() const
-    {
-        return scast_q(m_value, IntegerType);
-    }
-
-
-    /// <summary>
     /// Casting operator that converts the enumerated type value into its corresponding name.
     /// </summary>
     /// <returns>
@@ -284,6 +269,17 @@ public:
     operator const string_q() const
     {
         return ConvertToString(m_value, EQIntersections::sm_mapValueName);
+    }
+    
+    /// <summary>
+    /// Converts the enumerated type value into its corresponding integer number.
+    /// </summary>
+    /// <returns>
+    /// The integer number which corresponds to the contained enumeration value.
+    /// </returns>
+    enum_int_q ToInteger() const
+    {
+        return scast_q(m_value, enum_int_q);
     }
 
     /// <summary>
@@ -296,6 +292,7 @@ public:
     {
         return ConvertToString(m_value, EQIntersections::sm_mapValueName);
     }
+
 
     // ATTRIBUTES
 	// ---------------

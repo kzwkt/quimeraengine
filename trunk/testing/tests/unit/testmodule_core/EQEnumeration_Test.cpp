@@ -26,7 +26,6 @@
 
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/test/unit_test_log.hpp>
-#include <boost/mpl/list.hpp>
 using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
@@ -35,8 +34,6 @@ using namespace boost::unit_test;
 
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 using Kinesis::QuimeraEngine::Test::EQEnumerationMock;
-
-typedef boost::mpl::list<u8_q, i8_q, u16_q, i16_q, u32_q, i32_q, u64_q, i64_q> TQIntegerTypes;
 
 
 QTEST_SUITE_BEGIN( EQEnumerationMock_TestSuite )
@@ -59,11 +56,11 @@ QTEST_CASE ( Constructor1_InputValueIsCorrectlyStored_Test )
 /// <summary>
 /// Checks that the input integer value is correctly converted to the corresponding enumeration value.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor2_InputValueIsCorrectlyConvertedToCorrespondingEnumValue_Test, TQIntegerTypes )
+QTEST_CASE ( Constructor2_InputValueIsCorrectlyConvertedToCorrespondingEnumValue_Test )
 {
     // Preparation
     const EQEnumerationMock EXPECTED_VALUE = EQEnumerationMock::E_Value2;
-    const T INPUT_VALUE = 1;
+    const enum_int_q INPUT_VALUE = 1;
 
 	// Execution
     EQEnumerationMock eEnumeration = INPUT_VALUE;
@@ -75,12 +72,12 @@ QTEST_CASE_TEMPLATE ( Constructor2_InputValueIsCorrectlyConvertedToCorresponding
 /// <summary>
 /// Checks that the enumeration value is undefined when the input integer value doesn't correspondo to a valid value.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor2_EnumGetsUndefinedValueWhenInvalidInputValueIsSet_Test, TQIntegerTypes )
+QTEST_CASE ( Constructor2_EnumGetsUndefinedValueWhenInvalidInputValueIsSet_Test )
 {
     // Preparation
     const std::vector<EQEnumerationMock::EnumType> VALID_VALUES = EQEnumerationMock::GetValues();
     const EQEnumerationMock EXPECTED_VALUE = EQEnumerationMock::E_Value2;
-    const T INPUT_VALUE = EQEnumerationMock::_NotEnumValue - 1;
+    const enum_int_q INPUT_VALUE = EQEnumerationMock::_NotEnumValue - 1;
 
 	// Execution
     EQEnumerationMock eEnumeration = INPUT_VALUE;
@@ -142,11 +139,11 @@ QTEST_CASE ( Constructor4_InputValueIsCorrectlyStored_Test )
 /// <summary>
 /// Checks that the input integer value is correctly converted to the corresponding enumeration value.
 /// </summary>
-QTEST_CASE_TEMPLATE ( OperatorAssignation1_InputValueIsCorrectlyConvertedToCorrespondingEnumValue_Test, TQIntegerTypes )
+QTEST_CASE ( OperatorAssignation1_InputValueIsCorrectlyConvertedToCorrespondingEnumValue_Test )
 {
     // Preparation
     const EQEnumerationMock EXPECTED_VALUE = EQEnumerationMock::E_Value2;
-    const T INPUT_VALUE = 1;
+    const enum_int_q INPUT_VALUE = 1;
 
 	// Execution
     EQEnumerationMock eEnumeration(EQEnumerationMock::E_Value1);
@@ -159,12 +156,12 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation1_InputValueIsCorrectlyConvertedToCorre
 /// <summary>
 /// Checks that the enumeration value is undefined when the input integer value doesn't correspondo to a valid value.
 /// </summary>
-QTEST_CASE_TEMPLATE ( OperatorAssignation1_EnumGetsUndefinedValueWhenInvalidInputValueIsSet_Test, TQIntegerTypes )
+QTEST_CASE ( OperatorAssignation1_EnumGetsUndefinedValueWhenInvalidInputValueIsSet_Test )
 {
     // Preparation
     const std::vector<EQEnumerationMock::EnumType> VALID_VALUES = EQEnumerationMock::GetValues();
     const EQEnumerationMock EXPECTED_VALUE = EQEnumerationMock::E_Value2;
-    const T INPUT_VALUE = EQEnumerationMock::_NotEnumValue - 1;
+    const enum_int_q INPUT_VALUE = EQEnumerationMock::_NotEnumValue - 1;
 
 	// Execution
     EQEnumerationMock eEnumeration(EQEnumerationMock::E_Value1);
@@ -314,11 +311,11 @@ QTEST_CASE ( OperatorEquality2_ReturnsFalseWhenOperandsAreNotEqual_Test )
 /// <summary>
 /// Checks that it returns True when operands are equal.
 /// </summary>
-QTEST_CASE_TEMPLATE ( OperatorEquality3_ReturnsTrueWhenOperandsAreEqual_Test, TQIntegerTypes )
+QTEST_CASE ( OperatorEquality3_ReturnsTrueWhenOperandsAreEqual_Test )
 {
     // Preparation
     const EQEnumerationMock OPERAND1 = EQEnumerationMock::E_Value2;
-    const T OPERAND2 = EQEnumerationMock::E_Value2;
+    const enum_int_q OPERAND2 = EQEnumerationMock::E_Value2;
     const bool EXPECTED_RESULT = true;
 
 	// Execution
@@ -331,11 +328,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality3_ReturnsTrueWhenOperandsAreEqual_Test, TQ
 /// <summary>
 /// Checks that it returns False when operands are not equal.
 /// </summary>
-QTEST_CASE_TEMPLATE ( OperatorEquality3_ReturnsFalseWhenOperandsAreNotEqual_Test, TQIntegerTypes )
+QTEST_CASE ( OperatorEquality3_ReturnsFalseWhenOperandsAreNotEqual_Test )
 {
     // Preparation
     const EQEnumerationMock OPERAND1 = EQEnumerationMock::E_Value1;
-    const T OPERAND2 = EQEnumerationMock::E_Value2;
+    const enum_int_q OPERAND2 = EQEnumerationMock::E_Value2;
     const bool EXPECTED_RESULT = false;
 
 	// Execution
@@ -444,14 +441,14 @@ QTEST_CASE ( CastToEnumType_EnumerationIsProperlyConverted_Test )
 /// <summary>
 /// Checks that the enumeration is correctly converted.
 /// </summary>
-QTEST_CASE_TEMPLATE ( CastToIntegerType_EnumerationIsProperlyConverted_Test, TQIntegerTypes )
+QTEST_CASE ( ToInteger_EnumerationIsProperlyConverted_Test )
 {
     // Preparation
     const EQEnumerationMock ORIGINAL_VALUE = EQEnumerationMock::E_Value2;
-    const T EXPECTED_VALUE = EQEnumerationMock::E_Value2;
+    const enum_int_q EXPECTED_VALUE = EQEnumerationMock::E_Value2;
 
 	// Execution
-    T nConvertedValue = ORIGINAL_VALUE;
+    enum_int_q nConvertedValue = ORIGINAL_VALUE;
     
     // Verification
     BOOST_CHECK_EQUAL(nConvertedValue, EXPECTED_VALUE);

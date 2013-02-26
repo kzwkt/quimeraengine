@@ -65,6 +65,7 @@ public:
 
     typedef std::map<wxString, ETATResultSource::EnumType> TNameValueMap;
     typedef std::pair<wxString, ETATResultSource::EnumType> TNameValuePair;
+    typedef unsigned int TEnumInt;
 
 
 	// CONSTRUCTORS
@@ -83,8 +84,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">An integer number.</param>
-    template<typename IntegerType>
-    inline ETATResultSource(const IntegerType &nValue) : m_value(static_cast<const ETATResultSource::EnumType>(nValue))
+    inline ETATResultSource(const TEnumInt &nValue) : m_value(static_cast<const ETATResultSource::EnumType>(nValue))
     {
     }
 
@@ -117,8 +117,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    template<typename IntegerType>
-    inline ETATResultSource& operator=(const IntegerType &nValue)
+    inline ETATResultSource& operator=(const TEnumInt &nValue)
     {
         m_value = static_cast<const ETATResultSource::EnumType>(nValue);
         return *this;
@@ -202,8 +201,7 @@ public:
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    template<typename IntegerType>
-    inline bool operator==(const IntegerType &nValue) const
+    inline bool operator==(const TEnumInt &nValue) const
     {
         return m_value == static_cast<const ETATResultSource::EnumType>(nValue);
     }
@@ -255,18 +253,6 @@ public:
     {
         return m_value;
     }
-
-    /// <summary>
-    /// Casting operator that converts the enumerated type value into its corresponding integer number.
-    /// </summary>
-    /// <returns>
-    /// The integer number which corresponds to the contained enumeration value.
-    /// </returns>
-    template<typename IntegerType>
-    operator IntegerType() const
-    {
-        return static_cast<IntegerType>(m_value);
-    }
     
     /// <summary>
     /// Casting operator that converts the enumerated type value into its corresponding name.
@@ -277,6 +263,17 @@ public:
     operator const wxString() const
     {
         return ConvertToString(m_value, ETATResultSource::sm_mapValueName);
+    }
+        
+    /// <summary>
+    /// Converts the enumerated type value into its corresponding integer number.
+    /// </summary>
+    /// <returns>
+    /// The integer number which corresponds to the contained enumeration value.
+    /// </returns>
+    TEnumInt ToInteger() const
+    {
+        return static_cast<TEnumInt>(m_value);
     }
 
     /// <summary>
