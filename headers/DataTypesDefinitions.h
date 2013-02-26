@@ -278,17 +278,19 @@ namespace DataTypes
 
 
 // --------------------------------------------------------------------------------------------------------
-// Enumeration's limits: Concretes the maximum and minimum values an enumerated type can store.
+// Enumeration's integer equivalent: Defines which is the equivalent integer type for enumeration types.
+//                       Enumeration types used in Quimera Engine are guaranteed to be 32-bit unsigned integers,
+//                       whatever the OS or the architecture it executes on.
 // --------------------------------------------------------------------------------------------------------
-#if (defined(QE_OS_WINDOWS) && QE_OS_WINDOWS == 32) || (defined(QE_OS_LINUX) && QE_OS_LINUX == 32)
-    #define QE_ENUMERATION_MIN_VALUE 0x0
-    #define QE_ENUMERATION_MAX_VALUE 0xFFFFFFFF
-#elif (defined(QE_OS_WINDOWS) && QE_OS_WINDOWS == 64) || (defined(QE_OS_LINUX) && QE_OS_LINUX == 64)
-    #define QE_ENUMERATION_MIN_VALUE 0x0
-    #define QE_ENUMERATION_MAX_VALUE 0xFFFFFFFFFFFFFFFF
-    // [TODO] Thund: Tener en cuenta también a MacOS
-#endif
+typedef u32_q enum_int_q;
 
+// --------------------------------------------------------------------------------------------------------
+// Enumeration's limits: Concretes the maximum and minimum values an enumerated type can store.
+//                       Enumeration types used in Quimera Engine are guaranteed to be 32-bit unsigned integers,
+//                       whatever the OS or the architecture it executes on.
+// --------------------------------------------------------------------------------------------------------
+#define QE_ENUMERATION_MIN_VALUE 0x0
+#define QE_ENUMERATION_MAX_VALUE 0xFFFFFFFF
 
 } //namespace DataTypes
 } //namespace Tools
