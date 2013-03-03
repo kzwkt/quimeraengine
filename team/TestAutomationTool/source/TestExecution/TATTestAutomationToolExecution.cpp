@@ -517,7 +517,7 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
                                 // Sets the working directory. Many modules needs to read configuration files refered to by relative paths
                                 wxString strPreviousWorkingDirectory = wxGetCwd();
-                                wxSetWorkingDirectory(strPreviousWorkingDirectory + wxT("/") + iTestModuleInfo->GetTestModulesPath() + *iCompilationConfig);
+                                wxSetWorkingDirectory(iTestModuleInfo->GetTestModulesPath() + *iCompilationConfig);
 
                                 wxString strTestModulePath;
 #ifdef TAT_OS_WINDOWS
