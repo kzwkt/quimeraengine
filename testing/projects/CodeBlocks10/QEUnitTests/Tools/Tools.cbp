@@ -185,6 +185,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQPoint_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQVF32_Test.cpp">
 			<Option virtualFolder="Tests\DataTypes\" />
 		</Unit>
