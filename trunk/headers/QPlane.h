@@ -984,7 +984,8 @@ public:
     /// around the given point, that acts as pivot of transformation.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.
+    /// Resultant plane is normalized after this operation.<br />
+    /// The W component of the pivot point doesn't affect the result.
     /// </remarks>
     /// <param name="transformation">[IN] A [4x3] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
@@ -1018,7 +1019,8 @@ public:
     /// around the given point, that acts as pivot of transformation.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.
+    /// Resultant plane is normalized after this operation.<br />
+    /// The W component of the pivot point doesn't affect the result.
     /// </remarks>
     /// <param name="transformation">[IN] A [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>

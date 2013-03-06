@@ -1630,7 +1630,8 @@ public:
 	/// a given point as pivot of transformation.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br />
+    /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
 	/// </remarks>
 	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
@@ -1647,7 +1648,8 @@ public:
 	/// a given point as pivot of transformation.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br />
+    /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
 	/// </remarks>
 	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>

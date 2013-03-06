@@ -417,6 +417,9 @@ public:
 	/// This method transforms the resident triangle applying the provided transformation matrix,
 	/// acting the provided vector as pivot of transformation.
 	/// </summary>
+    /// <remarks>
+    /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
+    /// </remarks>
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
     /// <returns>
@@ -433,6 +436,9 @@ public:
 	/// This method transforms the resident triangle applying the provided transformation matrix,
 	/// acting the provided vector as pivot of transformation.
 	/// </summary>
+    /// <remarks>
+    /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
+    /// </remarks>
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
 	/// <param name="vPivot">[IN] The point which acts as pivot of the transformation.</param>
     /// <returns>

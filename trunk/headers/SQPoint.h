@@ -980,6 +980,9 @@ public:
 	/// Transforms 4D points, using the provided pivot as the center of transformation.<br>
 	/// The transformation will be applied to all points in the array.
 	/// </summary>
+    /// <remarks>
+    /// The W component of the pivot point doesn't affect the result.
+    /// </remarks>
     /// <param name="transformation">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>
@@ -1032,6 +1035,9 @@ public:
 	/// Transforms 4D points, using the provided pivot as the center of transformation.<br>
 	/// The transformation will be applied to all points in the array.
 	/// </summary>
+    /// <remarks>
+    /// The W component of the pivot point doesn't affect the result.
+    /// </remarks>
     /// <param name="transformation">[IN] Scale to be applied to the points.</param>
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed.</param>

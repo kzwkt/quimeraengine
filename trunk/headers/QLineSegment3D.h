@@ -1727,6 +1727,9 @@ public:
     /// <summary>
     /// Transforms the resident line segment using a pivot.
     /// </summary>
+    /// <remarks>
+    /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
+    /// </remarks>
     /// <param name="transformation">[IN] 4x3 Matrix which contains the transformation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     /// <returns>
@@ -1742,6 +1745,9 @@ public:
     /// <summary>
     /// Transforms the resident line segment using a pivot.
     /// </summary>
+    /// <remarks>
+    /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
+    /// </remarks>
     /// <param name="transformation">[IN] 4x4 Matrix which contains the transformation.</param>
     /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
     /// <returns>
