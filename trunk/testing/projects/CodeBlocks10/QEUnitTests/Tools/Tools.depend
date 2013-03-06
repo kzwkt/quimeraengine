@@ -36534,7 +36534,7 @@
 1360789773 j:\quimeraengine\qesvn\trunk\headers\externaldefinitions.h
 	"Configuration.h"
 
-1362340627 j:\quimeraengine\qesvn\trunk\headers\configuration.h
+1362607590 j:\quimeraengine\qesvn\trunk\headers\configuration.h
 
 1360789773 j:\quimeraengine\qesvn\trunk\headers\qquaternion.h
 	"SQAngle.h"
@@ -36569,7 +36569,7 @@
 	"SQVF32.h"
 	"QConvertible.h"
 
-1360789773 j:\quimeraengine\qesvn\trunk\headers\qbasevector4.h
+1362602445 j:\quimeraengine\qesvn\trunk\headers\qbasevector4.h
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
@@ -36652,14 +36652,14 @@
 	"SQVF32.h"
 	"QConvertible.h"
 
-1360789774 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasevector3_test.cpp
+1362602445 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasevector3_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QBaseVector3.h"
 	"SQVF32.h"
 
-1360789774 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasevector4_test.cpp
+1362602329 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasevector4_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -36847,21 +36847,21 @@
 1360789774 j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qspaceconversionmatrixwhitebox.h
 	"QSpaceConversionMatrix.h"
 
-1344626071 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtransformationmatrix3x3_test.cpp
+1362171251 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtransformationmatrix3x3_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QTransformationMatrix3x3.h"
 	"QVector2.h"
 
-1344626071 j:\quimeraengine\qesvn\trunk\headers\qtransformationmatrix3x3.h
+1360789773 j:\quimeraengine\qesvn\trunk\headers\qtransformationmatrix3x3.h
 	"MathDefinitions.h"
 	"QBaseVector2.h"
 	"QMatrix3x3.h"
 	"QBaseMatrix3x3.h"
 	"SQAngle.h"
 
-1344626071 j:\quimeraengine\qesvn\trunk\headers\qvector2.h
+1362148841 j:\quimeraengine\qesvn\trunk\headers\qvector2.h
 	"MathDefinitions.h"
 	"QBaseVector2.h"
 	"QBaseMatrix2x2.h"
@@ -36906,7 +36906,7 @@
 1360789774 j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtranslationmatrixwhitebox.h
 	"QTranslationMatrix.h"
 
-1344626071 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector2_test.cpp
+1362171251 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector2_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -36916,7 +36916,7 @@
 	"QMatrix3x3.h"
 	"QTransformationMatrix3x3.h"
 
-1344626071 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector3_test.cpp
+1362231643 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector3_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -36933,10 +36933,10 @@
 	"QDualQuaternion.h"
 	"SQAngle.h"
 
-1344626071 j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector3whitebox.h
+1360789774 j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector3whitebox.h
 	"QVector3.h"
 
-1344626071 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector4_test.cpp
+1362601701 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector4_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -36953,7 +36953,7 @@
 	"QDualQuaternion.h"
 	"SQAngle.h"
 
-1344626071 j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector4whitebox.h
+1360789774 j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qvector4whitebox.h
 	"QVector4.h"
 
 1360789774 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\sqangle_test.cpp
@@ -44088,4 +44088,47 @@
 1357776451 source:/home/user/Desktop/SVN/trunk/testing/testsystem/QSimpleConfigLoader.cpp
 	<fstream>
 	"QSimpleConfigLoader.h"
+
+1361569915 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_core\eqenumeration_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"EQEnumerationMock.h"
+
+1362005426 j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_core\eqenumerationmock.h
+	<map>
+	<vector>
+	"DataTypesDefinitions.h"
+
+1362603400 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbaseplane_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QBasePlane.h"
+	"SQVF32.h"
+
+1362602445 j:\quimeraengine\qesvn\trunk\headers\qbaseplane.h
+	"SQFloat.h"
+	"SQVF32.h"
+	"QConvertible.h"
+
+1362597375 source:j:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\sqpoint_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"SQPoint.h"
+	"QTransformationMatrix3x3.h"
+
+1362597198 j:\quimeraengine\qesvn\trunk\headers\sqpoint.h
+	"SQFloat.h"
+	"SQAngle.h"
+	"QVector2.h"
+	"QVector3.h"
+	"QVector4.h"
+	"QTransformationMatrix.h"
+	"QTranslationMatrix.h"
+	"QSpaceConversionMatrix.h"
+	"QQuaternion.h"
+	"QRotationMatrix3x3.h"
+	"QScalingMatrix3x3.h"
 

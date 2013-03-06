@@ -96,7 +96,7 @@ public:
 	/// Constructor from a pointer to a array of floating point values.
 	/// </summary>
 	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
-	inline explicit QBasePlane(float_q* arValues)
+	inline explicit QBasePlane(const float_q* arValues)
 	{
 		// Null pointer checkout
 		QE_ASSERT(arValues != null_q)
