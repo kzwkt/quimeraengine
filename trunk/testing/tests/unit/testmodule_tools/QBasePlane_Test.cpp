@@ -254,6 +254,19 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 }
 
 /// <summary>
+/// Checks that when operators are similar but not equal (geometrically speaking), they are considered different.
+/// </summary>
+QTEST_CASE ( OperatorEquality_FalseWhenOperatorsAreSimilarButNotEqual_Test )
+{
+    // Preparation
+    const QBasePlane LEFT_OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_10);
+    const QBasePlane RIGHT_OPERAND(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, SQFloat::_5); // LEFT_OPERAND / 2
+
+	// Execution / Verification
+    BOOST_CHECK(!(LEFT_OPERAND == RIGHT_OPERAND));
+}
+
+/// <summary>
 /// Checks if the operator returns false when operand components differences equals tolerance value.
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
@@ -303,6 +316,19 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
 
 	// Execution / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
+}
+
+/// <summary>
+/// Checks that when operators are similar but not equal (geometrically speaking), they are considered different.
+/// </summary>
+QTEST_CASE ( OperatorInequality_TrueWhenOperatorsAreSimilarButNotEqual_Test )
+{
+    // Preparation
+    const QBasePlane LEFT_OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_10);
+    const QBasePlane RIGHT_OPERAND(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, SQFloat::_5); // LEFT_OPERAND / 2
+
+	// Execution / Verification
+    BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
 // End - Test Suite: QBasePlane

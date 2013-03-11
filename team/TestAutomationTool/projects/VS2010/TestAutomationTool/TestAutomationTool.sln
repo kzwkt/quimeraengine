@@ -1,6 +1,6 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
-# Visual Studio 2010
+# Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TestAutomationTool", "TestAutomationTool\TestAutomationTool.vcxproj", "{5B18F01F-BF4E-48B0-AFFC-4B3EC02C4449}"
 	ProjectSection(ProjectDependencies) = postProject
 		{02026DEB-1950-4407-BD09-4065A7FD2BB2} = {02026DEB-1950-4407-BD09-4065A7FD2BB2}
