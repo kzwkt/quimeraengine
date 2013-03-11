@@ -71,11 +71,11 @@ public:
 	/// <summary>
 	/// Constructor from a point and a vector.
 	/// </summary>
-	/// <param name="vOrigin">[IN] Point where the vector is located.</param>
-	/// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
 	/// <remarks>
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
+    /// <param name="vOrigin">[IN] Point where the vector is located.</param>
+	/// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
 	inline QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) :
                         Origin(vOrigin), Direction(vDirection)
     {
@@ -89,13 +89,13 @@ public:
     /// <summary>
     /// Equality operator. Compares two rays.
     /// </summary>
+    /// <remarks>
+    /// If rays are not normalized, it may occur that 2 similar rays (but not exactly equal) are considered different.
+    /// </remarks>
     /// <param name="ray">[IN] Ray with which to compare.</param>
     /// <returns>
     /// True if rays are the same, false otherwise.
     /// </returns>
-    /// <remarks>
-    /// Both rays must be normalized to obtain a correct result.
-    /// </remarks>
     inline bool operator==(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
     {
         return ( this->Origin == ray.Origin && this->Direction == ray.Direction );
@@ -104,13 +104,13 @@ public:
     /// <summary>
     /// Inequality operator. Compares two rays.
     /// </summary>
+    /// <remarks>
+    /// If rays are not normalized, it may occur that 2 similar rays (but not exactly equal) are considered different.
+    /// </remarks>
     /// <param name="ray">[IN] Ray with which to compare.</param>
     /// <returns>
     /// True if rays are not the same, false otherwise.
     /// </returns>
-    /// <remarks>
-    /// Both rays must be normalized to obtain a correct result.
-    /// </remarks>
     inline bool operator!=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
     {
         return !(*this == ray);

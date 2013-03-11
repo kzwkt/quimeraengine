@@ -98,6 +98,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseRay_QVector4_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseRay_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseVector2_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
