@@ -5,10 +5,6 @@
       <Configuration>DebugWin32SharedrtStatic</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugWin32SharedrtStatic|x64">
-      <Configuration>DebugWin32SharedrtStatic</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{C6C25664-23A3-43D3-9A35-08CC3CACDFA7}</ProjectGuid>
