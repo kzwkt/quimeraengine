@@ -5,10 +5,6 @@
       <Configuration>DebugWin32SharedrtStatic</Configuration>
       <Platform>Win32</Platform>
     </ProjectConfiguration>
-    <ProjectConfiguration Include="DebugWin32SharedrtStatic|x64">
-      <Configuration>DebugWin32SharedrtStatic</Configuration>
-      <Platform>x64</Platform>
-    </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
