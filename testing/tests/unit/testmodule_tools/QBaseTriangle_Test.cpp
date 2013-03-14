@@ -24,10 +24,6 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-// !!!
-// IMPORTANT NOTE: Whatever the test you modify in this file, replicate the same changes in the QBaseTriangle_QVector4_Test.cpp file!
-// !!!
-
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/test/unit_test_log.hpp>
 #include <boost/mpl/list.hpp>
@@ -88,7 +84,7 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-    QBaseTriangle<T> EXPECTED_TRIANGLE(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
+    const QBaseTriangle<T> EXPECTED_TRIANGLE(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
 	// Execution
     QBaseTriangle<T> triangleUT(EXPECTED_TRIANGLE);
