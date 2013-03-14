@@ -82,6 +82,7 @@ public:
     /// <param name="vB">[IN] Vector to define end B.</param>
     inline QBaseLineSegment(const VectorType &vA, const VectorType &vB) : A(vA), B(vB)  { }
 
+
     // METHODS
     // ---------------
 public:
@@ -109,6 +110,7 @@ public:
     {
         return !(*this == segment);
     }
+
 
     // ATTRIBUTES
     // ---------------
