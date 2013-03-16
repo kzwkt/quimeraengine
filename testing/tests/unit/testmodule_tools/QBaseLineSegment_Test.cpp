@@ -61,11 +61,11 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHasntChanged_Test, TQTemplateTyp
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
 
 	// Execution
-    QBaseLineSegment<T> triangleUT;
+    QBaseLineSegment<T> lineSegmentUT;
 
     // Verification
-    BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
-    BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
+    BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
+    BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
 
 /// <summary>
@@ -80,14 +80,14 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
     const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
 
-    const QBaseLineSegment<T> EXPECTED_TRIANGLE(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
+    const QBaseLineSegment<T> EXPECTED_LINESEGMENT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
 	// Execution
-    QBaseLineSegment<T> triangleUT(EXPECTED_TRIANGLE);
+    QBaseLineSegment<T> lineSegmentUT(EXPECTED_LINESEGMENT);
 
     // Verification
-    BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
-    BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
+    BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
+    BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
 
 /// <summary>
@@ -103,11 +103,11 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
 
 	// Execution
-    QBaseLineSegment<T> triangleUT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
+    QBaseLineSegment<T> lineSegmentUT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
     // Verification
-    BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
-    BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
+    BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
+    BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
 
 /// <summary>
