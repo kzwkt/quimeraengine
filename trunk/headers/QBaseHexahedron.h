@@ -48,6 +48,9 @@ namespace Math
 /// It's supossed that ABCD defines a face of the hexahedron (eventually the top face) and
 /// EFGH defines the opposite face (eventually the bottom one).
 /// </summary>
+/// <remarks>
+/// It's developer's reponsibility to keep the fourth component of all the points (when using 4D vectors) set to the same value.
+/// </remarks>
 template <class VectorType>
 class QDllExport QBaseHexahedron : public QConvertible
 {
@@ -92,21 +95,32 @@ public:
 
     /// <summary>
     /// Constructor from two vectors which defines two opposite vertices, with no common faces between them
-    /// (the ends of any inner diagonals).
+    /// (the ends of any inner diagonals).<br />
+    /// Top face is compound of A, B, C and D points whilst bottom face is compound of E, F, G and H points. A point shares
+    /// edge with B, D and E points whereas G point shares edge with C, F and H points.
     /// </summary>
+    /// <remarks>
+    /// When using 4D vectors, the W component of the top-face's points will equal the A point's and the W component of the 
+    /// bottom-face's points will equal the G point's.
+    /// </remarks>
     /// <param name="vA">[IN] Vector which defines one vertex of a inner diagonal (it will be used to initialize A).</param>
     /// <param name="vG">[IN] Vector which defines the other vertex of the inner diagonal (it will be used to initialize G).</param>
     inline QBaseHexahedron(const VectorType &vA, const VectorType &vG)
     {
-        A = B = D = E = vA;
-        C = F = G = H = vG;
+        //    A --- D
+        //   /|    /|
+        //  B --- C |
+        //  | E --| F
+        //  |/    |/
+        //  H --- G
 
-        B.z = vG.z;
-        C.y = vA.y;
-        D.x = vG.x;
-        E.y = vG.y;
-        F.z = vA.z;
-        H.x = vA.x;
+        A = B = C = D = vA;
+        E = F = G = H = vG;
+
+        B.z = C.z = vG.z;
+        C.x = D.x = vG.x;
+        E.x = H.x = vA.x;
+        E.z = F.z = vA.z;
     }
 
     /// <summary>
@@ -114,6 +128,9 @@ public:
     /// points values which defines its height (Y), width (X) and depth (Z).<br>
     /// It's supossed that all edges are parallel to one of the axis.
     /// </summary>
+    /// <remarks>
+    /// When using 4D vectors, the W component of all the points will equal the central point's.
+    /// </remarks>
     /// <param name="vCenter">[IN] Center point of the box.</param>
     /// <param name="fLengthX">[IN] Length of an edge parallel to X axis (width).</param>
     /// <param name="fLengthY">[IN] Length of an edge parallel to Y axis (height).</param>

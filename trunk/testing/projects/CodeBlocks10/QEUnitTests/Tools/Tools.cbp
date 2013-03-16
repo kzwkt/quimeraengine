@@ -77,6 +77,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseHexahedron_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseLineSegment_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix2x2_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
