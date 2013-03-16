@@ -47742,7 +47742,7 @@
 	"SQVF32.h"
 	"QConvertible.h"
 
-1363121571 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasetriangle_test.cpp
+1363131777 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasetriangle_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	<boost/mpl/list.hpp>
@@ -49623,4 +49623,35 @@
 1360789774 source:h:\quimeraengine\qesvn\trunk\testing\testsystem\qsimpleconfigloader.cpp
 	<fstream>
 	"QSimpleConfigLoader.h"
+
+1363442186 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasehexahedron_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QBaseHexahedron.h"
+	"QVector3.h"
+	"QVector4.h"
+	"SQVF32.h"
+
+1363306470 h:\quimeraengine\qesvn\trunk\headers\qbasehexahedron.h
+	"SQFloat.h"
+	"SQVF32.h"
+	"QConvertible.h"
+
+1363294239 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbaselinesegment_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QBaseLineSegment.h"
+	"QVector2.h"
+	"QVector3.h"
+	"QVector4.h"
+	"SQVF32.h"
+
+1363131673 h:\quimeraengine\qesvn\trunk\headers\qbaselinesegment.h
+	"SQFloat.h"
+	"SQVF32.h"
+	"QConvertible.h"
 
