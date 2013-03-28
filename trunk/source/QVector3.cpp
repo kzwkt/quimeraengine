@@ -177,7 +177,8 @@ float_q QVector3::DotProduct(const QBaseVector3 &vVector) const
 
 float_q QVector3::DotProductAngle(const QVector3 &vVector) const
 {
-    float_q fLength = this->GetLength() * vVector.GetLength();
+    // Note: Square root is performed outside to avoid loss of precision and gain performance
+    float_q fLength = sqrt_q(this->GetSquaredLength() * vVector.GetSquaredLength());
 
     // Checkout to avoid division by zero.
     QE_ASSERT(fLength != SQFloat::_0)

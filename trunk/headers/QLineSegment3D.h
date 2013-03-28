@@ -1540,38 +1540,7 @@ public:
 
         return std::max(DIST_A, DIST_B);
     }
-
-    /// <summary>
-	/// Given an input line segment, this method returns the maximum distance between this and the input one,
-	///	that is, the distance between their farthest points.
-	/// This method calls base class' implementation.
-    /// </summary>
-    /// <param name="segment">[IN] The line segment the distance will be measured to.</param>
-    /// <returns>
-    /// A floating point value containing the maximum distance between both line segments.
-    /// </returns>
-    inline float_q MaxDistance(const QBaseLineSegment<VectorType> &segment) const
-    {
-		return QLineSegment<VectorType>::MaxDistance(segment);
-    }
-
-    /// <summary>
-	/// Given an input vector (which represents a point), this method returns the maximum distance between this and
-	/// the segment, that is, the distance between the input point and the farthest point lying into the segment...
-	/// ...and this will be one of the segment endpoints!.<br>
-	/// Please note the above is correct only when the point lies outside the segment; if it's inside the segment,
-	/// the maximum distance equals to 0.<br>
-	/// This method calls base class' implementation.
-	/// </summary>
-	/// <param name="vPoint">[IN] The point the distance will be measured to.</param>
-    /// <returns>
-    /// A floating point value containing the maximum distance between the resident line segment and a point provided.
-    /// </returns>
-    inline float_q MaxDistance(const VectorType &vPoint) const
-    {
-		return QLineSegment<VectorType>::MaxDistance(vPoint);
-    }
-
+    
     /// <summary>
     /// Calculates the minimum distance between the resident line segment and a plane provided.
     /// </summary>

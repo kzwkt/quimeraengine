@@ -131,6 +131,12 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhitebox.h">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QLineSegment_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix2x2_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

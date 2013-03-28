@@ -144,6 +144,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseOrb_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -202,6 +205,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_core\EQEnumerationMock.h">
       <Filter>Tests\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhitebox.h">
+      <Filter>Tests\Math</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

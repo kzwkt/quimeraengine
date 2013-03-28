@@ -1593,7 +1593,8 @@ QTEST_CASE ( OperatorAssignation_VectorIsAssignedProperlyToAnother_Test )
     const QVector4 VECTOR = QVector4(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, EXPECTED_VALUE_FOR_W);
 
 	// Execution
-    QVector4 vVectorUT = VECTOR;
+    QVector4 vVectorUT;
+    vVectorUT = VECTOR;
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);

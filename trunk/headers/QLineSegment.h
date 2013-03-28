@@ -163,7 +163,7 @@ public:
     /// <returns>
     /// The center of the segment.
     /// </returns>
-	inline QLineSegment<VectorType> GetCenter() const
+	inline VectorType GetCenter() const
 	{
 		// 1) Direction: AB --> B - A, so that: S(t) = A + [t(B - A)] = ... = t(A + B)
 		// 2) Center:    S(0.5f) --> A + [0.5f(B - A)] --> ... --> 0.5f(A + B)
@@ -173,76 +173,78 @@ public:
 	/// <summary>
 	/// This method receives another line segment, and computes whether they intersect each other or not.
 	/// </summary>
+    /// <remarks>
+    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br />
+    /// When using 4D vectors, it's not guaranteed that the result will be what expected if the W component has a different 
+    /// value for some of the implied points.
+    /// </remarks>
 	/// <param name="segment">[IN] The segment to be compared to.</param>
 	/// <returns>
 	/// True if they intersect each other (or if they were coincident), false if they don't.
 	/// </returns>
 	inline bool Intersection(const QBaseLineSegment<VectorType> &segment) const
 	{
+        // End points of a segment should not coincide
+        QE_ASSERT(this->A != this->B && segment.A != segment.B);
+
 		// if MinDistance is 0		  --> there's intersection, return true
 		// else						  --> return false
-		return  SQFloat::IsZero(this->MinDistance(segment));
+		return SQFloat::IsZero(this->MinDistance(segment));
 	}
 
 	/// <summary>
 	/// This method receives a orb, and computes if it intersects the resident segment or not.
 	/// </summary>
+    /// <remarks>
+    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br />
+    /// When using 4D vectors, it's not guaranteed that the result will be what expected if the W component has a different 
+    /// value for some of the implied points.
+    /// </remarks>
 	/// <param name="orb">[IN] The orb to be compared to.</param>
 	/// <returns>
 	/// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
 	inline bool Intersection(const QBaseOrb<VectorType> &orb) const
 	{
-		// An intersection between the segment and the orb is considered if the minimum
+        // End points of a segment should not coincide and the radius should be greater than zero
+        QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0));
+
+        // An intersection between the segment and the orb is considered if the minimum
 		// distance between "the whole segment" and the center of the orb (this is, the
 		// minimum distance between the center of the orb and the closest point inside
 		// the segment) is either lesser or equal to the radius of the orb.
 		return SQFloat::IsLessOrEquals(this->MinDistance(orb.Center), orb.Radius);
-
 	};
 
 	/// <summary>
 	/// This method receives another line segment, and computes the intersection point between them,
 	/// if it exists.
 	/// </summary>
+    /// <remarks>
+    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br />
+	/// If there's no intersection points, the output parameters used for storing these points won't be modified.
+	/// </remarks>
 	/// <param name="segment">[IN] The segment to be compared to.</param>
 	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
 	/// <returns>
 	/// Returns how many intersections have been detected.
 	/// </returns>
-	/// <remarks>
-	/// If there's no intersection points, the output parameters used for storing these points won't be modified.
-	/// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
  	{
+        // End points of a segment should not coincide
+        QE_ASSERT(this->A != this->B && segment.A != segment.B);
+
 		// Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
-		VectorType v1		   = B - A;
-	    VectorType v2		   = segment.B - segment.A;
+		VectorType v1 = B - A;
+	    VectorType v2 = segment.B - segment.A;
 
         float_q fSqrLengthProd = v1.GetSquaredLength() * v2.GetSquaredLength();
 
 		if ( SQFloat::IsZero(fSqrLengthProd) )
 		{
-			// CASE 1)
-			// Either S1 or S2 (or both) degenerates into a point --> Intersections: None or One.
-			//
-			// In this case, just compute the closests points between the segments.
-			//	 -If they result to be the same point at last, there's
-			//    an intersection, and that point is the point of intersection.
-			//
-			VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
-			this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
-
-			if (vClosestPtInS1ToS2 == vClosestPtInS2ToS1) // One single intersection is assumed.
-			{
-				vIntersection = vClosestPtInS1ToS2; // The same with vClosestPtInS2ToS1.
-				return EQIntersections::E_One;
-			}
-			else										 // No intersections.
-			{
-				return EQIntersections::E_None;
-			}
+            // No intersections.
+			return EQIntersections::E_None;
 		}
 		else // Neither segments have length 0 --> fSqrLengthProd ALWAYS > 0 at this stage.
 		{
@@ -441,20 +443,26 @@ public:
     /// This method receives an orb and computes the points where the resident line segment intersects with it,
     /// if they exist.
     /// </summary>
+    /// <remarks>
+    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br />
+    /// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br />
+    /// If there are two intersections, the first output parameter stores the closest one to A end point of
+    /// line segment, and the second one stores the closest one to B end point.<br />
+    /// When there is only one intersection point, the second output point won't change.<br />
+    /// If the segment is contained by the orb, it will return infinite intersection points although the 2 output parameters won't change.
+    /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
     /// <param name="vIntersection1">[OUT] A vector where to store the first intersection point.</param>
     /// <param name="vIntersection2">[OUT] A vector where to store the second intersection point.</param>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
+    /// the following values: E_None, E_One, E_Two or E_Infinite.
     /// </returns>
-    /// <remarks>
-    /// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br>
-    /// If there are two intersections, the first output parameter stores the closest to A end point of
-    /// line segment, and the second one stores the closest to B end point.
-    /// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
+        // End points of a segment should not coincide and the radius should be greater than zero
+        QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0));
+
 		// We reduce line segment and orb to origin, in order to simplify orb equation, and we calculate
 		// the new point A and vector B-A, to compute intersection as with a ray
 		VectorType vNewA(this->A - orb.Center);
@@ -473,12 +481,9 @@ public:
 
 		const float_q &D = b * b - SQFloat::_4 * a * c;
 
-		// D = b^2 - 4ac < 0 => 0 intersections
-		if (SQFloat::IsNegative(D))
+		if (SQFloat::IsNegative(D)) // D = b^2 - 4ac < 0 => 0 intersections
 			return EQIntersections::E_None;
-
-		// D = b^2 - 4ac = 0 => 1 intersection
-		else if (SQFloat::IsZero(D))
+		else if (SQFloat::IsZero(D)) // D = b^2 - 4ac = 0 => 1 intersection
 		{
 			QE_ASSERT(SQFloat::IsNotZero(a))
 
@@ -494,9 +499,7 @@ public:
 			else
 				return EQIntersections::E_None;
 		}
-
-		// D = b^2 - 4ac > 0 => 2 intersections
-		else
+		else // D = b^2 - 4ac > 0 => 2 intersections
 		{
 			QE_ASSERT(SQFloat::IsNotZero(a))
 
@@ -521,22 +524,27 @@ public:
 				vIntersection2 = vAux2;
 				return EQIntersections::E_Two;
 			}
-			// Only t1 point is in line segment.
-			else if (bIsInSegment1)
+			else if (bIsInSegment1) // Only t1 point is in line segment.
 			{
 				vIntersection1 = vAux1;
 				return EQIntersections::E_One;
 			}
-
-			// Only t2 is in line segment.
-			else if (bIsInSegment2)
+			else if (bIsInSegment2) // Only t2 is in line segment.
 			{
 				vIntersection1 = vAux2;
 				return EQIntersections::E_One;
 			}
-			// There are no intersections.
-			else
-				return EQIntersections::E_None;
+			else // There are no intersections or the line is contained by the orb.
+            {
+                // If the end points are inside the orb, the distance to the center is less than the radius of the orb
+                if( SQFloat::IsLessThan(this->A.Distance(orb.Center), orb.Radius) )
+                    // The line is contained in the orb
+                    // Note: B end point is not checked because if the execution flow has reached this point
+                    //       then it's impossible that there is one end point inside and the other outside the orb
+                    return EQIntersections::E_Infinite;
+                else
+				    return EQIntersections::E_None;
+            }
 		}
 	}
 
@@ -544,18 +552,24 @@ public:
     /// This method receives an orb, and computes the point where the resident line segment intersects with it,
     /// if it exists.
     /// </summary>
+    /// <remarks>
+    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br />
+    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br />
+    /// If there are two intersections, the output parameter stores the closest one to A end point of
+    /// line segment.<br />
+    /// If the segment is contained by the orb, it will return infinite intersection points although the output parameter won't change.
+    /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
     /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
+    /// the following values: E_None, E_One, E_Two or E_Infinite.
     /// </returns>
-    /// <remarks>
-    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br>
-    /// If there is an intersection, the output parameter stores the closest point to A.
-    /// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
 	{
+        // End points of a segment should not coincide and the radius should be greater than zero
+        QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0));
+
 		VectorType vAux;
 		return this->IntersectionPoint(orb, vIntersection, vAux);
 	}
@@ -564,6 +578,9 @@ public:
 	/// Given an input line segment, this method returns the minimum distance between this and the input one,
 	///	that is, the distance between their closest points.
 	/// </summary>
+    /// <remarks>
+    /// If the length of any of both segments equals zero it will be considered as a point (which is wrong).
+    /// </remarks>
 	/// <param name="segment">[IN] The line segment the distance will be measured to.</param>
 	/// <returns>
 	/// A floating point value (always nonnegative) which represents the minimum distance between the two segments.
@@ -575,6 +592,9 @@ public:
 		//
 		// Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
+        // End points of a segment should not coincide
+        QE_ASSERT(this->A != this->B && segment.A != segment.B);
+
 		VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
 		this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
 
@@ -585,12 +605,18 @@ public:
 	/// Given an input vector (which represents a point), this method returns the minimum distance between this and
 	/// the segment, that is, the distance between the input point and the closest point lying into the segment.
 	/// </summary>
+    /// <remarks>
+    /// If the length of the segment equals zero it will be considered as a point (which is wrong).
+    /// </remarks>
 	/// <param name="vPoint">[IN] The point the distance will be measured to.</param>
 	/// <returns>
 	/// A floating point value (always nonnegative) which represents the minimum distance between point and segment.
 	/// </returns>
 	float_q MinDistance(const VectorType &vPoint) const
 	{
+        // End points of a segment should not coincide
+        QE_ASSERT(this->A != this->B);
+
 		if (A != B)
 		{
 			// STEP 0) v1 = B - A, v2 = vPoint - A
@@ -634,101 +660,21 @@ public:
 	}
 
 	/// <summary>
-	/// Given an input line segment, this method returns the maximum distance between this and the input one,
-	///	that is, the distance between their farthest points.
-	/// </summary>
-	/// <param name="segment">[IN] The line segment the distance will be measured to.</param>
-	/// <returns>
-	/// A floating point value (always nonnegative) which represents the maximum distance between the two segments.
-	/// </returns>
-	inline float_q MaxDistance(const QBaseLineSegment<VectorType> &segment) const
-	{
-		// STEP 1) Compute Maximum distance from endpoint A (belonging to the parameter) to this segment.
-		// STEP 2) Compute Maximum distance from endpoint B (belonging to the parameter) to this segment.
-		float_q fMaxDistance_segmtA_This = this->MaxDistance(segment.A);
-		float_q fMaxDistance_segmtB_This = this->MaxDistance(segment.B);
-
-		// STEP 3) Maximum distance between the segments = maximum distance between their farthest endpoints.
-		//												 = the longer distance between the maximum distances from endpoints
-		//												   of the segment passed by parameter to this segment.
-        return SQFloat::IsGreaterThan(fMaxDistance_segmtA_This, fMaxDistance_segmtB_This) ? fMaxDistance_segmtA_This : fMaxDistance_segmtB_This;
-	}
-
-	/// <summary>
-	/// Given an input vector (which represents a point), this method returns the maximum distance between this and
-	/// the segment, that is, the distance between the input point and the farthest point lying into the segment...
-	/// ...and this will be one of the segment endpoints!.<br>
-	/// Please note the above is correct only when the point lies outside the segment; if it's inside the segment,
-	/// the maximum distance equals to 0.
-	/// </summary>
-	/// <param name="vPoint">[IN] The point the distance will be measured to.</param>
-	/// <returns>
-	/// A floating point value (always nonnegative) which represents the maximum distance between point and segment.
-	/// </returns>
-	float_q MaxDistance(const VectorType &vPoint) const
-	{
-		// STEP 0) if vPoint is inside the segment the maximum distance will be 0
-		//		   else
-		//		   STEP 1) v1 = B - A, v2 = vPoint - A
-		//		   STEP 2) if ( DotProduct(v1, v2) <= 0 ) --> Angle(v1, v2) >= (PI / 2) --> vPoint is closer to A, MaxDistance = Length(vPoint - B)
-		//				   else
-		//				   STEP 3) if ( DotProduct (v1, v2) >= DotProduct(v1, v1) ) --> vPoint is closer to B, MaxDistance = Length(v2)
-		//						   else
-		//						   STEP 4) ProjectionOverAB(vPoint) falls into the segment, so:
-		//								   MaxDistance = Biggest( Distance(vPoint,A) , Distance(vPoint,B) )
-		if ( SQFloat::IsNotZero(this->MinDistance(vPoint)) )
-		{
-			VectorType v1		    = B - A;
-			VectorType v2			= vPoint - A;
-			VectorType v3			= vPoint - B;
-			float_q fDotProductv1v1 = SQFloat::_0;
-			float_q fDotProductv1v2 = v1.DotProduct(v2);
-
-			if ( (SQFloat::IsNegative(fDotProductv1v2)) || (SQFloat::IsZero(fDotProductv1v2)) )
-			{
-				return ( v3.GetLength() );
-			}
-			else
-			{
-				fDotProductv1v1 = v1.DotProduct(v1);
-
-                if ( SQFloat::IsGreaterOrEquals(fDotProductv1v2, fDotProductv1v1) )
-
-				{
-					return v2.GetLength();
-				}
-				else
-				{
-					float_q fDistancePointToA = v2.GetLength();
-					float_q fDistancePointToB = v3.GetLength();
-
-                    return SQFloat::IsGreaterThan(fDistancePointToA, fDistancePointToB) ? fDistancePointToA : fDistancePointToB;
-				}
-			}
-		}
-		else
-		{
-			return SQFloat::_0;
-		}
-
-	}
-
-	/// <summary>
 	/// Given a lengthening factor, this method computes the lengthening of the segment; endpoints move away or approach
 	/// to the center, depending of the lengthening factor value.
 	/// </summary>
-	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
-	/// <remarks>
+    /// <remarks>
 	/// If the lengthening factor is 0.0, the segment degenerates into a point (both endpoints become the center).<br>
 	/// If the lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
+	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	void Lengthen(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
 		if ( SQFloat::AreNotEqual(fLengtheningFactor, SQFloat::_1) )
 		{
 			VectorType vCenter;
-			this->GetCenter(vCenter);
+			vCenter = this->GetCenter();
 
 			// If Lengthening Factor == 0, just reduce the endpoints to the center.
 			if (SQFloat::AreEqual(fLengtheningFactor, SQFloat::_0))
@@ -748,11 +694,11 @@ public:
 	/// Given a lengthening factor, this method computes the lengthening of the segment; endpoint B moves away or approaches to A,
 	/// depending of the lengthening factor value. In any case, A stays the same.
 	/// </summary>
-	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
-	/// <remarks>
+    /// <remarks>
 	/// If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become A).<br>
 	/// If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
+	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	void LengthenFromA(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
@@ -774,11 +720,11 @@ public:
 	/// Given a lengthening factor, this method computes the lengthening of the segment; endpoint A moves away or approaches to B,
 	/// depending of the lengthening factor value. In any case, B stays the same.
 	/// </summary>
-	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
-	/// <remarks>
+    /// <remarks>
 	/// If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become B).<br>
 	/// If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
+	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
 	void LengthenFromB(const float_q &fLengtheningFactor)
 	{
 		// If Lengthening Factor == 1 we just don't touch the segment.
