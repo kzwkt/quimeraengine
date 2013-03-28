@@ -1358,7 +1358,8 @@ QTEST_CASE ( OperatorAssignation_VectorIsAssignedProperlyToAnother_Test )
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
 	// Execution
-    QVector3 vVectorUT = VECTOR;
+    QVector3 vVectorUT;
+    vVectorUT = VECTOR;
 
     // Verification
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);

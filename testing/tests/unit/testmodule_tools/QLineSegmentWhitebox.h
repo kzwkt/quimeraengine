@@ -24,12 +24,12 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QQUATERNIONWHITEBOX__
-#define __QQUATERNIONWHITEBOX__
+#ifndef __QLINESEGMENTWHITEBOX__
+#define __QLINESEGMENTWHITEBOX__
 
-#include "QQuaternion.h"
+#include "QLineSegment.h"
 
-using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
+using Kinesis::QuimeraEngine::Tools::Math::QLineSegment;
 
 namespace Kinesis
 {
@@ -43,21 +43,22 @@ namespace Test
 {
 
 /// <summary>
-/// Class intented to be used to expose protected methods of QQuaternion for testing purposes.
+/// Class intented to be used to expose protected methods of QLineSegment for testing purposes.
 /// </summary>
-class QQuaternionWhiteBox : public QQuaternion
+template<class VectorType>
+class QLineSegmentWhiteBox : public QLineSegment<VectorType>
 {
 	// CONSTRUCTORS
 	// ---------------
 public:
 
 	// Necessary for testing
-	QQuaternionWhiteBox()
+	QLineSegmentWhiteBox()
     {
     }
 
     // Necessary for testing
-    QQuaternionWhiteBox(const QQuaternion& qQuaternion) : QQuaternion(qQuaternion)
+    QLineSegmentWhiteBox(const QLineSegment<VectorType>& lineSegment) : QLineSegment<VectorType>(lineSegment)
     {
     }
 
@@ -67,16 +68,16 @@ public:
 public:
 
     // Necessary for testing
-    QBaseQuaternion& operator=(const QQuaternion &qQuaternion)
+    QLineSegment<VectorType>& operator=(const QLineSegment<VectorType> &lineSegment)
     {
-        return QBaseQuaternion::operator=(qQuaternion);
+        return QLineSegment<VectorType>::operator=(lineSegment);
     }
 
     // Exposed method
-    template <class MatrixType>
-	void QQuaternionImp(const QTransformationMatrix<MatrixType> &transformation)
+	void GetClosestPoints(const QBaseLineSegment<VectorType> &segment,
+						  VectorType& vClosestPtInS1ToS2, VectorType& vClosestPtInS2ToS1) const
     {
-        return QQuaternion::QQuaternionImp<MatrixType>(transformation);
+        QLineSegment<VectorType>::GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
     }
 };
 
@@ -86,4 +87,4 @@ public:
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __QQUATERNIONWHITEBOX__
+#endif // __QLINESEGMENTWHITEBOX__
