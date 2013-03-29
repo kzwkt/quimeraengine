@@ -57,7 +57,6 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHasntChanged_Test, TQTemplateTyp
     // Preparation
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
-    float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);

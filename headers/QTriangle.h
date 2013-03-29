@@ -29,6 +29,8 @@
 
 #include "QBaseTriangle.h"
 
+#include "MathDefinitions.h"
+
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -136,87 +138,113 @@ public:
 	}
 
 	/// <summary>
-	/// Equality Operator.<br>
-	/// Checks if the triangle recieved in the parameter is equal to the current triangle.
+	/// Calculates the surface of the triangle.
 	/// </summary>
-	/// <param name="triangle">[IN] Triangle to compare with current triangle.</param>
-    /// <returns>
-    /// True when triangles are equal, false otherwise.
-    /// </returns>
-	bool operator==(const QBaseTriangle<VectorType> &triangle) const
-	{
-		return (this->A == triangle.A) && (this->B == triangle.B) && (this->C == triangle.C);
-	}
-
-	/// <summary>
-	/// Calculates the triangle surface.
-	/// </summary>
+    /// <remarks>
+    /// The points of the triangle should not coincide with each other in order to obtain a valid result.
+    /// When using 4D vectors, it's not guaranteed that the result will be what expected if the W component has a different 
+    /// value for some of the implied points.
+    /// </remarks>
     /// <returns>
     /// The surface of the triangle in a float point type.
     /// </returns>
 	float_q GetSurface() const
 	{
+        // The triangle's points should not coincide, otherwise it would not exist
+        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+
 		VectorType u = B - A;
 		VectorType v = C - A;
 
-		float_q fLengthU = u.GetLength();
-		float_q fLengthV = v.GetLength();
+		float_q fSqrLengthU = u.GetSquaredLength();
+		float_q fSqrLengthV = v.GetSquaredLength();
 
 		float_q fDotProduct = u.DotProduct(v);
 
-		return (sqrt_q((fLengthU * fLengthU) * (fLengthV * fLengthV) - (fDotProduct * fDotProduct)) * SQFloat::_0_5);
+		return sqrt_q(fSqrLengthU * fSqrLengthV - (fDotProduct * fDotProduct)) * SQFloat::_0_5;
 	}
 
 	/// <summary>
 	/// Calculates the angle formed by edges AB and AC.
 	/// </summary>
+    /// <remarks>
+    /// The points of the triangle should not coincide with each other in order to obtain a valid result.
+    /// When using 4D vectors, it's not guaranteed that the result will be what expected if the W component has a different 
+    /// value for some of the implied points.
+    /// </remarks>
     /// <returns>
     /// Returns the angle in a float point type.
     /// </returns>
 	float_q GetAngleA() const
 	{
+        // The triangle's points should not coincide, otherwise it would not exist
+        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+
 		VectorType u = B - A;
 		VectorType v = C - A;
 
-		return GetAngle(u, v);
+		return u.DotProductAngle(v);
 	}
 
 	/// <summary>
 	/// Calculates the angle formed by edges BA and BC.
 	/// </summary>
+    /// <remarks>
+    /// The points of the triangle should not coincide with each other in order to obtain a valid result.
+    /// When using 4D vectors, it's not guaranteed that the result will be what expected if the W component has a different 
+    /// value for some of the implied points.
+    /// </remarks>
     /// <returns>
     /// Returns the angle in a float point type.
     /// </returns>
 	float_q GetAngleB() const
 	{
+        // The triangle's points should not coincide, otherwise it would not exist
+        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+
 		VectorType u = A - B;
 		VectorType v = C - B;
 
-		return GetAngle(u, v);
+		return u.DotProductAngle(v);
 	}
 
 	/// <summary>
 	/// Calculates the angle formed by edges CB and CA.
 	/// </summary>
+    /// <remarks>
+    /// The points of the triangle should not coincide with each other in order to obtain a valid result.
+    /// When using 4D vectors, it's not guaranteed that the result will be what expected if the W component has a different 
+    /// value for some of the implied points.
+    /// </remarks>
     /// <returns>
     /// Returns the angle in a float point type.
     /// </returns>
 	float_q GetAngleC() const
 	{
+        // The triangle's points should not coincide, otherwise it would not exist
+        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+
 		const VectorType u = A - C;
 		const VectorType v = B - C;
 
-		return GetAngle(u, v);
+		return u.DotProductAngle(v);
 	}
 
 	/// <summary>
-	/// Calculates the incenter of the triangle.
+	/// Calculates the incenter of the triangle. The incenter is the center of the incircle or inscribed circle of a triangle, which is 
+    /// the largest circle contained in it; it touches (is tangent to) the three sides.
 	/// </summary>
+    /// <remarks>
+    /// The points of the triangle should not coincide with each other in order to obtain a valid result.
+    /// </remarks>
 	/// <returns>
     /// The incenter.
     /// </returns>
 	VectorType GetIncenter() const
 	{
+        // The triangle's points should not coincide, otherwise it would not exist
+        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+
 		const VectorType vtSideA = C - B;
 		const VectorType vtSideB = A - C;
 		const VectorType vtSideC = B - A;
@@ -225,28 +253,37 @@ public:
 		const float_q fLengthB = vtSideB.GetLength();
 		const float_q fLengthC = vtSideC.GetLength();
 
-		const float_q fP = fLengthA + fLengthB + fLengthC;
+		const float_q fP = SQFloat::_1 / (fLengthA + fLengthB + fLengthC);
 
 		// Checkout to avoid division by zero.
 		QE_ASSERT(fP != SQFloat::_0)
 
-		return (fLengthA * A + fLengthB * B + fLengthC * C) / fP;
+		return (fLengthA * A + fLengthB * B + fLengthC * C) * fP;
 	}
 
 	/// <summary>
-	/// Calculates the centroid of the triangle.
+	/// Calculates the centroid of the triangle. The centroid or geomatric center is the arithmetic mean ("average") 
+    /// position of all the points in the triangle. The centroid will always coincide with the first third of the segment
+    /// that starts at the middle of an edge and ends in the opposite vertex.
 	/// </summary>
+    /// <remarks>
+    /// The points of the triangle should not coincide with each other in order to obtain a valid result.
+    /// </remarks>
 	/// <returns>
     /// The centroid.
     /// </returns>
 	inline VectorType GetCentroid() const
 	{
+        // The triangle's points should not coincide, otherwise it would not exist
+        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+
 		return (A + B + C) / SQFloat::_3;
 	}
 
 	/// <summary>
-	/// Converts triangle into a string with the following format:<br>
-	/// "T:A(<A.ToString>), B(<B.ToString>), C(<C.ToString>)"
+	/// Converts triangle into a string with the following format:<br />
+	/// "T:A($A), B($B), C($C)"<br />
+    /// Where "$" means "string representation of".
 	/// </summary>
 	/// <returns>
 	/// The string in the specified format.
@@ -255,41 +292,6 @@ public:
 	{
 		return QE_L("T:A(") + A.ToString() + QE_L("), B(") + B.ToString() + QE_L("), C(") + C.ToString() + QE_L(")");
 	}
-
-protected:
-
-	// <summary>
-	// Calculates the angle between two vector types.
-	// </summary>
-	// <param name="vVector1">[IN] The first vector type.</param>
-	// <param name="vVector2">[IN] The second vector type.</param>
-	// <returns>
-	// The angle in a float point type.
-	// </returns>
-	float_q GetAngle(const VectorType vVector1, const VectorType vVector2) const
-	{
-		const float_q fLength1 = vVector1.GetLength();
-		const float_q fLength2 = vVector2.GetLength();
-
-		// Checkout to avoid division by zero.
-		QE_ASSERT(fLength1 != SQFloat::_0)
-		QE_ASSERT(fLength2 != SQFloat::_0)
-
-		const float_q fCos = vVector1.DotProduct(vVector2) / (fLength1 * fLength2);
-
-        // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(SQFloat::Abs(fCos) <= SQFloat::_1)
-
-		float_q fAngle = acos_q(fCos);
-
-        #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            // If angles are specified in degrees, then converts angle to degrees
-            fAngle = SQAngle::RadiansToDegrees(fAngle, fAngle);
-        #endif
-
-		return fAngle;
-	}
-
 };
 
 } //namespace Math
