@@ -750,7 +750,7 @@ public:
 	/// <returns>
     /// The string with the format specified.
     /// </returns>
-	string_q ToString()
+	string_q ToString() const
 	{
 		return QE_L("LS(a(") + A.ToString() + QE_L("),b(") + B.ToString() + QE_L("))");
 	}

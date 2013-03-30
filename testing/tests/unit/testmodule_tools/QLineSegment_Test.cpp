@@ -564,7 +564,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesShareOneEndPointOnly_Tes
 
     const QLineSegment<T> LINE_SEGMENT5 = QLineSegment<T>(VALUE_FOR_A3, VALUE_FOR_B3);
     const QLineSegment<T> LINE_SEGMENT6 = QLineSegment<T>(VALUE_FOR_B3, VALUE_FOR_A3);
-    
+
     float_q VECTOR_COMPONENTS_A4[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B4[] = { SQFloat::_6, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A4(VECTOR_COMPONENTS_A4);
@@ -786,7 +786,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenOneSegmentIsContainedByTheOth
     const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
-    
+
     float_q VECTOR_COMPONENTS_A3[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B3[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A3(VECTOR_COMPONENTS_A3);
@@ -1208,7 +1208,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfSegmentEqualsZe
 
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
-        
+
     const bool ASSERTION_FAILED = true;
 
 	// Execution
@@ -2278,7 +2278,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheRadiusEqualsZeroAn
     T OUTPUT_POINT1S = EXPECTED_POINT;
     T OUTPUT_POINT2F = EXPECTED_POINT;
     T OUTPUT_POINT2S = EXPECTED_POINT;
-    
+
     const bool ASSERTION_FAILED = true;
 
 	// Execution
@@ -2339,7 +2339,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionIsReturnedWhenTheLengthOf
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINTF = EXPECTED_POINT;
     T OUTPUT_POINTS = EXPECTED_POINT;
-    
+
     const bool ASSERTION_FAILED = true;
 
 	// Execution
@@ -2368,7 +2368,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_FirstPointIsNearerToAThanSecondPoint_Te
     //               ______                       ______
     //             ´        `                   ´        `
     //           /           \                /           \
-    //   A1--------------------B1    B1---------------------A1    
+    //   A1--------------------B1    B1---------------------A1
     //           \           /                \           /
     //             ` _____ ´                    ` _____ ´
 
@@ -2800,7 +2800,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINT1 = EXPECTED_POINT;
     T OUTPUT_POINT2 = EXPECTED_POINT;
-    
+
     const bool ASSERTION_FAILED = true;
 
 	// Execution
@@ -2858,7 +2858,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
 
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINT = EXPECTED_POINT;
-    
+
     const bool ASSERTION_FAILED = true;
 
 	// Execution
@@ -2872,7 +2872,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
@@ -2886,7 +2886,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_FirstPointIsNearerToA_Test, TQTemplateT
     //               ______                       ______
     //             ´        `                   ´        `
     //           /           \                /           \
-    //   A1--------------------B1    B1---------------------A1    
+    //   A1--------------------B1    B1---------------------A1
     //           \           /                \           /
     //             ` _____ ´                    ` _____ ´
 
@@ -3103,7 +3103,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesShareOneEndPointOnly_Test
 
     const QLineSegment<T> LINE_SEGMENT5 = QLineSegment<T>(VALUE_FOR_A3, VALUE_FOR_B3);
     const QLineSegment<T> LINE_SEGMENT6 = QLineSegment<T>(VALUE_FOR_B3, VALUE_FOR_A3);
-    
+
     float_q VECTOR_COMPONENTS_A4[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B4[] = { SQFloat::_6, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A4(VECTOR_COMPONENTS_A4);
@@ -3288,7 +3288,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenOneSegmentIsContainedByTheOthe
     const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
-    
+
     float_q VECTOR_COMPONENTS_A3[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B3[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A3(VECTOR_COMPONENTS_A3);
@@ -3581,9 +3581,7 @@ QTEST_CASE_TEMPLATE ( Lengthen_ItIsFlippedWhenInputValueIsNegative_Test, TQTempl
     QLineSegment<T> lineSegmentUT = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
     const float_q FACTOR = -SQFloat::_1;
-    const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
-    float_q fSegmentLength = SQFloat::_0;
-    
+
 	// Execution
     lineSegmentUT.Lengthen(FACTOR);
 
@@ -3725,9 +3723,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsFlippedWhenInputValueIsNegative_Test, TQ
     QLineSegment<T> lineSegmentUT = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
     const float_q FACTOR = -SQFloat::_1;
-    const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
-    float_q fSegmentLength = SQFloat::_0;
-    
+
 	// Execution
     lineSegmentUT.LengthenFromA(FACTOR);
 
@@ -3869,9 +3865,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsFlippedWhenInputValueIsNegative_Test, TQ
     QLineSegment<T> lineSegmentUT = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
     const float_q FACTOR = -SQFloat::_1;
-    const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
-    float_q fSegmentLength = SQFloat::_0;
-    
+
 	// Execution
     lineSegmentUT.LengthenFromB(FACTOR);
 
@@ -4293,7 +4287,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithSharedEndPointWhenL
 }
 
 /// <summary>
-/// Checks that obtained points coincide with the closest ones to A (in the instance which method is being executed) that is contained by the 
+/// Checks that obtained points coincide with the closest ones to A (in the instance which method is being executed) that is contained by the
 /// other line when lines coincide partially, this means, they share more than one point but not all.
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherLineWhenLinesCoincidePartially_Test, TQTemplateTypes )
@@ -4362,7 +4356,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
 }
 
 /// <summary>
-/// Checks that obtained points coincide with the closest ones to A (in the instance which method is being executed) that is contained by the 
+/// Checks that obtained points coincide with the closest ones to A (in the instance which method is being executed) that is contained by the
 /// other line when one line is totally contained by the other.
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherLineWhenOneSegmentIsContainedByTheOther_Test, TQTemplateTypes )

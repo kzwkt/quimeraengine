@@ -150,6 +150,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTriangle_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QOrb_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

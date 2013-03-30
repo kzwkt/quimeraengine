@@ -46735,7 +46735,7 @@
 1360789773 h:\quimeraengine\qesvn\trunk\headers\externaldefinitions.h
 	"Configuration.h"
 
-1364519894 h:\quimeraengine\qesvn\trunk\headers\configuration.h
+1364663089 h:\quimeraengine\qesvn\trunk\headers\configuration.h
 
 1360789774 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasedualquaternion_test.cpp
 	<boost/test/auto_unit_test.hpp>
@@ -47964,7 +47964,7 @@
 	"QBaseMatrix3x3.h"
 	"SQAngle.h"
 
-1361024670 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtransformationmatrix_test.cpp
+1364596791 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtransformationmatrix_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	<boost/mpl/list.hpp>
@@ -49639,7 +49639,7 @@
 	"SQVF32.h"
 	"QConvertible.h"
 
-1363294239 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbaselinesegment_test.cpp
+1364596791 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbaselinesegment_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	<boost/mpl/list.hpp>
@@ -49669,4 +49669,58 @@
 	"SQFloat.h"
 	"SQVF32.h"
 	"QConvertible.h"
+
+1364596791 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qlinesegment_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QLineSegment.h"
+	"QLineSegmentWhiteBox.h"
+	"QVector2.h"
+	"QVector3.h"
+	"QVector4.h"
+	"QBaseOrb.h"
+
+1364595475 h:\quimeraengine\qesvn\trunk\headers\qlinesegment.h
+	"EQIntersections.h"
+	"QBaseLineSegment.h"
+	"QBaseOrb.h"
+	"SQAngle.h"
+
+1361568909 h:\quimeraengine\qesvn\trunk\headers\eqintersections.h
+	<map>
+	<vector>
+	"DataTypesDefinitions.h"
+
+1364420286 h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qlinesegmentwhitebox.h
+	"QLineSegment.h"
+
+1364602501 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qorb_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QOrb.h"
+	"QVector2.h"
+	"QVector3.h"
+	"QVector4.h"
+
+1364596304 h:\quimeraengine\qesvn\trunk\headers\qorb.h
+	"QBaseOrb.h"
+
+1364600967 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtriangle_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QTriangle.h"
+	"QVector2.h"
+	"QVector3.h"
+	"QVector4.h"
+	"SQAngle.h"
+
+1364573658 h:\quimeraengine\qesvn\trunk\headers\qtriangle.h
+	"QBaseTriangle.h"
+	"MathDefinitions.h"
 

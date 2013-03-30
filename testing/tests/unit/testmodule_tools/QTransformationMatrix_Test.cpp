@@ -5048,14 +5048,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_NullVectorAndZeroAngleAreObtainedWhenMatrixIs
 QTEST_CASE_TEMPLATE ( GetRotation3_ResultantAxisIsNormalized_Test, TQTemplateTypes )
 {
     // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
-
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        const float_q EXPECTED_ANGLE = SQAngle::_60;
-    #else
-        const float_q EXPECTED_ANGLE = SQAngle::_ThirdPi;
-    #endif
 
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
 
@@ -5421,16 +5414,6 @@ QTEST_CASE_TEMPLATE ( Decompose1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContai
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        const float_q ROTATION_X = SQAngle::_45;
-        const float_q ROTATION_Y = SQAngle::_60;
-        const float_q ROTATION_Z = SQAngle::_90;
-    #else
-        const float_q ROTATION_X = SQAngle::_QuarterPi;
-        const float_q ROTATION_Y = SQAngle::_ThirdPi;
-        const float_q ROTATION_Z = SQAngle::_HalfPi;
-    #endif
 
     const QBaseVector3 EXPECTED_TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QQuaternion EXPECTED_ROTATION = QQuaternion::GetIdentity();
@@ -5810,16 +5793,6 @@ QTEST_CASE_TEMPLATE ( Decompose2_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        const float_q ROTATION_X = SQAngle::_45;
-        const float_q ROTATION_Y = SQAngle::_60;
-        const float_q ROTATION_Z = SQAngle::_90;
-    #else
-        const float_q ROTATION_X = SQAngle::_QuarterPi;
-        const float_q ROTATION_Y = SQAngle::_ThirdPi;
-        const float_q ROTATION_Z = SQAngle::_HalfPi;
-    #endif
 
     const QBaseVector4 EXPECTED_TRANSLATION(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QQuaternion EXPECTED_ROTATION = QQuaternion::GetIdentity();
