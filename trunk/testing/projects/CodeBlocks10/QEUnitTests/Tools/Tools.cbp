@@ -152,6 +152,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x4_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QOrb_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
@@ -191,7 +194,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTriangle_Test.cpp" />
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTriangle_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector2_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

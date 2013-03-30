@@ -362,7 +362,7 @@ QTEST_CASE_TEMPLATE ( GetAngleA_CorrectAngleIsReturnedWhenUsingCommonTriangle_Te
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EXPECTED_VALUE = SQAngle::_QuarterPi;
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-    const float_q EXPECTED_VALUE = SQAngke::_45;
+    const float_q EXPECTED_VALUE = SQAngle::_45;
 #endif
 
 	// Execution
@@ -424,7 +424,7 @@ QTEST_CASE_TEMPLATE ( GetAngleB_CorrectAngleIsReturnedWhenUsingCommonTriangle_Te
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EXPECTED_VALUE = SQAngle::_QuarterPi;
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-    const float_q EXPECTED_VALUE = SQAngke::_45;
+    const float_q EXPECTED_VALUE = SQAngle::_45;
 #endif
 
 	// Execution
@@ -486,7 +486,7 @@ QTEST_CASE_TEMPLATE ( GetAngleC_CorrectAngleIsReturnedWhenUsingCommonTriangle_Te
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EXPECTED_VALUE = SQAngle::_QuarterPi;
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-    const float_q EXPECTED_VALUE = SQAngke::_45;
+    const float_q EXPECTED_VALUE = SQAngle::_45;
 #endif
 
 	// Execution

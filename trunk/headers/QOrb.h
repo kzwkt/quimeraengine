@@ -134,12 +134,18 @@ public:
 	/// <summary>
 	/// This method receives a point and determines if the point is contained into the orb.
 	/// </summary>
+    /// <remarks>
+    /// If the radius of the orb equals zero, the orb will be considered as a point (which is wrong).
+    /// </remarks>
     /// <param name="vPoint">[IN] The point to be tested.</param>
 	/// <returns>
 	/// True if the point is inside the orb (or if it belongs to its bounds). Otherwise returns false.
 	/// </returns>
-    inline bool Contains(const VectorType &vPoint)
+    inline bool Contains(const VectorType &vPoint) const
     {
+        // If the radius of the orb equals zero, it doesn't exist
+        QE_ASSERT( SQFloat::IsNotZero(this->Radius) );
+
         // The point is inside the orb whenever the minimum squared distance between the point and
         // the center point of the orb is lower or equals the whole square radius of the orb.
         VectorType vDistance(vPoint - this->Center);
@@ -149,12 +155,18 @@ public:
 	/// <summary>
 	/// This method receives another orb and computes whether this orb intersects the resident one or not.
 	/// </summary>
+    /// <remarks>
+    /// If the radius of the orb equals zero, the orb will be considered as a point (which is wrong).
+    /// </remarks>
     /// <param name="orb">[IN] The orb to be checked for intersections.</param>
 	/// <returns>
 	/// True if they intersect to each other (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
     inline bool Intersection(const QBaseOrb<VectorType> &orb) const
     {
+        // If the radius of the orb equals zero, it doesn't exist
+        QE_ASSERT( SQFloat::IsNotZero(this->Radius) && SQFloat::IsNotZero(orb.Radius) );
+
         // An intersection between the two orbs is considered if the minimum squared distance
 		// between their center points is lower or equals the square sum of their radius.
         VectorType vDistance(orb.Center - this->Center);
@@ -163,14 +175,14 @@ public:
     }
 
 	/// <summary>
-	/// Converts the orb into a string with the following format:<br>
-	/// "OB(c($Center),r($Radius))".<br>
+	/// Converts the orb into a string with the following format:<br/>
+	/// "OB(c($Center),r($Radius))".<br/>
     /// Where "$" means "string representation of attribute".
 	/// </summary>
 	/// <returns>
 	/// The string with the specified format.
 	/// </returns>
-	string_q ToString()
+	string_q ToString() const
 	{
 		return QE_L("OB(c(") + this->Center.ToString() + QE_L("),r(") + SQFloat::ToString(this->Radius) + QE_L("))");
 	}
