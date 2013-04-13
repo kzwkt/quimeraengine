@@ -48,9 +48,9 @@ typedef boost::mpl::list<QVector2, QVector3, QVector4> TQTemplateTypes;
 QTEST_SUITE_BEGIN( QOrb_TestSuite )
 
 /// <summary>
-/// Checks if default values has changed.
+/// Checks if default values have changed.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHasntChanged_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
     // Preparation
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
@@ -211,9 +211,9 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenTheOrbContainsThePoint_Test, TQTem
 }
 
 /// <summary>
-/// Checks that it returns true when the point lays on the surface of the orb.
+/// Checks that it returns true when the point lies on the surface of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenThePointLaysOnTheSurfaceOfTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenThePointLiesOnTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     // Preparation
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };

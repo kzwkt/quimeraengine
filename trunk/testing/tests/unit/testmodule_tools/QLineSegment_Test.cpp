@@ -50,9 +50,9 @@ typedef boost::mpl::list<QVector2, QVector3, QVector4> TQTemplateTypes;
 QTEST_SUITE_BEGIN( QLineSegment_TestSuite )
 
 /// <summary>
-/// Checks if default values has changed.
+/// Checks if default values have changed.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHasntChanged_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
     // Preparation
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };

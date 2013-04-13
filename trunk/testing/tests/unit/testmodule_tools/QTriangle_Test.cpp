@@ -47,7 +47,7 @@ typedef boost::mpl::list<QVector2, QVector3, QVector4> TQTemplateTypes;
 QTEST_SUITE_BEGIN( QTriangle_TestSuite )
 
 /// <summary>
-/// Checks if default values has changed.
+/// Checks if default values have changed.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHasNotChanged_Test, TQTemplateTypes )
 {
