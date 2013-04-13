@@ -24,6 +24,11 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
+// !!!
+// IMPORTANT NOTE: Whatever the test you modify in this file, replicate the same changes in the QBaseRay_Test.cpp file!
+//                 They had to be split because the template has 2 parameters that are not assured to be the same type.
+// !!!
+
 #include <boost/test/auto_unit_test.hpp>
 #include <boost/test/unit_test_log.hpp>
 using namespace boost::unit_test;
@@ -41,9 +46,9 @@ using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 QTEST_SUITE_BEGIN( QBaseRay_TestSuite )
 
 /// <summary>
-/// Checks if default values has changed.
+/// Checks if default values have changed.
 /// </summary>
-QTEST_CASE ( Constructor1_DefaultValuesHasntChanged_Test )
+QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // Preparation
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };

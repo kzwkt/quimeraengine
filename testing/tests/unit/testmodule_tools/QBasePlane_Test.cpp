@@ -38,9 +38,9 @@ using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 QTEST_SUITE_BEGIN( QBasePlane_TestSuite )
 
 /// <summary>
-/// Checks if default values has changed.
+/// Checks if default values have changed.
 /// </summary>
-QTEST_CASE ( Constructor1_DefaultValuesHasntChanged_Test )
+QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0;

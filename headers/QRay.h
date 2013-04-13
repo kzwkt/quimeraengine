@@ -159,6 +159,9 @@ public:
     /// </returns>
     inline VectorTypeOrigin GetPoint(const float_q &fDistance) const
     {
+        // The direction vector must be normalized
+        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1) );
+
         // It's assumed that the ray's direction vector is normalized
         return this->Origin + this->Direction * fDistance;
     }
@@ -167,7 +170,8 @@ public:
     /// Checks if resident ray intersects with the provided orb.
     /// </summary>
     /// <remarks>
-    /// Ray must be normalized to obtain a correct result.
+    /// Ray must be normalized to obtain a correct result.<br />
+    /// Neither the length of the direction vector nor the radius of the orb should equal zero.
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
     /// <returns>
@@ -175,6 +179,12 @@ public:
     /// </returns>
     inline bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
     {
+        // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
+        QE_ASSERT( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius) );
+
+        // The direction vector must be normalized
+        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1) );
+
         // Converts all vectors to VectorTypeDirection, that always will be QVector2 or QVector3
         VectorTypeDirection vNewRayOrigin(this->Origin - orb.Center);
 
@@ -221,8 +231,9 @@ public:
     /// </summary>
     /// <remarks>
     /// Ray must be normalized to obtain a correct result.<br>
-    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br>
-    /// If there are one or two intersections, the output parameter stores the closest to ray origin.
+    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br />
+    /// If there are one or two intersections, the output parameter stores the closest to ray origin.<br />
+    /// Neither the length of the direction vector nor the radius of the orb should equal zero.
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident ray we want to check.</param>
     /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
@@ -240,6 +251,15 @@ public:
     /// <summary>
 	/// Computes the intersection point between resident ray and provided orb, if it exists.
 	/// </summary>
+    /// <remarks>
+	/// Ray must be normalized to obtain a correct result.<br />
+	/// If there's no intersection point, the output parameters won't be modified.<br />
+	/// If there's one intersection point, the second output parameter won't be modified,
+	/// and first output parameter is filled with the intersection point.<br />
+    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
+    /// in the first output parameter the closest one to the origin point of the ray.<br />
+    /// Neither the length of the direction vector nor the radius of the orb should equal zero.
+	/// </remarks>
 	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
 	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
 	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
@@ -247,16 +267,14 @@ public:
     /// An enumerated value which represents the number of intersections between the ray and the orb, and can take
     /// the following values: E_None, E_One and E_Two.
 	/// </returns>
-	/// <remarks>
-	/// Ray must be normalized to obtain a correct result.<br>
-	/// If there's no intersection point, the output parameters won't be modified.<br>
-	/// If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br>
-    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest to the origin point of the ray.
-	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection1, VectorTypeOrigin &vIntersection2) const
     {
+        // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
+        QE_ASSERT( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius) );
+
+        // The direction vector must be normalized
+        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1) );
+
         // We set all vectors to the same type that output parameters to allow operations
         const VectorTypeOrigin &DIRECTION(this->Direction);
 
