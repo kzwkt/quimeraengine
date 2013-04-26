@@ -57,9 +57,6 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp">
-      <Filter>Tests\Math</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
@@ -157,6 +154,12 @@
       <Filter>Tests\Math</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay_QVector4_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuadrilateral_Tests.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
   </ItemGroup>
