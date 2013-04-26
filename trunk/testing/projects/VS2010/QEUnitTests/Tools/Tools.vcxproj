@@ -21,7 +21,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix4x4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseOrb_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBasePlane_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuadrilateral_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuadrilateral_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseRay_QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseRay_Test.cpp" />
