@@ -104,6 +104,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBasePlane_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseQuadrilateral_Tests.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
