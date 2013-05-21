@@ -329,7 +329,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTangent_Test, TQTemplat
 }
 
 /// <summary>
-/// Checks that it returns true when orbs are tangent.
+/// Checks that it returns true when orbs are the same.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTheSame_Test, TQTemplateTypes )
 {
