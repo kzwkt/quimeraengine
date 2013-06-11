@@ -38,6 +38,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix2x2_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QOrb_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QPlane_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay_QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay_Test.cpp" />

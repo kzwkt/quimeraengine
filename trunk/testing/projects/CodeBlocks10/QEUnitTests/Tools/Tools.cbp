@@ -161,6 +161,7 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QOrb_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QPlane_Test.cpp" />
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

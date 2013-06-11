@@ -571,6 +571,10 @@ public:
     /// <summary>
     /// Calculates Dot Product by a vector provided.
     /// </summary>
+    /// <remarks>
+    /// The dot product can be used to know whether two vectors are orthogonal (when result equals zero and vectors are not null) 
+    /// or to calculate the scalar projection of one vector over the other (length of the projected "shadow"), for example.
+    /// </remarks>
     /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
     /// A floating point value which is the result of Dot Product.
@@ -693,10 +697,12 @@ public:
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
-	/// to resident vector, multiplying the vector by a transformation matrix to transform it.<br>
+	/// to resident vector, multiplying the vector by a transformation matrix to transform it.
+    /// </summary>
+    /// <remarks>
     /// We assume that resident vector represents a 3D point \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
-    /// </summary>
+    /// </remarks>
     /// <param name="transformation">[IN] The transformation matrix.</param>
     /// <returns>
     /// The transformed vector.
@@ -705,11 +711,14 @@ public:
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
-	/// to resident vector, multiplying the vector by a transformation matrix to transform it.<br>
+	/// to resident vector, multiplying the vector by a transformation matrix to transform it.
+    /// </summary>
+    /// <remarks>
     /// We assume that resident vector represents a 3D point \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
-    /// </summary>
-    /// <param name="transformation">[IN] The transformation matrix.</param>
+    /// Note that this methods may not return the same result than the multiplication of the vector by the matrix since
+    /// it's optimized, ignoring the fourth column.
+    /// </remarks>
     /// <returns>
     /// The transformed vector.
     /// </returns>

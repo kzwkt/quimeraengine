@@ -289,6 +289,9 @@ QMatrix4x4 QMatrix4x4::Invert() const
 {
     // Based on http://www.cg.info.hiroshima-cu.ac.jp/~miyazaki/knowledge/teche23.html
 
+    // The results will be wrong when the determinant equals zero
+    QE_ASSERT( this->GetDeterminant() != SQFloat::_0 );
+
 	// Gets the inverse of the Determinant.
 	const float_q fInvDet = SQFloat::_1 / this->GetDeterminant();
 

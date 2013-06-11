@@ -96,6 +96,9 @@ float_q QPlane::DotProductAngle(const QVector4 &vVector) const
 
 float_q QPlane::DotProductAngle(const QBasePlane &plane) const
 {
+    // When the length of a plane equals zero, the calculated angle is not correct
+    QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+
     const float_q &DOT = this->DotProduct(plane);
 
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
@@ -147,11 +150,16 @@ EQIntersections QPlane::IntersectionPoint(const QBasePlane &plane1, const QBaseP
 
 EQIntersections QPlane::IntersectionPoint(const QBasePlane &plane1, const QBasePlane &plane2, QBaseVector4 &vIntersection) const
 {
-    return IntersectionPointImp(plane1, plane2, vIntersection);
+    EQIntersections eNumIntersections = IntersectionPointImp(plane1, plane2, vIntersection);
+    return eNumIntersections;
 }
 
 EQSpaceRelation QPlane::SpaceRelation(const QBasePlane &plane) const
 {
+    // It's impossible to calculate the spacial relation for a null plane
+    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
+    QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+
     // Cross product: checks if planes are parallel or coincident
     if (SQFloat::IsZero(plane.b * this->c - plane.c * this->b) &&
         SQFloat::IsZero(plane.c * this->a - plane.a * this->c) &&

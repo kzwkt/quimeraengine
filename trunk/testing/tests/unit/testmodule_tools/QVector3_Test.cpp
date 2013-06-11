@@ -2567,7 +2567,7 @@ QTEST_CASE ( Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 /// using different template parameters for class QTranslationMatrix.
 /// </summary>
 template<class MatrixType>
-void Transform5_VectorIsNullWhenTranslationMatrixIsNull_Template()
+void Transform5_VectorDoesNotChangeWhenTranslationMatrixIsNull_Template()
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -2589,15 +2589,15 @@ void Transform5_VectorIsNullWhenTranslationMatrixIsNull_Template()
 /// <summary>
 /// Checks that the vector doesn't change when the translation matrix is null.
 /// </summary>
-QTEST_CASE ( Transform5_VectorIsNullWhenTranslationMatrixIsNull_Test )
+QTEST_CASE ( Transform5_VectorDoesNotChangeWhenTranslationMatrixIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    Transform5_VectorIsNullWhenTranslationMatrixIsNull_Template<QMatrix4x3>();
+    Transform5_VectorDoesNotChangeWhenTranslationMatrixIsNull_Template<QMatrix4x3>();
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    Transform5_VectorIsNullWhenTranslationMatrixIsNull_Template<QMatrix4x4>();
+    Transform5_VectorDoesNotChangeWhenTranslationMatrixIsNull_Template<QMatrix4x4>();
 }
 
 /// <summary>
@@ -2613,10 +2613,20 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+    
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
+    const float_q EULER_ANGLE_Y = SQAngle::_Pi;
+    const float_q EULER_ANGLE_Z = SQAngle::_QuarterPi;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const float_q EULER_ANGLE_X = SQAngle::_90;
+    const float_q EULER_ANGLE_Y = SQAngle::_180;
+    const float_q EULER_ANGLE_Z = SQAngle::_45;
+#endif
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
-    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(SQAngle::_HalfPi, SQAngle::_Pi, SQAngle::_QuarterPi);
+    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
     const QScalingMatrix3x3 SCALE = QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
@@ -3160,5 +3170,6 @@ QTEST_CASE ( TransformImp2_RotationFollowsLeftHandedRules_Test )
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
     TransformImp2_RotationFollowsLeftHandedRules_Template<QMatrix4x4>();
 }
+
 // End - Test Suite: QVector3
 QTEST_SUITE_END()

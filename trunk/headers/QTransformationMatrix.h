@@ -459,7 +459,12 @@ public:
     }
 
     /// <summary>
-    /// Inverses the matrix.<br>
+    /// Inverses the matrix.
+    /// </summary>
+    /// <remarks>
+    /// This method is optimized with respect to the base matrix class so the fourth column is ignored. Take this into
+    /// account when performing operations that include matrix transposing (use base matrix class version instead) or
+    /// wrong results will be obtained.<br />
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
     ///
     /// \f$ A\cdot A^{-1}  = A^{-1}\cdot A = I\f$
@@ -477,12 +482,15 @@ public:
     /// \frac{r_{01}}{S_x} & \frac{r_{11}}{S_y} & \frac{r_{21}}{S_z} & 0 \\
     /// \frac{r_{02}}{S_x} & \frac{r_{12}}{S_y} & \frac{r_{22}}{S_z} & 0 \\
     /// \frac{-r_{00}d_x-r_{01}d_y-r_{02}d_z}{S_x} & \frac{-r_{10}d_x-r_{11}d_y-r_{12}d_z}{S_y} & \frac{-r_{20}d_x-r_{21}d_y-r_{22}d_z}{S_z} & 1 \end{bmatrix} \f$
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
     MatrixType Invert() const
     {
+        // The results will be wrong when the determinant equals zero
+        QE_ASSERT( this->GetDeterminant() != SQFloat::_0 );
+
         // Gets the inverse of the Determinant.
         const float_q INV_DET = SQFloat::_1 / this->GetDeterminant();
 
