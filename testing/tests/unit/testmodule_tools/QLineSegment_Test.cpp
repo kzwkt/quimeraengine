@@ -1693,8 +1693,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointWhenSegmentDoesNotInterse
     T OUTPUT_POINT2 = T::GetZeroVector();
 
 	// Execution
-    bool eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1);
-    bool eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2);
+    EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1);
+    EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2);
 
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);

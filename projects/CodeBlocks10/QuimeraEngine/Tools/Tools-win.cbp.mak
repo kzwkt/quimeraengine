@@ -11,7 +11,7 @@ AR = ar.exe
 LD = g++.exe
 WINDRES = windres.exe
 
-INC =  -I$(MAKEPATH)/trunk/headers -I$(MAKEPATH)/trunk/3rdparty/Boost/include
+INC =  -I$(MAKEPATH)\\trunk\\headers -I$(MAKEPATH)\\trunk\\3rdparty\\Boost\\include
 CFLAGS =  -march=pentium4 -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -fpermissive
 RESINC = 
 LIBDIR = 
