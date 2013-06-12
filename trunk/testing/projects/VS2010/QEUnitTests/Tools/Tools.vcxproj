@@ -49,6 +49,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTriangle2D_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTriangle_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector2_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp" />
