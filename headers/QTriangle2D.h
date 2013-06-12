@@ -168,6 +168,9 @@ public:
     /// </returns>
 	inline QVector2 GetCircumcenter() const
 	{
+        // All the vertices shouldn't coincide
+        QE_ASSERT( !(this->A == this->B && this->B == this->C) );
+
 		//STEP 1: Obtain the gradient of height A.
 		//
 		// We can obtain the gradient of a line using this formula:
@@ -214,6 +217,9 @@ public:
     /// </returns>
 	inline QVector2 GetOrthocenter() const
 	{
+        // All the vertices shouldn't coincide
+        QE_ASSERT( !(this->A == this->B && this->B == this->C) );
+
 		//STEP 1: Obtain the gradient of height A.
 		//
 		// We can obtain the gradient of a line using this formula:
