@@ -146,10 +146,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_ConstructedRayIsNotNormalizedWhenDirectionVec
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
     const T INPUT_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
-    const T INPUT_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    const QVector3 INPUT_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
     const T UNEXPECTED_VALUE_FOR_ORIGIN = INPUT_VALUE_FOR_ORIGIN.Normalize();
-    const QVector3 UNEXPECTED_VALUE_FOR_DIRECTION = INPUT_VALUE_FOR_DIRECTION.Normalize();
+    const QVector3 UNEXPECTED_VALUE_FOR_DIRECTION = QVector3(INPUT_VALUE_FOR_DIRECTION).Normalize();
 
 	// Execution
     QRay<T, QVector3> rayUT(INPUT_VALUE_FOR_ORIGIN, INPUT_VALUE_FOR_DIRECTION);
@@ -165,7 +165,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ConstructedRayIsNotNormalizedWhenDirectionVec
 QTEST_CASE_TEMPLATE ( GetRayZero_ReturnsWhatExpected_Test, TQTemplateTypes )
 {
     // Preparation
-    QRay<T, QVector3> EXPECTED_VALUE(T::GetZeroVector(), T::GetZeroVector());
+    QRay<T, QVector3> EXPECTED_VALUE(T::GetZeroVector(), QVector3::GetZeroVector());
 
 	// Execution
     QRay<T, QVector3> obtinedRay = QRay<T, QVector3>::GetRayZero();
@@ -231,7 +231,7 @@ QTEST_CASE_TEMPLATE ( Invert_ConstructedRayIsNotNormalizedWhenDirectionVectorIsN
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
     const T INPUT_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
-    const T INPUT_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    const QVector3 INPUT_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
     const T UNEXPECTED_VALUE_FOR_ORIGIN = INPUT_VALUE_FOR_ORIGIN.Normalize();
     const QVector3 UNEXPECTED_VALUE_FOR_DIRECTION = -INPUT_VALUE_FOR_DIRECTION.Normalize();
@@ -1009,7 +1009,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenDirectionVectorIsNull
     // Preparation
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
-    const QVector3 VALUE_FOR_DIRECTION = T::GetZeroVector();
+    const QVector3 VALUE_FOR_DIRECTION = QVector3::GetZeroVector();
     QRay<T, QVector3> RAY = QRay<T, QVector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
 
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
@@ -1419,7 +1419,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenDirectionVectorIsNull
     // Preparation
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
-    const QVector3 VALUE_FOR_DIRECTION = T::GetZeroVector();
+    const QVector3 VALUE_FOR_DIRECTION = QVector3::GetZeroVector();
     QRay<T, QVector3> RAY = QRay<T, QVector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
 
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };

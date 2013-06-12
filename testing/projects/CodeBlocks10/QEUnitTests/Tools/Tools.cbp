@@ -168,6 +168,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRay3D_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRay_QVector4_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

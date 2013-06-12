@@ -114,7 +114,7 @@ public:
     /// It's initialized as vector (w = 0).
     /// </summary>
     /// <param name="vVector">[IN] The 3D vector in which we want resident vector to be based.</param>
-    inline QVector4(const QBaseVector3 &vVector) : QBaseVector4(vVector.x, vVector.y, vVector.z, SQFloat::_0)
+    inline explicit QVector4(const QBaseVector3 &vVector) : QBaseVector4(vVector.x, vVector.y, vVector.z, SQFloat::_0)
     {
     }
 

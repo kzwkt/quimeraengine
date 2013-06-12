@@ -113,7 +113,7 @@ public:
     /// Constructor from a 4D vector.
     /// </summary>
     /// <param name="vVector">[IN] The 4D vector in which we want resident vector to be based.</param>
-    inline QVector3(const QBaseVector4 &vVector) : QBaseVector3(vVector.x, vVector.y, vVector.z)
+    inline explicit QVector3(const QBaseVector4 &vVector) : QBaseVector3(vVector.x, vVector.y, vVector.z)
     {
     }
 
