@@ -623,7 +623,7 @@ public:
     void GetRotation(QBaseQuaternion &qRotation) const
     {
         QRotationMatrix3x3 mAux = this->ToRotationMatrix3x3();
-        mAux.GetRotation(qRotation.As<QQuaternion>());
+        mAux.GetRotation(rcast_q(qRotation, QQuaternion&));
     }
 
     /// <summary>

@@ -192,7 +192,7 @@ public:
 	inline QLineSegment2D Rotate(const float_q &fRotationAngle) const
 	{
         QLineSegment2D auxLineSegment = *this;
-        SQPoint::Rotate(fRotationAngle, auxLineSegment.AsPtr<QVector2>(), 2);
+        SQPoint::Rotate(fRotationAngle, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -206,7 +206,7 @@ public:
     inline QLineSegment2D Translate(const QBaseVector2 &vTranslation) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Translate(vTranslation, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::Translate(vTranslation, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -221,7 +221,7 @@ public:
     inline QLineSegment2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Translate(fTranslationX, fTranslationY, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -235,7 +235,7 @@ public:
     inline QLineSegment2D Scale(const QBaseVector2 &vScale) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Scale(vScale, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::Scale(vScale, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -250,7 +250,7 @@ public:
     inline QLineSegment2D Scale(const float_q &fScaleX, const float_q &fScaleY) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Scale(fScaleX, fScaleY, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -265,7 +265,7 @@ public:
 	inline QLineSegment2D Transform(const QTransformationMatrix3x3 &transformation) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Transform(transformation, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::Transform(transformation, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -281,7 +281,7 @@ public:
 	inline QLineSegment2D RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -297,7 +297,7 @@ public:
 	inline QLineSegment2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -314,7 +314,7 @@ public:
 	inline QLineSegment2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -331,7 +331,7 @@ public:
 	inline QLineSegment2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
 	{
         QLineSegment2D auxLineSegment = *this;
-	    SQPoint::TransformWithPivot(transformation, vPivot, auxLineSegment.AsPtr<QVector2>(), 2);
+	    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
 	}
 
@@ -352,7 +352,7 @@ public:
 	/// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2>& segment, QBaseVector2& vIntersection) const
 	{
-		return QLineSegment<QVector2>::IntersectionPoint(segment, vIntersection.As<QVector2>());
+		return QLineSegment<QVector2>::IntersectionPoint(segment, rcast_q(vIntersection, QVector2&));
 	}
 
 	/// <summary>
@@ -371,7 +371,7 @@ public:
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection) const
 	{
-        return QLineSegment<QVector2>::IntersectionPoint(orb, vIntersection.As<QVector2>());
+        return QLineSegment<QVector2>::IntersectionPoint(orb, rcast_q(vIntersection, QVector2&));
 	}
 
     /// <summary>
@@ -393,7 +393,7 @@ public:
 	/// </remarks>
 	EQIntersections IntersectionPoint (const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
 	{
-        return QLineSegment<QVector2>::IntersectionPoint(orb, vIntersection1.As<QVector2>(), vIntersection2.As<QVector2>());
+        return QLineSegment<QVector2>::IntersectionPoint(orb, rcast_q(vIntersection1, QVector2&), rcast_q(vIntersection2, QVector2&));
 	}
 
 	/// <summary>

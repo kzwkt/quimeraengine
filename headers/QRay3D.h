@@ -214,7 +214,7 @@ public:
             if ( this->Contains(ray.Origin) )
                 return true;
             else
-                return ( ray.template As<const QRay3D<VectorType> >().Contains(this->Origin) );
+                return ( rcast_q(ray, const QRay3D<VectorType>&).Contains(this->Origin) );
         }
         else // Directions are not parallel
         {
@@ -486,7 +486,7 @@ public:
                 else
                     return EQIntersections::E_Infinite; //Both rays are the same
             }
-            else if ( this->Contains(ray.Origin) || ray.template As<const QRay3D<VectorType> >().Contains(this->Origin) )
+            else if ( this->Contains(ray.Origin) || rcast_q(ray, const QRay3D<VectorType>&).Contains(this->Origin) )
                 return EQIntersections::E_Infinite;
             else
                 return EQIntersections::E_None;

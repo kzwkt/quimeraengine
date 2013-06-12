@@ -54,7 +54,7 @@ bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
         if ( this->Contains(ray.Origin) )
             return true;
         else
-            return ( ray.As<const QRay2D>().Contains(this->Origin) );
+            return ( rcast_q(ray, const QRay2D&).Contains(this->Origin) );
     }
     else // rays are not parallel
     {
@@ -86,7 +86,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ra
             else
                 return EQIntersections::E_Infinite; //Both rays are the same
         }
-        else if ( this->Contains(ray.Origin) || ray.As<const QRay2D>().Contains(this->Origin))
+        else if ( this->Contains(ray.Origin) || rcast_q(ray, const QRay2D&).Contains(this->Origin))
             return EQIntersections::E_Infinite;
         else
             return EQIntersections::E_None;

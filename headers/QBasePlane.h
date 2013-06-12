@@ -29,9 +29,9 @@
 
 #include "SQFloat.h"
 #include "SQVF32.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
+
+
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -47,7 +47,7 @@ namespace Math
 /// It represents the basic form of a 3D plane, defined by the equation \f$ ax + by + cz + d = 0 \f$.<br>
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from plane to the origin.
 /// </summary>
-class QDllExport QBasePlane : public QConvertible
+class QDllExport QBasePlane
 {
     // CONSTRUCTORS
 	// ---------------

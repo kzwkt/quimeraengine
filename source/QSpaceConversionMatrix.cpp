@@ -54,15 +54,12 @@ namespace Math
 
 QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionMatrix &matrix) const
 {
-    QSpaceConversionMatrix aux;
-
-    aux = ( (*this).As<const QMatrix4x4>() * matrix.As<const QMatrix4x4>() ).As<QSpaceConversionMatrix>();
-    return aux;
+    return rcast_q(*this, const QMatrix4x4&) * rcast_q(matrix, const QMatrix4x4&);
 }
 
 QSpaceConversionMatrix& QSpaceConversionMatrix::operator*=(const QSpaceConversionMatrix &matrix)
 {
-    (*this).As<QMatrix4x4>() *= matrix.As<const QMatrix4x4>();
+    rcast_q(*this, QMatrix4x4&) *= rcast_q(matrix, const QMatrix4x4&);
     return *this;
 }
 
@@ -70,14 +67,14 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector3 &vTranslatio
 {
     QTransformationMatrix<QMatrix4x4> aux(vTranslation, qRotation, vScale);
 
-    *this = aux.As<QSpaceConversionMatrix>();
+    *this = rcast_q(aux, QSpaceConversionMatrix&);
 }
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation, const QBaseVector3 &vScale)
 {
     QTransformationMatrix<QMatrix4x4> aux(vTranslation, qRotation, vScale);
 
-    *this = aux.As<QSpaceConversionMatrix>();
+    *this = rcast_q(aux, QSpaceConversionMatrix&);
 }
 
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTransformationMatrix<QMatrix4x4> &translation, const QTransformationMatrix<QMatrix4x4> &rotation,
@@ -215,12 +212,12 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrixImp(const QTranslationMatrix<Mat
 {
     QTransformationMatrix<QMatrix4x4> aux(translation, rotation, scale);
 
-    *this = aux.As<QSpaceConversionMatrix>();
+    *this = rcast_q(aux, QSpaceConversionMatrix&);
 }
 
 QSpaceConversionMatrix QSpaceConversionMatrix::SwitchHandConventionWorldSpaceMatrix() const
 {
-    return QSpaceConversionMatrix(this->As< const QTransformationMatrix<QMatrix4x4> >().SwitchHandConvention());
+    return QSpaceConversionMatrix(rcast_q(*this, const QTransformationMatrix<QMatrix4x4>&).SwitchHandConvention());
 }
 
 } //namespace Math

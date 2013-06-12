@@ -29,9 +29,7 @@
 
 #include "SQFloat.h"
 #include "SQVF32.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -51,7 +49,7 @@ namespace Math
 /// Remember that a orb is the locus of points equidistant from a given one.
 /// </summary>
 template <class VectorType>
-class QDllExport QBaseOrb : public QConvertible
+class QDllExport QBaseOrb
 {
 
     // CONSTRUCTORS

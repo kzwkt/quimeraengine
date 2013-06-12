@@ -234,7 +234,7 @@ public:
 	inline QQuadrilateral Rotate(const float_q &fRotationAngle) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Rotate(fRotationAngle, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::Rotate(fRotationAngle, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -248,7 +248,7 @@ public:
     inline QQuadrilateral Translate(const QBaseVector2 &vTranslation) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Translate(vTranslation, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::Translate(vTranslation, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -263,7 +263,7 @@ public:
 	inline QQuadrilateral Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Translate(fTranslationX, fTranslationY, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -277,7 +277,7 @@ public:
 	inline QQuadrilateral Scale(const QBaseVector2 &vScale) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Scale(vScale, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::Scale(vScale, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -292,7 +292,7 @@ public:
 	inline QQuadrilateral Scale(const float_q &fScaleX, const float_q &fScaleY) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Scale(fScaleX, fScaleY, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -307,7 +307,7 @@ public:
 	inline QQuadrilateral Transform(const QTransformationMatrix3x3 &transformation) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Transform(transformation, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::Transform(transformation, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -323,7 +323,7 @@ public:
 	inline QQuadrilateral RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::RotateWithPivot(fRotationAngle, vPivot, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -339,7 +339,7 @@ public:
 	inline QQuadrilateral ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::ScaleWithPivot(vScale, vPivot, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -356,7 +356,7 @@ public:
 	inline QQuadrilateral ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
@@ -373,7 +373,7 @@ public:
 	inline QQuadrilateral TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
 	{
         QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::TransformWithPivot(transformation, vPivot, auxQuadrilateral.AsPtr<QVector2>(), 4);
+        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
         return auxQuadrilateral;
 	}
 
