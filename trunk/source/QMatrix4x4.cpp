@@ -326,17 +326,17 @@ QMatrix4x4 QMatrix4x4::Invert() const
                                   this->ij[1][1] * fG - this->ij[1][2] * fL - this->ij[1][3] * fK ),
                        fInvDet * (this->ij[0][1] * fG + this->ij[0][2] * fL + this->ij[0][3] * fK -
                                   this->ij[0][1] * fB - this->ij[0][2] * fI - this->ij[0][3] * fJ ),
-                       fInvDet * (fQ * this->ij[3][3] + this->ij[0][2] * this->ij[1][3] * this->ij[3][1] + fR * this->ij[3][2] -
+                       fInvDet * (fQ * this->ij[3][3] + fF * this->ij[3][1] + fR * this->ij[3][2] -
                                   fS * this->ij[3][2] - fT * this->ij[3][3] - fC * this->ij[3][1] ),
                        fInvDet * (fS * this->ij[2][2] + fT * this->ij[2][3] + fC * this->ij[2][1] -
-                                  fQ * this->ij[2][3] - this->ij[0][2] * this->ij[1][3] * this->ij[2][1] - fR * this->ij[2][2] ),
+                                  fQ * this->ij[2][3] - fF * this->ij[2][1] - fR * this->ij[2][2] ),
                        fInvDet * (this->ij[1][0] * fG + this->ij[1][2] * fP + this->ij[1][3] * fO -
                                   this->ij[1][0] * fB - this->ij[1][2] * fM - this->ij[1][3] * fN ),
                        fInvDet * (this->ij[0][0] * fB + this->ij[0][2] * fM + this->ij[0][3] * fN -
 					              this->ij[0][0] * fG - this->ij[0][2] * fP - this->ij[0][3] * fO ),
                        fInvDet * (fW * this->ij[3][2] + fX * this->ij[3][3] + fC * this->ij[3][0] -
-					              fU * this->ij[3][3] - this->ij[0][2] * this->ij[1][3] * this->ij[3][0] - fV * this->ij[3][2] ),
-                       fInvDet * (fU * this->ij[2][3] + this->ij[0][2] * this->ij[1][3] * this->ij[2][0] + fV * this->ij[2][2] -
+					              fU * this->ij[3][3] - fF * this->ij[3][0] - fV * this->ij[3][2] ),
+                       fInvDet * (fU * this->ij[2][3] + fF * this->ij[2][0] + fV * this->ij[2][2] -
 					              fW * this->ij[2][2] - fX * this->ij[2][3] - fC * this->ij[2][0] ),
                        fInvDet * (this->ij[1][0] * fL + this->ij[1][1] * fM + this->ij[1][3] * fH -
 					              this->ij[1][0] * fI - this->ij[1][1] * fP - this->ij[1][3] * fD ),

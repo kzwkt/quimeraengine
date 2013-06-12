@@ -30,9 +30,7 @@
 #include "SQFloat.h"
 #include "SQVF32.h"
 #include "QVector2.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -47,7 +45,7 @@ namespace Math
 /// <summary>
 /// Class which represents a four-sided polygon. The quadrilateral is defined by its four vertices.
 /// </summary>
-class QDllExport QBaseQuadrilateral : public QConvertible
+class QDllExport QBaseQuadrilateral
 {
 
     // CONSTRUCTORS

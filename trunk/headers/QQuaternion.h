@@ -496,7 +496,7 @@ public:
     /// </returns>
     inline QQuaternion& operator/=(const QBaseQuaternion &qQuat)
     {
-        QBaseQuaternion resQuat = qQuat.As<const QQuaternion>().Invert();
+        QBaseQuaternion resQuat = rcast_q(qQuat, const QQuaternion&).Invert();
 
         this->operator*=(resQuat);
 

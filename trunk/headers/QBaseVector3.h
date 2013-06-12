@@ -29,9 +29,7 @@
 
 #include "SQFloat.h"
 #include "SQVF32.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -46,7 +44,7 @@ namespace Math
 /// <summary>
 /// It represents the basic form of a three-dimensional vector with three components: x, y and z.
 /// </summary>
-class QDllExport QBaseVector3 : public QConvertible
+class QDllExport QBaseVector3
 {
 
     // CONSTRUCTORS

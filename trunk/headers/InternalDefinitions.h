@@ -93,10 +93,10 @@ const unsigned int QE_VERSION_REVISION = 0;
 // --------------------------------------------------------------------------------------------------------
 // Casting operators: Wrappers for every casting operator to make them shorter and configurable.
 // --------------------------------------------------------------------------------------------------------
-#define rcast_q(object, ...) reinterpret_cast<__VA_ARGS__>(object)
-#define scast_q(object, ...) static_cast<__VA_ARGS__>(object)
-#define dcast_q(object, ...) dynamic_cast<__VA_ARGS__>(object)
-#define ccast_q(object, ...) const_cast<__VA_ARGS__>(object)
+#define rcast_q(object, type) reinterpret_cast<type>(object)
+#define scast_q(object, type) static_cast<type>(object)
+#define dcast_q(object, type) dynamic_cast<type>(object)
+#define ccast_q(object, type) const_cast<type>(object)
 
 
 // --------------------------------------------------------------------------------------------------------

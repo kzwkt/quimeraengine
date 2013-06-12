@@ -28,9 +28,7 @@
 #define __QBASERAY__
 
 #include "SQFloat.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -46,7 +44,7 @@ namespace Math
 /// Implements the funcionality of a ray, which is a vector located at a point.
 /// </summary>
 template<class VectorTypeOrigin, class VectorTypeDirection>
-class QDllExport QBaseRay : public QConvertible
+class QDllExport QBaseRay
 {
 
 	// CONSTRUCTORS

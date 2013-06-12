@@ -269,7 +269,7 @@ public:
 	/// </remarks>
     inline EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection) const
     {
-        return QRay<QVector2, QVector2>::IntersectionPoint(orb, vIntersection.As<QVector2>());
+        return QRay<QVector2, QVector2>::IntersectionPoint(orb, rcast_q(vIntersection, QVector2&));
     }
 
 	/// <summary>
@@ -292,7 +292,7 @@ public:
 	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
     {
-        return QRay<QVector2, QVector2>::IntersectionPoint(orb, vIntersection1.As<QVector2>(), vIntersection2.As<QVector2>());
+        return QRay<QVector2, QVector2>::IntersectionPoint(orb, rcast_q(vIntersection1, QVector2&), rcast_q(vIntersection2, QVector2&));
     }
 
 	/// <summary>
@@ -509,7 +509,7 @@ public:
 	inline QRay2D Rotate(const float_q &fRotationAngle) const
 	{
         QRay2D auxRay = *this;
-        SQPoint::Rotate(fRotationAngle, auxRay.AsPtr<QVector2>(), 2);
+        SQPoint::Rotate(fRotationAngle, rcast_q(&auxRay, QVector2*), 2);
         return auxRay;
 	}
 
@@ -572,7 +572,7 @@ public:
 	inline QRay2D Scale(const QBaseVector2 &vScale) const
 	{
         QRay2D auxRay = *this;
-        SQPoint::Scale(vScale, auxRay.AsPtr<QVector2>(), 2);
+        SQPoint::Scale(vScale, rcast_q(&auxRay, QVector2*), 2);
         return QRay2D(auxRay.Origin, auxRay.Direction.Normalize());
 	}
 
@@ -590,7 +590,7 @@ public:
 	inline QRay2D Scale(const float_q &vScaleX, const float_q &vScaleY) const
 	{
         QRay2D auxRay = *this;
-        SQPoint::Scale(vScaleX, vScaleY, auxRay.AsPtr<QVector2>(), 2);
+        SQPoint::Scale(vScaleX, vScaleY, rcast_q(&auxRay, QVector2*), 2);
         return QRay2D(auxRay.Origin, auxRay.Direction.Normalize());
 	}
 

@@ -31,9 +31,7 @@
 
 #include "SQFloat.h"
 #include "SQVF32.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -48,7 +46,7 @@ namespace Math
 /// <summary>
 /// Base class to represent a matrix of floating point values of 2 rows and 2 columns.
 /// </summary>
-class QDllExport QBaseMatrix2x2 : public QConvertible
+class QDllExport QBaseMatrix2x2
 {
 	// CONSTRUCTORS
 	// ---------------

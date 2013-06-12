@@ -198,7 +198,7 @@ QQuaternion QQuaternion::operator*(const QBaseVector4 &vVector) const
 
 QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 {
-    return *this * qQuat.As<const QQuaternion>().Invert();
+    return *this * rcast_q(qQuat, const QQuaternion&).Invert();
 }
 
 QQuaternion QQuaternion::operator/(const float_q &fScalar) const
@@ -225,7 +225,7 @@ float_q QQuaternion::DotProduct(const QBaseQuaternion &qQuat) const
 
 float_q QQuaternion::DotProductAngle(const QBaseQuaternion &qQuat) const
 {
-    float_q fLengths = this->GetLength() * qQuat.As<const QQuaternion>().GetLength();
+    float_q fLengths = this->GetLength() * rcast_q(qQuat, const QQuaternion&).GetLength();
 
     // Checkout to avoid division by zero.
     QE_ASSERT(fLengths != SQFloat::_0)
@@ -266,7 +266,7 @@ QQuaternion QQuaternion::Slerp(const float_q &fProportion, const QQuaternion &qQ
     QQuaternion qReturnValue;
 
     // Assures that all quaternions are unit length
-    QQuaternion qNormalizedInputQuat = qQuat.As<const QQuaternion>().Normalize();
+    QQuaternion qNormalizedInputQuat = rcast_q(qQuat, const QQuaternion&).Normalize();
     QQuaternion qNormalizedThisQuat = this->Normalize();
 
     const float_q ANGLE_B = acos_q(qNormalizedThisQuat.DotProduct(qNormalizedInputQuat));

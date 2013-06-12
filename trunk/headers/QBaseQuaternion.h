@@ -29,9 +29,9 @@
 
 #include "SQFloat.h"
 #include "SQVF32.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
+
+
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -46,7 +46,7 @@ namespace Math
 /// <summary>
 /// It represents the basic form of a quaternion with its four components: x, y, z and w.
 /// </summary>
-class QDllExport QBaseQuaternion : public QConvertible
+class QDllExport QBaseQuaternion
 {
 
 	// CONSTRUCTORS

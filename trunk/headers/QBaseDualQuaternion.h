@@ -29,9 +29,7 @@
 
 #include "SQFloat.h"
 #include "QQuaternion.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -57,7 +55,7 @@ namespace Math
 /// <remarks>
 /// This class is experimental and therefore subject to changes.
 /// </remarks>
-class QDllExport QBaseDualQuaternion : public QConvertible
+class QDllExport QBaseDualQuaternion
 {
 
 	// CONSTRUCTORS

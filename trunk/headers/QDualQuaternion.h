@@ -639,7 +639,7 @@ public:
     /// </returns>
     inline QDualQuaternion Lerp(const float_q &fProportion, const QBaseDualQuaternion &dualQuat) const
     {
-        QDualQuaternion auxDualQuat = (SQFloat::_1 - fProportion) * (*this) + fProportion * dualQuat.As<const QDualQuaternion>();
+        QDualQuaternion auxDualQuat = (SQFloat::_1 - fProportion) * (*this) + fProportion * rcast_q(dualQuat, const QDualQuaternion&);
         float_q fLength = auxDualQuat.GetNonDualLength();
 
         QE_ASSERT(fLength != SQFloat::_0)

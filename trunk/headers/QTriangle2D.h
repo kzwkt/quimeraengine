@@ -139,7 +139,7 @@ public:
 	inline QTriangle2D Transform(const QTransformationMatrix3x3 &transformation) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::Transform(transformation, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::Transform(transformation, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -156,7 +156,7 @@ public:
 	inline QTriangle2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::TransformWithPivot(transformation, vPivot, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -256,7 +256,7 @@ public:
     inline QTriangle2D Translate(const QBaseVector2 &vTranslation) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::Translate(vTranslation, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::Translate(vTranslation, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -271,7 +271,7 @@ public:
 	inline QTriangle2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::Translate(fTranslationX, fTranslationY, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -286,7 +286,7 @@ public:
 	inline QTriangle2D Rotate(const float_q &fRotationAngle) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::Rotate(fRotationAngle, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::Rotate(fRotationAngle, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -302,7 +302,7 @@ public:
 	inline QTriangle2D RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::RotateWithPivot(fRotationAngle, vPivot, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -316,7 +316,7 @@ public:
 	inline QTriangle2D Scale(const QBaseVector2 &vScale) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::Scale(vScale, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::Scale(vScale, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -331,7 +331,7 @@ public:
 	inline QTriangle2D Scale(const float_q &fScaleX, const float_q &fScaleY) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::Scale(fScaleX, fScaleY, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -347,7 +347,7 @@ public:
 	inline QTriangle2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::ScaleWithPivot(vScale, vPivot, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 
@@ -364,7 +364,7 @@ public:
 	inline QTriangle2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
 	{
         QTriangle2D auxTriangle = *this;
-		SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, auxTriangle.AsPtr<QVector2>(), 3);
+		SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
         return auxTriangle;
 	}
 };

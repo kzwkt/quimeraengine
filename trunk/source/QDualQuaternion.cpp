@@ -106,7 +106,7 @@ QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
 
 QDualQuaternion QDualQuaternion::Transform(const QBaseDualQuaternion &transformation) const
 {
-    return QDualQuaternion(transformation.As<const QDualQuaternion>() * (*this) * transformation.As<const QDualQuaternion>().DoubleConjugate());
+    return QDualQuaternion(rcast_q(transformation, const QDualQuaternion&) * (*this) * rcast_q(transformation, const QDualQuaternion&).DoubleConjugate());
 }
 
 string_q QDualQuaternion::ToString() const

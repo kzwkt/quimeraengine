@@ -29,9 +29,7 @@
 
 #include "SQFloat.h"
 #include "SQVF32.h"
-#include "QConvertible.h"
 
-using Kinesis::QuimeraEngine::Core::QConvertible;
 using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
@@ -52,7 +50,7 @@ namespace Math
 /// It's developer's reponsibility to keep the fourth component of all the points (when using 4D vectors) set to the same value.
 /// </remarks>
 template <class VectorType>
-class QDllExport QBaseHexahedron : public QConvertible
+class QDllExport QBaseHexahedron
 {
 
     // CONSTRUCTORS
