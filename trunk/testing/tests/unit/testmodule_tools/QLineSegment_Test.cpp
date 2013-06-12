@@ -385,9 +385,9 @@ QTEST_CASE_TEMPLATE ( GetCenter_CenterEqualsSegmentEndPointsWhenTheyCoincide_Tes
 }
 
 /// <summary>
-/// Checks that it returns False when lines doesn't intersect.
+/// Checks that it returns False when lines don't intersect.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Intersection1_ReturnsFalseWhenLinesDoesNotIntersect_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Intersection1_ReturnsFalseWhenLinesDoNotIntersect_Test, TQTemplateTypes )
 {
     // Preparation
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };

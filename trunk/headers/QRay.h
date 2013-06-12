@@ -276,7 +276,7 @@ public:
         QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1) );
 
         // We set all vectors to the same type that output parameters to allow operations
-        const VectorTypeOrigin &DIRECTION(this->Direction);
+        const VectorTypeDirection &DIRECTION(this->Direction);
 
         // We reduce ray and orb to origin, in order to simplify orb equation, and we calculate
         // the new ray origin point
@@ -292,7 +292,7 @@ public:
         // Since ray is normalized, A = 1
         // const float_q &fA = this->Direction.DotProduct(this->Direction);
 
-        const float_q &fB = SQFloat::_2 * NEW_RAY_ORIGIN.DotProduct(DIRECTION);
+        const float_q &fB = SQFloat::_2 * VectorTypeDirection(NEW_RAY_ORIGIN).DotProduct(DIRECTION);
         const float_q &fC = NEW_RAY_ORIGIN.DotProduct(NEW_RAY_ORIGIN) - orb.Radius * orb.Radius;
 
         // Remember that a = 1 -> D = B^2 - 4AC = B^2 - 4C
