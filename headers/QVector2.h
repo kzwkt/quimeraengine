@@ -431,7 +431,8 @@ public:
     float_q GetSquaredLength() const;
 
 	/// <summary>
-	/// Calculates the vector which is perpendicular to the current vector.
+	/// Calculates the vector which is perpendicular to the current vector. It's like rotating the vector a 
+    /// quarter of circunference clockwise.
 	/// </summary>
 	/// <returns>
 	/// A Vector which is perpendicular of the vector.

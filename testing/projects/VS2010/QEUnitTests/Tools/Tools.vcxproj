@@ -40,6 +40,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QOrb_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QPlane_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay2D_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay3D_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay_QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QRay_Test.cpp" />

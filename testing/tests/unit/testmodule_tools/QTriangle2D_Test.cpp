@@ -322,7 +322,7 @@ QTEST_CASE ( Transform_TriangleDoesNotChangeWhenTransformedByIdentityMatrix_Test
 }
 
 /// <summary>
-/// Checks that the triangle doesn't change when it's transformed by a zero matrix.
+/// Checks that all the vertices of the triangle are moved to the coordinate origin.
 /// </summary>
 QTEST_CASE ( Transform_AllVerticesAreMovedToCoordinateOriginWhenTransfomedByZeroMatrix_Test )
 {
@@ -784,7 +784,7 @@ QTEST_CASE ( RotateWithPivot_TriangleIsCorrectlyRotated_Test )
 /// <summary>
 /// Checks that a triangle is not rotated with a pivot when angle is zero.
 /// </summary>
-QTEST_CASE ( Rotate_TriangleIsNotRotatedWithPivotWhenAngleIsZero_Test )
+QTEST_CASE ( RotateWithPivot_TriangleIsNotRotatedWithPivotWhenAngleIsZero_Test )
 {
     // Preparation
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(-SQFloat::_3, SQFloat::_1);
@@ -840,11 +840,11 @@ QTEST_CASE ( Scale1_TriangleIsNotScaledIfScalationIsOne_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_5);
 
-    const QVector2 SCALATION_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
+    const QVector2 SCALING_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
 
 	// Execution
     QTriangle2D triangleUT = QTriangle2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
-    triangleUT = triangleUT.Scale(SCALATION_VECTOR);
+    triangleUT = triangleUT.Scale(SCALING_VECTOR);
     
     // Verification
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
@@ -866,11 +866,11 @@ QTEST_CASE ( Scale2_TriangleIsCorrectlyScaled_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_4, SQFloat::_10 + SQFloat::_6);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_10 + SQFloat::_4, SQFloat::_10 + SQFloat::_10);
 
-    const QVector2 SCALATION_VECTOR = QVector2(SQFloat::_2, SQFloat::_4);
+    const QVector2 SCALING_VECTOR = QVector2(SQFloat::_2, SQFloat::_4);
 
 	// Execution
     QTriangle2D triangleUT = QTriangle2D(POINT_A, POINT_B, POINT_C);
-    triangleUT = triangleUT.Scale(SCALATION_VECTOR.x, SCALATION_VECTOR.y);
+    triangleUT = triangleUT.Scale(SCALING_VECTOR.x, SCALING_VECTOR.y);
     
     // Verification
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
@@ -888,11 +888,11 @@ QTEST_CASE ( Scale2_TriangleIsNotScaledIfScalationIsOne_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_5);
 
-    const QVector2 SCALATION_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
+    const QVector2 SCALING_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
 
 	// Execution
     QTriangle2D triangleUT = QTriangle2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
-    triangleUT = triangleUT.Scale(SCALATION_VECTOR.x, SCALATION_VECTOR.y);
+    triangleUT = triangleUT.Scale(SCALING_VECTOR.x, SCALING_VECTOR.y);
     
     // Verification
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
@@ -914,13 +914,13 @@ QTEST_CASE ( ScaleWithPivot1_TriangleIsCorrectlyScaled_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_7);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_10 + SQFloat::_2, SQFloat::_10 + SQFloat::_1);
 
-    const QVector2 SCALATION_VECTOR = QVector2(SQFloat::_2, SQFloat::_4);
+    const QVector2 SCALING_VECTOR = QVector2(SQFloat::_2, SQFloat::_4);
 
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_2, SQFloat::_3);
 
 	// Execution
     QTriangle2D triangleUT = QTriangle2D(POINT_A, POINT_B, POINT_C);
-    triangleUT = triangleUT.ScaleWithPivot(SCALATION_VECTOR, PIVOT_POINT);
+    triangleUT = triangleUT.ScaleWithPivot(SCALING_VECTOR, PIVOT_POINT);
     
     // Verification
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
@@ -938,13 +938,13 @@ QTEST_CASE ( ScaleWithPivot1_TriangleIsNotScaledWithPivotIfScalationIsOne_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_5);
 
-    const QVector2 SCALATION_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
+    const QVector2 SCALING_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
 
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_2, SQFloat::_3);
 
 	// Execution
     QTriangle2D triangleUT = QTriangle2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
-    triangleUT = triangleUT.ScaleWithPivot(SCALATION_VECTOR, PIVOT_POINT);
+    triangleUT = triangleUT.ScaleWithPivot(SCALING_VECTOR, PIVOT_POINT);
     
     // Verification
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
@@ -966,13 +966,13 @@ QTEST_CASE ( ScaleWithPivot2_TriangleIsCorrectlyScaled_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_7);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_10 + SQFloat::_2, SQFloat::_10 + SQFloat::_1);
 
-    const QVector2 SCALATION_VECTOR = QVector2(SQFloat::_2, SQFloat::_4);
+    const QVector2 SCALING_VECTOR = QVector2(SQFloat::_2, SQFloat::_4);
 
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_2, SQFloat::_3);
 
 	// Execution
     QTriangle2D triangleUT = QTriangle2D(POINT_A, POINT_B, POINT_C);
-    triangleUT = triangleUT.ScaleWithPivot(SCALATION_VECTOR.x, SCALATION_VECTOR.y, PIVOT_POINT);
+    triangleUT = triangleUT.ScaleWithPivot(SCALING_VECTOR.x, SCALING_VECTOR.y, PIVOT_POINT);
     
     // Verification
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
@@ -990,13 +990,13 @@ QTEST_CASE ( ScaleWithPivot2_TriangleIsNotScaledWithPivotIfScalationIsOne_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_5);
 
-    const QVector2 SCALATION_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
+    const QVector2 SCALING_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
 
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_2, SQFloat::_3);
 
 	// Execution
     QTriangle2D triangleUT = QTriangle2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
-    triangleUT = triangleUT.ScaleWithPivot(SCALATION_VECTOR.x, SCALATION_VECTOR.y, PIVOT_POINT);
+    triangleUT = triangleUT.ScaleWithPivot(SCALING_VECTOR.x, SCALING_VECTOR.y, PIVOT_POINT);
     
     // Verification
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);

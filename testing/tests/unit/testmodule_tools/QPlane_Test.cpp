@@ -372,7 +372,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointsAreCollinear_Test )
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -1246,12 +1246,6 @@ QTEST_CASE ( DotProductAngle1_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        float_q EXPECTED_RESULT = SQAngle::_45;
-    #else
-        const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
-    #endif
-
     const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_0_5, SQFloat::_0_5, SQFloat::_0, SQFloat::_0);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
@@ -1787,12 +1781,6 @@ QTEST_CASE ( DotProductAngle3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 {
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
-
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        float_q EXPECTED_RESULT = SQAngle::_45;
-    #else
-        const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
-    #endif
 
     const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();

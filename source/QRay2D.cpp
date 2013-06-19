@@ -47,6 +47,9 @@ namespace Math
 
 bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
 {
+    // Direction vector of rays should not be null
+    QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero() );
+
     const float_q &DENOMINATOR = this->Direction.x * ray.Direction.y - this->Direction.y * ray.Direction.x;
 
     if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
@@ -72,6 +75,9 @@ bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
 
 EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ray, QBaseVector2 &vIntersection) const
 {
+    // Direction vector of rays should not be null
+    QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero() );
+
     const float_q &DENOMINATOR = this->Direction.x * ray.Direction.y - this->Direction.y * ray.Direction.x;
 
     if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
@@ -117,6 +123,14 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ra
 
 EQIntersections QRay2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
 {
+    // Vertices of the triangle must not coincide
+    QE_ASSERT( triangle.A != triangle.B && 
+               triangle.B != triangle.C &&
+               triangle.C != triangle.A );
+
+    // The direction vector of the ray shouldn't be null
+    QE_ASSERT( !this->Direction.IsZero() );
+
     QVector2 vAux;
 
     if ( PointInsideTriangle(triangle, this->Origin) ) // Ray end point is inside triangle
@@ -843,6 +857,9 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseV
 
 bool QRay2D::Intersection(const QBaseLineSegment<QVector2> &segment) const
 {
+    // Direction vector of ray should not be null and the length of the segment should be greater than zero
+    QE_ASSERT( segment.A != segment.B && !this->Direction.IsZero() );
+
     QVector2 vAux(segment.B - segment.A);
 
     const float_q &DENOMINATOR = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
@@ -875,6 +892,9 @@ bool QRay2D::Intersection(const QBaseLineSegment<QVector2> &segment) const
 
 EQIntersections QRay2D::IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection) const
 {
+    // Direction vector of ray should not be null and the length of the segment should be greater than zero
+    QE_ASSERT( segment.A != segment.B && !this->Direction.IsZero() );
+
     QVector2 vAux(segment.B - segment.A);
 
     const float_q &DENOMINATOR = this->Direction.x * vAux.y - this->Direction.y * vAux.x;
