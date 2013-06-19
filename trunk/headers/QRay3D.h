@@ -382,7 +382,7 @@ public:
                    triangle.C != triangle.A );
 
         // The direction vector of the ray shouldn't be null
-        QE_ASSERT( !this->Direction.IsZero() )
+        QE_ASSERT( !this->Direction.IsZero() );
 
         // Plane that contains triangle
         QPlane auxPlane(triangle.A, triangle.B, triangle.C);
@@ -408,6 +408,9 @@ public:
     /// Checks if resident ray intersects with the provided hexahedron.<br>
     /// If the origin of the ray lies on one of the hexahedron faces, we consider there is an intersection.
     /// </summary>
+    /// <remarks>
+    /// The hexahedron must be convex for the operation to return correct results.
+    /// </remarks>
     /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with resident ray.</param>
     /// <returns>
     /// True if hexahedron and ray intersects, false otherwise.
@@ -739,11 +742,11 @@ public:
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
     /// <remarks>
-	/// - If there's no intersection point, the output parameters won't be modified.
+	/// - If there's no intersection point, the output parameters won't be modified.<br/>
 	/// - If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.
+	/// and first output parameter is filled with the intersection point.<br/>
     /// - If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest to the origin point of the ray.
+    /// in the first output parameter the closest to the origin point of the ray.<br/>
 	/// </remarks>
 	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
 	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
@@ -1169,9 +1172,10 @@ public:
     /// if they exists.
 	/// </summary>
     /// <remarks>
-	/// - If there's no intersection point, the output parameter used for storing the intersection point won't be modified.
-	/// - If there is only one intersection point, it's stored in the output parameter.
-	/// - If there are two intersections, the output parameter stores the closest point to origin of ray.
+    /// The hexahedron must be convex for the operation to return correct results.<br/>
+	/// - If there's no intersection point, the output parameter used for storing the intersection point won't be modified.<br/>
+	/// - If there is only one intersection point, it's stored in the output parameter.<br/>
+	/// - If there are two intersections, the output parameter stores the closest point to origin of ray.<br/>
 	/// </remarks>
 	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident ray are wanted.</param>
     /// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to origin of ray.</param>
@@ -1190,8 +1194,9 @@ public:
     /// if they exists.
 	/// </summary>
     /// <remarks>
-	/// - If there's no intersection point, the output parameters used for storing the intersection points won't be modified.
-	/// - If there is only one intersection point, it's stored in the first output parameter, and the second one is not modified.
+    /// The hexahedron must be convex for the operation to return correct results.</br>
+	/// - If there's no intersection point, the output parameters used for storing the intersection points won't be modified.</br>
+	/// - If there is only one intersection point, it's stored in the first output parameter, and the second one is not modified.</br>
 	/// - If there are two intersections, the first output parameter stores the closest point to origin of ray.
 	/// </remarks>
 	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident ray are wanted.</param>

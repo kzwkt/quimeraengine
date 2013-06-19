@@ -53,6 +53,12 @@ namespace Math
 /// </summary>
 class QDllExport QRay2D : public QRay<QVector2, QVector2>
 {
+    // BASE CLASS USINGS
+    // ------------------
+public:
+
+    using QRay<QVector2, QVector2>::Intersection;
+    using QRay<QVector2, QVector2>::IntersectionPoint;
 
 	// CONSTRUCTORS
 	// ---------------
@@ -180,21 +186,6 @@ public:
     bool Intersection(const QBaseRay<QVector2, QVector2> &ray) const;
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided orb.
-    /// </summary>
-    /// <remarks>
-    /// Ray must be normalized to obtain a correct result.
-    /// </remarks>
-    /// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
-    /// <returns>
-    /// True if ray intersect orb, false otherwise.
-    /// </returns>
-    inline bool Intersection(const QBaseOrb<QVector2> &orb) const
-    {
-        return QRay<QVector2, QVector2>::Intersection(orb);
-    }
-
-    /// <summary>
     /// Checks if resident ray intersects with the provided triangle.
     /// </summary>
     /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
@@ -203,6 +194,14 @@ public:
     /// </returns>
     inline bool Intersection(const QBaseTriangle<QVector2> &triangle) const
     {
+        // Vertices of the triangle must not coincide
+        QE_ASSERT( triangle.A != triangle.B && 
+                   triangle.B != triangle.C &&
+                   triangle.C != triangle.A );
+
+        // The direction vector of the ray shouldn't be null
+        QE_ASSERT( !this->Direction.IsZero() );
+
         return ( this->Intersection(triangle.A, triangle.B) ||
                  this->Intersection(triangle.B, triangle.C) ||
                  this->Intersection(triangle.C, triangle.A) );
@@ -251,50 +250,7 @@ public:
     /// the following values: E_None, E_One and E_Infinite.
 	/// </returns>
     EQIntersections IntersectionPoint(const QBaseRay<QVector2, QVector2> &ray, QBaseVector2 &vIntersection) const;
-
-	/// <summary>
-	/// Computes the intersection point between resident ray and provided orb, if it exists.
-	/// </summary>
-	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
-	/// </returns>
-	/// <remarks>
-	/// Ray must be normalized to obtain a correct result.<br>
-	/// If there's no intersection point, the output parameters won't be modified.<br>
-	/// If there's one intersection point, the output parameter stores it.<br>
-    /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
-	/// </remarks>
-    inline EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection) const
-    {
-        return QRay<QVector2, QVector2>::IntersectionPoint(orb, rcast_q(vIntersection, QVector2&));
-    }
-
-	/// <summary>
-	/// Computes the intersection point between resident ray and provided orb, if it exists.
-	/// </summary>
-	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
-	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
-	/// </returns>
-	/// <remarks>
-	/// Ray must be normalized to obtain a correct result.<br>
-	/// If there's no intersection point, the output parameters won't be modified.<br>
-	/// If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br>
-    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest to the origin point of the ray.
-	/// </remarks>
-    EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
-    {
-        return QRay<QVector2, QVector2>::IntersectionPoint(orb, rcast_q(vIntersection1, QVector2&), rcast_q(vIntersection2, QVector2&));
-    }
-
+    
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
@@ -407,34 +363,42 @@ public:
 	/// Ray direction must be normalized to obtain a correct result.<br>
 	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
 	/// reflected ray is the resident ray itself.<br>
-	/// If there's one intersection point between them, then the reflected ray has it origin point at the intersection point
+	/// If there's one intersection point between them, then the reflected ray has its origin point at the intersection point
 	/// and its direction verifies that the incident angle and the reflected angle are equals.
 	/// </remarks>
     inline void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseRay<QVector2, QVector2> &ray) const
     {
-        //Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
+        // The direction vector of the ray must not be null
+        QE_ASSERT( !this->Direction.IsZero() );
 
-        QVector2 vAux = QVector2(segment.B - segment.A).Normalize();
+        // The endpoints of the line segment shouldn't coincide
+        QE_ASSERT( segment.A != segment.B );
+
+        // Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
+
+        QVector2 vAtoB = QVector2(segment.B - segment.A).Normalize();
 
         ray = *this;
 
         // Avoiding cases where ray and line segment are parallels or coincident.
-        if (vAux == this->Direction || vAux == -this->Direction)
-            return;
-        else
+        if (vAtoB != this->Direction && vAtoB != -this->Direction)
         {
             QVector2 vPoint;
             EQIntersections numInt = this->IntersectionPoint(segment, vPoint);
             if (numInt == EQIntersections::E_One)
             {
-                // Reflected origin is the intersection point
-                ray.Origin = vPoint;
+                // If the origin coincides with the intersection point, the ray is not reflexted
+                if(ray.Origin != vPoint)
+                {
+                    // Reflected origin is the intersection point
+                    ray.Origin = vPoint;
 
-                // Calculates normal to line segment (is normalized like vAux)
-                QVector2 vNorm = vAux.GetPerpendicular();
+                    // Calculates normal to line segment (is normalized like vAux)
+                    QVector2 vNorm = vAtoB.GetPerpendicular();
 
-                // Calculates reflected direction
-                ray.Direction -= SQFloat::_2 * (this->Direction.DotProduct(vNorm)) * vNorm;
+                    // Calculates reflected direction
+                    ray.Direction -= SQFloat::_2 * (this->Direction.DotProduct(vNorm)) * vNorm;
+                }
             }
         }
     }
@@ -453,22 +417,34 @@ public:
 	/// </remarks>
     inline void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vDirection) const
     {
-        //Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
+        // The direction vector of the ray must not be null
+        QE_ASSERT( !this->Direction.IsZero() );
 
-        QVector2 vAux = QVector2(segment.B - segment.A).Normalize();
+        // The endpoints of the line segment shouldn't coincide
+        QE_ASSERT( segment.A != segment.B );
+
+        // Method based in this: http://www.inmensia.com/articulos/raytracing/mecanismosluz.html
+
+        QVector2 vAtoB = QVector2(segment.B - segment.A).Normalize();
 
         vDirection = this->Direction;
 
-        // Avoiding cases where ray and line segment are parallels or coincident.
-        if (vAux == this->Direction || vAux == -this->Direction)
-            return;
-        else if (this->Intersection(segment))
+        if (vAtoB != this->Direction && vAtoB != -this->Direction && // Avoiding cases where ray and line segment are parallels or coincident.
+            segment.A != this->Origin && segment.B != this->Origin && // No reflection if the origin belongs to the line
+            this->Intersection(segment))
         {
-            // Calculates normal to line segment (is normalized like vAux)
-            QVector2 vNorm = vAux.GetPerpendicular();
+            // If the origin of the ray does not belong to the line
+            const QVector2& vAtoOrigin = (this->Origin - segment.A).Normalize();
+            const bool& bOriginBelongsToLine = SQFloat::AreEqual(vAtoB.DotProduct(vAtoOrigin), SQFloat::_1);
 
-            // Calculates reflected direction
-            vDirection = this->Direction - SQFloat::_2 * (this->Direction.DotProduct(vNorm)) * vNorm;
+            if(!bOriginBelongsToLine)
+            {
+                // Calculates normal to line segment (is normalized like vAtoB)
+                QVector2 vNorm = vAtoB.GetPerpendicular();
+
+                // Calculates reflected direction
+                vDirection = this->Direction - SQFloat::_2 * (this->Direction.DotProduct(vNorm)) * vNorm;
+            }
         }
     }
 
@@ -512,7 +488,6 @@ public:
         SQPoint::Rotate(fRotationAngle, rcast_q(&auxRay, QVector2*), 2);
         return auxRay;
 	}
-
 
     /// <summary>
 	/// This method rotates the resident ray the provided angle around the point provided as pivot.

@@ -132,19 +132,16 @@ QTEST_CASE_TEMPLATE ( Constructor4_ConstructedRayIsNotNormalizedWhenDirectionVec
 {
     // Preparation
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
-    float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6 };
 
-    const T INPUT_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
+    const T INPUT_VALUE_FOR_ORIGIN = T(VECTOR_COMPONENTS_ORIGIN);
     const QVector3 INPUT_VALUE_FOR_DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-    const T UNEXPECTED_VALUE_FOR_ORIGIN = INPUT_VALUE_FOR_ORIGIN.Normalize();
     const QVector3 UNEXPECTED_VALUE_FOR_DIRECTION = INPUT_VALUE_FOR_DIRECTION.Normalize();
 
 	// Execution
     QRay3D<T> rayUT(INPUT_VALUE_FOR_ORIGIN, INPUT_VALUE_FOR_DIRECTION);
 
     // Verification
-    BOOST_CHECK(rayUT.Origin != UNEXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction != UNEXPECTED_VALUE_FOR_DIRECTION);
 }
 
@@ -401,17 +398,17 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheDirectionVectorIsNull_T
     const T ORIGIN1(ORIGIN_COMPONENTS1);
     const QVector3 DIRECTION1 = QVector3::GetZeroVector();
     const QRay3D<T> RAY1 = QRay3D<T>(ORIGIN1, DIRECTION1);
-    
+
     const float_q ORIGIN_COMPONENTS2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN2(ORIGIN_COMPONENTS2);
     const QVector3 DIRECTION2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_0).Normalize();
     const QRay3D<T> RAY2 = QRay3D<T>(ORIGIN2, DIRECTION2);
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed1 = false;
-    
+
     try
     {
         RAY1.Intersection(RAY2); // I
@@ -690,7 +687,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenOriginIsContainedInTheLine_Te
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_3).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const bool EXPECTED_RESULT = true;
 
 	// Execution
@@ -802,10 +799,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheDirectionVectorIsNull_T
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed = false;
-    
+
     try
     {
         RAY.Intersection(LINE_SEGMENT); // I
@@ -814,7 +811,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheDirectionVectorIsNull_T
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -841,10 +838,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfTheLineEqualsZe
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed = false;
-    
+
     try
     {
         RAY.Intersection(LINE_SEGMENT); // I
@@ -853,7 +850,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfTheLineEqualsZe
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -1126,10 +1123,10 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenRayDirectionIsNull_Test, T
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_4).Normalize();
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed = false;
-    
+
     try
     {
         RAY.Intersection(PLANE);
@@ -1138,7 +1135,7 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenRayDirectionIsNull_Test, T
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -1159,10 +1156,10 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     const QPlane PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed = false;
-    
+
     try
     {
         RAY.Intersection(PLANE);
@@ -1171,7 +1168,7 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -1997,7 +1994,7 @@ QTEST_CASE_TEMPLATE ( Intersection5_ReturnsTrueWhenOriginBelongsToEdgeOfHexahedr
 
     const T ORIGIN_IN_CG = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G);
     const QRay3D<T> RAY_IN_CG = QRay3D<T>(ORIGIN_IN_CG, DIRECTION_DFGC);
- 
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const bool EXPECTED_RESULT = true;
@@ -2100,7 +2097,7 @@ QTEST_CASE_TEMPLATE ( Intersection5_ReturnsTrueWhenRayIntersectsEdgeOfHexahedron
 
     const QVector3 DIRECTION_TO_CG = QVector3(VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G) - ORIGIN_RIGHT).Normalize();
     const QRay3D<T> RAY_TO_CG = QRay3D<T>(ORIGIN_RIGHT, DIRECTION_TO_CG);
- 
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const bool EXPECTED_RESULT = true;
@@ -2170,7 +2167,7 @@ QTEST_CASE_TEMPLATE ( Intersection5_ReturnsTrueWhenOriginAndHexahedronVertexCoin
     const QRay3D<T> RAY_FROM_F = QRay3D<T>(VERTEX_F, DIRECTION_DFGC);
     const QRay3D<T> RAY_FROM_G = QRay3D<T>(VERTEX_G, DIRECTION_DFGC);
     const QRay3D<T> RAY_FROM_H = QRay3D<T>(VERTEX_H, DIRECTION_AEHB);
-    
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const bool EXPECTED_RESULT = true;
@@ -2518,14 +2515,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheDirectionVectorIsN
     const T ORIGIN1(ORIGIN_COMPONENTS1);
     const QVector3 DIRECTION1 = QVector3::GetZeroVector();
     const QRay3D<T> RAY1 = QRay3D<T>(ORIGIN1, DIRECTION1);
-    
+
     const float_q ORIGIN_COMPONENTS2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN2(ORIGIN_COMPONENTS2);
     const QVector3 DIRECTION2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_0).Normalize();
     const QRay3D<T> RAY2 = QRay3D<T>(ORIGIN2, DIRECTION2);
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed1 = false;
     T vIntersection1;
@@ -2659,7 +2656,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenRaysPoi
     const T ORIGIN2(ORIGIN_COMPONENTS2);
     const QVector3 DIRECTION2 = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0).Normalize();
     const QRay3D<T> RAY2 = QRay3D<T>(ORIGIN2, DIRECTION2);
-    
+
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
     const T EXPECTED_POINT = T::GetZeroVector();
 
@@ -2885,7 +2882,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenOriginIsConta
     const T ORIGIN = LINE_SEGMENT.A.Lerp(SQFloat::_0_5, LINE_SEGMENT.B);
     const QVector3 DIRECTION = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_3).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_POINT = ORIGIN;
 
@@ -2901,7 +2898,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenOriginIsConta
 /// <summary>
 /// Checks that it returns one intersection when the ray's origin and one of the line's endpoints coincide.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneInetrsectionWhenRayAndLineShareOneEndPointOnly_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenRayAndLineShareOneEndPointOnly_Test, TQTemplateTypes )
 {
     //     ^             ^
     //    /             /
@@ -3012,7 +3009,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheDirectionVectorIsN
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed = false;
     T vIntersection;
@@ -3025,7 +3022,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheDirectionVectorIsN
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -3052,7 +3049,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfTheLineEqu
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed = false;
     T vIntersection;
@@ -3065,7 +3062,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfTheLineEqu
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -3195,10 +3192,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ItIsNotNecessaryToNormalize_Test, TQTem
 /// </summary>
 QTEST_CASE ( IntersectionPoint2_WComponentOfIntersectionPointDoesNotChange_Test )
 {
-    // A       
-    //  \     
-    //   \   
-    //    \ 
+    // A
+    //  \
+    //   \
+    //    \
     //     \
     //      \
     //  O----B-->
@@ -3212,7 +3209,7 @@ QTEST_CASE ( IntersectionPoint2_WComponentOfIntersectionPointDoesNotChange_Test 
     const QVector4 VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const QVector4 VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const QBaseLineSegment<QVector4> LINE_SEGMENT = QBaseLineSegment<QVector4>(VALUE_FOR_A, VALUE_FOR_B);
-    
+
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_0 };
     const QVector4 ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(VALUE_FOR_B - ORIGIN).Normalize();
@@ -3329,7 +3326,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayDoesNotInt
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_4).Normalize();
-    
+
     const T EXPECTED_POINT = T::GetZeroVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
@@ -3356,7 +3353,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOriginBel
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const T EXPECTED_POINT = ORIGIN;
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
@@ -3415,7 +3412,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenRayDirectionIsNull_Te
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_4).Normalize();
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed = false;
     T vIntersection;
@@ -3428,7 +3425,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenRayDirectionIsNull_Te
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -3449,7 +3446,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenPlaneIsNull_Test, TQT
     const QPlane PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
     const bool ASSERTION_FAILED = true;
-    
+
 	// Execution
     bool bAssertionFailed = false;
     T vIntersection;
@@ -3462,7 +3459,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenPlaneIsNull_Test, TQT
     {
         bAssertionFailed = true;
     }
-    
+
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -3677,7 +3674,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayBelongsToT
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
-    
+
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// Execution
@@ -3727,7 +3724,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenOriginBelongs
     EQIntersections eOriginContainedInAB = RAY1.IntersectionPoint(TRIANGLE, vIntersection1);
     EQIntersections eOriginContainedInAC = RAY2.IntersectionPoint(TRIANGLE, vIntersection2);
     EQIntersections eOriginContainedInBC = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eOriginContainedInAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eOriginContainedInAC, EXPECTED_RESULT);
@@ -3777,7 +3774,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenOriginBelong
     EQIntersections eResult1 = RAY1.IntersectionPoint(TRIANGLE, vIntersection1);
     EQIntersections eResult2 = RAY2.IntersectionPoint(TRIANGLE, vIntersection2);
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
@@ -3825,7 +3822,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eIntersectsWithAB = RAY1.IntersectionPoint(TRIANGLE, vIntersection1);
     EQIntersections eIntersectsWithAC = RAY2.IntersectionPoint(TRIANGLE, vIntersection2);
     EQIntersections eIntersectsWithBC = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eIntersectsWithAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eIntersectsWithAC, EXPECTED_RESULT);
@@ -3870,7 +3867,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenOriginAndTria
     EQIntersections eOriginAndACoincide = RAY1.IntersectionPoint(TRIANGLE, vIntersection1);
     EQIntersections eOriginAndBCoincide = RAY2.IntersectionPoint(TRIANGLE, vIntersection2);
     EQIntersections eOriginAndCCoincide = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eOriginAndACoincide, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eOriginAndBCoincide, EXPECTED_RESULT);
@@ -4001,7 +3998,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenAllTriangleVerticesCo
 QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTheClosestPointWhenIntersectingWithTwoEdges_Test, TQTemplateTypes )
 {
     //       Y
-    //       |   
+    //       |
     //      /|\
     //  <--/-|-x-----------O
     //    /  |  \
@@ -4031,7 +4028,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTheClosestPointWhenIntersectingW
 	// Execution
     T vIntersection;
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vIntersection);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK( SQFloat::IsPositive(vIntersection.x) );
@@ -4070,7 +4067,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenRayIntersect
     const QRay3D<T> RAY3 = QRay3D<T>(ORIGIN3, DIRECTION3);
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
-    
+
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
 
 	// Execution
@@ -4080,7 +4077,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenRayIntersect
     EQIntersections eResult1 = RAY1.IntersectionPoint(TRIANGLE, vIntersection1);
     EQIntersections eResult2 = RAY2.IntersectionPoint(TRIANGLE, vIntersection2);
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
@@ -4093,7 +4090,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenRayIntersect
 /// <summary>
 /// Checks that the W component of the output intersection point is not changed.
 /// </summary>
-QTEST_CASE ( IntersectionPoint4_WComponentOfInetrsectionPointIsNotChanged_Test )
+QTEST_CASE ( IntersectionPoint4_WComponentOfIntersectionPointIsNotChanged_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -4322,7 +4319,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayBelongsToT
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
-    
+
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// Execution
@@ -4378,7 +4375,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenOriginBelongs
     EQIntersections eOriginContainedInAB = RAY1.IntersectionPoint(TRIANGLE, vFirstIntersection1, vSecondIntersection1);
     EQIntersections eOriginContainedInAC = RAY2.IntersectionPoint(TRIANGLE, vFirstIntersection2, vSecondIntersection2);
     EQIntersections eOriginContainedInBC = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eOriginContainedInAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eOriginContainedInAC, EXPECTED_RESULT);
@@ -4437,7 +4434,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenOriginBelong
     EQIntersections eResult1 = RAY1.IntersectionPoint(TRIANGLE, vFirstIntersection1, vSecondIntersection1);
     EQIntersections eResult2 = RAY2.IntersectionPoint(TRIANGLE, vFirstIntersection2, vSecondIntersection2);
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
@@ -4492,7 +4489,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayIntersects
     EQIntersections eResult1 = RAY1.IntersectionPoint(TRIANGLE, vFirstIntersection1, vSecondIntersection1);
     EQIntersections eResult2 = RAY2.IntersectionPoint(TRIANGLE, vFirstIntersection2, vSecondIntersection2);
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
@@ -4544,7 +4541,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenOriginAndTria
     EQIntersections eResult1 = RAY1.IntersectionPoint(TRIANGLE, vFirstIntersection1, vSecondIntersection1);
     EQIntersections eResult2 = RAY2.IntersectionPoint(TRIANGLE, vFirstIntersection2, vSecondIntersection2);
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
@@ -4681,7 +4678,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenAllTriangleVerticesCo
 QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTheClosestPointInFirstParameterWhenIntersectingWithTwoEdges_Test, TQTemplateTypes )
 {
     //       Y
-    //       |   
+    //       |
     //      /|\
     //  <--2-|-1-----------O
     //    /  |  \
@@ -4712,7 +4709,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTheClosestPointInFirstParameterW
     T vFirstIntersection;
     T vSecondIntersection;
     EQIntersections eResult = RAY.IntersectionPoint(TRIANGLE, vFirstIntersection, vSecondIntersection);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK( SQFloat::IsPositive(vFirstIntersection.x) );
@@ -4755,7 +4752,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenRayIntersect
     const QRay3D<T> RAY3 = QRay3D<T>(ORIGIN3, DIRECTION3);
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
-    
+
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
 
 	// Execution
@@ -4768,7 +4765,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenRayIntersect
     EQIntersections eResult1 = RAY1.IntersectionPoint(TRIANGLE, vFirstIntersection1, vSecondIntersection1);
     EQIntersections eResult2 = RAY2.IntersectionPoint(TRIANGLE, vFirstIntersection2, vSecondIntersection2);
     EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
-    
+
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
@@ -4833,7 +4830,7 @@ QTEST_CASE ( IntersectionPoint5_WComponentDoesNotChangeWhenTwoIntersectionsAreDe
 
     const QVector4 INTERSECTION_POINT1 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
     const QVector4 INTERSECTION_POINT2 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C);
-    
+
     const QVector3 DIRECTION = QVector3(INTERSECTION_POINT2 - INTERSECTION_POINT1).Normalize();
     const QRay3D<QVector4> RAY = QRay3D<QVector4>(INTERSECTION_POINT1, DIRECTION);
 
@@ -4870,7 +4867,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsFarthestIntersectionWhenUsingSam
 
     const T INTERSECTION1 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
     const T INTERSECTION2 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C);
-    
+
     const QVector3 DIRECTION = QVector3(INTERSECTION2 - INTERSECTION1).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(INTERSECTION1, DIRECTION);
 
@@ -4881,7 +4878,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsFarthestIntersectionWhenUsingSam
     // Execution
     T vSameIntersection;
     RAY.IntersectionPoint(TRIANGLE, vSameIntersection, vSameIntersection);
-    
+
     // Verification
     BOOST_CHECK(vSameIntersection == EXPECTED_POINT);
 }
@@ -5153,7 +5150,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginIsConta
     const QRay3D<T> RAY_IN_EFGH = QRay3D<T>(ORIGIN_EFGH, DIRECTION_EFGH);
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
-    
+
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_FIRSTPOINT_DFGC = ORIGIN_DFGC;
     const T EXPECTED_FIRSTPOINT_ADFE = ORIGIN_ADFE;
@@ -5251,7 +5248,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionIntersectionsWhen
     const QRay3D<T> RAY_IN_EFGH = QRay3D<T>(ORIGIN_EFGH, DIRECTION_EFGH);
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
-    
+
     T vFirstIntersectionDFGC = T::GetZeroVector();
     T vFirstIntersectionADFE = T::GetZeroVector();
     T vFirstIntersectionAEHB = T::GetZeroVector();
@@ -5404,7 +5401,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginBelongs
 
     const T ORIGIN_IN_CG = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G);
     const QRay3D<T> RAY_IN_CG = QRay3D<T>(ORIGIN_IN_CG, DIRECTION_DFGC);
- 
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const T EXPECTED_FIRSTPOINT_AB = ORIGIN_IN_AB;
@@ -5559,7 +5556,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayIntersects
 
     const QVector3 DIRECTION_TO_CG = QVector3(EXPECTED_FIRSTPOINT_CG - ORIGIN_RIGHT).Normalize();
     const QRay3D<T> RAY_TO_CG = QRay3D<T>(ORIGIN_RIGHT, DIRECTION_TO_CG);
- 
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     T vFirstIntersectionAB;
@@ -5653,7 +5650,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginAndHexa
     const QRay3D<T> RAY_FROM_F = QRay3D<T>(VERTEX_F, DIRECTION_DFGC);
     const QRay3D<T> RAY_FROM_G = QRay3D<T>(VERTEX_G, DIRECTION_DFGC);
     const QRay3D<T> RAY_FROM_H = QRay3D<T>(VERTEX_H, DIRECTION_AEHB);
-    
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const T EXPECTED_FIRSTPOINT_A = VERTEX_A;
@@ -5860,7 +5857,7 @@ QTEST_CASE ( IntersectionPoint6_WComponentDoesNotChangeWhenIntersectionsAreDetec
     const QBaseHexahedron<QVector4> HEXAHEDRON = QBaseHexahedron<QVector4>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const QVector4 INTERSECTION_POINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
-    
+
     const QVector3 DIRECTION = QVector3(INTERSECTION_POINT).Normalize();
     const QRay3D<QVector4> RAY = QRay3D<QVector4>(QVector4::GetZeroVector(), DIRECTION);
 
@@ -6165,7 +6162,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginIsConta
     const QRay3D<T> RAY_IN_EFGH = QRay3D<T>(ORIGIN_EFGH, DIRECTION_EFGH);
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
-    
+
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_FIRSTPOINT_DFGC = ORIGIN_DFGC;
     const T EXPECTED_FIRSTPOINT_ADFE = ORIGIN_ADFE;
@@ -6277,7 +6274,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionIntersectionsWhen
     const QRay3D<T> RAY_IN_EFGH = QRay3D<T>(ORIGIN_EFGH, DIRECTION_EFGH);
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
-    
+
     T vFirstIntersectionDFGC = T::GetZeroVector();
     T vFirstIntersectionADFE = T::GetZeroVector();
     T vFirstIntersectionAEHB = T::GetZeroVector();
@@ -6445,7 +6442,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginBelongs
 
     const T ORIGIN_IN_CG = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G);
     const QRay3D<T> RAY_IN_CG = QRay3D<T>(ORIGIN_IN_CG, DIRECTION_DFGC);
- 
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const T EXPECTED_FIRSTPOINT_AB = ORIGIN_IN_AB;
@@ -6626,7 +6623,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayIntersects
 
     const QVector3 DIRECTION_TO_CG = QVector3(EXPECTED_FIRSTPOINT_CG - ORIGIN_RIGHT).Normalize();
     const QRay3D<T> RAY_TO_CG = QRay3D<T>(ORIGIN_RIGHT, DIRECTION_TO_CG);
- 
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     T vFirstIntersectionAB;
@@ -6744,7 +6741,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginAndHexa
     const QRay3D<T> RAY_FROM_F = QRay3D<T>(VERTEX_F, DIRECTION_DFGC);
     const QRay3D<T> RAY_FROM_G = QRay3D<T>(VERTEX_G, DIRECTION_DFGC);
     const QRay3D<T> RAY_FROM_H = QRay3D<T>(VERTEX_H, DIRECTION_AEHB);
-    
+
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const T EXPECTED_FIRSTPOINT_A = VERTEX_A;
@@ -6974,7 +6971,7 @@ QTEST_CASE ( IntersectionPoint7_WComponentDoesNotChangeWhenIntersectionsAreDetec
     const QBaseHexahedron<QVector4> HEXAHEDRON = QBaseHexahedron<QVector4>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const QVector4 INTERSECTION_POINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
-    
+
     const QVector3 DIRECTION = QVector3(INTERSECTION_POINT).Normalize();
     const QRay3D<QVector4> RAY = QRay3D<QVector4>(QVector4::GetZeroVector(), DIRECTION);
 
@@ -7126,7 +7123,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheRayIsBehindPlaneAnd
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QPlane PLANE = QPlane(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, -SQFloat::_10).Normalize();
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_NegativeSide;
 
 	// Execution
@@ -7157,7 +7154,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheRayIsBehindPlaneAnd
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(PLANE.a, PLANE.b, PLANE.c).CrossProduct(QVector3::GetUnitVectorX()).Normalize(); // Orthogonal to plane's normal
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_NegativeSide;
 
 	// Execution
@@ -7188,7 +7185,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheRayIsInFrontPlaneAn
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_10).Normalize();
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_PositiveSide;
 
 	// Execution
@@ -7219,7 +7216,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheRayIsInFrontPlaneAn
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(PLANE.a, PLANE.b, PLANE.c).CrossProduct(QVector3::GetUnitVectorX()).Normalize(); // Orthogonal to plane's normal
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_PositiveSide;
 
 	// Execution
@@ -7251,7 +7248,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsBothSidesWhenTheRayIsBehindPlaneAndThe
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QPlane PLANE = QPlane(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, -SQFloat::_10).Normalize();
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_BothSides;
 
 	// Execution
@@ -7283,7 +7280,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsBothSidesWhenTheRayIsInFrontPlaneAndTh
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_10).Normalize();
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_BothSides;
 
 	// Execution
@@ -7316,7 +7313,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsContainedWhenTheRayBelongsToPlane_Test
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(PLANE.a, PLANE.b, PLANE.c).CrossProduct(QVector3::GetUnitVectorX()).Normalize(); // Orthogonal to plane's normal
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_Contained;
 
 	// Execution
@@ -7349,7 +7346,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheRayOriginBelongsToP
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(PLANE.a, PLANE.b, PLANE.c);
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_PositiveSide;
 
 	// Execution
@@ -7382,7 +7379,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheRayOriginBelongsToP
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = -QVector3(PLANE.a, PLANE.b, PLANE.c);
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_NegativeSide;
 
 	// Execution
@@ -7515,7 +7512,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_RayIsCorrectlyTransformedByCommonQuaternion_Test, 
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(ORIGIN.Transform(TRANSFORMATION),
                                              DIRECTION.Transform(TRANSFORMATION));
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Rotate(TRANSFORMATION);
 
@@ -7539,7 +7536,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_RayDoesNotChangeWhenTransformedByIdentityQuaternio
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Rotate(UNIT_QUATERNION);
 
@@ -7563,7 +7560,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_OriginAndDirectionAreNullifiedWhenQuaternionIsNull
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Rotate(NULL_QUATERNION);
 
@@ -7601,7 +7598,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivotWithPivot1_RayIsCorrectlyTransformedByCommo
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>((ORIGIN - PIVOT).Transform(TRANSFORMATION) + PIVOT,
                                              DIRECTION.Transform(TRANSFORMATION));
-    
+
 	// Execution
     QRay3D<T> ray = RAY.RotateWithPivot(TRANSFORMATION, PIVOT);
 
@@ -7628,7 +7625,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivotWithPivot1_RayDoesNotChangeWhenTransformedB
     const T PIVOT = T(PIVOT_COMPONENTS);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.RotateWithPivot(UNIT_QUATERNION, PIVOT);
 
@@ -7650,12 +7647,12 @@ QTEST_CASE_TEMPLATE ( RotateWithPivotWithPivot1_OriginAndDirectionAreNullifiedWh
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.RotateWithPivot(NULL_QUATERNION, PIVOT);
 
@@ -7680,7 +7677,7 @@ QTEST_CASE_TEMPLATE ( Translate1_RayIsCorrectlyTransformedByCommonTranslationVec
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(ORIGIN + TRANSFORMATION,
                                              DIRECTION);
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(TRANSFORMATION);
 
@@ -7702,7 +7699,7 @@ QTEST_CASE_TEMPLATE ( Translate1_RayDoesNotChangeWhenTransformedByNullVector_Tes
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(NULL_VECTOR);
 
@@ -7729,7 +7726,7 @@ QTEST_CASE_TEMPLATE ( Translate2_RayIsCorrectlyTransformedByCommonTranslationVec
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(ORIGIN + QBaseVector3(TRANSLATION_VALUE_X, TRANSLATION_VALUE_Y, TRANSLATION_VALUE_Z),
                                              DIRECTION);
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(TRANSLATION_VALUE_X, TRANSLATION_VALUE_Y, TRANSLATION_VALUE_Z);
 
@@ -7751,7 +7748,7 @@ QTEST_CASE_TEMPLATE ( Translate2_RayDoesNotChangeWhenTransformedByNullValues_Tes
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(ZERO_VALUE, ZERO_VALUE, ZERO_VALUE);
 
@@ -7777,7 +7774,7 @@ QTEST_CASE_TEMPLATE ( Scale1_RayIsCorrectlyTransformedByCommonScalingVector_Test
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN * T(TRANSFORMATION_COMPONENTS),
                                              (DIRECTION * TRANSFORMATION).Normalize());
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(TRANSFORMATION);
 
@@ -7799,7 +7796,7 @@ QTEST_CASE_TEMPLATE ( Scale1_RayDoesNotChangeWhenTransformedByVectorOfOnes_Test,
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(VECTOR_OF_ONES);
 
@@ -7856,7 +7853,7 @@ QTEST_CASE_TEMPLATE ( Scale1_ResultantRayIsNormalized_Test, TQTemplateTypes )
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN * T(TRANSFORMATION),
                                              (DIRECTION * TRANSFORMATION));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(TRANSFORMATION);
 
@@ -7884,7 +7881,7 @@ QTEST_CASE_TEMPLATE ( Scale2_RayIsCorrectlyTransformedByCommonScalingValues_Test
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN * T(QBaseVector3(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z)),
                                              (DIRECTION * QBaseVector3(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z)).Normalize());
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z);
 
@@ -7906,7 +7903,7 @@ QTEST_CASE_TEMPLATE ( Scale2_RayDoesNotChangeWhenTransformedByScalingValuesThatE
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(ONE_VALUE, ONE_VALUE, ONE_VALUE);
 
@@ -7967,7 +7964,7 @@ QTEST_CASE_TEMPLATE ( Scale2_ResultantRayIsNormalized_Test, TQTemplateTypes )
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN * T(QBaseVector3(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z)),
                                              (DIRECTION * QBaseVector3(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z)));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z);
 
@@ -8018,7 +8015,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_RayDoesNotChangeWhenTransformedByVectorOfO
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -8043,7 +8040,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_RayIsNullifiedWhenTransformedByNullScaling
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -8083,7 +8080,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_ResultantRayIsNormalized_Test, TQTemplateT
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN * T(TRANSFORMATION),
                                              (DIRECTION * TRANSFORMATION));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -8117,7 +8114,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_RayIsCorrectlyTransformedByCommonScalingVa
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>((ORIGIN - PIVOT) * T(QBaseVector3(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z)) + PIVOT,
                                              (DIRECTION * QBaseVector3(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z)).Normalize());
-    
+
 	// Execution
     QRay3D<T> ray = RAY.ScaleWithPivot(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z, PIVOT);
 
@@ -8139,7 +8136,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_RayDoesNotChangeWhenTransformedByVectorOfO
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -8206,7 +8203,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_ResultantRayIsNormalized_Test, TQTemplateT
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN * T(QBaseVector3(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z)),
                                              (DIRECTION * QBaseVector3(SCALING_VALUE_X, SCALING_VALUE_Y, SCALING_VALUE_Z)));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -8246,7 +8243,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_RayIsCorrectlyTransformedByCommonRotationMatrix_Te
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(ORIGIN.Transform(TRANSFORMATION),
                                              DIRECTION.Transform(TRANSFORMATION));
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Rotate(TRANSFORMATION);
 
@@ -8270,7 +8267,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_RayDoesNotChangeWhenTransformedByIdentityMatrix_Te
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Rotate(IDENTITY_MATRIX);
 
@@ -8295,7 +8292,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_OriginAndDirectionAreNullifiedWhenMatrixIsZero_Tes
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Rotate(ZERO_MATRIX);
 
@@ -8321,7 +8318,7 @@ QTEST_CASE_TEMPLATE ( Translate3_RayIsCorrectlyTransformedByCommonTranslationVec
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(ORIGIN.Transform(TRANSFORMATION),
                                              DIRECTION);
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(TRANSFORMATION);
 
@@ -8346,7 +8343,7 @@ QTEST_CASE_TEMPLATE ( Translate3_RayDoesNotChangeWhenTransformedByNullVector_Tes
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(ZERO_MATRIX);
 
@@ -8372,7 +8369,7 @@ QTEST_CASE_TEMPLATE ( Translate4_RayIsCorrectlyTransformedByCommonTranslationMat
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(ORIGIN.Transform(TRANSFORMATION),
                                              DIRECTION);
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(TRANSFORMATION);
 
@@ -8397,7 +8394,7 @@ QTEST_CASE_TEMPLATE ( Translate4_RayDoesNotChangeWhenTransformedByZeroMatrix_Tes
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(ZERO_MATRIX);
 
@@ -8422,7 +8419,7 @@ QTEST_CASE_TEMPLATE ( Translate4_RayDoesNotChangeWhenTransformedByIdentityMatrix
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Translate(IDENTITY_MATRIX);
 
@@ -8447,7 +8444,7 @@ QTEST_CASE_TEMPLATE ( Scale3_RayIsCorrectlyTransformedByCommonScalingMatrix_Test
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN.Transform(TRANSFORMATION),
                                               DIRECTION.Transform(TRANSFORMATION).Normalize());
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(TRANSFORMATION);
 
@@ -8471,7 +8468,7 @@ QTEST_CASE_TEMPLATE ( Scale3_RayDoesNotChangeWhenTransformedByIdentityMatrix_Tes
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(IDENTITY_MATRIX);
 
@@ -8531,7 +8528,7 @@ QTEST_CASE_TEMPLATE ( Scale3_ResultantRayIsNormalized_Test, TQTemplateTypes )
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN.Transform(TRANSFORMATION),
                                               DIRECTION.Transform(TRANSFORMATION));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Scale(TRANSFORMATION);
 
@@ -8567,7 +8564,7 @@ QTEST_CASE_TEMPLATE ( Transform1_RayIsCorrectlyTransformedByCommonTransformation
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN.Transform(TRANSFORMATION),
                                               DIRECTION.Transform(DIRECTION_TRANSFORMATION).Normalize()); // Without translation
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(TRANSFORMATION);
 
@@ -8592,7 +8589,7 @@ QTEST_CASE_TEMPLATE ( Transform1_RayDoesNotChangeWhenTransformedByIdentityMatrix
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(IDENTITY_MATRIX);
 
@@ -8662,7 +8659,7 @@ QTEST_CASE_TEMPLATE ( Transform1_ResultantRayIsNormalized_Test, TQTemplateTypes 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN.Transform(TRANSFORMATION),
                                               DIRECTION.Transform(DIRECTION_TRANSFORMATION));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(TRANSFORMATION);
 
@@ -8698,7 +8695,7 @@ QTEST_CASE_TEMPLATE ( Transform2_RayIsCorrectlyTransformedByCommonTransformation
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN.Transform(TRANSFORMATION),
                                               DIRECTION.Transform(DIRECTION_TRANSFORMATION).Normalize()); // Without translation
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(TRANSFORMATION);
 
@@ -8723,7 +8720,7 @@ QTEST_CASE_TEMPLATE ( Transform2_RayDoesNotChangeWhenTransformedByIdentityMatrix
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(IDENTITY_MATRIX);
 
@@ -8793,7 +8790,7 @@ QTEST_CASE_TEMPLATE ( Transform2_ResultantRayIsNormalized_Test, TQTemplateTypes 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>( ORIGIN.Transform(TRANSFORMATION),
                                               DIRECTION.Transform(DIRECTION_TRANSFORMATION));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(TRANSFORMATION);
 
@@ -8822,7 +8819,7 @@ QTEST_CASE_TEMPLATE ( Transform3_RayIsCorrectlyTransformedByCommonSpaceConversio
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(ORIGIN.Transform(CONVERSION),
                                              DIRECTION.Transform(CONVERSION));
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(CONVERSION);
 
@@ -8846,7 +8843,7 @@ QTEST_CASE_TEMPLATE ( Transform3_RayDoesNotChangeWhenTransformedByIdentityMatrix
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(IDENTITY_MATRIX);
 
@@ -8871,7 +8868,7 @@ QTEST_CASE_TEMPLATE ( Transform3_OriginAndDirectionAreNullifiedWhenMatrixIsZero_
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.Transform(ZERO_MATRIX);
 
@@ -8934,7 +8931,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_RayDoesNotChangeWhenTransformedByIdentity
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -8965,7 +8962,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_OriginAndDirectionAreNullifiedWhenMatrixI
 
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
-    
+
 	// Execution
     QRay3D<T> ray = RAY.RotateWithPivot(ZERO_MATRIX, PIVOT);
 
@@ -8993,7 +8990,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_RayIsCorrectlyTransformedByCommonScalingMa
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>((ORIGIN - PIVOT).Transform(TRANSFORMATION) + PIVOT,
                                               DIRECTION.Transform(TRANSFORMATION).Normalize());
-    
+
 	// Execution
     QRay3D<T> ray = RAY.ScaleWithPivot(TRANSFORMATION, PIVOT);
 
@@ -9017,7 +9014,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_RayDoesNotChangeWhenTransformedByIdentityM
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -9086,7 +9083,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_ResultantRayIsNormalized_Test, TQTemplateT
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>((ORIGIN - PIVOT).Transform(TRANSFORMATION) + PIVOT,
                                               DIRECTION.Transform(TRANSFORMATION));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.ScaleWithPivot(TRANSFORMATION, PIVOT);
 
@@ -9134,7 +9131,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot1_RayIsCorrectlyTransformedByCommonTrans
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(EXPECTED_ORIGIN,
                                              DIRECTION.Transform(DIRECTION_TRANSFORMATION).Normalize()); // Without translation
-    
+
 	// Execution
     QRay3D<T> ray = RAY.TransformWithPivot(TRANSFORMATION, PIVOT);
 
@@ -9159,7 +9156,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot1_RayDoesNotChangeWhenTransformedByIdent
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -9238,7 +9235,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot1_ResultantRayIsNormalized_Test, TQTempl
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>((ORIGIN - PIVOT).Transform(TRANSFORMATION) + PIVOT,
                                               DIRECTION.Transform(DIRECTION_TRANSFORMATION));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.TransformWithPivot(TRANSFORMATION, PIVOT);
 
@@ -9286,7 +9283,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot2_RayIsCorrectlyTransformedByCommonTrans
 
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>(EXPECTED_ORIGIN,
                                              DIRECTION.Transform(DIRECTION_TRANSFORMATION).Normalize()); // Without translation
-    
+
 	// Execution
     QRay3D<T> ray = RAY.TransformWithPivot(TRANSFORMATION, PIVOT);
 
@@ -9311,7 +9308,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot2_RayDoesNotChangeWhenTransformedByIdent
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QRay3D<T> EXPECTED_RAY = RAY;
-    
+
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
@@ -9390,7 +9387,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot2_ResultantRayIsNormalized_Test, TQTempl
     const QRay3D<T> EXPECTED_RAY = QRay3D<T>((ORIGIN - PIVOT).Transform(TRANSFORMATION) + PIVOT,
                                               DIRECTION.Transform(DIRECTION_TRANSFORMATION));
     const QRay3D<T> EXPECTED_NORMALIZEDRAY = EXPECTED_RAY.Normalize();
-    
+
 	// Execution
     QRay3D<T> ray = RAY.TransformWithPivot(TRANSFORMATION, PIVOT);
 
