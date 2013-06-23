@@ -5967,11 +5967,11 @@ QTEST_CASE ( RotateWithPivot_RayIsCorrectlyRotated_Test )
     const QVector2 EXPECTED_DIRECTION = QVector2(-SQFloat::_1, -SQFloat::_1).Normalize();
     const QRay2D EXPECTED_RAY = QRay2D(EXPECTED_ORIGIN, EXPECTED_DIRECTION);
 
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        const float_q ANGLE = SQAngle::_90;
-    #else
-        const float_q ANGLE = SQAngle::_HalfPi;
-    #endif
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const float_q ANGLE = SQAngle::_90;
+#else
+    const float_q ANGLE = SQAngle::_HalfPi;
+#endif
 
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_1, SQFloat::_2);
 

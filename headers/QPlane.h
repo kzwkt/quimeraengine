@@ -505,6 +505,9 @@ public:
     /// <summary>
     /// Calculates the direction vector of the resident plane.
     /// </summary>
+    /// <remarks>
+    /// The returned vector will not be normalized unless the plane is.
+    /// </remarks>
     /// <returns>
     /// The direction vector of the plane.
     /// </returns>
@@ -1284,7 +1287,6 @@ protected:
     // Calculates the orthogonal projection of a given point over the resident plane.
     // </summary>
     // <param name="vPoint">[IN] A 3D vector which represents the point we want project.</param>
-    // <param name="vProjection">[OUT] A 3D vector where to store the projected point.</param>
     // <returns>
     // The projected point.
     // </returns>
@@ -1293,8 +1295,8 @@ protected:
     {
         // The plane shouldn't be null
         QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
-
-        // [SMELL] Thund: Can this line be replaced with a dot product?
+        
+        // [SMELL] Thund: Can this line be replaced with a dot product + d?
         const float_q &PROJ = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
 
         // [SMELL] Thund: Can this line contain all the operations so no 2 constructor calls are performed?

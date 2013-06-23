@@ -135,14 +135,18 @@ public:
 
 	/// <summary>
 	/// Calculates triangle's normal vector.<br>
-	/// Follows left-handed rule..
+	/// Follows left-handed rules so, imagining a rotation from A to B, the direction of the axis vector can 
+    /// be deduced.
 	/// </summary>
     /// <returns>
     /// The normal vector.
     /// </returns>
 	inline QVector3 GetNormal() const
 	{
-		return QVector3(this->GetNormalImp());
+        const QVector3 A_TO_B = QVector3(this->B - this->A);
+		const QVector3 B_TO_C = QVector3(this->C - this->B);
+
+		return A_TO_B.CrossProduct(B_TO_C).Normalize();
 	}
 
 	/// <summary>
@@ -153,23 +157,26 @@ public:
     /// </returns>
 	VectorType GetCircumcenter() const
 	{
+        // Vertices shouldn't coincide
+        QE_ASSERT( this->A != this->B && this->B != this->C && this->C != this->A );
+
         // More information: https://www.box.net/shared/9736bjiyq1
 
 		//STEP 1: Calculate all previous stuff
-		const VectorType vA(this->B - this->A);
-		const VectorType vB(this->C - this->B);
-		const VectorType vC(this->A - this->C);
+		const VectorType A_TO_B(this->B - this->A);
+		const VectorType B_TO_C(this->C - this->B);
+		const VectorType C_TO_A(this->A - this->C);
 
-		//fSp: Triangle큦 semiperimeter
-		const float_q fSp = (vA.GetLength() + vB.GetLength() + vC.GetLength()) * SQFloat::_0_5;
-		//fK: Triangle큦 area
-		const float_q fK = sqrt_q(fSp * (fSp - vA.GetLength()) * (fSp - vB.GetLength()) * (fSp - vC.GetLength()));
+		// Triangle큦 semiperimeter
+		const float_q SEMIPERIMETER = (A_TO_B.GetLength() + B_TO_C.GetLength() + C_TO_A.GetLength()) * SQFloat::_0_5;
+		// Triangle큦 area
+		const float_q AREA = sqrt_q(SEMIPERIMETER * (SEMIPERIMETER - A_TO_B.GetLength()) * (SEMIPERIMETER - B_TO_C.GetLength()) * (SEMIPERIMETER - C_TO_A.GetLength()));
 
-		const VectorType vCrossvAvB = vA.CrossProduct(vB);
-		const VectorType vCrossvCvAvB = vC.CrossProduct(vCrossvAvB);
+		const VectorType CROSS_PRODUCT_AB_BC = A_TO_B.CrossProduct(B_TO_C);
+		const VectorType CROSS_PRODUCT_CA_AB_BC = C_TO_A.CrossProduct(CROSS_PRODUCT_AB_BC);
 
 		//STEP 2: Calculate circumcenter
-		return ((this->A + this->C) * SQFloat::_0_5) + (vA.DotProduct(vB) / (SQFloat::_8 * fK * fK)) * vCrossvCvAvB;
+		return ((this->A + this->C) * SQFloat::_0_5) + (A_TO_B.DotProduct(B_TO_C) / (SQFloat::_8 * AREA * AREA)) * CROSS_PRODUCT_CA_AB_BC;
 	}
 
     /// <summary>
@@ -182,7 +189,7 @@ public:
     inline QTriangle3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
     {
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Translate(vTranslation, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Translate(vTranslation, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -198,7 +205,7 @@ public:
 	inline QTriangle3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -212,7 +219,7 @@ public:
 	inline QTriangle3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Translate(translation, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Translate(translation, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -226,7 +233,7 @@ public:
 	inline QTriangle3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
 	{
 	    QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Translate(translation, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Translate(translation, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -241,7 +248,7 @@ public:
 	inline QTriangle3D<VectorType> Rotate(const QQuaternion &qRotation) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Rotate(qRotation, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Rotate(qRotation, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -255,7 +262,7 @@ public:
 	inline QTriangle3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Rotate(rotation, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Rotate(rotation, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -271,7 +278,7 @@ public:
 	inline QTriangle3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::RotateWithPivot(qRotation, vPivot, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::RotateWithPivot(qRotation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -285,7 +292,7 @@ public:
 	inline QTriangle3D<VectorType> Scale(const QBaseVector3 &vScale) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Scale(vScale, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Scale(vScale, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -301,7 +308,7 @@ public:
 	inline QTriangle3D<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Scale(fScaleX, fScaleY, fScaleZ, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -315,7 +322,7 @@ public:
 	inline QTriangle3D<VectorType> Scale(const QScalingMatrix3x3 &scale) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Scale(scale, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Scale(scale, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -331,7 +338,7 @@ public:
 	inline QTriangle3D<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::ScaleWithPivot(vScale, vPivot, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -349,7 +356,7 @@ public:
 	inline QTriangle3D<VectorType> ScaleWithPivot(const float_q& fScaleX, const float_q& fScaleY, const float_q& fScaleZ, const VectorType& vPivot) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -363,7 +370,7 @@ public:
 	inline QTriangle3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Transform(transformation, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Transform(transformation, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -377,7 +384,7 @@ public:
 	inline QTriangle3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::Transform(transformation, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::Transform(transformation, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -393,7 +400,7 @@ public:
 	inline QTriangle3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::RotateWithPivot(rotation, vPivot, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::RotateWithPivot(rotation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -409,7 +416,7 @@ public:
 	inline QTriangle3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::ScaleWithPivot(scale, vPivot, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::ScaleWithPivot(scale, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -428,7 +435,7 @@ public:
 	inline QTriangle3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::TransformWithPivot(transformation, vPivot, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
@@ -447,16 +454,19 @@ public:
 	inline QTriangle3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
 	{
         QTriangle3D<VectorType> auxTriangle = *this;
-		SQPoint::TransformWithPivot(transformation, vPivot, auxTriangle.template AsPtr<VectorType>(), 3);
+		SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
 
 	/// <summary>
 	/// Checks the space relation between current triangle and a plane recieved as parameter.<br>
-	/// Space Relation means that
-	/// the triangle is in the positive side of the space divided by the plane, in the negative side, in both sides (intersection)
-	/// or even the triangle is contained in the plane.
+	/// Space Relation means that the triangle is in the positive side of the space divided by the plane, 
+    /// in the negative side, in both sides (intersection) or even the triangle is contained in the plane.
 	/// </summary>
+    /// <remarks>
+    /// If one or two vertices belong to the plane, the third vertex will determine whether the triangle
+    /// is in the positive or negative side.
+    /// </remarks>
 	/// <param name="plane">[IN] The plane we want check the relation with current triangle.</param>
     /// <returns>
     /// An enumerated value like follows:<br>
@@ -467,23 +477,26 @@ public:
     /// </returns>
 	EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
-		const float_q &fdistA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
-		const float_q &fdistB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
-		const float_q &fdistC = plane.a * this->C.x + plane.b * this->C.y + plane.c * this->C.z + plane.d;
+        // The plane should not be null
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
 
-		if ( SQFloat::IsZero(fdistA) && SQFloat::IsZero(fdistB) && SQFloat::IsZero(fdistC) )
+		const float_q &DIST_TO_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
+		const float_q &DIST_TO_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
+		const float_q &DIST_TO_C = plane.a * this->C.x + plane.b * this->C.y + plane.c * this->C.z + plane.d;
+
+		if ( SQFloat::IsZero(DIST_TO_A) && SQFloat::IsZero(DIST_TO_B) && SQFloat::IsZero(DIST_TO_C) )
             return EQSpaceRelation::E_Contained;
-        else if ( SQFloat::IsPositive(fdistA) && SQFloat::IsPositive(fdistB) && SQFloat::IsPositive(fdistC) )
+        else if ( SQFloat::IsPositive(DIST_TO_A) && SQFloat::IsPositive(DIST_TO_B) && SQFloat::IsPositive(DIST_TO_C) )
             return EQSpaceRelation::E_PositiveSide;
-        else if ( SQFloat::IsLessOrEquals(fdistA, SQFloat::_0) && SQFloat::IsLessOrEquals(fdistB, SQFloat::_0) &&
-                  SQFloat::IsLessOrEquals(fdistC, SQFloat::_0) )
+        else if ( SQFloat::IsLessOrEquals(DIST_TO_A, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_TO_B, SQFloat::_0) &&
+                  SQFloat::IsLessOrEquals(DIST_TO_C, SQFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_BothSides;
 	}
 
 	/// <summary>
-	/// Moves the triangle along its normal vector the units indicated by a scalar value .
+	/// Moves the triangle along its normal vector the units indicated by a scalar value.
 	/// </summary>
 	/// <param name="fAmount">[IN] Float type that contains the amount of the movement.</param>
     /// <returns>
@@ -491,7 +504,7 @@ public:
     /// </returns>
 	inline QTriangle3D<VectorType> Extrude(const float_q &fAmount) const
 	{
-		VectorType vLangthenedNormalVector = this->GetNormal() * fAmount;
+		VectorType vLangthenedNormalVector = VectorType(this->GetNormal() * fAmount);
 
         return QTriangle3D<VectorType>(this->A + vLangthenedNormalVector,
                                        this->B + vLangthenedNormalVector,
@@ -501,6 +514,10 @@ public:
     /// <summary>
 	/// Calculates triangle's orthocenter.
 	/// </summary>
+    /// <remarks>
+    /// When using 4D vectors, the W component of the resultant point will depend on the W component of the
+    /// vertices of the triangle.
+    /// </remarks>
 	/// <returns>
     /// The orthocenter.
     /// </returns>
@@ -520,7 +537,7 @@ public:
 
         QE_ASSERT(DOT != SQFloat::_0)
 
-	    return this->A - ( CA.DotProduct(AB) / DOT) * NORMAL_TO_BC;
+	    return this->A - ( CA.DotProduct(AB) / DOT ) * NORMAL_TO_BC;
 	}
 
 	/// <summary>
@@ -529,7 +546,7 @@ public:
     /// <remarks>
 	/// The plane must be normalized to obtain correct result.
 	/// </remarks>
-	/// <param name="plane">[IN] Plane where to project resident triangle.</param>
+	/// <param name="plane">[IN] Plane where to project the resident triangle.</param>
 	/// <returns>
 	/// The projected triangle.
 	/// </returns>
@@ -540,24 +557,6 @@ public:
 	                                   plane.PointProjection(this->C));
 	}
 
-protected:
-
-	// <summary>
-	// Template method that calculates triangle's normal vector.<br>
-	// Follows left-handed rule, as Quimera requires.
-	// </summary>
-	// <param name="vNormal">[OUT] Vector type which will store the normal vector.</param>
-    // <returns>
-    // The normal.
-    // </returns>
-	template <class OtherVectorType>
-	inline OtherVectorType GetNormalImp() const
-	{
-		OtherVectorType vAB = this->B - this->A;
-		OtherVectorType vBC = this->C - this->B;
-
-		return vAB.CrossProduct(vBC).Normalize();
-	}
 };
 
 } //namespace Math
