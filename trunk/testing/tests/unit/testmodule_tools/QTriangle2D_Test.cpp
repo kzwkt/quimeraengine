@@ -466,7 +466,7 @@ QTEST_CASE ( GetCircumcenter_CircumcenterIsCorrectlyCalculatedWhenUsingCommonTri
 /// </summary>
 QTEST_CASE ( GetCircumcenter_AssertionFailsWhenAllPointsCoincide_Test )
 {
-   // Preparation
+    // Preparation
     const QVector2 POINT = QVector2(SQFloat::_2, SQFloat::_2);
     QTriangle2D TRIANGLE = QTriangle2D(POINT, POINT, POINT);
 
@@ -524,7 +524,7 @@ QTEST_CASE ( GetCircumcenter_CircumcenterIsNotDefinedWhenAllPointsCoincide_Test 
 /// </summary>
 QTEST_CASE ( GetOrthocenter_OrthocenterIsCorrectlyCalculatedWhenUsingCommonTriangle_Test )
 {
-   // Preparation
+    // Preparation
     const QVector2 POINT_A = QVector2(SQFloat::_2, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_3);
     const QVector2 POINT_C = QVector2(SQFloat::_3, SQFloat::_4);
