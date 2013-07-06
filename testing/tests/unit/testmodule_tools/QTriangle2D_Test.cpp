@@ -272,7 +272,7 @@ QTEST_CASE ( Transform_TriangleIsCorrectlyTransformed_Test )
     const QVector2 INIT_POS_C = QVector2(SQFloat::_2, SQFloat::_6);
 
     const QVector2 TRANSLATION = QVector2(SQFloat::_1, SQFloat::_3);
-    const QVector2 SCALATION = QVector2(SQFloat::_2, SQFloat::_0_5);
+    const QVector2 SCALE = QVector2(SQFloat::_2, SQFloat::_0_5);
    
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         const float_q ROTATION = SQAngle::_90;
@@ -281,7 +281,7 @@ QTEST_CASE ( Transform_TriangleIsCorrectlyTransformed_Test )
     #endif
 
     const QTransformationMatrix3x3 TRANSFORMATION_MATRIX =
-            QTransformationMatrix3x3(TRANSLATION, ROTATION, SCALATION);
+            QTransformationMatrix3x3(TRANSLATION, ROTATION, SCALE);
 
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_5);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_1, SQFloat::_9);
@@ -360,7 +360,7 @@ QTEST_CASE ( TransformWithPivot_TriangleIsCorrectlyTransformedWithPivot_Test )
     const QVector2 INIT_POS_C = QVector2(SQFloat::_2, SQFloat::_6);
 
     const QVector2 TRANSLATION = QVector2(SQFloat::_1, SQFloat::_3);
-    const QVector2 SCALATION = QVector2(SQFloat::_2, SQFloat::_0_5);
+    const QVector2 SCALE = QVector2(SQFloat::_2, SQFloat::_0_5);
    
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         const float_q ROTATION = SQAngle::_90;
@@ -369,7 +369,7 @@ QTEST_CASE ( TransformWithPivot_TriangleIsCorrectlyTransformedWithPivot_Test )
     #endif
 
     const QTransformationMatrix3x3 TRANSFORMATION_MATRIX =
-            QTransformationMatrix3x3(TRANSLATION, ROTATION, SCALATION);
+            QTransformationMatrix3x3(TRANSLATION, ROTATION, SCALE);
 
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_3, SQFloat::_2);
 
@@ -390,7 +390,7 @@ QTEST_CASE ( TransformWithPivot_TriangleIsCorrectlyTransformedWithPivot_Test )
 /// <summary>
 /// Checks that the triangle doesn't change when it's transformed by an identity matrix with a pivot point.
 /// </summary>
-QTEST_CASE ( Transform_TriangleDoesntChangeWhenTransformedWithPivotByIdentityMatrix_Test )
+QTEST_CASE ( TransformWithPivot_TriangleDoesntChangeWhenTransformedWithPivotByIdentityMatrix_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
 
@@ -416,7 +416,7 @@ QTEST_CASE ( Transform_TriangleDoesntChangeWhenTransformedWithPivotByIdentityMat
 /// <summary>
 /// Checks that all the vertices of the triangle are moved to the pivot point when transforming by a zero matrix.
 /// </summary>
-QTEST_CASE ( Transform_AllVerticesAreMovedToPivotPointWhenTransformedByZeroMatrix_Test )
+QTEST_CASE ( TransformWithPivot_AllVerticesAreMovedToPivotPointWhenTransformedByZeroMatrix_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
@@ -831,9 +831,9 @@ QTEST_CASE ( Scale1_TriangleIsCorrectlyScaled_Test )
 }
 
 /// <summary>
-/// Checks that a triangle is not scaled if scalation is one.
+/// Checks that a triangle is not scaled if Scale is one.
 /// </summary>
-QTEST_CASE ( Scale1_TriangleIsNotScaledIfScalationIsOne_Test )
+QTEST_CASE ( Scale1_TriangleIsNotScaledIfScaleIsOne_Test )
 {
     // Preparation
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
@@ -881,7 +881,7 @@ QTEST_CASE ( Scale2_TriangleIsCorrectlyScaled_Test )
 /// <summary>
 /// Checks that a triangle is not scaled if scale equals one.
 /// </summary>
-QTEST_CASE ( Scale2_TriangleIsNotScaledIfScalationIsOne_Test )
+QTEST_CASE ( Scale2_TriangleIsNotScaledIfScaleIsOne_Test )
 {
     // Preparation
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
@@ -929,9 +929,9 @@ QTEST_CASE ( ScaleWithPivot1_TriangleIsCorrectlyScaled_Test )
 }
 
 /// <summary>
-/// Checks that a triangle is not scaled with a pivot if scalation is one.
+/// Checks that a triangle is not scaled with a pivot if Scale is one.
 /// </summary>
-QTEST_CASE ( ScaleWithPivot1_TriangleIsNotScaledWithPivotIfScalationIsOne_Test )
+QTEST_CASE ( ScaleWithPivot1_TriangleIsNotScaledWithPivotIfScaleIsOne_Test )
 {
     // Preparation
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
@@ -953,7 +953,7 @@ QTEST_CASE ( ScaleWithPivot1_TriangleIsNotScaledWithPivotIfScalationIsOne_Test )
 }
 
 /// <summary>
-/// Checks that a triangle is not scaled with a pivot if scalation is one.
+/// Checks that a triangle is not scaled with a pivot if Scale is one.
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_TriangleIsCorrectlyScaled_Test )
 {
@@ -981,9 +981,9 @@ QTEST_CASE ( ScaleWithPivot2_TriangleIsCorrectlyScaled_Test )
 }
 
 /// <summary>
-/// Checks that a triangle is not scaled with a pivot if scalation is one.
+/// Checks that a triangle is not scaled with a pivot if Scale is one.
 /// </summary>
-QTEST_CASE ( ScaleWithPivot2_TriangleIsNotScaledWithPivotIfScalationIsOne_Test )
+QTEST_CASE ( ScaleWithPivot2_TriangleIsNotScaledWithPivotIfScaleIsOne_Test )
 {
     // Preparation
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);

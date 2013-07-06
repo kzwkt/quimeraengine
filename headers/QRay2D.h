@@ -162,10 +162,6 @@ public:
     /// <summary>
     /// Checks if resident ray intersects with the provided one.
     /// </summary>
-    /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
-    /// <returns>
-    /// True if both rays intersect, false otherwise.
-    /// </returns>
     /// <remarks>
     /// If both rays intesect, the intersection point must verify both vectorial ecuations:
     ///
@@ -183,6 +179,10 @@ public:
     /// ensure ray direction is being followed.<br>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
+    /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
+    /// <returns>
+    /// True if both rays intersect, false otherwise.
+    /// </returns>
     bool Intersection(const QBaseRay<QVector2, QVector2> &ray) const;
 
     /// <summary>
@@ -210,6 +210,9 @@ public:
     /// <summary>
     /// Checks if resident ray intersects with the provided quadrilateral.
     /// </summary>
+    /// <remarks>
+    /// If the quadrilateral is complex or concave, the result is undefined.
+    /// </remarks>
     /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked.</param>
     /// <returns>
     /// True if ray intersect quadrilateral, false otherwise.
@@ -254,17 +257,17 @@ public:
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the triangle, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
 	/// <remarks>
 	/// If there's no intersection point, the output parameter won't be modified.<br>
 	/// If there's one intersection point, the output parameter stores it.<br>
     /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
+    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
+	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the ray and the triangle, and can take
+    /// the following values: E_None, E_One or E_Two.
+	/// </returns>
     EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
     {
         QBaseVector2 vAux;
@@ -274,13 +277,6 @@ public:
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
-	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the triangle, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
 	/// <remarks>
 	/// If there's no intersection point, the output parameters won't be modified.<br>
 	/// If there's one intersection point, the second output parameter won't be modified,
@@ -288,22 +284,30 @@ public:
     /// If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
+    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
+	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
+	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the ray and the triangle, and can take
+    /// the following values: E_None, E_One or E_Two.
+	/// </returns>
     EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided quadrilateral, if it exists.
 	/// </summary>
+	/// <remarks>
+    /// If the quadrilateral is complex or concave, the result is undefined.<br/>
+	/// If there's no intersection point, the output parameter won't be modified.<br/>
+	/// If there's one intersection point, the output parameter stores it.<br/>
+    /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// </remarks>
 	/// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked.</param>
 	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
     /// the following values: E_None, E_One or E_Two.
 	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point, the output parameter won't be modified.<br>
-	/// If there's one intersection point, the output parameter stores it.<br>
-    /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
-	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
     {
         QBaseVector2 vAux;
@@ -313,20 +317,21 @@ public:
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided quadrilateral, if it exists.
 	/// </summary>
-	/// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked.</param>
+	/// <remarks>
+    /// If the quadrilateral is complex or concave, the result is undefined.<br/>
+	/// If there's no intersection point, the output parameters won't be modified.<br/>
+	/// If there's one intersection point, the second output parameter won't be modified,
+	/// and first output parameter is filled with the intersection point.<br/>
+    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
+    /// in the first output parameter the closest to the origin point of the ray.
+	/// </remarks>
+    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked.</param>
 	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
 	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
     /// the following values: E_None, E_One or E_Two.
 	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point, the output parameters won't be modified.<br>
-	/// If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br>
-    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest to the origin point of the ray.
-	/// </remarks>
     EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
     /// <summary>

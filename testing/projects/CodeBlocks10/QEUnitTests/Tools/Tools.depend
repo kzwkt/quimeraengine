@@ -46735,7 +46735,7 @@
 1360795530 h:\quimeraengine\qesvn\trunk\headers\externaldefinitions.h
 	"Configuration.h"
 
-1371646505 h:\quimeraengine\qesvn\trunk\headers\configuration.h
+1373134006 h:\quimeraengine\qesvn\trunk\headers\configuration.h
 
 1360795531 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasedualquaternion_test.cpp
 	<boost/test/auto_unit_test.hpp>
@@ -60682,7 +60682,7 @@
 	"QTransformationMatrix.h"
 	"SQVF32.h"
 
-1371028149 h:\quimeraengine\qesvn\trunk\headers\qplane.h
+1371910744 h:\quimeraengine\qesvn\trunk\headers\qplane.h
 	"EQIntersections.h"
 	"EQSpaceRelation.h"
 	"QBasePlane.h"
@@ -60745,7 +60745,7 @@
 	"QVector3.h"
 	"QBaseOrb.h"
 
-1371556272 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtriangle2d_test.cpp
+1373134150 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtriangle2d_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -60757,13 +60757,13 @@
 	"QTransformationMatrix3x3.h"
 	"SQPoint.h"
 
-1371638192 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qray2d_test.cpp
+1371655509 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qray2d_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QRay2D.h"
 
-1371485138 h:\quimeraengine\qesvn\trunk\headers\qray2d.h
+1372797229 h:\quimeraengine\qesvn\trunk\headers\qray2d.h
 	"QRay.h"
 	"QVector2.h"
 	"QBaseOrb.h"
@@ -60773,7 +60773,7 @@
 	"QTransformationMatrix3x3.h"
 	"EQIntersections.h"
 
-1371070359 h:\quimeraengine\qesvn\trunk\headers\qlinesegment2d.h
+1372796956 h:\quimeraengine\qesvn\trunk\headers\qlinesegment2d.h
 	"QLineSegment.h"
 	"QVector2.h"
 	"SQPoint.h"
