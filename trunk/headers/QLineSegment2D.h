@@ -55,6 +55,13 @@ namespace Math
 /// </summary>
 class QDllExport QLineSegment2D : public QLineSegment<QVector2>
 {
+    // BASE CLASS USINGS
+    // ------------------
+public:
+
+    using QLineSegment<QVector2>::Intersection;
+    using QLineSegment<QVector2>::IntersectionPoint;
+
 
 	// CONSTRUCTORS
 	// ---------------
@@ -140,18 +147,6 @@ public:
     }
 
     /// <summary>
-    /// This method receives a orb, and computes if it intersects the resident segment or not.
-    /// </summary>
-    /// <param name="orb">[IN] The orb to be compared to.</param>
-    /// <returns>
-    /// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
-    /// </returns>
-    inline bool Intersection(const QBaseOrb<QVector2> &orb) const
-    {
-         return QLineSegment<QVector2>::Intersection(orb);
-    };
-
-    /// <summary>
 	/// This method receives a 2D triangle, and computes whether they intersect each other or not.
 	/// </summary>
 	/// <param name="triangle">[IN] The 2D triangle to be compared to.</param>
@@ -163,23 +158,14 @@ public:
 	/// <summary>
 	/// This method receives a 2D quadrilateral, and computes whether they intersect each other or not.
 	/// </summary>
+    /// <remarks>
+    /// If the quadrilateral is complex or concave, the result is undefined.
+    /// </remarks>
 	/// <param name="quad">[IN] The 2D quadrilateral to be compared to.</param>
 	/// <returns>
 	/// True if the segment intersects the quadrilateral (or if they were either tangent or coincident). Otherwise returns false.
 	/// </returns>
 	bool Intersection(const QBaseQuadrilateral& quad) const;
-
-	/// <summary>
-	/// This method receives another line segment and computes whether they intersect each other or not.
-	/// </summary>
-	/// <param name="segment">[IN] The segment to be compared to.</param>
-	/// <returns>
-	/// True if they intersect each other (or if they were coincident), false if they don't.
-	/// </returns>
-	inline bool Intersection(const QBaseLineSegment<QVector2> &segment) const
-	{
-		return QLineSegment<QVector2>::Intersection(segment);
-	}
 
 	/// <summary>
 	/// This method applies to the resident line segment the rotation defined by the provided angle
@@ -333,67 +319,6 @@ public:
         QLineSegment2D auxLineSegment = *this;
 	    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
         return auxLineSegment;
-	}
-
- 	/// <summary>
-	/// This method receives another line segment, and computes the intersection point between them,
-	/// if it exists.
-	/// </summary>
-	/// <param name="segment">[IN] The segment to be compared to.</param>
-	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One and E_Infinite.
-	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
-	/// If segments are totally or parcially coincident only a single point will be stored in the output
-	///  parameter, presumingly an endpoint belonging to one of the segments.
-	/// </remarks>
-	inline EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2>& segment, QBaseVector2& vIntersection) const
-	{
-		return QLineSegment<QVector2>::IntersectionPoint(segment, rcast_q(vIntersection, QVector2&));
-	}
-
-	/// <summary>
-	/// This method receives a 2D orb, computes the intersections with the resident line segment and stores the intersection point
-	/// closest to A end point, if it exists.
-	/// </summary>
-	/// <param name="orb">[IN] The orb whose intersection point with resident line segment we want to check.</param>
-    /// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to A end point.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
-	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
-	/// If there are two intersections, the output parameter stores only the closest to A end point.
-	/// </remarks>
-	EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection) const
-	{
-        return QLineSegment<QVector2>::IntersectionPoint(orb, rcast_q(vIntersection, QVector2&));
-	}
-
-    /// <summary>
-	/// This method receives a 2D orb, and computes and stores the points where the resident line segment intersects with it,
-    /// if they exists.
-	/// </summary>
-	/// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
-    /// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to A end point.</param>
-    /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to A end point.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
-	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br>
-	/// If there is one intersection, it's stored in the first output parameter.<br>
-	/// If there are two intersections, the first output parameter stores the closest to A end point of
-    ///  line segment, and the second one stores the closest to B end point.
-	/// </remarks>
-	EQIntersections IntersectionPoint (const QBaseOrb<QVector2> &orb, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
-	{
-        return QLineSegment<QVector2>::IntersectionPoint(orb, rcast_q(vIntersection1, QVector2&), rcast_q(vIntersection2, QVector2&));
 	}
 
 	/// <summary>

@@ -51,6 +51,12 @@ namespace Math
 
 bool QLineSegment2D::Intersection (const QBaseTriangle<QVector2>& triangle) const
 {
+    // The endpoints of the line shouldn't coincide
+    QE_ASSERT(this->A != this->B);
+
+    // The vertices of the triangle shouldn't coincide
+    QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A);
+
 	// Just checking if the segment instersects with any edge of the triangle.
 
 	if ( this->Intersection(QLineSegment2D(triangle.A, triangle.B)) ||
@@ -65,6 +71,14 @@ bool QLineSegment2D::Intersection (const QBaseTriangle<QVector2>& triangle) cons
 
 bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quad) const
 {
+    // The endpoints of the line shouldn't coincide
+    QE_ASSERT(this->A != this->B);
+
+    // The vertices of the quadrilateral shouldn't coincide
+    QE_ASSERT(quad.A != quad.B && quad.A != quad.C && quad.A != quad.D && 
+              quad.B != quad.C && quad.B != quad.D &&
+              quad.C != quad.D);
+
 	if ( this->Intersection(QLineSegment2D(quad.A, quad.B)) ||
          this->Intersection(QLineSegment2D(quad.B, quad.C)) ||
          this->Intersection(QLineSegment2D(quad.C, quad.D)) ||
@@ -78,6 +92,12 @@ bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quad) const
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>& triangle, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
 {
+    // The endpoints of the line shouldn't coincide
+    QE_ASSERT(this->A != this->B);
+
+    // The vertices of the triangle shouldn't coincide
+    QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A);
+
     const bool &A_IS_INSIDE = PointInsideTriangle(triangle, this->A);
     const bool &B_IS_INSIDE = PointInsideTriangle(triangle, this->B);
 
@@ -697,6 +717,14 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
 {
+    // The endpoints of the line shouldn't coincide
+    QE_ASSERT(this->A != this->B);
+
+    // The vertices of the quadrilateral shouldn't coincide
+    QE_ASSERT(quad.A != quad.B && quad.A != quad.C && quad.A != quad.D && 
+              quad.B != quad.C && quad.B != quad.D &&
+              quad.C != quad.D);
+
     const bool &A_IS_INSIDE = PointInsideQuadrilateral(quad, this->A);
     const bool &B_IS_INSIDE = PointInsideQuadrilateral(quad, this->B);
 
