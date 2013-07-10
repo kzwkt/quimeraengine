@@ -199,18 +199,18 @@ bool Setup()
 	short* pI = NULL;
 	pIndex->Lock(0,0, (void**)&pI, 0);
 
-	pI[0] = 0; pI[1] = 1; pI[2] = 2; 
-	pI[3] = 2; pI[4] = 3; pI[5] = 0; 
-	pI[6] = 1; pI[7] = 5; pI[8] = 6; 
-	pI[9] = 6; pI[10] = 2; pI[11] = 1; 
-	pI[12] = 0; pI[13] = 4; pI[14] = 5; 
-	pI[15] = 5; pI[16] = 1; pI[17] = 0; 
-	pI[18] = 7; pI[19] = 3; pI[20] = 2; 
-	pI[21] = 2; pI[22] = 6; pI[23] = 7; 
-	pI[24] = 6; pI[25] = 5; pI[26] = 4; 
-	pI[27] = 4; pI[28] = 7; pI[29] = 6; 
-	pI[30] = 4; pI[31] = 0; pI[32] = 3; 
-	pI[33] = 3; pI[34] = 7; pI[35] = 4; 
+	pI[0] = 2; pI[1] = 1; pI[2] = 0; 
+	pI[3] = 0; pI[4] = 3; pI[5] = 2; 
+	pI[6] = 6; pI[7] = 5; pI[8] = 1; 
+	pI[9] = 1; pI[10] = 2; pI[11] = 6; 
+	pI[12] = 5; pI[13] = 4; pI[14] = 0; 
+	pI[15] = 0; pI[16] = 1; pI[17] = 5; 
+	pI[18] = 2; pI[19] = 3; pI[20] = 7; 
+	pI[21] = 7; pI[22] = 6; pI[23] = 2; 
+	pI[24] = 4; pI[25] = 5; pI[26] = 6; 
+	pI[27] = 6; pI[28] = 7; pI[29] = 4; 
+	pI[30] = 3; pI[31] = 0; pI[32] = 4; 
+	pI[33] = 4; pI[34] = 7; pI[35] = 3; 
 
 	pIndex->Unlock();
 
@@ -393,9 +393,9 @@ bool Display(float timeDelta)
             pV[2].x = Hexahedron1.C.x; pV[2].y = Hexahedron1.C.y; pV[2].z = Hexahedron1.C.z;
             pV[3].x = Hexahedron1.D.x; pV[3].y = Hexahedron1.D.y; pV[3].z = Hexahedron1.D.z;
             pV[4].x = Hexahedron1.E.x; pV[4].y = Hexahedron1.E.y; pV[4].z = Hexahedron1.E.z;
-            pV[5].x = Hexahedron1.F.x; pV[5].y = Hexahedron1.F.y; pV[5].z = Hexahedron1.F.z;
+            pV[5].x = Hexahedron1.H.x; pV[5].y = Hexahedron1.H.y; pV[5].z = Hexahedron1.H.z;
             pV[6].x = Hexahedron1.G.x; pV[6].y = Hexahedron1.G.y; pV[6].z = Hexahedron1.G.z;
-            pV[7].x = Hexahedron1.H.x; pV[7].y = Hexahedron1.H.y; pV[7].z = Hexahedron1.H.z;
+            pV[7].x = Hexahedron1.F.x; pV[7].y = Hexahedron1.F.y; pV[7].z = Hexahedron1.F.z;
             
             pVertex->Unlock();
         }
@@ -409,9 +409,9 @@ bool Display(float timeDelta)
             pV[2].x = Hexahedron2.C.x; pV[2].y = Hexahedron2.C.y; pV[2].z = Hexahedron2.C.z;
             pV[3].x = Hexahedron2.D.x; pV[3].y = Hexahedron2.D.y; pV[3].z = Hexahedron2.D.z;
             pV[4].x = Hexahedron2.E.x; pV[4].y = Hexahedron2.E.y; pV[4].z = Hexahedron2.E.z;
-            pV[5].x = Hexahedron2.F.x; pV[5].y = Hexahedron2.F.y; pV[5].z = Hexahedron2.F.z;
+            pV[5].x = Hexahedron2.H.x; pV[5].y = Hexahedron2.H.y; pV[5].z = Hexahedron2.H.z;
             pV[6].x = Hexahedron2.G.x; pV[6].y = Hexahedron2.G.y; pV[6].z = Hexahedron2.G.z;
-            pV[7].x = Hexahedron2.H.x; pV[7].y = Hexahedron2.H.y; pV[7].z = Hexahedron2.H.z;
+            pV[7].x = Hexahedron2.F.x; pV[7].y = Hexahedron2.F.y; pV[7].z = Hexahedron2.F.z;
             
             pVertex->Unlock();
         }

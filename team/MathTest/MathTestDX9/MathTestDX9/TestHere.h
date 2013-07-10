@@ -47,23 +47,8 @@ void Test(float fTimeDelta)
     Triangle3D2.B.x = -2.0f; Triangle3D2.B.y = 0.0f; Triangle3D2.B.z = 2.0f;
     Triangle3D2.C.x = -0.6f; Triangle3D2.C.y = 0.0f; Triangle3D2.C.z = 2.0f;
 
-    Hexahedron1.A.x = -0.5f; Hexahedron1.A.y = 0.5f;  Hexahedron1.A.z = 0.5f;
-    Hexahedron1.B.x = -0.5f; Hexahedron1.B.y = 0.5f;  Hexahedron1.B.z = -0.5f;
-    Hexahedron1.C.x = -0.5f; Hexahedron1.C.y = -0.5f; Hexahedron1.C.z = -0.5f;
-    Hexahedron1.D.x = -0.5f; Hexahedron1.D.y = -0.5f; Hexahedron1.D.z = 0.5f;
-    Hexahedron1.E.x = 0.5f;  Hexahedron1.E.y = 0.5f;  Hexahedron1.E.z = 0.5f;
-    Hexahedron1.F.x = 0.5f;  Hexahedron1.F.y = 0.5f;  Hexahedron1.F.z = -0.5f;
-    Hexahedron1.G.x = 0.5f;  Hexahedron1.G.y = -0.5f; Hexahedron1.G.z = -0.5f;
-    Hexahedron1.H.x = 0.5f;  Hexahedron1.H.y = -0.5f; Hexahedron1.H.z = 0.5f;
-
-    Hexahedron2.A.x = -0.5f; Hexahedron2.A.y = 0.5f;  Hexahedron2.A.z = 0.5f;
-    Hexahedron2.B.x = -0.5f; Hexahedron2.B.y = 0.5f;  Hexahedron2.B.z = -0.5f;
-    Hexahedron2.C.x = -0.5f; Hexahedron2.C.y = -0.5f; Hexahedron2.C.z = -0.5f;
-    Hexahedron2.D.x = -0.5f; Hexahedron2.D.y = -0.5f; Hexahedron2.D.z = 0.5f;
-    Hexahedron2.E.x = 0.5f;  Hexahedron2.E.y = 0.5f;  Hexahedron2.E.z = 0.5f;
-    Hexahedron2.F.x = 0.5f;  Hexahedron2.F.y = 0.5f;  Hexahedron2.F.z = -0.5f;
-    Hexahedron2.G.x = 0.5f;  Hexahedron2.G.y = -0.5f; Hexahedron2.G.z = -0.5f;
-    Hexahedron2.H.x = 0.5f;  Hexahedron2.H.y = -0.5f; Hexahedron2.H.z = 0.5f;
+    Hexahedron1 = QHexahedron<VectorType>::GetUnitCube();
+    Hexahedron2 = QHexahedron<VectorType>::GetUnitCube();
 
     Sphere1.Center.x = 0.0f; Sphere1.Center.y = 0.0f; Sphere1.Center.z = 0.0f;
     Sphere1.Radius = 1.0f;
