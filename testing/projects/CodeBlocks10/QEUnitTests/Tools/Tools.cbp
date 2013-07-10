@@ -137,6 +137,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QHexahedron_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QLineSegment2D_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

@@ -638,7 +638,7 @@ public:
 					}
 				}
 			}
-            else if (!A_IS_VERTEX && !B_IS_VERTEX) // Both line segment end points are outside triangle.
+            else if (!A_IS_INSIDE && !B_IS_INSIDE) // Both line segment end points are outside triangle.
             {
                 VectorType vPointAB, vPointBC, vPointCA;
 
@@ -1535,12 +1535,12 @@ public:
     /// </remarks>
     inline float_q MaxDistance(const QBasePlane &plane) const
     {
-        const float_q &DIST_A = plane.As<QPlane>().PointDistance(this->A);
-        const float_q &DIST_B = plane.As<QPlane>().PointDistance(this->B);
+        const float_q &DIST_A = rcast_q(plane, QPlane&).PointDistance(this->A);
+        const float_q &DIST_B = rcast_q(plane, QPlane&).PointDistance(this->B);
 
         return std::max(DIST_A, DIST_B);
     }
-    
+
     /// <summary>
     /// Calculates the minimum distance between the resident line segment and a plane provided.
     /// </summary>
@@ -1553,8 +1553,8 @@ public:
     /// </remarks>
     inline float_q MinDistance(const QBasePlane &plane) const
     {
-        const float_q &DIST_A = plane.As<QPlane>().PointDistance(this->A);
-        const float_q &DIST_B = plane.As<QPlane>().PointDistance(this->B);
+        const float_q &DIST_A = rcast_q(plane, QPlane&).PointDistance(this->A);
+        const float_q &DIST_B = rcast_q(plane, QPlane&).PointDistance(this->B);
 
         return std::min(DIST_A, DIST_B);
     }

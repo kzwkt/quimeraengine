@@ -1094,7 +1094,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_TriangleIsCorrectlyTransformedByCommonQua
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-    const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { (float_q)0.29289321881345243, 1.2928932188134525, SQFloat::_3, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { (float_q)0.29289321881345243, (float_q)1.2928932188134525, SQFloat::_3, SQFloat::_1 };
     const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { (float_q)-1.1213203435596424, (float_q)2.7071067811865479, SQFloat::_4, SQFloat::_1 };
     const float_q EXPECTED_VECTOR_COMPONENTS_C[] = { (float_q)0.29289321881345276, (float_q)2.7071067811865479, SQFloat::_2, SQFloat::_1 };
 
@@ -1211,7 +1211,7 @@ QTEST_CASE_TEMPLATE ( Scale1_CommonTriangleIsCorrectlyScaledWhenUsingCommonVecto
 /// <summary>
 /// Checks that a triangle is not translated when the components of the scaling vector equal one.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Scale1_TriangleIsNotTranslatedWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Scale1_TriangleIsNotScaledWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
     // Preparation
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
