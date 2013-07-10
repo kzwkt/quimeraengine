@@ -136,7 +136,23 @@ public:
 	/// </returns>
     inline static const QHexahedron<VectorType>& GetUnitCube()
     {
-        static const QHexahedron<VectorType> UNITCUBE(-VectorType::GetVectorOfOnes()*SQFloat::_0_5, VectorType::GetVectorOfOnes()*SQFloat::_0_5);
+        static const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
+        static const float_q POINT_COMPONENTS_B[] = {-SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+        static const float_q POINT_COMPONENTS_C[] = { SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+        static const float_q POINT_COMPONENTS_D[] = { SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
+        static const float_q POINT_COMPONENTS_E[] = {-SQFloat::_0_5, -SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
+        static const float_q POINT_COMPONENTS_F[] = { SQFloat::_0_5, -SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
+        static const float_q POINT_COMPONENTS_G[] = { SQFloat::_0_5, -SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+        static const float_q POINT_COMPONENTS_H[] = {-SQFloat::_0_5, -SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+
+        static const QHexahedron<VectorType> UNITCUBE = QHexahedron<VectorType>(VectorType(POINT_COMPONENTS_A),
+                                                                                VectorType(POINT_COMPONENTS_B),
+                                                                                VectorType(POINT_COMPONENTS_C),
+                                                                                VectorType(POINT_COMPONENTS_D),
+                                                                                VectorType(POINT_COMPONENTS_E),
+                                                                                VectorType(POINT_COMPONENTS_F),
+                                                                                VectorType(POINT_COMPONENTS_G),
+                                                                                VectorType(POINT_COMPONENTS_H));
         return UNITCUBE;
     }
 
@@ -166,10 +182,10 @@ public:
     /// <returns>
 	/// The rotated hexahedron.
 	/// </returns>
-	inline QHexahedron Rotate(const QQuaternion &qRotation) const
+	inline QHexahedron<VectorType> Rotate(const QQuaternion &qRotation) const
 	{
-        QHexahedron auxHexahedron = *this;
-        SQPoint::Rotate(qRotation, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::Rotate(qRotation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -182,10 +198,10 @@ public:
     /// <returns>
 	/// The rotated hexahedron.
 	/// </returns>
-	inline QHexahedron RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
+	inline QHexahedron<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::RotateWithPivot(qRotation, vPivot, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::RotateWithPivot(qRotation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -196,10 +212,10 @@ public:
     /// <returns>
 	/// The translated hexahedron.
 	/// </returns>
-    inline QHexahedron Translate(const QBaseVector3 &vTranslation) const
+    inline QHexahedron<VectorType> Translate(const QBaseVector3 &vTranslation) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Translate(vTranslation, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Translate(vTranslation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -212,10 +228,10 @@ public:
     /// <returns>
 	/// The translated hexahedron.
 	/// </returns>
-	inline QHexahedron Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+	inline QHexahedron<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -226,10 +242,10 @@ public:
     /// <returns>
 	/// The scaled hexahedron.
 	/// </returns>
-	inline QHexahedron Scale(const QBaseVector3 &vScale) const
+	inline QHexahedron<VectorType> Scale(const QBaseVector3 &vScale) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Scale(vScale, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Scale(vScale, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -242,10 +258,10 @@ public:
     /// <returns>
 	/// The scaled hexahedron.
 	/// </returns>
-	inline QHexahedron Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
+	inline QHexahedron<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Scale(fScaleX, fScaleY, fScaleZ, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -258,10 +274,10 @@ public:
     /// <returns>
 	/// The scaled hexahedron.
 	/// </returns>
-	inline QHexahedron ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
+	inline QHexahedron<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -276,17 +292,20 @@ public:
     /// <returns>
 	/// The scaled hexahedron.
 	/// </returns>
-	inline QHexahedron ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
+	inline QHexahedron<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, fScaleZ, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
     /// <summary>
-	/// This method store in the output parameter the six planes which defines the hexahedron.<br>
-	/// The six planes are:<br>
-	/// <br><ul>
+	/// This method store in the output parameter the six planes which defines the hexahedron.
+	/// </summary>
+    /// <remarks>
+    /// The six planes are:<br>
+	/// <br/>
+    /// <ul>
 	/// <li>plane A, B, C -> ABCD face, stored in element 0 of the array</li>
 	/// <li>plane E, F, G -> EFGH face, stored in element 1 of the array</li>
     /// <li>plane A, E, F -> AEFD face, stored in element 2 of the array</li>
@@ -294,15 +313,17 @@ public:
     /// <li>plane B, C, G -> BCGH face, stored in element 4 of the array</li>
     /// <li>plane C, D, F -> CDFG face, stored in element 5 of the array</li>
     /// </ul>
-	/// </summary>
-	/// <param name="arPlanes">[OUT] An array where to store the six planes. It must have at least six elements.</param>
-	/// <remarks>
-	/// All returned planes are normalized.
+	/// All returned planes are normalized.<br/>
+    /// Vertices of every face must be coplanar to obtain correct results.
 	/// </remarks>
+	/// <param name="arPlanes">[OUT] An array where to store the six planes. It must have at least six elements.</param>
     inline void GetPlanes(QPlane *arPlanes) const
     {
-        arPlanes[0] = QPlane(this->A, this->B, this->C); // ABCD face
-        arPlanes[1] = QPlane(this->E, this->F, this->G); // EFGH face
+        // The parameter shouldn't be null
+        QE_ASSERT(arPlanes != null_q);
+
+        arPlanes[0] = QPlane(this->A, this->D, this->C); // ABCD face
+        arPlanes[1] = QPlane(this->E, this->H, this->G); // EFGH face
         arPlanes[2] = QPlane(this->A, this->E, this->F); // AEFD face
         arPlanes[3] = QPlane(this->A, this->B, this->H); // ABHE face
         arPlanes[4] = QPlane(this->B, this->C, this->G); // BCGH face
@@ -312,13 +333,15 @@ public:
     /// <summary>
 	/// Checks if a point is inside or outside resident hexahedron.
 	/// </summary>
+    /// <remarks>
+	/// Points in the surface of the hexahedron are considered inside it. The hexahedron is supposed to be convex; 
+    /// otherwise, the result is undefined.<br />
+    /// Vertices of every face must be coplanar to obtain correct results.
+	/// </remarks>
 	/// <param name="vPoint">[IN] Point which is being checked.</param>
 	/// <returns>
 	/// True if the point is inside hexahedron, false otherwise.
 	/// </returns>
-	/// <remarks>
-	/// Points in the surface of the hexahedron are considered inside it.
-	/// </remarks>
     inline bool Contains(const VectorType &vPoint) const
     {
         return ( PointsInSameSideOfPlane(vPoint, this->E, this->A, this->B, this->C) &&
@@ -352,25 +375,37 @@ public:
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
     {
-        const float_q &distA = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
-        const float_q &distB = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
-        const float_q &distC = plane.a * this->C.x + plane.b * this->C.y + plane.c * this->C.z + plane.d;
-        const float_q &distD = plane.a * this->D.x + plane.b * this->D.y + plane.c * this->D.z + plane.d;
-        const float_q &distE = plane.a * this->E.x + plane.b * this->E.y + plane.c * this->E.z + plane.d;
-        const float_q &distF = plane.a * this->F.x + plane.b * this->F.y + plane.c * this->F.z + plane.d;
-        const float_q &distG = plane.a * this->G.x + plane.b * this->G.y + plane.c * this->G.z + plane.d;
-        const float_q &distH = plane.a * this->H.x + plane.b * this->H.y + plane.c * this->H.z + plane.d;
+        // If all the vertices of the hexahedron coincide, it might be an erroneous figure
+        QE_ASSERT(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->G || this->A != this->H ||
+                  this->B != this->C || this->B != this->D || this->B != this->E || this->B != this->F || this->B != this->G || this->B != this->G || this->B != this->H ||
+                  this->C != this->D || this->C != this->E || this->C != this->F || this->C != this->G || this->C != this->G || this->C != this->H ||
+                  this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->G || this->D != this->H ||
+                  this->E != this->F || this->E != this->G || this->E != this->G || this->E != this->H ||
+                  this->F != this->G || this->F != this->H ||
+                  this->G != this->H);
 
-        if (SQFloat::IsZero(distA) && SQFloat::IsZero(distB) && SQFloat::IsZero(distC) && SQFloat::IsZero(distD) &&
-            SQFloat::IsZero(distE) && SQFloat::IsZero(distF) && SQFloat::IsZero(distG) && SQFloat::IsZero(distH) )
+        // The plane must not be null
+        QE_ASSERT(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c));
+
+        const float_q& DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
+        const float_q& DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
+        const float_q& DIST_C = plane.a * this->C.x + plane.b * this->C.y + plane.c * this->C.z + plane.d;
+        const float_q& DIST_D = plane.a * this->D.x + plane.b * this->D.y + plane.c * this->D.z + plane.d;
+        const float_q& DIST_E = plane.a * this->E.x + plane.b * this->E.y + plane.c * this->E.z + plane.d;
+        const float_q& DIST_F = plane.a * this->F.x + plane.b * this->F.y + plane.c * this->F.z + plane.d;
+        const float_q& DIST_G = plane.a * this->G.x + plane.b * this->G.y + plane.c * this->G.z + plane.d;
+        const float_q& DIST_H = plane.a * this->H.x + plane.b * this->H.y + plane.c * this->H.z + plane.d;
+
+        if (SQFloat::IsZero(DIST_A) && SQFloat::IsZero(DIST_B) && SQFloat::IsZero(DIST_C) && SQFloat::IsZero(DIST_D) &&
+            SQFloat::IsZero(DIST_E) && SQFloat::IsZero(DIST_F) && SQFloat::IsZero(DIST_G) && SQFloat::IsZero(DIST_H) )
             return EQSpaceRelation::E_Contained;
-        else if ( SQFloat::IsPositive(distA) && SQFloat::IsPositive(distB) && SQFloat::IsPositive(distC) && SQFloat::IsPositive(distD) &&
-            SQFloat::IsPositive(distE) && SQFloat::IsPositive(distF) && SQFloat::IsPositive(distG) && SQFloat::IsPositive(distH) )
+        else if ( SQFloat::IsPositive(DIST_A) && SQFloat::IsPositive(DIST_B) && SQFloat::IsPositive(DIST_C) && SQFloat::IsPositive(DIST_D) &&
+                  SQFloat::IsPositive(DIST_E) && SQFloat::IsPositive(DIST_F) && SQFloat::IsPositive(DIST_G) && SQFloat::IsPositive(DIST_H) )
             return EQSpaceRelation::E_PositiveSide;
-        else if ( SQFloat::IsLessOrEquals(distA, SQFloat::_0) && SQFloat::IsLessOrEquals(distB, SQFloat::_0) &&
-                  SQFloat::IsLessOrEquals(distC, SQFloat::_0) && SQFloat::IsLessOrEquals(distD, SQFloat::_0) &&
-                  SQFloat::IsLessOrEquals(distE, SQFloat::_0) && SQFloat::IsLessOrEquals(distF, SQFloat::_0) &&
-                  SQFloat::IsLessOrEquals(distG, SQFloat::_0) && SQFloat::IsLessOrEquals(distH, SQFloat::_0) )
+        else if ( SQFloat::IsLessOrEquals(DIST_A, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_B, SQFloat::_0) &&
+                  SQFloat::IsLessOrEquals(DIST_C, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_D, SQFloat::_0) &&
+                  SQFloat::IsLessOrEquals(DIST_E, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_F, SQFloat::_0) &&
+                  SQFloat::IsLessOrEquals(DIST_G, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_H, SQFloat::_0) )
             return EQSpaceRelation::E_NegativeSide;
         else
             return EQSpaceRelation::E_BothSides;
@@ -384,10 +419,10 @@ public:
     /// <returns>
 	/// The rotated hexahedron.
 	/// </returns>
-	inline QHexahedron Rotate(const QRotationMatrix3x3 &rotation) const
+	inline QHexahedron<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
 	{
-        QHexahedron auxHexahedron = *this;
-        SQPoint::Rotate(rotation, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+        SQPoint::Rotate(rotation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -400,10 +435,10 @@ public:
     /// <returns>
 	/// The rotated hexahedron.
 	/// </returns>
-	inline QHexahedron RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
+	inline QHexahedron<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::RotateWithPivot(rotation, vPivot, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::RotateWithPivot(rotation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -414,10 +449,10 @@ public:
     /// <returns>
 	/// The translated hexahedron.
 	/// </returns>
-    inline QHexahedron Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
+    inline QHexahedron<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Translate(translation, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Translate(translation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -428,10 +463,10 @@ public:
     /// <returns>
 	/// The translated hexahedron.
 	/// </returns>
-    inline QHexahedron Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
+    inline QHexahedron<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Translate(translation, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Translate(translation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -442,10 +477,10 @@ public:
     /// <returns>
 	/// The scaled hexahedron.
 	/// </returns>
-	inline QHexahedron Scale(const QScalingMatrix3x3 &scale) const
+	inline QHexahedron<VectorType> Scale(const QScalingMatrix3x3 &scale) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Scale(scale, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Scale(scale, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -458,10 +493,10 @@ public:
     /// <returns>
 	/// The scaled hexahedron.
 	/// </returns>
-	inline QHexahedron ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
+	inline QHexahedron<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::ScaleWithPivot(scale, vPivot, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::ScaleWithPivot(scale, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -472,10 +507,10 @@ public:
     /// <returns>
 	/// The transformed hexahedron.
 	/// </returns>
-	inline QHexahedron Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
+	inline QHexahedron<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Transform(transformation, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Transform(transformation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -486,10 +521,10 @@ public:
     /// <returns>
 	/// The transformed hexahedron.
 	/// </returns>
-	inline QHexahedron Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
+	inline QHexahedron<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Transform(transformation, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Transform(transformation, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -500,10 +535,10 @@ public:
     /// <returns>
 	/// The converted hexahedron.
 	/// </returns>
-	inline QHexahedron Transform(const QSpaceConversionMatrix &spaceConversion) const
+	inline QHexahedron<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::Transform(spaceConversion, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::Transform(spaceConversion, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -519,10 +554,10 @@ public:
     /// <returns>
 	/// The transformed hexahedron.
 	/// </returns>
-	inline QHexahedron TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
+	inline QHexahedron<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::TransformWithPivot(transformation, vPivot, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -538,10 +573,10 @@ public:
     /// <returns>
 	/// A reference to the transformed hexahedron.
 	/// </returns>
-	inline QHexahedron TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
+	inline QHexahedron<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
 	{
-        QHexahedron auxHexahedron = *this;
-	    SQPoint::TransformWithPivot(transformation, vPivot, auxHexahedron.template AsPtr<VectorType>(), 8);
+        QHexahedron<VectorType> auxHexahedron = *this;
+	    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxHexahedron, VectorType*), 8);
         return auxHexahedron;
 	}
 
@@ -554,6 +589,22 @@ public:
 	/// </returns>
 	inline bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
 	{
+        // If all the vertices of the hexahedron coincide, it might be an erroneous figure
+        QE_ASSERT(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->G || this->A != this->H ||
+                  this->B != this->C || this->B != this->D || this->B != this->E || this->B != this->F || this->B != this->G || this->B != this->H ||
+                  this->C != this->D || this->C != this->E || this->C != this->F || this->C != this->G || this->C != this->H ||
+                  this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->H ||
+                  this->E != this->F || this->E != this->G || this->E != this->H ||
+                  this->F != this->G || this->F != this->H ||
+                  this->G != this->H);
+        QE_ASSERT(hexahedron.A != hexahedron.B || hexahedron.A != hexahedron.C || hexahedron.A != hexahedron.D || hexahedron.A != hexahedron.E || hexahedron.A != hexahedron.F || hexahedron.A != hexahedron.G || hexahedron.A != hexahedron.H ||
+                  hexahedron.B != hexahedron.C || hexahedron.B != hexahedron.D || hexahedron.B != hexahedron.E || hexahedron.B != hexahedron.F || hexahedron.B != hexahedron.G || hexahedron.B != hexahedron.H ||
+                  hexahedron.C != hexahedron.D || hexahedron.C != hexahedron.E || hexahedron.C != hexahedron.F || hexahedron.C != hexahedron.G || hexahedron.C != hexahedron.H ||
+                  hexahedron.D != hexahedron.E || hexahedron.D != hexahedron.F || hexahedron.D != hexahedron.G || hexahedron.D != hexahedron.H ||
+                  hexahedron.E != hexahedron.F || hexahedron.E != hexahedron.G || hexahedron.E != hexahedron.H ||
+                  hexahedron.F != hexahedron.G || hexahedron.F != hexahedron.H ||
+                  hexahedron.G != hexahedron.H);
+
 	    return ( this->Contains(hexahedron.A) || this->Contains(hexahedron.B) || this->Contains(hexahedron.C) || this->Contains(hexahedron.D) ||
                  this->Contains(hexahedron.E) || this->Contains(hexahedron.F) || this->Contains(hexahedron.G) || this->Contains(hexahedron.H) ||
                  QLineSegment3D<VectorType>(this->A, this->B).Intersection(hexahedron) ||
@@ -582,6 +633,18 @@ public:
 	/// </returns>
     inline QHexahedron<VectorType> ProjectToPlane(const QPlane &plane) const
     {
+        // If all the vertices of the hexahedron coincide, it might be an erroneous figure
+        QE_ASSERT(this->A != this->B || this->A != this->C || this->A != this->D || this->A != this->E || this->A != this->F || this->A != this->G || this->A != this->H ||
+                  this->B != this->C || this->B != this->D || this->B != this->E || this->B != this->F || this->B != this->G || this->B != this->H ||
+                  this->C != this->D || this->C != this->E || this->C != this->F || this->C != this->G || this->C != this->H ||
+                  this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->H ||
+                  this->E != this->F || this->E != this->G || this->E != this->H ||
+                  this->F != this->G || this->F != this->H ||
+                  this->G != this->H);
+
+        // The plane must not be null
+        QE_ASSERT(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c));
+
         return QHexahedron<VectorType>(plane.PointProjection(this->A),
                                        plane.PointProjection(this->B),
                                        plane.PointProjection(this->C),

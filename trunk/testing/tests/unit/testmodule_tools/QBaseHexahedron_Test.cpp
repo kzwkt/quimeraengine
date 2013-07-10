@@ -84,7 +84,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 }
 
 /// <summary>
-/// Checks if copy constructor sets segment's points properly.
+/// Checks if copy constructor sets hexahedron's points properly.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {

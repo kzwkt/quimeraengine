@@ -46735,7 +46735,7 @@
 1360795530 h:\quimeraengine\qesvn\trunk\headers\externaldefinitions.h
 	"Configuration.h"
 
-1373134006 h:\quimeraengine\qesvn\trunk\headers\configuration.h
+1373400589 h:\quimeraengine\qesvn\trunk\headers\configuration.h
 
 1360795531 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasedualquaternion_test.cpp
 	<boost/test/auto_unit_test.hpp>
@@ -49611,7 +49611,7 @@
 	<fstream>
 	"QSimpleConfigLoader.h"
 
-1367006184 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasehexahedron_test.cpp
+1373187764 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasehexahedron_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	<boost/mpl/list.hpp>
@@ -60779,4 +60779,11 @@
 	"SQPoint.h"
 	"QBaseTriangle.h"
 	"QBaseQuadrilateral.h"
+
+1373136582 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qlinesegment2d_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QLineSegment2D.h"
+	"QTransformationMatrix3x3.h"
 
