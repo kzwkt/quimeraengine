@@ -3172,47 +3172,48 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsShareVertex_Test, T
 #endif
 
     const QHexahedron<T> HEXAHEDRON2 = QHexahedron<T>::GetUnitCube();
+    const QHexahedron<T> HEXAHEDRON1 = HEXAHEDRON2;
 
-    const QHexahedron<T> HEXAHEDRON1_POS1 = HEXAHEDRON2.Translate(-SQFloat::_1, SQFloat::_1, SQFloat::_1);
-    const QHexahedron<T> HEXAHEDRON1_POS2 = HEXAHEDRON2.Translate(-SQFloat::_1, -SQFloat::_1, SQFloat::_1);
-    const QHexahedron<T> HEXAHEDRON1_POS3 = HEXAHEDRON2.Translate(-SQFloat::_1, SQFloat::_1, -SQFloat::_1);
-    const QHexahedron<T> HEXAHEDRON1_POS4 = HEXAHEDRON2.Translate(-SQFloat::_1, -SQFloat::_1, -SQFloat::_1);
+    const QVector3 TRANSLATION_POS1 = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_1);
+    const QVector3 TRANSLATION_POS2 = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_1);
+    const QVector3 TRANSLATION_POS3 = QVector3(-SQFloat::_1, SQFloat::_1, -SQFloat::_1);
+    const QVector3 TRANSLATION_POS4 = QVector3(-SQFloat::_1, -SQFloat::_1, -SQFloat::_1);
 
-    const QHexahedron<T> HEXAHEDRON1_POS1_ROT1 = HEXAHEDRON1_POS1;
-    const QHexahedron<T> HEXAHEDRON1_POS1_ROT2 = HEXAHEDRON1_POS1.Rotate(QQuaternion(QUARTER_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS1_ROT3 = HEXAHEDRON1_POS1.Rotate(QQuaternion(HALF_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS1_ROT4 = HEXAHEDRON1_POS1.Rotate(QQuaternion(THREEQUARTERS_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS1_ROT5 = HEXAHEDRON1_POS1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS1_ROT6 = HEXAHEDRON1_POS1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS1_ROT7 = HEXAHEDRON1_POS1.Rotate(QQuaternion(QUARTER_ROTATION, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS1_ROT8 = HEXAHEDRON1_POS1.Rotate(QQuaternion(-QUARTER_ROTATION, HALF_ROTATION, SQFloat::_0));
+    const QHexahedron<T> HEXAHEDRON1_POS1_ROT1 = HEXAHEDRON1.Translate(TRANSLATION_POS1);
+    const QHexahedron<T> HEXAHEDRON1_POS1_ROT2 = HEXAHEDRON1.Rotate(QQuaternion(QUARTER_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS1);
+    const QHexahedron<T> HEXAHEDRON1_POS1_ROT3 = HEXAHEDRON1.Rotate(QQuaternion(HALF_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS1);
+    const QHexahedron<T> HEXAHEDRON1_POS1_ROT4 = HEXAHEDRON1.Rotate(QQuaternion(THREEQUARTERS_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS1);
+    const QHexahedron<T> HEXAHEDRON1_POS1_ROT5 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS1);
+    const QHexahedron<T> HEXAHEDRON1_POS1_ROT6 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS1);
+    const QHexahedron<T> HEXAHEDRON1_POS1_ROT7 = HEXAHEDRON1.Rotate(QQuaternion(QUARTER_ROTATION, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS1);
+    const QHexahedron<T> HEXAHEDRON1_POS1_ROT8 = HEXAHEDRON1.Rotate(QQuaternion(-QUARTER_ROTATION, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS1);
 
-    const QHexahedron<T> HEXAHEDRON1_POS2_ROT1 = HEXAHEDRON1_POS2;
-    const QHexahedron<T> HEXAHEDRON1_POS2_ROT2 = HEXAHEDRON1_POS2.Rotate(QQuaternion(QUARTER_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS2_ROT3 = HEXAHEDRON1_POS2.Rotate(QQuaternion(HALF_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS2_ROT4 = HEXAHEDRON1_POS2.Rotate(QQuaternion(THREEQUARTERS_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS2_ROT5 = HEXAHEDRON1_POS2.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS2_ROT6 = HEXAHEDRON1_POS2.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS2_ROT7 = HEXAHEDRON1_POS2.Rotate(QQuaternion(QUARTER_ROTATION, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS2_ROT8 = HEXAHEDRON1_POS2.Rotate(QQuaternion(-QUARTER_ROTATION, HALF_ROTATION, SQFloat::_0));
+    const QHexahedron<T> HEXAHEDRON1_POS2_ROT1 = HEXAHEDRON1.Translate(TRANSLATION_POS2);
+    const QHexahedron<T> HEXAHEDRON1_POS2_ROT2 = HEXAHEDRON1.Rotate(QQuaternion(QUARTER_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS2);
+    const QHexahedron<T> HEXAHEDRON1_POS2_ROT3 = HEXAHEDRON1.Rotate(QQuaternion(HALF_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS2);
+    const QHexahedron<T> HEXAHEDRON1_POS2_ROT4 = HEXAHEDRON1.Rotate(QQuaternion(THREEQUARTERS_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS2);
+    const QHexahedron<T> HEXAHEDRON1_POS2_ROT5 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS2);
+    const QHexahedron<T> HEXAHEDRON1_POS2_ROT6 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS2);
+    const QHexahedron<T> HEXAHEDRON1_POS2_ROT7 = HEXAHEDRON1.Rotate(QQuaternion(QUARTER_ROTATION, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS2);
+    const QHexahedron<T> HEXAHEDRON1_POS2_ROT8 = HEXAHEDRON1.Rotate(QQuaternion(-QUARTER_ROTATION, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS2);
 
-    const QHexahedron<T> HEXAHEDRON1_POS3_ROT1 = HEXAHEDRON1_POS3;
-    const QHexahedron<T> HEXAHEDRON1_POS3_ROT2 = HEXAHEDRON1_POS3.Rotate(QQuaternion(QUARTER_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS3_ROT3 = HEXAHEDRON1_POS3.Rotate(QQuaternion(HALF_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS3_ROT4 = HEXAHEDRON1_POS3.Rotate(QQuaternion(THREEQUARTERS_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS3_ROT5 = HEXAHEDRON1_POS3.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS3_ROT6 = HEXAHEDRON1_POS3.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS3_ROT7 = HEXAHEDRON1_POS3.Rotate(QQuaternion(QUARTER_ROTATION, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS3_ROT8 = HEXAHEDRON1_POS3.Rotate(QQuaternion(-QUARTER_ROTATION, HALF_ROTATION, SQFloat::_0));
+    const QHexahedron<T> HEXAHEDRON1_POS3_ROT1 = HEXAHEDRON1.Translate(TRANSLATION_POS3);
+    const QHexahedron<T> HEXAHEDRON1_POS3_ROT2 = HEXAHEDRON1.Rotate(QQuaternion(QUARTER_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS3);
+    const QHexahedron<T> HEXAHEDRON1_POS3_ROT3 = HEXAHEDRON1.Rotate(QQuaternion(HALF_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS3);
+    const QHexahedron<T> HEXAHEDRON1_POS3_ROT4 = HEXAHEDRON1.Rotate(QQuaternion(THREEQUARTERS_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS3);
+    const QHexahedron<T> HEXAHEDRON1_POS3_ROT5 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS3);
+    const QHexahedron<T> HEXAHEDRON1_POS3_ROT6 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS3);
+    const QHexahedron<T> HEXAHEDRON1_POS3_ROT7 = HEXAHEDRON1.Rotate(QQuaternion(QUARTER_ROTATION, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS3);
+    const QHexahedron<T> HEXAHEDRON1_POS3_ROT8 = HEXAHEDRON1.Rotate(QQuaternion(-QUARTER_ROTATION, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS3);
 
-    const QHexahedron<T> HEXAHEDRON1_POS4_ROT1 = HEXAHEDRON1_POS4;
-    const QHexahedron<T> HEXAHEDRON1_POS4_ROT2 = HEXAHEDRON1_POS4.Rotate(QQuaternion(QUARTER_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS4_ROT3 = HEXAHEDRON1_POS4.Rotate(QQuaternion(HALF_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS4_ROT4 = HEXAHEDRON1_POS4.Rotate(QQuaternion(THREEQUARTERS_ROTATION, SQFloat::_0, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS4_ROT5 = HEXAHEDRON1_POS4.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS4_ROT6 = HEXAHEDRON1_POS4.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS4_ROT7 = HEXAHEDRON1_POS4.Rotate(QQuaternion(QUARTER_ROTATION, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_POS4_ROT8 = HEXAHEDRON1_POS4.Rotate(QQuaternion(-QUARTER_ROTATION, HALF_ROTATION, SQFloat::_0));
+    const QHexahedron<T> HEXAHEDRON1_POS4_ROT1 = HEXAHEDRON1.Translate(TRANSLATION_POS4);
+    const QHexahedron<T> HEXAHEDRON1_POS4_ROT2 = HEXAHEDRON1.Rotate(QQuaternion(QUARTER_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS4);
+    const QHexahedron<T> HEXAHEDRON1_POS4_ROT3 = HEXAHEDRON1.Rotate(QQuaternion(HALF_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS4);
+    const QHexahedron<T> HEXAHEDRON1_POS4_ROT4 = HEXAHEDRON1.Rotate(QQuaternion(THREEQUARTERS_ROTATION, SQFloat::_0, SQFloat::_0)).Translate(TRANSLATION_POS4);
+    const QHexahedron<T> HEXAHEDRON1_POS4_ROT5 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS4);
+    const QHexahedron<T> HEXAHEDRON1_POS4_ROT6 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS4);
+    const QHexahedron<T> HEXAHEDRON1_POS4_ROT7 = HEXAHEDRON1.Rotate(QQuaternion(QUARTER_ROTATION, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS4);
+    const QHexahedron<T> HEXAHEDRON1_POS4_ROT8 = HEXAHEDRON1.Rotate(QQuaternion(-QUARTER_ROTATION, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION_POS4);
 
     const bool EXPECTED_RESULT = true;
 
@@ -3455,16 +3456,16 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheFaceOfOneHexahedronIsPierce
 #endif
 
     const QHexahedron<T> HEXAHEDRON2 = QHexahedron<T>::GetUnitCube();
-    const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube().Translate(SQFloat::_1, SQFloat::_0, SQFloat::_0)
-                                                                    .Rotate(QQuaternion(SQAngle::_QuarterPi, SQAngle::_QuarterPi, SQFloat::_0));
+    const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube().Rotate(QQuaternion(SQAngle::_QuarterPi, SQAngle::_QuarterPi, SQFloat::_0));
 
     // Faces
-    const QHexahedron<T> HEXAHEDRON1_ROT1 = HEXAHEDRON1;
-    const QHexahedron<T> HEXAHEDRON1_ROT2 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_ROT3 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_ROT4 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, -QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_ROT5 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, SQFloat::_0, QUARTER_ROTATION));
-    const QHexahedron<T> HEXAHEDRON1_ROT6 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, SQFloat::_0, -QUARTER_ROTATION));
+    const QVector3 TRANSLATION = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
+    const QHexahedron<T> HEXAHEDRON1_ROT1 = HEXAHEDRON1.Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT2 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT3 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT4 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, -QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT5 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, SQFloat::_0, QUARTER_ROTATION)).Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT6 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, SQFloat::_0, -QUARTER_ROTATION)).Translate(TRANSLATION);
 
     // Corners
     const QHexahedron<T> HEXAHEDRON2_ROT1 = HEXAHEDRON2;
@@ -3603,26 +3604,28 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheOneHexahedronIsPiercedByAnE
 
     // Preparation
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    const QQuaternion INITIAL_ROTATION = QQuaternion(SQAngle::_45, SQAngle::_45, SQFloat::_0);
     const float_q QUARTER_ROTATION = SQAngle::_90;
     const float_q HALF_ROTATION = SQAngle::_180;
     const float_q THREEQUARTERS_ROTATION = SQAngle::_270;
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const QQuaternion INITIAL_ROTATION = QQuaternion(SQAngle::_QuarterPi, SQAngle::_QuarterPi, SQFloat::_0);
     const float_q QUARTER_ROTATION = SQAngle::_HalfPi;
     const float_q HALF_ROTATION = SQAngle::_Pi;
     const float_q THREEQUARTERS_ROTATION = SQAngle::_3HalfsPi;
 #endif
 
     const QHexahedron<T> HEXAHEDRON2 = QHexahedron<T>::GetUnitCube();
-    const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube().Rotate(QQuaternion(SQAngle::_QuarterPi, SQAngle::_QuarterPi, SQFloat::_0))
-                                                                    .Translate((float_q)0.6, (float_q)1.0, SQFloat::_0);
-
+    const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube().Rotate(INITIAL_ROTATION);
+    
     // Faces
-    const QHexahedron<T> HEXAHEDRON1_ROT1 = HEXAHEDRON1;
-    const QHexahedron<T> HEXAHEDRON1_ROT2 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_ROT3 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_ROT4 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, -QUARTER_ROTATION, SQFloat::_0));
-    const QHexahedron<T> HEXAHEDRON1_ROT5 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, SQFloat::_0, QUARTER_ROTATION));
-    const QHexahedron<T> HEXAHEDRON1_ROT6 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, SQFloat::_0, -QUARTER_ROTATION));
+    const QVector3 TRANSLATION = QVector3((float_q)0.6, (float_q)1.0, SQFloat::_0);
+    const QHexahedron<T> HEXAHEDRON1_ROT1 = HEXAHEDRON1.Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT2 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT3 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, HALF_ROTATION, SQFloat::_0)).Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT4 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, -QUARTER_ROTATION, SQFloat::_0)).Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT5 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, SQFloat::_0, QUARTER_ROTATION)).Translate(TRANSLATION);
+    const QHexahedron<T> HEXAHEDRON1_ROT6 = HEXAHEDRON1.Rotate(QQuaternion(SQFloat::_0, SQFloat::_0, -QUARTER_ROTATION)).Translate(TRANSLATION);
 
     // Corners
     const QHexahedron<T> HEXAHEDRON2_ROT1 = HEXAHEDRON2;

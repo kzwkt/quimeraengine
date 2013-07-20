@@ -98,17 +98,17 @@ public:
 public:
 
     /// <summary>
-    /// Gets a square with center in coordinate origin and 1-length edges which are parallels to axes.
+    /// Gets a square with center in coordinate origin and 1-length edges which are parallels to coordinate axis.
     /// </summary>
     /// <returns>
     /// The "unit square".
     /// </returns>
     inline static const QQuadrilateral& GetUnitSquare()
     {
-        static const QQuadrilateral UNITSQUARE(QVector2( SQFloat::_0_5,   SQFloat::_0_5),
-                                               QVector2(-SQFloat::_0_5,   SQFloat::_0_5),
-                                               QVector2(-SQFloat::_0_5,  -SQFloat::_0_5),
-                                               QVector2( SQFloat::_0_5,  -SQFloat::_0_5));
+        static const QQuadrilateral UNITSQUARE(QVector2(-SQFloat::_0_5,   SQFloat::_0_5),
+                                               QVector2( SQFloat::_0_5,   SQFloat::_0_5),
+                                               QVector2( SQFloat::_0_5,  -SQFloat::_0_5),
+                                               QVector2(-SQFloat::_0_5,  -SQFloat::_0_5));
         return UNITSQUARE;
     }
 
@@ -135,10 +135,11 @@ public:
     //Methods
 
     /// <summary>
-    /// Checks if a given point is inside quadrilateral or not.<br>
-    /// This is made in a different way depending on the
-    /// kind of quadrilateral we have (crossed, standard convex or concave).
+    /// Checks if a given point is inside quadrilateral or not.
     /// </summary>
+    /// <remarks>
+    /// If the quadrilateral is a complex figure (two opposite edges intersect), the result will be still correct.
+    /// </remarks>
     /// <param name="vPoint">[IN] The point we want to check.</param>
     /// <returns>
     /// True if the given point is inside quadrilateral, false otherwise.
@@ -194,6 +195,9 @@ public:
     /// <summary>
     /// Computes the interior angle between AB and AD edges of resident quadrilateral.
     /// </summary>
+    /// <remarks>
+    /// The result is always a positive angle, which is less than or equals a straight angle.
+    /// </remarks>
     /// <returns>
     /// A floating point value which is the angle computed.
     /// </returns>
@@ -202,6 +206,9 @@ public:
     /// <summary>
     /// Computes the interior angle between BC and BA edges of resident quadrilateral.
     /// </summary>
+    /// <remarks>
+    /// The result is always a positive angle, which is less than or equals a straight angle.
+    /// </remarks>
     /// <returns>
     /// A floating point value which is the angle computed.
     /// </returns>
@@ -210,6 +217,9 @@ public:
     /// <summary>
     /// Computes the angle between CD and CB edges of resident quadrilateral.
     /// </summary>
+    /// <remarks>
+    /// The result is always a positive angle, which is less than or equals a straight angle.
+    /// </remarks>
     /// <returns>
     /// A floating point value which is the angle computed.
     /// </returns>
@@ -218,6 +228,9 @@ public:
     /// <summary>
     /// Computes the angle between DA and DC edges of resident quadrilateral.
     /// </summary>
+    /// <remarks>
+    /// The result is always a positive angle, which is less than or equals a straight angle.
+    /// </remarks>
     /// <returns>
     /// A floating point value which is the angle computed.
     /// </returns>
