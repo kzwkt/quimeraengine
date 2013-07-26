@@ -1522,7 +1522,7 @@ QTEST_CASE_TEMPLATE ( Intersection4_AssertionFailsWhenRayDirectionIsNull_Test, T
 }
 
 /// <summary>
-/// Checks that an assertion fails when the direction of the ray is null.
+/// Checks that an assertion fails when all the vertices of the triangle coincide.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection4_AssertionFailsWhenAllTriangleVerticesCoincide_Test, TQTemplateTypes )
 {
@@ -2285,7 +2285,7 @@ QTEST_CASE_TEMPLATE ( Intersection5_AssertionFailsWhenRayDirectionIsNull_Test, T
 }
 
 /// <summary>
-/// Checks that an assertion fails when the direction of the ray is null.
+/// Checks that an assertion fails when all the vertices of the hexahedron coincide.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection5_AssertionFailsWhenAllHexahedronVerticesCoincide_Test, TQTemplateTypes )
 {
@@ -5217,11 +5217,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionIntersectionsWhen
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_FIRSTPOINT_DFGC = VERTEX_G.Lerp(SQFloat::_0_5, VERTEX_F);
-    const T EXPECTED_FIRSTPOINT_ADFE = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_D);;
-    const T EXPECTED_FIRSTPOINT_AEHB = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_E);;
-    const T EXPECTED_FIRSTPOINT_CGHB = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G);;
-    const T EXPECTED_FIRSTPOINT_ABCD = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);;
-    const T EXPECTED_FIRSTPOINT_EFGH = VERTEX_E.Lerp(SQFloat::_0_5, VERTEX_F);;
+    const T EXPECTED_FIRSTPOINT_ADFE = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_D);
+    const T EXPECTED_FIRSTPOINT_AEHB = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_E);
+    const T EXPECTED_FIRSTPOINT_CGHB = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G);
+    const T EXPECTED_FIRSTPOINT_ABCD = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const T EXPECTED_FIRSTPOINT_EFGH = VERTEX_E.Lerp(SQFloat::_0_5, VERTEX_F);
 
     const T ORIGIN_DFGC = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_G);
     const QVector3 DIRECTION_DFGC = QVector3(EXPECTED_FIRSTPOINT_DFGC - ORIGIN_DFGC).Normalize();
@@ -8852,7 +8852,7 @@ QTEST_CASE_TEMPLATE ( Transform3_RayDoesNotChangeWhenTransformedByIdentityMatrix
 }
 
 /// <summary>
-/// Checks that the ray is nullified when the rotation matrix equals zero.
+/// Checks that the ray is nullified when the matrix equals zero.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Transform3_OriginAndDirectionAreNullifiedWhenMatrixIsZero_Test, TQTemplateTypes )
 {
@@ -8873,7 +8873,7 @@ QTEST_CASE_TEMPLATE ( Transform3_OriginAndDirectionAreNullifiedWhenMatrixIsZero_
     QRay3D<T> ray = RAY.Transform(ZERO_MATRIX);
 
     // Verification
-    BOOST_CHECK(ray.Direction == EXPECTED_RAY.Direction);
+    BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
 /// <summary>
