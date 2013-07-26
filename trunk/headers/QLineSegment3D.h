@@ -63,6 +63,13 @@ namespace Math
 template <class VectorType>
 class QDllExport QLineSegment3D : public QLineSegment<VectorType>
 {
+    // BASE TYPE USINGS
+    // ---------------
+public:
+
+    using QLineSegment<VectorType>::Intersection;
+	using QLineSegment<VectorType>::IntersectionPoint;
+	using QLineSegment<VectorType>::MinDistance;
 
 
  	// CONSTRUCTORS
@@ -150,7 +157,9 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident line segment intersects with the provided plane.<br>
+    /// Checks if resident line segment intersects with the provided plane.
+    /// </summary>
+    /// <remarks>
     /// Since a plane divides space into two sides (positive and negative), we can check how the end points of
     /// the line segment satisfies the plane equation.<br>
     /// Being the plane equation:<br><br>
@@ -167,13 +176,19 @@ public:
     /// If (1) and (2) have equal sign, then there are in the same side of the space from the plane,
     /// and the line segment don't intersects the plane.<br>
     /// If one end point of the line segment lies on the plane, we consider there is an intersection.
-    /// </summary>
+    /// </remarks>
     /// <param name="plane">[IN] The plane we want check if intersects with resident line segment.</param>
     /// <returns>
     /// True if plane and line segment intersects, false otherwise.
     /// </returns>
     inline bool Intersection(const QBasePlane &plane) const
     {
+        // The length of the segment should be greater than zero
+        QE_ASSERT(this->A != this->B);
+
+        // The plane shouldn't be null
+        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
+
         const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
 
         if (SQFloat::IsZero(DIST_A))
@@ -198,6 +213,12 @@ public:
     /// </returns>
     bool Intersection(const QBaseTriangle<VectorType> &triangle) const
     {
+        // The length of the segment should be greater than zero
+        QE_ASSERT(this->A != this->B);
+
+        // Vertices of the triangle should not coincide
+        QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A);
+
         // Calculates if segment intersects with the plane defined by the triangle.
 
         // Plane equation
@@ -234,20 +255,7 @@ public:
         // Tests if the point is inside the triangle.
         return PointInsideTriangle(triangle, vAux);
     }
-
-    /// <summary>
-    /// Checks if resident line segment intersects with the provided sphere.<br>
-    /// If one end point of the line segment lies on the sphere surface, we consider that there is an intersection.
-    /// </summary>
-    /// <param name="orb">[IN] The sphere we want check if intersects with resident line segment.</param>
-    /// <returns>
-    /// True if sphere and line segment intersects, false otherwise.
-    /// </returns>
-    inline bool Intersection(const QBaseOrb<VectorType> &orb) const
-    {
-        return QLineSegment<VectorType>::Intersection(orb);
-    }
-
+    
     /// <summary>
     /// Checks if resident line segment intersects with the provided hexahedron.<br>
     /// If one end point of the line segment lies on one of the hexahedron faces,
@@ -259,6 +267,9 @@ public:
     /// </returns>
     bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
     {
+        // The length of the segment should be greater than zero
+        QE_ASSERT(this->A != this->B);
+
         // Checks if there is an intersection with any face.
         if (CuadrilateralIntersection(*this, hexahedron.A, hexahedron.B, hexahedron.C, hexahedron.D) ||
             CuadrilateralIntersection(*this, hexahedron.E, hexahedron.F, hexahedron.G, hexahedron.H) ||
@@ -271,95 +282,28 @@ public:
         return false;
     }
 
-	/// <summary>
-	/// This method receives another line segment, and computes whether they intersect each other or not.
-	/// </summary>
-	/// <param name="segment">[IN] The segment to be compared to.</param>
-	/// <returns>
-	/// True if they intersect each other (or if they were coincident), false if they don't.
-	/// </returns>
-	inline bool Intersection(const QBaseLineSegment<VectorType> &segment) const
-	{
-		return QLineSegment<VectorType>::Intersection(segment);
-	}
-
-	/// <summary>
-	/// This method receives another line segment, and computes the intersection point between them,
-	/// if it exists.
-	/// </summary>
-	/// <param name="segment">[IN] The segment to be compared to.</param>
-	/// <param name="vIntersection">[OUT] The intersection point, if it exists.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the two line segments, and can take
-    /// the following values: E_None, E_One and E_Infinite.
-	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
-	/// If segments are totally or parcially coincident only a single point will be stored in the output
-	/// parameter, presumingly an endpoint belonging to one of the segments.
-	/// </remarks>
-	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
-	{
-		return QLineSegment<VectorType>::IntersectionPoint(segment, vIntersection);
-	}
-
-	/// <summary>
-	/// This method receives an orb, computes the intersections with the resident line segment and stores the intersection point
-	/// closest to A end point, if it exists.
-	/// </summary>
-	/// <param name="orb">[IN] The orb whose intersection point with resident line segment we want to check.</param>
-    /// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to A end point.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
-	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
-	/// If there are two intersections, the output parameter stores only the closest to A end point.
-	/// </remarks>
-	EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
-	{
-        return QLineSegment<VectorType>::IntersectionPoint(orb, vIntersection);
-	}
-
-    /// <summary>
-	/// This method receives a orb, and computes and stores the points where the resident line segment intersects with it,
-    /// if they exists.
-	/// </summary>
-	/// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
-    /// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to A end point.</param>
-    /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to A end point.</param>
-	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
-	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br>
-	/// If there is one intersection, it's stored in the first output parameter.<br>
-	/// If there are two intersections, the first output parameter stores the closest to A end point of
-    /// line segment, and the second one stores the closest to B end point.
-	/// </remarks>
-	EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
-	{
-        return QLineSegment<VectorType>::IntersectionPoint(orb, vIntersection1, vIntersection2);
-	}
-
     /// <summary>
 	/// This method receives a plane, and computes the point where the resident line segment intersects with it,
     /// if it exists.
 	/// </summary>
+    /// <remarks>
+	/// If there's no intersection point or the line segment lies on plane, the output
+    /// parameter used for storing that point won't be modified.
+	/// </remarks>
 	/// <param name="plane">[IN] The plane whose intersection with resident line segment we want to check.</param>
 	/// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the plane, and can take
     /// the following values: E_None, E_One and E_Infinite.
 	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point or the line segment lies on plane, the output
-    /// parameter used for storing that point won't be modified.
-	/// </remarks>
 	EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
 	{
+        // The length of the segment should be greater than zero
+        QE_ASSERT(this->A != this->B);
+
+        // The plane shouldn't be null
+        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
+
         const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
         const float_q &DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
 
@@ -407,20 +351,21 @@ public:
 	/// This method receives a triangle, computes the points where the resident line segment intersects with it, and stores
     /// the closest intersection to A end point, if it exists.
 	/// </summary>
+    /// <remarks>
+	/// If there's no intersection point or the line segment lies on triangle, the output
+    /// parameter used for storing that point won't be modified.<br>
+    /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
+    /// segment and an edge of the triangle.
+	/// </remarks>
 	/// <param name="triangle">[IN] The triangle whose intersection with resident line segment we want to check.</param>
 	/// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to A end point.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the triangle, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point or the line segment lies on triangle, the output
-    /// parameter used for storing that point won't be modified.<br>
-    /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
-    /// segment and an edge of the triangle.
-	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection) const
     {
+        // [TODO] Thund: This must be optimized
         // Calculates if segment intersects with the plane defined by the triangle.
 		VectorType vAux;
 		return this->IntersectionPoint(triangle, vIntersection, vAux);
@@ -430,6 +375,12 @@ public:
 	/// This method receives a triangle, and computes the points where the resident line segment intersects with it,
     /// if they exists.
 	/// </summary>
+    /// <remarks>
+	/// If there's no intersection point or the line segment lies on triangle, the output
+    /// parameter used for storing that point won't be modified.<br>
+    /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
+    /// segment and an edge of the triangle.
+	/// </remarks>
 	/// <param name="triangle">[IN] The triangle whose intersection with resident line segment we want to check.</param>
 	/// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to A end point of line segment.</param>
     /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to A end point of line segment.</param>
@@ -437,14 +388,14 @@ public:
     /// An enumerated value which represents the number of intersections between the line segment and the triangle, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
-	/// <remarks>
-	/// If there's no intersection point or the line segment lies on triangle, the output
-    /// parameter used for storing that point won't be modified.<br>
-    /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
-    /// segment and an edge of the triangle.
-	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
+        // The length of the segment should be greater than zero
+        QE_ASSERT(this->A != this->B);
+
+        // Vertices of the triangle should not coincide
+        QE_ASSERT(triangle.A != triangle.B && triangle.B != triangle.C && triangle.C != triangle.A);
+
         // Plane equation
         QPlane auxP(triangle.A, triangle.B, triangle.C);
 
@@ -1099,6 +1050,9 @@ public:
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
 	{
+        // The length of the segment should be greater than zero
+        QE_ASSERT(this->A != this->B);
+
         VectorType vAuxPoint, vAux;
         bool bPreviousInt = false;
 
@@ -1304,6 +1258,9 @@ public:
 	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
+        // The length of the segment should be greater than zero
+        QE_ASSERT(this->A != this->B);
+
         VectorType vAuxPoint, vAux1, vAux2;
         bool bPreviousInt = false;
 
@@ -1321,7 +1278,7 @@ public:
             vAuxPoint = vAux1;
             bPreviousInt = true;
         }
-        else if (value1 == EQIntersections::E_Infinite) // Line segment lies in this face (with out intersections with any edge or vertex)
+        else if (value1 == EQIntersections::E_Infinite) // Line segment lies in this face (without intersections with any edge or vertex)
         {
             return EQIntersections::E_Infinite;
         }
@@ -1495,6 +1452,11 @@ public:
                 }
                 return EQIntersections::E_Two;
             }
+            else
+            {
+                vAuxPoint = vAux1;
+                bPreviousInt = true;
+            }
         }
         else if (value6 == EQIntersections::E_Infinite) // Line segment lies in this face (with out intersections with any edge or vertex)
         {
@@ -1526,17 +1488,19 @@ public:
     /// <summary>
     /// Calculates the maximum distance between the resident line segment and a plane provided.
     /// </summary>
+    /// <remarks>
+    /// The plane must be normalized to obtain correct result.
+    /// </remarks>
     /// <param name="plane">[IN] The plane we want to know the maximum distance from the line segment.</param>
     /// <returns>
     /// A floating point value containing the maximum distance between the resident line segment and a plane provided.
     /// </returns>
-    /// <remarks>
-    /// The plane must be normalized to obtain correct result.
-    /// </remarks>
     inline float_q MaxDistance(const QBasePlane &plane) const
     {
-        const float_q &DIST_A = rcast_q(plane, QPlane&).PointDistance(this->A);
-        const float_q &DIST_B = rcast_q(plane, QPlane&).PointDistance(this->B);
+        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
+
+        const float_q &DIST_A = rcast_q(plane, const QPlane&).PointDistance(this->A);
+        const float_q &DIST_B = rcast_q(plane, const QPlane&).PointDistance(this->B);
 
         return std::max(DIST_A, DIST_B);
     }
@@ -1544,61 +1508,49 @@ public:
     /// <summary>
     /// Calculates the minimum distance between the resident line segment and a plane provided.
     /// </summary>
+    /// <remarks>
+    /// The plane must be normalized to obtain correct result.
+    /// </remarks>
     /// <param name="plane">[IN] The plane we want to know the minimum distance from the line segment.</param>
     /// <returns>
     /// A floating point value containing the minimum distance between the resident line segment and a plane provided.
     /// </returns>
-    /// <remarks>
-    /// The plane must be normalized to obtain correct result.
-    /// </remarks>
     inline float_q MinDistance(const QBasePlane &plane) const
     {
-        const float_q &DIST_A = rcast_q(plane, QPlane&).PointDistance(this->A);
-        const float_q &DIST_B = rcast_q(plane, QPlane&).PointDistance(this->B);
+        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
 
-        return std::min(DIST_A, DIST_B);
+        // [TODO] Thund: This has to be optimized, maybe with an additional constructor in QVector4
+        const float_q PLANE_POINT_COMPONENTS[] = {plane.a * -plane.d, plane.b * -plane.d, plane.c * -plane.d, SQFloat::_0};
+        const VectorType PLANE_POINT = VectorType(PLANE_POINT_COMPONENTS);
+
+        // If the line and the plane don't intersect...
+        if(SQFloat::IsPositive(PLANE_POINT.DotProduct(this->A)) == SQFloat::IsPositive(PLANE_POINT.DotProduct(this->B)) ||
+           SQFloat::IsNegative(PLANE_POINT.DotProduct(this->A)) == SQFloat::IsNegative(PLANE_POINT.DotProduct(this->B)))
+        {
+            const QPlane& castedPlane = rcast_q(plane, const QPlane&);
+            const float_q &DIST_A = castedPlane.PointDistance(this->A);
+            const float_q &DIST_B = castedPlane.PointDistance(this->B);
+            return std::min(DIST_A, DIST_B);
+        }
+
+        return SQFloat::_0;
     }
-
-	/// <summary>
-	/// Given an input line segment, this method returns the minimum distance between this and the input one,
-	///	that is, the distance between their closest points.<br>
-	/// This method calls base class' implementation.
-	/// </summary>
-	/// <param name="segment">[IN] The line segment the distance will be measured to.</param>
-	/// <returns>
-	/// A floating point value (always nonnegative) which represents the minimum distance between the two segments.
-	/// </returns>
-	inline float_q MinDistance(const QBaseLineSegment<VectorType> &segment) const
-	{
-		return QLineSegment<VectorType>::MinDistance(segment);
-	}
-
-	/// <summary>
-	/// Given an input vector (which represents a point), this method returns the minimum distance between this and
-	/// the segment, that is, the distance between the input point and the closest point lying into the segment.<br>
-	/// This method calls base class' implementation.
-	/// </summary>
-	/// <param name="vPoint">[IN] The point the distance will be measured to.</param>
-	/// <returns>
-	/// A floating point value (always nonnegative) which represents the minimum distance between point and segment.
-	/// </returns>
-	inline float_q MinDistance(const VectorType& vPoint) const
-	{
-		return QLineSegment<VectorType>::MinDistance(vPoint);
-	}
 
     /// <summary>
     /// Projects the resident line segment over the plane provided.
     /// </summary>
-    /// <param name="plane">[IN] The plane where we want to project the resident line segment.</param>
     /// <remarks>
     /// The plane must be normalized to obtain correct result.
     /// </remarks>
+    /// <param name="plane">[IN] The plane where we want to project the resident line segment.</param>
     /// <returns>
 	/// The projected segment.
 	/// </returns>
     inline QLineSegment3D<VectorType> ProjectToPlane(const QPlane &plane) const
     {
+        // The plane must not be null
+        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
+
         return QLineSegment3D<VectorType>(plane.PointProjection(this->A),
                                           plane.PointProjection(this->B));
     }
@@ -1626,6 +1578,9 @@ public:
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
     {
+        // The plane must not be null
+        QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
+
         const float_q &DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
         const float_q &DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
 
@@ -1649,7 +1604,7 @@ public:
     inline QLineSegment3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Transform(transformation, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Transform(transformation, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1663,7 +1618,7 @@ public:
     inline QLineSegment3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Transform(transformation, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Transform(transformation, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1677,20 +1632,8 @@ public:
     inline QLineSegment3D<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Transform(spaceConversion, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Transform(spaceConversion, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
-    }
-
-    /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided.
-    /// </summary>
-    /// <param name="transformation">[IN] The dual quaternion which contains the transformation.</param>
-    /// <returns>
-	/// The transformed segment.
-	/// </returns>
-    inline QLineSegment3D<VectorType> Transform(const QDualQuaternion &transformation) const
-    {
-        return QLineSegment3D<VectorType>(this->A.Transform(transformation), this->B.Transform(transformation));
     }
 
     /// <summary>
@@ -1707,7 +1650,7 @@ public:
     inline QLineSegment3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::TransformWithPivot(transformation, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1725,33 +1668,10 @@ public:
     inline QLineSegment3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::TransformWithPivot(transformation, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
-
-    /// <summary>
-    /// Transforms the resident line segment with the transformation contained in the dual quaternion provided using a pivot.
-    /// </summary>
-    /// <param name="transformation">[IN] The dual quaternion which contains the transformation.</param>
-    /// <param name="vPivot">[IN] Vector used as pivot for the rotation.</param>
-    /// <returns>
-	/// The transformed segment.
-	/// </returns>
-    inline QLineSegment3D<VectorType> TransformWithPivot(const QDualQuaternion &transformation, const VectorType &vPivot) const
-    {
-        QLineSegment3D<VectorType> auxLineSegment = *this;
-        auxLineSegment.A -= vPivot;
-        auxLineSegment.B -= vPivot;
-
-        auxLineSegment.A = auxLineSegment.A.Transform(transformation);
-        auxLineSegment.B = auxLineSegment.B.Transform(transformation);
-
-        auxLineSegment.A += vPivot;
-        auxLineSegment.B += vPivot;
-
-        return auxLineSegment;
-    }
-
+    
 	/// <summary>
 	/// Translates the line segment.
 	/// </summary>
@@ -1762,7 +1682,7 @@ public:
     inline QLineSegment3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Translate(vTranslation, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Translate(vTranslation, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1778,7 +1698,7 @@ public:
     inline QLineSegment3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1792,7 +1712,7 @@ public:
     inline QLineSegment3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Translate(translation, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Translate(translation, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1806,7 +1726,7 @@ public:
     inline QLineSegment3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Translate(translation, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Translate(translation, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1820,7 +1740,7 @@ public:
     inline QLineSegment3D<VectorType> Rotate(const QQuaternion &qRotation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Rotate(qRotation, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Rotate(qRotation, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1834,7 +1754,7 @@ public:
     inline QLineSegment3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Rotate(rotation, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Rotate(rotation, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1849,7 +1769,7 @@ public:
     inline QLineSegment3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::RotateWithPivot(qRotation, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::RotateWithPivot(qRotation, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1864,7 +1784,7 @@ public:
     inline QLineSegment3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::RotateWithPivot(rotation, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::RotateWithPivot(rotation, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1875,10 +1795,10 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Scale(const VectorType &vScale) const
+    inline QLineSegment3D<VectorType> Scale(const QVector3 &vScale) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Scale(vScale, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Scale(vScale, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1894,7 +1814,7 @@ public:
     inline QLineSegment3D<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1908,7 +1828,7 @@ public:
     inline QLineSegment3D<VectorType> Scale(const QScalingMatrix3x3& scale) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::Scale(scale, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::Scale(scale, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1920,10 +1840,10 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> ScaleWithPivot(const VectorType &vScale, const VectorType &vPivot) const
+    inline QLineSegment3D<VectorType> ScaleWithPivot(const QVector3 &vScale, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::ScaleWithPivot(vScale, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1940,7 +1860,7 @@ public:
     inline QLineSegment3D<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -1955,7 +1875,7 @@ public:
     inline QLineSegment3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3& scale, const VectorType& vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
-        SQPoint::ScaleWithPivot(scale, vPivot, auxLineSegment.template AsPtr<VectorType>(), 2);
+        SQPoint::ScaleWithPivot(scale, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
         return auxLineSegment;
     }
 
@@ -2079,7 +1999,7 @@ protected:
     {
         return (PointsInSameSideOfPlane(vPoint, hexahedron.E, hexahedron.A, hexahedron.B, hexahedron.C) &&
                 PointsInSameSideOfPlane(vPoint, hexahedron.A, hexahedron.E, hexahedron.F, hexahedron.G) &&
-                PointsInSameSideOfPlane(vPoint, hexahedron.C, hexahedron.A, hexahedron.B, hexahedron.hexahedron) &&
+                PointsInSameSideOfPlane(vPoint, hexahedron.C, hexahedron.A, hexahedron.B, hexahedron.H) &&
                 PointsInSameSideOfPlane(vPoint, hexahedron.A, hexahedron.B, hexahedron.C, hexahedron.G) &&
                 PointsInSameSideOfPlane(vPoint, hexahedron.C, hexahedron.A, hexahedron.D, hexahedron.F) &&
                 PointsInSameSideOfPlane(vPoint, hexahedron.A, hexahedron.C, hexahedron.D, hexahedron.F) );
