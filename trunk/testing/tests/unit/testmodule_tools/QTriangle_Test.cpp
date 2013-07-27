@@ -49,7 +49,7 @@ QTEST_SUITE_BEGIN( QTriangle_TestSuite )
 /// <summary>
 /// Checks if default values have changed.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHasNotChanged_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
     // Preparation
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
