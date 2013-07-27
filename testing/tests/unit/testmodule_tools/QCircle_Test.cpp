@@ -46,7 +46,7 @@ QTEST_SUITE_BEGIN( QCircle_TestSuite )
 /// <summary>
 /// Checks that default values hasn't changed.
 /// </summary>
-QTEST_CASE ( Constructor1_DefaultValuesHasNotChanged_Test )
+QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // Preparation
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2();

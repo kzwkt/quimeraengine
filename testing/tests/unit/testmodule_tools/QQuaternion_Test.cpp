@@ -72,7 +72,7 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByQuaternion_Test 
 /// <summary>
 /// Checks that default values hasn't changed.
 /// </summary>
-QTEST_CASE ( Constructor1_DefaultValuesHasNotChanged_Test )
+QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
