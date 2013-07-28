@@ -212,6 +212,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrix_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSphere_Test.cpp">
+			<Option virtualFolder="Tests\Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>

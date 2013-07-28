@@ -112,7 +112,7 @@ public:
 	/// </returns>
     inline static const QSphere<VectorType>& GetUnitSphere()
     {
-        static const QSphere<VectorType> UNITSPHERE(QVector3::GetZeroVector(), SQFloat::_1);
+        static const QSphere<VectorType> UNITSPHERE(VectorType::GetZeroVector(), SQFloat::_1);
         return UNITSPHERE;
     }
 
@@ -141,7 +141,7 @@ public:
     /// <returns>
     /// The translated sphere.
     /// </returns>
-    inline QSphere<VectorType> Translate(const VectorType &vTranslation) const
+    inline QSphere<VectorType> Translate(const QVector3 &vTranslation) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Translate(vTranslation, &auxSphere.Center, 1);
@@ -201,7 +201,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-    inline QSphere<VectorType> Scale(const VectorType &vScale, const float_q &fRadiusScale) const
+    inline QSphere<VectorType> Scale(const QVector3 &vScale, const float_q &fRadiusScale) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Scale(vScale, &auxSphere.Center, 1);
@@ -234,7 +234,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-    inline QSphere<VectorType> ScaleWithPivot(const VectorType &vScale, const float_q &fRadiusScale, const VectorType &vPivot) const
+    inline QSphere<VectorType> ScaleWithPivot(const QVector3 &vScale, const float_q &fRadiusScale, const VectorType &vPivot) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::ScaleWithPivot(vScale, vPivot, &auxSphere.Center, 1);
@@ -413,7 +413,7 @@ public:
                                    const VectorType &vPivot) const
 	{
         QSphere<VectorType> auxSphere = *this;
-	    SQPoint::Transform(transformation, vPivot, &auxSphere.Center, 1);
+	    SQPoint::TransformWithPivot(transformation, vPivot, &auxSphere.Center, 1);
         return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
 	}
 
@@ -434,7 +434,7 @@ public:
                                    const VectorType &vPivot) const
 	{
 	    QSphere<VectorType> auxSphere = *this;
-	    SQPoint::Transform(transformation, vPivot, &auxSphere.Center, 1);
+	    SQPoint::TransformWithPivot(transformation, vPivot, &auxSphere.Center, 1);
         return QSphere<VectorType>(auxSphere.Center, auxSphere.Radius * fRadiusScale);
 	}
 
@@ -456,6 +456,12 @@ public:
     /// </returns>
 	inline EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
+        // The plane should not be null
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+
+        // The radius should not equal zero
+        QE_ASSERT( SQFloat::IsNotZero(this->Radius) );
+
         const float_q &DIST_P = plane.a * this->Center.x + plane.b * this->Center.y + plane.c * this->Center.z + plane.d;
 
 		if (SQFloat::IsZero(DIST_P))
@@ -488,6 +494,9 @@ public:
 	/// </returns>
 	inline QSphere<VectorType> ProjectToPlane(const QPlane &plane) const
 	{
+        // The plane should not be null
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+
         return QSphere<VectorType>(plane.PointProjection(this->Center), this->Radius);
 	}
 };
