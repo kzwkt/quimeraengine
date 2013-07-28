@@ -198,6 +198,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQInteger_Test.cpp">
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQBoolean_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
