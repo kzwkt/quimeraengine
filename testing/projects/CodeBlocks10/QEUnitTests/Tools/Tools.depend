@@ -46735,9 +46735,9 @@
 1360795530 h:\quimeraengine\qesvn\trunk\headers\externaldefinitions.h
 	"Configuration.h"
 
-1373400589 h:\quimeraengine\qesvn\trunk\headers\configuration.h
+1374918194 h:\quimeraengine\qesvn\trunk\headers\configuration.h
 
-1360795531 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasedualquaternion_test.cpp
+1374917553 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasedualquaternion_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -47685,7 +47685,7 @@
 	"SQFloat.h"
 	"SQVF32.h"
 
-1367006184 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasequaternion_test.cpp
+1374917553 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasequaternion_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -47766,7 +47766,7 @@
 	"QBaseVector4.h"
 	"SQVF32.h"
 
-1360795531 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qdualquaternion_test.cpp
+1374917553 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qdualquaternion_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -47841,7 +47841,7 @@
 	"QBaseMatrix4x4.h"
 	"QBaseMatrix4x3.h"
 
-1367006184 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qquaternion_test.cpp
+1374917553 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qquaternion_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -49680,7 +49680,7 @@
 1367006184 h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qlinesegmentwhitebox.h
 	"QLineSegment.h"
 
-1369160498 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qorb_test.cpp
+1374921365 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qorb_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	<boost/mpl/list.hpp>
@@ -49693,7 +49693,7 @@
 1367006183 h:\quimeraengine\qesvn\trunk\headers\qorb.h
 	"QBaseOrb.h"
 
-1367006184 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtriangle_test.cpp
+1374917553 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qtriangle_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	<boost/mpl/list.hpp>
@@ -60641,7 +60641,7 @@
 	<fstream>
 	"QSimpleConfigLoader.h"
 
-1367007491 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasequadrilateral_test.cpp
+1374917553 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qbasequadrilateral_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -60653,7 +60653,7 @@
 	"SQVF32.h"
 	"QVector2.h"
 
-1369160498 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qcircle_test.cpp
+1374917553 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qcircle_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -60700,7 +60700,7 @@
 	<vector>
 	"DataTypesDefinitions.h"
 
-1371647459 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qray3d_test.cpp
+1374859246 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qray3d_test.cpp
 	<boost/test/auto_unit_test.hpp>
 	<boost/test/unit_test_log.hpp>
 	"../../testsystem/TestingExternalDefinitions.h"
@@ -60786,4 +60786,87 @@
 	"../../testsystem/TestingExternalDefinitions.h"
 	"QLineSegment2D.h"
 	"QTransformationMatrix3x3.h"
+
+1374327165 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qhexahedron_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QHexahedron.h"
+
+1373406344 h:\quimeraengine\qesvn\trunk\headers\qhexahedron.h
+	"QBaseHexahedron.h"
+	"SQPoint.h"
+	"QQuaternion.h"
+	"QPlane.h"
+	"QLineSegment3D.h"
+
+1374866004 h:\quimeraengine\qesvn\trunk\headers\qlinesegment3d.h
+	"QBaseLineSegment.h"
+	"QLineSegment.h"
+	"QPlane.h"
+	"EQSpaceRelation.h"
+	"QBaseOrb.h"
+	"QBaseTriangle.h"
+	"QBaseHexahedron.h"
+	"QQuaternion.h"
+	"QDualQuaternion.h"
+	"SQPoint.h"
+	"QTransformationMatrix.h"
+	"QTranslationMatrix.h"
+	"QSpaceConversionMatrix.h"
+	"QRotationMatrix3x3.h"
+	"QScalingMatrix3x3.h"
+
+1374930158 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qlinesegment3d_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QLineSegment3D.h"
+	"QVector3.h"
+	"QVector4.h"
+
+1374917553 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qquadrilateral_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QQuadrilateral.h"
+	"QTransformationMatrix3x3.h"
+
+1374270407 h:\quimeraengine\qesvn\trunk\headers\qquadrilateral.h
+	"QBaseQuadrilateral.h"
+	"QLineSegment2D.h"
+	"QVector2.h"
+	"SQAngle.h"
+
+1374962901 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\qsphere_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"QSphere.h"
+
+1374963541 h:\quimeraengine\qesvn\trunk\headers\qsphere.h
+	"QOrb.h"
+	"QVector3.h"
+	"QVector4.h"
+	"QQuaternion.h"
+	"SQPoint.h"
+	"EQIntersections.h"
+	"EQSpaceRelation.h"
+	"QPlane.h"
+
+1375028277 source:h:\quimeraengine\qesvn\trunk\testing\tests\unit\testmodule_tools\sqinteger_test.cpp
+	<boost/test/auto_unit_test.hpp>
+	<boost/test/unit_test_log.hpp>
+	<boost/mpl/list.hpp>
+	"../../testsystem/TestingExternalDefinitions.h"
+	"SQInteger.h"
+
+1375028433 h:\quimeraengine\qesvn\trunk\headers\sqinteger.h
+	<string>
+	<cstdlib>
+	<boost\lexical_cast.hpp>
+	"DataTypesDefinitions.h"
 

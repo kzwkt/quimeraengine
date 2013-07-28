@@ -259,5 +259,8 @@
     <ClCompile Include="..\..\..\..\source\QScalingMatrix3x3.cpp">
       <Filter>Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQInteger.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

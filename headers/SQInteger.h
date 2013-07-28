@@ -50,6 +50,70 @@ namespace DataTypes
 /// </summary>
 class QDllExport SQInteger
 {
+    // CONSTANTS
+    // ---------------
+public:
+
+    /// <summary>
+    /// Maximum unsigned 8 bits integer value.
+    /// </summary>
+    static const u8_q MaxU8_Q;
+
+    /// <summary>
+    /// Maximum unsigned 16 bits integer value.
+    /// </summary>
+    static const u16_q MaxU16_Q;
+
+    /// <summary>
+    /// Maximum unsigned 32 bits integer value.
+    /// </summary>
+    static const u32_q MaxU32_Q;
+
+    /// <summary>
+    /// Maximum unsigned 64 bits integer value.
+    /// </summary>
+    static const u64_q MaxU64_Q;
+
+    /// <summary>
+    /// Maximum signed 8 bits integer positive value.
+    /// </summary>
+    static const i8_q MaxPositiveI8_Q;
+
+    /// <summary>
+    /// Maximum signed 8 bits integer positive value.
+    /// </summary>
+    static const i8_q MaxNegativeI8_Q;
+
+    /// <summary>
+    /// Maximum signed 16 bits integer positive value.
+    /// </summary>
+    static const i16_q MaxPositiveI16_Q;
+
+    /// <summary>
+    /// Maximum signed 16 bits integer positive value.
+    /// </summary>
+    static const i16_q MaxNegativeI16_Q;
+
+    /// <summary>
+    /// Maximum signed 32 bits integer positive value.
+    /// </summary>
+    static const i32_q MaxPositiveI32_Q;
+
+    /// <summary>
+    /// Maximum signed 32 bits integer positive value.
+    /// </summary>
+    static const i32_q MaxNegativeI32_Q;
+
+    /// <summary>
+    /// Maximum signed 64 bits integer positive value.
+    /// </summary>
+    static const i64_q MaxPositiveI64_Q;
+
+    /// <summary>
+    /// Maximum signed 64 bits integer positive value.
+    /// </summary>
+    static const i64_q MaxNegativeI64_Q;
+
 
 	// CONSTRUCTORS
 	// ---------------
@@ -159,6 +223,19 @@ public:
     }
 
 };
+
+// SPECIALIZATIONS
+// ---------------
+
+/// <summary>
+/// Converts the integer number to a readable character string that represents it.
+/// </summary>
+/// <param name="nValue">[IN] The integer number to be converted.</param>
+/// <returns>
+/// The string that represents the number.
+/// </returns>
+template<>
+string_q SQInteger::ToString<i8_q>(const char &nValue);
 
 } //namespace DataTypes
 } //namespace Tools

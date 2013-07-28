@@ -190,6 +190,7 @@
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp" />
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />
     <ClCompile Include="..\..\..\..\source\SQVF32.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
