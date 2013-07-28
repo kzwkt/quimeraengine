@@ -192,6 +192,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegment3D_Test.cpp">
       <Filter>Tests\Math</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QSphere_Test.cpp">
+      <Filter>Tests\Math</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">

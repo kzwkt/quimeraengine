@@ -67,15 +67,15 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 }
 
 /// <summary>
-/// Checks if copy constructor sets orb's point and radius properly.
+/// Checks if copy constructor sets orb's center and radius properly.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
     // Preparation
-    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
-    const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
+    const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_5;
 
     const QOrb<T> EXPECTED_ORB(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
@@ -93,10 +93,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
     // Preparation
-    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
-    const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
+    const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_5;
 
     const QBaseOrb<T> EXPECTED_ORB(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 

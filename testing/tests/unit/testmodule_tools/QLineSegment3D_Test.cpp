@@ -7589,7 +7589,7 @@ QTEST_CASE_TEMPLATE ( Scale1_CommonLineSegmentIsCorrectlyScaledWhenUsingCommonVe
 }
 
 /// <summary>
-/// Checks that a line segment is not translated when the components of the scaling vector equal one.
+/// Checks that a line segment is not scaled when the components of the scaling vector equal one.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale1_LineSegmentIsNotScaledWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
@@ -7666,9 +7666,9 @@ QTEST_CASE_TEMPLATE ( Scale2_CommonLineSegmentIsCorrectlyScaledWhenUsingCommonVa
 }
 
 /// <summary>
-/// Checks that a line segment is not translated when the values equal one.
+/// Checks that a line segment is not scaled when the values equal one.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Scale2_LineSegmentIsNotTranslatedWhenValuesEqualOne_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Scale2_LineSegmentIsNotScaledWhenValuesEqualOne_Test, TQTemplateTypes )
 {
     // Preparation
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
@@ -7747,9 +7747,9 @@ QTEST_CASE_TEMPLATE ( Scale3_CommonLineSegmentIsCorrectlyScaledWhenUsingCommonSc
 }
 
 /// <summary>
-/// Checks that a line segment is not translated when the matrix equals identity.
+/// Checks that a line segment is not scaled when the matrix equals identity.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Scale3_LineSegmentIsNotTranslatedWhenMatrixEqualsIdentity_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Scale3_LineSegmentIsNotScaledWhenMatrixEqualsIdentity_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -7833,7 +7833,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_CommonLineSegmentIsCorrectlyScaledWhenUsin
 /// <summary>
 /// Checks that a line segment is not scaled when the components of the scaling vector equal one.
 /// </summary>
-QTEST_CASE_TEMPLATE ( ScaleWithPivot1_LineSegmentIsNotTranslatedWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( ScaleWithPivot1_LineSegmentIsNotScaledWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
     // Preparation
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
