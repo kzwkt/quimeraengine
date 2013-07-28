@@ -254,6 +254,9 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQBoolean_Test.cpp">
+			<Option virtualFolder="Tests\DataTypes\" />
+		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp">
 			<Option virtualFolder="Tests\DataTypes\" />
 		</Unit>

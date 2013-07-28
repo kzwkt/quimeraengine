@@ -62,6 +62,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQBoolean_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQInteger_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQPoint_Test.cpp" />
