@@ -46,17 +46,18 @@ class QBaseVector4;
 
 
 /// <summary>
-/// Class which implements the basic functionality of a dual quaternion.<br>
-/// A dual quaternion is a complex number with two components, a non-dual component and a dual one, e.g. \f$ r + d\varepsilon \f$.<br>
-/// Both components (r and d) of a dual quaternion are (regular) quaternions.<br>
-/// The dual unit, called epsilon (\f$ \varepsilon \f$), verifies \f$ \varepsilon^2=0 \f$. Then, a full quaternion looks like:
-/// <br>
-/// \f$ r_w + r_xi + r_yj + r_zk + (d_w + d_xi + d_yj + d_zk)\varepsilon\f$
-/// <br>
-/// We'll normally employ it to represent and execute rigid transformations, that is, transformations which involves
-/// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).
+/// Class which implements the basic functionality of a dual quaternion.
+/// A dual quaternion is a complex number with two components, a non-dual component and a dual one.
 /// </summary>
 /// <remarks>
+/// e.g. \f$ r + d\varepsilon \f$.<br />
+/// Both components (r and d) of a dual quaternion are (regular) quaternions.<br />
+/// The dual unit, called epsilon (\f$ \varepsilon \f$), verifies \f$ \varepsilon^2=0 \f$. Then, a full quaternion looks like:
+/// <br />
+/// \f$ r_w + r_xi + r_yj + r_zk + (d_w + d_xi + d_yj + d_zk)\varepsilon\f$
+/// <br />
+/// We'll normally employ it to represent and execute rigid transformations, that is, transformations which involves
+/// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br />
 /// This class has been included for experimental purposes only. Use it at your own risk.
 /// </remarks>
 class QDllExport QDualQuaternion : public QBaseDualQuaternion
@@ -113,7 +114,9 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.<br>
+    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
+    /// </summary>
+    /// <remarks>
     /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
     /// in the direction of the rotation axis as follows:
     /// <br>
@@ -130,7 +133,7 @@ public:
     /// Our transformation dual quaternion is given by the product of the translation dual quaternion by
     /// the rotation dual quaternion, taking into account that the transfomation is done as follows:<br>
     /// FIRST ROTATION THEN TRANSLATION.
-    /// </summary>
+    /// </remarks>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     QDualQuaternion(const QBaseQuaternion &qRotation, const QBaseVector3 &vTranslation)
@@ -139,25 +142,25 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.<br>
-    /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
-    /// in the direction of the rotation axis as follows:
-    /// <br>
-    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
-    /// <br>
-    /// and the dual quaternion will be:
-    /// <br>
-    /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
-    /// <br>
-    /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
-    /// <br>
-    /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
-    /// <br>
-    /// Our transformation dual quaternion is given by the product of the translation dual quaternion by
-    /// the rotation dual quaternion, taking into account that the transfomation is done as follows:<br>
-    /// FIRST ROTATION THEN TRANSLATION.
+    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
     /// </summary>
     /// <remarks>
+    /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
+    /// in the direction of the rotation axis as follows:
+    /// <br/>
+    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
+    /// <br/>
+    /// and the dual quaternion will be:
+    /// <br/>
+    /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
+    /// <br/>
+    /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
+    /// <br/>
+    /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
+    /// <br/>
+    /// Our transformation dual quaternion is given by the product of the translation dual quaternion by
+    /// the rotation dual quaternion, taking into account that the transfomation is done as follows:<br/>
+    /// FIRST ROTATION THEN TRANSLATION.<br/>
     /// Remember that the quaternion must be normalized to represent the rotation properly.
     /// </remarks>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
@@ -168,25 +171,25 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.<br>
-    /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
-    /// in the direction of the rotation axis as follows:
-    /// <br>
-    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
-    /// <br>
-    /// and the dual quaternion will be:
-    /// <br>
-    /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
-    /// <br>
-    /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
-    /// <br>
-    /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
-    /// <br>
-    /// Our transformation dual quaternion is given by the product of the rotation dual quaternion by
-    /// the translation dual quaternion, taking into account that the transfomation is done as follows:<br>
-    /// FIRST TRANSLATION THEN ROTATION.
+    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
     /// </summary>
     /// <remarks>
+    /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
+    /// in the direction of the rotation axis as follows:
+    /// <br/>
+    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
+    /// <br/>
+    /// and the dual quaternion will be:
+    /// <br/>
+    /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
+    /// <br/>
+    /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
+    /// <br/>
+    /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
+    /// <br/>
+    /// Our transformation dual quaternion is given by the product of the rotation dual quaternion by
+    /// the translation dual quaternion, taking into account that the transfomation is done as follows:<br/>
+    /// FIRST TRANSLATION THEN ROTATION.<br/>
     /// Remember that the quaternion must be normalized to represent the rotation properly.
     /// </remarks>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
@@ -197,25 +200,25 @@ public:
     }
 
     /// <summary>
-    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.<br>
-    /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
-    /// in the direction of the rotation axis as follows:
-    /// <br>
-    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
-    /// <br>
-    /// and the dual quaternion will be:
-    /// <br>
-    /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
-    /// <br>
-    /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
-    /// <br>
-    /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
-    /// <br>
-    /// Our transformation dual quaternion is given by the product of the rotation dual quaternion by
-    /// the translation dual quaternion, taking into account that the transfomation is done as follows:<br>
-    /// FIRST TRANSLATION THEN ROTATION.
+    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
     /// </summary>
     /// <remarks>
+    /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
+    /// in the direction of the rotation axis as follows:
+    /// <br/>
+    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
+    /// <br/>
+    /// and the dual quaternion will be:
+    /// <br/>
+    /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
+    /// <br/>
+    /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
+    /// <br/>
+    /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
+    /// <br/>
+    /// Our transformation dual quaternion is given by the product of the rotation dual quaternion by
+    /// the translation dual quaternion, taking into account that the transfomation is done as follows:<br/>
+    /// FIRST TRANSLATION THEN ROTATION.<br/>
     /// Remember that the quaternion must be normalized to represent the rotation properly.
     /// </remarks>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
@@ -356,11 +359,13 @@ public:
     QDualQuaternion operator*(const float_q &fScalar) const;
 
     /// <summary>
-    /// Product by a vector (multiplying to the dual quaternion by the right).<br>
-    /// The vector is transformed into a dual quaternion,
-    /// then is multiplied by the resident dual quaternion by the left and transformed back to a vector.<br>
-    /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
+    /// Product by a vector (multiplying to the dual quaternion by the right).
     /// </summary>
+    /// <remarks>
+    /// The vector is transformed into a dual quaternion, then is multiplied by the resident dual quaternion 
+    /// by the left and transformed back to a vector.<br/>
+    /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
+    /// </remarks>
     /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
     /// A vector that is the result of the product.
@@ -368,11 +373,13 @@ public:
     QDualQuaternion operator*(const QBaseVector3 &vVector) const;
 
     /// <summary>
-    /// Product by a vector (multiplying to the dual quaternion by the right).<br>
-    /// The vector is transformed into a dual quaternion,
-    /// then is multiplied by the resident dual quaternion by the left and transformed back to a vector.<br>
-    /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
+    /// Product by a vector (multiplying to the dual quaternion by the right).
     /// </summary>
+    /// <remarks>
+    /// The vector is transformed into a dual quaternion,
+    /// then is multiplied by the resident dual quaternion by the left and transformed back to a vector.<br/>
+    /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
+    /// </remarks>
     /// <param name="vVector">[IN] Multiplying vector.</param>
     /// <returns>
     /// A vector that is the result of the product.
@@ -421,13 +428,15 @@ public:
     }
 
     /// <summary>
-    /// Multiply and assign operator. The resident dual quaternion is multiplied by the input one.<br>
-    /// This is calculated as follows:
-    /// <br>
-    /// \f$ q\cdot q' = r\cdot r' + (r\cdot d' + d\cdot r')\varepsilon\f$
-    /// <br>
-    /// Note that quaternion multiplication is not conmutative.
+    /// Multiply and assign operator. The resident dual quaternion is multiplied by the input one.
     /// </summary>
+    /// <remarks>
+    /// This is calculated as follows:
+    /// <br/>
+    /// \f$ q\cdot q' = r\cdot r' + (r\cdot d' + d\cdot r')\varepsilon\f$
+    /// <br/>
+    /// Note that quaternion multiplication is not conmutative.
+    /// </remarks>
     /// <param name="dualQuat">[IN] The dual quaternion to multiply by.</param>
     /// <returns>
     /// The modified dual quaternion.
@@ -549,15 +558,18 @@ public:
     }
 
     /// <summary>
-    /// Applies a transformation to the resident dual quaternion. The transformation is performed as follows:
-    /// <br>
-    ///     \f$ P' = T \cdot P \cdot T^*\f$, where
-    /// <br>
-    ///     \f$ P'\f$: Transformed dual quaternion.<br>
-    ///     \f$ T \f$: Transformation applied.<br>
-    ///     \f$ P \f$: Dual quaternion which is transformed.<br>
-    ///     \f$ T^*\f$: Double conjugate of the transformation.
+    /// Applies a transformation to the resident dual quaternion.
     /// </summary>
+    /// <remarks>
+    /// The transformation is performed as follows:
+    /// <br/>
+    ///     \f$ P' = T \cdot P \cdot T^*\f$, where
+    /// <br/>
+    ///     \f$ P'\f$: Transformed dual quaternion.<br/>
+    ///     \f$ T \f$: Transformation applied.<br/>
+    ///     \f$ P \f$: Dual quaternion which is transformed.<br/>
+    ///     \f$ T^*\f$: Double conjugate of the transformation.
+    /// </remarks>
     /// <param name="transformation">[IN] Transformation to be applied.</param>
     /// <returns>
     /// The transformed dual quaternion.
@@ -618,20 +630,22 @@ public:
 
     /// <summary>
     /// Returns a dual quaternion, assuming current one is a transformation, which is a linear interpolation
-    /// between it and a transformation provided, by a proportion also provided.<br>
+    /// between it and a transformation provided, by a proportion also provided.<br/>
     /// Note that this isn't an interpolation between dual quaternions, only between unitary dual quaternions
-    /// which contains transformations.<br>
+    /// which contains transformations.
+    /// </summary>
+    /// <remarks>
     /// To take the transformed point or vector interpolating from a transformation,
-    /// its necessary to apply the resultant transformation of the lerp to the original point or vector,
-    /// obtaining a point or vector in a status of transformation given by the proportion used.<br>
-    /// Lerp is obtained as follows:<br>
+    /// it's necessary to apply the resultant transformation of the lerp to the original point or vector,
+    /// obtaining a point or vector in a status of transformation given by the proportion used.<br/>
+    /// Lerp is obtained as follows:<br/>
     /// If Q1 is the original transformation, and Q2 is the transformation provided,
     /// the transformation Q' which give us the status of any point at a proportion t in [0, 1] is
-    /// <br>
+    /// <br/>
     /// \f$ \hat{Q} (t) = \frac{(1 - t)\hat{Q}_1 + t  \hat{Q}_2}{\left|(1 - t)\hat{Q}_1 + t  \hat{Q}_2\right|} \f$
-    /// <br>
+    /// <br/>
     /// Where Q'(0) = Q1 (first transformation); Q'(1) = Q2 (second transformation).
-    /// </summary>
+    /// </remarks>
     /// <param name="fProportion">[IN] Proportion with we want to calculate the interpolation.</param>
     /// <param name="dualQuat">[IN] The other transformation implied in the interpolation.</param>
     /// <returns>

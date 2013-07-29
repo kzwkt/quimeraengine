@@ -336,7 +336,7 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
 
 
     // Checks for +-90º singularity
-    if(SQFloat::AreEqual(fRotationAngleX, SQFloat::Abs(SQAngle::_QuarterPi)))
+    if(SQFloat::AreEqual(fRotationAngleX, SQFloat::Abs(SQAngle::_HalfPi)))
 
     {
         fRotationAngleZ = atan2_q(this->z, this->w);
