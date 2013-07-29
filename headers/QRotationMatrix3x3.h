@@ -92,30 +92,35 @@ public:
 
     /// <summary>
     /// Constructor that receives 3 angles, one for each Euler angle, to construct the rotation
-    /// matrix of a specified rotation.<br>
+    /// matrix of a specified rotation.
+    /// </summary>
+    /// <remarks>
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br>
     /// The rotation matrix is obtained as follows:
     ///
-    /// \f$ R = \begin{bmatrix} 1 & 0 & 0\\ 0 & \cos x  & \sin x\\ 0 & -\sin x & \cos x \end{bmatrix}
-    /// \begin{bmatrix} \cos y & 0 & -\sin y\\ 0 & 1 & 0\\ \sin y & 0 & \cos y \end{bmatrix}
-    /// \begin{bmatrix} \cos z & \sin z & 0 \\ -\sin z & \cos z & 0\\ 0 & 0 & 1 \end{bmatrix} \f$
+    /// \f$ R = \begin{bmatrix} \cos z & \sin z & 0 \\ -\sin z & \cos z & 0\\ 0 & 0 & 1 \end{bmatrix} 
+    /// \begin{bmatrix} 1 & 0 & 0\\ 0 & \cos x  & \sin x\\ 0 & -\sin x & \cos x \end{bmatrix}
+    /// \begin{bmatrix} \cos y & 0 & -\sin y\\ 0 & 1 & 0\\ \sin y & 0 & \cos y \end{bmatrix} \f$
     ///
     /// This is a slow operation.
-    /// </summary>
+    /// </remarks>
     /// <param name="fRotationAngleX">[IN] Rotation angle about X global axis.</param>
     /// <param name="fRotationAngleY">[IN] Rotation angle about Y global axis.</param>
     /// <param name="fRotationAngleZ">[IN] Rotation angle about Z global axis.</param>
     QRotationMatrix3x3(const float_q &fRotationAngleX, const float_q &fRotationAngleY, const float_q &fRotationAngleZ);
 
 	/// <summary>
-	/// Constructor from an angle and a spin axis defined by a vector. It's computed as follows:
+	/// Constructor from an angle and a spin axis defined by a vector.
+    /// </summary>
+    /// <remarks>
+    /// It's computed as follows:
 	///
 	/// \f$ R = \begin{bmatrix} \cos\theta & 0 & 0 \\ 0 & \cos\theta & 0 \\ 0 & 0 & \cos\theta \end{bmatrix} + (1- \cos\theta)\cdot
 	/// \begin{bmatrix} e_x \\ e_y \\ e_z\end{bmatrix} \cdot \begin{bmatrix} e_x & e_y & e_z\end{bmatrix} +
 	/// \begin{bmatrix} 0 & e_z & -e_y \\ -e_z & 0 & e_x \\ e_y & -e_x & 0 \end{bmatrix}\cdot \sin\theta \f$
 	///
 	/// where \f$ e=(e_x, e_y, e_z)\f$, is a unit vector defining spin axis.
-	/// </summary>
+	/// </remarks>
 	/// <param name="fRotationAngle">[IN] Angle of rotation.</param>
     /// <param name="vRotationAxis">[IN] Vector in the direction of the spin axis.</param>
 	/// <remarks>
@@ -124,14 +129,16 @@ public:
     QRotationMatrix3x3(const float_q &fRotationAngle, const QBaseVector3 &vRotationAxis);
 
     /// <summary>
-    /// Constructor from a quaternion. Is constructed as follows:
+    /// Constructor from a quaternion.
+    /// </summary>
+    /// <remarks>
+    /// Is constructed as follows:
     ///
     /// \f$ R = \begin{bmatrix} 1 - 2(q_y^2 + q_z^2) & 2(q_xq_y - q_wq_z) & 2(q_xq_z + q_wq_y) \\
     /// 2(q_xq_y + q_wq_z) & 1 - 2(q_x^2 + q_z^2) & 2(q_yq_z - q_wq_x) \\
     /// 2(q_xq_z - q_wq_y) & 2(q_yq_z + q_wq_x) & 1 - 2(q_x^2 + q_y^2)
     /// \end{bmatrix}\f$
-    ///
-    /// </summary>
+    /// </remarks>
     /// <param name="qRotation">[IN] Quaternion which contains the rotation.</param>
     /// <remarks>
     /// The quaternion must be normalized to construct the rotation matrix properly.
@@ -287,11 +294,13 @@ public:
     void GetRotation(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const;
 
     /// <summary>
-    /// Converts rotation matrix to a rotation quaternion.<br>
+    /// Converts rotation matrix to a rotation quaternion.
+    /// </summary>
+    /// <remarks>
     /// Since rotation matrices are special orthogonal matrices, where \f$ AA^T = AA^{-1} = I\f$, it's always verified
     /// that (1 + trace) > 0.<br>
     /// Then, we can calculate quaternion component from every matrix trace.<br>
-    /// </summary>
+    /// </remarks>
     /// <param name="qRotation">[OUT] Quaternion where to store the rotation.</param>
     void GetRotation(QQuaternion &qRotation) const;
 
