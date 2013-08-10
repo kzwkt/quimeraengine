@@ -1641,11 +1641,11 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_VerticesAreMovedPivotPositionWhenValuesEqu
 }
 
 /// <summary>
-/// Template method used by Transform_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test to test
+/// Template method used by Transform1_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test to test
 /// using different template parameters for class QTransformationMatrix.
 /// </summary>
 template<class T, class MatrixType>
-void Transform_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template()
+void Transform1_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -1696,23 +1696,23 @@ void Transform_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformation
 /// <summary>
 /// Checks that a common triangle is correctly transformed using common transformation matrix.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Transform_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Transform1_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    Transform_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template<T, QMatrix4x3>();
+    Transform1_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template<T, QMatrix4x3>();
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    Transform_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template<T, QMatrix4x4>();
+    Transform1_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template<T, QMatrix4x4>();
 }
 
 /// <summary>
-/// Template method used by Transform_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Test to test
+/// Template method used by Transform1_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Test to test
 /// using different template parameters for class QTransformationMatrix.
 /// </summary>
 template<class T, class MatrixType>
-void Transform_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template()
+void Transform1_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
@@ -1741,23 +1741,23 @@ void Transform_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZer
 /// <summary>
 /// Checks that all the vertices of the triangle are moved to the coordinate origin when transformation is zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Transform_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Transform1_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    Transform_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template<T, QMatrix4x3>();
+    Transform1_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template<T, QMatrix4x3>();
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    Transform_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template<T, QMatrix4x4>();
+    Transform1_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template<T, QMatrix4x4>();
 }
 
 /// <summary>
-/// Template method used by Transform_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Test to test
+/// Template method used by Transform1_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Test to test
 /// using different template parameters for class QTransformationMatrix.
 /// </summary>
 template<class T, class MatrixType>
-void Transform_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template()
+void Transform1_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
@@ -1786,15 +1786,15 @@ void Transform_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Te
 /// <summary>
 /// Checks that a triangle is not transformed when matrix equals identity.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Transform_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Transform1_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    Transform_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x3>();
+    Transform1_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x3>();
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    Transform_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x4>();
+    Transform1_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x4>();
 }
 
 /// <summary>
@@ -2174,6 +2174,99 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot_TriangleIsNotTransformedWhenTransformat
     TransformWithPivot_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x3>();
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
     TransformWithPivot_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x4>();
+}
+
+/// <summary>
+/// Checks that the triangle is correctly transformed by an arbitrary space conversion matrix.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Transform2_IsCorrectlyTransformedByCommonSpaceConversionMatrix_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+
+    // Preparation
+    QSpaceConversionMatrix CONVERSION = QSpaceConversionMatrix();
+    CONVERSION.SetViewSpaceMatrix(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3),
+                                  QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                                  QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0));
+
+    const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
+    const float_q POINT_COMPONENTS_B[] = {-SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+    const float_q POINT_COMPONENTS_C[] = { SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+    const T POINT_A(POINT_COMPONENTS_A);
+    const T POINT_B(POINT_COMPONENTS_B);
+    const T POINT_C(POINT_COMPONENTS_C);
+    const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(POINT_A, POINT_B, POINT_C);
+    
+    const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { (float_q)0.22360679774997894, (float_q)0.81989159174992277, (float_q)3.1666666666666665, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { (float_q)-0.22360679774997902, (float_q)1.4161763857498666, (float_q)3.833333333333333, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_C[] = { (float_q)-1.1180339887498949, (float_q)1.1180339887498947, (float_q)3.5, SQFloat::_1 };
+    const T EXPECTED_VALUE_FOR_A(EXPECTED_VECTOR_COMPONENTS_A);
+    const T EXPECTED_VALUE_FOR_B(EXPECTED_VECTOR_COMPONENTS_B);
+    const T EXPECTED_VALUE_FOR_C(EXPECTED_VECTOR_COMPONENTS_C);
+    const QTriangle3D<T> EXPECTED_TRIANGLE = QTriangle3D<T>(EXPECTED_VALUE_FOR_A,
+                                                            EXPECTED_VALUE_FOR_B,
+                                                            EXPECTED_VALUE_FOR_C);
+
+	// Execution
+    QTriangle3D<T> triangle = TRIANGLE.Transform(CONVERSION);
+    	
+    // Verification
+    BOOST_CHECK(triangle == EXPECTED_TRIANGLE);
+}
+
+/// <summary>
+/// Checks that the line segment doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Transform2_LineSegmentDoesNotChangeWhenTransformedByIdentityMatrix_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+
+    // Preparation
+    const QSpaceConversionMatrix IDENTITY_MATRIX = QSpaceConversionMatrix::GetIdentity();
+
+    const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
+    const float_q POINT_COMPONENTS_B[] = {-SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+    const float_q POINT_COMPONENTS_C[] = { SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+    const T POINT_A(POINT_COMPONENTS_A);
+    const T POINT_B(POINT_COMPONENTS_B);
+    const T POINT_C(POINT_COMPONENTS_C);
+    const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(POINT_A, POINT_B, POINT_C);
+
+    const QTriangle3D<T> EXPECTED_TRIANGLE = TRIANGLE;
+
+	// Execution
+    QTriangle3D<T> triangle = TRIANGLE.Transform(IDENTITY_MATRIX);
+
+    // Verification
+    BOOST_CHECK(triangle == EXPECTED_TRIANGLE);
+}
+
+/// <summary>
+/// Checks that the line segment is nullified when the matrix equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Transform2_EndpointsAreNullifiedWhenMatrixIsZero_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    // Preparation
+    const QSpaceConversionMatrix ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
+
+    const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
+    const float_q POINT_COMPONENTS_B[] = {-SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+    const float_q POINT_COMPONENTS_C[] = { SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
+    const T POINT_A(POINT_COMPONENTS_A);
+    const T POINT_B(POINT_COMPONENTS_B);
+    const T POINT_C(POINT_COMPONENTS_C);
+    const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(POINT_A, POINT_B, POINT_C);
+
+    const QTriangle3D<T> EXPECTED_TRIANGLE = QTriangle3D<T>(T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector());
+
+	// Execution
+    QTriangle3D<T> triangle = TRIANGLE.Transform(ZERO_MATRIX);
+
+    // Verification
+    BOOST_CHECK(triangle == EXPECTED_TRIANGLE);
 }
 
 /// <summary>

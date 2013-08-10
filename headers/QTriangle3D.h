@@ -457,6 +457,20 @@ public:
 		SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, VectorType*), 3);
         return auxTriangle;
 	}
+    
+    /// <summary>
+	/// This method transforms the resident triangle applying the provided space conversion matrix.
+	/// </summary>
+	/// <param name="spaceConversion">[IN] Matrix which contains the space conversion transformation to be applied.</param>
+    /// <returns>
+	/// The converted triangle.
+	/// </returns>
+	inline QTriangle<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
+	{
+        QTriangle<VectorType> auxTriangle = *this;
+	    SQPoint::Transform(spaceConversion, rcast_q(&auxTriangle, VectorType*), 3);
+        return auxTriangle;
+	}
 
 	/// <summary>
 	/// Checks the space relation between current triangle and a plane recieved as parameter.<br>
