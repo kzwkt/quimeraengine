@@ -136,9 +136,9 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 }
 
 /// <summary>
-/// Checks that it returns a unit-length line which point A is placed at origin and point B is contained by the positive X axis.
+/// Checks that it returns a unit-length line which point A is placed at origin and point B is contained in the positive X axis.
 /// </summary>
-QTEST_CASE_TEMPLATE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedByPositiveXAxisIsReturned_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedInPositiveXAxisIsReturned_Test, TQTemplateTypes )
 {
     // Preparation
     const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
@@ -481,7 +481,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesCoincideTotally_Test, TQ
 }
 
 /// <summary>
-/// Checks that it returns True when an end point of one line is contained by the other line (not including A, and B points in this case).
+/// Checks that it returns True when an end point of one line is contained in the other line (not including A, and B points in this case).
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenAnEndPointIsContainedInTheOtherLine_Test, TQTemplateTypes )
 {
@@ -765,9 +765,9 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesCoincidePartially_Test, 
 }
 
 /// <summary>
-/// Checks that it returns True when one line is totally contained by the other.
+/// Checks that it returns True when one line is totally contained in the other.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenOneSegmentIsContainedByTheOther_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenOneSegmentIsContainedInTheOther_Test, TQTemplateTypes )
 {
     //
     // A1---A2---B2---B1    A1---A3----B1B3    A1---B3---B1A3    B1---A3---A1B3    B1---B3---A1A3
@@ -930,9 +930,9 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsTangentToTheOrbByAnE
 }
 
 /// <summary>
-/// Checks that it returns True when the line is contained by the orb.
+/// Checks that it returns True when the line is contained in the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedByTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ______
     //          ´        `
@@ -963,9 +963,9 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedByTheOrb_Te
 }
 
 /// <summary>
-/// Checks that it returns True the line is contained by the orb and only one end point coincides with the surface of the orb.
+/// Checks that it returns True the line is contained in the orb and only one end point coincides with the surface of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedByTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______                ______
     //          ´        `            ´        `
@@ -1001,9 +1001,9 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedByTheOrbAnd
 }
 
 /// <summary>
-/// Checks that it returns True when the line is contained by the orb and the 2 end points coincide with the surface of the orb.
+/// Checks that it returns True when the line is contained in the orb and the 2 end points coincide with the surface of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedByTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______
     //          ´        `
@@ -1034,7 +1034,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedByTheOrbAnd
 }
 
 /// <summary>
-/// Checks that it returns True when the line intersects the orb in two points (and the line is not contained by the orb).
+/// Checks that it returns True when the line intersects the orb in two points (and the line is not contained in the orb).
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIntersectsTheOrbInTwoPoints_Test, TQTemplateTypes )
 {
@@ -1380,9 +1380,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenLinesCoincideT
 }
 
 /// <summary>
-/// Checks that it returns one intersection point when an end point of one line is contained by the other line (not including A, and B points in this case).
+/// Checks that it returns one intersection point when an end point of one line is contained in the other line (not including A, and B points in this case).
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTrueWhenAnEndPointIsContainedInTheOtherLine_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndPointIsContainedInTheOtherLine_Test, TQTemplateTypes )
 {
     //        B2              A2              B2              A2
     //       /               /               /               /
@@ -1463,14 +1463,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenLinesShareOneEndPoin
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
     // Preparation
-    float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
     const T VALUE_FOR_B1(VECTOR_COMPONENTS_B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
-    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_3, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_3, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
@@ -1478,16 +1478,16 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenLinesShareOneEndPoin
     const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_B1, VALUE_FOR_A1);
     const QLineSegment<T> LINE_SEGMENT4 = QLineSegment<T>(VALUE_FOR_B2, VALUE_FOR_A2);
 
-    float_q VECTOR_COMPONENTS_A3[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_B3[] = { SQFloat::_1, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_A3[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B3[] = { SQFloat::_1, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A3(VECTOR_COMPONENTS_A3);
     const T VALUE_FOR_B3(VECTOR_COMPONENTS_B3);
 
     const QLineSegment<T> LINE_SEGMENT5 = QLineSegment<T>(VALUE_FOR_A3, VALUE_FOR_B3);
     const QLineSegment<T> LINE_SEGMENT6 = QLineSegment<T>(VALUE_FOR_B3, VALUE_FOR_A3);
 
-    float_q VECTOR_COMPONENTS_A4[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_B4[] = { SQFloat::_6, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_A4[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B4[] = { SQFloat::_6, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A4(VECTOR_COMPONENTS_A4);
     const T VALUE_FOR_B4(VECTOR_COMPONENTS_B4);
 
@@ -1495,8 +1495,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenLinesShareOneEndPoin
     const QLineSegment<T> LINE_SEGMENT8 = QLineSegment<T>(VALUE_FOR_B4, VALUE_FOR_A4);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
-    float_q VECTOR_COMPONENTS_EXPECTED1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_EXPECTED1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
     T OUTPUT_POINT1 = T::GetZeroVector();
@@ -1704,14 +1704,387 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointWhenSegmentDoesNotInterse
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when lines coincide partially, this means, they share more than one point but not all.
+/// Checks that it returns two intersection points when lines coincide partially, this means, they share more than one point but not all.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenLinesCoincidePartially_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenLinesCoincidePartially_Test, TQTemplateTypes )
 {
+    // A2---A1---B1---B2  I
     //
-    // A1---A2---B1---B2    A1---B2---B1---A2    B1---A2---A1---B2    B1---B2---A1---A2
+    // A2---B1---A1---B2  II
     //
-    //         I                   II                   III                  IV
+    // A2---A1---B2---B1  III
+    //
+    // A2---B1---B2---A1  IV
+    //
+    // B2---A1---A2---B1  V
+    //
+    // B2---B1---A2---A1  VI
+    //
+    // A1---A2---B2---B1  VII
+    //
+    // A1---B2---A2---B1  VIII
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q FIRST_POSITION_COMPONENTS[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q SECOND_POSITION_COMPONENTS[] = { SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q THIRD_POSITION_COMPONENTS[] = { SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q FOURTH_POSITION_COMPONENTS[] = { SQFloat::_4, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const T FIRST_POSITION = T(FIRST_POSITION_COMPONENTS);
+    const T SECOND_POSITION = T(SECOND_POSITION_COMPONENTS);
+    const T THIRD_POSITION = T(THIRD_POSITION_COMPONENTS);
+    const T FOURTH_POSITION = T(FOURTH_POSITION_COMPONENTS);
+
+    const QLineSegment<T> LINE_SEGMENTA_1 = QLineSegment<T>(SECOND_POSITION, THIRD_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_1 = QLineSegment<T>(FIRST_POSITION, FOURTH_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_2 = QLineSegment<T>(THIRD_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_2 = QLineSegment<T>(FIRST_POSITION, FOURTH_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_3 = QLineSegment<T>(SECOND_POSITION, FOURTH_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_3 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_4 = QLineSegment<T>(FOURTH_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_4 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_5 = QLineSegment<T>(SECOND_POSITION, FOURTH_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_5 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_6 = QLineSegment<T>(FOURTH_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_6 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_7 = QLineSegment<T>(FIRST_POSITION, FOURTH_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_7 = QLineSegment<T>(SECOND_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_8 = QLineSegment<T>(FIRST_POSITION, FOURTH_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_8 = QLineSegment<T>(THIRD_POSITION, SECOND_POSITION);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const T EXPECTED_POINT1 = SECOND_POSITION;
+    const T EXPECTED_POINT2 = THIRD_POSITION;
+    const T EXPECTED_POINT3 = SECOND_POSITION;
+    const T EXPECTED_POINT4 = THIRD_POSITION;
+    const T EXPECTED_POINT5 = SECOND_POSITION;
+    const T EXPECTED_POINT6 = THIRD_POSITION;
+    const T EXPECTED_POINT7 = SECOND_POSITION;
+    const T EXPECTED_POINT8 = SECOND_POSITION;
+    T OUTPUT_POINT1 = T::GetZeroVector();
+    T OUTPUT_POINT2 = T::GetZeroVector();
+    T OUTPUT_POINT3 = T::GetZeroVector();
+    T OUTPUT_POINT4 = T::GetZeroVector();
+    T OUTPUT_POINT5 = T::GetZeroVector();
+    T OUTPUT_POINT6 = T::GetZeroVector();
+    T OUTPUT_POINT7 = T::GetZeroVector();
+    T OUTPUT_POINT8 = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult1 = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_POINT1); // I
+    EQIntersections eResult2 = LINE_SEGMENTA_2.IntersectionPoint(LINE_SEGMENTB_2, OUTPUT_POINT2); // II
+    EQIntersections eResult3 = LINE_SEGMENTA_3.IntersectionPoint(LINE_SEGMENTB_3, OUTPUT_POINT3); // III
+    EQIntersections eResult4 = LINE_SEGMENTA_4.IntersectionPoint(LINE_SEGMENTB_4, OUTPUT_POINT4); // IV
+    EQIntersections eResult5 = LINE_SEGMENTA_5.IntersectionPoint(LINE_SEGMENTB_5, OUTPUT_POINT5); // V
+    EQIntersections eResult6 = LINE_SEGMENTA_6.IntersectionPoint(LINE_SEGMENTB_6, OUTPUT_POINT6); // VI
+    EQIntersections eResult7 = LINE_SEGMENTA_7.IntersectionPoint(LINE_SEGMENTB_7, OUTPUT_POINT7); // VII
+    EQIntersections eResult8 = LINE_SEGMENTA_8.IntersectionPoint(LINE_SEGMENTB_8, OUTPUT_POINT8); // VIII
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult7, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult8, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_POINT3 == EXPECTED_POINT3);
+    BOOST_CHECK(OUTPUT_POINT4 == EXPECTED_POINT4);
+    BOOST_CHECK(OUTPUT_POINT5 == EXPECTED_POINT5);
+    BOOST_CHECK(OUTPUT_POINT6 == EXPECTED_POINT6);
+    BOOST_CHECK(OUTPUT_POINT7 == EXPECTED_POINT7);
+    BOOST_CHECK(OUTPUT_POINT8 == EXPECTED_POINT8);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when one line is totally contained in the other.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOneSegmentIsContainedInTheOther_Test, TQTemplateTypes )
+{
+    // A1A2---B1---B2  I
+    //
+    // A1A2---B2---B1  II
+    //
+    // B1B2---A1---A2  III
+    //
+    // B1B2---A2---A1  IV
+    //
+    // A1B2---B1---A2  V
+    //
+    // A1B2---A2---B1  VI
+    //
+    // A2B1---A1---B2  VII
+    //
+    // A2B1---B2---A1  VIII
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q FIRST_POSITION_COMPONENTS[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q SECOND_POSITION_COMPONENTS[] = { SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q THIRD_POSITION_COMPONENTS[] = { SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const T FIRST_POSITION = T(FIRST_POSITION_COMPONENTS);
+    const T SECOND_POSITION = T(SECOND_POSITION_COMPONENTS);
+    const T THIRD_POSITION = T(THIRD_POSITION_COMPONENTS);
+
+    const QLineSegment<T> LINE_SEGMENTA_1 = QLineSegment<T>(FIRST_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_1 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_2 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_2 = QLineSegment<T>(FIRST_POSITION, SECOND_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_3 = QLineSegment<T>(SECOND_POSITION, FIRST_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_3 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_4 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_4 = QLineSegment<T>(SECOND_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_5 = QLineSegment<T>(FIRST_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_5 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_6 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_6 = QLineSegment<T>(SECOND_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_7 = QLineSegment<T>(SECOND_POSITION, FIRST_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_7 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_8 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_8 = QLineSegment<T>(FIRST_POSITION, SECOND_POSITION);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const T EXPECTED_POINT1 = FIRST_POSITION;
+    const T EXPECTED_POINT2 = FIRST_POSITION;
+    const T EXPECTED_POINT3 = SECOND_POSITION;
+    const T EXPECTED_POINT4 = SECOND_POSITION;
+    const T EXPECTED_POINT5 = FIRST_POSITION;
+    const T EXPECTED_POINT6 = FIRST_POSITION;
+    const T EXPECTED_POINT7 = SECOND_POSITION;
+    const T EXPECTED_POINT8 = SECOND_POSITION;
+    T OUTPUT_POINT1  = T::GetZeroVector();
+    T OUTPUT_POINT2  = T::GetZeroVector();
+    T OUTPUT_POINT3  = T::GetZeroVector();
+    T OUTPUT_POINT4  = T::GetZeroVector();
+    T OUTPUT_POINT5  = T::GetZeroVector();
+    T OUTPUT_POINT6  = T::GetZeroVector();
+    T OUTPUT_POINT7  = T::GetZeroVector();
+    T OUTPUT_POINT8  = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult1  = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_POINT1);// I
+    EQIntersections eResult2  = LINE_SEGMENTA_2.IntersectionPoint(LINE_SEGMENTB_2, OUTPUT_POINT2);// II
+    EQIntersections eResult3  = LINE_SEGMENTA_3.IntersectionPoint(LINE_SEGMENTB_3, OUTPUT_POINT3);// III
+    EQIntersections eResult4  = LINE_SEGMENTA_4.IntersectionPoint(LINE_SEGMENTB_4, OUTPUT_POINT4);// IV
+    EQIntersections eResult5  = LINE_SEGMENTA_5.IntersectionPoint(LINE_SEGMENTB_5, OUTPUT_POINT5);// V
+    EQIntersections eResult6  = LINE_SEGMENTA_6.IntersectionPoint(LINE_SEGMENTB_6, OUTPUT_POINT6);// VI
+    EQIntersections eResult7  = LINE_SEGMENTA_7.IntersectionPoint(LINE_SEGMENTB_7, OUTPUT_POINT7);// VII
+    EQIntersections eResult8  = LINE_SEGMENTA_8.IntersectionPoint(LINE_SEGMENTB_8, OUTPUT_POINT8);// VIII
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult7, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult8, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_POINT3 == EXPECTED_POINT3);
+    BOOST_CHECK(OUTPUT_POINT4 == EXPECTED_POINT4);
+    BOOST_CHECK(OUTPUT_POINT5 == EXPECTED_POINT5);
+    BOOST_CHECK(OUTPUT_POINT6 == EXPECTED_POINT6);
+    BOOST_CHECK(OUTPUT_POINT7 == EXPECTED_POINT7);
+    BOOST_CHECK(OUTPUT_POINT8 == EXPECTED_POINT8);
+}
+
+/// <summary>
+/// Checks that it doesn't return any intersection point when line segments don't intersect.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointReturnedWhenLinesDoNotIntersect_Test, TQTemplateTypes )
+{
+    // A1-------B1
+    //
+    // A2-------B2
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
+    const T VALUE_FOR_B1(VECTOR_COMPONENTS_B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
+
+    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_0, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_1, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    const T EXPECTED_POINT = T::GetZeroVector();
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
+    T OUTPUT_FIRSTPOINT = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT == EXPECTED_POINT);
+}
+
+/// <summary>
+/// Checks that the output point doesn't change when there is no intersection.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_OutputPointIsNotModifiedWhenThereIsNoIntersection_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
+    const T VALUE_FOR_B1(VECTOR_COMPONENTS_B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
+
+    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_0, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_1, SQFloat::_8, -SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    const T EXPECTED_POINT = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT = T::GetZeroVector();
+
+	// Execution
+    LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
+
+    // Verification
+    BOOST_CHECK(OUTPUT_FIRSTPOINT == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT == EXPECTED_POINT);
+}
+
+/// <summary>
+/// Checks that it returns one intersection point when lines intersect somewhere between A and B, both not included.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_OneIntersectionPointIsReturnedWhenLinesIntersectSomewhereBetweenAAndBNotIncluded_Test, TQTemplateTypes )
+{
+    // A1     A2
+    //  \    /
+    //   \  /
+    //    \/
+    //    /\
+    //   /  \
+    //  B2   B1
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
+    const T VALUE_FOR_B1(VECTOR_COMPONENTS_B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
+
+    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_1, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    float_q VECTOR_COMPONENTS_EXPECTED[] = { SQFloat::_1 + SQFloat::_0_5, SQFloat::_1 + SQFloat::_0_5, SQFloat::_4 + SQFloat::_0_5, SQFloat::_1 };
+    const T EXPECTED_FIRSTPOINT = T(VECTOR_COMPONENTS_EXPECTED);
+    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT == EXPECTED_SECONDPOINT);
+}
+
+/// <summary>
+/// Checks that it returns infinite intersection points when lines coincide totally.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsInfinitePointsWhenLinesCoincideTotally_Test, TQTemplateTypes )
+{
+    // A1A2------B1B2  (I
+    // A1B2------B1A2  (II
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
+    const T VALUE_FOR_B1(VECTOR_COMPONENTS_B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
+
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
+
+    const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_B1, VALUE_FOR_A1);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
+    const T EXPECTED_POINT = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT3 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT4 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
+    EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // I
+    EQIntersections eResult3 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3); // II
+    EQIntersections eResult4 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT4, OUTPUT_SECONDPOINT4); // II
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT1 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT2 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT3 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT4 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT1 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT2 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT3 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT4 == EXPECTED_POINT);
+}
+
+/// <summary>
+/// Checks that it returns one intersection point when an end point of one line is contained in the other line (not including A, and B points in this case).
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndPointIsContainedInTheOtherLine_Test, TQTemplateTypes )
+{
+    //        B2              A2              B2              A2
+    //       /               /               /               /
+    // A1---A2---B1    A1---B2---B1    B1---A2---A1    B1---B2---A1
+    //
+    //       I              II             III              IV
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
@@ -1723,7 +2096,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenLinesCoincideP
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
     float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_3, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
@@ -1731,26 +2104,36 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenLinesCoincideP
     const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_B1, VALUE_FOR_A1);
     const QLineSegment<T> LINE_SEGMENT4 = QLineSegment<T>(VALUE_FOR_B2, VALUE_FOR_A2);
 
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
-    T OUTPUT_POINT3 = T::GetZeroVector();
-    T OUTPUT_POINT4 = T::GetZeroVector();
-    T OUTPUT_POINT5 = T::GetZeroVector();
-    T OUTPUT_POINT6 = T::GetZeroVector();
-    T OUTPUT_POINT7 = T::GetZeroVector();
-    T OUTPUT_POINT8 = T::GetZeroVector();
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    float_q VECTOR_COMPONENTS_EXPECTED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T EXPECTED_FIRSTPOINT = T(VECTOR_COMPONENTS_EXPECTED);
+    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT3 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT4 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT5 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT6 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT7 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT8 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT5 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT6 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT7 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT8 = T::GetZeroVector();
 
 	// Execution
-    EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1); // I
-    EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2); // I
-    EQIntersections eResult3 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT4, OUTPUT_POINT3); // II
-    EQIntersections eResult4 = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT4); // II
-    EQIntersections eResult5 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT5); // III
-    EQIntersections eResult6 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT3, OUTPUT_POINT6); // III
-    EQIntersections eResult7 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT4, OUTPUT_POINT7); // IV
-    EQIntersections eResult8 = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT3, OUTPUT_POINT8); // IV
+    EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
+    EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // I
+    EQIntersections eResult3 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT4, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3); // II
+    EQIntersections eResult4 = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT4, OUTPUT_SECONDPOINT4); // II
+    EQIntersections eResult5 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT5, OUTPUT_SECONDPOINT5); // III
+    EQIntersections eResult6 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT6, OUTPUT_SECONDPOINT6); // III
+    EQIntersections eResult7 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT4, OUTPUT_FIRSTPOINT7, OUTPUT_SECONDPOINT7); // IV
+    EQIntersections eResult8 = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT8, OUTPUT_SECONDPOINT8); // IV
 
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
@@ -1761,74 +2144,125 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenLinesCoincideP
     BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult7, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult8, EXPECTED_RESULT);
-    BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT3 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT4 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT5 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT6 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT7 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT8 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT1 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT2 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT3 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT4 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT5 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT6 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT7 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT8 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT3 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT4 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT5 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT6 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT7 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT8 == EXPECTED_SECONDPOINT);
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when one line is totally contained by the other.
+/// Checks that it returns one intersection point when the 2 lines share only one of their end points.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenOneSegmentIsContainedByTheOther_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenLinesShareOneEndPointOnly_Test, TQTemplateTypes )
 {
+    //      B2           A2           B2           A2        B3           A3           B3           A3
+    //     /            /            /            /            \            \            \            \
+    // A1A2---B1    A1B2---B1    B1A2---A1    B1B2---A1    A1---A3B1    A1---B3B1    B1---A3A1    B1---B3A1    A1---B1A4---B4    B1---A1A4---B4    A1---B1B4---A4    B1---A1B4---A4
     //
-    // A1---A2---B2---B1    A1---A3----B1B3    A1---B3---B1A3    B1---A3---A1B3    B1---B3---A1A3
-    //
-    //         I                  II                 III               IV                V
+    //     I           II           III           IV           V           VI           VII         VIII            IX                  X                XI                XII
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
     // Preparation
-    float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
     const T VALUE_FOR_B1(VECTOR_COMPONENTS_B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
-    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_3, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    float_q VECTOR_COMPONENTS_A3[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_B3[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_B1, VALUE_FOR_A1);
+    const QLineSegment<T> LINE_SEGMENT4 = QLineSegment<T>(VALUE_FOR_B2, VALUE_FOR_A2);
+
+    const float_q VECTOR_COMPONENTS_A3[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B3[] = { SQFloat::_1, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A3(VECTOR_COMPONENTS_A3);
     const T VALUE_FOR_B3(VECTOR_COMPONENTS_B3);
 
-    const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_B1, VALUE_FOR_A1);
-    const QLineSegment<T> LINE_SEGMENT4 = QLineSegment<T>(VALUE_FOR_A3, VALUE_FOR_B3);
-    const QLineSegment<T> LINE_SEGMENT5 = QLineSegment<T>(VALUE_FOR_B3, VALUE_FOR_A3);
+    const QLineSegment<T> LINE_SEGMENT5 = QLineSegment<T>(VALUE_FOR_A3, VALUE_FOR_B3);
+    const QLineSegment<T> LINE_SEGMENT6 = QLineSegment<T>(VALUE_FOR_B3, VALUE_FOR_A3);
 
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_POINT1  = T::GetZeroVector();
-    T OUTPUT_POINT2  = T::GetZeroVector();
-    T OUTPUT_POINT3  = T::GetZeroVector();
-    T OUTPUT_POINT4  = T::GetZeroVector();
-    T OUTPUT_POINT5  = T::GetZeroVector();
-    T OUTPUT_POINT6  = T::GetZeroVector();
-    T OUTPUT_POINT7  = T::GetZeroVector();
-    T OUTPUT_POINT8  = T::GetZeroVector();
-    T OUTPUT_POINT9  = T::GetZeroVector();
-    T OUTPUT_POINT10 = T::GetZeroVector();
+    const float_q VECTOR_COMPONENTS_A4[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B4[] = { SQFloat::_6, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A4(VECTOR_COMPONENTS_A4);
+    const T VALUE_FOR_B4(VECTOR_COMPONENTS_B4);
+
+    const QLineSegment<T> LINE_SEGMENT7 = QLineSegment<T>(VALUE_FOR_A4, VALUE_FOR_B4);
+    const QLineSegment<T> LINE_SEGMENT8 = QLineSegment<T>(VALUE_FOR_B4, VALUE_FOR_A4);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const float_q VECTOR_COMPONENTS_EXPECTED1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
+    const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
+    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT3 = T::GetZeroVector();    T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT4 = T::GetZeroVector();    T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT5 = T::GetZeroVector();    T OUTPUT_SECONDPOINT5 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT6 = T::GetZeroVector();    T OUTPUT_SECONDPOINT6 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT7 = T::GetZeroVector();    T OUTPUT_SECONDPOINT7 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT8 = T::GetZeroVector();    T OUTPUT_SECONDPOINT8 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT9 = T::GetZeroVector();    T OUTPUT_SECONDPOINT9 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT10 = T::GetZeroVector();   T OUTPUT_SECONDPOINT10 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT11 = T::GetZeroVector();   T OUTPUT_SECONDPOINT11 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT12 = T::GetZeroVector();   T OUTPUT_SECONDPOINT12 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT13 = T::GetZeroVector();   T OUTPUT_SECONDPOINT13 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT14 = T::GetZeroVector();   T OUTPUT_SECONDPOINT14 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT15 = T::GetZeroVector();   T OUTPUT_SECONDPOINT15 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT16 = T::GetZeroVector();   T OUTPUT_SECONDPOINT16 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT17 = T::GetZeroVector();   T OUTPUT_SECONDPOINT17 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT18 = T::GetZeroVector();   T OUTPUT_SECONDPOINT18 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT19 = T::GetZeroVector();   T OUTPUT_SECONDPOINT19 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT20 = T::GetZeroVector();   T OUTPUT_SECONDPOINT20 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT21 = T::GetZeroVector();   T OUTPUT_SECONDPOINT21 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT22 = T::GetZeroVector();   T OUTPUT_SECONDPOINT22 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT23 = T::GetZeroVector();   T OUTPUT_SECONDPOINT23 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT24 = T::GetZeroVector();   T OUTPUT_SECONDPOINT24 = T::GetZeroVector();
 
 	// Execution
-    EQIntersections eResult1  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1);// I
-    EQIntersections eResult2  = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2);// I
-    EQIntersections eResult3  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT4, OUTPUT_POINT3);// II
-    EQIntersections eResult4  = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT4);// II
-    EQIntersections eResult5  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT5, OUTPUT_POINT5);// III
-    EQIntersections eResult6  = LINE_SEGMENT5.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT6);// III
-    EQIntersections eResult7  = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT4, OUTPUT_POINT7);// IV
-    EQIntersections eResult8  = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT3, OUTPUT_POINT8);// IV
-    EQIntersections eResult9  = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT5, OUTPUT_POINT9);// V
-    EQIntersections eResult10 = LINE_SEGMENT5.IntersectionPoint(LINE_SEGMENT3, OUTPUT_POINT10);// V
+    EQIntersections eResult1  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
+    EQIntersections eResult2  = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // I
+    EQIntersections eResult3  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT4, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3); // II
+    EQIntersections eResult4  = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT4, OUTPUT_SECONDPOINT4); // II
+    EQIntersections eResult5  = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT5, OUTPUT_SECONDPOINT5); // III
+    EQIntersections eResult6  = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT6, OUTPUT_SECONDPOINT6); // III
+    EQIntersections eResult7  = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT4, OUTPUT_FIRSTPOINT7, OUTPUT_SECONDPOINT7); // IV
+    EQIntersections eResult8  = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT8, OUTPUT_SECONDPOINT8); // IV
+    EQIntersections eResult9  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT5, OUTPUT_FIRSTPOINT9, OUTPUT_SECONDPOINT9); // V
+    EQIntersections eResult10 = LINE_SEGMENT5.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT10, OUTPUT_SECONDPOINT10); // V
+    EQIntersections eResult11 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT6, OUTPUT_FIRSTPOINT11, OUTPUT_SECONDPOINT11); // VI
+    EQIntersections eResult12 = LINE_SEGMENT6.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT12, OUTPUT_SECONDPOINT12); // VI
+    EQIntersections eResult13 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT5, OUTPUT_FIRSTPOINT13, OUTPUT_SECONDPOINT13); // VII
+    EQIntersections eResult14 = LINE_SEGMENT5.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT14, OUTPUT_SECONDPOINT14); // VII
+    EQIntersections eResult15 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT6, OUTPUT_FIRSTPOINT15, OUTPUT_SECONDPOINT15); // VIII
+    EQIntersections eResult16 = LINE_SEGMENT6.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT16, OUTPUT_SECONDPOINT16); // VIII
+    EQIntersections eResult17 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT7, OUTPUT_FIRSTPOINT17, OUTPUT_SECONDPOINT17); // IX
+    EQIntersections eResult18 = LINE_SEGMENT7.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT18, OUTPUT_SECONDPOINT18); // IX
+    EQIntersections eResult19 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT7, OUTPUT_FIRSTPOINT19, OUTPUT_SECONDPOINT19); // X
+    EQIntersections eResult20 = LINE_SEGMENT7.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT20, OUTPUT_SECONDPOINT20); // X
+    EQIntersections eResult21 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT8, OUTPUT_FIRSTPOINT21, OUTPUT_SECONDPOINT21); // XI
+    EQIntersections eResult22 = LINE_SEGMENT8.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT22, OUTPUT_SECONDPOINT22); // XI
+    EQIntersections eResult23 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT8, OUTPUT_FIRSTPOINT23, OUTPUT_SECONDPOINT23); // XII
+    EQIntersections eResult24 = LINE_SEGMENT8.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT24, OUTPUT_SECONDPOINT24); // XII
 
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
@@ -1841,22 +2275,433 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenOneSegmentIsCo
     BOOST_CHECK_EQUAL(eResult8, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult9, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult10, EXPECTED_RESULT);
-    BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT3 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT4 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT5 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT6 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT7 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT8 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT9 == EXPECTED_POINT);
-    BOOST_CHECK(OUTPUT_POINT10 == EXPECTED_POINT);
+    BOOST_CHECK_EQUAL(eResult11, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult12, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult13, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult14, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult15, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult16, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult17, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult18, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult19, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult20, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult21, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult22, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult23, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult24, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT1 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT2 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT3 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT4 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT5 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT6 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT7 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT8 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT9 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT10 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT11 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT12 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT13 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT14 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT15 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT16 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT17 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT18 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT19 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT20 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT21 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT22 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT23 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT24 == EXPECTED_POINT2);
+    BOOST_CHECK(OUTPUT_SECONDPOINT1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT3 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT4 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT5 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT6 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT7 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT8 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT9 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT10 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT11 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT12 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT13 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT14 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT15 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT16 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT17 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT18 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT19 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT20 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT21 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT22 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT23 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT24 == EXPECTED_SECONDPOINT);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the length of one of the segments equals zero, even if they intersect.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    // A2---(A1B1)---B2
+    //
+    //        I
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
+
+    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    const T EXPECTED_POINT = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
+
+    const bool ASSERTION_FAILED = true;
+
+	// Execution
+    bool bAssertionFailed1 = false;
+
+    try
+    {
+        LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
+    }
+    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    {
+        bAssertionFailed1 = true;
+    }
+
+    bool bAssertionFailed2 = false;
+
+    try
+    {
+        LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // I
+    }
+    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    {
+        bAssertionFailed2 = true;
+    }
+
+    // Verification
+    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that it doesn't return any intersection point when the segment doesn't intersect the other but would do it if it was lengthened to the infinite.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointWhenSegmentDoesNotIntersectButWouldDoIfTheyHadInfiniteLength_Test, TQTemplateTypes )
+{
+    // A1       A2
+    //  \      /
+    //   B1   /
+    //    ·  /
+    //     ·/
+    //     /·
+    //   B2  ·
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
+    const T VALUE_FOR_B1(VECTOR_COMPONENTS_B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
+
+    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_3, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
+    const T EXPECTED_POINT = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1);
+    EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT1 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT1 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT2 == EXPECTED_POINT);
+    BOOST_CHECK(OUTPUT_SECONDPOINT2 == EXPECTED_POINT);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when lines coincide partially, this means, they share more than one point but not all.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenLinesCoincidePartially_Test, TQTemplateTypes )
+{
+    // A2---A1---B1---B2  I
+    //
+    // A2---B1---A1---B2  II
+    //
+    // A2---A1---B2---B1  III
+    //
+    // A2---B1---B2---A1  IV
+    //
+    // B2---A1---A2---B1  V
+    //
+    // B2---B1---A2---A1  VI
+    //
+    // A1---A2---B2---B1  VII
+    //
+    // A1---B2---A2---B1  VIII
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q FIRST_POSITION_COMPONENTS[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q SECOND_POSITION_COMPONENTS[] = { SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q THIRD_POSITION_COMPONENTS[] = { SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q FOURTH_POSITION_COMPONENTS[] = { SQFloat::_4, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const T FIRST_POSITION = T(FIRST_POSITION_COMPONENTS);
+    const T SECOND_POSITION = T(SECOND_POSITION_COMPONENTS);
+    const T THIRD_POSITION = T(THIRD_POSITION_COMPONENTS);
+    const T FOURTH_POSITION = T(FOURTH_POSITION_COMPONENTS);
+
+    const QLineSegment<T> LINE_SEGMENTA_1 = QLineSegment<T>(SECOND_POSITION, THIRD_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_1 = QLineSegment<T>(FIRST_POSITION, FOURTH_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_2 = QLineSegment<T>(THIRD_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_2 = QLineSegment<T>(FIRST_POSITION, FOURTH_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_3 = QLineSegment<T>(SECOND_POSITION, FOURTH_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_3 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_4 = QLineSegment<T>(FOURTH_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_4 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_5 = QLineSegment<T>(SECOND_POSITION, FOURTH_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_5 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_6 = QLineSegment<T>(FOURTH_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_6 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_7 = QLineSegment<T>(FIRST_POSITION, FOURTH_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_7 = QLineSegment<T>(SECOND_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_8 = QLineSegment<T>(FIRST_POSITION, FOURTH_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_8 = QLineSegment<T>(THIRD_POSITION, SECOND_POSITION);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const T EXPECTED_FIRSTPOINT1 = SECOND_POSITION;
+    const T EXPECTED_FIRSTPOINT2 = THIRD_POSITION;
+    const T EXPECTED_FIRSTPOINT3 = SECOND_POSITION;
+    const T EXPECTED_FIRSTPOINT4 = THIRD_POSITION;
+    const T EXPECTED_FIRSTPOINT5 = SECOND_POSITION;
+    const T EXPECTED_FIRSTPOINT6 = THIRD_POSITION;
+    const T EXPECTED_FIRSTPOINT7 = SECOND_POSITION;
+    const T EXPECTED_FIRSTPOINT8 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT1 = THIRD_POSITION;
+    const T EXPECTED_SECONDPOINT2 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT3 = THIRD_POSITION;
+    const T EXPECTED_SECONDPOINT4 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT5 = THIRD_POSITION;
+    const T EXPECTED_SECONDPOINT6 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT7 = THIRD_POSITION;
+    const T EXPECTED_SECONDPOINT8 = THIRD_POSITION;
+    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT3 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT4 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT5 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT6 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT7 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT8 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT5 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT6 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT7 = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT8 = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult1 = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
+    EQIntersections eResult2 = LINE_SEGMENTA_2.IntersectionPoint(LINE_SEGMENTB_2, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // II
+    EQIntersections eResult3 = LINE_SEGMENTA_3.IntersectionPoint(LINE_SEGMENTB_3, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3); // III
+    EQIntersections eResult4 = LINE_SEGMENTA_4.IntersectionPoint(LINE_SEGMENTB_4, OUTPUT_FIRSTPOINT4, OUTPUT_SECONDPOINT4); // IV
+    EQIntersections eResult5 = LINE_SEGMENTA_5.IntersectionPoint(LINE_SEGMENTB_5, OUTPUT_FIRSTPOINT5, OUTPUT_SECONDPOINT5); // V
+    EQIntersections eResult6 = LINE_SEGMENTA_6.IntersectionPoint(LINE_SEGMENTB_6, OUTPUT_FIRSTPOINT6, OUTPUT_SECONDPOINT6); // VI
+    EQIntersections eResult7 = LINE_SEGMENTA_7.IntersectionPoint(LINE_SEGMENTB_7, OUTPUT_FIRSTPOINT7, OUTPUT_SECONDPOINT7); // VII
+    EQIntersections eResult8 = LINE_SEGMENTA_8.IntersectionPoint(LINE_SEGMENTB_8, OUTPUT_FIRSTPOINT8, OUTPUT_SECONDPOINT8); // VIII
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult7, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult8, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT1 == EXPECTED_FIRSTPOINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT2 == EXPECTED_FIRSTPOINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT3 == EXPECTED_FIRSTPOINT3);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT4 == EXPECTED_FIRSTPOINT4);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT5 == EXPECTED_FIRSTPOINT5);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT6 == EXPECTED_FIRSTPOINT6);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT7 == EXPECTED_FIRSTPOINT7);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT8 == EXPECTED_FIRSTPOINT8);
+    BOOST_CHECK(OUTPUT_SECONDPOINT1 == EXPECTED_SECONDPOINT1);
+    BOOST_CHECK(OUTPUT_SECONDPOINT2 == EXPECTED_SECONDPOINT2);
+    BOOST_CHECK(OUTPUT_SECONDPOINT3 == EXPECTED_SECONDPOINT3);
+    BOOST_CHECK(OUTPUT_SECONDPOINT4 == EXPECTED_SECONDPOINT4);
+    BOOST_CHECK(OUTPUT_SECONDPOINT5 == EXPECTED_SECONDPOINT5);
+    BOOST_CHECK(OUTPUT_SECONDPOINT6 == EXPECTED_SECONDPOINT6);
+    BOOST_CHECK(OUTPUT_SECONDPOINT7 == EXPECTED_SECONDPOINT7);
+    BOOST_CHECK(OUTPUT_SECONDPOINT8 == EXPECTED_SECONDPOINT8);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when one line is totally contained in the other.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOneSegmentIsContainedInTheOther_Test, TQTemplateTypes )
+{
+    // A1A2---B1---B2  I
+    //
+    // A1A2---B2---B1  II
+    //
+    // B1B2---A1---A2  III
+    //
+    // B1B2---A2---A1  IV
+    //
+    // A1B2---B1---A2  V
+    //
+    // A1B2---A2---B1  VI
+    //
+    // A2B1---A1---B2  VII
+    //
+    // A2B1---B2---A1  VIII
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q FIRST_POSITION_COMPONENTS[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q SECOND_POSITION_COMPONENTS[] = { SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const float_q THIRD_POSITION_COMPONENTS[] = { SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
+    const T FIRST_POSITION = T(FIRST_POSITION_COMPONENTS);
+    const T SECOND_POSITION = T(SECOND_POSITION_COMPONENTS);
+    const T THIRD_POSITION = T(THIRD_POSITION_COMPONENTS);
+
+    const QLineSegment<T> LINE_SEGMENTA_1 = QLineSegment<T>(FIRST_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_1 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_2 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_2 = QLineSegment<T>(FIRST_POSITION, SECOND_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_3 = QLineSegment<T>(SECOND_POSITION, FIRST_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_3 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_4 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_4 = QLineSegment<T>(SECOND_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_5 = QLineSegment<T>(FIRST_POSITION, SECOND_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_5 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_6 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_6 = QLineSegment<T>(SECOND_POSITION, FIRST_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_7 = QLineSegment<T>(SECOND_POSITION, FIRST_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_7 = QLineSegment<T>(FIRST_POSITION, THIRD_POSITION);
+
+    const QLineSegment<T> LINE_SEGMENTA_8 = QLineSegment<T>(THIRD_POSITION, FIRST_POSITION);
+    const QLineSegment<T> LINE_SEGMENTB_8 = QLineSegment<T>(FIRST_POSITION, SECOND_POSITION);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const T EXPECTED_FIRSTPOINT1 = FIRST_POSITION;
+    const T EXPECTED_FIRSTPOINT2 = FIRST_POSITION;
+    const T EXPECTED_FIRSTPOINT3 = SECOND_POSITION;
+    const T EXPECTED_FIRSTPOINT4 = SECOND_POSITION;
+    const T EXPECTED_FIRSTPOINT5 = FIRST_POSITION;
+    const T EXPECTED_FIRSTPOINT6 = FIRST_POSITION;
+    const T EXPECTED_FIRSTPOINT7 = SECOND_POSITION;
+    const T EXPECTED_FIRSTPOINT8 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT1 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT2 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT3 = FIRST_POSITION;
+    const T EXPECTED_SECONDPOINT4 = FIRST_POSITION;
+    const T EXPECTED_SECONDPOINT5 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT6 = SECOND_POSITION;
+    const T EXPECTED_SECONDPOINT7 = FIRST_POSITION;
+    const T EXPECTED_SECONDPOINT8 = FIRST_POSITION;
+    T OUTPUT_FIRSTPOINT1  = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT2  = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT3  = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT4  = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT5  = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT6  = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT7  = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT8  = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT1  = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT2  = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT3  = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT4  = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT5  = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT6  = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT7  = T::GetZeroVector();
+    T OUTPUT_SECONDPOINT8  = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult1  = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1);// I
+    EQIntersections eResult2  = LINE_SEGMENTA_2.IntersectionPoint(LINE_SEGMENTB_2, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2);// II
+    EQIntersections eResult3  = LINE_SEGMENTA_3.IntersectionPoint(LINE_SEGMENTB_3, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3);// III
+    EQIntersections eResult4  = LINE_SEGMENTA_4.IntersectionPoint(LINE_SEGMENTB_4, OUTPUT_FIRSTPOINT4, OUTPUT_SECONDPOINT4);// IV
+    EQIntersections eResult5  = LINE_SEGMENTA_5.IntersectionPoint(LINE_SEGMENTB_5, OUTPUT_FIRSTPOINT5, OUTPUT_SECONDPOINT5);// V
+    EQIntersections eResult6  = LINE_SEGMENTA_6.IntersectionPoint(LINE_SEGMENTB_6, OUTPUT_FIRSTPOINT6, OUTPUT_SECONDPOINT6);// VI
+    EQIntersections eResult7  = LINE_SEGMENTA_7.IntersectionPoint(LINE_SEGMENTB_7, OUTPUT_FIRSTPOINT7, OUTPUT_SECONDPOINT7);// VII
+    EQIntersections eResult8  = LINE_SEGMENTA_8.IntersectionPoint(LINE_SEGMENTB_8, OUTPUT_FIRSTPOINT8, OUTPUT_SECONDPOINT8);// VIII
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult4, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult5, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult6, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult7, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult8, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT1 == EXPECTED_FIRSTPOINT1);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT2 == EXPECTED_FIRSTPOINT2);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT3 == EXPECTED_FIRSTPOINT3);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT4 == EXPECTED_FIRSTPOINT4);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT5 == EXPECTED_FIRSTPOINT5);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT6 == EXPECTED_FIRSTPOINT6);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT7 == EXPECTED_FIRSTPOINT7);
+    BOOST_CHECK(OUTPUT_FIRSTPOINT8 == EXPECTED_FIRSTPOINT8);
+    BOOST_CHECK(OUTPUT_SECONDPOINT1 == EXPECTED_SECONDPOINT1);
+    BOOST_CHECK(OUTPUT_SECONDPOINT2 == EXPECTED_SECONDPOINT2);
+    BOOST_CHECK(OUTPUT_SECONDPOINT3 == EXPECTED_SECONDPOINT3);
+    BOOST_CHECK(OUTPUT_SECONDPOINT4 == EXPECTED_SECONDPOINT4);
+    BOOST_CHECK(OUTPUT_SECONDPOINT5 == EXPECTED_SECONDPOINT5);
+    BOOST_CHECK(OUTPUT_SECONDPOINT6 == EXPECTED_SECONDPOINT6);
+    BOOST_CHECK(OUTPUT_SECONDPOINT7 == EXPECTED_SECONDPOINT7);
+    BOOST_CHECK(OUTPUT_SECONDPOINT8 == EXPECTED_SECONDPOINT8);
 }
 
 /// <summary>
 /// Checks that it returns no intersection points when the line doesn't intersect the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointsAreReturnedWhenLineDoesNotIntersectTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionPointsAreReturnedWhenLineDoesNotIntersectTheOrb_Test, TQTemplateTypes )
 {
     // A1           ___
     //  \          /   \
@@ -1897,7 +2742,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointsAreReturnedWhenLine
 /// <summary>
 /// Checks that it returns True when only one end point is inside the orb and the other is outside it.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionPointWhenOnlyOneEndPointIsInsideTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionPointWhenOnlyOneEndPointIsInsideTheOrb_Test, TQTemplateTypes )
 {
     //              ___                   ___
     //             /   \                 /   \
@@ -1945,7 +2790,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionPointWhenOnlyOneE
 /// <summary>
 /// Checks that it returns one intersection point when the line is tangent to the orb by only one end point.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrbByAnEndPoint_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrbByAnEndPoint_Test, TQTemplateTypes )
 {
     //              ___                   ___
     //             /   \                 /   \
@@ -1991,9 +2836,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenTheLineIsTang
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when the line is contained by the orb. Output points should not change.
+/// Checks that it returns infinite intersection points when the line is contained in the orb. Output points should not change.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsInfiniteIntersectionsWhenTheLineIsContainedByTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenTheLineIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ______
     //          ´        `
@@ -2030,9 +2875,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsInfiniteIntersectionsWhenTheLine
 }
 
 /// <summary>
-/// Checks that it returns oen intersection point when the line is contained by the orb and only one end point coincides with the surface of the orb.
+/// Checks that it returns oen intersection point when the line is contained in the orb and only one end point coincides with the surface of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenTheLineIsContainedByTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsContainedInTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______                ______
     //          ´        `            ´        `
@@ -2080,9 +2925,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenTheLineIsCont
 }
 
 /// <summary>
-/// Checks that it returns two intersection points when the line is contained by the orb and the 2 end points coincide with the surface of the orb.
+/// Checks that it returns two intersection points when the line is contained in the orb and the 2 end points coincide with the surface of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenTheLineIsContainedByTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIsContainedInTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______
     //          ´        `
@@ -2122,9 +2967,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenTheLineIsCon
 }
 
 /// <summary>
-/// Checks that it returns two intersections when the line intersects the orb in two points (and the line is not contained by the orb).
+/// Checks that it returns two intersections when the line intersects the orb in two points (and the line is not contained in the orb).
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenTheLineIntersectsTheOrbInTwoPoints_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIntersectsTheOrbInTwoPoints_Test, TQTemplateTypes )
 {
     //            ______
     //          ´        `
@@ -2166,7 +3011,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenTheLineInter
 /// <summary>
 /// Checks that it returns one intersection point when the line is tangent to the orb (the tangent point is not A or B).
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrb_Test, TQTemplateTypes )
 {
     //        A1   _____
     //        |  ´       `
@@ -2207,7 +3052,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenTheLineIsTang
 /// <summary>
 /// Checks that it returns no intersection points when the segment does not intersect the orb but would do it if the segment had an infinite length.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionIsReturnedWhenTheSegmentDoesNotIntersectTheOrbButWouldDoIfItWasInifinite_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheSegmentDoesNotIntersectTheOrbButWouldDoIfItWasInifinite_Test, TQTemplateTypes )
 {
     //                ___
     //              /     \
@@ -2253,7 +3098,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionIsReturnedWhenTheSegmentD
 /// <summary>
 /// Checks that an assertion fails when the radius of the orb equals zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheRadiusEqualsZeroAndTheLineIntersectsTheCenter_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAndTheLineIntersectsTheCenter_Test, TQTemplateTypes )
 {
     //
     // A1----------x-------B1
@@ -2316,7 +3161,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheRadiusEqualsZeroAn
 /// <summary>
 /// Checks that it returns no intersection point when the length of the line equals zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionIsReturnedWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
 {
     //             _____
     //           ´       `
@@ -2363,7 +3208,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionIsReturnedWhenTheLengthOf
 /// <summary>
 /// Checks that the first point returned is which is nearer to A end point.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_FirstPointIsNearerToAThanSecondPoint_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_FirstPointIsNearerToAThanSecondPoint_Test, TQTemplateTypes )
 {
     //               ______                       ______
     //             ´        `                   ´        `
@@ -2414,7 +3259,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_FirstPointIsNearerToAThanSecondPoint_Te
 /// <summary>
 /// Checks that it returns no intersection points when the line doesn't intersect the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionPointsAreReturnedWhenLineDoesNotIntersectTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionPointsAreReturnedWhenLineDoesNotIntersectTheOrb_Test, TQTemplateTypes )
 {
     // A1           ___
     //  \          /   \
@@ -2453,7 +3298,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionPointsAreReturnedWhenLine
 /// <summary>
 /// Checks that it returns True when only one end point is inside the orb and the other is outside it.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionPointWhenOnlyOneEndPointIsInsideTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionPointWhenOnlyOneEndPointIsInsideTheOrb_Test, TQTemplateTypes )
 {
     //              ___                   ___
     //             /   \                 /   \
@@ -2496,7 +3341,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionPointWhenOnlyOneE
 /// <summary>
 /// Checks that it returns one intersection point when the line is tangent to the orb by only one end point.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrbByAnEndPoint_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrbByAnEndPoint_Test, TQTemplateTypes )
 {
     //              ___                   ___
     //             /   \                 /   \
@@ -2537,9 +3382,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when the line is contained by the orb. Output points should not change.
+/// Checks that it returns infinite intersection points when the line is contained in the orb. Output points should not change.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenTheLineIsContainedByTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenTheLineIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ______
     //          ´        `
@@ -2574,9 +3419,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenTheLine
 }
 
 /// <summary>
-/// Checks that it returns oen intersection point when the line is contained by the orb and only one end point coincides with the surface of the orb.
+/// Checks that it returns oen intersection point when the line is contained in the orb and only one end point coincides with the surface of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsContainedByTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsContainedInTheOrbAndOneEndPointCoincidesWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______                ______
     //          ´        `            ´        `
@@ -2619,9 +3464,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsCont
 }
 
 /// <summary>
-/// Checks that it returns two intersection points when the line is contained by the orb and the 2 end points coincide with the surface of the orb.
+/// Checks that it returns two intersection points when the line is contained in the orb and the 2 end points coincide with the surface of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIsContainedByTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineIsContainedInTheOrbAndTheTwoEndPointsCoincideWithTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
     //            ______
     //          ´        `
@@ -2657,9 +3502,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIsCon
 }
 
 /// <summary>
-/// Checks that it returns two intersections when the line intersects the orb in two points (and the line is not contained by the orb).
+/// Checks that it returns two intersections when the line intersects the orb in two points (and the line is not contained in the orb).
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIntersectsTheOrbInTwoPoints_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineIntersectsTheOrbInTwoPoints_Test, TQTemplateTypes )
 {
     //            ______
     //          ´        `
@@ -2697,7 +3542,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineInter
 /// <summary>
 /// Checks that it returns one intersection point when the line is tangent to the orb (the tangent point is not A or B).
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTangentToTheOrb_Test, TQTemplateTypes )
 {
     //        A1   _____
     //        |  ´       `
@@ -2735,7 +3580,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
 /// <summary>
 /// Checks that it returns no intersection points when the segment does not intersect the orb but would do it if the segment had an infinite length.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheSegmentDoesNotIntersectTheOrbButWouldDoIfItWasInifinite_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionIsReturnedWhenTheSegmentDoesNotIntersectTheOrbButWouldDoIfItWasInifinite_Test, TQTemplateTypes )
 {
     //                ___
     //              /     \
@@ -2777,7 +3622,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheSegmentD
 /// <summary>
 /// Checks that an assertion fails when the radius of the orb equals zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAndTheLineIntersectsTheCenter_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheRadiusEqualsZeroAndTheLineIntersectsTheCenter_Test, TQTemplateTypes )
 {
     //
     // A1----------x-------B1
@@ -2836,7 +3681,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
 /// <summary>
 /// Checks that an assertion fails when the length of the line equals zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
 {
     //             _____
     //           ´       `
@@ -2881,7 +3726,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
 /// <summary>
 /// Checks that the point returned is which is nearer to A end point.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_FirstPointIsNearerToA_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_FirstPointIsNearerToA_Test, TQTemplateTypes )
 {
     //               ______                       ______
     //             ´        `                   ´        `
@@ -3020,7 +3865,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesCoincideTotally_Test, TQT
 }
 
 /// <summary>
-/// Checks that it returns zero when an end point of one line is contained by the other line (not including A, and B points in this case).
+/// Checks that it returns zero when an end point of one line is contained in the other line (not including A, and B points in this case).
 /// </summary>
 QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenAnEndPointIsContainedInTheOtherLine_Test, TQTemplateTypes )
 {
@@ -3267,9 +4112,9 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesCoincidePartially_Test, T
 }
 
 /// <summary>
-/// Checks that it returns zero when one line is totally contained by the other.
+/// Checks that it returns zero when one line is totally contained in the other.
 /// </summary>
-QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenOneSegmentIsContainedByTheOther_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenOneSegmentIsContainedInTheOther_Test, TQTemplateTypes )
 {
     //
     // A1---A2---B2---B1    A1---A3----B1B3    A1---B3---B1A3    B1---A3---A1B3    B1---B3---A1A3
@@ -3350,9 +4195,9 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsExpectedDistanceWhenLineAndPointDoNotI
 }
 
 /// <summary>
-/// Checks that it returns zero when the point is contained by the line (not including A, and B points in this case).
+/// Checks that it returns zero when the point is contained in the line (not including A, and B points in this case).
 /// </summary>
-QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsZeroWhenThePointIsContainedByTheLine_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsZeroWhenThePointIsContainedInTheLine_Test, TQTemplateTypes )
 {
     //
     // A1---P---B1    B1---P---A1
@@ -4063,7 +4908,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithEndPointAWhenLinesC
 }
 
 /// <summary>
-/// Checks that obtained points coincide with the intersection point when an end point of one line is contained by the other line (not including A, and B points in this case).
+/// Checks that obtained points coincide with the intersection point when an end point of one line is contained in the other line (not including A, and B points in this case).
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPointWhenAnEndPointIsContainedInTheOtherLine_Test, TQTemplateTypes )
 {
@@ -4287,7 +5132,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithSharedEndPointWhenL
 }
 
 /// <summary>
-/// Checks that obtained points coincide with the closest ones to A (in the instance which method is being executed) that is contained by the
+/// Checks that obtained points coincide with the closest ones to A (in the instance which method is being executed) that is contained in the
 /// other line when lines coincide partially, this means, they share more than one point but not all.
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherLineWhenLinesCoincidePartially_Test, TQTemplateTypes )
@@ -4356,10 +5201,10 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
 }
 
 /// <summary>
-/// Checks that obtained points coincide with the closest ones to A (in the instance which method is being executed) that is contained by the
-/// other line when one line is totally contained by the other.
+/// Checks that obtained points coincide with the closest ones to A (in the instance which method is being executed) that is contained in the
+/// other line when one line is totally contained in the other.
 /// </summary>
-QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherLineWhenOneSegmentIsContainedByTheOther_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherLineWhenOneSegmentIsContainedInTheOther_Test, TQTemplateTypes )
 {
     //
     // A1---A2---B2---B1    A1---A3----B1B3    A1---B3---B1A3    B1---A3---A1B3    B1---B3---A1A3

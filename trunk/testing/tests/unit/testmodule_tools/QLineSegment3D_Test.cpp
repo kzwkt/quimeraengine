@@ -130,9 +130,9 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 }
 
 /// <summary>
-/// Checks that it returns a unit-length line which point A is placed at origin and point B is contained by the positive X axis.
+/// Checks that it returns a unit-length line which point A is placed at origin and point B is contained in the positive X axis.
 /// </summary>
-QTEST_CASE_TEMPLATE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedByPositiveXAxisIsReturned_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedInPositiveXAxisIsReturned_Test, TQTemplateTypes )
 {
     // Preparation
     const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
@@ -2175,7 +2175,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsInfiniteIntersectionsWhenLineSeg
     const T VERTEX_B = T(VERTEX_B_COMPONENTS);
     const T VERTEX_C = T(VERTEX_C_COMPONENTS);
 
-    const T POINT_A = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_A) + (VERTEX_C - VERTEX_B) * SQFloat::_0_5;
+    const T POINT_A = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_A).Lerp(SQFloat::_0_5, VERTEX_C);
     const T POINT_B = POINT_A.Lerp(SQFloat::_0_5, VERTEX_C);
     const QLineSegment3D<T> LINE_SEGMENT = QLineSegment3D<T>(POINT_A, POINT_B);
 
@@ -2259,9 +2259,76 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndpointBel
 }
 
 /// <summary>
-/// Checks that it returns True when the line segment is contained in an edge of the triangle.
+/// Checks that it returns one intersection when an endpoint of the line segment is contained in an edge of the triangle and the other endpoint is inside the triangle.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneWhenLineSegmentBelongsToEdgeOfTriangle_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndpointBelongsToEdgeOfTriangleAndTheOtherEndpointIsInsideTheTriangle_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_5, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+
+    const T CENTER_POINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B).Lerp(SQFloat::_0_5, VERTEX_C);
+
+    const T POINT_A1 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_A);
+    const T POINT_B1 = CENTER_POINT;
+    const T POINT_A2 = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_A);
+    const T POINT_B2 = CENTER_POINT;
+    const T POINT_A3 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const T POINT_B3 = CENTER_POINT;
+    const QLineSegment3D<T> LINE_SEGMENT1 = QLineSegment3D<T>(POINT_A1, POINT_B1);
+    const QLineSegment3D<T> LINE_SEGMENT2 = QLineSegment3D<T>(POINT_B1, POINT_A1);
+    const QLineSegment3D<T> LINE_SEGMENT3 = QLineSegment3D<T>(POINT_A2, POINT_B2);
+    const QLineSegment3D<T> LINE_SEGMENT4 = QLineSegment3D<T>(POINT_B2, POINT_A2);
+    const QLineSegment3D<T> LINE_SEGMENT5 = QLineSegment3D<T>(POINT_A3, POINT_B3);
+    const QLineSegment3D<T> LINE_SEGMENT6 = QLineSegment3D<T>(POINT_B3, POINT_A3);
+
+    const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const T EXPECTED_POINT_AB = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const T EXPECTED_POINT_BC = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const T EXPECTED_POINT_CA = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_A);
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+
+	// Execution
+    T vIntersectionAB1;
+    T vIntersectionAB2;
+    T vIntersectionAC1;
+    T vIntersectionAC2;
+    T vIntersectionBC1;
+    T vIntersectionBC2;
+    EQIntersections eEndpointContainedInAB1 = LINE_SEGMENT1.IntersectionPoint(TRIANGLE, vIntersectionAB1);
+    EQIntersections eEndpointContainedInAB2 = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vIntersectionAB2);
+    EQIntersections eEndpointContainedInAC1 = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vIntersectionAC1);
+    EQIntersections eEndpointContainedInAC2 = LINE_SEGMENT4.IntersectionPoint(TRIANGLE, vIntersectionAC2);
+    EQIntersections eEndpointContainedInBC1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vIntersectionBC1);
+    EQIntersections eEndpointContainedInBC2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vIntersectionBC2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eEndpointContainedInAB1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAB2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAC1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAC2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBC1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBC2, EXPECTED_RESULT);
+    BOOST_CHECK(vIntersectionAB1 == EXPECTED_POINT_AB);
+    BOOST_CHECK(vIntersectionAB2 == EXPECTED_POINT_AB);
+    BOOST_CHECK(vIntersectionAC1 == EXPECTED_POINT_CA);
+    BOOST_CHECK(vIntersectionAC2 == EXPECTED_POINT_CA);
+    BOOST_CHECK(vIntersectionBC1 == EXPECTED_POINT_BC);
+    BOOST_CHECK(vIntersectionBC2 == EXPECTED_POINT_BC);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when the line segment is contained in an edge of the triangle.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionWhenLineSegmentBelongsToEdgeOfTriangle_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -2289,8 +2356,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneWhenLineSegmentBelongsToEdgeO
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
-    const T EXPECTED_POINT_ALL = T::GetZeroVector();
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
+    const T EXPECTED_POINT_AB1 = LINE_SEGMENT1.A;
+    const T EXPECTED_POINT_AB2 = LINE_SEGMENT2.A;
+    const T EXPECTED_POINT_AC1 = LINE_SEGMENT3.A;
+    const T EXPECTED_POINT_AC2 = LINE_SEGMENT4.A;
+    const T EXPECTED_POINT_BC1 = LINE_SEGMENT5.A;
+    const T EXPECTED_POINT_BC2 = LINE_SEGMENT6.A;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
 
 	// Execution
     T vIntersectionAB1;
@@ -2313,12 +2385,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneWhenLineSegmentBelongsToEdgeO
     BOOST_CHECK_EQUAL(eContainedInAC2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eContainedInBC1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eContainedInBC2, EXPECTED_RESULT);
-    BOOST_CHECK(vIntersectionAB1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vIntersectionAB2 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vIntersectionAC1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vIntersectionAC2 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vIntersectionBC1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vIntersectionBC2 == EXPECTED_POINT_ALL);
+    BOOST_CHECK(vIntersectionAB1 == EXPECTED_POINT_AB1);
+    BOOST_CHECK(vIntersectionAB2 == EXPECTED_POINT_AB2);
+    BOOST_CHECK(vIntersectionAC1 == EXPECTED_POINT_AC1);
+    BOOST_CHECK(vIntersectionAC2 == EXPECTED_POINT_AC2);
+    BOOST_CHECK(vIntersectionBC1 == EXPECTED_POINT_BC1);
+    BOOST_CHECK(vIntersectionBC2 == EXPECTED_POINT_BC2);
 }
 
 /// <summary>
@@ -2432,9 +2504,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndpointAnd
 }
 
 /// <summary>
-/// Checks that it returns two intersection points when the line segment intersects with an edge of the triangle.
+/// Checks that it returns two intersection points when the line segment intersects with two edges of the triangle.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineSegmentIntersectsEdgeOfTriangle_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineSegmentIntersectsWithTwoEdgesOfTriangle_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -2822,7 +2894,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenLineSeg
     const T VERTEX_B = T(VERTEX_B_COMPONENTS);
     const T VERTEX_C = T(VERTEX_C_COMPONENTS);
 
-    const T POINT_A = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_A) + (VERTEX_C - VERTEX_B) * SQFloat::_0_5;
+    const T POINT_A = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_A).Lerp(SQFloat::_0_5, VERTEX_C);
     const T POINT_B = POINT_A.Lerp(SQFloat::_0_5, VERTEX_C);
     const QLineSegment3D<T> LINE_SEGMENT = QLineSegment3D<T>(POINT_A, POINT_B);
 
@@ -2921,9 +2993,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenAnEndpointBel
 }
 
 /// <summary>
-/// Checks that it returns True when the line segment is contained in an edge of the triangle.
+/// Checks that it returns one intersection when an endpoint of the line segment is contained in an edge of the triangle and the other endpoint is inside the triangle.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneWhenLineSegmentBelongsToEdgeOfTriangle_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenAnEndpointBelongsToEdgeOfTriangleAndTheOtherEndpointIsInsideTheTriangle_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -2935,6 +3007,173 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneWhenLineSegmentBelongsToEdgeO
     const T VERTEX_A = T(VERTEX_A_COMPONENTS);
     const T VERTEX_B = T(VERTEX_B_COMPONENTS);
     const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+
+    const T CENTER_POINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B).Lerp(SQFloat::_0_5, VERTEX_C);
+
+    const T POINT_A1 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_A);
+    const T POINT_B1 = CENTER_POINT;
+    const T POINT_A2 = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_A);
+    const T POINT_B2 = CENTER_POINT;
+    const T POINT_A3 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const T POINT_B3 = CENTER_POINT;
+    const QLineSegment3D<T> LINE_SEGMENT1 = QLineSegment3D<T>(POINT_A1, POINT_B1);
+    const QLineSegment3D<T> LINE_SEGMENT2 = QLineSegment3D<T>(POINT_B1, POINT_A1);
+    const QLineSegment3D<T> LINE_SEGMENT3 = QLineSegment3D<T>(POINT_A2, POINT_B2);
+    const QLineSegment3D<T> LINE_SEGMENT4 = QLineSegment3D<T>(POINT_B2, POINT_A2);
+    const QLineSegment3D<T> LINE_SEGMENT5 = QLineSegment3D<T>(POINT_A3, POINT_B3);
+    const QLineSegment3D<T> LINE_SEGMENT6 = QLineSegment3D<T>(POINT_B3, POINT_A3);
+
+    const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const T EXPECTED_FIRSTPOINT_AB = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const T EXPECTED_FIRSTPOINT_BC = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const T EXPECTED_FIRSTPOINT_CA = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_A);
+    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+
+	// Execution
+    T vFirstIntersectionAB1;
+    T vFirstIntersectionAB2;
+    T vFirstIntersectionAC1;
+    T vFirstIntersectionAC2;
+    T vFirstIntersectionBC1;
+    T vFirstIntersectionBC2;
+    T vSecondIntersectionAB1 = T::GetZeroVector();
+    T vSecondIntersectionAB2 = T::GetZeroVector();
+    T vSecondIntersectionAC1 = T::GetZeroVector();
+    T vSecondIntersectionAC2 = T::GetZeroVector();
+    T vSecondIntersectionBC1 = T::GetZeroVector();
+    T vSecondIntersectionBC2 = T::GetZeroVector();
+    EQIntersections eEndpointContainedInAB1 = LINE_SEGMENT1.IntersectionPoint(TRIANGLE, vFirstIntersectionAB1, vSecondIntersectionAB1);
+    EQIntersections eEndpointContainedInAB2 = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vFirstIntersectionAB2, vSecondIntersectionAB2);
+    EQIntersections eEndpointContainedInAC1 = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vFirstIntersectionAC1, vSecondIntersectionAC1);
+    EQIntersections eEndpointContainedInAC2 = LINE_SEGMENT4.IntersectionPoint(TRIANGLE, vFirstIntersectionAC2, vSecondIntersectionAC2);
+    EQIntersections eEndpointContainedInBC1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vFirstIntersectionBC1, vSecondIntersectionBC1);
+    EQIntersections eEndpointContainedInBC2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vFirstIntersectionBC2, vSecondIntersectionBC2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eEndpointContainedInAB1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAB2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAC1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAC2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBC1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBC2, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersectionAB1 == EXPECTED_FIRSTPOINT_AB);
+    BOOST_CHECK(vFirstIntersectionAB2 == EXPECTED_FIRSTPOINT_AB);
+    BOOST_CHECK(vFirstIntersectionAC1 == EXPECTED_FIRSTPOINT_CA);
+    BOOST_CHECK(vFirstIntersectionAC2 == EXPECTED_FIRSTPOINT_CA);
+    BOOST_CHECK(vFirstIntersectionBC1 == EXPECTED_FIRSTPOINT_BC);
+    BOOST_CHECK(vFirstIntersectionBC2 == EXPECTED_FIRSTPOINT_BC);
+    BOOST_CHECK(vSecondIntersectionAB1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionAB2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionAC1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionAC2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionBC1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionBC2 == EXPECTED_SECONDPOINT);
+}
+
+/// <summary>
+/// Checks that it returns two intersections when the endpoints of the segment belong to different edges of the triangle.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenEndpointsBelongToDifferentEdgesOfTheTriangle_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_5, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+
+    const T POINT_A1 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_A);
+    const T POINT_B1 = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_A);
+    const T POINT_A2 = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_A);
+    const T POINT_B2 = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_B);
+    const T POINT_A3 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const T POINT_B3 = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_B);
+    const QLineSegment3D<T> LINE_SEGMENT1 = QLineSegment3D<T>(POINT_A1, POINT_B1);
+    const QLineSegment3D<T> LINE_SEGMENT2 = QLineSegment3D<T>(POINT_B1, POINT_A1);
+    const QLineSegment3D<T> LINE_SEGMENT3 = QLineSegment3D<T>(POINT_A2, POINT_B2);
+    const QLineSegment3D<T> LINE_SEGMENT4 = QLineSegment3D<T>(POINT_B2, POINT_A2);
+    const QLineSegment3D<T> LINE_SEGMENT5 = QLineSegment3D<T>(POINT_A3, POINT_B3);
+    const QLineSegment3D<T> LINE_SEGMENT6 = QLineSegment3D<T>(POINT_B3, POINT_A3);
+
+    const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const T EXPECTED_FIRSTPOINT_AB_AC1 = LINE_SEGMENT1.A;
+    const T EXPECTED_FIRSTPOINT_AB_AC2 = LINE_SEGMENT2.A;
+    const T EXPECTED_FIRSTPOINT_AC_BC1 = LINE_SEGMENT3.A;
+    const T EXPECTED_FIRSTPOINT_AC_BC2 = LINE_SEGMENT4.A;
+    const T EXPECTED_FIRSTPOINT_AB_BC1 = LINE_SEGMENT5.A;
+    const T EXPECTED_FIRSTPOINT_AB_BC2 = LINE_SEGMENT6.A;
+    const T EXPECTED_SECONDPOINT_AB_AC1 = LINE_SEGMENT1.B;
+    const T EXPECTED_SECONDPOINT_AB_AC2 = LINE_SEGMENT2.B;
+    const T EXPECTED_SECONDPOINT_AC_BC1 = LINE_SEGMENT3.B;
+    const T EXPECTED_SECONDPOINT_AC_BC2 = LINE_SEGMENT4.B;
+    const T EXPECTED_SECONDPOINT_AB_BC1 = LINE_SEGMENT5.B;
+    const T EXPECTED_SECONDPOINT_AB_BC2 = LINE_SEGMENT6.B;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+
+	// Execution
+    T vFirstIntersectionAB_AC1;
+    T vFirstIntersectionAB_AC2;
+    T vFirstIntersectionAC_BC1;
+    T vFirstIntersectionAC_BC2;
+    T vFirstIntersectionAB_BC1;
+    T vFirstIntersectionAB_BC2;
+    T vSecondIntersectionAB_AC1 = T::GetZeroVector();
+    T vSecondIntersectionAB_AC2 = T::GetZeroVector();
+    T vSecondIntersectionAC_BC1 = T::GetZeroVector();
+    T vSecondIntersectionAC_BC2 = T::GetZeroVector();
+    T vSecondIntersectionAB_BC1 = T::GetZeroVector();
+    T vSecondIntersectionAB_BC2 = T::GetZeroVector();
+    EQIntersections eEndpointContainedInAB1 = LINE_SEGMENT1.IntersectionPoint(TRIANGLE, vFirstIntersectionAB_AC1, vSecondIntersectionAB_AC1);
+    EQIntersections eEndpointContainedInAB2 = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vFirstIntersectionAB_AC2, vSecondIntersectionAB_AC2);
+    EQIntersections eEndpointContainedInAC1 = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vFirstIntersectionAC_BC1, vSecondIntersectionAC_BC1);
+    EQIntersections eEndpointContainedInAC2 = LINE_SEGMENT4.IntersectionPoint(TRIANGLE, vFirstIntersectionAC_BC2, vSecondIntersectionAC_BC2);
+    EQIntersections eEndpointContainedInBC1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vFirstIntersectionAB_BC1, vSecondIntersectionAB_BC1);
+    EQIntersections eEndpointContainedInBC2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vFirstIntersectionAB_BC2, vSecondIntersectionAB_BC2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eEndpointContainedInAB1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAB2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAC1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAC2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBC1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBC2, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersectionAB_AC1 == EXPECTED_FIRSTPOINT_AB_AC1);
+    BOOST_CHECK(vFirstIntersectionAB_AC2 == EXPECTED_FIRSTPOINT_AB_AC2);
+    BOOST_CHECK(vFirstIntersectionAC_BC1 == EXPECTED_FIRSTPOINT_AC_BC1);
+    BOOST_CHECK(vFirstIntersectionAC_BC2 == EXPECTED_FIRSTPOINT_AC_BC2);
+    BOOST_CHECK(vFirstIntersectionAB_BC1 == EXPECTED_FIRSTPOINT_AB_BC1);
+    BOOST_CHECK(vFirstIntersectionAB_BC2 == EXPECTED_FIRSTPOINT_AB_BC2);
+    BOOST_CHECK(vSecondIntersectionAB_AC1 == EXPECTED_SECONDPOINT_AB_AC1);
+    BOOST_CHECK(vSecondIntersectionAB_AC2 == EXPECTED_SECONDPOINT_AB_AC2);
+    BOOST_CHECK(vSecondIntersectionAC_BC1 == EXPECTED_SECONDPOINT_AC_BC1);
+    BOOST_CHECK(vSecondIntersectionAC_BC2 == EXPECTED_SECONDPOINT_AC_BC2);
+    BOOST_CHECK(vSecondIntersectionAB_BC1 == EXPECTED_SECONDPOINT_AB_BC1);
+    BOOST_CHECK(vSecondIntersectionAB_BC2 == EXPECTED_SECONDPOINT_AB_BC2);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when the line segment is contained in an edge of the triangle.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineSegmentBelongsToEdgeOfTriangle_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_5, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
     const T POINT_A1 = VERTEX_B.Lerp(SQFloat::_0_25, VERTEX_A);
     const T POINT_B1 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_A);
@@ -2949,10 +3188,19 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneWhenLineSegmentBelongsToEdgeO
     const QLineSegment3D<T> LINE_SEGMENT5 = QLineSegment3D<T>(POINT_A3, POINT_B3);
     const QLineSegment3D<T> LINE_SEGMENT6 = QLineSegment3D<T>(POINT_B3, POINT_A3);
 
-    const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
-
-    const T EXPECTED_POINT_ALL = T::GetZeroVector();
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
+    const T EXPECTED_FIRSTPOINT_AB1 = LINE_SEGMENT1.A;
+    const T EXPECTED_FIRSTPOINT_AB2 = LINE_SEGMENT2.A;
+    const T EXPECTED_FIRSTPOINT_AC1 = LINE_SEGMENT3.A;
+    const T EXPECTED_FIRSTPOINT_AC2 = LINE_SEGMENT4.A;
+    const T EXPECTED_FIRSTPOINT_BC1 = LINE_SEGMENT5.A;
+    const T EXPECTED_FIRSTPOINT_BC2 = LINE_SEGMENT6.A;
+    const T EXPECTED_SECONDPOINT_AB1 = LINE_SEGMENT1.B;
+    const T EXPECTED_SECONDPOINT_AB2 = LINE_SEGMENT2.B;
+    const T EXPECTED_SECONDPOINT_AC1 = LINE_SEGMENT3.B;
+    const T EXPECTED_SECONDPOINT_AC2 = LINE_SEGMENT4.B;
+    const T EXPECTED_SECONDPOINT_BC1 = LINE_SEGMENT5.B;
+    const T EXPECTED_SECONDPOINT_BC2 = LINE_SEGMENT6.B;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
 
 	// Execution
     T vFirstIntersectionAB1 = T::GetZeroVector();
@@ -2981,18 +3229,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneWhenLineSegmentBelongsToEdgeO
     BOOST_CHECK_EQUAL(eContainedInAC2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eContainedInBC1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eContainedInBC2, EXPECTED_RESULT);
-    BOOST_CHECK(vFirstIntersectionAB1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vFirstIntersectionAB2 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vFirstIntersectionAC1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vFirstIntersectionAC2 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vFirstIntersectionBC1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vFirstIntersectionBC2 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vSecondIntersectionAB1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vSecondIntersectionAB2 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vSecondIntersectionAC1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vSecondIntersectionAC2 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vSecondIntersectionBC1 == EXPECTED_POINT_ALL);
-    BOOST_CHECK(vSecondIntersectionBC2 == EXPECTED_POINT_ALL);
+    BOOST_CHECK(vFirstIntersectionAB1 == EXPECTED_FIRSTPOINT_AB1);
+    BOOST_CHECK(vFirstIntersectionAB2 == EXPECTED_FIRSTPOINT_AB2);
+    BOOST_CHECK(vFirstIntersectionAC1 == EXPECTED_FIRSTPOINT_AC1);
+    BOOST_CHECK(vFirstIntersectionAC2 == EXPECTED_FIRSTPOINT_AC2);
+    BOOST_CHECK(vFirstIntersectionBC1 == EXPECTED_FIRSTPOINT_BC1);
+    BOOST_CHECK(vFirstIntersectionBC2 == EXPECTED_FIRSTPOINT_BC2);
+    BOOST_CHECK(vSecondIntersectionAB1 == EXPECTED_SECONDPOINT_AB1);
+    BOOST_CHECK(vSecondIntersectionAB2 == EXPECTED_SECONDPOINT_AB2);
+    BOOST_CHECK(vSecondIntersectionAC1 == EXPECTED_SECONDPOINT_AC1);
+    BOOST_CHECK(vSecondIntersectionAC2 == EXPECTED_SECONDPOINT_AC2);
+    BOOST_CHECK(vSecondIntersectionBC1 == EXPECTED_SECONDPOINT_BC1);
+    BOOST_CHECK(vSecondIntersectionBC2 == EXPECTED_SECONDPOINT_BC2);
 }
 
 /// <summary>
@@ -3126,9 +3374,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenAnEndpointAnd
 }
 
 /// <summary>
-/// Checks that it returns two intersection points when the line segment intersects with an edge of the triangle.
+/// Checks that it returns two intersection points when the line segment intersects with two edges of the triangle.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineSegmentIntersectsEdgeOfTriangle_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineSegmentIntersectsWithTwoEdgesOfTriangle_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3667,9 +3915,233 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenAnEndpointIsC
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when the line segment belongs to a face of the hexahedron.
+/// Checks that it returns one intersection point when only one endpoint of the line segment belongs to a face of the hexahedron and the other endpoint is inside the hexahedron.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenLineSegmentBelongsToHexahedronFace_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenAnEndpointIsContainedInHexahedronFaceAndTheOtherEndpointIsInsideTheHexahedron_Test, TQTemplateTypes )
+{
+    //
+    //        A ________ D
+    //       /|         /|
+    //      / |        / |
+    //     B__|_______C  |
+    //     |  E_______|__F
+    //     | /        | /
+    //     |/         |/
+    //     H_________ G
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_D_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_E_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_F_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_G_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_H_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const T VERTEX_D = T(VERTEX_D_COMPONENTS);
+    const T VERTEX_E = T(VERTEX_E_COMPONENTS);
+    const T VERTEX_F = T(VERTEX_F_COMPONENTS);
+    const T VERTEX_G = T(VERTEX_G_COMPONENTS);
+    const T VERTEX_H = T(VERTEX_H_COMPONENTS);
+
+    const T CENTER_POINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_G);
+
+    const T POINT_A_DFGC = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_G);
+    const T POINT_B_DFGC = CENTER_POINT;
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DFGC1 = QLineSegment3D<T>(POINT_A_DFGC, POINT_B_DFGC);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DFGC2 = QLineSegment3D<T>(POINT_B_DFGC, POINT_A_DFGC);
+
+    const T POINT_A_ADFE = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_F);
+    const T POINT_B_ADFE = CENTER_POINT;
+    const QLineSegment3D<T> LINE_SEGMENT_IN_ADFE1 = QLineSegment3D<T>(POINT_A_ADFE, POINT_B_ADFE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_ADFE2 = QLineSegment3D<T>(POINT_B_ADFE, POINT_A_ADFE);
+
+    const T POINT_A_AEHB = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_H);
+    const T POINT_B_AEHB = CENTER_POINT;
+    const QLineSegment3D<T> LINE_SEGMENT_IN_AEHB1 = QLineSegment3D<T>(POINT_A_AEHB, POINT_B_AEHB);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_AEHB2 = QLineSegment3D<T>(POINT_B_AEHB, POINT_A_AEHB);
+
+    const T POINT_A_CGHB = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_H);
+    const T POINT_B_CGHB = CENTER_POINT;
+    const QLineSegment3D<T> LINE_SEGMENT_IN_CGHB1 = QLineSegment3D<T>(POINT_A_CGHB, POINT_B_CGHB);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_CGHB2 = QLineSegment3D<T>(POINT_B_CGHB, POINT_A_CGHB);
+
+    const T POINT_A_ABCD = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C);
+    const T POINT_B_ABCD = CENTER_POINT;
+    const QLineSegment3D<T> LINE_SEGMENT_IN_ABCD1 = QLineSegment3D<T>(POINT_A_ABCD, POINT_B_ABCD);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_ABCD2 = QLineSegment3D<T>(POINT_B_ABCD, POINT_A_ABCD);
+
+    const T POINT_A_EFGH = VERTEX_E.Lerp(SQFloat::_0_5, VERTEX_G);
+    const T POINT_B_EFGH = CENTER_POINT;
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EFGH1 = QLineSegment3D<T>(POINT_A_EFGH, POINT_B_EFGH);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EFGH2 = QLineSegment3D<T>(POINT_B_EFGH, POINT_A_EFGH);
+
+    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const T EXPECTED_FIRSTPOINT_DFGC = POINT_A_DFGC;
+    const T EXPECTED_FIRSTPOINT_ADFE = POINT_A_ADFE;
+    const T EXPECTED_FIRSTPOINT_AEHB = POINT_A_AEHB;
+    const T EXPECTED_FIRSTPOINT_CGHB = POINT_A_CGHB;
+    const T EXPECTED_FIRSTPOINT_ABCD = POINT_A_ABCD;
+    const T EXPECTED_FIRSTPOINT_EFGH = POINT_A_EFGH;
+
+	// Execution
+    T vFirstIntersectionDFGC1 = T::GetZeroVector();
+    T vFirstIntersectionDFGC2 = T::GetZeroVector();
+    T vFirstIntersectionADFE1 = T::GetZeroVector();
+    T vFirstIntersectionADFE2 = T::GetZeroVector();
+    T vFirstIntersectionAEHB1 = T::GetZeroVector();
+    T vFirstIntersectionAEHB2 = T::GetZeroVector();
+    T vFirstIntersectionCGHB1 = T::GetZeroVector();
+    T vFirstIntersectionCGHB2 = T::GetZeroVector();
+    T vFirstIntersectionABCD1 = T::GetZeroVector();
+    T vFirstIntersectionABCD2 = T::GetZeroVector();
+    T vFirstIntersectionEFGH1 = T::GetZeroVector();
+    T vFirstIntersectionEFGH2 = T::GetZeroVector();
+    EQIntersections eContainedInDFGC1 = LINE_SEGMENT_IN_DFGC1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC1);
+    EQIntersections eContainedInDFGC2 = LINE_SEGMENT_IN_DFGC2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC2);
+    EQIntersections eContainedInADFE1 = LINE_SEGMENT_IN_ADFE1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionADFE1);
+    EQIntersections eContainedInADFE2 = LINE_SEGMENT_IN_ADFE2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionADFE2);
+    EQIntersections eContainedInAEHB1 = LINE_SEGMENT_IN_AEHB1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAEHB1);
+    EQIntersections eContainedInAEHB2 = LINE_SEGMENT_IN_AEHB2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAEHB2);
+    EQIntersections eContainedInCGHB1 = LINE_SEGMENT_IN_CGHB1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCGHB1);
+    EQIntersections eContainedInCGHB2 = LINE_SEGMENT_IN_CGHB2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCGHB2);
+    EQIntersections eContainedInABCD1 = LINE_SEGMENT_IN_ABCD1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionABCD1);
+    EQIntersections eContainedInABCD2 = LINE_SEGMENT_IN_ABCD2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionABCD2);
+    EQIntersections eContainedInEFGH1 = LINE_SEGMENT_IN_EFGH1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEFGH1);
+    EQIntersections eContainedInEFGH2 = LINE_SEGMENT_IN_EFGH2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEFGH2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eContainedInDFGC1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInDFGC2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInADFE1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInADFE2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInAEHB1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInAEHB2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInCGHB1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInCGHB2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInABCD1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInABCD2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInEFGH1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInEFGH2, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersectionDFGC1 == EXPECTED_FIRSTPOINT_DFGC);
+    BOOST_CHECK(vFirstIntersectionDFGC2 == EXPECTED_FIRSTPOINT_DFGC);
+    BOOST_CHECK(vFirstIntersectionADFE1 == EXPECTED_FIRSTPOINT_ADFE);
+    BOOST_CHECK(vFirstIntersectionADFE2 == EXPECTED_FIRSTPOINT_ADFE);
+    BOOST_CHECK(vFirstIntersectionAEHB1 == EXPECTED_FIRSTPOINT_AEHB);
+    BOOST_CHECK(vFirstIntersectionAEHB2 == EXPECTED_FIRSTPOINT_AEHB);
+    BOOST_CHECK(vFirstIntersectionCGHB1 == EXPECTED_FIRSTPOINT_CGHB);
+    BOOST_CHECK(vFirstIntersectionCGHB2 == EXPECTED_FIRSTPOINT_CGHB);
+    BOOST_CHECK(vFirstIntersectionABCD1 == EXPECTED_FIRSTPOINT_ABCD);
+    BOOST_CHECK(vFirstIntersectionABCD2 == EXPECTED_FIRSTPOINT_ABCD);
+    BOOST_CHECK(vFirstIntersectionEFGH1 == EXPECTED_FIRSTPOINT_EFGH);
+    BOOST_CHECK(vFirstIntersectionEFGH2 == EXPECTED_FIRSTPOINT_EFGH);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when the endpoints of the line segment belongs to different faces of the hexahedron and the other endpoint is inside the hexahedron.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenEndpointsAreContainedInDifferentHexahedronFaces_Test, TQTemplateTypes )
+{
+    //
+    //        A ________ D
+    //       /|         /|
+    //      / |        / |
+    //     B__|_______C  |
+    //     |  E_______|__F
+    //     | /        | /
+    //     |/         |/
+    //     H_________ G
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_D_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_E_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_F_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_G_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_H_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const T VERTEX_D = T(VERTEX_D_COMPONENTS);
+    const T VERTEX_E = T(VERTEX_E_COMPONENTS);
+    const T VERTEX_F = T(VERTEX_F_COMPONENTS);
+    const T VERTEX_G = T(VERTEX_G_COMPONENTS);
+    const T VERTEX_H = T(VERTEX_H_COMPONENTS);
+
+    const T POINT_A_DFGC = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_G);
+    const T POINT_B_ABHE = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_H);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DFGC_ABHE1 = QLineSegment3D<T>(POINT_A_DFGC, POINT_B_ABHE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DFGC_ABHE2 = QLineSegment3D<T>(POINT_B_ABHE, POINT_A_DFGC);
+
+    const T POINT_A_ADFE = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_F);
+    const T POINT_B_BCHG = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_H);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_ADFE_BCHG1 = QLineSegment3D<T>(POINT_A_ADFE, POINT_B_BCHG);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_ADFE_BCHG2 = QLineSegment3D<T>(POINT_B_BCHG, POINT_A_ADFE);
+
+    const T POINT_A_EFGH = VERTEX_E.Lerp(SQFloat::_0_5, VERTEX_G);
+    const T POINT_B_ABCD = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EFGH_ABCD1 = QLineSegment3D<T>(POINT_A_EFGH, POINT_B_ABCD);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EFGH_ABCD2 = QLineSegment3D<T>(POINT_B_ABCD, POINT_A_EFGH);
+
+    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const T EXPECTED_FIRSTPOINT_DFGC_ABHE1 = POINT_A_DFGC;
+    const T EXPECTED_FIRSTPOINT_DFGC_ABHE2 = POINT_B_ABHE;
+    const T EXPECTED_FIRSTPOINT_ADFE_BCHG1 = POINT_A_ADFE;
+    const T EXPECTED_FIRSTPOINT_ADFE_BCHG2 = POINT_B_BCHG;
+    const T EXPECTED_FIRSTPOINT_EFGH_ABCD1 = POINT_A_EFGH;
+    const T EXPECTED_FIRSTPOINT_EFGH_ABCD2 = POINT_B_ABCD;
+
+	// Execution
+    T vFirstIntersectionDFGC_ABHE1 = T::GetZeroVector();
+    T vFirstIntersectionDFGC_ABHE2 = T::GetZeroVector();
+    T vFirstIntersectionADFE_BCHG1 = T::GetZeroVector();
+    T vFirstIntersectionADFE_BCHG2 = T::GetZeroVector();
+    T vFirstIntersectionEFGH_ABCD1 = T::GetZeroVector();
+    T vFirstIntersectionEFGH_ABCD2 = T::GetZeroVector();
+
+    EQIntersections eContainedInDFGC_ABHE1 = LINE_SEGMENT_IN_DFGC_ABHE1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC_ABHE1);
+    EQIntersections eContainedInDFGC_ABHE2 = LINE_SEGMENT_IN_DFGC_ABHE2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC_ABHE2);
+    EQIntersections eContainedInADFE_BCHG1 = LINE_SEGMENT_IN_ADFE_BCHG1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionADFE_BCHG1);
+    EQIntersections eContainedInADFE_BCHG2 = LINE_SEGMENT_IN_ADFE_BCHG2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionADFE_BCHG2);
+    EQIntersections eContainedInEFGH_ABCD1 = LINE_SEGMENT_IN_EFGH_ABCD1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEFGH_ABCD1);
+    EQIntersections eContainedInEFGH_ABCD2 = LINE_SEGMENT_IN_EFGH_ABCD2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEFGH_ABCD2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eContainedInDFGC_ABHE1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInDFGC_ABHE2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInADFE_BCHG1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInADFE_BCHG2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInEFGH_ABCD1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eContainedInEFGH_ABCD2, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersectionDFGC_ABHE1 == EXPECTED_FIRSTPOINT_DFGC_ABHE1);
+    BOOST_CHECK(vFirstIntersectionDFGC_ABHE2 == EXPECTED_FIRSTPOINT_DFGC_ABHE2);
+    BOOST_CHECK(vFirstIntersectionADFE_BCHG1 == EXPECTED_FIRSTPOINT_ADFE_BCHG1);
+    BOOST_CHECK(vFirstIntersectionADFE_BCHG2 == EXPECTED_FIRSTPOINT_ADFE_BCHG2);
+    BOOST_CHECK(vFirstIntersectionEFGH_ABCD1 == EXPECTED_FIRSTPOINT_EFGH_ABCD1);
+    BOOST_CHECK(vFirstIntersectionEFGH_ABCD2 == EXPECTED_FIRSTPOINT_EFGH_ABCD2);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when the line segment belongs to a face of the hexahedron.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineSegmentBelongsToHexahedronFace_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3724,8 +4196,19 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenLineSeg
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const T EXPECTED_FIRSTPOINT = T::GetZeroVector();
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const T EXPECTED_FIRSTPOINT_DFGC1 = LINE_SEGMENT_IN_DFGC1.A;
+    const T EXPECTED_FIRSTPOINT_DFGC2 = LINE_SEGMENT_IN_DFGC2.A;
+    const T EXPECTED_FIRSTPOINT_ADFE1 = LINE_SEGMENT_IN_ADFE1.A;
+    const T EXPECTED_FIRSTPOINT_ADFE2 = LINE_SEGMENT_IN_ADFE2.A;
+    const T EXPECTED_FIRSTPOINT_AEHB1 = LINE_SEGMENT_IN_AEHB1.A;
+    const T EXPECTED_FIRSTPOINT_AEHB2 = LINE_SEGMENT_IN_AEHB2.A;
+    const T EXPECTED_FIRSTPOINT_CGHB1 = LINE_SEGMENT_IN_CGHB1.A;
+    const T EXPECTED_FIRSTPOINT_CGHB2 = LINE_SEGMENT_IN_CGHB2.A;
+    const T EXPECTED_FIRSTPOINT_ABCD1 = LINE_SEGMENT_IN_ABCD1.A;
+    const T EXPECTED_FIRSTPOINT_ABCD2 = LINE_SEGMENT_IN_ABCD2.A;
+    const T EXPECTED_FIRSTPOINT_EFGH1 = LINE_SEGMENT_IN_EFGH1.A;
+    const T EXPECTED_FIRSTPOINT_EFGH2 = LINE_SEGMENT_IN_EFGH2.A;
 
 	// Execution
     T vFirstIntersectionDFGC1 = T::GetZeroVector();
@@ -3766,18 +4249,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenLineSeg
     BOOST_CHECK_EQUAL(eContainedInABCD2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eContainedInEFGH1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eContainedInEFGH2, EXPECTED_RESULT);
-    BOOST_CHECK(vFirstIntersectionDFGC1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionDFGC2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionADFE1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionADFE2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionAEHB1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionAEHB2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionCGHB1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionCGHB2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionABCD1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionABCD2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionEFGH1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionEFGH2 == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(vFirstIntersectionDFGC1 == EXPECTED_FIRSTPOINT_DFGC1);
+    BOOST_CHECK(vFirstIntersectionDFGC2 == EXPECTED_FIRSTPOINT_DFGC2);
+    BOOST_CHECK(vFirstIntersectionADFE1 == EXPECTED_FIRSTPOINT_ADFE1);
+    BOOST_CHECK(vFirstIntersectionADFE2 == EXPECTED_FIRSTPOINT_ADFE2);
+    BOOST_CHECK(vFirstIntersectionAEHB1 == EXPECTED_FIRSTPOINT_AEHB1);
+    BOOST_CHECK(vFirstIntersectionAEHB2 == EXPECTED_FIRSTPOINT_AEHB2);
+    BOOST_CHECK(vFirstIntersectionCGHB1 == EXPECTED_FIRSTPOINT_CGHB1);
+    BOOST_CHECK(vFirstIntersectionCGHB2 == EXPECTED_FIRSTPOINT_CGHB2);
+    BOOST_CHECK(vFirstIntersectionABCD1 == EXPECTED_FIRSTPOINT_ABCD1);
+    BOOST_CHECK(vFirstIntersectionABCD2 == EXPECTED_FIRSTPOINT_ABCD2);
+    BOOST_CHECK(vFirstIntersectionEFGH1 == EXPECTED_FIRSTPOINT_EFGH1);
+    BOOST_CHECK(vFirstIntersectionEFGH2 == EXPECTED_FIRSTPOINT_EFGH2);
 }
 
 /// <summary>
@@ -4061,9 +4544,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndpoi
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when the line segment is contained in an edge of the hexahedron.
+/// Checks that it returns two intersection points when the line segment is contained in an edge of the hexahedron.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenLineSegmentBelongsToEdgeOfHexahedron_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineSegmentBelongsToEdgeOfHexahedron_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -4136,8 +4619,19 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenLineSeg
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
-    const T EXPECTED_FIRSTPOINT = T::GetZeroVector();
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
+    const T EXPECTED_FIRSTPOINT_AB = LINE_SEGMENT_IN_AB.A;
+    const T EXPECTED_FIRSTPOINT_BC = LINE_SEGMENT_IN_BC.A;
+    const T EXPECTED_FIRSTPOINT_CD = LINE_SEGMENT_IN_CD.A;
+    const T EXPECTED_FIRSTPOINT_DA = LINE_SEGMENT_IN_DA.A;
+    const T EXPECTED_FIRSTPOINT_EF = LINE_SEGMENT_IN_EF.A;
+    const T EXPECTED_FIRSTPOINT_FG = LINE_SEGMENT_IN_FG.A;
+    const T EXPECTED_FIRSTPOINT_GH = LINE_SEGMENT_IN_GH.A;
+    const T EXPECTED_FIRSTPOINT_HE = LINE_SEGMENT_IN_HE.A;
+    const T EXPECTED_FIRSTPOINT_DF = LINE_SEGMENT_IN_DF.A;
+    const T EXPECTED_FIRSTPOINT_AE = LINE_SEGMENT_IN_AE.A;
+    const T EXPECTED_FIRSTPOINT_BH = LINE_SEGMENT_IN_BH.A;
+    const T EXPECTED_FIRSTPOINT_CG = LINE_SEGMENT_IN_CG.A;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
 
 	// Execution
     T vFirstIntersectionAB;
@@ -4178,18 +4672,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenLineSeg
     BOOST_CHECK_EQUAL(eEndpointContainedInAE, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eEndpointContainedInBH, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eEndpointContainedInCG, EXPECTED_RESULT);
-    BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionDA == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionEF == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionFG == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionGH == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionHE == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionDF == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionAE == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionBH == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionCG == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
+    BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
+    BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
+    BOOST_CHECK(vFirstIntersectionDA == EXPECTED_FIRSTPOINT_DA);
+    BOOST_CHECK(vFirstIntersectionEF == EXPECTED_FIRSTPOINT_EF);
+    BOOST_CHECK(vFirstIntersectionFG == EXPECTED_FIRSTPOINT_FG);
+    BOOST_CHECK(vFirstIntersectionGH == EXPECTED_FIRSTPOINT_GH);
+    BOOST_CHECK(vFirstIntersectionHE == EXPECTED_FIRSTPOINT_HE);
+    BOOST_CHECK(vFirstIntersectionDF == EXPECTED_FIRSTPOINT_DF);
+    BOOST_CHECK(vFirstIntersectionAE == EXPECTED_FIRSTPOINT_AE);
+    BOOST_CHECK(vFirstIntersectionBH == EXPECTED_FIRSTPOINT_BH);
+    BOOST_CHECK(vFirstIntersectionCG == EXPECTED_FIRSTPOINT_CG);
 }
 
 /// <summary>
@@ -4923,9 +5417,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenAnEndpointIsC
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when the line segment belongs to a face of the hexahedron.
+/// Checks that it returns two intersection points when the line segment belongs to a face of the hexahedron.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsInfiniteIntersectionsWhenLineSegmentBelongsToHexahedronFace_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenLineSegmentBelongsToHexahedronFace_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -4947,44 +5441,64 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsInfiniteIntersectionsWhenLineSeg
     const T VERTEX_F = T(VERTEX_F_COMPONENTS);
     const T VERTEX_G = T(VERTEX_G_COMPONENTS);
     const T VERTEX_H = T(VERTEX_H_COMPONENTS);
+    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     const T POINT_A_DFGC = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_G);
     const T POINT_B_DFGC = POINT_A_DFGC.Lerp(SQFloat::_0_5, VERTEX_G);
     const QLineSegment3D<T> LINE_SEGMENT_IN_DFGC1 = QLineSegment3D<T>(POINT_A_DFGC, POINT_B_DFGC);
-    const QLineSegment3D<T> LINE_SEGMENT_IN_DFGC2 = QLineSegment3D<T>(POINT_A_DFGC, POINT_B_DFGC);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DFGC2 = QLineSegment3D<T>(POINT_B_DFGC, POINT_A_DFGC);
 
     const T POINT_A_ADFE = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_F);
     const T POINT_B_ADFE = POINT_A_ADFE.Lerp(SQFloat::_0_5, VERTEX_F);
     const QLineSegment3D<T> LINE_SEGMENT_IN_ADFE1 = QLineSegment3D<T>(POINT_A_ADFE, POINT_B_ADFE);
-    const QLineSegment3D<T> LINE_SEGMENT_IN_ADFE2 = QLineSegment3D<T>(POINT_A_ADFE, POINT_B_ADFE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_ADFE2 = QLineSegment3D<T>(POINT_B_ADFE, POINT_A_ADFE);
 
     const T POINT_A_AEHB = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_H);
     const T POINT_B_AEHB = POINT_A_AEHB.Lerp(SQFloat::_0_5, VERTEX_H);
     const QLineSegment3D<T> LINE_SEGMENT_IN_AEHB1 = QLineSegment3D<T>(POINT_A_AEHB, POINT_B_AEHB);
-    const QLineSegment3D<T> LINE_SEGMENT_IN_AEHB2 = QLineSegment3D<T>(POINT_A_AEHB, POINT_B_AEHB);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_AEHB2 = QLineSegment3D<T>(POINT_B_AEHB, POINT_A_AEHB);
 
     const T POINT_A_CGHB = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_H);
     const T POINT_B_CGHB = POINT_A_CGHB.Lerp(SQFloat::_0_5, VERTEX_H);
     const QLineSegment3D<T> LINE_SEGMENT_IN_CGHB1 = QLineSegment3D<T>(POINT_A_CGHB, POINT_B_CGHB);
-    const QLineSegment3D<T> LINE_SEGMENT_IN_CGHB2 = QLineSegment3D<T>(POINT_A_CGHB, POINT_B_CGHB);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_CGHB2 = QLineSegment3D<T>(POINT_B_CGHB, POINT_A_CGHB);
 
     const T POINT_A_ABCD = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C);
     const T POINT_B_ABCD = POINT_A_ABCD.Lerp(SQFloat::_0_5, VERTEX_C);
     const QLineSegment3D<T> LINE_SEGMENT_IN_ABCD1 = QLineSegment3D<T>(POINT_A_ABCD, POINT_B_ABCD);
-    const QLineSegment3D<T> LINE_SEGMENT_IN_ABCD2 = QLineSegment3D<T>(POINT_A_ABCD, POINT_B_ABCD);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_ABCD2 = QLineSegment3D<T>(POINT_B_ABCD, POINT_A_ABCD);
 
     const T POINT_A_EFGH = VERTEX_E.Lerp(SQFloat::_0_5, VERTEX_G);
     const T POINT_B_EFGH = POINT_A_EFGH.Lerp(SQFloat::_0_5, VERTEX_G);
     const QLineSegment3D<T> LINE_SEGMENT_IN_EFGH1 = QLineSegment3D<T>(POINT_A_EFGH, POINT_B_EFGH);
-    const QLineSegment3D<T> LINE_SEGMENT_IN_EFGH2 = QLineSegment3D<T>(POINT_A_EFGH, POINT_B_EFGH);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EFGH2 = QLineSegment3D<T>(POINT_B_EFGH, POINT_A_EFGH);
 
-    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const T EXPECTED_FIRSTPOINT_DFGC1 = LINE_SEGMENT_IN_DFGC1.A;
+    const T EXPECTED_FIRSTPOINT_DFGC2 = LINE_SEGMENT_IN_DFGC2.A;
+    const T EXPECTED_FIRSTPOINT_ADFE1 = LINE_SEGMENT_IN_ADFE1.A;
+    const T EXPECTED_FIRSTPOINT_ADFE2 = LINE_SEGMENT_IN_ADFE2.A;
+    const T EXPECTED_FIRSTPOINT_AEHB1 = LINE_SEGMENT_IN_AEHB1.A;
+    const T EXPECTED_FIRSTPOINT_AEHB2 = LINE_SEGMENT_IN_AEHB2.A;
+    const T EXPECTED_FIRSTPOINT_CGHB1 = LINE_SEGMENT_IN_CGHB1.A;
+    const T EXPECTED_FIRSTPOINT_CGHB2 = LINE_SEGMENT_IN_CGHB2.A;
+    const T EXPECTED_FIRSTPOINT_ABCD1 = LINE_SEGMENT_IN_ABCD1.A;
+    const T EXPECTED_FIRSTPOINT_ABCD2 = LINE_SEGMENT_IN_ABCD2.A;
+    const T EXPECTED_FIRSTPOINT_EFGH1 = LINE_SEGMENT_IN_EFGH1.A;
+    const T EXPECTED_FIRSTPOINT_EFGH2 = LINE_SEGMENT_IN_EFGH2.A;
+    const T EXPECTED_SECONDPOINT_DFGC1 = LINE_SEGMENT_IN_DFGC1.B;
+    const T EXPECTED_SECONDPOINT_DFGC2 = LINE_SEGMENT_IN_DFGC2.B;
+    const T EXPECTED_SECONDPOINT_ADFE1 = LINE_SEGMENT_IN_ADFE1.B;
+    const T EXPECTED_SECONDPOINT_ADFE2 = LINE_SEGMENT_IN_ADFE2.B;
+    const T EXPECTED_SECONDPOINT_AEHB1 = LINE_SEGMENT_IN_AEHB1.B;
+    const T EXPECTED_SECONDPOINT_AEHB2 = LINE_SEGMENT_IN_AEHB2.B;
+    const T EXPECTED_SECONDPOINT_CGHB1 = LINE_SEGMENT_IN_CGHB1.B;
+    const T EXPECTED_SECONDPOINT_CGHB2 = LINE_SEGMENT_IN_CGHB2.B;
+    const T EXPECTED_SECONDPOINT_ABCD1 = LINE_SEGMENT_IN_ABCD1.B;
+    const T EXPECTED_SECONDPOINT_ABCD2 = LINE_SEGMENT_IN_ABCD2.B;
+    const T EXPECTED_SECONDPOINT_EFGH1 = LINE_SEGMENT_IN_EFGH1.B;
+    const T EXPECTED_SECONDPOINT_EFGH2 = LINE_SEGMENT_IN_EFGH2.B;
 
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const T EXPECTED_FIRSTPOINT = T::GetZeroVector();
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
-
-	// Execution
     T vFirstIntersectionDFGC1 = T::GetZeroVector();
     T vFirstIntersectionDFGC2 = T::GetZeroVector();
     T vFirstIntersectionADFE1 = T::GetZeroVector();
@@ -5009,6 +5523,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsInfiniteIntersectionsWhenLineSeg
     T vSecondIntersectionABCD2 = T::GetZeroVector();
     T vSecondIntersectionEFGH1 = T::GetZeroVector();
     T vSecondIntersectionEFGH2 = T::GetZeroVector();
+
+	// Execution
     EQIntersections eContainedInDFGC1 = LINE_SEGMENT_IN_DFGC1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC1, vSecondIntersectionDFGC1);
     EQIntersections eContainedInDFGC2 = LINE_SEGMENT_IN_DFGC2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC2, vSecondIntersectionDFGC2);
     EQIntersections eContainedInADFE1 = LINE_SEGMENT_IN_ADFE1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionADFE1, vSecondIntersectionADFE1);
@@ -5035,30 +5551,30 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsInfiniteIntersectionsWhenLineSeg
     BOOST_CHECK_EQUAL(eContainedInABCD2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eContainedInEFGH1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eContainedInEFGH2, EXPECTED_RESULT);
-    BOOST_CHECK(vFirstIntersectionDFGC1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionDFGC2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionADFE1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionADFE2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionAEHB1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionAEHB2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionCGHB1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionCGHB2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionABCD1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionABCD2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionEFGH1 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionEFGH2 == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vSecondIntersectionDFGC1 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionDFGC2 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionADFE1 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionADFE2 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionAEHB1 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionAEHB2 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionCGHB1 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionCGHB2 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionABCD1 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionABCD2 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionEFGH1 == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionEFGH2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vFirstIntersectionDFGC1 == EXPECTED_FIRSTPOINT_DFGC1);
+    BOOST_CHECK(vFirstIntersectionDFGC2 == EXPECTED_FIRSTPOINT_DFGC2);
+    BOOST_CHECK(vFirstIntersectionADFE1 == EXPECTED_FIRSTPOINT_ADFE1);
+    BOOST_CHECK(vFirstIntersectionADFE2 == EXPECTED_FIRSTPOINT_ADFE2);
+    BOOST_CHECK(vFirstIntersectionAEHB1 == EXPECTED_FIRSTPOINT_AEHB1);
+    BOOST_CHECK(vFirstIntersectionAEHB2 == EXPECTED_FIRSTPOINT_AEHB2);
+    BOOST_CHECK(vFirstIntersectionCGHB1 == EXPECTED_FIRSTPOINT_CGHB1);
+    BOOST_CHECK(vFirstIntersectionCGHB2 == EXPECTED_FIRSTPOINT_CGHB2);
+    BOOST_CHECK(vFirstIntersectionABCD1 == EXPECTED_FIRSTPOINT_ABCD1);
+    BOOST_CHECK(vFirstIntersectionABCD2 == EXPECTED_FIRSTPOINT_ABCD2);
+    BOOST_CHECK(vFirstIntersectionEFGH1 == EXPECTED_FIRSTPOINT_EFGH1);
+    BOOST_CHECK(vFirstIntersectionEFGH2 == EXPECTED_FIRSTPOINT_EFGH2);
+    BOOST_CHECK(vSecondIntersectionDFGC1 == EXPECTED_SECONDPOINT_DFGC1);
+    BOOST_CHECK(vSecondIntersectionDFGC2 == EXPECTED_SECONDPOINT_DFGC2);
+    BOOST_CHECK(vSecondIntersectionADFE1 == EXPECTED_SECONDPOINT_ADFE1);
+    BOOST_CHECK(vSecondIntersectionADFE2 == EXPECTED_SECONDPOINT_ADFE2);
+    BOOST_CHECK(vSecondIntersectionAEHB1 == EXPECTED_SECONDPOINT_AEHB1);
+    BOOST_CHECK(vSecondIntersectionAEHB2 == EXPECTED_SECONDPOINT_AEHB2);
+    BOOST_CHECK(vSecondIntersectionCGHB1 == EXPECTED_SECONDPOINT_CGHB1);
+    BOOST_CHECK(vSecondIntersectionCGHB2 == EXPECTED_SECONDPOINT_CGHB2);
+    BOOST_CHECK(vSecondIntersectionABCD1 == EXPECTED_SECONDPOINT_ABCD1);
+    BOOST_CHECK(vSecondIntersectionABCD2 == EXPECTED_SECONDPOINT_ABCD2);
+    BOOST_CHECK(vSecondIntersectionEFGH1 == EXPECTED_SECONDPOINT_EFGH1);
+    BOOST_CHECK(vSecondIntersectionEFGH2 == EXPECTED_SECONDPOINT_EFGH2);
 }
 
 /// <summary>
@@ -5372,9 +5888,227 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenOnlyOneEndpoi
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when the line segment is contained in an edge of the hexahedron.
+/// Checks that it returns one intersection point when only one endpoint of the line segment is contained in an edge of the hexahedron and the other is inside the hexahedron.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsInfiniteIntersectionsWhenLineSegmentBelongsToEdgeOfHexahedron_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenOnlyOneEndpointBelongsToEdgeOfHexahedronAndTheOtherIsInsideTheHexahedron_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_D_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_E_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_F_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_G_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_H_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const T VERTEX_D = T(VERTEX_D_COMPONENTS);
+    const T VERTEX_E = T(VERTEX_E_COMPONENTS);
+    const T VERTEX_F = T(VERTEX_F_COMPONENTS);
+    const T VERTEX_G = T(VERTEX_G_COMPONENTS);
+    const T VERTEX_H = T(VERTEX_H_COMPONENTS);
+
+    const T CENTER_POINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_G);
+
+    const T POINT_A_IN_AB = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_AB1 = QLineSegment3D<T>(POINT_A_IN_AB, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_AB2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_AB);
+
+    const T POINT_A_IN_BC = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_BC1 = QLineSegment3D<T>(POINT_A_IN_BC, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_BC2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_BC);
+
+    const T POINT_A_IN_CD = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_D);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_CD1 = QLineSegment3D<T>(POINT_A_IN_CD, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_CD2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_CD);
+
+    const T POINT_A_IN_DA = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_A);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DA1 = QLineSegment3D<T>(POINT_A_IN_DA, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DA2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_DA);
+
+    const T POINT_A_IN_EF = VERTEX_E.Lerp(SQFloat::_0_5, VERTEX_F);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EF1 = QLineSegment3D<T>(POINT_A_IN_EF, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EF2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_EF);
+
+    const T POINT_A_IN_FG = VERTEX_F.Lerp(SQFloat::_0_5, VERTEX_G);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_FG1 = QLineSegment3D<T>(POINT_A_IN_FG, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_FG2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_FG);
+
+    const T POINT_A_IN_GH = VERTEX_G.Lerp(SQFloat::_0_5, VERTEX_H);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_GH1 = QLineSegment3D<T>(POINT_A_IN_GH, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_GH2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_GH);
+
+    const T POINT_A_IN_HE = VERTEX_H.Lerp(SQFloat::_0_5, VERTEX_E);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_HE1 = QLineSegment3D<T>(POINT_A_IN_HE, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_HE2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_HE);
+
+    const T POINT_A_IN_DF = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_F);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DF1 = QLineSegment3D<T>(POINT_A_IN_DF, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_DF2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_DF);
+
+    const T POINT_A_IN_AE = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_E);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_AE1 = QLineSegment3D<T>(POINT_A_IN_AE, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_AE2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_AE);
+
+    const T POINT_A_IN_BH = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_H);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_BH1 = QLineSegment3D<T>(POINT_A_IN_BH, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_BH2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_BH);
+
+    const T POINT_A_IN_CG = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_CG1 = QLineSegment3D<T>(POINT_A_IN_CG, CENTER_POINT);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_CG2 = QLineSegment3D<T>(CENTER_POINT, POINT_A_IN_CG);
+
+    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
+
+    const T EXPECTED_FIRSTPOINT_AB = POINT_A_IN_AB;
+    const T EXPECTED_FIRSTPOINT_BC = POINT_A_IN_BC;
+    const T EXPECTED_FIRSTPOINT_CD = POINT_A_IN_CD;
+    const T EXPECTED_FIRSTPOINT_DA = POINT_A_IN_DA;
+    const T EXPECTED_FIRSTPOINT_EF = POINT_A_IN_EF;
+    const T EXPECTED_FIRSTPOINT_FG = POINT_A_IN_FG;
+    const T EXPECTED_FIRSTPOINT_GH = POINT_A_IN_GH;
+    const T EXPECTED_FIRSTPOINT_HE = POINT_A_IN_HE;
+    const T EXPECTED_FIRSTPOINT_DF = POINT_A_IN_DF;
+    const T EXPECTED_FIRSTPOINT_AE = POINT_A_IN_AE;
+    const T EXPECTED_FIRSTPOINT_BH = POINT_A_IN_BH;
+    const T EXPECTED_FIRSTPOINT_CG = POINT_A_IN_CG;
+    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+
+	// Execution
+    T vFirstIntersectionAB1, vSecondIntersectionAB1 = T::GetZeroVector();
+    T vFirstIntersectionBC1, vSecondIntersectionBC1 = T::GetZeroVector();
+    T vFirstIntersectionCD1, vSecondIntersectionCD1 = T::GetZeroVector();
+    T vFirstIntersectionDA1, vSecondIntersectionDA1 = T::GetZeroVector();
+    T vFirstIntersectionEF1, vSecondIntersectionEF1 = T::GetZeroVector();
+    T vFirstIntersectionFG1, vSecondIntersectionFG1 = T::GetZeroVector();
+    T vFirstIntersectionGH1, vSecondIntersectionGH1 = T::GetZeroVector();
+    T vFirstIntersectionHE1, vSecondIntersectionHE1 = T::GetZeroVector();
+    T vFirstIntersectionDF1, vSecondIntersectionDF1 = T::GetZeroVector();
+    T vFirstIntersectionAE1, vSecondIntersectionAE1 = T::GetZeroVector();
+    T vFirstIntersectionBH1, vSecondIntersectionBH1 = T::GetZeroVector();
+    T vFirstIntersectionCG1, vSecondIntersectionCG1 = T::GetZeroVector();
+    T vFirstIntersectionAB2, vSecondIntersectionAB2 = T::GetZeroVector();
+    T vFirstIntersectionBC2, vSecondIntersectionBC2 = T::GetZeroVector();
+    T vFirstIntersectionCD2, vSecondIntersectionCD2 = T::GetZeroVector();
+    T vFirstIntersectionDA2, vSecondIntersectionDA2 = T::GetZeroVector();
+    T vFirstIntersectionEF2, vSecondIntersectionEF2 = T::GetZeroVector();
+    T vFirstIntersectionFG2, vSecondIntersectionFG2 = T::GetZeroVector();
+    T vFirstIntersectionGH2, vSecondIntersectionGH2 = T::GetZeroVector();
+    T vFirstIntersectionHE2, vSecondIntersectionHE2 = T::GetZeroVector();
+    T vFirstIntersectionDF2, vSecondIntersectionDF2 = T::GetZeroVector();
+    T vFirstIntersectionAE2, vSecondIntersectionAE2 = T::GetZeroVector();
+    T vFirstIntersectionBH2, vSecondIntersectionBH2 = T::GetZeroVector();
+    T vFirstIntersectionCG2, vSecondIntersectionCG2 = T::GetZeroVector();
+    EQIntersections eEndpointContainedInAB1 = LINE_SEGMENT_IN_AB1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAB1, vSecondIntersectionAB1);
+    EQIntersections eEndpointContainedInAB2 = LINE_SEGMENT_IN_AB2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAB2, vSecondIntersectionAB2);
+    EQIntersections eEndpointContainedInBC1 = LINE_SEGMENT_IN_BC1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionBC1, vSecondIntersectionBC1);
+    EQIntersections eEndpointContainedInBC2 = LINE_SEGMENT_IN_BC2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionBC2, vSecondIntersectionBC2);
+    EQIntersections eEndpointContainedInCD1 = LINE_SEGMENT_IN_CD1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCD1, vSecondIntersectionCD1);
+    EQIntersections eEndpointContainedInCD2 = LINE_SEGMENT_IN_CD2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCD2, vSecondIntersectionCD2);
+    EQIntersections eEndpointContainedInDA1 = LINE_SEGMENT_IN_DA1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDA1, vSecondIntersectionDA1);
+    EQIntersections eEndpointContainedInDA2 = LINE_SEGMENT_IN_DA2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDA2, vSecondIntersectionDA2);
+    EQIntersections eEndpointContainedInEF1 = LINE_SEGMENT_IN_EF1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEF1, vSecondIntersectionEF1);
+    EQIntersections eEndpointContainedInEF2 = LINE_SEGMENT_IN_EF2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionEF2, vSecondIntersectionEF2);
+    EQIntersections eEndpointContainedInFG1 = LINE_SEGMENT_IN_FG1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionFG1, vSecondIntersectionFG1);
+    EQIntersections eEndpointContainedInFG2 = LINE_SEGMENT_IN_FG2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionFG2, vSecondIntersectionFG2);
+    EQIntersections eEndpointContainedInGH1 = LINE_SEGMENT_IN_GH1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionGH1, vSecondIntersectionGH1);
+    EQIntersections eEndpointContainedInGH2 = LINE_SEGMENT_IN_GH2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionGH2, vSecondIntersectionGH2);
+    EQIntersections eEndpointContainedInHE1 = LINE_SEGMENT_IN_HE1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionHE1, vSecondIntersectionHE1);
+    EQIntersections eEndpointContainedInHE2 = LINE_SEGMENT_IN_HE2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionHE2, vSecondIntersectionHE2);
+    EQIntersections eEndpointContainedInDF1 = LINE_SEGMENT_IN_DF1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDF1, vSecondIntersectionDF1);
+    EQIntersections eEndpointContainedInDF2 = LINE_SEGMENT_IN_DF2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDF2, vSecondIntersectionDF2);
+    EQIntersections eEndpointContainedInAE1 = LINE_SEGMENT_IN_AE1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAE1, vSecondIntersectionAE1);
+    EQIntersections eEndpointContainedInAE2 = LINE_SEGMENT_IN_AE2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAE2, vSecondIntersectionAE2);
+    EQIntersections eEndpointContainedInBH1 = LINE_SEGMENT_IN_BH1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionBH1, vSecondIntersectionBH1);
+    EQIntersections eEndpointContainedInBH2 = LINE_SEGMENT_IN_BH2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionBH2, vSecondIntersectionBH2);
+    EQIntersections eEndpointContainedInCG1 = LINE_SEGMENT_IN_CG1.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG1, vSecondIntersectionCG1);
+    EQIntersections eEndpointContainedInCG2 = LINE_SEGMENT_IN_CG2.IntersectionPoint(HEXAHEDRON, vFirstIntersectionCG2, vSecondIntersectionCG2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eEndpointContainedInAB1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAB2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBC1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBC2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInCD1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInCD2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInDA1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInDA2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInEF1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInEF2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInFG1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInFG2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInGH1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInGH2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInHE1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInHE2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInDF1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInDF2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAE1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInAE2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBH1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInBH2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInCG1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eEndpointContainedInCG2, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersectionAB1 == EXPECTED_FIRSTPOINT_AB);
+    BOOST_CHECK(vFirstIntersectionBC1 == EXPECTED_FIRSTPOINT_BC);
+    BOOST_CHECK(vFirstIntersectionCD1 == EXPECTED_FIRSTPOINT_CD);
+    BOOST_CHECK(vFirstIntersectionDA1 == EXPECTED_FIRSTPOINT_DA);
+    BOOST_CHECK(vFirstIntersectionEF1 == EXPECTED_FIRSTPOINT_EF);
+    BOOST_CHECK(vFirstIntersectionFG1 == EXPECTED_FIRSTPOINT_FG);
+    BOOST_CHECK(vFirstIntersectionGH1 == EXPECTED_FIRSTPOINT_GH);
+    BOOST_CHECK(vFirstIntersectionHE1 == EXPECTED_FIRSTPOINT_HE);
+    BOOST_CHECK(vFirstIntersectionDF1 == EXPECTED_FIRSTPOINT_DF);
+    BOOST_CHECK(vFirstIntersectionAE1 == EXPECTED_FIRSTPOINT_AE);
+    BOOST_CHECK(vFirstIntersectionBH1 == EXPECTED_FIRSTPOINT_BH);
+    BOOST_CHECK(vFirstIntersectionCG1 == EXPECTED_FIRSTPOINT_CG);
+    BOOST_CHECK(vFirstIntersectionAB2 == EXPECTED_FIRSTPOINT_AB);
+    BOOST_CHECK(vFirstIntersectionBC2 == EXPECTED_FIRSTPOINT_BC);
+    BOOST_CHECK(vFirstIntersectionCD2 == EXPECTED_FIRSTPOINT_CD);
+    BOOST_CHECK(vFirstIntersectionDA2 == EXPECTED_FIRSTPOINT_DA);
+    BOOST_CHECK(vFirstIntersectionEF2 == EXPECTED_FIRSTPOINT_EF);
+    BOOST_CHECK(vFirstIntersectionFG2 == EXPECTED_FIRSTPOINT_FG);
+    BOOST_CHECK(vFirstIntersectionGH2 == EXPECTED_FIRSTPOINT_GH);
+    BOOST_CHECK(vFirstIntersectionHE2 == EXPECTED_FIRSTPOINT_HE);
+    BOOST_CHECK(vFirstIntersectionDF2 == EXPECTED_FIRSTPOINT_DF);
+    BOOST_CHECK(vFirstIntersectionAE2 == EXPECTED_FIRSTPOINT_AE);
+    BOOST_CHECK(vFirstIntersectionBH2 == EXPECTED_FIRSTPOINT_BH);
+    BOOST_CHECK(vFirstIntersectionCG2 == EXPECTED_FIRSTPOINT_CG);
+    BOOST_CHECK(vSecondIntersectionAB1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionBC1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionCD1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionDA1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionEF1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionFG1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionGH1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionHE1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionDF1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionAE1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionBH1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionCG1 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionAB2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionBC2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionCD2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionDA2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionEF2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionFG2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionGH2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionHE2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionDF2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionAE2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionBH2 == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionCG2 == EXPECTED_SECONDPOINT);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when the line segment is contained in an edge of the hexahedron.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenLineSegmentBelongsToEdgeOfHexahedron_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -5447,9 +6181,31 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsInfiniteIntersectionsWhenLineSeg
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
-    const T EXPECTED_FIRSTPOINT = T::GetZeroVector();
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
+    const T EXPECTED_FIRSTPOINT_AB = LINE_SEGMENT_IN_AB.A;
+    const T EXPECTED_FIRSTPOINT_BC = LINE_SEGMENT_IN_BC.A;
+    const T EXPECTED_FIRSTPOINT_CD = LINE_SEGMENT_IN_CD.A;
+    const T EXPECTED_FIRSTPOINT_DA = LINE_SEGMENT_IN_DA.A;
+    const T EXPECTED_FIRSTPOINT_EF = LINE_SEGMENT_IN_EF.A;
+    const T EXPECTED_FIRSTPOINT_FG = LINE_SEGMENT_IN_FG.A;
+    const T EXPECTED_FIRSTPOINT_GH = LINE_SEGMENT_IN_GH.A;
+    const T EXPECTED_FIRSTPOINT_HE = LINE_SEGMENT_IN_HE.A;
+    const T EXPECTED_FIRSTPOINT_DF = LINE_SEGMENT_IN_DF.A;
+    const T EXPECTED_FIRSTPOINT_AE = LINE_SEGMENT_IN_AE.A;
+    const T EXPECTED_FIRSTPOINT_BH = LINE_SEGMENT_IN_BH.A;
+    const T EXPECTED_FIRSTPOINT_CG = LINE_SEGMENT_IN_CG.A;
+    const T EXPECTED_SECONDPOINT_AB = LINE_SEGMENT_IN_AB.B;
+    const T EXPECTED_SECONDPOINT_BC = LINE_SEGMENT_IN_BC.B;
+    const T EXPECTED_SECONDPOINT_CD = LINE_SEGMENT_IN_CD.B;
+    const T EXPECTED_SECONDPOINT_DA = LINE_SEGMENT_IN_DA.B;
+    const T EXPECTED_SECONDPOINT_EF = LINE_SEGMENT_IN_EF.B;
+    const T EXPECTED_SECONDPOINT_FG = LINE_SEGMENT_IN_FG.B;
+    const T EXPECTED_SECONDPOINT_GH = LINE_SEGMENT_IN_GH.B;
+    const T EXPECTED_SECONDPOINT_HE = LINE_SEGMENT_IN_HE.B;
+    const T EXPECTED_SECONDPOINT_DF = LINE_SEGMENT_IN_DF.B;
+    const T EXPECTED_SECONDPOINT_AE = LINE_SEGMENT_IN_AE.B;
+    const T EXPECTED_SECONDPOINT_BH = LINE_SEGMENT_IN_BH.B;
+    const T EXPECTED_SECONDPOINT_CG = LINE_SEGMENT_IN_CG.B;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
 
 	// Execution
     T vFirstIntersectionAB;
@@ -5502,30 +6258,30 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsInfiniteIntersectionsWhenLineSeg
     BOOST_CHECK_EQUAL(eEndpointContainedInAE, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eEndpointContainedInBH, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eEndpointContainedInCG, EXPECTED_RESULT);
-    BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionDA == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionEF == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionFG == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionGH == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionHE == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionDF == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionAE == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionBH == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vFirstIntersectionCG == EXPECTED_FIRSTPOINT);
-    BOOST_CHECK(vSecondIntersectionAB == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionBC == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionCD == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionDA == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionEF == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionFG == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionGH == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionHE == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionDF == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionAE == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionBH == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionCG == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vFirstIntersectionAB == EXPECTED_FIRSTPOINT_AB);
+    BOOST_CHECK(vFirstIntersectionBC == EXPECTED_FIRSTPOINT_BC);
+    BOOST_CHECK(vFirstIntersectionCD == EXPECTED_FIRSTPOINT_CD);
+    BOOST_CHECK(vFirstIntersectionDA == EXPECTED_FIRSTPOINT_DA);
+    BOOST_CHECK(vFirstIntersectionEF == EXPECTED_FIRSTPOINT_EF);
+    BOOST_CHECK(vFirstIntersectionFG == EXPECTED_FIRSTPOINT_FG);
+    BOOST_CHECK(vFirstIntersectionGH == EXPECTED_FIRSTPOINT_GH);
+    BOOST_CHECK(vFirstIntersectionHE == EXPECTED_FIRSTPOINT_HE);
+    BOOST_CHECK(vFirstIntersectionDF == EXPECTED_FIRSTPOINT_DF);
+    BOOST_CHECK(vFirstIntersectionAE == EXPECTED_FIRSTPOINT_AE);
+    BOOST_CHECK(vFirstIntersectionBH == EXPECTED_FIRSTPOINT_BH);
+    BOOST_CHECK(vFirstIntersectionCG == EXPECTED_FIRSTPOINT_CG);
+    BOOST_CHECK(vSecondIntersectionAB == EXPECTED_SECONDPOINT_AB);
+    BOOST_CHECK(vSecondIntersectionBC == EXPECTED_SECONDPOINT_BC);
+    BOOST_CHECK(vSecondIntersectionCD == EXPECTED_SECONDPOINT_CD);
+    BOOST_CHECK(vSecondIntersectionDA == EXPECTED_SECONDPOINT_DA);
+    BOOST_CHECK(vSecondIntersectionEF == EXPECTED_SECONDPOINT_EF);
+    BOOST_CHECK(vSecondIntersectionFG == EXPECTED_SECONDPOINT_FG);
+    BOOST_CHECK(vSecondIntersectionGH == EXPECTED_SECONDPOINT_GH);
+    BOOST_CHECK(vSecondIntersectionHE == EXPECTED_SECONDPOINT_HE);
+    BOOST_CHECK(vSecondIntersectionDF == EXPECTED_SECONDPOINT_DF);
+    BOOST_CHECK(vSecondIntersectionAE == EXPECTED_SECONDPOINT_AE);
+    BOOST_CHECK(vSecondIntersectionBH == EXPECTED_SECONDPOINT_BH);
+    BOOST_CHECK(vSecondIntersectionCG == EXPECTED_SECONDPOINT_CG);
 }
 
 /// <summary>
@@ -8066,12 +8822,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_VerticesAreMovedToPivotPositionWhenMatrixE
 
 // [TODO] Thund: Protected methods has not been tested yet.
 // [TODO] Thund: Some additional tests could be added for IntersectionPoint that receives a QBaseHexahedron:
-//                  -Two endpoints inside the hexahedron
-//                  -One endpoint in the surface, the other inside
-//                  -Two endpoints in the surface of different faces
-//                  -Two vertices coinciding with 2 different vertices
-//                  -Edge contained in line segment
-
+//                  -Two endpoints coinciding with 2 different vertices
 
 // End - Test Suite: QLineSegment3D
 QTEST_SUITE_END()

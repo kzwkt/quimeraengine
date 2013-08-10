@@ -325,6 +325,11 @@ public:
 	/// This method receives a 2D triangle, and computes the intersection points between it and the segment,
 	/// if they exist.
 	/// </summary>
+    /// <remarks>
+	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br>
+	/// If there's only one intersection point, only the first parameter will be modified.<br>
+	/// The first point returned is the closest one to A.
+	/// </remarks>
 	/// <param name="triangle">[IN] The triangle to be compared to.</param>
 	/// <param name="vIntersection1">[OUT] The first point where they intersect.</param>
 	/// <param name="vIntersection2">[OUT] The second point where they intersect.</param>
@@ -332,27 +337,22 @@ public:
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
-	/// <remarks>
-	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br>
-	/// If there's only one intersection point, only the first parameter will be modified.<br>
-	/// The first point returned is the closest one to A.
-	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
 	/// <summary>
 	/// This method receives a 2D triangle, and computes the intersection point between it and the segment,
 	/// if it exists.
 	/// </summary>
+    /// <remarks>
+	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// The point returned is the closest one to A.
+	/// </remarks>
 	/// <param name="triangle">[IN] The triangle to be compared to.</param>
 	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
-	/// <remarks>
-	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br>
-	/// The point returned is the closest one to A.
-	/// </remarks>
 	inline EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
 	{
 		QBaseVector2 vAux;
@@ -363,6 +363,12 @@ public:
 	/// This method receives a quadrilateral, and computes the intersection points between it and the segment,
 	/// if they exist.
 	/// </summary>
+    /// <remarks>
+	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br>
+	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br>
+	/// If there's only one intersection point, only the first parameter will be modified.<br>
+	/// The first point returned is the closest one to A.
+	/// </remarks>
 	/// <param name="quad">[IN] The quadrilateral to be compared to.</param>
 	/// <param name="vIntersection1">[OUT] The first point where they intersect.</param>
 	/// <param name="vIntersection2">[OUT] The second point where they intersect.</param>
@@ -370,29 +376,23 @@ public:
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
-	/// <remarks>
-	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br>
-	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br>
-	/// If there's only one intersection point, only the first parameter will be modified.<br>
-	/// The first point returned is the closest one to A.
-	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
 	/// <summary>
 	/// This method receives a quadrilateral, and computes the intersection point between it and the segment,
 	/// if it exists.
 	/// </summary>
+    /// <remarks>
+	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br>
+	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// The point returned is the closest one to A.
+	/// </remarks>
 	/// <param name="quad">[IN] The quadrilateral to be compared to.</param>
 	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
     /// the following values: E_None, E_One, E_Two and E_Infinite.
 	/// </returns>
-	/// <remarks>
-	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br>
-	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br>
-	/// The point returned is the closest one to A.
-	/// </remarks>
 	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
 	{
 		QBaseVector2 vAux;

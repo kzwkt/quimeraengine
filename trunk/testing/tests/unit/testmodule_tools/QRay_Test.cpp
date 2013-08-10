@@ -502,9 +502,9 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginLiesOnTheSurfaceOfTheOrb
 }
 
 /// <summary>
-/// Checks that it returns true when the ray's origin is contained by the orb.
+/// Checks that it returns true when the ray's origin is contained in the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginIsContainedByTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ___
     //           /   \
@@ -839,9 +839,47 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginLiesOnTheSurfa
 }
 
 /// <summary>
-/// Checks that it returns one intersection point when the ray's origin is contained by the orb.
+/// Checks that it returns two intersection points when the ray's origin lies on the surface of the orb and the ray points to the interior of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginIsContainedByTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOriginLiesOnTheSurfaceOfTheOrbAndTheRayPointsToInteriorOfOrb_Test, TQTemplateTypes )
+{
+    //            ___
+    //           /   \
+    //     -----x-----o
+    //           \___/
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3 };
+    float_q VECTOR_COMPONENTS_DIRECTION[] = { -SQFloat::_1, SQFloat::_0, SQFloat::_0 };
+    const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
+    const T VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    QRay<T, T> RAY = QRay<T, T>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
+    RAY = RAY.Normalize();
+
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3 };
+    QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3 };
+    const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
+    T OUTPUT_POINT = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
+}
+
+/// <summary>
+/// Checks that it returns one intersection point when the ray's origin is contained in the orb.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ___
     //           /   \
@@ -1240,9 +1278,51 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginLiesOnTheSurfa
 }
 
 /// <summary>
-/// Checks that it returns one intersection point when the ray's origin is contained by the orb.
+/// Checks that it returns two intersection points when the ray's origin lies on the surface of the orb and the ray points to the interior of the orb.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginIsContainedByTheOrb_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOriginLiesOnTheSurfaceOfTheOrbAndTheRayPointsToInteriorOfOrb_Test, TQTemplateTypes )
+{
+    //            ___
+    //           /   \
+    //     -----x-----o
+    //           \___/
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3 };
+    float_q VECTOR_COMPONENTS_DIRECTION[] = { -SQFloat::_1, SQFloat::_0, SQFloat::_0 };
+    const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
+    const T VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    QRay<T, T> RAY = QRay<T, T>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
+    RAY = RAY.Normalize();
+
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3 };
+    QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    float_q VECTOR_COMPONENTS_OUTPUT_POINT1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3 };
+    float_q VECTOR_COMPONENTS_OUTPUT_POINT2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3 };
+    const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_OUTPUT_POINT1);
+    const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_OUTPUT_POINT2);
+    T OUTPUT_POINT1 = T::GetZeroVector();
+    T OUTPUT_POINT2 = T::GetZeroVector();
+
+	// Execution
+    EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
+    BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
+}
+
+/// <summary>
+/// Checks that it returns one intersection point when the ray's origin is contained in the orb.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginIsContainedInTheOrb_Test, TQTemplateTypes )
 {
     //            ___
     //           /   \
