@@ -346,31 +346,46 @@ public:
     /// <summary>
     /// Computes the intersection point between resident ray and provided line segment, if it exists.
     /// </summary>
+    /// <remarks>
+    /// If there's no intersection point, the output parameters won't be modified.<br>
+    /// If there's one intersection point, output parameter is filled with the intersection point.
+    /// </remarks>
     /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
     /// <param name="vIntersection">[OUT] The intersection point with line segment, if it exists.</param>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
-    /// the following values: E_None, E_One or E_Infinite.
+    /// the following values: E_None, E_One or E_Two.
     /// </returns>
+    EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection) const;
+
+    /// <summary>
+    /// Computes the intersection point between resident ray and provided line segment, if it exists.
+    /// </summary>
     /// <remarks>
     /// If there's no intersection point, the output parameters won't be modified.<br>
-    /// If there's one intersection point, output parameter is filled with the intersection point.<br>
-    /// If there are infinite intersection points, the output parameters won't be modified.
+    /// If there's one intersection point, the first output parameter is filled with the intersection point.
     /// </remarks>
-    EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection) const;
+    /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
+    /// <param name="vIntersection1">[OUT] The first intersection point with line segment, if it exists.</param>
+    /// <param name="vIntersection2">[OUT] The second intersection point with line segment, if it exists.</param>
+    /// <returns>
+    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
+    /// the following values: E_None, E_One or E_Two.
+    /// </returns>
+    EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
     /// <summary>
 	/// Computes a ray that is the result of resident ray reflection on the line segment provided.
 	/// </summary>
-	/// <param name="segment">[IN] The line segment which acts as mirror.</param>
-	/// <param name="ray">[OUT] The reflected ray.</param>
-	/// <remarks>
+    /// <remarks>
 	/// Ray direction must be normalized to obtain a correct result.<br>
 	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
 	/// reflected ray is the resident ray itself.<br>
 	/// If there's one intersection point between them, then the reflected ray has its origin point at the intersection point
 	/// and its direction verifies that the incident angle and the reflected angle are equals.
 	/// </remarks>
+	/// <param name="segment">[IN] The line segment which acts as mirror.</param>
+	/// <param name="ray">[OUT] The reflected ray.</param>
     inline void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseRay<QVector2, QVector2> &ray) const
     {
         // The direction vector of the ray must not be null
@@ -411,15 +426,15 @@ public:
     /// <summary>
 	/// Computes a vector that is the resultant direction of resident ray reflection on the line segment provided.
 	/// </summary>
-	/// <param name="segment">[IN] The line segment which acts as mirror.</param>
-	/// <param name="vDirection">[OUT] The direction of the reflected ray.</param>
-	/// <remarks>
+    /// <remarks>
 	/// Ray direction must be normalized to obtain a correct result.<br>
 	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
 	/// reflected ray is the resident ray itself.<br>
 	/// If there's one intersection point between them, then the reflected ray direction verifies
 	/// that the incident angle and the reflected angle are equals.
 	/// </remarks>
+	/// <param name="segment">[IN] The line segment which acts as mirror.</param>
+	/// <param name="vDirection">[OUT] The direction of the reflected ray.</param>
     inline void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vDirection) const
     {
         // The direction vector of the ray must not be null
@@ -456,12 +471,12 @@ public:
     /// <summary>
 	/// Applies the transformation given by the matrix provided to resident ray.
 	/// </summary>
-	/// <param name="transformation">[IN] The transformation matrix to be applied.</param>
-	/// <remarks>
+    /// <remarks>
 	/// Resultant ray is normalized after this operation.<br>
 	/// All transformations affects both origin ray point and ray direction, except translations,
 	/// that only affects origin ray point.
 	/// </remarks>
+	/// <param name="transformation">[IN] The transformation matrix to be applied.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>

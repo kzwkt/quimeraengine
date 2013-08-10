@@ -217,12 +217,12 @@ public:
 	};
 
 	/// <summary>
-	/// This method receives another line segment, and computes the intersection point between them,
-	/// if it exists.
+	/// This method receives another line segment, and computes the intersection point between them, if it exists.
 	/// </summary>
     /// <remarks>
     /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br />
-	/// If there's no intersection points, the output parameters used for storing these points won't be modified.
+	/// If there's no intersection points, the output parameters used for storing these points won't be modified.<br />
+    /// If there is any intersection, the first parameter will be set to the closest one to the resident line's A endpoint.
 	/// </remarks>
 	/// <param name="segment">[IN] The segment to be compared to.</param>
 	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
@@ -236,7 +236,7 @@ public:
 
 		// Remark: S1 == (*this), Segment S2 == the input segment parameter.
 
-		VectorType v1 = B - A;
+		VectorType v1 = this->B - this->A;
 	    VectorType v2 = segment.B - segment.A;
 
         float_q fSqrLengthProd = v1.GetSquaredLength() * v2.GetSquaredLength();
@@ -311,6 +311,7 @@ public:
 				//
 				//	   -No intersection points.
 				//	   -One single intersection point.
+                //	   -Two intersection points.
 				//     -Infinite intersection points.
 				//
 				//   It may depend of the situation, more info provided below on the walk.
@@ -321,7 +322,7 @@ public:
 				{
 					// fMinDistance > 0 -->  -Segments are PARALLEL
 					//						OR
-					//						 -They lie on the same line, but they DOESN'T intersect.
+					//						 -They lie on the same line, but they DON'T intersect.
 					//
 					//						Anyway, NO intersections.
 
@@ -331,112 +332,628 @@ public:
 				{
 					// BOTH segments lie on the SAME line --> Angle (v1,v2) == 0 OR 180 degrees <-- Please note at this stage v1.DotProduct(v2) ALWAYS != 0
 
-					if (A == segment.A)
-					{
-						if (B == segment.B)
-						{
-							// Segments are totally coincident (both sharing their two
-							// endpoints: A <-> segment.A, B <-> segment.B) --> Infinite intersection points.
+                    // Note: r = resident (this), i = input (segment)
 
-							return EQIntersections::E_Infinite;
-						}
-						else // Not totally coincident.
-						{
-							if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
-							{
-								// One of the segments are totally cointained inside the other
-								// AND sharing one single endpoint (A <-> segment.A) --> Infinite intersection points.
+                    if(this->A == segment.A)
+                    {
+                        if(this->B == segment.B)
+                        {
+                            // ArAi---BrBi
+                            return EQIntersections::E_Infinite; 
+                        }
+                        else
+                        {
+                            vIntersection = this->A;
 
-								return EQIntersections::E_Infinite;
-							}
-							else														// v1.DotProduct(v2) < 0 --> Angle(v1,v2) is 180 degrees, v1 and v2 have opposite direction.
-							{
-								// Segments are not contained inside themselves AND intersect in
-								// a single point, an endpoint of share (A <-> segment.A) --> One intersection.
+                            // Reference vector for all the comparisons
+                            const VectorType& ArBr = this->B - this->A;
 
-								vIntersection = A;			// The same with segment.A
-								return EQIntersections::E_One;
-							}
-						}
-					}
-					else if (B == segment.B) // A != segment.A
-					{
-						if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
-						{
-							// One of the segments are totally cointained inside the other
-							// AND sharing one single endpoint (B <-> segment.B) --> Infinite intersection points.
+                            const VectorType& ArBi = segment.B - this->A;
 
-							return EQIntersections::E_Infinite;
-						}
-						else														// v1.DotProduct(v2) < 0 --> Angle(v1,v2) is 180 degrees, v1 and v2 have opposite direction.
-						{
-							// Segments are not contained inside themselves AND intersect in
-							// a single point, an endpoint of share (B <-> segment.B) --> One intersection.
+                            if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
+                            {
+                                // Br---ArAi---Bi
+                                //       I1
+                                return EQIntersections::E_One;
+                            }
+                            else
+                            {
+                                // ArAi---Br---Bi
+                                //  I1    I2
+                                //
+                                // or
+                                //
+                                // ArAi---Bi---Br
+                                //  I1    I2
+                                return EQIntersections::E_Two;
+                            }
+                        }
+                    }
+                    else if(this->A == segment.B)
+                    {
+                        if(this->B == segment.A)
+                        {
+                            // ArBi---BrAi
+                            return EQIntersections::E_Infinite;
+                        }
+                        else
+                        {
+                            vIntersection = this->A;
 
-							vIntersection = B;			// The same with segment.B
-							return EQIntersections::E_One;
-						}
-					}
-					else if (A == segment.B) // (A != segment.A) && (B != segment.B)
-					{
-						if (segment.A == B)
-						{
-							// Segments are totally coincident (both sharing their two
-							// endpoints: A <-> segment.B, segment.A <-> B) --> Infinite intersection points.
+                            // Reference vector for all the comparisons
+                            const VectorType& ArBr = this->B - this->A;
 
-							return EQIntersections::E_Infinite;
-						}
-						else // Not totally coincident.
-						{
-							if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) ) // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
-							{
-								// Segments are not contained inside themselves AND intersect in
-								// a single point, an endpoint of share (A <-> segment.B) --> One intersection.
+                            const VectorType& ArAi = segment.A - this->A;
 
-								vIntersection = A;			// The same with segment.B
-								return EQIntersections::E_One;
-							}
-							else														// v1.DotProduct(v2) < 0 --> Angle(v1,v2) is 180 degrees, v1 and v2 have opposite direction.
-							{
-								// One of the segments are totally cointained inside the other
-								// AND sharing one single endpoint (A <-> segment.b) --> Infinite intersection points.
+                            if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
+                            {
+                                // Br---ArBi---Ai
+                                //        I1
+                                return EQIntersections::E_One;
+                            }
+                            else
+                            {
+                                // ArBi---Ai---Br
+                                //  I1    I2
+                                //
+                                // or
+                                //
+                                // ArBi---Br---Ai
+                                //  I1    I2
+                                return EQIntersections::E_Two;
+                            }
+                        }
+                    }
+                    else if(this->B == segment.A)
+                    {
+                        // Reference vector for all the comparisons
+                        const VectorType& ArBr = this->B - this->A;
 
-								return EQIntersections::E_Infinite;
-							}
-						}
-					}
-					else if (segment.A == B) // (A != segment.A) && (B != segment.B) && (A != segment.B)
-					{
-						if ( SQFloat::IsGreaterThan(v1.DotProduct(v2), SQFloat::_0) )  // Angle(v1,v2) is 0 degrees, v1 and v2 have the same direction.
-						{
-							// Segments are not contained inside themselves AND intersect in
-							// a single point, an endpoint of share (B <-> segment.A) --> One intersection.
+                        const VectorType& BrBi = segment.B - this->B;
 
-							vIntersection = B;			// The same with segment.A
-							return EQIntersections::E_One;
-						}
-						else														 // v1.DotProduct(v2) < 0 --> Angle(v1,v2) is 180 degrees, v1 and v2 have opposite direction.
-						{
-							// One of the segments are totally cointained inside the other
-							// AND sharing one single endpoint (B <-> segment.A) --> Infinite intersection points.
+                        if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
+                        {
+                            const VectorType& ArBi = segment.B - this->A;
 
-							return EQIntersections::E_Infinite;
-						}
-					}
-					else				  // (A != segment.A) && (B != segment.B) && (A != segment.B) && (segment.A != B)
+                            if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
+                            {
+                                // AiBr---Ar---Bi
+                                //  I2    I1
+                                vIntersection = this->A;
+                            }
+                            else
+                            {
+                                // AiBr---Bi---Ar
+                                //  I2    I1
+                                vIntersection = segment.B;
+                            }
+
+                            return EQIntersections::E_Two;
+                        }
+                        else
+                        {
+                            // Ar---AiBr---Bi
+                            //        I1
+                            vIntersection = this->B;
+                            return EQIntersections::E_One;
+                        }
+                    }
+                    else if(this->B == segment.B)
+                    {
+                        // Reference vector for all the comparisons
+                        const VectorType& ArBr = this->B - this->A;
+
+                        const VectorType& BrAi = segment.A - this->B;
+
+                        if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
+                        {
+                            const VectorType& ArAi = segment.A - this->A;
+
+                            if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
+                            {
+                                // BrBi---Ar---Ai
+                                //  I2    I1
+                                vIntersection = this->A;
+                            }
+                            else
+                            {
+                                // BrBi---Ai---Ar
+                                //  I2    I1
+                                vIntersection = segment.A;
+                            }
+
+                            return EQIntersections::E_Two;
+                        }
+                        else
+                        {
+                            // Ar---BrBi---Ai
+                            //        I1
+                            vIntersection = this->B;
+                            return EQIntersections::E_One;
+                        }
+                    }
+					else // (A != segment.A) && (B != segment.B) && (A != segment.B) && (segment.A != B)
 					{
 						//  -Segments are just parcially coincident (no endpoints shared).
 						// OR
 						//  -One of the segments are totally cointained inside the other, AND no endpoints shared.
-						//
-						// Anyway, Infinite intersection points (the chunk of segment -OR the whole segment- contained inside).
+						
+                        // Note: r = resident (this), i = input (segment)
 
-						return EQIntersections::E_Infinite;
+                        // Reference vector for all the comparisons
+                        const VectorType& ArBr = this->B - this->A;
+
+                        const VectorType& ArAi = segment.A - this->A;
+
+                        if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
+                        {
+                            const VectorType& BrBi = segment.B - this->B;
+
+                            if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
+                            {
+                                // Ai---Ar---Bi---Br
+                                //      I1   I2
+                                vIntersection = this->A; 
+                            }
+                            else
+                            {
+                                // Ai---Ar---Br---Bi
+                                //      I1   I2
+                                vIntersection = this->A;
+                            }
+                        }
+                        else
+                        {
+                            const VectorType& ArBi = segment.B - this->A;
+
+                            if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
+                            {
+                                const VectorType& BrAi = segment.A - this->B;
+
+                                if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
+                                {
+                                    // Bi---Ar---Ai---Br
+                                    //      I1   I2
+                                    vIntersection = this->A;
+                                }
+                                else
+                                {
+                                    // Ai---Br---Ar---Bi
+                                    //      I2   I1
+                                    vIntersection = this->A;
+                                }
+                            }
+                            else
+                            {
+                                const VectorType& BrAi = segment.A - this->B;
+
+                                if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
+                                {
+                                    const VectorType& BrBi = segment.B - this->B;
+
+                                    if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
+                                    {
+                                        const VectorType& AiBi = segment.B - segment.A;
+
+                                        if(SQFloat::IsNegative( AiBi.DotProduct(ArBr) ))
+                                        {
+                                            // Ar---Bi---Ai---Br
+                                            //      I1   I2
+                                            vIntersection = segment.B;
+                                        }
+                                        else
+                                        {
+                                            // Ar---Ai---Bi---Br
+                                            //      I1   I2
+                                            vIntersection = segment.A;
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Bi---Br---Ai---Ar
+                                        //      I2   I1
+                                        vIntersection = segment.A;
+                                    }
+                                }
+                                else
+                                {
+                                    // Ai---Br---Bi---Ar
+                                    //      I2   I1
+                                    vIntersection = segment.B;
+                                }
+                            }
+                        }
+
+						return EQIntersections::E_Two;
 					}
 				} // if ( SQFloat::IsNotZero(fMinDistance)
 			} // if ( SQFloat::IsNotZero(fSquaredMod)
 		} // if ( SQFloat::IsZero(fLenght)
 
+	}
+    
+	/// <summary>
+	/// This method receives another line segment, and computes the intersection points between them, if they exist.
+	/// </summary>
+    /// <remarks>
+    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br />
+	/// If there's no intersection points, the output parameters used for storing these points won't be modified.<br />
+    /// If there is any intersection, the first parameter will be set to the closest one to the resident line's A endpoint.
+	/// </remarks>
+	/// <param name="segment">[IN] The segment to be compared to.</param>
+	/// <param name="vIntersection1">[OUT] The point where they intersect.</param>
+    /// <param name="vIntersection2">[OUT] A vector where to store the second intersection point.</param>
+	/// <returns>
+	/// Returns how many intersections have been detected.
+	/// </returns>
+	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
+ 	{
+        // End points of a segment should not coincide
+        QE_ASSERT(this->A != this->B && segment.A != segment.B);
+
+		// Remark: S1 == (*this), Segment S2 == the input segment parameter.
+
+		VectorType v1 = this->B - this->A;
+	    VectorType v2 = segment.B - segment.A;
+
+        float_q fSqrLengthProd = v1.GetSquaredLength() * v2.GetSquaredLength();
+
+		if ( SQFloat::IsZero(fSqrLengthProd) )
+		{
+            // No intersections.
+			return EQIntersections::E_None;
+		}
+		else // Neither segments have length 0 --> fSqrLengthProd ALWAYS > 0 at this stage.
+		{
+
+			// Compute the sinus of the angle between v1 and v2.
+
+			float_q fAngle = v1.DotProductAngle(v2);
+
+			// If angles are currently specified in degrees, then converts angle to radians
+			// so we can use "sin" function.
+			#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+				fAngle = SQAngle::DegreesToRadians(fAngle);
+			#endif
+
+			// At this stage we have the angle expressed in RADIANS.
+			float_q fSin   = sin_q(fAngle);
+
+			// Compute Squared Module of cross product:
+			float_q fSquaredMod = fSqrLengthProd * fSin * fSin;
+
+			if ( SQFloat::IsNotZero(fSquaredMod) )
+			{
+				// CASE 2)
+				// In this case, the situation is as follows:
+				//
+				//  -The lines containing the segments doesn't intersect between themselves,
+				//	 so the same can be said for the segments.
+				// OR
+				//	-The lines containing the segments intersect in a single point...
+				//	 ...but do the segments make the same?.
+				//
+				//  For asking these questions we need the closest points to each segment
+				//  from respect the other one.
+				VectorType vClosestPtInS1ToS2, vClosestPtInS2ToS1;
+				this->GetClosestPoints(segment, vClosestPtInS1ToS2, vClosestPtInS2ToS1);
+
+				if (vClosestPtInS1ToS2 == vClosestPtInS2ToS1)
+				{
+					// Segments intersect each other IN A SINGLE POINT.
+
+					vIntersection1 = vClosestPtInS1ToS2; // The same with vClosestPtInS2ToS1.
+					return EQIntersections::E_One;
+				}
+				else
+				{
+					// Segments doesn't intersect each other either:
+					//  - The lines containing the segments DOESN'T intersect between themselves.
+					// OR
+					//  - The lines containing the segments DOES intersect between themselves in a single point...
+					//	  ...but that intersection occurs "outside" of the segments, it's not a point belonging
+					//	  to them.
+
+					return EQIntersections::E_None;
+				}
+			}
+			else // 0 == fSquaredMod
+			{
+				// CASE 3)
+				// In this case, the situation is as follows:
+				//
+				//  -The lines containing the segments are PARALLEL between themselves, so do the segments --> NO intersections.
+				// OR
+				//  -Both segments lie on the SAME line, so there can be:
+				//
+				//	   -No intersection points.
+				//	   -One single intersection point.
+                //	   -Two intersection points.
+				//     -Infinite intersection points.
+				//
+				//   It may depend of the situation, more info provided below on the walk.
+
+				float_q fMinDistance = this->MinDistance(segment);
+
+				if ( SQFloat::IsNotZero(fMinDistance) ) // fMinDistance always nonnegative --> fMinDistance > 0
+				{
+					// fMinDistance > 0 -->  -Segments are PARALLEL
+					//						OR
+					//						 -They lie on the same line, but they DON'T intersect.
+					//
+					//						Anyway, NO intersections.
+
+					return EQIntersections::E_None;
+				}
+				else // 0 == fMinDistance, Intersection Points: One OR Infinite.
+				{
+					// BOTH segments lie on the SAME line --> Angle (v1,v2) == 0 OR 180 degrees <-- Please note at this stage v1.DotProduct(v2) ALWAYS != 0
+
+                    // Note: r = resident (this), i = input (segment)
+
+                    if(this->A == segment.A)
+                    {
+                        if(this->B == segment.B)
+                        {
+                            // ArAi---BrBi
+                            return EQIntersections::E_Infinite; 
+                        }
+                        else
+                        {
+                            vIntersection1 = this->A;
+
+                            // Reference vector for all the comparisons
+                            const VectorType& ArBr = this->B - this->A;
+
+                            const VectorType& ArBi = segment.B - this->A;
+
+                            if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
+                            {
+                                // Br---ArAi---Bi
+                                //       I1
+                                return EQIntersections::E_One;
+                            }
+                            else
+                            {
+                                const VectorType& BrBi = segment.B - this->B;
+
+                                if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
+                                {
+                                    // ArAi---Bi---Br
+                                    //  I1    I2
+                                    vIntersection2 = segment.B;
+                                }
+                                else
+                                {
+                                    // ArAi---Br---Bi
+                                    //  I1    I2
+                                    vIntersection2 = this->B;
+                                }
+
+                                return EQIntersections::E_Two;
+                            }
+                        }
+                    }
+                    else if(this->A == segment.B)
+                    {
+                        if(this->B == segment.A)
+                        {
+                            // ArBi---BrAi
+                            return EQIntersections::E_Infinite;
+                        }
+                        else
+                        {
+                            vIntersection1 = this->A;
+
+                            // Reference vector for all the comparisons
+                            const VectorType& ArBr = this->B - this->A;
+
+                            const VectorType& ArAi = segment.A - this->A;
+
+                            if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
+                            {
+                                // Br---ArBi---Ai
+                                //        I1
+                                return EQIntersections::E_One;
+                            }
+                            else
+                            {
+                                const VectorType& BrAi = segment.A - this->B;
+
+                                if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
+                                {
+                                    // ArBi---Ai---Br
+                                    //  I1    I2
+                                    vIntersection2 = segment.A;
+                                }
+                                else
+                                {
+                                    // ArBi---Br---Ai
+                                    //  I1    I2
+                                    vIntersection2 = this->B;
+                                }
+
+                                return EQIntersections::E_Two;
+                            }
+                        }
+                    }
+                    else if(this->B == segment.A)
+                    {
+                        // Reference vector for all the comparisons
+                        const VectorType& ArBr = this->B - this->A;
+
+                        const VectorType& BrBi = segment.B - this->B;
+
+                        if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
+                        {
+                            const VectorType& ArBi = segment.B - this->A;
+
+                            if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
+                            {
+                                // AiBr---Ar---Bi
+                                //  I2    I1
+                                vIntersection1 = this->A;
+                                vIntersection2 = this->B;
+                            }
+                            else
+                            {
+                                // AiBr---Bi---Ar
+                                //  I2    I1
+                                vIntersection1 = segment.B;
+                                vIntersection2 = this->B;
+                            }
+
+                            return EQIntersections::E_Two;
+                        }
+                        else
+                        {
+                            // Ar---AiBr---Bi
+                            //        I1
+                            vIntersection1 = this->B;
+                            return EQIntersections::E_One;
+                        }
+                    }
+                    else if(this->B == segment.B)
+                    {
+                        // Reference vector for all the comparisons
+                        const VectorType& ArBr = this->B - this->A;
+
+                        const VectorType& BrAi = segment.A - this->B;
+
+                        if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
+                        {
+                            const VectorType& ArAi = segment.A - this->A;
+
+                            if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
+                            {
+                                // BrBi---Ar---Ai
+                                //  I2    I1
+                                vIntersection1 = this->A;
+                                vIntersection2 = this->B;
+                            }
+                            else
+                            {
+                                // BrBi---Ai---Ar
+                                //  I2    I1
+                                vIntersection1 = segment.A;
+                                vIntersection2 = this->B;
+                            }
+
+                            return EQIntersections::E_Two;
+                        }
+                        else
+                        {
+                            // Ar---BrBi---Ai
+                            //        I1
+                            vIntersection1 = this->B;
+                            return EQIntersections::E_One;
+                        }
+                    }
+					else // (A != segment.A) && (B != segment.B) && (A != segment.B) && (segment.A != B)
+					{
+						//  -Segments are just parcially coincident (no endpoints shared).
+						// OR
+						//  -One of the segments are totally cointained inside the other, AND no endpoints shared.
+						
+                        // Note: r = resident (this), i = input (segment)
+
+                        // Reference vector for all the comparisons
+                        const VectorType& ArBr = this->B - this->A;
+
+                        const VectorType& ArAi = segment.A - this->A;
+
+                        if(SQFloat::IsNegative( ArAi.DotProduct(ArBr) ))
+                        {
+                            const VectorType& BrBi = segment.B - this->B;
+
+                            if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
+                            {
+                                // Ai---Ar---Bi---Br
+                                //      I1   I2
+                                vIntersection1 = this->A; 
+                                vIntersection2 = segment.B; 
+                            }
+                            else
+                            {
+                                // Ai---Ar---Br---Bi
+                                //      I1   I2
+                                vIntersection1 = this->A;
+                                vIntersection2 = this->B; 
+                            }
+                        }
+                        else
+                        {
+                            const VectorType& ArBi = segment.B - this->A;
+
+                            if(SQFloat::IsNegative( ArBi.DotProduct(ArBr) ))
+                            {
+                                const VectorType& BrAi = segment.A - this->B;
+
+                                if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
+                                {
+                                    // Bi---Ar---Ai---Br
+                                    //      I1   I2
+                                    vIntersection1 = this->A;
+                                    vIntersection2 = segment.A; 
+                                }
+                                else
+                                {
+                                    // Ai---Br---Ar---Bi
+                                    //      I2   I1
+                                    vIntersection1 = this->A;
+                                    vIntersection2 = this->B; 
+                                }
+                            }
+                            else
+                            {
+                                const VectorType& BrAi = segment.A - this->B;
+
+                                if(SQFloat::IsNegative( BrAi.DotProduct(ArBr) ))
+                                {
+                                    const VectorType& BrBi = segment.B - this->B;
+
+                                    if(SQFloat::IsNegative( BrBi.DotProduct(ArBr) ))
+                                    {
+                                        const VectorType& AiBi = segment.B - segment.A;
+
+                                        if(SQFloat::IsNegative( AiBi.DotProduct(ArBr) ))
+                                        {
+                                            // Ar---Bi---Ai---Br
+                                            //      I1   I2
+                                            vIntersection1 = segment.B;
+                                            vIntersection2 = segment.A; 
+                                        }
+                                        else
+                                        {
+                                            // Ar---Ai---Bi---Br
+                                            //      I1   I2
+                                            vIntersection1 = segment.A;
+                                            vIntersection2 = segment.B; 
+                                        }
+                                    }
+                                    else
+                                    {
+                                        // Bi---Br---Ai---Ar
+                                        //      I2   I1
+                                        vIntersection1 = segment.A;
+                                        vIntersection2 = this->B; 
+                                    }
+                                }
+                                else
+                                {
+                                    // Ai---Br---Bi---Ar
+                                    //      I2   I1
+                                    vIntersection1 = segment.B;
+                                    vIntersection2 = this->B; 
+                                }
+                            }
+                        }
+
+						return EQIntersections::E_Two;
+					}
+				} // if ( SQFloat::IsNotZero(fMinDistance)
+			} // if ( SQFloat::IsNotZero(fSquaredMod)
+		} // if ( SQFloat::IsZero(fLenght)
 	}
 
 	/// <summary>

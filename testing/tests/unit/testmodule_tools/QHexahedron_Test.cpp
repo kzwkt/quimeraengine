@@ -1878,7 +1878,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsNegativeSideWhenHexahedronIsInNegativ
 }
 
 /// <summary>
-/// Checks that it returns "contained" when the hexahedron is completely contained by the plane.
+/// Checks that it returns "contained" when the hexahedron is completely contained in the plane.
 /// </summary>
 QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsContainedWhenHexahedronBelongsToPlane_Test, TQTemplateTypes )
 {

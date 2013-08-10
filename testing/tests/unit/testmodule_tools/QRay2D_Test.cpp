@@ -279,7 +279,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenRaysCoincideTotally_Test )
 }
 
 /// <summary>
-/// Checks that it returns True when an origin of one ray is contained by the other ray (not including the other origin).
+/// Checks that it returns True when an origin of one ray is contained in the other ray (not including the other origin).
 /// </summary>
 QTEST_CASE ( Intersection1_ReturnsTrueWhenAnOriginIsContainedInTheOtherRay_Test )
 {
@@ -1051,7 +1051,7 @@ QTEST_CASE ( Intersection3_ReturnsTrueWhenRayIntersectsWithQuadrilateralVertex_T
 /// <summary>
 /// Checks that it returns True when the ray is inside the quadrilateral.
 /// </summary>
-QTEST_CASE ( Intersection3_ReturnsTrueWhenRayOriginIsContainedByQuadrilateral_Test )
+QTEST_CASE ( Intersection3_ReturnsTrueWhenRayOriginIsContainedInQuadrilateral_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
@@ -1403,7 +1403,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenRaysCoincideTota
 }
 
 /// <summary>
-/// Checks that it returns one intersection point when an origin of one ray is contained by the other ray (not including the other origin).
+/// Checks that it returns one intersection point when an origin of one ray is contained in the other ray (not including the other origin).
 /// </summary>
 QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnOriginIsContainedInTheOtherRay_Test )
 {
@@ -1571,9 +1571,9 @@ QTEST_CASE ( IntersectionPoint1_ReturnsNoIntersectionsWhenRaysDoNotIntersectButW
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when one fo the rays is contained in the other.
+/// Checks that it returns one intersection point when one fo the rays is contained in the other.
 /// </summary>
-QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenOneRayIsContainedInTheOther_Test )
+QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOneRayIsContainedInTheOther_Test )
 {
     //
     // O1---O2----->>
@@ -1591,8 +1591,9 @@ QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenOneRayIsContaine
     const QVector2 DIRECTION2 = QVector2(SQFloat::_1, SQFloat::_0).Normalize();
     const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
 
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const QVector2 EXPECTED_POINT = ORIGIN2;
+
 
 	// Execution
     QVector2 vIntersection1;
@@ -1608,9 +1609,9 @@ QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenOneRayIsContaine
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when rays point each other.
+/// Checks that it returns two intersection points when rays point each other.
 /// </summary>
-QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenRaysPointEachOther_Test )
+QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenRaysPointEachOther_Test )
 {
     //
     // O1<-------->O2
@@ -1628,8 +1629,9 @@ QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenRaysPointEachOth
     const QVector2 DIRECTION2 = QVector2(-SQFloat::_1, -SQFloat::_1).Normalize();
     const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
     
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const QVector2 EXPECTED_POINT1 = RAY1.Origin;
+    const QVector2 EXPECTED_POINT2 = RAY2.Origin;
 
 	// Execution
     QVector2 vIntersection1;
@@ -1640,8 +1642,8 @@ QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenRaysPointEachOth
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK(vIntersection1 == EXPECTED_POINT);
-    BOOST_CHECK(vIntersection2 == EXPECTED_POINT);
+    BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
+    BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
 }
 
 /// <summary>
@@ -1918,6 +1920,53 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenOriginBelongsToEdgeOf
 }
 
 /// <summary>
+/// Checks that it returns two intersection points when the origin of the ray coincides with a vertex of the triangle and the direction vector points to another edge.
+/// </summary>
+QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenCoincidesWithVertexOfTriangleAndDirectionPointsToOtherEdge_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VERTEX_A = QVector2(SQFloat::_1, SQFloat::_1);
+    const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_4);
+    const QVector2 VERTEX_C = QVector2(SQFloat::_3, SQFloat::_2);
+
+    const QVector2 ORIGIN1 = VERTEX_A;
+    const QVector2 ORIGIN2 = VERTEX_B;
+    const QVector2 ORIGIN3 = VERTEX_C;
+    const QVector2 DIRECTION1 = QVector2(VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C) - ORIGIN1).Normalize();
+    const QVector2 DIRECTION2 = QVector2(VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C) - ORIGIN2).Normalize();
+    const QVector2 DIRECTION3 = QVector2(VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B) - ORIGIN3).Normalize();
+    const QRay2D RAY1 = QRay2D(ORIGIN1, DIRECTION1);
+    const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
+    const QRay2D RAY3 = QRay2D(ORIGIN3, DIRECTION3);
+
+    const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const QVector2 EXPECTED_POINT1 = ORIGIN1;
+    const QVector2 EXPECTED_POINT2 = ORIGIN2;
+    const QVector2 EXPECTED_POINT3 = ORIGIN3;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+
+	// Execution
+    QVector2 vIntersection1;
+    QVector2 vIntersection2;
+    QVector2 vIntersection3;
+    EQIntersections eResult1 = RAY1.IntersectionPoint(TRIANGLE, vIntersection1);
+    EQIntersections eResult2 = RAY2.IntersectionPoint(TRIANGLE, vIntersection2);
+    EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
+    BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
+    BOOST_CHECK(vIntersection3 == EXPECTED_POINT3);
+}
+
+/// <summary>
 /// Checks that it returns one intersection point when the origin of the ray and a vertex of the triangle coincide.
 /// </summary>
 QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOriginAndTriangleVertexCoincide_Test )
@@ -2105,7 +2154,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTheClosestPointWhenIntersectingWithTwoEdg
 /// <summary>
 /// Checks that it returns two intersection points when the ray intersects with two edges of the triangle.
 /// </summary>
-QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenRayIntersectWithTwoEdges_Test )
+QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenRayIntersectsWithTwoEdges_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -2153,9 +2202,56 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenRayIntersectWithTwoEd
 }
 
 /// <summary>
-/// Checks that it returns one intersection point when a common ray and a common triangle intersect.
+/// Checks that it returns two intersection points when the origin belongs to an edge of the triangle.
 /// </summary>
-QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionPointWhenCommonRayIntersectsWithCommonTriangle_Test )
+QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenRayBelongsToEdgeOfTriangle_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VERTEX_A = QVector2(SQFloat::_1, SQFloat::_1);
+    const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_4);
+    const QVector2 VERTEX_C = QVector2(SQFloat::_3, SQFloat::_2);
+    
+    const QVector2 ORIGIN1 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const QVector2 DIRECTION1 = (VERTEX_A - ORIGIN1).Normalize();
+    const QVector2 ORIGIN2 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QVector2 DIRECTION2 = (VERTEX_B - ORIGIN2).Normalize();
+    const QVector2 ORIGIN3 = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_A);
+    const QVector2 DIRECTION3 = (VERTEX_C - ORIGIN3).Normalize();
+    const QRay2D RAY1 = QRay2D(ORIGIN1, DIRECTION1);
+    const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
+    const QRay2D RAY3 = QRay2D(ORIGIN3, DIRECTION3);
+
+    const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const QVector2 EXPECTED_POINT1 = ORIGIN1;
+    const QVector2 EXPECTED_POINT2 = ORIGIN2;
+    const QVector2 EXPECTED_POINT3 = ORIGIN3;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+
+	// Execution
+    QVector2 vIntersection1;
+    QVector2 vIntersection2;
+    QVector2 vIntersection3;
+    EQIntersections eOriginContainedInAB = RAY1.IntersectionPoint(TRIANGLE, vIntersection1);
+    EQIntersections eOriginContainedInAC = RAY2.IntersectionPoint(TRIANGLE, vIntersection2);
+    EQIntersections eOriginContainedInBC = RAY3.IntersectionPoint(TRIANGLE, vIntersection3);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eOriginContainedInAB, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eOriginContainedInAC, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eOriginContainedInBC, EXPECTED_RESULT);
+    BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
+    BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
+    BOOST_CHECK(vIntersection3 == EXPECTED_POINT3);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when a common ray and a common triangle intersect.
+/// </summary>
+QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionPointsWhenCommonRayIntersectsWithCommonTriangle_Test )
 {
     //         B
     //        / \
@@ -2478,6 +2574,62 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOriginAndTriangleVerte
 }
 
 /// <summary>
+/// Checks that it returns one intersection point when the origin of the ray and a vertex of the triangle coincide and direction points to the opposite edge.
+/// </summary>
+QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOriginAndTriangleVertexCoincideAndDirectionPointsToOppositeEdge_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VERTEX_A = QVector2(SQFloat::_1, SQFloat::_1);
+    const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_4);
+    const QVector2 VERTEX_C = QVector2(SQFloat::_3, SQFloat::_2);
+
+    const QVector2 ORIGIN1 = VERTEX_A;
+    const QVector2 ORIGIN2 = VERTEX_B;
+    const QVector2 ORIGIN3 = VERTEX_C;
+    const QVector2 DIRECTION1 = QVector2(VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C) - ORIGIN1).Normalize();
+    const QVector2 DIRECTION2 = QVector2(VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C) - ORIGIN2).Normalize();
+    const QVector2 DIRECTION3 = QVector2(VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B) - ORIGIN3).Normalize();
+    const QRay2D RAY1 = QRay2D(ORIGIN1, DIRECTION1);
+    const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
+    const QRay2D RAY3 = QRay2D(ORIGIN3, DIRECTION3);
+
+    const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const QVector2 EXPECTED_FIRSTPOINT1 = ORIGIN1;
+    const QVector2 EXPECTED_FIRSTPOINT2 = ORIGIN2;
+    const QVector2 EXPECTED_FIRSTPOINT3 = ORIGIN3;
+    const QVector2 EXPECTED_SECONDPOINT1 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QVector2 EXPECTED_SECONDPOINT2 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QVector2 EXPECTED_SECONDPOINT3 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+
+    // Execution
+    QVector2 vFirstIntersection1;
+    QVector2 vFirstIntersection2;
+    QVector2 vFirstIntersection3;
+    QVector2 vSecondIntersection1;
+    QVector2 vSecondIntersection2;
+    QVector2 vSecondIntersection3;
+    EQIntersections eResult1 = RAY1.IntersectionPoint(TRIANGLE, vFirstIntersection1, vSecondIntersection1);
+    EQIntersections eResult2 = RAY2.IntersectionPoint(TRIANGLE, vFirstIntersection2, vSecondIntersection2);
+    EQIntersections eResult3 = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
+    BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
+    BOOST_CHECK(vFirstIntersection3 == EXPECTED_FIRSTPOINT3);
+    BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
+    BOOST_CHECK(vSecondIntersection2 == EXPECTED_SECONDPOINT2);
+    BOOST_CHECK(vSecondIntersection3 == EXPECTED_SECONDPOINT3);
+}
+
+/// <summary>
 /// Checks that it is not necessary to normalize the ray to get correct results.
 /// </summary>
 QTEST_CASE ( IntersectionPoint3_ItIsNotNecessaryToNormalizeTheRay_Test )
@@ -2716,6 +2868,62 @@ QTEST_CASE ( IntersectionPoint3_IntersectionIsReturnedInFirstParameterWhenThereI
 }
 
 /// <summary>
+/// Checks that it returns two intersection points when the origin belongs to an edge of the triangle.
+/// </summary>
+QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenRayBelongsToEdgeOfTriangle_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VERTEX_A = QVector2(SQFloat::_1, SQFloat::_1);
+    const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_4);
+    const QVector2 VERTEX_C = QVector2(SQFloat::_3, SQFloat::_2);
+    
+    const QVector2 ORIGIN1 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const QVector2 DIRECTION1 = (VERTEX_A - ORIGIN1).Normalize();
+    const QVector2 ORIGIN2 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QVector2 DIRECTION2 = (VERTEX_B - ORIGIN2).Normalize();
+    const QVector2 ORIGIN3 = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_A);
+    const QVector2 DIRECTION3 = (VERTEX_C - ORIGIN3).Normalize();
+    const QRay2D RAY1 = QRay2D(ORIGIN1, DIRECTION1);
+    const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
+    const QRay2D RAY3 = QRay2D(ORIGIN3, DIRECTION3);
+
+    const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const QVector2 EXPECTED_FIRSTPOINT1 = ORIGIN1;
+    const QVector2 EXPECTED_FIRSTPOINT2 = ORIGIN2;
+    const QVector2 EXPECTED_FIRSTPOINT3 = ORIGIN3;
+    const QVector2 EXPECTED_SECONDPOINT1 = VERTEX_A;
+    const QVector2 EXPECTED_SECONDPOINT2 = VERTEX_B;
+    const QVector2 EXPECTED_SECONDPOINT3 = VERTEX_C;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+
+	// Execution
+    QVector2 vFirstIntersection1;
+    QVector2 vFirstIntersection2;
+    QVector2 vFirstIntersection3;
+    QVector2 vSecondIntersection1;
+    QVector2 vSecondIntersection2;
+    QVector2 vSecondIntersection3;
+    EQIntersections eOriginContainedInAB = RAY1.IntersectionPoint(TRIANGLE, vFirstIntersection1, vSecondIntersection1);
+    EQIntersections eOriginContainedInBC = RAY2.IntersectionPoint(TRIANGLE, vFirstIntersection2, vSecondIntersection2);
+    EQIntersections eOriginContainedInCA = RAY3.IntersectionPoint(TRIANGLE, vFirstIntersection3, vSecondIntersection3);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eOriginContainedInAB, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eOriginContainedInBC, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eOriginContainedInCA, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
+    BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
+    BOOST_CHECK(vFirstIntersection3 == EXPECTED_FIRSTPOINT3);
+    BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
+    BOOST_CHECK(vSecondIntersection2 == EXPECTED_SECONDPOINT2);
+    BOOST_CHECK(vSecondIntersection3 == EXPECTED_SECONDPOINT3);
+}
+
+/// <summary>
 /// Checks that it returns one intersection point when the origin of the ray coincides with a vertex of the quadrilateral.
 /// </summary>
 QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayOriginAndQuadrilateralVertexCoincide_Test )
@@ -2818,6 +3026,126 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenRayIntersectsWithTwoC
     const QVector2 EXPECTED_POINT_BC_CD = QVector2((float_q)2.3999999999999999, (float_q)0.80000000000000004);
     const QVector2 EXPECTED_POINT_CD_DA = QVector2((float_q)1.0909090909090908, (float_q)-1.6363636363636362);
     const QVector2 EXPECTED_POINT_DA_AB = QVector2((float_q)0.08333333333333337, (float_q)-1.4999999999999998);
+
+    QVector2 vIntersection_AB_BC;
+    QVector2 vIntersection_BC_CD;
+    QVector2 vIntersection_CD_DA;
+    QVector2 vIntersection_DA_AB;
+
+	// Execution
+    EQIntersections eResult_AB_BC = RAY_AB_BC.IntersectionPoint(QUAD, vIntersection_AB_BC);
+    EQIntersections eResult_BC_CD = RAY_BC_CD.IntersectionPoint(QUAD, vIntersection_BC_CD);
+    EQIntersections eResult_CD_DA = RAY_CD_DA.IntersectionPoint(QUAD, vIntersection_CD_DA);
+    EQIntersections eResult_DA_AB = RAY_DA_AB.IntersectionPoint(QUAD, vIntersection_DA_AB);
+        
+    // Verification
+    BOOST_CHECK_EQUAL(eResult_AB_BC, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_BC_CD, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_CD_DA, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_DA_AB, EXPECTED_RESULT);
+    BOOST_CHECK(vIntersection_AB_BC == EXPECTED_POINT_AB_BC);
+    BOOST_CHECK(vIntersection_BC_CD == EXPECTED_POINT_BC_CD);
+    BOOST_CHECK(vIntersection_CD_DA == EXPECTED_POINT_CD_DA);
+    BOOST_CHECK(vIntersection_DA_AB == EXPECTED_POINT_DA_AB);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when the origin belongs to an edge and the ray intersects with other edge.
+/// </summary>
+QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenOriginBelongsToAnEdgeAndRayIntersectsWithAnotherEdge_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VERTEX_A = QVector2(SQFloat::_0_5, SQFloat::_1);
+    const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_2);
+    const QVector2 VERTEX_C = QVector2(SQFloat::_3, -SQFloat::_1);
+    const QVector2 VERTEX_D = QVector2(SQFloat::_0, -SQFloat::_2);
+    const QBaseQuadrilateral QUAD = QBaseQuadrilateral(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D);
+
+    const QVector2 ORIGIN_AB_BC = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const QVector2 DIRECTION_AB_BC = (VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C) - ORIGIN_AB_BC).Normalize();
+    const QRay2D RAY_AB_BC = QRay2D(ORIGIN_AB_BC, DIRECTION_AB_BC);
+
+    const QVector2 ORIGIN_BC_CD = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QVector2 DIRECTION_BC_CD = (VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_D) - ORIGIN_BC_CD).Normalize();
+    const QRay2D RAY_BC_CD = QRay2D(ORIGIN_BC_CD, DIRECTION_BC_CD);
+
+    const QVector2 ORIGIN_CD_DA = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_D);
+    const QVector2 DIRECTION_CD_DA = (VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_A) - ORIGIN_CD_DA).Normalize();
+    const QRay2D RAY_CD_DA = QRay2D(ORIGIN_CD_DA, DIRECTION_CD_DA);
+
+    const QVector2 ORIGIN_DA_AB = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_A);
+    const QVector2 DIRECTION_DA_AB = (VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B) - ORIGIN_DA_AB).Normalize();
+    const QRay2D RAY_DA_AB = QRay2D(ORIGIN_DA_AB, DIRECTION_DA_AB);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+
+    const QVector2 EXPECTED_POINT_AB_BC = ORIGIN_AB_BC;
+    const QVector2 EXPECTED_POINT_BC_CD = ORIGIN_BC_CD;
+    const QVector2 EXPECTED_POINT_CD_DA = ORIGIN_CD_DA;
+    const QVector2 EXPECTED_POINT_DA_AB = ORIGIN_DA_AB;
+
+    QVector2 vIntersection_AB_BC;
+    QVector2 vIntersection_BC_CD;
+    QVector2 vIntersection_CD_DA;
+    QVector2 vIntersection_DA_AB;
+
+	// Execution
+    EQIntersections eResult_AB_BC = RAY_AB_BC.IntersectionPoint(QUAD, vIntersection_AB_BC);
+    EQIntersections eResult_BC_CD = RAY_BC_CD.IntersectionPoint(QUAD, vIntersection_BC_CD);
+    EQIntersections eResult_CD_DA = RAY_CD_DA.IntersectionPoint(QUAD, vIntersection_CD_DA);
+    EQIntersections eResult_DA_AB = RAY_DA_AB.IntersectionPoint(QUAD, vIntersection_DA_AB);
+        
+    // Verification
+    BOOST_CHECK_EQUAL(eResult_AB_BC, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_BC_CD, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_CD_DA, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_DA_AB, EXPECTED_RESULT);
+    BOOST_CHECK(vIntersection_AB_BC == EXPECTED_POINT_AB_BC);
+    BOOST_CHECK(vIntersection_BC_CD == EXPECTED_POINT_BC_CD);
+    BOOST_CHECK(vIntersection_CD_DA == EXPECTED_POINT_CD_DA);
+    BOOST_CHECK(vIntersection_DA_AB == EXPECTED_POINT_DA_AB);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when the origin coincides with a vertex and the ray intersects with other edge.
+/// </summary>
+QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenOriginCoincidesWithAVertexAndRayIntersectsWithAnotherEdge_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VERTEX_A = QVector2(SQFloat::_0_5, SQFloat::_1);
+    const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_2);
+    const QVector2 VERTEX_C = QVector2(SQFloat::_3, -SQFloat::_1);
+    const QVector2 VERTEX_D = QVector2(SQFloat::_0, -SQFloat::_2);
+    const QBaseQuadrilateral QUAD = QBaseQuadrilateral(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D);
+
+    const QVector2 ORIGIN_AB_BC = VERTEX_A;
+    const QVector2 DIRECTION_AB_BC = (VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C) - ORIGIN_AB_BC).Normalize();
+    const QRay2D RAY_AB_BC = QRay2D(ORIGIN_AB_BC, DIRECTION_AB_BC);
+
+    const QVector2 ORIGIN_BC_CD = VERTEX_B;
+    const QVector2 DIRECTION_BC_CD = (VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_D) - ORIGIN_BC_CD).Normalize();
+    const QRay2D RAY_BC_CD = QRay2D(ORIGIN_BC_CD, DIRECTION_BC_CD);
+
+    const QVector2 ORIGIN_CD_DA = VERTEX_C;
+    const QVector2 DIRECTION_CD_DA = (VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_A) - ORIGIN_CD_DA).Normalize();
+    const QRay2D RAY_CD_DA = QRay2D(ORIGIN_CD_DA, DIRECTION_CD_DA);
+
+    const QVector2 ORIGIN_DA_AB = VERTEX_D;
+    const QVector2 DIRECTION_DA_AB = (VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B) - ORIGIN_DA_AB).Normalize();
+    const QRay2D RAY_DA_AB = QRay2D(ORIGIN_DA_AB, DIRECTION_DA_AB);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+
+    const QVector2 EXPECTED_POINT_AB_BC = ORIGIN_AB_BC;
+    const QVector2 EXPECTED_POINT_BC_CD = ORIGIN_BC_CD;
+    const QVector2 EXPECTED_POINT_CD_DA = ORIGIN_CD_DA;
+    const QVector2 EXPECTED_POINT_DA_AB = ORIGIN_DA_AB;
 
     QVector2 vIntersection_AB_BC;
     QVector2 vIntersection_BC_CD;
@@ -3034,7 +3362,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayIntersectsWithQuadr
 /// <summary>
 /// Checks that it returns one intersection point when the origin of the ray is containde by the quadrilateral.
 /// </summary>
-QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayOriginIsContainedByQuadrilateral_Test )
+QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayOriginIsContainedInQuadrilateral_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3131,9 +3459,9 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenRayIntersectsWithTwoN
 }
 
 /// <summary>
-/// Checks that it returns one intersection point when the ray belongs to an edge of the quadrilateral.
+/// Checks that it returns two intersection points when the ray belongs to an edge of the quadrilateral.
 /// </summary>
-QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayBelongsToQuadrilateralEdge_Test )
+QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenRayBelongsToQuadrilateralEdge_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3161,11 +3489,11 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayBelongsToQuadrilate
     const QVector2 DIRECTION_DA = (VERTEX_A - VERTEX_D).Normalize();
     const QRay2D RAY_DA = QRay2D(ORIGIN_DA, DIRECTION_DA);
 
-    const QVector2 EXPECTED_POINT_AB = VERTEX_B;
-    const QVector2 EXPECTED_POINT_BC = VERTEX_C;
-    const QVector2 EXPECTED_POINT_CD = VERTEX_D;
-    const QVector2 EXPECTED_POINT_DA = VERTEX_A;
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const QVector2 EXPECTED_POINT_AB = ORIGIN_AB;
+    const QVector2 EXPECTED_POINT_BC = ORIGIN_BC;
+    const QVector2 EXPECTED_POINT_CD = ORIGIN_CD;
+    const QVector2 EXPECTED_POINT_DA = ORIGIN_DA;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
 
     QVector2 vIntersection_AB;
     QVector2 vIntersection_BC;
@@ -3192,7 +3520,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenRayBelongsToQuadrilate
 /// <summary>
 /// Checks that an assertion fails when the direction vector of the ray is null.
 /// </summary>
-QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenRayDirectionIsNull )
+QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenRayDirectionIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
@@ -3712,7 +4040,7 @@ QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayIntersectsWithQuadr
 /// <summary>
 /// Checks that it returns one intersection point when the origin of the ray is containde by the quadrilateral.
 /// </summary>
-QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayOriginIsContainedByQuadrilateral_Test )
+QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayOriginIsContainedInQuadrilateral_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3820,9 +4148,9 @@ QTEST_CASE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenRayIntersectsWithTwoN
 }
 
 /// <summary>
-/// Checks that it returns one intersection point when the ray belongs to an edge of the quadrilateral.
+/// Checks that it returns two intersection points when the ray belongs to an edge of the quadrilateral.
 /// </summary>
-QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayBelongsToQuadrilateralEdge_Test )
+QTEST_CASE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenRayBelongsToQuadrilateralEdge_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
@@ -3850,12 +4178,15 @@ QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayBelongsToQuadrilate
     const QVector2 DIRECTION_DA = (VERTEX_A - VERTEX_D).Normalize();
     const QRay2D RAY_DA = QRay2D(ORIGIN_DA, DIRECTION_DA);
 
-    const QVector2 EXPECTED_FIRSTPOINT_AB = VERTEX_B;
-    const QVector2 EXPECTED_FIRSTPOINT_BC = VERTEX_C;
-    const QVector2 EXPECTED_FIRSTPOINT_CD = VERTEX_D;
-    const QVector2 EXPECTED_FIRSTPOINT_DA = VERTEX_A;
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const QVector2 EXPECTED_FIRSTPOINT_AB = ORIGIN_AB;
+    const QVector2 EXPECTED_FIRSTPOINT_BC = ORIGIN_BC;
+    const QVector2 EXPECTED_FIRSTPOINT_CD = ORIGIN_CD;
+    const QVector2 EXPECTED_FIRSTPOINT_DA = ORIGIN_DA;
+    const QVector2 EXPECTED_SECONDPOINT_AB = VERTEX_B;
+    const QVector2 EXPECTED_SECONDPOINT_BC = VERTEX_C;
+    const QVector2 EXPECTED_SECONDPOINT_CD = VERTEX_D;
+    const QVector2 EXPECTED_SECONDPOINT_DA = VERTEX_A;
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
 
     QVector2 vFirstIntersection_AB, vSecondIntersectionAB;
     QVector2 vFirstIntersection_BC, vSecondIntersectionBC;
@@ -3877,10 +4208,78 @@ QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayBelongsToQuadrilate
     BOOST_CHECK(vFirstIntersection_BC == EXPECTED_FIRSTPOINT_BC);
     BOOST_CHECK(vFirstIntersection_CD == EXPECTED_FIRSTPOINT_CD);
     BOOST_CHECK(vFirstIntersection_DA == EXPECTED_FIRSTPOINT_DA);
-    BOOST_CHECK(vSecondIntersectionAB == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionBC == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionCD == EXPECTED_SECONDPOINT);
-    BOOST_CHECK(vSecondIntersectionDA == EXPECTED_SECONDPOINT);
+    BOOST_CHECK(vSecondIntersectionAB == EXPECTED_SECONDPOINT_AB);
+    BOOST_CHECK(vSecondIntersectionBC == EXPECTED_SECONDPOINT_BC);
+    BOOST_CHECK(vSecondIntersectionCD == EXPECTED_SECONDPOINT_CD);
+    BOOST_CHECK(vSecondIntersectionDA == EXPECTED_SECONDPOINT_DA);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when the origin belongs to an edge and the ray intersects with another edge.
+/// </summary>
+QTEST_CASE ( IntersectionPoint5_ReturnsTwoIntersectionsWhenOriginBelongsToAnEdgeAndRayIntersectsWithAnotherEdge_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VERTEX_A = QVector2(SQFloat::_0_5, SQFloat::_1);
+    const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_2);
+    const QVector2 VERTEX_C = QVector2(SQFloat::_3, -SQFloat::_1);
+    const QVector2 VERTEX_D = QVector2(SQFloat::_0, -SQFloat::_2);
+    const QBaseQuadrilateral QUAD = QBaseQuadrilateral(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D);
+
+    const QVector2 ORIGIN_AB_BC = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+    const QVector2 DIRECTION_AB_BC = (VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C) - ORIGIN_AB_BC).Normalize();
+    const QRay2D RAY_AB_BC = QRay2D(ORIGIN_AB_BC, DIRECTION_AB_BC);
+
+    const QVector2 ORIGIN_BC_CD = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QVector2 DIRECTION_BC_CD = (VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_D) - ORIGIN_BC_CD).Normalize();
+    const QRay2D RAY_BC_CD = QRay2D(ORIGIN_BC_CD, DIRECTION_BC_CD);
+
+    const QVector2 ORIGIN_CD_DA = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_D);
+    const QVector2 DIRECTION_CD_DA = (VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_A) - ORIGIN_CD_DA).Normalize();
+    const QRay2D RAY_CD_DA = QRay2D(ORIGIN_CD_DA, DIRECTION_CD_DA);
+
+    const QVector2 ORIGIN_DA_AB = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_A);
+    const QVector2 DIRECTION_DA_AB = (VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B) - ORIGIN_DA_AB).Normalize();
+    const QRay2D RAY_DA_AB = QRay2D(ORIGIN_DA_AB, DIRECTION_DA_AB);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+
+    const QVector2 EXPECTED_FIRSTPOINT_AB_BC = ORIGIN_AB_BC;
+    const QVector2 EXPECTED_FIRSTPOINT_BC_CD = ORIGIN_BC_CD;
+    const QVector2 EXPECTED_FIRSTPOINT_CD_DA = ORIGIN_CD_DA;
+    const QVector2 EXPECTED_FIRSTPOINT_DA_AB = ORIGIN_DA_AB;
+    const QVector2 EXPECTED_SECONDPOINT_AB_BC = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
+    const QVector2 EXPECTED_SECONDPOINT_BC_CD = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_D);
+    const QVector2 EXPECTED_SECONDPOINT_CD_DA = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_A);
+    const QVector2 EXPECTED_SECONDPOINT_DA_AB = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
+
+    QVector2 vFirstIntersection_AB_BC, vSecondIntersection_AB_BC;
+    QVector2 vFirstIntersection_BC_CD, vSecondIntersection_BC_CD;
+    QVector2 vFirstIntersection_CD_DA, vSecondIntersection_CD_DA;
+    QVector2 vFirstIntersection_DA_AB, vSecondIntersection_DA_AB;
+
+	// Execution
+    EQIntersections eResult_AB_BC = RAY_AB_BC.IntersectionPoint(QUAD, vFirstIntersection_AB_BC, vSecondIntersection_AB_BC);
+    EQIntersections eResult_BC_CD = RAY_BC_CD.IntersectionPoint(QUAD, vFirstIntersection_BC_CD, vSecondIntersection_BC_CD);
+    EQIntersections eResult_CD_DA = RAY_CD_DA.IntersectionPoint(QUAD, vFirstIntersection_CD_DA, vSecondIntersection_CD_DA);
+    EQIntersections eResult_DA_AB = RAY_DA_AB.IntersectionPoint(QUAD, vFirstIntersection_DA_AB, vSecondIntersection_DA_AB);
+        
+    // Verification
+    BOOST_CHECK_EQUAL(eResult_AB_BC, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_BC_CD, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_CD_DA, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult_DA_AB, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection_AB_BC == EXPECTED_FIRSTPOINT_AB_BC);
+    BOOST_CHECK(vFirstIntersection_BC_CD == EXPECTED_FIRSTPOINT_BC_CD);
+    BOOST_CHECK(vFirstIntersection_CD_DA == EXPECTED_FIRSTPOINT_CD_DA);
+    BOOST_CHECK(vFirstIntersection_DA_AB == EXPECTED_FIRSTPOINT_DA_AB);
+    BOOST_CHECK(vSecondIntersection_AB_BC == EXPECTED_SECONDPOINT_AB_BC);
+    BOOST_CHECK(vSecondIntersection_BC_CD == EXPECTED_SECONDPOINT_BC_CD);
+    BOOST_CHECK(vSecondIntersection_CD_DA == EXPECTED_SECONDPOINT_CD_DA);
+    BOOST_CHECK(vSecondIntersection_DA_AB == EXPECTED_SECONDPOINT_DA_AB);
 }
 
 /// <summary>
@@ -4163,7 +4562,7 @@ QTEST_CASE ( Intersection4_ReturnsTrueWhenRayAndLineCoincideTotally_Test )
 }
 
 /// <summary>
-/// Checks that it returns True when the origin of the ray is contained by the line (not including A, and B points in this case).
+/// Checks that it returns True when the origin of the ray is contained in the line (not including A, and B points in this case).
 /// </summary>
 QTEST_CASE ( Intersection4_ReturnsTrueWhenOriginIsContainedInTheLine_Test )
 {
@@ -4507,9 +4906,9 @@ QTEST_CASE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayAndLineIntersectSom
 }
 
 /// <summary>
-/// Checks that it returns infinite intersection points when ray and line coincide totally.
+/// Checks that it returns two intersection points when ray and line coincide totally.
 /// </summary>
-QTEST_CASE ( IntersectionPoint6_ReturnsInfiniteIntersectionsWhenRayAndLineCoincideTotally_Test )
+QTEST_CASE ( IntersectionPoint6_ReturnsTwoIntersectionsWhenRayAndLineCoincideTotally_Test )
 {
     // AO-------->B  (I
     // BO-------->A  (II
@@ -4522,8 +4921,9 @@ QTEST_CASE ( IntersectionPoint6_ReturnsInfiniteIntersectionsWhenRayAndLineCoinci
     const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_3);
     const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
 
-    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const QVector2 EXPECTED_POINT1 = LINE_SEGMENT.A;
+    const QVector2 EXPECTED_POINT2 = LINE_SEGMENT.B;
 
     const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
     const QRay2D RAY1 = QRay2D(VALUE_FOR_A, DIRECTION);
@@ -4538,12 +4938,12 @@ QTEST_CASE ( IntersectionPoint6_ReturnsInfiniteIntersectionsWhenRayAndLineCoinci
     // Verification
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
-    BOOST_CHECK(vIntersection1 == EXPECTED_POINT);
-    BOOST_CHECK(vIntersection2 == EXPECTED_POINT);
+    BOOST_CHECK(vIntersection1 == EXPECTED_POINT1);
+    BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
 }
 
 /// <summary>
-/// Checks that it returns one intersection point when the origin of the ray is contained by the line (not including A, and B points in this case).
+/// Checks that it returns one intersection point when the origin of the ray is contained in the line (not including A, and B points in this case).
 /// </summary>
 QTEST_CASE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginIsContainedInTheLine_Test )
 {
@@ -4622,7 +5022,7 @@ QTEST_CASE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayAndLineShareOneEndP
 /// <summary>
 /// Checks that it returns one intersection point when the ray only intersects with a line's endpoint.
 /// </summary>
-QTEST_CASE ( IntersectionPoint6_ReturnsOneInersectionWhenRayOnlyIntersectsWithLineEndpoint_Test )
+QTEST_CASE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayOnlyIntersectsWithLineEndpoint_Test )
 {
     //     ^             ^
     //    /             /
@@ -4849,6 +5249,455 @@ QTEST_CASE ( IntersectionPoint6_ItIsNotNecessaryToNormalize_Test )
     // Verification
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
+}
+
+/// <summary>
+/// Checks that it returns no intersection points when ray and line don't intersect.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsNoIntersectionsWhenRayAndLineDoNotIntersect_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_4);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const QVector2 ORIGIN(SQFloat::_0, SQFloat::_2);
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_2).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
+    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+
+	// Execution
+    QVector2 vFirstIntersection;
+    QVector2 vSecondIntersection;
+    EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection == EXPECTED_POINT);
+    BOOST_CHECK(vSecondIntersection == EXPECTED_POINT);
+}
+
+/// <summary>
+/// Checks that it returns one intersection when ray and line intersect somewhere between A and B, both not included.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayAndLineIntersectSomewhereBetweenAAndBNotIncluded_Test )
+{
+    // A      /
+    //  \    /
+    //   \  /
+    //    \/
+    //    /\
+    //   /  \
+    //  O    B
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_1);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const QVector2 EXPECTED_FIRSTPOINT = LINE_SEGMENT.A.Lerp(SQFloat::_0_5, LINE_SEGMENT.B);
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+
+    const QVector2 ORIGIN(SQFloat::_4, SQFloat::_5);
+    const QVector2 DIRECTION = QVector2(EXPECTED_FIRSTPOINT - ORIGIN).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+	// Execution
+    QVector2 vFirstIntersection;
+    QVector2 vSecondIntersection;
+    EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
+}
+
+/// <summary>
+/// Checks that it returns two intersection points when ray and line coincide totally.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsTwoIntersectionsWhenRayAndLineCoincideTotally_Test )
+{
+    // AO-------->B  (I
+    // BO-------->A  (II
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_3);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    const QVector2 EXPECTED_FIRSTPOINT1 = LINE_SEGMENT.A;
+    const QVector2 EXPECTED_SECONDPOINT1 = LINE_SEGMENT.B;
+    const QVector2 EXPECTED_FIRSTPOINT2 = LINE_SEGMENT.B;
+    const QVector2 EXPECTED_SECONDPOINT2 = LINE_SEGMENT.A;
+
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
+    const QRay2D RAY1 = QRay2D(VALUE_FOR_A, DIRECTION);
+    const QRay2D RAY2 = QRay2D(VALUE_FOR_B, -DIRECTION);
+
+	// Execution
+    QVector2 vFirstIntersection1;
+    QVector2 vSecondIntersection1;
+    EQIntersections eResult1 = RAY1.IntersectionPoint(LINE_SEGMENT, vFirstIntersection1, vSecondIntersection1); // I
+    QVector2 vFirstIntersection2;
+    QVector2 vSecondIntersection2;
+    EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vFirstIntersection2, vSecondIntersection2); // II
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
+    BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
+    BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
+    BOOST_CHECK(vSecondIntersection2 == EXPECTED_SECONDPOINT2);
+}
+
+/// <summary>
+/// Checks that it returns one intersection point when the origin of the ray is contained in the line (not including A, and B points in this case).
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginIsContainedInTheLine_Test )
+{
+    //        ^
+    //       /
+    //      /
+    // A---O---B
+    //
+    //     I
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_3, SQFloat::_2);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const QVector2 ORIGIN = LINE_SEGMENT.A.Lerp(SQFloat::_0_5, LINE_SEGMENT.B);
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+    
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const QVector2 EXPECTED_FIRSTPOINT = ORIGIN;
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+
+    // Execution
+    QVector2 vFirstIntersection;
+    QVector2 vSecondIntersection = QVector2::GetZeroVector();
+    EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
+}
+
+/// <summary>
+/// Checks that it returns one intersection when the ray's origin and one of the line's endpoints coincide.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayAndLineShareOneEndPointOnly_Test )
+{
+    //     ^             ^
+    //    /             /
+    //   /             /
+    // AO-----B      BO-----A
+    //
+    //     I            II
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_3);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_2).Normalize();
+    const QRay2D RAY1 = QRay2D(VALUE_FOR_A, DIRECTION);
+    const QRay2D RAY2 = QRay2D(VALUE_FOR_B, DIRECTION);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const QVector2 EXPECTED_FIRSTPOINT1 = VALUE_FOR_A;
+    const QVector2 EXPECTED_SECONDPOINT1 = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_FIRSTPOINT2 = VALUE_FOR_B;
+    const QVector2 EXPECTED_SECONDPOINT2 = QVector2::GetZeroVector();
+
+    // Execution
+    QVector2 vFirstIntersection1;
+    QVector2 vSecondIntersection1;
+    EQIntersections eResult1 = RAY1.IntersectionPoint(LINE_SEGMENT, vFirstIntersection1, vSecondIntersection1); // I
+    QVector2 vFirstIntersection2;
+    QVector2 vSecondIntersection2;
+    EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vFirstIntersection2, vSecondIntersection2); // II
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
+    BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
+    BOOST_CHECK(vSecondIntersection2 == EXPECTED_SECONDPOINT2);
+}
+
+/// <summary>
+/// Checks that it returns one intersection point when the ray only intersects with a line's endpoint.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayOnlyIntersectsWithLineEndpoint_Test )
+{
+    //     ^             ^
+    //    /             /
+    //   A----B        B-----A
+    //  /             /
+    // O             O
+    //
+    //     I             II
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_6);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const QVector2 ORIGIN(SQFloat::_0, SQFloat::_0);
+    const QVector2 DIRECTION1 = QVector2(SQFloat::_1, SQFloat::_2).Normalize();
+    const QVector2 DIRECTION2 = QVector2(SQFloat::_2, SQFloat::_6).Normalize();
+    const QRay2D RAY1 = QRay2D(VALUE_FOR_A, DIRECTION1);
+    const QRay2D RAY2 = QRay2D(VALUE_FOR_B, DIRECTION2);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const QVector2 EXPECTED_FIRSTPOINT1 = VALUE_FOR_A;
+    const QVector2 EXPECTED_SECONDPOINT1 = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_FIRSTPOINT2 = VALUE_FOR_B;
+    const QVector2 EXPECTED_SECONDPOINT2 = QVector2::GetZeroVector();
+
+    // Execution
+    QVector2 vFirstIntersection1;
+    QVector2 vSecondIntersection1;
+    EQIntersections eResult1 = RAY1.IntersectionPoint(LINE_SEGMENT, vFirstIntersection1, vSecondIntersection1); // I
+    QVector2 vFirstIntersection2;
+    QVector2 vSecondIntersection2;
+    EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vFirstIntersection2, vSecondIntersection2); // II
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection1 == EXPECTED_FIRSTPOINT1);
+    BOOST_CHECK(vSecondIntersection1 == EXPECTED_SECONDPOINT1);
+    BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection2 == EXPECTED_FIRSTPOINT2);
+    BOOST_CHECK(vSecondIntersection2 == EXPECTED_SECONDPOINT2);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the direction vector of the ray is null, even if it intersects with the line.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_AssertionFailsWhenTheDirectionVectorIsNull_Test )
+{
+    // A-----O(d2=0)-----B
+    //
+    //          I
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_0, SQFloat::_1);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_3);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const QVector2 ORIGIN(SQFloat::_1, SQFloat::_2);
+    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    const bool ASSERTION_FAILED = true;
+    
+	// Execution
+    bool bAssertionFailed = false;
+    QVector2 vFirstIntersection;
+    QVector2 vSecondIntersection;
+
+    try
+    {
+        RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
+    }
+    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    {
+        bAssertionFailed = true;
+    }
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that an assertion fails when the length of the line equals zero, even if it intersects with the ray.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_AssertionFailsWhenTheLengthOfTheLineEqualsZero_Test )
+{
+    // O-----AB----->
+    //
+    //       I
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_2, SQFloat::_2);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_A);
+
+    const QVector2 ORIGIN(SQFloat::_1, SQFloat::_1);
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    const bool ASSERTION_FAILED = true;
+    
+	// Execution
+    bool bAssertionFailed = false;
+    QVector2 vFirstIntersection;
+    QVector2 vSecondIntersection;
+
+    try
+    {
+        RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
+    }
+    catch(...) // [TODO] Thund: A concrete exception type has to be defined for this
+    {
+        bAssertionFailed = true;
+    }
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+/// <summary>
+/// Checks that it returns no intersection points when the ray doesn't intersect with the line but would do it if it had an opposite direction.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsNoIntersectionsWhenRayAndLineDoNotIntersectButWouldDoIfRayHadAnOppositeDirection_Test )
+{
+    // A      /
+    //  \    /
+    //   \  O
+    //    \·
+    //    ·\
+    //   ·  \
+    //  ·    B
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_1);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const QVector2 ORIGIN(SQFloat::_1, SQFloat::_1);
+    const QVector2 DIRECTION = QVector2(-SQFloat::_1, -SQFloat::_1).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
+    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+
+    // Execution
+    QVector2 vFirstIntersection;
+    QVector2 vSecondIntersection;
+    EQIntersections eResult1 = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
+}
+
+/// <summary>
+/// Checks that it returns no intersection points when the ray doesn't intersect with the line but would do it if line was infinite.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsNoIntersectionsWhenRayAndLineDoNotIntersectButWouldDoIfLineWasInfinite_Test )
+{
+    // A      /
+    //  \    /
+    //   B  /
+    //    ·/
+    //    /·
+    //   /  ·
+    //  O    ·
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_1);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const QVector2 ORIGIN(SQFloat::_0, SQFloat::_0);
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_0).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
+    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+
+    // Execution
+    QVector2 vFirstIntersection;
+    QVector2 vSecondIntersection;
+    EQIntersections eResult1 = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
+}
+
+/// <summary>
+/// Checks that it is not necessary to normalize the ray.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ItIsNotNecessaryToNormalize_Test )
+{
+    // A      /
+    //  \    /
+    //   \  /
+    //    \/
+    //    /\
+    //   /  \
+    //  O    B
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
+    const QVector2 VALUE_FOR_B(SQFloat::_2, SQFloat::_1);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
+    const QVector2 EXPECTED_FIRSTPOINT = LINE_SEGMENT.A.Lerp(SQFloat::_0_5, LINE_SEGMENT.B);
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+
+    const QVector2 ORIGIN(SQFloat::_4, SQFloat::_5);
+    const QVector2 DIRECTION = QVector2(EXPECTED_FIRSTPOINT - ORIGIN);
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    // Execution
+    QVector2 vFirstIntersection;
+    QVector2 vSecondIntersection;
+    EQIntersections eResult1 = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
+    BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
+    BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
 
 /// <summary>

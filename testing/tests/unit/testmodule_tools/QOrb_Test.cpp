@@ -353,7 +353,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTheSame_Test, TQTemplat
 /// <summary>
 /// Checks that it returns true when orbs are tangent.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOneOrbIsContainedByOther_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOneOrbIsContainedInOther_Test, TQTemplateTypes )
 {
     // Preparation
     float_q VECTOR_COMPONENTS_CENTER1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };

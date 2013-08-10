@@ -392,9 +392,9 @@ public:
         const EQIntersections &NUM_INTERSECT = this->IntersectionPoint(auxPlane, vIntersectionPoint);
         if (NUM_INTERSECT == EQIntersections::E_Infinite) // Ray and plane are coplanar.
         {
-            return ( this->Intersection(triangle.A, triangle.B) ||
-                     this->Intersection(triangle.B, triangle.C) ||
-                     this->Intersection(triangle.C, triangle.A) );
+            return ( this->Intersection(QBaseLineSegment<VectorType>(triangle.A, triangle.B)) ||
+                     this->Intersection(QBaseLineSegment<VectorType>(triangle.B, triangle.C)) ||
+                     this->Intersection(QBaseLineSegment<VectorType>(triangle.C, triangle.A)) );
         }
         else if (NUM_INTERSECT == EQIntersections::E_One) // Ray and plane intersects in one point
         {
@@ -463,7 +463,7 @@ public:
 	/// <param name="vIntersection">[OUT] The point where they intersect, if they do.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the rays, and can take
-    /// the following values: E_None, E_One and E_Infinite.
+    /// the following values: E_None, E_One, E_Two or E_Infinite.
 	/// </returns>
     EQIntersections IntersectionPoint(const QBaseRay<VectorType, QVector3> &ray, VectorType &vIntersection) const
     {
@@ -487,10 +487,32 @@ public:
                     return EQIntersections::E_One;
                 }
                 else
-                    return EQIntersections::E_Infinite; //Both rays are the same
+                    return EQIntersections::E_Infinite; // Both rays are the same
             }
-            else if ( this->Contains(ray.Origin) || rcast_q(ray, const QRay3D<VectorType>&).Contains(this->Origin) )
-                return EQIntersections::E_Infinite;
+            else if ( this->Contains(ray.Origin) )
+            {
+                if(rcast_q(ray, const QRay3D<VectorType>&).Contains(this->Origin))
+                {
+                    vIntersection.x = this->Origin.x;
+                    vIntersection.y = this->Origin.y;
+                    vIntersection.z = this->Origin.z;
+                    return EQIntersections::E_Two;
+                }
+                else
+                {
+                    vIntersection.x = ray.Origin.x;
+                    vIntersection.y = ray.Origin.y;
+                    vIntersection.z = ray.Origin.z;
+                    return EQIntersections::E_One;
+                }
+            }
+            else if(rcast_q(ray, const QRay3D<VectorType>&).Contains(this->Origin) )
+            {
+                vIntersection.x = this->Origin.x;
+                vIntersection.y = this->Origin.y;
+                vIntersection.z = this->Origin.z;
+                return EQIntersections::E_One;
+            }
             else
                 return EQIntersections::E_None;
         }
@@ -563,7 +585,7 @@ public:
 	/// <param name="vIntersection">[OUT] The intersection point with line segment, if it exists.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
-    /// the following values: E_None, E_One or E_Infinite.
+    /// the following values: E_None, E_One or E_Two.
 	/// </returns>
     EQIntersections IntersectionPoint (const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
     {
@@ -589,30 +611,63 @@ public:
             const bool &B_IS_IN_RAY = this->Contains(segment.B);
 
             if ( A_IS_IN_RAY && B_IS_IN_RAY )
-                return EQIntersections::E_Infinite;
-            else if ( A_IS_IN_RAY )
             {
-                if (segment.A == this->Origin)
+                if(this->Origin == segment.A)
                 {
                     vIntersection.x = segment.A.x;
                     vIntersection.y = segment.A.y;
                     vIntersection.z = segment.A.z;
-                    return EQIntersections::E_One;
                 }
-                else
-                    return EQIntersections::E_Infinite;
-            }
-            else if ( B_IS_IN_RAY )
-            {
-                if (segment.B == this->Origin)
+                else if(this->Origin == segment.B)
                 {
                     vIntersection.x = segment.B.x;
                     vIntersection.y = segment.B.y;
                     vIntersection.z = segment.B.z;
+                }
+                else if(SQFloat::IsNegative( (segment.B - segment.A).DotProduct(segment.B - this->Origin) ))// To know which endpoint is closer to the origin of the ray...
+                {
+                    vIntersection.x = segment.A.x;
+                    vIntersection.y = segment.A.y;
+                    vIntersection.z = segment.A.z;
+                }
+                else
+                {
+                    vIntersection.x = segment.B.x;
+                    vIntersection.y = segment.B.y;
+                    vIntersection.z = segment.B.z;
+                }
+
+                return EQIntersections::E_Two;
+            }
+            else if ( A_IS_IN_RAY )
+            {
+                vIntersection.x = this->Origin.x;
+                vIntersection.y = this->Origin.y;
+                vIntersection.z = this->Origin.z;
+
+                if (segment.A == this->Origin)
+                {
                     return EQIntersections::E_One;
                 }
                 else
-                    return EQIntersections::E_Infinite;
+                {
+                    return EQIntersections::E_Two;
+                }
+            }
+            else if ( B_IS_IN_RAY )
+            {
+                vIntersection.x = this->Origin.x;
+                vIntersection.y = this->Origin.y;
+                vIntersection.z = this->Origin.z;
+
+                if (segment.B == this->Origin)
+                {
+                    return EQIntersections::E_One;
+                }
+                else
+                {
+                    return EQIntersections::E_Two;
+                }
             }
             else
                 return EQIntersections::E_None;
@@ -640,6 +695,185 @@ public:
                         vIntersection.x = P_INT1.x;
                         vIntersection.y = P_INT1.y;
                         vIntersection.z = P_INT1.z;
+                        return EQIntersections::E_One;
+                    }
+                    else
+                        return EQIntersections::E_None;
+                }
+                else
+                    return EQIntersections::E_None;
+            }
+            else
+                return EQIntersections::E_None;
+        }
+    }
+    
+    /// <summary>
+	/// Computes the intersection point between resident ray and provided line segment, if it exists.
+	/// </summary>
+    /// <remarks>
+    /// A ray with direction from A to B with origin in A is constructed.<br>
+    /// If both rays intersects, the intersection point must verify both vectorial ecuations:
+    ///
+    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
+    ///
+    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
+    ///
+    /// This ecuation is solved via vectorial products as follovs:
+    ///
+    /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
+    ///
+    /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
+    ///
+    /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
+    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br>
+    /// Finally it's verified that:
+    ///
+    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
+    ///
+    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br>
+	/// - If there's no intersection point, the output parameters won't be modified.
+	/// - If there's one intersection point, output parameter is filled with the intersection point.
+	/// </remarks>
+	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
+	/// <param name="vIntersection1">[OUT] The first intersection point with line segment, if it exists.</param>
+    /// <param name="vIntersection2">[OUT] The second intersection point with line segment, if it exists.</param>
+	/// <returns>
+    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
+    /// the following values: E_None, E_One or E_Two.
+	/// </returns>
+    EQIntersections IntersectionPoint (const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
+    {
+        // The direction vector of the ray shouldn't be null
+        QE_ASSERT( !this->Direction.IsZero() );
+
+        // The legth of the line shouldn't equal zero
+        QE_ASSERT( segment.A != segment.B );
+
+        // Same method that intersection with other ray. A ray with Position in A and direction B-A is created.
+        // After intersection method, the ray parameter is forced to be in [0, 1] interval.
+        QBaseRay<VectorType, QVector3> ray( segment.A, QVector3(segment.B - segment.A) );
+
+        const VectorType &vP(segment.A - this->Origin); // Difference of positions
+
+        QVector3 vCross = this->Direction.CrossProduct(ray.Direction); // Cross product of directions
+
+        const float_q &DENOMINATOR = vCross.GetSquaredLength(); // That is always positive
+
+        if ( SQFloat::IsZero(DENOMINATOR) ) // Both directions are parallels
+        {
+            const bool &A_IS_IN_RAY = this->Contains(segment.A);
+            const bool &B_IS_IN_RAY = this->Contains(segment.B);
+
+            if ( A_IS_IN_RAY && B_IS_IN_RAY )
+            {
+                if(this->Origin == segment.A)
+                {
+                    vIntersection1.x = segment.A.x;
+                    vIntersection1.y = segment.A.y;
+                    vIntersection1.z = segment.A.z;
+                    vIntersection2.x = segment.B.x;
+                    vIntersection2.y = segment.B.y;
+                    vIntersection2.z = segment.B.z;
+                }
+                else if(this->Origin == segment.B)
+                {
+                    vIntersection1.x = segment.B.x;
+                    vIntersection1.y = segment.B.y;
+                    vIntersection1.z = segment.B.z;
+                    vIntersection2.x = segment.A.x;
+                    vIntersection2.y = segment.A.y;
+                    vIntersection2.z = segment.A.z;
+                }
+                else if(SQFloat::IsNegative( (segment.B - segment.A).DotProduct(segment.B - this->Origin) ))// To know which endpoint is closer to the origin of the ray...
+                {
+                    vIntersection1.x = segment.A.x;
+                    vIntersection1.y = segment.A.y;
+                    vIntersection1.z = segment.A.z;
+                    vIntersection2.x = segment.B.x;
+                    vIntersection2.y = segment.B.y;
+                    vIntersection2.z = segment.B.z;
+                }
+                else
+                {
+                    vIntersection1.x = segment.B.x;
+                    vIntersection1.y = segment.B.y;
+                    vIntersection1.z = segment.B.z;
+                    vIntersection2.x = segment.A.x;
+                    vIntersection2.y = segment.A.y;
+                    vIntersection2.z = segment.A.z;
+                }
+
+                return EQIntersections::E_Two;
+            }
+            else if ( A_IS_IN_RAY )
+            {
+                if (segment.A == this->Origin)
+                {
+                    vIntersection1.x = segment.A.x;
+                    vIntersection1.y = segment.A.y;
+                    vIntersection1.z = segment.A.z;
+                    return EQIntersections::E_One;
+                }
+                else
+                {
+                    vIntersection1.x = this->Origin.x;
+                    vIntersection1.y = this->Origin.y;
+                    vIntersection1.z = this->Origin.z;
+                    vIntersection2.x = segment.A.x;
+                    vIntersection2.y = segment.A.y;
+                    vIntersection2.z = segment.A.z;
+                    return EQIntersections::E_Two;
+                }
+            }
+            else if ( B_IS_IN_RAY )
+            {
+                if (segment.B == this->Origin)
+                {
+                    vIntersection1.x = segment.B.x;
+                    vIntersection1.y = segment.B.y;
+                    vIntersection1.z = segment.B.z;
+                    return EQIntersections::E_One;
+                }
+                else
+                {
+                    vIntersection1.x = this->Origin.x;
+                    vIntersection1.y = this->Origin.y;
+                    vIntersection1.z = this->Origin.z;
+                    vIntersection2.x = segment.B.x;
+                    vIntersection2.y = segment.B.y;
+                    vIntersection2.z = segment.B.z;
+                    return EQIntersections::E_Two;
+                }
+            }
+            else
+                return EQIntersections::E_None;
+        }
+        else // Directions are not parallel
+        {
+            const float_q NUMERATOR1 = vP.x * ray.Direction.y * vCross.z +   vP.y * ray.Direction.z * vCross.x +
+                                       vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
+                                       vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
+
+            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that fDenominator is always positive
+            {
+                const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
+                                            vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
+                                            vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
+
+                const float_q PARAM2 = NUMERATOR2 / DENOMINATOR;
+                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLessOrEquals(PARAM2, SQFloat::_1) ) // Remember that fDenominator is always positive
+                {
+                    const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
+                    const QVector3 &P_INT2 = QVector3(ray.Origin) + PARAM2 * ray.Direction;
+
+                    if (P_INT1 == P_INT2)
+                    {
+                        vIntersection1.x = P_INT1.x;
+                        vIntersection1.y = P_INT1.y;
+                        vIntersection1.z = P_INT1.z;
                         return EQIntersections::E_One;
                     }
                     else
@@ -774,7 +1008,7 @@ public:
                     vIntersection1.z = this->Origin.z;
 
                     // Checks intersection with opposite edge
-                    if (this->IntersectionPoint(triangle.B, triangle.C, vAux) == EQIntersections::E_None) // No intersection found
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_None) // No intersection found
                         return EQIntersections::E_One;
                     else // Intersection found
                     {
@@ -791,7 +1025,7 @@ public:
                     vIntersection1.z = this->Origin.z;
 
                    // Checks intersection with opposite edge
-                    if (this->IntersectionPoint(triangle.C, triangle.A, vAux) == EQIntersections::E_None) // No intersection found
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_None) // No intersection found
                         return EQIntersections::E_One;
                     else // Intersection found
                     {
@@ -806,7 +1040,7 @@ public:
                     vIntersection1 = this->Origin;
 
                     // Checks intersection with opposite edge
-                    if (this->IntersectionPoint(triangle.A, triangle.B, vAux) == EQIntersections::E_None) // No intersection found
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_None) // No intersection found
                         return EQIntersections::E_One;
                     else // Intersection found
                     {
@@ -818,159 +1052,66 @@ public:
                 }
                 else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.A, triangle.B).MinDistance(this->Origin))) // Ray origin is in AB triangle edge
                 {
-                    if (this->IntersectionPoint(triangle.B, triangle.C, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    vIntersection1.x = this->Origin.x;
+                    vIntersection1.y = this->Origin.y;
+                    vIntersection1.z = this->Origin.z;
+
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One ||
+                        this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One) // Ray intersects edge BC or CA
                     {
-                        if (vAux == triangle.B) // Intersection is in common vertex
-                        {
-                            vIntersection1.x = triangle.B.x;
-                            vIntersection1.y = triangle.B.y;
-                            vIntersection1.z = triangle.B.z;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1.x = this->Origin.x;
-                            vIntersection1.y = this->Origin.y;
-                            vIntersection1.z = this->Origin.z;
-                            vIntersection2.x = vAux.x;
-                            vIntersection2.y = vAux.y;
-                            vIntersection2.z = vAux.z;
-                            return EQIntersections::E_Two;
-                        }
+                        vIntersection2.x = vAux.x;
+                        vIntersection2.y = vAux.y;
+                        vIntersection2.z = vAux.z;
+                        return EQIntersections::E_Two;
                     }
-                    else if (this->IntersectionPoint(triangle.C, triangle.A, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    else // Ray doesn't intersect with other edge
                     {
-                        if (vAux == triangle.A) // Intersection is in common vertex
-                        {
-                            vIntersection1.x = triangle.A.x;
-                            vIntersection1.y = triangle.A.y;
-                            vIntersection1.z = triangle.A.z;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1.x = this->Origin.x;
-                            vIntersection1.y = this->Origin.y;
-                            vIntersection1.z = this->Origin.z;
-                            vIntersection2.x = vAux.x;
-                            vIntersection2.y = vAux.y;
-                            vIntersection2.z = vAux.z;
-                            return EQIntersections::E_Two;
-                        }
-                    }
-                    else // Ray don't intersects other edge
-                    {
-                        vIntersection1.x = this->Origin.x;
-                        vIntersection1.y = this->Origin.y;
-                        vIntersection1.z = this->Origin.z;
                         return EQIntersections::E_One;
                     }
                 }
                 else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.B, triangle.C).MinDistance(this->Origin))) // Ray origin is in BC triangle edge
                 {
-                    if (this->IntersectionPoint(triangle.C, triangle.A, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    vIntersection1.x = this->Origin.x;
+                    vIntersection1.y = this->Origin.y;
+                    vIntersection1.z = this->Origin.z;
+
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One ||
+                        this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One) // Ray intersects edge BC or CA
                     {
-                        if (vAux == triangle.C) // Intersection is in common vertex
-                        {
-                            vIntersection1.x = triangle.C.x;
-                            vIntersection1.y = triangle.C.y;
-                            vIntersection1.z = triangle.C.z;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1.x = this->Origin.x;
-                            vIntersection1.y = this->Origin.y;
-                            vIntersection1.z = this->Origin.z;
-                            vIntersection2.x = vAux.x;
-                            vIntersection2.y = vAux.y;
-                            vIntersection2.z = vAux.z;
-                            return EQIntersections::E_Two;
-                        }
+                        vIntersection2.x = vAux.x;
+                        vIntersection2.y = vAux.y;
+                        vIntersection2.z = vAux.z;
+                        return EQIntersections::E_Two;
                     }
-                    else if (this->IntersectionPoint(triangle.A, triangle.B, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    else // Ray doesn't intersect with other edge
                     {
-                        if (vAux == triangle.B) // Intersection is in common vertex
-                        {
-                            vIntersection1.x = triangle.B.x;
-                            vIntersection1.y = triangle.B.y;
-                            vIntersection1.z = triangle.B.z;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1.x = this->Origin.x;
-                            vIntersection1.y = this->Origin.y;
-                            vIntersection1.z = this->Origin.z;
-                            vIntersection2.x = vAux.x;
-                            vIntersection2.y = vAux.y;
-                            vIntersection2.z = vAux.z;
-                            return EQIntersections::E_Two;
-                        }
-                    }
-                    else // Ray don't intersects other edge
-                    {
-                        vIntersection1.x = this->Origin.x;
-                        vIntersection1.y = this->Origin.y;
-                        vIntersection1.z = this->Origin.z;
                         return EQIntersections::E_One;
                     }
                 }
                 else if (SQFloat::IsZero(QLineSegment<VectorType>(triangle.C, triangle.A).MinDistance(this->Origin))) // Ray origin is in CA triangle edge
                 {
-                    if (this->IntersectionPoint(triangle.A, triangle.B, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    vIntersection1.x = this->Origin.x;
+                    vIntersection1.y = this->Origin.y;
+                    vIntersection1.z = this->Origin.z;
+
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One ||
+                        this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One) // Ray intersects edge BC or CA
                     {
-                        if (vAux == triangle.A) // Intersection is in common vertex
-                        {
-                            vIntersection1.x = triangle.A.x;
-                            vIntersection1.y = triangle.A.y;
-                            vIntersection1.z = triangle.A.z;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1.x = this->Origin.x;
-                            vIntersection1.y = this->Origin.y;
-                            vIntersection1.z = this->Origin.z;
-                            vIntersection2.x = vAux.x;
-                            vIntersection2.y = vAux.y;
-                            vIntersection2.z = vAux.z;
-                            return EQIntersections::E_Two;
-                        }
+                        vIntersection2.x = vAux.x;
+                        vIntersection2.y = vAux.y;
+                        vIntersection2.z = vAux.z;
+                        return EQIntersections::E_Two;
                     }
-                    else if (this->IntersectionPoint(triangle.B, triangle.C, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    else // Ray doesn't intersect with other edge
                     {
-                        if (vAux == triangle.C) // Intersection is in common vertex
-                        {
-                            vIntersection1.x = triangle.C.x;
-                            vIntersection1.y = triangle.C.y;
-                            vIntersection1.z = triangle.C.z;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1.x = this->Origin.x;
-                            vIntersection1.y = this->Origin.y;
-                            vIntersection1.z = this->Origin.z;
-                            vIntersection2.x = vAux.x;
-                            vIntersection2.y = vAux.y;
-                            vIntersection2.z = vAux.z;
-                            return EQIntersections::E_Two;
-                        }
-                    }
-                    else // Ray don't intersects other edge
-                    {
-                        vIntersection1.x = this->Origin.x;
-                        vIntersection1.y = this->Origin.y;
-                        vIntersection1.z = this->Origin.z;
                         return EQIntersections::E_One;
                     }
                 }
                 else // Ray origin is strictly inside triangle (is not in a vertex or an edge
                 {
-                    if (this->IntersectionPoint(triangle.A, triangle.B, vAux) == EQIntersections::E_One ||
-                        this->IntersectionPoint(triangle.B, triangle.C, vAux) == EQIntersections::E_One ||
-                        this->IntersectionPoint(triangle.C, triangle.A, vAux) == EQIntersections::E_One )
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.A, triangle.B), vAux) == EQIntersections::E_One ||
+                        this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.B, triangle.C), vAux) == EQIntersections::E_One ||
+                        this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.C, triangle.A), vAux) == EQIntersections::E_One )
                     {
                         vIntersection1.x = vAux.x;
                         vIntersection1.y = vAux.y;
@@ -988,8 +1129,8 @@ public:
                 bool bPrevInt = false;
 
                 VectorType vAuxAB;
-                EQIntersections numIntersectAB = this->IntersectionPoint(triangle.A, triangle.B, vAuxAB); // Checks intersection with AB edge
-                if (numIntersectAB == EQIntersections::E_Infinite) // Ray contains AB edge
+                EQIntersections numIntersectAB = this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.A, triangle.B), vAuxAB); // Checks intersection with AB edge
+                if (numIntersectAB == EQIntersections::E_Two) // Ray contains AB edge
                 {
                     // Looks for closest point to ray origin
                     if  ( (triangle.A - this->Origin).GetSquaredLength() < (triangle.B - this->Origin).GetSquaredLength() )
@@ -1014,8 +1155,8 @@ public:
                 }
 
                 VectorType vAuxBC;
-                EQIntersections numIntersectBC = this->IntersectionPoint(triangle.B, triangle.C, vAuxBC); // Checks intersection with BC edge
-                if (numIntersectBC == EQIntersections::E_Infinite) // Ray contains BC edge
+                EQIntersections numIntersectBC = this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.B, triangle.C), vAuxBC); // Checks intersection with BC edge
+                if (numIntersectBC == EQIntersections::E_Two) // Ray contains BC edge
                 {
                     // Looks for closest point to ray origin
                     if  ( (triangle.B - this->Origin).GetSquaredLength() < (triangle.C - this->Origin).GetSquaredLength() )
@@ -1040,8 +1181,8 @@ public:
                 }
 
                 VectorType vAuxCA;
-                EQIntersections numIntersectCA = this->IntersectionPoint(triangle.C, triangle.A, vAuxCA); // Checks intersection with BC edge
-                if (numIntersectCA == EQIntersections::E_Infinite) // Ray contains CA edge
+                EQIntersections numIntersectCA = this->IntersectionPoint(QBaseLineSegment<VectorType>(triangle.C, triangle.A), vAuxCA); // Checks intersection with BC edge
+                if (numIntersectCA == EQIntersections::E_Two) // Ray contains CA edge
                 {
                     // Looks for closest point to ray origin
                     if  ( (triangle.C - this->Origin).GetSquaredLength() < (triangle.A - this->Origin).GetSquaredLength() )
@@ -1943,18 +2084,6 @@ protected:
         return  SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);;
     }
 
-    // Checks if resident ray intersects the AB line segment and calculates the intersection point if it exists
-    inline EQIntersections IntersectionPoint(const VectorType &vA, const VectorType &vB, VectorType &vIntersection) const
-    {
-        return this->IntersectionPoint(QBaseLineSegment<VectorType>(vA, vB), vIntersection);
-    }
-
-    // Checks if resident ray intersects the AB line segment
-    inline bool Intersection(const VectorType &vA, const VectorType &vB) const
-    {
-        return this->Intersection(QBaseLineSegment<VectorType>(vA, vB));
-    }
-
     // Checks if resident ray intersects with a quadrilateral given by its four vertices
     inline bool Intersection(const VectorType &vVertexA, const VectorType &vVertexB, const VectorType &vVertexC, const VectorType &vVertexD) const
     {
@@ -1965,8 +2094,8 @@ protected:
 
         const EQIntersections &NUM_INTERSECT = this->IntersectionPoint(auxP, vAux);
         if (NUM_INTERSECT == EQIntersections::E_Infinite) // Ray and plane are coplanar.
-            return ( this->Intersection(vVertexA, vVertexB) || this->Intersection(vVertexB, vVertexC) ||
-                     this->Intersection(vVertexC, vVertexD) || this->Intersection(vVertexD, vVertexA) );
+            return ( this->Intersection(QBaseLineSegment<VectorType>(vVertexA, vVertexB)) || this->Intersection(QBaseLineSegment<VectorType>(vVertexB, vVertexC)) ||
+                     this->Intersection(QBaseLineSegment<VectorType>(vVertexC, vVertexD)) || this->Intersection(QBaseLineSegment<VectorType>(vVertexD, vVertexA)) );
         else if (NUM_INTERSECT == EQIntersections::E_One) // Ray and plane intersects in one point
             return this->PointInsideQuadrilateral(vVertexA, vVertexB, vVertexC, vVertexD, vAux);
         else
@@ -1992,12 +2121,12 @@ protected:
                     vIntersection1 = this->Origin;
 
                     // Checks intersection with opposite edges
-                    if (this->IntersectionPoint(vVertexB, vVertexC, vAux) == EQIntersections::E_One) // Intersection found
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexB, vVertexC), vAux) == EQIntersections::E_One) // Intersection found
                     {
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
                     }
-                    else if (this->IntersectionPoint(vVertexC, vVertexD, vAux) == EQIntersections::E_One) // Intersection found
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexC, vVertexD), vAux) == EQIntersections::E_One) // Intersection found
                     {
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
@@ -2010,12 +2139,12 @@ protected:
                     vIntersection1 = this->Origin;
 
                    // Checks intersection with opposite edges
-                    if (this->IntersectionPoint(vVertexC, vVertexD, vAux) == EQIntersections::E_One) // Intersection found
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexC, vVertexD), vAux) == EQIntersections::E_One) // Intersection found
                     {
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
                     }
-                    else if (this->IntersectionPoint(vVertexD, vVertexA, vAux) == EQIntersections::E_One) // Intersection found
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAux) == EQIntersections::E_One) // Intersection found
                     {
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
@@ -2028,12 +2157,12 @@ protected:
                     vIntersection1 = this->Origin;
 
                     // Checks intersection with opposite edges
-                    if (this->IntersectionPoint(vVertexD, vVertexA, vAux) == EQIntersections::E_One) // Intersection found
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAux) == EQIntersections::E_One) // Intersection found
                     {
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
                     }
-                    else if (this->IntersectionPoint(vVertexA, vVertexB, vAux) == EQIntersections::E_One) // Intersection found
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexA, vVertexB), vAux) == EQIntersections::E_One) // Intersection found
                     {
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
@@ -2046,12 +2175,12 @@ protected:
                     vIntersection1 = this->Origin;
 
                     // Checks intersection with opposite edges
-                    if (this->IntersectionPoint(vVertexA, vVertexB, vAux) == EQIntersections::E_One) // Intersection found
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexA, vVertexB), vAux) == EQIntersections::E_One) // Intersection found
                     {
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
                     }
-                    else if (this->IntersectionPoint(vVertexB, vVertexC, vAux) == EQIntersections::E_One) // Intersection found
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexB, vVertexC), vAux) == EQIntersections::E_One) // Intersection found
                     {
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
@@ -2061,186 +2190,116 @@ protected:
                 }
                 else if (SQFloat::IsZero(QLineSegment<VectorType>(vVertexA, vVertexB).MinDistance(this->Origin))) // Ray origin is in AB quadrilateral edge
                 {
-                    if (this->IntersectionPoint(vVertexB, vVertexC, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    vIntersection1 = this->Origin;
+
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexB, vVertexC), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        if (vAux == vVertexB) // Intersection is in common vertex
-                        {
-                            vIntersection1 = vVertexB;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1 = this->Origin;
-                            vIntersection2 = vAux;
-                            return EQIntersections::E_Two;
-                        }
-                    }
-                    else if (this->IntersectionPoint(vVertexC, vVertexD, vAux) == EQIntersections::E_One) // Ray intersects other edge
-                    {
-                        vIntersection1 = this->Origin;
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
                     }
-                    else if (this->IntersectionPoint(vVertexD, vVertexA, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexC, vVertexD), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        if (vAux == vVertexA) // Intersection is in common vertex
-                        {
-                            vIntersection1 = vVertexA;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1 = this->Origin;
-                            vIntersection2 = vAux;
-                            return EQIntersections::E_Two;
-                        }
+                        vIntersection2 = vAux;
+                        return EQIntersections::E_Two;
                     }
-                    else // Ray don't intersects other edge
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        vIntersection1 = this->Origin;
+                        vIntersection2 = vAux;
+                        return EQIntersections::E_Two;
+                    }
+                    else // Ray doesn't intersect with other edge
+                    {
                         return EQIntersections::E_One;
                     }
                 }
                 else if (SQFloat::IsZero(QLineSegment<VectorType>(vVertexB, vVertexC).MinDistance(this->Origin))) // Ray origin is in BC quadrilateral edge
                 {
-                    if (this->IntersectionPoint(vVertexC, vVertexD, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    vIntersection1 = this->Origin;
+
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexC, vVertexD), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        if (vAux == vVertexC) // Intersection is in common vertex
-                        {
-                            vIntersection1 = vVertexC;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1 = this->Origin;
-                            vIntersection2 = vAux;
-                            return EQIntersections::E_Two;
-                        }
-                    }
-                    else if (this->IntersectionPoint(vVertexD, vVertexA, vAux) == EQIntersections::E_One) // Ray intersects other edge
-                    {
-                        vIntersection1 = this->Origin;
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
                     }
-                    if (this->IntersectionPoint(vVertexA, vVertexB, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        if (vAux == vVertexB) // Intersection is in common vertex
-                        {
-                            vIntersection1 = vVertexB;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1 = this->Origin;
-                            vIntersection2 = vAux;
-                            return EQIntersections::E_Two;
-                        }
+                        vIntersection2 = vAux;
+                        return EQIntersections::E_Two;
                     }
-                    else // Ray don't intersects other edge
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexA, vVertexB), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        vIntersection1 = this->Origin;
+                        vIntersection2 = vAux;
+                        return EQIntersections::E_Two;
+                    }
+                    else // Ray doesn't intersect with other edge
+                    {
                         return EQIntersections::E_One;
                     }
                 }
                 else if (SQFloat::IsZero(QLineSegment<VectorType>(vVertexC, vVertexD).MinDistance(this->Origin))) // Ray origin is in CD quadrilateral edge
                 {
-                    if (this->IntersectionPoint(vVertexD, vVertexA, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    vIntersection1 = this->Origin;
+
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        if (vAux == vVertexD) // Intersection is in common vertex
-                        {
-                            vIntersection1 = vVertexD;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1 = this->Origin;
-                            vIntersection2 = vAux;
-                            return EQIntersections::E_Two;
-                        }
-                    }
-                    else if (this->IntersectionPoint(vVertexA, vVertexB, vAux) == EQIntersections::E_One) // Ray intersects other edge
-                    {
-                        vIntersection1 = this->Origin;
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
                     }
-                    if (this->IntersectionPoint(vVertexB, vVertexC, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexA, vVertexB), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        if (vAux == vVertexC) // Intersection is in common vertex
-                        {
-                            vIntersection1 = vVertexC;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1 = this->Origin;
-                            vIntersection2 = vAux;
-                            return EQIntersections::E_Two;
-                        }
+                        vIntersection2 = vAux;
+                        return EQIntersections::E_Two;
                     }
-                    else // Ray don't intersects other edge
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexB, vVertexC), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        vIntersection1 = this->Origin;
+                        vIntersection2 = vAux;
+                        return EQIntersections::E_Two;
+                    }
+                    else // Ray doesn't intersect with other edge
+                    {
                         return EQIntersections::E_One;
                     }
                 }
                 else if (SQFloat::IsZero(QLineSegment<VectorType>(vVertexD, vVertexA).MinDistance(this->Origin))) // Ray origin is in DA quadrilateral edge
                 {
-                    if (this->IntersectionPoint(vVertexA, vVertexB, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    vIntersection1 = this->Origin;
+
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexA, vVertexB), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        if (vAux == vVertexA) // Intersection is in common vertex
-                        {
-                            vIntersection1 = vVertexA;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1 = this->Origin;
-                            vIntersection2 = vAux;
-                            return EQIntersections::E_Two;
-                        }
-                    }
-                    else if (this->IntersectionPoint(vVertexB, vVertexC, vAux) == EQIntersections::E_One) // Ray intersects other edge
-                    {
-                        vIntersection1 = this->Origin;
                         vIntersection2 = vAux;
                         return EQIntersections::E_Two;
                     }
-                    if (this->IntersectionPoint(vVertexC, vVertexD, vAux) == EQIntersections::E_One) // Ray intersects other edge
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexB, vVertexC), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        if (vAux == vVertexD) // Intersection is in common vertex
-                        {
-                            vIntersection1 = vVertexD;
-                            return EQIntersections::E_One;
-                        }
-                        else // Intersection is in edge
-                        {
-                            vIntersection1 = this->Origin;
-                            vIntersection2 = vAux;
-                            return EQIntersections::E_Two;
-                        }
+                        vIntersection2 = vAux;
+                        return EQIntersections::E_Two;
                     }
-                    else // Ray don't intersects other edge
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexC, vVertexD), vAux) == EQIntersections::E_One) // Ray intersects other edge
                     {
-                        vIntersection1 = this->Origin;
+                        vIntersection2 = vAux;
+                        return EQIntersections::E_Two;
+                    }
+                    else // Ray doesn't intersect with other edge
+                    {
                         return EQIntersections::E_One;
                     }
                 }
                 else // Ray origin is strictly inside quadrilateral (is not in a vertex or an edge)
                 {
-                    if (this->IntersectionPoint(vVertexA, vVertexB, vAux) == EQIntersections::E_One)
-                        vIntersection1 = vAux;
-                    else if (this->IntersectionPoint(vVertexB, vVertexC, vAux) == EQIntersections::E_One)
-                        vIntersection1 = vAux;
-                    else if (this->IntersectionPoint(vVertexC, vVertexD, vAux) == EQIntersections::E_One)
-                        vIntersection1 = vAux;
-                    else if (this->IntersectionPoint(vVertexD, vVertexA, vAux) == EQIntersections::E_One)
-                        vIntersection1 = vAux;
+                    vIntersection1 = this->Origin;
+
+                    if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexA, vVertexB), vAux) == EQIntersections::E_One)
+                        vIntersection2 = vAux;
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexB, vVertexC), vAux) == EQIntersections::E_One)
+                        vIntersection2 = vAux;
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexC, vVertexD), vAux) == EQIntersections::E_One)
+                        vIntersection2 = vAux;
+                    else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAux) == EQIntersections::E_One)
+                        vIntersection2 = vAux;
                     else
                         QE_ASSERT(false)  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
-                    return EQIntersections::E_One;
+                    return EQIntersections::E_Two;
                 }
             }
             else // Ray origin is outside quadrilateral
@@ -2249,8 +2308,8 @@ protected:
                 bool bPrevInt = false;
 
                 VectorType vAuxAB;
-                EQIntersections numIntersectAB = this->IntersectionPoint(vVertexA, vVertexB, vAuxAB); // Checks intersection with AB edge
-                if (numIntersectAB == EQIntersections::E_Infinite) // Ray contains AB edge
+                EQIntersections numIntersectAB = this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexA, vVertexB), vAuxAB); // Checks intersection with AB edge
+                if (numIntersectAB == EQIntersections::E_Two) // Ray contains AB edge
                 {
                     // Looks for closest point to ray origin
                     if  ( (vVertexA - this->Origin).GetSquaredLength() < (vVertexB - this->Origin).GetSquaredLength() )
@@ -2267,8 +2326,8 @@ protected:
                 }
 
                 VectorType vAuxBC;
-                EQIntersections numIntersectBC = this->IntersectionPoint(vVertexB, vVertexC, vAuxBC); // Checks intersection with BC edge
-                if (numIntersectBC == EQIntersections::E_Infinite) // Ray contains BC edge
+                EQIntersections numIntersectBC = this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexB, vVertexC), vAuxBC); // Checks intersection with BC edge
+                if (numIntersectBC == EQIntersections::E_Two) // Ray contains BC edge
                 {
                     // Looks for closest point to ray origin
                     if  ( (vVertexB - this->Origin).GetSquaredLength() < (vVertexC - this->Origin).GetSquaredLength() )
@@ -2285,8 +2344,8 @@ protected:
                 }
 
                 VectorType vAuxCD;
-                EQIntersections numIntersectCD = this->IntersectionPoint(vVertexC, vVertexD, vAuxCD); // Checks intersection with CD edge
-                if (numIntersectCD == EQIntersections::E_Infinite) // Ray contains CD edge
+                EQIntersections numIntersectCD = this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexC, vVertexD), vAuxCD); // Checks intersection with CD edge
+                if (numIntersectCD == EQIntersections::E_Two) // Ray contains CD edge
                 {
                     // Looks for closest point to ray origin
                     if  ( (vVertexC - this->Origin).GetSquaredLength() < (vVertexD - this->Origin).GetSquaredLength() )
@@ -2303,8 +2362,8 @@ protected:
                 }
 
                 VectorType vAuxDA;
-                EQIntersections numIntersectDA = this->IntersectionPoint(vVertexD, vVertexA, vAuxDA); // Checks intersection with DA edge
-                if (numIntersectDA == EQIntersections::E_Infinite) // Ray contains DA edge
+                EQIntersections numIntersectDA = this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAuxDA); // Checks intersection with DA edge
+                if (numIntersectDA == EQIntersections::E_Two) // Ray contains DA edge
                 {
                     // Looks for closest point to ray origin
                     if  ( (vVertexD - this->Origin).GetSquaredLength() < (vVertexA - this->Origin).GetSquaredLength() )
@@ -2330,7 +2389,7 @@ protected:
                 {
                     if (bPrevInt) // There is a previous intersection with an edge
                     {
-                        if (vPrevInt != vAuxBC) // There are not the same point (a common vertex)
+                        if (vPrevInt != vAuxBC) // They are not the same point (a common vertex)
                         {
                             // Looks for closest point to ray origin
                             if  ( (vAuxBC - this->Origin).GetSquaredLength() < (vPrevInt - this->Origin).GetSquaredLength() )
@@ -2346,7 +2405,7 @@ protected:
                             return EQIntersections::E_Two;
                         }
                     }
-                    else // Its the first intersection found
+                    else // It's the first intersection found
                     {
                         bPrevInt = true;
                         vPrevInt = vAuxBC;
@@ -2357,7 +2416,7 @@ protected:
                 {
                     if (bPrevInt) // There is a previous intersection with an edge
                     {
-                        if (vPrevInt != vAuxCD) // There are not the same point (a common vertex)
+                        if (vPrevInt != vAuxCD) // They are not the same point (a common vertex)
                         {
                             // Looks for closest point to ray origin
                             if  ( (vAuxCD - this->Origin).GetSquaredLength() < (vPrevInt - this->Origin).GetSquaredLength() )
@@ -2373,7 +2432,7 @@ protected:
                             return EQIntersections::E_Two;
                         }
                     }
-                    else // Its the first intersection found
+                    else // It's the first intersection found
                     {
                         bPrevInt = true;
                         vPrevInt = vAuxCD;
@@ -2384,7 +2443,7 @@ protected:
                 {
                     if (bPrevInt) // There is a previous intersection with an edge
                     {
-                        if (vPrevInt != vAuxDA) // There are not the same point (a common vertex)
+                        if (vPrevInt != vAuxDA) // They are not the same point (a common vertex)
                         {
                             // Looks for closest point to ray origin
                             if  ( (vAuxDA - this->Origin).GetSquaredLength() < (vPrevInt - this->Origin).GetSquaredLength() )
@@ -2400,7 +2459,7 @@ protected:
                             return EQIntersections::E_Two;
                         }
                     }
-                    else // Its the first intersection found
+                    else // It's the first intersection found
                         QE_ASSERT(false)  // Something is wrong
                 }
 
