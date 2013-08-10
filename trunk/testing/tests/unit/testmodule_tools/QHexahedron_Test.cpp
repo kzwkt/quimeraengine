@@ -2772,11 +2772,11 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_VerticesAreMovedToCoordinateOriginWhenVect
 }
 
 /// <summary>
-/// Template method used by Transform_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test to test
+/// Template method used by Transform1_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test to test
 /// using different template parameters for class QTransformationMatrix.
 /// </summary>
 template<class T, class MatrixType>
-void Transform_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template()
+void Transform1_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -2838,23 +2838,23 @@ void Transform_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformati
 /// <summary>
 /// Checks that a common hexahedron is correctly transformed using common transformation matrix.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Transform_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Transform1_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    Transform_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template<T, QMatrix4x3>();
+    Transform1_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template<T, QMatrix4x3>();
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    Transform_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template<T, QMatrix4x4>();
+    Transform1_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Template<T, QMatrix4x4>();
 }
 
 /// <summary>
-/// Template method used by Transform_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Test to test
+/// Template method used by Transform1_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Test to test
 /// using different template parameters for class QTransformationMatrix.
 /// </summary>
 template<class T, class MatrixType>
-void Transform_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template()
+void Transform1_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
@@ -2891,23 +2891,23 @@ void Transform_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZ
 /// <summary>
 /// Checks that all the vertices of the hexahedron are moved to the coordinate origin when transformation is zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Transform_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Transform1_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    Transform_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template<T, QMatrix4x3>();
+    Transform1_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template<T, QMatrix4x3>();
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    Transform_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template<T, QMatrix4x4>();
+    Transform1_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIsZero_Template<T, QMatrix4x4>();
 }
 
 /// <summary>
-/// Template method used by Transform_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Test to test
+/// Template method used by Transform1_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Test to test
 /// using different template parameters for class QTransformationMatrix.
 /// </summary>
 template<class T, class MatrixType>
-void Transform_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template()
+void Transform1_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
@@ -2942,15 +2942,108 @@ void Transform_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_
 /// <summary>
 /// Checks that a hexahedron is not transformed when matrix equals identity.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Transform_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Transform1_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    Transform_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x3>();
+    Transform1_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x3>();
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    Transform_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x4>();
+    Transform1_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity_Template<T, QMatrix4x4>();
+}
+
+/// <summary>
+/// Checks that the hexahedron is correctly transformed by an arbitrary space conversion matrix.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Transform2_IsCorrectlyTransformedByCommonSpaceConversionMatrix_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+
+    // Preparation
+    QSpaceConversionMatrix CONVERSION = QSpaceConversionMatrix();
+    CONVERSION.SetViewSpaceMatrix(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3),
+                                  QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                                  QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0));
+
+    const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
+
+    
+    const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { (float_q)0.22360679774997894, (float_q)0.81989159174992277, (float_q)3.1666666666666665, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { (float_q)-0.22360679774997902, (float_q)1.4161763857498666, (float_q)3.833333333333333, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_C[] = { (float_q)-1.1180339887498949, (float_q)1.1180339887498947, (float_q)3.5, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_D[] = { (float_q)-0.67082039324993692, (float_q)0.52174919474995085, (float_q)2.833333333333333, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_E[] = { (float_q)0.22360679774997894, (float_q)0.074535599249992979, (float_q)3.833333333333333, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_F[] = { (float_q)-0.67082039324993692, (float_q)-0.22360679774997894, (float_q)3.5, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_G[] = { (float_q)-1.1180339887498949, (float_q)0.37267799624996489, (float_q)4.1666666666666661, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_H[] = { (float_q)-0.22360679774997902, (float_q)0.67082039324993681, (float_q)4.5, SQFloat::_1 };
+
+    const T EXPECTED_VALUE_FOR_A(EXPECTED_VECTOR_COMPONENTS_A);
+    const T EXPECTED_VALUE_FOR_B(EXPECTED_VECTOR_COMPONENTS_B);
+    const T EXPECTED_VALUE_FOR_C(EXPECTED_VECTOR_COMPONENTS_C);
+    const T EXPECTED_VALUE_FOR_D(EXPECTED_VECTOR_COMPONENTS_D);
+    const T EXPECTED_VALUE_FOR_E(EXPECTED_VECTOR_COMPONENTS_E);
+    const T EXPECTED_VALUE_FOR_F(EXPECTED_VECTOR_COMPONENTS_F);
+    const T EXPECTED_VALUE_FOR_G(EXPECTED_VECTOR_COMPONENTS_G);
+    const T EXPECTED_VALUE_FOR_H(EXPECTED_VECTOR_COMPONENTS_H);
+
+    const QHexahedron<T> EXPECTED_HEXAHEDRON = QHexahedron<T>(EXPECTED_VALUE_FOR_A,
+                                                              EXPECTED_VALUE_FOR_B,
+                                                              EXPECTED_VALUE_FOR_C,
+                                                              EXPECTED_VALUE_FOR_D,
+                                                              EXPECTED_VALUE_FOR_E,
+                                                              EXPECTED_VALUE_FOR_F,
+                                                              EXPECTED_VALUE_FOR_G,
+                                                              EXPECTED_VALUE_FOR_H);
+
+	// Execution
+    QHexahedron<T> hexahedron = HEXAHEDRON.Transform(CONVERSION);
+    	
+    // Verification
+    BOOST_CHECK(hexahedron == EXPECTED_HEXAHEDRON);
+}
+
+/// <summary>
+/// Checks that the line segment doesn't change when it's transformed by an identity matrix.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Transform2_LineSegmentDoesNotChangeWhenTransformedByIdentityMatrix_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+
+    // Preparation
+    const QSpaceConversionMatrix IDENTITY_MATRIX = QSpaceConversionMatrix::GetIdentity();
+
+    const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
+
+    const QHexahedron<T> EXPECTED_HEXAHEDRON = HEXAHEDRON;
+
+	// Execution
+    QHexahedron<T> hexahedron = HEXAHEDRON.Transform(IDENTITY_MATRIX);
+
+    // Verification
+    BOOST_CHECK(hexahedron == EXPECTED_HEXAHEDRON);
+}
+
+/// <summary>
+/// Checks that the line segment is nullified when the matrix equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Transform2_EndpointsAreNullifiedWhenMatrixIsZero_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
+    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
+    // Preparation
+    const QSpaceConversionMatrix ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
+
+    const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
+
+    const QHexahedron<T> EXPECTED_HEXAHEDRON = QHexahedron<T>(T::GetZeroVector(), T::GetZeroVector());
+
+	// Execution
+    QHexahedron<T> hexahedron = HEXAHEDRON.Transform(ZERO_MATRIX);
+
+    // Verification
+    BOOST_CHECK(hexahedron == EXPECTED_HEXAHEDRON);
 }
 
 /// <summary>
