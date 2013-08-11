@@ -29,7 +29,10 @@
 
 #include "QBaseMatrix2x2.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
 namespace Kinesis
 {

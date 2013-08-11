@@ -30,7 +30,10 @@
 #include "SQFloat.h"
 #include "SQVF32.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+
 
 namespace Kinesis
 {
@@ -110,6 +113,8 @@ public:
 	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (Ignored).</param>
 	inline explicit QBaseVector3(const vf32_q value)
 	{
+        using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+
 		float_q fAux;
 
 		SQVF32::Unpack(value, this->x, this->y, this->z, fAux);

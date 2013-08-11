@@ -30,7 +30,10 @@
 #include "QBaseMatrix4x4.h"
 #include "QBaseMatrix4x3.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+
 
 namespace Kinesis
 {

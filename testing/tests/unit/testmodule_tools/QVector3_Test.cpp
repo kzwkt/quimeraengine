@@ -44,6 +44,11 @@ using namespace boost::unit_test;
 #include "QDualQuaternion.h"
 #include "SQAngle.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
 QTEST_SUITE_BEGIN( QVector3_TestSuite )

@@ -43,7 +43,9 @@
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+
 
 namespace Kinesis
 {

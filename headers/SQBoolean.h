@@ -29,6 +29,9 @@
 
 #include "DataTypesDefinitions.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+
+
 namespace Kinesis
 {
 namespace QuimeraEngine

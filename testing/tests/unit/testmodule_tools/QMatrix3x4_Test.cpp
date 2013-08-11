@@ -35,6 +35,11 @@ using namespace boost::unit_test;
 #include "QBaseMatrix4x4.h"
 #include "QBaseMatrix3x3.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x4;
 
 QTEST_SUITE_BEGIN( QMatrix3x4_TestSuite )

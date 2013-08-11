@@ -32,7 +32,10 @@
 #include "SQFloat.h"
 #include "SQVF32.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+
 
 namespace Kinesis
 {
@@ -156,6 +159,8 @@ public:
 	/// <param name="row3">[IN] 4x32 values for row 3, columns 0 to 2, parsed in this order.</param>
 	inline QBaseMatrix4x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3)
 	{
+        using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+
 		float_q fAux;
 
 		SQVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], fAux);

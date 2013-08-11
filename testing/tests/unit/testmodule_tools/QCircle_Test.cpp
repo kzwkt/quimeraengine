@@ -33,6 +33,8 @@ using namespace boost::unit_test;
 #include "QCircle.h"
 #include "QTransformationMatrix3x3.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QCircle;
 using Kinesis::QuimeraEngine::Tools::Math::QOrb;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;

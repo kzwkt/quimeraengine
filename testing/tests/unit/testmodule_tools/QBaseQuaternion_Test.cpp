@@ -32,6 +32,10 @@ using namespace boost::unit_test;
 
 #include "QBaseQuaternion.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
 QTEST_SUITE_BEGIN( QBaseQuaternion_TestSuite )

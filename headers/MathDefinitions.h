@@ -31,8 +31,8 @@
 #include "SQFloat.h"
 #include <math.h>
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
 namespace Kinesis
 {

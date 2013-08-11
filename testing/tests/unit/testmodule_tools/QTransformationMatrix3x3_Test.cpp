@@ -33,6 +33,8 @@ using namespace boost::unit_test;
 #include "QTransformationMatrix3x3.h"
 #include "QVector2.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
 
 QTEST_SUITE_BEGIN( QTransformationMatrix3x3_TestSuite )

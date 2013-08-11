@@ -33,6 +33,8 @@ using namespace boost::unit_test;
 
 #include "QSphere.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QSphere;
 using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 using Kinesis::QuimeraEngine::Tools::Math::QVector4;

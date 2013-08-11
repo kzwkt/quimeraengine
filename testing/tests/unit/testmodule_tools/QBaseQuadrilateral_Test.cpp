@@ -33,6 +33,8 @@ using namespace boost::unit_test;
 #include "QBaseQuadrilateral.h"
 #include "QVector2.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 

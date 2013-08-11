@@ -41,6 +41,11 @@ using namespace boost::unit_test;
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 using Kinesis::QuimeraEngine::Tools::Math::Test::QTranslationMatrixWhiteBox;
 using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;

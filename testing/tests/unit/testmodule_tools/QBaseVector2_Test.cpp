@@ -33,6 +33,8 @@ using namespace boost::unit_test;
 #include "QBaseVector2.h"
 #include "SQVF32.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QBaseVector2;
 
 QTEST_SUITE_BEGIN( QBaseVector2_TestSuite )

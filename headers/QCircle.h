@@ -32,7 +32,9 @@
 #include "SQPoint.h"
 #include "EQIntersections.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+
 
 namespace Kinesis
 {

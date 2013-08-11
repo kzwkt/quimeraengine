@@ -39,8 +39,6 @@
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
-
 namespace Kinesis
 {
 namespace QuimeraEngine

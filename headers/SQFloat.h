@@ -33,6 +33,10 @@
 
 #include "DataTypesDefinitions.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+
+
 namespace Kinesis
 {
 namespace QuimeraEngine

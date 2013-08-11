@@ -27,12 +27,12 @@
 #ifndef __SQINTEGER__
 #define __SQINTEGER__
 
-#include <string>
-#include <cstdlib>
-
+#include <stdlib.h>
 #include <boost\lexical_cast.hpp>
 
 #include "DataTypesDefinitions.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
 
 namespace Kinesis

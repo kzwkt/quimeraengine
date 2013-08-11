@@ -32,8 +32,6 @@
 #include "QBaseMatrix3x4.h"
 #include "QBaseMatrix4x3.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
-
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -42,6 +40,14 @@ namespace Tools
 {
 namespace Math
 {
+    
+// USINGS
+// ---------------
+namespace {
+    using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+    using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+}
 
 /// <summary>
 /// This class implements the functionality of a matrix with 3 rows and 4 columns.<br>
