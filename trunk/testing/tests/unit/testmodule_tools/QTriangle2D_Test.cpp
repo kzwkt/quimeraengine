@@ -32,6 +32,8 @@ using namespace boost::unit_test;
 
 #include "QTriangle2D.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 using Kinesis::QuimeraEngine::Tools::Math::QTriangle2D;
 

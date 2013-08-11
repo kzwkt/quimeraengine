@@ -30,9 +30,10 @@
 #include "SQFloat.h"
 #include "SQVF32.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
-
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -116,6 +117,8 @@ public:
 	/// 3rd value (c coefficient), 4th value (d independent term).</param>
 	inline explicit QBasePlane(const vf32_q &value)
 	{
+        using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+
 		SQVF32::Unpack(value, this->a, this->b, this->c, this->d);
 	}
 

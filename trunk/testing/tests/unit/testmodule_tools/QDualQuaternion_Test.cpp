@@ -35,6 +35,9 @@ using namespace boost::unit_test;
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
 
 QTEST_SUITE_BEGIN( QDualQuaternion_TestSuite )

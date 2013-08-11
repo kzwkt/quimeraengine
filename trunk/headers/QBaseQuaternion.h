@@ -30,9 +30,10 @@
 #include "SQFloat.h"
 #include "SQVF32.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
-
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
 
 namespace Kinesis
 {
@@ -113,6 +114,8 @@ public:
     /// <param name="value">[IN] A four 32 bits floating point types pack.</param>
     inline explicit QBaseQuaternion(const vf32_q &value)
     {
+        using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+
         // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
         SQVF32::Unpack(value, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_FOURTH_COMPONENT);
     }

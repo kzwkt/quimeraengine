@@ -33,7 +33,9 @@
 #include "QMatrix4x4.h"
 #include "QMatrix4x3.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+
 
 namespace Kinesis
 {

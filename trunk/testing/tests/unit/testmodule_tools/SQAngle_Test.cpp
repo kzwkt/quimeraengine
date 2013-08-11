@@ -32,6 +32,8 @@ using namespace boost::unit_test;
 
 #include "SQAngle.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
 QTEST_SUITE_BEGIN( SQAngle_TestSuite )

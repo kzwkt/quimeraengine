@@ -33,7 +33,9 @@
 #include "QBaseMatrix3x3.h"
 #include "SQAngle.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+
 
 namespace Kinesis
 {
@@ -43,6 +45,7 @@ namespace Tools
 {
 namespace Math
 {
+
 /// <summary>
 /// It represents a 3x3 matrix containing spatial transformations relating to translation, rotation and scaling,
 /// applying them to 2D space points.

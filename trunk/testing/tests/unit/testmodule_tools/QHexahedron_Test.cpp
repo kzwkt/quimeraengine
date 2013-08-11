@@ -33,6 +33,9 @@ using namespace boost::unit_test;
 
 #include "QHexahedron.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QHexahedron;
 using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 using Kinesis::QuimeraEngine::Tools::Math::QVector4;

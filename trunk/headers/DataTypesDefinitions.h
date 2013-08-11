@@ -35,8 +35,6 @@
     #include <xmmintrin.h> // Includes __m128 definition.
 #endif
 
-using namespace Kinesis::QuimeraEngine::Core::Configuration;
-
 namespace Kinesis
 {
 namespace QuimeraEngine

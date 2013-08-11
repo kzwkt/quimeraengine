@@ -38,6 +38,8 @@ using namespace boost::unit_test;
 #include "QVector3.h"
 #include "QMatrix4x4.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
 QTEST_SUITE_BEGIN( QScalingMatrix3x3_TestSuite )

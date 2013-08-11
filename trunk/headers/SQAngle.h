@@ -31,6 +31,9 @@
 
 #include "MathDefinitions.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+
+
 namespace Kinesis
 {
 namespace QuimeraEngine

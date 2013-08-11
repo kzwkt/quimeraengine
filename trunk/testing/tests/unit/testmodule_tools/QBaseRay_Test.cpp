@@ -40,6 +40,8 @@ using namespace boost::unit_test;
 #include "QVector2.h"
 #include "QVector3.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QBaseRay;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 using Kinesis::QuimeraEngine::Tools::Math::QVector3;

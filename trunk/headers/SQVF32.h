@@ -31,6 +31,10 @@
 #include "DataTypesDefinitions.h"
 #include "SQFloat.h"
 
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -42,7 +46,7 @@ namespace DataTypes
 
 /// <summary>
 /// Helper class that offers functionality related to 4 x 32-bits floating point variables packs.<br>
-/// This kind of packs are used in SIMD (SSE) operations.
+/// This kind of packs are used in SIMD operations.
 /// </summary>
 class QDllExport SQVF32
 {
