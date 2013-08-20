@@ -1192,7 +1192,7 @@ QTEST_CASE ( GetPerpendicular_PerpendicularOfACommonVectorIsCalculatedCorrectly_
 /// <summary>
 /// Checks that a common vector becomes a unit vector.
 /// </summary>
-QTEST_CASE ( Normalize1_CommonVectorIsCorrectlyNormalized_Test )
+QTEST_CASE ( Normalize_CommonVectorIsCorrectlyNormalized_Test )
 {
     // Preparation
     const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
@@ -1211,7 +1211,7 @@ QTEST_CASE ( Normalize1_CommonVectorIsCorrectlyNormalized_Test )
 /// <summary>
 /// Checks that the assertion fails when a null vector is to be normalized.
 /// </summary>
-QTEST_CASE ( Normalize1_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
+QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 {
     // Preparation
     const QVector2 VECTOR = QVector2(SQFloat::_0, SQFloat::_0);
@@ -1235,7 +1235,7 @@ QTEST_CASE ( Normalize1_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 /// <summary>
 /// Checks that a common vector is correctly inverted.
 /// </summary>
-QTEST_CASE ( Reverse1_CommonVectorIsCorrectlyInverted_Test )
+QTEST_CASE ( Invert_CommonVectorIsCorrectlyInverted_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;

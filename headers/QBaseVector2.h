@@ -45,8 +45,11 @@ namespace Math
 {
 
 /// <summary>
-/// It represents the basic form of a two-dimensional vector with two components: x and y.
+/// A vector with two components: X and Y.
 /// </summary>
+/// <remarks>
+///	A vector is a geometric object that has both a magnitude (or length) and a direction.
+/// </remarks>
 class QDllExport QBaseVector2
 {
 	// CONSTRUCTORS
@@ -54,16 +57,19 @@ class QDllExport QBaseVector2
 public:
 
 	/// <summary>
-	/// Override default constructor. Sets attributes to zero.
+	/// Default constructor.
 	/// </summary>
+    /// <remarks>
+    ///	By default, all the components are set to zero.
+    /// </remarks>
 	inline QBaseVector2() : x(SQFloat::_0), y(SQFloat::_0)
     {
     }
 
 	/// <summary>
-	/// Copy constructor. Copies attributes from given vector.
+	/// Copy constructor.
 	/// </summary>
-	/// <param name="vVector">[IN] The 2D vector from which we want to create a copy in the resident vector.</param>
+	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
 	inline QBaseVector2(const QBaseVector2 &vVector)
 	{
 	    this->x = vVector.x;
@@ -71,26 +77,29 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor that receives 2 numbers, one for each vector component.
+	/// Constructor that receives the value of every vector's component.
 	/// </summary>
-	/// <param name="fValueX">[IN] Value for x component</param>
-	/// <param name="fValueY">[IN] Value for y component</param>
+	/// <param name="fValueX">[IN] The value for X component.</param>
+	/// <param name="fValueY">[IN] The value for Y component.</param>
 	inline QBaseVector2(const float_q &fValueX, const float_q &fValueY) : x(fValueX), y(fValueY)
     {
     }
 
 	/// <summary>
-	/// Constructor that receives only 1 number. Sets all attributes to that value.
+	/// Constructor from a single value for all the vector's components.
 	/// </summary>
-	/// <param name="fValueAll">[IN] Value for all components</param>
+	/// <param name="fValueAll">[IN] The value for all components.</param>
 	inline explicit QBaseVector2(const float_q &fValueAll) : x(fValueAll), y(fValueAll)
     {
     }
 
 	/// <summary>
-	/// Constructor that receives an array of 2 floating point numbers.
+	/// Constructor that receives an array of scalars.
 	/// </summary>
-	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least two elements.</param>
+    /// <remarks>
+    /// The array must contain, at least, two elements. Only the first two elements will be considered; the rest will be ignored.
+    /// </remarks>
+	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, two elements.</param>
 	inline explicit QBaseVector2(const float_q* arValues)
 	{
 		// Null pointer checkout
@@ -102,12 +111,13 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor that receives a 4x32 packed floating point value.<br>
-	/// The first two packed components are saved into the components of the vector.
-	/// </summary>
-	/// <param name="value">[IN] 4x32 packed floating point containing the three components.<br>
-	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Ignored), 4th value (Ignored).</param>
-	inline explicit QBaseVector2(const vf32_q &value)
+    /// Constructor that receives a pack of four scalars.
+    /// </summary>
+    /// <remarks>
+    /// Only the two first elements in the pack (most significant bits) are considered.
+    /// </remarks>
+    /// <param name="value">[IN] 4x32 packed floating point value containing the two components.</param>
+    inline explicit QBaseVector2(const vf32_q &value)
 	{
         using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
 
@@ -122,11 +132,11 @@ public:
 public:
 
     /// <summary>
-	/// Equality operator. Compares two 2D vectors.
+	/// Checks if two vectors are equal.
 	/// </summary>
-	/// <param name="vVector">[IN] Vector with which to compare.</param>
+	/// <param name="vVector">[IN] The vector to which to compare.</param>
 	/// <returns>
-	/// True if vectors are the same, false otherwise.
+	/// True if vectors are the same; False otherwise.
 	/// </returns>
 	inline bool operator==(const QBaseVector2 &vVector) const
 	{
@@ -134,11 +144,11 @@ public:
 	}
 
 	/// <summary>
-	/// Inequality operator. Compares two 2D vectors.
+	/// Checks if two vectors are not equal.
 	/// </summary>
-	/// <param name="vVector">[IN] Vector with which to compare.</param>
+	/// <param name="vVector">[IN] The vector to which to compare.</param>
 	/// <returns>
-	/// True if vectors are not the same, false otherwise.
+	/// True if vectors are not the same; False otherwise.
 	/// </returns>
 	inline bool operator!=(const QBaseVector2 &vVector) const
 	{
@@ -150,12 +160,12 @@ public:
 public:
 
 	/// <summary>
-	/// Vector's x coordinate.
+	/// Vector's X coordinate.
 	/// </summary>
 	float_q x;
 
 	/// <summary>
-	/// Vector's y coordinate.
+	/// Vector's Y coordinate.
 	/// </summary>
 	float_q y;
 

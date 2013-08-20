@@ -47,7 +47,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a quadrilateral in 2D space. Methods in this class are related to transformations in 2D.<br>
+/// Class which represents a quadrilateral in 2D space. Methods in this class are related to transformations in 2D.<br/>
 /// The quadrilateral is defined by four consecutive vertices A, B, C, D, being the edges AB, BC, CD and DA segments.
 /// </summary>
 class QDllExport QQuadrilateral : public QBaseQuadrilateral
@@ -151,8 +151,8 @@ public:
     bool Contains(const QBaseVector2 &vPoint) const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral intersects with the provided one.<br>
-    /// To do that, it checks the intersection with the four segments of the resident quadrilateral with the provided quadrilateral.<br>
+    /// Checks if the resident quadrilateral intersects with the provided one.<br/>
+    /// To do that, it checks the intersection with the four segments of the resident quadrilateral with the provided quadrilateral.<br/>
     /// Additionally, it checks if
     /// one arbitrary edge of provided quadrilateral intersects with the resident one, to check the case where the provided
     /// quadrilateral is included in the resident one.
@@ -164,7 +164,7 @@ public:
     bool Intersection(const QBaseQuadrilateral &quad) const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral is crossed.<br>
+    /// Checks if the resident quadrilateral is crossed.<br/>
     /// To do that, it checks if A and D vertices are in the
     /// same side of BC segment AND C and D vertices are in the same side of AB segment, in which case the quadrilateral
     /// is not crossed.
@@ -175,11 +175,11 @@ public:
     bool IsCrossed() const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral is convex.<br>
+    /// Checks if the resident quadrilateral is convex.<br/>
     /// To do that, it checks if the quadrilateral diagonals intersects.
     /// </summary>
     /// <remarks>
-    /// Crossed quadrilaterals are considered as convex.<br>
+    /// Crossed quadrilaterals are considered as convex.<br/>
     /// Quadrilaterals with a \f$ 180^0\f$ angle are considered convex too.
     /// </remarks>
     /// <returns>
@@ -313,7 +313,7 @@ public:
 	}
 
 	/// <summary>
-	/// Receives a transformation matrix and applies the transformations to the resident quadrilateral.<br>
+	/// Receives a transformation matrix and applies the transformations to the resident quadrilateral.<br/>
 	/// The transformation pivot is the origin of coordinates.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
@@ -378,7 +378,7 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
-	/// to the resident quadrilateral.<br>
+	/// to the resident quadrilateral.<br/>
 	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
@@ -394,8 +394,8 @@ public:
 	}
 
     /// <summary>
-    /// Converts quadrilateral into a string with the following format:<br>
-    /// "QL(a($A),b($B),c($C),d($D))".<br>
+    /// Converts quadrilateral into a string with the following format:<br/>
+    /// "QL(a($A),b($B),c($C),d($D))".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>

@@ -97,7 +97,7 @@ public:
     /// matrix of a specified rotation.
     /// </summary>
     /// <remarks>
-    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br>
+    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br/>
     /// The rotation matrix is obtained as follows:
     ///
     /// \f$ R = \begin{bmatrix} \cos z & \sin z & 0 \\ -\sin z & \cos z & 0\\ 0 & 0 & 1 \end{bmatrix} 
@@ -153,7 +153,7 @@ public:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.<br>
+    /// Gets an identity matrix.<br/>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
@@ -274,8 +274,8 @@ public:
 	QRotationMatrix3x3& operator*=(const QRotationMatrix3x3 &matrix);
 
     /// <summary>
-    /// Inverts the matrix.<br>
-    /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.<br>
+    /// Inverts the matrix.<br/>
+    /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.<br/>
     /// So, it's faster than base class method.
     /// </summary>
     /// <returns>
@@ -287,7 +287,7 @@ public:
     }
 
     /// <summary>
-    /// Converts rotation matrix to Euler angles.<br>
+    /// Converts rotation matrix to Euler angles.<br/>
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
     /// </summary>
     /// <param name="fRotationAngleX">[OUT] Resultant rotation around X axis.</param>
@@ -300,17 +300,17 @@ public:
     /// </summary>
     /// <remarks>
     /// Since rotation matrices are special orthogonal matrices, where \f$ AA^T = AA^{-1} = I\f$, it's always verified
-    /// that (1 + trace) > 0.<br>
-    /// Then, we can calculate quaternion component from every matrix trace.<br>
+    /// that (1 + trace) > 0.<br/>
+    /// Then, we can calculate quaternion component from every matrix trace.<br/>
     /// </remarks>
     /// <param name="qRotation">[OUT] Quaternion where to store the rotation.</param>
     void GetRotation(QQuaternion &qRotation) const;
 
     /// <summary>
-    /// Converts rotation matrix to an angle and a spin axis.<br>
+    /// Converts rotation matrix to an angle and a spin axis.<br/>
     /// </summary>
     /// <remarks>
-    /// Since axis components depends on inverse of sin(angle) it's necessary to take into account when angle is 0 or \f$ \pi\f$.<br>
+    /// Since axis components depends on inverse of sin(angle) it's necessary to take into account when angle is 0 or \f$ \pi\f$.<br/>
     /// When angle equals zero, the returned axis is a null vector.
     /// </remarks>
     /// <param name="fRotationAngle">[OUT] Angle of rotation.</param>

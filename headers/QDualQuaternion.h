@@ -122,19 +122,19 @@ public:
     /// <remarks>
     /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
     /// in the direction of the rotation axis as follows:
-    /// <br>
+    /// <br/>
     /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
-    /// <br>
+    /// <br/>
     /// and the dual quaternion will be:
-    /// <br>
+    /// <br/>
     /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
-    /// <br>
+    /// <br/>
     /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
-    /// <br>
+    /// <br/>
     /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
-    /// <br>
+    /// <br/>
     /// Our transformation dual quaternion is given by the product of the translation dual quaternion by
-    /// the rotation dual quaternion, taking into account that the transfomation is done as follows:<br>
+    /// the rotation dual quaternion, taking into account that the transfomation is done as follows:<br/>
     /// FIRST ROTATION THEN TRANSLATION.
     /// </remarks>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
@@ -339,9 +339,9 @@ public:
 
     /// <summary>
     /// Dual quaternions product: it's performed as follows:
-    /// <br>
+    /// <br/>
     /// \f$ q\cdot q' = r\cdot r' + (r\cdot d' + d\cdot r')\varepsilon\f$
-    /// <br>
+    /// <br/>
     /// </summary>
     /// <remarks>
     /// Product between dual quaternions is not commutative.
@@ -524,7 +524,7 @@ public:
 
     /// <summary>
     /// Calculates the SINGLE dual quaternion's conjugate. It's calculated this way:
-    /// <br>
+    /// <br/>
     /// \f$ Q^* = r^* + d^*\varepsilon\f$ .
     /// </summary>
     /// <returns>
@@ -537,7 +537,7 @@ public:
 
     /// <summary>
     /// Calculates the DOUBLE dual quaternion's conjugate. It's calculated this way:
-    /// <br>
+    /// <br/>
     /// \f$ Q^* = r^* - d^*\varepsilon\f$.
     /// </summary>
     /// <returns>
@@ -665,8 +665,8 @@ public:
     }
 
     /// <summary>
-    /// Converts dual quaternion into a string with the following format:<br>
-    /// "DQ(r($r),d($d))".<br>
+    /// Converts dual quaternion into a string with the following format:<br/>
+    /// "DQ(r($r),d($d))".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>

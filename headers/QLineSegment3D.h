@@ -57,9 +57,9 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a chunk (segment) of straight line in 3D space, defined by two endpoints A and B.<br>
+/// Class which represents a chunk (segment) of straight line in 3D space, defined by two endpoints A and B.<br/>
 /// These points may be expressed as 3D points or vectors, depending on the template parameter,
-/// which may be 3D vector or 4D vector.<br>
+/// which may be 3D vector or 4D vector.<br/>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment.
 /// </summary>
 template <class VectorType>
@@ -163,20 +163,20 @@ public:
     /// </summary>
     /// <remarks>
     /// Since a plane divides space into two sides (positive and negative), we can check how the end points of
-    /// the line segment satisfies the plane equation.<br>
-    /// Being the plane equation:<br><br>
-    /// \f$ ax + by + cz + d = 0 \f$,<br><br>
+    /// the line segment satisfies the plane equation.<br/>
+    /// Being the plane equation:<br/><br/>
+    /// \f$ ax + by + cz + d = 0 \f$,<br/><br/>
     /// and the end points of the line segment \f$ A(A_x, A_y, A_z)\f$, \f$ B(B_x, B_y, B_z)\f$,
-    /// we have to check the value of:<br><br>
+    /// we have to check the value of:<br/><br/>
     /// (1) \f$ a\cdot A_x + b\cdot A_y + c\cdot A_z + d \f$
-    /// <br>
+    /// <br/>
     /// (2) \f$ a\cdot B_x + b\cdot B_y + c\cdot B_z + d \f$
-    /// <br><br>
-    /// If (1) = 0 or (2) = 0, then the line segment intersects the plane (one of the end points lies on plane).<br>
+    /// <br/><br/>
+    /// If (1) = 0 or (2) = 0, then the line segment intersects the plane (one of the end points lies on plane).<br/>
     /// If the sign of (1) and (2) are different, each end point are in a different side of the space
-    /// from the plane, and then the line segment intersects the plane.<br>
+    /// from the plane, and then the line segment intersects the plane.<br/>
     /// If (1) and (2) have equal sign, then there are in the same side of the space from the plane,
-    /// and the line segment don't intersects the plane.<br>
+    /// and the line segment don't intersects the plane.<br/>
     /// If one end point of the line segment lies on the plane, we consider there is an intersection.
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check if intersects with resident line segment.</param>
@@ -205,7 +205,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident line segment intersects with the provided triangle.<br>
+    /// Checks if resident line segment intersects with the provided triangle.<br/>
     /// If one end point of the line segment lies on the triangle, or on an edge or vertex of the triangle,
     /// we consider there is an intersection.
     /// </summary>
@@ -259,7 +259,7 @@ public:
     }
     
     /// <summary>
-    /// Checks if resident line segment intersects with the provided hexahedron.<br>
+    /// Checks if resident line segment intersects with the provided hexahedron.<br/>
     /// If one end point of the line segment lies on one of the hexahedron faces,
     /// we consider there is an intersection.
     /// </summary>
@@ -355,7 +355,7 @@ public:
 	/// </summary>
     /// <remarks>
 	/// If there's no intersection point or the line segment lies on triangle, the output
-    /// parameter used for storing that point won't be modified.<br>
+    /// parameter used for storing that point won't be modified.<br/>
     /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
     /// segment and an edge of the triangle.
 	/// </remarks>
@@ -379,7 +379,7 @@ public:
 	/// </summary>
     /// <remarks>
 	/// If there's no intersection point or the line segment lies on triangle, the output
-    /// parameter used for storing that point won't be modified.<br>
+    /// parameter used for storing that point won't be modified.<br/>
     /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
     /// segment and an edge of the triangle.
 	/// </remarks>
@@ -1030,7 +1030,7 @@ public:
     /// and stores the closest to A end point, if it exists.
 	/// </summary>
     /// <remarks>
-	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br/>
 	/// If there are two intersections, the output parameter stores only one of them.
 	/// </remarks>
 	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident line segment we want to check.</param>
@@ -1243,7 +1243,7 @@ public:
     /// if they exists.
 	/// </summary>
     /// <remarks>
-	/// If there's no intersection point, the output parameters used for storing the intersection points won't be modified.<br>
+	/// If there's no intersection point, the output parameters used for storing the intersection points won't be modified.<br/>
 	/// If there are two intersections, the first output parameter stores the closest point to A end point of line segment.
 	/// </remarks>
 	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident line segment we want to check.</param>
@@ -1565,9 +1565,9 @@ public:
     }
 
     /// <summary>
-    /// Checks the relation between resident line segment and the provided plane.<br>
+    /// Checks the relation between resident line segment and the provided plane.<br/>
     /// Since a plane divides space into two parts, we can check if the "distances" (allowing distances having sign) from
-    /// the plane to both end points of line segment are 0, or have diferent sign, in which case the segment crosses the plane.<br>
+    /// the plane to both end points of line segment are 0, or have diferent sign, in which case the segment crosses the plane.<br/>
     /// If distances from plane to both end points have the same sign, all line segment is in the same
     /// side of the space, and they haven't a common point.
     /// </summary>
@@ -1577,12 +1577,12 @@ public:
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check the relation with resident line segment.</param>
     /// <returns>
-    /// An integer value like follows:<br><ul>
+    /// An integer value like follows:<br/><ul>
     /// <li>0 (Contained): All the line segment lies on plane.</li>
     /// <li>1 (PositiveSide): The line segment is fully contained in the positive side of the space defined by the plane.</li>
     /// <li>2 (NegativeSide): The line segment is fully contained in the negative side of the space defined by the plane.</li>
     /// <li>3 (BothSides): One end point of the line segment is in the positive side and the other is in the negative one.</li>
-    /// </ul><br>
+    /// </ul><br/>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const

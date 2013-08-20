@@ -54,7 +54,7 @@ class QScalingMatrix3x3;
 
 
 /// <summary>
-/// Class representing a matrix which symbolizes coordinate system transformations.<br>
+/// Class representing a matrix which symbolizes coordinate system transformations.<br/>
 /// It adds functionality to change to view, projection and world spaces.
 /// </summary>
 class QDllExport QSpaceConversionMatrix : public QMatrix4x4
@@ -204,8 +204,8 @@ public:
                                   const float_q &fAspectRatio, const float_q &fVerticalFOV);
 
     /// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-    /// Remember that Quimera Engine works with left-hand convention by default.<br>
+    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br/>
+    /// Remember that Quimera Engine works with left-hand convention by default.<br/>
     /// To do that, we treat the world space matrix as a transformation matrix,
     /// inverting both rotation (by trasposing it) and z translation component.
     /// </summary>
@@ -215,8 +215,8 @@ public:
     QSpaceConversionMatrix SwitchHandConventionWorldSpaceMatrix() const;
 
     /// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-    /// Remember that Quimera Engine works with left-hand convention by default.<br>
+    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br/>
+    /// Remember that Quimera Engine works with left-hand convention by default.<br/>
     /// To do that, we invert the Z axis, and then the matrix is recalculated.
     /// </summary>
     /// <returns>
@@ -225,8 +225,8 @@ public:
     QSpaceConversionMatrix SwitchHandConventionViewSpaceMatrix() const;
 
     /// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-    /// Remember that Quimera Engine works with left-hand convention by default.<br>
+    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br/>
+    /// Remember that Quimera Engine works with left-hand convention by default.<br/>
     /// To do that, we change the sign of elements \f$ a_{22}\f$ and \f$ a_{23}\f$.
     /// </summary>
     /// <returns>

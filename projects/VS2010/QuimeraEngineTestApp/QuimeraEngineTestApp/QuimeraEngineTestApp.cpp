@@ -60,12 +60,18 @@ BOOL				InitInstance(HINSTANCE, int);
 LRESULT CALLBACK	WndProc(HWND, UINT, WPARAM, LPARAM);
 INT_PTR CALLBACK	About(HWND, UINT, WPARAM, LPARAM);
 
+#include "QVector2.h"
 
 int APIENTRY _tWinMain(HINSTANCE hInstance,
                      HINSTANCE hPrevInstance,
                      LPTSTR    lpCmdLine,
                      int       nCmdShow)
 {
+    using Kinesis::QuimeraEngine::Tools::Math::QVector2;
+
+    QVector2 v(2, 2);
+    float yeah = v.GetLength() * 3.0f;
+    float joitr = (v * 3.0f).GetLength();
 
 	UNREFERENCED_PARAMETER(hPrevInstance);
 	UNREFERENCED_PARAMETER(lpCmdLine);

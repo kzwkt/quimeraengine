@@ -119,7 +119,7 @@ public:
 	}
 
     /// <summary>
-	/// Constructor from one 4x32 floating point packed values. Each value contains an element of the matrix.<br>
+	/// Constructor from one 4x32 floating point packed values. Each value contains an element of the matrix.<br/>
     /// Each pack element is unpacked following the row x column convention.
 	/// </summary>
 	/// <param name="value">[IN] 4x32 values for the matrix.</param>

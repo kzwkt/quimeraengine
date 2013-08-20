@@ -45,7 +45,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in the space.<br>
+/// Class which represents a triangle in the space.<br/>
 /// The triangle may be represented in 2D or 3D,
 ///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
@@ -85,7 +85,7 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from a pointer to floating point values to define each vertex.<br>
+	/// Constructor from a pointer to floating point values to define each vertex.<br/>
 	/// Pointer must have two, three or four values depending on VectorType.
 	/// </summary>
 	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>

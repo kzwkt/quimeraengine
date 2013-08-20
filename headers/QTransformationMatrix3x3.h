@@ -100,7 +100,7 @@ public:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.<br>
+    /// Gets an identity matrix.<br/>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
@@ -186,8 +186,8 @@ public:
     }
 
     /// <summary>
-    /// Turns the hand convention into opposite rules.<br>
-	/// Remember that Quimera Engine works with left-hand convention by default.<br>
+    /// Turns the hand convention into opposite rules.<br/>
+	/// Remember that Quimera Engine works with left-hand convention by default.<br/>
 	/// To do that, we simply invert rotation (by trasposing its submatrix).
     /// </summary>
     /// <returns>

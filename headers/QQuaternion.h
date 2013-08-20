@@ -55,14 +55,14 @@ class QRotationMatrix3x3;
 
 
 /// <summary>
-/// Quaternions extend the concept of rotation in three dimensions to rotation in four dimensions.<br>
+/// Quaternions extend the concept of rotation in three dimensions to rotation in four dimensions.<br/>
 /// This avoids the problem of "gimbal-lock"
-/// and allows for the implementation of smooth and continuous rotation.<br>
+/// and allows for the implementation of smooth and continuous rotation.<br/>
 /// In effect, they may be considered to add a additional rotation angle
-/// to spherical coordinates ie. Longitude, Latitude and Rotation angles.<br>
-/// A Quaternion is defined using four floating point values |x y z w|.<br>
+/// to spherical coordinates ie. Longitude, Latitude and Rotation angles.<br/>
+/// A Quaternion is defined using four floating point values |x y z w|.<br/>
 /// These are calculated from the combination of the three coordinates
-/// of the rotation axis and the rotation angle.<br>
+/// of the rotation axis and the rotation angle.<br/>
 /// Text extracted from: Flipcode.
 /// </summary>
 class QDllExport QQuaternion : public QBaseQuaternion
@@ -148,7 +148,7 @@ public:
 
     /// <summary>
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
-    /// into a 128 bits structure.<br>
+    /// into a 128 bits structure.<br/>
     /// The values order is: X, Y, Z and W.
     /// </summary>
     /// <param name="value">[IN] A four 32 bits floating point types pack.</param>
@@ -303,7 +303,7 @@ public:
     QQuaternion operator*(const float_q &fScalar) const;
 
 	/// <summary>
-    /// Multiply by 3D vector operator.<br>
+    /// Multiply by 3D vector operator.<br/>
     /// The vector is converted into a quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
     /// </summary>
     /// <remarks>
@@ -316,7 +316,7 @@ public:
     QQuaternion operator*(const QBaseVector3 &vVector) const;
 
 	/// <summary>
-    /// Multiply by 4D vector operator.<br>
+    /// Multiply by 4D vector operator.<br/>
     /// The vector is converted into a quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
     /// </summary>
     /// <remarks>
@@ -445,7 +445,7 @@ public:
     }
 
 	/// <summary>
-    /// Multiply by 3D vector and assign operator.<br>
+    /// Multiply by 3D vector and assign operator.<br/>
     /// The vector is converted into a quaternion \f$ (v_x, v_y, v_z, 0) \f$ before multiplication.
     /// </summary>
     /// <remarks>
@@ -465,7 +465,7 @@ public:
 	}
 
 	/// <summary>
-    /// Multiply by 4D vector and assign operator.<br>
+    /// Multiply by 4D vector and assign operator.<br/>
     /// The vector is converted into a quaternion \f$ (v_x, v_y, v_z, v_w) \f$ before multiplication.
     /// </summary>
     /// <remarks>
@@ -485,8 +485,8 @@ public:
 	}
 
     /// <summary>
-    /// Divide and assign operator. The quaternion is divided by the input one.<br>
-    /// The division is performed by multiplying by the input quaternion's inverse.<br>
+    /// Divide and assign operator. The quaternion is divided by the input one.<br/>
+    /// The division is performed by multiplying by the input quaternion's inverse.<br/>
     /// Note that, if you want boost your division performance and
     /// you work with normalized quaternions, then you can multiply by the quaternion's conjugate (that is
     /// cheaper to calculate) instead of using this operator.
@@ -556,7 +556,7 @@ public:
 	}
 
 	/// <summary>
-    /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.<br>
+    /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.<br/>
     /// A quaternion is normalized when its length is equal to 1.
     /// </summary>
     /// <returns>
@@ -572,8 +572,8 @@ public:
     }
 
     /// <summary>
-    /// Calculates the quaternion's inverse.<br>
-    /// Note that, when the quaternion is normalized, the inverse coincides with the conjugate (which is cheaper to calculate).<br>
+    /// Calculates the quaternion's inverse.<br/>
+    /// Note that, when the quaternion is normalized, the inverse coincides with the conjugate (which is cheaper to calculate).<br/>
     /// Quaternion inverse is obtained by the following equation:
     ///
     /// \f$ Q^{-1} = \frac{w - xi - yj - zk}{\left|Q\right|^2}\f$
@@ -594,7 +594,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the inverse of a normalized quaternion, which coincides with its conjugate.<br>
+    /// Calculates the inverse of a normalized quaternion, which coincides with its conjugate.<br/>
     /// Quaternion inverse is then obtained by the following equation:
     ///
     /// \f$ Q^{-1} = w - xi - yj - zk \f$
@@ -625,7 +625,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the dot product between the quaternion and the input quaternion.<br>
+    /// Calculates the dot product between the quaternion and the input quaternion.<br/>
     /// This is obtained using the equation:
     ///
     /// \f$ f(Q_1, Q_2) = x_1x_2 + y_1y_2 + z_1z_2 + w_1w_2\f$.
@@ -644,7 +644,7 @@ public:
 
     /// <summary>
     /// Calculates the angle between resident quaternion and the provided quaternion, via dot product. Both
-    /// quaternions have to be normalized to obtain a more precise value.<br>
+    /// quaternions have to be normalized to obtain a more precise value.<br/>
     /// </summary>
     /// <param name="qQuat">[IN] Multiplying quaternion.</param>
     /// <returns>
@@ -653,7 +653,7 @@ public:
     float_q DotProductAngle(const QBaseQuaternion &qQuat) const;
 
     /// <summary>
-    /// Calculates the quaternion's conjugate.<br>
+    /// Calculates the quaternion's conjugate.<br/>
     /// It's calculated this way:
     ///
     /// \f$Q^* = w - xi - yj - zk\f$.
@@ -667,7 +667,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the linear interpolation between the quaternion and the input quaternion.<br>
+    /// Calculates the linear interpolation between the quaternion and the input quaternion.<br/>
     /// This is calculated by the following expression:
     ///
     /// \f$ f(Q_1, Q_2, s) = \frac{(1 - s)Q_1 + sQ_2}{|(1 - s)Q_1 + sQ_2|}\f$
@@ -737,12 +737,12 @@ public:
     QQuaternion UnitSlerp(const float_q &fProportion, const QQuaternion &qQuat) const;
 
     /// <summary>
-    /// Obtains Euler angles that represent the same rotation than the quaternion does.<br>
+    /// Obtains Euler angles that represent the same rotation than the quaternion does.<br/>
     /// </summary>
     /// <remarks>
-    /// The quaternion must be normalized in order to get correct results.<br>
-    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br>
-    /// To achieve this, the following equations are implemented:<br>
+    /// The quaternion must be normalized in order to get correct results.<br/>
+    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br/>
+    /// To achieve this, the following equations are implemented:<br/>
     ///
     /// \f$ X = asin( 2xw - 2zy )\f$
     ///
@@ -807,8 +807,8 @@ public:
     /// Gets a character string that represents the quaternion values.
     /// </summary>
     /// <returns>
-    /// A character string, following this pattern:<br>
-    /// "Q($x,$y,$z,$w)".<br>
+    /// A character string, following this pattern:<br/>
+    /// "Q($x,$y,$z,$w)".<br/>
     /// Where "$" means "string representation of attribute".
     /// </returns>
     string_q ToString() const;

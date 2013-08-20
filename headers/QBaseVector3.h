@@ -45,8 +45,11 @@ namespace Math
 {
 
 /// <summary>
-/// It represents the basic form of a three-dimensional vector with three components: x, y and z.
+/// A vector with two components: X, Y and Z.
 /// </summary>
+/// <remarks>
+///	A vector is a geometric object that has both a magnitude (or length) and a direction.
+/// </remarks>
 class QDllExport QBaseVector3
 {
 
@@ -55,16 +58,19 @@ class QDllExport QBaseVector3
 public:
 
 	/// <summary>
-	/// Default constructor. Initializes vector to (0,0,0)
+	/// Default constructor.
 	/// </summary>
+    /// <remarks>
+    ///	By default, all the components are set to zero.
+    /// </remarks>
 	inline QBaseVector3() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0)
     {
     }
 
     /// <summary>
-	/// Copy constructor. Copies attributes from given vector.
+	/// Copy constructor.
 	/// </summary>
-	/// <param name="vVector">[IN] The 3D vector from which we want to create a copy in the resident vector.</param>
+	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
 	inline QBaseVector3(const QBaseVector3 &vVector)
 	{
 	    this->x = vVector.x;
@@ -73,28 +79,31 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor from a floating point value for each component.
+	/// Constructor that receives the value of every vector's component.
 	/// </summary>
-	/// <param name="fValueX">[IN] Value for x component.</param>
-	/// <param name="fValueY">[IN] Value for y component.</param>
-	/// <param name="fValueZ">[IN] Value for z component.</param>
+	/// <param name="fValueX">[IN] The value for X component.</param>
+	/// <param name="fValueY">[IN] The value for Y component.</param>
+	/// <param name="fValueZ">[IN] The value for Z component.</param>
 	inline QBaseVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) :
                             x(fValueX), y(fValueY), z(fValueZ)
     {
     }
 
 	/// <summary>
-	/// Constructor from a floating point value for all components.
+	/// Constructor from a single value for all the vector's components.
 	/// </summary>
-	/// <param name="fValueAll">[IN] Value for all components.</param>
+	/// <param name="fValueAll">[IN] The value for all components.</param>
 	inline explicit QBaseVector3(const float_q &fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll)
     {
     }
 
 	/// <summary>
-	/// Constructor from a three floating point components array.
+	/// Constructor that receives an array of scalars.
 	/// </summary>
-	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least three elements.</param>
+    /// <remarks>
+    /// The array must contain, at least, three elements. Only the first three elements will be considered; the rest will be ignored.
+    /// </remarks>
+	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, three elements.</param>
 	inline explicit QBaseVector3(const float_q* arValues)
 	{
 		// Null pointer checkout
@@ -107,11 +116,13 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor from a 4x32 packed floating point value.
-	/// </summary>
-	/// <param name="value">[IN] 4x32 packed floating point containing the three components.<br>
-	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (Ignored).</param>
-	inline explicit QBaseVector3(const vf32_q value)
+    /// Constructor that receives a pack of four scalars.
+    /// </summary>
+    /// <remarks>
+    /// Only the three first elements in the pack (most significant bits) are considered.
+    /// </remarks>
+    /// <param name="value">[IN] 4x32 packed floating point value containing the three components.</param>
+    inline explicit QBaseVector3(const vf32_q value)
 	{
         using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
 
@@ -126,25 +137,25 @@ public:
 public:
 
     /// <summary>
-    /// Equality operator. Compares two 3D vectors.
-    /// </summary>
-    /// <param name="vVector">[IN] Vector with which to compare.</param>
-    /// <returns>
-    /// True if vectors are the same, false otherwise.
-    /// </returns>
-    inline bool operator==(const QBaseVector3 &vVector) const
+	/// Checks if two vectors are equal.
+	/// </summary>
+	/// <param name="vVector">[IN] The vector to which to compare.</param>
+	/// <returns>
+	/// True if vectors are the same; False otherwise.
+	/// </returns>
+	inline bool operator==(const QBaseVector3 &vVector) const
     {
         return ( SQFloat::AreEqual(vVector.x, this->x) && SQFloat::AreEqual(vVector.y, this->y) && SQFloat::AreEqual(vVector.z, this->z) );
     }
 
     /// <summary>
-    /// Inequality operator. Compares two 3D vectors.
-    /// </summary>
-    /// <param name="vVector">[IN] Vector with which to compare.</param>
-    /// <returns>
-    /// True if vectors are not the same, false otherwise.
-    /// </returns>
-    inline bool operator!=(const QBaseVector3 &vVector) const
+	/// Checks if two vectors are not equal.
+	/// </summary>
+	/// <param name="vVector">[IN] The vector to which to compare.</param>
+	/// <returns>
+	/// True if vectors are not the same; False otherwise.
+	/// </returns>
+	inline bool operator!=(const QBaseVector3 &vVector) const
     {
         return !(*this == vVector);
     }
@@ -155,17 +166,17 @@ public:
 public:
 
 	/// <summary>
-	/// Vector's x coordinate.
+	/// Vector's X coordinate.
 	/// </summary>
 	float_q x;
 
 	/// <summary>
-	/// Vector's y coordinate.
+	/// Vector's Y coordinate.
 	/// </summary>
 	float_q y;
 
 	/// <summary>
-	/// Vector's z coordinate.
+	/// Vector's Z coordinate.
 	/// </summary>
 	float_q z;
 };

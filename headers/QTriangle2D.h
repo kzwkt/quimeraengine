@@ -47,7 +47,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in 2D.<br>
+/// Class which represents a triangle in 2D.<br/>
 /// Methods in this class are related to transformations in 2D.
 /// </summary>
 class QDllExport QTriangle2D : public QTriangle<QVector2>
@@ -91,7 +91,7 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from three pointer-to-float type, one for each vertex.<br>
+	/// Constructor from three pointer-to-float type, one for each vertex.<br/>
 	/// Each pointer references to an array which has at least two elements.
 	/// </summary>
 	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
@@ -118,7 +118,7 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator.<br>
+	/// Assign operator.<br/>
 	/// Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle that is assigned to current triangle.</param>
@@ -132,7 +132,7 @@ public:
 	}
 
 	/// <summary>
-	/// Receives a transformation matrix and applies its transformations to the resident triangle.<br>
+	/// Receives a transformation matrix and applies its transformations to the resident triangle.<br/>
 	/// The origin of transformations is the coordinate axis origin.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
@@ -148,7 +148,7 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a 2D vector (transformation pivot) and applies the transformations
-	/// to the resident triangle.<br>
+	/// to the resident triangle.<br/>
 	/// The origin of transformations is the vector type point received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>

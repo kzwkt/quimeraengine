@@ -108,7 +108,7 @@ public:
 
     /// <summary>
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
-    /// into a 128 bits structure.<br>
+    /// into a 128 bits structure.<br/>
     /// The values order is: X, Y, Z and W.
     /// </summary>
     /// <param name="value">[IN] A four 32 bits floating point types pack.</param>

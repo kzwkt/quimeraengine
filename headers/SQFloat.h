@@ -47,7 +47,7 @@ namespace DataTypes
 {
 
 /// <summary>
-/// Helper class that offers functionality related to floating point (IEEE 754) types.<br>
+/// Helper class that offers functionality related to floating point (IEEE 754) types.<br/>
 /// Use these constants and static methods extensively in your code, as far as you can.
 /// </summary>
 class QDllExport SQFloat
@@ -152,8 +152,8 @@ private:
 public:
 
     /// <summary>
-    /// Checks if the floating point value's state is NaN.<br>
-    /// That kind of value is undefined or non-representable, and it's said it isn't a number (NaN = Not a Number).<br>
+    /// Checks if the floating point value's state is NaN.<br/>
+    /// That kind of value is undefined or non-representable, and it's said it isn't a number (NaN = Not a Number).<br/>
     /// Every time you use functions like acos, asin or atan2, you should check the result
     /// value.
     /// </summary>
@@ -168,9 +168,9 @@ public:
     }
 
     /// <summary>
-    /// Checks if the floating point value's state is Infinite.<br>
+    /// Checks if the floating point value's state is Infinite.<br/>
     /// That kind of value is non-representable and appears as an arithmetic
-    /// operation result that overflows the floating point type bounds.<br>
+    /// operation result that overflows the floating point type bounds.<br/>
     /// Every time you use functions like tan, you should check the result value.
     /// </summary>
     /// <param name="fValue">[IN] A floating point number.</param>
@@ -184,7 +184,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if the floating point value's state is one of the special ones described in IEEE specification.<br>
+    /// Checks if the floating point value's state is one of the special ones described in IEEE specification.<br/>
     /// That kind of values are undefined or non-representable (like infinite).
     /// </summary>
     /// <param name="fValue">[IN] A floating point number.</param>
@@ -323,9 +323,9 @@ public:
     static string_q ToString(const float_q &fValue);
 
     /// <summary>
-    /// Converts a floating point number type to an integer number type.<br>
-    /// The result will be rounded (>0.5 --> 1.0).<br>
-    /// Expected template parameters are: int, long, long long, i32_q, i64_q.<br>
+    /// Converts a floating point number type to an integer number type.<br/>
+    /// The result will be rounded (>0.5 --> 1.0).<br/>
+    /// Expected template parameters are: int, long, long long, i32_q, i64_q.<br/>
     /// Integer type size should equals floating point type size or unexpected behavior will occur.
     /// </summary>
     /// <remarks>
@@ -406,7 +406,7 @@ public:
     }
 
     /// <summary>
-    /// Removes the fractional part of a floating point number and returns the result as output parameter.<br>
+    /// Removes the fractional part of a floating point number and returns the result as output parameter.<br/>
     /// No rounding off is performed.
     /// </summary>
     /// <param name="fValue">[IN] Value to be truncated.</param>
@@ -436,7 +436,7 @@ public:
 	}
 
     /// <summary>
-    /// Inverts the order of bytes which compound a floating point number and returns the result as output parameter.<br>
+    /// Inverts the order of bytes which compound a floating point number and returns the result as output parameter.<br/>
     /// A 32-bits floating point number whose value equals to 0xAABBCCDD will be
     /// transformed to 0xDDCCBBAA, for example.
     /// </summary>
@@ -481,7 +481,7 @@ public:
     }
 
     /// <summary>
-    /// Indicates whether the floating point number has positive sign.<br>
+    /// Indicates whether the floating point number has positive sign.<br/>
     /// Zero is cosidered as positive.
     /// </summary>
     /// <param name="fValue">[IN] The value whose sign is going to be checked.</param>

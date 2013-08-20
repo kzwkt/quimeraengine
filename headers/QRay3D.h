@@ -51,7 +51,7 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in 3D space, which consists of a origin point or position, and a direction.<br>
+/// Represents a ray in 3D space, which consists of a origin point or position, and a direction.<br/>
 /// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </summary>
 template <class VectorType>
@@ -198,7 +198,7 @@ public:
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
     ///
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed, and
-    /// it is verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br>
+    /// it is verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
     bool Intersection(const QBaseRay<VectorType, QVector3> &ray) const
@@ -252,7 +252,7 @@ public:
 	/// Checks if resident ray and provided line segment intersects.
 	/// </summary>
     /// <remarks>
-    /// A ray with direction from A to B with origin in A is constructed.<br>
+    /// A ray with direction from A to B with origin in A is constructed.<br/>
     /// If both rays intersects, the intersection point must verify both vectorial ecuations:
     ///
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
@@ -268,8 +268,8 @@ public:
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
     ///
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
-    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br>
-    /// Finally it's verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br>
+    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br/>
+    /// Finally it's verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
 	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
@@ -330,7 +330,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided plane.<br>
+    /// Checks if resident ray intersects with the provided plane.<br/>
     /// Intersection point \f$ P_0 \f$ must verify both ecuations:
     ///
     /// Ray equation: \f$ P_0 = P + t \cdot V \f$
@@ -407,7 +407,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided hexahedron.<br>
+    /// Checks if resident ray intersects with the provided hexahedron.<br/>
     /// If the origin of the ray lies on one of the hexahedron faces, we consider there is an intersection.
     /// </summary>
     /// <remarks>
@@ -436,7 +436,7 @@ public:
 	/// Computes the intersection point between resident and provided ray, if it exists.
 	/// </summary>
     /// <remarks>
-	/// Rays must be normalized to ensure correct results.<br>
+	/// Rays must be normalized to ensure correct results.<br/>
 	/// If there's no intersection point, or the rays are totally or parcially coincident,
 	/// the output parameter used for storing that point won't be modified.
     ///
@@ -557,7 +557,7 @@ public:
 	/// Computes the intersection point between resident ray and provided line segment, if it exists.
 	/// </summary>
     /// <remarks>
-    /// A ray with direction from A to B with origin in A is constructed.<br>
+    /// A ray with direction from A to B with origin in A is constructed.<br/>
     /// If both rays intersects, the intersection point must verify both vectorial ecuations:
     ///
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
@@ -573,12 +573,12 @@ public:
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
     ///
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
-    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br>
+    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br/>
     /// Finally it's verified that:
     ///
     /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
     ///
-    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br>
+    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br/>
 	/// - If there's no intersection point, the output parameters won't be modified.
 	/// - If there's one intersection point, output parameter is filled with the intersection point.
     /// - If there are infinite intersection points, the output parameters won't be modified.
@@ -714,7 +714,7 @@ public:
 	/// Computes the intersection point between resident ray and provided line segment, if it exists.
 	/// </summary>
     /// <remarks>
-    /// A ray with direction from A to B with origin in A is constructed.<br>
+    /// A ray with direction from A to B with origin in A is constructed.<br/>
     /// If both rays intersects, the intersection point must verify both vectorial ecuations:
     ///
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
@@ -730,12 +730,12 @@ public:
     /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
     ///
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
-    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br>
+    /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br/>
     /// Finally it's verified that:
     ///
     /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
     ///
-    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br>
+    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br/>
 	/// - If there's no intersection point, the output parameters won't be modified.
 	/// - If there's one intersection point, output parameter is filled with the intersection point.
 	/// </remarks>
@@ -890,7 +890,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided plane, calculating the intersection point.<br>
+    /// Checks if resident ray intersects with the provided plane, calculating the intersection point.<br/>
     /// Intersection point \f$ P_0 \f$ must verify both ecuations:
     ///
     /// Ray equation: \f$ P_0 = P + t \cdot V \f$
@@ -909,7 +909,7 @@ public:
     /// <param name="vIntersection">[OUT] The point where they intersect, if they do.</param>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the plane, and can take
-    /// the following values: E_None, E_One and E_Infinite.<br>
+    /// the following values: E_None, E_One and E_Infinite.<br/>
     /// If there are no intersections or ray lies on plane, the output parameter is not modified.
     /// </returns>
     EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
@@ -1608,7 +1608,7 @@ public:
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check the relation with resident ray.</param>
     /// <returns>
-    /// An enumerated value like follows:<br>
+    /// An enumerated value like follows:<br/>
     /// - 0 (E_Contained): The ray lies on plane.
     /// - 1 (E_PositiveSide): The ray is fully contained in the positive side of the space defined by the plane.
     /// - 2 (E_NegativeSide): The ray is fully contained in the negative side of the space defined by the plane.

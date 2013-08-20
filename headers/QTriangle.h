@@ -47,7 +47,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in the space.<br>
+/// Class which represents a triangle in the space.<br/>
 /// The triangle may be represented in 2D or 3D,
 ///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
@@ -128,7 +128,7 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator.<br>
+	/// Assign operator.<br/>
 	/// Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle that will be assigned to current triangle.</param>

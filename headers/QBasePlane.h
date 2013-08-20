@@ -45,7 +45,7 @@ namespace Math
 {
 
 /// <summary>
-/// It represents the basic form of a 3D plane, defined by the equation \f$ ax + by + cz + d = 0 \f$.<br>
+/// It represents the basic form of a 3D plane, defined by the equation \f$ ax + by + cz + d = 0 \f$.<br/>
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from plane to the origin.
 /// </summary>
 class QDllExport QBasePlane
@@ -112,7 +112,7 @@ public:
 	/// <summary>
 	/// Constructor from a 4x32 packed float value.
 	/// </summary>
-	/// <param name="value">[IN] 4x32 packed float containing the four components.<br>
+	/// <param name="value">[IN] 4x32 packed float containing the four components.<br/>
 	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
 	/// 3rd value (c coefficient), 4th value (d independent term).</param>
 	inline explicit QBasePlane(const vf32_q &value)
@@ -131,7 +131,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Note that if any of the planes are not normalized, the result may be false, even if they are the same plane:
-    /// <br>
+    /// <br/>
     /// \f$ x + y + z + 1 = 0\f$ and \f$ 2x + 2y + 2z + 2 = 0\f$ are the same plane but their components are different.
     /// </remarks>
     /// <param name="plane">[IN] Plane with which to compare.</param>
@@ -149,7 +149,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Note that if any of the planes are not normalized, the result may be true, even if they are the same plane.
-    /// <br>
+    /// <br/>
     /// \f$ x + y + z + 1 = 0\f$ and \f$ 2x + 2y + 2z + 2 = 0\f$ are the same plane but their components are different.
     /// </remarks>
     /// <param name="plane">[IN] Plane with which to compare.</param>

@@ -44,7 +44,7 @@ namespace Math
 {
 
 /// <summary>
-/// Helper class that offers functionality related to angles (radians and degrees).<br>
+/// Helper class that offers functionality related to angles (radians and degrees).<br/>
 /// Use constant angle values as far as you can in your code.
 /// </summary>
 class QDllExport SQAngle
@@ -173,7 +173,7 @@ public:
     }
 
     /// <summary>
-    /// Truncates an angle which describes more than one revolution.<br>
+    /// Truncates an angle which describes more than one revolution.<br/>
     /// If the angle value is greater than one revolution positive angle or lower than one revolution negative angle, then it will be adjusted to remain into that interval.
     /// </summary>
     /// <param name="fAngle">[IN] The original angle value</param>

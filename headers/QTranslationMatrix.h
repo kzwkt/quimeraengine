@@ -53,7 +53,7 @@ template<class MatrixType> class QTransformationMatrix;
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 4 rows and 3 or 4 columns, depending on template parameter,
-/// which contains a displacement in the direction of each coordinate axis that can be represented by a 3D or homogeneus 4D vector.<br>
+/// which contains a displacement in the direction of each coordinate axis that can be represented by a 3D or homogeneus 4D vector.<br/>
 /// It's a identity matrix with the elements \f$ a_{30}\f$, \f$ a_{31}\f$ and \f$ a_{32}\f$ replaced by the components of displacement:
 ///
 /// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
@@ -141,7 +141,7 @@ public:
 public:
 
     /// <summary>
-    /// Stores an identity matrix.<br>
+    /// Stores an identity matrix.<br/>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
@@ -165,7 +165,7 @@ public:
     // Binary operators
 
     /// <summary>
-    /// Multiplies a translation matrix by the resident matrix.<br>
+    /// Multiplies a translation matrix by the resident matrix.<br/>
     /// Since both are translation matrices, the product is calculated as follows:
     ///
     /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
@@ -185,7 +185,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a translation matrix by the resident matrix.<br>
+    /// Multiplies a translation matrix by the resident matrix.<br/>
     /// Since both are translation matrices, the product is calculated as follows:
     ///
     /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
@@ -232,7 +232,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.<br>
+    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.<br/>
     /// Rotation matrix is extended to a 4x4 matrix to allow this product.
     /// </summary>
     /// <remarks>
@@ -301,9 +301,9 @@ public:
     // Assign operators
 
     /// <summary>
-    /// Product and assign operator.<br>
-    /// Current matrix stores the result of the multiplication.<br>
-    /// Multiplies a translation matrix by the resident matrix.<br>
+    /// Product and assign operator.<br/>
+    /// Current matrix stores the result of the multiplication.<br/>
+    /// Multiplies a translation matrix by the resident matrix.<br/>
     /// Since both are translation matrices, the product is calculated as follows:
     ///
     /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
@@ -321,8 +321,8 @@ public:
     }
 
     /// <summary>
-    /// Product and assign operator.<br>
-    /// Current matrix stores the result of the multiplication.<br>
+    /// Product and assign operator.<br/>
+    /// Current matrix stores the result of the multiplication.<br/>
     /// Multiplies a translation matrix by the resident matrix. Since both are translation matrices, the product is calculated as follows:
     ///
     /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
@@ -357,7 +357,7 @@ public:
     }
 
     /// <summary>
-    /// Inverts the matrix.<br>
+    /// Inverts the matrix.<br/>
     /// In the case of translation matrices, the inverse is composed
     /// of the opposite of the elements which defines the displacement:
     ///
@@ -423,7 +423,7 @@ public:
     }
 
 	/// <summary>
-    /// Calculates the determinant of the matrix.<br>
+    /// Calculates the determinant of the matrix.<br/>
     /// Since this is a translation matrix,
     /// which is a diagonal matrix with its main diagonal composed of 1s, its determinant is 1.
     /// </summary>
