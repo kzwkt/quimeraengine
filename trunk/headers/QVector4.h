@@ -901,7 +901,7 @@ public:
 
     /// <summary>
 	/// Converts vector into a string with the following format:<br/>
-	/// "V3($x,$y,$z,$w)".<br/>
+	/// "V4($x,$y,$z,$w)".<br/>
     /// Where "$" means "string representation of attribute".
 	/// </summary>
 	/// <returns>

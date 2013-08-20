@@ -1012,7 +1012,7 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
     // Preparation
     const QMatrix2x2 MATRIX(SQFloat::_0,          SQFloat::_1,
                             (float_q)1234567.89f, (float_q)-0.654321f);
-    const string_q EXPECTED_STRING_FORM = QE_L("M2x2((0,1)(1234567.88,-0.654321015))");
+    const string_q EXPECTED_STRING_FORM = QE_L("M2x2(0,1,1234567.88,-0.654321015)");
 
 	// Execution
     QMatrix2x2 matrixUT = MATRIX;

@@ -456,7 +456,7 @@ public:
 
     /// <summary>
     /// Converts matrix into a string with the following format:<br/>
-    /// "M2x2(($ij[0][0],$ij[0][1])($ij[1][0],$ij[1][1]))".<br/>
+    /// "M2x2($ij[0][0],$ij[0][1],$ij[1][0],$ij[1][1])".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>The string with the format specified.</returns>
