@@ -49,8 +49,8 @@ namespace Math
 
 /// <summary>
 /// This class represents a chunk (segment) of straight line into 2D space, defined by two
-/// endpoints, A and B.<br>
-/// These points will always be expressed as 2D points or vectors.<br>
+/// endpoints, A and B.<br/>
+/// These points will always be expressed as 2D points or vectors.<br/>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below). However, some transforming methods will rotate the segment using A
 /// by default as the pivot point.
@@ -308,7 +308,7 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
-	/// to the resident line segment.<br>
+	/// to the resident line segment.<br/>
 	/// The transformation pivot is the vector received as parameter.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
@@ -328,8 +328,8 @@ public:
 	/// if they exist.
 	/// </summary>
     /// <remarks>
-	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br>
-	/// If there's only one intersection point, only the first parameter will be modified.<br>
+	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br/>
+	/// If there's only one intersection point, only the first parameter will be modified.<br/>
 	/// The first point returned is the closest one to A.
 	/// </remarks>
 	/// <param name="triangle">[IN] The triangle to be compared to.</param>
@@ -346,7 +346,7 @@ public:
 	/// if it exists.
 	/// </summary>
     /// <remarks>
-	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br/>
 	/// The point returned is the closest one to A.
 	/// </remarks>
 	/// <param name="triangle">[IN] The triangle to be compared to.</param>
@@ -366,9 +366,9 @@ public:
 	/// if they exist.
 	/// </summary>
     /// <remarks>
-	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br>
-	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br>
-	/// If there's only one intersection point, only the first parameter will be modified.<br>
+	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br/>
+	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br/>
+	/// If there's only one intersection point, only the first parameter will be modified.<br/>
 	/// The first point returned is the closest one to A.
 	/// </remarks>
 	/// <param name="quad">[IN] The quadrilateral to be compared to.</param>
@@ -385,8 +385,8 @@ public:
 	/// if it exists.
 	/// </summary>
     /// <remarks>
-	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br>
-	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br>
+	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br/>
+	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br/>
 	/// The point returned is the closest one to A.
 	/// </remarks>
 	/// <param name="quad">[IN] The quadrilateral to be compared to.</param>

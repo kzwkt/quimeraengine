@@ -50,7 +50,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in 3D.<br>
+/// Class which represents a triangle in 3D.<br/>
 /// Methods in this class are related to transformations in 3D.
 /// </summary>
 template <class VectorType>
@@ -95,7 +95,7 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from three pointer-to-float type, one for each vertex.<br>
+	/// Constructor from three pointer-to-float type, one for each vertex.<br/>
 	/// Each pointer references to an array which has at least three or four elements.
 	/// </summary>
 	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
@@ -123,7 +123,7 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator.<br>
+	/// Assign operator.<br/>
 	/// Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] 3D triangle that is assigned to current triangle.</param>
@@ -137,7 +137,7 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates triangle's normal vector.<br>
+	/// Calculates triangle's normal vector.<br/>
 	/// Follows left-handed rules so, imagining a rotation from A to B, the direction of the axis vector can 
     /// be deduced.
 	/// </summary>
@@ -476,7 +476,7 @@ public:
 	}
 
 	/// <summary>
-	/// Checks the space relation between current triangle and a plane recieved as parameter.<br>
+	/// Checks the space relation between current triangle and a plane recieved as parameter.<br/>
 	/// Space Relation means that the triangle is in the positive side of the space divided by the plane, 
     /// in the negative side, in both sides (intersection) or even the triangle is contained in the plane.
 	/// </summary>
@@ -486,7 +486,7 @@ public:
     /// </remarks>
 	/// <param name="plane">[IN] The plane we want check the relation with current triangle.</param>
     /// <returns>
-    /// An enumerated value like follows:<br>
+    /// An enumerated value like follows:<br/>
     /// - Contained in the plane
     /// - Positive Side
     /// - Negative Side

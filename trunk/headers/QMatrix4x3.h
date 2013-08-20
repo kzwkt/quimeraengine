@@ -48,15 +48,15 @@ namespace Math
 {
 
 /// <summary>
-/// This class implements the functionality of a matrix with 4 rows and 3 columns.<br>
-/// A matrix is a rectangular arrangement of numbers.<br>
+/// This class implements the functionality of a matrix with 4 rows and 3 columns.<br/>
+/// A matrix is a rectangular arrangement of numbers.<br/>
 /// The horizontal and vertical lines in a matrix
-/// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br>
+/// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br/>
 /// To specify the size of a matrix, a matrix with m rows and n columns is called an m-by-n matrix or m x n matrix,
-/// while m and n are called its dimensions.<br>
-/// Every element is referenced by its position in the matrix.<br>
+/// while m and n are called its dimensions.<br/>
+/// Every element is referenced by its position in the matrix.<br/>
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
-/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$.<br>
+/// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$.<br/>
 /// In this case, we will work with 4x3 matrices, therefore our matrix will be:
 ///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\\ a_{30} & a_{31} & a_{32}\end{bmatrix}\f$
@@ -185,12 +185,12 @@ public:
     }
 
 	/// <summary>
-	/// Gets a pseudo-identity matrix.<br>
+	/// Gets a pseudo-identity matrix.<br/>
 	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}\f$
     ///
-    /// In this case, as it's not a square matrix, it's not a real identity matrix.<br>
+    /// In this case, as it's not a square matrix, it's not a real identity matrix.<br/>
     /// This constant exists due to compatibility reasons only, as an exception.
 	/// </summary>
     /// <returns>
@@ -220,10 +220,10 @@ public:
 	QMatrix4x3 operator*(const float_q &fScalar) const;
 
     /// <summary>
-    /// Multiply resident matrix by a square 3x3 matrix.<br>
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br>
-    /// So, left matrix must have same number of columns than rows have right matrix.<br>
-    /// The product is not conmutative.<br>
+    /// Multiply resident matrix by a square 3x3 matrix.<br/>
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br/>
+    /// So, left matrix must have same number of columns than rows have right matrix.<br/>
+    /// The product is not conmutative.<br/>
     /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
     ///
     /// \f$ A\times B = C \f$
@@ -241,10 +241,10 @@ public:
     QMatrix4x3 operator*(const QBaseMatrix3x3 &matrix) const;
 
     /// <summary>
-    /// Multiply resident matrix by a non-square 3x4 matrix.<br>
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br>
-    /// So, left matrix must have same number of columns than rows have right matrix.<br>
-    /// The product is not conmutative.<br>
+    /// Multiply resident matrix by a non-square 3x4 matrix.<br/>
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br/>
+    /// So, left matrix must have same number of columns than rows have right matrix.<br/>
+    /// The product is not conmutative.<br/>
     /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
     ///
     /// \f$ A x B = C \f$
@@ -274,9 +274,9 @@ public:
     /// Multiply resident matrix by a square 3x3 matrix, being the resultant
 	/// matrix stored as well in the whole resident one.
 	///
-    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br>
-    /// So, left matrix must have same number of columns than rows have right matrix.<br>
-    /// The product is not conmutative.<br>
+    /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br/>
+    /// So, left matrix must have same number of columns than rows have right matrix.<br/>
+    /// The product is not conmutative.<br/>
     /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
     ///
     /// \f$ A x B = C \f$
@@ -424,7 +424,7 @@ public:
 	}
 
 	/// <summary>
-	/// Resets main diagonal elements to 1 and any other element to 0.<br>
+	/// Resets main diagonal elements to 1 and any other element to 0.<br/>
     /// Since element [3][3] doesn't exists, it can not be initialized.
 	/// </summary>
 	inline void ResetToIdentity()
@@ -438,8 +438,8 @@ public:
 
 	/// <summary>
 	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-	/// and each column becomes a row.<br>
-	/// Every element Aij becomes Aji.<br>
+	/// and each column becomes a row.<br/>
+	/// Every element Aij becomes Aji.<br/>
 	/// It's noted A^T.
  	/// </summary>
 	/// <remarks>
@@ -478,9 +478,9 @@ public:
 	}
 
 	/// <summary>
-	/// Converts matrix into a string with the following format:<br>
+	/// Converts matrix into a string with the following format:<br/>
     /// "M4x3(($ij[0][0],$ij[0][1],$ij[0][2])($ij[1][0],$ij[1][1],$ij[1][2])
-    ///       ($ij[2][0],$ij[2][1],$ij[2][2])($ij[3][0],$ij[3][1],$ij[3][2]))".<br>
+    ///       ($ij[2][0],$ij[2][1],$ij[2][2])($ij[3][0],$ij[3][1],$ij[3][2]))".<br/>
     /// Where "$" means "string representation of attribute".
 	/// </summary>
 	/// <returns>

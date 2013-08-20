@@ -50,7 +50,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a sphere in space.<br>
+/// Class which represents a sphere in space.<br/>
 /// A sphere is the collection of all points that are equidistant from other point known as "Center".
 /// </summary>
 template <class VectorType>
@@ -441,7 +441,7 @@ public:
 	}
 
 	/// <summary>
-	/// Checks the space relation between current sphere and a plane received as parameter.<br>
+	/// Checks the space relation between current sphere and a plane received as parameter.<br/>
 	/// Space relation means that
 	/// the sphere is in the positive side of the space divided by the plane (subspace pointed by plane´s normal),
 	/// in the negative side or in both sides (intersection).
@@ -484,7 +484,7 @@ public:
 	}
 
 	/// <summary>
-	/// Projects the sphere to a plane perpendicularly.<br>
+	/// Projects the sphere to a plane perpendicularly.<br/>
 	/// Only the center point of the sphere is projected. Radius keeps its original value.
 	/// </summary>
     /// <remarks>

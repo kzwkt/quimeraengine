@@ -48,9 +48,9 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a chunk (segment) of straight line in the space, defined by two endpoints A and B.<br>
+/// Class which represents a chunk (segment) of straight line in the space, defined by two endpoints A and B.<br/>
 /// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter,
-/// which may be 2D vector, 3D vector or 4D vector.<br>
+/// which may be 2D vector, 3D vector or 4D vector.<br/>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below).
 /// </summary>
@@ -1184,7 +1184,7 @@ public:
 	/// to the center, depending of the lengthening factor value.
 	/// </summary>
     /// <remarks>
-	/// If the lengthening factor is 0.0, the segment degenerates into a point (both endpoints become the center).<br>
+	/// If the lengthening factor is 0.0, the segment degenerates into a point (both endpoints become the center).<br/>
 	/// If the lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
 	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
@@ -1215,7 +1215,7 @@ public:
 	/// depending of the lengthening factor value. In any case, A stays the same.
 	/// </summary>
     /// <remarks>
-	/// If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become A).<br>
+	/// If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become A).<br/>
 	/// If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
 	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
@@ -1241,7 +1241,7 @@ public:
 	/// depending of the lengthening factor value. In any case, B stays the same.
 	/// </summary>
     /// <remarks>
-	/// If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become B).<br>
+	/// If lengthening factor is 0.0, the segment degenerates into a point (both endpoints become B).<br/>
 	/// If lengthening factor is 1.0, the segment won't experiment any modification, as this represent a 100% lengthening.
 	/// </remarks>
 	/// <param name="fLengtheningFactor">[IN] A floating point value that lengthens the segment.</param>
@@ -1263,8 +1263,8 @@ public:
 	}
 
 	/// <summary>
-	/// Converts vector into a string with the following format:<br>
-	/// "LS(a($A),b($B))".<br>
+	/// Converts vector into a string with the following format:<br/>
+	/// "LS(a($A),b($B))".<br/>
     /// Where "$" means "string representation of attribute".
 	/// </summary>
 	/// <returns>

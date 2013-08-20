@@ -44,7 +44,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.<br>
+/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.<br/>
 /// It's supossed that ABCD defines a face of the hexahedron (eventually the top face) and
 /// EFGH defines the opposite face (eventually the bottom one).
 /// </summary>
@@ -125,7 +125,7 @@ public:
 
     /// <summary>
     /// Constructor from a vector which defines the gravity center of the box and three floating
-    /// points values which defines its height (Y), width (X) and depth (Z).<br>
+    /// points values which defines its height (Y), width (X) and depth (Z).<br/>
     /// It's supossed that all edges are parallel to one of the axis.
     /// </summary>
     /// <remarks>

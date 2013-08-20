@@ -53,7 +53,7 @@ template<class MatrixType> class QTranslationMatrix;
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a scale factor
-/// in the direction of each coordinate axis.<br>
+/// in the direction of each coordinate axis.<br/>
 /// It's a diagonal matrix where element \f$ a_{00}\f$ stores the scaling value in X direction, element \f$ a_{11}\f$ stores it
 /// in Y direction and element \f$ a_{22}\f$ does it in Z direction.
 /// </summary>
@@ -128,7 +128,7 @@ public:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.<br>
+    /// Gets an identity matrix.<br/>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
@@ -249,9 +249,9 @@ public:
     QScalingMatrix3x3& operator*=(const QScalingMatrix3x3 &matrix);
 
     /// <summary>
-    /// Inverts the matrix.<br>
-    /// In the case of scale matrices, the inverse is composed by the inverses of its non zero elements.<br>
-    /// So, it's faster than base class method.<br>
+    /// Inverts the matrix.<br/>
+    /// In the case of scale matrices, the inverse is composed by the inverses of its non zero elements.<br/>
+    /// So, it's faster than base class method.<br/>
     /// If one of the diagonal elements is 0, the matrix has not inverse.
     /// </summary>
     /// <returns>
@@ -290,7 +290,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the determinant of the matrix.<br>
+    /// Calculates the determinant of the matrix.<br/>
     /// Since this is a scale matrix, which is a diagonal matrix, its determinant is the product of the elements of the main diagonal.
     /// </summary>
     /// <returns>

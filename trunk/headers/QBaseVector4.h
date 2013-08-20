@@ -45,8 +45,12 @@ namespace Math
 {
 
 /// <summary>
-/// It represents the basic form of a four-dimensional vector with three components: x, y, z and w.
+/// A vector with four components: X, Y, Z and W.
 /// </summary>
+/// <remarks>
+///	A vector is a geometric object that has both a magnitude (or length) and a direction.
+/// The fourth component may equal 0, if the vector represents a normal in 3D space, or 1, if it represents a point.
+/// </remarks>
 class QDllExport QBaseVector4
 {
 	// CONSTRUCTORS
@@ -54,16 +58,19 @@ class QDllExport QBaseVector4
 public:
 
 	/// <summary>
-	/// Override default constructor. Sets attributes to zero.
-	/// </summary>
-	inline QBaseVector4() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0), w(SQFloat::_0)
+    /// Default constructor.
+    /// </summary>
+    /// <remarks>
+    ///	By default, all the components are set to zero.
+    /// </remarks>
+    inline QBaseVector4() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0), w(SQFloat::_0)
     {
     }
 
     /// <summary>
-	/// Copy constructor. Copies attributes from given vector.
+	/// Copy constructor.
 	/// </summary>
-	/// <param name="vVector">[IN] The 4D vector from which we want to create a copy in the resident vector.</param>
+	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
 	inline QBaseVector4(const QBaseVector4 &vVector)
 	{
 	    this->x = vVector.x;
@@ -73,29 +80,32 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor that receives 4 FloatTypes, one for each vector components.
+	/// Constructor that receives the value of every vector's component.
 	/// </summary>
-	/// <param name="fValueX">[IN] Value for x component.</param>
-	/// <param name="fValueY">[IN] Value for y component.</param>
-	/// <param name="fValueZ">[IN] Value for z component.</param>
-	/// <param name="fValueW">[IN] Value for w component.</param>
-	inline QBaseVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
+	/// <param name="fValueX">[IN] The value for X component.</param>
+	/// <param name="fValueY">[IN] The value for Y component.</param>
+    /// <param name="fValueZ">[IN] The value for Z component.</param>
+    /// <param name="fValueW">[IN] The value for W component.</param>
+    inline QBaseVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
                             x(fValueX), y(fValueY), z(fValueZ), w(fValueW)
     {
     }
 
 	/// <summary>
-	/// Constructor that receives only 1 FloatType. Set all attributes to that value
+	/// Constructor from a single value for all the vector's components.
 	/// </summary>
-	/// <param name="fValueAll">[IN] Value for all components</param>
-	inline explicit QBaseVector4(const float_q &fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll), w(fValueAll)
+	/// <param name="fValueAll">[IN] The value for all components.</param>
+    inline explicit QBaseVector4(const float_q &fValueAll) : x(fValueAll), y(fValueAll), z(fValueAll), w(fValueAll)
     {
     }
 
 	/// <summary>
-	/// Constructor that receives an array of 4 floating point numbers.
+	/// Constructor that receives an array of scalars.
 	/// </summary>
-	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
+    /// <remarks>
+    /// The array must contain, at least, four elements. Only the first four elements will be considered; the rest will be ignored.
+    /// </remarks>
+	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, four elements.</param>
 	inline explicit QBaseVector4(const float_q* arValues)
 	{
 		// Null pointer checkout
@@ -109,11 +119,10 @@ public:
 	}
 
 	/// <summary>
-	/// Constructor from a 4x32 packed floating point value.
-	/// </summary>
-	/// <param name="value">[IN] 4x32 packed floating point containing the three components.<br>
-	/// The parse order: 1st value (X), 2nd value (Y), 3rd value (Z), 4th value (W).</param>
-	inline explicit QBaseVector4(const vf32_q &value)
+    /// Constructor that receives a pack of four scalars.
+    /// </summary>
+    /// <param name="value">[IN] 4x32 packed floating point value containing the three components.</param>
+    inline explicit QBaseVector4(const vf32_q &value)
 	{
         using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
 
@@ -126,26 +135,26 @@ public:
 public:
 
     /// <summary>
-    /// Equality operator. Compares two 4D vectors.
-    /// </summary>
-    /// <param name="vVector">[IN] Vector with which to compare.</param>
-    /// <returns>
-    /// True if vectors are the same, false otherwise.
-    /// </returns>
-    inline bool operator==(const QBaseVector4 &vVector) const
+	/// Checks if two vectors are equal.
+	/// </summary>
+	/// <param name="vVector">[IN] The vector to which to compare.</param>
+	/// <returns>
+	/// True if vectors are the same; False otherwise.
+	/// </returns>
+	inline bool operator==(const QBaseVector4 &vVector) const
     {
         return SQFloat::AreEqual(vVector.x, this->x) && SQFloat::AreEqual(vVector.y, this->y) &&
                SQFloat::AreEqual(vVector.z, this->z) && SQFloat::AreEqual(vVector.w, this->w);
     }
 
     /// <summary>
-    /// Inequality operator. Compares two 4D vectors.
-    /// </summary>
-    /// <param name="vVector">[IN] Vector with which to compare.</param>
-    /// <returns>
-    /// True if vectors are not the same, false otherwise.
-    /// </returns>
-    inline bool operator!=(const QBaseVector4 &vVector) const
+	/// Checks if two vectors are not equal.
+	/// </summary>
+	/// <param name="vVector">[IN] The vector to which to compare.</param>
+	/// <returns>
+	/// True if vectors are not the same; False otherwise.
+	/// </returns>
+	inline bool operator!=(const QBaseVector4 &vVector) const
     {
         return !(*this == vVector);
     }
@@ -156,22 +165,22 @@ public:
 public:
 
 	/// <summary>
-	/// Vector's x coordinate.
+	/// Vector's X coordinate.
 	/// </summary>
 	float_q x;
 
 	/// <summary>
-	/// Vector's y coordinate.
+	/// Vector's Y coordinate.
 	/// </summary>
 	float_q y;
 
 	/// <summary>
-	/// Vector's z coordinate.
+	/// Vector's Z coordinate.
 	/// </summary>
 	float_q z;
 
 	/// <summary>
-	/// Vector's w coordinate.
+	/// Vector's W coordinate.
 	/// </summary>
 	float_q w;
 };

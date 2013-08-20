@@ -63,7 +63,7 @@ class QDllExport QPlane : public QBasePlane
 public:
 
     /// <summary>
-    /// Product by a scalar: all coefficients are multiplied by the floating point value provided.<br>
+    /// Product by a scalar: all coefficients are multiplied by the floating point value provided.<br/>
     /// Shortcut to multiply on the left.
     /// </summary>
     /// <remarks>
@@ -356,7 +356,7 @@ public:
     //Methods
 
     /// <summary>
-    /// Normalizes the resident plane.<br>
+    /// Normalizes the resident plane.<br/>
     /// This implies to divide all components of plane by the length of the normal.
     /// </summary>
     /// <returns>
@@ -712,7 +712,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided vector.<br>
+    /// Applies a translation to the resident plane given by the provided vector.<br/>
     /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according with the applied translation.
     /// </summary>
@@ -729,7 +729,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided vector.<br>
+    /// Applies a translation to the resident plane given by the provided vector.<br/>
     /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according to the applied translation.
     /// </summary>
@@ -746,7 +746,7 @@ public:
     }
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided amounts for every axis.<br>
+    /// Applies a translation to the resident plane given by the provided amounts for every axis.<br/>
     /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according to the applied translation.
     /// </summary>
@@ -1127,8 +1127,8 @@ public:
     }
 
     /// <summary>
-    /// Converts plane into a string with the following format:<br>
-    /// "PL($a,$b,$c,$d)".<br>
+    /// Converts plane into a string with the following format:<br/>
+    /// "PL($a,$b,$c,$d)".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>

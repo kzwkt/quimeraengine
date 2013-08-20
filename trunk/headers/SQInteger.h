@@ -45,7 +45,7 @@ namespace DataTypes
 {
 
 /// <summary>
-/// Helper class that offers functionality related to integer types.<br>
+/// Helper class that offers functionality related to integer types.<br/>
 /// Use these static methods extensively in your code, as far as you can.
 /// </summary>
 class QDllExport SQInteger
@@ -176,7 +176,7 @@ public:
     }
 
     /// <summary>
-    /// Inverts the order of bytes which compound an integer number and returns the result as output parameter.<br>
+    /// Inverts the order of bytes which compound an integer number and returns the result as output parameter.<br/>
     /// A 32-bits integer number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
     /// </summary>
     /// <param name="nValue">[IN] The value whose bytes are to be swapped.</param>

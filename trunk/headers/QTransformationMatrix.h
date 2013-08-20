@@ -49,8 +49,8 @@ namespace Math
 template<class MatrixType> class QTranslationMatrix;
 
 /// <summary>
-/// Class which represents a transformation matrix.<br>
-/// A transformation matrix is, in general, composed of a scale, a rotation and a translation (or any combination of them).<br>
+/// Class which represents a transformation matrix.<br/>
+/// A transformation matrix is, in general, composed of a scale, a rotation and a translation (or any combination of them).<br/>
 /// If we note:
 ///
 /// \f$ S = \begin{bmatrix} s_x & 0 & 0 & 0 \\ 0 & s_y & 0 & 0 \\ 0 & 0 & s_z & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$,
@@ -64,7 +64,7 @@ template<class MatrixType> class QTranslationMatrix;
 /// \f$ SRT = \begin{bmatrix} s_x\dot r_{00} & s_x\dot r_{01} & s_x\dot r_{02} & 0 \\ s_y\dot r_{10} & s_y\dot r_{11} & s_y\dot r_{12} & 0 \\
 /// s_z\dot r_{20} & s_z\dot r_{21} & s_z\dot r_{22} & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
 ///
-/// Since this class is a template, we allow the use of a 4x4 matrix or a 4x3 one as parameter.<br>
+/// Since this class is a template, we allow the use of a 4x4 matrix or a 4x3 one as parameter.<br/>
 /// When parameter is a 4x3 matrix, we treat it as a 4x4 matrix, assuming that fourth column is:
 ///
 /// \f$ \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}\f$.
@@ -214,7 +214,7 @@ protected:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.<br>
+    /// Gets an identity matrix.<br/>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
@@ -254,7 +254,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a transformation matrix by the resident matrix.<br>
+    /// Multiplies a transformation matrix by the resident matrix.<br/>
     /// The product is calculated knowing that fourth column of is (0,0,0,1).
     /// </summary>
     /// <remarks>
@@ -306,7 +306,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.<br>
+    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.<br/>
     /// The rotation matrix is extended to a 4x4 matrix to allow this product.
     /// </summary>
     /// <remarks>
@@ -342,7 +342,7 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a 3x3 scale matrix by the current matrix, following matrices product rules.<br>
+    /// Multiplies a 3x3 scale matrix by the current matrix, following matrices product rules.<br/>
     /// The scale matrix is extended to a 4x4 matrix to allow this product.
     /// </summary>
     /// <remarks>
@@ -380,7 +380,7 @@ public:
     // Assign operators
 
     /// <summary>
-    /// Product and assign operator. Current matrix stores the result of the multiplication.<br>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.<br/>
     /// Multiplies a transformation matrix by the resident matrix.
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
@@ -394,8 +394,8 @@ public:
     }
 
     /// <summary>
-    /// Product and assign operator. Current matrix stores the result of the multiplication.<br>
-    /// Multiplies a transformation matrix by the resident matrix.<br>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.<br/>
+    /// Multiplies a transformation matrix by the resident matrix.<br/>
     /// The product is calculated knowing that last column of matrices is (0,0,0,1).
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
@@ -426,7 +426,7 @@ public:
     }
 
     /// <summary>
-    /// Calculates the determinant of the matrix.<br>
+    /// Calculates the determinant of the matrix.<br/>
     /// Since this is a transformation matrix, its determinant can be calculated as
     /// if it was a 3x3 matrix, removing fourth row and fourth column in calculus :
     ///
@@ -475,9 +475,9 @@ public:
     ///
     /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^T_{ij}\f$,
     ///
-    /// where \f$ C^T_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.<br>
+    /// where \f$ C^T_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.<br/>
     /// Since the matrix is a transformation matrix, then the inversion can be optimized avoiding all products by
-    /// the elements of the fourth column.<br>
+    /// the elements of the fourth column.<br/>
     /// Inverse has this general form, expressed in function of the scale, the rotation and the translation:
     ///
     /// \f$ (SRT)^{-1} = T^{-1}\cdot R^{-1}\cdot S^{-1} = \begin{bmatrix} \frac{r_{00}}{S_x} & \frac{r_{10}}{S_y} & \frac{r_{20}}{S_z} & 0 \\
@@ -742,8 +742,8 @@ public:
     }
 
     /// <summary>
-    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br>
-	/// Remember that Quimera Engine works with left-hand convention by default.<br>
+    /// Turns the hand convention into opposite rules, that is like if we change the sign of z axis.<br/>
+	/// Remember that Quimera Engine works with left-hand convention by default.<br/>
 	/// To do that, we invert both rotation (by trasposing it) and z translation component.
     /// </summary>
     /// <returns>

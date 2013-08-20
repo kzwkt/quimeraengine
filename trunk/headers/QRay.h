@@ -47,7 +47,7 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in the space, which consists of a origin point, or position, and a direction.<br>
+/// Represents a ray in the space, which consists of a origin point, or position, and a direction.<br/>
 /// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </summary>
 template<class VectorTypeOrigin, class VectorTypeDirection>
@@ -233,7 +233,7 @@ public:
     /// if it exists.
     /// </summary>
     /// <remarks>
-    /// Ray must be normalized to obtain a correct result.<br>
+    /// Ray must be normalized to obtain a correct result.<br/>
     /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br />
     /// If there are one or two intersections, the output parameter stores the closest to ray origin.<br />
     /// Neither the length of the direction vector nor the radius of the orb should equal zero.
@@ -354,8 +354,8 @@ public:
     }
 
     /// <summary>
-	/// Converts ray into a string representation with the following format:<br>
-	/// "RY(o($Origin),d($Direction))".<br>
+	/// Converts ray into a string representation with the following format:<br/>
+	/// "RY(o($Origin),d($Direction))".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>

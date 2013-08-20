@@ -48,10 +48,10 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.<br>
+/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.<br/>
 /// It's supossed that ABCD defines a face of the hexahedron (eventually the top face) and
-/// EFGH defines the opposite face (eventually the bottom one).<br>
-/// The six faces are defined by the followings vertices: ABCD, EFGH, AEFD, ABHE, BCGH, CDFG.<br>
+/// EFGH defines the opposite face (eventually the bottom one).<br/>
+/// The six faces are defined by the followings vertices: ABCD, EFGH, AEFD, ABHE, BCGH, CDFG.<br/>
 /// The twelve edges are AB, BC, CD, DA, EF, FG, GH, HE, AE, BH, CG, DF.
 /// </summary>
 template <class VectorType>
@@ -113,7 +113,7 @@ public:
 
     /// <summary>
     /// Constructor from a vector which defines the gravity center of the box and three floating
-    /// points values which defines its height (Y), width (X) and depth (Z).<br>
+    /// points values which defines its height (Y), width (X) and depth (Z).<br/>
     /// It's supossed that all edges are parallel to one of the axis.
     /// </summary>
     /// <param name="vCenter">[IN] Center point of the box.</param>
@@ -306,7 +306,7 @@ public:
 	/// This method store in the output parameter the six planes which defines the hexahedron.
 	/// </summary>
     /// <remarks>
-    /// The six planes are:<br>
+    /// The six planes are:<br/>
 	/// <br/>
     /// <ul>
 	/// <li>plane A, B, C -> ABCD face, stored in element 0 of the array</li>
@@ -356,9 +356,9 @@ public:
     }
 
     /// <summary>
-    /// Checks the relation between resident hexahedron and the provided plane.<br>
+    /// Checks the relation between resident hexahedron and the provided plane.<br/>
     /// Since a plane divides space into two parts, we can check if the "distances" (allowing distances having sign) from
-    /// the plane to all vertices of hexahedron have diferent sign, in which case the segment crosses the plane.<br>
+    /// the plane to all vertices of hexahedron have diferent sign, in which case the segment crosses the plane.<br/>
     /// If distances from plane to all vertices have the same sign, all hexahedron is in the same
     /// side of the space.
     /// </summary>
@@ -373,7 +373,7 @@ public:
     /// - PositiveSide: The hexahedron is fully contained in the positive side of the space defined by the plane.
     /// - NegativeSide: The hexahedron is fully contained in the negative side of the space defined by the plane.
     /// - BothSides: The hexahedron crosses the plane.
-    /// <br>
+    /// <br/>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
@@ -659,8 +659,8 @@ public:
     }
 
     /// <summary>
-    /// Converts hexahedron into a string with the following format:<br>
-    /// "HX(a($A),b($B),c($C),d($D),e($E),f($F),g($G),h($H))".<br>
+    /// Converts hexahedron into a string with the following format:<br/>
+    /// "HX(a($A),b($B),c($C),d($D),e($E),f($F),g($G),h($H))".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>
     /// <returns>The string with the specified format.</returns>

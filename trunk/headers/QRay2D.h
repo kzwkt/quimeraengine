@@ -50,7 +50,7 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in 2D space, which consists of a origin point or position, and a direction.<br>
+/// Represents a ray in 2D space, which consists of a origin point or position, and a direction.<br/>
 /// The direction symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
 /// </summary>
 class QDllExport QRay2D : public QRay<QVector2, QVector2>
@@ -90,7 +90,7 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives the ray's position and direction.<br>
+    /// Constructor that receives the ray's position and direction.<br/>
     /// The direction vector must be normalized.
     /// </summary>
     /// <param name="vOrigin">[IN] Ray's position.</param>
@@ -178,7 +178,7 @@ public:
     /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$
     ///
     /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
-    /// ensure ray direction is being followed.<br>
+    /// ensure ray direction is being followed.<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
     /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
@@ -229,9 +229,9 @@ public:
 	/// Computes the intersection point between resident and provided ray, if it exists.
 	/// </summary>
     /// <remarks>
-	/// Both rays must be normalized to ensure correct result.<br>
+	/// Both rays must be normalized to ensure correct result.<br/>
 	/// If there's no intersection point, or the rays are totally or parcially coincident,
-	/// the output parameter used for storing that point won't be modified.<br>
+	/// the output parameter used for storing that point won't be modified.<br/>
     /// If both rays intesect, the intersection point must verify both vectorial ecuations:
     ///
     /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$
@@ -245,7 +245,7 @@ public:
     /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$
     ///
     /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
-    /// ensure ray direction is being followed.<br>
+    /// ensure ray direction is being followed.<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
 	/// </remarks>
 	/// <param name="ray">[IN] The ray whose intersection with resident ray will be checked.</param>
@@ -260,8 +260,8 @@ public:
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
 	/// <remarks>
-	/// If there's no intersection point, the output parameter won't be modified.<br>
-	/// If there's one intersection point, the output parameter stores it.<br>
+	/// If there's no intersection point, the output parameter won't be modified.<br/>
+	/// If there's one intersection point, the output parameter stores it.<br/>
     /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
     /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
@@ -280,9 +280,9 @@ public:
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
 	/// <remarks>
-	/// If there's no intersection point, the output parameters won't be modified.<br>
+	/// If there's no intersection point, the output parameters won't be modified.<br/>
 	/// If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br>
+	/// and first output parameter is filled with the intersection point.<br/>
     /// If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
@@ -349,7 +349,7 @@ public:
     /// Computes the intersection point between resident ray and provided line segment, if it exists.
     /// </summary>
     /// <remarks>
-    /// If there's no intersection point, the output parameters won't be modified.<br>
+    /// If there's no intersection point, the output parameters won't be modified.<br/>
     /// If there's one intersection point, output parameter is filled with the intersection point.
     /// </remarks>
     /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
@@ -364,7 +364,7 @@ public:
     /// Computes the intersection point between resident ray and provided line segment, if it exists.
     /// </summary>
     /// <remarks>
-    /// If there's no intersection point, the output parameters won't be modified.<br>
+    /// If there's no intersection point, the output parameters won't be modified.<br/>
     /// If there's one intersection point, the first output parameter is filled with the intersection point.
     /// </remarks>
     /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
@@ -380,9 +380,9 @@ public:
 	/// Computes a ray that is the result of resident ray reflection on the line segment provided.
 	/// </summary>
     /// <remarks>
-	/// Ray direction must be normalized to obtain a correct result.<br>
+	/// Ray direction must be normalized to obtain a correct result.<br/>
 	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
-	/// reflected ray is the resident ray itself.<br>
+	/// reflected ray is the resident ray itself.<br/>
 	/// If there's one intersection point between them, then the reflected ray has its origin point at the intersection point
 	/// and its direction verifies that the incident angle and the reflected angle are equals.
 	/// </remarks>
@@ -429,9 +429,9 @@ public:
 	/// Computes a vector that is the resultant direction of resident ray reflection on the line segment provided.
 	/// </summary>
     /// <remarks>
-	/// Ray direction must be normalized to obtain a correct result.<br>
+	/// Ray direction must be normalized to obtain a correct result.<br/>
 	/// If there's no intersection point between ray and line segment, or are both coincident or parallel,
-	/// reflected ray is the resident ray itself.<br>
+	/// reflected ray is the resident ray itself.<br/>
 	/// If there's one intersection point between them, then the reflected ray direction verifies
 	/// that the incident angle and the reflected angle are equals.
 	/// </remarks>
@@ -474,7 +474,7 @@ public:
 	/// Applies the transformation given by the matrix provided to resident ray.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br>
+	/// Resultant ray is normalized after this operation.<br/>
 	/// All transformations affects both origin ray point and ray direction, except translations,
 	/// that only affects origin ray point.
 	/// </remarks>
