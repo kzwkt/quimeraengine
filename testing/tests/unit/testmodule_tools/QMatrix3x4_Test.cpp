@@ -1253,7 +1253,7 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
     const QMatrix3x4 MATRIX(SQFloat::_0,    SQFloat::_1,    SQFloat::_2,    (float_q)0.654321f,
                             SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    (float_q)-2.2f,
                             SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)123456.0f);
-    const string_q EXPECTED_STRING_FORM = QE_L("M3x4((0,1,2,0.654321015)(4,5,6,-2.20000005)(8,9,10,123456))");
+    const string_q EXPECTED_STRING_FORM = QE_L("M3x4(0,1,2,0.654321015,4,5,6,-2.20000005,8,9,10,123456)");
 
 	// Execution
     QMatrix3x4 matrixUT = MATRIX;

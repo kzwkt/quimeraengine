@@ -286,7 +286,7 @@ public:
 
 	/// <summary>
 	/// Converts triangle into a string with the following format:<br />
-	/// "T:A($A), B($B), C($C)"<br />
+	/// "T(a($A),b($B),c($C))"<br />
     /// Where "$" means "string representation of".
 	/// </summary>
 	/// <returns>
@@ -294,7 +294,7 @@ public:
 	/// </returns>
 	string_q ToString() const
 	{
-		return QE_L("T:A(") + A.ToString() + QE_L("), B(") + B.ToString() + QE_L("), C(") + C.ToString() + QE_L(")");
+		return QE_L("T(a(") + A.ToString() + QE_L("),b(") + B.ToString() + QE_L("),c(") + C.ToString() + QE_L("))");
 	}
 };
 
