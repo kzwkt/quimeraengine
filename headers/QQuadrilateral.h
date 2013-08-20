@@ -164,15 +164,15 @@ public:
     bool Intersection(const QBaseQuadrilateral &quad) const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral is crossed.<br/>
+    /// Checks if the resident quadrilateral is complex.<br/>
     /// To do that, it checks if A and D vertices are in the
     /// same side of BC segment AND C and D vertices are in the same side of AB segment, in which case the quadrilateral
-    /// is not crossed.
+    /// is not complex.
     /// </summary>
     /// <returns>
-    /// True if the resident quadrilateral is crossed, false otherwise.
+    /// True if the resident quadrilateral is complex, false otherwise.
     /// </returns>
-    bool IsCrossed() const;
+    bool IsComplex() const;
 
     /// <summary>
     /// Checks if the resident quadrilateral is convex.<br/>

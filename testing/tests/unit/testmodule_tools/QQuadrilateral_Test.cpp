@@ -845,7 +845,7 @@ QTEST_CASE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test )
 /// <summary>
 /// Checks that it returns True when the quadrilateral is complex.
 /// </summary>
-QTEST_CASE ( IsCrossed_ReturnsTrueWhenQuadrilateralIsComplex_Test )
+QTEST_CASE ( IsComplex_ReturnsTrueWhenQuadrilateralIsComplex_Test )
 {
     //   A----B
     //    \  /
@@ -863,7 +863,7 @@ QTEST_CASE ( IsCrossed_ReturnsTrueWhenQuadrilateralIsComplex_Test )
     const bool EXPECTED_RESULT = true;
 
     // Execution
-    bool bResult = QUAD.IsCrossed();
+    bool bResult = QUAD.IsComplex();
     
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
@@ -872,7 +872,7 @@ QTEST_CASE ( IsCrossed_ReturnsTrueWhenQuadrilateralIsComplex_Test )
 /// <summary>
 /// Checks that it returns False when the quadrilateral is not complex.
 /// </summary>
-QTEST_CASE ( IsCrossed_ReturnsFalseWhenQuadrilateralIsNotComplex_Test )
+QTEST_CASE ( IsComplex_ReturnsFalseWhenQuadrilateralIsNotComplex_Test )
 {
     //   A----B
     //   |    |
@@ -887,7 +887,7 @@ QTEST_CASE ( IsCrossed_ReturnsFalseWhenQuadrilateralIsNotComplex_Test )
     const bool EXPECTED_RESULT = false;
 
     // Execution
-    bool bResult = QUAD.IsCrossed();
+    bool bResult = QUAD.IsComplex();
     
     // Verification
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
