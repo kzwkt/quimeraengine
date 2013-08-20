@@ -539,17 +539,6 @@ public:
     }
 
     /// <summary>
-	/// Converts the vector into its opposite vector.
-	/// </summary>
-    /// <returns>
-	/// The inverted vector.
-	/// </returns>
-    inline QVector3 Invert() const
-    {
-        return QVector3(-this->x, -this->y, -this->z);
-    }
-
-    /// <summary>
 	/// Sets all the components of the vector to one.
 	/// </summary>
     inline void ResetToOne()

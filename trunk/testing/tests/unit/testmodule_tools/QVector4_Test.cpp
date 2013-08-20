@@ -1709,29 +1709,6 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 }
 
 /// <summary>
-/// Checks that a common vector is correctly inverted.
-/// </summary>
-QTEST_CASE ( Invert_CommonVectorIsCorrectlyInverted_Test )
-{
-    // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
-    const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
-    const float_q EXPECTED_VALUE_FOR_W = SQFloat::_4;
-
-    const QVector4 VECTOR = QVector4(SQFloat::_1, -SQFloat::_2, SQFloat::_3, -SQFloat::_4);
-
-	// Execution
-    QVector4 vVectorUT = VECTOR.Invert();
-
-    // Verification
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
-    BOOST_CHECK_EQUAL(vVectorUT.w, EXPECTED_VALUE_FOR_W);
-}
-
-/// <summary>
 /// Checks that all vector components are set to one.
 /// </summary>
 QTEST_CASE ( ResetToOne_AllVectorComponentsAreSetToOne_Test )

@@ -611,17 +611,6 @@ public:
     }
 
     /// <summary>
-	/// Converts the vector into its opposite vector.
-	/// </summary>
-    /// <returns>
-	/// The inverted vector.
-	/// </returns>
-    inline QVector4 Invert() const
-    {
-        return QVector4(-this->x, -this->y, -this->z, -this->w);
-    }
-
-    /// <summary>
 	/// Sets all the components of the vector to one.
 	/// </summary>
     inline void ResetToOne()
