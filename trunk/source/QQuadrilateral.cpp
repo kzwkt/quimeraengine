@@ -56,7 +56,7 @@ bool QQuadrilateral::Contains (const QBaseVector2 &vPoint) const
                 PointsInSameSideOfLine(vPoint, this->A, this->C, this->D) &&
                 PointsInSameSideOfLine(vPoint, this->B, this->D, this->A));
     }
-    else if (this->IsCrossed()) // Its crossed
+    else if (this->IsComplex()) // Its crossed
     {
         QLineSegment2D ls1(this->A, this->D), ls2(this->B, this->C);
         QVector2 vAux;
@@ -151,7 +151,7 @@ bool QQuadrilateral::Intersection(const QBaseQuadrilateral &quad) const
     return false;
 }
 
-bool QQuadrilateral::IsCrossed() const
+bool QQuadrilateral::IsComplex() const
 {
     return ( ( !PointsInSameSideOfLine(this->A, this->D, this->B, this->C) &&
                !PointsInSameSideOfLine(this->C, this->B, this->A, this->D) ) ||
@@ -273,7 +273,7 @@ bool QQuadrilateral::PointsInSameSideOfLine(const QBaseVector2 &vPoint1, const Q
 bool QQuadrilateral::IsConcaveHere(const QVector2 &vAngleVertex, const QVector2 &vAngleEndVertex1,
                                    const QVector2 &vAngleEndVertex2, const QVector2 &vOppositeVertex) const
 {
-    if (this->IsConvex() || this->IsCrossed()) // There isn't a concave angle.
+    if (this->IsConvex() || this->IsComplex()) // There isn't a concave angle.
         return false;
     else if ( !PointsInSameSideOfLine(vOppositeVertex, vAngleVertex, vAngleEndVertex1, vAngleEndVertex2) )
         return false; // The outer diagonal should not divide quadrilateral
