@@ -44,7 +44,7 @@ namespace Tools
 {
 namespace Math
 {
-
+    
 /// <summary>
 /// Class which represents a circle in bidimensional space.<br/>
 /// A circle is the collection of all points that are equidistant from other point known as "Center".

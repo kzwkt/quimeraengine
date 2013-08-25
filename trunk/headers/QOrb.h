@@ -51,7 +51,7 @@ namespace Math
 /// Remember that an orb is the sum of equidistant points from a given one.
 /// </summary>
 template <class VectorType>
-class QDllExport QOrb : public QBaseOrb<VectorType>
+class QOrb : public QBaseOrb<VectorType>
 {
 
     // BASE CLASS USINGS

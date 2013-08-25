@@ -5,9 +5,12 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "QuimeraEngineTestApp", "Qui
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		DebugWin32SharedrtDynamic|Win32 = DebugWin32SharedrtDynamic|Win32
 		DebugWin32SharedrtStatic|Win32 = DebugWin32SharedrtStatic|Win32
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3077CE62-37E5-432F-A7CD-CD344DBE8836}.DebugWin32SharedrtDynamic|Win32.ActiveCfg = DebugWin32SharedrtDynamic|Win32
+		{3077CE62-37E5-432F-A7CD-CD344DBE8836}.DebugWin32SharedrtDynamic|Win32.Build.0 = DebugWin32SharedrtDynamic|Win32
 		{3077CE62-37E5-432F-A7CD-CD344DBE8836}.DebugWin32SharedrtStatic|Win32.ActiveCfg = DebugWin32SharedrtStatic|Win32
 		{3077CE62-37E5-432F-A7CD-CD344DBE8836}.DebugWin32SharedrtStatic|Win32.Build.0 = DebugWin32SharedrtStatic|Win32
 	EndGlobalSection

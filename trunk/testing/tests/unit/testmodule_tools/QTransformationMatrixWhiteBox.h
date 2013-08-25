@@ -52,7 +52,7 @@ namespace Test
 /// Class intented to be used to expose protected methods of QTransformationMatrix for testing purposes.
 /// </summary>
 template<class MatrixType>
-class QDllExport QTransformationMatrixWhiteBox : public QTransformationMatrix<MatrixType>
+class QTransformationMatrixWhiteBox : public QTransformationMatrix<MatrixType>
 {
 	// CONSTRUCTORS
 	// ---------------

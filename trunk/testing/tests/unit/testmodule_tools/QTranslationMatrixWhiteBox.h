@@ -46,7 +46,7 @@ namespace Test
 /// Class intented to be used to expose protected methods of QTranslationMatrix for testing purposes.
 /// </summary>
 template<class MatrixType>
-class QDllExport QTranslationMatrixWhiteBox : public QTranslationMatrix<MatrixType>
+class QTranslationMatrixWhiteBox : public QTranslationMatrix<MatrixType>
 {
 	// CONSTRUCTORS
 	// ---------------

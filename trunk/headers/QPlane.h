@@ -74,7 +74,7 @@ public:
     /// <returns>
     /// A plane that is the result of the product.
     /// </returns>
-    friend QPlane operator*(const float_q &fScalar, const QPlane &plane);
+    friend QPlane QDllExport operator*(const float_q &fScalar, const QPlane &plane);
 
 
 	// CONSTRUCTORS

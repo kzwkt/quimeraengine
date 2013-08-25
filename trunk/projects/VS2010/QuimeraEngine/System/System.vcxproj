@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32SharedrtDynamic|Win32">
+      <Configuration>DebugWin32SharedrtDynamic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="DebugWin32SharedrtStatic|Win32">
       <Configuration>DebugWin32SharedrtStatic</Configuration>
       <Platform>Win32</Platform>
@@ -16,6 +20,10 @@
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
@@ -28,6 +36,14 @@
     <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
     <TargetExt>.lib</TargetExt>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <TargetExt>.dll</TargetExt>
     <LinkIncremental>true</LinkIncremental>
     <TargetName>QuimeraEngine$(ProjectName)</TargetName>
     <GenerateManifest>false</GenerateManifest>
@@ -65,6 +81,46 @@
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugMD;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>boost_thread-vc100-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineTools.lib;QuimeraEngineCore.lib</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <CompileAsManaged>false</CompileAsManaged>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <WarningLevel>Level3</WarningLevel>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_COMPILER_SHAREDLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <MinimalRebuild>true</MinimalRebuild>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <StringPooling>false</StringPooling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+      <AssemblerOutput>NoListing</AssemblerOutput>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <ImportLibrary>
+      </ImportLibrary>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <Version>0.0.0</Version>
+      <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>

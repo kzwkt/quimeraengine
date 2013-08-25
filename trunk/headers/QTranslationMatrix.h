@@ -59,7 +59,7 @@ template<class MatrixType> class QTransformationMatrix;
 /// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
 /// </summary>
 template <class MatrixType>
-class QDllExport QTranslationMatrix : public MatrixType
+class QTranslationMatrix : public MatrixType
 {
 
 	// CONSTRUCTORS
@@ -437,9 +437,6 @@ public:
 
 protected:
 
-    // Hidden method to prevent it could be used.
-    void ResetToZero();
-
     // <summary>
     // Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
     // 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
@@ -481,6 +478,10 @@ protected:
         this->ij[3][2] += matrix.ij[3][2];
     }
 
+private:
+
+    // Hidden method to prevent it could be used.
+    void ResetToZero(){}
 };
 
 

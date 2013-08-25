@@ -185,6 +185,7 @@
     <ClInclude Include="..\..\..\..\headers\QScalingMatrix3x3.h">
       <Filter>Math</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\ToolsExports.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -262,5 +263,12 @@
     <ClCompile Include="..\..\..\..\source\SQInteger.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QCircle.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QTriangle2D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\ToolsExports.cpp" />
   </ItemGroup>
 </Project>

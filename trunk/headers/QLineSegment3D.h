@@ -63,7 +63,7 @@ namespace Math
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment.
 /// </summary>
 template <class VectorType>
-class QDllExport QLineSegment3D : public QLineSegment<VectorType>
+class QLineSegment3D : public QLineSegment<VectorType>
 {
     // BASE TYPE USINGS
     // ---------------

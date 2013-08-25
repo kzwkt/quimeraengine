@@ -45,7 +45,7 @@ namespace Test
 /// <summary>
 /// Class intented to be used to expose protected methods of QSpaceConversionMatrix for testing purposes.
 /// </summary>
-class QDllExport QSpaceConversionMatrixWhiteBox : public QSpaceConversionMatrix
+class QSpaceConversionMatrixWhiteBox : public QSpaceConversionMatrix
 {
 	// CONSTRUCTORS
 	// ---------------

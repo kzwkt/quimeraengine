@@ -69,7 +69,7 @@ public:
 	/// <returns>
 	/// A vector that is the result of the product.
 	/// </returns>
-	friend QVector2 operator*(const float_q &fScalar, const QVector2 &vVector);
+	friend QVector2 QDllExport operator*(const float_q &fScalar, const QVector2 &vVector);
 
 
     // CONSTRUCTORS

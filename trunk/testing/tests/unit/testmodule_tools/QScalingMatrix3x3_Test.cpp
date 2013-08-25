@@ -30,6 +30,8 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
+#include "ToolsExports.h"
+
 #include "QScalingMatrix3x3.h"
 #include "QScalingMatrix3x3WhiteBox.h"
 #include "QRotationMatrix3x3.h"

@@ -44,7 +44,7 @@ const unsigned int QE_VERSION_REVISION = 0;
 // --------------------------------------------------------------------------------------------------------
 #ifdef QE_COMPILER_MSVC
     #if QE_COMPILER_MSVC >= 10
-        #define null_q nullptr // Microsoft Visual C++ 2010 definition for null pointers
+        #define null_q 0
     #else
         #define null_q 0
     #endif
@@ -52,39 +52,60 @@ const unsigned int QE_VERSION_REVISION = 0;
     #define null_q 0
 #endif
 
+// --------------------------------------------------------------------------------------------------------
+// Warning disabler: Defines the compiler proprocessor #pragma instruction that disables a warning.
+//                   Note that it is not cross-platform since every compiler uses very different syntaxes.
+// --------------------------------------------------------------------------------------------------------
+#ifdef QE_COMPILER_MSVC
+    #if QE_COMPILER_MSVC >= 10
+        #define QE_DISABLE_WARNING(number) warning (disable : number )
+    #else
+        #define QE_DISABLE_WARNING(number) warning (disable : number )
+    #endif
+#elif QE_COMPILER_GCC
+    #define QE_DISABLE_WARNING(flag) GCC diagnostic ignored flag
+#endif
 
 // --------------------------------------------------------------------------------------------------------
 // Dll Export Specifier: Defines which compiler keywords will be used to export symbols when compiling as
 // a DLL. Their values are "empty" when compiling the library as static.
 // --------------------------------------------------------------------------------------------------------
-#ifdef QE_PREPROCESSOR_COMPILER_SHAREDLIB // QE_PREPROCESSOR_COMPILER_SHAREDLIB is specified as a preprocessor definition [TODO] Thund: Add that definition to preprocessor when configuration is ready
+#ifdef QE_PREPROCESSOR_COMPILER_SHAREDLIB // QE_PREPROCESSOR_COMPILER_SHAREDLIB is specified as a preprocessor definition
     #ifdef QE_OS_WINDOWS
         #ifdef QE_COMPILER_MSVC
             #define QDllExport __declspec( dllexport )
+            #define QE_DLLIMPORT_EXTERN
         #elif QE_COMPILER_GCC
             #define QDllExport __attribute__(( dllexport ))
+            #define QE_DLLIMPORT_EXTERN
         #endif
     #elif defined(QE_OS_LINUX)
         #if QE_COMPILER_GCC
             #define QDllExport __attribute__((visibility("default")))( dllexport )
+            #define QE_DLLIMPORT_EXTERN
         #endif
     #endif
 #elif defined(QE_PREPROCESSOR_COMPILER_IMPORT) // QE_PREPROCESSOR_COMPILER_IMPORT is specified as a preprocessor definition when compiling the client system
     #ifdef QE_OS_WINDOWS
         #ifdef QE_COMPILER_MSVC
             #define QDllExport __declspec( dllimport )
+            #define QE_DLLIMPORT_EXTERN extern
         #elif QE_COMPILER_GCC
             #define QDllExport __attribute__(( dllimport ))
+            #define QE_DLLIMPORT_EXTERN extern
         #endif
     #elif defined(QE_OS_LINUX)
         #if QE_COMPILER_GCC
-            #define QDllExport
+            #define QDllExport __attribute__(( dllimport ))
+            #define QE_DLLIMPORT_EXTERN extern
         #endif
     #endif
 #else // Static library
     #ifdef QE_OS_WINDOWS
         #define QDllExport
+        #define QE_DLLIMPORT_EXTERN
     #elif defined(QE_OS_LINUX)
+        #define QE_DLLIMPORT_EXTERN
         #define QDllExport
     #endif
 #endif
@@ -109,17 +130,12 @@ const unsigned int QE_VERSION_REVISION = 0;
         #define QE_ASSERT(expr) { if(!(expr)) throw new std::exception(); } // TODO [Thund]: Create an special exception class for this
     #else
         #ifdef QE_COMPILER_GCC
-            namespace // Anonymous namespace to make it internally linked
-            {
-                /// <summary>
-                /// Special behaviour for using GDB so it stops at the line the assertion fails and let the
-                /// developer to continue debugging from there on advance.
-                /// </summary>
-                QDllExport void QE_ASSERT_FAILED()
-                {
-                    asm("int $3");
-                }
-            }
+
+            /// <summary>
+            /// Special behaviour for using GDB so it stops at the line the assertion fails and let the
+            /// developer to continue debugging from there on advance.
+            /// </summary>
+            QDllExport void QE_ASSERT_FAILED();
 
             #define QE_ASSERT(expr) (expr) ? (void(0)) : QE_ASSERT_FAILED(); // This sentence makes GDB to stop at the failing line and continue the execution later
         #else

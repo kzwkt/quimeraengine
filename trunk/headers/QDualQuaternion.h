@@ -77,7 +77,7 @@ public:
     /// <returns>
     /// The resultant dual quaternion.
     /// </returns>
-    friend QDualQuaternion operator*(const float_q &fScalar, const QDualQuaternion &dualQuat);
+    friend QDualQuaternion QDllExport operator*(const float_q &fScalar, const QDualQuaternion &dualQuat);
 
 
 	// CONSTRUCTORS

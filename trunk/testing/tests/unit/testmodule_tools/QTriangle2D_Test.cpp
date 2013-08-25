@@ -30,6 +30,8 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
+#include "ToolsExports.h"
+
 #include "QTriangle2D.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;

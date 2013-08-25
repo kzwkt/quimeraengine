@@ -48,7 +48,7 @@ namespace Test
 /// <summary>
 /// Base class for unit test modules. Always inherit from this class to define a new unit test module.
 /// </summary>
-class QDllExport QUnitTestModuleBase
+class QUnitTestModuleBase
 {
 	// CONSTRUCTORS
 	// ---------------

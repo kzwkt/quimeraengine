@@ -53,7 +53,7 @@ namespace Math
 ///	2D vector, 3D vector or 4D vector.
 /// </summary>
 template <class VectorType>
-class QDllExport QTriangle : public QBaseTriangle<VectorType>
+class QTriangle : public QBaseTriangle<VectorType>
 {
 
     // BASE CLASS USINGS

@@ -52,7 +52,7 @@ namespace Math
 /// It's developer's reponsibility to keep the fourth component of all the points (when using 4D vectors) set to the same value.
 /// </remarks>
 template <class VectorType>
-class QDllExport QBaseHexahedron
+class QBaseHexahedron
 {
 
     // CONSTRUCTORS

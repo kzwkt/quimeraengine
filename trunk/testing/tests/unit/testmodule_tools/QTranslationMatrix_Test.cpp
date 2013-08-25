@@ -31,6 +31,8 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
+#include "ToolsExports.h"
+
 #include "QTranslationMatrix.h"
 #include "QTranslationMatrixWhiteBox.h"
 #include "QMatrix4x3.h"

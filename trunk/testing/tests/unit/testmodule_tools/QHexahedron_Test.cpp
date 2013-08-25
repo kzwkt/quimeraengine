@@ -31,6 +31,8 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
+#include "ToolsExports.h"
+
 #include "QHexahedron.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;

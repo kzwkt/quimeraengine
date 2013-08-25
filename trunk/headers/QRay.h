@@ -51,7 +51,7 @@ namespace Math
 /// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </summary>
 template<class VectorTypeOrigin, class VectorTypeDirection>
-class QDllExport QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
+class QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
 {
 
 	// CONSTRUCTORS

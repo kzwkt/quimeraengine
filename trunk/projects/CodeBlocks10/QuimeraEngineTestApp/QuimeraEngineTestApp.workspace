@@ -2,6 +2,5 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="QuimeraEngineTestApp">
 		<Project filename="QuimeraEngineTestApp/QuimeraEngineTestApp.cbp" active="1" />
-		<Project filename="../QuimeraEngine/Tools/Tools.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

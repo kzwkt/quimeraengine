@@ -54,7 +54,7 @@ namespace Math
 /// Methods in this class are related to transformations in 3D.
 /// </summary>
 template <class VectorType>
-class QDllExport QTriangle3D : public QTriangle<VectorType>
+class QTriangle3D : public QTriangle<VectorType>
 {
 
 	// CONSTRUCTORS

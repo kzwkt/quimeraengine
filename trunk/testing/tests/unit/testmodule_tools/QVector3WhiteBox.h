@@ -45,7 +45,7 @@ namespace Test
 /// <summary>
 /// Class intented to be used to expose protected methods of QVector3 for testing purposes.
 /// </summary>
-class QDllExport QVector3WhiteBox : public QVector3
+class QVector3WhiteBox : public QVector3
 {
 	// CONSTRUCTORS
 	// ---------------

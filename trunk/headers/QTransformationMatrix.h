@@ -70,7 +70,7 @@ template<class MatrixType> class QTranslationMatrix;
 /// \f$ \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}\f$.
 /// </summary>
 template <class MatrixType>
-class QDllExport QTransformationMatrix : public MatrixType
+class QTransformationMatrix : public MatrixType
 {
 
     // CONSTRUCTORS
@@ -783,9 +783,6 @@ public:
 
 protected:
 
-    // Hidden method to prevent it could be used.
-    void ResetToZero();
-
     // Function to convert the 3x3 submatrix which contains the rotation and the scale into
     // a 3x3 rotation matrix without the scale. It uses the fact that in a 3x3 rotation matrix,
     // the length of any row o column vector is 1, so current length of each row in the transformation matrix
@@ -1003,6 +1000,11 @@ protected:
         translation.ij[3][1] = vAux.y;
         translation.ij[3][2] = vAux.z;
     }
+
+private:
+
+    // Hidden method to prevent it could be used.
+    void ResetToZero(){}
 
 };
 

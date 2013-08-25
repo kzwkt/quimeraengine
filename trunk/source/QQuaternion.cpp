@@ -124,13 +124,13 @@ QQuaternion::QQuaternion(const QBaseVector4 &vRotationAxis, const float_q &fRota
 
 QQuaternion::QQuaternion(const QTransformationMatrix<QMatrix4x3> &transformation)
 {
-    QQuaternionImp(transformation);
+    this->QQuaternionImp(transformation);
 }
 
 
 QQuaternion::QQuaternion(const QTransformationMatrix<QMatrix4x4> &transformation)
 {
-    QQuaternionImp(transformation);
+    this->QQuaternionImp(transformation);
 }
 
 
@@ -139,11 +139,6 @@ QQuaternion::QQuaternion(const QRotationMatrix3x3 &rotation)
     rotation.GetRotation(*this);
 }
 
-template <class MatrixType>
-inline void QQuaternion::QQuaternionImp(const QTransformationMatrix<MatrixType> &transformation)
-{
-    transformation.GetRotation(*this);
-}
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

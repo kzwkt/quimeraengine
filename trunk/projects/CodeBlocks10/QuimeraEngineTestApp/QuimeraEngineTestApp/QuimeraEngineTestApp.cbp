@@ -26,8 +26,8 @@
 			</Target>
 			<Target title="DebugWin32SharedrtStatic">
 				<Option platforms="Windows;" />
-				<Option output="DebugWin32Sharedrt\QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
-				<Option object_output="DebugWin32Sharedrt\" />
+				<Option output="DebugWin32SharedrtStatic\QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output="DebugWin32SharedrtStatic\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectIncludeDirsRelation="2" />
@@ -41,6 +41,29 @@
 					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
 					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
 				</Linker>
+			</Target>
+			<Target title="DebugWin32SharedrtDynamic">
+				<Option platforms="Windows;" />
+				<Option output="DebugWin32SharedrtDynamic\QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output="DebugWin32SharedrtDynamic\" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectIncludeDirsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+				</Compiler>
+				<Linker>
+					<Add library="libQuimeraEngineCore.dll.a" />
+					<Add library="libQuimeraEngineSystem.dll.a" />
+					<Add library="libQuimeraEngineTools.dll.a" />
+					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic" />
+				</Linker>
+				<ExtraCommands>
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCore.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineTools.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Mode after="always" />
+				</ExtraCommands>
 			</Target>
 		</Build>
 		<Compiler>
@@ -59,6 +82,7 @@
 		<Extensions>
 			<code_completion />
 			<debugger />
+			<envvars />
 		</Extensions>
 	</Project>
 </CodeBlocks_project_file>
