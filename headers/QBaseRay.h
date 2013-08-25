@@ -46,7 +46,7 @@ namespace Math
 /// Implements the funcionality of a ray, which is a vector located at a point.
 /// </summary>
 template<class VectorTypeOrigin, class VectorTypeDirection>
-class QDllExport QBaseRay
+class QBaseRay
 {
 
 	// CONSTRUCTORS

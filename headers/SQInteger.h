@@ -235,7 +235,7 @@ public:
 /// The string that represents the number.
 /// </returns>
 template<>
-string_q SQInteger::ToString<i8_q>(const char &nValue);
+string_q QDllExport SQInteger::ToString<i8_q>(const char &nValue);
 
 } //namespace DataTypes
 } //namespace Tools

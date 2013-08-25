@@ -289,24 +289,6 @@ string_q QVector4::ToString() const
            QE_L(",")  + SQFloat::ToString(this->w) + QE_L(")");
 }
 
-template <class MatrixType>
-QVector4 QVector4::TransformImp(const QTranslationMatrix<MatrixType> &translation) const
-{
-    return QVector4(this->x + this->w * translation.ij[3][0],
-                    this->y + this->w * translation.ij[3][1],
-                    this->z + this->w * translation.ij[3][2],
-                    this->w);
-}
-
-template <class MatrixType>
-QVector4 QVector4::TransformImp(const QTransformationMatrix<MatrixType> &transformation) const
-{
-    return QVector4(this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0] + this->w * transformation.ij[3][0],
-                    this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + this->w * transformation.ij[3][1],
-                    this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2] + this->w * transformation.ij[3][2],
-                    this->w);
-}
-
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine

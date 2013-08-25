@@ -45,7 +45,7 @@ namespace Test
 /// <summary>
 /// Class intented to be used to expose protected methods of QDualQuaternion for testing purposes.
 /// </summary>
-class QDllExport QDualQuaternionWhiteBox : public QDualQuaternion
+class QDualQuaternionWhiteBox : public QDualQuaternion
 {
 	// CONSTRUCTORS
 	// ---------------

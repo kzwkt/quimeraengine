@@ -1,6 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="DebugWin32SharedrtDynamic|Win32">
+      <Configuration>DebugWin32SharedrtDynamic</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
     <ProjectConfiguration Include="DebugWin32SharedrtStatic|Win32">
       <Configuration>DebugWin32SharedrtStatic</Configuration>
       <Platform>Win32</Platform>
@@ -14,6 +18,10 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtStatic|Win32'">
     <ConfigurationType>StaticLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Label="Configuration" Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
@@ -32,6 +40,14 @@
     <LinkIncremental>true</LinkIncremental>
     <TargetName>QuimeraEngine$(ProjectName)</TargetName>
     <TargetExt>.lib</TargetExt>
+    <GenerateManifest>false</GenerateManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <IntDir>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\</IntDir>
+    <OutDir>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration)\</OutDir>
+    <LinkIncremental>true</LinkIncremental>
+    <TargetName>QuimeraEngine$(ProjectName)</TargetName>
+    <TargetExt>.dll</TargetExt>
     <GenerateManifest>false</GenerateManifest>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32md|Win32'">
@@ -70,6 +86,49 @@
       <AdditionalDependencies>boost_thread-vc100-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
       <ImportLibrary>$(SolutionDir)..\..\..\lib\$(Configuration)\$(TargetName).lib</ImportLibrary>
+    </Link>
+    <Lib>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCore.lib</AdditionalDependencies>
+      <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
+    </Lib>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
+    <BuildLog>
+      <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
+    </BuildLog>
+    <ClCompile>
+      <CompileAsManaged>false</CompileAsManaged>
+    </ClCompile>
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+    </ClCompile>
+    <ClCompile>
+      <MultiProcessorCompilation>false</MultiProcessorCompilation>
+      <Optimization>Disabled</Optimization>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_COMPILER_SHAREDLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
+      <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
+      <MinimalRebuild>true</MinimalRebuild>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
+      <StringPooling>false</StringPooling>
+      <RuntimeTypeInfo>false</RuntimeTypeInfo>
+      <InlineFunctionExpansion>Disabled</InlineFunctionExpansion>
+    </ClCompile>
+    <Link>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+      <SubSystem>Console</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <ImportLibrary>
+      </ImportLibrary>
+      <Version>0.0.0</Version>
+      <OutputFile>$(OutDir)\$(TargetFileName)</OutputFile>
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -165,10 +224,12 @@
     <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
     <ClInclude Include="..\..\..\..\headers\SQPoint.h" />
     <ClInclude Include="..\..\..\..\headers\SQVF32.h" />
+    <ClInclude Include="..\..\..\..\headers\ToolsExports.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\EQIntersections.cpp" />
     <ClCompile Include="..\..\..\..\source\EQSpaceRelation.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCircle.cpp" />
     <ClCompile Include="..\..\..\..\source\QDualQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QLineSegment2D.cpp" />
     <ClCompile Include="..\..\..\..\source\QMatrix2x2.cpp" />
@@ -184,6 +245,7 @@
     <ClCompile Include="..\..\..\..\source\QScalingMatrix3x3.cpp" />
     <ClCompile Include="..\..\..\..\source\QSpaceConversionMatrix.cpp" />
     <ClCompile Include="..\..\..\..\source\QTransformationMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QTriangle2D.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector2.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector3.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector4.cpp" />
@@ -192,6 +254,7 @@
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
     <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />
     <ClCompile Include="..\..\..\..\source\SQVF32.cpp" />
+    <ClCompile Include="..\..\..\..\source\ToolsExports.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -5,6 +5,10 @@
 
 WRKDIR = %cd%
 
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+#	DebugWin32SharedrtStatic   ~~~   DebugWin32SharedrtStatic   ~~~   DebugWin32SharedrtStatic   ~~~   DebugWin32SharedrtStatic   ~~~   DebugWin32SharedrtStatic   ~~~       #  
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+	
 buildDebugWin32SharedrtStatic: core_debugwin32sharedrtstatic system_debugwin32sharedrtstatic tools_debugwin32sharedrtstatic
 
 core_debugwin32sharedrtstatic:
@@ -27,5 +31,32 @@ clean_system_debugwin32sharedrtstatic:
 clean_tools_debugwin32sharedrtstatic: 
 	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-win.cbp.mak
 
-.PHONY: clean_core_core clean_system_system clean_tools_tools
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+#	DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~  #  
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+	
+buildDebugWin32SharedrtDynamic: core_debugwin32sharedrtdynamic system_debugwin32sharedrtdynamic tools_debugwin32sharedrtdynamic
+
+core_debugwin32sharedrtdynamic:
+	$(MAKE) debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-win.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
+
+system_debugwin32sharedrtdynamic:
+	$(MAKE) debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/System/System-win.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
+
+tools_debugwin32sharedrtdynamic:
+	$(MAKE) debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-win.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
+	
+cleanDebugWin32SharedrtDynamic: clean_core_debugwin32sharedrtdynamic clean_system_debugwin32sharedrtdynamic clean_tools_debugwin32sharedrtdynamic
+
+clean_core_debugwin32sharedrtdynamic: 
+	$(MAKE) clean_debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-win.cbp.mak
+
+clean_system_debugwin32sharedrtdynamic: 
+	$(MAKE) clean_debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/System/System-win.cbp.mak
+
+clean_tools_debugwin32sharedrtdynamic: 
+	$(MAKE) clean_debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-win.cbp.mak
+
+	
+.PHONY: buildDebugWin32SharedrtStatic cleanDebugWin32SharedrtStatic buildDebugWin32SharedrtDynamic  cleanDebugWin32SharedrtDynamic 
 

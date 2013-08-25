@@ -83,7 +83,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    friend QQuaternion operator*(const float_q &fScalar, const QQuaternion &qQuat);
+    friend QQuaternion QDllExport operator*(const float_q &fScalar, const QQuaternion &qQuat);
 
 
 	// CONSTRUCTORS
@@ -225,7 +225,10 @@ protected:
     // </summary>
     // <param name="transformation">[IN] A transformation matrix.</param>
 	template <class MatrixType>
-	void QQuaternionImp(const QTransformationMatrix<MatrixType> &transformation);
+    void QQuaternionImp(const QTransformationMatrix<MatrixType> &transformation)
+    {
+        transformation.GetRotation(*this);
+    }
 
 
     // PROPERTIES

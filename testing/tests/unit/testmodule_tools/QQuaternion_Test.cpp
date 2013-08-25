@@ -30,6 +30,8 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
+#include "ToolsExports.h"
+
 #include "QQuaternion.h"
 #include "QQuaternionWhitebox.h"
 #include "QVector3.h"

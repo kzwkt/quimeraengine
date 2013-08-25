@@ -5,6 +5,10 @@
 
 WRKDIR = %cd%
 
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+#	DebugWin32SharedrtStatic   ~~~   DebugWin32SharedrtStatic   ~~~   DebugWin32SharedrtStatic   ~~~   DebugWin32SharedrtStatic   ~~~   DebugWin32SharedrtStatic   ~~~       #  
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+	
 buildDebugWin32SharedrtStatic: tools_debugwin32sharedrtstatic
 
 tools_debugwin32sharedrtstatic: 
@@ -15,5 +19,20 @@ cleanDebugWin32SharedrtStatic: clean_tools_debugwin32sharedrtstatic
 clean_tools_debugwin32sharedrtstatic: 
 	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/testing/projects/CodeBlocks10/QEUnitTests/Tools/Tools-win.cbp.mak
 
-.PHONY: clean_tools_tools
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+#	DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~  #  
+#----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
+	
+buildDebugWin32SharedrtDynamic: tools_debugwin32sharedrtdynamic
+
+tools_debugwin32sharedrtdynamic: 
+	$(MAKE) debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/testing/projects/CodeBlocks10/QEUnitTests/Tools/Tools-win.cbp.mak
+
+cleanDebugWin32SharedrtDynamic: clean_tools_debugwin32sharedrtdynamic
+
+clean_tools_debugwin32sharedrtdynamic: 
+	$(MAKE) clean_debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/testing/projects/CodeBlocks10/QEUnitTests/Tools/Tools-win.cbp.mak
+
+	
+.PHONY: buildDebugWin32SharedrtStatic cleanDebugWin32SharedrtStatic buildDebugWin32SharedrtDynamic cleanDebugWin32SharedrtDynamic
 

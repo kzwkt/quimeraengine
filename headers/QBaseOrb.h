@@ -51,7 +51,7 @@ namespace Math
 /// Remember that a orb is the locus of points equidistant from a given one.
 /// </summary>
 template <class VectorType>
-class QDllExport QBaseOrb
+class QBaseOrb
 {
 
     // CONSTRUCTORS

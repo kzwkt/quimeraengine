@@ -55,7 +55,7 @@ namespace Math
 /// except for the unit line (see below).
 /// </summary>
 template <class VectorType>
-class QDllExport QLineSegment : public QBaseLineSegment<VectorType>
+class QLineSegment : public QBaseLineSegment<VectorType>
 {
 
     // BASE CLASS USINGS

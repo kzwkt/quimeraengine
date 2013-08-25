@@ -55,7 +55,7 @@ namespace Math
 /// The twelve edges are AB, BC, CD, DA, EF, FG, GH, HE, AE, BH, CG, DF.
 /// </summary>
 template <class VectorType>
-class QDllExport QHexahedron : public QBaseHexahedron<VectorType>
+class QHexahedron : public QBaseHexahedron<VectorType>
 {
     // CONSTRUCTORS
     // ---------------

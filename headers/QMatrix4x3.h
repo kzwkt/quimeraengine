@@ -78,7 +78,7 @@ public:
 	/// <returns>
 	/// The resultant matrix.
 	/// </returns>
-	friend QMatrix4x3 operator*(const float_q &fScalar, const QMatrix4x3 &matrix);
+	friend QMatrix4x3 QDllExport operator*(const float_q &fScalar, const QMatrix4x3 &matrix);
 
 
  	// CONSTRUCTORS

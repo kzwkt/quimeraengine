@@ -45,7 +45,7 @@ namespace Test
 /// <summary>
 /// Class intented to be used to expose protected methods of QRotationMatrix3x3 for testing purposes.
 /// </summary>
-class QDllExport QRotationMatrix3x3WhiteBox : public QRotationMatrix3x3
+class QRotationMatrix3x3WhiteBox : public QRotationMatrix3x3
 {
 	// CONSTRUCTORS
 	// ---------------
