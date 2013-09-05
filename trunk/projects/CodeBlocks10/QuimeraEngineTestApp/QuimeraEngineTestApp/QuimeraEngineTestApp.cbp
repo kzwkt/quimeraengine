@@ -8,8 +8,8 @@
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
-				<Option output="DebugLinux32Sharedrt\QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
-				<Option object_output="DebugLinux32Sharedrt\" />
+				<Option output="DebugLinux32Sharedrt/QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output="DebugLinux32Sharedrt/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectIncludeDirsRelation="2" />
@@ -18,16 +18,16 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineCore.a" />
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineSystem.a" />
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools.a" />
-					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic" />
+					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCore.a" />
+					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineSystem.a" />
+					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineTools.a" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				</Linker>
 			</Target>
 			<Target title="DebugWin32SharedrtStatic">
 				<Option platforms="Windows;" />
-				<Option output="DebugWin32SharedrtStatic\QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
-				<Option object_output="DebugWin32SharedrtStatic\" />
+				<Option output="DebugWin32SharedrtStatic/QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output="DebugWin32SharedrtStatic/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectIncludeDirsRelation="2" />
@@ -36,16 +36,16 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
-					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
+					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCore.lib" />
+					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineSystem.lib" />
+					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 				</Linker>
 			</Target>
 			<Target title="DebugWin32SharedrtDynamic">
 				<Option platforms="Windows;" />
-				<Option output="DebugWin32SharedrtDynamic\QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
-				<Option object_output="DebugWin32SharedrtDynamic\" />
+				<Option output="DebugWin32SharedrtDynamic/QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output="DebugWin32SharedrtDynamic/" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Option projectIncludeDirsRelation="2" />
@@ -57,11 +57,40 @@
 					<Add library="libQuimeraEngineCore.dll.a" />
 					<Add library="libQuimeraEngineSystem.dll.a" />
 					<Add library="libQuimeraEngineTools.dll.a" />
-					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCore.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineTools.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="DebugLinux32SharedrtDynamic">
+				<Option platforms="Unix;" />
+				<Option output="DebugLinux32SharedrtDynamic/QuimeraEngineTestApp.exe" prefix_auto="0" extension_auto="0" />
+				<Option object_output="DebugLinux32SharedrtDynamic/" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Option projectIncludeDirsRelation="2" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_COMPILER_IMPORT" />
+				</Compiler>
+				<Linker>
+					<Add library="./QuimeraEngineCore.so" />
+					<Add library="./QuimeraEngineSystem.so" />
+					<Add library="./QuimeraEngineTools.so" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="mkdir -p $(TARGET_OUTPUT_DIR)" />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCore.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineTools.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineSystem.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCore.so&quot; &quot;.&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineTools.so&quot; &quot;.&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineSystem.so&quot; &quot;.&quot;' />
+					<Add after="rm *.so" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -75,8 +104,8 @@
 			<Add option="-Wswitch-default" />
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
-			<Add directory="..\..\..\..\headers" />
-			<Add directory="..\..\..\..\3rdparty\Boost\include" />
+			<Add directory="../../../../headers" />
+			<Add directory="../../../../3rdparty/Boost/include" />
 		</Compiler>
 		<Unit filename="QuimeraEngineTestApp.cpp" />
 		<Extensions>

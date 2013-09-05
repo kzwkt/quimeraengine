@@ -81,7 +81,7 @@ const unsigned int QE_VERSION_REVISION = 0;
         #endif
     #elif defined(QE_OS_LINUX)
         #if QE_COMPILER_GCC
-            #define QDllExport __attribute__((visibility("default")))( dllexport )
+            #define QDllExport __attribute__ ((visibility ("default")))
             #define QE_DLLIMPORT_EXTERN
         #endif
     #endif
@@ -96,7 +96,7 @@ const unsigned int QE_VERSION_REVISION = 0;
         #endif
     #elif defined(QE_OS_LINUX)
         #if QE_COMPILER_GCC
-            #define QDllExport __attribute__(( dllimport ))
+            #define QDllExport
             #define QE_DLLIMPORT_EXTERN extern
         #endif
     #endif

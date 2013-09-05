@@ -20,8 +20,12 @@ system_debugwin32sharedrtstatic:
 tools_debugwin32sharedrtstatic:
 	$(MAKE) debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-win.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
 	
-cleanDebugWin32SharedrtStatic: clean_core_debugwin32sharedrtstatic clean_system_debugwin32sharedrtstatic clean_tools_debugwin32sharedrtstatic
+cleanDebugWin32SharedrtStatic: remove_files_debugwin32sharedrtstatic clean_core_debugwin32sharedrtstatic clean_system_debugwin32sharedrtstatic clean_tools_debugwin32sharedrtstatic
 
+remove_files_debugwin32sharedrtstatic:
+	cmd /c if exist $(MAKEPATH)\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtStatic rmdir $(MAKEPATH)\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtStatic /s /q
+	cmd /c if exist $(MAKEPATH)\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtStatic rmdir $(MAKEPATH)\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtStatic /s /q
+	
 clean_core_debugwin32sharedrtstatic: 
 	$(MAKE) clean_debugwin32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-win.cbp.mak
 
@@ -46,8 +50,12 @@ system_debugwin32sharedrtdynamic:
 tools_debugwin32sharedrtdynamic:
 	$(MAKE) debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-win.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
 	
-cleanDebugWin32SharedrtDynamic: clean_core_debugwin32sharedrtdynamic clean_system_debugwin32sharedrtdynamic clean_tools_debugwin32sharedrtdynamic
+cleanDebugWin32SharedrtDynamic: remove_files_debugwin32sharedrtdynamic clean_core_debugwin32sharedrtdynamic clean_system_debugwin32sharedrtdynamic clean_tools_debugwin32sharedrtdynamic
 
+remove_files_debugwin32sharedrtdynamic:
+	cmd /c if exist $(MAKEPATH)\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic rmdir $(MAKEPATH)\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic /s /q
+	cmd /c if exist $(MAKEPATH)\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtDynamic rmdir $(MAKEPATH)\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtDynamic /s /q
+	
 clean_core_debugwin32sharedrtdynamic: 
 	$(MAKE) clean_debugwin32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-win.cbp.mak
 
