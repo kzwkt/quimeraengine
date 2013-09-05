@@ -566,33 +566,48 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
                                                                Append(wxT("'..."), LOG_FORMAT_NORMAL));
                                         this->NotifyEvent(INFO_NOTIFICATION + *iResultFilePath + wxT(" result file"));
 
+                                        bool bResultFileParsingFailed = false;
+
                                         try
                                         {
                                             this->ParseTestResultFile(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
                                         }
                                         catch(const boost::property_tree::xml_parser::xml_parser_error &ex)
                                         {
+                                            bResultFileParsingFailed = true;
                                             this->Log(TATFormattedMessage(wxString(wxT("Failed to parse the result file:")) + ex.what(), LOG_FORMAT_ERROR));
                                             this->NotifyEvent(ERROR_NOTIFICATION + wxT("Parsing test result failed"));
                                         }
-                                        
-                                        // Notifies that there is new content in the test result tree
-                                        TATTestResultInfo resultInfo;
-                                        resultInfo.SetCompilationConfiguration(*iCompilationConfig);
-                                        resultInfo.SetCompilerName(iCompilerInfo->second.GetName());
-                                        resultInfo.SetFlagCombinationName(iFlagCombination->first);
-                                        resultInfo.SetFlagCombinationValues(strFlagValues);
-                                        // Gets the last added result tree and stores it into the event argument
-                                        // It's assumed that the result tree contains, at least, the last added tree
-                                        TATTestResultNode* pNewTestResultTree = dynamic_cast<TATTestResultNode*>(m_pHandler->GetTestResultLoader()->GetTestResultTree()->GetChildren().rbegin()->second);
-                                        resultInfo.SetResultTree(pNewTestResultTree);
 
-                                        this->NotifyTestResult(resultInfo);
+                                        if(!bResultFileParsingFailed)
+                                        {
+                                            // Notifies that there is new content in the test result tree
+                                            TATTestResultInfo resultInfo;
+                                            resultInfo.SetCompilationConfiguration(*iCompilationConfig);
+                                            resultInfo.SetCompilerName(iCompilerInfo->second.GetName());
+                                            resultInfo.SetFlagCombinationName(iFlagCombination->first);
+                                            resultInfo.SetFlagCombinationValues(strFlagValues);
+
+                                            if(m_pHandler->GetTestResultLoader()->GetTestResultTree() && m_pHandler->GetTestResultLoader()->GetTestResultTree()->HasChildren())
+                                            {
+                                                // Gets the last added result tree and stores it into the event argument
+                                                // It's assumed that the result tree contains, at least, the last added tree
+                                                TATTestResultNode* pNewTestResultTree = dynamic_cast<TATTestResultNode*>(m_pHandler->GetTestResultLoader()->GetTestResultTree()->GetChildren().rbegin()->second);
+                                                resultInfo.SetResultTree(pNewTestResultTree);
+
+                                                this->NotifyTestResult(resultInfo);
+                                            }
+                                            else
+                                            {
+                                                this->Log(TATFormattedMessage(wxString(wxT("Failed to create the result tree.")), LOG_FORMAT_ERROR));
+                                                this->NotifyEvent(ERROR_NOTIFICATION + wxT("Result tree creation failed"));
+                                            }
+
+                                            this->Log(TATFormattedMessage(wxT("Test result file parsed."), LOG_FORMAT_NORMAL));
+                                        }
 
                                         // Saves the path of the file in the list of parsed files
                                         parsedResultFiles.push_back(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
-
-                                        this->Log(TATFormattedMessage(wxT("Test result file parsed."), LOG_FORMAT_NORMAL));
                                     }
                                 }
                             }
