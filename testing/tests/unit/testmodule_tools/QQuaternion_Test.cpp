@@ -33,7 +33,7 @@ using namespace boost::unit_test;
 #include "ToolsExports.h"
 
 #include "QQuaternion.h"
-#include "QQuaternionWhitebox.h"
+#include "QQuaternionWhiteBox.h"
 #include "QVector3.h"
 #include "QVector4.h"
 #include "QTransformationMatrix.h"

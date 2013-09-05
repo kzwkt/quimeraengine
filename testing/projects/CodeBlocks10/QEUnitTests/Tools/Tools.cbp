@@ -5,27 +5,28 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;Tests\DataTypes\;Tests\General\;" />
+		<Option virtualFolders="TestSystem (shared)/;Tests/;Tests/Math/;Tests/DataTypes/;Tests/General/;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
-				<Option output="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\Unit_TestModule_Tools" prefix_auto="0" extension_auto="1" />
-				<Option working_dir="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugLinux32SharedrtStatic" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/Unit_TestModule_Tools" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-m32" />
 					<Add option="-D_DEBUG" />
+					<Add directory="../../../../tests/unit/testmodule_tools" />
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools.a" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineSystem.a" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineCore.a" />
-					<Add library="..\..\..\..\..\3rdparty\Boost\bin\Linux32\DebugSharedrtStatic\libboost_unit_test_framework.a" />
-					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineTools.a" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineSystem.a" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCore.a" />
+					<Add library="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/libboost_unit_test_framework.a" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
@@ -33,9 +34,9 @@
 			</Target>
 			<Target title="DebugWin32SharedrtStatic">
 				<Option platforms="Windows;" />
-				<Option output="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\Unit_TestModule_Tools" prefix_auto="0" extension_auto="1" />
-				<Option working_dir="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugWin32SharedrtStatic" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/Unit_TestModule_Tools" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtStatic" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -43,11 +44,11 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
-					<Add library="..\..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic\libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
-					<Add directory="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCore.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineSystem.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
+					<Add library="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic/libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
@@ -56,9 +57,9 @@
 			</Target>
 			<Target title="DebugWin32SharedrtDynamic">
 				<Option platforms="Windows;" />
-				<Option output="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\Unit_TestModule_Tools" prefix_auto="0" extension_auto="1" />
-				<Option working_dir="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugWin32SharedrtStatic" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/Unit_TestModule_Tools" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtStatic" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -67,15 +68,46 @@
 					<Add option="-DQE_PREPROCESSOR_COMPILER_IMPORT" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic\libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
+					<Add library="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic/libboost_unit_test_framework-mgw44-mt-d-1_46_1.a" />
 					<Add library="libQuimeraEngineCore.dll.a" />
 					<Add library="libQuimeraEngineTools.dll.a" />
-					<Add directory="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic" />
+					<Add directory="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCore.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineTools.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+			<Target title="DebugLinux32SharedrtDynamic">
+				<Option platforms="Unix;" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic/Unit_TestModule_Tools" prefix_auto="0" extension_auto="1" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtDynamic" />
+				<Option type="1" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-g" />
+					<Add option="-m32" />
+					<Add option="-D_DEBUG" />
+					<Add option="-DQE_PREPROCESSOR_COMPILER_IMPORT" />
+					<Add directory="../../../../tests/unit/testmodule_tools" />
+				</Compiler>
+				<Linker>
+					<Add option="-m32" />
+					<Add library="./QuimeraEngineTools.so" />
+					<Add library="./QuimeraEngineCore.so" />
+					<Add library="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/libboost_unit_test_framework.a" />
+				</Linker>
+				<ExtraCommands>
+					<Add before="mkdir -p $(TARGET_OUTPUT_DIR)" />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCore.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineTools.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCore.so&quot; &quot;.&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineTools.so&quot; &quot;.&quot;' />
+					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add after="rm *.so" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -89,252 +121,252 @@
 			<Add option="-Wswitch-default" />
 			<Add option="-Wall" />
 			<Add option="-DQE_ASSERT_THROWS_EXCEPTION" />
-			<Add directory="..\..\..\..\..\headers" />
-			<Add directory="..\..\..\..\..\3rdparty\Boost\include" />
-			<Add directory="..\..\..\..\tests\unit" />
+			<Add directory="../../../../../headers" />
+			<Add directory="../../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../tests/unit" />
 		</Compiler>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_core\EQEnumerationMock.h">
-			<Option virtualFolder="Tests\General\" />
+		<Unit filename="../../../../tests/unit/testmodule_core/EQEnumerationMock.h">
+			<Option virtualFolder="Tests/General/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_core\EQEnumeration_Test.cpp">
-			<Option virtualFolder="Tests\General\" />
+		<Unit filename="../../../../tests/unit/testmodule_core/EQEnumeration_Test.cpp">
+			<Option virtualFolder="Tests/General/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseDualQuaternion_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseHexahedron_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseHexahedron_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseLineSegment_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseLineSegment_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix2x2_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseMatrix2x2_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix3x3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseMatrix3x3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix3x4_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseMatrix3x4_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix4x3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseMatrix4x3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseMatrix4x4_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseMatrix4x4_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseOrb_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseOrb_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBasePlane_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBasePlane_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseQuadrilateral_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseQuadrilateral_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseQuaternion_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseQuaternion_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseRay_QVector4_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseRay_QVector4_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseRay_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseRay_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseTriangle_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseTriangle_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseVector2_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseVector2_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseVector3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseVector3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QBaseVector4_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QBaseVector4_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QCircle_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QCircle_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternionWhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QDualQuaternionWhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QHexahedron_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QHexahedron_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QLineSegment2D_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QLineSegment2D_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QLineSegment3D_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QLineSegment3D_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhitebox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QLineSegmentWhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QLineSegment_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QLineSegment_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix2x2_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QMatrix2x2_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QMatrix3x3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix3x4_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QMatrix3x4_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QMatrix4x3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QMatrix4x4_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QMatrix4x4_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QOrb_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QOrb_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QPlane_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QPlane_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuadrilateral_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QQuadrilateral_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QQuaternionWhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QQuaternion_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRay2D_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QRay2D_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRay3D_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QRay3D_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRay_QVector4_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QRay_QVector4_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRay_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QRay_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3WhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QRotationMatrix3x3WhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QRotationMatrix3x3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3WhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QScalingMatrix3x3WhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QScalingMatrix3x3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrixWhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QSpaceConversionMatrixWhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrix_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QSpaceConversionMatrix_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSphere_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QSphere_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QTransformationMatrix3x3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QTransformationMatrixWhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QTransformationMatrix_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrixWhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QTranslationMatrixWhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QTranslationMatrix_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTriangle2D_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QTriangle2D_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTriangle_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QTriangle_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector2_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QVector2_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3WhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QVector3WhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QVector3_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector4WhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QVector4WhiteBox.h">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/QVector4_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/SQAngle_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQBoolean_Test.cpp">
-			<Option virtualFolder="Tests\DataTypes\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/SQBoolean_Test.cpp">
+			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp">
-			<Option virtualFolder="Tests\DataTypes\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/SQFloat_Test.cpp">
+			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQInteger_Test.cpp">
-			<Option virtualFolder="Tests\DataTypes\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/SQInteger_Test.cpp">
+			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQPoint_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/SQPoint_Test.cpp">
+			<Option virtualFolder="Tests/Math/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\SQVF32_Test.cpp">
-			<Option virtualFolder="Tests\DataTypes\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/SQVF32_Test.cpp">
+			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp">
-			<Option virtualFolder="Tests\" />
+		<Unit filename="../../../../tests/unit/testmodule_tools/TestModule_Tools.cpp">
+			<Option virtualFolder="Tests/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\CommonConfigDefinitions.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/CommonConfigDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\EQTestType.cpp">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/EQTestType.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\EQTestType.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/EQTestType.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QCommonTestConfig.cpp">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QCommonTestConfig.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QCommonTestConfig.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QCommonTestConfig.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QPerformanceTestModuleBase.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QPerformanceTestModuleBase.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QSimpleConfigLoader.cpp">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QSimpleConfigLoader.cpp">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QSimpleConfigLoader.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QSimpleConfigLoader.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QUnitTestModuleBase.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QUnitTestModuleBase.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\QuimeraEngineFixtures.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/QuimeraEngineFixtures.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\TestingExternalDefinitions.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/TestingExternalDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\TestingHelperDefinitions.h">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/TestingHelperDefinitions.h">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
-		<Unit filename="..\..\..\..\testsystem\UnitTestTemplate.txt">
-			<Option virtualFolder="TestSystem (shared)\" />
+		<Unit filename="../../../../testsystem/UnitTestTemplate.txt">
+			<Option virtualFolder="TestSystem (shared)/" />
 		</Unit>
 		<Extensions>
 			<code_completion />

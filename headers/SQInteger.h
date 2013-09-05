@@ -28,7 +28,7 @@
 #define __SQINTEGER__
 
 #include <stdlib.h>
-#include <boost\lexical_cast.hpp>
+#include <boost/lexical_cast.hpp>
 
 #include "DataTypesDefinitions.h"
 

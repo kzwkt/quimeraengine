@@ -61,7 +61,7 @@ $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o: $(MAKE
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)\\trunk\\source\\Prueba.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o
 
 clean_debugwin32sharedrtstatic: 
-	cmd /c del /f $(OBJ_DEBUGWIN32SHAREDRTSTATIC) $(OUT_DEBUGWIN32SHAREDRTSTATIC)
+
 
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #	DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~       #  
@@ -82,7 +82,6 @@ $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o: $(MAK
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)\\trunk\\source\\Prueba.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o
 
 clean_debugwin32sharedrtdynamic: 
-	cmd /c del /f $(OBJ_DEBUGWIN32SHAREDRTDYNAMIC) $(OUT_DEBUGWIN32SHAREDRTDYNAMIC)
 	
 	
 .PHONY: before_debugwin32sharedrtstatic after_debugwin32sharedrtstatic clean_debugwin32sharedrtstatic before_debugwin32sharedrtdynamic after_debugwin32sharedrtdynamic clean_debugwin32sharedrtdynamic
