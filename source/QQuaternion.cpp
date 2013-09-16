@@ -220,7 +220,11 @@ float_q QQuaternion::DotProduct(const QBaseQuaternion &qQuat) const
 
 float_q QQuaternion::DotProductAngle(const QBaseQuaternion &qQuat) const
 {
-    float_q fLengths = this->GetLength() * rcast_q(qQuat, const QQuaternion&).GetLength();
+    // NOTE [Thund]: We should investigate why, if the following product is performed in only
+    //               one line, it's different. Tested using MinGW with DOUBLE precision configuration.
+    const float_q fInputLength = rcast_q(qQuat, const QQuaternion&).GetLength();
+    const float_q fThisLength = this->GetLength();
+    const float_q fLengths = fThisLength * fInputLength;
 
     // Checkout to avoid division by zero.
     QE_ASSERT(fLengths != SQFloat::_0)
@@ -261,10 +265,18 @@ QQuaternion QQuaternion::Slerp(const float_q &fProportion, const QQuaternion &qQ
     QQuaternion qReturnValue;
 
     // Assures that all quaternions are unit length
-    QQuaternion qNormalizedInputQuat = rcast_q(qQuat, const QQuaternion&).Normalize();
+    QQuaternion qNormalizedInputQuat = qQuat.Normalize();
     QQuaternion qNormalizedThisQuat = this->Normalize();
 
-    const float_q ANGLE_B = acos_q(qNormalizedThisQuat.DotProduct(qNormalizedInputQuat));
+    float_q DOT_PRODUCT = qNormalizedThisQuat.DotProduct(qNormalizedInputQuat);
+
+    // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+    if(DOT_PRODUCT > SQFloat::_1)
+        DOT_PRODUCT = SQFloat::_1;
+    else if(DOT_PRODUCT < -SQFloat::_1)
+        DOT_PRODUCT = -SQFloat::_1;
+
+    const float_q ANGLE_B = acos_q(DOT_PRODUCT);
 
     QE_ASSERT( !SQFloat::IsNaN(ANGLE_B) )
 
@@ -295,7 +307,15 @@ QQuaternion QQuaternion::UnitSlerp(const float_q &fProportion, const QQuaternion
 {
     QQuaternion qReturnValue;
 
-    const float_q& ANGLE_B = acos_q(this->DotProduct(qQuat));
+    float_q fDot = this->DotProduct(qQuat);
+
+    // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+    if(fDot > SQFloat::_1)
+        fDot = SQFloat::_1;
+    else if(fDot < -SQFloat::_1)
+        fDot = -SQFloat::_1;
+
+    const float_q& ANGLE_B = acos_q(fDot);
 
     QE_ASSERT( !SQFloat::IsNaN(ANGLE_B) )
 
@@ -327,11 +347,18 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
 {
     // Source: Based on Amy de Buitléir's document about quaternions
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    // This workaround is necessary due to an unacceptable loss of precision
+    using Kinesis::QuimeraEngine::Tools::DataTypes::f64_q;
+    fRotationAngleX = (float_q)asin_q(f64_q(SQFloat::_2 * (this->w * this->x - this->z * this->y)));
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+
     fRotationAngleX = asin_q(SQFloat::_2 * (this->w * this->x - this->z * this->y));
 
+#endif
 
     // Checks for +-90º singularity
-    if(SQFloat::AreEqual(fRotationAngleX, SQFloat::Abs(SQAngle::_HalfPi)))
+    if(SQFloat::AreEqual(SQFloat::Abs(fRotationAngleX), SQAngle::_HalfPi))
 
     {
         fRotationAngleZ = atan2_q(this->z, this->w);
@@ -344,14 +371,30 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
         fRotationAngleY = atan2_q(SQFloat::_2 * (this->w * this->y + this->z * this->x),
                                   (SQFloat::_1 - SQFloat::_2 * (this->x * this->x + this->y * this->y)) );
     }
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        // If angles are specified in degrees, then converts them to radians
+        fRotationAngleX = SQAngle::RadiansToDegrees(fRotationAngleX);
+        fRotationAngleY = SQAngle::RadiansToDegrees(fRotationAngleY);
+        fRotationAngleZ = SQAngle::RadiansToDegrees(fRotationAngleZ);
+    #endif
 }
 
 void QQuaternion::ToAxisAngle(QBaseVector3 &vRotationAxis, float_q &fRotationAngle) const
 {
-   // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-	QE_ASSERT(SQFloat::Abs(this->w) <= SQFloat::_1)
+    // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+    float_q fW = this->w;
 
-	fRotationAngle = SQFloat::_2 * acos_q(this->w);
+    if(fW > SQFloat::_1)
+        fW = SQFloat::_1;
+    else if(fW < -SQFloat::_1)
+        fW = -SQFloat::_1;
+
+    const float_q& ACOS_W = acos_q(fW);
+
+    QE_ASSERT( !SQFloat::IsNaN(ACOS_W) );
+
+	fRotationAngle = SQFloat::_2 * ACOS_W;
 
 	// Singularity 1: Angle = 0 -> we choose arbitrary axis.
 	if (SQFloat::IsZero(fRotationAngle))
@@ -369,7 +412,7 @@ void QQuaternion::ToAxisAngle(QBaseVector3 &vRotationAxis, float_q &fRotationAng
 	}
 	else
 	{
-		const float_q &fInvSin = SQFloat::_1 / sin_q(fRotationAngle * SQFloat::_0_5);
+		const float_q &fInvSin = SQFloat::_1 / sin_q(ACOS_W);
 
 		vRotationAxis.x = this->x*fInvSin;
 		vRotationAxis.y = this->y*fInvSin;

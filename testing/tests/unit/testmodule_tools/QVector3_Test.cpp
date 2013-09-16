@@ -597,8 +597,8 @@ QTEST_CASE ( OperatorProduct2_VectorIsCorrectlyMultipliedByAnotherVector_Test )
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_4;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)10.0f;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)18.0f;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)10.0;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)18.0;
 
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
@@ -656,9 +656,9 @@ QTEST_CASE ( OperatorProduct2_VectorCanBeMultipliedByItself_Test )
 QTEST_CASE ( OperatorProduct3_VectorIsCorrectlyMultipliedByMatrix3x3_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)24.0f;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)30.0f;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)36.0f;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)24.0;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)30.0;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)36.0;
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
@@ -683,10 +683,10 @@ QTEST_CASE ( OperatorProduct3_VectorIsCorrectlyMultipliedByMatrix3x3_Test )
 QTEST_CASE ( OperatorProduct4_VectorIsCorrectlyMultipliedByMatrix3x4_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)32.0f;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)38.0f;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)44.0f;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)50.0f;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)32.0;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)38.0;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)44.0;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)50.0;
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -1051,8 +1051,8 @@ QTEST_CASE ( OperatorProductAssignation2_VectorIsCorrectlyMultipliedByAnotherVec
 {
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_4;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)10.0f;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)18.0f;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)10.0;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)18.0;
 
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
@@ -1418,7 +1418,7 @@ QTEST_CASE ( GetLength_LengthOfACommonVectorIsCalculatedCorrectly_Test )
 QTEST_CASE ( GetSquaredLength_SquaredLengthOfACommonVectorIsCalculatedCorrectly_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE = (float_q)49.0f;
+    const float_q EXPECTED_VALUE = (float_q)49.0;
 
     const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_6);
 
@@ -1694,14 +1694,6 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
 QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
 {
     // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
-
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        float_q EXPECTED_RESULT = SQAngle::_45;
-    #else
-        const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
-    #endif
-
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
     const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
@@ -1710,7 +1702,6 @@ QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
     float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
 
     // Verification
-    BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -1955,7 +1946,7 @@ QTEST_CASE ( Lerp_CorrectLerpedVectorIsObtainedForTwoCommonVectors_Test )
     // Preparation
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
-    const QVector3 EXPECTED_RESULT = QVector3((float_q)2.5f, (float_q)3.5f, (float_q)4.5f);
+    const QVector3 EXPECTED_RESULT = QVector3((float_q)2.5, (float_q)3.5, (float_q)4.5);
 
 	// Execution
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
@@ -2130,9 +2121,9 @@ QTEST_CASE ( Transform1_VectorIsCorrectlyTransformedByCommonQuaternion_Test )
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QQuaternion TRANSFORMATION = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
-    const QVector3 EXPECTED_RESULT = QVector3( (float_q)-3.5355339,
-                                               (float_q)-2.1213205,
-                                               (float_q)-1.9999995);
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)-3.5355339059327378,
+                                               (float_q)-2.1213203435596419,
+                                               -SQFloat::_2);
 
     // Results have been obtained by using DirectX SDK
     // D3DXQUATERNION qRot, qVector, qConjugate;
@@ -2207,22 +2198,31 @@ QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test 
     using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
-    const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
-    const float_q EULER_ANGLE_Y = SQAngle::_Pi;
-    const float_q EULER_ANGLE_Z = SQAngle::_QuarterPi;
-#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-    const float_q EULER_ANGLE_X = SQAngle::_90;
-    const float_q EULER_ANGLE_Y = SQAngle::_180;
-    const float_q EULER_ANGLE_Z = SQAngle::_45;
-#endif
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+        const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
+        const float_q EULER_ANGLE_Y = SQAngle::_Pi;
+        const float_q EULER_ANGLE_Z = SQAngle::_QuarterPi;
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        const float_q EULER_ANGLE_X = SQAngle::_90;
+        const float_q EULER_ANGLE_Y = SQAngle::_180;
+        const float_q EULER_ANGLE_Z = SQAngle::_45;
+    #endif
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QDualQuaternion TRANSFORMATION = QDualQuaternion(QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_5),
                                                            QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z));
-    const QVector3 EXPECTED_RESULT = QVector3( (float_q)-9.1923866,
-                                               (float_q)-3.5355341,
-                                               (float_q)-5.9999995);
+    
+    #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+        const QVector3 EXPECTED_RESULT = QVector3( (float_q)-9.1923866,
+                                                   (float_q)-3.5355341,
+                                                   -SQFloat::_6);
+
+    #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+        const QVector3 EXPECTED_RESULT = QVector3( (float_q)-9.1923881554251174,
+                                                   (float_q)-3.5355339059327351,
+                                                   -SQFloat::_6);
+
+    #endif
 
 	// Execution
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
@@ -2299,9 +2299,9 @@ QTEST_CASE ( Transform3_VectorIsCorrectlyTransformedByCommonRotationMatrix_Test 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-    const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.70710671,
-                                               (float_q)-3.9999990,
-                                               (float_q)-2.1213202);
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.70710678118654768,
+                                               -SQFloat::_4,
+                                               (float_q)-2.1213203435596428);
 
     // Results calculated with DirectX SDK
     // float_q fYaw = SQAngle::_Pi;
@@ -2617,7 +2617,7 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    const QVector3 EXPECTED_RESULT = QVector3((float_q)6.0658627f, (float_q)7.999999f, (float_q)-10.419417f);
+    const QVector3 EXPECTED_RESULT = QVector3((float_q)6.0658639918226491, SQFloat::_8, (float_q)-10.419417382415922);
 
     // Results calculated using DirectX SDK
     // float_q fYaw = SQAngle::_Pi;
@@ -2744,9 +2744,9 @@ QTEST_CASE ( Transform7_VectorIsCorrectlyTransformedByCommonSpaceConversionMatri
                                   QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1),
                                   QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0));
 
-    const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.44721368f,
-                                               (float_q)-0.59628481f,
-                                               (float_q)-0.66666645f);
+    const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.44721359549995787,
+                                               (float_q)-0.59628479399994383,
+                                               (float_q)-0.66666666666666652);
     
     // Results calculated with DirectX SDK
     // D3DXMATRIX transformation;
@@ -2815,8 +2815,13 @@ QTEST_CASE ( Transform7_VectorIsNullWhenSpaceConversionMatrixIsNull_Test )
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
     // Preparation
-    const QVector3 VECTOR = QVector3(SQFloat::_0_25, (float_q)-0.000002f, (float_q)40000.0f );
+    const QVector3 VECTOR = QVector3(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0 );
+
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const string_q EXPECTED_STRING_FORM = QE_L("V3(0.25,-1.99999999e-006,40000)");
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const string_q EXPECTED_STRING_FORM = QE_L("V3(0.25,-1.9999999999999999e-006,40000)");
+#endif
 
 	// Execution
     QVector3 vVectorUT = VECTOR;
@@ -2974,7 +2979,7 @@ void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Temp
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    const QVector3 EXPECTED_RESULT = QVector3((float_q)6.0658627f, (float_q)7.999999f, (float_q)-10.419417f);
+    const QVector3 EXPECTED_RESULT = QVector3((float_q)6.0658639918226491, SQFloat::_8, (float_q)-10.419417382415922);
 
     // Results calculated using DirectX SDK
     // float_q fYaw = SQAngle::_Pi;

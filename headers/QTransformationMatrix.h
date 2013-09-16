@@ -142,16 +142,16 @@ public:
     /// <param name="fRotationX">[IN] X component of the rotation quaternion.</param>
     /// <param name="fRotationY">[IN] Y component of the rotation quaternion.</param>
     /// <param name="fRotationZ">[IN] Z component of the rotation quaternion.</param>
-    /// <param name="fRotationw">[IN] W component of the rotation quaternion.</param>
+    /// <param name="fRotationW">[IN] W component of the rotation quaternion.</param>
     /// <param name="fScaleX">[IN] Scale within X direction.</param>
     /// <param name="fScaleY">[IN] Scale within Y direction.</param>
     /// <param name="fScaleZ">[IN] Scale within Z direction.</param>
     inline QTransformationMatrix(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ,
-                                 const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationw,
+                                 const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationW,
                                  const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
         this->Initialize(fTranslationX, fTranslationY, fTranslationZ,
-                         fRotationX, fRotationY, fRotationZ, fRotationw,
+                         fRotationX, fRotationY, fRotationZ, fRotationW,
                          fScaleX, fScaleY, fScaleZ);
     }
 

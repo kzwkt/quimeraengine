@@ -402,10 +402,10 @@ public:
     /// <summary>
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
-    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     /// <remarks>
     /// The plane must be normalized to obtain a correct result.
     /// </remarks>
+    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     /// <returns>
     /// The result of the dot product.
     /// </returns>
@@ -414,10 +414,10 @@ public:
     /// <summary>
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
-    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     /// <remarks>
     /// The plane must be normalized to obtain a correct result.
     /// </remarks>
+    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     /// <returns>
     /// The result of the dot product.
     /// </returns>
@@ -426,10 +426,10 @@ public:
     /// <summary>
     /// Calculates the angle between resident and provided planes via dot product between their direction vectors.
     /// </summary>
-    /// <param name="plane">[IN] The plane whose angle with the resident plane we want to calculate.</param>
     /// <remarks>
     /// Both planes must be normalized to obtain a correct result.
     /// </remarks>
+    /// <param name="plane">[IN] The plane whose angle with the resident plane we want to calculate.</param>
     /// <returns>
     /// The result of the dot product.
     /// </returns>
@@ -438,10 +438,10 @@ public:
     /// <summary>
     /// Calculates the orthogonal projection of a given point over the resident plane.
     /// </summary>
-    /// <param name="vPoint">[IN] A 3D vector which represents the point to be projected.</param>
     /// <remarks>
     /// The plane must be normalized to obtain a correct result and shouldn't be null (zero).
     /// </remarks>
+    /// <param name="vPoint">[IN] A 3D vector which represents the point to be projected.</param>
     /// <returns>
     /// The projected point.
     /// </returns>
@@ -1164,12 +1164,18 @@ protected:
         // Checkout to avoid division by zero.
         QE_ASSERT(DOT_LENGTH != SQFloat::_0)
 
-        const float_q &DOT = this->DotProduct(vVector)/DOT_LENGTH;
+        float_q DOT = this->DotProduct(vVector)/DOT_LENGTH;
 
-        // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-        QE_ASSERT(SQFloat::Abs(DOT) <= SQFloat::_1)
+        // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+        if(DOT > SQFloat::_1)
+            DOT = SQFloat::_1;
+        else if(DOT < -SQFloat::_1)
+            DOT = -SQFloat::_1;
 
         float_q fAngle = acos_q(DOT);
+
+        QE_ASSERT( !SQFloat::IsNaN(fAngle) )
+
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles are specified in degrees, then converts angle to degrees
             fAngle = SQAngle::RadiansToDegrees(fAngle);

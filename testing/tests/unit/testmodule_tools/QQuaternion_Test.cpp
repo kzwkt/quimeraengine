@@ -50,6 +50,12 @@ using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES && QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    const float_q SMALLER_TOLERANCE = 1e-5f;
+#else
+    const float_q SMALLER_TOLERANCE = SQFloat::Epsilon;
+#endif
+
 QTEST_SUITE_BEGIN( QQuaternion_TestSuite )
 
 /// <summary>
@@ -61,7 +67,7 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByQuaternion_Test 
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)1.5f;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)1.5;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_0, SQFloat::_2, SQFloat::_3);
     const float_q  SCALAR = SQFloat::_0_5;
@@ -162,10 +168,10 @@ QTEST_CASE ( Constructor4_QuaternionIsCorrectlyFormedWhenUsingArbitraryEulerAngl
     const float_q EULER_ANGLE_Z = SQAngle::_90;
 #endif
 
-    const float_q EXPECTED_VALUE_X = (float_q)0.56098545;
-    const float_q EXPECTED_VALUE_Y = (float_q)0.092295930;
-    const float_q EXPECTED_VALUE_Z = (float_q)0.43045926;
-    const float_q EXPECTED_VALUE_W = (float_q)0.70105726;
+    const float_q EXPECTED_VALUE_X = (float_q)0.56098552679693092;
+    const float_q EXPECTED_VALUE_Y = (float_q)0.092295955641257227;
+    const float_q EXPECTED_VALUE_Z = (float_q)0.43045933457687946;
+    const float_q EXPECTED_VALUE_W = (float_q)0.70105738464997791;
 
     // Expected results calculated using DirectX SDK
     // D3DXQUATERNION q3;
@@ -393,10 +399,10 @@ QTEST_CASE ( Constructor8_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
     const float_q ANGLE = SQAngle::_45;
 #endif
 
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.083508380;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.16701676;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.33403352;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)0.92387950;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.083508371238977974;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.16701674247795595;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.3340334849559119;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)0.92387953251128674;
 
     // Expected results calculated using DirectX SDK:
     // D3DXVECTOR3 axis(1, 2, 4);
@@ -575,10 +581,10 @@ QTEST_CASE ( Constructor9_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
     const float_q ANGLE = SQAngle::_45;
 #endif
 
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.083508380;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.16701676;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.33403352;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)0.92387950;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.083508371238977974;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.16701674247795595;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.3340334849559119;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)0.92387953251128674;
 
     // Expected results calculated using DirectX SDK:
     // D3DXVECTOR3 axis(1, 2, 4);
@@ -803,7 +809,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
 
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QTranslationMatrix<QMatrix4x3>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -827,7 +833,7 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QTranslationMatrix<QMatrix4x3>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
@@ -944,7 +950,7 @@ QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
 
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTranslationMatrix<QMatrix4x4>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -968,7 +974,7 @@ QTEST_CASE ( Constructor11_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTranslationMatrix<QMatrix4x4>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
@@ -1178,7 +1184,7 @@ void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotat
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION(QTranslationMatrix<MatrixType>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
 	// Execution
@@ -1219,7 +1225,7 @@ void QQuaternionImp_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNo
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION(QTranslationMatrix<MatrixType>(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QRotationMatrix3x3(),
-                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0f));
+                                                           QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
 	// Execution
@@ -1435,10 +1441,10 @@ QTEST_CASE ( OperatorSubtraction_ResultIsNotNormalized_Test )
 QTEST_CASE ( OperatorProduct1_QuaternionIsCorrectlyMultipliedByAnotherQuaternion_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.34045884;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.20951314;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.54997200;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)-0.73329598;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.34045882057130072;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.20951312035156971;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.54997194092287027;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)-0.7332959212304937;
 
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
@@ -1573,7 +1579,7 @@ QTEST_CASE ( OperatorProduct3_QuaternionIsCorrectlyMultipliedBy3DVector_Test )
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector3 VECTOR = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
-    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)11.0f, (float_q)4.0f, (float_q)15.0f, (float_q)-32.0f);
+    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)11.0, (float_q)4.0, (float_q)15.0, (float_q)-32.0);
 
 	// Execution
     QQuaternion qQuaternionUT = QUATERNION * VECTOR;
@@ -1611,7 +1617,7 @@ QTEST_CASE ( OperatorProduct4_QuaternionIsCorrectlyMultipliedBy4DVector_Test )
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector4 VECTOR = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
-    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)19.0f, (float_q)20.0f, (float_q)39.0f, (float_q)-16.0f);
+    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)19.0, (float_q)20.0, (float_q)39.0, (float_q)-16.0);
 
 	// Execution
     QQuaternion qQuaternionUT = QUATERNION * VECTOR;
@@ -1645,10 +1651,10 @@ QTEST_CASE ( OperatorProduct4_ResultIsNotNormalized_Test )
 QTEST_CASE ( OperatorDivision1_QuaternionIsCorrectlyDividedByAnotherQuaternion_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)-0.23570225;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)-2.8097901e-008;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)-0.23570226;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)0.94280905;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)-0.23570226039551589;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)-5.5511151231257827e-017;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)-0.23570226039551592;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)0.94280904158206336;
 
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
@@ -1884,10 +1890,10 @@ QTEST_CASE ( OperatorSubtractionAssignation_SubtractedToItself_Test )
 QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByAnotherQuaternion_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.34045884;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.20951314;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.54997200;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)-0.73329598;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.34045882057130072;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.20951312035156971;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.54997194092287027;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)-0.7332959212304937;
 
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
@@ -2000,10 +2006,10 @@ QTEST_CASE ( OperatorProductAssignation1_ResultIsNormalizedWhenOperandsAreNormal
 QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByItself_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.22222225;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.44444451;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.66666675;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)-0.55555564;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)0.22222222222222221;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.44444444444444448;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.66666666666666674;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)-0.55555555555555569;
 
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
 
@@ -2049,10 +2055,10 @@ QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByScalar
 QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByOneOfItsComponents_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)288.0f;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)576.0f;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)864.0f;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)576.0f;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)288.0;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)576.0;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)864.0;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)576.0;
 
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
 
@@ -2080,7 +2086,7 @@ QTEST_CASE ( OperatorProductAssignation3_QuaternionIsCorrectlyMultipliedBy3DVect
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector3 VECTOR = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
-    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)11.0f, (float_q)4.0f, (float_q)15.0f, (float_q)-32.0f);
+    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)11.0, (float_q)4.0, (float_q)15.0, (float_q)-32.0);
 
 	// Execution
     QQuaternion qQuaternionUT = QUATERNION;
@@ -2120,7 +2126,7 @@ QTEST_CASE ( OperatorProductAssignation4_QuaternionIsCorrectlyMultipliedBy4DVect
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector4 VECTOR = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
-    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)19.0f, (float_q)20.0f, (float_q)39.0f, (float_q)-16.0f);
+    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)19.0, (float_q)20.0, (float_q)39.0, (float_q)-16.0);
 
 	// Execution
     QQuaternion qQuaternionUT = QUATERNION;
@@ -2156,10 +2162,10 @@ QTEST_CASE ( OperatorProductAssignation4_ResultIsNotNormalized_Test )
 QTEST_CASE ( OperatorDivisionAssignation1_QuaternionIsCorrectlyDividedByAnotherQuaternion_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE_FOR_X = (float_q)-0.23570225;
-    const float_q EXPECTED_VALUE_FOR_Y = (float_q)-2.8097901e-008;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)-0.23570226;
-    const float_q EXPECTED_VALUE_FOR_W = (float_q)0.94280905;
+    const float_q EXPECTED_VALUE_FOR_X = (float_q)-0.23570226039551589;
+    const float_q EXPECTED_VALUE_FOR_Y = (float_q)-5.5511151231257827e-017;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)-0.23570226039551592;
+    const float_q EXPECTED_VALUE_FOR_W = (float_q)0.94280904158206336;
 
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
@@ -2298,7 +2304,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_QuaternionIsCorrectlyDivisionByOneOfIt
     // Preparation
     const float_q EXPECTED_VALUE_FOR_X = (float_q)SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_Z = (float_q)1.5f;
+    const float_q EXPECTED_VALUE_FOR_Z = (float_q)1.5;
     const float_q EXPECTED_VALUE_FOR_W = (float_q)SQFloat::_1;
 
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
@@ -2414,7 +2420,7 @@ QTEST_CASE ( Invert_CommonQuaternionIsCorrectlyInverted_Test )
 {
     // Preparation
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)-0.033333331, (float_q)0.066666663, (float_q)-0.099999994, (float_q)0.13333333);
+    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)-0.033333333333333333, (float_q)0.066666666666666666, (float_q)-0.1, (float_q)0.13333333333333333);
 
 	// Execution
     QQuaternion qQuaternionUT = QUATERNION.Invert();
@@ -2430,7 +2436,7 @@ QTEST_CASE ( UnitInvert_NormalizedQuaternionIsCorrectlyInverted_Test )
 {
     // Preparation
     const QQuaternion NORMALIZED_QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
-    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)-0.18257418, (float_q)0.36514837, (float_q)-0.54772258, (float_q)0.73029673);
+    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)-0.18257418583505536, (float_q)0.36514837167011072, (float_q)-0.54772255750516607, (float_q)0.73029674334022143);
 
 	// Execution
     QQuaternion qQuaternionUT = NORMALIZED_QUATERNION.UnitInvert();
@@ -2498,7 +2504,7 @@ QTEST_CASE ( ResetToIdentity_QuaternionBecomesIdentity_Test )
 QTEST_CASE ( DotProduct_ReturnsDotProductFor2CommonQuaternions_Test )
 {
     // Preparation
-    const float_q EXPECTED_RESULT = (float_q)0.975900114;
+    const float_q EXPECTED_RESULT = (float_q)0.97590007294853309;
 
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7).Normalize();
@@ -2507,7 +2513,7 @@ QTEST_CASE ( DotProduct_ReturnsDotProductFor2CommonQuaternions_Test )
     float_q fResultUT = OPERAND1.DotProduct(OPERAND2);
 
     // Verification
-    BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
 /// <summary>
@@ -2535,7 +2541,7 @@ QTEST_CASE ( DotProduct_DotProductEqualsOneWhenRotationAxisIsTheSame_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    const float_q EXPECTED_RESULT = (float_q)30.0f;
+    const float_q EXPECTED_RESULT = (float_q)30.0;
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
 	// Execution
@@ -2589,7 +2595,7 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonQuaternions_Test )
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT, SMALLER_TOLERANCE) );
 }
 
 /// <summary>
@@ -2677,11 +2683,20 @@ QTEST_CASE ( Lerp_CorrectLerpedQuaternionIsObtainedForTwoCommonQuaternions_Test 
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    const QQuaternion OPERAND1 = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), SQFloat::_0).Normalize();
-    const QQuaternion OPERAND2 = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), SQFloat::_1).Normalize();
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+    const float_q ANGLE1 = SQFloat::_0;
+    const float_q ANGLE2 = SQFloat::_1;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+    const float_q ANGLE1 = SQFloat::_0;
+    const float_q ANGLE2 = SQAngle::RadiansToDegrees(SQFloat::_1);
+#endif
+
+    const QQuaternion OPERAND1 = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), ANGLE1).Normalize();
+    const QQuaternion OPERAND2 = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), ANGLE2).Normalize();
     //const QQuaternion EXPECTED_RESULT = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), SQFloat::_0_25).Normalize();
     // [TODO] Thund: There is a problem with imprecission, is it a matter of precission degradation or calculus error? It could be even an imprecission inherent to this Lerp process, reason to use Slerp
-    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)0.032794558, (float_q)0.065589115, (float_q)0.098383665, (float_q)0.99244314);
+    const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)0.032794551514706963, (float_q)0.065589103029413925, (float_q)0.098383654544120888, (float_q)0.99244306812697791);
 
 	// Execution
     QQuaternion qQuaternionUT = OPERAND1.Lerp(SQFloat::_0_25, OPERAND2);
@@ -2702,10 +2717,10 @@ QTEST_CASE ( Lerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuater
     QQuaternion qQuaternionUT = EXPECTED_RESULT.Lerp(SQFloat::_0_5, EXPECTED_RESULT);
 
     // Verification
-    BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
-    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_RESULT.w);
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_RESULT.w) );
 }
 
 /// <summary>
@@ -2722,10 +2737,10 @@ QTEST_CASE ( Lerp_ResultIsAlwaysNormalized_Test )
     QQuaternion qQuaternionUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
 
     // Verification
-    BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
-    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_RESULT.w);
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_RESULT.w) );
 }
 
 /// <summary>
@@ -2819,7 +2834,7 @@ QTEST_CASE ( Slerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuate
 
 	// Execution
     QQuaternion qQuaternionUT = EXPECTED_RESULT.Slerp(SQFloat::_0_5, EXPECTED_RESULT);
-
+    
     // Verification
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
@@ -2898,15 +2913,15 @@ QTEST_CASE ( Slerp_ProportionOneMeansNormalizedInputQuaternion_Test )
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
     const QQuaternion EXPECTED_RESULT = OPERAND2.Normalize();
     const float_q PROPORTION = SQFloat::_1;
-
+    
 	// Execution
     QQuaternion qQuaternionUT = OPERAND1.Slerp(PROPORTION, OPERAND2);
 
     // Verification
-    BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
-    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_RESULT.w);
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_RESULT.y) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_RESULT.z) );
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_RESULT.w) );
 }
 
 /// <summary>
@@ -2936,11 +2951,25 @@ QTEST_CASE ( ToEulerAngles_AnglesEqualZeroWhenQuaternionIsIdentity_Test )
 QTEST_CASE ( ToEulerAngles_CorrectAnglesAreObtainedFromCommonQuaternion_Test )
 {
     // Preparation
-    const float_q EXPECTED_X_ANGLE = SQFloat::_1;
-    const float_q EXPECTED_Y_ANGLE = SQFloat::_2;
-    const float_q EXPECTED_Z_ANGLE = (float_q)-2.2831850;
-    const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+        const float_q EXPECTED_X_ANGLE = SQFloat::_1;
+        const float_q EXPECTED_Y_ANGLE = SQFloat::_2;
+        const float_q EXPECTED_Z_ANGLE = (float_q)-2.2831853071795871;
+        const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_4);
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+        const float_q EXPECTED_X_ANGLE = SQAngle::RadiansToDegrees(SQFloat::_1);
+        const float_q EXPECTED_Y_ANGLE = SQAngle::RadiansToDegrees(SQFloat::_2);
 
+        #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+            const float_q EXPECTED_Z_ANGLE = SQAngle::RadiansToDegrees(-2.283185f);
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+            const float_q EXPECTED_Z_ANGLE = SQAngle::RadiansToDegrees(-2.2831853071795871);
+        #endif
+
+        const QQuaternion QUATERNION = QQuaternion(SQAngle::RadiansToDegrees(SQFloat::_1), SQAngle::RadiansToDegrees(SQFloat::_2), SQAngle::RadiansToDegrees(SQFloat::_4));
+    #endif
+    
 	// Execution
     float_q fAngleXUT = SQFloat::_0;
     float_q fAngleYUT = SQFloat::_0;
@@ -2948,9 +2977,9 @@ QTEST_CASE ( ToEulerAngles_CorrectAnglesAreObtainedFromCommonQuaternion_Test )
     QUATERNION.ToEulerAngles(fAngleXUT, fAngleYUT, fAngleZUT);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEqual(fAngleXUT, EXPECTED_X_ANGLE) );
-    BOOST_CHECK( SQFloat::AreEqual(fAngleYUT, EXPECTED_Y_ANGLE) );
-    BOOST_CHECK( SQFloat::AreEqual(fAngleZUT, EXPECTED_Z_ANGLE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleXUT, EXPECTED_X_ANGLE, SMALLER_TOLERANCE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleYUT, EXPECTED_Y_ANGLE, SMALLER_TOLERANCE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleZUT, EXPECTED_Z_ANGLE, SMALLER_TOLERANCE) );
 }
 
 /// <summary>
@@ -2977,7 +3006,9 @@ QTEST_CASE ( ToEulerAngles_ObtainedAnglesCorrespondToSameRotationEvenWhenAnglesA
     QVector3 vVectorRotatedWithObtainedAngles = VECTOR.Transform(qQuaternionCreatedWithObtainedAngles);
 
     // Verification
-    BOOST_CHECK( vVectorRotatedWithOriginalAngles == vVectorRotatedWithObtainedAngles );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorRotatedWithOriginalAngles.x, vVectorRotatedWithObtainedAngles.x, SMALLER_TOLERANCE) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorRotatedWithOriginalAngles.y, vVectorRotatedWithObtainedAngles.y, SMALLER_TOLERANCE) );
+    BOOST_CHECK( SQFloat::AreEqual(vVectorRotatedWithOriginalAngles.z, vVectorRotatedWithObtainedAngles.z, SMALLER_TOLERANCE) );
 }
 
 /// <summary>
@@ -3010,19 +3041,19 @@ QTEST_CASE ( GetLength_CorrectLengthObtainedFromCommonQuaternion_Test )
 {
     // Preparation
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const float_q EXPECTED_LENGTH = (float_q)5.4772258f;
+    const float_q EXPECTED_LENGTH = (float_q)5.4772255750516612;
 
 	// Execution
     float_q fLengthUT = QUATERNION.GetLength();
 
     // Verification
-    BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
+    BOOST_CHECK( SQFloat::AreEqual(fLengthUT, EXPECTED_LENGTH) );
 }
 
 /// <summary>
-/// Checks that unit quaternions' length equals 1.
+/// Checks that unit quaternions' length equals one.
 /// </summary>
-QTEST_CASE ( GetLength_Equals1WhenUsingUnitQuaternion_Test )
+QTEST_CASE ( GetLength_EqualsOneWhenUsingUnitQuaternion_Test )
 {
     // Preparation
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
@@ -3032,13 +3063,13 @@ QTEST_CASE ( GetLength_Equals1WhenUsingUnitQuaternion_Test )
     float_q fLengthUT = QUATERNION.GetLength();
 
     // Verification
-    BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
+    BOOST_CHECK( SQFloat::AreEqual(fLengthUT, EXPECTED_LENGTH) );
 }
 
 /// <summary>
-/// Checks that identity quaternion's length equals 1.
+/// Checks that identity quaternion's length equals one.
 /// </summary>
-QTEST_CASE ( GetLength_Equals1WhenUsingIdentity_Test )
+QTEST_CASE ( GetLength_EqualsOneWhenUsingIdentity_Test )
 {
     // Preparation
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
@@ -3052,7 +3083,7 @@ QTEST_CASE ( GetLength_Equals1WhenUsingIdentity_Test )
 }
 
 /// <summary>
-/// Checks that null quaternion's length equals 0.
+/// Checks that null quaternion's length equals zero.
 /// </summary>
 QTEST_CASE ( GetLength_EqualsZeroWhenUsingNullQuaternion_Test )
 {
@@ -3074,7 +3105,7 @@ QTEST_CASE ( GetSquaredLength_CorrectLengthObtainedFromCommonQuaternion_Test )
 {
     // Preparation
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const float_q EXPECTED_LENGTH = (float_q)30.0f;
+    const float_q EXPECTED_LENGTH = (float_q)30.0;
 
 	// Execution
     float_q fLengthUT = QUATERNION.GetSquaredLength();
@@ -3084,9 +3115,9 @@ QTEST_CASE ( GetSquaredLength_CorrectLengthObtainedFromCommonQuaternion_Test )
 }
 
 /// <summary>
-/// Checks that unit quaternions' squared length equals 1.
+/// Checks that unit quaternions' squared length equals one.
 /// </summary>
-QTEST_CASE ( GetSquaredLength_Equals1WhenUsingUnitQuaternion_Test )
+QTEST_CASE ( GetSquaredLength_EqualsOneWhenUsingUnitQuaternion_Test )
 {
     // Preparation
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
@@ -3096,13 +3127,13 @@ QTEST_CASE ( GetSquaredLength_Equals1WhenUsingUnitQuaternion_Test )
     float_q fLengthUT = QUATERNION.GetSquaredLength();
 
     // Verification
-    BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
+    BOOST_CHECK( SQFloat::AreEqual(fLengthUT, EXPECTED_LENGTH) );
 }
 
 /// <summary>
-/// Checks that identity quaternion's squared length equals 1.
+/// Checks that identity quaternion's squared length equals one.
 /// </summary>
-QTEST_CASE ( GetSquaredLength_Equals1WhenUsingIdentity_Test )
+QTEST_CASE ( GetSquaredLength_EqualsOneWhenUsingIdentity_Test )
 {
     // Preparation
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
@@ -3116,7 +3147,7 @@ QTEST_CASE ( GetSquaredLength_Equals1WhenUsingIdentity_Test )
 }
 
 /// <summary>
-/// Checks that null quaternion's squared length equals 0.
+/// Checks that null quaternion's squared length equals zero.
 /// </summary>
 QTEST_CASE ( GetSquaredLength_EqualsZeroWhenUsingNullQuaternion_Test )
 {
@@ -3139,10 +3170,16 @@ QTEST_CASE ( ToAxisAngle1_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Tes
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EXPECTED_ANGLE = SQFloat::_2;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+    const float_q EXPECTED_ANGLE = SQAngle::RadiansToDegrees(SQFloat::_2);
+#endif
+
     const QVector3 EXPECTED_AXIS = QVector3(-SQFloat::_1, SQFloat::_2, -SQFloat::_3).Normalize();
 
-    const QQuaternion QUATERNION(QVector3(-SQFloat::_1, SQFloat::_2, -SQFloat::_3).Normalize(), SQFloat::_2);
+    const QQuaternion QUATERNION(EXPECTED_AXIS, EXPECTED_ANGLE);
 
 	// Execution
     float_q fAngleUT = SQFloat::_0;
@@ -3151,7 +3188,7 @@ QTEST_CASE ( ToAxisAngle1_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Tes
 
     // Verification
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
-    BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleUT, EXPECTED_ANGLE) );
 }
 
 /// <summary>
@@ -3265,7 +3302,13 @@ QTEST_CASE ( ToAxisAngle1_AngleIsAlwaysPositive_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EXPECTED_ANGLE = SQFloat::_2;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+    const float_q EXPECTED_ANGLE = SQAngle::RadiansToDegrees(SQFloat::_2);
+#endif
+
     const QVector3 AXIS = QVector3(-SQFloat::_1, SQFloat::_2, -SQFloat::_3).Normalize();
 
     const QQuaternion QUATERNION_USING_POSITIVE_ANGLE = QQuaternion(AXIS, EXPECTED_ANGLE);
@@ -3279,8 +3322,8 @@ QTEST_CASE ( ToAxisAngle1_AngleIsAlwaysPositive_Test )
     QUATERNION_USING_NEGATIVE_ANGLE.ToAxisAngle(vAxisUT, fAngleUTFromNegative);
 
     // Verification
-    BOOST_CHECK_EQUAL( fAngleUTFromPositive, EXPECTED_ANGLE );
-    BOOST_CHECK_EQUAL( fAngleUTFromNegative, EXPECTED_ANGLE );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleUTFromPositive, EXPECTED_ANGLE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleUTFromNegative, EXPECTED_ANGLE) );
 }
 
 /// <summary>
@@ -3291,11 +3334,17 @@ QTEST_CASE ( ToAxisAngle2_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Tes
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EXPECTED_ANGLE = SQFloat::_2;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+    const float_q EXPECTED_ANGLE = SQAngle::RadiansToDegrees(SQFloat::_2);
+#endif
+
     QVector4 EXPECTED_AXIS = QVector4(-SQFloat::_1, SQFloat::_2, -SQFloat::_3, SQFloat::_4).Normalize();
     EXPECTED_AXIS.w = SQFloat::_0; // Axis is a vector, not a point
 
-    const QQuaternion QUATERNION(QVector4(-SQFloat::_1, SQFloat::_2, -SQFloat::_3, SQFloat::_4).Normalize(), SQFloat::_2);
+    const QQuaternion QUATERNION(QVector4(-SQFloat::_1, SQFloat::_2, -SQFloat::_3, SQFloat::_4).Normalize(), EXPECTED_ANGLE);
 
 	// Execution
     float_q fAngleUT = SQFloat::_0;
@@ -3304,7 +3353,7 @@ QTEST_CASE ( ToAxisAngle2_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Tes
 
     // Verification
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
-    BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleUT, EXPECTED_ANGLE) );
 }
 
 /// <summary>
@@ -3419,7 +3468,13 @@ QTEST_CASE ( ToAxisAngle2_AngleIsAlwaysPositive_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EXPECTED_ANGLE = SQFloat::_2;
+#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+    const float_q EXPECTED_ANGLE = SQAngle::RadiansToDegrees(SQFloat::_2);
+#endif
+
     const QVector4 AXIS = QVector4(-SQFloat::_1, SQFloat::_2, -SQFloat::_3, SQFloat::_4).Normalize();
 
     const QQuaternion QUATERNION_USING_POSITIVE_ANGLE = QQuaternion(AXIS, EXPECTED_ANGLE);
@@ -3433,8 +3488,8 @@ QTEST_CASE ( ToAxisAngle2_AngleIsAlwaysPositive_Test )
     QUATERNION_USING_NEGATIVE_ANGLE.ToAxisAngle(vAxisUT, fAngleUTFromNegative);
 
     // Verification
-    BOOST_CHECK_EQUAL( fAngleUTFromPositive, EXPECTED_ANGLE );
-    BOOST_CHECK_EQUAL( fAngleUTFromNegative, EXPECTED_ANGLE );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleUTFromPositive, EXPECTED_ANGLE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleUTFromNegative, EXPECTED_ANGLE) );
 }
 
 /// <summary>
@@ -3443,8 +3498,13 @@ QTEST_CASE ( ToAxisAngle2_AngleIsAlwaysPositive_Test )
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
     // Preparation
-    const QQuaternion QUATERNION = QQuaternion(SQFloat::_0_25, (float_q)-0.000002f, (float_q)40000.0f, (float_q)1.0f );
+    const QQuaternion QUATERNION = QQuaternion(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0, (float_q)1.0 );
+
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const string_q EXPECTED_STRING_FORM = QE_L("Q(0.25,-1.99999999e-006,40000,1)");
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const string_q EXPECTED_STRING_FORM = QE_L("Q(0.25,-1.9999999999999999e-006,40000,1)");
+#endif
 
 	// Execution
     QQuaternion qQuaternionUT = QUATERNION;

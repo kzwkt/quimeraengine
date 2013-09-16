@@ -1159,7 +1159,7 @@ QTEST_CASE ( GetLength_LengthOfACommonVectorIsCalculatedCorrectly_Test )
 QTEST_CASE ( GetSquaredLength_SquaredLengthOfACommonVectorIsCalculatedCorrectly_Test )
 {
     // Preparation
-    const float_q EXPECTED_VALUE = (float_q)25.0f;
+    const float_q EXPECTED_VALUE = (float_q)25.0;
 
     const QVector2 VECTOR = QVector2(SQFloat::_4, SQFloat::_3);
 
@@ -1429,24 +1429,15 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
 QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
 {
     // Preparation
-    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
-
-    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-        const float_q EXPECTED_RESULT = SQAngle::_45;
-    #else
-        const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
-    #endif
-
     const QVector2 OPERAND1 = QVector2(SQFloat::_2, SQFloat::_2);
     const QVector2 OPERAND2 = QVector2(SQFloat::_0, SQFloat::_1);
-
+    
 	// Execution
     float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
 
     // Verification
-    BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
-    BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
+    BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
 /// <summary>

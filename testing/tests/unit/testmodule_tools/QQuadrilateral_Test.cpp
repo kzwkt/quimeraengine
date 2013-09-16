@@ -2141,15 +2141,15 @@ QTEST_CASE ( TransformWithPivot_AllVerticesAreMovedToPositionOfPivotWhenTransfom
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
     // Preparation
-    QQuadrilateral QUAD = QQuadrilateral(QVector2(SQFloat::_0_25, (float_q)-0.000002f),
+    QQuadrilateral QUAD = QQuadrilateral(QVector2(SQFloat::_0_25, (float_q)-0.000002),
                                          QVector2((float_q)40000.0, SQFloat::_0),
                                          QVector2(SQFloat::_3, SQFloat::_2),
                                          QVector2(SQFloat::_1, -SQFloat::_0));
 
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const string_q EXPECTED_STRING_FORM = QE_L("QL(a(V2(0.25,-1.99999999e-006)),b(V2(40000,0)),c(V2(3,2)),d(V2(1,-0)))");
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
-    const string_q EXPECTED_STRING_FORM = QE_L("QL(a(V2(0.25,-1.9999999949504854e-006)),b(V2(40000,0)),c(V2(3,2)),d(V2(1,-0)))");
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const string_q EXPECTED_STRING_FORM = QE_L("QL(a(V2(0.25,-1.9999999999999999e-006)),b(V2(40000,0)),c(V2(3,2)),d(V2(1,-0)))");
 #endif
 
 	// Execution

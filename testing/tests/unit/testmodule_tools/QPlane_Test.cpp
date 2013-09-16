@@ -879,7 +879,7 @@ QTEST_CASE ( DotProduct1_ReturnsDotProductForCommonVectorAndPlane_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     // Preparation
-    const float_q EXPECTED_RESULT = (float_q)32.0f;
+    const float_q EXPECTED_RESULT = (float_q)32.0;
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7);
     const QVector3 VECTOR = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
@@ -942,7 +942,7 @@ QTEST_CASE ( DotProduct2_ReturnsDotProductForCommonVectorAndPlane_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
     // Preparation
-    const float_q EXPECTED_RESULT = (float_q)32.0f;
+    const float_q EXPECTED_RESULT = (float_q)32.0;
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7);
     const QVector4 VECTOR = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
@@ -1023,7 +1023,7 @@ QTEST_CASE ( DotProduct2_VectorsWComponentDoesNotTakePartInTheOperation_Test )
 QTEST_CASE ( DotProduct3_ReturnsDotProductFor2Commonplanes_Test )
 {
     // Preparation
-    const float_q EXPECTED_RESULT = (float_q)32.0f;
+    const float_q EXPECTED_RESULT = (float_q)32.0;
 
     const QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7);
     const QPlane OPERAND2 = QPlane(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
@@ -1264,34 +1264,6 @@ QTEST_CASE ( DotProductAngle1_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 }
 
 /// <summary>
-/// Checks that an assertion fails when a not normalized plane is used and the dot product by the vector is greater than one.
-/// </summary>
-QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneIsNotNormalizedAndDotProductIsGreaterThanOne_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QVector3;
-
-    // Preparation
-    const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);
-    const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
-    const bool ASSERTION_FAILED = true;
-
-	// Execution
-    bool bAssertionFailed = false;
-
-    try
-    {
-        NOT_NORMALIZED_PLANE.DotProductAngle(VECTOR);
-    }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
-    {
-        bAssertionFailed = true;
-    }
-
-    // Verification
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-/// <summary>
 /// Checks that an assertion fails when either the plane or the vector is null.
 /// </summary>
 QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
@@ -1503,34 +1475,6 @@ QTEST_CASE ( DotProductAngle2_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 
     // Verification
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
-}
-
-/// <summary>
-/// Checks that an assertion fails when a not normalized plane is used and the dot product by the vector is greater than one.
-/// </summary>
-QTEST_CASE ( DotProductAngle2_AssertionFailsWhenPlaneIsNotNormalizedAndDotProductIsGreaterThanOne_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QVector4;
-
-    // Preparation
-    const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);
-    const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);
-    const bool ASSERTION_FAILED = true;
-
-	// Execution
-    bool bAssertionFailed = false;
-
-    try
-    {
-        NOT_NORMALIZED_PLANE.DotProductAngle(VECTOR);
-    }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
-    {
-        bAssertionFailed = true;
-    }
-
-    // Verification
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
 /// <summary>
@@ -1800,32 +1744,6 @@ QTEST_CASE ( DotProductAngle3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 }
 
 /// <summary>
-/// Checks that an assertion fails when a not normalized plane is used and the dot product by the other plane is greater than one.
-/// </summary>
-QTEST_CASE ( DotProductAngle3_AssertionFailsWhenPlaneIsNotNormalizedAndDotProductIsGreaterThanOne_Test )
-{
-    // Preparation
-    const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_2, SQFloat::_2, SQFloat::_0, SQFloat::_0);
-    const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const bool ASSERTION_FAILED = true;
-
-	// Execution
-    bool bAssertionFailed = false;
-
-    try
-    {
-        NOT_NORMALIZED_PLANE.DotProductAngle(PLANE);
-    }
-    catch(...) // [TODO] Thund: A concrete exception has to be defined for this
-    {
-        bAssertionFailed = true;
-    }
-
-    // Verification
-    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
-}
-
-/// <summary>
 /// Checks that an assertion fails when one of the planes is null.
 /// </summary>
 QTEST_CASE ( DotProductAngle3_AssertionFailsWhenOnePlaneIsNull_Test )
@@ -2045,7 +1963,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenUsingACommonPointThatIsInTheNegat
 QTEST_CASE_TEMPLATE ( Contains_PlaneNormalizationDoesNotAffectResult_Test, TQVectorTypes )
 {
     // Preparation
-    const float_q CONTAINED_POINT_COMPONENTS[] = {(float_q)2.1250f, (float_q)0.8750f, SQFloat::_3, SQFloat::_1};
+    const float_q CONTAINED_POINT_COMPONENTS[] = {(float_q)2.1250, (float_q)0.8750, SQFloat::_3, SQFloat::_1};
     const float_q NOT_CONTAINED_POINT_COMPONENTS[] = {SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1};
     const T CONTAINED_POINT = T(CONTAINED_POINT_COMPONENTS);
     const T NOT_CONTAINED_POINT = T(NOT_CONTAINED_POINT_COMPONENTS);
@@ -2114,7 +2032,7 @@ QTEST_CASE ( GetLength_ReturnsCorrectLengthFromNonNormalizedPlane_Test )
 {
     // Preparation
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const float_q EXPECTED_LENGTH = sqrt_q((float_q)14.0f);
+    const float_q EXPECTED_LENGTH = sqrt_q((float_q)14.0);
 
 	// Execution
     float_q fLength = PLANE.GetLength();
@@ -2179,7 +2097,7 @@ QTEST_CASE ( GetSquaredLength_ReturnsCorrectLengthFromNonNormalizedPlane_Test )
 {
     // Preparation
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const float_q EXPECTED_LENGTH = (float_q)14.0f;
+    const float_q EXPECTED_LENGTH = (float_q)14.0;
 
 	// Execution
     float_q fLength = PLANE.GetSquaredLength();
@@ -2966,7 +2884,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     const T EXPECTED_POINT = T::GetZeroVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, -SQFloat::_1, SQFloat::_4, -SQFloat::_5).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_3, SQFloat::_1, SQFloat::_1, -SQFloat::_3).Normalize();
-    const QPlane PLANE3 = QPlane(SQFloat::_5, -SQFloat::_1, SQFloat::_9, (float_q)-13.0f).Normalize();
+    const QPlane PLANE3 = QPlane(SQFloat::_5, -SQFloat::_1, SQFloat::_9, (float_q)-13.0).Normalize();
 
 	// Execution
     T vIntersection1 = EXPECTED_POINT;
@@ -3010,7 +2928,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenTheThreePlanesShareOn
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
     const QPlane PLANE1 = QPlane(SQFloat::_1, -SQFloat::_1, SQFloat::_4, -SQFloat::_5).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_3, SQFloat::_1, SQFloat::_1, -SQFloat::_3).Normalize();
-    const QPlane PLANE3 = QPlane(SQFloat::_5, -SQFloat::_1, SQFloat::_9, (float_q)-13.0f).Normalize();
+    const QPlane PLANE3 = QPlane(SQFloat::_5, -SQFloat::_1, SQFloat::_9, (float_q)-13.0).Normalize();
 
 	// Execution
     T vIntersection;
@@ -5126,12 +5044,12 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot_ReturnsSameValueAsWithoutPivotWhenPivot
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
     // Preparation
-    const QPlane PLANE = QPlane(SQFloat::_0_25, (float_q)-0.000002f, (float_q)40000.0f, SQFloat::_0 );
+    const QPlane PLANE = QPlane(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0, SQFloat::_0 );
 
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const string_q EXPECTED_STRING_FORM = QE_L("PL(0.25,-1.99999999e-006,40000,0)");
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
-    const string_q EXPECTED_STRING_FORM = QE_L("PL(0.25,-1.9999999949504854e-006,40000,0)");
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const string_q EXPECTED_STRING_FORM = QE_L("PL(0.25,-1.9999999999999999e-006,40000,0)");
 #endif
 
 	// Execution

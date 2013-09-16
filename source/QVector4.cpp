@@ -199,10 +199,15 @@ float_q QVector4::DotProductAngle(const QBaseVector4 &vVector) const
 
     float_q fDot = (this->x*vVector.x + this->y*vVector.y + this->z*vVector.z) / fLength;
 
-    // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
+    // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+    if(fDot > SQFloat::_1)
+        fDot = SQFloat::_1;
+    else if(fDot < -SQFloat::_1)
+        fDot = -SQFloat::_1;
 
     float_q fAngle = acos_q(fDot);
+
+    QE_ASSERT( !SQFloat::IsNaN(fAngle) );
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees

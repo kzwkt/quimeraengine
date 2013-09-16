@@ -129,9 +129,9 @@ namespace DataTypes
 // configured precission.
 // --------------------------------------------------------------------------------------------------------
 
-#if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     typedef f32_q float_q;
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     typedef f64_q float_q;
 #else
     typedef f32_q float_q;
@@ -143,17 +143,17 @@ namespace DataTypes
 // --------------------------------------------------------------------------------------------------------
 #if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
     #ifdef QE_COMPILER_MSVC
-        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+        #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
             #define QE_FLOAT_SIZE 4
-        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
             #define QE_FLOAT_SIZE 8
         #else
             #define QE_FLOAT_SIZE 4
         #endif
     #elif QE_COMPILER_GCC
-         #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+         #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
             #define QE_FLOAT_SIZE 4
-        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
             #define QE_FLOAT_SIZE 8
         #else
             #define QE_FLOAT_SIZE 4
@@ -163,9 +163,9 @@ namespace DataTypes
     #endif
 #elif defined(QE_OS_LINUX) && (QE_OS_LINUX == 32)
     #if QE_COMPILER_GCC
-         #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+         #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
             #define QE_FLOAT_SIZE 4
-        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
             #define QE_FLOAT_SIZE 8
         #else
             #define QE_FLOAT_SIZE 4
@@ -184,17 +184,17 @@ namespace DataTypes
 // --------------------------------------------------------------------------------------------------------
 #if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
     #ifdef QE_COMPILER_MSVC
-        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+        #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
             typedef i32_q int_for_float_q;
-        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
             typedef i64_q int_for_float_q;
         #else
             typedef i32_q int_for_float_q;
         #endif
     #elif QE_COMPILER_GCC
-        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+        #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
             typedef i32_q int_for_float_q;
-        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
             typedef i64_q int_for_float_q;
         #else
             typedef i32_q int_for_float_q;
@@ -204,9 +204,9 @@ namespace DataTypes
     #endif
 #elif defined(QE_OS_LINUX) && (QE_OS_LINUX == 32)
     #if QE_COMPILER_GCC
-        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+        #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
             typedef i32_q int_for_float_q;
-        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
             typedef i64_q int_for_float_q;
         #else
             typedef i32_q int_for_float_q;

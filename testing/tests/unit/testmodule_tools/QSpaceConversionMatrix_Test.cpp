@@ -140,8 +140,8 @@ QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
     const QBaseMatrix4x4 EXPECTED_VALUE(SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_3,
                                         SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7,
-                                        SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0f,
-                                        (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f);
+                                        SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0,
+                                        (float_q)12.0, (float_q)13.0, (float_q)14.0, (float_q)15.0);
 
     // Execution
     QSpaceConversionMatrix matrixUT(EXPECTED_VALUE);
@@ -175,8 +175,8 @@ QTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test
 
     const QBaseMatrix4x4 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4, 
                                         SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8, 
-                                        SQFloat::_9, SQFloat::_10, (float)11.0f, (float)12.0f,
-                                        (float)13.0f, (float)14.0f, (float)15.0f, (float)16.0f);
+                                        SQFloat::_9, SQFloat::_10, (float)11.0, (float)12.0,
+                                        (float)13.0, (float)14.0, (float)15.0, (float)16.0);
 
     // Execution
     QSpaceConversionMatrix matrixUT;
@@ -211,30 +211,30 @@ QTEST_CASE ( OperatorProduct_CommonMatricesAreCorrectlyMultiplied_Test )
 
     const QSpaceConversionMatrix OPERAND1(QBaseMatrix4x4(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                                                          SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
-                                                         SQFloat::_9,    SQFloat::_10,   (float_q)11.0f, (float_q)12.0f,
-                                                         (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f));
+                                                         SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
+                                                         (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0));
 
-    const QSpaceConversionMatrix OPERAND2(QBaseMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)20.0f,
-                                                         (float_q)21.0f, (float_q)22.0f, (float_q)23.0f, (float_q)24.0f,
-                                                         (float_q)25.0f, (float_q)26.0f, (float_q)27.0f, (float_q)28.0f,
-                                                         (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f));
+    const QSpaceConversionMatrix OPERAND2(QBaseMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)20.0,
+                                                         (float_q)21.0, (float_q)22.0, (float_q)23.0, (float_q)24.0,
+                                                         (float_q)25.0, (float_q)26.0, (float_q)27.0, (float_q)28.0,
+                                                         (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0));
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)250.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)260.0f;
-    const float_q EXPECTED_VALUE_FOR_02 = (float_q)270.0f;
-    const float_q EXPECTED_VALUE_FOR_03 = (float_q)280.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)618.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)644.0f;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)670.0f;
-    const float_q EXPECTED_VALUE_FOR_13 = (float_q)696.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)986.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)1028.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)1070.0f;
-    const float_q EXPECTED_VALUE_FOR_23 = (float_q)1112.0f;
-    const float_q EXPECTED_VALUE_FOR_30 = (float_q)1354.0f;
-    const float_q EXPECTED_VALUE_FOR_31 = (float_q)1412.0f;
-    const float_q EXPECTED_VALUE_FOR_32 = (float_q)1470.0f;
-    const float_q EXPECTED_VALUE_FOR_33 = (float_q)1528.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)250.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)260.0;
+    const float_q EXPECTED_VALUE_FOR_02 = (float_q)270.0;
+    const float_q EXPECTED_VALUE_FOR_03 = (float_q)280.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)618.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)644.0;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)670.0;
+    const float_q EXPECTED_VALUE_FOR_13 = (float_q)696.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)986.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)1028.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)1070.0;
+    const float_q EXPECTED_VALUE_FOR_23 = (float_q)1112.0;
+    const float_q EXPECTED_VALUE_FOR_30 = (float_q)1354.0;
+    const float_q EXPECTED_VALUE_FOR_31 = (float_q)1412.0;
+    const float_q EXPECTED_VALUE_FOR_32 = (float_q)1470.0;
+    const float_q EXPECTED_VALUE_FOR_33 = (float_q)1528.0;
 
     // Execution
     QSpaceConversionMatrix matrixUT = OPERAND1 * OPERAND2;
@@ -268,13 +268,13 @@ QTEST_CASE ( OperatorProduct_ProductIsNotCommutative_Test )
 
     const QSpaceConversionMatrix OPERAND1(QBaseMatrix4x4(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                                                          SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
-                                                         SQFloat::_9,    SQFloat::_10,   (float_q)11.0f, (float_q)12.0f,
-                                                         (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f));
+                                                         SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
+                                                         (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0));
 
-    const QSpaceConversionMatrix OPERAND2(QBaseMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)20.0f,
-                                                         (float_q)21.0f, (float_q)22.0f, (float_q)23.0f, (float_q)24.0f,
-                                                         (float_q)25.0f, (float_q)26.0f, (float_q)27.0f, (float_q)28.0f,
-                                                         (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f));
+    const QSpaceConversionMatrix OPERAND2(QBaseMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)20.0,
+                                                         (float_q)21.0, (float_q)22.0, (float_q)23.0, (float_q)24.0,
+                                                         (float_q)25.0, (float_q)26.0, (float_q)27.0, (float_q)28.0,
+                                                         (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0));
 
     // Execution
     QSpaceConversionMatrix matrix1UT = OPERAND1 * OPERAND2;
@@ -294,30 +294,30 @@ QTEST_CASE ( OperatorProductAssignation_CommonMatricesAreCorrectlyMultiplied_Tes
 
     const QBaseMatrix4x4 OPERAND1(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                                   SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
-                                  SQFloat::_9,    SQFloat::_10,   (float_q)11.0f, (float_q)12.0f,
-                                  (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+                                  SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
+                                  (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    const QSpaceConversionMatrix OPERAND2(QBaseMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)20.0f,
-                                                         (float_q)21.0f, (float_q)22.0f, (float_q)23.0f, (float_q)24.0f,
-                                                         (float_q)25.0f, (float_q)26.0f, (float_q)27.0f, (float_q)28.0f,
-                                                         (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f));
+    const QSpaceConversionMatrix OPERAND2(QBaseMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)20.0,
+                                                         (float_q)21.0, (float_q)22.0, (float_q)23.0, (float_q)24.0,
+                                                         (float_q)25.0, (float_q)26.0, (float_q)27.0, (float_q)28.0,
+                                                         (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0));
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)250.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)260.0f;
-    const float_q EXPECTED_VALUE_FOR_02 = (float_q)270.0f;
-    const float_q EXPECTED_VALUE_FOR_03 = (float_q)280.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)618.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)644.0f;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)670.0f;
-    const float_q EXPECTED_VALUE_FOR_13 = (float_q)696.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)986.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)1028.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)1070.0f;
-    const float_q EXPECTED_VALUE_FOR_23 = (float_q)1112.0f;
-    const float_q EXPECTED_VALUE_FOR_30 = (float_q)1354.0f;
-    const float_q EXPECTED_VALUE_FOR_31 = (float_q)1412.0f;
-    const float_q EXPECTED_VALUE_FOR_32 = (float_q)1470.0f;
-    const float_q EXPECTED_VALUE_FOR_33 = (float_q)1528.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)250.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)260.0;
+    const float_q EXPECTED_VALUE_FOR_02 = (float_q)270.0;
+    const float_q EXPECTED_VALUE_FOR_03 = (float_q)280.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)618.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)644.0;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)670.0;
+    const float_q EXPECTED_VALUE_FOR_13 = (float_q)696.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)986.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)1028.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)1070.0;
+    const float_q EXPECTED_VALUE_FOR_23 = (float_q)1112.0;
+    const float_q EXPECTED_VALUE_FOR_30 = (float_q)1354.0;
+    const float_q EXPECTED_VALUE_FOR_31 = (float_q)1412.0;
+    const float_q EXPECTED_VALUE_FOR_32 = (float_q)1470.0;
+    const float_q EXPECTED_VALUE_FOR_33 = (float_q)1528.0;
 
     // Execution
     QSpaceConversionMatrix matrixUT(OPERAND1);
@@ -352,13 +352,13 @@ QTEST_CASE ( OperatorProductAssignation_ProductIsNotCommutative_Test )
 
     const QSpaceConversionMatrix OPERAND1(QBaseMatrix4x4(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                                                          SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
-                                                         SQFloat::_9,    SQFloat::_10,   (float_q)11.0f, (float_q)12.0f,
-                                                         (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f));
+                                                         SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
+                                                         (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0));
 
-    const QSpaceConversionMatrix OPERAND2(QBaseMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)20.0f,
-                                                         (float_q)21.0f, (float_q)22.0f, (float_q)23.0f, (float_q)24.0f,
-                                                         (float_q)25.0f, (float_q)26.0f, (float_q)27.0f, (float_q)28.0f,
-                                                         (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f));
+    const QSpaceConversionMatrix OPERAND2(QBaseMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)20.0,
+                                                         (float_q)21.0, (float_q)22.0, (float_q)23.0, (float_q)24.0,
+                                                         (float_q)25.0, (float_q)26.0, (float_q)27.0, (float_q)28.0,
+                                                         (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0));
 
     // Execution
     QSpaceConversionMatrix matrix1UT(OPERAND1);
@@ -380,8 +380,8 @@ QTEST_CASE ( OperatorProductAssignation_MatrixObjectIsCorrectlyMultipliedAndAssi
 
     const QSpaceConversionMatrix OPERAND(QBaseMatrix4x4(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                              SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
-                             SQFloat::_9,    SQFloat::_10,   (float_q)11.0f, (float_q)12.0f,
-                             (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f));
+                             SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
+                             (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0));
 
     const QSpaceConversionMatrix EXPECTED_VALUE = OPERAND * OPERAND;
 
@@ -416,17 +416,17 @@ QTEST_CASE( SetWorldSpaceMatrix1_TransformationIsCorrectlyBuiltFromCommonTransfo
     const QBaseVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     QMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
@@ -560,17 +560,17 @@ QTEST_CASE ( SetWorldSpaceMatrix1_CorrectResultObtainedWhenOnlyContainsRotation_
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     QMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
@@ -837,17 +837,17 @@ QTEST_CASE( SetWorldSpaceMatrix2_TransformationIsCorrectlyBuiltFromCommonTransfo
     const QBaseVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     QMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
@@ -984,17 +984,17 @@ QTEST_CASE ( SetWorldSpaceMatrix2_CorrectResultObtainedWhenOnlyContainsRotation_
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     QMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
@@ -1260,17 +1260,17 @@ QTEST_CASE( SetWorldSpaceMatrix3_TransformationIsCorrectlyBuiltFromCommonTransfo
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     QBaseMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
@@ -1403,17 +1403,17 @@ QTEST_CASE( SetWorldSpaceMatrix3_CorrectResultObtainedWhenOnlyContainsRotation_T
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     QBaseMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
@@ -1654,17 +1654,17 @@ QTEST_CASE( SetWorldSpaceMatrix4_TransformationIsCorrectlyBuiltFromCommonTransfo
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     QMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
@@ -1794,17 +1794,17 @@ QTEST_CASE( SetWorldSpaceMatrix4_CorrectResultObtainedWhenOnlyContainsRotation_T
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     QMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
@@ -2042,17 +2042,17 @@ QTEST_CASE( SetWorldSpaceMatrix5_TransformationIsCorrectlyBuiltFromCommonTransfo
     const QTransformationMatrix<QMatrix4x4> SCALE(QVector3::GetZeroVector(), QQuaternion::GetIdentity(), QVector3(SQFloat::_8, SQFloat::_9, SQFloat::_10));
 
     QMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
@@ -2179,17 +2179,17 @@ QTEST_CASE( SetWorldSpaceMatrix5_CorrectResultObtainedWhenOnlyContainsRotation_T
     const QTransformationMatrix<QMatrix4x4> SCALE = QTransformationMatrix<QMatrix4x4>::GetIdentity();
 
     QMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
@@ -2432,10 +2432,10 @@ QTEST_CASE( SetViewSpaceMatrix1_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     // D3DXMATRIX viewMatrix;
     // D3DXMatrixLookAtLH(&viewMatrix, &vEye, &vTarget, &vUp);
 
-    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)-0.40824828f, (float_q)-0.70710671f, (float_q)0.57735026f, SQFloat::_0,
-                                                               (float_q)0.81649655f,  SQFloat::_0,           (float_q)0.57735026f, SQFloat::_0,
-                                                               (float_q)-0.40824828f, (float_q)0.70710671f,  (float_q)0.57735026f, SQFloat::_0,
-                                                               SQFloat::_0,           (float_q)-1.4142137f,  (float_q)-8.6602535f, SQFloat::_1));
+    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)-0.40824829046386302, (float_q)-0.70710678118654746, (float_q)0.57735026918962573, SQFloat::_0,
+                                                               (float_q)0.81649658092772603,  SQFloat::_0,                   (float_q)0.57735026918962573, SQFloat::_0,
+                                                               (float_q)-0.40824829046386302, (float_q)0.70710678118654746,  (float_q)0.57735026918962573, SQFloat::_0,
+                                                               SQFloat::_0,                   (float_q)-1.4142135623730949,  (float_q)-8.6602540378443855, SQFloat::_1));
 
     // Execution
     QSpaceConversionMatrix matrixUT;
@@ -2535,8 +2535,8 @@ QTEST_CASE( SetViewSpaceMatrix2_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
     const QVector4 UP_DIRECTION = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_10);
-    const QVector4 POINT_OF_VIEW = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, (float_q)11.0f);
-    const QVector4 TARGET = QVector4(SQFloat::_7, SQFloat::_8, SQFloat::_9, (float_q)12.0f);
+    const QVector4 POINT_OF_VIEW = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, (float_q)11.0);
+    const QVector4 TARGET = QVector4(SQFloat::_7, SQFloat::_8, SQFloat::_9, (float_q)12.0);
 
     // Reference values obtained by using DirectX SDK:
     // D3DXVECTOR3 vUp(SQFloat::_1, SQFloat::_2, SQFloat::_3);
@@ -2545,10 +2545,10 @@ QTEST_CASE( SetViewSpaceMatrix2_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     // D3DXMATRIX viewMatrix;
     // D3DXMatrixLookAtLH(&viewMatrix, &vEye, &vTarget, &vUp);
 
-    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)-0.40824828f, (float_q)-0.70710671f, (float_q)0.57735026f, SQFloat::_0,
-                                                               (float_q)0.81649655f,  SQFloat::_0,           (float_q)0.57735026f, SQFloat::_0,
-                                                               (float_q)-0.40824828f, (float_q)0.70710671f,  (float_q)0.57735026f, SQFloat::_0,
-                                                               SQFloat::_0,           (float_q)-1.4142137f,  (float_q)-8.6602535f, SQFloat::_1));
+    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)-0.40824829046386302, (float_q)-0.70710678118654746, (float_q)0.57735026918962573, SQFloat::_0,
+                                                               (float_q)0.81649658092772603,  SQFloat::_0,                   (float_q)0.57735026918962573, SQFloat::_0,
+                                                               (float_q)-0.40824829046386302, (float_q)0.70710678118654746,  (float_q)0.57735026918962573, SQFloat::_0,
+                                                               SQFloat::_0,                   (float_q)-1.4142135623730949,  (float_q)-8.6602540378443855, SQFloat::_1));
 
     // Execution
     QSpaceConversionMatrix matrixUT;
@@ -2647,8 +2647,14 @@ QTEST_CASE( SetProjectionSpaceMatrix_ProjectionMatrixIsCorrectlyBuiltFromCommonI
 
     const float_q NEAR_CLIP_PLANE = SQFloat::_1;
     const float_q FAR_CLIP_PLANE = SQFloat::_2;
-    const float_q VERTICAL_FOV = SQFloat::_3;
     const float_q ASPECT_RATIO = SQFloat::_4;
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+        const float_q VERTICAL_FOV = SQAngle::RadiansToDegrees(SQFloat::_3);
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+        const float_q VERTICAL_FOV = SQFloat::_3;
+    #endif
 
     // Reference values obtained by using DirectX SDK:
     // float_q fNearClipPlane = SQFloat::_1;
@@ -2658,15 +2664,15 @@ QTEST_CASE( SetProjectionSpaceMatrix_ProjectionMatrixIsCorrectlyBuiltFromCommonI
     // D3DXMATRIX projectionMatrix;
     // D3DXMatrixPerspectiveFovLH(&projectionMatrix, fVerticalFOV, fAspectRatio, fNearClipPlane, fFarClipPlane);
 
-    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)0.017728711f, SQFloat::_0,           SQFloat::_0,  SQFloat::_0,
-                                                               (float_q)SQFloat::_0,  (float_q)0.070914842f, SQFloat::_0,  SQFloat::_0,
-                                                               SQFloat::_0,           SQFloat::_0,           SQFloat::_2,  SQFloat::_1,
-                                                               SQFloat::_0,           SQFloat::_0,           -SQFloat::_2, SQFloat::_0));
+    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)0.017728711075663112, SQFloat::_0,                   SQFloat::_0,  SQFloat::_0,
+                                                               (float_q)SQFloat::_0,          (float_q)0.070914844302652449, SQFloat::_0,  SQFloat::_0,
+                                                               SQFloat::_0,                   SQFloat::_0,                   SQFloat::_2,  SQFloat::_1,
+                                                               SQFloat::_0,                   SQFloat::_0,                   -SQFloat::_2, SQFloat::_0));
 
     // Execution
     QSpaceConversionMatrix matrixUT;
     matrixUT.SetProjectionSpaceMatrix(NEAR_CLIP_PLANE, FAR_CLIP_PLANE, ASPECT_RATIO, VERTICAL_FOV);
-
+    
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
@@ -2904,10 +2910,10 @@ QTEST_CASE( SwitchHandConventionViewSpaceMatrix_HandRulesAreCorrectlySwitched_Te
     QSpaceConversionMatrix ORIGINAL_VALUE;
     ORIGINAL_VALUE.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
 
-    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)0.40824828f, (float_q)-0.70710671f, (float_q)-0.57735026f, SQFloat::_0,
-                                                               (float_q)-0.81649655f,  SQFloat::_0,           (float_q)-0.57735026f, SQFloat::_0,
-                                                               (float_q)0.40824828f, (float_q)0.70710671f,  (float_q)-0.57735026f, SQFloat::_0,
-                                                               SQFloat::_0,           (float_q)-1.4142137f,  (float_q)8.6602554f, SQFloat::_1));
+    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)0.40824829046386296,  (float_q)-0.70710678118654735, (float_q)-0.57735026918962573, SQFloat::_0,
+                                                               (float_q)-0.81649658092772592, SQFloat::_0,                   (float_q)-0.57735026918962573, SQFloat::_0,
+                                                               (float_q)0.40824829046386296,  (float_q)0.70710678118654735,  (float_q)-0.57735026918962573, SQFloat::_0,
+                                                               SQFloat::_0,                   (float_q)-1.414213562373094,   (float_q)8.6602540378443837,   SQFloat::_1));
 
     // Execution
     QSpaceConversionMatrix matrixUT = ORIGINAL_VALUE.SwitchHandConventionViewSpaceMatrix();
@@ -2948,10 +2954,18 @@ QTEST_CASE( SwitchHandConventionViewSpaceMatrix_SwitchingIsReversible_Test )
     QSpaceConversionMatrix ORIGINAL_VALUE;
     ORIGINAL_VALUE.SetViewSpaceMatrix(POINT_OF_VIEW, TARGET, UP_DIRECTION);
 
-    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)-0.40824845f, (float_q)-0.70710713f, (float_q)0.57735032f, SQFloat::_0,
-                                                               (float_q)0.81649691f,  SQFloat::_0,           (float_q)0.57735032f, SQFloat::_0,
-                                                               (float_q)-0.40824845f, (float_q)0.70710713f,  (float_q)0.57735032f, SQFloat::_0,
-                                                               SQFloat::_0,           (float_q)-1.4142156f,  (float_q)-8.6602573f, SQFloat::_1));
+    #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+        const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4(-0.40824845f, -0.70710713f, 0.57735032f, SQFloat::_0,
+                                                                   0.81649691f,  SQFloat::_0,  0.57735032f, SQFloat::_0,
+                                                                   -0.40824845f, 0.70710713f,  0.57735032f, SQFloat::_0,
+                                                                   SQFloat::_0,  -1.4142156f,  -8.6602573f, SQFloat::_1));
+
+    #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+        const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4(-0.40824829046386291, -0.70710678118654724, 0.57735026918962573, SQFloat::_0,
+                                                                   0.81649658092772581,  SQFloat::_0,          0.57735026918962573, SQFloat::_0,
+                                                                   -0.40824829046386291, 0.70710678118654724,  0.57735026918962573, SQFloat::_0,
+                                                                   SQFloat::_0,          -1.4142135623730927,  -8.6602540378443837, SQFloat::_1));
+    #endif
 
     // Execution
     QSpaceConversionMatrix matrixUT = ORIGINAL_VALUE.SwitchHandConventionViewSpaceMatrix().SwitchHandConventionViewSpaceMatrix();
@@ -2985,8 +2999,14 @@ QTEST_CASE( SwitchHandConventionProjectionSpaceMatrix_HandRulesAreCorrectlySwitc
 
     const float_q NEAR_CLIP_PLANE = SQFloat::_1;
     const float_q FAR_CLIP_PLANE = SQFloat::_2;
-    const float_q VERTICAL_FOV = SQFloat::_3;
     const float_q ASPECT_RATIO = SQFloat::_4;
+
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+        const float_q VERTICAL_FOV = SQAngle::RadiansToDegrees(SQFloat::_3);
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+        const float_q VERTICAL_FOV = SQFloat::_3;
+    #endif
 
     // Reference values obtained by using DirectX SDK:
     // float_q fNearClipPlane = SQFloat::_1;
@@ -2999,14 +3019,13 @@ QTEST_CASE( SwitchHandConventionProjectionSpaceMatrix_HandRulesAreCorrectlySwitc
     QSpaceConversionMatrix ORIGINAL_VALUE;
     ORIGINAL_VALUE.SetProjectionSpaceMatrix(NEAR_CLIP_PLANE, FAR_CLIP_PLANE, ASPECT_RATIO, VERTICAL_FOV);
 
-    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)0.017728711f, SQFloat::_0,           SQFloat::_0,  SQFloat::_0,
-                                                               (float_q)SQFloat::_0,  (float_q)0.070914842f, SQFloat::_0,  SQFloat::_0,
-                                                               SQFloat::_0,           SQFloat::_0,           -SQFloat::_2,  -SQFloat::_1,
-                                                               SQFloat::_0,           SQFloat::_0,           -SQFloat::_2, SQFloat::_0));
+    const QSpaceConversionMatrix EXPECTED_VALUE(QBaseMatrix4x4((float_q)0.017728711075663112, SQFloat::_0,                   SQFloat::_0,  SQFloat::_0,
+                                                               (float_q)SQFloat::_0,          (float_q)0.070914844302652449, SQFloat::_0,  SQFloat::_0,
+                                                               SQFloat::_0,                   SQFloat::_0,                   -SQFloat::_2, -SQFloat::_1,
+                                                               SQFloat::_0,                   SQFloat::_0,                   -SQFloat::_2, SQFloat::_0));
 
     // Execution
     QSpaceConversionMatrix matrixUT = ORIGINAL_VALUE.SwitchHandConventionProjectionSpaceMatrix();
-    QSpaceConversionMatrix matrixSwitchedAgainUT = matrixUT.SwitchHandConventionProjectionSpaceMatrix();
 
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
@@ -3085,17 +3104,17 @@ void SetWorldSpaceMatrixImp_TransformationIsCorrectlyBuiltFromCommonTransformati
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     QBaseMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
@@ -3276,17 +3295,17 @@ void SetWorldSpaceMatrixImp_CorrectResultObtainedWhenOnlyContainsRotation_Templa
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     QBaseMatrix4x4 EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
     EXPECTED_VALUE.ij[0][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
     EXPECTED_VALUE.ij[1][3] = SQFloat::_0;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[2][3] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;

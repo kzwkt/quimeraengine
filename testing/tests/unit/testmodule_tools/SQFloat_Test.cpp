@@ -184,7 +184,7 @@ QTEST_CASE ( IsNanOrInfinite_ReturnsTrueWhenValueIsInfinite_Test )
 /// <summary>
 /// Checks if it returns true when operand differences equal tolerance value.
 /// </summary>
-QTEST_CASE ( AreEqual_ReturnsTrueWhenOperandsDifferTolerance_Test )
+QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsDifferTolerance_Test )
 {
     // Preparation
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
@@ -201,7 +201,7 @@ QTEST_CASE ( AreEqual_ReturnsTrueWhenOperandsDifferTolerance_Test )
 /// <summary>
 /// Checks if it returns true when operand differences are lower than tolerance value.
 /// </summary>
-QTEST_CASE ( AreEqual_ReturnsTrueWhenOperandsDifferLessThanTolerance_Test )
+QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsDifferLessThanTolerance_Test )
 {
     // Preparation
     const float_q LEFT_OPERAND = SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
@@ -218,7 +218,7 @@ QTEST_CASE ( AreEqual_ReturnsTrueWhenOperandsDifferLessThanTolerance_Test )
 /// <summary>
 /// Checks if it returns false when operand differences are greater than tolerance value.
 /// </summary>
-QTEST_CASE ( AreEqual_ReturnsFalseWhenOperandsDifferGreaterThanTolerance_Test )
+QTEST_CASE ( AreEqual1_ReturnsFalseWhenOperandsDifferGreaterThanTolerance_Test )
 {
     // Preparation
     const float_q LEFT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
@@ -235,7 +235,7 @@ QTEST_CASE ( AreEqual_ReturnsFalseWhenOperandsDifferGreaterThanTolerance_Test )
 /// <summary>
 /// Checks if it returns true when operands are exactly equal.
 /// </summary>
-QTEST_CASE ( AreEqual_ReturnsTrueWhenOperandsAreExactlyEqual_Test )
+QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsAreExactlyEqual_Test )
 {
     // Preparation
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
@@ -244,6 +244,78 @@ QTEST_CASE ( AreEqual_ReturnsTrueWhenOperandsAreExactlyEqual_Test )
 
 	// Execution
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if it returns true when operand differences equal tolerance value.
+/// </summary>
+QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsDifferTolerance_Test )
+{
+    // Preparation
+    const float_q TOLERANCE = (float_q)1e-3;
+    const float_q LEFT_OPERAND = TOLERANCE;
+    const float_q RIGHT_OPERAND = SQFloat::_0;
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if it returns true when operand differences are lower than tolerance value.
+/// </summary>
+QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsDifferLessThanTolerance_Test )
+{
+    // Preparation
+    const float_q TOLERANCE = (float_q)1e-3;
+    const float_q LEFT_OPERAND = TOLERANCE - TOLERANCE * SQFloat::_0_5;
+    const float_q RIGHT_OPERAND = SQFloat::_0;
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if it returns false when operand differences are greater than tolerance value.
+/// </summary>
+QTEST_CASE ( AreEqual2_ReturnsFalseWhenOperandsDifferGreaterThanTolerance_Test )
+{
+    // Preparation
+    const float_q TOLERANCE = (float_q)1e-3;
+    const float_q LEFT_OPERAND = TOLERANCE + TOLERANCE * SQFloat::_0_5;
+    const float_q RIGHT_OPERAND = SQFloat::_0;
+    const bool EXPECTED_RESULT = false;
+
+	// Execution
+    bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks if it returns true when operands are exactly equal.
+/// </summary>
+QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsAreExactlyEqual_Test )
+{
+    // Preparation
+    const float_q TOLERANCE = (float_q)1e-3;
+    const float_q LEFT_OPERAND = TOLERANCE;
+    const float_q RIGHT_OPERAND = TOLERANCE;
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
     // Verification
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
@@ -789,8 +861,13 @@ QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
-    const float_q NUMBER = (float_q)-12345678901234.0f;
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    const float_q NUMBER = -12345678901234.0f;
     string_q EXPECTED_RESULT = QE_L("-1.2345679e+013");
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const float_q NUMBER = -1234567890123456789123456789.0;
+    string_q EXPECTED_RESULT = QE_L("-1.2345678901234569e+027");
+#endif
 
 	// Execution
     string_q strResultUT = SQFloat::ToString(NUMBER);
@@ -807,8 +884,13 @@ QTEST_CASE ( ToString_TinyNumberIsCorrectlyConverted_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
-    const float_q NUMBER = (float_q)-0.0000000012345678901234f;
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    const float_q NUMBER = -0.0000000012345678901234f;
     string_q EXPECTED_RESULT = QE_L("-1.23456789e-009");
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const float_q NUMBER = -0.000000001234567890123412345678901234;
+    string_q EXPECTED_RESULT = QE_L("-1.2345678901234124e-009");
+#endif
 
 	// Execution
     string_q strResultUT = SQFloat::ToString(NUMBER);
@@ -825,8 +907,13 @@ QTEST_CASE ( ToString_CommonNumberIsCorrectlyConverted_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
-    const float_q NUMBER = (float_q)-12345.6789f;
-    string_q EXPECTED_RESULT = QE_L("-12345.6787"); // There is a strange round here
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    const float_q NUMBER = (float_q)-12345.6789;
+    string_q EXPECTED_RESULT = QE_L("-12345.6787"); // There is a strange rounding here
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const float_q NUMBER = (float_q)-1234567890.123456789;
+    string_q EXPECTED_RESULT = QE_L("-1234567890.1234567");
+#endif
 
 	// Execution
     string_q strResultUT = SQFloat::ToString(NUMBER);
@@ -841,10 +928,10 @@ QTEST_CASE ( ToString_CommonNumberIsCorrectlyConverted_Test )
 QTEST_CASE ( ToInteger_WhenValueEqualsZeroPointFiveItsRoundedOffToZero_Test )
 {
     // Preparation
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
@@ -865,10 +952,10 @@ QTEST_CASE ( ToInteger_WhenValueEqualsZeroPointFiveItsRoundedOffToZero_Test )
 QTEST_CASE ( ToInteger_WhenValueIsGreaterThanZeroPointFiveItsRoundedOffToOne_Test )
 {
     // Preparation
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
@@ -889,10 +976,10 @@ QTEST_CASE ( ToInteger_WhenValueIsGreaterThanZeroPointFiveItsRoundedOffToOne_Tes
 QTEST_CASE ( ToInteger_WhenValueIsLessThanZeroPointFiveItsRoundedToZero_Test )
 {
     // Preparation
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
@@ -913,10 +1000,10 @@ QTEST_CASE ( ToInteger_WhenValueIsLessThanZeroPointFiveItsRoundedToZero_Test )
 QTEST_CASE ( ToInteger_AssertionFailsWhenTheMemorySizeOfIntegerTypeIsDifferentFromSizeOfFloatType_Test )
 {
     // Preparation
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
@@ -945,11 +1032,11 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenTheMemorySizeOfIntegerTypeIsDifferentFr
 QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsHigherThanTheMaximumIntegerPossible_Test )
 {
     // Preparation
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
     const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  8388608; // Maximum convertible integer value = 2^23
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
     const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  4503599627370496l; // Maximum convertible integer value = 2^52
@@ -979,11 +1066,11 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsHigherThanTheMaximumIntege
 QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumIntegerPossible_Test )
 {
     // Preparation
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
     const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -4194304; // Maximum convertible integer negative value = 2^22
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
     const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -2251799813685248l; // Maximum convertible integer negative value = 2^51
@@ -1013,7 +1100,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumInteger
 QTEST_CASE ( Truncate_ValueIsNotRoundedOff_Test )
 {
     // Preparation
-    const float_q NUMBER = (float_q)1.9999999f;
+    const float_q NUMBER = (float_q)1.9999999;
     const float_q EXPECTED_RESULT = SQFloat::_1;
 
 	// Execution
@@ -1029,7 +1116,7 @@ QTEST_CASE ( Truncate_ValueIsNotRoundedOff_Test )
 QTEST_CASE ( Truncate_FractionalPartDissapears_Test )
 {
     // Preparation
-    const float_q NUMBER = (float_q)12345.6789f;
+    const float_q NUMBER = (float_q)12345.6789;
     const float_q EXPECTED_RESULT = (float_q)12345;
 
 	// Execution
@@ -1081,7 +1168,7 @@ QTEST_CASE ( Clamp_ReturnsMinWhenValueIsLowerThanMin_Test )
 QTEST_CASE ( Clamp_WhenValueIsEnclosedBetweenMaxAndMinItsReturnedAsIs_Test )
 {
     // Preparation
-    const float_q NUMBER = (float_q)1.5f;
+    const float_q NUMBER = (float_q)1.5;
     const float_q MAX_BOUND = SQFloat::_2;
     const float_q MIN_BOUND = SQFloat::_1;
     const float_q EXPECTED_RESULT = NUMBER;
@@ -1099,8 +1186,13 @@ QTEST_CASE ( Clamp_WhenValueIsEnclosedBetweenMaxAndMinItsReturnedAsIs_Test )
 QTEST_CASE ( SwapEndianess_BytesAreCorrectlyReordered_Test )
 {
     // Preparation
-    const float_q VALUE = (float_q)123456789.1234f;      // a3 79 eb 4c
-    const float_q EXPECTED_RESULT = -1.3548143e-017f;    // 4c eb 79 a3
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    const float_q VALUE = 123456789.1234f;            // a3 79 eb 4c
+    const float_q EXPECTED_RESULT = -1.3548143e-017f; // 4c eb 79 a3
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const float_q VALUE = 123456789.1234;            // 41 9d 6f 34 54 7e 5c 92
+    const float_q EXPECTED_RESULT = -3.1530333220209750e-220	; // 92 5c 7e 54 34 6f 9d 41
+#endif
 
 	// Execution
     float_q fResultUT = SQFloat::SwapEndianess(VALUE);

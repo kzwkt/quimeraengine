@@ -584,10 +584,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_TranslationMatricesProductIsCommutative_T
 QTEST_CASE_TEMPLATE ( OperatorProduct2_FourthColumnOfLeftOperandDoesntMatter_Test, TQTemplateTypes )
 {
     // Preparation
-    QTranslationMatrix<QMatrix4x4> OPERANDA1 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDA1 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     QTranslationMatrix<T> OPERANDA2;
     OPERANDA2.ij[0][0] = SQFloat::_1;
@@ -600,13 +600,13 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_FourthColumnOfLeftOperandDoesntMatter_Tes
     OPERANDA2.ij[2][1] = SQFloat::_8;
     OPERANDA2.ij[2][2] = SQFloat::_9;
     OPERANDA2.ij[3][0] = SQFloat::_10;
-    OPERANDA2.ij[3][1] = (float_q)11.0f;
-    OPERANDA2.ij[3][2] = (float_q)12.0f;
+    OPERANDA2.ij[3][1] = (float_q)11.0;
+    OPERANDA2.ij[3][2] = (float_q)12.0;
 
-    QTranslationMatrix<QMatrix4x4> OPERANDB1 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)37.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)38.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)39.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDB1 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)37.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)38.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     QTranslationMatrix<T> OPERANDB2 = OPERANDA2;
 
@@ -635,20 +635,20 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_FourthColumnOfRightOperandDoesntMatter_Te
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
 
-    QTranslationMatrix<QMatrix4x4> OPERANDA2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDA2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     QTranslationMatrix<T> OPERANDB1 = OPERANDA1;
 
-    QTranslationMatrix<QMatrix4x4> OPERANDB2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)37.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)38.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)39.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDB2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)37.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)38.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     // Execution
     QTranslationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
@@ -717,28 +717,28 @@ QTEST_CASE_TEMPLATE ( OperatorProduct3_OnlyTheDiagonalOfScalingMatrixMatters_Tes
     QTranslationMatrix<T> OPERANDA1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
     QScalingMatrix3x3 OPERANDA2;
-    OPERANDA2.ij[0][0] = (float_q)17.0f;
-    OPERANDA2.ij[0][1] = (float_q)18.0f;
-    OPERANDA2.ij[0][2] = (float_q)19.0f;
-    OPERANDA2.ij[1][0] = (float_q)20.0f;
-    OPERANDA2.ij[1][1] = (float_q)21.0f;
-    OPERANDA2.ij[1][2] = (float_q)22.0f;
-    OPERANDA2.ij[2][0] = (float_q)23.0f;
-    OPERANDA2.ij[2][1] = (float_q)24.0f;
-    OPERANDA2.ij[2][2] = (float_q)25.0f;
+    OPERANDA2.ij[0][0] = (float_q)17.0;
+    OPERANDA2.ij[0][1] = (float_q)18.0;
+    OPERANDA2.ij[0][2] = (float_q)19.0;
+    OPERANDA2.ij[1][0] = (float_q)20.0;
+    OPERANDA2.ij[1][1] = (float_q)21.0;
+    OPERANDA2.ij[1][2] = (float_q)22.0;
+    OPERANDA2.ij[2][0] = (float_q)23.0;
+    OPERANDA2.ij[2][1] = (float_q)24.0;
+    OPERANDA2.ij[2][2] = (float_q)25.0;
 
     QTranslationMatrix<T> OPERANDB1 = OPERANDA1;
 
     QScalingMatrix3x3 OPERANDB2;
-    OPERANDB2.ij[0][0] = (float_q)17.0f;
-    OPERANDB2.ij[0][1] = (float_q)26.0f;
-    OPERANDB2.ij[0][2] = (float_q)27.0f;
-    OPERANDB2.ij[1][0] = (float_q)28.0f;
-    OPERANDB2.ij[1][1] = (float_q)21.0f;
-    OPERANDB2.ij[1][2] = (float_q)29.0f;
-    OPERANDB2.ij[2][0] = (float_q)30.0f;
-    OPERANDB2.ij[2][1] = (float_q)31.0f;
-    OPERANDB2.ij[2][2] = (float_q)25.0f;
+    OPERANDB2.ij[0][0] = (float_q)17.0;
+    OPERANDB2.ij[0][1] = (float_q)26.0;
+    OPERANDB2.ij[0][2] = (float_q)27.0;
+    OPERANDB2.ij[1][0] = (float_q)28.0;
+    OPERANDB2.ij[1][1] = (float_q)21.0;
+    OPERANDB2.ij[1][2] = (float_q)29.0;
+    OPERANDB2.ij[2][0] = (float_q)30.0;
+    OPERANDB2.ij[2][1] = (float_q)31.0;
+    OPERANDB2.ij[2][2] = (float_q)25.0;
 
     // Execution
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
@@ -786,29 +786,29 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_TranslationMatrixAnd3x3RotationMatrixAreC
     QTranslationMatrix<T> OPERAND1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
     QRotationMatrix3x3 ROTATION;
-    ROTATION.ij[0][0] = (float_q)10.0f;
-    ROTATION.ij[0][1] = (float_q)11.0f;
-    ROTATION.ij[0][2] = (float_q)12.0f;
-    ROTATION.ij[1][0] = (float_q)13.0f;
-    ROTATION.ij[1][1] = (float_q)14.0f;
-    ROTATION.ij[1][2] = (float_q)15.0f;
-    ROTATION.ij[2][0] = (float_q)16.0f;
-    ROTATION.ij[2][1] = (float_q)17.0f;
-    ROTATION.ij[2][2] = (float_q)18.0f;
+    ROTATION.ij[0][0] = (float_q)10.0;
+    ROTATION.ij[0][1] = (float_q)11.0;
+    ROTATION.ij[0][2] = (float_q)12.0;
+    ROTATION.ij[1][0] = (float_q)13.0;
+    ROTATION.ij[1][1] = (float_q)14.0;
+    ROTATION.ij[1][2] = (float_q)15.0;
+    ROTATION.ij[2][0] = (float_q)16.0;
+    ROTATION.ij[2][1] = (float_q)17.0;
+    ROTATION.ij[2][2] = (float_q)18.0;
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)10.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)11.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)12.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)13.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)14.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)15.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)16.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)17.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)18.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)84.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)90.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)96.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)10.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)11.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)12.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)13.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)14.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)15.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)16.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)17.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)18.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)84.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)90.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)96.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
     // Execution
@@ -841,15 +841,15 @@ QTEST_CASE( OperatorProduct4_FourthColumnOfLeftOperandDoesntMatter )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     QRotationMatrix3x3 ROTATION;
-    ROTATION.ij[0][0] = (float_q)10.0f;
-    ROTATION.ij[0][1] = (float_q)11.0f;
-    ROTATION.ij[0][2] = (float_q)12.0f;
-    ROTATION.ij[1][0] = (float_q)13.0f;
-    ROTATION.ij[1][1] = (float_q)14.0f;
-    ROTATION.ij[1][2] = (float_q)15.0f;
-    ROTATION.ij[2][0] = (float_q)16.0f;
-    ROTATION.ij[2][1] = (float_q)17.0f;
-    ROTATION.ij[2][2] = (float_q)18.0f;
+    ROTATION.ij[0][0] = (float_q)10.0;
+    ROTATION.ij[0][1] = (float_q)11.0;
+    ROTATION.ij[0][2] = (float_q)12.0;
+    ROTATION.ij[1][0] = (float_q)13.0;
+    ROTATION.ij[1][1] = (float_q)14.0;
+    ROTATION.ij[1][2] = (float_q)15.0;
+    ROTATION.ij[2][0] = (float_q)16.0;
+    ROTATION.ij[2][1] = (float_q)17.0;
+    ROTATION.ij[2][2] = (float_q)18.0;
 
     QTranslationMatrix<QMatrix4x4> OPERANDA1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     FillFourthColumnIfExists(OPERANDA1, SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
@@ -1390,17 +1390,17 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation4_FourthColumnOfRightOperandDoes
     OPERANDA1.ij[3][2] = SQFloat::_5;
     FillFourthColumnIfExists(OPERANDA1, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    QTranslationMatrix<QMatrix4x4> OPERANDA2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                         (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                         (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                         (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDA2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                         (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                         (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     QTranslationMatrix<T> OPERANDB1 = OPERANDA1;
 
-    QTranslationMatrix<QMatrix4x4> OPERANDB2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)37.0f,
-                                                                                         (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)38.0f,
-                                                                                         (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)39.0f,
-                                                                                         (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDB2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)37.0,
+                                                                                         (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)38.0,
+                                                                                         (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
+                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     // Execution
     QTranslationMatrix<T> matrixAUT = OPERANDA1;
@@ -1433,17 +1433,17 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation5_OnlyFourthRowElementsOfOperand
     OPERANDA1.ij[3][2] = SQFloat::_5;
     FillFourthColumnIfExists(OPERANDA1, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    QTranslationMatrix<QMatrix4x4> OPERANDA2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                         (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                         (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                         (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDA2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                         (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                         (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     QTranslationMatrix<T> OPERANDB1 = OPERANDA1;
 
-    QTranslationMatrix<QMatrix4x4> OPERANDB2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)7.0f, (float_q)8.0f, (float_q)9.0f, (float_q)7.0f,
-                                                                                         (float_q)2.0f, (float_q)1.0f, (float_q)2.0f, (float_q)8.0f,
-                                                                                         (float_q)3.0f, (float_q)4.0f, (float_q)5.0f, (float_q)3.0f,
-                                                                                         (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDB2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)7.0, (float_q)8.0, (float_q)9.0, (float_q)7.0,
+                                                                                         (float_q)2.0, (float_q)1.0, (float_q)2.0, (float_q)8.0,
+                                                                                         (float_q)3.0, (float_q)4.0, (float_q)5.0, (float_q)3.0,
+                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     // Execution
     QTranslationMatrix<T> matrixAUT = OPERANDA1;
@@ -1472,9 +1472,9 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_EveryElementIsAssignedToRightTargetEle
     MATRIX.ij[2][1] = SQFloat::_8;
     MATRIX.ij[2][2] = SQFloat::_9;
     MATRIX.ij[3][0] = SQFloat::_10;
-    MATRIX.ij[3][1] = (float_q)11.0f;
-    MATRIX.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX.ij[3][1] = (float_q)11.0;
+    MATRIX.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     const QTranslationMatrix<T> EXPECTED_VALUE = MATRIX;
 
@@ -1629,9 +1629,9 @@ QTEST_CASE_TEMPLATE ( HasInverse_AlwaysReturnsTrue_Test, TQTemplateTypes )
     MATRIX2.ij[2][1] = SQFloat::_8;
     MATRIX2.ij[2][2] = SQFloat::_9;
     MATRIX2.ij[3][0] = SQFloat::_10;
-    MATRIX2.ij[3][1] = (float_q)11.0f;
-    MATRIX2.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX2, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX2.ij[3][1] = (float_q)11.0;
+    MATRIX2.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX2, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     const bool EXPECTED_VALUE = true;
 

@@ -44,7 +44,7 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-#if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
 
     const float_q SQAngle::_15           = 15.0f;
     const float_q SQAngle::_30           = 30.0f;
@@ -54,17 +54,17 @@ namespace Math
     const float_q SQAngle::_180          = 180.0f;
     const float_q SQAngle::_270          = 270.0f;
     const float_q SQAngle::_360          = 360.0f;
-    const float_q SQAngle::_HalfPi       = PI_Q * 0.5f;
-    const float_q SQAngle::_QuarterPi    = PI_Q * 0.25f;
-    const float_q SQAngle::_ThirdPi      = PI_Q / 3.0f;
-    const float_q SQAngle::_2Pi          = PI_Q * 2.0f;
+    const float_q SQAngle::_HalfPi       = (float_q) (PI_Q * 0.5);
+    const float_q SQAngle::_QuarterPi    = (float_q) (PI_Q * 0.25);
+    const float_q SQAngle::_ThirdPi      = (float_q) (PI_Q / 3.0);
+    const float_q SQAngle::_2Pi          = (float_q) (PI_Q * 2.0);
     const float_q SQAngle::_Pi           = PI_Q;
-    const float_q SQAngle::_3HalfsPi     = PI_Q * 1.5f;
+    const float_q SQAngle::_3HalfsPi     = (float_q) (PI_Q * 1.5);
 
-    const float_q SQAngle::DegreesPerRadian  = 180.0f / PI_Q;
-    const float_q SQAngle::RadiansPerDegree  = PI_Q / 180.0f;
+    const float_q SQAngle::DegreesPerRadian  = (float_q) (180.0 / PI_Q);
+    const float_q SQAngle::RadiansPerDegree  = (float_q) (PI_Q / 180.0);
 
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
 
     const float_q SQAngle::_15           = 15.0;
     const float_q SQAngle::_30           = 30.0;

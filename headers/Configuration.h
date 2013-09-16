@@ -41,10 +41,10 @@ namespace Configuration
 // mathematical operations are. Take on account that more precission decreases performance.
 // How to use it: Write a precission definition value as the default precission definition.
 // --------------------------------------------------------------------------------------------------------
-#define QE_CONFIG_PRECISSION_SIMPLE     0x0 // Simple precission: A 32 bits size floating point type.
-#define QE_CONFIG_PRECISSION_DOUBLE     0x1 // Double precission: A large size (more than 32 bits) floating point type.
+#define QE_CONFIG_PRECISION_SIMPLE     0x0 // Simple precission: A 32 bits size floating point type.
+#define QE_CONFIG_PRECISION_DOUBLE     0x1 // Double precission: A large size (more than 32 bits) floating point type.
 
-#define QE_CONFIG_PRECISSION_DEFAULT QE_CONFIG_PRECISSION_SIMPLE // [Configurable]
+#define QE_CONFIG_PRECISION_DEFAULT QE_CONFIG_PRECISION_SIMPLE // [Configurable]
 
 
 // --------------------------------------------------------------------------------------------------------
@@ -52,7 +52,7 @@ namespace Configuration
 // How to use it: Write an angle notation definition value as the default angle notation definition.
 // --------------------------------------------------------------------------------------------------------
 #define QE_CONFIG_ANGLENOTATION_RADIANS 0x0 // Radians notation: Angles are represented using radians, from 0 to 2*Pi.
-#define QE_CONFIG_ANGLENOTATION_DEGREES 0x1 // Degrees notation: Angles are represented using degrees, from 0บ to 360บ.
+#define QE_CONFIG_ANGLENOTATION_DEGREES 0x1 // Degrees notation: Angles are represented using degrees, from 0ยบ to 360ยบ.
 
 #define QE_CONFIG_ANGLENOTATION_DEFAULT QE_CONFIG_ANGLENOTATION_RADIANS // [Configurable]
 

@@ -66,7 +66,7 @@ QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fRotationAngleX, const flo
         const float_q& fD   = sin_q(ANGLE_Y_RAD);
         const float_q& fE   = cos_q(ANGLE_Z_RAD);
         const float_q& fF   = sin_q(ANGLE_Z_RAD);
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q& fA   = cos_q(fRotationAngleX);
         const float_q& fB   = sin_q(fRotationAngleX);
         const float_q& fC   = cos_q(fRotationAngleY);
@@ -309,10 +309,17 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
     // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToAngle/index.htm
     // Source: http://en.wikipedia.org/wiki/Rotation_representation_%28mathematics%29#Rotation_matrix_.E2.86.94_Euler_axis.2Fangle
 
-    // Note: It must be clamped due to loss of precission that produces a cos value greater than 1, that is not valid
-    const float_q &COS_AUX = SQFloat::Clamp((this->ij[0][0] + this->ij[1][1] + this->ij[2][2] - SQFloat::_1) * SQFloat::_0_5, -SQFloat::_1, SQFloat::_1);
+    float_q COS_AUX = (this->ij[0][0] + this->ij[1][1] + this->ij[2][2] - SQFloat::_1) * SQFloat::_0_5;
+
+    // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+    if(COS_AUX > SQFloat::_1)
+        COS_AUX = SQFloat::_1;
+    else if(COS_AUX < -SQFloat::_1)
+        COS_AUX = -SQFloat::_1;
 
     fRotationAngle = acos_q(COS_AUX);
+
+    QE_ASSERT( !SQFloat::IsNaN(fRotationAngle) );
 
     if( SQFloat::AreEqual(COS_AUX, SQFloat::_1) ) // Singularity 1: Angle == 0 -> we choose arbitrary axis.
     {

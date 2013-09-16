@@ -52,11 +52,11 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByQuaternion_Test 
 
     const float_q EXPECTED_VALUE_FOR_RX = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_RY = SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_RZ = (float_q)1.5f;
+    const float_q EXPECTED_VALUE_FOR_RZ = (float_q)1.5;
     const float_q EXPECTED_VALUE_FOR_RW = SQFloat::_2;
-    const float_q EXPECTED_VALUE_FOR_DX = (float_q)2.5f;
+    const float_q EXPECTED_VALUE_FOR_DX = (float_q)2.5;
     const float_q EXPECTED_VALUE_FOR_DY = SQFloat::_3;
-    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)3.5f;
+    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)3.5;
     const float_q EXPECTED_VALUE_FOR_DW = SQFloat::_4;
 
     const QDualQuaternion DUALQUATERNION = QDualQuaternion(QBaseQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4),
@@ -170,9 +170,9 @@ QTEST_CASE ( Constructor4_IsCorrectlyCreatedWhenUsingCommonTransformations_Test 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
 
     const float_q EXPECTED_VALUE_FOR_DX = SQFloat::_8;
-    const float_q EXPECTED_VALUE_FOR_DY = (float_q)16.0f;
-    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)12.0f;
-    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0f;
+    const float_q EXPECTED_VALUE_FOR_DY = (float_q)16.0;
+    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)12.0;
+    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0;
     const float_q EXPECTED_VALUE_FOR_RX = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_RY = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_RZ = SQFloat::_3;
@@ -269,9 +269,9 @@ QTEST_CASE ( Constructor5_IsCorrectlyCreatedWhenUsingCommonTransformations_Test 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
 
     const float_q EXPECTED_VALUE_FOR_DX = SQFloat::_8;
-    const float_q EXPECTED_VALUE_FOR_DY = (float_q)16.0f;
-    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)12.0f;
-    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0f;
+    const float_q EXPECTED_VALUE_FOR_DY = (float_q)16.0;
+    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)12.0;
+    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0;
     const float_q EXPECTED_VALUE_FOR_RX = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_RY = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_RZ = SQFloat::_3;
@@ -367,10 +367,10 @@ QTEST_CASE ( Constructor6_IsCorrectlyCreatedWhenUsingCommonTransformations_Test 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
 
-    const float_q EXPECTED_VALUE_FOR_DX = (float_q)12.0f;
+    const float_q EXPECTED_VALUE_FOR_DX = (float_q)12.0;
     const float_q EXPECTED_VALUE_FOR_DY = SQFloat::_8;
-    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)16.0f;
-    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0f;
+    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)16.0;
+    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0;
     const float_q EXPECTED_VALUE_FOR_RX = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_RY = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_RZ = SQFloat::_3;
@@ -466,10 +466,10 @@ QTEST_CASE ( Constructor7_IsCorrectlyCreatedWhenUsingCommonTransformations_Test 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
 
-    const float_q EXPECTED_VALUE_FOR_DX = (float_q)12.0f;
+    const float_q EXPECTED_VALUE_FOR_DX = (float_q)12.0;
     const float_q EXPECTED_VALUE_FOR_DY = SQFloat::_8;
-    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)16.0f;
-    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0f;
+    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)16.0;
+    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0;
     const float_q EXPECTED_VALUE_FOR_RX = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_RY = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_RZ = SQFloat::_3;
@@ -659,9 +659,9 @@ void QDualQuaternionImp1_IsCorrectlyCreatedWhenUsingCommonTransformations_Templa
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
     const float_q EXPECTED_VALUE_FOR_DX = SQFloat::_8;
-    const float_q EXPECTED_VALUE_FOR_DY = (float_q)16.0f;
-    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)12.0f;
-    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0f;
+    const float_q EXPECTED_VALUE_FOR_DY = (float_q)16.0;
+    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)12.0;
+    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0;
     const float_q EXPECTED_VALUE_FOR_RX = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_RY = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_RZ = SQFloat::_3;
@@ -820,10 +820,10 @@ void QDualQuaternionImp2_IsCorrectlyCreatedWhenUsingCommonTransformations_Templa
     using Kinesis::QuimeraEngine::Tools::Math::Test::QDualQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
-    const float_q EXPECTED_VALUE_FOR_DX = (float_q)12.0f;
+    const float_q EXPECTED_VALUE_FOR_DX = (float_q)12.0;
     const float_q EXPECTED_VALUE_FOR_DY = SQFloat::_8;
-    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)16.0f;
-    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0f;
+    const float_q EXPECTED_VALUE_FOR_DZ = (float_q)16.0;
+    const float_q EXPECTED_VALUE_FOR_DW = (float_q)-19.0;
     const float_q EXPECTED_VALUE_FOR_RX = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_RY = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_RZ = SQFloat::_3;
@@ -1001,10 +1001,10 @@ QTEST_CASE ( OperatorAddition_TwoDifferentQuaternionsAreCorrectlyAdded_Test )
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                      QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
     const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10),
-                                                     QQuaternion((float_q)11.0f, (float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+                                                     QQuaternion((float_q)11.0, (float_q)12.0, (float_q)13.0, (float_q)14.0));
 
-    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)7.25f, SQFloat::_9, (float_q)11.0f, (float_q)13.0f),
-                                                           QQuaternion((float_q)14.0f, (float_q)16.0f, (float_q)18.0f, (float_q)20.0f));
+    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)7.25, SQFloat::_9, (float_q)11.0, (float_q)13.0),
+                                                           QQuaternion((float_q)14.0, (float_q)16.0, (float_q)18.0, (float_q)20.0));
 
 	// Execution
     QDualQuaternion dualQuaternionUT = OPERAND1 + OPERAND2;
@@ -1021,10 +1021,10 @@ QTEST_CASE ( OperatorSubtraction_TwoDifferentQuaternionsAreCorrectlySubtracted_T
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion((float_q)7.25f, SQFloat::_9, (float_q)11.0f, (float_q)13.0f),
-                                                     QQuaternion((float_q)14.0f, (float_q)16.0f, (float_q)18.0f, (float_q)20.0f));
+    const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion((float_q)7.25, SQFloat::_9, (float_q)11.0, (float_q)13.0),
+                                                     QQuaternion((float_q)14.0, (float_q)16.0, (float_q)18.0, (float_q)20.0));
     const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10),
-                                                     QQuaternion((float_q)11.0f, (float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+                                                     QQuaternion((float_q)11.0, (float_q)12.0, (float_q)13.0, (float_q)14.0));
 
     const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
@@ -1047,10 +1047,10 @@ QTEST_CASE ( OperatorProduct1_TwoDifferentQuaternionsAreCorrectlyMultiplied_Test
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                      QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
     const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10),
-                                                     QQuaternion((float_q)11.0f, (float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+                                                     QQuaternion((float_q)11.0, (float_q)12.0, (float_q)13.0, (float_q)14.0));
 
-    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)30.5f, (float_q)22.25f, (float_q)52.0f, (float_q)2.25f),
-                                                           QQuaternion((float_q)123.5f, (float_q)111.25f, (float_q)183.0f, (float_q)-36.75f));
+    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)30.5, (float_q)22.25, (float_q)52.0, (float_q)2.25),
+                                                           QQuaternion((float_q)123.5, (float_q)111.25, (float_q)183.0, (float_q)-36.75));
 
 	// Execution
     QDualQuaternion dualQuaternionUT = OPERAND1 * OPERAND2;
@@ -1070,7 +1070,7 @@ QTEST_CASE ( OperatorProduct1_IsNotCommutative_Test )
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                      QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
     const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10),
-                                                     QQuaternion((float_q)11.0f, (float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+                                                     QQuaternion((float_q)11.0, (float_q)12.0, (float_q)13.0, (float_q)14.0));
 
 	// Execution
     QDualQuaternion dualQuaternion1UT = OPERAND1 * OPERAND2;
@@ -1092,8 +1092,8 @@ QTEST_CASE ( OperatorProduct2_ScalarAndDualQuaternionAreCorrectlyMultiplied_Test
                                                            QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
     const float_q SCALAR = SQFloat::_7;
 
-    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)1.75f, (float_q)7.0f, (float_q)14.0f, (float_q)21.0f),
-                                                           QQuaternion((float_q)21.0f, (float_q)28.0f, (float_q)35.0f, (float_q)42.0f));
+    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)1.75, (float_q)7.0, (float_q)14.0, (float_q)21.0),
+                                                           QQuaternion((float_q)21.0, (float_q)28.0, (float_q)35.0, (float_q)42.0));
 
 	// Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION * SCALAR;
@@ -1113,10 +1113,10 @@ QTEST_CASE ( OperatorProduct3_ResultIsCorrectWhenUsingCommonVector_Test )
 
     const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4),
                                                            QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8));
-    const QBaseVector3 VECTOR(SQFloat::_9, SQFloat::_10, (float_q)11.0f);
+    const QBaseVector3 VECTOR(SQFloat::_9, SQFloat::_10, (float_q)11.0);
 
     const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4),
-                                                           QQuaternion((float_q)49.0f, (float_q)30.0f, (float_q)59.0f, (float_q)-54.0f));
+                                                           QQuaternion((float_q)49.0, (float_q)30.0, (float_q)59.0, (float_q)-54.0));
 
 	// Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION * VECTOR;
@@ -1136,10 +1136,10 @@ QTEST_CASE ( OperatorProduct4_ResultIsCorrectWhenUsingCommonVector_Test )
 
     const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4),
                                                            QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8));
-    const QBaseVector4 VECTOR(SQFloat::_9, SQFloat::_10, (float_q)11.0f, (float_q)12.0f);
+    const QBaseVector4 VECTOR(SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0);
 
     const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4),
-                                                           QQuaternion((float_q)49.0f, (float_q)30.0f, (float_q)59.0f, (float_q)-54.0f));
+                                                           QQuaternion((float_q)49.0, (float_q)30.0, (float_q)59.0, (float_q)-54.0));
 
 	// Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION * VECTOR;
@@ -1156,8 +1156,8 @@ QTEST_CASE ( OperatorDivision_DualQuaternionIsCorrectlyDividedByScalar_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion((float_q)1.75f, (float_q)7.0f, (float_q)14.0f, (float_q)21.0f),
-                                                           QQuaternion((float_q)21.0f, (float_q)28.0f, (float_q)35.0f, (float_q)42.0f));
+    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion((float_q)1.75, (float_q)7.0, (float_q)14.0, (float_q)21.0),
+                                                           QQuaternion((float_q)21.0, (float_q)28.0, (float_q)35.0, (float_q)42.0));
     const float_q SCALAR = SQFloat::_7;
 
     const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
@@ -1178,8 +1178,8 @@ QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion((float_q)1.75f, (float_q)7.0f, (float_q)14.0f, (float_q)21.0f),
-                                                           QQuaternion((float_q)21.0f, (float_q)28.0f, (float_q)35.0f, (float_q)42.0f));
+    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion((float_q)1.75, (float_q)7.0, (float_q)14.0, (float_q)21.0),
+                                                           QQuaternion((float_q)21.0, (float_q)28.0, (float_q)35.0, (float_q)42.0));
     const float_q SCALAR = SQFloat::_0;
 
     const bool EXPECTED_VALUE = true;
@@ -1211,10 +1211,10 @@ QTEST_CASE ( OperatorAdditionAssignation_TwoDifferentQuaternionsAreCorrectlyAdde
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                      QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
     const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10),
-                                                     QQuaternion((float_q)11.0f, (float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+                                                     QQuaternion((float_q)11.0, (float_q)12.0, (float_q)13.0, (float_q)14.0));
 
-    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)7.25f, SQFloat::_9, (float_q)11.0f, (float_q)13.0f),
-                                                           QQuaternion((float_q)14.0f, (float_q)16.0f, (float_q)18.0f, (float_q)20.0f));
+    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)7.25, SQFloat::_9, (float_q)11.0, (float_q)13.0),
+                                                           QQuaternion((float_q)14.0, (float_q)16.0, (float_q)18.0, (float_q)20.0));
 
 	// Execution
     QDualQuaternion dualQuaternionUT = OPERAND1;
@@ -1232,10 +1232,10 @@ QTEST_CASE ( OperatorSubtractionAssignation_TwoDifferentQuaternionsAreCorrectlyS
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion((float_q)7.25f, SQFloat::_9, (float_q)11.0f, (float_q)13.0f),
-                                                     QQuaternion((float_q)14.0f, (float_q)16.0f, (float_q)18.0f, (float_q)20.0f));
+    const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion((float_q)7.25, SQFloat::_9, (float_q)11.0, (float_q)13.0),
+                                                     QQuaternion((float_q)14.0, (float_q)16.0, (float_q)18.0, (float_q)20.0));
     const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10),
-                                                     QQuaternion((float_q)11.0f, (float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+                                                     QQuaternion((float_q)11.0, (float_q)12.0, (float_q)13.0, (float_q)14.0));
 
     const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                            QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
@@ -1259,10 +1259,10 @@ QTEST_CASE ( OperatorProductAssignation1_TwoDifferentQuaternionsAreCorrectlyMult
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                      QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
     const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10),
-                                                     QQuaternion((float_q)11.0f, (float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+                                                     QQuaternion((float_q)11.0, (float_q)12.0, (float_q)13.0, (float_q)14.0));
 
-    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)30.5f, (float_q)22.25f, (float_q)52.0f, (float_q)2.25f),
-                                                           QQuaternion((float_q)123.5f, (float_q)111.25f, (float_q)183.0f, (float_q)-36.75f));
+    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)30.5, (float_q)22.25, (float_q)52.0, (float_q)2.25),
+                                                           QQuaternion((float_q)123.5, (float_q)111.25, (float_q)183.0, (float_q)-36.75));
 
 	// Execution
     QDualQuaternion dualQuaternionUT = OPERAND1;
@@ -1283,7 +1283,7 @@ QTEST_CASE ( OperatorProductAssignation1_IsNotCommutative_Test )
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                                      QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
     const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10),
-                                                     QQuaternion((float_q)11.0f, (float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+                                                     QQuaternion((float_q)11.0, (float_q)12.0, (float_q)13.0, (float_q)14.0));
 
 	// Execution
     QDualQuaternion dualQuaternion1UT = OPERAND1;
@@ -1307,8 +1307,8 @@ QTEST_CASE ( OperatorProductAssignation2_ScalarAndDualQuaternionAreCorrectlyMult
                                                            QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6));
     const float_q SCALAR = SQFloat::_7;
 
-    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)1.75f, (float_q)7.0f, (float_q)14.0f, (float_q)21.0f),
-                                                           QQuaternion((float_q)21.0f, (float_q)28.0f, (float_q)35.0f, (float_q)42.0f));
+    const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion((float_q)1.75, (float_q)7.0, (float_q)14.0, (float_q)21.0),
+                                                           QQuaternion((float_q)21.0, (float_q)28.0, (float_q)35.0, (float_q)42.0));
 
 	// Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION;
@@ -1326,8 +1326,8 @@ QTEST_CASE ( OperatorDivisionAssignation_DualQuaternionIsCorrectlyDividedByScala
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion((float_q)1.75f, (float_q)7.0f, (float_q)14.0f, (float_q)21.0f),
-                                                           QQuaternion((float_q)21.0f, (float_q)28.0f, (float_q)35.0f, (float_q)42.0f));
+    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion((float_q)1.75, (float_q)7.0, (float_q)14.0, (float_q)21.0),
+                                                           QQuaternion((float_q)21.0, (float_q)28.0, (float_q)35.0, (float_q)42.0));
     const float_q SCALAR = SQFloat::_7;
 
     const QDualQuaternion EXPECTED_VALUE = QDualQuaternion(QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3),
@@ -1349,8 +1349,8 @@ QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion((float_q)1.75f, (float_q)7.0f, (float_q)14.0f, (float_q)21.0f),
-                                                           QQuaternion((float_q)21.0f, (float_q)28.0f, (float_q)35.0f, (float_q)42.0f));
+    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion((float_q)1.75, (float_q)7.0, (float_q)14.0, (float_q)21.0),
+                                                           QQuaternion((float_q)21.0, (float_q)28.0, (float_q)35.0, (float_q)42.0));
     const float_q SCALAR = SQFloat::_0;
 
     const bool EXPECTED_VALUE = true;
@@ -1487,7 +1487,7 @@ QTEST_CASE ( GetNonDualLength_CorrectNonDualLengthObtainedFromCommonDualQuaterni
 
     const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4),
                                                            QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8));
-    const float_q EXPECTED_LENGTH = (float_q)5.4772258f;
+    const float_q EXPECTED_LENGTH = (float_q)5.4772255750516612;
 
 	// Execution
     float_q fLengthUT = DUALQUATERNION.GetNonDualLength();
@@ -1506,10 +1506,10 @@ QTEST_CASE ( Transform_CommonDualQuaternionIsCorrectlyTransformedByAnother_Test 
 
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4),
                                                      QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8));
-    const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_9, SQFloat::_10, (float_q)11.0f, (float_q)12.0f),
-                                                     QQuaternion((float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f));
-    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QQuaternion((float_q)766.0f, (float_q)1308.0f, (float_q)698.0f, (float_q)1784.0f),
-                                                            QQuaternion((float_q)2518.0f, (float_q)2884.0f, (float_q)2866.0f, (float_q)3488.0f));
+    const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0),
+                                                     QQuaternion((float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0));
+    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QQuaternion((float_q)766.0, (float_q)1308.0, (float_q)698.0, (float_q)1784.0),
+                                                            QQuaternion((float_q)2518.0, (float_q)2884.0, (float_q)2866.0, (float_q)3488.0));
 
     // Execution
     QDualQuaternion dualQuaternionUT = OPERAND1.Transform(OPERAND2);
@@ -1554,8 +1554,8 @@ QTEST_CASE ( TransformRotationFirst1_CommonDualQuaternionIsCorrectlyTransformed_
     const QBaseQuaternion ROTATION = QBaseQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseVector3 TRANSLATION = QBaseVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
 
-    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0f, (float_q)60.0f, (float_q)90.0f, (float_q)120.0f),
-                                                            QBaseQuaternion((float_q)718.0f, (float_q)820.0f, (float_q)1114.0f, (float_q)-900.0f));
+    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0, (float_q)60.0, (float_q)90.0, (float_q)120.0),
+                                                            QBaseQuaternion((float_q)718.0, (float_q)820.0, (float_q)1114.0, (float_q)-900.0));
 
     // Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION.TransformRotationFirst(ROTATION, TRANSLATION);
@@ -1603,8 +1603,8 @@ QTEST_CASE ( TransformRotationFirst2_CommonDualQuaternionIsCorrectlyTransformed_
     const QBaseQuaternion ROTATION = QBaseQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseVector4 TRANSLATION = QBaseVector4(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
 
-    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0f, (float_q)60.0f, (float_q)90.0f, (float_q)120.0f),
-                                                            QBaseQuaternion((float_q)718.0f, (float_q)820.0f, (float_q)1114.0f, (float_q)-900.0f));
+    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0, (float_q)60.0, (float_q)90.0, (float_q)120.0),
+                                                            QBaseQuaternion((float_q)718.0, (float_q)820.0, (float_q)1114.0, (float_q)-900.0));
 
     // Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION.TransformRotationFirst(ROTATION, TRANSLATION);
@@ -1652,8 +1652,8 @@ QTEST_CASE ( TransformTranslationFirst1_CommonDualQuaternionIsCorrectlyTransform
     const QBaseQuaternion ROTATION = QBaseQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseVector3 TRANSLATION = QBaseVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
 
-    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0f, (float_q)60.0f, (float_q)90.0f, (float_q)120.0f),
-                                                            QBaseQuaternion((float_q)590.0f, (float_q)500.0f, (float_q)1370.0f, (float_q)-900.0f));
+    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0, (float_q)60.0, (float_q)90.0, (float_q)120.0),
+                                                            QBaseQuaternion((float_q)590.0, (float_q)500.0, (float_q)1370.0, (float_q)-900.0));
 
     // Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION.TransformTranslationFirst(TRANSLATION, ROTATION);
@@ -1701,8 +1701,8 @@ QTEST_CASE ( TransformTranslationFirst2_CommonDualQuaternionIsCorrectlyTransform
     const QBaseQuaternion ROTATION = QBaseQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseVector4 TRANSLATION = QBaseVector4(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
 
-    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0f, (float_q)60.0f, (float_q)90.0f, (float_q)120.0f),
-                                                            QBaseQuaternion((float_q)590.0f, (float_q)500.0f, (float_q)1370.0f, (float_q)-900.0f));
+    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0, (float_q)60.0, (float_q)90.0, (float_q)120.0),
+                                                            QBaseQuaternion((float_q)590.0, (float_q)500.0, (float_q)1370.0, (float_q)-900.0));
 
     // Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION.TransformTranslationFirst(TRANSLATION, ROTATION);
@@ -1746,11 +1746,11 @@ QTEST_CASE ( Lerp_CorrectLerpedDualQuaternionIsObtainedForTwoCommonDualQuaternio
 
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize(),
                                                      QBaseVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7));
-    const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0f).Normalize(),
-                                                     QBaseVector3((float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+    const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0).Normalize(),
+                                                     QBaseVector3((float_q)12.0, (float_q)13.0, (float_q)14.0));
 
-    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QQuaternion((float_q)0.24356697f, (float_q)0.39486650f, (float_q)0.54616600f, (float_q)0.69746554f),
-                                                            QQuaternion((float_q)1.9485357f, (float_q)3.2050655f, (float_q)2.6460013f, (float_q)-4.9507084f));
+    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QQuaternion((float_q)0.24356699032036269, (float_q)0.394866515026776, (float_q)0.54616603973318933, (float_q)0.69746556443960261),
+                                                            QQuaternion((float_q)1.9485359225629015, (float_q)3.2050658530211824, (float_q)2.6460014870025041, (float_q)-4.9507089457357143));
     const float_q PROPORTION = SQFloat::_0_25;
 
     // Execution
@@ -1819,8 +1819,8 @@ QTEST_CASE ( Lerp_ProportionZeroMeansNormalizedResidentQuaternion_Test )
 
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize(),
                                                      QBaseVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7));
-    const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0f).Normalize(),
-                                                     QBaseVector3((float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+    const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0).Normalize(),
+                                                     QBaseVector3((float_q)12.0, (float_q)13.0, (float_q)14.0));
 
     const QDualQuaternion EXPECTED_RESULT = OPERAND1;
 
@@ -1844,8 +1844,8 @@ QTEST_CASE ( Lerp_ProportionOneMeansNormalizedInputQuaternion_Test )
 
     const QDualQuaternion OPERAND1 = QDualQuaternion(QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize(),
                                                      QBaseVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7));
-    const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0f).Normalize(),
-                                                     QBaseVector3((float_q)12.0f, (float_q)13.0f, (float_q)14.0f));
+    const QDualQuaternion OPERAND2 = QDualQuaternion(QQuaternion(SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0).Normalize(),
+                                                     QBaseVector3((float_q)12.0, (float_q)13.0, (float_q)14.0));
 
     const QDualQuaternion EXPECTED_RESULT = OPERAND2;
 
@@ -1866,9 +1866,14 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion(SQFloat::_0_25, (float_q)-0.000002f, (float_q)40000.0f, (float_q)1.0f),
-                                                           QQuaternion(SQFloat::_0_25, (float_q)-0.000002f, (float_q)40000.0f, (float_q)1.0f));
-    const string_q EXPECTED_STRING_FORM = QE_L("DQ(r(Q(0.25,-1.99999999e-006,40000,1)),d(Q(0.25,-1.99999999e-006,40000,1)))");
+    const QDualQuaternion DUALQUATERNION = QDualQuaternion(QQuaternion(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0, (float_q)1.0),
+                                                           QQuaternion(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0, (float_q)1.0));
+
+    #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+        const string_q EXPECTED_STRING_FORM = QE_L("DQ(r(Q(0.25,-1.99999999e-006,40000,1)),d(Q(0.25,-1.99999999e-006,40000,1)))");
+    #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+        const string_q EXPECTED_STRING_FORM = QE_L("DQ(r(Q(0.25,-1.9999999999999999e-006,40000,1)),d(Q(0.25,-1.9999999999999999e-006,40000,1)))");
+    #endif
 
 	// Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION;
@@ -1898,8 +1903,8 @@ void TransformRotationFirstImp_CommonDualQuaternionIsCorrectlyTransformed_Templa
     TRANSLATION.y = SQFloat::_6;
     TRANSLATION.z = SQFloat::_7;
 
-    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0f, (float_q)60.0f, (float_q)90.0f, (float_q)120.0f),
-                                                            QBaseQuaternion((float_q)718.0f, (float_q)820.0f, (float_q)1114.0f, (float_q)-900.0f));
+    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0, (float_q)60.0, (float_q)90.0, (float_q)120.0),
+                                                            QBaseQuaternion((float_q)718.0, (float_q)820.0, (float_q)1114.0, (float_q)-900.0));
 
     // Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION.TransformRotationFirstImp(ROTATION, TRANSLATION);
@@ -1982,8 +1987,8 @@ void TransformTranslationFirstImp_CommonDualQuaternionIsCorrectlyTransformed_Tem
     TRANSLATION.y = SQFloat::_6;
     TRANSLATION.z = SQFloat::_7;
 
-    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0f, (float_q)60.0f, (float_q)90.0f, (float_q)120.0f),
-                                                            QBaseQuaternion((float_q)590.0f, (float_q)500.0f, (float_q)1370.0f, (float_q)-900.0f));
+    const QDualQuaternion EXPECTED_RESULT = QDualQuaternion(QBaseQuaternion((float_q)30.0, (float_q)60.0, (float_q)90.0, (float_q)120.0),
+                                                            QBaseQuaternion((float_q)590.0, (float_q)500.0, (float_q)1370.0, (float_q)-900.0));
 
     // Execution
     QDualQuaternion dualQuaternionUT = DUALQUATERNION.TransformTranslationFirstImp(TRANSLATION, ROTATION);
