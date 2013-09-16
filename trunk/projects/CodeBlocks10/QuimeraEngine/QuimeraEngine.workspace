@@ -2,10 +2,10 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="QuimeraEngine">
 		<Project filename="Core/Core.cbp" />
-		<Project filename="Tools/Tools.cbp">
+		<Project filename="Tools/Tools.cbp" active="1">
 			<Depends filename="Core/Core.cbp" />
 		</Project>
-		<Project filename="System/System.cbp" active="1">
+		<Project filename="System/System.cbp">
 			<Depends filename="Core/Core.cbp" />
 			<Depends filename="Tools/Tools.cbp" />
 		</Project>

@@ -325,10 +325,10 @@ QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
     const QBaseMatrix2x2 OPERAND2(SQFloat::_5, SQFloat::_6,
                                   SQFloat::_7, SQFloat::_8);
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)19.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)22.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)43.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)50.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)19.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)22.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)43.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)50.0;
 
     // Execution
     QMatrix2x2 matrixUT = OPERAND1 * OPERAND2;
@@ -428,7 +428,7 @@ QTEST_CASE ( OperatorAddition_CommonMatricesAreCorrectlyAdded_Test )
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_6;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_8;
     const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_10;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)12.0f;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)12.0;
 
     // Execution
     QMatrix2x2 matrixUT = OPERAND1 + OPERAND2;
@@ -449,7 +449,7 @@ QTEST_CASE ( OperatorSubtraction_CommonMatricesAreCorrectlySubtracted_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix2x2;
 
     const QMatrix2x2 OPERAND1(SQFloat::_6,  SQFloat::_8,
-                              SQFloat::_10, (float_q)12.0f);
+                              SQFloat::_10, (float_q)12.0);
 
     const QBaseMatrix2x2 OPERAND2(SQFloat::_5, SQFloat::_6,
                                   SQFloat::_7, SQFloat::_8);
@@ -498,9 +498,9 @@ QTEST_CASE ( OperatorProductAssignation1_MatrixIsCorrectlyMultipliedByScalar_Tes
 QTEST_CASE ( OperatorProductAssignation1_MatrixIsCorrectlyMultipliedByScalarAndAssignedToItself_Test )
 {
     // Preparation
-    const QMatrix2x2 MATRIX((float_q)0.9f, SQFloat::_1, SQFloat::_2, (float_q)0.3f);
+    const QMatrix2x2 MATRIX((float_q)0.9, SQFloat::_1, SQFloat::_2, (float_q)0.3);
 
-    QMatrix2x2 EXPECTED_VALUE((float_q)0.9f, SQFloat::_1, SQFloat::_2, (float_q)0.3f);
+    QMatrix2x2 EXPECTED_VALUE((float_q)0.9, SQFloat::_1, SQFloat::_2, (float_q)0.3);
     EXPECTED_VALUE = EXPECTED_VALUE * EXPECTED_VALUE.ij[0][0];
     EXPECTED_VALUE = EXPECTED_VALUE * EXPECTED_VALUE.ij[0][1];
     EXPECTED_VALUE = EXPECTED_VALUE * EXPECTED_VALUE.ij[1][0];
@@ -534,10 +534,10 @@ QTEST_CASE ( OperatorProductAssignation2_CommonMatricesAreCorrectlyMultiplied_Te
     const QBaseMatrix2x2 OPERAND2(SQFloat::_5, SQFloat::_6,
                                   SQFloat::_7, SQFloat::_8);
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)19.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)22.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)43.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)50.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)19.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)22.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)43.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)50.0;
 
     // Execution
     QMatrix2x2 matrixUT(OPERAND1);
@@ -690,7 +690,7 @@ QTEST_CASE ( OperatorAdditionAssignation_CommonMatricesAreCorrectlyAdded_Test )
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_6;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_8;
     const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_10;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)12.0f;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)12.0;
 
     // Execution
     QMatrix2x2 matrixUT = OPERAND1;
@@ -712,7 +712,7 @@ QTEST_CASE ( OperatorSubtractionAssignation_CommonMatricesAreCorrectlySubtracted
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix2x2;
 
     const QMatrix2x2 OPERAND1(SQFloat::_6,  SQFloat::_8,
-                              SQFloat::_10, (float_q)12.0f);
+                              SQFloat::_10, (float_q)12.0);
 
     const QBaseMatrix2x2 OPERAND2(SQFloat::_5, SQFloat::_6,
                                   SQFloat::_7, SQFloat::_8);
@@ -960,7 +960,7 @@ QTEST_CASE ( Reverse_CommonMatrixIsCorrectlyInverted_Test )
                             SQFloat::_3, SQFloat::_4);
 
     const QMatrix2x2 EXPECTED_VALUE(-SQFloat::_2,  SQFloat::_1,
-                                    (float_q)1.5f, -SQFloat::_0_5);
+                                    (float_q)1.5, -SQFloat::_0_5);
 
     // Execution
     QMatrix2x2 matrixUT = MATRIX.Invert();
@@ -1010,9 +1010,14 @@ QTEST_CASE ( HasReverse_ReturnsFalseWhenDeterminantIsZero_Test )
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
     // Preparation
-    const QMatrix2x2 MATRIX(SQFloat::_0,          SQFloat::_1,
-                            (float_q)1234567.89f, (float_q)-0.654321f);
-    const string_q EXPECTED_STRING_FORM = QE_L("M2x2(0,1,1234567.88,-0.654321015)");
+    const QMatrix2x2 MATRIX(SQFloat::_0,         SQFloat::_1,
+                            (float_q)1234567.89, (float_q)-0.654321);
+
+    #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+        const string_q EXPECTED_STRING_FORM = QE_L("M2x2(0,1,1234567.88,-0.654321015)");
+    #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+        const string_q EXPECTED_STRING_FORM = QE_L("M2x2(0,1,1234567.8899999999,-0.65432100000000004)");
+    #endif
 
 	// Execution
     QMatrix2x2 matrixUT = MATRIX;

@@ -283,7 +283,7 @@ QTEST_CASE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test )
     const float_q EXPECTED_VALUE_FOR_12 = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_20 = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_21 = SQFloat::_0;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0f;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0;
 
     // Execution
     QScalingMatrix3x3 matrixUT = OPERAND1 * OPERAND2;
@@ -374,18 +374,30 @@ QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QRotationMatrix3x3 ROTATION(SQFloat::_4, SQFloat::_5, SQFloat::_6);
+    #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
+        const float_q ANGLE_X = SQFloat::_4;
+        const float_q ANGLE_Y = SQFloat::_5;
+        const float_q ANGLE_Z = SQFloat::_6;
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
+        using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
+        const float_q ANGLE_X = SQAngle::RadiansToDegrees(SQFloat::_4);
+        const float_q ANGLE_Y = SQAngle::RadiansToDegrees(SQFloat::_5);
+        const float_q ANGLE_Z = SQAngle::RadiansToDegrees(SQFloat::_6);
+    #endif
 
-    const QMatrix4x4 EXPECTED_VALUE((float_q)0.0695876f,  (float_q)0.182638f, (float_q)0.980715f,  SQFloat::_0,
-                                    (float_q)1.55214167f /* FTP */, (float_q)-1.25521827f /* FTP */, (float_q)0.123625f,  SQFloat::_0,
-                                    (float_q)1.88038421f /* FTP */,  (float_q)2.27040744 /* FTP */, (float_q)-0.556242f, SQFloat::_0,
-                                    SQFloat::_0,          SQFloat::_0,          SQFloat::_0,          SQFloat::_1);
+    const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_2, SQFloat::_3);
+    const QRotationMatrix3x3 ROTATION(ANGLE_X, ANGLE_Y, ANGLE_Z);
+
+    // TODO [thund]: Is this still necessary (FTP)?
+    const QMatrix4x4 EXPECTED_VALUE((float_q)0.06958762491769549,  (float_q)0.18263815796815594, (float_q)0.98071446696391351,  SQFloat::_0,
+                                    (float_q)1.5521416463757054 /* FTP */, (float_q)-1.2552183656235949 /* FTP */, (float_q)0.12362509529761734,  SQFloat::_0,
+                                    (float_q)1.8803842050744795 /* FTP */,  (float_q)2.2704074859237844 /* FTP */, (float_q)-0.55624193402480593, SQFloat::_0,
+                                    SQFloat::_0,                  SQFloat::_0,                  SQFloat::_0,                    SQFloat::_1);
     // FTP -> Forced to pass: The epsilon difference is not enough to pass the test, but it is really trivial.
 
     // Reference values obtained using following DirectX SDK statement:
     // D3DXMATRIX rotm;
-    // D3DXMatrixRotationYawPitchRoll(&rotm, 5.0f, 4.0f, 6.0);
+    // D3DXMatrixRotationYawPitchRoll(&rotm, 5.0, 4.0, 6.0);
     // D3DXMATRIX res = scale * rotm;
 
     // Execution
@@ -640,14 +652,14 @@ QTEST_CASE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test )
 
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QMatrix4x4(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_7,
-                                                                      SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0f,
-                                                                      (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                                                      (float_q)16.0f, (float_q)17.0f, (float_q)18.0f, (float_q)19.0f));
+                                                                      SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0,
+                                                                      (float_q)12.0, (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                                                      (float_q)16.0, (float_q)17.0, (float_q)18.0, (float_q)19.0));
 
     const QMatrix4x4 EXPECTED_VALUE(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_0,
-                                    (float_q)16.0f, (float_q)18.0f, (float_q)20.0f, SQFloat::_0,
-                                    (float_q)36.0f, (float_q)39.0f, (float_q)42.0f, SQFloat::_0,
-                                    (float_q)16.0f, (float_q)17.0f, (float_q)18.0f, SQFloat::_1);
+                                    (float_q)16.0, (float_q)18.0, (float_q)20.0, SQFloat::_0,
+                                    (float_q)36.0, (float_q)39.0, (float_q)42.0, SQFloat::_0,
+                                    (float_q)16.0, (float_q)17.0, (float_q)18.0, SQFloat::_1);
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE * TRANSFORMATION;
@@ -691,9 +703,9 @@ QTEST_CASE ( OperatorProduct5_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
                                  SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
     const QTransformationMatrix<QMatrix4x4> OPERAND(QMatrix4x4(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_7,
-                                                               SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0f,
-                                                               (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                                               (float_q)16.0f, (float_q)17.0f, (float_q)18.0f, (float_q)19.0f));
+                                                               SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0,
+                                                               (float_q)12.0, (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                                               (float_q)16.0, (float_q)17.0, (float_q)18.0, (float_q)19.0));
 
     const QScalingMatrix3x3 MATRIX_A(SCALE_A);
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
@@ -734,13 +746,13 @@ QTEST_CASE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test )
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QMatrix4x3(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,
                                                                       SQFloat::_8,    SQFloat::_9,    SQFloat::_10,
-                                                                      (float_q)12.0f, (float_q)13.0f, (float_q)14.0f,
-                                                                      (float_q)16.0f, (float_q)17.0f, (float_q)18.0f));
+                                                                      (float_q)12.0, (float_q)13.0, (float_q)14.0,
+                                                                      (float_q)16.0, (float_q)17.0, (float_q)18.0));
 
     const QMatrix4x3 EXPECTED_VALUE( SQFloat::_4,    SQFloat::_5,    SQFloat::_6,
-                                    (float_q)16.0f, (float_q)18.0f, (float_q)20.0f,
-                                    (float_q)36.0f, (float_q)39.0f, (float_q)42.0f,
-                                    (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+                                    (float_q)16.0, (float_q)18.0, (float_q)20.0,
+                                    (float_q)36.0, (float_q)39.0, (float_q)42.0,
+                                    (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
     // Execution
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE * TRANSFORMATION;
@@ -781,8 +793,8 @@ QTEST_CASE ( OperatorProduct6_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
 
     const QTransformationMatrix<QMatrix4x3> OPERAND(QMatrix4x3(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,
                                                                SQFloat::_8,    SQFloat::_9,    SQFloat::_10,
-                                                               (float_q)12.0f, (float_q)13.0f, (float_q)14.0f,
-                                                               (float_q)16.0f, (float_q)17.0f, (float_q)18.0f));
+                                                               (float_q)12.0, (float_q)13.0, (float_q)14.0,
+                                                               (float_q)16.0, (float_q)17.0, (float_q)18.0));
 
     const QScalingMatrix3x3 MATRIX_A(SCALE_A);
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
@@ -852,7 +864,7 @@ QTEST_CASE ( OperatorProductAssignation_CommonMatricesAreCorrectlyMultipliedAndA
     const float_q EXPECTED_VALUE_FOR_12 = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_20 = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_21 = SQFloat::_0;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0f;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0;
 
     // Execution
     QScalingMatrix3x3 matrixUT = OPERAND1;
@@ -1280,13 +1292,13 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
     const QScalingMatrix3x3WhiteBox SCALE(QScalingMatrix3x3(SQFloat::_1, SQFloat::_2, SQFloat::_3));
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QMatrix4x3(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,
                                                                       SQFloat::_8,    SQFloat::_9,    SQFloat::_10,
-                                                                      (float_q)12.0f, (float_q)13.0f, (float_q)14.0f,
-                                                                      (float_q)16.0f, (float_q)17.0f, (float_q)18.0f));
+                                                                      (float_q)12.0, (float_q)13.0, (float_q)14.0,
+                                                                      (float_q)16.0, (float_q)17.0, (float_q)18.0));
 
     const QMatrix4x3 EXPECTED_VALUE( SQFloat::_4,    SQFloat::_5,    SQFloat::_6,
-                                    (float_q)16.0f, (float_q)18.0f, (float_q)20.0f,
-                                    (float_q)36.0f, (float_q)39.0f, (float_q)42.0f,
-                                    (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+                                    (float_q)16.0, (float_q)18.0, (float_q)20.0,
+                                    (float_q)36.0, (float_q)39.0, (float_q)42.0,
+                                    (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
     // Execution
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE.ProductOperatorImp<QMatrix4x3>(TRANSFORMATION);
@@ -1319,14 +1331,14 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
 
     const QScalingMatrix3x3WhiteBox SCALE(QScalingMatrix3x3(SQFloat::_1, SQFloat::_2, SQFloat::_3));
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QMatrix4x4(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_7,
-                                                                      SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0f,
-                                                                      (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                                                      (float_q)16.0f, (float_q)17.0f, (float_q)18.0f, (float_q)19.0f));
+                                                                      SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0,
+                                                                      (float_q)12.0, (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                                                      (float_q)16.0, (float_q)17.0, (float_q)18.0, (float_q)19.0));
 
     const QMatrix4x4 EXPECTED_VALUE(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_0,
-                                    (float_q)16.0f, (float_q)18.0f, (float_q)20.0f, SQFloat::_0,
-                                    (float_q)36.0f, (float_q)39.0f, (float_q)42.0f, SQFloat::_0,
-                                    (float_q)16.0f, (float_q)17.0f, (float_q)18.0f, SQFloat::_1);
+                                    (float_q)16.0, (float_q)18.0, (float_q)20.0, SQFloat::_0,
+                                    (float_q)36.0, (float_q)39.0, (float_q)42.0, SQFloat::_0,
+                                    (float_q)16.0, (float_q)17.0, (float_q)18.0, SQFloat::_1);
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE.ProductOperatorImp<QMatrix4x4>(TRANSFORMATION);
@@ -1383,8 +1395,8 @@ void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3Tr
 
     const QTransformationMatrix<QMatrix4x3> OPERAND(QMatrix4x3(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,
                                                                SQFloat::_8,    SQFloat::_9,    SQFloat::_10,
-                                                               (float_q)12.0f, (float_q)13.0f, (float_q)14.0f,
-                                                               (float_q)16.0f, (float_q)17.0f, (float_q)18.0f));
+                                                               (float_q)12.0, (float_q)13.0, (float_q)14.0,
+                                                               (float_q)16.0, (float_q)17.0, (float_q)18.0));
 
     // Execution
     QTransformationMatrix<QMatrix4x3> matrix1UT = SCALE_A.ProductOperatorImp<QMatrix4x3>(OPERAND);
@@ -1426,9 +1438,9 @@ void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4Tr
                                                                              SQFloat::_1, SQFloat::_2, SQFloat::_3)));
 
     const QTransformationMatrix<QMatrix4x4> OPERAND(QMatrix4x4(SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    SQFloat::_7,
-                                                               SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0f,
-                                                               (float_q)12.0f, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                                               (float_q)16.0f, (float_q)17.0f, (float_q)18.0f, (float_q)19.0f));
+                                                               SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)11.0,
+                                                               (float_q)12.0, (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                                               (float_q)16.0, (float_q)17.0, (float_q)18.0, (float_q)19.0));
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrix1UT = SCALE_A.ProductOperatorImp<QMatrix4x4>(OPERAND);

@@ -2057,10 +2057,10 @@ QTEST_CASE_TEMPLATE ( Intersection5_ReturnsTrueWhenRayIntersectsEdgeOfHexahedron
     const T VERTEX_G = T(VERTEX_G_COMPONENTS);
     const T VERTEX_H = T(VERTEX_H_COMPONENTS);
 
-    const float_q ORIGIN_OVER_COMPONENTS[]  = { (float_q)1.5f, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_BELOW_COMPONENTS[] = { (float_q)1.5f, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_OVER_COMPONENTS[]  = { (float_q)1.5, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_BELOW_COMPONENTS[] = { (float_q)1.5, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
     const T ORIGIN_OVER  = T(ORIGIN_OVER_COMPONENTS);  // For edges of face ABCD
     const T ORIGIN_BELOW = T(ORIGIN_BELOW_COMPONENTS); // For edges of face EFGH
     const T ORIGIN_LEFT  = T(ORIGIN_LEFT_COMPONENTS);  // For edges of face ADFE
@@ -6287,10 +6287,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayIntersects
     const T EXPECTED_FIRSTPOINT_CG = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G);
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
-    const float_q ORIGIN_OVER_COMPONENTS[]  = { (float_q)1.5f, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_BELOW_COMPONENTS[] = { (float_q)1.5f, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_OVER_COMPONENTS[]  = { (float_q)1.5, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_BELOW_COMPONENTS[] = { (float_q)1.5, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
     const T ORIGIN_OVER  = T(ORIGIN_OVER_COMPONENTS);  // For edges of face ABCD
     const T ORIGIN_BELOW = T(ORIGIN_BELOW_COMPONENTS); // For edges of face EFGH
     const T ORIGIN_LEFT  = T(ORIGIN_LEFT_COMPONENTS);  // For edges of face ABHE
@@ -7652,10 +7652,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenRayIntersects
     const T EXPECTED_SECONDPOINT = T::GetZeroVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
-    const float_q ORIGIN_OVER_COMPONENTS[]  = { (float_q)1.5f, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_BELOW_COMPONENTS[] = { (float_q)1.5f, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
-    const float_q ORIGIN_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_OVER_COMPONENTS[]  = { (float_q)1.5, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_BELOW_COMPONENTS[] = { (float_q)1.5, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
+    const float_q ORIGIN_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
     const T ORIGIN_OVER  = T(ORIGIN_OVER_COMPONENTS);  // For edges of face ABCD
     const T ORIGIN_BELOW = T(ORIGIN_BELOW_COMPONENTS); // For edges of face EFGH
     const T ORIGIN_LEFT  = T(ORIGIN_LEFT_COMPONENTS);  // For edges of face ABHE

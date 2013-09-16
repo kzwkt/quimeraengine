@@ -1523,10 +1523,10 @@ QTEST_CASE_TEMPLATE ( Intersection3_ReturnsTrueWhenLineSegmentIntersectsEdgeOfHe
     const T VERTEX_G = T(VERTEX_G_COMPONENTS);
     const T VERTEX_H = T(VERTEX_H_COMPONENTS);
 
-    const float_q POINT_A_OVER_COMPONENTS[]  = { (float_q)1.5f, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_BELOW_COMPONENTS[] = { (float_q)1.5f, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_OVER_COMPONENTS[]  = { (float_q)1.5, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_BELOW_COMPONENTS[] = { (float_q)1.5, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
     const T POINT_A_OVER  = T(POINT_A_OVER_COMPONENTS);  // For edges of face ABCD
     const T POINT_A_BELOW = T(POINT_A_BELOW_COMPONENTS); // For edges of face EFGH
     const T POINT_A_LEFT  = T(POINT_A_LEFT_COMPONENTS);  // For edges of face ADFE
@@ -4716,10 +4716,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenLineSegmentIn
     const T VERTEX_G = T(VERTEX_G_COMPONENTS);
     const T VERTEX_H = T(VERTEX_H_COMPONENTS);
 
-    const float_q POINT_A_OVER_COMPONENTS[]  = { (float_q)1.5f, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_BELOW_COMPONENTS[] = { (float_q)1.5f, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_OVER_COMPONENTS[]  = { (float_q)1.5, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_BELOW_COMPONENTS[] = { (float_q)1.5, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
     const T POINT_A_OVER  = T(POINT_A_OVER_COMPONENTS);  // For edges of face ABCD
     const T POINT_A_BELOW = T(POINT_A_BELOW_COMPONENTS); // For edges of face EFGH
     const T POINT_A_LEFT  = T(POINT_A_LEFT_COMPONENTS);  // For edges of face ADFE
@@ -6314,10 +6314,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenLineSegmentIn
     const T VERTEX_G = T(VERTEX_G_COMPONENTS);
     const T VERTEX_H = T(VERTEX_H_COMPONENTS);
 
-    const float_q POINT_A_OVER_COMPONENTS[]  = { (float_q)1.5f, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_BELOW_COMPONENTS[] = { (float_q)1.5f, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
-    const float_q POINT_A_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5f, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_OVER_COMPONENTS[]  = { (float_q)1.5, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_BELOW_COMPONENTS[] = { (float_q)1.5, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_LEFT_COMPONENTS[]  = { SQFloat::_0, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
+    const float_q POINT_A_RIGHT_COMPONENTS[] = { SQFloat::_3, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
     const T POINT_A_OVER  = T(POINT_A_OVER_COMPONENTS);  // For edges of face ABCD
     const T POINT_A_BELOW = T(POINT_A_BELOW_COMPONENTS); // For edges of face EFGH
     const T POINT_A_LEFT  = T(POINT_A_LEFT_COMPONENTS);  // For edges of face ADFE
@@ -8040,12 +8040,12 @@ QTEST_CASE_TEMPLATE ( Rotate2_LineSegmentIsCorrectlyTransformedByCommonRotationM
 
     const QLineSegment3D<T> LINE_SEGMENT = QLineSegment3D<T>(T(VECTOR_COMPONENTS_A), T(VECTOR_COMPONENTS_B));
 
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { 0.70710659f, -SQFloat::_4, -2.1213202f, SQFloat::_1 };
     const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { -1.4142138f, -SQFloat::_4, -2.8284268f, SQFloat::_1 };
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
-    const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { (float_q)0.70710678118654768, -SQFloat::_4, (float_q)-2.1213203435596428, SQFloat::_1 };
-    const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { (float_q)-1.4142135623730949, -SQFloat::_4, (float_q)-2.8284271247461907, SQFloat::_1 };
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { 0.70710678118654768, -SQFloat::_4, -2.1213203435596428, SQFloat::_1 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { -1.4142135623730949, -SQFloat::_4, -2.8284271247461907, SQFloat::_1 };
 #endif
 
     const T EXPECTED_VALUE_FOR_A(EXPECTED_VECTOR_COMPONENTS_A);

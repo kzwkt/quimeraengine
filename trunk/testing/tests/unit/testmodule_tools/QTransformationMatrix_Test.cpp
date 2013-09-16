@@ -53,6 +53,12 @@ using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
 typedef boost::mpl::list<QMatrix4x3, QMatrix4x4> TQTemplateTypes;
 
+#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES && QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    const float_q SMALLER_TOLERANCE = 1e-5f;
+#else
+    const float_q SMALLER_TOLERANCE = SQFloat::Epsilon;
+#endif
+
 QTEST_SUITE_BEGIN( QTransformationMatrix_TestSuite )
 
 /// <summary>
@@ -133,11 +139,11 @@ QTEST_CASE_TEMPLATE ( Constructor2_EveryMatrixElementCopiedProperly_Test, TQTemp
     EXPECTED_VALUE.ij[1][2] = SQFloat::_7;
     EXPECTED_VALUE.ij[2][0] = SQFloat::_9;
     EXPECTED_VALUE.ij[2][1] = SQFloat::_10;
-    EXPECTED_VALUE.ij[2][2] = (float_q)11.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)13.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)14.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)15.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)23.0f);
+    EXPECTED_VALUE.ij[2][2] = (float_q)11.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)13.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)14.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)15.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)23.0);
 
     const QTransformationMatrix<T> MATRIX_TO_COPY(EXPECTED_VALUE);
 
@@ -175,11 +181,11 @@ QTEST_CASE_TEMPLATE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test
     EXPECTED_VALUE.ij[1][2] = SQFloat::_7;
     EXPECTED_VALUE.ij[2][0] = SQFloat::_9;
     EXPECTED_VALUE.ij[2][1] = SQFloat::_10;
-    EXPECTED_VALUE.ij[2][2] = (float_q)11.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)13.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)14.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)15.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)23.0f);
+    EXPECTED_VALUE.ij[2][2] = (float_q)11.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)13.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)14.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)15.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)23.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT(EXPECTED_VALUE);
@@ -222,15 +228,15 @@ QTEST_CASE_TEMPLATE ( Constructor4_TransformationIsCorrectlyBuiltFromCommonTrans
     const QBaseVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
@@ -348,15 +354,15 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
@@ -594,15 +600,15 @@ QTEST_CASE_TEMPLATE ( Constructor5_TransformationIsCorrectlyBuiltFromCommonTrans
     const QBaseVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
@@ -723,15 +729,15 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
@@ -1008,15 +1014,15 @@ QTEST_CASE_TEMPLATE ( Constructor6_TransformationIsCorrectlyBuiltFromCommonTrans
     const QBaseVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
@@ -1140,15 +1146,15 @@ QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsRotation
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
@@ -1411,15 +1417,15 @@ QTEST_CASE_TEMPLATE ( Constructor7_TransformationIsCorrectlyBuiltFromCommonTrans
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
@@ -1533,15 +1539,15 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsRotation
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
@@ -1753,15 +1759,15 @@ QTEST_CASE_TEMPLATE ( Constructor8_TransformationIsCorrectlyBuiltFromCommonTrans
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
@@ -1875,15 +1881,15 @@ QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsRotation
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
@@ -2097,15 +2103,15 @@ void QTransformationMatrixImp_TransformationIsCorrectlyBuiltFromCommonTransforma
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
@@ -2261,15 +2267,15 @@ void QTransformationMatrixImp_CorrectResultObtainedWhenOnlyContainsRotation_Temp
     const QScalingMatrix3x3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
@@ -2512,38 +2518,38 @@ QTEST_CASE_TEMPLATE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTransformationMatrix<QMatrix4x3> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)132.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)138.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)306.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)321.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)336.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)486.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)510.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)534.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)692.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)726.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)760.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[0][0] = (float_q)126.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)132.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)138.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)306.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)321.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)336.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)486.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)510.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)534.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)692.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)726.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
@@ -2581,39 +2587,39 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTransformationMatrix<QMatrix4x4> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
-    FillFourthColumnIfExists(OPERAND2, (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f);
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
+    FillFourthColumnIfExists(OPERAND2, (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0);
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)132.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)138.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)306.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)321.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)336.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)486.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)510.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)534.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)692.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)726.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)760.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[0][0] = (float_q)126.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)132.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)138.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)306.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)321.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)336.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)486.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)510.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)534.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)692.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)726.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
@@ -2651,21 +2657,21 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_FourthColumnOfRightOperandDoesntMatter_Te
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTransformationMatrix<QMatrix4x4> OPERANDA2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTransformationMatrix<QMatrix4x4> OPERANDA2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     QTransformationMatrix<T> OPERANDB1 = OPERANDA1;
 
-    QTransformationMatrix<QMatrix4x4> OPERANDB2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)37.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)38.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)39.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTransformationMatrix<QMatrix4x4> OPERANDB2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)37.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)38.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     // Execution
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
@@ -2692,14 +2698,14 @@ QTEST_CASE( OperatorProduct2_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTransformationMatrix<QMatrix4x4> OPERAND2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                              (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                              (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                              (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTransformationMatrix<QMatrix4x4> OPERAND2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                              (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                              (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                              (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
@@ -2728,23 +2734,23 @@ QTEST_CASE_TEMPLATE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTranslationMatrix<QMatrix4x3> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
 
     QTransformationMatrix<T> EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = SQFloat::_1;
@@ -2756,10 +2762,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test
     EXPECTED_VALUE.ij[2][0] = SQFloat::_7;
     EXPECTED_VALUE.ij[2][1] = SQFloat::_8;
     EXPECTED_VALUE.ij[2][2] = SQFloat::_9;
-    EXPECTED_VALUE.ij[3][0] = (float_q)36.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)38.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)40.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[3][0] = (float_q)36.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)38.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)40.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
@@ -2797,21 +2803,21 @@ QTEST_CASE_TEMPLATE ( OperatorProduct3_OnlyTheFourthRowOfTranslationMatrixMatter
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTranslationMatrix<QMatrix4x3> OPERANDA2 = QTranslationMatrix<QMatrix4x3>(QMatrix4x3((float_q)17.0f, (float_q)18.0f, (float_q)19.0f,
-                                                                                         (float_q)20.0f, (float_q)21.0f, (float_q)22.0f,
-                                                                                         (float_q)23.0f, (float_q)24.0f, (float_q)25.0f,
-                                                                                         (float_q)26.0f, (float_q)27.0f, (float_q)28.0f));
+    QTranslationMatrix<QMatrix4x3> OPERANDA2 = QTranslationMatrix<QMatrix4x3>(QMatrix4x3((float_q)17.0, (float_q)18.0, (float_q)19.0,
+                                                                                         (float_q)20.0, (float_q)21.0, (float_q)22.0,
+                                                                                         (float_q)23.0, (float_q)24.0, (float_q)25.0,
+                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0));
 
     QTransformationMatrix<T> OPERANDB1 = OPERANDA1;
 
-    QTranslationMatrix<QMatrix4x3> OPERANDB2 = QTranslationMatrix<QMatrix4x3>(QMatrix4x3((float_q)37.0f, (float_q)38.0f, (float_q)39.0f,
-                                                                                         (float_q)40.0f, (float_q)41.0f, (float_q)42.0f,
-                                                                                         (float_q)43.0f, (float_q)44.0f, (float_q)45.0f,
-                                                                                         (float_q)26.0f, (float_q)27.0f, (float_q)28.0f));
+    QTranslationMatrix<QMatrix4x3> OPERANDB2 = QTranslationMatrix<QMatrix4x3>(QMatrix4x3((float_q)37.0, (float_q)38.0, (float_q)39.0,
+                                                                                         (float_q)40.0, (float_q)41.0, (float_q)42.0,
+                                                                                         (float_q)43.0, (float_q)44.0, (float_q)45.0,
+                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0));
 
     // Execution
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
@@ -2838,14 +2844,14 @@ QTEST_CASE( OperatorProduct3_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTranslationMatrix<QMatrix4x4> OPERAND2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                        (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                        (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                        (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTranslationMatrix<QMatrix4x4> OPERAND2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                        (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                        (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                        (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
@@ -2877,24 +2883,24 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTranslationMatrix<QMatrix4x3> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
-    FillFourthColumnIfExists(OPERAND2, (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f);
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
+    FillFourthColumnIfExists(OPERAND2, (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0);
 
     QTransformationMatrix<T> EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = SQFloat::_1;
@@ -2906,10 +2912,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test
     EXPECTED_VALUE.ij[2][0] = SQFloat::_7;
     EXPECTED_VALUE.ij[2][1] = SQFloat::_8;
     EXPECTED_VALUE.ij[2][2] = SQFloat::_9;
-    EXPECTED_VALUE.ij[3][0] = (float_q)36.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)38.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)40.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[3][0] = (float_q)36.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)38.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)40.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
@@ -2949,14 +2955,14 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_OnlyTheFourthRowOfTranslationMatrixMatter
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTranslationMatrix<QMatrix4x4> OPERANDA2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)37.0f,
-                                                                                         (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)38.0f,
-                                                                                         (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)39.0f,
-                                                                                         (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDA2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)37.0,
+                                                                                         (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)38.0,
+                                                                                         (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
+                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     QTransformationMatrix<T> OPERANDB1;
     OPERANDB1.ij[0][0] = SQFloat::_1;
@@ -2969,14 +2975,14 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_OnlyTheFourthRowOfTranslationMatrixMatter
     OPERANDB1.ij[2][1] = SQFloat::_8;
     OPERANDB1.ij[2][2] = SQFloat::_9;
     OPERANDB1.ij[3][0] = SQFloat::_10;
-    OPERANDB1.ij[3][1] = (float_q)11.0f;
-    OPERANDB1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDB1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDB1.ij[3][1] = (float_q)11.0;
+    OPERANDB1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDB1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTranslationMatrix<QMatrix4x4> OPERANDB2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)37.0f, (float_q)38.0f, (float_q)39.0f, (float_q)49.0f,
-                                                                                         (float_q)40.0f, (float_q)41.0f, (float_q)42.0f, (float_q)50.0f,
-                                                                                         (float_q)43.0f, (float_q)44.0f, (float_q)45.0f, (float_q)51.0f,
-                                                                                         (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)52.0f));
+    QTranslationMatrix<QMatrix4x4> OPERANDB2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)37.0, (float_q)38.0, (float_q)39.0, (float_q)49.0,
+                                                                                         (float_q)40.0, (float_q)41.0, (float_q)42.0, (float_q)50.0,
+                                                                                         (float_q)43.0, (float_q)44.0, (float_q)45.0, (float_q)51.0,
+                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)52.0));
 
     // Execution
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
@@ -3003,14 +3009,14 @@ QTEST_CASE( OperatorProduct4_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTranslationMatrix<QMatrix4x4> OPERAND2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                        (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                        (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                        (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTranslationMatrix<QMatrix4x4> OPERAND2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                        (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                        (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                        (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
@@ -3041,35 +3047,35 @@ QTEST_CASE_TEMPLATE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QRotationMatrix3x3 OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)132.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)138.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)306.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)321.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)336.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)486.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)510.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)534.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)666.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)699.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)732.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[0][0] = (float_q)126.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)132.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)138.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)306.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)321.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)336.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)486.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)510.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)534.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)666.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)699.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)732.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
@@ -3107,20 +3113,20 @@ QTEST_CASE( OperatorProduct5_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QRotationMatrix3x3 OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
@@ -3151,35 +3157,35 @@ QTEST_CASE_TEMPLATE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QScalingMatrix3x3 OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)17.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)42.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)75.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)68.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)105.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)150.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)119.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)168.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)225.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)170.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)231.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)300.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[0][0] = (float_q)17.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)42.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)75.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)68.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)105.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)150.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)119.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)168.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)225.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)170.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)231.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)300.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
@@ -3217,20 +3223,20 @@ QTEST_CASE( OperatorProduct6_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QScalingMatrix3x3 OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
@@ -3261,33 +3267,33 @@ QTEST_CASE_TEMPLATE ( OperatorProduct6_OnlyTheDiagonalOfScalingMatrixMatters_Tes
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QScalingMatrix3x3 OPERANDA2;
-    OPERANDA2.ij[0][0] = (float_q)17.0f;
-    OPERANDA2.ij[0][1] = (float_q)18.0f;
-    OPERANDA2.ij[0][2] = (float_q)19.0f;
-    OPERANDA2.ij[1][0] = (float_q)20.0f;
-    OPERANDA2.ij[1][1] = (float_q)21.0f;
-    OPERANDA2.ij[1][2] = (float_q)22.0f;
-    OPERANDA2.ij[2][0] = (float_q)23.0f;
-    OPERANDA2.ij[2][1] = (float_q)24.0f;
-    OPERANDA2.ij[2][2] = (float_q)25.0f;
+    OPERANDA2.ij[0][0] = (float_q)17.0;
+    OPERANDA2.ij[0][1] = (float_q)18.0;
+    OPERANDA2.ij[0][2] = (float_q)19.0;
+    OPERANDA2.ij[1][0] = (float_q)20.0;
+    OPERANDA2.ij[1][1] = (float_q)21.0;
+    OPERANDA2.ij[1][2] = (float_q)22.0;
+    OPERANDA2.ij[2][0] = (float_q)23.0;
+    OPERANDA2.ij[2][1] = (float_q)24.0;
+    OPERANDA2.ij[2][2] = (float_q)25.0;
 
     QTransformationMatrix<T> OPERANDB1 = OPERANDA1;
 
     QScalingMatrix3x3 OPERANDB2;
-    OPERANDB2.ij[0][0] = (float_q)17.0f;
-    OPERANDB2.ij[0][1] = (float_q)26.0f;
-    OPERANDB2.ij[0][2] = (float_q)27.0f;
-    OPERANDB2.ij[1][0] = (float_q)28.0f;
-    OPERANDB2.ij[1][1] = (float_q)21.0f;
-    OPERANDB2.ij[1][2] = (float_q)29.0f;
-    OPERANDB2.ij[2][0] = (float_q)30.0f;
-    OPERANDB2.ij[2][1] = (float_q)31.0f;
-    OPERANDB2.ij[2][2] = (float_q)25.0f;
+    OPERANDB2.ij[0][0] = (float_q)17.0;
+    OPERANDB2.ij[0][1] = (float_q)26.0;
+    OPERANDB2.ij[0][2] = (float_q)27.0;
+    OPERANDB2.ij[1][0] = (float_q)28.0;
+    OPERANDB2.ij[1][1] = (float_q)21.0;
+    OPERANDB2.ij[1][2] = (float_q)29.0;
+    OPERANDB2.ij[2][0] = (float_q)30.0;
+    OPERANDB2.ij[2][1] = (float_q)31.0;
+    OPERANDB2.ij[2][2] = (float_q)25.0;
 
     // Execution
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
@@ -3314,38 +3320,38 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation1_CommonMatricesAreCorrectlyMult
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTransformationMatrix<QMatrix4x3> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)132.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)138.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)306.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)321.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)336.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)486.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)510.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)534.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)692.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)726.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)760.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[0][0] = (float_q)126.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)132.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)138.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)306.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)321.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)336.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)486.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)510.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)534.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)692.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)726.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = OPERAND1;
@@ -3384,22 +3390,22 @@ QTEST_CASE ( OperatorProductAssignation1_CanBeMultipliedByItself_Test )
     OPERAND.ij[2][1] = SQFloat::_8;
     OPERAND.ij[2][2] = SQFloat::_9;
     OPERAND.ij[3][0] = SQFloat::_10;
-    OPERAND.ij[3][1] = (float_q)11.0f;
-    OPERAND.ij[3][2] = (float_q)12.0f;
+    OPERAND.ij[3][1] = (float_q)11.0;
+    OPERAND.ij[3][2] = (float_q)12.0;
 
     QTransformationMatrix<QMatrix4x3> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)30.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)36.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)42.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)66.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)81.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)96.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)102.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)150.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)148.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)182.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)216.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)30.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)36.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)42.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)66.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)81.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)96.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)102.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)126.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)150.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)148.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)182.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)216.0;
 
     // Execution
     QTransformationMatrix<QMatrix4x3> matrixUT = OPERAND;
@@ -3437,39 +3443,39 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation2_CommonMatricesAreCorrectlyMult
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTransformationMatrix<QMatrix4x4> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
-    FillFourthColumnIfExists(OPERAND2, (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f);
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
+    FillFourthColumnIfExists(OPERAND2, (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0);
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)132.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)138.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)306.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)321.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)336.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)486.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)510.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)534.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)692.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)726.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)760.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[0][0] = (float_q)126.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)132.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)138.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)306.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)321.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)336.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)486.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)510.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)534.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)692.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)726.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = OPERAND1;
@@ -3508,21 +3514,21 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation2_FourthColumnOfRightOperandDoes
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTransformationMatrix<QMatrix4x4> OPERANDA2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTransformationMatrix<QMatrix4x4> OPERANDA2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     QTransformationMatrix<T> OPERANDB1 = OPERANDA1;
 
-    QTransformationMatrix<QMatrix4x4> OPERANDB2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)37.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)38.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)39.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTransformationMatrix<QMatrix4x4> OPERANDB2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)37.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)38.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     // Execution
     QTransformationMatrix<T> matrixAUT = OPERANDA1;
@@ -3551,14 +3557,14 @@ QTEST_CASE( OperatorProductAssignation2_FourthColumnOfLeftOperandIsJustCopied_Te
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTransformationMatrix<QMatrix4x4> OPERAND2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                              (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                              (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                              (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTransformationMatrix<QMatrix4x4> OPERAND2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                              (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                              (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                              (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1;
@@ -3588,30 +3594,30 @@ QTEST_CASE( OperatorProductAssignation2_CanBeMultipliedByItself_Test )
     OPERAND.ij[2][1] = SQFloat::_8;
     OPERAND.ij[2][2] = SQFloat::_9;
     OPERAND.ij[3][0] = SQFloat::_10;
-    OPERAND.ij[3][1] = (float_q)11.0f;
-    OPERAND.ij[3][2] = (float_q)12.0f;
-    OPERAND.ij[0][3] = (float_q)13.0f;
-    OPERAND.ij[1][3] = (float_q)14.0f;
-    OPERAND.ij[2][3] = (float_q)15.0f;
-    OPERAND.ij[3][3] = (float_q)16.0f;
+    OPERAND.ij[3][1] = (float_q)11.0;
+    OPERAND.ij[3][2] = (float_q)12.0;
+    OPERAND.ij[0][3] = (float_q)13.0;
+    OPERAND.ij[1][3] = (float_q)14.0;
+    OPERAND.ij[2][3] = (float_q)15.0;
+    OPERAND.ij[3][3] = (float_q)16.0;
 
     QTransformationMatrix<QMatrix4x4> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)30.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)36.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)42.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)66.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)81.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)96.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)102.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)150.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)148.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)182.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)216.0f;
-    EXPECTED_VALUE.ij[0][3] = (float_q)13.0f;
-    EXPECTED_VALUE.ij[1][3] = (float_q)14.0f;
-    EXPECTED_VALUE.ij[2][3] = (float_q)15.0f;
-    EXPECTED_VALUE.ij[3][3] = (float_q)16.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)30.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)36.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)42.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)66.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)81.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)96.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)102.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)126.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)150.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)148.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)182.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)216.0;
+    EXPECTED_VALUE.ij[0][3] = (float_q)13.0;
+    EXPECTED_VALUE.ij[1][3] = (float_q)14.0;
+    EXPECTED_VALUE.ij[2][3] = (float_q)15.0;
+    EXPECTED_VALUE.ij[3][3] = (float_q)16.0;
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND;
@@ -3649,9 +3655,9 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_EveryElementIsAssignedToRightTargetEle
     MATRIX.ij[2][1] = SQFloat::_8;
     MATRIX.ij[2][2] = SQFloat::_9;
     MATRIX.ij[3][0] = SQFloat::_10;
-    MATRIX.ij[3][1] = (float_q)11.0f;
-    MATRIX.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX.ij[3][1] = (float_q)11.0;
+    MATRIX.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     const QTransformationMatrix<T> EXPECTED_VALUE = MATRIX;
 
@@ -3692,11 +3698,11 @@ QTEST_CASE_TEMPLATE ( GetDeterminant_ItsCorrectlyCalculatedForCommonMatrix_Test,
     MATRIX.ij[2][1] = SQFloat::_8;
     MATRIX.ij[2][2] = SQFloat::_0;
     MATRIX.ij[3][0] = SQFloat::_10;
-    MATRIX.ij[3][1] = (float_q)11.0f;
-    MATRIX.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX.ij[3][1] = (float_q)11.0;
+    MATRIX.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    const float_q EXPECTED_VALUE = (float_q)27.0f;
+    const float_q EXPECTED_VALUE = (float_q)27.0;
 
     // Execution
     float_q fResultUT = MATRIX.GetDeterminant();
@@ -3738,9 +3744,9 @@ QTEST_CASE_TEMPLATE ( GetDeterminant_OnlyInner3x3MatrixMatters_Test, TQTemplateT
     MATRIX1.ij[2][1] = SQFloat::_8;
     MATRIX1.ij[2][2] = SQFloat::_0;
     MATRIX1.ij[3][0] = SQFloat::_10;
-    MATRIX1.ij[3][1] = (float_q)11.0f;
-    MATRIX1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX1.ij[3][1] = (float_q)11.0;
+    MATRIX1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTransformationMatrix<T> MATRIX2;
     MATRIX2.ij[0][0] = SQFloat::_1;
@@ -3752,10 +3758,10 @@ QTEST_CASE_TEMPLATE ( GetDeterminant_OnlyInner3x3MatrixMatters_Test, TQTemplateT
     MATRIX2.ij[2][0] = SQFloat::_7;
     MATRIX2.ij[2][1] = SQFloat::_8;
     MATRIX2.ij[2][2] = SQFloat::_0;
-    MATRIX2.ij[3][0] = (float_q)17.0f;
-    MATRIX2.ij[3][1] = (float_q)18.0f;
-    MATRIX2.ij[3][2] = (float_q)19.0f;
-    FillFourthColumnIfExists(MATRIX2, (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)23.0f);
+    MATRIX2.ij[3][0] = (float_q)17.0;
+    MATRIX2.ij[3][1] = (float_q)18.0;
+    MATRIX2.ij[3][2] = (float_q)19.0;
+    FillFourthColumnIfExists(MATRIX2, (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)23.0);
 
     // Execution
     float_q fResult1UT = MATRIX1.GetDeterminant();
@@ -3814,24 +3820,24 @@ QTEST_CASE_TEMPLATE ( Invert_CommonMatrixIsCorrectlyInverted_Test, TQTemplateTyp
     MATRIX.ij[2][1] = SQFloat::_8;
     MATRIX.ij[2][2] = SQFloat::_0;
     MATRIX.ij[3][0] = SQFloat::_10;
-    MATRIX.ij[3][1] = (float_q)11.0f;
-    MATRIX.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX.ij[3][1] = (float_q)11.0;
+    MATRIX.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-1.7777778f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.88888890f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.11111111f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)1.5555556f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-0.77777779f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.22222222f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)-0.11111111f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.22222222f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-0.11111111f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-1.7777777777777777;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.88888888888888884;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.1111111111111111;
+    EXPECTED_VALUE.ij[1][0] = (float_q)1.5555555555555554;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-0.77777777777777768;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.22222222222222221;
+    EXPECTED_VALUE.ij[2][0] = (float_q)-0.1111111111111111;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.22222222222222221;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-0.1111111111111111;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_2;
     EXPECTED_VALUE.ij[3][1] = -SQFloat::_3;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT = MATRIX.Invert();
@@ -3869,12 +3875,12 @@ QTEST_CASE ( Invert_FourthColumnIsJustCopied_Test )
     MATRIX1.ij[2][1] = SQFloat::_8;
     MATRIX1.ij[2][2] = SQFloat::_0;
     MATRIX1.ij[3][0] = SQFloat::_10;
-    MATRIX1.ij[3][1] = (float_q)11.0f;
-    MATRIX1.ij[3][2] = (float_q)12.0f;
-    MATRIX1.ij[0][3] = (float_q)13.0f;
-    MATRIX1.ij[1][3] = (float_q)14.0f;
-    MATRIX1.ij[2][3] = (float_q)15.0f;
-    MATRIX1.ij[3][3] = (float_q)16.0f;
+    MATRIX1.ij[3][1] = (float_q)11.0;
+    MATRIX1.ij[3][2] = (float_q)12.0;
+    MATRIX1.ij[0][3] = (float_q)13.0;
+    MATRIX1.ij[1][3] = (float_q)14.0;
+    MATRIX1.ij[2][3] = (float_q)15.0;
+    MATRIX1.ij[3][3] = (float_q)16.0;
 
     QTransformationMatrix<QMatrix4x4> MATRIX2;
     MATRIX2.ij[0][0] = SQFloat::_1;
@@ -3887,12 +3893,12 @@ QTEST_CASE ( Invert_FourthColumnIsJustCopied_Test )
     MATRIX2.ij[2][1] = SQFloat::_8;
     MATRIX2.ij[2][2] = SQFloat::_0;
     MATRIX2.ij[3][0] = SQFloat::_10;
-    MATRIX2.ij[3][1] = (float_q)11.0f;
-    MATRIX2.ij[3][2] = (float_q)12.0f;
-    MATRIX2.ij[0][3] = (float_q)17.0f;
-    MATRIX2.ij[1][3] = (float_q)18.0f;
-    MATRIX2.ij[2][3] = (float_q)19.0f;
-    MATRIX2.ij[3][3] = (float_q)20.0f;
+    MATRIX2.ij[3][1] = (float_q)11.0;
+    MATRIX2.ij[3][2] = (float_q)12.0;
+    MATRIX2.ij[0][3] = (float_q)17.0;
+    MATRIX2.ij[1][3] = (float_q)18.0;
+    MATRIX2.ij[2][3] = (float_q)19.0;
+    MATRIX2.ij[3][3] = (float_q)20.0;
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrix1UT = MATRIX1.Invert();
@@ -3939,9 +3945,9 @@ QTEST_CASE_TEMPLATE ( GetTranslation1_TranslationValuesAreCorrectlyExtractedFrom
     MATRIX.ij[2][1] = SQFloat::_8;
     MATRIX.ij[2][2] = SQFloat::_0;
     MATRIX.ij[3][0] = SQFloat::_10;
-    MATRIX.ij[3][1] = (float_q)11.0f;
-    MATRIX.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX.ij[3][1] = (float_q)11.0;
+    MATRIX.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     const float_q EXPECTED_VALUE_X = MATRIX.ij[3][0];
     const float_q EXPECTED_VALUE_Y = MATRIX.ij[3][1];
@@ -4002,9 +4008,9 @@ QTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesAreCorrectlyExtractedFrom
     MATRIX.ij[2][1] = SQFloat::_8;
     MATRIX.ij[2][2] = SQFloat::_0;
     MATRIX.ij[3][0] = SQFloat::_10;
-    MATRIX.ij[3][1] = (float_q)11.0f;
-    MATRIX.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX.ij[3][1] = (float_q)11.0;
+    MATRIX.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     const QBaseVector3 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2]);
 
@@ -4059,9 +4065,9 @@ QTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesAreCorrectlyExtractedFrom
     MATRIX.ij[2][1] = SQFloat::_8;
     MATRIX.ij[2][2] = SQFloat::_0;
     MATRIX.ij[3][0] = SQFloat::_10;
-    MATRIX.ij[3][1] = (float_q)11.0f;
-    MATRIX.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(MATRIX, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    MATRIX.ij[3][1] = (float_q)11.0;
+    MATRIX.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(MATRIX, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     const QBaseVector4 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2], SQFloat::_0);
 
@@ -4426,26 +4432,26 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixOnlyCont
         const float_q EXPECTED_ROTATION_X = SQAngle::_45;
         const float_q EXPECTED_ROTATION_Y = SQAngle::_60;
         const float_q EXPECTED_ROTATION_Z = SQAngle::_90;
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_ROTATION_X = SQAngle::_QuarterPi;
         const float_q EXPECTED_ROTATION_Y = SQAngle::_ThirdPi;
         const float_q EXPECTED_ROTATION_Z = SQAngle::_HalfPi;
     #endif
 
     QTransformationMatrix<T> ROTATION;
-    ROTATION.ij[0][0] = (float_q)0.61237252f;
-    ROTATION.ij[0][1] = (float_q)0.70710653f;
-    ROTATION.ij[0][2] = (float_q)0.35355330f;
-    ROTATION.ij[1][0] = (float_q)-0.49999982f;
-    ROTATION.ij[1][1] = (float_q)3.2782555e-007f;
-    ROTATION.ij[1][2] = (float_q)0.86602509f;
-    ROTATION.ij[2][0] = (float_q)0.61237222f;
-    ROTATION.ij[2][1] = (float_q)-0.70710659f;
-    ROTATION.ij[2][2] = (float_q)0.35355362f;
-    ROTATION.ij[3][0] = SQFloat::_10;
-    ROTATION.ij[3][1] = (float_q)11.0f;
-    ROTATION.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(ROTATION, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    ROTATION.ij[0][0] = (float_q)0.61237243569579447;
+    ROTATION.ij[0][1] = (float_q)0.70710678118654757;
+    ROTATION.ij[0][2] = (float_q)0.35355339059327373;
+    ROTATION.ij[1][0] = (float_q)-0.5;
+    ROTATION.ij[1][1] = (float_q)4.3297802811774670e-017;
+    ROTATION.ij[1][2] = (float_q)0.86602540378443860;
+    ROTATION.ij[2][0] = (float_q)0.61237243569579458;
+    ROTATION.ij[2][1] = (float_q)-0.70710678118654746;
+    ROTATION.ij[2][2] = (float_q)0.35355339059327384;
+    ROTATION.ij[3][0] = SQFloat::_0;
+    ROTATION.ij[3][1] = SQFloat::_0;
+    ROTATION.ij[3][2] = SQFloat::_0;
+    FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     float_q fRotationXUT = SQFloat::_0;
@@ -4455,7 +4461,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixOnlyCont
     ROTATION.GetRotation(fRotationXUT, fRotationYUT, fRotationZUT);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEqual(fRotationXUT, EXPECTED_ROTATION_X) );
+    BOOST_CHECK( SQFloat::AreEqual(fRotationXUT, EXPECTED_ROTATION_X, SMALLER_TOLERANCE) );
     BOOST_CHECK( SQFloat::AreEqual(fRotationYUT, EXPECTED_ROTATION_Y) );
     BOOST_CHECK( SQFloat::AreEqual(fRotationZUT, EXPECTED_ROTATION_Z) );
 }
@@ -4472,7 +4478,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreNotWhatExpectedWhenGimbalLockOccurs_
         const float_q EXPECTED_ROTATION_X = SQAngle::_90;
         const float_q EXPECTED_ROTATION_Y = SQAngle::_90;
         const float_q EXPECTED_ROTATION_Z = SQAngle::_60;
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_ROTATION_X = SQAngle::_HalfPi;
         const float_q EXPECTED_ROTATION_Y = SQAngle::_HalfPi;
         const float_q EXPECTED_ROTATION_Z = SQAngle::_ThirdPi;
@@ -4480,19 +4486,19 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreNotWhatExpectedWhenGimbalLockOccurs_
 
     // By rotating 90º (or PI/2) two gimbals, they become alligned so rotating any of them results in the same transformation
     QTransformationMatrix<T> ROTATION;
-    ROTATION.ij[0][0] = (float_q)0.86602545f;
-    ROTATION.ij[0][1] = (float_q)-3.7855173e-008f;
-    ROTATION.ij[0][2] = (float_q)-0.5f;
-    ROTATION.ij[1][0] = (float_q)0.5f;
-    ROTATION.ij[1][1] = (float_q)-2.1855692e-008f;
-    ROTATION.ij[1][2] = (float_q)0.86602545f;
-    ROTATION.ij[2][0] = (float_q)-4.3711388e-008f;
-    ROTATION.ij[2][1] = (float_q)-1.0f;
-    ROTATION.ij[2][2] = (float_q)1.9106855e-015f;
+    ROTATION.ij[0][0] = (float_q)0.86602545;
+    ROTATION.ij[0][1] = (float_q)-3.7855173e-008;
+    ROTATION.ij[0][2] = (float_q)-0.5;
+    ROTATION.ij[1][0] = (float_q)0.5;
+    ROTATION.ij[1][1] = (float_q)-2.1855692e-008;
+    ROTATION.ij[1][2] = (float_q)0.86602545;
+    ROTATION.ij[2][0] = (float_q)-4.3711388e-008;
+    ROTATION.ij[2][1] = (float_q)-1.0;
+    ROTATION.ij[2][2] = (float_q)1.9106855e-015;
     ROTATION.ij[3][0] = SQFloat::_10;
-    ROTATION.ij[3][1] = (float_q)11.0f;
-    ROTATION.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(ROTATION, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    ROTATION.ij[3][1] = (float_q)11.0;
+    ROTATION.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     float_q fRotationXUT = SQFloat::_0;
@@ -4521,7 +4527,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixContains
         const float_q EXPECTED_ROTATION_X = SQAngle::_45;
         const float_q EXPECTED_ROTATION_Y = SQAngle::_60;
         const float_q EXPECTED_ROTATION_Z = SQAngle::_90;
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_ROTATION_X = SQAngle::_QuarterPi;
         const float_q EXPECTED_ROTATION_Y = SQAngle::_ThirdPi;
         const float_q EXPECTED_ROTATION_Z = SQAngle::_HalfPi;
@@ -4554,7 +4560,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixContains
     ADAPTED_TRANSFORMATION.GetRotation(fRotationXUT, fRotationYUT, fRotationZUT);
 
     // Verification
-    BOOST_CHECK( SQFloat::AreEqual(fRotationXUT, EXPECTED_ROTATION_X) );
+    BOOST_CHECK( SQFloat::AreEqual(fRotationXUT, EXPECTED_ROTATION_X, SMALLER_TOLERANCE) );
     BOOST_CHECK( SQFloat::AreEqual(fRotationYUT, EXPECTED_ROTATION_Y) );
     BOOST_CHECK( SQFloat::AreEqual(fRotationZUT, EXPECTED_ROTATION_Z) );
 }
@@ -4573,7 +4579,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_RotationDoesntEqualOriginalValueWhenMatrixCon
         const float_q EXPECTED_ROTATION_X = SQAngle::_45;
         const float_q EXPECTED_ROTATION_Y = SQAngle::_60;
         const float_q EXPECTED_ROTATION_Z = SQAngle::_90;
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_ROTATION_X = SQAngle::_QuarterPi;
         const float_q EXPECTED_ROTATION_Y = SQAngle::_ThirdPi;
         const float_q EXPECTED_ROTATION_Z = SQAngle::_HalfPi;
@@ -4656,19 +4662,19 @@ QTEST_CASE_TEMPLATE ( GetRotation2_RotationIsCorrectlyExtractedWhenMatrixOnlyCon
     const QQuaternion EXPECTED_VALUE(ROTATION_X, ROTATION_Y, ROTATION_Z);
 
     QTransformationMatrix<T> ROTATION;
-    ROTATION.ij[0][0] = (float_q)0.61237252f;
-    ROTATION.ij[0][1] = (float_q)0.70710653f;
-    ROTATION.ij[0][2] = (float_q)0.35355330f;
-    ROTATION.ij[1][0] = (float_q)-0.49999982f;
-    ROTATION.ij[1][1] = (float_q)3.2782555e-007f;
-    ROTATION.ij[1][2] = (float_q)0.86602509f;
-    ROTATION.ij[2][0] = (float_q)0.61237222f;
-    ROTATION.ij[2][1] = (float_q)-0.70710659f;
-    ROTATION.ij[2][2] = (float_q)0.35355362f;
+    ROTATION.ij[0][0] = (float_q)0.61237243569579447;
+    ROTATION.ij[0][1] = (float_q)0.70710678118654757;
+    ROTATION.ij[0][2] = (float_q)0.35355339059327373;
+    ROTATION.ij[1][0] = (float_q)-0.5;
+    ROTATION.ij[1][1] = (float_q)4.3297802811774670e-017;
+    ROTATION.ij[1][2] = (float_q)0.86602540378443860;
+    ROTATION.ij[2][0] = (float_q)0.61237243569579458;
+    ROTATION.ij[2][1] = (float_q)-0.70710678118654746;
+    ROTATION.ij[2][2] = (float_q)0.35355339059327384;
     ROTATION.ij[3][0] = SQFloat::_10;
-    ROTATION.ij[3][1] = (float_q)11.0f;
-    ROTATION.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(ROTATION, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    ROTATION.ij[3][1] = (float_q)11.0;
+    ROTATION.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QQuaternion qRotationUT;
@@ -4829,19 +4835,19 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationAngleAndAxisAreCorrectlyExtractedWhen
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
 
     QTransformationMatrix<T> ROTATION;
-    ROTATION.ij[0][0] = (float_q)0.53571427f;
-    ROTATION.ij[0][1] = (float_q)0.76579368f;
-    ROTATION.ij[0][2] = (float_q)-0.35576719f;
-    ROTATION.ij[1][0] = (float_q)-0.62293649f;
-    ROTATION.ij[1][1] = (float_q)0.64285713f;
-    ROTATION.ij[1][2] = (float_q)0.44574076f;
-    ROTATION.ij[2][0] = (float_q)0.57005292f;
-    ROTATION.ij[2][1] = (float_q)-0.017169312f;
-    ROTATION.ij[2][2] = (float_q)0.82142854f;
+    ROTATION.ij[0][0] = (float_q)0.53571428571428581;
+    ROTATION.ij[0][1] = (float_q)0.76579364625798496;
+    ROTATION.ij[0][2] = (float_q)-0.35576719274341861;
+    ROTATION.ij[1][0] = (float_q)-0.62293650340084217;
+    ROTATION.ij[1][1] = (float_q)0.64285714285714302;
+    ROTATION.ij[1][2] = (float_q)0.4457407392288521;
+    ROTATION.ij[2][0] = (float_q)0.5700529070291328;
+    ROTATION.ij[2][1] = (float_q)-0.017169310657423609;
+    ROTATION.ij[2][2] = (float_q)0.8214285714285714;
     ROTATION.ij[3][0] = SQFloat::_10;
-    ROTATION.ij[3][1] = (float_q)11.0f;
-    ROTATION.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(ROTATION, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    ROTATION.ij[3][1] = (float_q)11.0;
+    ROTATION.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QVector3 vAxisUT;
@@ -4852,7 +4858,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationAngleAndAxisAreCorrectlyExtractedWhen
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.x, EXPECTED_AXIS.x) );
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.y, EXPECTED_AXIS.y) );
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.z, EXPECTED_AXIS.z) );
-    BOOST_CHECK( SQFloat::AreEqual(fAngleUT, EXPECTED_ANGLE) );
+    BOOST_CHECK( SQFloat::AreEqual(fAngleUT, EXPECTED_ANGLE, SMALLER_TOLERANCE) );
 }
 
 /// <summary>
@@ -4875,9 +4881,9 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationIsCorrectlyExtractedWhenMatrixContain
 
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
 
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427f,  (float_q)0.76579368f,   (float_q)-0.35576719f,
-                                                     (float_q)-0.62293649f, (float_q)0.64285713f,   (float_q)0.44574076f,
-                                                     (float_q)0.57005292f,  (float_q)-0.017169312f, (float_q)0.82142854f));
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571428571428581,  (float_q)0.76579364625798496,   (float_q)-0.35576719274341861,
+                                                     (float_q)-0.62293650340084217, (float_q)0.64285714285714302,   (float_q)0.4457407392288521,
+                                                     (float_q)0.5700529070291328,   (float_q)-0.017169310657423609, (float_q)0.8214285714285714));
 
     const QScalingMatrix3x3 SCALE(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
@@ -4929,9 +4935,9 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationDoesntEqualOriginalValueWhenMatrixCon
 
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
 
-    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427f,  (float_q)0.76579368f,   (float_q)-0.35576719f,
-                                                     (float_q)-0.62293649f, (float_q)0.64285713f,   (float_q)0.44574076f,
-                                                     (float_q)0.57005292f,  (float_q)-0.017169312f, (float_q)0.82142854f));
+    const QRotationMatrix3x3 ROTATION(QBaseMatrix3x3((float_q)0.53571427,  (float_q)0.76579368,   (float_q)-0.35576719,
+                                                     (float_q)-0.62293649, (float_q)0.64285713,   (float_q)0.44574076,
+                                                     (float_q)0.57005292,  (float_q)-0.017169312, (float_q)0.82142854));
 
     const QScalingMatrix3x3 SCALE(-SQFloat::_4, -SQFloat::_5, -SQFloat::_6);
 
@@ -5057,19 +5063,19 @@ QTEST_CASE_TEMPLATE ( GetRotation3_ResultantAxisIsNormalized_Test, TQTemplateTyp
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
 
     QTransformationMatrix<T> ROTATION;
-    ROTATION.ij[0][0] = (float_q)0.53571427f;
-    ROTATION.ij[0][1] = (float_q)0.76579368f;
-    ROTATION.ij[0][2] = (float_q)-0.35576719f;
-    ROTATION.ij[1][0] = (float_q)-0.62293649f;
-    ROTATION.ij[1][1] = (float_q)0.64285713f;
-    ROTATION.ij[1][2] = (float_q)0.44574076f;
-    ROTATION.ij[2][0] = (float_q)0.57005292f;
-    ROTATION.ij[2][1] = (float_q)-0.017169312f;
-    ROTATION.ij[2][2] = (float_q)0.82142854f;
+    ROTATION.ij[0][0] = (float_q)0.53571428571428581;
+    ROTATION.ij[0][1] = (float_q)0.76579364625798496;
+    ROTATION.ij[0][2] = (float_q)-0.35576719274341861;
+    ROTATION.ij[1][0] = (float_q)-0.62293650340084217;
+    ROTATION.ij[1][1] = (float_q)0.64285714285714302;
+    ROTATION.ij[1][2] = (float_q)0.4457407392288521;
+    ROTATION.ij[2][0] = (float_q)0.5700529070291328;
+    ROTATION.ij[2][1] = (float_q)-0.017169310657423609;
+    ROTATION.ij[2][2] = (float_q)0.8214285714285714;
     ROTATION.ij[3][0] = SQFloat::_10;
-    ROTATION.ij[3][1] = (float_q)11.0f;
-    ROTATION.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(ROTATION, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    ROTATION.ij[3][1] = (float_q)11.0;
+    ROTATION.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QVector3 vAxisUT;
@@ -7339,15 +7345,15 @@ QTEST_CASE_TEMPLATE ( Initialize_TransformationIsCorrectlyBuiltFromCommonTransfo
     const QBaseVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)992.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)40.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)992.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-176.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-396.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)-927.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)1044.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)1180.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)40.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)-810.0;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_2;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
@@ -7474,15 +7480,15 @@ QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsRotation_T
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     T EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333344f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333322f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333325f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666657f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333343f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666657f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333323f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666675f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)0.13333333333333353;
+    EXPECTED_VALUE.ij[0][1] = (float_q)0.93333333333333324;
+    EXPECTED_VALUE.ij[0][2] = (float_q)-0.33333333333333326;
+    EXPECTED_VALUE.ij[1][0] = (float_q)-0.66666666666666663;
+    EXPECTED_VALUE.ij[1][1] = (float_q)0.33333333333333348;
+    EXPECTED_VALUE.ij[1][2] = (float_q)0.66666666666666652;
+    EXPECTED_VALUE.ij[2][0] = (float_q)0.73333333333333317;
+    EXPECTED_VALUE.ij[2][1] = (float_q)0.13333333333333336;
+    EXPECTED_VALUE.ij[2][2] = (float_q)0.66666666666666674;
     EXPECTED_VALUE.ij[3][0] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][1] = SQFloat::_0;
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
@@ -7761,39 +7767,39 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_Template()
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTransformationMatrix<MatrixType> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
-    FillFourthColumnIfExists(OPERAND2, (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f);
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
+    FillFourthColumnIfExists(OPERAND2, (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0);
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)132.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)138.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)306.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)321.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)336.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)486.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)510.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)534.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)692.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)726.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)760.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[0][0] = (float_q)126.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)132.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)138.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)306.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)321.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)336.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)486.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)510.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)534.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)692.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)726.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT;
@@ -7843,21 +7849,21 @@ QTEST_CASE_TEMPLATE ( ProductOperatorImp1_FourthColumnOfRightOperandDoesntMatter
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTransformationMatrix<QMatrix4x4> OPERANDA2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTransformationMatrix<QMatrix4x4> OPERANDA2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     QTransformationMatrixWhiteBox<T> OPERANDB1 = OPERANDA1;
 
-    QTransformationMatrix<QMatrix4x4> OPERANDB2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)37.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)38.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)39.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTransformationMatrix<QMatrix4x4> OPERANDB2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)37.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)38.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     // Execution
     QTransformationMatrix<T> matrixAUT;
@@ -7886,14 +7892,14 @@ QTEST_CASE( ProductOperatorImp1_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTransformationMatrix<QMatrix4x4> OPERAND2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                              (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                              (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                              (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTransformationMatrix<QMatrix4x4> OPERAND2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                              (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                              (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                              (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT;
@@ -7925,23 +7931,23 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_Template()
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTranslationMatrix<QMatrix4x3> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
 
     QTransformationMatrix<T> EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = SQFloat::_1;
@@ -7953,10 +7959,10 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_Template()
     EXPECTED_VALUE.ij[2][0] = SQFloat::_7;
     EXPECTED_VALUE.ij[2][1] = SQFloat::_8;
     EXPECTED_VALUE.ij[2][2] = SQFloat::_9;
-    EXPECTED_VALUE.ij[3][0] = (float_q)36.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)38.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)40.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[3][0] = (float_q)36.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)38.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)40.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrix<T> matrixUT;
@@ -8008,41 +8014,41 @@ void ProductOperatorImp2_OnlyTheFourthRowOfTranslationMatrixMatters_Template()
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTranslationMatrix<T> OPERANDA2;
-    OPERANDA2.ij[0][0] = (float_q)17.0f;
-    OPERANDA2.ij[0][1] = (float_q)18.0f;
-    OPERANDA2.ij[0][2] = (float_q)19.0f;
-    OPERANDA2.ij[1][0] = (float_q)20.0f;
-    OPERANDA2.ij[1][1] = (float_q)21.0f;
-    OPERANDA2.ij[1][2] = (float_q)22.0f;
-    OPERANDA2.ij[2][0] = (float_q)23.0f;
-    OPERANDA2.ij[2][1] = (float_q)24.0f;
-    OPERANDA2.ij[2][2] = (float_q)25.0f;
-    OPERANDA2.ij[3][0] = (float_q)26.0f;
-    OPERANDA2.ij[3][1] = (float_q)27.0f;
-    OPERANDA2.ij[3][2] = (float_q)28.0f;
-    FillFourthColumnIfExists(OPERANDA2, (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f);
+    OPERANDA2.ij[0][0] = (float_q)17.0;
+    OPERANDA2.ij[0][1] = (float_q)18.0;
+    OPERANDA2.ij[0][2] = (float_q)19.0;
+    OPERANDA2.ij[1][0] = (float_q)20.0;
+    OPERANDA2.ij[1][1] = (float_q)21.0;
+    OPERANDA2.ij[1][2] = (float_q)22.0;
+    OPERANDA2.ij[2][0] = (float_q)23.0;
+    OPERANDA2.ij[2][1] = (float_q)24.0;
+    OPERANDA2.ij[2][2] = (float_q)25.0;
+    OPERANDA2.ij[3][0] = (float_q)26.0;
+    OPERANDA2.ij[3][1] = (float_q)27.0;
+    OPERANDA2.ij[3][2] = (float_q)28.0;
+    FillFourthColumnIfExists(OPERANDA2, (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0);
 
     QTransformationMatrixWhiteBox<T> OPERANDB1 = OPERANDA1;
 
     QTranslationMatrix<T> OPERANDB2;
-    OPERANDB2.ij[0][0] = (float_q)33.0f;
-    OPERANDB2.ij[0][1] = (float_q)34.0f;
-    OPERANDB2.ij[0][2] = (float_q)35.0f;
-    OPERANDB2.ij[1][0] = (float_q)36.0f;
-    OPERANDB2.ij[1][1] = (float_q)37.0f;
-    OPERANDB2.ij[1][2] = (float_q)38.0f;
-    OPERANDB2.ij[2][0] = (float_q)39.0f;
-    OPERANDB2.ij[2][1] = (float_q)40.0f;
-    OPERANDB2.ij[2][2] = (float_q)41.0f;
-    OPERANDB2.ij[3][0] = (float_q)26.0f;
-    OPERANDB2.ij[3][1] = (float_q)27.0f;
-    OPERANDB2.ij[3][2] = (float_q)28.0f;
-    FillFourthColumnIfExists(OPERANDB2, (float_q)45.0f, (float_q)46.0f, (float_q)47.0f, (float_q)48.0f);
+    OPERANDB2.ij[0][0] = (float_q)33.0;
+    OPERANDB2.ij[0][1] = (float_q)34.0;
+    OPERANDB2.ij[0][2] = (float_q)35.0;
+    OPERANDB2.ij[1][0] = (float_q)36.0;
+    OPERANDB2.ij[1][1] = (float_q)37.0;
+    OPERANDB2.ij[1][2] = (float_q)38.0;
+    OPERANDB2.ij[2][0] = (float_q)39.0;
+    OPERANDB2.ij[2][1] = (float_q)40.0;
+    OPERANDB2.ij[2][2] = (float_q)41.0;
+    OPERANDB2.ij[3][0] = (float_q)26.0;
+    OPERANDB2.ij[3][1] = (float_q)27.0;
+    OPERANDB2.ij[3][2] = (float_q)28.0;
+    FillFourthColumnIfExists(OPERANDB2, (float_q)45.0, (float_q)46.0, (float_q)47.0, (float_q)48.0);
 
     // Execution
     QTransformationMatrix<T> matrixAUT;
@@ -8082,14 +8088,14 @@ QTEST_CASE( ProductOperatorImp2_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTranslationMatrix<QMatrix4x4> OPERAND2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                        (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                        (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                        (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTranslationMatrix<QMatrix4x4> OPERAND2 = QTranslationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                        (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                        (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                        (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     // Execution
     QTransformationMatrix<QMatrix4x4> matrixUT;
@@ -8121,39 +8127,39 @@ void ProductAssignationOperatorImp_CommonMatricesAreCorrectlyMultiplied_Template
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     QTransformationMatrix<QMatrix4x4> OPERAND2;
-    OPERAND2.ij[0][0] = (float_q)17.0f;
-    OPERAND2.ij[0][1] = (float_q)18.0f;
-    OPERAND2.ij[0][2] = (float_q)19.0f;
-    OPERAND2.ij[1][0] = (float_q)20.0f;
-    OPERAND2.ij[1][1] = (float_q)21.0f;
-    OPERAND2.ij[1][2] = (float_q)22.0f;
-    OPERAND2.ij[2][0] = (float_q)23.0f;
-    OPERAND2.ij[2][1] = (float_q)24.0f;
-    OPERAND2.ij[2][2] = (float_q)25.0f;
-    OPERAND2.ij[3][0] = (float_q)26.0f;
-    OPERAND2.ij[3][1] = (float_q)27.0f;
-    OPERAND2.ij[3][2] = (float_q)28.0f;
-    FillFourthColumnIfExists(OPERAND2, (float_q)29.0f, (float_q)30.0f, (float_q)31.0f, (float_q)32.0f);
+    OPERAND2.ij[0][0] = (float_q)17.0;
+    OPERAND2.ij[0][1] = (float_q)18.0;
+    OPERAND2.ij[0][2] = (float_q)19.0;
+    OPERAND2.ij[1][0] = (float_q)20.0;
+    OPERAND2.ij[1][1] = (float_q)21.0;
+    OPERAND2.ij[1][2] = (float_q)22.0;
+    OPERAND2.ij[2][0] = (float_q)23.0;
+    OPERAND2.ij[2][1] = (float_q)24.0;
+    OPERAND2.ij[2][2] = (float_q)25.0;
+    OPERAND2.ij[3][0] = (float_q)26.0;
+    OPERAND2.ij[3][1] = (float_q)27.0;
+    OPERAND2.ij[3][2] = (float_q)28.0;
+    FillFourthColumnIfExists(OPERAND2, (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0);
 
     QTransformationMatrix<T> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)132.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)138.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)306.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)321.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)336.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)486.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)510.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)534.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)692.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)726.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)760.0f;
-    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    EXPECTED_VALUE.ij[0][0] = (float_q)126.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)132.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)138.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)306.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)321.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)336.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)486.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)510.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)534.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)692.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)726.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
+    FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
     // Execution
     QTransformationMatrixWhiteBox<T> matrixUT = OPERAND1;
@@ -8203,21 +8209,21 @@ QTEST_CASE_TEMPLATE ( ProductAssignationOperatorImp_FourthColumnOfRightOperandDo
     OPERANDA1.ij[2][1] = SQFloat::_8;
     OPERANDA1.ij[2][2] = SQFloat::_9;
     OPERANDA1.ij[3][0] = SQFloat::_10;
-    OPERANDA1.ij[3][1] = (float_q)11.0f;
-    OPERANDA1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERANDA1.ij[3][1] = (float_q)11.0;
+    OPERANDA1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERANDA1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTransformationMatrix<QMatrix4x4> OPERANDA2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTransformationMatrix<QMatrix4x4> OPERANDA2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     QTransformationMatrix<T> OPERANDB1 = OPERANDA1;
 
-    QTransformationMatrix<QMatrix4x4> OPERANDB2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)37.0f,
-                                                                                               (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)38.0f,
-                                                                                               (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)39.0f,
-                                                                                               (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)40.0f));
+    QTransformationMatrix<QMatrix4x4> OPERANDB2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)37.0,
+                                                                                               (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)38.0,
+                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
+                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
     // Execution
     QTransformationMatrixWhiteBox<T> matrixAUT = OPERANDA1;
@@ -8246,14 +8252,14 @@ QTEST_CASE( ProductAssignationOperatorImp_FourthColumnOfLeftOperandIsJustCopied_
     OPERAND1.ij[2][1] = SQFloat::_8;
     OPERAND1.ij[2][2] = SQFloat::_9;
     OPERAND1.ij[3][0] = SQFloat::_10;
-    OPERAND1.ij[3][1] = (float_q)11.0f;
-    OPERAND1.ij[3][2] = (float_q)12.0f;
-    FillFourthColumnIfExists(OPERAND1, (float_q)13.0f, (float_q)14.0f, (float_q)15.0f, (float_q)16.0f);
+    OPERAND1.ij[3][1] = (float_q)11.0;
+    OPERAND1.ij[3][2] = (float_q)12.0;
+    FillFourthColumnIfExists(OPERAND1, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    QTransformationMatrix<QMatrix4x4> OPERAND2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0f, (float_q)18.0f, (float_q)19.0f, (float_q)29.0f,
-                                                                                              (float_q)20.0f, (float_q)21.0f, (float_q)22.0f, (float_q)30.0f,
-                                                                                              (float_q)23.0f, (float_q)24.0f, (float_q)25.0f, (float_q)31.0f,
-                                                                                              (float_q)26.0f, (float_q)27.0f, (float_q)28.0f, (float_q)32.0f));
+    QTransformationMatrix<QMatrix4x4> OPERAND2 = QTransformationMatrix<QMatrix4x4>(QMatrix4x4((float_q)17.0, (float_q)18.0, (float_q)19.0, (float_q)29.0,
+                                                                                              (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)30.0,
+                                                                                              (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
+                                                                                              (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
     // Execution
     QTransformationMatrixWhiteBox<QMatrix4x4> matrixUT = OPERAND1;
@@ -8285,30 +8291,30 @@ void ProductAssignationOperatorImp_CanBeMultipliedByItself_Template()
     OPERAND.ij[2][1] = SQFloat::_8;
     OPERAND.ij[2][2] = SQFloat::_9;
     OPERAND.ij[3][0] = SQFloat::_10;
-    OPERAND.ij[3][1] = (float_q)11.0f;
-    OPERAND.ij[3][2] = (float_q)12.0f;
-    OPERAND.ij[0][3] = (float_q)13.0f;
-    OPERAND.ij[1][3] = (float_q)14.0f;
-    OPERAND.ij[2][3] = (float_q)15.0f;
-    OPERAND.ij[3][3] = (float_q)16.0f;
+    OPERAND.ij[3][1] = (float_q)11.0;
+    OPERAND.ij[3][2] = (float_q)12.0;
+    OPERAND.ij[0][3] = (float_q)13.0;
+    OPERAND.ij[1][3] = (float_q)14.0;
+    OPERAND.ij[2][3] = (float_q)15.0;
+    OPERAND.ij[3][3] = (float_q)16.0;
 
     QTransformationMatrix<QMatrix4x4> EXPECTED_VALUE;
-    EXPECTED_VALUE.ij[0][0] = (float_q)30.0f;
-    EXPECTED_VALUE.ij[0][1] = (float_q)36.0f;
-    EXPECTED_VALUE.ij[0][2] = (float_q)42.0f;
-    EXPECTED_VALUE.ij[1][0] = (float_q)66.0f;
-    EXPECTED_VALUE.ij[1][1] = (float_q)81.0f;
-    EXPECTED_VALUE.ij[1][2] = (float_q)96.0f;
-    EXPECTED_VALUE.ij[2][0] = (float_q)102.0f;
-    EXPECTED_VALUE.ij[2][1] = (float_q)126.0f;
-    EXPECTED_VALUE.ij[2][2] = (float_q)150.0f;
-    EXPECTED_VALUE.ij[3][0] = (float_q)148.0f;
-    EXPECTED_VALUE.ij[3][1] = (float_q)182.0f;
-    EXPECTED_VALUE.ij[3][2] = (float_q)216.0f;
-    EXPECTED_VALUE.ij[0][3] = (float_q)13.0f;
-    EXPECTED_VALUE.ij[1][3] = (float_q)14.0f;
-    EXPECTED_VALUE.ij[2][3] = (float_q)15.0f;
-    EXPECTED_VALUE.ij[3][3] = (float_q)16.0f;
+    EXPECTED_VALUE.ij[0][0] = (float_q)30.0;
+    EXPECTED_VALUE.ij[0][1] = (float_q)36.0;
+    EXPECTED_VALUE.ij[0][2] = (float_q)42.0;
+    EXPECTED_VALUE.ij[1][0] = (float_q)66.0;
+    EXPECTED_VALUE.ij[1][1] = (float_q)81.0;
+    EXPECTED_VALUE.ij[1][2] = (float_q)96.0;
+    EXPECTED_VALUE.ij[2][0] = (float_q)102.0;
+    EXPECTED_VALUE.ij[2][1] = (float_q)126.0;
+    EXPECTED_VALUE.ij[2][2] = (float_q)150.0;
+    EXPECTED_VALUE.ij[3][0] = (float_q)148.0;
+    EXPECTED_VALUE.ij[3][1] = (float_q)182.0;
+    EXPECTED_VALUE.ij[3][2] = (float_q)216.0;
+    EXPECTED_VALUE.ij[0][3] = (float_q)13.0;
+    EXPECTED_VALUE.ij[1][3] = (float_q)14.0;
+    EXPECTED_VALUE.ij[2][3] = (float_q)15.0;
+    EXPECTED_VALUE.ij[3][3] = (float_q)16.0;
 
     // Execution
     QTransformationMatrixWhiteBox<QMatrix4x4> matrixUT = OPERAND;

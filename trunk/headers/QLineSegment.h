@@ -169,7 +169,7 @@ public:
 	inline VectorType GetCenter() const
 	{
 		// 1) Direction: AB --> B - A, so that: S(t) = A + [t(B - A)] = ... = t(A + B)
-		// 2) Center:    S(0.5f) --> A + [0.5f(B - A)] --> ... --> 0.5f(A + B)
+		// 2) Center:    S(0.5) --> A + [0.5(B - A)] --> ... --> 0.5(A + B)
 		return SQFloat::_0_5 * (A + B);
 	}
 

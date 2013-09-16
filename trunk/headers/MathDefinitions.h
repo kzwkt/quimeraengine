@@ -67,30 +67,30 @@ namespace Math
 #define sqrt_q(fValue)  sqrt(fValue)
 
 #ifdef QE_COMPILER_MSVC
-    #if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+    #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
         #define hypot_q(fX, fY) _hypotf(fX, fY)
-    #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+    #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
         #define hypot_q(fX, fY) _hypot(fX, fY)
     #endif
 #elif defined(QE_COMPILER_GCC)
     #define hypot_q(fX, fY) hypot(fX, fY)
 #endif
 
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
 	#define fmod_q(fX, fY) fmodf(fX, fY) // To improve the compatibility, we prefer fmodf to fmod overloaded version
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
 	#define fmod_q(fX, fY) fmod(fX, fY)
 #endif
 
 // --------------------------------------------------------------------------------------------------------
 // Pi: Defines how much accurate the mathematical Pi value is.
 // --------------------------------------------------------------------------------------------------------
-const float_q PI_Q = SQFloat::_4 * atan_q(SQFloat::_1);
+const float_q PI_Q = (float_q) (4.0 * atan_q(1.0));
 
 // --------------------------------------------------------------------------------------------------------
 // 1/Pi: Defines how much accurate the mathematical Pi value is to calculate its inverse.
 // --------------------------------------------------------------------------------------------------------
-const float_q INVERSE_PI_Q = SQFloat::_1 / PI_Q;
+const float_q INVERSE_PI_Q = (float_q) (1.0 / 4.0 * atan_q(1.0));
 
 } //namespace Math
 } //namespace Tools

@@ -99,12 +99,18 @@ float_q QPlane::DotProductAngle(const QBasePlane &plane) const
     // When the length of a plane equals zero, the calculated angle is not correct
     QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
 
-    const float_q &DOT = this->DotProduct(plane);
+    float_q DOT = this->DotProduct(plane);
 
-    // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-    QE_ASSERT(SQFloat::Abs(DOT) <= SQFloat::_1)
+    // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+    if(DOT > SQFloat::_1)
+        DOT = SQFloat::_1;
+    else if(DOT < -SQFloat::_1)
+        DOT = -SQFloat::_1;
 
     float_q fAngle = acos_q(DOT);
+
+    QE_ASSERT( !SQFloat::IsNaN(fAngle) )
+    
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
         fAngle = SQAngle::RadiansToDegrees(fAngle);

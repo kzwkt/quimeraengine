@@ -149,9 +149,9 @@ QTEST_CASE ( Constructor4_MatrixIsCorrectlyCreatedFromCommonTranslationRotationA
         const float_q ROTATION = SQAngle::_QuarterPi;
     #endif
 
-    const QBaseMatrix3x3 EXPECTED_VALUE((float_q)2.8284271f,  (float_q)2.8284271f, SQFloat::_0,
-                                        (float_q)-3.5355339f, (float_q)3.5355339f, SQFloat::_0,
-                                        SQFloat::_2,          SQFloat::_3,         SQFloat::_1);
+    const QBaseMatrix3x3 EXPECTED_VALUE((float_q)2.8284271247461903,  (float_q)2.8284271247461898, SQFloat::_0,
+                                        (float_q)-3.5355339059327373, (float_q)3.5355339059327378, SQFloat::_0,
+                                        SQFloat::_2,                  SQFloat::_3,                 SQFloat::_1);
 
     // Execution
     QTransformationMatrix3x3 matrixUT(TRANSLATION, ROTATION, SCALE);
@@ -247,9 +247,9 @@ QTEST_CASE ( Constructor4_RotationDataIsCorrectlyGenerated_Test )
         const float_q ROTATION = SQAngle::_ThirdPi;
     #endif
 
-    const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_0_5,        (float_q)0.8660254f, SQFloat::_0,
-                                        (float_q)-0.8660254f, SQFloat::_0_5,       SQFloat::_0,
-                                        SQFloat::_0,          SQFloat::_0,         SQFloat::_1);
+    const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_0_5,                (float_q)0.8660254037844386, SQFloat::_0,
+                                        (float_q)-0.8660254037844386, SQFloat::_0_5,               SQFloat::_0,
+                                        SQFloat::_0,                  SQFloat::_0,                 SQFloat::_1);
 
     // Execution
     QTransformationMatrix3x3 matrixUT(TRANSLATION, ROTATION, SCALE);
@@ -419,19 +419,19 @@ QTEST_CASE ( Decompose_CorrectTransformationsAreObtainedFromCommonMatrix_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector2;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
-
-    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3((float_q)2.8284271f,  (float_q)2.8284271f, SQFloat::_0,
-                                                                         (float_q)-3.5355339f, (float_q)3.5355339f, SQFloat::_0,
-                                                                         SQFloat::_2,          SQFloat::_3,         SQFloat::_1) );
+    
+    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3((float_q)2.8284271247461903,  (float_q)2.8284271247461898, SQFloat::_0,
+                                                                         (float_q)-3.5355339059327373, (float_q)3.5355339059327378, SQFloat::_0,
+                                                                         SQFloat::_2,                  SQFloat::_3,                 SQFloat::_1) );
     const QBaseVector2 EXPECTED_TRANSLATION(SQFloat::_2, SQFloat::_3);
     const QBaseVector2 EXPECTED_SCALE(SQFloat::_4, SQFloat::_5);
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         const float_q EXPECTED_ROTATION = SQAngle::_45;
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_ROTATION = SQAngle::_QuarterPi;
     #endif
-
+    
     // Execution
     QBaseVector2 vTranslationUT(SQFloat::_1, SQFloat::_1);
     QBaseVector2 vScaleUT;
@@ -454,15 +454,16 @@ QTEST_CASE ( Decompose_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRotati
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector2;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3(SQFloat::_0_5,        (float_q)0.8660254f, SQFloat::_0,
-                                                                         (float_q)-0.8660254f, SQFloat::_0_5,       SQFloat::_0,
-                                                                         SQFloat::_0,          SQFloat::_0,         SQFloat::_1) );
+    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3(SQFloat::_0_5,                (float_q)0.8660254037844386, SQFloat::_0,
+                                                                         (float_q)-0.8660254037844386, SQFloat::_0_5,               SQFloat::_0,
+                                                                         SQFloat::_0,                  SQFloat::_0,                 SQFloat::_1) );
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         const float_q EXPECTED_ROTATION = SQAngle::_60;
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_ROTATION = SQAngle::_ThirdPi;
     #endif
-
+        
+        const QTransformationMatrix3x3 TRANSFORMATION_MATRIX2(QBaseVector2(), EXPECTED_ROTATION, QBaseVector2(1, 1));
     // Execution
     QBaseVector2 vTranslationAux;
     QBaseVector2 vScaleAux;
@@ -585,8 +586,8 @@ QTEST_CASE ( GetTranslation_CorrectTranslationIsObtainedFromCommonMatrix_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector2;
 
-    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3((float_q)2.8284271f,  (float_q)2.8284271f, SQFloat::_0,
-                                                                         (float_q)-3.5355339f, (float_q)3.5355339f, SQFloat::_0,
+    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3((float_q)2.8284271,  (float_q)2.8284271, SQFloat::_0,
+                                                                         (float_q)-3.5355339, (float_q)3.5355339, SQFloat::_0,
                                                                          SQFloat::_2,          SQFloat::_3,         SQFloat::_1) );
     const QBaseVector2 EXPECTED_TRANSLATION(SQFloat::_2, SQFloat::_3);
 
@@ -607,12 +608,12 @@ QTEST_CASE ( GetRotation_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRota
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3(SQFloat::_0_5,        (float_q)0.8660254f, SQFloat::_0,
-                                                                         (float_q)-0.8660254f, SQFloat::_0_5,       SQFloat::_0,
-                                                                         SQFloat::_0,          SQFloat::_0,         SQFloat::_1) );
+    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3(SQFloat::_0_5,                (float_q)0.8660254037844386, SQFloat::_0,
+                                                                         (float_q)-0.8660254037844386, SQFloat::_0_5,               SQFloat::_0,
+                                                                         SQFloat::_0,                  SQFloat::_0,                 SQFloat::_1) );
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         const float_q EXPECTED_ROTATION = SQAngle::_60;
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_ROTATION = SQAngle::_ThirdPi;
     #endif
 
@@ -633,12 +634,12 @@ QTEST_CASE ( GetRotation_CorrectRotationIsObtainedFromCommonMatrix_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3((float_q)2.8284271f,  (float_q)2.8284271f, SQFloat::_0,
-                                                                         (float_q)-3.5355339f, (float_q)3.5355339f, SQFloat::_0,
+    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3((float_q)2.8284271,  (float_q)2.8284271, SQFloat::_0,
+                                                                         (float_q)-3.5355339, (float_q)3.5355339, SQFloat::_0,
                                                                          SQFloat::_2,          SQFloat::_3,         SQFloat::_1) );
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         const float_q EXPECTED_ROTATION = SQAngle::_45;
-    #else
+    #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_ROTATION = SQAngle::_QuarterPi;
     #endif
 
@@ -712,9 +713,10 @@ QTEST_CASE ( GetScale_CorrectScaleIsObtainedFromCommonMatrix_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector2;
 
-    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3((float_q)2.8284271f,  (float_q)2.8284271f, SQFloat::_0,
-                                                                         (float_q)-3.5355339f, (float_q)3.5355339f, SQFloat::_0,
-                                                                         SQFloat::_2,          SQFloat::_3,         SQFloat::_1) );
+    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3((float_q)2.8284271247461903,  (float_q)2.8284271247461898, SQFloat::_0,
+                                                                         (float_q)-3.5355339059327373, (float_q)3.5355339059327378, SQFloat::_0,
+                                                                         SQFloat::_2,                  SQFloat::_3,                 SQFloat::_1) );
+
     const QBaseVector2 EXPECTED_SCALE(SQFloat::_4, SQFloat::_5);
 
     // Execution
@@ -765,8 +767,8 @@ QTEST_CASE ( SwitchHandConvention_RotationIsInverted_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 
-    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3(SQFloat::_0_5,        (float_q)0.8660254f, SQFloat::_0,
-                                                                         (float_q)-0.8660254f, SQFloat::_0_5,       SQFloat::_0,
+    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3(SQFloat::_0_5,        (float_q)0.8660254, SQFloat::_0,
+                                                                         (float_q)-0.8660254, SQFloat::_0_5,       SQFloat::_0,
                                                                          SQFloat::_0,          SQFloat::_0,         SQFloat::_1) );
     const QVector2 ROTATED_POINT = QVector2(SQFloat::_1, SQFloat::_0).Transform(TRANSFORMATION_MATRIX);
 
@@ -787,8 +789,8 @@ QTEST_CASE ( SwitchHandConvention_RotationAngleRemainsTheSame_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
-    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3(SQFloat::_0_5,        (float_q)0.8660254f, SQFloat::_0,
-                                                                         (float_q)-0.8660254f, SQFloat::_0_5,       SQFloat::_0,
+    const QTransformationMatrix3x3 TRANSFORMATION_MATRIX( QBaseMatrix3x3(SQFloat::_0_5,        (float_q)0.8660254, SQFloat::_0,
+                                                                         (float_q)-0.8660254, SQFloat::_0_5,       SQFloat::_0,
                                                                          SQFloat::_0,          SQFloat::_0,         SQFloat::_1) );
     float_q ORIGINAL_ROTATION;
     TRANSFORMATION_MATRIX.GetRotation(ORIGINAL_ROTATION);

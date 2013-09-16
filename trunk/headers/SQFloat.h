@@ -209,6 +209,23 @@ public:
     {
         return SQFloat::Abs(fValueA - fValueB) <= SQFloat::Epsilon;
     }
+    
+    /// <summary>
+    /// Performs an equality comparison between two floating point numbers, using a custom tolerance.
+    /// </summary>
+    /// <param name="fValueA">[IN] First floating point number to be compared.</param>
+    /// <param name="fValueB">[IN] Second floating point number to be compared.</param>
+    /// <param name="fValueB">[IN] Tolerance to be applied in the comparison.</param>
+    /// <returns>
+    /// If values are the same, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool AreEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
+    {
+        // The tolerance provided must be equal to or greater than the system tolerance. If the tolerance is too small it could become useless.
+        QE_ASSERT(fTolerance >= SQFloat::Epsilon);
+
+        return SQFloat::Abs(fValueA - fValueB) <= fTolerance;
+    }
 
     /// <summary>
     /// Performs an inequality comparison between two floating point numbers, taking into account the system tolerance
@@ -348,14 +365,14 @@ public:
         // Checks whether both input types have the same size
         QE_ASSERT( sizeof(fValue) == sizeof(outInteger) )
 
-        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+        #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
 
             const IntegerType LOWEST_EXPONENT_BIT_POS = 23;
             const IntegerType EXPONENT = 127 + LOWEST_EXPONENT_BIT_POS;
             const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  8388608; // Maximum convertible integer value = 2^23
             const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -4194304; // Maximum convertible integer negative value = 2^22
 
-        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
 
             const IntegerType LOWEST_EXPONENT_BIT_POS = 52;
             const IntegerType EXPONENT = 1023 + LOWEST_EXPONENT_BIT_POS;
@@ -521,11 +538,11 @@ public:
     /// </returns>
     inline static float_q Abs(const float_q &fValue)
     {
-        #if   QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+        #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
 
             return fabsf(fValue);
 
-        #elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
 
             return fabsl(fValue);
 

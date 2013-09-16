@@ -78,7 +78,7 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
     // Preparation
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
-    const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0f, (float_q)12.0f };
+    const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0 };
 
     const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
@@ -105,7 +105,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
     // Preparation
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
-    const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0f, (float_q)12.0f };
+    const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0 };
 
     const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
@@ -130,7 +130,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
     // Preparation
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
-    const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0f, (float_q)12.0f };
+    const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0 };
 
     const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
@@ -270,7 +270,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_TriangleIsAssignedProperlyToAnother_Te
     // Preparation
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
-    const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0f, (float_q)12.0f };
+    const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0 };
 
     const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
@@ -304,9 +304,9 @@ QTEST_CASE_TEMPLATE ( GetNormal_ReturnsExpectedNormalFromCommonTriangle_Test, TQ
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VALUE_FOR_A, VALUE_FOR_B, VALUE_FOR_C);
 
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const QVector3 EXPECTED_NORMAL = QVector3(-0.30151135f, 0.30151135f, 0.90453398f);
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     const QVector3 EXPECTED_NORMAL = QVector3((float_q)-0.30151134457776363, (float_q)0.30151134457776363, (float_q)0.90453403373329089);
 #endif
 
@@ -983,11 +983,11 @@ QTEST_CASE_TEMPLATE ( Rotate2_TriangleIsCorrectlyTransformedByCommonRotationMatr
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { 0.70710659f, -SQFloat::_4, -2.1213202f, SQFloat::_1 };
     const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { -1.4142138f, -SQFloat::_4, -2.8284268f, SQFloat::_1 };
     const float_q EXPECTED_VECTOR_COMPONENTS_C[] = { 0.70710647f, -SQFloat::_3, -3.5355337f, SQFloat::_1 };
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { (float_q)0.70710678118654768, -SQFloat::_4, (float_q)-2.1213203435596428, SQFloat::_1 };
     const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { (float_q)-1.4142135623730949, -SQFloat::_4, (float_q)-2.8284271247461907, SQFloat::_1 };
     const float_q EXPECTED_VECTOR_COMPONENTS_C[] = { (float_q)0.70710678118654791, -SQFloat::_3, (float_q)-3.5355339059327378, SQFloat::_1 };
@@ -2800,9 +2800,9 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIsInNegativeSide_T
 
     const float_q EXPECTED_COMPONENTS_A[] = { (float_q)1.8095238095238098, (float_q)-3.3809523809523805, (float_q)6.238095238095239, SQFloat::_1 };
     const float_q EXPECTED_COMPONENTS_B[] = { (float_q)2.0952380952380958, (float_q)-1.8095238095238084, (float_q)5.3809523809523832, SQFloat::_1 };
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q EXPECTED_COMPONENTS_C[] = { -0.66666698f, -0.333334f, 5.3333321f, SQFloat::_1 };
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     const float_q EXPECTED_COMPONENTS_C[] = { (float_q)-0.66666666666666652, (float_q)-0.33333333333333304, (float_q)5.3333333333333339, SQFloat::_1 };
 #endif
     const QTriangle3D<T> EXPECTED_TRIANGLE = QTriangle3D<T>(EXPECTED_COMPONENTS_A, EXPECTED_COMPONENTS_B, EXPECTED_COMPONENTS_C);
@@ -2870,9 +2870,9 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIntersectsWithPlan
 
     const float_q EXPECTED_COMPONENTS_A[] = { SQFloat::_0, -SQFloat::_5, SQFloat::_0, SQFloat::_1 };
     const float_q EXPECTED_COMPONENTS_B[] = { (float_q)0.78571428571428581, (float_q)-4.4285714285714288, (float_q)-0.64285714285714235, SQFloat::_1 };
-#if QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_SIMPLE
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q EXPECTED_COMPONENTS_C[] = { -1.9285716f, -2.8571432f, -0.78571475f, SQFloat::_1 };
-#elif QE_CONFIG_PRECISSION_DEFAULT == QE_CONFIG_PRECISSION_DOUBLE
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     const float_q EXPECTED_COMPONENTS_C[] = { (float_q)-1.9285714285714284, (float_q)-2.8571428571428568, (float_q)-0.78571428571428514, SQFloat::_1 };
 #endif
     const QTriangle3D<T> EXPECTED_TRIANGLE = QTriangle3D<T>(EXPECTED_COMPONENTS_A, EXPECTED_COMPONENTS_B, EXPECTED_COMPONENTS_C);

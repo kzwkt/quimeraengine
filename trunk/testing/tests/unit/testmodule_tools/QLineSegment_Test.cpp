@@ -4810,8 +4810,8 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPoi
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    float_q VECTOR_COMPONENTS_EXPECTED1[] = { (float_q)1.5f, (float_q)1.5f, SQFloat::_3, SQFloat::_1 };
-    float_q VECTOR_COMPONENTS_EXPECTED2[] = { (float_q)1.5f, (float_q)1.5f, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_EXPECTED1[] = { (float_q)1.5, (float_q)1.5, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_EXPECTED2[] = { (float_q)1.5, (float_q)1.5, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
     T S1TOS2_POINT = T::GetZeroVector();

@@ -59,10 +59,10 @@ QTEST_CASE ( FriendOperatorProduct_EveryElementIsMultipliedByTheScalar_Test )
     const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_6;
     const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_8;
     const float_q EXPECTED_VALUE_FOR_11 = SQFloat::_10;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)12.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)14.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)16.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0f;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)12.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)14.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)16.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0;
 
     const float_q SCALAR_VALUE = SQFloat::_2;
 
@@ -392,10 +392,10 @@ QTEST_CASE ( OperatorProduct1_EveryElementIsMultipliedByTheScalar_Test )
     const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_6;
     const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_8;
     const float_q EXPECTED_VALUE_FOR_11 = SQFloat::_10;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)12.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)14.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)16.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0f;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)12.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)14.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)16.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0;
 
     const float_q SCALAR_VALUE = SQFloat::_2;
 
@@ -426,19 +426,19 @@ QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
                               SQFloat::_4, SQFloat::_5, SQFloat::_6,
                               SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    const QBaseMatrix3x3 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f,
-                                  (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                  (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+    const QBaseMatrix3x3 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0,
+                                  (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                  (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)84.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)90.0f;
-    const float_q EXPECTED_VALUE_FOR_02 = (float_q)96.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)201.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)216.0f;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)231.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)318.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)342.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)366.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)84.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)90.0;
+    const float_q EXPECTED_VALUE_FOR_02 = (float_q)96.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)201.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)216.0;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)231.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)318.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)342.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)366.0;
 
     // Execution
     QMatrix3x3 matrixUT = OPERAND1 * OPERAND2;
@@ -465,9 +465,9 @@ QTEST_CASE ( OperatorProduct2_ProductIsNotCommutative_Test )
                               SQFloat::_4, SQFloat::_5, SQFloat::_6,
                               SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    const QMatrix3x3 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f,
-                              (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                              (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+    const QMatrix3x3 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0,
+                              (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                              (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
     // Execution
     QMatrix3x3 matrix1UT = OPERAND1 * OPERAND2;
@@ -489,22 +489,22 @@ QTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
                               SQFloat::_4, SQFloat::_5, SQFloat::_6,
                               SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    const QBaseMatrix3x4 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f, (float_q)13.0f,
-                                  (float_q)14.0f, (float_q)15.0f, (float_q)16.0f, (float_q)17.0f,
-                                  (float_q)18.0f, (float_q)19.0f, (float_q)20.0f, (float_q)21.0f);
+    const QBaseMatrix3x4 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0, (float_q)13.0,
+                                  (float_q)14.0, (float_q)15.0, (float_q)16.0, (float_q)17.0,
+                                  (float_q)18.0, (float_q)19.0, (float_q)20.0, (float_q)21.0);
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)92.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)98.0f;
-    const float_q EXPECTED_VALUE_FOR_02 = (float_q)104.0f;
-    const float_q EXPECTED_VALUE_FOR_03 = (float_q)110.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)218.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)233.0f;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)248.0f;
-    const float_q EXPECTED_VALUE_FOR_13 = (float_q)263.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)344.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)368.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)392.0f;
-    const float_q EXPECTED_VALUE_FOR_23 = (float_q)416.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)92.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)98.0;
+    const float_q EXPECTED_VALUE_FOR_02 = (float_q)104.0;
+    const float_q EXPECTED_VALUE_FOR_03 = (float_q)110.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)218.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)233.0;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)248.0;
+    const float_q EXPECTED_VALUE_FOR_13 = (float_q)263.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)344.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)368.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)392.0;
+    const float_q EXPECTED_VALUE_FOR_23 = (float_q)416.0;
 
     // Execution
     QBaseMatrix3x4 matrixUT = OPERAND1 * OPERAND2;
@@ -531,8 +531,8 @@ QTEST_CASE ( OperatorDivision_EveryElementIsDividedByTheScalar_Test )
 {
     // Preparation
     const QMatrix3x3 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,
-                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,
-                            (float_q)14.0f, (float_q)16.0f, (float_q)18.0f);
+                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0,
+                            (float_q)14.0, (float_q)16.0, (float_q)18.0);
 
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
@@ -598,19 +598,19 @@ QTEST_CASE ( OperatorAddition_CommonMatricesAreCorrectlyAdded_Test )
                               SQFloat::_4, SQFloat::_5, SQFloat::_6,
                               SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    const QBaseMatrix3x3 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f,
-                                  (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                  (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+    const QBaseMatrix3x3 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0,
+                                  (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                  (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)11.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)13.0f;
-    const float_q EXPECTED_VALUE_FOR_02 = (float_q)15.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)17.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)19.0f;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)21.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)23.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)25.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)27.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)11.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)13.0;
+    const float_q EXPECTED_VALUE_FOR_02 = (float_q)15.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)17.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)19.0;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)21.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)23.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)25.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)27.0;
 
     // Execution
     QMatrix3x3 matrixUT = OPERAND1 + OPERAND2;
@@ -635,13 +635,13 @@ QTEST_CASE ( OperatorSubtraction_CommonMatricesAreCorrectlySubtracted_Test )
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
-    const QMatrix3x3 OPERAND1((float_q)11.0f, (float_q)13.0f, (float_q)15.0f,
-                              (float_q)17.0f, (float_q)19.0f, (float_q)21.0f,
-                              (float_q)23.0f, (float_q)25.0f, (float_q)27.0f);
+    const QMatrix3x3 OPERAND1((float_q)11.0, (float_q)13.0, (float_q)15.0,
+                              (float_q)17.0, (float_q)19.0, (float_q)21.0,
+                              (float_q)23.0, (float_q)25.0, (float_q)27.0);
 
-    const QBaseMatrix3x3 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f,
-                                  (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                  (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+    const QBaseMatrix3x3 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0,
+                                  (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                  (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
     const QMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3,
                                     SQFloat::_4, SQFloat::_5, SQFloat::_6,
@@ -674,19 +674,19 @@ QTEST_CASE ( OperatorProductAssignation1_CommonMatricesAreCorrectlyMultiplied_Te
                                   SQFloat::_4, SQFloat::_5, SQFloat::_6,
                                   SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    const QBaseMatrix3x3 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f,
-                                  (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                  (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+    const QBaseMatrix3x3 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0,
+                                  (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                  (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)84.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)90.0f;
-    const float_q EXPECTED_VALUE_FOR_02 = (float_q)96.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)201.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)216.0f;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)231.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)318.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)342.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)366.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)84.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)90.0;
+    const float_q EXPECTED_VALUE_FOR_02 = (float_q)96.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)201.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)216.0;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)231.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)318.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)342.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)366.0;
 
     // Execution
     QMatrix3x3 matrixUT(OPERAND1);
@@ -716,9 +716,9 @@ QTEST_CASE ( OperatorProductAssignation1_ProductIsNotCommutative_Test )
                                   SQFloat::_4, SQFloat::_5, SQFloat::_6,
                                   SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    const QBaseMatrix3x3 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f,
-                                  (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                  (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+    const QBaseMatrix3x3 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0,
+                                  (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                  (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
     // Execution
     QMatrix3x3 matrix1UT(OPERAND1);
@@ -763,8 +763,8 @@ QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalar_Tes
     const float_q  SCALAR = SQFloat::_2;
 
     const QMatrix3x3 EXPECTED_VALUE(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,
-                                    SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,
-                                    (float_q)14.0f, (float_q)16.0f, (float_q)18.0f);
+                                    SQFloat::_8,    SQFloat::_10,   (float_q)12.0,
+                                    (float_q)14.0, (float_q)16.0, (float_q)18.0);
 
 	// Execution
     QMatrix3x3 matrixUT = MATRIX;
@@ -788,13 +788,13 @@ QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalar_Tes
 QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalarAndAssignedToItself_Test )
 {
     // Preparation
-    const QMatrix3x3 MATRIX((float_q)0.9f, SQFloat::_1,    SQFloat::_2,
-                            (float_q)0.3f, SQFloat::_7,    SQFloat::_0_5,
-                            SQFloat::_4,   (float_q)0.02f, SQFloat::_3);
+    const QMatrix3x3 MATRIX((float_q)0.9, SQFloat::_1,    SQFloat::_2,
+                            (float_q)0.3, SQFloat::_7,    SQFloat::_0_5,
+                            SQFloat::_4,   (float_q)0.02, SQFloat::_3);
 
-    QMatrix3x3 EXPECTED_VALUE((float_q)0.9f, SQFloat::_1,    SQFloat::_2,
-                            (float_q)0.3f, SQFloat::_7,    SQFloat::_0_5,
-                            SQFloat::_4,   (float_q)0.02f, SQFloat::_3);
+    QMatrix3x3 EXPECTED_VALUE((float_q)0.9, SQFloat::_1,    SQFloat::_2,
+                            (float_q)0.3, SQFloat::_7,    SQFloat::_0_5,
+                            SQFloat::_4,   (float_q)0.02, SQFloat::_3);
 
     EXPECTED_VALUE = EXPECTED_VALUE * EXPECTED_VALUE.ij[0][0];
     EXPECTED_VALUE = EXPECTED_VALUE * EXPECTED_VALUE.ij[0][1];
@@ -837,8 +837,8 @@ QTEST_CASE ( OperatorDivisionAssignation_EveryElementIsDividedByTheScalar_Test )
 {
     // Preparation
     const QMatrix3x3 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,
-                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,
-                            (float_q)14.0f, (float_q)16.0f, (float_q)18.0f);
+                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0,
+                            (float_q)14.0, (float_q)16.0, (float_q)18.0);
 
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
@@ -875,12 +875,12 @@ QTEST_CASE ( OperatorDivisionAssignation_MatrixIsCorrectlyDividedByScalarAndAssi
 {
     // Preparation
     const QMatrix3x3 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,
-                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,
-                            (float_q)14.0f, (float_q)16.0f, (float_q)18.0f);
+                            SQFloat::_8,    SQFloat::_10,   (float_q)12.0,
+                            (float_q)14.0, (float_q)16.0, (float_q)18.0);
 
     QMatrix3x3 EXPECTED_VALUE(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,
-                              SQFloat::_8,    SQFloat::_10,   (float_q)12.0f,
-                              (float_q)14.0f, (float_q)16.0f, (float_q)18.0f);
+                              SQFloat::_8,    SQFloat::_10,   (float_q)12.0,
+                              (float_q)14.0, (float_q)16.0, (float_q)18.0);
 
     EXPECTED_VALUE = EXPECTED_VALUE / EXPECTED_VALUE.ij[0][0];
     EXPECTED_VALUE = EXPECTED_VALUE / EXPECTED_VALUE.ij[0][1];
@@ -953,19 +953,19 @@ QTEST_CASE ( OperatorAdditionAssignation_CommonMatricesAreCorrectlyAdded_Test )
                               SQFloat::_4, SQFloat::_5, SQFloat::_6,
                               SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    const QBaseMatrix3x3 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f,
-                                  (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                  (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+    const QBaseMatrix3x3 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0,
+                                  (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                  (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
-    const float_q EXPECTED_VALUE_FOR_00 = (float_q)11.0f;
-    const float_q EXPECTED_VALUE_FOR_01 = (float_q)13.0f;
-    const float_q EXPECTED_VALUE_FOR_02 = (float_q)15.0f;
-    const float_q EXPECTED_VALUE_FOR_10 = (float_q)17.0f;
-    const float_q EXPECTED_VALUE_FOR_11 = (float_q)19.0f;
-    const float_q EXPECTED_VALUE_FOR_12 = (float_q)21.0f;
-    const float_q EXPECTED_VALUE_FOR_20 = (float_q)23.0f;
-    const float_q EXPECTED_VALUE_FOR_21 = (float_q)25.0f;
-    const float_q EXPECTED_VALUE_FOR_22 = (float_q)27.0f;
+    const float_q EXPECTED_VALUE_FOR_00 = (float_q)11.0;
+    const float_q EXPECTED_VALUE_FOR_01 = (float_q)13.0;
+    const float_q EXPECTED_VALUE_FOR_02 = (float_q)15.0;
+    const float_q EXPECTED_VALUE_FOR_10 = (float_q)17.0;
+    const float_q EXPECTED_VALUE_FOR_11 = (float_q)19.0;
+    const float_q EXPECTED_VALUE_FOR_12 = (float_q)21.0;
+    const float_q EXPECTED_VALUE_FOR_20 = (float_q)23.0;
+    const float_q EXPECTED_VALUE_FOR_21 = (float_q)25.0;
+    const float_q EXPECTED_VALUE_FOR_22 = (float_q)27.0;
 
     // Execution
     QMatrix3x3 matrixUT = OPERAND1;
@@ -991,13 +991,13 @@ QTEST_CASE ( OperatorSubtractionAssignation_CommonMatricesAreCorrectlySubtracted
     // Preparation
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
-    const QMatrix3x3 OPERAND1((float_q)11.0f, (float_q)13.0f, (float_q)15.0f,
-                              (float_q)17.0f, (float_q)19.0f, (float_q)21.0f,
-                              (float_q)23.0f, (float_q)25.0f, (float_q)27.0f);
+    const QMatrix3x3 OPERAND1((float_q)11.0, (float_q)13.0, (float_q)15.0,
+                              (float_q)17.0, (float_q)19.0, (float_q)21.0,
+                              (float_q)23.0, (float_q)25.0, (float_q)27.0);
 
-    const QBaseMatrix3x3 OPERAND2((float_q)10.0f, (float_q)11.0f, (float_q)12.0f,
-                                  (float_q)13.0f, (float_q)14.0f, (float_q)15.0f,
-                                  (float_q)16.0f, (float_q)17.0f, (float_q)18.0f);
+    const QBaseMatrix3x3 OPERAND2((float_q)10.0, (float_q)11.0, (float_q)12.0,
+                                  (float_q)13.0, (float_q)14.0, (float_q)15.0,
+                                  (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
     const QMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3,
                                     SQFloat::_4, SQFloat::_5, SQFloat::_6,
@@ -1233,7 +1233,7 @@ QTEST_CASE ( GetDeterminant_ItsCorrectlyCalculatedForCommonMatrix_Test )
                             SQFloat::_4, SQFloat::_5, SQFloat::_6,
                             SQFloat::_7, SQFloat::_8, SQFloat::_0);
 
-    const float_q EXPECTED_VALUE = (float_q)27.0f;
+    const float_q EXPECTED_VALUE = (float_q)27.0;
 
     // Execution
     float_q fResultUT = MATRIX.GetDeterminant();
@@ -1284,9 +1284,9 @@ QTEST_CASE ( Invert_CommonMatrixIsCorrectlyInverted_Test )
                             SQFloat::_4, SQFloat::_5, SQFloat::_6,
                             SQFloat::_7, SQFloat::_8, SQFloat::_0);
 
-    const QMatrix3x3 EXPECTED_VALUE((float_q)-1.7777778f,  (float_q)0.88888890f,  (float_q)-0.11111111f,
-                                    (float_q)1.5555556f,   (float_q)-0.77777779f, (float_q)0.22222222f,
-                                    (float_q)-0.11111111f, (float_q)0.22222222f,  (float_q)-0.11111111f);
+    const QMatrix3x3 EXPECTED_VALUE((float_q)-1.7777777777777777,  (float_q)0.88888888888888884,  (float_q)-0.11111111111111110,
+                                    (float_q)1.5555555555555554,   (float_q)-0.77777777777777768, (float_q)0.22222222222222221,
+                                    (float_q)-0.1111111111111111, (float_q)0.22222222222222221,  (float_q)-0.1111111111111111);
 
     // Execution
     QMatrix3x3 matrixUT = MATRIX.Invert();
@@ -1341,10 +1341,14 @@ QTEST_CASE ( HasInverse_ReturnsFalseWhenDeterminantIsZero_Test )
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
     // Preparation
-    const QMatrix3x3 MATRIX(SQFloat::_0,    SQFloat::_1,    (float_q)0.654321f,
-                            SQFloat::_4,    SQFloat::_5,    (float_q)-2.2f,
-                            SQFloat::_8,    SQFloat::_9,    (float_q)123456.0f);
-    const string_q EXPECTED_STRING_FORM = QE_L("M3x3(0,1,0.654321015,4,5,-2.20000005,8,9,123456)");
+    const QMatrix3x3 MATRIX(SQFloat::_0,    SQFloat::_1,    (float_q)0.654321,
+                            SQFloat::_4,    SQFloat::_5,    (float_q)-2.2,
+                            SQFloat::_8,    SQFloat::_9,    (float_q)123456.0);
+    #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+        const string_q EXPECTED_STRING_FORM = QE_L("M3x3(0,1,0.654321015,4,5,-2.20000005,8,9,123456)");
+    #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+        const string_q EXPECTED_STRING_FORM = QE_L("M3x3(0,1,0.65432100000000004,4,5,-2.2000000000000002,8,9,123456)");
+    #endif
 
 	// Execution
     QMatrix3x3 matrixUT = MATRIX;

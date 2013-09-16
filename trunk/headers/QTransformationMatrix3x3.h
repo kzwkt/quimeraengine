@@ -162,13 +162,18 @@ public:
         // Checkout to avoid division by zero.
         QE_ASSERT(SCALE != SQFloat::_0)
 
-        const float_q &COS_ROT = this->ij[0][0] / SCALE;
+        float_q COS_ROT = this->ij[0][0] / SCALE;
 
-        // checkout to avoid improper values of cosine. Remember cosine must be in [-1,1] range.
-        QE_ASSERT(SQFloat::Abs(COS_ROT) <= SQFloat::_1)
+        // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+        if(COS_ROT > SQFloat::_1)
+            COS_ROT = SQFloat::_1;
+        else if(COS_ROT < -SQFloat::_1)
+            COS_ROT = -SQFloat::_1;
 
         fRotationAngle = acos_q(COS_ROT);
 
+        QE_ASSERT( !SQFloat::IsNaN(fRotationAngle) );
+      
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             // If angles must be specified in degrees, then converts it.
             fRotationAngle = SQAngle::RadiansToDegrees(fRotationAngle);

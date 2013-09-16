@@ -128,7 +128,7 @@ bool QVector2::IsVectorOfOnes() const
 
 float_q QVector2::DotProduct(const QVector2 &vVector) const
 {
-	return(this->x * vVector.x + this->y * vVector.y);
+	return this->x * vVector.x + this->y * vVector.y;
 }
 
 float_q QVector2::DotProductAngle(const QVector2 &vVector) const
@@ -137,21 +137,25 @@ float_q QVector2::DotProductAngle(const QVector2 &vVector) const
     float_q fLengthProd = sqrt_q(this->GetSquaredLength() * vVector.GetSquaredLength());
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(fLengthProd != SQFloat::_0)
+    QE_ASSERT(fLengthProd != SQFloat::_0);
 
     float_q fDot = this->DotProduct(vVector) / fLengthProd;
 
-    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1)
+    // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
+    if(fDot > SQFloat::_1)
+        fDot = SQFloat::_1;
+    else if(fDot < -SQFloat::_1)
+        fDot = -SQFloat::_1;
 
     float_q fAngle = acos_q(fDot);
+
+    QE_ASSERT( !SQFloat::IsNaN(fAngle) );
 
 	// At this stage we have the angle stored in fAngle expressed in RADIANS.
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
         fAngle = SQAngle::RadiansToDegrees(fAngle);
-
-		// At this stage we have the angle expressed in DEGREES.
     #endif
 
     return fAngle;

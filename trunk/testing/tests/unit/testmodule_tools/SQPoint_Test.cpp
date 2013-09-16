@@ -2983,9 +2983,9 @@ QTEST_CASE ( Transform2_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)3.767767f, SQFloat::_4, (float_q)-8.4748735f),
-                                           QVector3((float_q)-8.650795f, (float_q)3.0000005f, (float_q)4.5624084f),
-                                           QVector3((float_q)10.662058f, (float_q)4.4999995f, (float_q)-14.308505f)
+                                           QVector3((float_q)3.7677669529663689,  SQFloat::_4,  (float_q)-8.4748737341529168),
+                                           QVector3((float_q)-8.6507958916223728, SQFloat::_3,  (float_q)4.5624075439740519),
+                                           QVector3((float_q)10.662058069535208,  (float_q)4.5, (float_q)-14.308504678941933)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
@@ -3028,7 +3028,7 @@ QTEST_CASE ( Transform2_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)10.662058f, (float_q)4.4999995f, (float_q)-14.308505f)
+                                           QVector3((float_q)10.662058069535208, (float_q)4.5, (float_q)-14.308504678941933)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3150,9 +3150,9 @@ QTEST_CASE ( Transform3_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)3.767767f, SQFloat::_4, (float_q)-8.4748735f),
-                                           QVector3((float_q)-8.650795f, (float_q)3.0000005f, (float_q)4.5624084f),
-                                           QVector3((float_q)10.662058f, (float_q)4.4999995f, (float_q)-14.308505f)
+                                           QVector3((float_q)3.7677669529663689,  SQFloat::_4,  (float_q)-8.4748737341529168),
+                                           QVector3((float_q)-8.6507958916223728, SQFloat::_3,  (float_q)4.5624075439740519),
+                                           QVector3((float_q)10.662058069535208,  (float_q)4.5, (float_q)-14.308504678941933)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
@@ -3195,7 +3195,7 @@ QTEST_CASE ( Transform3_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)10.662058f, (float_q)4.4999995f, (float_q)-14.308505f)
+                                           QVector3((float_q)10.662058069535208, (float_q)4.5, (float_q)-14.308504678941933)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3317,10 +3317,11 @@ QTEST_CASE ( Transform4_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)3.767767f, SQFloat::_4, (float_q)-8.4748735f, SQFloat::_1),
-                                           QVector4((float_q)-8.650795f, (float_q)3.0000005f, (float_q)4.5624084f, SQFloat::_1),
-                                           QVector4((float_q)10.662058f, (float_q)4.4999995f, (float_q)-14.308505f, SQFloat::_1)
+                                           QVector4((float_q)3.7677669529663689,  SQFloat::_4,  (float_q)-8.4748737341529168, SQFloat::_1),
+                                           QVector4((float_q)-8.6507958916223728, SQFloat::_3,  (float_q)4.5624075439740519,  SQFloat::_1),
+                                           QVector4((float_q)10.662058069535208,  (float_q)4.5, (float_q)-14.308504678941933, SQFloat::_1)
                                        };
+
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3362,7 +3363,7 @@ QTEST_CASE ( Transform4_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)10.662058f, (float_q)4.4999995f, (float_q)-14.308505f, SQFloat::_1)
+                                           QVector4((float_q)10.662058069535208,  (float_q)4.5, (float_q)-14.308504678941933, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3484,9 +3485,9 @@ QTEST_CASE ( Transform5_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)3.767767f, SQFloat::_4, (float_q)-8.4748735f, SQFloat::_1),
-                                           QVector4((float_q)-8.650795f, (float_q)3.0000005f, (float_q)4.5624084f, SQFloat::_1),
-                                           QVector4((float_q)10.662058f, (float_q)4.4999995f, (float_q)-14.308505f, SQFloat::_1)
+                                           QVector4((float_q)3.7677669529663689,  SQFloat::_4,  (float_q)-8.4748737341529168, SQFloat::_1),
+                                           QVector4((float_q)-8.6507958916223728, SQFloat::_3,  (float_q)4.5624075439740519,  SQFloat::_1),
+                                           QVector4((float_q)10.662058069535208,  (float_q)4.5, (float_q)-14.308504678941933, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
@@ -3529,7 +3530,7 @@ QTEST_CASE ( Transform5_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)10.662058f, (float_q)4.4999995f, (float_q)-14.308505f, SQFloat::_1)
+                                           QVector4((float_q)10.662058069535208,  (float_q)4.5, (float_q)-14.308504678941933, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3646,9 +3647,9 @@ QTEST_CASE ( Transform6_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)-2.236068f, (float_q)0.74535596f, (float_q)2.3333335f),
-                                           QVector3((float_q)-1.118034f, (float_q)-2.6087461f, (float_q)7.5833335f),
-                                           QVector3((float_q)0.67082036f, (float_q)3.5777087f, SQFloat::_1)
+                                           QVector3((float_q)-2.2360679774997898, (float_q)0.74535599249992979, (float_q)2.333333333333333),
+                                           QVector3((float_q)-1.1180339887498949, (float_q)-2.6087459737497545, (float_q)7.5833333333333321),
+                                           QVector3((float_q)0.67082039324993692, (float_q)3.577708763999663,   SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
@@ -3682,7 +3683,7 @@ QTEST_CASE ( Transform6_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)0.67082036f, (float_q)3.5777087f, SQFloat::_1)
+                                           QVector3((float_q)0.67082039324993692, (float_q)3.577708763999663, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
     QSpaceConversionMatrix CONVERSION;
@@ -3777,9 +3778,9 @@ QTEST_CASE ( Transform7_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)-2.236068f, (float_q)0.74535596f, (float_q)2.3333335f, SQFloat::_1),
-                                           QVector4((float_q)-1.118034f, (float_q)-2.6087461f, (float_q)7.5833335f, SQFloat::_1),
-                                           QVector4((float_q)0.67082036f, (float_q)3.5777087f, SQFloat::_1, SQFloat::_1)
+                                           QVector4((float_q)-2.2360679774997898, (float_q)0.74535599249992979, (float_q)2.333333333333333,  SQFloat::_1),
+                                           QVector4((float_q)-1.1180339887498949, (float_q)-2.6087459737497545, (float_q)7.5833333333333321, SQFloat::_1),
+                                           QVector4((float_q)0.67082039324993692, (float_q)3.577708763999663,   SQFloat::_1,                 SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
@@ -3813,7 +3814,7 @@ QTEST_CASE ( Transform7_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)0.67082036f, (float_q)3.5777087f, SQFloat::_1, SQFloat::_1)
+                                           QVector4((float_q)0.67082039324993692, (float_q)3.577708763999663, SQFloat::_1, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
     QSpaceConversionMatrix CONVERSION;
@@ -4049,7 +4050,7 @@ QTEST_CASE ( ScaleWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
     // Preparation
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_1, SQFloat::_1),
-                                           QVector2(-SQFloat::_0_5, (float_q)-11.0f),
+                                           QVector2(-SQFloat::_0_5, (float_q)-11.0),
                                            QVector2(-SQFloat::_3, SQFloat::_4)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector2);
@@ -4163,7 +4164,7 @@ QTEST_CASE ( ScaleWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
     // Preparation
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_1, SQFloat::_1),
-                                           QVector2(-SQFloat::_0_5, (float_q)-11.0f),
+                                           QVector2(-SQFloat::_0_5, (float_q)-11.0),
                                            QVector2(-SQFloat::_3, SQFloat::_4)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector2);
@@ -5032,7 +5033,7 @@ QTEST_CASE ( ScaleWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_4, SQFloat::_1, SQFloat::_5),
-                                           QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0f, SQFloat::_9),
+                                           QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9),
                                            QVector3(-SQFloat::_5, -SQFloat::_5, SQFloat::_3)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
@@ -5146,7 +5147,7 @@ QTEST_CASE ( ScaleWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_4, SQFloat::_1, SQFloat::_5, SQFloat::_1),
-                                           QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0f, SQFloat::_9, SQFloat::_1),
+                                           QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9, SQFloat::_1),
                                            QVector4(-SQFloat::_5, -SQFloat::_5, SQFloat::_3, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
@@ -5260,7 +5261,7 @@ QTEST_CASE ( ScaleWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_4, SQFloat::_1, SQFloat::_5),
-                                           QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0f, SQFloat::_9),
+                                           QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9),
                                            QVector3(-SQFloat::_5, -SQFloat::_5, SQFloat::_3)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
@@ -5374,7 +5375,7 @@ QTEST_CASE ( ScaleWithPivot6_MoreThanOnePointAreTransformedCorrectly_Test )
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_4, SQFloat::_1, SQFloat::_5, SQFloat::_1),
-                                           QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0f, SQFloat::_9, SQFloat::_1),
+                                           QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9, SQFloat::_1),
                                            QVector4(-SQFloat::_5, -SQFloat::_5, SQFloat::_3, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
@@ -5490,7 +5491,7 @@ QTEST_CASE ( ScaleWithPivot7_MoreThanOnePointAreTransformedCorrectly_Test )
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_4, SQFloat::_1, SQFloat::_5),
-                                           QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0f, SQFloat::_9),
+                                           QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9),
                                            QVector3(-SQFloat::_5, -SQFloat::_5, SQFloat::_3)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
@@ -5612,7 +5613,7 @@ QTEST_CASE ( ScaleWithPivot8_MoreThanOnePointAreTransformedCorrectly_Test )
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_4, SQFloat::_1, SQFloat::_5, SQFloat::_1),
-                                           QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0f, SQFloat::_9, SQFloat::_1),
+                                           QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9, SQFloat::_1),
                                            QVector4(-SQFloat::_5, -SQFloat::_5, SQFloat::_3, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
@@ -5738,9 +5739,9 @@ QTEST_CASE ( TransformWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)2.8232234f, SQFloat::_4, (float_q)-5.1767764f),
-                                           QVector3((float_q)-9.5953388f, (float_q)3.0000005f, (float_q)7.8605056f),
-                                           QVector3((float_q)9.717514f, (float_q)4.5f, (float_q)-11.010408f)
+                                           QVector3((float_q)2.823223304703363,  SQFloat::_4,  (float_q)-5.1767766952966365),
+                                           QVector3((float_q)-9.59533953988538,  SQFloat::_3,  (float_q)7.8605045828303322),
+                                           QVector3((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
@@ -5754,10 +5755,11 @@ QTEST_CASE ( TransformWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION = QTransformationMatrix<QMatrix4x3>(TRANSLATION, ROTATION, SCALE);
 
     QVector3 arInputPoints[] = {
-                                   QVector3(SQFloat::_2, SQFloat::_1, SQFloat::_0),
+                                   QVector3(SQFloat::_2,    SQFloat::_1,  SQFloat::_0),
                                    QVector3(SQFloat::_0_25, -SQFloat::_5, -SQFloat::_1),
-                                   QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
+                                   QVector3(-SQFloat::_1,   SQFloat::_4,  SQFloat::_0_5)
                                };
+
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
 	// Execution
@@ -5784,7 +5786,7 @@ QTEST_CASE ( TransformWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)9.717514f, (float_q)4.5f, (float_q)-11.010408f)
+                                           QVector3((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -5909,9 +5911,9 @@ QTEST_CASE ( TransformWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)2.8232234f, SQFloat::_4, (float_q)-5.1767764f, SQFloat::_1),
-                                           QVector4((float_q)-9.5953388f, (float_q)3.0000005f, (float_q)7.8605056f, SQFloat::_1),
-                                           QVector4((float_q)9.717514f, (float_q)4.5f, (float_q)-11.010408f, SQFloat::_1)
+                                           QVector4((float_q)2.823223304703363,  SQFloat::_4,  (float_q)-5.1767766952966365, SQFloat::_1),
+                                           QVector4((float_q)-9.59533953988538,  SQFloat::_3,  (float_q)7.8605045828303322,  SQFloat::_1),
+                                           QVector4((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
@@ -5955,7 +5957,7 @@ QTEST_CASE ( TransformWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)9.717514f, (float_q)4.5f, (float_q)-11.010408f, SQFloat::_1)
+                                           QVector4((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -6120,9 +6122,9 @@ QTEST_CASE ( TransformWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)2.8232234f, SQFloat::_4, (float_q)-5.1767764f),
-                                           QVector3((float_q)-9.5953388f, (float_q)3.0000005f, (float_q)7.8605056f),
-                                           QVector3((float_q)9.717514f, (float_q)4.5f, (float_q)-11.010408f)
+                                           QVector3((float_q)2.823223304703363,  SQFloat::_4,  (float_q)-5.1767766952966365),
+                                           QVector3((float_q)-9.59533953988538,  SQFloat::_3,  (float_q)7.8605045828303322),
+                                           QVector3((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
@@ -6166,7 +6168,7 @@ QTEST_CASE ( TransformWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector3 EXPECTED_POINTS[] = {
-                                           QVector3((float_q)9.717514f, (float_q)4.5f, (float_q)-11.010408f)
+                                           QVector3((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -6291,9 +6293,9 @@ QTEST_CASE ( TransformWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)2.8232234f, SQFloat::_4, (float_q)-5.1767764f, SQFloat::_1),
-                                           QVector4((float_q)-9.5953388f, (float_q)3.0000005f, (float_q)7.8605056f, SQFloat::_1),
-                                           QVector4((float_q)9.717514f, (float_q)4.5f, (float_q)-11.010408f, SQFloat::_1)
+                                           QVector4((float_q)2.823223304703363,  SQFloat::_4,  (float_q)-5.1767766952966365, SQFloat::_1),
+                                           QVector4((float_q)-9.59533953988538,  SQFloat::_3,  (float_q)7.8605045828303322,  SQFloat::_1),
+                                           QVector4((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
@@ -6337,7 +6339,7 @@ QTEST_CASE ( TransformWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
 
     // Preparation
     const QVector4 EXPECTED_POINTS[] = {
-                                           QVector4((float_q)9.717514f, (float_q)4.5f, (float_q)-11.010408f, SQFloat::_1)
+                                           QVector4((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653, SQFloat::_1)
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
