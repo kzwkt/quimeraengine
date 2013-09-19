@@ -48,7 +48,6 @@ namespace Math
 // Forward declarations
 // ----------------------
 class QBaseQuaternion;
-class QQuaternion;
 class QScalingMatrix3x3;
 template<class MatrixType> class QTransformationMatrix;
 template<class MatrixType> class QTranslationMatrix;
@@ -304,7 +303,7 @@ public:
     /// Then, we can calculate quaternion component from every matrix trace.<br/>
     /// </remarks>
     /// <param name="qRotation">[OUT] Quaternion where to store the rotation.</param>
-    void GetRotation(QQuaternion &qRotation) const;
+    void GetRotation(QBaseQuaternion &qRotation) const;
 
     /// <summary>
     /// Converts rotation matrix to an angle and a spin axis.<br/>

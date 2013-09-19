@@ -201,7 +201,7 @@ public:
     /// it is verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
-    bool Intersection(const QBaseRay<VectorType, QVector3> &ray) const
+    bool Intersection(const QRay3D<VectorType> &ray) const
     {
         // Direction vector of rays should not be null
         QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero() );
@@ -216,7 +216,7 @@ public:
             if ( this->Contains(ray.Origin) )
                 return true;
             else
-                return ( rcast_q(ray, const QRay3D<VectorType>&).Contains(this->Origin) );
+                return ( ray.Contains(this->Origin) );
         }
         else // Directions are not parallel
         {
@@ -467,7 +467,7 @@ public:
     /// An enumerated value which represents the number of intersections between the rays, and can take
     /// the following values: E_None, E_One, E_Two or E_Infinite.
 	/// </returns>
-    EQIntersections IntersectionPoint(const QBaseRay<VectorType, QVector3> &ray, VectorType &vIntersection) const
+    EQIntersections IntersectionPoint(const QRay3D<VectorType> &ray, VectorType &vIntersection) const
     {
         // The direction vector of the ray shouldn't be null
         QE_ASSERT( !this->Direction.IsZero() && !ray.Direction.IsZero() );
@@ -493,7 +493,7 @@ public:
             }
             else if ( this->Contains(ray.Origin) )
             {
-                if(rcast_q(ray, const QRay3D<VectorType>&).Contains(this->Origin))
+                if(ray.Contains(this->Origin))
                 {
                     vIntersection.x = this->Origin.x;
                     vIntersection.y = this->Origin.y;
@@ -508,7 +508,7 @@ public:
                     return EQIntersections::E_One;
                 }
             }
-            else if(rcast_q(ray, const QRay3D<VectorType>&).Contains(this->Origin) )
+            else if(ray.Contains(this->Origin) )
             {
                 vIntersection.x = this->Origin.x;
                 vIntersection.y = this->Origin.y;

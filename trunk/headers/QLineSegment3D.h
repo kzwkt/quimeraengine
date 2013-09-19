@@ -1504,12 +1504,12 @@ public:
     /// <returns>
     /// A floating point value containing the maximum distance between the resident line segment and a plane provided.
     /// </returns>
-    inline float_q MaxDistance(const QBasePlane &plane) const
+    inline float_q MaxDistance(const QPlane &plane) const
     {
         QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
 
-        const float_q &DIST_A = rcast_q(plane, const QPlane&).PointDistance(this->A);
-        const float_q &DIST_B = rcast_q(plane, const QPlane&).PointDistance(this->B);
+        const float_q &DIST_A = plane.PointDistance(this->A);
+        const float_q &DIST_B = plane.PointDistance(this->B);
 
         return std::max(DIST_A, DIST_B);
     }
@@ -1524,7 +1524,7 @@ public:
     /// <returns>
     /// A floating point value containing the minimum distance between the resident line segment and a plane provided.
     /// </returns>
-    inline float_q MinDistance(const QBasePlane &plane) const
+    inline float_q MinDistance(const QPlane &plane) const
     {
         QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
 
@@ -1536,9 +1536,8 @@ public:
         if(SQFloat::IsPositive(PLANE_POINT.DotProduct(this->A)) == SQFloat::IsPositive(PLANE_POINT.DotProduct(this->B)) ||
            SQFloat::IsNegative(PLANE_POINT.DotProduct(this->A)) == SQFloat::IsNegative(PLANE_POINT.DotProduct(this->B)))
         {
-            const QPlane& castedPlane = rcast_q(plane, const QPlane&);
-            const float_q &DIST_A = castedPlane.PointDistance(this->A);
-            const float_q &DIST_B = castedPlane.PointDistance(this->B);
+            const float_q &DIST_A = plane.PointDistance(this->A);
+            const float_q &DIST_B = plane.PointDistance(this->B);
             return std::min(DIST_A, DIST_B);
         }
 

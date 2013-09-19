@@ -193,7 +193,16 @@ QQuaternion QQuaternion::operator*(const QBaseVector4 &vVector) const
 
 QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 {
-    return *this * rcast_q(qQuat, const QQuaternion&).Invert();
+    // Note: QQuaternion::Invert method's code copied here. The reason is not to require a QQuaternion as a parameter
+    //       which would break the coherence of the interface (all operators require QBaseQuaternion only). Moreover, if
+    //       rcast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
+    const float_q& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
+
+    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0)
+
+    const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
+
+    return *this * QQuaternion(qQuat.x * NEG_INV_LENGTH, qQuat.y * NEG_INV_LENGTH, qQuat.z * NEG_INV_LENGTH, qQuat.w * -NEG_INV_LENGTH);
 }
 
 QQuaternion QQuaternion::operator/(const float_q &fScalar) const
@@ -218,11 +227,11 @@ float_q QQuaternion::DotProduct(const QBaseQuaternion &qQuat) const
     return this->x * qQuat.x + this->y * qQuat.y + this->z * qQuat.z + this->w * qQuat.w;
 }
 
-float_q QQuaternion::DotProductAngle(const QBaseQuaternion &qQuat) const
+float_q QQuaternion::DotProductAngle(const QQuaternion &qQuat) const
 {
     // NOTE [Thund]: We should investigate why, if the following product is performed in only
     //               one line, it's different. Tested using MinGW with DOUBLE precision configuration.
-    const float_q fInputLength = rcast_q(qQuat, const QQuaternion&).GetLength();
+    const float_q fInputLength = qQuat.GetLength();
     const float_q fThisLength = this->GetLength();
     const float_q fLengths = fThisLength * fInputLength;
 

@@ -27,7 +27,7 @@
 #include "QRotationMatrix3x3.h"
 
 #include "QVector3.h"
-#include "QQuaternion.h"
+#include "QBaseQuaternion.h"
 #include "QTranslationMatrix.h"
 #include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
@@ -286,7 +286,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngleX, float_q &fRotatio
     #endif
 }
 
-void QRotationMatrix3x3::GetRotation(QQuaternion &qRotation) const
+void QRotationMatrix3x3::GetRotation(QBaseQuaternion &qRotation) const
 {
     // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/christian.htm
 

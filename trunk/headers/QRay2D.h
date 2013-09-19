@@ -185,7 +185,7 @@ public:
     /// <returns>
     /// True if both rays intersect, false otherwise.
     /// </returns>
-    bool Intersection(const QBaseRay<QVector2, QVector2> &ray) const;
+    bool Intersection(const QRay2D &ray) const;
 
     /// <summary>
     /// Checks if resident ray intersects with the provided triangle.
@@ -254,7 +254,7 @@ public:
     /// An enumerated value which represents the number of intersections between the rays, and can take
     /// the following values: E_None, E_One and E_Infinite.
 	/// </returns>
-    EQIntersections IntersectionPoint(const QBaseRay<QVector2, QVector2> &ray, QBaseVector2 &vIntersection) const;
+    EQIntersections IntersectionPoint(const QRay2D &ray, QBaseVector2 &vIntersection) const;
     
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.

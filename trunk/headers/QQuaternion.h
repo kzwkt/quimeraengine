@@ -503,9 +503,16 @@ public:
     /// </returns>
     inline QQuaternion& operator/=(const QBaseQuaternion &qQuat)
     {
-        QBaseQuaternion resQuat = rcast_q(qQuat, const QQuaternion&).Invert();
+        // Note: QQuaternion::Invert method's code copied here. The reason is not to require a QQuaternion as a parameter
+        //       which would break the coherence of the interface (all operators require QBaseQuaternion only). Moreover, if
+        //       rcast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
+        const float_q& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
 
-        this->operator*=(resQuat);
+        QE_ASSERT(SQUARED_LENGTH != SQFloat::_0)
+
+        const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
+
+        *this *= QQuaternion(qQuat.x * NEG_INV_LENGTH, qQuat.y * NEG_INV_LENGTH, qQuat.z * NEG_INV_LENGTH, qQuat.w * -NEG_INV_LENGTH);
 
         return *this;
     }
@@ -653,7 +660,7 @@ public:
     /// <returns>
     /// A floating point value which is the smaller angle between quaternions (less or equal to \f$ 180^0\f$).
     /// </returns>
-    float_q DotProductAngle(const QBaseQuaternion &qQuat) const;
+    float_q DotProductAngle(const QQuaternion &qQuat) const;
 
     /// <summary>
     /// Calculates the quaternion's conjugate.<br/>
