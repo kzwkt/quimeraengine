@@ -45,7 +45,7 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
+bool QRay2D::Intersection(const QRay2D &ray) const
 {
     // Direction vector of rays should not be null
     QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero() );
@@ -57,7 +57,7 @@ bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
         if ( this->Contains(ray.Origin) )
             return true;
         else
-            return ( rcast_q(ray, const QRay2D&).Contains(this->Origin) );
+            return ( ray.Contains(this->Origin) );
     }
     else // rays are not parallel
     {
@@ -73,7 +73,7 @@ bool QRay2D::Intersection(const QBaseRay<QVector2, QVector2> &ray) const
     }
 }
 
-EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ray, QBaseVector2 &vIntersection) const
+EQIntersections QRay2D::IntersectionPoint(const QRay2D &ray, QBaseVector2 &vIntersection) const
 {
     // Direction vector of rays should not be null
     QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero() );
@@ -94,7 +94,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ra
         }
         else if(this->Contains(ray.Origin))
         {
-            if(rcast_q(ray, const QRay2D&).Contains(this->Origin))
+            if(ray.Contains(this->Origin))
             {
                 vIntersection = this->Origin;
                 return EQIntersections::E_Two;
@@ -105,7 +105,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseRay<QVector2, QVector2> &ra
                 return EQIntersections::E_One;
             }
         }
-        else if(rcast_q(ray, const QRay2D&).Contains(this->Origin))
+        else if(ray.Contains(this->Origin))
         {
             vIntersection = this->Origin;
             return EQIntersections::E_One;

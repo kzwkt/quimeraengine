@@ -577,7 +577,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    QDualQuaternion Transform(const QBaseDualQuaternion &transformation) const;
+    QDualQuaternion Transform(const QDualQuaternion &transformation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
@@ -654,9 +654,9 @@ public:
     /// <returns>
     /// The "lerped" dual quaternion.
     /// </returns>
-    inline QDualQuaternion Lerp(const float_q &fProportion, const QBaseDualQuaternion &dualQuat) const
+    inline QDualQuaternion Lerp(const float_q &fProportion, const QDualQuaternion &dualQuat) const
     {
-        QDualQuaternion auxDualQuat = (SQFloat::_1 - fProportion) * (*this) + fProportion * rcast_q(dualQuat, const QDualQuaternion&);
+        QDualQuaternion auxDualQuat = (SQFloat::_1 - fProportion) * (*this) + fProportion * dualQuat;
         float_q fLength = auxDualQuat.GetNonDualLength();
 
         QE_ASSERT(fLength != SQFloat::_0)

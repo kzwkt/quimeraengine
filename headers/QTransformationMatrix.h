@@ -27,7 +27,7 @@
 #ifndef __QTRANSFORMATIONMATRIX__
 #define __QTRANSFORMATIONMATRIX__
 
-#include "QQuaternion.h"
+#include "QBaseQuaternion.h"
 #include "QScalingMatrix3x3.h"
 #include "QRotationMatrix3x3.h"
 #include "QVector3.h"
@@ -625,7 +625,7 @@ public:
     void GetRotation(QBaseQuaternion &qRotation) const
     {
         QRotationMatrix3x3 mAux = this->ToRotationMatrix3x3();
-        mAux.GetRotation(rcast_q(qRotation, QQuaternion&));
+        mAux.GetRotation(qRotation);
     }
 
     /// <summary>
@@ -820,7 +820,7 @@ protected:
                     const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationW,
                     const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
     {
-        QQuaternion qRot(fRotationX, fRotationY, fRotationZ, fRotationW);
+        QBaseQuaternion qRot(fRotationX, fRotationY, fRotationZ, fRotationW);
 
         QRotationMatrix3x3 mRot(qRot);
 
