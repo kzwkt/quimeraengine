@@ -334,6 +334,8 @@ QTEST_CASE ( Constructor6_QuaternionComponentsAreFilledWithValidReferenceTo4Floa
     delete[] VALID_ARRAY_OF_4_FLOATS;
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
@@ -357,6 +359,8 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if quaternion components are set to the correct values packed in a valid vf32 object.
@@ -843,6 +847,8 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when a transformation matrix whose elements all equal zero is used.
 /// </summary>
@@ -870,6 +876,8 @@ QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an identity quaternion is obtained when a transformation matrix is the identity.
@@ -984,6 +992,8 @@ QTEST_CASE ( Constructor11_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when a transformation matrix whose elements all equal zero is used.
 /// </summary>
@@ -1011,6 +1021,8 @@ QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an identity quaternion is obtained when a transformation matrix is the identity.
@@ -1060,6 +1072,8 @@ QTEST_CASE ( Constructor12_QuaternionIsCorrectlyBuiltWhenUsingArbitraryRotationM
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when a rotation matrix whose elements all equal zero is used.
 /// </summary>
@@ -1086,6 +1100,8 @@ QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an identity quaternion is obtained when a rotation matrix is the identity.
@@ -1250,6 +1266,8 @@ QTEST_CASE ( QQuaternionImp_IdentityIsObtainedWhenMatrixContainsTranslationAndSc
     QQuaternionImp_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNotRotation_Template<QMatrix4x4>();
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Template method used by QQuaternionImp_AssertionFailsWhenUsingNullMatrix_Test to test
 /// using different template parameters for class QTransformationMatrix.
@@ -1294,6 +1312,8 @@ QTEST_CASE ( QQuaternionImp_AssertionFailsWhenUsingNullMatrix_Test )
     BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
     QQuaternionImp_AssertionFailsWhenUsingNullMatrix_Template<QMatrix4x4>();
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Template method used by QQuaternionImp_IdentityIsObtainedWhenUsingIdentityMatrix_Test to test
@@ -2389,6 +2409,8 @@ QTEST_CASE ( Normalize_CommonQuaternionIsCorrectlyNormalized_Test )
     BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the assertion fails when a null quaternion is to be normalized.
 /// </summary>
@@ -2412,6 +2434,8 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullQuaternionIsToBeNormalized_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that a common quaternion is correctly inverted.

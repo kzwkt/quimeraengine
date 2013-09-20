@@ -920,6 +920,8 @@ QTEST_CASE ( IntersectionPoint_ReturnsInfiniteWhenOneCircleIsContainedIntoTheOth
     BOOST_CHECK(intersection2UT == EXPECTED_VALUE_FOR_INTERSECTION);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the radius of one of the circles equals zero.
 /// </summary>
@@ -959,6 +961,8 @@ QTEST_CASE ( IntersectionPoint_AssertionFailsWhenRadiusEqualsZero_Test )
     BOOST_CHECK(bAssertionFailed1 == ASSERTION_FAILED);
     BOOST_CHECK(bAssertionFailed2 == ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 // End - Test Suite: QCircle
 QTEST_SUITE_END()

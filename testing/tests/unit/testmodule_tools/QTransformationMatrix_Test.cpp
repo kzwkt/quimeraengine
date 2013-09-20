@@ -7126,6 +7126,8 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_ScaleDoesntChange_Test, TQTemplateTyp
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.z, EXPECTED_SCALE.z) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the assertion fails when the scale contained in the matrix equals zero.
 /// </summary>
@@ -7189,6 +7191,8 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_AssertionFailsWhenScaleEqualsZero_Tes
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, EXPECTED_VALUE);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the correct rotation is obtained when using a common transformation matrix that contains positive scale.

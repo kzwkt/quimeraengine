@@ -145,6 +145,8 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if an assertion fails when the input parameters are null pointers.
 /// </summary>
@@ -204,6 +206,8 @@ QTEST_CASE_TEMPLATE ( Constructor4_AssertionFailsWhenInputValuesAreNull_Test, TQ
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBIsNull, ASSERTION_FAILED_WHEN_B_IS_NULL);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCIsNull, ASSERTION_FAILED_WHEN_C_IS_NULL);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if values used as parameters are properly set.

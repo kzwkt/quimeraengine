@@ -605,6 +605,8 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenAnEndpointCoincidesWithVertex_Test )
     BOOST_CHECK_EQUAL(bResultC2, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when both endpoints of the line segment coincide.
 /// </summary>
@@ -641,7 +643,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenBothEndpointsCoincide_Test )
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the triangle coincide.
 /// </summary>
-QTEST_CASE ( Intersection1_AssergionFailsWhenAllVerticesCoincide_Test )
+QTEST_CASE ( Intersection1_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
@@ -670,6 +672,8 @@ QTEST_CASE ( Intersection1_AssergionFailsWhenAllVerticesCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns True when only one point of the line segment belongs to an edge of the triangle.
@@ -1139,6 +1143,8 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithTwoNonContiguousEdge
     BOOST_CHECK_EQUAL(bResultAB_CD, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when both endpoints of the line segment coincide.
 /// </summary>
@@ -1176,7 +1182,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenBothEndpointsCoincide_Test )
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the quadrilateral coincide.
 /// </summary>
-QTEST_CASE ( Intersection2_AssergionFailsWhenAllVerticesCoincide_Test )
+QTEST_CASE ( Intersection2_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
@@ -1205,6 +1211,8 @@ QTEST_CASE ( Intersection2_AssergionFailsWhenAllVerticesCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns True when only one point of the line segment belongs to an edge of the quadrilateral.
@@ -2353,6 +2361,8 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     BOOST_CHECK(vPointC2 == EXPECTED_POINT_C2);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when both endpoints of the line segment coincide.
 /// </summary>
@@ -2390,7 +2400,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenBothEndpointsCoincide_Test )
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the triangle coincide.
 /// </summary>
-QTEST_CASE ( IntersectionPoint1_AssergionFailsWhenAllVerticesCoincide_Test )
+QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
@@ -2420,6 +2430,8 @@ QTEST_CASE ( IntersectionPoint1_AssergionFailsWhenAllVerticesCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns one inetrsection when only one point of the line segment belongs to an edge of the triangle.
@@ -3337,6 +3349,8 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     BOOST_CHECK(vSecondPointCA2 == EXPECTED_SECONDPOINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when both endpoints of the line segment coincide.
 /// </summary>
@@ -3374,7 +3388,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenBothEndpointsCoincide_Test )
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the triangle coincide.
 /// </summary>
-QTEST_CASE ( IntersectionPoint2_AssergionFailsWhenAllVerticesCoincide_Test )
+QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
@@ -3404,6 +3418,8 @@ QTEST_CASE ( IntersectionPoint2_AssergionFailsWhenAllVerticesCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns one inetrsection when only one point of the line segment belongs to an edge of the triangle.
@@ -4086,6 +4102,8 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     BOOST_CHECK(vPointAB_CD == EXPECTED_POINT_AB_CD);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when both endpoints of the line segment coincide.
 /// </summary>
@@ -4154,6 +4172,8 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenAllVerticesCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns one intersection point when only one point of the line segment belongs to an edge of the quadrilateral.
@@ -4975,6 +4995,8 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     BOOST_CHECK(vSecondPointAB_CD == EXPECTED_SECONDPOINT_AB_CD);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when both endpoints of the line segment coincide.
 /// </summary>
@@ -5045,6 +5067,8 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenAllVerticesCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns one intersection point when only one point of the line segment belongs to an edge of the quadrilateral.

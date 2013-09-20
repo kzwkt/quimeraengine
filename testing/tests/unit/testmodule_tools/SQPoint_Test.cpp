@@ -130,6 +130,8 @@ QTEST_CASE ( Translate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -157,6 +159,8 @@ QTEST_CASE ( Translate1_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -240,6 +244,8 @@ QTEST_CASE ( Translate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -267,6 +273,8 @@ QTEST_CASE ( Translate2_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -371,6 +379,8 @@ QTEST_CASE ( Rotate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -405,6 +415,8 @@ QTEST_CASE ( Rotate1_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -488,6 +500,8 @@ QTEST_CASE ( Scale1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -515,6 +529,8 @@ QTEST_CASE ( Scale1_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -598,6 +614,8 @@ QTEST_CASE ( Scale2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -625,6 +643,8 @@ QTEST_CASE ( Scale2_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -748,6 +768,8 @@ QTEST_CASE ( Transform1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -788,6 +810,8 @@ QTEST_CASE ( Transform1_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -871,6 +895,8 @@ QTEST_CASE ( Translate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -898,6 +924,8 @@ QTEST_CASE ( Translate3_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -981,6 +1009,8 @@ QTEST_CASE ( Translate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -1008,6 +1038,8 @@ QTEST_CASE ( Translate4_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -1091,6 +1123,8 @@ QTEST_CASE ( Translate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -1118,6 +1152,8 @@ QTEST_CASE ( Translate5_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -1201,6 +1237,8 @@ QTEST_CASE ( Translate6_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -1228,6 +1266,8 @@ QTEST_CASE ( Translate6_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -1320,6 +1360,8 @@ QTEST_CASE ( Translate7_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -1350,6 +1392,8 @@ QTEST_CASE ( Translate7_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -1442,6 +1486,8 @@ QTEST_CASE ( Translate8_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -1472,6 +1518,8 @@ QTEST_CASE ( Translate8_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -1564,6 +1612,8 @@ QTEST_CASE ( Translate9_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -1594,6 +1644,8 @@ QTEST_CASE ( Translate9_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -1686,6 +1738,8 @@ QTEST_CASE ( Translate10_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -1716,6 +1770,8 @@ QTEST_CASE ( Translate10_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -1824,6 +1880,8 @@ QTEST_CASE ( Rotate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -1860,6 +1918,8 @@ QTEST_CASE ( Rotate2_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -1968,6 +2028,8 @@ QTEST_CASE ( Rotate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2004,6 +2066,8 @@ QTEST_CASE ( Rotate3_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -2112,6 +2176,8 @@ QTEST_CASE ( Rotate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2148,6 +2214,8 @@ QTEST_CASE ( Rotate4_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -2256,6 +2324,8 @@ QTEST_CASE ( Rotate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2292,6 +2362,8 @@ QTEST_CASE ( Rotate5_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -2375,6 +2447,8 @@ QTEST_CASE ( Scale3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2402,6 +2476,8 @@ QTEST_CASE ( Scale3_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -2485,6 +2561,8 @@ QTEST_CASE ( Scale4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2512,6 +2590,8 @@ QTEST_CASE ( Scale4_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -2595,6 +2675,8 @@ QTEST_CASE ( Scale5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2622,6 +2704,8 @@ QTEST_CASE ( Scale5_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -2705,6 +2789,8 @@ QTEST_CASE ( Scale6_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2732,6 +2818,8 @@ QTEST_CASE ( Scale6_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -2821,6 +2909,8 @@ QTEST_CASE ( Scale7_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2850,6 +2940,8 @@ QTEST_CASE ( Scale7_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -2939,6 +3031,8 @@ QTEST_CASE ( Scale8_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -2968,6 +3062,8 @@ QTEST_CASE ( Scale8_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -3094,6 +3190,8 @@ QTEST_CASE ( Transform2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -3135,6 +3233,8 @@ QTEST_CASE ( Transform2_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -3261,6 +3361,8 @@ QTEST_CASE ( Transform3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -3302,6 +3404,8 @@ QTEST_CASE ( Transform3_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -3429,6 +3533,8 @@ QTEST_CASE ( Transform4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -3470,6 +3576,8 @@ QTEST_CASE ( Transform4_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -3596,6 +3704,8 @@ QTEST_CASE ( Transform5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -3637,6 +3747,8 @@ QTEST_CASE ( Transform5_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -3736,6 +3848,8 @@ QTEST_CASE ( Transform6_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -3768,6 +3882,8 @@ QTEST_CASE ( Transform6_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -3867,6 +3983,8 @@ QTEST_CASE ( Transform7_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -3899,6 +4017,8 @@ QTEST_CASE ( Transform7_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -4006,6 +4126,8 @@ QTEST_CASE ( RotateWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -4041,6 +4163,8 @@ QTEST_CASE ( RotateWithPivot1_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -4127,6 +4251,8 @@ QTEST_CASE ( ScaleWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -4155,6 +4281,8 @@ QTEST_CASE ( ScaleWithPivot1_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -4241,6 +4369,8 @@ QTEST_CASE ( ScaleWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -4269,6 +4399,8 @@ QTEST_CASE ( ScaleWithPivot2_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -4395,6 +4527,8 @@ QTEST_CASE ( TransformWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -4436,6 +4570,8 @@ QTEST_CASE ( TransformWithPivot1_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -4546,6 +4682,8 @@ QTEST_CASE ( RotateWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -4583,6 +4721,8 @@ QTEST_CASE ( RotateWithPivot2_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -4693,6 +4833,8 @@ QTEST_CASE ( RotateWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -4730,6 +4872,8 @@ QTEST_CASE ( RotateWithPivot3_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -4840,6 +4984,8 @@ QTEST_CASE ( RotateWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -4877,6 +5023,8 @@ QTEST_CASE ( RotateWithPivot4_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -4987,6 +5135,8 @@ QTEST_CASE ( RotateWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -5024,6 +5174,8 @@ QTEST_CASE ( RotateWithPivot5_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -5110,6 +5262,8 @@ QTEST_CASE ( ScaleWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -5138,6 +5292,8 @@ QTEST_CASE ( ScaleWithPivot3_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -5224,6 +5380,8 @@ QTEST_CASE ( ScaleWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -5252,6 +5410,8 @@ QTEST_CASE ( ScaleWithPivot4_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -5338,6 +5498,8 @@ QTEST_CASE ( ScaleWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -5366,6 +5528,8 @@ QTEST_CASE ( ScaleWithPivot5_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -5452,6 +5616,8 @@ QTEST_CASE ( ScaleWithPivot6_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -5480,6 +5646,8 @@ QTEST_CASE ( ScaleWithPivot6_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -5572,6 +5740,8 @@ QTEST_CASE ( ScaleWithPivot7_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -5602,6 +5772,8 @@ QTEST_CASE ( ScaleWithPivot7_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -5694,6 +5866,8 @@ QTEST_CASE ( ScaleWithPivot8_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -5724,6 +5898,8 @@ QTEST_CASE ( ScaleWithPivot8_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -5854,6 +6030,8 @@ QTEST_CASE ( TransformWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -5896,6 +6074,8 @@ QTEST_CASE ( TransformWithPivot2_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -6025,6 +6205,8 @@ QTEST_CASE ( TransformWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -6067,6 +6249,8 @@ QTEST_CASE ( TransformWithPivot3_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the pivot point's W component doesn't affect the result.
@@ -6236,6 +6420,8 @@ QTEST_CASE ( TransformWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -6278,6 +6464,8 @@ QTEST_CASE ( TransformWithPivot4_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that when using more than one point, they are all correctly transformed.
@@ -6407,6 +6595,8 @@ QTEST_CASE ( TransformWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     }
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that when passing a null pointer as point array an assertion fails.
 /// </summary>
@@ -6449,6 +6639,8 @@ QTEST_CASE ( TransformWithPivot5_AssertionFailsWhenInputIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the pivot point's W component doesn't affect the result.

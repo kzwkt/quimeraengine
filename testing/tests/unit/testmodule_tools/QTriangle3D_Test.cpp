@@ -168,6 +168,8 @@ QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if an assertion fails when the input parameters are null pointers.
 /// </summary>
@@ -227,6 +229,8 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBIsNull, ASSERTION_FAILED_WHEN_B_IS_NULL);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCIsNull, ASSERTION_FAILED_WHEN_C_IS_NULL);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if values used as parameters are properly set.
@@ -342,6 +346,8 @@ QTEST_CASE_TEMPLATE ( GetNormal_FollowsLeftHandedRules_Test, TQTemplateTypes )
     BOOST_CHECK(SQFloat::IsPositive(vNormal.y));
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when, at least, two of the vertices of the triangle coincide.
 /// </summary>
@@ -430,6 +436,8 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenVerticesAreAligned_Test, TQTem
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the normal is normalized.
 /// </summary>
@@ -478,6 +486,8 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_ReturnsExpectedResultFromCommonTriangle_Te
     // Verification
     BOOST_CHECK(vCircumcenter == EXPECTED_CIRCUMCENTER);
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when, at least, two of the vertices of the triangle coincide.
@@ -566,6 +576,8 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenVerticesAreAligned_Test,
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that W component of the output point depends on the value of the W component of the vertices of the triangle.
@@ -2494,6 +2506,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     BOOST_CHECK_EQUAL(eResultNonNotmalized, eResultNormalized);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -2526,6 +2540,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns the expected extruded triangle when the input value is positive.
@@ -2609,6 +2625,8 @@ QTEST_CASE_TEMPLATE( Extrude_TriangleDoesNotChangeWhenInputValueIsZero_Test, TQT
     BOOST_CHECK(returnedTriangle.B == EXPECTED_TRIANGLE.B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_TRIANGLE.C);
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when, at least, two of the vertices of the triangle coincide.
@@ -2702,6 +2720,8 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenVerticesAreAligned_Test, TQTempl
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the correct orthocenter is calculated.
 /// </summary>
@@ -2755,6 +2775,8 @@ QTEST_CASE ( GetOrthocenter_WComponentAffectsResult_Test )
     BOOST_CHECK( SQFloat::AreNotEqual(orthocenter1.w, orthocenter2.w) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
 /// </summary>
@@ -2783,6 +2805,8 @@ QTEST_CASE_TEMPLATE ( GetOrthocenter_AssertionFailsWhenAllPointsCoincide_Test, T
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the triangle is correctly projected to the plane when it is in its negative side.
@@ -2916,6 +2940,8 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_ResultIsDifferentWhenPlaneIsNotNormalized_Te
     BOOST_CHECK(resultNonNotmalized != resultNormalized);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -2948,6 +2974,8 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 // End - Test Suite: QTriangle3D
 QTEST_SUITE_END()

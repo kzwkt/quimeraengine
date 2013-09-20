@@ -2460,6 +2460,8 @@ QTEST_CASE( SetViewSpaceMatrix1_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the assertion fails when "up" vector is null.
 /// </summary>
@@ -2524,6 +2526,8 @@ QTEST_CASE( SetViewSpaceMatrix1_AssertionFailsWhenPointOfViewEqualsTarget_Test )
     BOOST_CHECK_EQUAL( bAssertionFailed, EXPECTED_VALUE );
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the view matrix is correctly built when using common vectors as up, point of view and target.
 /// </summary>
@@ -2572,6 +2576,8 @@ QTEST_CASE( SetViewSpaceMatrix2_ViewMatrixIsCorrectlyBuiltFromCommonInputVectors
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the assertion fails when "up" vector is null.
@@ -2637,6 +2643,8 @@ QTEST_CASE( SetViewSpaceMatrix2_AssertionFailsWhenPointOfViewEqualsTarget_Test )
     BOOST_CHECK_EQUAL( bAssertionFailed, EXPECTED_VALUE );
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the projection matrix is correctly built when using common inputs.
 /// </summary>
@@ -2691,6 +2699,8 @@ QTEST_CASE( SetProjectionSpaceMatrix_ProjectionMatrixIsCorrectlyBuiltFromCommonI
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][2], EXPECTED_VALUE.ij[3][2]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[3][3], EXPECTED_VALUE.ij[3][3]) );
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the assertion fails when the near clip plane equals the far clip plane.
@@ -2781,6 +2791,8 @@ QTEST_CASE( SetProjectionSpaceMatrix_AssertionFailsWhenAspectRatioEqualsZero_Tes
     // Verification
     BOOST_CHECK_EQUAL( bAssertionFail, EXPECTED_VALUE );
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the hand convention of the transformations represented by the matrix are correctly switched.

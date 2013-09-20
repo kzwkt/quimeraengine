@@ -135,6 +135,8 @@ QTEST_CASE ( Constructor4_QuaternionComponentsAreFilledWithValidReferenceTo4Floa
     delete[] VALID_ARRAY_OF_4_FLOATS;
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
@@ -158,6 +160,8 @@ QTEST_CASE ( Constructor4_AssertionFailsWhenPointerIsNull_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if quaternion components are set to the correct values packed in a valid vf32 object.

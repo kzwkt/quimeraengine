@@ -474,6 +474,8 @@ QTEST_CASE ( Decompose_CorrectRotationIsObtainedFromMatrixThatOnlyContainsRotati
     BOOST_CHECK( SQFloat::AreEqual(fRotationUT, EXPECTED_ROTATION) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the scale was null (x and y equalled zero).
 /// </summary>
@@ -506,6 +508,8 @@ QTEST_CASE ( Decompose_AssertionFailsWhenMatrixScaleIsNull_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the translation obtained from a transformation matrix that only contains translation data is correct.
@@ -651,6 +655,8 @@ QTEST_CASE ( GetRotation_CorrectRotationIsObtainedFromCommonMatrix_Test )
     BOOST_CHECK( SQFloat::AreEqual(fRotationUT, EXPECTED_ROTATION) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the scale was null (x and y equalled zero).
 /// </summary>
@@ -681,6 +687,8 @@ QTEST_CASE ( GetRotation_AssertionFailsWhenMatrixScaleIsNull_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the scale obtained from a transformation matrix that only contains scaling data is correct.

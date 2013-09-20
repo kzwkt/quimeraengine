@@ -633,6 +633,8 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesShareOneEndPointOnly_Tes
     BOOST_CHECK_EQUAL(bResult24, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the length of one of the segments equals zero, even if they intersect.
 /// </summary>
@@ -682,6 +684,8 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheLengthOfOneSegmentEqual
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns False when the segment doesn't intersect the other but would do it if it was lengthened to the infinite.
@@ -1140,6 +1144,8 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsFalseWhenTheSegmentDoesNotIntersectTh
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the radius of the orb equals zero.
 /// </summary>
@@ -1231,6 +1237,8 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfSegmentEqualsZe
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it doesn't return any intersection point when line segments don't intersect.
@@ -1606,6 +1614,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenLinesShareOneEndPoin
     BOOST_CHECK(OUTPUT_POINT24 == EXPECTED_POINT2);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the length of one of the segments equals zero, even if they intersect.
 /// </summary>
@@ -1663,6 +1673,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheLengthOfOneSegment
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it doesn't return any intersection point when the segment doesn't intersect the other but would do it if it was lengthened to the infinite.
@@ -2344,6 +2356,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenLinesShareOneEndPoin
     BOOST_CHECK(OUTPUT_SECONDPOINT24 == EXPECTED_SECONDPOINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the length of one of the segments equals zero, even if they intersect.
 /// </summary>
@@ -2401,6 +2415,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it doesn't return any intersection point when the segment doesn't intersect the other but would do it if it was lengthened to the infinite.
@@ -3100,6 +3116,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheSegmentD
     BOOST_CHECK(OUTPUT_POINT2S == EXPECTED_POINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the radius of the orb equals zero.
 /// </summary>
@@ -3166,7 +3184,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
 /// <summary>
 /// Checks that it returns no intersection point when the length of the line equals zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
 {
     //             _____
     //           ´       `
@@ -3209,6 +3227,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheLengthOf
     BOOST_CHECK(OUTPUT_POINTF == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINTS == EXPECTED_POINT);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+// [TODO] Thund: Create this test when assertions can be disabled -> IntersectionPoint3_NoIntersectionIsReturnedWhenTheLengthOfSegmentEqualsZero_Test
 
 /// <summary>
 /// Checks that the first point returned is which is nearer to A end point.
@@ -3624,6 +3646,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionIsReturnedWhenTheSegmentD
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the radius of the orb equals zero.
 /// </summary>
@@ -3727,6 +3751,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqu
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the point returned is which is nearer to A end point.
@@ -4017,6 +4043,8 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesShareOneEndPointOnly_Test
     BOOST_CHECK( SQFloat::AreEqual(fResult24, EXPECTED_RESULT) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the length of one of the segments equals zero, even if they intersect.
 /// </summary>
@@ -4066,6 +4094,8 @@ QTEST_CASE_TEMPLATE ( MinDistance1_AssertionFailsWhenTheLengthOfOneSegmentEquals
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns zero when lines coincide partially, this means, they share more than one point but not all.
@@ -4263,6 +4293,8 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsZeroWhenSegmentEndPointCoincidesWithPo
     BOOST_CHECK( SQFloat::AreEqual(fResult2, EXPECTED_RESULT) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the length of the segment equals zero, even if they intersect.
 /// </summary>
@@ -4297,6 +4329,8 @@ QTEST_CASE_TEMPLATE ( MinDistance2_AssertionFailsWhenTheLengthOfTheSegmentEquals
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the segment is lengthened by the amount provided as input value.

@@ -200,6 +200,8 @@ QTEST_CASE ( Constructor6_MatrixComponentsAreFilledWithValidReferenceTo4Floats_T
     VALID_ARRAY_OF_4_FLOATS = null_q;
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
@@ -223,6 +225,8 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if matrix components are set to the correct values packed in valid vf32 objects.
@@ -386,6 +390,8 @@ QTEST_CASE ( OperatorDivision_EveryElementIsDividedByTheScalar_Test )
     BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE_FOR_11);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if the assertion inside the function fails when the scalar equals zero.
 /// </summary>
@@ -410,6 +416,8 @@ QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that two common matrices are correctly added.
@@ -648,6 +656,8 @@ QTEST_CASE ( OperatorDivisionAssignation_MatrixIsCorrectlyDividedByScalarAndAssi
     BOOST_CHECK_EQUAL(matrixUT.ij[1][1], EXPECTED_VALUE.ij[1][1]);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if the assertion inside the function fails when the scalar equals zero.
 /// </summary>
@@ -672,6 +682,8 @@ QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that two common matrices are correctly added.
