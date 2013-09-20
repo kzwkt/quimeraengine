@@ -172,6 +172,8 @@ QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if an assertion fails when the input parameters are null pointers.
 /// </summary>
@@ -231,6 +233,8 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBIsNull, ASSERTION_FAILED_WHEN_B_IS_NULL);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCIsNull, ASSERTION_FAILED_WHEN_C_IS_NULL);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if values used as parameters are properly set.
@@ -316,6 +320,8 @@ QTEST_CASE_TEMPLATE ( GetSurface_SurfaceIsCorrectlyCalculatedWhenUsingCommonTria
     BOOST_CHECK( SQFloat::AreEqual(fSurface, EXPECTED_VALUE) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
 /// </summary>
@@ -348,6 +354,8 @@ QTEST_CASE_TEMPLATE ( GetSurface_AssertionFailsWhenAllPointsCoincide_Test, TQTem
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the expected angle is returned when using a common triangle.
 /// </summary>
@@ -377,6 +385,8 @@ QTEST_CASE_TEMPLATE ( GetAngleA_CorrectAngleIsReturnedWhenUsingCommonTriangle_Te
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(fAngle, EXPECTED_VALUE) );
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
@@ -410,6 +420,8 @@ QTEST_CASE_TEMPLATE ( GetAngleA_AssertionFailsWhenAllPointsCoincide_Test, TQTemp
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the expected angle is returned when using a common triangle.
 /// </summary>
@@ -439,6 +451,8 @@ QTEST_CASE_TEMPLATE ( GetAngleB_CorrectAngleIsReturnedWhenUsingCommonTriangle_Te
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(fAngle, EXPECTED_VALUE) );
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
@@ -472,6 +486,8 @@ QTEST_CASE_TEMPLATE ( GetAngleB_AssertionFailsWhenAllPointsCoincide_Test, TQTemp
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the expected angle is returned when using a common triangle.
 /// </summary>
@@ -501,6 +517,8 @@ QTEST_CASE_TEMPLATE ( GetAngleC_CorrectAngleIsReturnedWhenUsingCommonTriangle_Te
     // Verification
     BOOST_CHECK( SQFloat::AreEqual(fAngle, EXPECTED_VALUE) );
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
@@ -534,6 +552,8 @@ QTEST_CASE_TEMPLATE ( GetAngleC_AssertionFailsWhenAllPointsCoincide_Test, TQTemp
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the expected incenter is obtained for a common triangle.
 /// </summary>
@@ -558,6 +578,8 @@ QTEST_CASE_TEMPLATE ( GetIncenter_CorrectIncenterObtainedWhenUsingCommonTriangle
     // Verification
     BOOST_CHECK(vIncenter == EXPECTED_POINT);
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
@@ -591,6 +613,8 @@ QTEST_CASE_TEMPLATE ( GetIncenter_AssertionFailsWhenAllPointsCoincide_Test, TQTe
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the expected centroid is obtained for a common triangle.
 /// </summary>
@@ -615,6 +639,8 @@ QTEST_CASE_TEMPLATE ( GetCentroid_CorrectCentroidObtainedWhenUsingCommonTriangle
     // Verification
     BOOST_CHECK(vCentroid == EXPECTED_POINT);
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
@@ -647,6 +673,8 @@ QTEST_CASE_TEMPLATE ( GetCentroid_AssertionFailsWhenAllPointsCoincide_Test, TQTe
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the expected output string is returned.

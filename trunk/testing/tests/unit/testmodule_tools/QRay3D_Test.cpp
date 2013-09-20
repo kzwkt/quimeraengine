@@ -388,6 +388,8 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenRaysShareOriginOnly_Test, TQT
     BOOST_CHECK_EQUAL(bResult2,  EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction vector of one of the rays is null, even if they intersect.
 /// </summary>
@@ -437,6 +439,8 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheDirectionVectorIsNull_T
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns False when the ray doesn't intersect with the other but would do it if it had an opposite direction.
@@ -779,6 +783,8 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenRayOnlyIntersectsWithLineEndp
     BOOST_CHECK_EQUAL(bResult2,  EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction vector of the ray is null, even if it intersects with the line.
 /// </summary>
@@ -858,6 +864,8 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfTheLineEqualsZe
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns False when the ray doesn't intersect with the line but would do it if it had an opposite direction.
@@ -1111,6 +1119,8 @@ QTEST_CASE_TEMPLATE ( Intersection3_ItIsNotNecessaryToNormalizeTheRay_Test, TQTe
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction vector of the ray is null.
 /// </summary>
@@ -1176,6 +1186,8 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns True when a common ray and a common triangle intersect.
@@ -1485,6 +1497,8 @@ QTEST_CASE_TEMPLATE ( Intersection4_ItIsNotNecessaryToNormalizeTheRay_Test, TQTe
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction of the ray is null.
 /// </summary>
@@ -1562,6 +1576,8 @@ QTEST_CASE_TEMPLATE ( Intersection4_AssertionFailsWhenAllTriangleVerticesCoincid
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns True when a common ray and a common hexahedron intersect.
@@ -2238,6 +2254,8 @@ QTEST_CASE_TEMPLATE ( Intersection5_ItIsNotNecessaryToNormalizeTheRay_Test, TQTe
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction of the ray is null.
 /// </summary>
@@ -2323,6 +2341,8 @@ QTEST_CASE_TEMPLATE ( Intersection5_AssertionFailsWhenAllHexahedronVerticesCoinc
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns no intersection points when rays don't intersect.
@@ -2505,6 +2525,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenRaysShareOrig
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction vector of one of the rays is null, even if they intersect.
 /// </summary>
@@ -2556,6 +2578,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheDirectionVectorIsN
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns no intersections when the ray doesn't intersect with the other but would do it if it had an opposite direction.
@@ -2992,6 +3016,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneInersectionWhenRayOnlyInterse
     BOOST_CHECK(vIntersection2 == EXPECTED_POINT2);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction vector of the ray is null, even if it intersects with the line.
 /// </summary>
@@ -3073,6 +3099,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfTheLineEqu
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns no intersection points when the ray doesn't intersect with the line but would do it if it had an opposite direction.
@@ -3498,6 +3526,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneInersectionWhenRayOnlyInterse
     BOOST_CHECK(vSecondIntersection2 == EXPECTED_SECONDPOINT2);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction vector of the ray is null, even if it intersects with the line.
 /// </summary>
@@ -3581,6 +3611,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfTheLineEqu
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns no intersection points when the ray doesn't intersect with the line but would do it if it had an opposite direction.
@@ -3910,6 +3942,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ItIsNotNecessaryToNormalizeTheRay_Test,
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction vector of the ray is null.
 /// </summary>
@@ -3978,6 +4012,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenPlaneIsNull_Test, TQT
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the W component of the intersection point is not changed.
@@ -4427,6 +4463,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ItIsNotNecessaryToNormalizeTheRay_Test,
     BOOST_CHECK(vIntersection == EXPECTED_POINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction of the ray is null.
 /// </summary>
@@ -4506,6 +4544,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenAllTriangleVerticesCo
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns the closest of the two intersection points.
@@ -5157,6 +5197,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ItIsNotNecessaryToNormalizeTheRay_Test,
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction of the ray is null.
 /// </summary>
@@ -5236,6 +5278,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_AssertionFailsWhenAllTriangleVerticesCo
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns the closest of the two intersection points.
@@ -6618,6 +6662,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ItIsNotNecessaryToNormalizeTheRay_Test,
     BOOST_CHECK(vFirstIntersection == EXPECTED_FIRSTPOINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction of the ray is null.
 /// </summary>
@@ -6705,6 +6751,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_AssertionFailsWhenAllHexahedronVertices
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that W component of output point does not change when intersections are detected.
@@ -8062,6 +8110,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ItIsNotNecessaryToNormalizeTheRay_Test,
     BOOST_CHECK(vSecondIntersection == EXPECTED_SECONDPOINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the direction of the ray is null.
 /// </summary>
@@ -8151,6 +8201,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_AssertionFailsWhenAllHexahedronVertices
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that W component of output point does not change when intersections are detected.
@@ -8771,6 +8823,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheRayOriginBelongsToP
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the ray is null.
 /// </summary>
@@ -8808,6 +8862,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenRayIsNull_Test, TQTemplateT
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the result is not different when the plane is not normalized.
 /// </summary>
@@ -8832,6 +8888,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     // Verification
     BOOST_CHECK_EQUAL(eResult1, eResult2);
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
@@ -8865,6 +8923,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the ray is correctly transformed by an arbitrary quaternion.
@@ -9186,6 +9246,8 @@ QTEST_CASE_TEMPLATE ( Scale1_RayDoesNotChangeWhenTransformedByVectorOfOnes_Test,
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by an null scaling vector.
 /// </summary>
@@ -9216,6 +9278,8 @@ QTEST_CASE_TEMPLATE ( Scale1_AssertionFailsWhenTransformedByNullScalingVector_Te
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -9293,10 +9357,12 @@ QTEST_CASE_TEMPLATE ( Scale2_RayDoesNotChangeWhenTransformedByScalingValuesThatE
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed scaling values that equal zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Scale2_RayIsNullifiedWhenTransformedByScalingValuesThatEqualZero_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Scale2_AssertionFailsWhenTransformedByScalingValuesThatEqualZero_Test, TQTemplateTypes )
 {
     // Preparation
     const float_q ZERO_VALUE = SQFloat::_0;
@@ -9325,6 +9391,10 @@ QTEST_CASE_TEMPLATE ( Scale2_RayIsNullifiedWhenTransformedByScalingValuesThatEqu
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+// [TODO] Thund: Create this test when assertions can be disabled -> Scale2_RayIsNullifiedWhenTransformedByScalingValuesThatEqualZero_Test
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -9408,10 +9478,12 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_RayDoesNotChangeWhenTransformedByVectorOfO
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by an null scaling vector.
 /// </summary>
-QTEST_CASE_TEMPLATE ( ScaleWithPivot1_RayIsNullifiedWhenTransformedByNullScalingVector_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenTransformedByNullScalingVector_Test, TQTemplateTypes )
 {
     // Preparation
     const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
@@ -9443,6 +9515,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_RayIsNullifiedWhenTransformedByNullScaling
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+// [TODO] Thund: Create this test when assertions can be disabled -> ScaleWithPivot1_RayIsNullifiedWhenTransformedByNullScalingVector_Test
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -9529,10 +9605,12 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_RayDoesNotChangeWhenTransformedByVectorOfO
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed scaling values that equal zero.
 /// </summary>
-QTEST_CASE_TEMPLATE ( ScaleWithPivot2_RayIsNullifiedWhenTransformedByNullScalingVector_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenTransformedByNullScalingVector_Test, TQTemplateTypes )
 {
     // Preparation
     const float_q ZERO_VALUE = SQFloat::_0;
@@ -9564,6 +9642,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_RayIsNullifiedWhenTransformedByNullScaling
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+// [TODO] Thund: Create this test when assertions can be disabled -> ScaleWithPivot2_RayIsNullifiedWhenTransformedByNullScalingVector_Test
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -9858,6 +9940,8 @@ QTEST_CASE_TEMPLATE ( Scale3_RayDoesNotChangeWhenTransformedByIdentityMatrix_Tes
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by an null scaling matrix.
 /// </summary>
@@ -9891,6 +9975,8 @@ QTEST_CASE_TEMPLATE ( Scale3_AssertionFailsWhenTransformedByZeroScalingMatrix_Te
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -9979,6 +10065,8 @@ QTEST_CASE_TEMPLATE ( Transform1_RayDoesNotChangeWhenTransformedByIdentityMatrix
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by a zero translation matrix.
 /// </summary>
@@ -10012,6 +10100,8 @@ QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformedByZeroTranslationM
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -10110,6 +10200,8 @@ QTEST_CASE_TEMPLATE ( Transform2_RayDoesNotChangeWhenTransformedByIdentityMatrix
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by a zero translation matrix.
 /// </summary>
@@ -10143,6 +10235,8 @@ QTEST_CASE_TEMPLATE ( Transform2_AssertionFailsWhenTransformedByZeroTranslationM
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -10407,6 +10501,8 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_RayDoesNotChangeWhenTransformedByIdentityM
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by an null scaling matrix.
 /// </summary>
@@ -10443,6 +10539,8 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenTransformedByZeroScaling
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -10549,6 +10647,8 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot1_RayDoesNotChangeWhenTransformedByIdent
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by a zero translation matrix.
 /// </summary>
@@ -10585,6 +10685,8 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot1_AssertionFailsWhenTransformedByZeroTra
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the result of the operation is normalized.
@@ -10701,6 +10803,8 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot2_RayDoesNotChangeWhenTransformedByIdent
     BOOST_CHECK(ray == EXPECTED_RAY);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by a zero translation matrix.
 /// </summary>
@@ -10737,6 +10841,8 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot2_AssertionFailsWhenTransformedByZeroTra
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the result of the operation is normalized.

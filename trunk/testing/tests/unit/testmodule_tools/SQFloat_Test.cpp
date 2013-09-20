@@ -994,6 +994,8 @@ QTEST_CASE ( ToInteger_WhenValueIsLessThanZeroPointFiveItsRoundedToZero_Test )
     BOOST_CHECK_EQUAL(nResultUT, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if the assertion fails when the size of the Integer type used as template parameter is different from the size of the floating point type used by default.
 /// </summary>
@@ -1093,6 +1095,8 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumInteger
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if that values are not rounded off.

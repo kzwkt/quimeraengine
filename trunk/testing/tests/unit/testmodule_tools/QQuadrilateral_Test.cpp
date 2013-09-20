@@ -336,6 +336,8 @@ QTEST_CASE ( Contains_ReturnsTrueWhenThePointIsInsideTheQuadrilateral_Test )
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the quadrilateral coincide.
 /// </summary>
@@ -363,6 +365,8 @@ QTEST_CASE ( Contains_AssertionFailsWhenAllVerticesCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns what expected when the quadrilateral is complex (two opposite edges intersect).
@@ -802,6 +806,8 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralContainsTheOther_Test )
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the quadrilateral coincide.
 /// </summary>
@@ -841,6 +847,8 @@ QTEST_CASE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns True when the quadrilateral is complex.
@@ -1051,6 +1059,8 @@ QTEST_CASE ( GetAngleA_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult2, STRAIGHT_ANGLE) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when a contiguous vertex coincides with corner.
 /// </summary>
@@ -1091,6 +1101,8 @@ QTEST_CASE ( GetAngleA_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns the expected angle of a common corner.
@@ -1145,6 +1157,8 @@ QTEST_CASE ( GetAngleB_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult2, STRAIGHT_ANGLE) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when a contiguous vertex coincides with corner.
 /// </summary>
@@ -1185,6 +1199,8 @@ QTEST_CASE ( GetAngleB_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns the expected angle of a common corner.
@@ -1239,6 +1255,8 @@ QTEST_CASE ( GetAngleC_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult2, STRAIGHT_ANGLE) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when a contiguous vertex coincides with corner.
 /// </summary>
@@ -1279,6 +1297,8 @@ QTEST_CASE ( GetAngleC_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns the expected angle of a common corner.
@@ -1333,6 +1353,8 @@ QTEST_CASE ( GetAngleD_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult2, STRAIGHT_ANGLE) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when a contiguous vertex coincides with corner.
 /// </summary>
@@ -1373,6 +1395,8 @@ QTEST_CASE ( GetAngleD_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that a quadrilateral is correctly rotated.

@@ -604,6 +604,8 @@ QTEST_CASE ( Constructor8_DualAndRealPartsAreNullWhenRotationIsNull_Test )
     delete[] arRealPartComponents;
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the assertion fails when the input pointers are null.
 /// </summary>
@@ -646,6 +648,8 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointersAreNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailedBecauseRealPartIsNull, EXPECTED_VALUE);
     BOOST_CHECK_EQUAL(bAssertionFailedBecauseDualPartIsNull, EXPECTED_VALUE);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Template method used by QDualQuaternionImp1_IsCorrectlyCreatedWhenUsingCommonTransformations_Test to test
@@ -1170,6 +1174,8 @@ QTEST_CASE ( OperatorDivision_DualQuaternionIsCorrectlyDividedByScalar_Test )
     BOOST_CHECK(dualQuaternionUT == EXPECTED_VALUE);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the input scalar equals zero.
 /// </summary>
@@ -1199,6 +1205,8 @@ QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, EXPECTED_VALUE);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if two different dual quaternions are correctly added.
@@ -1341,6 +1349,8 @@ QTEST_CASE ( OperatorDivisionAssignation_DualQuaternionIsCorrectlyDividedByScala
     BOOST_CHECK(dualQuaternionUT == EXPECTED_VALUE);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the input scalar equals zero.
 /// </summary>
@@ -1370,6 +1380,8 @@ QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, EXPECTED_VALUE);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that a dual quaternion is correctly assigned to another dual quaternion.

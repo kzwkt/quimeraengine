@@ -322,6 +322,8 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenOnlyAnEndpointBelongsToPlane_
     BOOST_CHECK_EQUAL(bResultB, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the endpoints of the line segment coincide.
 /// </summary>
@@ -387,6 +389,8 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns True when a common line segment and a common triangle intersect.
@@ -745,6 +749,8 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenAnEndpointAndTriangleVertexCo
     BOOST_CHECK_EQUAL(bEndpointBAndVertexCCoincide2, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the endpoints of the line segment coincide.
 /// </summary>
@@ -822,6 +828,8 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenAllTriangleVerticesCoincid
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns True when a common line segment and a common hexahedron intersect.
@@ -1687,6 +1695,8 @@ QTEST_CASE_TEMPLATE ( Intersection3_ReturnsTrueWhenEndpointAndHexahedronVertexCo
     BOOST_CHECK_EQUAL(bEndpointAndHCoincide2, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the endpoints of the line segment coincide.
 /// </summary>
@@ -1772,6 +1782,8 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenAllHexahedronVerticesCoinc
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns one intersection point when a common line segment and a common plane intersect.
@@ -1927,6 +1939,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyAnEndpoin
     BOOST_CHECK(vIntersectionB == EXPECTED_POINT_B);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the endpoints of the line segment coincide.
 /// </summary>
@@ -1994,6 +2008,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenPlaneIsNull_Test, TQT
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns one intersection point when a common line segment and a common triangle intersect.
@@ -2616,6 +2632,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenEndpointBelon
     BOOST_CHECK(vIntersectionCA == EXPECTED_POINT_CA);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the endpoints of the line segment coincide.
 /// </summary>
@@ -2695,6 +2713,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenAllTriangleVerticesCo
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns one intersection point when a common line segment and a common triangle intersect.
@@ -3502,6 +3522,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenEndpointBelon
     BOOST_CHECK(vSecondIntersectionCA == EXPECTED_SECONDPOINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the endpoints of the line segment coincide.
 /// </summary>
@@ -3583,6 +3605,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenAllTriangleVerticesCo
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns two intersection points when a common line segment and a common hexahedron intersect.
@@ -4957,6 +4981,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenEndpointAndHe
     BOOST_CHECK(vFirstIntersectionH2 == EXPECTED_FIRSTPOINT_H);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the endpoints of the line segment coincide.
 /// </summary>
@@ -5044,6 +5070,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenAllHexahedronVertices
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns two intersection points when a common line segment and a common hexahedron intersect.
@@ -6597,6 +6625,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsOneIntersectionWhenEndpointAndHe
     BOOST_CHECK(vSecondIntersectionH2 == EXPECTED_SECONDPOINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the endpoints of the line segment coincide.
 /// </summary>
@@ -6686,6 +6716,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenAllHexahedronVertices
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns the distance to the furthest endpoint of the segment when the line and the plane don't intersect.
@@ -6785,6 +6817,8 @@ QTEST_CASE_TEMPLATE ( MaxDistance_ReturnsTheDistanceToTheFurthestEndpointWhenLin
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -6817,6 +6851,8 @@ QTEST_CASE_TEMPLATE ( MaxDistance_AssertionFailsWhenPlaneIsNull, TQTemplateTypes
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns the distance to the closest endpoint of the segment when the line and the plane don't intersect.
@@ -6916,6 +6952,8 @@ QTEST_CASE_TEMPLATE ( MinDistance_ReturnsZeroWhenLineAndPlaneIntersect, TQTempla
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -6948,6 +6986,8 @@ QTEST_CASE_TEMPLATE ( MinDistance_AssertionFailsWhenPlaneIsNull, TQTemplateTypes
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the line segment is correctly projected to the plane when it is in its negative side.
@@ -7064,6 +7104,8 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_ResultIsDifferentWhenPlaneIsNotNormalized_Te
     BOOST_CHECK(resultNonNotmalized != resultNormalized);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -7095,6 +7137,8 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns "negative side" when the line segment is "behind" the plane and doesn't intersect with it.
@@ -7310,6 +7354,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     BOOST_CHECK_EQUAL(eResultNonNotmalized, eResultNormalized);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -7341,6 +7387,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Template method used by Transform1_CommonLineSegmentIsCorrectlyTransformedWhenUsingCommonTransformationMatrix_Test to test

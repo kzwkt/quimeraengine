@@ -235,6 +235,8 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenThePointLiesOnTheSurfaceOfTheOrb_T
     BOOST_CHECK_EQUAL(bIsContained, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
 /// </summary>
@@ -263,6 +265,8 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenRadiusEqualsZero_Test, TQTempla
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns false when orbs don't intersect.
@@ -378,6 +382,8 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOneOrbIsContainedInOther_Test,
     BOOST_CHECK_EQUAL(bIntersect2, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the radius of one of the orbs equals zero.
 /// </summary>
@@ -419,6 +425,8 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusEqualsZero_Test, TQTe
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the expected output string is returned.

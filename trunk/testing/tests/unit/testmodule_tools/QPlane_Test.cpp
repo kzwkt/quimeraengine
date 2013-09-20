@@ -221,6 +221,8 @@ QTEST_CASE ( Constructor6_VectorComponentsAreFilledWithValidReferenceTo4Floats_T
     delete[] VALID_ARRAY_OF_4_FLOATS;
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
@@ -244,6 +246,8 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if plane's components are set to the correct values packed in a valid vf32 object.
@@ -298,6 +302,8 @@ QTEST_CASE ( Constructor8_PlaneIsConstructedWhenUsingThreeCommonPoints_Test )
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_VALUE_FOR_D) );
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when any of the points coincide.
@@ -381,6 +387,8 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointsAreCollinear_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the returned plane is normalized.
@@ -476,6 +484,8 @@ QTEST_CASE ( Constructor9_PlaneIsConstructedWhenUsingThreeCommonPoints_Test )
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_VALUE_FOR_D) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when any of the points coincides.
 /// </summary>
@@ -528,6 +538,8 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenAnyOfThePointsCoincides_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed3, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the returned plane is normalized.
@@ -847,6 +859,8 @@ QTEST_CASE ( Normalize_CommonPlaneIsCorrectlyNormalized_Test )
     BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the assertion fails when a null plane is to be normalized.
 /// </summary>
@@ -870,6 +884,8 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullPlaneIsToBeNormalized_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the returned dot product result for 1 common plane and a common vector equals the expected value.
@@ -1263,6 +1279,8 @@ QTEST_CASE ( DotProductAngle1_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when either the plane or the vector is null.
 /// </summary>
@@ -1304,6 +1322,8 @@ QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 // [TODO] Thund: Add a test to check the returned value when assertions are disabled
 
@@ -1477,6 +1497,8 @@ QTEST_CASE ( DotProductAngle2_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when either the plane or the vector is null.
 /// </summary>
@@ -1518,6 +1540,8 @@ QTEST_CASE ( DotProductAngle2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 // [TODO] Thund: Add a test to check the returned value when assertions are disabled
 
@@ -1743,6 +1767,8 @@ QTEST_CASE ( DotProductAngle3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when one of the planes is null.
 /// </summary>
@@ -1780,6 +1806,8 @@ QTEST_CASE ( DotProductAngle3_AssertionFailsWhenOnePlaneIsNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 // [TODO] Thund: Add a test to check the returned value when assertions are disabled
 
@@ -1840,6 +1868,8 @@ QTEST_CASE_TEMPLATE ( PointProjection_PointsBehindThePlaneAreCorrectlyProjected_
     BOOST_CHECK( vProjectedPoint == EXPECTED_POINT );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -1865,6 +1895,8 @@ QTEST_CASE_TEMPLATE ( PointProjection_AssertionFailsWhenPlaneIsNull_Test, TQVect
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the result is different when the plane is not normalized.
@@ -1981,6 +2013,8 @@ QTEST_CASE_TEMPLATE ( Contains_PlaneNormalizationDoesNotAffectResult_Test, TQVec
     BOOST_CHECK_EQUAL( bResultContainedButNotNormalized, bResultContainedAndNormalized );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -2006,6 +2040,8 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the W component of the point doesn't affect the result.
@@ -2278,6 +2314,8 @@ QTEST_CASE_TEMPLATE ( PointDistance_ResultIsTheSameWhenPlaneIsNotNormalized_Test
     BOOST_CHECK( SQFloat::AreEqual(fDistance1, fDistance2) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -2303,6 +2341,8 @@ QTEST_CASE_TEMPLATE ( PointDistance_AssertionFailsWhenPlaneIsNull_Test, TQVector
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the W component of the point doesn't affect the result.
@@ -3036,6 +3076,8 @@ QTEST_CASE ( IntersectionPoint_WComponentOfOutputPointIsNeverChanged_Test )
     BOOST_CHECK_EQUAL(vIntersection.w, EXPECTED_W);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when one of the planes is null.
 /// </summary>
@@ -3087,6 +3129,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_AssertionFailsWhenOnePlaneIsNull_Test, T
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed3, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns "positive side" when the other plane is parallel and resides in the positive side of the space division defined by the resident plane.
@@ -3209,6 +3253,8 @@ QTEST_CASE( SpaceRelation_ResultIsDifferentWhenOnePlaneIsNotNormalized_Test )
     BOOST_CHECK_NE(eResult1, eResult2);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when one of the planes is null.
 /// </summary>
@@ -3247,6 +3293,8 @@ QTEST_CASE( SpaceRelation_AssertionFailsWhenOnePlaneIsNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the plane is correctly transformed by an arbitrary rotation matrix.
@@ -3482,6 +3530,8 @@ QTEST_CASE ( Scale1_PlaneDoesNotChangeWhenScaledByIdentityMatrix_Test )
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_RESULT.d) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -3542,6 +3592,8 @@ QTEST_CASE ( Scale1_AssertionFailsWhenScaleMatrixIsNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks the plane is correctly transformed by an arbitrary vector.
 /// </summary>
@@ -3582,6 +3634,8 @@ QTEST_CASE ( Scale2_PlaneDoesNotChangeWhenScaledByAVectorOfOnes_Test )
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_RESULT.d) );
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
@@ -3637,6 +3691,8 @@ QTEST_CASE ( Scale2_AssertionFailsWhenVectorIsNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks the plane is correctly transformed by arbitrary scaling values.
 /// </summary>
@@ -3681,6 +3737,8 @@ QTEST_CASE ( Scale3_PlaneDoesntChangeWhenScaleValuesEqualOne_Test )
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_RESULT.d) );
 }
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
@@ -3739,6 +3797,8 @@ QTEST_CASE ( Scale3_AssertionFailsWhenVectorIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the plane is correctly transformed by an arbitrary translation matrix.
@@ -4050,6 +4110,8 @@ QTEST_CASE_TEMPLATE ( Transform1_PlaneDoesNotChangeWhenTransformedByIdentityMatr
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_RESULT.d) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the transformation matrix is null.
 /// </summary>
@@ -4078,6 +4140,8 @@ QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformationMatrixIsNull_Te
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks the plane is correctly transformed by an arbitrary space conversion matrix.
@@ -4144,6 +4208,8 @@ QTEST_CASE( Transform2_PlaneDoesNotChangeWhenTransformedByIdentityMatrix_Test )
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_RESULT.d) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the space conversion matrix is null.
 /// </summary>
@@ -4172,6 +4238,8 @@ QTEST_CASE( Transform2_AssertionFailsWhenMatrixIsNull_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks the plane is correctly transformed by an arbitrary quaternion and an arbitrary point.
@@ -4465,6 +4533,8 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_PlaneDoesNotChangeWhenScaledByAVectorOfOne
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_RESULT.d) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -4522,6 +4592,8 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenVectorIsNull_Test, TQVec
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that using a null pivot produces the same result as when no pivot is used.
@@ -4596,6 +4668,8 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_PlaneDoesNotChangeWhenScaledByAVectorOfOne
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_RESULT.d) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -4657,6 +4731,8 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenScaleValuesEqualZero_Tes
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that using a null pivot produces the same result as when no pivot is used.
@@ -4731,6 +4807,8 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_PlaneDoesNotChangeWhenScaledByAVectorOfOne
     BOOST_CHECK( SQFloat::AreEqual(planeUT.d, EXPECTED_RESULT.d) );
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -4793,6 +4871,8 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenVectorIsNull_Test, TQVec
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the plane is correctly transformed by an arbitrary vector.
@@ -4901,6 +4981,8 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot_PlaneIsCorrectlyTransformedByCommonTran
     TransformWithPivot_PlaneIsCorrectlyTransformedByCommonTransformationMatrixAndPoint_Template<T, QVector4>();
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Template method used by TransformWithPivot1_AssertionFailsWhenTransformationMatrixIsNull_Test
 /// using different vector types.
@@ -4981,6 +5063,8 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot_AssertionFailsWhenTransformationMatrixI
     BOOST_TEST_MESSAGE("VectorType=QVector4");
     TransformWithPivot_AssertionFailsWhenTransformationMatrixIsNull_Template<T, QVector4>();
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Template method used by TransformWithPivot1_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test

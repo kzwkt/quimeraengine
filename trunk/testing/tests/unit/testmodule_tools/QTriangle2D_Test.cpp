@@ -148,6 +148,8 @@ QTEST_CASE ( Constructor5_ValuesAreCorrectlySet_Test )
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if an assertion fails when the input parameters are null pointers.
 /// </summary>
@@ -207,6 +209,8 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBIsNull, ASSERTION_FAILED_WHEN_B_IS_NULL);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCIsNull, ASSERTION_FAILED_WHEN_C_IS_NULL);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that every value is set to correct component.
@@ -465,6 +469,8 @@ QTEST_CASE ( GetCircumcenter_CircumcenterIsCorrectlyCalculatedWhenUsingCommonTri
     BOOST_CHECK(circumcenter.y == EXPECTED_VALUE_CIRCUMCENTER.y);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
 /// </summary>
@@ -491,6 +497,8 @@ QTEST_CASE ( GetCircumcenter_AssertionFailsWhenAllPointsCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 /*
 
 [TODO] Thund: To be uncommented when tests are adapted to pass without assertions
@@ -575,6 +583,9 @@ QTEST_CASE ( GetOrthocenter_OrthocenterIsNotDefinedWhenAllPointsCoincide_Test )
     BOOST_CHECK_EQUAL(bOrthocenterYIsNan, ORTHOCENTER_Y_IS_NAN);
 }
 */
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all points coincide.
 /// </summary>
@@ -601,6 +612,8 @@ QTEST_CASE ( GetOrthocenter_AssertionFailsWhenAllPointsCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that a triangle is correctly translated.

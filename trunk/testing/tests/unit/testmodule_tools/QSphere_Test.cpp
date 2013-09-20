@@ -1775,6 +1775,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     BOOST_CHECK_EQUAL(eResultNonNotmalized, eResultNormalized);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -1838,6 +1840,8 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenRadiusEqualsZero_Test, TQTe
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the sphere is correctly projected to the plane when it is in its negative side.
@@ -1951,6 +1955,8 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_ResultIsDifferentWhenPlaneIsNotNormalized_Te
     BOOST_CHECK(resultNonNotmalized != resultNormalized);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the plane is null.
 /// </summary>
@@ -1982,6 +1988,8 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 // End - Test Suite: QSphere
 QTEST_SUITE_END()

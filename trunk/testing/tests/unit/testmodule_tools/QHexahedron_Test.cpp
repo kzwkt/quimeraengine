@@ -1404,6 +1404,8 @@ QTEST_CASE_TEMPLATE ( GetPlanes_ReturnsExpectedPlanesFromCommonHexahedron_Test, 
     BOOST_CHECK(arOutputPlanes[5] == EXPECTED_PLANE_CDFG);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the hexahedron coincide.
 /// </summary>
@@ -1461,6 +1463,8 @@ QTEST_CASE_TEMPLATE ( GetPlanes_AssertionFailsWhenListOfPlanesIsNull_Test, TQTem
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns True when a common point is inside the hexahedron.
@@ -1739,6 +1743,8 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointCoincidesWithVertex_Test, TQT
     BOOST_CHECK_EQUAL(bResultH, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the hexahedron coincide.
 /// </summary>
@@ -1767,6 +1773,8 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenAllVerticesCoincide_Test, TQTem
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns "both sides" when the hexahedron and the plane intersect.
@@ -1996,6 +2004,8 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsNegativeSideWhenSomePartOfTheHexahedr
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the hexahedron coincide.
 /// </summary>
@@ -2072,6 +2082,8 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenThePlaneIsNull_Test, TQTem
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the hexahedron is correctly transformed by an arbitrary rotation matrix.
@@ -3852,6 +3864,8 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheOneHexahedronIsPiercedByAnE
     BOOST_CHECK_EQUAL(bResultH1R6_H2R8, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the hexahedron coincide.
 /// </summary>
@@ -3892,6 +3906,8 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test, T
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the hexahedron is correctly projected to a plane when they intersect.
@@ -4117,6 +4133,8 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_ItDoesNotChangeWhenItAlreadyBelongsToPlane_
     BOOST_CHECK(returnedHexahedron.H == EXPECTED_RESULT.H);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when all the vertices of the hexahedron coincide.
 /// </summary>
@@ -4193,6 +4211,8 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenThePlaneIsNull_Test, TQTe
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the expected output string is returned.

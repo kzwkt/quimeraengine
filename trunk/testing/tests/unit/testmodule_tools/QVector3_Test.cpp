@@ -184,6 +184,8 @@ QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo3Floats_T
     delete[] VALID_ARRAY_OF_3_FLOATS;
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks if the assertion inside the function fails when a null pointer is received.
 /// </summary>
@@ -207,6 +209,8 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if vector components are set to the correct values packed in a valid vf32 object.
@@ -729,6 +733,8 @@ QTEST_CASE ( OperatorDivision1_VectorIsCorrectlyDividedByScalar_Test )
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that there is an assertion that warns when the divisor equals zero.
 /// </summary>
@@ -753,6 +759,8 @@ QTEST_CASE ( OperatorDivision1_AssertionFailsWhenDivisorEqualsZero_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif //QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that every component of one operand is divided by the same component of the other operand.
@@ -814,6 +822,8 @@ QTEST_CASE ( OperatorDivision2_VectorCanBeDividedByItself_Test )
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the assertion fails when any of the vector components equals zero.
 /// </summary>
@@ -862,6 +872,8 @@ QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
     BOOST_CHECK(bAssertionFailedWhenYEqualsZero);
     BOOST_CHECK(bAssertionFailedWhenZEqualsZero);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks if two different vectors are correctly added.
@@ -1181,6 +1193,8 @@ QTEST_CASE ( OperatorDivisionAssignation1_VectorIsCorrectlyDividedByScalar_Test 
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that there is an assertion that warns when the divisor equals zero.
 /// </summary>
@@ -1205,6 +1219,8 @@ QTEST_CASE ( OperatorDivisionAssignation1_AssertionFailsWhenDivisorEqualsZero_Te
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that a vector component is divided and assigned to itself.
@@ -1303,6 +1319,8 @@ QTEST_CASE ( OperatorDivisionAssignation2_VectorCanBeDividedByItself_Test )
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the assertion fails when any of the vector components equals zero.
 /// </summary>
@@ -1351,6 +1369,8 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
     BOOST_CHECK(bAssertionFailedWhenYEqualsZero);
     BOOST_CHECK(bAssertionFailedWhenZEqualsZero);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that a vector is correctly assigned to another vector.
@@ -1448,6 +1468,8 @@ QTEST_CASE ( Normalize_CommonVectorIsCorrectlyNormalized_Test )
     BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that the assertion fails when a null vector is to be normalized.
 /// </summary>
@@ -1471,6 +1493,8 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
     // Verification
     BOOST_CHECK(bAssertionFailed);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that all vector components are set to one.

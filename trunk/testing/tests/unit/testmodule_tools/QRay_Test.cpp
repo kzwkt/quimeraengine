@@ -344,6 +344,8 @@ QTEST_CASE_TEMPLATE ( GetPoint_ExpectedPointIsReturnedForANegativeDistance_Test,
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertin fails when the ray is not normalized.
 /// </summary>
@@ -375,6 +377,8 @@ QTEST_CASE_TEMPLATE ( GetPoint_AssertionFailsWhenRayIsNotNormalized_Test, TQTemp
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /* Commented out until the tests are adapted to check the results when the assertion behavior is none
 /// <summary>
@@ -611,6 +615,8 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenRayDoesNotIntersectTheOrbButW
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the radius of the orb equals zero.
 /// </summary>
@@ -729,6 +735,8 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRayIsNotNormalized_Test, TQ
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that it returns no intersection points when the ray doesn't intersect the orb.
@@ -994,6 +1002,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointsWhenRayDoesNotIntersectT
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the radius of the orb equals zero.
 /// </summary>
@@ -1114,6 +1124,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRayIsNotNormalized_Te
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the returned intersection point is the closest one to the origin of the ray.
@@ -1445,6 +1457,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointsWhenRayDoesNotIntersectT
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT);
 }
 
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that an assertion fails when the radius of the orb equals zero.
 /// </summary>
@@ -1568,6 +1582,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRayIsNotNormalized_Te
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the first returned intersection point is the closest one to the origin of the ray.
