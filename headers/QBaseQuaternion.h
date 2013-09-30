@@ -89,7 +89,8 @@ public:
     /// <summary>
     /// Constructor that receives a pointer to a sequence of 4 contiguous values, one per quaternion's component.
     /// </summary>
-    /// <param name="arValues">[IN] Sequence of 4 contiguous values.</param>
+    /// <param name="arValues">[IN] Array of 4 values. If the pointer is null, the behavior  
+    /// is undefined.</param>
     inline explicit QBaseQuaternion(const float_q* arValues)
     {
         // [REVIEW] Thund: Should we put these constants in another place?

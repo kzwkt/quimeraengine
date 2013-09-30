@@ -685,6 +685,51 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheLengthOfOneSegmentEqual
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the length of one of the segments equals zero, even if they intersect.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection1_ReturnsExpectedResultsWhenTheLengthOfOneSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    // A2---(A1B1)---B2
+    //
+    //        I
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
+
+    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    float_q VECTOR_COMPONENTS_A3B3[] = { SQFloat::_6, SQFloat::_8, SQFloat::_9, SQFloat::_1 };
+    const T VALUE_FOR_A3B3(VECTOR_COMPONENTS_A3B3);
+    const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_A3B3, VALUE_FOR_A3B3);
+
+    const bool EXPECTED_RESULT_WHEN_INTERSECT = true;
+    const bool EXPECTED_RESULT_WHEN_DONT_INTERSECT = false;
+
+	// Execution
+    bool bResultIntersection1 = LINE_SEGMENT1.Intersection(LINE_SEGMENT2);
+    bool bResultIntersection2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT1);
+    bool bResultNoIntersection1 = LINE_SEGMENT3.Intersection(LINE_SEGMENT2);
+    bool bResultNoIntersection2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT3);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultIntersection1, EXPECTED_RESULT_WHEN_INTERSECT);
+    BOOST_CHECK_EQUAL(bResultIntersection2, EXPECTED_RESULT_WHEN_INTERSECT);
+    BOOST_CHECK_EQUAL(bResultNoIntersection1, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
+    BOOST_CHECK_EQUAL(bResultNoIntersection2, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -945,10 +990,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrb_Te
 {
     //            ______
     //          ´        `
-    //        /           \
-    //        |  A1---B1  |
-    //        \           /
-    //          ` _____ ´
+    //        /            \
+    //        |  A1---B1   |
+    //        \            /
+    //          ` ______ ´
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
@@ -1236,6 +1281,85 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfSegmentEqualsZe
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the radius of the orb equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheRadiusEqualsZeroAndTheLineIntersectsTheCenter_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    //
+    // A1----------x-------B1
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
+    const T VALUE_FOR_B(VECTOR_COMPONENTS_B);
+    const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_B);
+
+    float_q VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB_CONTAINED = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER_CONTAINED), SQFloat::_0 );
+
+    float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_9, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED), SQFloat::_0 );
+
+    const bool EXPECTED_RESULT_CONTAINED = true;
+    const bool EXPECTED_RESULT_NOT_CONTAINED = false;
+
+	// Execution
+    bool bResultContained = LINE_SEGMENT.Intersection(ORB_CONTAINED);
+    bool bResultNotContained = LINE_SEGMENT.Intersection(ORB_NOT_CONTAINED);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when the length of the line equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    //             _____
+    //           ´       `
+    //         /           \
+    //        A1B1   x     |
+    //         \           /
+    //           ` _____ ´
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_CONTAINED[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T POINT_CONTAINED(VECTOR_COMPONENTS_CONTAINED);
+    const QLineSegment<T> LINE_SEGMENT_CONTAINED = QLineSegment<T>(POINT_CONTAINED, POINT_CONTAINED);
+
+    const float_q VECTOR_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+    const T POINT_NOT_CONTAINED(VECTOR_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment<T>(POINT_NOT_CONTAINED, POINT_NOT_CONTAINED);
+
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
+
+    const bool EXPECTED_RESULT_CONTAINED = true;
+    const bool EXPECTED_RESULT_NOT_CONTAINED = false;
+
+	// Execution
+    bool bResultContained = LINE_SEGMENT_CONTAINED.Intersection(ORB);
+    bool bResultNotContained = LINE_SEGMENT_NOT_CONTAINED.Intersection(ORB);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1672,6 +1796,65 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheLengthOfOneSegment
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the length of one of the segments equals zero, even if they intersect.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultsWhenTheLengthOfOneSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    // A2---(A1B1)---B2
+    //
+    //        I
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
+
+    const float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    const float_q VECTOR_COMPONENTS_A3B3[] = { SQFloat::_6, SQFloat::_8, SQFloat::_9, SQFloat::_1 };
+    const T VALUE_FOR_A3B3(VECTOR_COMPONENTS_A3B3);
+    const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_A3B3, VALUE_FOR_A3B3);
+
+    const EQIntersections EXPECTED_RESULT_WHEN_INTERSECT = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_WHEN_DONT_INTERSECT = EQIntersections::E_None;
+
+    const T EXPECTED_INTERSECTION_POINT = VALUE_FOR_A1B1;
+    const T EXPECTED_NO_INTERSECTION_POINT = T::GetZeroVector();
+
+	// Execution
+    T vIntersection1 = T::GetZeroVector();
+    T vIntersection2 = T::GetZeroVector();
+    T vNoIntersection1 = T::GetZeroVector();
+    T vNoIntersection2 = T::GetZeroVector();
+    
+    EQIntersections eResultIntersection1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, vIntersection1);
+    EQIntersections eResultIntersection2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, vIntersection2);
+    EQIntersections eResultNoIntersection1 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT2, vNoIntersection1);
+    EQIntersections eResultNoIntersection2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT3, vNoIntersection2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultIntersection1, EXPECTED_RESULT_WHEN_INTERSECT);
+    BOOST_CHECK_EQUAL(eResultIntersection2, EXPECTED_RESULT_WHEN_INTERSECT);
+    BOOST_CHECK_EQUAL(eResultNoIntersection1, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
+    BOOST_CHECK_EQUAL(eResultNoIntersection2, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
+    BOOST_CHECK(vIntersection1 == EXPECTED_INTERSECTION_POINT);
+    BOOST_CHECK(vIntersection2 == EXPECTED_INTERSECTION_POINT);
+    BOOST_CHECK(vNoIntersection1 == EXPECTED_NO_INTERSECTION_POINT);
+    BOOST_CHECK(vNoIntersection2 == EXPECTED_NO_INTERSECTION_POINT);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -2414,6 +2597,73 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the length of one of the segments equals zero, even if they intersect.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultsWhenTheLengthOfOneSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    // A2---(A1B1)---B2
+    //
+    //        I
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
+
+    const float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    const float_q VECTOR_COMPONENTS_A3B3[] = { SQFloat::_6, SQFloat::_8, SQFloat::_9, SQFloat::_1 };
+    const T VALUE_FOR_A3B3(VECTOR_COMPONENTS_A3B3);
+    const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_A3B3, VALUE_FOR_A3B3);
+
+    const EQIntersections EXPECTED_RESULT_WHEN_INTERSECT = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_WHEN_DONT_INTERSECT = EQIntersections::E_None;
+
+    const T EXPECTED_INTERSECTION_POINT = VALUE_FOR_A1B1;
+    const T EXPECTED_NO_INTERSECTION_POINT = T::GetZeroVector();
+
+	// Execution
+    T vFirstIntersection1 = T::GetZeroVector();
+    T vSecondIntersection1 = T::GetZeroVector();
+    T vFirstIntersection2 = T::GetZeroVector();
+    T vSecondIntersection2 = T::GetZeroVector();
+    T vFirstNoIntersection1 = T::GetZeroVector();
+    T vSecondNoIntersection1 = T::GetZeroVector();
+    T vFirstNoIntersection2 = T::GetZeroVector();
+    T vSecondNoIntersection2 = T::GetZeroVector();
+    
+    EQIntersections eResultIntersection1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, vFirstIntersection1, vSecondIntersection1);
+    EQIntersections eResultIntersection2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, vFirstIntersection2, vSecondIntersection2);
+    EQIntersections eResultNoIntersection1 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT2, vFirstNoIntersection1, vSecondNoIntersection1);
+    EQIntersections eResultNoIntersection2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT3, vFirstNoIntersection2, vSecondNoIntersection2);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultIntersection1, EXPECTED_RESULT_WHEN_INTERSECT);
+    BOOST_CHECK_EQUAL(eResultIntersection2, EXPECTED_RESULT_WHEN_INTERSECT);
+    BOOST_CHECK_EQUAL(eResultNoIntersection1, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
+    BOOST_CHECK_EQUAL(eResultNoIntersection2, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
+    BOOST_CHECK(vFirstIntersection1 == EXPECTED_INTERSECTION_POINT);
+    BOOST_CHECK(vFirstIntersection2 == EXPECTED_INTERSECTION_POINT);
+    BOOST_CHECK(vFirstNoIntersection1 == EXPECTED_NO_INTERSECTION_POINT);
+    BOOST_CHECK(vFirstNoIntersection2 == EXPECTED_NO_INTERSECTION_POINT);
+    BOOST_CHECK(vSecondIntersection1 == EXPECTED_INTERSECTION_POINT);
+    BOOST_CHECK(vSecondIntersection2 == EXPECTED_INTERSECTION_POINT);
+    BOOST_CHECK(vSecondNoIntersection1 == EXPECTED_NO_INTERSECTION_POINT);
+    BOOST_CHECK(vSecondNoIntersection2 == EXPECTED_NO_INTERSECTION_POINT);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -3228,9 +3478,114 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
     BOOST_CHECK(OUTPUT_POINTS == EXPECTED_POINT);
 }
 
-#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
-// [TODO] Thund: Create this test when assertions can be disabled -> IntersectionPoint3_NoIntersectionIsReturnedWhenTheLengthOfSegmentEqualsZero_Test
+/// <summary>
+/// Checks that it returns the expected result when the radius of the orb equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheRadiusEqualsZeroAndTheLineIntersectsTheCenter_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    //
+    // A1----------x-------B1
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
+    const T VALUE_FOR_B(VECTOR_COMPONENTS_B);
+    const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_B);
+
+    float_q VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB_CONTAINED = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER_CONTAINED), SQFloat::_0 );
+
+    float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_9, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED), SQFloat::_0 );
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = false;
+    const T EXPECTED_POINT_CONTAINED = T(VECTOR_COMPONENTS_CENTER_CONTAINED);
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vPointContained = T::GetZeroVector();
+    T vPointNotContained = T::GetZeroVector();
+    EQIntersections eResultContained = LINE_SEGMENT.IntersectionPoint(ORB_CONTAINED, vPointContained);
+    EQIntersections eResultNotContained = LINE_SEGMENT.IntersectionPoint(ORB_NOT_CONTAINED, vPointNotContained);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vPointContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when the length of the line equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    //             _____
+    //           ´       `
+    //         /           \
+    //        A1B1   x     |
+    //         \           /
+    //           ` _____ ´
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_CONTAINED[] = { (float_q)2.5, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T POINT_CONTAINED(VECTOR_COMPONENTS_CONTAINED);
+    const QLineSegment<T> LINE_SEGMENT_CONTAINED = QLineSegment<T>(POINT_CONTAINED, POINT_CONTAINED);
+
+    const float_q VECTOR_COMPONENTS_IN_SURFACE[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T POINT_IN_SURFACE(VECTOR_COMPONENTS_IN_SURFACE);
+    const QLineSegment<T> LINE_SEGMENT_IN_SURFACE = QLineSegment<T>(POINT_IN_SURFACE, POINT_IN_SURFACE);
+
+    const float_q VECTOR_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+    const T POINT_NOT_CONTAINED(VECTOR_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment<T>(POINT_NOT_CONTAINED, POINT_NOT_CONTAINED);
+
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
+    const EQIntersections EXPECTED_RESULT_IN_SURFACE = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+    const T EXPECTED_POINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_IN_SURFACE = POINT_IN_SURFACE;
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vPointContained = T::GetZeroVector();
+    T vPointInSurface = T::GetZeroVector();
+    T vPointNotContained = T::GetZeroVector();
+
+    EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(ORB, vPointContained);
+    EQIntersections eResultInSurface = LINE_SEGMENT_IN_SURFACE.IntersectionPoint(ORB, vPointInSurface);
+    EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(ORB, vPointNotContained);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultInSurface, EXPECTED_RESULT_IN_SURFACE);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vPointContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vPointInSurface == EXPECTED_POINT_IN_SURFACE);
+    BOOST_CHECK(vPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+}
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
 /// Checks that the first point returned is which is nearer to A end point.
@@ -3752,6 +4107,124 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqu
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the radius of the orb equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheRadiusEqualsZeroAndTheLineIntersectsTheCenter_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    //
+    // A1----------x-------B1
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
+    const T VALUE_FOR_B(VECTOR_COMPONENTS_B);
+    const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_B);
+
+    float_q VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB_CONTAINED = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER_CONTAINED), SQFloat::_0 );
+
+    float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_9, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED), SQFloat::_0 );
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = false;
+    const T EXPECTED_FIRSTPOINT_CONTAINED = T(VECTOR_COMPONENTS_CENTER_CONTAINED);
+    const T EXPECTED_SECONDPOINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vFirstPointContained = T::GetZeroVector();
+    T vFirstPointNotContained = T::GetZeroVector();
+    T vSecondPointContained = T::GetZeroVector();
+    T vSecondPointNotContained = T::GetZeroVector();
+    EQIntersections eResultContained = LINE_SEGMENT.IntersectionPoint(ORB_CONTAINED, vFirstPointContained, vSecondPointContained);
+    EQIntersections eResultNotContained = LINE_SEGMENT.IntersectionPoint(ORB_NOT_CONTAINED, vFirstPointNotContained, vSecondPointNotContained);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vFirstPointContained == EXPECTED_FIRSTPOINT_CONTAINED);
+    BOOST_CHECK(vFirstPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+    BOOST_CHECK(vSecondPointContained == EXPECTED_SECONDPOINT_CONTAINED);
+    BOOST_CHECK(vSecondPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+}
+
+/// <summary>
+/// Checks that it returns the expected result when the length of the line equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheLengthOfSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    //             _____
+    //           ´       `
+    //         /           \
+    //        A1B1   x     |
+    //         \           /
+    //           ` _____ ´
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_CONTAINED[] = { (float_q)2.5, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T POINT_CONTAINED(VECTOR_COMPONENTS_CONTAINED);
+    const QLineSegment<T> LINE_SEGMENT_CONTAINED = QLineSegment<T>(POINT_CONTAINED, POINT_CONTAINED);
+
+    const float_q VECTOR_COMPONENTS_IN_SURFACE[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T POINT_IN_SURFACE(VECTOR_COMPONENTS_IN_SURFACE);
+    const QLineSegment<T> LINE_SEGMENT_IN_SURFACE = QLineSegment<T>(POINT_IN_SURFACE, POINT_IN_SURFACE);
+
+    const float_q VECTOR_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+    const T POINT_NOT_CONTAINED(VECTOR_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment<T>(POINT_NOT_CONTAINED, POINT_NOT_CONTAINED);
+
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
+    const EQIntersections EXPECTED_RESULT_IN_SURFACE = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+    const T EXPECTED_POINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_IN_SURFACE = POINT_IN_SURFACE;
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vFirstPointContained = T::GetZeroVector();
+    T vSecondPointContained = T::GetZeroVector();
+    T vFirstPointInSurface = T::GetZeroVector();
+    T vSecondPointInSurface = T::GetZeroVector();
+    T vFirstPointNotContained = T::GetZeroVector();
+    T vSecondPointNotContained = T::GetZeroVector();
+
+    EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(ORB, vFirstPointContained, vSecondPointContained);
+    EQIntersections eResultInSurface = LINE_SEGMENT_IN_SURFACE.IntersectionPoint(ORB, vFirstPointInSurface, vSecondPointInSurface);
+    EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(ORB, vFirstPointNotContained, vSecondPointNotContained);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultInSurface, EXPECTED_RESULT_IN_SURFACE);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vFirstPointContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vFirstPointInSurface == EXPECTED_POINT_IN_SURFACE);
+    BOOST_CHECK(vFirstPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+    BOOST_CHECK(vSecondPointContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vSecondPointInSurface == EXPECTED_POINT_IN_SURFACE);
+    BOOST_CHECK(vSecondPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -4095,6 +4568,39 @@ QTEST_CASE_TEMPLATE ( MinDistance1_AssertionFailsWhenTheLengthOfOneSegmentEquals
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the length of one of the segments equals zero, even if they intersect.
+/// </summary>
+QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsExpectedResultWhenTheLengthOfOneSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    // A1------B1  (A2B2)
+    //
+    //        I
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_7, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
+    const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
+
+    float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_B2[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A2(VECTOR_COMPONENTS_A2);
+    const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
+    const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
+
+    const float_q EXPECTED_RESULT = SQFloat::_3;
+
+	// Execution
+    float_q fResult1 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2); // I
+    float_q fResult2 = LINE_SEGMENT2.MinDistance(LINE_SEGMENT1); // I
+
+    // Verification
+    BOOST_CHECK_EQUAL(fResult1, EXPECTED_RESULT);
+    BOOST_CHECK_EQUAL(fResult2, EXPECTED_RESULT);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -4328,6 +4834,34 @@ QTEST_CASE_TEMPLATE ( MinDistance2_AssertionFailsWhenTheLengthOfTheSegmentEquals
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the length of the segment equals zero, even if they intersect.
+/// </summary>
+QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsExpectedResultWhenTheLengthOfTheSegmentEqualsZero_Test, TQTemplateTypes )
+{
+    // P  (A1B1)
+    //
+    //      I
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_7, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
+    const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
+
+    const float_q POINT_COMPONENTS[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const T POINT = T(POINT_COMPONENTS);
+
+    const float_q EXPECTED_RESULT = SQFloat::_3;
+
+	// Execution
+    float_q fResult = LINE_SEGMENT.MinDistance(POINT); // I
+
+    // Verification
+    BOOST_CHECK_EQUAL(fResult, EXPECTED_RESULT);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

@@ -103,7 +103,8 @@ public:
     /// <remarks>
     /// The array must contain, at least, three elements. Only the first three elements will be considered; the rest will be ignored.
     /// </remarks>
-	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, three elements.</param>
+	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, three elements. If the pointer is null, the behavior  
+    /// is undefined.</param>
 	inline explicit QBaseVector3(const float_q* arValues)
 	{
 		// Null pointer checkout

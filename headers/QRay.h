@@ -154,7 +154,7 @@ public:
     /// Calculates any point that belongs to the ray, based on the distance to the ray's position.
     /// </summary>
     /// <remarks>
-    /// Ray must be normalized to obtain a correct result.
+    /// The ray must be normalized to obtain a correct result.
     /// </remarks>
     /// <param name="fDistance">[IN] Distance from the point which is to be found to the ray's position.</param>
     /// <returns>
@@ -173,8 +173,7 @@ public:
     /// Checks if resident ray intersects with the provided orb.
     /// </summary>
     /// <remarks>
-    /// Ray must be normalized to obtain a correct result.<br />
-    /// Neither the length of the direction vector nor the radius of the orb should equal zero.
+    /// If the direction of the ray is null, the result is undefined.
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
     /// <returns>
@@ -233,10 +232,10 @@ public:
     /// if it exists.
     /// </summary>
     /// <remarks>
-    /// Ray must be normalized to obtain a correct result.<br/>
-    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br />
-    /// If there are one or two intersections, the output parameter stores the closest to ray origin.<br />
-    /// Neither the length of the direction vector nor the radius of the orb should equal zero.
+    /// The ray must be normalized to obtain a correct result.<br/>
+    /// If the direction of the ray is null, the result is undefined.<br/>
+    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br/>
+    /// If there are one or two intersections, the output parameter stores the closest to ray origin.
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident ray we want to check.</param>
     /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
@@ -255,12 +254,12 @@ public:
 	/// Computes the intersection point between resident ray and provided orb, if it exists.
 	/// </summary>
     /// <remarks>
-	/// Ray must be normalized to obtain a correct result.<br />
-	/// If there's no intersection point, the output parameters won't be modified.<br />
+	/// The ray must be normalized to obtain a correct result.<br/>
+	/// If there's no intersection point, the output parameters won't be modified.<br/>
 	/// If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br />
+	/// and first output parameter is filled with the intersection point.<br/>
     /// If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest one to the origin point of the ray.<br />
+    /// in the first output parameter the closest one to the origin point of the ray.<br/>
     /// Neither the length of the direction vector nor the radius of the orb should equal zero.
 	/// </remarks>
 	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>

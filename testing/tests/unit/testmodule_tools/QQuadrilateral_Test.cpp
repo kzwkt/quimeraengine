@@ -1070,7 +1070,7 @@ QTEST_CASE ( GetAngleA_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.B = QUAD1.A;
     QQuadrilateral QUAD2 = QQuadrilateral::GetUnitSquare();
-    QUAD2.C = QUAD2.A;
+    QUAD2.D = QUAD2.A;
 
     const bool ASSERTION_FAILED = true;
 

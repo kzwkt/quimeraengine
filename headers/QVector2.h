@@ -125,7 +125,7 @@ public:
     /// <remarks>
     /// The array must contain, at least, two elements. Only the first two elements will be considered; the rest will be ignored.
     /// </remarks>
-	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, two elements.</param>
+	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, two elements. If it is null, the behavior is undefined.</param>
 	inline explicit QVector2(const float_q* arValues) : QBaseVector2(arValues)
     {
     }
@@ -274,7 +274,7 @@ public:
 	/// <summary>
 	/// Divides the vector by a scalar.
 	/// </summary>
-	/// <param name="fScalar">[IN] The scalar to divide by.</param>
+	/// <param name="fScalar">[IN] The scalar to divide by. If it equals zero, the result is undefined.</param>
 	/// <returns>
 	/// A vector that is the result of the division.
 	/// </returns>
@@ -283,7 +283,7 @@ public:
 	/// <summary>
 	/// Divides two vectors by dividing each component.
 	/// </summary>
-	/// <param name="vVector">[IN] The vector to divide by.</param>
+	/// <param name="vVector">[IN] The vector to divide by. If any of its components equals zero, the result is undefined.</param>
 	/// <returns>
 	/// A vector that is the result of the division.
 	/// </returns>
@@ -373,7 +373,7 @@ public:
 	/// <summary>
 	/// Divides the vector by a scalar. The resident vector is set to the result.
 	/// </summary>
-	/// <param name="fScalar">[IN] The scalar to divide by.</param>
+	/// <param name="fScalar">[IN] The scalar to divide by. If it equals zero, the result is undefined.</param>
 	/// <returns>
 	/// A reference to the resident vector, result of the division.
 	/// </returns>
@@ -393,7 +393,7 @@ public:
 	/// <summary>
 	/// Divides two vectors by dividing each component. The resident vector is set to the result.
 	/// </summary>
-	/// <param name="vVector">[IN] The vector to divide by.</param>
+	/// <param name="vVector">[IN] The vector to divide by. If any of its components equal zero, the result is undefined.</param>
 	/// <returns>
 	/// A reference to the resident vector, result of the division.
 	/// </returns>
@@ -463,6 +463,9 @@ public:
 	/// <summary>
 	/// Normalizes the vector. The vector keeps its direction but its length equals one.
 	/// </summary>
+    /// <remarks>
+    /// If the vector is null, the result is undefined.
+    /// </remarks>
     /// <returns>
 	/// The normalized vector.
 	/// </returns>

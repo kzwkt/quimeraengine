@@ -109,9 +109,18 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
 
         if (A_IS_VERTEX && B_IS_VERTEX) // Both endpoints are vertices of triangle
         {
-            vIntersection1 = this->A;
-            vIntersection2 = this->B;
-            return EQIntersections::E_Two;
+            if(this->A == this->B)
+            {
+                // The endpoints of the line shouldn't coincide
+                vIntersection1 = this->A;
+                return EQIntersections::E_One;
+            }
+            else
+            {
+                vIntersection1 = this->A;
+                vIntersection2 = this->B;
+                return EQIntersections::E_Two;
+            }
         }
         else if (A_IS_VERTEX) // Only A endpoint is a vertex of triangle
         {

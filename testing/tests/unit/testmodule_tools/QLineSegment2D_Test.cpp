@@ -672,6 +672,39 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenAllVerticesCoincide_Test )
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that the expected result is returned when both endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE ( Intersection1_CorrectResultIsReturnedWhenBothEndpointsCoincide_Test )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+
+    // Preparation
+    const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_2, SQFloat::_0),
+                                                                     QVector2(SQFloat::_3, SQFloat::_2),
+                                                                     QVector2(-SQFloat::_1, SQFloat::_0));
+
+    const QVector2 ENDPOINT_INSIDE = QVector2(SQFloat::_1, SQFloat::_0);
+    const QVector2 ENDPOINT_OUTSIDE = QVector2(SQFloat::_3, SQFloat::_0);
+    const QLineSegment2D LINE_SEGMENT_INSIDE = QLineSegment2D(ENDPOINT_INSIDE, ENDPOINT_INSIDE);
+    const QLineSegment2D LINE_SEGMENT_OUTSIDE = QLineSegment2D(ENDPOINT_OUTSIDE, ENDPOINT_OUTSIDE);
+
+    const bool EXPECTED_RESULT_INSIDE = true;
+    const bool EXPECTED_RESULT_OUTSIDE = false;
+
+	// Execution
+    bool bResultInside = LINE_SEGMENT_INSIDE.Intersection(TRIANGLE);
+    bool bResultOutside = LINE_SEGMENT_OUTSIDE.Intersection(TRIANGLE);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultInside, EXPECTED_RESULT_INSIDE);
+    BOOST_CHECK_EQUAL(bResultOutside, EXPECTED_RESULT_OUTSIDE);
+}
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
@@ -1210,6 +1243,41 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenAllVerticesCoincide_Test )
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that the expected result is returned when both endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE ( Intersection2_CorrectResultIsReturnedWhenBothEndpointsCoincide_Test )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
+
+    // Preparation
+    const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
+                                                       QVector2(SQFloat::_3, SQFloat::_3),
+                                                       QVector2(SQFloat::_3, SQFloat::_1),
+                                                       QVector2(SQFloat::_1, SQFloat::_1));
+
+    const QVector2 ENDPOINT_INSIDE = QVector2(SQFloat::_2, SQFloat::_2);
+    const QVector2 ENDPOINT_OUTSIDE = QVector2(SQFloat::_4, SQFloat::_4);
+    const QLineSegment2D LINE_SEGMENT_INSIDE = QLineSegment2D(ENDPOINT_INSIDE, ENDPOINT_INSIDE);
+    const QLineSegment2D LINE_SEGMENT_OUTSIDE = QLineSegment2D(ENDPOINT_OUTSIDE, ENDPOINT_OUTSIDE);
+
+    const bool EXPECTED_RESULT_INSIDE = true;
+    const bool EXPECTED_RESULT_OUTSIDE = false;
+
+	// Execution
+    bool bResultInside = LINE_SEGMENT_INSIDE.Intersection(QUAD);
+    bool bResultOutside = LINE_SEGMENT_OUTSIDE.Intersection(QUAD);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultInside, EXPECTED_RESULT_INSIDE);
+    BOOST_CHECK_EQUAL(bResultOutside, EXPECTED_RESULT_OUTSIDE);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -2431,6 +2499,57 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenAllVerticesCoincide_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected intersection points when both endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE ( IntersectionPoint1_ExpectedIntersectionsReturnedWhenBothEndpointsCoincide_Test )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_3, SQFloat::_3),
+                                                                     QVector2(SQFloat::_3, SQFloat::_1),
+                                                                     QVector2(-SQFloat::_1, SQFloat::_0));
+
+    const QVector2 ENDPOINT_INSIDE = QVector2(SQFloat::_2, SQFloat::_2);
+    const QLineSegment2D LINE_SEGMENT_INSIDE = QLineSegment2D(ENDPOINT_INSIDE, ENDPOINT_INSIDE);
+    const EQIntersections EXPECTED_RESULT_INSIDE = EQIntersections::E_Infinite;
+    const QVector2 EXPECTED_POINT_INSIDE = QVector2::GetZeroVector();
+
+    const QVector2 ENDPOINT_IN_EDGE = QVector2(SQFloat::_3, SQFloat::_2);
+    const QLineSegment2D LINE_SEGMENT_IN_EDGE = QLineSegment2D(ENDPOINT_IN_EDGE, ENDPOINT_IN_EDGE);
+    const EQIntersections EXPECTED_RESULT_IN_EDGE = EQIntersections::E_Two;
+    const QVector2 EXPECTED_POINT_IN_EDGE = QVector2(SQFloat::_3, SQFloat::_2);
+
+    const QVector2 ENDPOINT_OUTSIDE = QVector2(SQFloat::_4, SQFloat::_4);
+    const QLineSegment2D LINE_SEGMENT_OUTSIDE = QLineSegment2D(ENDPOINT_OUTSIDE, ENDPOINT_OUTSIDE);
+    const EQIntersections EXPECTED_RESULT_OUTSIDE = EQIntersections::E_None;
+    const QVector2 EXPECTED_POINT_OUTSIDE = QVector2::GetZeroVector();
+
+	// Execution
+    QVector2 vPointInside = QVector2::GetZeroVector();
+    QVector2 vPointInEdge = QVector2::GetZeroVector();
+    QVector2 vPointOutside = QVector2::GetZeroVector();
+
+    EQIntersections eResultInside = LINE_SEGMENT_INSIDE.IntersectionPoint(TRIANGLE, vPointInside);
+    EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(TRIANGLE, vPointInEdge);
+    EQIntersections eResultOutside = LINE_SEGMENT_OUTSIDE.IntersectionPoint(TRIANGLE, vPointOutside);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultInside, EXPECTED_RESULT_INSIDE);
+    BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
+    BOOST_CHECK_EQUAL(eResultOutside, EXPECTED_RESULT_OUTSIDE);
+    BOOST_CHECK( vPointInside == EXPECTED_POINT_INSIDE );
+    BOOST_CHECK( vPointInEdge == EXPECTED_POINT_IN_EDGE );
+    BOOST_CHECK( vPointOutside == EXPECTED_POINT_OUTSIDE );
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -3419,6 +3538,63 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenAllVerticesCoincide_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected intersection points when both endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE ( IntersectionPoint2_ExpectedIntersectionsReturnedWhenBothEndpointsCoincide_Test )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_3, SQFloat::_3),
+                                                                     QVector2(SQFloat::_3, SQFloat::_1),
+                                                                     QVector2(-SQFloat::_1, SQFloat::_0));
+
+    const QVector2 ENDPOINT_INSIDE = QVector2(SQFloat::_2, SQFloat::_2);
+    const QLineSegment2D LINE_SEGMENT_INSIDE = QLineSegment2D(ENDPOINT_INSIDE, ENDPOINT_INSIDE);
+    const EQIntersections EXPECTED_RESULT_INSIDE = EQIntersections::E_Infinite;
+    const QVector2 EXPECTED_POINT_INSIDE = QVector2::GetZeroVector();
+
+    const QVector2 ENDPOINT_IN_EDGE = QVector2(SQFloat::_3, SQFloat::_2);
+    const QLineSegment2D LINE_SEGMENT_IN_EDGE = QLineSegment2D(ENDPOINT_IN_EDGE, ENDPOINT_IN_EDGE);
+    const EQIntersections EXPECTED_RESULT_IN_EDGE = EQIntersections::E_Two;
+    const QVector2 EXPECTED_POINT_IN_EDGE = QVector2(SQFloat::_3, SQFloat::_2);
+
+    const QVector2 ENDPOINT_OUTSIDE = QVector2(SQFloat::_4, SQFloat::_4);
+    const QLineSegment2D LINE_SEGMENT_OUTSIDE = QLineSegment2D(ENDPOINT_OUTSIDE, ENDPOINT_OUTSIDE);
+    const EQIntersections EXPECTED_RESULT_OUTSIDE = EQIntersections::E_None;
+    const QVector2 EXPECTED_POINT_OUTSIDE = QVector2::GetZeroVector();
+
+	// Execution
+    QVector2 vFirstPointInside = QVector2::GetZeroVector();
+    QVector2 vFirstPointInEdge = QVector2::GetZeroVector();
+    QVector2 vFirstPointOutside = QVector2::GetZeroVector();
+    QVector2 vSecondPointInside = QVector2::GetZeroVector();
+    QVector2 vSecondPointInEdge = QVector2::GetZeroVector();
+    QVector2 vSecondPointOutside = QVector2::GetZeroVector();
+
+    EQIntersections eResultInside = LINE_SEGMENT_INSIDE.IntersectionPoint(TRIANGLE, vFirstPointInside, vSecondPointInside);
+    EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(TRIANGLE, vFirstPointInEdge, vSecondPointInEdge);
+    EQIntersections eResultOutside = LINE_SEGMENT_OUTSIDE.IntersectionPoint(TRIANGLE, vFirstPointOutside, vSecondPointOutside);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultInside, EXPECTED_RESULT_INSIDE);
+    BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
+    BOOST_CHECK_EQUAL(eResultOutside, EXPECTED_RESULT_OUTSIDE);
+    BOOST_CHECK( vFirstPointInside == EXPECTED_POINT_INSIDE );
+    BOOST_CHECK( vFirstPointInEdge == EXPECTED_POINT_IN_EDGE );
+    BOOST_CHECK( vFirstPointOutside == EXPECTED_POINT_OUTSIDE );
+    BOOST_CHECK( vSecondPointInside == EXPECTED_POINT_INSIDE );
+    BOOST_CHECK( vSecondPointInEdge == EXPECTED_POINT_IN_EDGE );
+    BOOST_CHECK( vSecondPointOutside == EXPECTED_POINT_OUTSIDE );
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -4171,6 +4347,60 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenAllVerticesCoincide_Test )
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected intersection points when both endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE ( IntersectionPoint3_ReturnsExpectedIntersectionPointWhenBothEndpointsCoincide_Test )
+{
+    //             A------B
+    //            /        \
+    //           /          \
+    //          /            \
+    //         D--------------C
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
+                                                       QVector2(SQFloat::_3, SQFloat::_3),
+                                                       QVector2(SQFloat::_3, SQFloat::_1),
+                                                       QVector2(SQFloat::_1, SQFloat::_1));
+
+    const QVector2 ENDPOINT_OUTSIDE = QVector2(SQFloat::_4, SQFloat::_4);
+    const QLineSegment2D LINE_SEGMENT_OUTSIDE = QLineSegment2D(ENDPOINT_OUTSIDE, ENDPOINT_OUTSIDE);
+    const EQIntersections EXPECTED_RESULT_OUTSIDE = EQIntersections::E_None;
+    const QVector2 EXPECTED_POINT_OUTSIDE = QVector2::GetZeroVector();
+    
+    const QVector2 ENDPOINT_IN_EDGE = QVector2(SQFloat::_2, SQFloat::_3);
+    const QLineSegment2D LINE_SEGMENT_IN_EDGE = QLineSegment2D(ENDPOINT_IN_EDGE, ENDPOINT_IN_EDGE);
+    const EQIntersections EXPECTED_RESULT_IN_EDGE = EQIntersections::E_Two;
+    const QVector2 EXPECTED_POINT_IN_EDGE = QVector2(SQFloat::_2, SQFloat::_3);
+
+    const QVector2 ENDPOINT_INSIDE = QVector2(SQFloat::_2, SQFloat::_2);
+    const QLineSegment2D LINE_SEGMENT_INSIDE = QLineSegment2D(ENDPOINT_INSIDE, ENDPOINT_INSIDE);
+    const EQIntersections EXPECTED_RESULT_INSIDE = EQIntersections::E_Infinite;
+    const QVector2 EXPECTED_POINT_INSIDE = QVector2::GetZeroVector();
+
+	// Execution
+    QVector2 vPointOutside = QVector2::GetZeroVector();
+    QVector2 vPointInEdge = QVector2::GetZeroVector();
+    QVector2 vPointInside = QVector2::GetZeroVector();
+
+    EQIntersections eResultOutside = LINE_SEGMENT_OUTSIDE.IntersectionPoint(QUAD, vPointOutside);
+    EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(QUAD, vPointInEdge);
+    EQIntersections eResultInside = LINE_SEGMENT_INSIDE.IntersectionPoint(QUAD, vPointInside);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultOutside, EXPECTED_RESULT_OUTSIDE);
+    BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
+    BOOST_CHECK_EQUAL(eResultInside, EXPECTED_RESULT_INSIDE);
+    BOOST_CHECK(vPointOutside == EXPECTED_POINT_OUTSIDE);
+    BOOST_CHECK(vPointInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vPointInside == EXPECTED_POINT_INSIDE);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -5066,6 +5296,70 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenAllVerticesCoincide_Test )
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected intersection points when both endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE ( IntersectionPoint4_ReturnsExpectedIntersectionPointWhenBothEndpointsCoincide_Test )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    //             A------B
+    //            /        \
+    //           /          \
+    //          /            \
+    //         D--------------C
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
+                                                       QVector2(SQFloat::_3, SQFloat::_3),
+                                                       QVector2(SQFloat::_3, SQFloat::_1),
+                                                       QVector2(SQFloat::_1, SQFloat::_1));
+
+    const QVector2 ENDPOINT_OUTSIDE = QVector2(SQFloat::_4, SQFloat::_4);
+    const QLineSegment2D LINE_SEGMENT_OUTSIDE = QLineSegment2D(ENDPOINT_OUTSIDE, ENDPOINT_OUTSIDE);
+    const EQIntersections EXPECTED_RESULT_OUTSIDE = EQIntersections::E_None;
+    const QVector2 EXPECTED_POINT_OUTSIDE = QVector2::GetZeroVector();
+    
+    const QVector2 ENDPOINT_IN_EDGE = QVector2(SQFloat::_2, SQFloat::_3);
+    const QLineSegment2D LINE_SEGMENT_IN_EDGE = QLineSegment2D(ENDPOINT_IN_EDGE, ENDPOINT_IN_EDGE);
+    const EQIntersections EXPECTED_RESULT_IN_EDGE = EQIntersections::E_Two;
+    const QVector2 EXPECTED_POINT_IN_EDGE = QVector2(SQFloat::_2, SQFloat::_3);
+
+    const QVector2 ENDPOINT_INSIDE = QVector2(SQFloat::_2, SQFloat::_2);
+    const QLineSegment2D LINE_SEGMENT_INSIDE = QLineSegment2D(ENDPOINT_INSIDE, ENDPOINT_INSIDE);
+    const EQIntersections EXPECTED_RESULT_INSIDE = EQIntersections::E_Infinite;
+    const QVector2 EXPECTED_POINT_INSIDE = QVector2::GetZeroVector();
+
+	// Execution
+    QVector2 vFirstPointOutside = QVector2::GetZeroVector();
+    QVector2 vFirstPointInEdge = QVector2::GetZeroVector();
+    QVector2 vFirstPointInside = QVector2::GetZeroVector();
+    QVector2 vSecondPointOutside = QVector2::GetZeroVector();
+    QVector2 vSecondPointInEdge = QVector2::GetZeroVector();
+    QVector2 vSecondPointInside = QVector2::GetZeroVector();
+
+    EQIntersections eResultOutside = LINE_SEGMENT_OUTSIDE.IntersectionPoint(QUAD, vFirstPointOutside, vSecondPointOutside);
+    EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(QUAD, vFirstPointInEdge, vSecondPointInEdge);
+    EQIntersections eResultInside = LINE_SEGMENT_INSIDE.IntersectionPoint(QUAD, vFirstPointInside, vSecondPointInside);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultOutside, EXPECTED_RESULT_OUTSIDE);
+    BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
+    BOOST_CHECK_EQUAL(eResultInside, EXPECTED_RESULT_INSIDE);
+    BOOST_CHECK(vFirstPointOutside == EXPECTED_POINT_OUTSIDE);
+    BOOST_CHECK(vFirstPointInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vFirstPointInside == EXPECTED_POINT_INSIDE);
+    BOOST_CHECK(vSecondPointOutside == EXPECTED_POINT_OUTSIDE);
+    BOOST_CHECK(vSecondPointInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vSecondPointInside == EXPECTED_POINT_INSIDE);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

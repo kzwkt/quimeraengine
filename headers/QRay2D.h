@@ -32,9 +32,10 @@
 #include "QBaseOrb.h"
 #include "QBaseTriangle.h"
 #include "QBaseQuadrilateral.h"
-#include "QLineSegment2D.h"
+#include "QBaseLineSegment.h"
 #include "QTransformationMatrix3x3.h"
 #include "EQIntersections.h"
+#include "SQPoint.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
@@ -162,7 +163,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided one.
+    /// Checks if the ray intersects with another one.
     /// </summary>
     /// <remarks>
     /// If both rays intesect, the intersection point must verify both vectorial ecuations:
@@ -190,7 +191,11 @@ public:
     /// <summary>
     /// Checks if resident ray intersects with the provided triangle.
     /// </summary>
-    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
+    /// <remarks>
+    /// If the direction of the ray is null the result is undefined.
+    /// </remarks>
+    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
     /// <returns>
     /// True if ray intersect triangle, false otherwise.
     /// </returns>
@@ -213,9 +218,10 @@ public:
     /// Checks if resident ray intersects with the provided quadrilateral.
     /// </summary>
     /// <remarks>
-    /// If the quadrilateral is complex or concave, the result is undefined.
+    /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked.</param>
+    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
     /// <returns>
     /// True if ray intersect quadrilateral, false otherwise.
     /// </returns>
@@ -260,11 +266,13 @@ public:
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
 	/// <remarks>
+    /// If the direction of the ray is null the result is undefined.<br/>
 	/// If there's no intersection point, the output parameter won't be modified.<br/>
 	/// If there's one intersection point, the output parameter stores it.<br/>
     /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
-    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
+    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
 	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the triangle, and can take
@@ -280,13 +288,15 @@ public:
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
 	/// <remarks>
+    /// If the direction of the ray is null the result is undefined.<br/>
 	/// If there's no intersection point, the output parameters won't be modified.<br/>
 	/// If there's one intersection point, the second output parameter won't be modified,
 	/// and first output parameter is filled with the intersection point.<br/>
     /// If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
-    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
+    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
 	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
 	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
 	/// <returns>
@@ -299,12 +309,13 @@ public:
 	/// Computes the intersection point between resident ray and provided quadrilateral, if it exists.
 	/// </summary>
 	/// <remarks>
-    /// If the quadrilateral is complex or concave, the result is undefined.<br/>
+    /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.<br/>
 	/// If there's no intersection point, the output parameter won't be modified.<br/>
 	/// If there's one intersection point, the output parameter stores it.<br/>
     /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
-	/// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked.</param>
+	/// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
 	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
@@ -320,14 +331,15 @@ public:
 	/// Computes the intersection point between resident ray and provided quadrilateral, if it exists.
 	/// </summary>
 	/// <remarks>
-    /// If the quadrilateral is complex or concave, the result is undefined.<br/>
+    /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.<br/>
 	/// If there's no intersection point, the output parameters won't be modified.<br/>
 	/// If there's one intersection point, the second output parameter won't be modified,
 	/// and first output parameter is filled with the intersection point.<br/>
     /// If there are two intersection points, both output parameters are filled with the intersection points, storing
     /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
-    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked.</param>
+    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
 	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
 	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
 	/// <returns>
@@ -339,6 +351,9 @@ public:
     /// <summary>
     /// Checks if resident ray and provided line segment intersects.
     /// </summary>
+    /// <remarks>
+    /// If the direction of the ray is null the result is undefined.
+    /// </remarks>
     /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
     /// <returns>
     /// True if line segment and resident ray intersects, false otherwise.
@@ -349,6 +364,7 @@ public:
     /// Computes the intersection point between resident ray and provided line segment, if it exists.
     /// </summary>
     /// <remarks>
+    /// If the direction of the ray is null the result is undefined.<br/>
     /// If there's no intersection point, the output parameters won't be modified.<br/>
     /// If there's one intersection point, output parameter is filled with the intersection point.
     /// </remarks>
@@ -364,6 +380,7 @@ public:
     /// Computes the intersection point between resident ray and provided line segment, if it exists.
     /// </summary>
     /// <remarks>
+    /// If the direction of the ray is null the result is undefined.<br/>
     /// If there's no intersection point, the output parameters won't be modified.<br/>
     /// If there's one intersection point, the first output parameter is filled with the intersection point.
     /// </remarks>
@@ -386,7 +403,7 @@ public:
 	/// If there's one intersection point between them, then the reflected ray has its origin point at the intersection point
 	/// and its direction verifies that the incident angle and the reflected angle are equals.
 	/// </remarks>
-	/// <param name="segment">[IN] The line segment which acts as mirror.</param>
+	/// <param name="segment">[IN] The line segment which acts as mirror. If the length of the segment equals zero, the result is undefined.</param>
 	/// <param name="ray">[OUT] The reflected ray.</param>
     inline void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseRay<QVector2, QVector2> &ray) const
     {
@@ -435,7 +452,7 @@ public:
 	/// If there's one intersection point between them, then the reflected ray direction verifies
 	/// that the incident angle and the reflected angle are equals.
 	/// </remarks>
-	/// <param name="segment">[IN] The line segment which acts as mirror.</param>
+	/// <param name="segment">[IN] The line segment which acts as mirror. If the length of the segment equals zero, the result is undefined.</param>
 	/// <param name="vDirection">[OUT] The direction of the reflected ray.</param>
     inline void Reflection(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vDirection) const
     {
@@ -475,10 +492,11 @@ public:
 	/// </summary>
     /// <remarks>
 	/// Resultant ray is normalized after this operation.<br/>
-	/// All transformations affects both origin ray point and ray direction, except translations,
-	/// that only affects origin ray point.
+    /// If the direction of the ray is null, the result is undefined.<br/>
+	/// All transformations affect both the origin and the direction of the ray except translations,
+	/// that only affect the origin point.
 	/// </remarks>
-	/// <param name="transformation">[IN] The transformation matrix to be applied.</param>
+	/// <param name="transformation">[IN] The transformation matrix to be applied. If it is null, the result is undefined.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
@@ -560,9 +578,10 @@ public:
 	/// This method scales the resident ray by the scale contained in the provided vector.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
@@ -577,10 +596,11 @@ public:
 	/// This method scales the resident ray by the amounts provided for every axis.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
+	/// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+	/// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
@@ -596,9 +616,10 @@ public:
 	/// the provided point that acts as pivot.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
@@ -616,10 +637,11 @@ public:
 	/// the provided point that acts as pivot.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
+	/// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+	/// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
@@ -637,9 +659,10 @@ public:
 	/// the provided point that acts as pivot.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
+	/// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
     /// The transformed ray.

@@ -141,7 +141,8 @@ public:
     /// Checks if a given point is inside quadrilateral or not.
     /// </summary>
     /// <remarks>
-    /// If the quadrilateral is a complex figure (two opposite edges intersect), the result will be still correct.
+    /// If the quadrilateral is a complex figure (two opposite edges intersect), the result will be still correct.<br/>
+    /// If any of the vertices of the quadrilateral coincide, the result is undefined.
     /// </remarks>
     /// <param name="vPoint">[IN] The point we want to check.</param>
     /// <returns>
@@ -151,12 +152,11 @@ public:
     bool Contains(const QBaseVector2 &vPoint) const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral intersects with the provided one.<br/>
-    /// To do that, it checks the intersection with the four segments of the resident quadrilateral with the provided quadrilateral.<br/>
-    /// Additionally, it checks if
-    /// one arbitrary edge of provided quadrilateral intersects with the resident one, to check the case where the provided
-    /// quadrilateral is included in the resident one.
+    /// Checks if the resident quadrilateral intersects with the provided one.
     /// </summary>
+    /// <remarks>
+    /// If any vertex of a quadilateral coincide, the result is undefined.
+    /// </remarks>
     /// <param name="quad">[IN] The quadrilateral we want to check the intersection with resident one.</param>
     /// <returns>
     /// True if the given quadrilateral intersects with resident quadrilateral, false otherwise.
@@ -199,7 +199,8 @@ public:
     /// Computes the interior angle between AB and AD edges of resident quadrilateral.
     /// </summary>
     /// <remarks>
-    /// The result is always a positive angle, which is less than or equals a straight angle.
+    /// The result is always a positive angle, which is less than or equals a straight angle.<br/>
+    /// If any of the three vertices that compound the corner of the quadrilateral coincide, the result is undefined.
     /// </remarks>
     /// <returns>
     /// A floating point value which is the angle computed.
@@ -210,7 +211,8 @@ public:
     /// Computes the interior angle between BC and BA edges of resident quadrilateral.
     /// </summary>
     /// <remarks>
-    /// The result is always a positive angle, which is less than or equals a straight angle.
+    /// The result is always a positive angle, which is less than or equals a straight angle.<br/>
+    /// If any of the three vertices that compound the corner of the quadrilateral coincide, the result is undefined.
     /// </remarks>
     /// <returns>
     /// A floating point value which is the angle computed.
@@ -221,7 +223,8 @@ public:
     /// Computes the angle between CD and CB edges of resident quadrilateral.
     /// </summary>
     /// <remarks>
-    /// The result is always a positive angle, which is less than or equals a straight angle.
+    /// The result is always a positive angle, which is less than or equals a straight angle.<br/>
+    /// If any of the three vertices that compound the corner of the quadrilateral coincide, the result is undefined.
     /// </remarks>
     /// <returns>
     /// A floating point value which is the angle computed.
@@ -232,7 +235,8 @@ public:
     /// Computes the angle between DA and DC edges of resident quadrilateral.
     /// </summary>
     /// <remarks>
-    /// The result is always a positive angle, which is less than or equals a straight angle.
+    /// The result is always a positive angle, which is less than or equals a straight angle.<br/>
+    /// If any of the three vertices that compound the corner of the quadrilateral coincide, the result is undefined.
     /// </remarks>
     /// <returns>
     /// A floating point value which is the angle computed.

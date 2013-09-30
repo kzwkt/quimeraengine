@@ -53,14 +53,14 @@ class QBaseVector4;
 /// A dual quaternion is a complex number with two components, a non-dual component and a dual one.
 /// </summary>
 /// <remarks>
-/// e.g. \f$ r + d\varepsilon \f$.<br />
-/// Both components (r and d) of a dual quaternion are (regular) quaternions.<br />
+/// e.g. \f$ r + d\varepsilon \f$.<br/>
+/// Both components (r and d) of a dual quaternion are (regular) quaternions.<br/>
 /// The dual unit, called epsilon (\f$ \varepsilon \f$), verifies \f$ \varepsilon^2=0 \f$. Then, a full quaternion looks like:
-/// <br />
+/// <br/>
 /// \f$ r_w + r_xi + r_yj + r_zk + (d_w + d_xi + d_yj + d_zk)\varepsilon\f$
-/// <br />
+/// <br/>
 /// We'll normally employ it to represent and execute rigid transformations, that is, transformations which involves
-/// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br />
+/// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br/>
 /// This class has been included for experimental purposes only. Use it at your own risk.
 /// </remarks>
 class QDllExport QDualQuaternion : public QBaseDualQuaternion
@@ -234,8 +234,10 @@ public:
     /// <summary>
     /// Constructor from two four components arrays of floating point values, one for each quaternion component.
     /// </summary>
-    /// <param name="arValuesReal">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
-    /// <param name="arValuesDual">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
+    /// <param name="arValuesReal">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
+    /// is undefined.</param>
+    /// <param name="arValuesDual">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
+    /// is undefined.</param>
     inline QDualQuaternion(const float_q *arValuesReal, const float_q *arValuesDual)
     {
         QE_ASSERT(arValuesReal != null_q && arValuesDual != null_q)
@@ -392,7 +394,7 @@ public:
     /// <summary>
     /// Divide by scalar operator. Both quaternion components are divided by the scalar.
     /// </summary>
-    /// <param name="fScalar">[IN] The scalar to divide by.</param>
+    /// <param name="fScalar">[IN] The scalar to divide by. If this value equals zero, the result is undefined.</param>
     /// <returns>
     /// The resultant dual quaternion.
     /// </returns>
@@ -473,7 +475,7 @@ public:
     /// <summary>
     /// Divide and assign operator. Each dual quaternion component is divided by the input floating point value.
     /// </summary>
-    /// <param name="fScalar">[IN] The floating point value to divide by.</param>
+    /// <param name="fScalar">[IN] The floating point value to divide by. If this value equals zero, the result is undefined.</param>
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>

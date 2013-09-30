@@ -128,7 +128,8 @@ public:
     /// Keeps the convention rows x columns, so each chunck of 2 consecutive elements
     /// corresponds to a row, where each element in the chunck is the column in the row.
     /// </remarks>
-    /// <param name="arValues">[IN] Pointer to a 4 length array of floating point values.</param>
+    /// <param name="arValues">[IN] Array of floating point values. If the pointer is null, the behavior  
+    /// is undefined.</param>
     inline explicit QMatrix2x2(const float_q* arValues) : QBaseMatrix2x2(arValues)
     {
     }
@@ -212,7 +213,8 @@ public:
     /// <summary>
     /// Divides current matrix by a floating point value.
     /// </summary>
-    /// <param name="fScalar">[IN] Floating point value to be divided by.</param>
+    /// <param name="fScalar">[IN] Floating point value to be divided by. If the number equals zero, the result 
+    /// is undefined.</param>
     /// <returns>
     /// The resultant matrix.
     /// </returns>
@@ -265,7 +267,8 @@ public:
     /// <summary>
     /// Division and assign operator. Current matrix stores the result of the division.
     /// </summary>
-    /// <param name="fScalar">[IN] The floating point value by which to divide.</param>
+    /// <param name="fScalar">[IN] The floating point value by which to divide. If the number equals zero, the result 
+    /// is undefined.</param>
     /// <returns>
     /// The modified matrix.
     /// </returns>

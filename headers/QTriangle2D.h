@@ -94,9 +94,9 @@ public:
 	/// Constructor from three pointer-to-float type, one for each vertex.<br/>
 	/// Each pointer references to an array which has at least two elements.
 	/// </summary>
-	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
-	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
-	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
+	/// <param name="arValuesA">[IN] Array of components of the vertex A. If it is null, the behavior is undefined.</param>
+	/// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
+	/// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
 	inline QTriangle2D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
                            QTriangle<QVector2>(arValuesA, arValuesB, arValuesC)
     {
@@ -166,6 +166,9 @@ public:
 	/// <summary>
 	/// Calculates the circumcenter of the triangle.
 	/// </summary>
+    /// <remarks>
+    /// If any of the vertices of the triangle coincide, the result is undefined.
+    /// </remarks>
     /// <returns>
     /// The circumcenter.
     /// </returns>
@@ -215,6 +218,9 @@ public:
 	/// <summary>
 	/// Calculates the orthocenter of the triangle.
 	/// </summary>
+    /// <remarks>
+    /// If any of the vertices of the triangle coincide, the result is undefined.
+    /// </remarks>
     /// <returns>
     /// The orthocenter.
     /// </returns>

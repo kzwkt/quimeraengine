@@ -128,7 +128,8 @@ public:
 	/// Keeps the convention rows x columns, so each chunck of 3 consecutive elements
 	/// corresponds to a row, where each element in the chunck is the column in the row.
 	/// </remarks>
-	/// <param name="arValues">[IN] Pointer to a 12 length array of floating point values.</param>
+	/// <param name="arValues">[IN] A 12 length array of floating point values. If the pointer is null, the behavior  
+    /// is undefined.</param>
 	inline QBaseMatrix4x3(const float_q* arValues)
 	{
 		QE_ASSERT(arValues != null_q)

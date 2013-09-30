@@ -317,9 +317,11 @@ public:
     /// <li>plane C, D, F -> CDFG face, stored in element 5 of the array</li>
     /// </ul>
 	/// All returned planes are normalized.<br/>
-    /// Vertices of every face must be coplanar to obtain correct results.
+    /// Vertices of every face must be coplanar to obtain correct results.<br/>
+    /// If two or more vertices of the hexahedron coincide, the result is undefined.
 	/// </remarks>
-	/// <param name="arPlanes">[OUT] An array where to store the six planes. It must have at least six elements.</param>
+	/// <param name="arPlanes">[OUT] An array where to store the six planes. It must have at least six elements. If the pointer
+    /// is null, the behavior is undefined.</param>
     inline void GetPlanes(QPlane *arPlanes) const
     {
         // The parameter shouldn't be null
@@ -338,8 +340,9 @@ public:
 	/// </summary>
     /// <remarks>
 	/// Points in the surface of the hexahedron are considered inside it. The hexahedron is supposed to be convex; 
-    /// otherwise, the result is undefined.<br />
-    /// Vertices of every face must be coplanar to obtain correct results.
+    /// otherwise, the result is undefined.<br/>
+    /// Vertices of every face must be coplanar to obtain correct results.<br/>
+    /// If two or more vertices of the hexahedron coincide, the result is undefined.
 	/// </remarks>
 	/// <param name="vPoint">[IN] Point which is being checked.</param>
 	/// <returns>
@@ -366,13 +369,14 @@ public:
     /// Note that if a vertex of the resident hexahedron lies on the plane, we don't consider that it is
     /// crossing the plane.
     /// </remarks>
-    /// <param name="plane">[IN] The plane the relation with resident hexahedron will be check.</param>
+    /// <param name="plane">[IN] The plane the relation with resident hexahedron will be check. If the plane is null,
+    /// the behavior is undefined.</param>
     /// <returns>
-    /// An enumerated value like follows:
-    /// - Contained: All hexahedron lies on plane.
-    /// - PositiveSide: The hexahedron is fully contained in the positive side of the space defined by the plane.
-    /// - NegativeSide: The hexahedron is fully contained in the negative side of the space defined by the plane.
-    /// - BothSides: The hexahedron crosses the plane.
+    /// An enumerated value like follows:<br/>
+    /// - Contained: All hexahedron lies on plane.<br/>
+    /// - PositiveSide: The hexahedron is fully contained in the positive side of the space defined by the plane.<br/>
+    /// - NegativeSide: The hexahedron is fully contained in the negative side of the space defined by the plane.<br/>
+    /// - BothSides: The hexahedron crosses the plane.<br/>
     /// <br/>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
@@ -586,6 +590,9 @@ public:
     /// <summary>
 	/// Checks if resident hexahedron intersects a given hexahedron.
 	/// </summary>
+    /// <remarks>
+    /// If two or more vertices of an hexahedron concide (which would be a malformed hexahedron), the result is undefined.
+    /// </remarks>
 	/// <param name="hexahedron">[IN] Hexahedron which intersections with resident hexahedron will be checked.</param>
 	/// <returns>
 	/// True if both hexahedrons intersects, false otherwise.
@@ -627,10 +634,8 @@ public:
     /// <summary>
 	/// Projects resident hexahedron over a given plane, storing the resultant hexahedron in the provided one.
 	/// </summary>
-	/// <remarks>
-    /// The plane must be normalized to obtain a correct result.
-    /// </remarks>
-	/// <param name="plane">[IN] Plane where project resident hexahedron to.</param>
+	/// <param name="plane">[IN] Plane where project resident hexahedron to. It must be normalized to obtain a correct result.
+    /// If it is null, the behavior is undefined.</param>
     /// <returns>
 	/// The projected hexahedron.
 	/// </returns>

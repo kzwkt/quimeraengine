@@ -449,7 +449,7 @@ public:
     /// <remarks>
 	/// The plane must be normalized to obtain correct result.
 	/// </remarks>
-	/// <param name="plane">[IN] The plane we want check the relation with current sphere.</param>
+	/// <param name="plane">[IN] The plane we want check the relation with current sphere. If it is null, the result is undefined.</param>
     /// <returns>
     /// An enumerated value like follows:
     /// - Positive Side
@@ -490,7 +490,7 @@ public:
     /// <remarks>
 	/// The plane must be normalized to obtain correct result.
 	/// </remarks>
-	/// <param name="plane">[IN] Plane where current sphere will be projected.</param>
+	/// <param name="plane">[IN] Plane where current sphere will be projected. If it is null, the result is undefined.</param>
     /// <returns>
 	/// The projected sphere.
 	/// </returns>

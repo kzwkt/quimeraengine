@@ -179,27 +179,27 @@ public:
     /// Sets the view space matrix, also called camera space matrix, defined by the point of view or camera position,
     /// the position of the object we are looking at and the direction we consider is "up direction".
     /// </summary>
-    /// <param name="vPointOfView">[IN] Vector which defines the position of the camera or the point of view.</param>
-    /// <param name="vTarget">[IN] Vector which defines the point where we are looking at.</param>
-    /// <param name="vUpDirection">[IN] Vector which defines the "up direction".</param>
+    /// <param name="vPointOfView">[IN] Vector which defines the position of the camera or the point of view. It must not equal the target vector.</param>
+    /// <param name="vTarget">[IN] Vector which defines the point where we are looking at. It must not equal the poit of view vector.</param>
+    /// <param name="vUpDirection">[IN] Vector which defines the "up direction". If it is null, the result is undefined.</param>
     void SetViewSpaceMatrix(const QVector3 &vPointOfView, const QVector3 &vTarget, const QVector3 &vUpDirection);
 
     /// <summary>
     /// Sets the view space matrix, also called camera space matrix, defined by the point of view or camera position,
     /// the position of the object we are looking at and the direction we consider is "up direction".
     /// </summary>
-    /// <param name="vPointOfView">[IN] Vector which defines the position of the camera or the point of view.</param>
-    /// <param name="vTarget">[IN] Vector which defines the point where we are looking at.</param>
-    /// <param name="vUpDirection">[IN] Vector which defines the "up direction".</param>
+    /// <param name="vPointOfView">[IN] Vector which defines the position of the camera or the point of view. It must not equal the target vector.</param>
+    /// <param name="vTarget">[IN] Vector which defines the point where we are looking at. It must not equal the poit of view vector.</param>
+    /// <param name="vUpDirection">[IN] Vector which defines the "up direction". If it is null, the result is undefined.</param>
     void SetViewSpaceMatrix(const QVector4 &vPointOfView, const QVector4 &vTarget, const QVector4 &vUpDirection);
 
     /// <summary>
     /// Sets the projection space matrix, which defines how perspective is applied to the scene.
     /// </summary>
-    /// <param name="fNearClipPlane">[IN] Floating point value which defines the distance to the nearest clipping plane.</param>
-    /// <param name="fFarClipPlane">[IN] Floating point value which defines the distance to the farthest clipping plane.</param>
-    /// <param name="fAspectRatio">[IN] Floating point value which defines the frame width/height ratio.</param>
-    /// <param name="fVerticalFOV">[IN] Floating point value which defines the vertical field of view.</param>
+    /// <param name="fNearClipPlane">[IN] Floating point value which defines the distance to the nearest clipping plane. It must not equal the far clip plane's distance.</param>
+    /// <param name="fFarClipPlane">[IN] Floating point value which defines the distance to the farthest clipping plane. It must not equal the near clip plane's distance.</param>
+    /// <param name="fAspectRatio">[IN] Floating point value which defines the frame width/height ratio. If it equals zero, the result is undefined.</param>
+    /// <param name="fVerticalFOV">[IN] Floating point value which defines the vertical field of view. If it equals zero, the result is undefined.</param>
     void SetProjectionSpaceMatrix(const float_q &fNearClipPlane, const float_q &fFarClipPlane,
                                   const float_q &fAspectRatio, const float_q &fVerticalFOV);
 

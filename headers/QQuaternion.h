@@ -139,9 +139,10 @@ public:
     }
 
     /// <summary>
-    /// Constructor that receives a pointer to a sequence of 4 contiguous values, one per quaternion's component.
+    /// Constructor that receives a pointer to a sequence of 4 contiguous values, one per quaternion's component in the order: X, Y, Z and W.
     /// </summary>
-    /// <param name="arValues">[IN] Sequence of 4 contiguous values.</param>
+    /// <param name="arValues">[IN] Sequence of 4 contiguous values. If the pointer is null, the behavior  
+    /// is undefined.</param>
     inline explicit QQuaternion(const float_q* arValues) : QBaseQuaternion(arValues)
     {
     }
@@ -192,10 +193,10 @@ public:
     /// </summary>
     /// <remarks>
     /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
-    /// cause that obtained quaternion doesn't match the one used to build the matrix.
+    /// cause that obtained quaternion doesn't match the one used to build the matrix.<br/>
     /// This method produces a normalized quaternion.
     /// </remarks>
-    /// <param name="transformation">[IN] A transformation matrix.</param>
+    /// <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
 	explicit QQuaternion(const QTransformationMatrix<QMatrix4x3> &transformation);
 
 	/// <summary>
@@ -203,10 +204,10 @@ public:
     /// </summary>
     /// <remarks>
     /// Realize that getting the rotation of transformation matrices which were compound of negative scales may
-    /// cause that obtained quaternion doesn't match the one used to build the matrix.
+    /// cause that obtained quaternion doesn't match the one used to build the matrix.<br/>
     /// This method produces a normalized quaternion.
     /// </remarks>
-    /// <param name="transformation">[IN] A transformation matrix.</param>
+    /// <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
 	explicit QQuaternion(const QTransformationMatrix<QMatrix4x4> &transformation);
 
 	/// <summary>
@@ -215,7 +216,7 @@ public:
     /// <remarks>
     /// This method produces a normalized quaternion.
     /// </remarks>
-    /// <param name="rotation">[IN] A 3x3 rotation matrix.</param>
+    /// <param name="rotation">[IN] A 3x3 rotation matrix. If it is a null matrix, the result is undefined.</param>
 	explicit QQuaternion(const QRotationMatrix3x3 &rotation);
 
 protected:
@@ -223,7 +224,7 @@ protected:
 	// <summary>
 	// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
     // </summary>
-    // <param name="transformation">[IN] A transformation matrix.</param>
+    // <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
 	template <class MatrixType>
     void QQuaternionImp(const QTransformationMatrix<MatrixType> &transformation)
     {
@@ -406,7 +407,7 @@ public:
     ///
     /// \f$ Q_1 \cdot Q_2=(w_1x_2+x_1w_2+y_1z_2-z_1y_2)+(w_1y_2+y_1w_2+z_1x_2-x_1z_2)i+(w_1z_2+z_1w_2+z_1y_2-y_1z_2)j+(w_1w_2-x_1x_2-y_1y_2-z_1z_2)k\f$
     ///
-    /// Note that quaternion multiplication is not conmutative.<br />
+    /// Note that quaternion multiplication is not conmutative.<br/>
     /// Note that the quaternion could be denormalized after this operation.
     /// </remarks>
     /// <param name="qQuat">[IN] The quaternion to multiply by.</param>
@@ -566,9 +567,12 @@ public:
 	}
 
 	/// <summary>
-    /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.<br/>
-    /// A quaternion is normalized when its length is equal to 1.
+    /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.
     /// </summary>
+    /// <remarks>
+    /// A quaternion is normalized when its length is equal to 1.<br/>
+    /// If the length of the quaternion equals zero, the result is undefined.
+    /// </remarks>
     /// <returns>
     /// The normalized quaternion.
     /// </returns>

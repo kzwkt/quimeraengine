@@ -390,6 +390,42 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenPlaneIsNull_Test, TQTempla
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection1_ReturnsExpectedResultsWhenEndpointsOfSegmentCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QPlane;
+
+    // Preparation
+    const float_q POINT_A_COMPONENTS_CONTAINED[] = { SQFloat::_0, SQFloat::_4, SQFloat::_0, SQFloat::_1 };
+    const float_q POINT_A_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+
+    const T POINT_A_CONTAINED(POINT_A_COMPONENTS_CONTAINED);
+    const T POINT_A_NOT_CONTAINED(POINT_A_COMPONENTS_NOT_CONTAINED);
+
+    const QLineSegment3D<T> LINE_SEGMENT_CONTAINED = QLineSegment3D<T>(POINT_A_CONTAINED, POINT_A_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment3D<T>(POINT_A_NOT_CONTAINED, POINT_A_NOT_CONTAINED);
+
+    const QPlane PLANE = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, -SQFloat::_4).Normalize();
+
+    const bool EXPECTED_RESULT_CONTAINED = true;
+    const bool EXPECTED_RESULT_NOT_CONTAINED = false;
+
+	// Execution
+    bool bResultContained = LINE_SEGMENT_CONTAINED.Intersection(PLANE);
+    bool bResultNotContained = LINE_SEGMENT_NOT_CONTAINED.Intersection(PLANE);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -827,6 +863,48 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenAllTriangleVerticesCoincid
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheEndpointsCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+
+    // Preparation
+    const float_q POINT_A_COMPONENTS_CONTAINED[] = { SQFloat::_2, SQFloat::_1, SQFloat::_1, SQFloat::_1 };
+    const T POINT_A_CONTAINED(POINT_A_COMPONENTS_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_CONTAINED = QLineSegment3D<T>(POINT_A_CONTAINED, POINT_A_CONTAINED);
+
+    const float_q POINT_A_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_5, SQFloat::_1, SQFloat::_1, SQFloat::_1 };
+    const T POINT_A_NOT_CONTAINED(POINT_A_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment3D<T>(POINT_A_NOT_CONTAINED, POINT_A_NOT_CONTAINED);
+
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_4, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_5, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+
+    const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const bool EXPECTED_RESULT_CONTAINED = true;
+    const bool EXPECTED_RESULT_NOT_CONTAINED = false;
+
+	// Execution
+    bool bResultContained = LINE_SEGMENT_CONTAINED.Intersection(TRIANGLE);
+    bool bResultNotContained = LINE_SEGMENT_NOT_CONTAINED.Intersection(TRIANGLE);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1401,6 +1479,45 @@ QTEST_CASE_TEMPLATE ( Intersection3_ReturnsTrueWhenOnlyOneEndpointBelongsToEdgeO
 }
 
 /// <summary>
+/// Checks that it returns True when the line segment is fully contained in the hexahedron (not touching the surface).
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection3_ReturnsTrueWhenLineSegmentIsContainedInHexahedron_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
+
+    // Preparation
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_D_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_E_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_F_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_G_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_H_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const T VERTEX_D = T(VERTEX_D_COMPONENTS);
+    const T VERTEX_E = T(VERTEX_E_COMPONENTS);
+    const T VERTEX_F = T(VERTEX_F_COMPONENTS);
+    const T VERTEX_G = T(VERTEX_G_COMPONENTS);
+    const T VERTEX_H = T(VERTEX_H_COMPONENTS);
+    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
+
+    const T POINT_A = VERTEX_A.Lerp(SQFloat::_0_25, VERTEX_G);
+    const T POINT_B = VERTEX_G.Lerp(SQFloat::_0_25, VERTEX_A);
+    const QLineSegment3D<T> LINE_SEGMENT = QLineSegment3D<T>(POINT_A, POINT_B);
+
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    bool bLineContained = LINE_SEGMENT.Intersection(HEXAHEDRON);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bLineContained, EXPECTED_RESULT);
+}
+
+/// <summary>
 /// Checks that it returns True when the line segment is contained in an edge of the hexahedron.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection3_ReturnsTrueWhenLineSegmentBelongsToEdgeOfHexahedron_Test, TQTemplateTypes )
@@ -1783,6 +1900,57 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenAllHexahedronVerticesCoinc
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection3_ReturnsExpectedResultsWhenLineSegmentEndpointsCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
+
+    // Preparation
+    const float_q POINT_A_COMPONENTS_CONTAINED[] = { (float_q)1.5, (float_q)1.5, SQFloat::_1, SQFloat::_1 };
+    const T POINT_A_CONTAINED(POINT_A_COMPONENTS_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_CONTAINED = QLineSegment3D<T>(POINT_A_CONTAINED, POINT_A_CONTAINED);
+
+    const float_q POINT_A_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_5, SQFloat::_5, SQFloat::_1, SQFloat::_1 };
+    const T POINT_A_NOT_CONTAINED(POINT_A_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment3D<T>(POINT_A_NOT_CONTAINED, POINT_A_NOT_CONTAINED);
+
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_D_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_E_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_F_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_G_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_H_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const T VERTEX_D = T(VERTEX_D_COMPONENTS);
+    const T VERTEX_E = T(VERTEX_E_COMPONENTS);
+    const T VERTEX_F = T(VERTEX_F_COMPONENTS);
+    const T VERTEX_G = T(VERTEX_G_COMPONENTS);
+    const T VERTEX_H = T(VERTEX_H_COMPONENTS);
+    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
+
+    const bool EXPECTED_RESULT_CONTAINED = true;
+    const bool EXPECTED_RESULT_NOT_CONTAINED = false;
+
+	// Execution
+    bool bResultContained = LINE_SEGMENT_CONTAINED.Intersection(HEXAHEDRON);
+    bool bResultNotContained = LINE_SEGMENT_NOT_CONTAINED.Intersection(HEXAHEDRON);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -2007,6 +2175,49 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenPlaneIsNull_Test, TQT
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultsWhenEndpointsOfSegmentCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QPlane;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q POINT_COMPONENTS_CONTAINED[] = { SQFloat::_1, SQFloat::_4, SQFloat::_3, SQFloat::_1 };
+    const T POINT_CONTAINED(POINT_COMPONENTS_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_CONTAINED = QLineSegment3D<T>(POINT_CONTAINED, POINT_CONTAINED);
+
+    const float_q POINT_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+    const T POINT_NOT_CONTAINED(POINT_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment3D<T>(POINT_NOT_CONTAINED, POINT_NOT_CONTAINED);
+
+    const QPlane PLANE = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, -SQFloat::_4).Normalize();
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const T EXPECTED_POINT = T::GetZeroVector();
+
+	// Execution
+    T vIntersectionContained = T::GetZeroVector();
+    T vIntersectionNotContained = T::GetZeroVector();
+
+    const EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(PLANE, vIntersectionContained);
+    const EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(PLANE, vIntersectionNotContained);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vIntersectionContained == EXPECTED_POINT);
+    BOOST_CHECK(vIntersectionNotContained == EXPECTED_POINT);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -2712,6 +2923,66 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenAllTriangleVerticesCo
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultsWhenEndpointsOfSegmentCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q POINT_COMPONENTS_CONTAINED[] = { SQFloat::_3, SQFloat::_2, SQFloat::_1, SQFloat::_1 };
+    const T POINT_CONTAINED(POINT_COMPONENTS_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_CONTAINED = QLineSegment3D<T>(POINT_CONTAINED, POINT_CONTAINED);
+
+    const float_q POINT_COMPONENTS_IN_EDGE[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T POINT_IN_EDGE(POINT_COMPONENTS_IN_EDGE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EDGE = QLineSegment3D<T>(POINT_IN_EDGE, POINT_IN_EDGE);
+
+    const float_q POINT_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+    const T POINT_NOT_CONTAINED(POINT_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment3D<T>(POINT_NOT_CONTAINED, POINT_NOT_CONTAINED);
+
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_1, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_5, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_5, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
+    const EQIntersections EXPECTED_RESULT_IN_EDGE = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const T EXPECTED_POINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_IN_EDGE = POINT_IN_EDGE;
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vIntersectionContained = T::GetZeroVector();
+    T vIntersectionInEdge = T::GetZeroVector();
+    T vIntersectionNotContained = T::GetZeroVector();
+
+    const EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(TRIANGLE, vIntersectionContained);
+    const EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(TRIANGLE, vIntersectionInEdge);
+    const EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(TRIANGLE, vIntersectionNotContained);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vIntersectionContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vIntersectionInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vIntersectionNotContained == EXPECTED_POINT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -3604,6 +3875,72 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenAllTriangleVerticesCo
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenEndpointsOfSegmentCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q POINT_COMPONENTS_CONTAINED[] = { SQFloat::_3, SQFloat::_2, SQFloat::_1, SQFloat::_1 };
+    const T POINT_CONTAINED(POINT_COMPONENTS_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_CONTAINED = QLineSegment3D<T>(POINT_CONTAINED, POINT_CONTAINED);
+
+    const float_q POINT_COMPONENTS_IN_EDGE[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
+    const T POINT_IN_EDGE(POINT_COMPONENTS_IN_EDGE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EDGE = QLineSegment3D<T>(POINT_IN_EDGE, POINT_IN_EDGE);
+
+    const float_q POINT_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+    const T POINT_NOT_CONTAINED(POINT_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment3D<T>(POINT_NOT_CONTAINED, POINT_NOT_CONTAINED);
+
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_1, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_5, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_5, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
+    const EQIntersections EXPECTED_RESULT_IN_EDGE = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const T EXPECTED_POINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_IN_EDGE = POINT_IN_EDGE;
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vFirstIntersectionContained = T::GetZeroVector();
+    T vFirstIntersectionInEdge = T::GetZeroVector();
+    T vFirstIntersectionNotContained = T::GetZeroVector();
+    T vSecondIntersectionContained = T::GetZeroVector();
+    T vSecondIntersectionInEdge = T::GetZeroVector();
+    T vSecondIntersectionNotContained = T::GetZeroVector();
+
+    const EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(TRIANGLE, vFirstIntersectionContained, vSecondIntersectionContained);
+    const EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(TRIANGLE, vFirstIntersectionInEdge, vSecondIntersectionInEdge);
+    const EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(TRIANGLE, vFirstIntersectionNotContained, vSecondIntersectionNotContained);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vFirstIntersectionContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vFirstIntersectionInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vFirstIntersectionNotContained == EXPECTED_POINT_NOT_CONTAINED);
+    BOOST_CHECK(vSecondIntersectionContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vSecondIntersectionInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vSecondIntersectionNotContained == EXPECTED_POINT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -5069,6 +5406,86 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenAllHexahedronVertices
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenEndpointsOfSegmentCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q POINT_COMPONENTS_CONTAINED[] = { (float_q)1.5, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
+    const T POINT_CONTAINED(POINT_COMPONENTS_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_CONTAINED = QLineSegment3D<T>(POINT_CONTAINED, POINT_CONTAINED);
+
+    const float_q POINT_COMPONENTS_IN_EDGE[] = { (float_q)1.5, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
+    const T POINT_IN_EDGE(POINT_COMPONENTS_IN_EDGE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EDGE = QLineSegment3D<T>(POINT_IN_EDGE, POINT_IN_EDGE);
+
+    const float_q POINT_COMPONENTS_IN_FACE[] = { (float_q)1.5, (float_q)1.5, SQFloat::_4, SQFloat::_1 };
+    const T POINT_IN_FACE(POINT_COMPONENTS_IN_FACE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_FACE = QLineSegment3D<T>(POINT_IN_FACE, POINT_IN_FACE);
+
+    const float_q POINT_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+    const T POINT_NOT_CONTAINED(POINT_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment3D<T>(POINT_NOT_CONTAINED, POINT_NOT_CONTAINED);
+
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_D_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
+    const float_q VERTEX_E_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
+    const float_q VERTEX_F_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
+    const float_q VERTEX_G_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_H_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const T VERTEX_D = T(VERTEX_D_COMPONENTS);
+    const T VERTEX_E = T(VERTEX_E_COMPONENTS);
+    const T VERTEX_F = T(VERTEX_F_COMPONENTS);
+    const T VERTEX_G = T(VERTEX_G_COMPONENTS);
+    const T VERTEX_H = T(VERTEX_H_COMPONENTS);
+    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
+    const EQIntersections EXPECTED_RESULT_IN_EDGE = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_IN_FACE = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const T EXPECTED_POINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_IN_EDGE = POINT_IN_EDGE;
+    const T EXPECTED_POINT_IN_FACE = POINT_IN_FACE;
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vIntersectionContained = T::GetZeroVector();
+    T vIntersectionInEdge = T::GetZeroVector();
+    T vIntersectionInFace = T::GetZeroVector();
+    T vIntersectionNotContained = T::GetZeroVector();
+
+    const EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(HEXAHEDRON, vIntersectionContained);
+    const EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(HEXAHEDRON, vIntersectionInEdge);
+    const EQIntersections eResultInFace = LINE_SEGMENT_IN_FACE.IntersectionPoint(HEXAHEDRON, vIntersectionInFace);
+    const EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(HEXAHEDRON, vIntersectionNotContained);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
+    BOOST_CHECK_EQUAL(eResultInFace, EXPECTED_RESULT_IN_FACE);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vIntersectionContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vIntersectionInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vIntersectionInFace == EXPECTED_POINT_IN_FACE);
+    BOOST_CHECK(vIntersectionNotContained == EXPECTED_POINT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -6715,6 +7132,94 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenAllHexahedronVertices
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected results when the endpoints of the line segment coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsExpectedResultsWhenEndpointsOfSegmentCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q POINT_COMPONENTS_CONTAINED[] = { (float_q)1.5, (float_q)1.5, SQFloat::_2, SQFloat::_1 };
+    const T POINT_CONTAINED(POINT_COMPONENTS_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_CONTAINED = QLineSegment3D<T>(POINT_CONTAINED, POINT_CONTAINED);
+
+    const float_q POINT_COMPONENTS_IN_EDGE[] = { (float_q)1.5, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
+    const T POINT_IN_EDGE(POINT_COMPONENTS_IN_EDGE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_EDGE = QLineSegment3D<T>(POINT_IN_EDGE, POINT_IN_EDGE);
+
+    const float_q POINT_COMPONENTS_IN_FACE[] = { (float_q)1.5, (float_q)1.5, SQFloat::_4, SQFloat::_1 };
+    const T POINT_IN_FACE(POINT_COMPONENTS_IN_FACE);
+    const QLineSegment3D<T> LINE_SEGMENT_IN_FACE = QLineSegment3D<T>(POINT_IN_FACE, POINT_IN_FACE);
+
+    const float_q POINT_COMPONENTS_NOT_CONTAINED[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
+    const T POINT_NOT_CONTAINED(POINT_COMPONENTS_NOT_CONTAINED);
+    const QLineSegment3D<T> LINE_SEGMENT_NOT_CONTAINED = QLineSegment3D<T>(POINT_NOT_CONTAINED, POINT_NOT_CONTAINED);
+
+    const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
+    const float_q VERTEX_B_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_C_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_D_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
+    const float_q VERTEX_E_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
+    const float_q VERTEX_F_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
+    const float_q VERTEX_G_COMPONENTS[] = { SQFloat::_2, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const float_q VERTEX_H_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1 };
+    const T VERTEX_A = T(VERTEX_A_COMPONENTS);
+    const T VERTEX_B = T(VERTEX_B_COMPONENTS);
+    const T VERTEX_C = T(VERTEX_C_COMPONENTS);
+    const T VERTEX_D = T(VERTEX_D_COMPONENTS);
+    const T VERTEX_E = T(VERTEX_E_COMPONENTS);
+    const T VERTEX_F = T(VERTEX_F_COMPONENTS);
+    const T VERTEX_G = T(VERTEX_G_COMPONENTS);
+    const T VERTEX_H = T(VERTEX_H_COMPONENTS);
+    const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
+    const EQIntersections EXPECTED_RESULT_IN_EDGE = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_IN_FACE = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const T EXPECTED_POINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_IN_EDGE = POINT_IN_EDGE;
+    const T EXPECTED_POINT_IN_FACE = POINT_IN_FACE;
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vFirstIntersectionContained = T::GetZeroVector();
+    T vFirstIntersectionInEdge = T::GetZeroVector();
+    T vFirstIntersectionInFace = T::GetZeroVector();
+    T vFirstIntersectionNotContained = T::GetZeroVector();
+    T vSecondIntersectionContained = T::GetZeroVector();
+    T vSecondIntersectionInEdge = T::GetZeroVector();
+    T vSecondIntersectionInFace = T::GetZeroVector();
+    T vSecondIntersectionNotContained = T::GetZeroVector();
+
+    const EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(HEXAHEDRON, vFirstIntersectionContained, vSecondIntersectionContained);
+    const EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(HEXAHEDRON, vFirstIntersectionInEdge, vSecondIntersectionInEdge);
+    const EQIntersections eResultInFace = LINE_SEGMENT_IN_FACE.IntersectionPoint(HEXAHEDRON, vFirstIntersectionInFace, vSecondIntersectionInFace);
+    const EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(HEXAHEDRON, vFirstIntersectionNotContained, vSecondIntersectionNotContained);
+    
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
+    BOOST_CHECK_EQUAL(eResultInFace, EXPECTED_RESULT_IN_FACE);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vFirstIntersectionContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vFirstIntersectionInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vFirstIntersectionInFace == EXPECTED_POINT_IN_FACE);
+    BOOST_CHECK(vFirstIntersectionNotContained == EXPECTED_POINT_NOT_CONTAINED);
+    BOOST_CHECK(vSecondIntersectionContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vSecondIntersectionInEdge == EXPECTED_POINT_IN_EDGE);
+    BOOST_CHECK(vSecondIntersectionInFace == EXPECTED_POINT_IN_FACE);
+    BOOST_CHECK(vSecondIntersectionNotContained == EXPECTED_POINT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

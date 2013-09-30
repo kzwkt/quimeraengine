@@ -178,29 +178,32 @@ public:
     /// <summary>
     /// Checks if resident ray intersects with the provided one.
     /// </summary>
-    /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
-    /// <returns>
-    /// True if both rays intersect, false otherwise.
-    /// </returns>
     /// <remarks>
-    /// If both rays intesect, the intersection point must verify both vectorial ecuations:
-    ///
-    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
-    ///
-    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
-    ///
-    /// This ecuation is solved via vectorial products as follovs:
-    ///
+    /// If the direction of any of the rays is null, the result is undefined.<br/>
+    /// How it is calculated:<br/>
+    /// <br/>
+    /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
+    /// <br/>
+    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
+    /// <br/>
+    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$<br/>
+    /// <br/>
+    /// This ecuation is solved via vectorial products as follovs:<br/>
+    /// <br/>
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed, and
     /// it is verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
+    /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
+    /// <returns>
+    /// True if both rays intersect, false otherwise.
+    /// </returns>
     bool Intersection(const QRay3D<VectorType> &ray) const
     {
         // Direction vector of rays should not be null
@@ -252,21 +255,24 @@ public:
 	/// Checks if resident ray and provided line segment intersects.
 	/// </summary>
     /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
+    /// How it is calculated:<br/>
+    /// <br/>
     /// A ray with direction from A to B with origin in A is constructed.<br/>
-    /// If both rays intersects, the intersection point must verify both vectorial ecuations:
-    ///
-    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
-    ///
-    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
-    ///
-    /// This ecuation is solved via vectorial products as follovs:
-    ///
+    /// If both rays intersects, the intersection point must verify both vectorial ecuations:<br/>
+    /// <br/>
+    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
+    /// <br/>
+    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$<br/>
+    /// <br/>
+    /// This ecuation is solved via vectorial products as follows:<br/>
+    /// <br/>
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
     /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br/>
     /// Finally it's verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
@@ -330,22 +336,25 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided plane.<br/>
-    /// Intersection point \f$ P_0 \f$ must verify both ecuations:
-    ///
-    /// Ray equation: \f$ P_0 = P + t \cdot V \f$
-    ///
-    /// Plane equation: \f$ aP_{0x} + bP_{0y} + cP_{0z} + d = N \cdot P_0 + d = 0 \f$
-    ///
-    /// That is:
-    ///
-    /// \f$ t = \frac{-(d + N \cdot P)}{N \cdot V} \f$
-    ///
-    /// - If \f$ N \cdot V = 0 \f$ ray and plane are parallels.
-    ///  - Then, if \f$ d + N \cdot P = 0 \f$ ray lies on plane, otherwise there are no intersection.
-    /// - If t < 0, there are no intersection (the ray straight line intersects the plane backwards the ray origin).
+    /// Checks if resident ray intersects with the provided plane.
     /// </summary>
-    /// <param name="plane">[IN] The plane we want check if intersects with resident ray.</param>
+    /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
+    /// Intersection point \f$ P_0 \f$ must verify both ecuations:<br/>
+    /// <br/>
+    /// Ray equation: \f$ P_0 = P + t \cdot V \f$<br/>
+    /// <br/>
+    /// Plane equation: \f$ aP_{0x} + bP_{0y} + cP_{0z} + d = N \cdot P_0 + d = 0 \f$<br/>
+    /// <br/>
+    /// That is:<br/>
+    /// <br/>
+    /// \f$ t = \frac{-(d + N \cdot P)}{N \cdot V} \f$<br/>
+    /// <br/>
+    /// - If \f$ N \cdot V = 0 \f$ ray and plane are parallels.<br/>
+    ///  - Then, if \f$ d + N \cdot P = 0 \f$ ray lies on plane, otherwise there are no intersection.<br/>
+    /// - If t < 0, there are no intersection (the ray straight line intersects the plane backwards the ray origin).
+    /// </remarks>
+    /// <param name="plane">[IN] The plane we want check if intersects with resident ray. If the plane is null, the result is undefined.</param>
     /// <returns>
     /// True if plane and ray intersects, false otherwise.
     /// </returns>
@@ -372,7 +381,11 @@ public:
     /// <summary>
     /// Checks if resident ray intersects with the provided triangle.
     /// </summary>
-    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
+    /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.
+    /// </remarks>
+    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
     /// <returns>
     /// True if ray intersect triangle, false otherwise.
     /// </returns>
@@ -407,13 +420,14 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided hexahedron.<br/>
-    /// If the origin of the ray lies on one of the hexahedron faces, we consider there is an intersection.
+    /// Checks if resident ray intersects with the provided hexahedron.
     /// </summary>
     /// <remarks>
-    /// The hexahedron must be convex for the operation to return correct results.
+    /// If the direction of the ray is null, the result is undefined.<br/>
+    /// If the origin of the ray lies on one of the hexahedron faces, we consider there is an intersection.
     /// </remarks>
-    /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with resident ray.</param>
+    /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with resident ray. It must be convex for the operation to return correct 
+    /// results. If any of its vertices coincide, the result is undefined.</param>
     /// <returns>
     /// True if hexahedron and ray intersects, false otherwise.
     /// </returns>
@@ -438,27 +452,27 @@ public:
     /// <remarks>
 	/// Rays must be normalized to ensure correct results.<br/>
 	/// If there's no intersection point, or the rays are totally or parcially coincident,
-	/// the output parameter used for storing that point won't be modified.
-    ///
-    /// If both rays intesect, the intersection point must verify both vectorial ecuations:
-    ///
-    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
-    ///
-    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
-    ///
-    /// This ecuation is solved via vectorial products as follovs:
-    ///
+	/// the output parameter used for storing that point won't be modified.<br/>
+    /// <br/>
+    /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
+    /// <br/>
+    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
+    /// <br/>
+    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$<br/>
+    /// <br/>
+    /// This ecuation is solved via vectorial products as follovs:<br/>
+    /// <br/>
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed, and
-    /// it is verified that:
-    ///
-    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
-    ///
+    /// it is verified that:<br/>
+    /// <br/>
+    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
+    /// <br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
 	/// </remarks>
 	/// <param name="ray">[IN] The ray whose intersection with resident ray will be checked.</param>
@@ -557,30 +571,31 @@ public:
 	/// Computes the intersection point between resident ray and provided line segment, if it exists.
 	/// </summary>
     /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
     /// A ray with direction from A to B with origin in A is constructed.<br/>
-    /// If both rays intersects, the intersection point must verify both vectorial ecuations:
-    ///
-    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
-    ///
-    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
-    ///
-    /// This ecuation is solved via vectorial products as follovs:
-    ///
+    /// If both rays intersects, the intersection point must verify both vectorial ecuations:<br/>
+    /// <br/>
+    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
+    /// <br/>
+    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$<br/>
+    /// <br/>
+    /// This ecuation is solved via vectorial products as follovs:<br/>
+    /// <br/>
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
     /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br/>
-    /// Finally it's verified that:
-    ///
-    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
-    ///
+    /// Finally it's verified that:<br/>
+    /// <br/>
+    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
+    /// <br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br/>
-	/// - If there's no intersection point, the output parameters won't be modified.
-	/// - If there's one intersection point, output parameter is filled with the intersection point.
+	/// - If there's no intersection point, the output parameters won't be modified.<br/>
+	/// - If there's one intersection point, output parameter is filled with the intersection point.<br/>
     /// - If there are infinite intersection points, the output parameters won't be modified.
 	/// </remarks>
 	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
@@ -714,30 +729,31 @@ public:
 	/// Computes the intersection point between resident ray and provided line segment, if it exists.
 	/// </summary>
     /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
     /// A ray with direction from A to B with origin in A is constructed.<br/>
-    /// If both rays intersects, the intersection point must verify both vectorial ecuations:
-    ///
-    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$
-    ///
-    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$
-    ///
-    /// This ecuation is solved via vectorial products as follovs:
-    ///
+    /// If both rays intersects, the intersection point must verify both vectorial ecuations:<br/>
+    /// <br/>
+    /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
+    /// <br/>
+    /// \f$ P \equiv P_2 + t_2 \cdot D_2 \f$<br/>
+    /// <br/>
+    /// This ecuation is solved via vectorial products as follovs:<br/>
+    /// <br/>
     /// \f$ t_1 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{2x} & D_{2y} & D_{2z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// \f$ t_2 = \frac{\begin{vmatrix} (P_2 - P_1)_x & (P_2 - P_1)_y & (P_2 - P_1)_z \\ D_{1x} & D_{1y} & D_{1z}
-    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$
-    ///
+    /// \\ (D_1 \times D_2)_x & (D_1 \times D_2)_y & (D_1 \times D_2)_z \end{vmatrix}}{\left | D_1 \times D_2 \right |^2} \f$<br/>
+    /// <br/>
     /// Both \f$ t_1 \f$ and \f$ t_2 \f$ are forced to be greater or equal to 0, to ensure ray direction is being followed,
     /// and \f$ t_2 \f$ is forced to be in [0, 1] interval, to ensure the point is inside segment.<br/>
-    /// Finally it's verified that:
-    ///
-    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$
-    ///
+    /// Finally it's verified that:<br/>
+    /// <br/>
+    /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
+    /// <br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br/>
-	/// - If there's no intersection point, the output parameters won't be modified.
-	/// - If there's one intersection point, output parameter is filled with the intersection point.
+	/// - If there's no intersection point, the output parameters won't be modified.<br/>
+	/// - If there's one intersection point, output parameter is filled with the intersection point.<br/>
 	/// </remarks>
 	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
 	/// <param name="vIntersection1">[OUT] The first intersection point with line segment, if it exists.</param>
@@ -890,22 +906,25 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided plane, calculating the intersection point.<br/>
-    /// Intersection point \f$ P_0 \f$ must verify both ecuations:
-    ///
-    /// Ray equation: \f$ P_0 = P + t \cdot V \f$
-    ///
-    /// Plane equation: \f$ aP_{0x} + bP_{0y} + cP_{0z} + d = N \cdot P_0 + D = 0 \f$
-    ///
-    /// That is:
-    ///
-    /// \f$ t = \frac{-(d + N \cdot P)}{N \cdot V} \f$
-    ///
-    /// - If \f$ N \cdot V = 0 \f$ ray and plane are parallels.
-    ///  - Then, if \f$ d + N \cdot P = 0 \f$ ray lies on plane, otherwise there are no intersection.
-    /// - If t < 0, there are no intersection (the ray straight line intersects the plane backwards the ray position).
+    /// Checks if resident ray intersects with the provided plane, calculating the intersection point.
     /// </summary>
-    /// <param name="plane">[IN] The plane we want check if intersects with resident ray.</param>
+    /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
+    /// Intersection point \f$ P_0 \f$ must verify both ecuations:<br/>
+    /// <br/>
+    /// Ray equation: \f$ P_0 = P + t \cdot V \f$<br/>
+    /// <br/>
+    /// Plane equation: \f$ aP_{0x} + bP_{0y} + cP_{0z} + d = N \cdot P_0 + D = 0 \f$<br/>
+    /// <br/>
+    /// That is:<br/>
+    /// <br/>
+    /// \f$ t = \frac{-(d + N \cdot P)}{N \cdot V} \f$<br/>
+    /// <br/>
+    /// - If \f$ N \cdot V = 0 \f$ ray and plane are parallels.<br/>
+    ///  - Then, if \f$ d + N \cdot P = 0 \f$ ray lies on plane, otherwise there are no intersection.<br/>
+    /// - If t < 0, there are no intersection (the ray straight line intersects the plane backwards the ray position).
+    /// </remarks>
+    /// <param name="plane">[IN] The plane we want check if intersects with resident ray. If it is null, the result is undefined.</param>
     /// <param name="vIntersection">[OUT] The point where they intersect, if they do.</param>
     /// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the plane, and can take
@@ -957,11 +976,13 @@ public:
 	/// Computes the intersection points between resident ray and provided triangle, if they exists.
 	/// </summary>
     /// <remarks>
-	/// - If there's no intersection point, the output parameter won't be modified.
-	/// - If there's one intersection point, the output parameter stores it.
+    /// If the direction of the ray is null, the result is undefined.<br/>
+	/// - If there's no intersection point, the output parameter won't be modified.<br/>
+	/// - If there's one intersection point, the output parameter stores it.<br/>
     /// - If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
 	/// </remarks>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
+	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
 	/// <param name="vIntersection">[OUT] Closest point to ray origin where they intersect, if they do.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the triangle, that can take
@@ -973,18 +994,19 @@ public:
         return this->IntersectionPoint(triangle, vIntersection, vAux);
     }
 
-
 	/// <summary>
 	/// Computes the intersection point between resident ray and provided triangle, if it exists.
 	/// </summary>
     /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
 	/// - If there's no intersection point, the output parameters won't be modified.<br/>
 	/// - If there's one intersection point, the second output parameter won't be modified,
 	/// and first output parameter is filled with the intersection point.<br/>
     /// - If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest to the origin point of the ray.<br/>
+    /// in the first output parameter the closest to the origin point of the ray.
 	/// </remarks>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked.</param>
+	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// the result is undefined.</param>
 	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
 	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
 	/// <returns>
@@ -1315,12 +1337,14 @@ public:
     /// if they exists.
 	/// </summary>
     /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
     /// The hexahedron must be convex for the operation to return correct results.<br/>
 	/// - If there's no intersection point, the output parameter used for storing the intersection point won't be modified.<br/>
 	/// - If there is only one intersection point, it's stored in the output parameter.<br/>
 	/// - If there are two intersections, the output parameter stores the closest point to origin of ray.<br/>
 	/// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident ray are wanted.</param>
+	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident ray are wanted. It must be convex for the operation to return correct 
+    /// results. If any of its vertices coincide, the result is undefined.</param>
     /// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to origin of ray.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the ray and the hexahedron,
@@ -1337,12 +1361,14 @@ public:
     /// if they exists.
 	/// </summary>
     /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
     /// The hexahedron must be convex for the operation to return correct results.</br>
 	/// - If there's no intersection point, the output parameters used for storing the intersection points won't be modified.</br>
 	/// - If there is only one intersection point, it's stored in the first output parameter, and the second one is not modified.</br>
 	/// - If there are two intersections, the first output parameter stores the closest point to origin of ray.
 	/// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident ray are wanted.</param>
+	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident ray are wanted. It must be convex for the operation to return correct 
+    /// results. If any of its vertices coincide, the result is undefined.</param>
     /// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to origin of ray.</param>
     /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to origin of ray.</param>
 	/// <returns>
@@ -1604,15 +1630,16 @@ public:
     /// Checks the relation between resident ray and the provided plane.
     /// </summary>
     /// <remarks>
+    /// If the direction of the ray is null, the result is undefined.<br/>
     /// Note that if the origin of resident ray lies on the plane, we don't consider that the ray is crossing the plane.
     /// </remarks>
-    /// <param name="plane">[IN] The plane we want check the relation with resident ray.</param>
+    /// <param name="plane">[IN] The plane we want check the relation with resident ray. If it is null, the result is undefined.</param>
     /// <returns>
     /// An enumerated value like follows:<br/>
     /// - 0 (E_Contained): The ray lies on plane.
-    /// - 1 (E_PositiveSide): The ray is fully contained in the positive side of the space defined by the plane.
-    /// - 2 (E_NegativeSide): The ray is fully contained in the negative side of the space defined by the plane.
-    /// - 3 (E_BothSides): The ray cross the plane.
+    /// - 1 (E_PositiveSide): The ray is fully contained in the positive side of the space defined by the plane.<br/>
+    /// - 2 (E_NegativeSide): The ray is fully contained in the negative side of the space defined by the plane.<br/>
+    /// - 3 (E_BothSides): The ray cross the plane.<br/>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
@@ -1723,9 +1750,10 @@ public:
 	/// This method scales the resident ray by the scale contained in the provided vector.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
@@ -1741,11 +1769,12 @@ public:
 	/// This method scales the resident ray by the amounts provided for every axis.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
-	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
+	/// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+	/// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
@@ -1762,9 +1791,10 @@ public:
 	/// the provided point that acts as pivot.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis.</param>
+	/// <param name="vScale">[IN] Vector which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
@@ -1782,11 +1812,12 @@ public:
 	/// the provided point that acts as pivot.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="vScaleX">[IN] Scale to be applied in X direction.</param>
-	/// <param name="vScaleY">[IN] Scale to be applied in Y direction.</param>
-	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction.</param>
+	/// <param name="vScaleX">[IN] Scale to be applied in X direction. If it equals zero, the result is undefined.</param>
+	/// <param name="vScaleY">[IN] Scale to be applied in Y direction. If it equals zero, the result is undefined.</param>
+	/// <param name="vScaleZ">[IN] Scale to be applied in Z direction. If it equals zero, the result is undefined.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The scaled ray.
@@ -1847,9 +1878,10 @@ public:
 	/// This method scales the resident ray by the scale contained in the provided matrix.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="scale">[IN] Matrix which contains the scale to be applied in every axis.</param>
+	/// <param name="scale">[IN] Matrix which contains the scale to be applied in every axis. If it is null, the result is undefined.</param>
     /// <returns>
     /// The scaled ray.
     /// </returns>
@@ -1865,9 +1897,10 @@ public:
 	/// This method applies to the resident ray the transformation contained in the provided matrix.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied. If it is null, the result is undefined.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
@@ -1880,9 +1913,10 @@ public:
 	/// This method applies to the resident ray the transformation contained in the provided matrix.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
+	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied. If it is null, the result is undefined.</param>
     /// <returns>
     /// The transformed ray.
     /// </returns>
@@ -1929,9 +1963,10 @@ public:
 	/// a given point that acts as pivot.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.
 	/// </remarks>
-	/// <param name="scale">[IN] Matrix which contains the scale to be applied.</param>
+	/// <param name="scale">[IN] Matrix which contains the scale to be applied. If it is null, the result is undefined.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the scale.</param>
     /// <returns>
     /// The rotated ray.
@@ -1949,10 +1984,11 @@ public:
 	/// a given point as pivot of transformation.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br />
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.<br/>
     /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
 	/// </remarks>
-	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
+	/// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
     /// The transformed ray.
@@ -1967,10 +2003,11 @@ public:
 	/// a given point as pivot of transformation.
 	/// </summary>
     /// <remarks>
-	/// Resultant ray is normalized after this operation.<br />
+	/// Resultant ray is normalized after this operation.<br/>
+    /// If the direction of the ray is null, the result is undefined.<br/>
     /// When using 4D vectors, the W component of the pivot point doesn't affect the result.
 	/// </remarks>
-	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
+	/// <param name="transformation">[IN] Tranformation matrix to be applied. If it is null, the result is undefined.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>
     /// The transformed ray.

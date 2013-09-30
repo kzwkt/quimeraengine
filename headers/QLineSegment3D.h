@@ -179,7 +179,8 @@ public:
     /// and the line segment don't intersects the plane.<br/>
     /// If one end point of the line segment lies on the plane, we consider there is an intersection.
     /// </remarks>
-    /// <param name="plane">[IN] The plane we want check if intersects with resident line segment.</param>
+    /// <param name="plane">[IN] The plane we want check if intersects with resident line segment. If the plane is null,
+    /// the behavior is undefined.</param>
     /// <returns>
     /// True if plane and line segment intersects, false otherwise.
     /// </returns>
@@ -209,7 +210,8 @@ public:
     /// If one end point of the line segment lies on the triangle, or on an edge or vertex of the triangle,
     /// we consider there is an intersection.
     /// </summary>
-    /// <param name="triangle">[IN] The triangle we want check if intersects with resident line segment.</param>
+    /// <param name="triangle">[IN] The triangle we want check if intersects with resident line segment. If any of its vertices 
+    /// coincide, the behavior is undefined.</param>
     /// <returns>
     /// True if triangle and line segment intersects, false otherwise.
     /// </returns>
@@ -263,7 +265,8 @@ public:
     /// If one end point of the line segment lies on one of the hexahedron faces,
     /// we consider there is an intersection.
     /// </summary>
-    /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with resident line segment.</param>
+    /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with resident line segment. If any of its vertices 
+    /// coincide, the behavior is undefined.</param>
     /// <returns>
     /// True if hexahedron and line segment intersects, false otherwise.
     /// </returns>
@@ -278,10 +281,11 @@ public:
             CuadrilateralIntersection(*this, hexahedron.A, hexahedron.B, hexahedron.H, hexahedron.E) ||
             CuadrilateralIntersection(*this, hexahedron.B, hexahedron.C, hexahedron.G, hexahedron.H) ||
             CuadrilateralIntersection(*this, hexahedron.A, hexahedron.D, hexahedron.F, hexahedron.E) ||
-            CuadrilateralIntersection(*this, hexahedron.C, hexahedron.D, hexahedron.F, hexahedron.G))
+            CuadrilateralIntersection(*this, hexahedron.C, hexahedron.D, hexahedron.F, hexahedron.G) ||
+            (this->PointInsideHexahedron(hexahedron, this->A) && this->PointInsideHexahedron(hexahedron, this->B)) )
             return true;
-
-        return false;
+        else
+            return false;
     }
 
     /// <summary>
@@ -289,10 +293,11 @@ public:
     /// if it exists.
 	/// </summary>
     /// <remarks>
-	/// If there's no intersection point or the line segment lies on plane, the output
+	/// If there's no intersection point or the line segment lies on the plane, the output
     /// parameter used for storing that point won't be modified.
 	/// </remarks>
-	/// <param name="plane">[IN] The plane whose intersection with resident line segment we want to check.</param>
+	/// <param name="plane">[IN] The plane whose intersection with resident line segment we want to check. If the plane is null,
+    /// the behavior is undefined.</param>
 	/// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the plane, and can take
@@ -359,7 +364,8 @@ public:
     /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
     /// segment and an edge of the triangle.
 	/// </remarks>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident line segment we want to check.</param>
+	/// <param name="triangle">[IN] The triangle whose intersection with resident line segment we want to check. If any of its vertices coincide,
+    /// the behavior is undefined.</param>
 	/// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to A end point.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the triangle, and can take
@@ -383,7 +389,8 @@ public:
     /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
     /// segment and an edge of the triangle.
 	/// </remarks>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident line segment we want to check.</param>
+	/// <param name="triangle">[IN] The triangle whose intersection with resident line segment we want to check. If any of its vertices coincide,
+    /// the behavior is undefined.</param>
 	/// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to A end point of line segment.</param>
     /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to A end point of line segment.</param>
 	/// <returns>
@@ -1033,7 +1040,8 @@ public:
 	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br/>
 	/// If there are two intersections, the output parameter stores only one of them.
 	/// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident line segment we want to check.</param>
+	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident line segment we want to check. If any of its vertices coincide,
+    /// the behavior is undefined.</param>
     /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
 	/// <returns>
     /// An enumerated value which represents the number of intersections between the line segment and the hexahedron,
@@ -1246,7 +1254,8 @@ public:
 	/// If there's no intersection point, the output parameters used for storing the intersection points won't be modified.<br/>
 	/// If there are two intersections, the first output parameter stores the closest point to A end point of line segment.
 	/// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident line segment we want to check.</param>
+	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident line segment we want to check. If any of its vertices coincide,
+    /// the behavior is undefined.</param>
     /// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to A end point of line segment.</param>
     /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to A end point of line segment.</param>
 	/// <returns>
@@ -1500,7 +1509,8 @@ public:
     /// <remarks>
     /// The plane must be normalized to obtain correct result.
     /// </remarks>
-    /// <param name="plane">[IN] The plane we want to know the maximum distance from the line segment.</param>
+    /// <param name="plane">[IN] The plane we want to know the maximum distance from the line segment. If it is null, the result
+    /// is undefined.</param>
     /// <returns>
     /// A floating point value containing the maximum distance between the resident line segment and a plane provided.
     /// </returns>
@@ -1520,7 +1530,8 @@ public:
     /// <remarks>
     /// The plane must be normalized to obtain correct result.
     /// </remarks>
-    /// <param name="plane">[IN] The plane we want to know the minimum distance from the line segment.</param>
+    /// <param name="plane">[IN] The plane we want to know the minimum distance from the line segment. If it is null, the result
+    /// is undefined.</param>
     /// <returns>
     /// A floating point value containing the minimum distance between the resident line segment and a plane provided.
     /// </returns>
@@ -1550,7 +1561,8 @@ public:
     /// <remarks>
     /// The plane must be normalized to obtain correct result.
     /// </remarks>
-    /// <param name="plane">[IN] The plane where we want to project the resident line segment.</param>
+    /// <param name="plane">[IN] The plane where we want to project the resident line segment. If it is null, the result
+    /// is undefined.</param>
     /// <returns>
 	/// The projected segment.
 	/// </returns>
@@ -1574,7 +1586,8 @@ public:
     /// Note that if only one end point of the resident line segment lies on the plane, we consider that it is
     /// in one of the sides in which the plane divides the space.
     /// </remarks>
-    /// <param name="plane">[IN] The plane we want check the relation with resident line segment.</param>
+    /// <param name="plane">[IN] The plane we want check the relation with resident line segment. If it is null, the result
+    /// is undefined.</param>
     /// <returns>
     /// An integer value like follows:<br/><ul>
     /// <li>0 (Contained): All the line segment lies on plane.</li>
@@ -2001,6 +2014,7 @@ protected:
         return SQFloat::IsPositive(DIST_P1 * DIST_P2);
     }
 
+    // [TODO] Thund: This may be replaced with a call to QHexahedron::Contains. This would add a dependency to QHexahedron.
     // Calculates if two points are in the same side of a plane defined by 3 points.
     template <class VectorTypeParam>
     inline bool PointInsideHexahedron(const QBaseHexahedron<VectorTypeParam> &hexahedron, const VectorTypeParam &vPoint) const

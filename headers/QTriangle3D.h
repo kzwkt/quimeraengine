@@ -98,9 +98,9 @@ public:
 	/// Constructor from three pointer-to-float type, one for each vertex.<br/>
 	/// Each pointer references to an array which has at least three or four elements.
 	/// </summary>
-	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
-	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
-	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
+	/// <param name="arValuesA">[IN] Array of components of the vertex A. If it is null, the behavior is undefined.</param>
+	/// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
+	/// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
 	inline QTriangle3D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
                            QTriangle<VectorType>(arValuesA, arValuesB, arValuesC)
     {
@@ -137,10 +137,14 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates triangle's normal vector.<br/>
-	/// Follows left-handed rules so, imagining a rotation from A to B, the direction of the axis vector can 
-    /// be deduced.
-	/// </summary>
+	/// Calculates the triangle's normal vector.
+    /// </summary>
+    /// <remarks>
+	/// The resultant vector can be deduced by imagining that the triangle is facing the screen; if the vertices are traversed in alphabetical order (A, B, C then A again),
+    /// clockwise, the vector points toward the outside of the screen. If the turn direction is counter-clockwise, the vector points toward the interior of the screem. 
+    /// be deduced.<br/>
+    /// If any of the vertices of the triangle coincide or if they are colinear, the result is undefined.
+	/// </remarks>
     /// <returns>
     /// The normal vector.
     /// </returns>
@@ -155,6 +159,9 @@ public:
 	/// <summary>
 	/// Calculates triangle's circumcenter.
 	/// </summary>
+    /// <remarks>
+    /// If any of the vertices of the triangle coincide or if they are colinear, the result is undefined.
+	/// </remarks>
 	/// <returns>
     /// The triangle's circumcenter.
     /// </returns>
@@ -484,7 +491,7 @@ public:
     /// If one or two vertices belong to the plane, the third vertex will determine whether the triangle
     /// is in the positive or negative side.
     /// </remarks>
-	/// <param name="plane">[IN] The plane we want check the relation with current triangle.</param>
+	/// <param name="plane">[IN] The plane we want check the relation with current triangle. If it is null, the result is undefined.</param>
     /// <returns>
     /// An enumerated value like follows:<br/>
     /// - Contained in the plane
@@ -515,7 +522,10 @@ public:
 	/// <summary>
 	/// Moves the triangle along its normal vector the units indicated by a scalar value.
 	/// </summary>
-	/// <param name="fAmount">[IN] Float type that contains the amount of the movement.</param>
+    /// <remarks>
+    /// If any of the vertices of the triangle coincide or if they are colinear, the result is undefined.
+	/// </remarks>
+	/// <param name="fAmount">[IN] The amount of movement.</param>
     /// <returns>
     /// The extruded triangle.
     /// </returns>
@@ -533,7 +543,8 @@ public:
 	/// </summary>
     /// <remarks>
     /// When using 4D vectors, the W component of the resultant point will depend on the W component of the
-    /// vertices of the triangle.
+    /// vertices of the triangle.<br/>
+    /// If any of the vertices of the triangle coincide, the result is undefined.
     /// </remarks>
 	/// <returns>
     /// The orthocenter.
@@ -563,7 +574,7 @@ public:
     /// <remarks>
 	/// The plane must be normalized to obtain correct result.
 	/// </remarks>
-	/// <param name="plane">[IN] Plane where to project the resident triangle.</param>
+	/// <param name="plane">[IN] Plane where to project the resident triangle. If it is null, the result is undefined.</param>
 	/// <returns>
 	/// The projected triangle.
 	/// </returns>

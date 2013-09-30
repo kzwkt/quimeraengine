@@ -266,6 +266,36 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenRadiusEqualsZero_Test, TQTempla
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when all points coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Contains_ReturnsExpectedResultWhenRadiusEqualsZero_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    // Preparation
+    float_q VECTOR1_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
+    float_q VECTOR2_COMPONENTS[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
+
+    const QOrb<T> ORB( T(VECTOR1_COMPONENTS), SQFloat::_0 );
+    const T POINT_COINCIDENT = T(VECTOR1_COMPONENTS);
+    const T POINT_NOT_COINCIDENT = T(VECTOR2_COMPONENTS);
+
+    const bool EXPECTED_RESULT_COINCIDENT = true;
+    const bool EXPECTED_RESULT_NOT_COINCIDENT = false;
+
+	// Execution
+    bool bResultCoincident = ORB.Contains(POINT_COINCIDENT);
+    bool bResultNotCoincident = ORB.Contains(POINT_NOT_COINCIDENT);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultCoincident, EXPECTED_RESULT_COINCIDENT);
+    BOOST_CHECK_EQUAL(bResultNotCoincident, EXPECTED_RESULT_NOT_COINCIDENT);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -424,6 +454,36 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusEqualsZero_Test, TQTe
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the radius of one of the orbs equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusEqualsZero_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_CENTER1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+    float_q VECTOR_COMPONENTS_CENTER2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
+
+    const QOrb<T> ORB1( T(VECTOR_COMPONENTS_CENTER1), SQFloat::_0 );
+    const QOrb<T> ORB2( T(VECTOR_COMPONENTS_CENTER2), SQFloat::_1 );
+    const QOrb<T> ORB3( T(VECTOR_COMPONENTS_CENTER2), SQFloat::_2 );
+
+    const bool EXPECTE_RESULT_INTERSECTION = true;
+    const bool EXPECTE_RESULT_NO_INTERSECTION = false;
+
+	// Execution
+    bool bResultNoIntersection = ORB1.Intersection(ORB2);
+    bool bResultIntersection = ORB1.Intersection(ORB3);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultIntersection, EXPECTE_RESULT_INTERSECTION);
+    BOOST_CHECK_EQUAL(bResultNoIntersection, EXPECTE_RESULT_NO_INTERSECTION);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

@@ -354,6 +354,30 @@ QTEST_CASE_TEMPLATE ( GetSurface_AssertionFailsWhenAllPointsCoincide_Test, TQTem
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns zero when all points coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( GetSurface_ReturnsZeroWhenAllPointsCoincide_Test, TQTemplateTypes )
+{
+    // Preparation
+    float_q VECTOR_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
+
+    const T VALUE_FOR_A(VECTOR_COMPONENTS);
+    const T VALUE_FOR_B(VECTOR_COMPONENTS);
+    const T VALUE_FOR_C(VECTOR_COMPONENTS);
+
+    const float_q EXPECTED_RESULT = SQFloat::_0;
+
+	// Execution
+    const QTriangle<T> triangleUT = QTriangle<T>(VALUE_FOR_A, VALUE_FOR_B, VALUE_FOR_C);
+    float_q fResult = triangleUT.GetSurface();
+
+    // Verification
+    BOOST_CHECK_EQUAL(fResult, EXPECTED_RESULT);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
