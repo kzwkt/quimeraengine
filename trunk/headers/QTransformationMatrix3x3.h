@@ -136,6 +136,9 @@ public:
     /// <summary>
     /// Extracts the scale, the rotation and the translation into separated variables.
     /// </summary>
+    /// <remarks>
+    /// If the matrix was built using a null scale, the results are undefined.
+    /// </remarks>
     /// <param name="vTranslation">[OUT] A 2D vector to store the translation.</param>
     /// <param name="fRotationAngle">[OUT] Floating point variable to store the angle of rotation.</param>
     /// <param name="vScale">[OUT] A 2D vector to store the scale.</param>
@@ -154,6 +157,9 @@ public:
     /// <summary>
     /// Extracts the rotation angle from the transformation matrix.
     /// </summary>
+    /// <remarks>
+    /// If the matrix was built using a null scale, the result is undefined.
+    /// </remarks>
     /// <param name="fRotationAngle">[OUT] Floating point variable to store the angle of rotation.</param>
     inline void GetRotation(float_q &fRotationAngle) const
     {

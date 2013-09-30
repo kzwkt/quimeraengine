@@ -105,9 +105,9 @@ public:
 	/// <summary>
 	/// Constructor from three pointer-to-float type, one for each vertex.
 	/// </summary>
-	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
-	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
-	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
+	/// <param name="arValuesA">[IN] Array of components of the vertex A. If it is null, the behavior is undefined.</param>
+	/// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
+	/// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
 	inline QTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
                          QBaseTriangle<VectorType>(arValuesA, arValuesB, arValuesC)
     {
@@ -285,8 +285,8 @@ public:
 	}
 
 	/// <summary>
-	/// Converts triangle into a string with the following format:<br />
-	/// "T(a($A),b($B),c($C))"<br />
+	/// Converts triangle into a string with the following format:<br/>
+	/// "T(a($A),b($B),c($C))"<br/>
     /// Where "$" means "string representation of".
 	/// </summary>
 	/// <returns>

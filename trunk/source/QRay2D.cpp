@@ -26,6 +26,8 @@
 
 #include "QRay2D.h"
 
+#include "QLineSegment2D.h"
+
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -57,7 +59,7 @@ bool QRay2D::Intersection(const QRay2D &ray) const
         if ( this->Contains(ray.Origin) )
             return true;
         else
-            return ( ray.Contains(this->Origin) );
+            return ray.Contains(this->Origin);
     }
     else // rays are not parallel
     {
@@ -66,7 +68,7 @@ bool QRay2D::Intersection(const QRay2D &ray) const
         {
             const float_q &NUMERATOR2 = ray.Direction.x * (this->Origin.y - ray.Origin.y) + ray.Direction.y * (ray.Origin.x - this->Origin.x);
 
-            return ( (SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR2)) || SQFloat::IsZero(NUMERATOR2) );
+            return (SQFloat::IsNegative(DENOMINATOR) == SQFloat::IsNegative(NUMERATOR2)) || SQFloat::IsZero(NUMERATOR2);
         }
         else
             return false;

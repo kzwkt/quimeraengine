@@ -378,9 +378,8 @@ QTEST_CASE_TEMPLATE ( GetPoint_AssertionFailsWhenRayIsNotNormalized_Test, TQTemp
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
-#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
-/* Commented out until the tests are adapted to check the results when the assertion behavior is none
 /// <summary>
 /// Checks that obtained point is different when the ray is not normalized.
 /// </summary>
@@ -404,7 +403,9 @@ QTEST_CASE_TEMPLATE ( GetPoint_UnexpectedPointIsReturnedWhenRayIsNotNormalized_T
     // Verification
     BOOST_CHECK(vPointWhenNotNormalized != vPointWhenNormalized);
 }
-*/
+
+#endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
 /// <summary>
 /// Checks that it returns false when there is no intersection.
 /// </summary>
@@ -701,7 +702,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenDirectionVectorIsNull_Test,
 }
 
 /// <summary>
-/// Checks that an assertin fails when the ray is not normalized.
+/// Checks that an assertion fails when the ray is not normalized.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRayIsNotNormalized_Test, TQTemplateTypes )
 {
@@ -734,6 +735,49 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRayIsNotNormalized_Test, TQ
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the radius of the orb equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusOfTheOrbEqualsZero_Test, TQTemplateTypes )
+{
+    //
+    //  o---------x---->
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3 };
+    const float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0 };
+    const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
+    const T VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    QRay<T, T> RAY = QRay<T, T>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
+    RAY = RAY.Normalize();
+
+    const float_q VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3 };
+    const T VALUE_FOR_CENTER_CONTAINED(VECTOR_COMPONENTS_CENTER_CONTAINED);
+    const float_q RADIUS_CONTAINED = SQFloat::_0;
+    const QBaseOrb<T> ORB_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
+
+    const float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_3, SQFloat::_3 };
+    const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
+    const float_q RADIUS_NOT_CONTAINED = SQFloat::_0;
+    const QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
+
+    const bool EXPECTED_RESULT_CONTAINED = true;
+    const bool EXPECTED_RESULT_NOT_CONTAINED = false;
+
+	// Execution
+    bool bResultContained = RAY.Intersection(ORB_CONTAINED);
+    bool bResultNotContained = RAY.Intersection(ORB_NOT_CONTAINED);
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1123,6 +1167,98 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRayIsNotNormalized_Te
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the radius of the orb equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrbEqualsZero_Test, TQTemplateTypes )
+{
+    //
+    //  o---------x---->
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3 };
+    const float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0 };
+    const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
+    const T VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    QRay<T, T> RAY = QRay<T, T>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
+    RAY = RAY.Normalize();
+
+    const float_q VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3 };
+    const T VALUE_FOR_CENTER_CONTAINED(VECTOR_COMPONENTS_CENTER_CONTAINED);
+    const float_q RADIUS_CONTAINED = SQFloat::_0;
+    const QBaseOrb<T> ORB_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
+
+    const float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_3, SQFloat::_3 };
+    const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
+    const float_q RADIUS_NOT_CONTAINED = SQFloat::_0;
+    const QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const T EXPECTED_POINT_CONTAINED = VALUE_FOR_CENTER_CONTAINED;
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vPointContained = T::GetZeroVector();
+    T vPointNotContained = T::GetZeroVector();
+
+    EQIntersections eResultContained = RAY.IntersectionPoint(ORB_CONTAINED, vPointContained);
+    EQIntersections eResultNotContained = RAY.IntersectionPoint(ORB_NOT_CONTAINED, vPointNotContained);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vPointContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+}
+
+/// <summary>
+/// Checks that it returns a wrong result when the ray's direction is not normalized.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsWrongResultWhenRayDirectionIsNotNormalized_Test, TQTemplateTypes )
+{
+    //            ___
+    //           /   \
+    //    o-----x-----x-----
+    //           \___/
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2 };
+    float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_7, SQFloat::_0, SQFloat::_0};
+    const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
+    const T VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    const QRay<T, T> NOT_NORMALIZED_RAY = QRay<T, T>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
+    const QRay<T, T> NORMALIZED_RAY = NOT_NORMALIZED_RAY.Normalize();
+
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2 };
+    QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2 };
+    const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
+
+	// Execution
+    T vNormalizedRayResult = T::GetZeroVector();
+    T vNotNormalizedRayResult = T::GetZeroVector();
+
+    NORMALIZED_RAY.IntersectionPoint(ORB, vNormalizedRayResult);
+    NOT_NORMALIZED_RAY.IntersectionPoint(ORB, vNotNormalizedRayResult);
+
+    // Verification
+    BOOST_CHECK(vNormalizedRayResult != vNotNormalizedRayResult);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -1581,6 +1717,106 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRayIsNotNormalized_Te
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the radius of the orb equals zero.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenRadiusOfTheOrbEqualsZero_Test, TQTemplateTypes )
+{
+    //
+    //  o---------x---->
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3 };
+    const float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0 };
+    const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
+    const T VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    QRay<T, T> RAY = QRay<T, T>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
+    RAY = RAY.Normalize();
+
+    const float_q VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3 };
+    const T VALUE_FOR_CENTER_CONTAINED(VECTOR_COMPONENTS_CENTER_CONTAINED);
+    const float_q RADIUS_CONTAINED = SQFloat::_0;
+    const QBaseOrb<T> ORB_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
+
+    const float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_3, SQFloat::_3 };
+    const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
+    const float_q RADIUS_NOT_CONTAINED = SQFloat::_0;
+    const QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const T EXPECTED_FIRSTPOINT_CONTAINED = VALUE_FOR_CENTER_CONTAINED;
+    const T EXPECTED_SECONDPOINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+
+	// Execution
+    T vFirstPointContained = T::GetZeroVector();
+    T vFirstPointNotContained = T::GetZeroVector();
+    T vSecondPointContained = T::GetZeroVector();
+    T vSecondPointNotContained = T::GetZeroVector();
+
+    EQIntersections eResultContained = RAY.IntersectionPoint(ORB_CONTAINED, vFirstPointContained, vSecondPointContained);
+    EQIntersections eResultNotContained = RAY.IntersectionPoint(ORB_NOT_CONTAINED, vFirstPointNotContained, vSecondPointNotContained);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vFirstPointContained == EXPECTED_FIRSTPOINT_CONTAINED);
+    BOOST_CHECK(vFirstPointNotContained == EXPECTED_SECONDPOINT_CONTAINED);
+    BOOST_CHECK(vSecondPointContained == EXPECTED_POINT_NOT_CONTAINED);
+    BOOST_CHECK(vSecondPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+}
+
+/// <summary>
+/// Checks that it returns a wrong result when the ray's direction is not normalized.
+/// </summary>
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsWrongResultWhenRayDirectionIsNotNormalized_Test, TQTemplateTypes )
+{
+    //            ___
+    //           /   \
+    //    o-----x-----x-----
+    //           \___/
+    //
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2 };
+    float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_7, SQFloat::_0, SQFloat::_0};
+    const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
+    const T VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
+    const QRay<T, T> NOT_NORMALIZED_RAY = QRay<T, T>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
+    const QRay<T, T> NORMALIZED_RAY = NOT_NORMALIZED_RAY.Normalize();
+
+    float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2 };
+    QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
+
+    const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
+    float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2 };
+    const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
+
+	// Execution
+    T vFirstNormalizedRayResult = T::GetZeroVector();
+    T vSecondNormalizedRayResult = T::GetZeroVector();
+    T vFisrtNotNormalizedRayResult = T::GetZeroVector();
+    T vSecondNotNormalizedRayResult = T::GetZeroVector();
+
+    NORMALIZED_RAY.IntersectionPoint(ORB, vFirstNormalizedRayResult, vSecondNormalizedRayResult);
+    NOT_NORMALIZED_RAY.IntersectionPoint(ORB, vFisrtNotNormalizedRayResult, vSecondNotNormalizedRayResult);
+
+    // Verification
+    BOOST_CHECK(vFirstNormalizedRayResult != vFisrtNotNormalizedRayResult);
+    BOOST_CHECK(vSecondNormalizedRayResult != vSecondNotNormalizedRayResult);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

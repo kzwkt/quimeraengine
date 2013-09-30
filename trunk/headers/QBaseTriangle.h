@@ -88,9 +88,12 @@ public:
 	/// Constructor from a pointer to floating point values to define each vertex.<br/>
 	/// Pointer must have two, three or four values depending on VectorType.
 	/// </summary>
-	/// <param name="arValuesA">[IN] Pointer to floating point value to define vertex A.</param>
-	/// <param name="arValuesB">[IN] Pointer to floating point value to define vertex B.</param>
-	/// <param name="arValuesC">[IN] Pointer to floating point value to define vertex C.</param>
+	/// <param name="arValuesA">[IN] Array of values that define the vertex A. If the pointer is null, the behavior  
+    /// is undefined.</param>
+	/// <param name="arValuesB">[IN] Array of values that define the vertex B. If the pointer is null, the behavior  
+    /// is undefined.</param>
+	/// <param name="arValuesC">[IN] Array of values that define the vertex C. If the pointer is null, the behavior 
+    /// is undefined.</param>
 	inline QBaseTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC)
 	{
 		// Checkout to ensure pointers are not null.

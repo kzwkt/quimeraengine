@@ -416,7 +416,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenVerticesAreAligned_Test, TQTem
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10 };
 
-    const QTriangle3D<T> TRIANGLE(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_C);
+    const QTriangle3D<T> TRIANGLE(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
     const bool ASSERTION_FAILED = true;
 

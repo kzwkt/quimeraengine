@@ -499,38 +499,7 @@ QTEST_CASE ( GetCircumcenter_AssertionFailsWhenAllPointsCoincide_Test )
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
-/*
 
-[TODO] Thund: To be uncommented when tests are adapted to pass without assertions
-
-/// <summary>
-/// Checks that circumcenter is not defined when all points coincide.
-/// </summary>
-QTEST_CASE ( GetCircumcenter_CircumcenterIsNotDefinedWhenAllPointsCoincide_Test )
-{
-   // Preparation
-    const QVector2 POINT_A = QVector2(SQFloat::_2, SQFloat::_2);
-    const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_2);
-    const QVector2 POINT_C = QVector2(SQFloat::_2, SQFloat::_2);
-
-    const bool CIRCUMCENTER_X_IS_NAN = true;
-    const bool CIRCUMCENTER_Y_IS_NAN = true;
-
-	// Execution
-    bool bCircumcenterXIsNan = false;
-    bool bCircumcenterYIsNan = false;
-
-    QTriangle2D triangleUT = QTriangle2D(POINT_A, POINT_B, POINT_C);
-    QVector2 circumcenter = triangleUT.GetCircumcenter();
-
-    bCircumcenterXIsNan = SQFloat::IsNaN(circumcenter.x);
-    bCircumcenterYIsNan = SQFloat::IsNaN(circumcenter.y);
-    
-    // Verification
-    BOOST_CHECK_EQUAL(bCircumcenterXIsNan, CIRCUMCENTER_X_IS_NAN);
-    BOOST_CHECK_EQUAL(bCircumcenterYIsNan, CIRCUMCENTER_Y_IS_NAN);
-}
-*/
 /// <summary>
 /// Checks that the correct orthocenter is calculated.
 /// </summary>
@@ -551,38 +520,6 @@ QTEST_CASE ( GetOrthocenter_OrthocenterIsCorrectlyCalculatedWhenUsingCommonTrian
     BOOST_CHECK(orthocenter.x == EXPECTED_VALUE_ORTHOCENTER.x);
     BOOST_CHECK(orthocenter.y == EXPECTED_VALUE_ORTHOCENTER.y);
 }
-/*
-
-[TODO] Thund: To be uncommented when tests are adapted to pass without assertions
-
-/// <summary>
-/// Checks that orthocenter is not defined when all points coincide.
-/// </summary>
-QTEST_CASE ( GetOrthocenter_OrthocenterIsNotDefinedWhenAllPointsCoincide_Test )
-{
-   // Preparation
-    const QVector2 POINT_A = QVector2(SQFloat::_2, SQFloat::_2);
-    const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_2);
-    const QVector2 POINT_C = QVector2(SQFloat::_2, SQFloat::_2);
-
-    const bool ORTHOCENTER_X_IS_NAN = true;
-    const bool ORTHOCENTER_Y_IS_NAN = true;
-
-	// Execution
-    bool bOrthocenterXIsNan = false;
-    bool bOrthocenterYIsNan = false;
-
-    QTriangle2D triangleUT = QTriangle2D(POINT_A, POINT_B, POINT_C);
-    QVector2 orthocenter = triangleUT.GetOrthocenter();
-
-    bOrthocenterXIsNan = SQFloat::IsNaN(orthocenter.x);
-    bOrthocenterYIsNan = SQFloat::IsNaN(orthocenter.y);
-    
-    // Verification
-    BOOST_CHECK_EQUAL(bOrthocenterXIsNan, ORTHOCENTER_X_IS_NAN);
-    BOOST_CHECK_EQUAL(bOrthocenterYIsNan, ORTHOCENTER_Y_IS_NAN);
-}
-*/
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 

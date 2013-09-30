@@ -396,6 +396,60 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenTheDirectionVectorIsNull_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that the expected result is returned when the direction vector of one of the rays is null, even if they intersect.
+/// </summary>
+QTEST_CASE ( Intersection1_ExpectedResultReturnedWhenTheDirectionVectorIsNull_Test )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    // O1---O2(d2=0)----->d1
+    //
+    //        I
+
+    //      O3(d3=0)
+    // O1---------------->d1
+    //
+    //        II
+
+    // O3(d3=0)O3(d3=0)-->d1
+    //
+    //        III
+
+    // Preparation
+    const QVector2 ORIGIN1 = QVector2(SQFloat::_2, SQFloat::_4);
+    const QVector2 DIRECTION1 = QVector2::GetZeroVector();
+    const QRay2D RAY1 = QRay2D(ORIGIN1, DIRECTION1);
+    
+    const QVector2 ORIGIN2 = QVector2(SQFloat::_1, SQFloat::_2);
+    const QVector2 DIRECTION2 = QVector2(SQFloat::_2, SQFloat::_4).Normalize();
+    const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
+
+    const QVector2 ORIGIN3 = QVector2(SQFloat::_4, SQFloat::_2);
+    const QVector2 DIRECTION3 = QVector2::GetZeroVector();
+    const QRay2D RAY3 = QRay2D(ORIGIN3, DIRECTION3);
+
+    const bool EXPECTED_RESULT_INTERSECTION = true;
+    const bool EXPECTED_RESULT_NO_INTERSECTION = false;
+    
+	// Execution
+    bool bResultIntersection1 = RAY1.Intersection(RAY2); // I
+    bool bResultIntersection2 = RAY2.Intersection(RAY1); // I
+    bool bResultNoIntersection1 = RAY2.Intersection(RAY3); // II
+    bool bResultNoIntersection2 = RAY3.Intersection(RAY2); // II
+    bool bResultCoincidence = RAY3.Intersection(RAY3); // III
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultIntersection1, EXPECTED_RESULT_INTERSECTION);
+    BOOST_CHECK_EQUAL(bResultIntersection2, EXPECTED_RESULT_INTERSECTION);
+    BOOST_CHECK_EQUAL(bResultNoIntersection1, EXPECTED_RESULT_NO_INTERSECTION);
+    BOOST_CHECK_EQUAL(bResultNoIntersection2, EXPECTED_RESULT_NO_INTERSECTION);
+    BOOST_CHECK_EQUAL(bResultCoincidence, EXPECTED_RESULT_INTERSECTION);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -4778,6 +4832,47 @@ QTEST_CASE ( Intersection4_AssertionFailsWhenTheLengthOfTheLineEqualsZero_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the length of the line equals zero, even if it intersects with the ray.
+/// </summary>
+QTEST_CASE ( Intersection4_ReturnsExpectedResultWhenTheLengthOfTheLineEqualsZero_Test )
+{
+    // O-----AB----->
+    //
+    //       I
+
+    // O---------->
+    //
+    //   AB
+    //       II
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+
+    // Preparation
+    const QVector2 ENDPOINT_CONTAINED(SQFloat::_2, SQFloat::_2);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT_CONTAINED = QBaseLineSegment<QVector2>(ENDPOINT_CONTAINED, ENDPOINT_CONTAINED);
+
+    const QVector2 ENDPOINT_NOT_CONTAINED(SQFloat::_4, SQFloat::_2);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT_NOT_CONTAINED = QBaseLineSegment<QVector2>(ENDPOINT_NOT_CONTAINED, ENDPOINT_NOT_CONTAINED);
+
+    const QVector2 ORIGIN(SQFloat::_1, SQFloat::_1);
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    const bool EXPECTED_RESULT_CONTAINED = true;
+    const bool EXPECTED_RESULT_NOT_CONTAINED = false;
+    
+	// Execution
+    bool bResultContained = RAY.Intersection(LINE_SEGMENT_CONTAINED); // I
+    bool bResultNotContained = RAY.Intersection(LINE_SEGMENT_NOT_CONTAINED); // I
+
+    // Verification
+    BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -5180,6 +5275,56 @@ QTEST_CASE ( IntersectionPoint6_AssertionFailsWhenTheLengthOfTheLineEqualsZero_T
     
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the length of the line equals zero, even if it intersects with the ray.
+/// </summary>
+QTEST_CASE ( IntersectionPoint6_ReturnsExpectedResultWhenTheLengthOfTheLineEqualsZero_Test )
+{
+    // O-----AB----->
+    //
+    //       I
+
+    // O---------->
+    //
+    //   AB
+    //       II
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 ENDPOINT_CONTAINED(SQFloat::_2, SQFloat::_2);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT_CONTAINED = QBaseLineSegment<QVector2>(ENDPOINT_CONTAINED, ENDPOINT_CONTAINED);
+
+    const QVector2 ENDPOINT_NOT_CONTAINED(SQFloat::_4, SQFloat::_2);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT_NOT_CONTAINED = QBaseLineSegment<QVector2>(ENDPOINT_NOT_CONTAINED, ENDPOINT_NOT_CONTAINED);
+
+    const QVector2 ORIGIN(SQFloat::_1, SQFloat::_1);
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const QVector2 EXPECTED_POINT_CONTAINED = ENDPOINT_CONTAINED;
+    const QVector2 EXPECTED_POINT_NOT_CONTAINED = QVector2::GetZeroVector();
+    
+	// Execution
+    QVector2 vPointContained = QVector2::GetZeroVector();
+    QVector2 vPointNotContained = QVector2::GetZeroVector();
+
+    EQIntersections eResultContained = RAY.IntersectionPoint(LINE_SEGMENT_CONTAINED, vPointContained); // I
+    EQIntersections eResultNotContained = RAY.IntersectionPoint(LINE_SEGMENT_NOT_CONTAINED, vPointNotContained); // II
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vPointContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -5624,6 +5769,60 @@ QTEST_CASE ( IntersectionPoint7_AssertionFailsWhenTheLengthOfTheLineEqualsZero_T
     
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected result when the length of the line equals zero, even if it intersects with the ray.
+/// </summary>
+QTEST_CASE ( IntersectionPoint7_ReturnsExpectedResultWhenTheLengthOfTheLineEqualsZero_Test )
+{
+    // O-----AB----->
+    //
+    //       I
+
+    // O---------->
+    //
+    //   AB
+    //       II
+
+    using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
+    using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
+
+    // Preparation
+    const QVector2 ENDPOINT_CONTAINED(SQFloat::_2, SQFloat::_2);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT_CONTAINED = QBaseLineSegment<QVector2>(ENDPOINT_CONTAINED, ENDPOINT_CONTAINED);
+
+    const QVector2 ENDPOINT_NOT_CONTAINED(SQFloat::_4, SQFloat::_2);
+    const QBaseLineSegment<QVector2> LINE_SEGMENT_NOT_CONTAINED = QBaseLineSegment<QVector2>(ENDPOINT_NOT_CONTAINED, ENDPOINT_NOT_CONTAINED);
+
+    const QVector2 ORIGIN(SQFloat::_1, SQFloat::_1);
+    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
+    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
+
+    const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Two;
+    const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
+
+    const QVector2 EXPECTED_POINT_CONTAINED = ENDPOINT_CONTAINED;
+    const QVector2 EXPECTED_POINT_NOT_CONTAINED = QVector2::GetZeroVector();
+    
+	// Execution
+    QVector2 vFirstPointContained = QVector2::GetZeroVector();
+    QVector2 vSecondPointContained = QVector2::GetZeroVector();
+    QVector2 vFirstPointNotContained = QVector2::GetZeroVector();
+    QVector2 vSecondPointNotContained = QVector2::GetZeroVector();
+
+    EQIntersections eResultContained = RAY.IntersectionPoint(LINE_SEGMENT_CONTAINED, vFirstPointContained, vSecondPointContained); // I
+    EQIntersections eResultNotContained = RAY.IntersectionPoint(LINE_SEGMENT_NOT_CONTAINED, vFirstPointNotContained, vSecondPointNotContained); // II
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+    BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
+    BOOST_CHECK(vFirstPointContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vSecondPointContained == EXPECTED_POINT_CONTAINED);
+    BOOST_CHECK(vFirstPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
+    BOOST_CHECK(vSecondPointNotContained == EXPECTED_POINT_NOT_CONTAINED);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
@@ -6747,35 +6946,6 @@ QTEST_CASE ( Transform_AssertionFailsWhenMatrixIsNull_Test )
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
-/*
-
-[TODO] Thund: To be uncommented when the tests for disabled assertions are implemented
-
-/// <summary>
-/// Checks that the ray is moved to the coordinate origin and its direction nullified when it's transformed by a zero matrix.
-/// </summary>
-QTEST_CASE ( Transform_RayIsMovedToCoordinateOriginWhenTransfomedByZeroMatrix_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
-
-    // Preparation
-    const QVector2 ORIGIN(SQFloat::_1, SQFloat::_2);
-    const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
-    const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
-
-    const QRay2D EXPECTED_RAY = QRay2D::GetRayZero();
-
-    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetZeroMatrix();
-
-	// Execution
-    QRay2D returnedRay = RAY.Transform(TRANSFORMATION);
-    
-    // Verification
-    BOOST_CHECK(returnedRay.Origin == EXPECTED_RAY.Origin);
-    BOOST_CHECK(returnedRay.Direction == EXPECTED_RAY.Direction);
-}
-*/
 /// <summary>
 /// Checks that the resultant ray is normalized.
 /// </summary>

@@ -539,6 +539,36 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenAnyOfThePointsCoincides_Test )
     BOOST_CHECK_EQUAL(bAssertionFailed3, ASSERTION_FAILED);
 }
 
+/// <summary>
+/// Checks that an assertion fails when the points belong to the same line.
+/// </summary>
+QTEST_CASE ( Constructor9_AssertionFailsWhenPointsAreCollinear_Test )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QVector3;
+
+    // Preparation
+    const QVector4 POINT1 = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1);
+    const QVector4 POINT2 = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1);
+    const QVector4 POINT3 = QVector4(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_1);
+
+    const bool ASSERTION_FAILED = true;
+
+	// Execution
+    bool bAssertionFailed = false;
+
+    try
+    {
+        QPlane(POINT1, POINT2, POINT3);
+    }
+    catch(...) // [TODO] Thund: A concrete exception has to be defined
+    {
+        bAssertionFailed = true;
+    }
+
+    // Verification
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>

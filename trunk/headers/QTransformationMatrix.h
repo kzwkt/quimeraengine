@@ -466,7 +466,7 @@ public:
     /// <remarks>
     /// This method is optimized with respect to the base matrix class so the fourth column is ignored. Take this into
     /// account when performing operations that include matrix transposing (use base matrix class version instead) or
-    /// wrong results will be obtained.<br />
+    /// wrong results will be obtained.<br/>
     /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
     ///
     /// \f$ A\cdot A^{-1}  = A^{-1}\cdot A = I\f$
@@ -746,6 +746,9 @@ public:
 	/// Remember that Quimera Engine works with left-hand convention by default.<br/>
 	/// To do that, we invert both rotation (by trasposing it) and z translation component.
     /// </summary>
+    /// <remarks>
+    /// If the matrix was built using a null scale, the result is undefined.
+    /// </remarks>
     /// <returns>
     /// The converted matrix.
     /// </returns>

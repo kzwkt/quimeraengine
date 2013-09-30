@@ -295,6 +295,9 @@ public:
 	/// Calculates possible intersections between resident circle and a circle received as parameter.<br/>
 	/// When no intersections are detected, output parameters are not modified.
 	/// </summary>
+    /// <remarks>
+    /// If any of both circles' radius equals zero, the result is undefined.
+    /// </remarks>
     /// <param name="circle">[IN] A circle that is supposed to intersect with resident one.</param>
     /// <param name="vIntersection1">[OUT] An intersection point.</param>
     /// <param name="vIntersection2">[OUT] An intersection point.</param>

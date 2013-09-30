@@ -2083,6 +2083,49 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenThePlaneIsNull_Test, TQTem
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that a correct result is returned even when all the vertices of the hexahedron coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( SpaceRelation_CorrectResultIsReturnedWhenAllVerticesCoincide_Test, TQTemplateTypes )
+{
+    // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
+    //       method behaves as expected when assertions are disabled.
+
+    using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
+    using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
+
+    // Preparation
+    const QBasePlane PLANE = QBasePlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, -SQFloat::_1);
+
+    const float_q POINT_COMPONENTS_POSITIVE[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
+    const T POINT_POSITIVE = T(POINT_COMPONENTS_POSITIVE);
+    const QHexahedron<T> HEXAHEDRON_POSITIVE  = QHexahedron<T>(POINT_POSITIVE, POINT_POSITIVE, POINT_POSITIVE, POINT_POSITIVE, POINT_POSITIVE, POINT_POSITIVE, POINT_POSITIVE, POINT_POSITIVE);
+
+    const float_q POINT_COMPONENTS_NEGATIVE[] = { -SQFloat::_1, -SQFloat::_2, -SQFloat::_3, -SQFloat::_4 };
+    const T POINT_NEGATIVE = T(POINT_COMPONENTS_NEGATIVE);
+    const QHexahedron<T> HEXAHEDRON_NEGATIVE  = QHexahedron<T>(POINT_NEGATIVE, POINT_NEGATIVE, POINT_NEGATIVE, POINT_NEGATIVE, POINT_NEGATIVE, POINT_NEGATIVE, POINT_NEGATIVE, POINT_NEGATIVE);
+
+    const float_q POINT_COMPONENTS_CONTAINED[] = { SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_4 };
+    const T POINT_CONTAINED = T(POINT_COMPONENTS_CONTAINED);
+    const QHexahedron<T> HEXAHEDRON_CONTAINED = QHexahedron<T>(POINT_CONTAINED, POINT_CONTAINED, POINT_CONTAINED, POINT_CONTAINED, POINT_CONTAINED, POINT_CONTAINED, POINT_CONTAINED, POINT_CONTAINED);
+
+    const EQSpaceRelation EXPECTED_RESULT_POSITIVE = EQSpaceRelation::E_PositiveSide;
+    const EQSpaceRelation EXPECTED_RESULT_NEGATIVE = EQSpaceRelation::E_NegativeSide;
+    const EQSpaceRelation EXPECTED_RESULT_CONTAINED = EQSpaceRelation::E_Contained;
+
+	// Execution
+    EQSpaceRelation eResultPositive  = HEXAHEDRON_POSITIVE.SpaceRelation(PLANE);
+    EQSpaceRelation eResultNegative  = HEXAHEDRON_NEGATIVE.SpaceRelation(PLANE);
+    EQSpaceRelation eResultContained = HEXAHEDRON_CONTAINED.SpaceRelation(PLANE);
+
+    // Verification
+    BOOST_CHECK_EQUAL(eResultPositive, EXPECTED_RESULT_POSITIVE);
+    BOOST_CHECK_EQUAL(eResultNegative, EXPECTED_RESULT_NEGATIVE);
+    BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
+}
+
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
@@ -4210,6 +4253,53 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenThePlaneIsNull_Test, TQTe
 
     // Verification
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that the hexahedron is correctly projected to a plane when all vertices of the hexahedron coincide.
+/// </summary>
+QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenAllVerticesCoincide_Test, TQTemplateTypes )
+{
+    using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
+
+    // Preparation
+    const QBasePlane PLANE = QBasePlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, -SQFloat::_1);
+    const float_q POINT_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
+    const T POINT = T(POINT_COMPONENTS);
+    const QHexahedron<T> HEXAHEDRON = QHexahedron<T>(POINT, POINT, POINT, POINT, POINT, POINT, POINT, POINT);
+
+    const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_4 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_4 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_C[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_4 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_D[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_4 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_E[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_4 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_F[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_4 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_G[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_4 };
+    const float_q EXPECTED_VECTOR_COMPONENTS_H[] = { SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_4 };
+
+    const QHexahedron<T> EXPECTED_RESULT = QHexahedron<T>(T(EXPECTED_VECTOR_COMPONENTS_A),
+                                                          T(EXPECTED_VECTOR_COMPONENTS_B),
+                                                          T(EXPECTED_VECTOR_COMPONENTS_C),
+                                                          T(EXPECTED_VECTOR_COMPONENTS_D),
+                                                          T(EXPECTED_VECTOR_COMPONENTS_E),
+                                                          T(EXPECTED_VECTOR_COMPONENTS_F),
+                                                          T(EXPECTED_VECTOR_COMPONENTS_G),
+                                                          T(EXPECTED_VECTOR_COMPONENTS_H));
+
+	// Execution
+    QHexahedron<T> returnedHexahedron = HEXAHEDRON.ProjectToPlane(PLANE);
+
+    // Verification
+    BOOST_CHECK(returnedHexahedron.A == EXPECTED_RESULT.A);
+    BOOST_CHECK(returnedHexahedron.B == EXPECTED_RESULT.B);
+    BOOST_CHECK(returnedHexahedron.C == EXPECTED_RESULT.C);
+    BOOST_CHECK(returnedHexahedron.D == EXPECTED_RESULT.D);
+    BOOST_CHECK(returnedHexahedron.E == EXPECTED_RESULT.E);
+    BOOST_CHECK(returnedHexahedron.F == EXPECTED_RESULT.F);
+    BOOST_CHECK(returnedHexahedron.G == EXPECTED_RESULT.G);
+    BOOST_CHECK(returnedHexahedron.H == EXPECTED_RESULT.H);
 }
 
 #endif // QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

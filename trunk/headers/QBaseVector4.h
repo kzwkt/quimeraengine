@@ -105,7 +105,8 @@ public:
     /// <remarks>
     /// The array must contain, at least, four elements. Only the first four elements will be considered; the rest will be ignored.
     /// </remarks>
-	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, four elements.</param>
+	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, four elements. If the pointer is null, the behavior  
+    /// is undefined.</param>
 	inline explicit QBaseVector4(const float_q* arValues)
 	{
 		// Null pointer checkout

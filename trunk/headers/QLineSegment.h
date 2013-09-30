@@ -177,7 +177,7 @@ public:
 	/// This method receives another line segment, and computes whether they intersect each other or not.
 	/// </summary>
     /// <remarks>
-    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br />
+    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br/>
     /// When using 4D vectors, it's not guaranteed that the result will be what expected if the W component has a different 
     /// value for some of the implied points.
     /// </remarks>
@@ -199,7 +199,7 @@ public:
 	/// This method receives a orb, and computes if it intersects the resident segment or not.
 	/// </summary>
     /// <remarks>
-    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br />
+    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br/>
     /// When using 4D vectors, it's not guaranteed that the result will be what expected if the W component has a different 
     /// value for some of the implied points.
     /// </remarks>
@@ -223,8 +223,8 @@ public:
 	/// This method receives another line segment, and computes the intersection point between them, if it exists.
 	/// </summary>
     /// <remarks>
-    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br />
-	/// If there's no intersection points, the output parameters used for storing these points won't be modified.<br />
+    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br/>
+	/// If there's no intersection points, the output parameters used for storing these points won't be modified.<br/>
     /// If there is any intersection, the first parameter will be set to the closest one to the resident line's A endpoint.
 	/// </remarks>
 	/// <param name="segment">[IN] The segment to be compared to.</param>
@@ -242,12 +242,52 @@ public:
 		VectorType v1 = this->B - this->A;
 	    VectorType v2 = segment.B - segment.A;
 
-        float_q fSqrLengthProd = v1.GetSquaredLength() * v2.GetSquaredLength();
+        const float_q& V1_SQUARED_LENGTH = v1.GetSquaredLength();
+        const float_q& V2_SQUARED_LENGTH = v2.GetSquaredLength();
+        float_q fSqrLengthProd = V1_SQUARED_LENGTH * V2_SQUARED_LENGTH;
 
 		if ( SQFloat::IsZero(fSqrLengthProd) )
 		{
-            // No intersections.
-			return EQIntersections::E_None;
+            // At least one of the segments' length equals zero
+            if(SQFloat::IsZero(V1_SQUARED_LENGTH) && SQFloat::IsZero(V2_SQUARED_LENGTH))
+            {
+                if(*this == segment)
+                {
+                    // Both endpoints coincide
+                    return EQIntersections::E_Infinite;
+                }
+                else
+                {
+                    // No intersections
+                    return EQIntersections::E_None;
+                }
+            }
+            else if(SQFloat::IsZero(V1_SQUARED_LENGTH))
+            {
+                if(SQFloat::IsZero(this->MinDistance(segment)))
+                {
+                    vIntersection = this->A;
+                    return EQIntersections::E_Two;
+                }
+                else
+                {
+                    // No intersections
+                    return EQIntersections::E_None;
+                }
+            }
+            else // if(SQFloat::IsZero(V2_SQUARED_LENGTH)
+            {
+                if(SQFloat::IsZero(this->MinDistance(segment)))
+                {
+                    vIntersection = segment.A;
+                    return EQIntersections::E_Two;
+                }
+                else
+                {
+                    // No intersections
+                    return EQIntersections::E_None;
+                }
+            }
 		}
 		else // Neither segments have length 0 --> fSqrLengthProd ALWAYS > 0 at this stage.
 		{
@@ -579,8 +619,8 @@ public:
 	/// This method receives another line segment, and computes the intersection points between them, if they exist.
 	/// </summary>
     /// <remarks>
-    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br />
-	/// If there's no intersection points, the output parameters used for storing these points won't be modified.<br />
+    /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br/>
+	/// If there's no intersection points, the output parameters used for storing these points won't be modified.<br/>
     /// If there is any intersection, the first parameter will be set to the closest one to the resident line's A endpoint.
 	/// </remarks>
 	/// <param name="segment">[IN] The segment to be compared to.</param>
@@ -599,12 +639,54 @@ public:
 		VectorType v1 = this->B - this->A;
 	    VectorType v2 = segment.B - segment.A;
 
-        float_q fSqrLengthProd = v1.GetSquaredLength() * v2.GetSquaredLength();
+        const float_q& V1_SQUARED_LENGTH = v1.GetSquaredLength();
+        const float_q& V2_SQUARED_LENGTH = v2.GetSquaredLength();
+        float_q fSqrLengthProd = V1_SQUARED_LENGTH * V2_SQUARED_LENGTH;
 
 		if ( SQFloat::IsZero(fSqrLengthProd) )
 		{
-            // No intersections.
-			return EQIntersections::E_None;
+            // At least one of the segments' length equals zero
+            if(SQFloat::IsZero(V1_SQUARED_LENGTH) && SQFloat::IsZero(V2_SQUARED_LENGTH))
+            {
+                if(*this == segment)
+                {
+                    // Both endpoints coincide
+                    return EQIntersections::E_Infinite;
+                }
+                else
+                {
+                    // No intersections
+                    return EQIntersections::E_None;
+                }
+            }
+            else if(SQFloat::IsZero(V1_SQUARED_LENGTH))
+            {
+                if(SQFloat::IsZero(this->MinDistance(segment)))
+                {
+                    vIntersection1 = this->A;
+                    vIntersection2 = this->A;
+                    return EQIntersections::E_Two;
+                }
+                else
+                {
+                    // No intersections
+                    return EQIntersections::E_None;
+                }
+            }
+            else // if(SQFloat::IsZero(V2_SQUARED_LENGTH)
+            {
+                if(SQFloat::IsZero(this->MinDistance(segment)))
+                {
+                    vIntersection1 = segment.A;
+                    vIntersection2 = segment.A;
+                    return EQIntersections::E_Two;
+                }
+                else
+                {
+                    // No intersections
+                    return EQIntersections::E_None;
+                }
+            }
 		}
 		else // Neither segments have length 0 --> fSqrLengthProd ALWAYS > 0 at this stage.
 		{
@@ -964,11 +1046,11 @@ public:
     /// if they exist.
     /// </summary>
     /// <remarks>
-    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br />
-    /// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br />
+    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br/>
+    /// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br/>
     /// If there are two intersections, the first output parameter stores the closest one to A end point of
-    /// line segment, and the second one stores the closest one to B end point.<br />
-    /// When there is only one intersection point, the second output point won't change.<br />
+    /// line segment, and the second one stores the closest one to B end point.<br/>
+    /// When there is only one intersection point, the second output point won't change.<br/>
     /// If the segment is contained by the orb, it will return infinite intersection points although the 2 output parameters won't change.
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
@@ -1007,7 +1089,7 @@ public:
 		{
 			QE_ASSERT(SQFloat::IsNotZero(a))
 
-			const float_q &t = -(b*SQFloat::_0_5/a);
+			const float_q &t = -(b*SQFloat::_0_5 / a);
 
 			VectorType vAux(vNewA + t * vDirection + orb.Center);
 
@@ -1017,21 +1099,46 @@ public:
 				return EQIntersections::E_One;
 			}
 			else
-				return EQIntersections::E_None;
+            {
+                if(SQFloat::IsZero(a))
+                {
+                    // The length of the line segment equals zero (A == B). Rare case.
+                    const float_q& DISTANCE_TO_CENTER = this->A.Distance(orb.Center);
+
+                    if(SQFloat::IsLessThan(DISTANCE_TO_CENTER, orb.Radius))
+                    {
+                        return EQIntersections::E_Infinite;
+                    }
+                    else if(SQFloat::AreEqual(DISTANCE_TO_CENTER, orb.Radius))
+                    {
+                        vIntersection1 = this->A;
+                        vIntersection2 = this->A;
+                        return EQIntersections::E_Two;
+                    }
+                    else
+                    {
+                        return EQIntersections::E_None;
+                    }
+                }
+                else
+                {
+				    return EQIntersections::E_None;
+                }
+            }
 		}
 		else // D = b^2 - 4ac > 0 => 2 intersections
 		{
 			QE_ASSERT(SQFloat::IsNotZero(a))
 
 			const float_q &fAux1 = sqrt_q(D);
-			const float_q &fAux2 = SQFloat::_0_5/a;
+			const float_q &fAux2 = SQFloat::_0_5 / a;
 
 			// Closest intersection to ls.A
-			const float_q &t1 = (-b - fAux1)*fAux2;
+			const float_q &t1 = (-b - fAux1) * fAux2;
 			VectorType vAux1(vNewA + t1 * vDirection + orb.Center);
 
 			// Farthest intersection to ls.A
-			const float_q &t2 = (-b + fAux1)*fAux2;
+			const float_q &t2 = (-b + fAux1) * fAux2;
 			VectorType vAux2(vNewA + t2 * vDirection + orb.Center);
 
 			const bool &bIsInSegment1 = SQFloat::IsZero(this->MinDistance(vAux1));
@@ -1073,10 +1180,10 @@ public:
     /// if it exists.
     /// </summary>
     /// <remarks>
-    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br />
-    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br />
+    /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br/>
+    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br/>
     /// If there are two intersections, the output parameter stores the closest one to A end point of
-    /// line segment.<br />
+    /// line segment.<br/>
     /// If the segment is contained by the orb, it will return infinite intersection points although the output parameter won't change.
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>

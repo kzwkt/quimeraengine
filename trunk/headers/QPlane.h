@@ -127,7 +127,8 @@ public:
     /// <summary>
 	/// Constructor from a pointer to an array of floating point values.
 	/// </summary>
-	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements.</param>
+	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
+    /// is undefined.</param>
     inline explicit QPlane(float_q* arValues) : QBasePlane(arValues)
     {
     }
@@ -148,8 +149,8 @@ public:
 	/// Constructor from three points.
 	/// </summary>
     /// <remarks>
-    /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.<br />
-    /// The three points shouldn't be collinear and shouldn't coincide.
+    /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.<br/>
+    /// The three points shouldn't be collinear and shouldn't coincide; otherwise, the result is undefined.
     /// </remarks>
 	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
 	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
@@ -163,8 +164,8 @@ public:
 	/// Constructor from three points.
 	/// </summary>
     /// <remarks>
-    /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.<br />
-    /// The three points shouldn't be collinear and shouldn't coincide.
+    /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.<br/>
+    /// The three points shouldn't be collinear and shouldn't coincide; otherwise, the result is undefined.
     /// </remarks>
 	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
 	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
@@ -356,9 +357,11 @@ public:
     //Methods
 
     /// <summary>
-    /// Normalizes the resident plane.<br/>
-    /// This implies to divide all components of plane by the length of the normal.
+    /// Normalizes the plane.
     /// </summary>
+    /// <remarks>
+    /// If the plane is null, the result is undefined.
+    /// </remarks>
     /// <returns>
     /// The normalized plane.
     /// </returns>
@@ -403,9 +406,10 @@ public:
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
     /// <remarks>
-    /// The plane must be normalized to obtain a correct result.
+    /// The plane must be normalized to obtain a correct result and shouldn't be null (zero).
     /// </remarks>
-    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
+    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate. If it is null, the result
+    /// is undefined.</param>
     /// <returns>
     /// The result of the dot product.
     /// </returns>
@@ -415,9 +419,10 @@ public:
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
     /// <remarks>
-    /// The plane must be normalized to obtain a correct result.
+    /// The plane must be normalized to obtain a correct result and shouldn't be null (zero).
     /// </remarks>
-    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
+    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.. If it is null, the result
+    /// is undefined.
     /// <returns>
     /// The result of the dot product.
     /// </returns>
@@ -427,9 +432,10 @@ public:
     /// Calculates the angle between resident and provided planes via dot product between their direction vectors.
     /// </summary>
     /// <remarks>
-    /// Both planes must be normalized to obtain a correct result.
+    /// Both planes must be normalized to obtain a correct result and shouldn't be null (zero).
     /// </remarks>
-    /// <param name="plane">[IN] The plane whose angle with the resident plane we want to calculate.</param>
+    /// <param name="plane">[IN] The plane whose angle with the resident plane we want to calculate. If it is null, the result
+    /// is undefined.
     /// <returns>
     /// The result of the dot product.
     /// </returns>
@@ -471,6 +477,9 @@ public:
     /// <summary>
     /// Calculates if a point is contained in the resident plane.
     /// </summary>
+    /// <remarks>
+    /// If the plane is null, the result is undefined.
+    /// </remarks>
     /// <param name="vPoint">[IN] The point we want know if it is contained on the resident plane.</param>
     /// <returns>
     /// True if the point is contained, false otherwise.
@@ -480,6 +489,9 @@ public:
     /// <summary>
     /// Calculates if a point is contained in the resident plane.
     /// </summary>
+    /// <remarks>
+    /// If the plane is null, the result is undefined.
+    /// </remarks>
     /// <param name="vPoint">[IN] The point we want know if it is contained on the resident plane.</param>
     /// <returns>
     /// True if the point is contained, false otherwise.
@@ -520,6 +532,9 @@ public:
     /// Calculates the minimum distance from the given point to the resident plane, which is the length
     /// of the normal to the plane which passes through the point.
     /// </summary>
+    /// <remarks>
+    /// If the plane is null, the result is undefined.
+    /// </remarks>
     /// <param name="vPoint">[IN] The point we want know it distance from resident plane.</param>
     /// <returns>
     /// A floating point value which represents the minimum distance between the plane and the point.
@@ -530,6 +545,9 @@ public:
     /// Calculates the minimum distance from the given point to the resident plane, which is the length
     /// of the normal to the plane which passes through the point.
     /// </summary>
+    /// <remarks>
+    /// If the plane is null, the result is undefined.
+    /// </remarks>
     /// <param name="vPoint">[IN] The point we want know it distance from resident plane.</param>
     /// <returns>
     /// A floating point value which represents the minimum distance between the plane and the point.
@@ -620,11 +638,11 @@ public:
     /// <summary>
     /// Applies a scale to the resident plane.
     /// </summary>
-    /// <param name="scale">[IN] A [3x3] matrix containing the scale to be applied.</param>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.<br />
-    /// The scale should not equal zero to obtain a correct result.
+    /// Resultant plane is normalized after this operation.<br/>
+    /// The scale must not equal zero and the plane must not be null to obtain a correct result.
     /// </remarks>
+    /// <param name="scale">[IN] A [3x3] matrix containing the scale to be applied.</param>
     /// <returns>
     /// The scaled plane.
     /// </returns>
@@ -640,11 +658,11 @@ public:
     /// <summary>
     /// Applies a scale to the resident plane given by the provided vector.
     /// </summary>
-    /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.<br />
-    /// The scale should not equal zero to obtain a correct result.
+    /// Resultant plane is normalized after this operation.<br/>
+    /// The scale must not equal zero and the plane must not be null to obtain a correct result.
     /// </remarks>
+    /// <param name="vScale">[IN] A vector containing the scale to be applied.</param>
     /// <returns>
     /// The scaled plane.
     /// </returns>
@@ -660,13 +678,13 @@ public:
     /// <summary>
     /// Applies a scale to the resident plane given by the provided amounts for every axis.
     /// </summary>
+    /// <remarks>
+    /// Resultant plane is normalized after this operation.<br/>
+    /// The scale must not equal zero and the plane must not be null to obtain a correct result.
+    /// </remarks>
     /// <param name="fScaleX">[IN] The scale amount to be applied in X direction.</param>
     /// <param name="fScaleY">[IN] The scale amount to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] The scale amount to be applied in Z direction.</param>
-    /// <remarks>
-    /// Resultant plane is normalized after this operation.<br />
-    /// The scale should not equal zero to obtain a correct result.
-    /// </remarks>
     /// <returns>
     /// The scaled plane.
     /// </returns>
@@ -768,6 +786,7 @@ public:
     /// Applies a transformation to the resident plane.
     /// </summary>
     /// <remarks>
+    /// The transformation matrix must not equal zero and the plane must not be null to obtain a correct result.<br/>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
     /// <param name="transformation">[IN] A [4x3] matrix containing the transformation to be applied.</param>
@@ -822,6 +841,7 @@ public:
     /// Applies a transformation to the resident plane.
     /// </summary>
     /// <remarks>
+    /// The transformation matrix must not equal zero and the plane must not be null to obtain a correct result.<br/>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
     /// <param name="transformation">[IN] A [4x4] matrix containing the transformation to be applied.</param>
@@ -955,7 +975,8 @@ public:
     /// acting the given point as pivot of scale.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.
+    /// Resultant plane is normalized after this operation.<br/>
+    /// The scale must not equal zero and the plane must not be null to obtain a correct result.
     /// </remarks>
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
@@ -972,7 +993,8 @@ public:
     /// acting the given point as pivot of scale.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.
+    /// Resultant plane is normalized after this operation.<br/>
+    /// The scale must not equal zero and the plane must not be null to obtain a correct result.
     /// </remarks>
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
@@ -989,7 +1011,8 @@ public:
     /// acting the given point as pivot of scale.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.
+    /// Resultant plane is normalized after this operation.<br/>
+    /// The scale must not equal zero and the plane must not be null to obtain a correct result.
     /// </remarks>
     /// <param name="fScaleX">[IN] Amount of scale to be applied in X direction.</param>
     /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
@@ -1008,7 +1031,8 @@ public:
     /// acting the given point as pivot of scale.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.
+    /// Resultant plane is normalized after this operation.<br/>
+    /// The scale must not equal zero and the plane must not be null to obtain a correct result.
     /// </remarks>
     /// <param name="fScaleX">[IN] Amount of scale to be applied in X direction.</param>
     /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
@@ -1027,7 +1051,8 @@ public:
     /// acting the given point as pivot of scale.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.
+    /// Resultant plane is normalized after this operation.<br/>
+    /// The scale must not equal zero and the plane must not be null to obtain a correct result.
     /// </remarks>
     /// <param name="scale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
@@ -1061,6 +1086,7 @@ public:
     /// around the given point, that acts as pivot of transformation.
     /// </summary>
     /// <remarks>
+    /// The transformation matrix must not equal zero and the plane must not be null to obtain a correct result.<br/>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
     /// <param name="transformation">[IN] A [4x3] matrix containing the transformation to be applied.</param>
@@ -1078,7 +1104,8 @@ public:
     /// around the given point, that acts as pivot of transformation.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.<br />
+    /// The transformation matrix must not equal zero and the plane must not be null to obtain a correct result.<br/>
+    /// Resultant plane is normalized after this operation.<br/>
     /// The W component of the pivot point doesn't affect the result.
     /// </remarks>
     /// <param name="transformation">[IN] A [4x3] matrix containing the transformation to be applied.</param>
@@ -1096,6 +1123,7 @@ public:
     /// around the given point, that acts as pivot of transformation.
     /// </summary>
     /// <remarks>
+    /// The transformation matrix must not equal zero and the plane must not be null to obtain a correct result.<br/>
     /// Resultant plane is normalized after this operation.
     /// </remarks>
     /// <param name="transformation">[IN] A [4x4] matrix containing the transformation to be applied.</param>
@@ -1113,7 +1141,8 @@ public:
     /// around the given point, that acts as pivot of transformation.
     /// </summary>
     /// <remarks>
-    /// Resultant plane is normalized after this operation.<br />
+    /// The transformation matrix must not equal zero and the plane must not be null to obtain a correct result.<br/>
+    /// Resultant plane is normalized after this operation.<br/>
     /// The W component of the pivot point doesn't affect the result.
     /// </remarks>
     /// <param name="transformation">[IN] A [4x4] matrix containing the transformation to be applied.</param>

@@ -175,7 +175,7 @@ bool QQuadrilateral::IsConcave() const
 float_q QQuadrilateral::GetAngleA() const
 {
     // Contiguous vertices shouldn't coincide
-    QE_ASSERT(this->A != this->B && this->A != this->C);
+    QE_ASSERT(this->A != this->B && this->A != this->D);
 
     const float_q &ANGLE = (this->D - this->A).DotProductAngle(this->B - this->A);
 

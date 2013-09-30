@@ -95,7 +95,7 @@ public:
 
     /// <summary>
     /// Constructor from two vectors which defines two opposite vertices, with no common faces between them
-    /// (the ends of any inner diagonals).<br />
+    /// (the ends of any inner diagonals).<br/>
     /// Top face is compound of A, B, C and D points whilst bottom face is compound of E, F, G and H points. A point shares
     /// edge with B, D and E points whereas G point shares edge with C, F and H points.
     /// </summary>
