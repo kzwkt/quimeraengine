@@ -1184,19 +1184,19 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrb
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
     // Preparation
-    const float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3 };
+    const float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const QVector3 VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
     QRay<T, QVector3> RAY = QRay<T, QVector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
     RAY = RAY.Normalize();
 
-    const float_q VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3 };
+    const float_q VECTOR_COMPONENTS_CENTER_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_CENTER_CONTAINED(VECTOR_COMPONENTS_CENTER_CONTAINED);
     const float_q RADIUS_CONTAINED = SQFloat::_0;
     const QBaseOrb<T> ORB_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_CONTAINED, RADIUS_CONTAINED);
 
-    const float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_3, SQFloat::_3 };
+    const float_q VECTOR_COMPONENTS_CENTER_NOT_CONTAINED[] = { SQFloat::_4, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_CENTER_NOT_CONTAINED(VECTOR_COMPONENTS_CENTER_NOT_CONTAINED);
     const float_q RADIUS_NOT_CONTAINED = SQFloat::_0;
     const QBaseOrb<T> ORB_NOT_CONTAINED = QBaseOrb<T>(VALUE_FOR_CENTER_NOT_CONTAINED, RADIUS_CONTAINED);
@@ -1204,7 +1204,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrb
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
 
-    const T EXPECTED_POINT_CONTAINED = VALUE_FOR_CENTER_CONTAINED;
+    const float_q EXPECTED_POINT_COMPONENTS_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
+    const T EXPECTED_POINT_CONTAINED = T(EXPECTED_POINT_COMPONENTS_CONTAINED);
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
 
 	// Execution
