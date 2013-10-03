@@ -166,39 +166,62 @@ public:
     /// Checks if the ray intersects with another one.
     /// </summary>
     /// <remarks>
-    /// If both rays intesect, the intersection point must verify both vectorial ecuations:
-    ///
-    /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$
-    ///
-    /// \f$ P \equiv P_2 + \lambda_2 \cdot D_2 \f$
-    ///
-    /// These ecuations can be decomposed by components, obtaining  two equalities:
-    ///
-    /// 1) \f$ P_{1x} + \lambda_1 \cdot D_{1x} = P_{2x} + \lambda_2 \cdot D_{2x}\f$
-    ///
-    /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$
-    ///
+    /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
+    /// <br/>
+    /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$<br/>
+    /// <br/>
+    /// \f$ P \equiv P_2 + \lambda_2 \cdot D_2 \f$<br/>
+    /// <br/>
+    /// These ecuations can be decomposed by components, obtaining  two equalities:<br/>
+    /// <br/>
+    /// 1) \f$ P_{1x} + \lambda_1 \cdot D_{1x} = P_{2x} + \lambda_2 \cdot D_{2x}\f$<br/>
+    /// <br/>
+    /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$<br/>
+    /// <br/>
     /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
-    /// ensure ray direction is being followed.<br/>
-    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
+    /// ensure that the ray's direction is being followed.<br/>
+    /// When rays' direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
     /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
     /// <returns>
-    /// True if both rays intersect, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the rays intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The rays intersect, including the following cases:
+    /// - The rays intersect in one point.
+    /// - Tha rays are the same.
+    /// - One ray's origin is contained in the other ray.
+    /// - The rays share the same origin.
+    /// - One ray is contained in the other.
+    /// - Both rays point to the origin of the other, coinciding partially.
+    ///
+    /// <b>False</b><br/>
+    /// The rays do not intersect.
+	/// </returns>
     bool Intersection(const QRay2D &ray) const;
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided triangle.
+    /// Checks if the ray intersects with the provided triangle.
     /// </summary>
     /// <remarks>
     /// If the direction of the ray is null the result is undefined.
     /// </remarks>
-    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// <param name="triangle">[IN] The triangle whose intersection with the ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
     /// <returns>
-    /// True if ray intersect triangle, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the ray and the triangle intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The ray and the triangle intersect, including the following cases:
+    /// - The ray intersects the triangle in two points.
+    /// - The ray intersects with a vertex of the triangle.
+    /// - The the origin of the ray is contained in the triangle.
+    /// - The origin of the ray belongs to an edge of the triangle.
+    /// - The origin of the ray coincides with a vertex of the triangle.
+    ///
+    /// <b>False</b><br/>
+    /// The ray and the triangle do not intersect.
+	/// </returns>
     inline bool Intersection(const QBaseTriangle<QVector2> &triangle) const
     {
         // Vertices of the triangle must not coincide
@@ -215,16 +238,28 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided quadrilateral.
+    /// Checks if the ray intersects with the provided quadrilateral.
     /// </summary>
     /// <remarks>
     /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// <param name="quad">[IN] The quadrilateral whose intersection with the ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
     /// <returns>
-    /// True if ray intersect quadrilateral, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the ray and the quadrilateral intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The ray and the quadrilateral intersect, including the following cases:
+    /// - The ray intersects with two edges of the quadrilateral.
+    /// - The origin of the ray belongs to an edge of the quadrilateral.
+    /// - The ray intersects with a vertex of the quadrilateral.
+    /// - The origin of the ray is contained in the quadrilateral.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray points to a vertex of the same edge.
+    /// - The ray intersects with two vertices of the quadrilateral.
+    ///
+    /// <b>False</b><br/>
+    /// The ray and the quadrilateral do not intersect.
+	/// </returns>
     inline bool Intersection(const QBaseQuadrilateral &quad) const
     {
         return ( this->Intersection(quad.A, quad.B) || this->Intersection(quad.B, quad.C) ||
@@ -232,52 +267,83 @@ public:
     }
 
 	/// <summary>
-	/// Computes the intersection point between resident and provided ray, if it exists.
+	/// Computes the intersection point between resident and provided ray.
 	/// </summary>
     /// <remarks>
-	/// Both rays must be normalized to ensure correct result.<br/>
-	/// If there's no intersection point, or the rays are totally or parcially coincident,
+	/// If there are not intersection points or if there are infinite,
 	/// the output parameter used for storing that point won't be modified.<br/>
-    /// If both rays intesect, the intersection point must verify both vectorial ecuations:
-    ///
-    /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$
-    ///
-    /// \f$ P \equiv P_2 + \lambda_2 \cdot D_2 \f$
-    ///
-    /// These ecuations can be decomposed by components, obtaining two equalities:
-    ///
-    /// 1) \f$ P_{1x} + \lambda_1 \cdot D_{1x} = P_{2x} + \lambda_2 \cdot D_{2x}\f$
-    ///
-    /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$
-    ///
+    /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
+    /// <br/>
+    /// \f$ P \equiv P_1 + \lambda_1 \cdot D_1 \f$<br/>
+    /// <br/>
+    /// \f$ P \equiv P_2 + \lambda_2 \cdot D_2 \f$<br/>
+    /// <br/>
+    /// These ecuations can be decomposed by components, obtaining two equalities:<br/>
+    /// <br/>
+    /// 1) \f$ P_{1x} + \lambda_1 \cdot D_{1x} = P_{2x} + \lambda_2 \cdot D_{2x}\f$<br/>
+    /// <br/>
+    /// 2) \f$ P_{1y} + \lambda_1 \cdot D_{1y} = P_{2y} + \lambda_2 \cdot D_{2y}\f$<br/>
+    /// <br/>
     /// Finally, both \f$ \lambda_1 \f$ and \f$ \lambda_2 \f$ are forced to be greater or equal to 0, to
-    /// ensure ray direction is being followed.<br/>
+    /// ensure that the ray's direction is being followed.<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
 	/// </remarks>
-	/// <param name="ray">[IN] The ray whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection">[OUT] The point where they intersect, if they do.</param>
+	/// <param name="ray">[IN] The ray whose intersection with the resident ray will be checked.</param>
+	/// <param name="vIntersection">[OUT] The closest intersection point to the resident ray's origin.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the rays, and can take
-    /// the following values: E_None, E_One and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The rays intersect in one point.
+    /// - The origin of one ray is contained in the other ray.
+    /// - The origin of both rays coincide.
+    /// - One ray is contained in the other.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - Both rays point to each other.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The rays are the same.
+    /// </returns>
     EQIntersections IntersectionPoint(const QRay2D &ray, QBaseVector2 &vIntersection) const;
     
 	/// <summary>
-	/// Computes the intersection point between resident ray and provided triangle, if it exists.
+	/// Computes the intersection point between the ray and provided triangle.
 	/// </summary>
 	/// <remarks>
     /// If the direction of the ray is null the result is undefined.<br/>
-	/// If there's no intersection point, the output parameter won't be modified.<br/>
-	/// If there's one intersection point, the output parameter stores it.<br/>
-    /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// If there's no intersection point, the output parameter won't be modified.
 	/// </remarks>
     /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
+	/// <param name="vIntersection">[OUT] Closest intersection point to ray's origin point, if it exists.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the triangle, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with a vertex of the triangle.
+    /// - The origin of the ray is inside of the triangle.
+    /// - The origin of the ray belongs to an edge of the triangle and the ray does not point to the triangle.
+    /// - The origin of the ray coincides with a vertex of the triangle and the ray does not point to the triangle.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with two edges of the triangle.
+    /// - The origin of the ray belongs to an edge and the ray intersects with another edge.
+    /// - The origin of the ray coincides with a vertex of the triangle and the ray intersects with the opposite edge.
+    /// - The origin of the ray belongs to an edge and the ray intersects with a vertex of the same edge.
+    /// - The ray intersects with two vertices of the triangle.
+    /// </returns>
     EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
     {
         QBaseVector2 vAux;
@@ -285,42 +351,70 @@ public:
     }
 
 	/// <summary>
-	/// Computes the intersection point between resident ray and provided triangle, if it exists.
+	/// Computes the intersection point between the ray and provided triangle.
 	/// </summary>
 	/// <remarks>
     /// If the direction of the ray is null the result is undefined.<br/>
-	/// If there's no intersection point, the output parameters won't be modified.<br/>
-	/// If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br/>
-    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest to the origin point of the ray.
+	/// If there's no intersection point, the output parameters won't be modified.
 	/// </remarks>
     /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
-	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
+	/// <param name="vIntersection1">[OUT] Closest intersection point to ray's origin point, if it exists.</param>
+	/// <param name="vIntersection2">[OUT] Furthest intersection point to ray's origin point, if it exists.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the triangle, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with a vertex of the triangle.
+    /// - The origin of the ray is inside of the triangle.
+    /// - The origin of the ray belongs to an edge of the triangle and the ray does not point to the triangle.
+    /// - The origin of the ray coincides with a vertex of the triangle and the ray does not point to the triangle.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with two edges of the triangle.
+    /// - The origin of the ray belongs to an edge and the ray intersects with another edge.
+    /// - The origin of the ray coincides with a vertex of the triangle and the ray intersects with the opposite edge.
+    /// - The origin of the ray belongs to an edge and the ray intersects with a vertex of the same edge.
+    /// - The ray intersects with two vertices of the triangle.
+    /// </returns>
     EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
 	/// <summary>
-	/// Computes the intersection point between resident ray and provided quadrilateral, if it exists.
+	/// Computes the intersection point between the ray and provided quadrilateral.
 	/// </summary>
 	/// <remarks>
     /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.<br/>
-	/// If there's no intersection point, the output parameter won't be modified.<br/>
-	/// If there's one intersection point, the output parameter stores it.<br/>
-    /// If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// If there's no intersection point, the output parameter won't be modified.
 	/// </remarks>
 	/// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
 	/// <param name="vIntersection">[OUT] Closest intersection point to ray origin point, if it exists.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the triangle.
+    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the triangle.
+    /// - The ray intersects with only one vertex of the quadrilateral.
+    /// - The origin of the ray is contained in the quadrilateral.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with two edges of the quadrilateral.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with another edge.
+    /// - The origin of the ray coincides with a vertex of the quadrilateral and the ray intersects with another edge.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with a vertex of the edge.
+    /// - The ray intersects with two vertices of the quadrilateral.
+    /// </returns>
     EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
     {
         QBaseVector2 vAux;
@@ -328,68 +422,118 @@ public:
     }
 
 	/// <summary>
-	/// Computes the intersection point between resident ray and provided quadrilateral, if it exists.
+	/// Computes the intersection point between the ray and provided quadrilateral.
 	/// </summary>
 	/// <remarks>
     /// If the quadrilateral is complex or concave or if the direction of the ray is null, the result is undefined.<br/>
-	/// If there's no intersection point, the output parameters won't be modified.<br/>
-	/// If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br/>
-    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest to the origin point of the ray.
+	/// If there's no intersection point, the output parameters won't be modified.
 	/// </remarks>
     /// <param name="quad">[IN] The quadrilateral whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
-	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
+	/// <param name="vIntersection1">[OUT] Closest intersection point to ray origin point, if it exists.</param>
+	/// <param name="vIntersection2">[OUT] Furthest intersection point to ray origin point, if it exists.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the triangle.
+    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the triangle.
+    /// - The ray intersects with only one vertex of the quadrilateral.
+    /// - The origin of the ray is contained in the quadrilateral.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with two edges of the quadrilateral.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with another edge.
+    /// - The origin of the ray coincides with a vertex of the quadrilateral and the ray intersects with another edge.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with a vertex of the edge.
+    /// - The ray intersects with two vertices of the quadrilateral.
+    /// </returns>
     EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 
     /// <summary>
-    /// Checks if resident ray and provided line segment intersects.
+    /// Checks if the ray and the provided line segment intersect.
     /// </summary>
     /// <remarks>
     /// If the direction of the ray is null the result is undefined.
     /// </remarks>
     /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
     /// <returns>
-    /// True if line segment and resident ray intersects, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the ray and the line segment intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The ray and the line segment intersect, including the following cases:
+    /// - The ray intersects with the segment, between endpoints A and B.
+    /// - The origin of the ray coincides with an endpoint of the line and the ray intersects with the other endpoint.
+    /// - The origin of the ray belongs to the line segment.
+    /// - The origin of the ray coincides with an endpoint of the line and the ray does not point to the othe endpoint.
+    /// - The ray intersects with only one endpoint of the segment.
+    ///
+    /// <b>False</b><br/>
+    /// The ray and the line segment do not intersect.
+	/// </returns>
     bool Intersection(const QBaseLineSegment<QVector2> &segment) const;
 
     /// <summary>
-    /// Computes the intersection point between resident ray and provided line segment, if it exists.
+    /// Computes the intersection point between the ray and provided line segment, if it exists.
     /// </summary>
     /// <remarks>
     /// If the direction of the ray is null the result is undefined.<br/>
-    /// If there's no intersection point, the output parameters won't be modified.<br/>
-    /// If there's one intersection point, output parameter is filled with the intersection point.
+    /// If there's no intersection point, the output parameters won't be modified.
     /// </remarks>
-    /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
-    /// <param name="vIntersection">[OUT] The intersection point with line segment, if it exists.</param>
+    /// <param name="segment">[IN] The line segment whose intersection with the ray will be checked.</param>
+    /// <param name="vIntersection">[OUT] Closest intersection point to the ray's origin point, if it exists.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
-    /// the following values: E_None, E_One or E_Two.
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with the line segment, between the endpoints A and B.
+    /// - The origin of the ray belongs to the line segment.
+    /// - The origin of the ray coincides with an endpoint of the line.
+    /// - The ray intersects with only one endpoint of the line.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The origin of the ray coincides with an endpoint of the line and contains the line.
+    /// - The ray contains the line segment.
     /// </returns>
     EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection) const;
 
     /// <summary>
-    /// Computes the intersection point between resident ray and provided line segment, if it exists.
+    /// Computes the intersection point between the ray and provided line segment, if it exists.
     /// </summary>
     /// <remarks>
     /// If the direction of the ray is null the result is undefined.<br/>
-    /// If there's no intersection point, the output parameters won't be modified.<br/>
-    /// If there's one intersection point, the first output parameter is filled with the intersection point.
+    /// If there's no intersection point, the output parameters won't be modified.
     /// </remarks>
     /// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
-    /// <param name="vIntersection1">[OUT] The first intersection point with line segment, if it exists.</param>
-    /// <param name="vIntersection2">[OUT] The second intersection point with line segment, if it exists.</param>
+    /// <param name="vIntersection1">[OUT] Closest intersection point to the ray's origin point, if it exists.</param>
+    /// <param name="vIntersection2">[OUT] Furthest intersection point to the ray's origin point, if it exists.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
-    /// the following values: E_None, E_One or E_Two.
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with the line segment, between the endpoints A and B.
+    /// - The origin of the ray belongs to the line segment.
+    /// - The origin of the ray coincides with an endpoint of the line.
+    /// - The ray intersects with only one endpoint of the line.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The origin of the ray coincides with an endpoint of the line and contains the line.
+    /// - The ray contains the line segment.
     /// </returns>
     EQIntersections IntersectionPoint(const QBaseLineSegment<QVector2> &segment, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
 

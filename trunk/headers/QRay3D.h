@@ -176,13 +176,13 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided one.
+    /// Checks if the ray intersects with the provided one.
     /// </summary>
     /// <remarks>
     /// If the direction of any of the rays is null, the result is undefined.<br/>
     /// How it is calculated:<br/>
     /// <br/>
-    /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
+    /// If both rays intersect, the intersection point must verify both vectorial ecuations:<br/>
     /// <br/>
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
     /// <br/>
@@ -202,8 +202,20 @@ public:
     /// </remarks>
     /// <param name="ray">[IN] The ray whose intersection with resident one will be checked.</param>
     /// <returns>
-    /// True if both rays intersect, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the rays intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The rays intersect, including the following cases:
+    /// - The rays intersect in one point.
+    /// - The rays are the same.
+    /// - The origin of one ray is contained in the other ray.
+    /// - The origin of both rays coincides.
+    /// - One ray contains the other.
+    /// - Both rays point to each other.
+    /// 
+    /// <b>False</b><br/>
+    /// The rays do not intersect.
+	/// </returns>
     bool Intersection(const QRay3D<VectorType> &ray) const
     {
         // Direction vector of rays should not be null
@@ -252,7 +264,7 @@ public:
     }
 
     /// <summary>
-	/// Checks if resident ray and provided line segment intersects.
+	/// Checks if the ray and the provided line segment intersects.
 	/// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
@@ -278,9 +290,20 @@ public:
     /// Finally it's verified that \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
     /// </remarks>
-	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
+	/// <param name="segment">[IN] The line segment whose intersection with the ray will be checked.</param>
 	/// <returns>
-    /// True if line segment and resident ray intersects, false otherwise.
+	/// A boolean value that indicates whether the ray and the line segment intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The ray and the line segment intersect, including the following cases:
+    /// - The ray intersect with the line segment between endpoints A and B.
+    /// - The origin of the ray coincides with an endpoint of the segment and the ray contains the segment.
+    /// - The origin of the ray belongs to the line segment.
+    /// - The origin of the ray only coincides with one endpoint.
+    /// - The ray intersects with one or with both endpoints.
+    /// 
+    /// <b>False</b><br/>
+    /// The ray and the line segment do not intersect.
 	/// </returns>
     bool Intersection(const QBaseLineSegment<VectorType> &segment) const
     {
@@ -336,7 +359,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided plane.
+    /// Checks if the ray intersects with the provided plane.
     /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
@@ -356,8 +379,19 @@ public:
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check if intersects with resident ray. If the plane is null, the result is undefined.</param>
     /// <returns>
-    /// True if plane and ray intersects, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the ray and the plane intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The ray and the plane intersect, including the following cases:
+    /// - The origin of the ray belongs to one side of the space divided by the plane and points to the other side.
+    /// - The ray is completely contained in the plane.
+    /// - Only the origin of the ray belongs to the plane.
+    /// 
+    /// <b>False</b><br/>
+    /// The ray and the plane do not intersect.
+    /// - The ray is parallel to the plane and is not contained in it.
+    /// - The origin of the ray belongs to one side of the space divided by the plane and does not point to the other side.
+	/// </returns>
     inline bool Intersection(const QBasePlane &plane) const
     {
         // The plane shouldn't be null
@@ -379,16 +413,29 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided triangle.
+    /// Checks if the ray intersects with the provided triangle.
     /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+    /// <param name="triangle">[IN] The triangle whose intersection with the ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
     /// <returns>
-    /// True if ray intersect triangle, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the ray and the triangle intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The ray and the triangle intersect, including the following cases:
+    /// - The ray intersects with two edges of the triangle.
+    /// - The ray intersects with a vertex of the triangle.
+    /// - The origin of the ray is contained in the triangle (and the ray does not intersects with any edge).
+    /// - The origin of the ray is contained in the triangle (and the ray intersects with an edge).
+    /// - The origin of the ray belongs to an edge of the triangle.
+    /// - The ray intersects with an edge of the triangle in only one point.
+    /// - The origin of the ray coincides with a vertex of the triangle.
+    ///
+    /// <b>False</b><br/>
+    /// The ray and the triangle do not intersect.
+	/// </returns>
     inline bool Intersection(const QBaseTriangle<VectorType> &triangle) const
     {
         // Vertices of the triangle must not coincide
@@ -420,17 +467,30 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided hexahedron.
+    /// Checks if the ray intersects with the provided hexahedron.
     /// </summary>
     /// <remarks>
-    /// If the direction of the ray is null, the result is undefined.<br/>
-    /// If the origin of the ray lies on one of the hexahedron faces, we consider there is an intersection.
+    /// If the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with resident ray. It must be convex for the operation to return correct 
+    /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with the ray. It must be convex for the operation to return correct 
     /// results. If any of its vertices coincide, the result is undefined.</param>
     /// <returns>
-    /// True if hexahedron and ray intersects, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the ray and the hexahedron intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The ray and the hexahedron intersect, including the following cases:
+    /// - The ray intersects with two of the faces of the hexahedron.
+    /// - The ray intersects with a vertex of the hexahedron.
+    /// - The origin of the ray belongs to a face of the hexahedron.
+    /// - The origin of the ray belongs to a face of the hexahedron and the ray intersects one of the edges of the same face.
+    /// - The origin of the ray is contained in the hexahedron.
+    /// - The origin of the ray belongs to an edge of the hexahedron.
+    /// - The ray intersects with an edge of the hexahedron.
+    /// - The origin of the ray coincides with a vertex of the hexahedron.
+    ///
+    /// <b>False</b><br/>
+    /// The ray and the hexahedron do not intersect.
+	/// </returns>
     inline bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         // The direction vector of the ray mustn't be null
@@ -447,14 +507,13 @@ public:
 
 
     /// <summary>
-	/// Computes the intersection point between resident and provided ray, if it exists.
+	/// Computes the intersection point between resident and provided ray.
 	/// </summary>
     /// <remarks>
-	/// Rays must be normalized to ensure correct results.<br/>
-	/// If there's no intersection point, or the rays are totally or parcially coincident,
+	/// If there's no intersection point or there are infinite,
 	/// the output parameter used for storing that point won't be modified.<br/>
     /// <br/>
-    /// If both rays intesect, the intersection point must verify both vectorial ecuations:<br/>
+    /// If the rays intesect, the intersection point must verify both vectorial ecuations:<br/>
     /// <br/>
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
     /// <br/>
@@ -475,12 +534,29 @@ public:
     /// <br/>
     /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
 	/// </remarks>
-	/// <param name="ray">[IN] The ray whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection">[OUT] The point where they intersect, if they do.</param>
+	/// <param name="ray">[IN] The ray whose intersection with the resident ray will be checked.</param>
+	/// <param name="vIntersection">[OUT] The closest intersection point to the resident ray's origin.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the rays, and can take
-    /// the following values: E_None, E_One, E_Two or E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The rays intersect in one point.
+    /// - The origin of one ray is contained in the other ray.
+    /// - The origin of both rays coincide.
+    /// - One ray is contained in the other.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - Both rays point to each other.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The rays are the same.
+    /// </returns>
     EQIntersections IntersectionPoint(const QRay3D<VectorType> &ray, VectorType &vIntersection) const
     {
         // The direction vector of the ray shouldn't be null
@@ -566,13 +642,14 @@ public:
                 return EQIntersections::E_None;
         }
     }
-
+    
     /// <summary>
-	/// Computes the intersection point between resident ray and provided line segment, if it exists.
+	/// Computes the intersection point between the ray and provided line segment, if it exists.
 	/// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
-    /// A ray with direction from A to B with origin in A is constructed.<br/>
+    /// If there's no intersection point, the output parameters won't be modified.<br/>
+    /// To calculate the intersections, a ray with direction from A to B with origin in A is constructed.<br/>
     /// If both rays intersects, the intersection point must verify both vectorial ecuations:<br/>
     /// <br/>
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
@@ -593,18 +670,29 @@ public:
     /// <br/>
     /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// <br/>
-    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br/>
-	/// - If there's no intersection point, the output parameters won't be modified.<br/>
-	/// - If there's one intersection point, output parameter is filled with the intersection point.<br/>
-    /// - If there are infinite intersection points, the output parameters won't be modified.
+    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
 	/// </remarks>
 	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection">[OUT] The intersection point with line segment, if it exists.</param>
+	/// <param name="vIntersection">[OUT] The closest intersection point to the ray's origin.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
-    EQIntersections IntersectionPoint (const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with the line segment between endpoints A and B.
+    /// - The origin of the ray coincides with an endpoint of the segment and the other endpoint is not contained in the ray.
+    /// - The origin of the ray is contained in the line segment and thre is no intersection with the endpoints.
+    /// - The ray intersects with an endpoint of the segment.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The origin of the ray coincides with an endpoint of the segment and the other endpoint is contained in the ray.
+    /// - The ray intersects with the teo endpoints of the line, containing it.
+    /// </returns>
+    EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
     {
         // The direction vector of the ray shouldn't be null
         QE_ASSERT( !this->Direction.IsZero() );
@@ -730,7 +818,8 @@ public:
 	/// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
-    /// A ray with direction from A to B with origin in A is constructed.<br/>
+    /// If there's no intersection point, the output parameters won't be modified.<br/>
+    /// To calculate the intersections, a ray with direction from A to B with origin in A is constructed.<br/>
     /// If both rays intersects, the intersection point must verify both vectorial ecuations:<br/>
     /// <br/>
     /// \f$ P \equiv P_1 + t_1 \cdot D_1 \f$<br/>
@@ -751,18 +840,30 @@ public:
     /// <br/>
     /// \f$ P_1 + t_1 \cdot D_1 = P_2 + t_2 \cdot D_2 \f$<br/>
     /// <br/>
-    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.<br/>
-	/// - If there's no intersection point, the output parameters won't be modified.<br/>
-	/// - If there's one intersection point, output parameter is filled with the intersection point.<br/>
+    /// When rays direction vector are parallel, one ray containing the other ray origin point is checked.
 	/// </remarks>
-	/// <param name="segment">[IN] The line segment whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection1">[OUT] The first intersection point with line segment, if it exists.</param>
-    /// <param name="vIntersection2">[OUT] The second intersection point with line segment, if it exists.</param>
+	/// <param name="segment">[IN] The line segment whose intersection with the ray will be checked.</param>
+	/// <param name="vIntersection1">[OUT] The closest intersection point to the ray's origin.</param>
+    /// <param name="vIntersection2">[OUT] The furthest intersection point to the ray's origin.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the quadrilateral, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
-    EQIntersections IntersectionPoint (const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with the line segment between endpoints A and B.
+    /// - The origin of the ray coincides with an endpoint of the segment and the other endpoint is not contained in the ray.
+    /// - The origin of the ray is contained in the line segment and thre is no intersection with the endpoints.
+    /// - The ray intersects with an endpoint of the segment.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The origin of the ray coincides with an endpoint of the segment and the other endpoint is contained in the ray.
+    /// - The ray intersects with the teo endpoints of the line, containing it.
+    /// </returns>
+    EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
     {
         // The direction vector of the ray shouldn't be null
         QE_ASSERT( !this->Direction.IsZero() );
@@ -906,10 +1007,11 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident ray intersects with the provided plane, calculating the intersection point.
+    /// Checks if the ray intersects with the provided plane, calculating the intersection point.
     /// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
+    /// If there is no intersection point or if there are infinite, the output parameter is not modified.<br/>
     /// Intersection point \f$ P_0 \f$ must verify both ecuations:<br/>
     /// <br/>
     /// Ray equation: \f$ P_0 = P + t \cdot V \f$<br/>
@@ -925,11 +1027,21 @@ public:
     /// - If t < 0, there are no intersection (the ray straight line intersects the plane backwards the ray position).
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check if intersects with resident ray. If it is null, the result is undefined.</param>
-    /// <param name="vIntersection">[OUT] The point where they intersect, if they do.</param>
+    /// <param name="vIntersection">[OUT] The intersection point.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the plane, and can take
-    /// the following values: E_None, E_One and E_Infinite.<br/>
-    /// If there are no intersections or ray lies on plane, the output parameter is not modified.
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The origin of the ray is in one side of the space divided by the plane, pionting to the other side.
+    /// - Only the origin of the ray belongs to the plane.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The ray is completely contained in the plane.
     /// </returns>
     EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
     {
@@ -973,21 +1085,37 @@ public:
     }
 
 	/// <summary>
-	/// Computes the intersection points between resident ray and provided triangle, if they exists.
+	/// Computes the intersection points between the ray and provided triangle.
 	/// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
-	/// - If there's no intersection point, the output parameter won't be modified.<br/>
-	/// - If there's one intersection point, the output parameter stores it.<br/>
-    /// - If there are two intersection points, the output parameter is filled with the closest to the origin point of the ray.
+	/// If there's no intersection point, the output parameter won't be modified.
 	/// </remarks>
 	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection">[OUT] Closest point to ray origin where they intersect, if they do.</param>
+	/// <param name="vIntersection">[OUT] Closest intersection point to the ray's origin.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the triangle, that can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with the interior (face) of the triangle in one point.
+    /// - The ray intersects with a vertex of the triangle.
+    /// - The origin of the ray is inside the triangle and the ray does not intersect with any edge.
+    /// - The origin of the ray is inside the triangle and the ray intersect with an edge.
+    /// - The origin of the ray belongs to an edge of the triangle.
+    /// - The ray intersects with an edge of the triangle.
+    /// - The origin of the ray coincides with a vertex of the triangle.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The origin of the ray belongs to an edge and the ray intersects with another edge.
+    /// - The origin of the ray belongs to an edge and the ray intersects with a vertex of the edge.
+    /// - The ray intersects with two edges of the triangle.
+    /// </returns>
     EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection) const
     {
         VectorType vAux;
@@ -995,24 +1123,38 @@ public:
     }
 
 	/// <summary>
-	/// Computes the intersection point between resident ray and provided triangle, if it exists.
+	/// Computes the intersection point between the ray and provided triangle.
 	/// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
-	/// - If there's no intersection point, the output parameters won't be modified.<br/>
-	/// - If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br/>
-    /// - If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest to the origin point of the ray.
+	/// If there's no intersection point, the output parameters won't be modified.
 	/// </remarks>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident ray will be checked. If any of its vertices coincide, 
+	/// <param name="triangle">[IN] The triangle whose intersection with the ray will be checked. If any of its vertices coincide, 
     /// the result is undefined.</param>
-	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
-	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
+	/// <param name="vIntersection1">[OUT] Closest intersection point to the ray's origin.</param>
+	/// <param name="vIntersection2">[OUT] Furthest intersection point to the ray's origin.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the triangle, and can take
-    /// the following values: E_None, E_One or E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with the interior (face) of the triangle in one point.
+    /// - The ray intersects with a vertex of the triangle.
+    /// - The origin of the ray is inside the triangle and the ray does not intersect with any edge.
+    /// - The origin of the ray is inside the triangle and the ray intersect with an edge.
+    /// - The origin of the ray belongs to an edge of the triangle.
+    /// - The ray intersects with an edge of the triangle.
+    /// - The origin of the ray coincides with a vertex of the triangle.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The origin of the ray belongs to an edge and the ray intersects with another edge.
+    /// - The origin of the ray belongs to an edge and the ray intersects with a vertex of the edge.
+    /// - The ray intersects with two edges of the triangle.
+    /// </returns>
     EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection1, VectorType &vIntersection2) const
     {
         // Plane that contains triangle
@@ -1333,23 +1475,37 @@ public:
     }
 
     /// <summary>
-	/// This method receives a convex hexahedron, and computes the points where the resident ray intersects with it,
-    /// if they exists.
+	/// Computes the intersection point between the ray and provided hexahedron.
 	/// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
     /// The hexahedron must be convex for the operation to return correct results.<br/>
-	/// - If there's no intersection point, the output parameter used for storing the intersection point won't be modified.<br/>
-	/// - If there is only one intersection point, it's stored in the output parameter.<br/>
-	/// - If there are two intersections, the output parameter stores the closest point to origin of ray.<br/>
+	/// If there's no intersection point, the output parameter used for storing the intersection point won't be modified.
 	/// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident ray are wanted. It must be convex for the operation to return correct 
+	/// <param name="hexahedron">[IN] The hexahedron whose intersections with the ray are wanted. It must be convex for the operation to return correct 
     /// results. If any of its vertices coincide, the result is undefined.</param>
-    /// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to origin of ray.</param>
+    /// <param name="vIntersection">[OUT] Closest intersection point to the ray's origin.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the hexahedron,
-    /// which can takes the following values: E_None, E_One, E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with a vertex of the hexahedron.
+    /// - The origin of the ray is contained in the hexahedron.
+    /// - The origin of the ray belongs to an edge of the hexahedron.
+    /// - The ray intersects with an edge of the hexahedron in only one point.
+    /// - The origin of the ray coincides with a vertex of the hexahedron and the ray does not point to the hexahedron.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with two faces of the hexahedron.
+    /// - The origin of the ray belongs to a face of the hexahedron and the ray intersects an edge of the face.
+    /// - The origin of the ray belongs to an edge of the hexahedron and the ray points to the hexahedron.
+    /// - The origin of the ray coincides with a vertex of the hexahedron and the ray points to the hexahedron.
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
 	{
 	    VectorType vAux;
@@ -1357,24 +1513,38 @@ public:
 	}
 
     /// <summary>
-	/// This method receives a convex hexahedron, and computes the points where the resident ray intersects with it,
-    /// if they exists.
+	/// Computes the intersection points between the ray and provided hexahedron.
 	/// </summary>
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.<br/>
-    /// The hexahedron must be convex for the operation to return correct results.</br>
-	/// - If there's no intersection point, the output parameters used for storing the intersection points won't be modified.</br>
-	/// - If there is only one intersection point, it's stored in the first output parameter, and the second one is not modified.</br>
-	/// - If there are two intersections, the first output parameter stores the closest point to origin of ray.
-	/// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident ray are wanted. It must be convex for the operation to return correct 
+    /// The hexahedron must be convex for the operation to return correct results.<br/>
+	/// If there are no intersection point, the output parameters used for storing the intersection points will not be modified.
+    /// </remarks>
+	/// <param name="hexahedron">[IN] The hexahedron whose intersections with the ray are wanted. It must be convex for the operation to return correct 
     /// results. If any of its vertices coincide, the result is undefined.</param>
-    /// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to origin of ray.</param>
-    /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to origin of ray.</param>
+    /// <param name="vIntersection1">[OUT] Closest intersection point to the ray's origin.</param>
+    /// <param name="vIntersection2">[OUT] Furthest intersection point to the ray's origin.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the resident ray and the hexahedron,
-    /// which can takes the following values: E_None, E_One, E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The ray intersects with a vertex of the hexahedron.
+    /// - The origin of the ray is contained in the hexahedron.
+    /// - The origin of the ray belongs to an edge of the hexahedron.
+    /// - The ray intersects with an edge of the hexahedron in only one point.
+    /// - The origin of the ray coincides with a vertex of the hexahedron and the ray does not point to the hexahedron.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with two faces of the hexahedron.
+    /// - The origin of the ray belongs to a face of the hexahedron and the ray intersects an edge of the face.
+    /// - The origin of the ray belongs to an edge of the hexahedron and the ray points to the hexahedron.
+    /// - The origin of the ray coincides with a vertex of the hexahedron and the ray points to the hexahedron.
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
         VectorType vAuxPoint, vAux1, vAux2;

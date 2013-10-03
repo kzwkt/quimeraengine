@@ -156,14 +156,24 @@ public:
     }
 
 	/// <summary>
-	/// This method receives another orb and computes whether this orb intersects the resident one or not.
+	/// Receives another orb and computes whether this orb intersects with the resident one or not.
 	/// </summary>
     /// <remarks>
     /// If the radius of the orb equals zero, the orb will be considered as a point (which is wrong).
     /// </remarks>
     /// <param name="orb">[IN] The orb to be checked for intersections.</param>
 	/// <returns>
-	/// True if they intersect to each other (or if they were either tangent or coincident). Otherwise returns false.
+	/// A boolean value that indicates whether the orbs intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The orbs intersect, including the following cases:
+    /// - The orbs intersect partially.
+    /// - The orbs are tangent.
+    /// - The orbs coincide completely.
+    /// - One orb is contained in the other.
+    ///
+    /// <b>False</b><br/>
+    /// The orbs do not intersect.
 	/// </returns>
     inline bool Intersection(const QBaseOrb<VectorType> &orb) const
     {

@@ -215,7 +215,7 @@ public:
     /// </summary>
     /// <param name="fValueA">[IN] First floating point number to be compared.</param>
     /// <param name="fValueB">[IN] Second floating point number to be compared.</param>
-    /// <param name="fValueB">[IN] Tolerance to be applied in the comparison.</param>
+    /// <param name="fTolerance">[IN] Tolerance to be applied in the comparison.</param>
     /// <returns>
     /// If values are the same, then it returns True. Otherwise, it returns False.
     /// </returns>

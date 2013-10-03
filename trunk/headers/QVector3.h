@@ -666,7 +666,7 @@ public:
     /// <br/>
     /// where v is the resident vector, \f$\hat{Q}\f$ the dual quaternion and \f$\hat{Q}^*\f$ the double conjugate of the dual quaternion.
     /// </remarks>
-    /// <param name="qRotation">[IN] The transformation.</param>
+    /// <param name="transformation">[IN] The transformation.</param>
     /// <returns>
     /// The transformed vector.
     /// </returns>

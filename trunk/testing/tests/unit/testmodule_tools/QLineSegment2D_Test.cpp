@@ -823,7 +823,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithVertex_Test )
 }
 
 /// <summary>
-/// Checks that it returns True when the line intersects with two contiguous edges of the qudrilateral.
+/// Checks that it returns True when the line intersects with two contiguous edges of the quadrilateral.
 /// </summary>
 QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithTwoContiguousEdges_Test )
 {

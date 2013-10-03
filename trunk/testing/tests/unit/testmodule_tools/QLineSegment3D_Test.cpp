@@ -2559,7 +2559,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndpointBel
 /// <summary>
 /// Checks that it returns two intersection points when the line segment is contained in an edge of the triangle.
 /// </summary>
-QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionWhenLineSegmentBelongsToEdgeOfTriangle_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineSegmentBelongsToEdgeOfTriangle_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
