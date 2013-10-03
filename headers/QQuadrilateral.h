@@ -159,8 +159,19 @@ public:
     /// </remarks>
     /// <param name="quad">[IN] The quadrilateral we want to check the intersection with resident one.</param>
     /// <returns>
-    /// True if the given quadrilateral intersects with resident quadrilateral, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the quadrilaterals intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The quadrilaterals intersect, including the following cases:
+    /// - The quadrilaterals are overlapped but not coincident.
+    /// - The quadrilaterals share only one vertex.
+    /// - A vertex of one quadrilateral is contained in the edge of the other.
+    /// - The quadrilaterals are coincident.
+    /// - One quadrilateral is contained in the other.
+    ///
+    /// <b>False</b><br/>
+    /// The quadrilaterals do not intersect.
+	/// </returns>
     bool Intersection(const QBaseQuadrilateral &quad) const;
 
     /// <summary>

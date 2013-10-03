@@ -296,13 +296,30 @@ public:
 	/// When no intersections are detected, output parameters are not modified.
 	/// </summary>
     /// <remarks>
-    /// If any of both circles' radius equals zero, the result is undefined.
+    /// If any of both circles' radius equals zero, the result is undefined.<br/>
+    /// If there are no intersections or it there are infinite, the output parameters will not be modified.
     /// </remarks>
     /// <param name="circle">[IN] A circle that is supposed to intersect with resident one.</param>
-    /// <param name="vIntersection1">[OUT] An intersection point.</param>
+    /// <param name="vIntersection1">[OUT] An intersection point. If there is only one intersection, it will be stored in this parameter.</param>
     /// <param name="vIntersection2">[OUT] An intersection point.</param>
     /// <returns>
-    /// An enumerated value that shows if there have been one intersection, two intersections, one circle is contained into the other or the circles don't intersect.
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - Circles are tangent.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - Circles intersect but not coincide and are not contained in each other.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - Circles are the same.
+    /// - One circle is contained in the other.
     /// </returns>
     inline EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &circle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
     {

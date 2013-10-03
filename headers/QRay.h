@@ -175,10 +175,20 @@ public:
     /// <remarks>
     /// If the direction of the ray is null, the result is undefined.
     /// </remarks>
-    /// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
+    /// <param name="orb">[IN] The orb whose intersection with the ray will be checked.</param>
     /// <returns>
-    /// True if ray intersect orb, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the ray and the orb intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The ray and the orb intersect, including the following cases:
+    /// - The ray intersects the orb in two points.
+    /// - The origin of the ray lays on the surface / perimeter of the orb (and the ray does not point to the orb).
+    /// - The origin of the ray is contained in the orb.
+    /// - The ray is tangent to the orb.
+    ///
+    /// <b>False</b><br/>
+    /// The ray and the orb do not intersect.
+	/// </returns>
     inline bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
     {
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
@@ -234,14 +244,26 @@ public:
     /// <remarks>
     /// The ray must be normalized to obtain a correct result.<br/>
     /// If the direction of the ray is null, the result is undefined.<br/>
-    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br/>
-    /// If there are one or two intersections, the output parameter stores the closest to ray origin.
+    /// If there's no intersection point, the output parameter used for storing the point won't be modified.
     /// </remarks>
-    /// <param name="orb">[IN] The orb whose intersections with resident ray we want to check.</param>
-    /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
+    /// <param name="orb">[IN] The orb whose intersections with the ray we want to check.</param>
+    /// <param name="vIntersection">[OUT] A vector where to store the closest intersection point to the origin of the ray.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The origin of the ray lays on the surface / perimeter of the orb and the ray does not point to the orb.
+    /// - The origin of the ray is contained in the orb.
+    /// - The ray is tangent to the orb.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with the orb in two points.
+    /// - The origin of the ray lays on the surface / perimeter of the orb and the ray points to the orb.
     /// </returns>
 	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection) const
 	{
@@ -251,24 +273,33 @@ public:
 
 
     /// <summary>
-	/// Computes the intersection point between resident ray and provided orb, if it exists.
+	/// Computes the intersection point between the ray and provided orb, if it exists.
 	/// </summary>
     /// <remarks>
 	/// The ray must be normalized to obtain a correct result.<br/>
 	/// If there's no intersection point, the output parameters won't be modified.<br/>
-	/// If there's one intersection point, the second output parameter won't be modified,
-	/// and first output parameter is filled with the intersection point.<br/>
-    /// If there are two intersection points, both output parameters are filled with the intersection points, storing
-    /// in the first output parameter the closest one to the origin point of the ray.<br/>
     /// Neither the length of the direction vector nor the radius of the orb should equal zero.
 	/// </remarks>
-	/// <param name="orb">[IN] The orb whose intersection with resident ray will be checked.</param>
-	/// <param name="vIntersection1">[OUT] First point where they intersect, if they do.</param>
-	/// <param name="vIntersection2">[OUT] Second point where they intersect, if they do.</param>
+	/// <param name="orb">[IN] The orb whose intersection with the ray will be checked.</param>
+	/// <param name="vIntersection1">[OUT] A vector where to store the closest intersection point to the origin of the ray.</param>
+	/// <param name="vIntersection2">[OUT] A vector where to store the furthest intersection point to the origin of the ray.</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the ray and the orb, and can take
-    /// the following values: E_None, E_One and E_Two.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The origin of the ray lays on the surface / perimeter of the orb and the ray does not point to the orb.
+    /// - The origin of the ray is contained in the orb.
+    /// - The ray is tangent to the orb.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with the orb in two points.
+    /// - The origin of the ray lays on the surface / perimeter of the orb and the ray points to the orb.
+    /// </returns>
     EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection1, VectorTypeOrigin &vIntersection2) const
     {
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero

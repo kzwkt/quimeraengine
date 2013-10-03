@@ -3572,9 +3572,9 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsIntersect_Test, TQT
 }
 
 /// <summary>
-/// Checks that it returns False when one of the hexahedrons intersect.
+/// Checks that it returns False when the hexahedrons don't intersect.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenHexahedronsIntersect_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenHexahedronsDoNotIntersect_Test, TQTemplateTypes )
 {
     // Preparation
     const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube();

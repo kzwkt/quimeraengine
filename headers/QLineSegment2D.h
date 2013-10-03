@@ -131,10 +131,11 @@ public:
 	    return LINEZERO;
 	}
 
-
 	// METHODS
 	// ---------------
+
 public:
+
 	/// <summary>
 	/// Assigning operator.
 	/// </summary>
@@ -154,7 +155,21 @@ public:
 	/// <param name="triangle">[IN] The 2D triangle to be compared to. If any of the vertices of the triangle coincide,
     /// the result is undefined.</param>
 	/// <returns>
-	/// True if the segment intersects the triangle (or if they were either tangent or coincident). Otherwise returns false.
+	/// A boolean value that indicates whether the segment and the triangle intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The segment and the triangle intersect, including the following cases:
+    /// - The segment intersects with one vertex of the triangle.
+    /// - The segment intersects with two edges of the triangle.
+    /// - The segment is completely contained in the triangle.
+    /// - Only one endpoint is inside the triangle.
+    /// - The line segment intersects with two vertices of the triangle (containing the edge).
+    /// - The line segment is contained in an edge of the triangle.
+    /// - An endpoint coincides with a vertex of the triangle.
+    /// - An endpoint is tangent to an edge of the triangle, even if the other endpoint is inside the triangle.
+    ///
+    /// <b>False</b><br/>
+    /// The line segment does not intersect with the triangle.
 	/// </returns>
 	bool Intersection(const QBaseTriangle<QVector2>& triangle) const;
 
@@ -167,7 +182,21 @@ public:
 	/// <param name="quad">[IN] The 2D quadrilateral to be compared to. If any of the vertices of the quadrilateral coincide,
     /// the result is undefined.</param>
 	/// <returns>
-	/// True if the segment intersects the quadrilateral (or if they were either tangent or coincident). Otherwise returns false.
+	/// A boolean value that indicates whether the segment and the quadrilateral intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The segment and the quadrilateral intersect, including the following cases:
+    /// - The segment intersects with one vertex of the quadrilateral.
+    /// - The segment intersects with two edges of the quadrilateral.
+    /// - The segment is completely contained in the quadrilateral.
+    /// - Only one endpoint is inside the quadrilateral.
+    /// - The line segment intersects with two vertices of the quadrilateral.
+    /// - The line segment is contained in an edge of the quadrilateral.
+    /// - An endpoint coincides with a vertex of the quadrilateral.
+    /// - An endpoint is tangent to an edge of the quadrilateral, even if the other endpoint is inside the quadrilateral.
+    ///
+    /// <b>False</b><br/>
+    /// The line segment does not intersect with the quadrilateral.
 	/// </returns>
 	bool Intersection(const QBaseQuadrilateral& quad) const;
 
@@ -330,16 +359,35 @@ public:
 	/// if it exists.
 	/// </summary>
     /// <remarks>
-	/// If there is no intersection point, the output parameter used for storing that point won't be modified.<br/>
-	/// The point returned is the closest one to A.
+	/// If there is no intersection point or if there are infinite, the output parameter used for storing that point won't be modified.
 	/// </remarks>
 	/// <param name="triangle">[IN] The triangle to be compared to. If any of the vertices of the triangle coincide,
     /// the result is undefined.</param>
-	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
+	/// <param name="vIntersection">[OUT] The point where they intersect that is closest to A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One, E_Two and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The segment intersects with a vertex of the triangle.
+    /// - Only one endpoint is inside the triangle.
+    /// - Only one endpoint coincides with a vertex of the triangle, even if the other is inside of the triangle.
+    /// - Only one endpoint belongs to an edge of the triangle, even if the other is inside of the triangle.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The segment intersects with two edges of the triangle.
+    /// - The segment intersects with two vertices of the triangle.
+    /// - The segment belongs to an edge of the triangle.
+    /// - Both endpoints are contained in different edges of the triangle.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the triangle (the endpoints are not tangent to the edges).
+    /// </returns>
 	inline EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
 	{
 		QBaseVector2 vAux;
@@ -351,18 +399,36 @@ public:
 	/// if they exist.
 	/// </summary>
     /// <remarks>
-	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br/>
-	/// If there's only one intersection point, only the first parameter will be modified.<br/>
-	/// The first point returned is the closest one to A.
+	/// If there are no intersection points, the output parameters used for storing that points won't be modified.
 	/// </remarks>
 	/// <param name="triangle">[IN] The triangle to be compared to. If any of the vertices of the triangle coincide,
     /// the result is undefined.</param>
-	/// <param name="vIntersection1">[OUT] The first point where they intersect.</param>
-	/// <param name="vIntersection2">[OUT] The second point where they intersect.</param>
+	/// <param name="vIntersection1">[OUT] The point where they intersect that is closest to A (segment).</param>
+	/// <param name="vIntersection2">[OUT] The point where they intersect that is furthest to A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One, E_Two and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The segment intersects with a vertex of the triangle.
+    /// - Only one endpoint is inside the triangle.
+    /// - Only one endpoint coincides with a vertex of the triangle, even if the other is inside of the triangle.
+    /// - Only one endpoint belongs to an edge of the triangle, even if the other is inside of the triangle.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The segment intersects with two edges of the triangle.
+    /// - The segment intersects with two vertices of the triangle.
+    /// - The segment belongs to an edge of the triangle.
+    /// - Both endpoints are contained in different edges of the triangle.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the triangle (the endpoints are not tangent to the edges).
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
         
 	/// <summary>
@@ -370,17 +436,36 @@ public:
 	/// if it exists.
 	/// </summary>
     /// <remarks>
-	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br/>
-	/// If there are no intersection point, the output parameter used for storing that point won't be modified.<br/>
-	/// The point returned is the closest one to A.
+	/// The provided quadrilateral must be convex. Otherwise, the results obtained by the method will be incorrect.<br/>
+	/// If there are no intersection point or if there are infinite, the output parameter used for storing that point won't be modified.
 	/// </remarks>
 	/// <param name="quad">[IN] The quadrilateral to be compared to. If any of the vertices of the quadrilateral coincide,
     /// the result is undefined.</param>
-	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
+	/// <param name="vIntersection">[OUT] The point where they intersect that is closest to A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One, E_Two and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The segment intersects with a vertex of the quadrilateral.
+    /// - Only one endpoint is inside the quadrilateral.
+    /// - Only one endpoint coincides with a vertex of the quadrilateral, even if the other is inside of the quadrilateral.
+    /// - Only one endpoint belongs to an edge of the quadrilateral, even if the other is inside of the quadrilateral.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The segment intersects with two edges of the quadrilateral.
+    /// - The segment intersects with two vertices of the quadrilateral.
+    /// - The segment belongs to an edge of the quadrilateral.
+    /// - Both endpoints are contained in different edges of the quadrilateral.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the quadrilateral (the endpoints are not tangent to the edges).
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
 	{
 		QBaseVector2 vAux;
@@ -393,18 +478,36 @@ public:
 	/// </summary>
     /// <remarks>
 	/// The provided quadrilateral MUST be convex. Otherwise, the results obtained by the method will be incorrect.<br/>
-	/// If there are no intersection points, the output parameters used for storing that points won't be modified.<br/>
-	/// If there's only one intersection point, only the first parameter will be modified.<br/>
-	/// The first point returned is the closest one to A.
+	/// If there are no intersection points or it there are infinite, the output parameters used for storing that points won't be modified.<br/>
 	/// </remarks>
 	/// <param name="quad">[IN] The quadrilateral to be compared to. If any of the vertices of the quadrilateral coincide,
     /// the result is undefined.</param>
-	/// <param name="vIntersection1">[OUT] The first point where they intersect.</param>
-	/// <param name="vIntersection2">[OUT] The second point where they intersect.</param>
+	/// <param name="vIntersection1">[OUT] The point where they intersect that is closest to A (segment).</param>
+	/// <param name="vIntersection2">[OUT] The point where they intersect that is furthest to A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One, E_Two and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The segment intersects with a vertex of the quadrilateral.
+    /// - Only one endpoint is inside the quadrilateral.
+    /// - Only one endpoint coincides with a vertex of the quadrilateral, even if the other is inside of the quadrilateral.
+    /// - Only one endpoint belongs to an edge of the quadrilateral, even if the other is inside of the quadrilateral.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The segment intersects with two edges of the quadrilateral.
+    /// - The segment intersects with two vertices of the quadrilateral.
+    /// - The segment belongs to an edge of the quadrilateral.
+    /// - Both endpoints are contained in different edges of the quadrilateral.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the quadrilateral (the endpoints are not tangent to the edges).
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
     
 protected:

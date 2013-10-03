@@ -172,7 +172,7 @@ public:
     /// The W component is set to one.
     /// </remarks>
     /// <param name="translation">[IN] The translation matrix from which to obtain the translation vector.</param>
-	explicit QVector4(const QTranslationMatrix<QMatrix4x3> &matrix);
+	explicit QVector4(const QTranslationMatrix<QMatrix4x3> &translation);
 
     /// <summary>
     /// Constructor that receives a 4x3 translation matrix from which to extract the translation vector.
@@ -182,7 +182,7 @@ public:
     /// The W component is set to one.
     /// </remarks>
     /// <param name="translation">[IN] The translation matrix from which to obtain the translation vector.</param>
-	explicit QVector4(const QTranslationMatrix<QMatrix4x4> &matrix);
+	explicit QVector4(const QTranslationMatrix<QMatrix4x4> &translation);
 
 
     // PROPERTIES
@@ -790,7 +790,7 @@ public:
     /// where v is the resident vector, \f$\hat{Q}\f$ the dual quaternion and \f$\hat{Q}^*\f$ the double conjugate of the dual quaternion.<br/>
     /// The W component is copied as is.
     /// </remarks>
-    /// <param name="qRotation">[IN] The transformation.</param>
+    /// <param name="transformation">[IN] The transformation.</param>
     /// <returns>
     /// The transformed vector.
     /// </returns>

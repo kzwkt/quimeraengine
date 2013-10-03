@@ -159,7 +159,7 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident line segment intersects with the provided plane.
+    /// Checks if the line segment intersects with the provided plane.
     /// </summary>
     /// <remarks>
     /// Since a plane divides space into two sides (positive and negative), we can check how the end points of
@@ -173,17 +173,26 @@ public:
     /// (2) \f$ a\cdot B_x + b\cdot B_y + c\cdot B_z + d \f$
     /// <br/><br/>
     /// If (1) = 0 or (2) = 0, then the line segment intersects the plane (one of the end points lies on plane).<br/>
-    /// If the sign of (1) and (2) are different, each end point are in a different side of the space
-    /// from the plane, and then the line segment intersects the plane.<br/>
-    /// If (1) and (2) have equal sign, then there are in the same side of the space from the plane,
-    /// and the line segment don't intersects the plane.<br/>
+    /// If the sign of (1) and (2) are different, each end point is in a different side of the space
+    /// divided by the plane, and then the line segment intersects the plane.<br/>
+    /// If (1) and (2) have the same sign, then they are in the same side of the space divided by the plane,
+    /// and the line segment does not intersect with the plane.<br/>
     /// If one end point of the line segment lies on the plane, we consider there is an intersection.
     /// </remarks>
     /// <param name="plane">[IN] The plane we want check if intersects with resident line segment. If the plane is null,
     /// the behavior is undefined.</param>
     /// <returns>
-    /// True if plane and line segment intersects, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the segment and the plane intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The segment and the plane intersect, including the following cases:
+    /// - The endpoints are in different sides of the space divided by the plane.
+    /// - The segment is contained in the plane.
+    /// - Only one endpoint belongs to the plane.
+    ///
+    /// <b>False</b><br/>
+    /// The line segment does not intersect with the plane.
+	/// </returns>
     inline bool Intersection(const QBasePlane &plane) const
     {
         // The length of the segment should be greater than zero
@@ -206,15 +215,28 @@ public:
     }
 
     /// <summary>
-    /// Checks if resident line segment intersects with the provided triangle.<br/>
-    /// If one end point of the line segment lies on the triangle, or on an edge or vertex of the triangle,
-    /// we consider there is an intersection.
+    /// Checks if the line segment intersects with the provided triangle.
     /// </summary>
     /// <param name="triangle">[IN] The triangle we want check if intersects with resident line segment. If any of its vertices 
     /// coincide, the behavior is undefined.</param>
     /// <returns>
-    /// True if triangle and line segment intersects, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the segment and the triangle intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The segment and the triangle intersect, including the following cases:
+    /// - The segment intersects with one or two edges of the triangle.
+    /// - The segment intersects with a vertex of the triangle.
+    /// - Only one endpoint is inside of the triangle (not intersecting with any edge).
+    /// - The segment intersects with the interior (the face) of the triangle (not intersecting with any edge and not being contained).
+    /// - The segment is completely contained in the triangle.
+    /// - An endpoint of the segment is contained in an edge of the triangle, even if the other endpoint is inside of the triangle.
+    /// - The segment is contained in an edge of the triangle.
+    /// - The segment contains an edge of the triangle.
+    /// - One or both endpoints coincide with the vertices of the triangle.
+    /// 
+    /// <b>False</b><br/>
+    /// The line segment does not intersect with the triangle.
+	/// </returns>
     bool Intersection(const QBaseTriangle<VectorType> &triangle) const
     {
         // The length of the segment should be greater than zero
@@ -261,15 +283,29 @@ public:
     }
     
     /// <summary>
-    /// Checks if resident line segment intersects with the provided hexahedron.<br/>
-    /// If one end point of the line segment lies on one of the hexahedron faces,
-    /// we consider there is an intersection.
+    /// Checks if resident line segment intersects with the provided hexahedron.
     /// </summary>
-    /// <param name="hexahedron">[IN] The hexahedron we want check if intersects with resident line segment. If any of its vertices 
+    /// <param name="hexahedron">[IN] The hexahedron to be used for intersection calculation. If any of its vertices 
     /// coincide, the behavior is undefined.</param>
     /// <returns>
-    /// True if hexahedron and line segment intersects, false otherwise.
-    /// </returns>
+	/// A boolean value that indicates whether the segment and the hexahedron intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The segment and the hexahedron intersect, including the following cases:
+    /// - The segment intersects with two faces of the hexahedron.
+    /// - The segment intersects with a vertex of the hexahedron.
+    /// - An endpoint is contained in a face of the hexahedron.
+    /// - The entire segment is contained in a face of the hexahedron.
+    /// - Only one endpoint is contained in the hexahedron.
+    /// - Only one endpoint belongs to an edge of the hexahedron.
+    /// - The segment is fully contained in the hexahedron.
+    /// - The segment is contained in an edge of the hexahedron.
+    /// - The segment intersects with an edge of the hexahedron, even if it does not intersect with any vertex.
+    /// - One or both endpoints coincide with vertices of the hexahedron.
+    /// 
+    /// <b>False</b><br/>
+    /// The line segment does not intersect with the hexahedron.
+	/// </returns>
     bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         // The length of the segment should be greater than zero
@@ -293,16 +329,27 @@ public:
     /// if it exists.
 	/// </summary>
     /// <remarks>
-	/// If there's no intersection point or the line segment lies on the plane, the output
+	/// If there's no intersection point or if there are infinite, the output
     /// parameter used for storing that point won't be modified.
 	/// </remarks>
 	/// <param name="plane">[IN] The plane whose intersection with resident line segment we want to check. If the plane is null,
     /// the behavior is undefined.</param>
-	/// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
+	/// <param name="vIntersection">[OUT] The point where they intersect that is closest to A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the plane, and can take
-    /// the following values: E_None, E_One and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The endpoints belong to different sides of the space divided by the plane.
+    /// - Only one endpoint belongs to the plane.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the plane.
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
 	{
         // The length of the segment should be greater than zero
@@ -355,22 +402,41 @@ public:
     }
 
     /// <summary>
-	/// This method receives a triangle, computes the points where the resident line segment intersects with it, and stores
-    /// the closest intersection to A end point, if it exists.
+	/// Computes the points where the line segment and a triangle intersect.
 	/// </summary>
     /// <remarks>
-	/// If there's no intersection point or the line segment lies on triangle, the output
+	/// If there's no intersection point or if there are infinite, the output
     /// parameter used for storing that point won't be modified.<br/>
-    /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
-    /// segment and an edge of the triangle.
 	/// </remarks>
-	/// <param name="triangle">[IN] The triangle whose intersection with resident line segment we want to check. If any of its vertices coincide,
+	/// <param name="triangle">[IN] The triangle to be used for intersection calculation. If any of its vertices coincide,
     /// the behavior is undefined.</param>
-	/// <param name="vIntersection">[OUT] A vector where to store the intersection point closest to A end point.</param>
+	/// <param name="vIntersection">[OUT] A vector where to store the closest intersection point to endpoint A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the triangle, and can take
-    /// the following values: E_None, E_One, E_Two and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The line segment intersects with one edge of the triangle (not intersecting with any vertex).
+    /// - The segment intersects with one vertex of the triangle.
+    /// - Only one endpoint belongs to the triangle (not intersecting any edge or vertex).
+    /// - Only one endpoint belongs to an edge of the triangle, even if the other endpoint is inside of the triangle.
+    /// - An endpoint coincides with a vertex of the triangle.
+    /// - The line segment intersects with the interior (the face) of the triangle (not intersecting with any edge or vertex).
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The line segment intersects with two edges of the triangle.
+    /// - The line segment intersects with two vertices of the triangle.
+    /// - The line segment belongs to an edge of the triangle.
+    /// - The segment and an edge of the triangle coincide partially, so there is a vertex inside of the segment, and an endpoint inside of the edge.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the triangle (endpoints are not tangent to any edge).
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection) const
     {
         // [TODO] Thund: This must be optimized
@@ -380,23 +446,42 @@ public:
     }
 
     /// <summary>
-	/// This method receives a triangle, and computes the points where the resident line segment intersects with it,
-    /// if they exists.
+	/// Computes the points where the line segment and a triangle intersect.
 	/// </summary>
     /// <remarks>
-	/// If there's no intersection point or the line segment lies on triangle, the output
-    /// parameter used for storing that point won't be modified.<br/>
-    /// if the line segment lies partially on triangle, the intersection point stored is the intersection of
-    /// segment and an edge of the triangle.
+	/// If there are no intersection points or if there are infinite, the output
+    /// parameters used for storing those points will not be modified.<br/>
 	/// </remarks>
 	/// <param name="triangle">[IN] The triangle whose intersection with resident line segment we want to check. If any of its vertices coincide,
     /// the behavior is undefined.</param>
-	/// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to A end point of line segment.</param>
-    /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to A end point of line segment.</param>
+	/// <param name="vIntersection1">[OUT] A vector where to store the closest intersection point to endpoint A (segment).</param>
+    /// <param name="vIntersection2">[OUT] A vector where to store the furthest intersection point to endpoint A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the triangle, and can take
-    /// the following values: E_None, E_One, E_Two and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The line segment intersects with one edge of the triangle (not intersecting with any vertex).
+    /// - The segment intersects with one vertex of the triangle.
+    /// - Only one endpoint belongs to the triangle (not intersecting any edge or vertex).
+    /// - Only one endpoint belongs to an edge of the triangle, even if the other endpoint is inside of the triangle.
+    /// - An endpoint coincides with a vertex of the triangle.
+    /// - The line segment intersects with the interior (the face) of the triangle (not intersecting with any edge or vertex).
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The line segment intersects with two edges of the triangle.
+    /// - The line segment intersects with two vertices of the triangle.
+    /// - The line segment belongs to an edge of the triangle.
+    /// - The segment and an edge of the triangle coincide partially, so there is a vertex inside of the segment, and an endpoint inside of the edge.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the triangle (endpoints are not tangent to any edge).
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseTriangle<VectorType> &triangle, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
         // The length of the segment should be greater than zero
@@ -1031,22 +1116,42 @@ public:
 
         return EQIntersections::E_None;
     }
-
+    
     /// <summary>
-	/// This method receives a convex hexahedron, and computes the intersection points with the resident line segment,
-    /// and stores the closest to A end point, if it exists.
+	/// Computes the points where the line segment and a hexahedron intersect.
 	/// </summary>
     /// <remarks>
-	/// If there's no intersection point, the output parameter used for storing that point won't be modified.<br/>
-	/// If there are two intersections, the output parameter stores only one of them.
+	/// If there's no intersection point of if there are infinite, the output parameter used for storing that point won't be modified.
 	/// </remarks>
-	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident line segment we want to check. If any of its vertices coincide,
+	/// <param name="hexahedron">[IN] The hexahedron whose intersections with the line segment are to be checked. If any of its vertices coincide,
     /// the behavior is undefined.</param>
-    /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
+    /// <param name="vIntersection">[OUT] A vector where to store the closest intersection point to endpoint A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the hexahedron,
-    /// which can takes the following values: E_None, E_One, E_Two and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The line segment intersects with a vertex of the hexahedron.
+    /// - Only one endpoint is contained in a face of the hexahedron, even if the other endpoint is inside of the hexahedron.
+    /// - Only one endpoint is contained in the hexahedron.
+    /// - Only one endpoint is contained in an edge of the hexahedron.
+    /// - The line segment intersects with an edge of the hexahedron, being both endpoints outside.
+    /// - An endpoint coincide with a vertex of the hexahedron.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The segment intersects with two faces of the hexahedron.
+    /// - Both endpoints belong to two different faces of the hexahedron.
+    /// - Both endpoints belong to the same edge of the hexahedron.
+    /// - An endpoint is contained in a face and the other is contained in an edge of the hexahedron.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the hexahedron (endpoints are not tangent to any face).
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection) const
 	{
         // The length of the segment should be greater than zero
@@ -1247,21 +1352,41 @@ public:
     }
 
     /// <summary>
-	/// This method receives a convex hexahedron, and computes the points where the resident line segment intersects with it,
-    /// if they exists.
+	/// Computes the points where the line segment and a hexahedron intersect.
 	/// </summary>
     /// <remarks>
-	/// If there's no intersection point, the output parameters used for storing the intersection points won't be modified.<br/>
-	/// If there are two intersections, the first output parameter stores the closest point to A end point of line segment.
+	/// If there's no intersection point or there are infinite, the output parameters used for storing the intersection points won't be modified.
 	/// </remarks>
 	/// <param name="hexahedron">[IN] The hexahedron whose intersections with resident line segment we want to check. If any of its vertices coincide,
     /// the behavior is undefined.</param>
-    /// <param name="vIntersection1">[OUT] A vector where to store the intersection point closest to A end point of line segment.</param>
-    /// <param name="vIntersection2">[OUT] A vector where to store the intersection point farthest to A end point of line segment.</param>
+    /// <param name="vIntersection1">[OUT] A vector where to store the closest intersection point to endpoint A (segment).</param>
+    /// <param name="vIntersection2">[OUT] A vector where to store the furthest intersection point to endpoint A (segment).</param>
 	/// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the hexahedron,
-    /// which can takes the following values: E_None, E_One, E_Two and E_Infinite.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The line segment intersects with a vertex of the hexahedron.
+    /// - Only one endpoint is contained in a face of the hexahedron, even if the other endpoint is inside of the hexahedron.
+    /// - Only one endpoint is contained in the hexahedron.
+    /// - Only one endpoint is contained in an edge of the hexahedron.
+    /// - The line segment intersects with an edge of the hexahedron, being both endpoints outside.
+    /// - An endpoint coincide with a vertex of the hexahedron.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The segment intersects with two faces of the hexahedron.
+    /// - Both endpoints belong to two different faces of the hexahedron.
+    /// - Both endpoints belong to the same edge of the hexahedron.
+    /// - An endpoint is contained in a face and the other is contained in an edge of the hexahedron.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the hexahedron (endpoints are not tangent to any face).
+    /// </returns>
 	EQIntersections IntersectionPoint(const QBaseHexahedron<VectorType> &hexahedron, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
         // The length of the segment should be greater than zero

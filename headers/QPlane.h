@@ -422,7 +422,7 @@ public:
     /// The plane must be normalized to obtain a correct result and shouldn't be null (zero).
     /// </remarks>
     /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.. If it is null, the result
-    /// is undefined.
+    /// is undefined.</param>
     /// <returns>
     /// The result of the dot product.
     /// </returns>
@@ -435,7 +435,7 @@ public:
     /// Both planes must be normalized to obtain a correct result and shouldn't be null (zero).
     /// </remarks>
     /// <param name="plane">[IN] The plane whose angle with the resident plane we want to calculate. If it is null, the result
-    /// is undefined.
+    /// is undefined.</param>
     /// <returns>
     /// The result of the dot product.
     /// </returns>
@@ -559,17 +559,28 @@ public:
     /// and also calculates the intersection point if there is only one.
     /// </summary>
     /// <remarks>
-    /// All planes must be normalized to obtain a correct result. Only when the three planes coincide in one single
-    /// point the intersection point is calculated and One is returned. If the planes intersect but there is
-    /// no common point, Infinite is returned and the intersection point is not calculated. If one of the planes does not
-    /// intersect the others (because two of them coincide and the third one is parallel), then None is returned.
+    /// If there are no intersections or if there are infinite, the output parameter is not modified.
     /// </remarks>
     /// <param name="plane1">[IN] The first plane we want to calculate the intersection with.</param>
     /// <param name="plane2">[IN] The second plane we want to calculate the intersection with.</param>
     /// <param name="vIntersection">[OUT] The intersection point of the three planes, if it exists.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the three planes, and can take
-    /// the following values: None, One and Infinite.
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    /// - All planes are parallel and not coincident.
+    /// - Not all planes intersect with the resident plane.
+    /// - All planes intersect but they do not share any common point or line.
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The planes share one point. There are more intersections, but there is only one point that belongs to all the planes.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - All planes intersect, defining a single line instead of a point.
+    /// - All planes are the same.
     /// </returns>
     EQIntersections IntersectionPoint(const QBasePlane &plane1, const QBasePlane &plane2, QBaseVector3 &vIntersection) const;
 
@@ -578,18 +589,29 @@ public:
     /// and also calculates the intersection point if there is only one.
     /// </summary>
     /// <remarks>
-    /// All planes must be normalized to obtain a correct result. Only when the three planes coincide in one single
-    /// point the intersection point is calculated and One is returned. If the planes intersect but there is
-    /// no common point, Infinite is returned and the intersection point is not calculated. If one of the planes does not
-    /// intersect with the others (because two of them coincide and the third one is parallel), then None is returned.
+    /// If there are no intersections or if there are infinite, the output parameter is not modified.
     /// </remarks>
     /// <param name="plane1">[IN] The first plane we want to calculate the intersection with.</param>
     /// <param name="plane2">[IN] The second plane we want to calculate the intersection with.</param>
     /// <param name="vIntersection">[OUT] The intersection point of the three planes, if it exists. The W component is not
     /// changed during the process.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the three planes, and can take
-    /// the following values: None, One and Infinite.
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    /// - All planes are parallel and not coincident.
+    /// - Not all planes intersect with the resident plane.
+    /// - All planes intersect but they do not share any common point or line.
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The planes share one point. There are more intersections, but there is only one point that belongs to all the planes.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - All planes intersect, defining a single line instead of a point.
+    /// - All planes are the same.
     /// </returns>
     EQIntersections IntersectionPoint(const QBasePlane &plane1, const QBasePlane &plane2, QBaseVector4 &vIntersection) const;
 

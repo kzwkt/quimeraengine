@@ -183,7 +183,19 @@ public:
     /// </remarks>
 	/// <param name="segment">[IN] The segment to be compared to.</param>
 	/// <returns>
-	/// True if they intersect each other (or if they were coincident), false if they don't.
+    /// A boolean value that indicates whether the line segments intersect.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The line segments intersect, including the following cases:<br/>
+    /// - The segments intersect in one point.
+    /// - The segments coincide totally.
+    /// - One segment is contained in the other.
+    /// - The segments share one endpoint only.
+    /// - The segments are overlapped.
+    /// - An endpoint of one segment is contained in the other segment.
+    ///
+    /// <b>False</b><br/>
+    /// There is no common point between both segments.
 	/// </returns>
 	inline bool Intersection(const QBaseLineSegment<VectorType> &segment) const
 	{
@@ -205,7 +217,18 @@ public:
     /// </remarks>
 	/// <param name="orb">[IN] The orb to be compared to.</param>
 	/// <returns>
-	/// True if the segment intersects the orb (or if they were either tangent or coincident). Otherwise returns false.
+	/// A boolean value that indicates whether the line segments intersect.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The line segment and the orb intersect, including the following cases:<br/>
+    /// - Only one endpoint of the segment is inside the orb.
+    /// - The line is tangent to the orb by an endpoint.
+    /// - The line is totally contained in the orb.
+    /// - The line intersects with the orb in two points.
+    /// - The line is tangent to the orb by one point between both endpoints.
+    ///
+    /// <b>False</b><br/>
+    /// There is no common point between the segment and the orb.
 	/// </returns>
 	inline bool Intersection(const QBaseOrb<VectorType> &orb) const
 	{
@@ -224,14 +247,32 @@ public:
 	/// </summary>
     /// <remarks>
     /// If the length of any of both segments equals zero, it will be considered as a point (which is wrong).<br/>
-	/// If there's no intersection points, the output parameters used for storing these points won't be modified.<br/>
+	/// If there's no intersection points or if they are infinite, the output parameters used for storing these points won't be modified.<br/>
     /// If there is any intersection, the first parameter will be set to the closest one to the resident line's A endpoint.
 	/// </remarks>
 	/// <param name="segment">[IN] The segment to be compared to.</param>
-	/// <param name="vIntersection">[OUT] The point where they intersect.</param>
+	/// <param name="vIntersection">[OUT] The point where they intersect that is closest to A (of resident segment).</param>
 	/// <returns>
-	/// Returns how many intersections have been detected.
-	/// </returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The segments intersect in one point only, between A and B endpoints.
+    /// - An endpoint of one segment is contained in the other segment.
+    /// - The segments share one endpoint.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The line segments coincide partially, so each one has an endpoint inside the other.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The line segments are the same
+    /// - One segment is contained in the other.
+    /// </returns>
 	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
  	{
         // End points of a segment should not coincide
@@ -624,10 +665,28 @@ public:
     /// If there is any intersection, the first parameter will be set to the closest one to the resident line's A endpoint.
 	/// </remarks>
 	/// <param name="segment">[IN] The segment to be compared to.</param>
-	/// <param name="vIntersection1">[OUT] The point where they intersect.</param>
-    /// <param name="vIntersection2">[OUT] A vector where to store the second intersection point.</param>
+	/// <param name="vIntersection1">[OUT] The point where they intersect that is closest to the endpoint A (of resident segment).</param>
+    /// <param name="vIntersection2">[OUT] The point where they intersect that is furthest to the endpoint A (of resident segment).</param>
 	/// <returns>
-	/// Returns how many intersections have been detected.
+	/// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The segments intersect in one point only, between A and B endpoints.
+    /// - An endpoint of one segment is contained in the other segment.
+    /// - The segments share one endpoint.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The line segments coincide partially, so each one has an endpoint inside the other.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The line segments are the same
+    /// - One segment is contained in the other.
 	/// </returns>
 	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
  	{
@@ -1047,19 +1106,32 @@ public:
     /// </summary>
     /// <remarks>
     /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br/>
-    /// If there's no intersection point, the two output parameters used for storing the points won't be modified.<br/>
-    /// If there are two intersections, the first output parameter stores the closest one to A end point of
-    /// line segment, and the second one stores the closest one to B end point.<br/>
-    /// When there is only one intersection point, the second output point won't change.<br/>
-    /// If the segment is contained by the orb, it will return infinite intersection points although the 2 output parameters won't change.
+    /// If there's no intersection point, the output parameters used for storing the points won't be modified.<br/>
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
-    /// <param name="vIntersection1">[OUT] A vector where to store the first intersection point.</param>
-    /// <param name="vIntersection2">[OUT] A vector where to store the second intersection point.</param>
+    /// <param name="vIntersection1">[OUT] The point where they intersect that is closest to the endpoint A.</param>
+    /// <param name="vIntersection2">[OUT] The point where they intersect that is furthest to the endpoint A.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One, E_Two or E_Infinite.
-    /// </returns>
+	/// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - Only one endpoint is inside the orb.
+    /// - Only one endpoint is tangent to the orb, even if the other endpoint is inside the orb.
+    /// - The segment is tangent to the orb in a point between A and B.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The line segment pierces the orb in two points.
+    /// - Both endpoints are tangent to the orb's surface / perimeter (so the line is inside the orb).
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The line segment is totally contained in the orb. The endpoints are not tangent to the orb's surface / perimeter.
+	/// </returns>
 	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
         // End points of a segment should not coincide and the radius should be greater than zero
@@ -1181,17 +1253,31 @@ public:
     /// </summary>
     /// <remarks>
     /// If the length of the segment or the radius of the orb equal zero, the orb or the segment will be considered as a point (which is wrong).<br/>
-    /// If there's no intersection point, the output parameter used for storing the point won't be modified.<br/>
-    /// If there are two intersections, the output parameter stores the closest one to A end point of
-    /// line segment.<br/>
-    /// If the segment is contained by the orb, it will return infinite intersection points although the output parameter won't change.
+    /// If there's no intersection point or if there are infinite, the output parameter used for storing the point won't be modified.<br/>
     /// </remarks>
     /// <param name="orb">[IN] The orb whose intersections with resident line segment we want to check.</param>
-    /// <param name="vIntersection">[OUT] A vector where to store the intersection point.</param>
+    /// <param name="vIntersection">[OUT] The point where they intersect that is closest to the endpoint A.</param>
     /// <returns>
-    /// An enumerated value which represents the number of intersections between the line segment and the orb, and can take
-    /// the following values: E_None, E_One, E_Two or E_Infinite.
-    /// </returns>
+	/// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - Only one endpoint is inside the orb.
+    /// - Only one endpoint is tangent to the orb, even if the other endpoint is inside the orb.
+    /// - The segment is tangent to the orb in a point between A and B.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The line segment pierces the orb in two points.
+    /// - Both endpoints are tangent to the orb's surface / perimeter (so the line is inside the orb).
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The line segment is totally contained in the orb. The endpoints are not tangent to the orb's surface / perimeter.
+	/// </returns>
 	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
 	{
         // End points of a segment should not coincide and the radius should be greater than zero

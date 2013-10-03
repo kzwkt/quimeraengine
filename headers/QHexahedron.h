@@ -595,7 +595,18 @@ public:
     /// </remarks>
 	/// <param name="hexahedron">[IN] Hexahedron which intersections with resident hexahedron will be checked.</param>
 	/// <returns>
-	/// True if both hexahedrons intersects, false otherwise.
+	/// A boolean value that indicates whether the hexahedron intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The hexahedrons intersect, including the following cases:
+    /// - The hexahedrons coincide totally.
+    /// - The hexahedrons share one vertex.
+    /// - One hexahedron is contained in the other.
+    /// - A vertex of one hexahedron is contained in the other hexahedron.
+    /// - An edge of one hexahedron pierces the other hexahedron.
+    ///
+    /// <b>False</b><br/>
+    /// The hexahedrons do not intersect.
 	/// </returns>
 	inline bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
 	{
