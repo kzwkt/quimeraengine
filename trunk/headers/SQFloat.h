@@ -240,6 +240,20 @@ public:
     {
         return SQFloat::Abs(fValueA - fValueB) > SQFloat::Epsilon;
     }
+    
+    /// <summary>
+    /// Performs an inequality comparison between two floating point numbers, using a custom tolerance.
+    /// </summary>
+    /// <param name="fValueA">[IN] First floating point number to be compared.</param>
+    /// <param name="fValueB">[IN] Second floating point number to be compared.</param>
+    /// <param name="fTolerance">[IN] Tolerance to be applied in the comparison.</param>
+    /// <returns>
+    /// If values are not the same, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool AreNotEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
+    {
+        return SQFloat::Abs(fValueA - fValueB) > fTolerance;
+    }
 
     /// <summary>
     /// Checks if a floating point value is greater than a reference value, taking into account the system tolerance
@@ -254,6 +268,21 @@ public:
     {
         // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
         return (fGreaterValue - fReferenceValue) > SQFloat::Epsilon;
+    }
+    
+    /// <summary>
+    /// Checks if a floating point value is greater than a reference value, using a custom tolerance.
+    /// </summary>
+    /// <param name="fGreaterValue">The value which is to be compared.</param>
+    /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
+    /// <param name="fTolerance">[IN] Tolerance to be applied in the comparison.</param>
+    /// <returns>
+    /// If the first value is greater than the reference one, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue, const float_q &fTolerance)
+    {
+        // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
+        return (fGreaterValue - fReferenceValue) > fTolerance;
     }
 
     /// <summary>
@@ -270,6 +299,21 @@ public:
         // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
         return (fLowerValue - fReferenceValue) < -SQFloat::Epsilon;
     }
+    
+    /// <summary>
+    /// Checks if a floating point value is lower than a reference value, using a custom tolerance.
+    /// </summary>
+    /// <param name="fLowerValue">The value which is to be compared.</param>
+    /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
+    /// <param name="fTolerance">[IN] Tolerance to be applied in the comparison.</param>
+    /// <returns>
+    /// If the first value is lower than the reference one, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue, const float_q &fTolerance)
+    {
+        // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
+        return (fLowerValue - fReferenceValue) < -fTolerance;
+    }
 
     /// <summary>
     /// Checks if a floating point value is greater than or equals to a reference value, taking into account the
@@ -284,6 +328,21 @@ public:
     {
         // If subtraction is greater or equals to -Epsilon, the value is greater or equals
         return (fGreaterOrEqualsValue - fReferenceValue) >= -SQFloat::Epsilon;
+    }
+    
+    /// <summary>
+    /// Checks if a floating point value is greater than or equals to a reference value, using a custom tolerance.
+    /// </summary>
+    /// <param name="fGreaterOrEqualsValue">The value which is to be compared.</param>
+    /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
+    /// <param name="fTolerance">[IN] Tolerance to be applied in the comparison.</param>
+    /// <returns>
+    /// If the first value is greater than or equals to the reference one, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance)
+    {
+        // If subtraction is greater or equals to -Epsilon, the value is greater or equals
+        return (fGreaterOrEqualsValue - fReferenceValue) >= -fTolerance;
     }
 
     /// <summary>
@@ -300,6 +359,21 @@ public:
         // If subtraction is lower or equals to Epsilon, the value is lower or equals
         return (fLessOrEqualsValue - fReferenceValue) <= SQFloat::Epsilon;
     }
+    
+    /// <summary>
+    /// Checks if a floating point value is lower than or equals to a reference value, using a custom tolerance.
+    /// </summary>
+    /// <param name="fLessOrEqualsValue">The value which is to be compared.</param>
+    /// <param name="fReferenceValue">The reference number which the first value is to be compared with.</param>
+    /// <param name="fTolerance">[IN] Tolerance to be applied in the comparison.</param>
+    /// <returns>
+    /// If the first value is lower than or equals to the reference one, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance)
+    {
+        // If subtraction is lower or equals to Epsilon, the value is lower or equals
+        return (fLessOrEqualsValue - fReferenceValue) <= fTolerance;
+    }
 
     /// <summary>
     /// Checks whether a floating point number equals zero or is close to zero, taking into account the system tolerance
@@ -313,6 +387,20 @@ public:
     {
         return SQFloat::AreEqual(fValue, SQFloat::_0);
     }
+    
+    /// <summary>
+    /// Checks whether a floating point number equals zero or is close to zero, taking into account the system tolerance
+    /// constant (Epsilon).
+    /// </summary>
+    /// <param name="fValue">[IN] The floating point number to be compared.</param>
+    /// <param name="fTolerance">[IN] Tolerance to be applied in the comparison.</param>
+    /// <returns>
+    /// If the value equals zero, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsZero(const float_q &fValue, const float_q &fTolerance)
+    {
+        return SQFloat::AreEqual(fValue, SQFloat::_0, fTolerance);
+    }
 
     /// <summary>
     /// Checks whether a floating point number doesn't equal zero or is close to zero, taking into account the system tolerance
@@ -325,6 +413,20 @@ public:
     inline static bool IsNotZero(const float_q &fValue)
     {
         return SQFloat::AreNotEqual(fValue, SQFloat::_0);
+    }
+    
+    /// <summary>
+    /// Checks whether a floating point number doesn't equal zero or is close to zero, taking into account the system tolerance
+    /// constant (Epsilon).
+    /// </summary>
+    /// <param name="fValue">[IN] The floating point number to be compared.</param>
+    /// <param name="fTolerance">[IN] Tolerance to be applied in the comparison.</param>
+    /// <returns>
+    /// If the value doesn't equal zero, then it returns True. Otherwise, it returns False.
+    /// </returns>
+    inline static bool IsNotZero(const float_q &fValue, const float_q &fTolerance)
+    {
+        return SQFloat::AreNotEqual(fValue, SQFloat::_0, fTolerance);
     }
 
     /// <summary>
