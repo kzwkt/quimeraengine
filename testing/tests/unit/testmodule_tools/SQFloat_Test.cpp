@@ -1254,13 +1254,13 @@ QTEST_CASE ( IsNegative_ReturnsFalseWhenValueIsGreaterThanTolerance_Test )
 }
 
 /// <summary>
-/// Checks if it returns True when the value equals negative tolerance value.
+/// Checks if it returns False when the value equals tolerance value.
 /// </summary>
-QTEST_CASE ( IsPositive_ReturnsTrueWhenValueEqualsNegativeTolerance_Test )
+QTEST_CASE ( IsPositive_ReturnsFalseWhenValueEqualsTolerance_Test )
 {
     // Preparation
-    const float_q VALUE = -SQFloat::Epsilon;
-    const bool EXPECTED_RESULT = true;
+    const float_q VALUE = SQFloat::Epsilon;
+    const bool EXPECTED_RESULT = false;
 
 	// Execution
     bool bResultUT = SQFloat::IsPositive(VALUE);
@@ -1302,13 +1302,13 @@ QTEST_CASE ( IsPositive_ReturnsTrueWhenValueIsGreaterThanTolerance_Test )
 }
 
 /// <summary>
-/// Checks if it returns True when value equals zero.
+/// Checks if it returns False when value equals zero.
 /// </summary>
-QTEST_CASE ( IsPositive_ReturnsTrueWhenValueEqualsZero_Test )
+QTEST_CASE ( IsPositive_ReturnsFalseWhenValueEqualsZero_Test )
 {
     // Preparation
     const float_q VALUE = SQFloat::_0;
-    const bool EXPECTED_RESULT = true;
+    const bool EXPECTED_RESULT = false;
 
 	// Execution
     bool bResultUT = SQFloat::IsPositive(VALUE);

@@ -239,13 +239,13 @@ public:
                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that the denominator is always positive
+            if ( SQFloat::IsGreaterOrEquals(NUMERATOR1, SQFloat::_0) ) // Remember that the denominator is always positive
             {
                 const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
-                if ( SQFloat::IsPositive(NUMERATOR2) ) // Remember that the denominator is always positive
+                if ( SQFloat::IsGreaterOrEquals(NUMERATOR2, SQFloat::_0) ) // Remember that the denominator is always positive
                 {
                     const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1/DENOMINATOR) * this->Direction;
                     const QVector3 &P_INT2 = QVector3(ray.Origin) + (NUMERATOR2/DENOMINATOR) * ray.Direction;
@@ -333,14 +333,14 @@ public:
                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that the denominator is always positive
+            if ( SQFloat::IsGreaterOrEquals(NUMERATOR1, SQFloat::_0) ) // Remember that the denominator is always positive
             {
                 const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
                 const float_q PARAM2 = NUMERATOR2 / DENOMINATOR;
-                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLessOrEquals(PARAM2, SQFloat::_1) ) // Remember that the denominator is always positive
+                if ( SQFloat::IsGreaterOrEquals(NUMERATOR2, SQFloat::_0) && SQFloat::IsLessOrEquals(PARAM2, SQFloat::_1) ) // Remember that the denominator is always positive
                 {
                     const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
                     const QVector3 &P_INT2 = ray.Origin + PARAM2 * ray.Direction;
@@ -409,7 +409,7 @@ public:
         if ( SQFloat::IsZero(DENOMINATOR) )
             return SQFloat::IsZero(NUMERATOR);
         else
-            return SQFloat::IsPositive(NUMERATOR / DENOMINATOR);
+            return SQFloat::IsGreaterOrEquals(NUMERATOR / DENOMINATOR, SQFloat::_0);
     }
 
     /// <summary>
@@ -614,13 +614,13 @@ public:
                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsGreaterOrEquals(NUMERATOR1, SQFloat::_0) ) // Remember that fDenominator is always positive
             {
                 const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
-                if ( SQFloat::IsPositive(NUMERATOR2) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsGreaterOrEquals(NUMERATOR2, SQFloat::_0) ) // Remember that fDenominator is always positive
                 {
                     const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
                     const QVector3 &P_INT2 = QVector3(ray.Origin) + (NUMERATOR2 / DENOMINATOR) * ray.Direction;
@@ -783,14 +783,14 @@ public:
                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsGreaterOrEquals(NUMERATOR1, SQFloat::_0) ) // Remember that fDenominator is always positive
             {
                 const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
                 const float_q PARAM2 = NUMERATOR2 / DENOMINATOR;
-                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLessOrEquals(PARAM2, SQFloat::_1) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsGreaterOrEquals(NUMERATOR2, SQFloat::_0) && SQFloat::IsLessOrEquals(PARAM2, SQFloat::_1) ) // Remember that fDenominator is always positive
                 {
                     const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
                     const QVector3 &P_INT2 = QVector3(ray.Origin) + PARAM2 * ray.Direction;
@@ -976,14 +976,14 @@ public:
                                        vP.z * ray.Direction.x * vCross.y - ( vP.z * ray.Direction.y * vCross.x +
                                        vP.y * ray.Direction.x * vCross.z +   vP.x * ray.Direction.z * vCross.y );
 
-            if ( SQFloat::IsPositive(NUMERATOR1) ) // Remember that fDenominator is always positive
+            if ( SQFloat::IsGreaterOrEquals(NUMERATOR1, SQFloat::_0) ) // Remember that fDenominator is always positive
             {
                 const float_q &NUMERATOR2 = vP.x * this->Direction.y * vCross.z +   vP.y * this->Direction.z * vCross.x +
                                             vP.z * this->Direction.x * vCross.y - ( vP.z * this->Direction.y * vCross.x +
                                             vP.y * this->Direction.x * vCross.z +   vP.x * this->Direction.z * vCross.y );
 
                 const float_q PARAM2 = NUMERATOR2 / DENOMINATOR;
-                if ( SQFloat::IsPositive(NUMERATOR2) && SQFloat::IsLessOrEquals(PARAM2, SQFloat::_1) ) // Remember that fDenominator is always positive
+                if ( SQFloat::IsGreaterOrEquals(NUMERATOR2, SQFloat::_0) && SQFloat::IsLessOrEquals(PARAM2, SQFloat::_1) ) // Remember that fDenominator is always positive
                 {
                     const QVector3 &P_INT1 = QVector3(this->Origin) + (NUMERATOR1 / DENOMINATOR) * this->Direction;
                     const QVector3 &P_INT2 = QVector3(ray.Origin) + PARAM2 * ray.Direction;
@@ -1071,7 +1071,7 @@ public:
         else
         {
             const float_q &PARAM = NUMERATOR / DENOMINATOR;
-            if ( SQFloat::IsPositive(PARAM) ) // Intersection in one point.
+            if ( SQFloat::IsGreaterOrEquals(PARAM, SQFloat::_0) ) // Intersection in one point.
             {
                 vIntersection.x = this->Origin.x + PARAM * this->Direction.x;
                 vIntersection.y = this->Origin.y + PARAM * this->Direction.y;
@@ -2235,7 +2235,9 @@ protected:
         const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
-        return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1);
+        return SQFloat::IsGreaterOrEquals(fU, SQFloat::_0) && 
+               SQFloat::IsGreaterOrEquals(fV, SQFloat::_0) && 
+               SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1);
     }
 
     // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
@@ -2268,7 +2270,9 @@ protected:
         const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
-        if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1) )
+        if ( SQFloat::IsGreaterOrEquals(fU, SQFloat::_0) && 
+             SQFloat::IsGreaterOrEquals(fV, SQFloat::_0) && 
+             SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1) )
             return true;
 
         // Compute new vector
@@ -2290,7 +2294,9 @@ protected:
         const float_q &fV2 = (DOT_00 * DOT_32 - DOT_03 * DOT_02) * INV_DENOM2;
 
         // Check if point is in triangle
-        return  SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);;
+        return  SQFloat::IsGreaterOrEquals(fU2, SQFloat::_0) && 
+                SQFloat::IsGreaterOrEquals(fV2, SQFloat::_0) && 
+                SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);
     }
 
     // Checks if resident ray intersects with a quadrilateral given by its four vertices

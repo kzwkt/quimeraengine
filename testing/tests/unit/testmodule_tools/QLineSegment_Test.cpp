@@ -272,10 +272,10 @@ QTEST_CASE_TEMPLATE ( GetLength_IsAlwaysPositive_Test, TQTemplateTypes )
     float_q fLengthBothNegative = LINE_SEGMENT4.GetLength();
 
     // Verification
-    BOOST_CHECK(SQFloat::IsPositive(fLengthBothPositive));
-    BOOST_CHECK(SQFloat::IsPositive(fLengthANegative));
-    BOOST_CHECK(SQFloat::IsPositive(fLengthBNegative));
-    BOOST_CHECK(SQFloat::IsPositive(fLengthBothNegative));
+    BOOST_CHECK(SQFloat::IsGreaterOrEquals(fLengthBothPositive, SQFloat::_0));
+    BOOST_CHECK(SQFloat::IsGreaterOrEquals(fLengthANegative, SQFloat::_0));
+    BOOST_CHECK(SQFloat::IsGreaterOrEquals(fLengthBNegative, SQFloat::_0));
+    BOOST_CHECK(SQFloat::IsGreaterOrEquals(fLengthBothNegative, SQFloat::_0));
 }
 
 /// <summary>

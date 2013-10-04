@@ -489,28 +489,31 @@ public:
     /// <summary>
     /// Indicates whether the floating point number has negative sign.
     /// </summary>
+    /// <remarks>
+    /// Zero is neither positive nor negative.
+    /// </remarks>
     /// <param name="fValue">[IN] The value whose sign is going to be checked.</param>
     /// <returns>
-    /// If the number is lower than zero, returns True. Otherwise, returns False.
+    /// If the number is lower than zero, it returns True. Otherwise, it returns False.
     /// </returns>
     inline static bool IsNegative(const float_q &fValue)
     {
-        // [TODO] Thund: Change this to extract the sign
         return SQFloat::IsLessThan(fValue, SQFloat::_0);
     }
 
     /// <summary>
-    /// Indicates whether the floating point number has positive sign.<br/>
-    /// Zero is cosidered as positive.
+    /// Indicates whether the number is positive or not.
     /// </summary>
+    /// <remarks>
+    /// Zero is neither positive nor negative.
+    /// </remarks>
     /// <param name="fValue">[IN] The value whose sign is going to be checked.</param>
     /// <returns>
-    /// If the number is greater than or equals to zero, returns True. Otherwise, returns False.
+    /// If the number is greater than zero, it returns True. Otherwise, it returns False.
     /// </returns>
     inline static bool IsPositive(const float_q &fValue)
     {
-        // [TODO] Thund: Change this to extract the sign. Zero is not positive only.
-        return SQFloat::IsGreaterOrEquals(fValue, SQFloat::_0);
+        return SQFloat::IsGreaterThan(fValue, SQFloat::_0);
     }
 
     /// <summary>

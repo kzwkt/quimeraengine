@@ -215,7 +215,7 @@ public:
             return false;
         else if ( SQFloat::IsZero(fD) ) // D = B^2 - 4AC = 0 => 1 intersection
         {
-            if ( SQFloat::IsPositive(-fB) ) // T = -B/2A -> must be >= 0
+            if ( SQFloat::IsGreaterOrEquals(-fB, SQFloat::_0) ) // T = -B/2A -> must be >= 0
                 return true;
             else
                 return false;

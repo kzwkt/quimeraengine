@@ -224,8 +224,8 @@ QTEST_CASE ( Constructor4_RotationFollowsLeftHandedRules_Test )
     QVector2 rotatedPointUT = POINT.Transform(matrix);
 
     // Verification
-    BOOST_CHECK(SQFloat::IsPositive(rotatedPointUT.x));
-    BOOST_CHECK(SQFloat::IsPositive(rotatedPointUT.y));
+    BOOST_CHECK(SQFloat::IsGreaterOrEquals(rotatedPointUT.x, SQFloat::_0));
+    BOOST_CHECK(SQFloat::IsGreaterOrEquals(rotatedPointUT.y, SQFloat::_0));
 }
 
 /// <summary>

@@ -1604,61 +1604,61 @@ QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
     float_q fResult6_8UT = OPERAND_IN_IV_QUADRANT_2.DotProductAngle(OPERAND_IN_I_QUADRANT_2);
 
     // Verification
-    BOOST_CHECK( SQFloat::IsPositive(fResult1_1UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2_1UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult3_1UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult4_1UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult5_1UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult6_1UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1_1UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2_1UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult3_1UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult4_1UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult5_1UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult6_1UT, SQFloat::_0) );
 
-    BOOST_CHECK( SQFloat::IsPositive(fResult1_2UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2_2UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult3_2UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult4_2UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult5_2UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult6_2UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1_2UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2_2UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult3_2UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult4_2UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult5_2UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult6_2UT, SQFloat::_0) );
 
-    BOOST_CHECK( SQFloat::IsPositive(fResult1_3UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2_3UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult3_3UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult4_3UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult5_3UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult6_3UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1_3UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2_3UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult3_3UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult4_3UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult5_3UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult6_3UT, SQFloat::_0) );
 
-    BOOST_CHECK( SQFloat::IsPositive(fResult1_4UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2_4UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult3_4UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult4_4UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult5_4UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult6_4UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1_4UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2_4UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult3_4UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult4_4UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult5_4UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult6_4UT, SQFloat::_0) );
 
-    BOOST_CHECK( SQFloat::IsPositive(fResult1_5UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2_5UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult3_5UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult4_5UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult5_5UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult6_5UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1_5UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2_5UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult3_5UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult4_5UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult5_5UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult6_5UT, SQFloat::_0) );
 
-    BOOST_CHECK( SQFloat::IsPositive(fResult1_6UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2_6UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult3_6UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult4_6UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult5_6UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult6_6UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1_6UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2_6UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult3_6UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult4_6UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult5_6UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult6_6UT, SQFloat::_0) );
 
-    BOOST_CHECK( SQFloat::IsPositive(fResult1_7UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2_7UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult3_7UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult4_7UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult5_7UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult6_7UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1_7UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2_7UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult3_7UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult4_7UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult5_7UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult6_7UT, SQFloat::_0) );
 
-    BOOST_CHECK( SQFloat::IsPositive(fResult1_8UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2_8UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult3_8UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult4_8UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult5_8UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult6_8UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1_8UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2_8UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult3_8UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult4_8UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult5_8UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult6_8UT, SQFloat::_0) );
 }
 
 /// <summary>
