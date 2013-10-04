@@ -2680,7 +2680,7 @@ QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
     float_q fResultUT = REFERENCE_OPERAND.DotProductAngle(QUATERNION);
 
     // Verification
-    BOOST_CHECK( SQFloat::IsPositive(fResultUT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResultUT, SQFloat::_0) );
 }
 
 /// <summary>

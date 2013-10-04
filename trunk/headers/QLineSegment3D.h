@@ -1669,7 +1669,7 @@ public:
         const VectorType PLANE_POINT = VectorType(PLANE_POINT_COMPONENTS);
 
         // If the line and the plane don't intersect...
-        if(SQFloat::IsPositive(PLANE_POINT.DotProduct(this->A)) == SQFloat::IsPositive(PLANE_POINT.DotProduct(this->B)) ||
+        if(SQFloat::IsGreaterOrEquals(PLANE_POINT.DotProduct(this->A), SQFloat::_0) == SQFloat::IsGreaterOrEquals(PLANE_POINT.DotProduct(this->B), SQFloat::_0) ||
            SQFloat::IsNegative(PLANE_POINT.DotProduct(this->A)) == SQFloat::IsNegative(PLANE_POINT.DotProduct(this->B)))
         {
             const float_q &DIST_A = plane.PointDistance(this->A);
@@ -2039,7 +2039,7 @@ protected:
         VectorTypeParam vCP1 = vLine.CrossProduct(vPoint1 - vLine1);
         VectorTypeParam vCP2 = vLine.CrossProduct(vPoint2 - vLine1);
 
-        return SQFloat::IsPositive(vCP1.DotProduct(vCP2));
+        return SQFloat::IsGreaterOrEquals(vCP1.DotProduct(vCP2), SQFloat::_0);
     }
 
     // Calculates if a point is inside the triangle provided applying barycentric technique.
@@ -2069,7 +2069,9 @@ protected:
         const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
-        return SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1);
+        return SQFloat::IsGreaterOrEquals(fU, SQFloat::_0) && 
+               SQFloat::IsGreaterOrEquals(fV, SQFloat::_0) && 
+               SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1);
     }
 
     // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
@@ -2101,7 +2103,9 @@ protected:
         const float_q &fV = (DOT_00 * DOT_12 - DOT_01 * DOT_02) * INV_DENOM;
 
         // Check if point is in triangle
-        if ( SQFloat::IsPositive(fU) && SQFloat::IsPositive(fV) && SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1) )
+        if ( SQFloat::IsGreaterOrEquals(fU, SQFloat::_0) && 
+             SQFloat::IsGreaterOrEquals(fV, SQFloat::_0) && 
+             SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1) )
             return true;
 
         // Compute new vector
@@ -2123,7 +2127,9 @@ protected:
         const float_q &fV2 = (DOT_00 * DOT_32 - DOT_03 * DOT_02) * INV_DENOM2;
 
         // Check if point is in triangle
-        return SQFloat::IsPositive(fU2) && SQFloat::IsPositive(fV2) && SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);
+        return SQFloat::IsGreaterOrEquals(fU2, SQFloat::_0) && 
+               SQFloat::IsGreaterOrEquals(fV2, SQFloat::_0) && 
+               SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);
     }
 
     // Calculates if two points are in the same side of a plane defined by 3 points.
@@ -2136,7 +2142,7 @@ protected:
         const float_q &DIST_P1 = p.a * vPoint1.x + p.b * vPoint1.y + p.c * vPoint1.z + p.d;
         const float_q &DIST_P2 = p.a * vPoint2.x + p.b * vPoint2.y + p.c * vPoint2.z + p.d;
 
-        return SQFloat::IsPositive(DIST_P1 * DIST_P2);
+        return SQFloat::IsGreaterOrEquals(DIST_P1 * DIST_P2, SQFloat::_0);
     }
 
     // [TODO] Thund: This may be replaced with a call to QHexahedron::Contains. This would add a dependency to QHexahedron.

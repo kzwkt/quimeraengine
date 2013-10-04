@@ -343,7 +343,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_FollowsLeftHandedRules_Test, TQTemplateTypes )
     QVector3 vNormal = TRIANGLE.GetNormal();
 
     // Verification
-    BOOST_CHECK(SQFloat::IsPositive(vNormal.y));
+    BOOST_CHECK(SQFloat::IsGreaterOrEquals(vNormal.y, SQFloat::_0));
 }
 
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS

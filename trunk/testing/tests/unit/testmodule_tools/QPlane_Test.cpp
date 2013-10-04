@@ -1254,8 +1254,8 @@ QTEST_CASE ( DotProductAngle1_AngleIsAlwaysPositive_Test )
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // Verification
-    BOOST_CHECK( SQFloat::IsPositive(fResult1UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2UT, SQFloat::_0) );
 }
 
 /// <summary>
@@ -1472,8 +1472,8 @@ QTEST_CASE ( DotProductAngle2_AngleIsAlwaysPositive_Test )
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // Verification
-    BOOST_CHECK( SQFloat::IsPositive(fResult1UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2UT, SQFloat::_0) );
 }
 
 /// <summary>
@@ -1744,8 +1744,8 @@ QTEST_CASE ( DotProductAngle3_AngleIsAlwaysPositive_Test )
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // Verification
-    BOOST_CHECK( SQFloat::IsPositive(fResult1UT) );
-    BOOST_CHECK( SQFloat::IsPositive(fResult2UT) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2UT, SQFloat::_0) );
 }
 
 /// <summary>

@@ -406,8 +406,9 @@ public:
         if (SQFloat::IsZero(DIST_A) && SQFloat::IsZero(DIST_B) && SQFloat::IsZero(DIST_C) && SQFloat::IsZero(DIST_D) &&
             SQFloat::IsZero(DIST_E) && SQFloat::IsZero(DIST_F) && SQFloat::IsZero(DIST_G) && SQFloat::IsZero(DIST_H) )
             return EQSpaceRelation::E_Contained;
-        else if ( SQFloat::IsPositive(DIST_A) && SQFloat::IsPositive(DIST_B) && SQFloat::IsPositive(DIST_C) && SQFloat::IsPositive(DIST_D) &&
-                  SQFloat::IsPositive(DIST_E) && SQFloat::IsPositive(DIST_F) && SQFloat::IsPositive(DIST_G) && SQFloat::IsPositive(DIST_H) )
+        else if ( SQFloat::IsGreaterOrEquals(DIST_A, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_B, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_C, SQFloat::_0) &&
+                  SQFloat::IsGreaterOrEquals(DIST_D, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_E, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_F, SQFloat::_0) &&
+                  SQFloat::IsGreaterOrEquals(DIST_G, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_H, SQFloat::_0) )
             return EQSpaceRelation::E_PositiveSide;
         else if ( SQFloat::IsLessOrEquals(DIST_A, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_B, SQFloat::_0) &&
                   SQFloat::IsLessOrEquals(DIST_C, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_D, SQFloat::_0) &&

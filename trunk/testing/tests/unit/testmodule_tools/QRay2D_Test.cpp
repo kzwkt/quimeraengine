@@ -2226,7 +2226,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTheClosestPointWhenIntersectingWithTwoEdg
     
     // Verification
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
-    BOOST_CHECK( SQFloat::IsPositive(vIntersection.x) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(vIntersection.x, SQFloat::_0) );
 }
 
 /// <summary>
@@ -2855,7 +2855,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTheClosestPointInFirstParameterWhenInters
     
     // Verification
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
-    BOOST_CHECK( SQFloat::IsPositive(vFirstIntersection.x) );
+    BOOST_CHECK( SQFloat::IsGreaterOrEquals(vFirstIntersection.x, SQFloat::_0) );
     BOOST_CHECK( SQFloat::IsNegative(vSecondIntersection.x) );
 }
 

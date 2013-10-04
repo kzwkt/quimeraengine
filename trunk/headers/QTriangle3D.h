@@ -510,7 +510,7 @@ public:
 
 		if ( SQFloat::IsZero(DIST_TO_A) && SQFloat::IsZero(DIST_TO_B) && SQFloat::IsZero(DIST_TO_C) )
             return EQSpaceRelation::E_Contained;
-        else if ( SQFloat::IsPositive(DIST_TO_A) && SQFloat::IsPositive(DIST_TO_B) && SQFloat::IsPositive(DIST_TO_C) )
+        else if ( SQFloat::IsGreaterOrEquals(DIST_TO_A, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_TO_B, SQFloat::_0) && SQFloat::IsGreaterOrEquals(DIST_TO_C, SQFloat::_0) )
             return EQSpaceRelation::E_PositiveSide;
         else if ( SQFloat::IsLessOrEquals(DIST_TO_A, SQFloat::_0) && SQFloat::IsLessOrEquals(DIST_TO_B, SQFloat::_0) &&
                   SQFloat::IsLessOrEquals(DIST_TO_C, SQFloat::_0) )
