@@ -1204,7 +1204,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrb
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
 
-    const float_q EXPECTED_POINT_COMPONENTS_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
+    const float_q EXPECTED_POINT_COMPONENTS_CONTAINED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT_CONTAINED = T(EXPECTED_POINT_COMPONENTS_CONTAINED);
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
 
