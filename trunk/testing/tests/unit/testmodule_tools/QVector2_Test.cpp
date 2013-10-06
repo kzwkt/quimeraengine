@@ -31,6 +31,9 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QVector2.h"
+
+#include "SQFloat.h"
+#include "SQVF32.h"
 #include "SQAngle.h"
 #include "QBaseMatrix2x2.h"
 #include "QMatrix3x3.h"

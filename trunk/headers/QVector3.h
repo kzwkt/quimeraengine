@@ -27,11 +27,8 @@
 #ifndef __QVECTOR3__
 #define __QVECTOR3__
 
-#include "SQAngle.h"
 #include "QBaseVector3.h"
-#include "QBaseVector4.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
@@ -47,6 +44,7 @@ namespace Math
 {
 
 // Forward declarations
+// ---------------------
 class QBaseMatrix3x3;
 class QBaseMatrix3x4;
 class QBaseMatrix4x3;
@@ -60,6 +58,8 @@ template<class MatrixType> class QTransformationMatrix;
 class QSpaceConversionMatrix;
 class QRotationMatrix3x3;
 class QScalingMatrix3x3;
+class QBaseVector4;
+
 
 /// <summary>
 /// A vector with three components: X, Y and Z.
@@ -94,33 +94,25 @@ public:
     /// <remarks>
     ///	By default, all the components are set to zero.
     /// </remarks>
-    inline QVector3()
-    {
-    }
+    QVector3();
 
     /// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-	inline QVector3(const QVector3 &vVector) : QBaseVector3(vVector)
-	{
-	}
+	QVector3(const QVector3 &vVector);
 
     /// <summary>
 	/// Constructor that receives an instance of the base type.
 	/// </summary>
 	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-	inline QVector3(const QBaseVector3 &vVector) : QBaseVector3(vVector)
-    {
-    }
+	QVector3(const QBaseVector3 &vVector);
 
     /// <summary>
     /// Constructor that receives 4D vector. The W component is ignored.
     /// </summary>
     /// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-    inline explicit QVector3(const QBaseVector4 &vVector) : QBaseVector3(vVector.x, vVector.y, vVector.z)
-    {
-    }
+    explicit QVector3(const QBaseVector4 &vVector);
 
     /// <summary>
 	/// Constructor that receives the value of every vector's component.
@@ -128,17 +120,13 @@ public:
 	/// <param name="fValueX">[IN] The value for X component.</param>
 	/// <param name="fValueY">[IN] The value for Y component.</param>
     /// <param name="fValueZ">[IN] The value for Z component.</param>
-    inline QVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) : QBaseVector3(fValueX, fValueY, fValueZ)
-    {
-    }
+    QVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ);
 
     /// <summary>
 	/// Constructor from a single value for all the vector's components.
 	/// </summary>
 	/// <param name="fValueAll">[IN] The value for all components.</param>
-    inline explicit QVector3(const float_q &fValueAll) : QBaseVector3(fValueAll)
-    {
-    }
+    explicit QVector3(const float_q &fValueAll);
 
     /// <summary>
 	/// Constructor that receives an array of scalars.
@@ -147,9 +135,7 @@ public:
     /// The array must contain, at least, three elements. Only the first three elements will be considered; the rest will be ignored.
     /// </remarks>
 	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, three elements. If it is null, the behavior is undefined.</param>
-	inline explicit QVector3(const float_q* arValues) : QBaseVector3(arValues)
-    {
-    }
+	explicit QVector3(const float_q* arValues);
 
     /// <summary>
     /// Constructor that receives a pack of four scalars.
@@ -158,9 +144,7 @@ public:
     /// Only the three first elements in the pack (most significant bits) are considered.
     /// </remarks>
     /// <param name="value">[IN] 4x32 packed floating point value containing the three components.</param>
-    inline explicit QVector3(const vf32_q value) : QBaseVector3(value)
-    {
-    }
+    explicit QVector3(const vf32_q value);
 
     /// <summary>
     /// Constructor that receives a 4x3 translation matrix from which to extract the translation vector.
@@ -191,11 +175,7 @@ public:
 	/// <returns>
 	/// A null vector.
 	/// </returns>
-    inline static const QVector3& GetZeroVector()
-    {
-        static const QVector3 ZEROVECTOR(SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-        return ZEROVECTOR;
-    }
+    static const QVector3& GetZeroVector();
 
     /// <summary>
 	/// Gets a vector whose components equal one.
@@ -203,11 +183,7 @@ public:
 	/// <returns>
 	/// A vector of ones.
 	/// </returns>
-    inline static const QVector3& GetVectorOfOnes()
-    {
-        static const QVector3 VECTOROFONES(SQFloat::_1,  SQFloat::_1,  SQFloat::_1);
-        return VECTOROFONES;
-    }
+    static const QVector3& GetVectorOfOnes();
 
     /// <summary>
 	/// Gets a unit vector that points to the positive direction of the X axis.
@@ -215,11 +191,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the positive direction of the X axis.
 	/// </returns>
-    inline static const QVector3& GetUnitVectorX()
-    {
-        static const QVector3 UNITVECTORX(SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
-        return UNITVECTORX;
-    }
+    static const QVector3& GetUnitVectorX();
 
     /// <summary>
 	/// Gets a unit vector that points to the positive direction of the Y axis.
@@ -227,11 +199,7 @@ public:
 	/// <returns>
 	/// A a unit vector that points to the positive direction of the Y axis.
 	/// </returns>
-    inline static const QVector3& GetUnitVectorY()
-    {
-        static const QVector3 UNITVECTORY(SQFloat::_0,  SQFloat::_1,  SQFloat::_0);
-        return UNITVECTORY;
-    }
+    static const QVector3& GetUnitVectorY();
 
     /// <summary>
 	/// Gets a unit vector that points to the positive direction of the Z axis.
@@ -239,11 +207,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the positive direction of the Z axis.
 	/// </returns>
-    inline static const QVector3& GetUnitVectorZ()
-    {
-        static const QVector3 UNITVECTORZ(SQFloat::_0,  SQFloat::_0,  SQFloat::_1);
-        return UNITVECTORZ;
-    }
+    static const QVector3& GetUnitVectorZ();
 
     /// <summary>
 	/// Gets a unit vector that points to the negative direction of the X axis.
@@ -251,11 +215,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the negative direction of the X axis.
 	/// </returns>
-    inline static const QVector3& GetUnitVectorInvX()
-    {
-        static const QVector3 UNITVECTORINVX(-SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
-        return UNITVECTORINVX;
-    }
+    static const QVector3& GetUnitVectorInvX();
 
     /// <summary>
 	/// Gets a unit vector that points to the negative direction of the Y axis.
@@ -263,11 +223,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the negative direction of the Y axis.
 	/// </returns>
-    inline static const QVector3& GetUnitVectorInvY()
-    {
-        static const QVector3 UNITVECTORINVY(SQFloat::_0,  -SQFloat::_1,  SQFloat::_0);
-        return UNITVECTORINVY;
-    }
+    static const QVector3& GetUnitVectorInvY();
 
     /// <summary>
 	/// Gets a unit vector that points to the negative direction of the Z axis.
@@ -275,11 +231,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the negative direction of the Z axis.
 	/// </returns>
-    inline static const QVector3& GetUnitVectorInvZ()
-    {
-        static const QVector3 UNITVECTORINVZ(SQFloat::_0,  SQFloat::_0,  -SQFloat::_1);
-        return UNITVECTORINVZ;
-    }
+    static const QVector3& GetUnitVectorInvZ();
 
 
     // METHODS
@@ -371,14 +323,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the addition.
 	/// </returns>
-    inline QVector3& operator+=(const QBaseVector3 &vVector)
-    {
-        this->x += vVector.x;
-        this->y += vVector.y;
-        this->z += vVector.z;
-
-        return *this;
-    }
+    QVector3& operator+=(const QBaseVector3 &vVector);
 
     /// <summary>
 	/// Subtracts a vector to the resident vector. The resident vector is set to the result.
@@ -387,14 +332,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the subtraction.
 	/// </returns>
-    inline QVector3& operator-=(const QBaseVector3 &vVector)
-    {
-        this->x -= vVector.x;
-        this->y -= vVector.y;
-        this->z -= vVector.z;
-
-        return *this;
-    }
+    QVector3& operator-=(const QBaseVector3 &vVector);
 
     /// <summary>
 	/// Multiplies the resident vector by a scalar. The resident vector is set to the result.
@@ -403,14 +341,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the product.
 	/// </returns>
-    inline QVector3& operator*=(const float_q fScalar)
-    {
-        this->x *= fScalar;
-        this->y *= fScalar;
-        this->z *= fScalar;
-
-        return *this;
-    }
+    QVector3& operator*=(const float_q fScalar);
 
     /// <summary>
 	/// Multiplies two vectors by multiplying each component. The resident vector is set to the result.
@@ -419,14 +350,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the product.
 	/// </returns>
-    inline QVector3& operator*=(const QBaseVector3 &vVector)
-    {
-        this->x *= vVector.x;
-        this->y *= vVector.y;
-        this->z *= vVector.z;
-
-        return *this;
-    }
+    QVector3& operator*=(const QBaseVector3 &vVector);
 
     /// <summary>
     /// Multiplies the resident vector by a 3x3 matrix. The resident vector is set to the result.
@@ -447,19 +371,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the division.
 	/// </returns>
-    inline QVector3& operator/=(const float_q &fScalar)
-    {
-        // Checkout to avoid division by 0
-        QE_ASSERT(fScalar != SQFloat::_0)
-
-        const float_q &DIVISOR = SQFloat::_1 / fScalar;
-
-        this->x *= DIVISOR;
-        this->y *= DIVISOR;
-        this->z *= DIVISOR;
-
-        return *this;
-    }
+    QVector3& operator/=(const float_q &fScalar);
 
     /// <summary>
 	/// Divides two vectors by dividing each component. The resident vector is set to the result.
@@ -468,17 +380,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the division.
 	/// </returns>
-    inline QVector3& operator/=(const QBaseVector3 &vVector)
-    {
-        // Checkout to avoid division by 0
-        QE_ASSERT(vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0)
-
-        this->x /= vVector.x;
-        this->y /= vVector.y;
-        this->z /= vVector.z;
-
-        return *this;
-    }
+    QVector3& operator/=(const QBaseVector3 &vVector);
 
     /// <summary>
     /// Assigns the provided vector to the resident vector.
@@ -487,11 +389,7 @@ public:
     /// <returns>
     /// A reference to the resident vector.
     /// </returns>
-    inline QVector3& operator=(const QBaseVector3 &vVector)
-    {
-        QBaseVector3::operator=(vVector);
-        return *this;
-    }
+    QVector3& operator=(const QBaseVector3 &vVector);
 
     /// <summary>
 	/// Negates the vector by negating each component.
@@ -529,37 +427,17 @@ public:
     /// <returns>
 	/// The normalized vector.
 	/// </returns>
-    inline QVector3 Normalize() const
-    {
-        // Gets vector length
-        float_q fLength = this->GetLength();
-
-        // Checkout to avoid division by 0
-        QE_ASSERT(fLength != SQFloat::_0)
-
-        //Normalize
-        return QVector3(this->x / fLength, this->y / fLength, this->z / fLength);
-    }
+    QVector3 Normalize() const;
 
     /// <summary>
 	/// Sets all the components of the vector to one.
 	/// </summary>
-    inline void ResetToOne()
-    {
-        this->x = SQFloat::_1;
-        this->y = SQFloat::_1;
-        this->z = SQFloat::_1;
-    }
+    void ResetToOne();
 
     /// <summary>
 	/// Sets all the components of the vector to zero.
 	/// </summary>
-    inline void ResetToZero()
-    {
-        this->x = SQFloat::_0;
-        this->y = SQFloat::_0;
-        this->z = SQFloat::_0;
-    }
+    void ResetToZero();
 
     /// <summary>
 	/// Checks if all components equal zero.
@@ -624,12 +502,7 @@ public:
     /// <returns>
     /// A vector that is the result of the interpolation.
     /// </returns>
-    inline QVector3 Lerp(const float_q &fProportion, const QVector3 &vVector) const
-    {
-        return QVector3(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
-                        this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion,
-                        this->z * (SQFloat::_1 - fProportion) + vVector.z * fProportion);
-    }
+    QVector3 Lerp(const float_q &fProportion, const QVector3 &vVector) const;
 
     /// <summary>
 	/// Calculates the distance between two vectors (two points).
@@ -813,7 +686,6 @@ protected:
                         this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + transformation.ij[3][1],
                         this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2] + transformation.ij[3][2]);
     }
-
 };
 
 } //namespace Math

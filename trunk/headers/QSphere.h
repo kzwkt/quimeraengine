@@ -72,7 +72,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QSphere()
+	QSphere()
     {
     }
 
@@ -80,7 +80,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="sphere">[IN] The sphere from which we want to create a copy in the resident sphere.</param>
-	inline QSphere(const QSphere<VectorType> &sphere) : QOrb<VectorType>(sphere)
+	QSphere(const QSphere<VectorType> &sphere) : QOrb<VectorType>(sphere)
     {
     }
 
@@ -88,7 +88,7 @@ public:
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="orb">[IN] The sphere in which we want resident sphere to be based.</param>
-	inline QSphere(const QBaseOrb<VectorType> &orb) : QOrb<VectorType>(orb)
+	QSphere(const QBaseOrb<VectorType> &orb) : QOrb<VectorType>(orb)
     {
     }
 
@@ -97,7 +97,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector that defines the center of the sphere.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    inline QSphere(const VectorType &vCenter, const float_q &fRadius) : QOrb<VectorType>(vCenter, fRadius)
+    QSphere(const VectorType &vCenter, const float_q &fRadius) : QOrb<VectorType>(vCenter, fRadius)
     {
     }
 
@@ -112,7 +112,7 @@ public:
 	/// <returns>
 	/// A "unit sphere".
 	/// </returns>
-    inline static const QSphere<VectorType>& GetUnitSphere()
+    static const QSphere<VectorType>& GetUnitSphere()
     {
         static const QSphere<VectorType> UNITSPHERE(VectorType::GetZeroVector(), SQFloat::_1);
         return UNITSPHERE;
@@ -130,7 +130,7 @@ public:
     /// <returns>
 	/// A reference to the modified orb.
 	/// </returns>
-    inline QSphere<VectorType>& operator=(const QBaseOrb<VectorType> &sphere)
+    QSphere<VectorType>& operator=(const QBaseOrb<VectorType> &sphere)
     {
         QBaseOrb<VectorType>::operator=(sphere);
         return *this;
@@ -143,7 +143,7 @@ public:
     /// <returns>
     /// The translated sphere.
     /// </returns>
-    inline QSphere<VectorType> Translate(const QVector3 &vTranslation) const
+    QSphere<VectorType> Translate(const QVector3 &vTranslation) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Translate(vTranslation, &auxSphere.Center, 1);
@@ -159,7 +159,7 @@ public:
     /// <returns>
     /// The translated sphere.
     /// </returns>
-    inline QSphere<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+    QSphere<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxSphere.Center, 1);
@@ -173,7 +173,7 @@ public:
     /// <returns>
     /// The rotated sphere.
     /// </returns>
-    inline QSphere<VectorType> Rotate(const QQuaternion &qRotation) const
+    QSphere<VectorType> Rotate(const QQuaternion &qRotation) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Rotate(qRotation, &auxSphere.Center, 1);
@@ -188,7 +188,7 @@ public:
     /// <returns>
     /// The rotated sphere.
     /// </returns>
-    inline QSphere<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
+    QSphere<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::RotateWithPivot(qRotation, vPivot, &auxSphere.Center, 1);
@@ -203,7 +203,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-    inline QSphere<VectorType> Scale(const QVector3 &vScale, const float_q &fRadiusScale) const
+    QSphere<VectorType> Scale(const QVector3 &vScale, const float_q &fRadiusScale) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Scale(vScale, &auxSphere.Center, 1);
@@ -220,7 +220,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-    inline QSphere<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const float_q &fRadiusScale) const
+    QSphere<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const float_q &fRadiusScale) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Scale(fScaleX, fScaleY, fScaleZ, &auxSphere.Center, 1);
@@ -236,7 +236,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-    inline QSphere<VectorType> ScaleWithPivot(const QVector3 &vScale, const float_q &fRadiusScale, const VectorType &vPivot) const
+    QSphere<VectorType> ScaleWithPivot(const QVector3 &vScale, const float_q &fRadiusScale, const VectorType &vPivot) const
     {
         QSphere<VectorType> auxSphere = *this;
         SQPoint::ScaleWithPivot(vScale, vPivot, &auxSphere.Center, 1);
@@ -254,7 +254,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-    inline QSphere<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const float_q &fRadiusScale,
+    QSphere<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const float_q &fRadiusScale,
                                const VectorType &vPivot) const
     {
         QSphere<VectorType> auxSphere = *this;
@@ -270,7 +270,7 @@ public:
     /// <returns>
     /// The rotated sphere.
     /// </returns>
-	inline QSphere<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
+	QSphere<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
 	{
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Rotate(rotation, &auxSphere.Center, 1);
@@ -286,7 +286,7 @@ public:
     /// <returns>
     /// The rotated sphere.
     /// </returns>
-	inline QSphere<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
+	QSphere<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
 	{
         QSphere<VectorType> auxSphere = *this;
         SQPoint::RotateWithPivot(rotation, vPivot, &auxSphere.Center, 1);
@@ -300,7 +300,7 @@ public:
     /// <returns>
     /// The translated sphere.
     /// </returns>
-    inline QSphere<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
+    QSphere<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
 	{
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Translate(translation, &auxSphere.Center, 1);
@@ -314,7 +314,7 @@ public:
     /// <returns>
     /// The translated sphere.
     /// </returns>
-    inline QSphere<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
+    QSphere<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
 	{
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Translate(translation, &auxSphere.Center, 1);
@@ -329,7 +329,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-	inline QSphere<VectorType> Scale(const QScalingMatrix3x3 &scale, const float_q &fRadiusScale) const
+	QSphere<VectorType> Scale(const QScalingMatrix3x3 &scale, const float_q &fRadiusScale) const
 	{
         QSphere<VectorType> auxSphere = *this;
         SQPoint::Scale(scale, &auxSphere.Center, 1);
@@ -346,7 +346,7 @@ public:
     /// <returns>
     /// The scaled sphere.
     /// </returns>
-	inline QSphere<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const float_q &fRadiusScale, const VectorType &vPivot) const
+	QSphere<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const float_q &fRadiusScale, const VectorType &vPivot) const
 	{
         QSphere<VectorType> auxSphere = *this;
 	    SQPoint::ScaleWithPivot(scale, vPivot, &auxSphere.Center, 1);
@@ -361,7 +361,7 @@ public:
     /// <returns>
     /// The transformed sphere.
     /// </returns>
-	inline QSphere<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation, const float_q &fRadiusScale) const
+	QSphere<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation, const float_q &fRadiusScale) const
 	{
         QSphere<VectorType> auxSphere = *this;
 	    SQPoint::Transform(transformation, &auxSphere.Center, 1);
@@ -376,7 +376,7 @@ public:
     /// <returns>
     /// The transformed sphere.
     /// </returns>
-	inline QSphere<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation, const float_q &fRadiusScale) const
+	QSphere<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation, const float_q &fRadiusScale) const
 	{
 	    QSphere<VectorType> auxSphere = *this;
 	    SQPoint::Transform(transformation, &auxSphere.Center, 1);
@@ -391,7 +391,7 @@ public:
     /// <returns>
     /// The transformed sphere.
     /// </returns>
-	inline QSphere<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
+	QSphere<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
 	{
         QSphere<VectorType> auxSphere = *this;
 	    SQPoint::Transform(spaceConversion, &auxSphere.Center, 1);
@@ -411,7 +411,7 @@ public:
     /// <returns>
     /// The transformed sphere.
     /// </returns>
-	inline QSphere<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const float_q &fRadiusScale,
+	QSphere<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const float_q &fRadiusScale,
                                    const VectorType &vPivot) const
 	{
         QSphere<VectorType> auxSphere = *this;
@@ -432,7 +432,7 @@ public:
     /// <returns>
     /// The transformed sphere.
     /// </returns>
-	inline QSphere<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const float_q &fRadiusScale,
+	QSphere<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const float_q &fRadiusScale,
                                    const VectorType &vPivot) const
 	{
 	    QSphere<VectorType> auxSphere = *this;
@@ -456,7 +456,7 @@ public:
     /// - Negative Side
     /// - Both Sides (intersects the plane).
     /// </returns>
-	inline EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
+	EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
         // The plane should not be null
         QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
@@ -494,7 +494,7 @@ public:
     /// <returns>
 	/// The projected sphere.
 	/// </returns>
-	inline QSphere<VectorType> ProjectToPlane(const QPlane &plane) const
+	QSphere<VectorType> ProjectToPlane(const QPlane &plane) const
 	{
         // The plane should not be null
         QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );

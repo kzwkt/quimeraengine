@@ -27,11 +27,8 @@
 #ifndef __QBASEQUADRILATERAL__
 #define __QBASEQUADRILATERAL__
 
-#include "SQFloat.h"
-#include "SQVF32.h"
 #include "QVector2.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
 
@@ -57,17 +54,13 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseQuadrilateral() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0), D(SQFloat::_0)
-    {
-    }
+    QBaseQuadrilateral();
 
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <param name="quad">[IN] The quadrilateral from which we want to create a copy in the resident quadrilateral.</param>
-    inline QBaseQuadrilateral(const QBaseQuadrilateral &quad) : A(quad.A), B(quad.B), C(quad.C), D(quad.D)
-    {
-    }
+    QBaseQuadrilateral(const QBaseQuadrilateral &quad);
 
     /// <summary>
     /// Constructor from four vectors, one for each vertex.
@@ -76,11 +69,7 @@ public:
     /// <param name="vB">[IN] Vector to define vertex B.</param>
     /// <param name="vC">[IN] Vector to define vertex C.</param>
     /// <param name="vD">[IN] Vector to define vertex D.</param>
-    inline QBaseQuadrilateral(const QVector2 &vA, const QVector2 &vB,
-                              const QVector2 &vC, const QVector2 &vD) :
-                                A(vA), B(vB), C(vC), D(vD)
-    {
-    }
+    QBaseQuadrilateral(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC, const QVector2 &vD);
 
 
     // METHODS
@@ -94,10 +83,7 @@ public:
     /// <returns>
     /// True if quadrilaterals are the same, false otherwise.
     /// </returns>
-    inline bool operator==(const QBaseQuadrilateral &quad) const
-    {
-        return ( this->A == quad.A && this->B == quad.B && this->C == quad.C && this->D == quad.D );
-    }
+    bool operator==(const QBaseQuadrilateral &quad) const;
 
     /// <summary>
     /// Inequality operator. Compares two quadrilaterals.
@@ -106,10 +92,8 @@ public:
     /// <returns>
     /// True if quadrilaterals are not the same, false otherwise.
     /// </returns>
-    inline bool operator!=(const QBaseQuadrilateral &quad) const
-    {
-        return !(*this == quad);
-    }
+    bool operator!=(const QBaseQuadrilateral &quad) const;
+
 
     // ATTRIBUTES
     // ---------------

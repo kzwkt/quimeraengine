@@ -27,11 +27,9 @@
 #ifndef __QBASEQUATERNION__
 #define __QBASEQUATERNION__
 
-#include "SQFloat.h"
-#include "SQVF32.h"
+#include "DataTypesDefinitions.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
 
@@ -57,21 +55,13 @@ public:
     /// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QBaseQuaternion() : x(SQFloat::_0), y(SQFloat::_0), z(SQFloat::_0), w(SQFloat::_0)
-    {
-    }
+    QBaseQuaternion();
 
     /// <summary>
 	/// Copy constructor. Copies attributes from given quaternion.
 	/// </summary>
 	/// <param name="qQuat">[IN] The quaternion from which we want to create a copy in the resident quaternion.</param>
-	inline QBaseQuaternion(const QBaseQuaternion &qQuat)
-	{
-	    this->x = qQuat.x;
-	    this->y = qQuat.y;
-	    this->z = qQuat.z;
-	    this->w = qQuat.w;
-	}
+	QBaseQuaternion(const QBaseQuaternion &qQuat);
 
     /// <summary>
     /// Constructor that receives 4 values, one per quaternion's component.
@@ -80,32 +70,14 @@ public:
     /// <param name="fValueY">[IN] Y component value.</param>
     /// <param name="fValueZ">[IN] Z component value.</param>
     /// <param name="fValueW">[IN] W component value.</param>
-    inline QBaseQuaternion(const float_q &fValueX, const float_q &fValueY,
-                           const float_q &fValueZ, const float_q &fValueW) :
-                               x(fValueX), y(fValueY), z(fValueZ), w(fValueW)
-    {
-    }
+    QBaseQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW);
 
     /// <summary>
     /// Constructor that receives a pointer to a sequence of 4 contiguous values, one per quaternion's component.
     /// </summary>
     /// <param name="arValues">[IN] Array of 4 values. If the pointer is null, the behavior  
     /// is undefined.</param>
-    inline explicit QBaseQuaternion(const float_q* arValues)
-    {
-        // [REVIEW] Thund: Should we put these constants in another place?
-        const int QE_X_INDEX_IN_FLOATTYPE_ARRAY = 0;
-        const int QE_Y_INDEX_IN_FLOATTYPE_ARRAY = 1;
-        const int QE_Z_INDEX_IN_FLOATTYPE_ARRAY = 2;
-        const int QE_W_INDEX_IN_FLOATTYPE_ARRAY = 3;
-
-        QE_ASSERT(arValues != null_q)
-
-        this->x = arValues[QE_X_INDEX_IN_FLOATTYPE_ARRAY];
-        this->y = arValues[QE_Y_INDEX_IN_FLOATTYPE_ARRAY];
-        this->z = arValues[QE_Z_INDEX_IN_FLOATTYPE_ARRAY];
-        this->w = arValues[QE_W_INDEX_IN_FLOATTYPE_ARRAY];
-    }
+    explicit QBaseQuaternion(const float_q* arValues);
 
     /// <summary>
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
@@ -113,13 +85,8 @@ public:
     /// The values order is: X, Y, Z and W.
     /// </summary>
     /// <param name="value">[IN] A four 32 bits floating point types pack.</param>
-    inline explicit QBaseQuaternion(const vf32_q &value)
-    {
-        using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+    explicit QBaseQuaternion(const vf32_q &value);
 
-        // Quaternion's components are mapped into the 4x32 pack as configured (see DataTypesDefinitions.h for further information)
-        SQVF32::Unpack(value, QE_VF32_FIRST_COMPONENT, QE_VF32_SECOND_COMPONENT, QE_VF32_THIRD_COMPONENT, QE_VF32_FOURTH_COMPONENT);
-    }
 
 	// METHODS
 	// ---------------
@@ -132,15 +99,7 @@ public:
     /// <returns>
     /// If quaternions are equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator==(const QBaseQuaternion &qQuat) const
-    {
-        return   SQFloat::
-        AreEqual(this->x, qQuat.x) &&
-                 SQFloat::
-                 AreEqual(this->y, qQuat.y) &&
-                 SQFloat::AreEqual(this->z, qQuat.z) &&
-                 SQFloat::AreEqual(this->w, qQuat.w);
-    }
+    bool operator==(const QBaseQuaternion &qQuat) const;
 
     /// <summary>
     /// Inequality operator. Compares two quaternions.
@@ -149,10 +108,8 @@ public:
     /// <returns>
     /// If quaternions are not equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator!=(const QBaseQuaternion &qQuat) const
-    {
-        return !(*this == qQuat);
-    }
+    bool operator!=(const QBaseQuaternion &qQuat) const;
+
 
 	// ATTRIBUTES
 	// ---------------

@@ -61,7 +61,7 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseOrb() : Center(SQFloat::_0), Radius(SQFloat::_0)
+    QBaseOrb() : Center(SQFloat::_0), Radius(SQFloat::_0)
     {
     }
 
@@ -69,7 +69,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="orb">[IN] The orb from which we want to create a copy in the resident orb.</param>
-    inline QBaseOrb(const QBaseOrb &orb) : Center(orb.Center), Radius(orb.Radius)
+    QBaseOrb(const QBaseOrb &orb) : Center(orb.Center), Radius(orb.Radius)
     {
     }
 
@@ -79,7 +79,10 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] Floating point value to define the radius of the orb.</param>
-    inline QBaseOrb(const VectorType &vCenter, const float_q &fRadius) : Center(vCenter), Radius(fRadius) { }
+    QBaseOrb(const VectorType &vCenter, const float_q &fRadius) : Center(vCenter), Radius(fRadius)
+    {
+    }
+
 
     // METHODS
     // ---------------
@@ -92,7 +95,7 @@ public:
     /// <returns>
     /// True if orbs are the same, false otherwise.
     /// </returns>
-    inline bool operator== (const QBaseOrb<VectorType> &orb) const
+    bool operator== (const QBaseOrb<VectorType> &orb) const
     {
         return this->Center == orb.Center && SQFloat::AreEqual(this->Radius, orb.Radius);
     }
@@ -104,7 +107,7 @@ public:
     /// <returns>
     /// True if orbs are not the same, false otherwise.
     /// </returns>
-    inline bool operator!= (const QBaseOrb<VectorType> &orb) const
+    bool operator!= (const QBaseOrb<VectorType> &orb) const
     {
         return !(*this == orb);
     }

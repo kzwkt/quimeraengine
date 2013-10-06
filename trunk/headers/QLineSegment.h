@@ -32,6 +32,7 @@
 #include "QBaseLineSegment.h"
 #include "QBaseOrb.h"
 #include "SQAngle.h"
+#include "MathDefinitions.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
@@ -73,7 +74,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QLineSegment()
+	QLineSegment()
     {
     }
 
@@ -81,7 +82,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="segment">[IN] The segment from which we want to create a copy in the resident segment.</param>
-	inline QLineSegment(const QLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
+	QLineSegment(const QLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
     {
     }
 
@@ -89,7 +90,7 @@ public:
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="segment">[IN] The segment in which we want resident segment to be based.</param>
-	inline QLineSegment(const QBaseLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
+	QLineSegment(const QBaseLineSegment<VectorType> &segment) : QBaseLineSegment<VectorType>(segment)
     {
     }
 
@@ -98,7 +99,7 @@ public:
     /// </summary>
     /// <param name="vA">[IN] Vector to define endpoint A.</param>
     /// <param name="vB">[IN] Vector to define endpoint B.</param>
-	inline QLineSegment(const VectorType &vA, const VectorType &vB) : QBaseLineSegment<VectorType>(vA,vB)
+	QLineSegment(const VectorType &vA, const VectorType &vB) : QBaseLineSegment<VectorType>(vA,vB)
     {
     }
 
@@ -112,7 +113,7 @@ public:
     /// <returns>
 	/// A 1-length segment.
 	/// </returns>
-	inline static const QLineSegment<VectorType>& GetUnitLine()
+	static const QLineSegment<VectorType>& GetUnitLine()
 	{
 	    static const QLineSegment<VectorType> UNITLINE(VectorType::GetZeroVector(), VectorType::GetUnitVectorX());
 	    return UNITLINE;
@@ -125,7 +126,7 @@ public:
     /// <returns>
 	/// A zero-length segment.
 	/// </returns>
-	inline static const QLineSegment<VectorType>& GetLineZero()
+	static const QLineSegment<VectorType>& GetLineZero()
 	{
 	    static const QLineSegment<VectorType> LINEZERO(VectorType::GetZeroVector(), VectorType::GetZeroVector());
 	    return LINEZERO;
@@ -143,7 +144,7 @@ public:
 	/// <returns>
 	/// A reference to the modified line segment.
 	/// </returns>
-    inline QLineSegment& operator=(const QBaseLineSegment<VectorType> &segment)
+    QLineSegment& operator=(const QBaseLineSegment<VectorType> &segment)
     {
         QBaseLineSegment<VectorType>::operator=(segment);
         return *this;
@@ -155,7 +156,7 @@ public:
     /// <returns>
     /// The resultant distance between the two endpoints.
     /// </returns>
-	inline float_q GetLength() const
+	float_q GetLength() const
 	{
 		return A.Distance(B);
 	}
@@ -166,7 +167,7 @@ public:
     /// <returns>
     /// The center of the segment.
     /// </returns>
-	inline VectorType GetCenter() const
+	VectorType GetCenter() const
 	{
 		// 1) Direction: AB --> B - A, so that: S(t) = A + [t(B - A)] = ... = t(A + B)
 		// 2) Center:    S(0.5) --> A + [0.5(B - A)] --> ... --> 0.5(A + B)
@@ -197,7 +198,7 @@ public:
     /// <b>False</b><br/>
     /// There is no common point between both segments.
 	/// </returns>
-	inline bool Intersection(const QBaseLineSegment<VectorType> &segment) const
+	bool Intersection(const QBaseLineSegment<VectorType> &segment) const
 	{
         // End points of a segment should not coincide
         QE_ASSERT(this->A != this->B && segment.A != segment.B);
@@ -230,7 +231,7 @@ public:
     /// <b>False</b><br/>
     /// There is no common point between the segment and the orb.
 	/// </returns>
-	inline bool Intersection(const QBaseOrb<VectorType> &orb) const
+	bool Intersection(const QBaseOrb<VectorType> &orb) const
 	{
         // End points of a segment should not coincide and the radius should be greater than zero
         QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0));
@@ -273,7 +274,7 @@ public:
     /// - The line segments are the same
     /// - One segment is contained in the other.
     /// </returns>
-	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
+	EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
  	{
         // End points of a segment should not coincide
         QE_ASSERT(this->A != this->B && segment.A != segment.B);
@@ -688,7 +689,7 @@ public:
     /// - The line segments are the same
     /// - One segment is contained in the other.
 	/// </returns>
-	inline EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
+	EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
  	{
         // End points of a segment should not coincide
         QE_ASSERT(this->A != this->B && segment.A != segment.B);
@@ -1132,7 +1133,7 @@ public:
     /// There are infinite intersections.<br/>
     /// - The line segment is totally contained in the orb. The endpoints are not tangent to the orb's surface / perimeter.
 	/// </returns>
-	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
+	EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection1, VectorType &vIntersection2) const
 	{
         // End points of a segment should not coincide and the radius should be greater than zero
         QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0));
@@ -1278,7 +1279,7 @@ public:
     /// There are infinite intersections.<br/>
     /// - The line segment is totally contained in the orb. The endpoints are not tangent to the orb's surface / perimeter.
 	/// </returns>
-	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
+	EQIntersections IntersectionPoint(const QBaseOrb<VectorType> &orb, VectorType &vIntersection) const
 	{
         // End points of a segment should not coincide and the radius should be greater than zero
         QE_ASSERT(this->A != this->B && SQFloat::IsGreaterThan(orb.Radius, SQFloat::_0));

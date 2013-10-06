@@ -27,17 +27,11 @@
 #ifndef __QPLANE__
 #define __QPLANE__
 
+#include "QBasePlane.h"
+
 #include "EQIntersections.h"
 #include "EQSpaceRelation.h"
-#include "QBasePlane.h"
-#include "QVector3.h"
-#include "QVector4.h"
-#include "QMatrix3x4.h"
-#include "QTranslationMatrix.h"
-#include "QRotationMatrix3x3.h"
-#include "QScalingMatrix3x3.h"
-#include "QTransformationMatrix.h"
-#include "QSpaceConversionMatrix.h"
+
 
 namespace Kinesis
 {
@@ -47,6 +41,22 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QBaseVector3;
+class QBaseVector4;
+class QVector3;
+class QVector4;
+class QMatrix3x4;
+template<class MatrixType> class QTranslationMatrix;
+class QRotationMatrix3x3;
+class QScalingMatrix3x3;
+template<class MatrixType> class QTransformationMatrix;
+class QSpaceConversionMatrix;
+class QQuaternion;
+class QMatrix4x3;
+class QMatrix4x4;
+
 
 /// <summary>
 /// It represents the basic form of a 3D plane, defined by the equation:
@@ -84,25 +94,19 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    QPlane()
-    {
-    }
+    QPlane();
 
     /// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
-	inline QPlane(const QPlane &plane) : QBasePlane(plane)
-	{
-	}
+	QPlane(const QPlane &plane);
 
     /// <summary>
     /// Base type constructor.
     /// </summary>
     /// <param name="plane">The plane on which we base the resident plane.</param>
-    inline QPlane(const QBasePlane &plane) : QBasePlane(plane)
-    {
-    }
+    QPlane(const QBasePlane &plane);
 
 	/// <summary>
 	/// Constructor from a floating point value for each coefficient.
@@ -111,27 +115,20 @@ public:
 	/// <param name="fB">[IN] Floating point value for b coefficient.</param>
 	/// <param name="fC">[IN] Floating point value for c coefficient.</param>
 	/// <param name="fD">[IN] Floating point value for independent term d.</param>
-    inline QPlane(const float_q &fA, const float_q &fB, const float_q &fC, const float_q &fD) :
-                      QBasePlane(fA, fB, fC, fD)
-    {
-    }
+    QPlane(const float_q &fA, const float_q &fB, const float_q &fC, const float_q &fD);
 
 	/// <summary>
 	/// Constructor from a floating point value for all coefficients.
 	/// </summary>
 	/// <param name="fValueAll">[IN] Floating point value for all the coefficients.</param>
-	inline explicit QPlane(const float_q &fValueAll) : QBasePlane(fValueAll)
-    {
-    }
+	explicit QPlane(const float_q &fValueAll);
 
     /// <summary>
 	/// Constructor from a pointer to an array of floating point values.
 	/// </summary>
 	/// <param name="arValues">[IN] Pointer to array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
     /// is undefined.</param>
-    inline explicit QPlane(float_q* arValues) : QBasePlane(arValues)
-    {
-    }
+    explicit QPlane(float_q* arValues);
 
 	/// <summary>
 	/// Constructor from a 4x32 packed float value.
@@ -141,9 +138,7 @@ public:
 	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
 	/// 3rd value (c coefficient), 4th value (d independent term).
 	/// </remarks>
-    inline explicit QPlane(const vf32_q value) : QBasePlane(value)
-    {
-    }
+    explicit QPlane(const vf32_q value);
 
     /// <summary>
 	/// Constructor from three points.
@@ -155,10 +150,7 @@ public:
 	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
 	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
 	/// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
-    inline QPlane(const QVector3 &vPoint1, const QVector3 &vPoint2, const QVector3 &vPoint3)
-    {
-        this->QPlaneImp(vPoint1, vPoint2, vPoint3);
-    }
+    QPlane(const QVector3 &vPoint1, const QVector3 &vPoint2, const QVector3 &vPoint3);
 
     /// <summary>
 	/// Constructor from three points.
@@ -170,10 +162,7 @@ public:
 	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
 	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
 	/// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
-    inline QPlane(const QVector4 &vPoint1, const QVector4 &vPoint2, const QVector4 &vPoint3)
-    {
-        this->QPlaneImp(vPoint1, vPoint2, vPoint3);
-    }
+    QPlane(const QVector4 &vPoint1, const QVector4 &vPoint2, const QVector4 &vPoint3);
 
 protected:
 
@@ -187,20 +176,7 @@ protected:
 	// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
 	// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
     template <class VectorType>
-    inline void QPlaneImp(const VectorType &vPoint1, const VectorType &vPoint2, const VectorType &vPoint3)
-    {
-        // If points coincide, the plane can't be determined
-        QE_ASSERT( vPoint1 != vPoint2 && vPoint2 != vPoint3 && vPoint3 != vPoint1);
-
-        // Creates two vectors, to obtain the direction vector of the plane via cross product
-        VectorType vAux1 = ( vPoint1 - vPoint2 ).CrossProduct( vPoint1 - vPoint3 );;
-
-        // Checkout to avoid the possibility of tree colinear points.
-        QE_ASSERT(!vAux1.IsZero())
-
-        // Plane equation
-        *this = QPlane( vAux1.x, vAux1.y, vAux1.z, -vAux1.DotProduct(vPoint1) ).Normalize();
-    }
+    void QPlaneImp(const VectorType &vPoint1, const VectorType &vPoint2, const VectorType &vPoint3);
 
 
     // PROPERTIES
@@ -213,11 +189,7 @@ public:
     /// <returns>
     /// A plane with all components set to 0.
     /// </returns>
-    inline static const QPlane& GetZeroPlane()
-    {
-        static const QPlane ZEROPLANE(SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-        return ZEROPLANE;
-    }
+    static const QPlane& GetZeroPlane();
 
     /// <summary>
     /// Gets the plane that contains the Z and X axis, and its normal is in the Y axis.
@@ -225,11 +197,7 @@ public:
     /// <returns>
     /// The plane ZX.
     /// </returns>
-    inline static const QPlane& GetPlaneZX()
-    {
-        static const QPlane PLANEZX(SQFloat::_0,  SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
-        return PLANEZX;
-    }
+    static const QPlane& GetPlaneZX();
 
     /// <summary>
     /// Gets the plane that contains the X and Y axis, and its normal is in the Z axis.
@@ -237,11 +205,7 @@ public:
     /// <returns>
     /// The plane XY.
     /// </returns>
-    inline static const QPlane& GetPlaneXY()
-    {
-        static const QPlane PLANEXY(SQFloat::_0,  SQFloat::_0,  SQFloat::_1,  SQFloat::_0);
-        return PLANEXY;
-    }
+    static const QPlane& GetPlaneXY();
 
     /// <summary>
     /// Gets the plane that contains the Y and Z axis, and its normal is in the X axis.
@@ -249,11 +213,7 @@ public:
     /// <returns>
     /// The plane YZ.
     /// </returns>
-    inline static const QPlane& GetPlaneYZ()
-    {
-        static const QPlane PLANEYZ(SQFloat::_1,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-        return PLANEYZ;
-    }
+    static const QPlane& GetPlaneYZ();
 
 
     // METHODS
@@ -294,15 +254,7 @@ public:
     /// <returns>
     /// A reference to plane result of the product.
     /// </returns>
-    inline QPlane& operator*=(const float_q fScalar)
-    {
-        this->a *= fScalar;
-        this->b *= fScalar;
-        this->c *= fScalar;
-        this->d *= fScalar;
-
-        return *this;
-    }
+    QPlane& operator*=(const float_q fScalar);
 
     /// <summary>
     /// Divides resident plane coefficients by a floating point value provided.
@@ -314,22 +266,7 @@ public:
     /// <returns>
     /// A reference to plane result of the division.
     /// </returns>
-    inline QPlane& operator/=(const float_q &fScalar)
-    {
-        // Checkout to avoid division by 0
-        QE_ASSERT(fScalar != SQFloat::_0)
-
-        const float_q &DIVISOR = SQFloat::_1/fScalar;
-
-        this->a *= DIVISOR;
-        this->b *= DIVISOR;
-        this->c *= DIVISOR;
-        this->d *= DIVISOR;
-
-        return *this;
-    }
-
-    //Unary operators
+    QPlane& operator/=(const float_q &fScalar);
 
     /// <summary>
     /// Opposite plane: multiplies each coefficient by -1, maintaining its distance to the origin. Note that
@@ -348,13 +285,7 @@ public:
     /// <returns>
     /// A reference to the modified plane.
     /// </returns>
-    inline QPlane& operator=(const QBasePlane &plane)
-    {
-        QBasePlane::operator=(plane);
-        return *this;
-    }
-
-    //Methods
+    QPlane& operator=(const QBasePlane &plane);
 
     /// <summary>
     /// Normalizes the plane.
@@ -365,15 +296,7 @@ public:
     /// <returns>
     /// The normalized plane.
     /// </returns>
-    inline QPlane Normalize() const
-    {
-        // Checkout to avoid division by zero.
-        QE_ASSERT(this->GetLength() != SQFloat::_0);
-
-        float_q fInvDivisor = SQFloat::_1 / this->GetLength();
-
-        return QPlane(this->a * fInvDivisor, this->b * fInvDivisor, this->c * fInvDivisor, this->d * fInvDivisor);
-    }
+    QPlane Normalize() const;
 
     /// <summary>
     /// Calculates the dot product between the direction vector of the resident plane and the provided vector.
@@ -451,10 +374,7 @@ public:
     /// <returns>
     /// The projected point.
     /// </returns>
-    inline QBaseVector3 PointProjection(const QBaseVector3 &vPoint) const
-    {
-        return PointProjectionImp(vPoint);
-    }
+    QBaseVector3 PointProjection(const QBaseVector3 &vPoint) const;
 
     /// <summary>
     /// Calculates the orthogonal projection of a given point over the resident plane.
@@ -467,12 +387,7 @@ public:
     /// <returns>
     /// The projected point.
     /// </returns>
-    inline QBaseVector4 PointProjection(const QBaseVector4 &vPoint) const
-    {
-        QBaseVector4 vAux = PointProjectionImp(vPoint);
-        vAux.w = vPoint.w;
-        return vAux;
-    }
+    QBaseVector4 PointProjection(const QBaseVector4 &vPoint) const;
 
     /// <summary>
     /// Calculates if a point is contained in the resident plane.
@@ -523,10 +438,7 @@ public:
     /// <returns>
     /// The direction vector of the plane.
     /// </returns>
-    inline QVector3 GetNormal() const
-    {
-        return QVector3(this->a, this->b, this->c);
-    }
+    QVector3 GetNormal() const;
 
     /// <summary>
     /// Calculates the minimum distance from the given point to the resident plane, which is the length
@@ -635,12 +547,7 @@ public:
     /// <returns>
     /// The rotated plane.
     /// </returns>
-    inline QPlane Rotate(const QRotationMatrix3x3 &rotation) const
-    {
-        QVector3 vAux = this->GetNormal().Transform(rotation);
-
-        return QPlane(vAux.x, vAux.y, vAux.z, this->d);
-    }
+    QPlane Rotate(const QRotationMatrix3x3 &rotation) const;
 
     /// <summary>
     /// Applies a rotation to the resident plane. The normal vector to the plane is rotated,
@@ -650,12 +557,7 @@ public:
     /// <returns>
     /// The rotated plane.
     /// </returns>
-    inline QPlane Rotate(const QQuaternion &qRotation) const
-    {
-        QVector3 vAux = this->GetNormal().Transform(qRotation);
-
-        return QPlane(vAux.x, vAux.y, vAux.z, this->d);
-    }
+    QPlane Rotate(const QQuaternion &qRotation) const;
 
     /// <summary>
     /// Applies a scale to the resident plane.
@@ -668,14 +570,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane Scale(const QScalingMatrix3x3 &scale) const
-    {
-        // None of the scale values should equal zero
-        QE_ASSERT( scale.ij[0][0] != SQFloat::_0 && scale.ij[1][1] != SQFloat::_0 && scale.ij[2][2] != SQFloat::_0 );
-
-        return QPlane(this->a / scale.ij[0][0], this->b / scale.ij[1][1], this->c / scale.ij[2][2], this->d)
-               .Normalize();
-    }
+    QPlane Scale(const QScalingMatrix3x3 &scale) const;
 
     /// <summary>
     /// Applies a scale to the resident plane given by the provided vector.
@@ -688,14 +583,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane Scale(const QBaseVector3 &vScale) const
-    {
-        // None of the scale values should equal zero
-        QE_ASSERT( vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0 );
-
-        return QPlane(this->a / vScale.x, this->b / vScale.y, this->c / vScale.z, this->d)
-               .Normalize();
-    }
+    QPlane Scale(const QBaseVector3 &vScale) const;
 
     /// <summary>
     /// Applies a scale to the resident plane given by the provided amounts for every axis.
@@ -710,14 +598,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
-    {
-        // None of the scale values should equal zero
-        QE_ASSERT( fScaleX != SQFloat::_0 && fScaleY != SQFloat::_0 && fScaleZ != SQFloat::_0 );
-
-        return QPlane(this->a / fScaleX, this->b / fScaleY, this->c / fScaleZ, this->d)
-               .Normalize();
-    }
+    QPlane Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const;
 
     /// <summary>
     /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
@@ -727,13 +608,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    inline QPlane Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
-    {
-        return QPlane(this->a,
-                      this->b,
-                      this->c,
-                      this->d - (this->a * translation.ij[3][0] + this->b * translation.ij[3][1] + this->c * translation.ij[3][2]));
-    }
+    QPlane Translate(const QTranslationMatrix<QMatrix4x3> &translation) const;
 
     /// <summary>
     /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
@@ -743,13 +618,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    inline QPlane Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
-    {
-        return QPlane(this->a,
-                      this->b,
-                      this->c,
-                      this->d - (this->a * translation.ij[3][0] + this->b * translation.ij[3][1] + this->c * translation.ij[3][2]));
-    }
+    QPlane Translate(const QTranslationMatrix<QMatrix4x4> &translation) const;
 
     /// <summary>
     /// Applies a translation to the resident plane given by the provided vector.<br/>
@@ -760,13 +629,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    inline QPlane Translate(const QBaseVector3 &vTranslation) const
-    {
-        return QPlane(this->a,
-                      this->b,
-                      this->c,
-                      this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
-    }
+    QPlane Translate(const QBaseVector3 &vTranslation) const;
 
     /// <summary>
     /// Applies a translation to the resident plane given by the provided vector.<br/>
@@ -777,13 +640,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    inline QPlane Translate(const QBaseVector4 &vTranslation) const
-    {
-        return QPlane(this->a,
-                      this->b,
-                      this->c,
-                      this->d - (this->a * vTranslation.x + this->b * vTranslation.y + this->c * vTranslation.z));
-    }
+    QPlane Translate(const QBaseVector4 &vTranslation) const;
 
     /// <summary>
     /// Applies a translation to the resident plane given by the provided amounts for every axis.<br/>
@@ -796,13 +653,7 @@ public:
     /// <returns>
     /// The translated plane.
     /// </returns>
-    inline QPlane Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
-    {
-        return QPlane(this->a,
-                      this->b,
-                      this->c,
-                      this->d - (this->a * fTranslationX + this->b * fTranslationY + this->c * fTranslationZ));
-    }
+    QPlane Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const;
 
     /// <summary>
     /// Applies a transformation to the resident plane.
@@ -815,49 +666,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    inline QPlane Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
-    {
-        // Explanation:
-        //
-        // Let it be P a plane and A a point of the plane so the cartesian equation of the plane would be: PxAx + PyAy + PzAz + PwAw = 0.
-        //
-        // We can write it as vectors: P * A = 0
-        // Or as matrices: P * At = 0 (note that the matrix A must be transposed to be multiplied by the matrix P, so they are 1x4 * 4x1)
-        //
-        //                  [Ax]
-        //  [Px Py Pz Pw] * [Ay] = 0
-        //                  [Az]
-        //                  [Aw]
-        //
-        // Note: If you change the order of the operands and transpose P instead of A, it doesn't affect the result because, in the end,
-        //       the only change is that the transformation matrix is inverted and transposed in the opposite order, which doesn't affect
-        //       invertible matrices (as affine transformation matrices are).
-        //
-        // Now we want to find a plane P', which results of transforming P by a transformation matrix M, for which every point A transformed
-        // by M fulfils the equation:
-        //
-        // P' * (A * M)t = 0
-        //
-        // So using both equations:
-        //
-        // P' * (A * M)t == 0 == P * At     -->    P' * (A * M)t == P * At
-        //
-        // And expanding the transposition (note that transposing a product of matrices inverts the operands' order):
-        //
-        // P' * Mt * At == P * At    -->    P' * Mt == P    -->    P' == P * Mt^-1
-        //
-        // Finally we have that P' equals P multiplied by the inverse of the transpose of the original transformation matrix
-        // See also: http://www.opengl.org/discussion_boards/showthread.php/159564-Clever-way-to-transform-plane-by-matrix
-
-        QMatrix4x3 inverse = transformation.Invert();
-
-        // The product is implemented using the transpose of the inverted transformation
-        return QPlane(this->a * inverse.ij[0][0] + this->b * inverse.ij[0][1] + this->c * inverse.ij[0][2],
-                      this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2],
-                      this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2],
-                      this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d)
-                      .Normalize();
-    }
+    QPlane Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const;
 
     /// <summary>
     /// Applies a transformation to the resident plane.
@@ -870,49 +679,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    inline QPlane Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
-    {
-        // Explanation:
-        //
-        // Let it be P a plane and A a point of the plane so the cartesian equation of the plane would be: PxAx + PyAy + PzAz + PwAw = 0.
-        //
-        // We can write it as vectors: P * A = 0
-        // Or as matrices: P * At = 0 (note that the matrix A must be transposed to be multiplied by the matrix P, so they are 1x4 * 4x1)
-        //
-        //                  [Ax]
-        //  [Px Py Pz Pw] * [Ay] = 0
-        //                  [Az]
-        //                  [Aw]
-        //
-        // Note: If you change the order of the operands and transpose P instead of A, it doesn't affect the result because, in the end,
-        //       the only change is that the transformation matrix is inverted and transposed in the opposite order, which doesn't affect
-        //       invertible matrices (as affine transformation matrices are).
-        //
-        // Now we want to find a plane P', which results of transforming P by a transformation matrix M, for which every point A transformed
-        // by M fulfils the equation:
-        //
-        // P' * (A * M)t = 0
-        //
-        // So using both equations:
-        //
-        // P' * (A * M)t == 0 == P * At     -->    P' * (A * M)t == P * At
-        //
-        // And expanding the transposition (note that transposing a product of matrices inverts the operands' order):
-        //
-        // P' * Mt * At == P * At    -->    P' * Mt == P    -->    P' == P * Mt^-1
-        //
-        // Finally we have that P' equals P multiplied by the inverse of the transpose of the original transformation matrix
-        // See also: http://www.opengl.org/discussion_boards/showthread.php/159564-Clever-way-to-transform-plane-by-matrix
-
-        QMatrix4x4 inverse = transformation.Invert();
-
-        // The product is implemented using the transpose of the inverted transformation
-        return QPlane(this->a * inverse.ij[0][0] + this->b * inverse.ij[0][1] + this->c * inverse.ij[0][2],
-                      this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2],
-                      this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2],
-                      this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d)
-                      .Normalize();
-    }
+    QPlane Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const;
 
     /// <summary>
     /// Applies the transformation contained in a space conversion matrix to the resident plane.
@@ -924,17 +691,7 @@ public:
     /// <returns>
     /// The converted plane.
     /// </returns>
-    inline QPlane Transform(const QSpaceConversionMatrix &spaceConversion) const
-    {
-        QMatrix4x4 inverse = spaceConversion.Invert();
-
-        // The product is implemented using the transpose of m
-        return QPlane(this->a * inverse.ij[0][0] + this->b * inverse.ij[0][1] + this->c * inverse.ij[0][2] + this->d * inverse.ij[0][3],
-                      this->a * inverse.ij[1][0] + this->b * inverse.ij[1][1] + this->c * inverse.ij[1][2] + this->d * inverse.ij[1][3],
-                      this->a * inverse.ij[2][0] + this->b * inverse.ij[2][1] + this->c * inverse.ij[2][2] + this->d * inverse.ij[2][3],
-                      this->a * inverse.ij[3][0] + this->b * inverse.ij[3][1] + this->c * inverse.ij[3][2] + this->d * inverse.ij[3][3])
-                      .Normalize();
-    }
+    QPlane Transform(const QSpaceConversionMatrix &spaceConversion) const;
 
     /// <summary>
     /// Applies the rotation contained in the provided quaternion to the resident plane
@@ -945,10 +702,7 @@ public:
     /// <returns>
     /// The rotated plane.
     /// </returns>
-    inline QPlane RotateWithPivot(const QQuaternion &qRotation, const QVector3 &vPivot) const
-    {
-        return this->RotateWithPivotImp(qRotation, vPivot);
-    }
+    QPlane RotateWithPivot(const QQuaternion &qRotation, const QVector3 &vPivot) const;
 
     /// <summary>
     /// Applies the rotation contained in the provided quaternion to the resident plane
@@ -959,10 +713,7 @@ public:
     /// <returns>
     /// The rotated plane.
     /// </returns>
-    inline QPlane RotateWithPivot(const QQuaternion &qRotation, const QVector4 &vPivot) const
-    {
-        return this->RotateWithPivotImp(qRotation, vPivot);
-    }
+    QPlane RotateWithPivot(const QQuaternion &qRotation, const QVector4 &vPivot) const;
 
     /// <summary>
     /// Applies the rotation contained in the provided matrix to the resident plane
@@ -973,10 +724,7 @@ public:
     /// <returns>
     /// The rotated plane.
     /// </returns>
-    inline QPlane RotateWithPivot(const QRotationMatrix3x3 &rotation, const QVector3 &vPivot) const
-    {
-        return this->RotateWithPivotImp(rotation, vPivot);
-    }
+    QPlane RotateWithPivot(const QRotationMatrix3x3 &rotation, const QVector3 &vPivot) const;
 
     /// <summary>
     /// Applies the rotation contained in the provided matrix to the resident plane
@@ -987,10 +735,7 @@ public:
     /// <returns>
     /// The rotated plane.
     /// </returns>
-    inline QPlane RotateWithPivot(const QRotationMatrix3x3 &rotation, const QVector4 &vPivot) const
-    {
-        return this->RotateWithPivotImp(rotation, vPivot);
-    }
+    QPlane RotateWithPivot(const QRotationMatrix3x3 &rotation, const QVector4 &vPivot) const;
 
     /// <summary>
     /// Applies the scale contained in the provided vector to the resident plane,
@@ -1005,10 +750,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane ScaleWithPivot(const QBaseVector3 &vScale, const QVector3 &vPivot) const
-    {
-        return this->ScaleWithPivotImp(vScale, vPivot);
-    }
+    QPlane ScaleWithPivot(const QBaseVector3 &vScale, const QVector3 &vPivot) const;
 
     /// <summary>
     /// Applies the scale contained in the provided vector to the resident plane,
@@ -1023,10 +765,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane ScaleWithPivot(const QBaseVector3 &vScale, const QVector4 &vPivot) const
-    {
-        return this->ScaleWithPivotImp(vScale, vPivot);
-    }
+    QPlane ScaleWithPivot(const QBaseVector3 &vScale, const QVector4 &vPivot) const;
 
     /// <summary>
     /// Scales the resident plane by the provided amounts for every axis,
@@ -1043,10 +782,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot) const
-    {
-        return this->ScaleWithPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
-    }
+    QPlane ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector3 &vPivot) const;
 
     /// <summary>
     /// Scales the resident plane by the provided amounts for every axis,
@@ -1063,10 +799,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot) const
-    {
-        return this->ScaleWithPivotImp(fScaleX, fScaleY, fScaleZ, vPivot);
-    }
+    QPlane ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QVector4 &vPivot) const;
 
     /// <summary>
     /// Applies the scale contained in the provided matrix to the resident plane,
@@ -1081,10 +814,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane ScaleWithPivot(const QScalingMatrix3x3 &scale, const QVector3 &vPivot) const
-    {
-        return this->ScaleWithPivotImp(scale, vPivot);
-    }
+    QPlane ScaleWithPivot(const QScalingMatrix3x3 &scale, const QVector3 &vPivot) const;
 
     /// <summary>
     /// Applies the scale contained in the provided matrix to the resident plane,
@@ -1098,10 +828,7 @@ public:
     /// <returns>
     /// The scaled plane.
     /// </returns>
-    inline QPlane ScaleWithPivot(const QScalingMatrix3x3 &scale, const QVector4 &vPivot) const
-    {
-        return this->ScaleWithPivotImp(scale, vPivot);
-    }
+    QPlane ScaleWithPivot(const QScalingMatrix3x3 &scale, const QVector4 &vPivot) const;
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
@@ -1116,10 +843,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    inline QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QVector3 &vPivot) const
-    {
-        return this->TransformWithPivotImp(transformation, vPivot);
-    }
+    QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QVector3 &vPivot) const;
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
@@ -1135,10 +859,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    inline QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QVector4 &vPivot) const
-    {
-        return this->TransformWithPivotImp(transformation, vPivot);
-    }
+    QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QVector4 &vPivot) const;
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
@@ -1153,10 +874,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    inline QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QVector3 &vPivot) const
-    {
-        return this->TransformWithPivotImp(transformation, vPivot);
-    }
+    QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QVector3 &vPivot) const;
 
     /// <summary>
     /// Applies the transformation contained in the provided matrix to the resident plane
@@ -1172,10 +890,7 @@ public:
     /// <returns>
     /// The transformed plane.
     /// </returns>
-    inline QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QVector4 &vPivot) const
-    {
-        return this->TransformWithPivotImp(transformation, vPivot);
-    }
+    QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QVector4 &vPivot) const;
 
     /// <summary>
     /// Converts plane into a string with the following format:<br/>
@@ -1194,46 +909,14 @@ protected:
     // </summary>
     // <param name="vVector">[IN] The vector which we want to calculate the dot product with.</param>
     template <class VectorType>
-    float_q DotProductImp(const VectorType &vVector) const
-    {
-        return vVector.x * this->a + vVector.y * this->b + vVector.z * this->c;
-    }
+    float_q DotProductImp(const VectorType &vVector) const;
 
     // <summary>
     // Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     // </summary>
     // <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     template <class VectorType>
-    float_q DotProductAngleImp(const VectorType &vVector) const
-    {
-        // When the length of either the plane or the vector equals zero, the calculated angle is not correct
-        QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(vVector.x) && SQFloat::IsZero(vVector.y) && SQFloat::IsZero(vVector.z)) );
-
-        // Length of plane equals due to plane is supposed to be normalized.
-        const float_q &DOT_LENGTH = sqrt_q(vVector.x*vVector.x + vVector.y*vVector.y + vVector.z*vVector.z);
-
-        // Checkout to avoid division by zero.
-        QE_ASSERT(DOT_LENGTH != SQFloat::_0)
-
-        float_q DOT = this->DotProduct(vVector)/DOT_LENGTH;
-
-        // Sometimes the result of the dot product is not accurate and must be clampped [-1, 1]
-        if(DOT > SQFloat::_1)
-            DOT = SQFloat::_1;
-        else if(DOT < -SQFloat::_1)
-            DOT = -SQFloat::_1;
-
-        float_q fAngle = acos_q(DOT);
-
-        QE_ASSERT( !SQFloat::IsNaN(fAngle) )
-
-        #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-            // If angles are specified in degrees, then converts angle to degrees
-            fAngle = SQAngle::RadiansToDegrees(fAngle);
-        #endif
-
-        return fAngle;
-    }
+    float_q DotProductAngleImp(const VectorType &vVector) const;
 
     // <summary>
     // Applies the rotation contained in the provided quaternion to the resident plane
@@ -1245,12 +928,7 @@ protected:
     // The rotated plane.
     // </returns>
     template <class VectorType>
-    inline QPlane RotateWithPivotImp(const QQuaternion &qRotation, const VectorType &vPivot) const
-    {
-        return this->Translate(-vPivot)
-                    .Rotate(qRotation)
-                    .Translate(vPivot);
-    }
+    QPlane RotateWithPivotImp(const QQuaternion &qRotation, const VectorType &vPivot) const;
 
     // <summary>
     // Applies the rotation contained in the provided matrix to the resident plane
@@ -1262,12 +940,7 @@ protected:
     // The rotated plane.
     // </returns>
     template <class VectorType>
-    inline QPlane RotateWithPivotImp(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
-    {
-        return this->Translate(-vPivot)
-                    .Rotate(rotation)
-                    .Translate(vPivot);
-    }
+    QPlane RotateWithPivotImp(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const;
 
     // <summary>
     // Applies the scale contained in the provided vector to the resident plane,
@@ -1279,12 +952,7 @@ protected:
     // The scaled plane.
     // </returns>
     template <class VectorType>
-    inline QPlane ScaleWithPivotImp(const QBaseVector3 &vScale, const VectorType &vPivot) const
-    {
-        return this->Translate(-vPivot)
-                    .Scale(vScale)
-                    .Translate(vPivot);
-    }
+    QPlane ScaleWithPivotImp(const QBaseVector3 &vScale, const VectorType &vPivot) const;
 
     // <summary>
     // Scales the resident plane by the provided amounts for every axis,
@@ -1298,12 +966,7 @@ protected:
     // The scaled plane.
     // </returns>
     template <class VectorType>
-    inline QPlane ScaleWithPivotImp(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
-    {
-        return this->Translate(-vPivot)
-                    .Scale(fScaleX, fScaleY, fScaleZ)
-                    .Translate(vPivot);
-    }
+    QPlane ScaleWithPivotImp(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const;
 
     // <summary>
     // Applies the scale contained in the provided matrix to the resident plane,
@@ -1315,12 +978,7 @@ protected:
     // The scaled plane.
     // </returns>
     template <class VectorType>
-    inline QPlane ScaleWithPivotImp(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
-    {
-        return this->Translate(-vPivot)
-                    .Scale(scale)
-                    .Translate(vPivot);
-    }
+    QPlane ScaleWithPivotImp(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const;
 
     // <summary>
     // Applies the transformation contained in the provided matrix to the resident plane
@@ -1332,12 +990,7 @@ protected:
     // The transformed plane.
     // </returns>
     template <class MatrixType, class VectorType>
-    inline QPlane TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const
-    {
-        return this->Translate(-vPivot)
-                    .Transform(transformation)
-                    .Translate(vPivot);
-    }
+    QPlane TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const;
 
 
     // <summary>
@@ -1348,22 +1001,7 @@ protected:
     // The projected point.
     // </returns>
     template <class VectorType>
-    inline VectorType PointProjectionImp(const VectorType &vPoint) const
-    {
-        // The plane shouldn't be null
-        QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
-        
-        // [SMELL] Thund: Can this line be replaced with a dot product + d?
-        const float_q &PROJ = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
-
-        // [SMELL] Thund: Can this line contain all the operations so no 2 constructor calls are performed?
-        VectorType vProjection;
-        vProjection.x = PROJ * this->a  + vPoint.x;
-        vProjection.y = PROJ * this->b  + vPoint.y;
-        vProjection.z = PROJ * this->c  + vPoint.z;
-
-        return vProjection;
-    }
+    VectorType PointProjectionImp(const VectorType &vPoint) const;
 
     // <summary>
     // Calculates if a point is contained on the resident plane.
@@ -1373,13 +1011,7 @@ protected:
     // True if the point is contained, false otherwise.
     // </returns>
     template <class VectorType>
-    bool ContainsImp(const VectorType &vPoint) const
-    {
-        // The plane should not be null
-        QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
-
-        return SQFloat::IsZero(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
-    }
+    bool ContainsImp(const VectorType &vPoint) const;
 
     // <summary>
     // Calculates the minimum distance from the given point to the resident plane, which is the length
@@ -1390,13 +1022,7 @@ protected:
     // A floating point value which represents the minimum distance between the plane and the point.
     // </returns>
     template <class VectorType>
-    float_q PointDistanceImp(const VectorType &vPoint) const
-    {
-        // The plane should not be null
-        QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
-
-        return SQFloat::Abs(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
-    }
+    float_q PointDistanceImp(const VectorType &vPoint) const;
 
     // <summary>
     // Calculates the number of intersections between the resident plane and two planes provided,
@@ -1410,58 +1036,7 @@ protected:
     // the following values: E_None, E_One and E_Infinite.
     // </returns>
     template <class VectorType>
-    EQIntersections IntersectionPointImp(const QBasePlane &plane1, const QBasePlane &plane2, VectorType &vIntersection) const
-    {
-        // None of the planes should be null
-        QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
-        QE_ASSERT( !(SQFloat::IsZero(plane1.a) && SQFloat::IsZero(plane1.b) && SQFloat::IsZero(plane1.c)) );
-        QE_ASSERT( !(SQFloat::IsZero(plane2.a) && SQFloat::IsZero(plane2.b) && SQFloat::IsZero(plane2.c)) );
-
-        // Solved by Cramer method.
-        const float_q &DET_C = this->a * plane1.b * plane2.c + this->b * plane1.c * plane2.a + this->c * plane1.a * plane2.b -
-                              (this->c * plane1.b * plane2.a + this->a * plane1.c * plane2.b + this->b * plane1.a * plane2.c);
-        const float_q &DET_X = this->c * plane1.b * plane2.d + this->d * plane1.c * plane2.b + this->b * plane1.d * plane2.c -
-                              (this->d * plane1.b * plane2.c + this->b * plane1.c * plane2.d + this->c * plane1.d * plane2.b);
-        const float_q &DET_Y = this->c * plane1.d * plane2.a + this->a * plane1.c * plane2.d + this->d * plane1.a * plane2.c -
-                              (this->a * plane1.d * plane2.c + this->d * plane1.c * plane2.a + this->c * plane1.a * plane2.d);
-        const float_q &DET_Z = this->d * plane1.b * plane2.a + this->a * plane1.d * plane2.b + this->b * plane1.a * plane2.d -
-                              (this->a * plane1.b * plane2.d + this->b * plane1.d * plane2.a + this->d * plane1.a * plane2.b);
-
-        if (!SQFloat::IsZero(DET_C)) // A range = 3, A* range = 3: Compatible system
-        {
-            const float_q &INV_DET_C = SQFloat::_1/DET_C;
-
-            vIntersection.x = DET_X * INV_DET_C;
-            vIntersection.y = DET_Y * INV_DET_C;
-            vIntersection.z = DET_Z * INV_DET_C;
-
-            return EQIntersections::E_One;
-        }
-        else if (SQFloat::IsZero(DET_X) && SQFloat::IsZero(DET_Y) && SQFloat::IsZero(DET_Z)) // A range < 3, A* range < 3
-        {
-            // A range = 2, A* range < 3: Undetermined compatible system
-            if (SQFloat::IsNotZero(this->a  * plane1.b - this->b  * plane1.a) ||
-                SQFloat::IsNotZero(this->a  * plane1.c - this->c  * plane1.a) ||
-                SQFloat::IsNotZero(this->a  * plane2.b - this->b  * plane2.a) ||
-                SQFloat::IsNotZero(this->a  * plane2.c - this->c  * plane2.a) ||
-                SQFloat::IsNotZero(this->b  * plane1.c - this->c  * plane1.b) ||
-                SQFloat::IsNotZero(this->b  * plane2.c - this->c  * plane2.b) ||
-                SQFloat::IsNotZero(plane1.a * plane2.b - plane1.b * plane2.a) ||
-                SQFloat::IsNotZero(plane1.a * plane2.c - plane1.c * plane2.a) ||
-                SQFloat::IsNotZero(plane1.b * plane2.c - plane1.c * plane2.b))
-
-                return EQIntersections::E_Infinite;
-            else //// A range = 1, A* range < 3
-            {
-                if (*this == plane1 && *this == plane2) // Coincident planes (A* range = 1)
-                    return EQIntersections::E_Infinite;
-                else // Incompatible system (A* range = 2)
-                    return EQIntersections::E_None;
-            }
-        }
-        else // A range < 3, A* range = 3: Incompatible system
-           return EQIntersections::E_None;
-    }
+    EQIntersections IntersectionPointImp(const QBasePlane &plane1, const QBasePlane &plane2, VectorType &vIntersection) const;
 };
 
 

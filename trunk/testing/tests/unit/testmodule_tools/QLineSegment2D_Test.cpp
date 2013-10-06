@@ -33,12 +33,16 @@ using namespace boost::unit_test;
 #include "ToolsExports.h"
 
 #include "QLineSegment2D.h"
+
 #include "QTransformationMatrix3x3.h"
+#include "QBaseQuadrilateral.h"
+#include "QBaseTriangle.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QLineSegment2D;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
+
 
 QTEST_SUITE_BEGIN( QLineSegment2D_TestSuite )
 

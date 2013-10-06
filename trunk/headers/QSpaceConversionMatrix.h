@@ -27,13 +27,8 @@
 #ifndef __QSPACECONVERSIONMATRIX__
 #define __QSPACECONVERSIONMATRIX__
 
-#include "QVector3.h"
-#include "QVector4.h"
-#include "QBaseQuaternion.h"
 #include "QMatrix4x4.h"
-#include "QMatrix4x3.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
 
@@ -51,6 +46,12 @@ template<class MatrixType> class QTranslationMatrix;
 template<class MatrixType> class QTransformationMatrix;
 class QRotationMatrix3x3;
 class QScalingMatrix3x3;
+class QBaseVector3;
+class QBaseVector4;
+class QVector3;
+class QVector4;
+class QBaseQuaternion;
+class QMatrix4x3;
 
 
 /// <summary>
@@ -66,18 +67,13 @@ public:
     /// <summary>
     /// Default constructor. It's initialized to identity matrix.
     /// </summary>
-    inline QSpaceConversionMatrix()
-    {
-        this->ResetToIdentity();
-    }
+    QSpaceConversionMatrix();
 
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <param name="matrix">[IN] The space conversion matrix from which we want to create a copy in the resident space conversion matrix.</param>
-    inline QSpaceConversionMatrix(const QSpaceConversionMatrix &matrix) : QMatrix4x4(matrix)
-    {
-    }
+    QSpaceConversionMatrix(const QSpaceConversionMatrix &matrix);
 
     /// <summary>
     /// Base type constructor.
@@ -87,9 +83,8 @@ public:
     /// otherwise unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="matrix">[IN] The 4x4 matrix in which we want the resident space conversion matrix to be based.</param>
-    inline QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
-    {
-    }
+    QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix);
+
 
     // METHODS
     // ---------------
@@ -106,11 +101,7 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QSpaceConversionMatrix& operator=(const QBaseMatrix4x4 &matrix)
-    {
-        QBaseMatrix4x4::operator=(matrix);
-        return *this;
-    }
+    QSpaceConversionMatrix& operator=(const QBaseMatrix4x4 &matrix);
 
     /// <summary>
     /// Multiplies a space conversion matrix by the resident matrix.
@@ -232,13 +223,7 @@ public:
     /// <returns>
     /// The switched matrix.
     /// </returns>
-    inline QSpaceConversionMatrix SwitchHandConventionProjectionSpaceMatrix() const
-    {
-        QSpaceConversionMatrix switchedMatrix = *this;
-        switchedMatrix.ij[2][2] = -this->ij[2][2];
-        switchedMatrix.ij[2][3] = -this->ij[2][3];
-        return switchedMatrix;
-    }
+    QSpaceConversionMatrix SwitchHandConventionProjectionSpaceMatrix() const;
 
 protected:
 

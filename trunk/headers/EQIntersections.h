@@ -84,7 +84,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">A valid enumeration value.</param>
-    inline EQIntersections(const EQIntersections::EnumType &eValue) : m_value(eValue)
+    EQIntersections(const EQIntersections::EnumType &eValue) : m_value(eValue)
     {
     }
 
@@ -92,7 +92,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">An integer number.</param>
-    inline EQIntersections(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQIntersections::EnumType))
+    EQIntersections(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQIntersections::EnumType))
     {
     }
 
@@ -101,7 +101,7 @@ public:
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">The name of a valid enumeration value.</param>
-    inline EQIntersections(const string_q &strValueName)
+    EQIntersections(const string_q &strValueName)
     {
         *this = strValueName;
     }
@@ -110,7 +110,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="eValue">[IN] Another enumeration.</param>
-    inline EQIntersections(const EQIntersections &eValue) : m_value(eValue.m_value)
+    EQIntersections(const EQIntersections &eValue) : m_value(eValue.m_value)
     {
     }
 
@@ -121,7 +121,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQIntersections& operator=(const enum_int_q &nValue)
+    EQIntersections& operator=(const enum_int_q &nValue)
     {
         m_value = scast_q(nValue, const EQIntersections::EnumType);
         return *this;
@@ -134,7 +134,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQIntersections& operator=(const string_q &strValueName)
+    EQIntersections& operator=(const string_q &strValueName)
     {
         if(EQIntersections::sm_mapValueName.find(strValueName) != EQIntersections::sm_mapValueName.end())
             m_value = sm_mapValueName[strValueName];
@@ -151,7 +151,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQIntersections& operator=(const EQIntersections::EnumType &eValue)
+    EQIntersections& operator=(const EQIntersections::EnumType &eValue)
     {
         m_value = eValue;
         return *this;
@@ -164,7 +164,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQIntersections& operator=(const EQIntersections &eValue)
+    EQIntersections& operator=(const EQIntersections &eValue)
     {
         m_value = eValue.m_value;
         return *this;
@@ -190,7 +190,7 @@ public:
     /// <returns>
     /// True if the name corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    inline bool operator==(const string_q &strValueName) const
+    bool operator==(const string_q &strValueName) const
     {
         if(EQIntersections::sm_mapValueName.find(strValueName) != EQIntersections::sm_mapValueName.end())
             return m_value == sm_mapValueName[strValueName];
@@ -206,7 +206,7 @@ public:
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    inline bool operator==(const enum_int_q &nValue) const
+    bool operator==(const enum_int_q &nValue) const
     {
         return m_value == scast_q(nValue, const EQIntersections::EnumType);
     }
@@ -255,7 +255,7 @@ public:
     /// <returns>
     /// The contained enumeration value.
     /// </returns>
-    inline operator EQIntersections::EnumType() const
+    operator EQIntersections::EnumType() const
     {
         return m_value;
     }

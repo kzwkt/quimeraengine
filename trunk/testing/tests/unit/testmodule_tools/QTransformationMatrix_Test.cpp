@@ -43,6 +43,7 @@ using namespace boost::unit_test;
 #include "QTranslationMatrix.h"
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
+#include "SQAngle.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;

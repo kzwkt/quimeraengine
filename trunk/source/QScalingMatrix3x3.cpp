@@ -30,6 +30,12 @@
 #include "QTranslationMatrix.h"
 #include "QRotationMatrix3x3.h"
 #include "QTransformationMatrix.h"
+#include "QMatrix4x3.h"
+#include "QMatrix4x4.h"
+#include "SQFloat.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -39,6 +45,50 @@ namespace Tools
 {
 namespace Math
 {
+
+    
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+    
+QScalingMatrix3x3::QScalingMatrix3x3()
+{
+    this->ResetToIdentity();
+}
+
+QScalingMatrix3x3::QScalingMatrix3x3(const QScalingMatrix3x3 &scale) : QMatrix3x3(scale)
+{
+}
+
+QScalingMatrix3x3::QScalingMatrix3x3(const QBaseMatrix3x3 &scale) : QMatrix3x3(scale)
+{
+}
+
+QScalingMatrix3x3::QScalingMatrix3x3(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
+{
+    this->ij[0][0] = fScaleX;
+    this->ij[1][1] = fScaleY;
+    this->ij[2][2] = fScaleZ;
+
+    this->ij[0][1] = this->ij[0][2] = this->ij[1][0] =
+    this->ij[1][2] = this->ij[2][0] = this->ij[2][1] = SQFloat::_0;
+}
+
+QScalingMatrix3x3::QScalingMatrix3x3(const QBaseVector3 &vScale)
+{
+    this->ij[0][0] = vScale.x;
+    this->ij[1][1] = vScale.y;
+    this->ij[2][2] = vScale.z;
+
+    this->ij[0][1] = this->ij[0][2] = this->ij[1][0] =
+    this->ij[1][2] = this->ij[2][0] = this->ij[2][1] = SQFloat::_0;
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -95,6 +145,34 @@ QTransformationMatrix<QMatrix4x3> QScalingMatrix3x3::operator*(const QTransforma
     return this->ProductOperatorImp<QMatrix4x3>(matrix);
 }
 
+QScalingMatrix3x3& QScalingMatrix3x3::operator=(const QBaseMatrix3x3 &matrix)
+{
+    QBaseMatrix3x3::operator=(matrix);
+    return *this;
+}
+
+QMatrix3x3 QScalingMatrix3x3::Invert() const
+{
+    // If one of the diagonal elements is 0, the matrix has not inverse.
+    QE_ASSERT(this->ij[0][0] != SQFloat::_0 && this->ij[1][1] != SQFloat::_0 && this->ij[2][2] != SQFloat::_0)
+
+    return QScalingMatrix3x3(SQFloat::_1 / this->ij[0][0], SQFloat::_1 / this->ij[1][1], SQFloat::_1 / this->ij[2][2]);
+}
+
+void QScalingMatrix3x3::GetScale(float_q &fScaleX, float_q &fScaleY, float_q &fScaleZ) const
+{
+    fScaleX = this->ij[0][0];
+    fScaleY = this->ij[1][1];
+    fScaleZ = this->ij[2][2];
+}
+
+void QScalingMatrix3x3::GetScale(QBaseVector3 &vScale) const
+{
+    vScale.x = this->ij[0][0];
+    vScale.y = this->ij[1][1];
+    vScale.z = this->ij[2][2];
+}
+
 float_q QScalingMatrix3x3::GetDeterminant() const
 {
 	return this->ij[0][0] * this->ij[1][1] * this->ij[2][2];
@@ -108,6 +186,23 @@ QScalingMatrix3x3& QScalingMatrix3x3::operator*=(const QScalingMatrix3x3 &matrix
 
     return *this;
 }
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QScalingMatrix3x3& QScalingMatrix3x3::GetIdentity()
+{
+    static const QScalingMatrix3x3 IDENTITY(QMatrix3x3::GetIdentity());
+    return IDENTITY;
+}
+
 
 } //namespace Math
 } //namespace Tools

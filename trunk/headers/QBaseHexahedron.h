@@ -62,8 +62,8 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseHexahedron() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0), D(SQFloat::_0),
-                               E(SQFloat::_0), F(SQFloat::_0), G(SQFloat::_0), H(SQFloat::_0)
+    QBaseHexahedron() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0), D(SQFloat::_0),
+                        E(SQFloat::_0), F(SQFloat::_0), G(SQFloat::_0), H(SQFloat::_0)
     {
     }
 
@@ -71,8 +71,8 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="hexahedron">[IN] The hexahedron from which we want to create a copy in the resident hexahedron.</param>
-    inline QBaseHexahedron(const QBaseHexahedron &hexahedron) : A(hexahedron.A), B(hexahedron.B), C(hexahedron.C), D(hexahedron.D),
-                                                                E(hexahedron.E), F(hexahedron.F), G(hexahedron.G), H(hexahedron.H)
+    QBaseHexahedron(const QBaseHexahedron &hexahedron) : A(hexahedron.A), B(hexahedron.B), C(hexahedron.C), D(hexahedron.D),
+                                                         E(hexahedron.E), F(hexahedron.F), G(hexahedron.G), H(hexahedron.H)
     {
     }
 
@@ -87,8 +87,8 @@ public:
     /// <param name="vF">[IN] Vector to define vertex F.</param>
     /// <param name="vG">[IN] Vector to define vertex G.</param>
     /// <param name="vH">[IN] Vector to define vertex H.</param>
-    inline QBaseHexahedron(const VectorType &vA, const VectorType &vB, const VectorType &vC, const VectorType &vD,
-                           const VectorType &vE, const VectorType &vF, const VectorType &vG, const VectorType &vH) :
+    QBaseHexahedron(const VectorType &vA, const VectorType &vB, const VectorType &vC, const VectorType &vD,
+                    const VectorType &vE, const VectorType &vF, const VectorType &vG, const VectorType &vH) :
 							    A(vA), B(vB), C(vC), D(vD), E(vE), F(vF), G(vG), H(vH)
     {
     }
@@ -105,7 +105,7 @@ public:
     /// </remarks>
     /// <param name="vA">[IN] Vector which defines one vertex of a inner diagonal (it will be used to initialize A).</param>
     /// <param name="vG">[IN] Vector which defines the other vertex of the inner diagonal (it will be used to initialize G).</param>
-    inline QBaseHexahedron(const VectorType &vA, const VectorType &vG)
+    QBaseHexahedron(const VectorType &vA, const VectorType &vG)
     {
         //    A --- D
         //   /|    /|
@@ -135,7 +135,7 @@ public:
     /// <param name="fLengthX">[IN] Length of an edge parallel to X axis (width).</param>
     /// <param name="fLengthY">[IN] Length of an edge parallel to Y axis (height).</param>
     /// <param name="fLengthZ">[IN] Length of an edge parallel to Z axis (depth).</param>
-    inline QBaseHexahedron(const VectorType &vCenter, const float_q &fLengthX, const float_q &fLengthY, const float_q &fLengthZ)
+    QBaseHexahedron(const VectorType &vCenter, const float_q &fLengthX, const float_q &fLengthY, const float_q &fLengthZ)
     {
         // Ensures that all vectors/points are in same coordinates format.
         A = vCenter;
@@ -177,7 +177,7 @@ public:
     /// <returns>
     /// True if hexahedrons are the same, false otherwise.
     /// </returns>
-    inline bool operator==(const QBaseHexahedron<VectorType> &hexahedron) const
+    bool operator==(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         return ( this->A == hexahedron.A && this->B == hexahedron.B && this->C == hexahedron.C && this->D == hexahedron.D &&
                  this->E == hexahedron.E && this->F == hexahedron.F && this->G == hexahedron.G && this->H == hexahedron.H);
@@ -190,7 +190,7 @@ public:
     /// <returns>
     /// True if hexahedrons are not the same, false otherwise.
     /// </returns>
-    inline bool operator!=(const QBaseHexahedron<VectorType> &hexahedron) const
+    bool operator!=(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         return !(*this == hexahedron);
     }

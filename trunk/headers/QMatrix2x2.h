@@ -29,7 +29,6 @@
 
 #include "QBaseMatrix2x2.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
@@ -81,33 +80,25 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QMatrix2x2()
-    {
-    }
+    QMatrix2x2();
 
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <param name="matrix">[IN] The 2x2 matrix from which we want to create a copy in the resident matrix.</param>
-    inline QMatrix2x2(const QMatrix2x2 &matrix) : QBaseMatrix2x2(matrix)
-    {
-    }
+    QMatrix2x2(const QMatrix2x2 &matrix);
 
     /// <summary>
     /// Base type constructor.
     /// </summary>
     /// <param name="matrix">[IN] The 2x2 base matrix in which we want the resident matrix to be based.</param>
-    inline QMatrix2x2(const QBaseMatrix2x2 &matrix) : QBaseMatrix2x2(matrix)
-    {
-    }
+    QMatrix2x2(const QBaseMatrix2x2 &matrix);
 
 	/// <summary>
     /// Constructor from a floating point value which with fill all matrix's elements.
     /// </summary>
     /// <param name="fValueAll">[IN] The floating point value used to fill the matrix.</param>
-    inline explicit QMatrix2x2(const float_q &fValueAll) : QBaseMatrix2x2(fValueAll)
-	{
-	}
+    explicit QMatrix2x2(const float_q &fValueAll);
 
     /// <summary>
     /// Constructor from a floating point value for each element of the matrix.
@@ -116,10 +107,7 @@ public:
     /// <param name="f01">[IN] Floating point value for element of row 0, column 1.</param>
     /// <param name="f10">[IN] Floating point value for element of row 1, column 0.</param>
     /// <param name="f11">[IN] Floating point value for element of row 1, column 1.</param>
-    inline QMatrix2x2(const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11) :
-                           QBaseMatrix2x2(f00, f01, f10, f11)
-    {
-    }
+    QMatrix2x2(const float_q &f00, const float_q &f01, const float_q &f10, const float_q &f11);
 
     /// <summary>
     /// Constructor that receives a pointer to 4 floating point values.
@@ -130,17 +118,13 @@ public:
     /// </remarks>
     /// <param name="arValues">[IN] Array of floating point values. If the pointer is null, the behavior  
     /// is undefined.</param>
-    inline explicit QMatrix2x2(const float_q* arValues) : QBaseMatrix2x2(arValues)
-    {
-    }
+    explicit QMatrix2x2(const float_q* arValues);
 
     /// <summary>
     /// Constructor from one 4x32 floating point packed values. Each pack component contains an element of the matrix.
     /// </summary>
     /// <param name="value">[IN] 4x32 values for the matrix.</param>
-    inline QMatrix2x2(const vf32_q &value) : QBaseMatrix2x2(value)
-    {
-    }
+    QMatrix2x2(const vf32_q &value);
 
 
     // PROPERTIES
@@ -153,11 +137,7 @@ public:
     /// <returns>
     /// A matrix with all components set to 0.
     /// </returns>
-    inline static const QMatrix2x2& GetZeroMatrix()
-    {
-        static const QMatrix2x2 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-        return ZEROMATRIX;
-    }
+    static const QMatrix2x2& GetZeroMatrix();
 
     /// <summary>
     /// Gets an identity matrix.
@@ -169,11 +149,7 @@ public:
     /// <returns>
     /// An identity matrix.
     /// </returns>
-    inline static const QMatrix2x2& GetIdentity()
-    {
-        static const QMatrix2x2 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1);
-        return IDENTITY;
-    }
+    static const QMatrix2x2& GetIdentity();
 
 
     // METHODS
@@ -245,15 +221,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QMatrix2x2& operator*=(const float_q fScalar)
-    {
-        this->ij[0][0] *= fScalar;
-        this->ij[0][1] *= fScalar;
-        this->ij[1][0] *= fScalar;
-        this->ij[1][1] *= fScalar;
-
-        return *this;
-    }
+    QMatrix2x2& operator*=(const float_q fScalar);
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -272,19 +240,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QMatrix2x2& operator/=(const float_q &fScalar)
-    {
-        QE_ASSERT(fScalar != SQFloat::_0)
-
-        const float_q &DIVISOR = SQFloat::_1/fScalar;
-
-        this->ij[0][0] *= DIVISOR;
-        this->ij[0][1] *= DIVISOR;
-        this->ij[1][0] *= DIVISOR;
-        this->ij[1][1] *= DIVISOR;
-
-        return *this;
-    }
+    QMatrix2x2& operator/=(const float_q &fScalar);
 
     /// <summary>
     /// Addition and assign operator. Current matrix stores the result of the addition.
@@ -293,15 +249,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QMatrix2x2& operator+=(const QBaseMatrix2x2 &matrix)
-    {
-        this->ij[0][0] += matrix.ij[0][0];
-        this->ij[0][1] += matrix.ij[0][1];
-        this->ij[1][0] += matrix.ij[1][0];
-        this->ij[1][1] += matrix.ij[1][1];
-
-        return *this;
-    }
+    QMatrix2x2& operator+=(const QBaseMatrix2x2 &matrix);
 
     /// <summary>
     /// Subtraction and assign operator. Current matrix stores the result of the subtraction.
@@ -310,15 +258,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QMatrix2x2& operator-=(const QBaseMatrix2x2 &matrix)
-    {
-        this->ij[0][0] -= matrix.ij[0][0];
-        this->ij[0][1] -= matrix.ij[0][1];
-        this->ij[1][0] -= matrix.ij[1][0];
-        this->ij[1][1] -= matrix.ij[1][1];
-
-        return *this;
-    }
+    QMatrix2x2& operator-=(const QBaseMatrix2x2 &matrix);
 
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
@@ -327,30 +267,18 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QMatrix2x2& operator=(const QBaseMatrix2x2 &matrix)
-    {
-        QBaseMatrix2x2::operator=(matrix);
-        return *this;
-    }
+    QMatrix2x2& operator=(const QBaseMatrix2x2 &matrix);
 
     /// <summary>
     /// Resets all matrix elements to 0.
     /// </summary>
-    inline void ResetToZero()
-    {
-        this->ij[0][0] = this->ij[0][1] =
-        this->ij[1][0] = this->ij[1][1] = SQFloat::_0;
-    }
+    void ResetToZero();
 
     /// <summary>
     /// Resets the matrix to a identity matrix.<br/>
     /// The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, and it's set to 1 if \f$ i=j \f$.
     /// </summary>
-    inline void ResetToIdentity()
-    {
-        this->ij[0][0] = this->ij[1][1] = SQFloat::_1;
-        this->ij[0][1] = this->ij[1][0] = SQFloat::_0;
-    }
+    void ResetToIdentity();
 
     /// <summary>
     /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
@@ -364,10 +292,7 @@ public:
     /// <returns>
     /// The transposed matrix.
     /// </returns>
-    inline QMatrix2x2 Transpose() const
-    {
-        return QMatrix2x2(this->ij[0][0], this->ij[1][0], this->ij[0][1], this->ij[1][1]);
-    }
+    QMatrix2x2 Transpose() const;
 
     /// <summary>
     /// Checks if all elements of the matrix are 0 or under tolerance (absolute value).
@@ -375,13 +300,7 @@ public:
     /// <returns>
     /// True if all elements are 0, false otherwise.
     /// </returns>
-    inline bool IsZero() const
-    {
-        return  SQFloat::IsZero(this->ij[0][0]) &&
-                SQFloat::IsZero(this->ij[0][1]) &&
-                SQFloat::IsZero(this->ij[1][0]) &&
-                SQFloat::IsZero(this->ij[1][1]);
-    }
+    bool IsZero() const;
 
     /// <summary>
     /// Checks if all elements of the matrix are 0 or under tolerance (absolute value) except
@@ -390,13 +309,7 @@ public:
     /// <returns>
     /// True if all elements are 0 except i=j which are 1, false otherwise.
     /// </returns>
-    inline bool IsIdentity() const
-    {
-        return  SQFloat::AreEqual(this->ij[0][0], SQFloat::_1) &&
-                SQFloat::IsZero(this->ij[0][1]) &&
-                SQFloat::IsZero(this->ij[1][0]) &&
-                SQFloat::AreEqual(this->ij[1][1], SQFloat::_1);
-    }
+    bool IsIdentity() const;
 
     /// <summary>
     /// Calculates the determinant of the matrix.<br/>
@@ -451,11 +364,7 @@ public:
     /// <returns>
     /// True if the matrix has inverse, false otherwise.
     /// </returns>
-    inline bool HasInverse() const
-    {
-        // If Determinant is 0, this matrix has not inverse.
-        return SQFloat::IsNotZero(this->GetDeterminant());
-    }
+    bool HasInverse() const;
 
     /// <summary>
     /// Converts matrix into a string with the following format:<br/>

@@ -31,7 +31,10 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QMatrix4x4.h"
+
 #include "QMatrix4x3.h"
+#include "SQFloat.h"
+#include "SQVF32.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
@@ -39,6 +42,7 @@ using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
+
 
 QTEST_SUITE_BEGIN( QMatrix4x4_TestSuite )
 

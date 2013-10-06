@@ -27,12 +27,16 @@
 #include "QQuaternion.h"
 #include "MathDefinitions.h"
 
+#include "SQAngle.h"
 #include "QVector3.h"
 #include "QVector4.h"
 #include "QMatrix4x3.h"
 #include "QMatrix4x4.h"
 #include "QRotationMatrix3x3.h"
 #include "QTransformationMatrix.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -52,6 +56,18 @@ namespace Math
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
+
+QQuaternion::QQuaternion() : QBaseQuaternion()
+{
+}
+
+QQuaternion::QQuaternion(const QQuaternion &qQuat) : QBaseQuaternion(qQuat)
+{
+}
+
+QQuaternion::QQuaternion(const QBaseQuaternion &qQuat) : QBaseQuaternion(qQuat)
+{
+}
 
 QQuaternion::QQuaternion(const float_q &fRotationAngleX, const float_q &fRotationAngleY, const float_q &fRotationAngleZ)
 {
@@ -78,6 +94,19 @@ QQuaternion::QQuaternion(const float_q &fRotationAngleX, const float_q &fRotatio
 	this->x =  cy * sx * cz + sy * cx * sz;
 	this->y = -cy * sx * sz + sy * cx * cz;
 	this->z = -sy * sx * cz + cy * cx * sz;
+}
+
+QQuaternion::QQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
+                           QBaseQuaternion(fValueX, fValueY, fValueZ, fValueW)
+{
+}
+
+QQuaternion::QQuaternion(const float_q* arValues) : QBaseQuaternion(arValues)
+{
+}
+
+QQuaternion::QQuaternion(const vf32_q &value) : QBaseQuaternion(value)
+{
 }
 
 QQuaternion::QQuaternion(const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle)
@@ -138,7 +167,6 @@ QQuaternion::QQuaternion(const QRotationMatrix3x3 &rotation)
 {
     rotation.GetRotation(*this);
 }
-
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -217,6 +245,145 @@ QQuaternion QQuaternion::operator/(const float_q &fScalar) const
                         this->w * DIVISOR);
 }
 
+QQuaternion& QQuaternion::operator+=(const QBaseQuaternion &qQuat)
+{
+    this->x += qQuat.x;
+    this->y += qQuat.y;
+    this->z += qQuat.z;
+    this->w += qQuat.w;
+    return *this;
+}
+
+QQuaternion& QQuaternion::operator-=(const QBaseQuaternion &qQuat)
+{
+    this->x -= qQuat.x;
+    this->y -= qQuat.y;
+    this->z -= qQuat.z;
+    this->w -= qQuat.w;
+
+    return *this;
+}
+
+QQuaternion& QQuaternion::operator*=(const QBaseQuaternion &qQuat)
+{
+    QQuaternion resQuat( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,	   // Vx
+                            qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,	   // Vy
+                            qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,	   // Vz
+                            qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );  // W
+    this->x = resQuat.x;
+    this->y = resQuat.y;
+    this->z = resQuat.z;
+    this->w = resQuat.w;
+
+    return *this;
+}
+
+QQuaternion& QQuaternion::operator*=(const float_q fScalar)
+{
+    this->x *= fScalar;
+    this->y *= fScalar;
+    this->z *= fScalar;
+    this->w *= fScalar;
+
+    return *this;
+}
+
+QQuaternion& QQuaternion::operator*=(const QBaseVector3 &vVector)
+{
+	QQuaternion qAux(vVector.x, vVector.y, vVector.z, SQFloat::_0);
+
+	*this *= qAux;
+
+	return *this;
+}
+
+QQuaternion& QQuaternion::operator*=(const QBaseVector4 &vVector)
+{
+	QQuaternion qAux(vVector.x, vVector.y, vVector.z, vVector.w);
+
+	*this *= qAux;
+
+	return *this;
+}
+
+QQuaternion& QQuaternion::operator/=(const QBaseQuaternion &qQuat)
+{
+    // Note: QQuaternion::Invert method's code copied here. The reason is not to require a QQuaternion as a parameter
+    //       which would break the coherence of the interface (all operators require QBaseQuaternion only). Moreover, if
+    //       rcast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
+    const float_q& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
+
+    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0)
+
+    const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
+
+    *this *= QQuaternion(qQuat.x * NEG_INV_LENGTH, qQuat.y * NEG_INV_LENGTH, qQuat.z * NEG_INV_LENGTH, qQuat.w * -NEG_INV_LENGTH);
+
+    return *this;
+}
+
+QQuaternion& QQuaternion::operator/=(const float_q &fScalar)
+{
+    QE_ASSERT(fScalar != SQFloat::_0)
+
+    const float_q &DIVISOR = SQFloat::_1/fScalar;
+
+    this->x *= DIVISOR;
+    this->y *= DIVISOR;
+    this->z *= DIVISOR;
+    this->w *= DIVISOR;
+
+    return *this;
+}
+
+QQuaternion& QQuaternion::operator=(const QBaseQuaternion &qQuat)
+{
+    QBaseQuaternion::operator=(qQuat);
+    return *this;
+}
+
+QQuaternion QQuaternion::operator-() const
+{
+	return QQuaternion(-this->x, -this->y, -this->z, -this->w);
+}
+
+QQuaternion QQuaternion::Normalize() const
+{
+    QE_ASSERT(this->GetLength()) // Code that will not execute, no overhead
+
+    const float_q& INV_LENGTH = SQFloat::_1 / this->GetLength();
+
+    return QQuaternion(this->x * INV_LENGTH, this->y * INV_LENGTH, this->z * INV_LENGTH, this->w * INV_LENGTH);
+}
+
+QQuaternion QQuaternion::Invert() const
+{
+    // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
+    const float_q& SQUARED_LENGTH = this->GetSquaredLength();
+
+    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0)
+
+    const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
+
+    return QQuaternion(this->x * NEG_INV_LENGTH, this->y * NEG_INV_LENGTH, this->z * NEG_INV_LENGTH, this->w * -NEG_INV_LENGTH);
+}
+
+QQuaternion QQuaternion::UnitInvert() const
+{
+	return this->Conjugate();
+}
+
+void QQuaternion::ResetToZero()
+{
+    this->x = this->y = this->z = this->w = SQFloat::_0;
+}
+
+void QQuaternion::ResetToIdentity()
+{
+    this->x = this->y = this->z = SQFloat::_0;
+    this->w = SQFloat::_1;
+}
+
 QQuaternion operator*(const float_q &fScalar, const QQuaternion &qQuat)
 {
     return QQuaternion( qQuat.x * fScalar, qQuat.y * fScalar, qQuat.z * fScalar, qQuat.w * fScalar);
@@ -251,6 +418,11 @@ float_q QQuaternion::DotProductAngle(const QQuaternion &qQuat) const
     #endif
 
     return fAngle;
+}
+
+QQuaternion QQuaternion::Conjugate() const
+{
+    return QQuaternion(-this->x, -this->y, -this->z, this->w);
 }
 
 QQuaternion QQuaternion::Lerp(const float_q &fProportion, const QQuaternion &qQuat) const
@@ -468,6 +640,22 @@ string_q QQuaternion::ToString() const
            QE_L(",")  + SQFloat::ToString(this->y) +
            QE_L(",")  + SQFloat::ToString(this->z) +
            QE_L(",")  + SQFloat::ToString(this->w) + QE_L(")");
+}
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QQuaternion& QQuaternion::GetIdentity()
+{
+    static const QQuaternion IDENTITY(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+    return IDENTITY;
 }
 
 } //namespace Math

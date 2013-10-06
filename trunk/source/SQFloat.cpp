@@ -116,13 +116,194 @@ namespace DataTypes
 //##################													   ##################
 //##################=======================================================##################
 
+bool SQFloat::IsNaN(const float_q &fValue)
+{
+    // [REVIEW] Thund: Boost provides functions to check this
+    return fValue != fValue;
+}
+
+bool SQFloat::IsInfinite(const float_q &fValue)
+{
+    // [REVIEW] Thund: Boost provides functions to check this
+    return SQFloat::IsLessThan(fValue, -SQFloat::MaxFloat_Q) || SQFloat::IsGreaterThan(fValue, SQFloat::MaxFloat_Q);
+}
+
+bool SQFloat::IsNanOrInfinite(const float_q &fValue)
+{
+    return SQFloat::IsNaN(fValue) || SQFloat::IsInfinite(fValue);
+}
+
+bool SQFloat::AreEqual(const float_q &fValueA, const float_q &fValueB)
+{
+    return SQFloat::Abs(fValueA - fValueB) <= SQFloat::Epsilon;
+}
+    
+bool SQFloat::AreEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
+{
+    // The tolerance provided must be equal to or greater than the system tolerance. If the tolerance is too small it could become useless.
+    QE_ASSERT(fTolerance >= SQFloat::Epsilon);
+
+    return SQFloat::Abs(fValueA - fValueB) <= fTolerance;
+}
+
+bool SQFloat::AreNotEqual(const float_q &fValueA, const float_q &fValueB)
+{
+    return SQFloat::Abs(fValueA - fValueB) > SQFloat::Epsilon;
+}
+    
+bool SQFloat::AreNotEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
+{
+    return SQFloat::Abs(fValueA - fValueB) > fTolerance;
+}
+
+bool SQFloat::IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue)
+{
+    // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
+    return (fGreaterValue - fReferenceValue) > SQFloat::Epsilon;
+}
+    
+bool SQFloat::IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue, const float_q &fTolerance)
+{
+    // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
+    return (fGreaterValue - fReferenceValue) > fTolerance;
+}
+
+bool SQFloat::IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue)
+{
+    // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
+    return (fLowerValue - fReferenceValue) < -SQFloat::Epsilon;
+}
+    
+bool SQFloat::IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue, const float_q &fTolerance)
+{
+    // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
+    return (fLowerValue - fReferenceValue) < -fTolerance;
+}
+
+bool SQFloat::IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue)
+{
+    // If subtraction is greater or equals to -Epsilon, the value is greater or equals
+    return (fGreaterOrEqualsValue - fReferenceValue) >= -SQFloat::Epsilon;
+}
+    
+bool SQFloat::IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance)
+{
+    // If subtraction is greater or equals to -Epsilon, the value is greater or equals
+    return (fGreaterOrEqualsValue - fReferenceValue) >= -fTolerance;
+}
+
+bool SQFloat::IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue)
+{
+    // If subtraction is lower or equals to Epsilon, the value is lower or equals
+    return (fLessOrEqualsValue - fReferenceValue) <= SQFloat::Epsilon;
+}
+    
+bool SQFloat::IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance)
+{
+    // If subtraction is lower or equals to Epsilon, the value is lower or equals
+    return (fLessOrEqualsValue - fReferenceValue) <= fTolerance;
+}
+
+bool SQFloat::IsZero(const float_q &fValue)
+{
+    return SQFloat::AreEqual(fValue, SQFloat::_0);
+}
+    
+bool SQFloat::IsZero(const float_q &fValue, const float_q &fTolerance)
+{
+    return SQFloat::AreEqual(fValue, SQFloat::_0, fTolerance);
+}
+
+bool SQFloat::IsNotZero(const float_q &fValue)
+{
+    return SQFloat::AreNotEqual(fValue, SQFloat::_0);
+}
+    
+bool SQFloat::IsNotZero(const float_q &fValue, const float_q &fTolerance)
+{
+    return SQFloat::AreNotEqual(fValue, SQFloat::_0, fTolerance);
+}
+
+float_q SQFloat::Truncate(const float_q &fValue)
+{
+    return boost::math::trunc(fValue);
+}
+
+float_q SQFloat::Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax)
+{
+	const float_q CAMPLED_VALUE = (fValue > fMax) ?  fMax :
+										                (fValue < fMin) ?  fMin :
+														                fValue;
+    return CAMPLED_VALUE;
+}
+
+float_q SQFloat::SwapEndianess(const float_q &fValue)
+{
+    const unsigned int FLOAT_SIZE = sizeof(float_q);
+
+    // Ambiguous type to treat the same bit strip as byte array and floating point types
+    // Note: The type change is not immediate, it has memory reading/writing cost
+    union FloatOrBytesUnion
+    {
+        float_q _float;
+        u8_q    _bytes[FLOAT_SIZE];
+    };
+
+    FloatOrBytesUnion srcValue;
+    srcValue._float = fValue;
+
+    FloatOrBytesUnion swappedValue;
+
+    // Float's bytes are copied in inverse order to the output float
+    for(unsigned int i = 0, j = FLOAT_SIZE - 1; i < FLOAT_SIZE; ++i, --j)
+        swappedValue._bytes[i] = srcValue._bytes[j];
+
+    return swappedValue._float;
+}
+
+bool SQFloat::IsNegative(const float_q &fValue)
+{
+    return SQFloat::IsLessThan(fValue, SQFloat::_0);
+}
+
+bool SQFloat::IsPositive(const float_q &fValue)
+{
+    return SQFloat::IsGreaterThan(fValue, SQFloat::_0);
+}
+
+void SQFloat::CopySign(const float_q &fSignedValue, float_q &fValueToCopyTo)
+{
+    // Negative source & Negative target = Keep negative
+    // Negative source & Positive target = Change sign
+    // Positive source & Negative target = Change sign
+    // Positive source & Positive target = Keep positive
+    fValueToCopyTo = SQFloat::IsNegative(fSignedValue)
+                        ?
+                        SQFloat::IsNegative(fValueToCopyTo) ? fValueToCopyTo : -fValueToCopyTo
+                        :
+                        SQFloat::IsNegative(fValueToCopyTo) ? -fValueToCopyTo : fValueToCopyTo;
+}
+
+float_q SQFloat::Abs(const float_q &fValue)
+{
+    #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+
+        return fabsf(fValue);
+
+    #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+
+        return fabsl(fValue);
+
+    #endif
+}
+
 string_q SQFloat::ToString(const float_q &fValue)
 {
     string_q strOut = boost::lexical_cast<string_q>(fValue);
 	return strOut;
   
 // Is this better? [SMELL] Thund:
-//    template <class T> inline std::string stringify(T x)
+//    template <class T> std::string stringify(T x)
 //    {
 //	    std::ostringstream o;
 //	    o << x;

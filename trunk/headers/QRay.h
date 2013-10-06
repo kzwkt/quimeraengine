@@ -61,7 +61,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QRay()
+	QRay()
     {
     }
 
@@ -69,7 +69,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
-	inline QRay(const QRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
+	QRay(const QRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
 	{
 	}
 
@@ -77,7 +77,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="ray">[IN] The ray in which we want resident ray to be based.</param>
-    inline QRay(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
+    QRay(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(ray)
     {
     }
 
@@ -89,7 +89,7 @@ public:
     /// </remarks>
     /// <param name="vOrigin">[IN] Ray's position.</param>
     /// <param name="vDirection">[IN] Ray's direction.</param>
-    inline QRay(const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(vOrigin, vDirection)
+    QRay(const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) : QBaseRay<VectorTypeOrigin, VectorTypeDirection>(vOrigin, vDirection)
     {
     }
 
@@ -104,7 +104,7 @@ public:
 	/// <returns>
     /// The null ray.
     /// </returns>
-    inline static const QRay<VectorTypeOrigin, VectorTypeDirection>& GetRayZero()
+    static const QRay<VectorTypeOrigin, VectorTypeDirection>& GetRayZero()
     {
         static const QRay<VectorTypeOrigin, VectorTypeDirection> RAYZERO(VectorTypeOrigin::GetZeroVector(), VectorTypeDirection::GetZeroVector());
         return RAYZERO;
@@ -122,7 +122,7 @@ public:
     /// <returns>
     /// A reference to this ray, after assignation.
     /// </returns>
-    inline QRay<VectorTypeOrigin, VectorTypeDirection>& operator=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray)
+    QRay<VectorTypeOrigin, VectorTypeDirection>& operator=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray)
     {
         QBaseRay<VectorTypeOrigin, VectorTypeDirection>::operator=(ray);
         return *this;
@@ -134,7 +134,7 @@ public:
     /// <returns>
     /// The inverse of the ray.
     /// </returns>
-    inline QRay<VectorTypeOrigin, VectorTypeDirection> Invert() const
+    QRay<VectorTypeOrigin, VectorTypeDirection> Invert() const
     {
         return QRay<VectorTypeOrigin, VectorTypeDirection>(this->Origin, -this->Direction);
     }
@@ -145,7 +145,7 @@ public:
     /// <returns>
     /// The normalized ray.
     /// </returns>
-    inline QRay<VectorTypeOrigin, VectorTypeDirection> Normalize() const
+    QRay<VectorTypeOrigin, VectorTypeDirection> Normalize() const
     {
         return QRay<VectorTypeOrigin, VectorTypeDirection>(this->Origin, this->Direction.Normalize());
     }
@@ -160,7 +160,7 @@ public:
     /// <returns>
     /// A point of the ray.
     /// </returns>
-    inline VectorTypeOrigin GetPoint(const float_q &fDistance) const
+    VectorTypeOrigin GetPoint(const float_q &fDistance) const
     {
         // The direction vector must be normalized
         QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1) );
@@ -189,7 +189,7 @@ public:
     /// <b>False</b><br/>
     /// The ray and the orb do not intersect.
 	/// </returns>
-    inline bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
+    bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
     {
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
         QE_ASSERT( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius) );
@@ -265,7 +265,7 @@ public:
     /// - The ray intersects with the orb in two points.
     /// - The origin of the ray lays on the surface / perimeter of the orb and the ray points to the orb.
     /// </returns>
-	inline EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection) const
+	EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection) const
 	{
 		VectorTypeOrigin vAux;
 		return this->IntersectionPoint(orb, vIntersection, vAux);

@@ -31,7 +31,10 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QQuadrilateral.h"
+
 #include "QTransformationMatrix3x3.h"
+#include "SQFloat.h"
+#include "SQAngle.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
@@ -39,8 +42,8 @@ using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::Math::QQuadrilateral;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 
-QTEST_SUITE_BEGIN( QQuadrilateral_TestSuite )
 
+QTEST_SUITE_BEGIN( QQuadrilateral_TestSuite )
 
 /// <summary>
 /// Checks that default values hasn't changed.

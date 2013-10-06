@@ -33,6 +33,11 @@
 #include "QSpaceConversionMatrix.h"
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
+#include "QBaseVector4.h"
+#include "SQAngle.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -51,6 +56,38 @@ namespace Math
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
+
+QVector3::QVector3()
+{
+}
+
+QVector3::QVector3(const QVector3 &vVector) : QBaseVector3(vVector)
+{
+}
+
+QVector3::QVector3(const QBaseVector3 &vVector) : QBaseVector3(vVector)
+{
+}
+
+QVector3::QVector3(const QBaseVector4 &vVector) : QBaseVector3(vVector.x, vVector.y, vVector.z)
+{
+}
+
+QVector3::QVector3(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ) : QBaseVector3(fValueX, fValueY, fValueZ)
+{
+}
+
+QVector3::QVector3(const float_q &fValueAll) : QBaseVector3(fValueAll)
+{
+}
+
+QVector3::QVector3(const float_q* arValues) : QBaseVector3(arValues)
+{
+}
+
+QVector3::QVector3(const vf32_q value) : QBaseVector3(value)
+{
+}
 
 QVector3::QVector3(const QTranslationMatrix<QMatrix4x3> &translation) :
                        QBaseVector3(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2])
@@ -127,6 +164,42 @@ QVector3 QVector3::operator/(const QBaseVector3 &vVector) const
     return QVector3(this->x / vVector.x, this->y / vVector.y, this->z / vVector.z);
 }
 
+QVector3& QVector3::operator+=(const QBaseVector3 &vVector)
+{
+    this->x += vVector.x;
+    this->y += vVector.y;
+    this->z += vVector.z;
+
+    return *this;
+}
+
+QVector3& QVector3::operator-=(const QBaseVector3 &vVector)
+{
+    this->x -= vVector.x;
+    this->y -= vVector.y;
+    this->z -= vVector.z;
+
+    return *this;
+}
+
+QVector3& QVector3::operator*=(const float_q fScalar)
+{
+    this->x *= fScalar;
+    this->y *= fScalar;
+    this->z *= fScalar;
+
+    return *this;
+}
+
+QVector3& QVector3::operator*=(const QBaseVector3 &vVector)
+{
+    this->x *= vVector.x;
+    this->y *= vVector.y;
+    this->z *= vVector.z;
+
+    return *this;
+}
+
 QVector3& QVector3::operator*=(const QBaseMatrix3x3 &matrix)
 {
     QVector3 vAux( this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0] + this->z * matrix.ij[2][0],
@@ -145,6 +218,38 @@ QVector3 operator*(const float_q &fScalar, const QVector3 &vVector)
     return QVector3(vVector.x * fScalar, vVector.y * fScalar, vVector.z * fScalar);
 }
 
+QVector3& QVector3::operator/=(const float_q &fScalar)
+{
+    // Checkout to avoid division by 0
+    QE_ASSERT(fScalar != SQFloat::_0)
+
+    const float_q &DIVISOR = SQFloat::_1 / fScalar;
+
+    this->x *= DIVISOR;
+    this->y *= DIVISOR;
+    this->z *= DIVISOR;
+
+    return *this;
+}
+
+QVector3& QVector3::operator/=(const QBaseVector3 &vVector)
+{
+    // Checkout to avoid division by 0
+    QE_ASSERT(vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0)
+
+    this->x /= vVector.x;
+    this->y /= vVector.y;
+    this->z /= vVector.z;
+
+    return *this;
+}
+
+QVector3& QVector3::operator=(const QBaseVector3 &vVector)
+{
+    QBaseVector3::operator=(vVector);
+    return *this;
+}
+
 QVector3 QVector3::operator-() const
 {
     return QVector3(-this->x, -this->y, -this->z);
@@ -158,6 +263,32 @@ float_q QVector3::GetLength() const
 float_q QVector3::GetSquaredLength() const
 {
     return this->x*this->x + this->y*this->y + this->z*this->z;
+}
+
+QVector3 QVector3::Normalize() const
+{
+    // Gets vector length
+    float_q fLength = this->GetLength();
+
+    // Checkout to avoid division by 0
+    QE_ASSERT(fLength != SQFloat::_0)
+
+    //Normalize
+    return QVector3(this->x / fLength, this->y / fLength, this->z / fLength);
+}
+
+void QVector3::ResetToOne()
+{
+    this->x = SQFloat::_1;
+    this->y = SQFloat::_1;
+    this->z = SQFloat::_1;
+}
+
+void QVector3::ResetToZero()
+{
+    this->x = SQFloat::_0;
+    this->y = SQFloat::_0;
+    this->z = SQFloat::_0;
 }
 
 bool QVector3::IsZero() const
@@ -208,6 +339,13 @@ QVector3 QVector3::CrossProduct(const QBaseVector3 &vVector) const
     return QVector3(this->y * vVector.z - this->z * vVector.y,
                     this->z * vVector.x - this->x * vVector.z,
                     this->x * vVector.y - this->y * vVector.x);
+}
+
+QVector3 QVector3::Lerp(const float_q &fProportion, const QVector3 &vVector) const
+{
+    return QVector3(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
+                    this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion,
+                    this->z * (SQFloat::_1 - fProportion) + vVector.z * fProportion);
 }
 
 float_q QVector3::Distance(const QBaseVector3 &vVector) const
@@ -279,6 +417,65 @@ string_q QVector3::ToString() const
            QE_L(",")  + SQFloat::ToString(this->y) +
            QE_L(",")  + SQFloat::ToString(this->z) + QE_L(")");
 }
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QVector3& QVector3::GetZeroVector()
+{
+    static const QVector3 ZEROVECTOR(SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+    return ZEROVECTOR;
+}
+
+const QVector3& QVector3::GetVectorOfOnes()
+{
+    static const QVector3 VECTOROFONES(SQFloat::_1,  SQFloat::_1,  SQFloat::_1);
+    return VECTOROFONES;
+}
+
+const QVector3& QVector3::GetUnitVectorX()
+{
+    static const QVector3 UNITVECTORX(SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
+    return UNITVECTORX;
+}
+
+const QVector3& QVector3::GetUnitVectorY()
+{
+    static const QVector3 UNITVECTORY(SQFloat::_0,  SQFloat::_1,  SQFloat::_0);
+    return UNITVECTORY;
+}
+
+const QVector3& QVector3::GetUnitVectorZ()
+{
+    static const QVector3 UNITVECTORZ(SQFloat::_0,  SQFloat::_0,  SQFloat::_1);
+    return UNITVECTORZ;
+}
+
+const QVector3& QVector3::GetUnitVectorInvX()
+{
+    static const QVector3 UNITVECTORINVX(-SQFloat::_1,  SQFloat::_0,  SQFloat::_0);
+    return UNITVECTORINVX;
+}
+
+const QVector3& QVector3::GetUnitVectorInvY()
+{
+    static const QVector3 UNITVECTORINVY(SQFloat::_0,  -SQFloat::_1,  SQFloat::_0);
+    return UNITVECTORINVY;
+}
+
+const QVector3& QVector3::GetUnitVectorInvZ()
+{
+    static const QVector3 UNITVECTORINVZ(SQFloat::_0,  SQFloat::_0,  -SQFloat::_1);
+    return UNITVECTORINVZ;
+}
+
 
 } //namespace Math
 } //namespace Tools

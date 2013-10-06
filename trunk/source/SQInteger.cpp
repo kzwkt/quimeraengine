@@ -67,6 +67,26 @@ const i64_q SQInteger::MaxNegativeI64_Q = -9223372036854775807 - 1;// Defined th
 //##################													   ##################
 //##################=======================================================##################
 
+i8_q SQInteger::Abs(i8_q& nValue)
+{
+    return abs(nValue);
+}
+
+i16_q SQInteger::Abs(const i16_q& nValue)
+{
+    return abs(nValue);
+}
+
+i32_q SQInteger::Abs(const i32_q& nValue)
+{
+    return abs(nValue);
+}
+
+i64_q SQInteger::Abs(const i64_q& nValue)
+{
+	return llabs(nValue);
+}
+
 template<>
 string_q SQInteger::ToString<i8_q>(const char &nValue)
 {

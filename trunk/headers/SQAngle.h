@@ -29,7 +29,7 @@
 
 #include <string>
 
-#include "MathDefinitions.h"
+#include "DataTypesDefinitions.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
@@ -155,16 +155,7 @@ public:
     /// <returns>
     /// The same angle converted to radians.
     /// </returns>
-    inline static float_q DegreesToRadians(const float_q &fDegrees)
-    {
-#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-        // This workaround is necessary due to an unacceptable loss of precision
-        using Kinesis::QuimeraEngine::Tools::DataTypes::f64_q;
-        return (float_q) (f64_q(fDegrees) * 4.0 * atan_q(1.0) / 180.0);
-#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-        return fDegrees * SQAngle::RadiansPerDegree;
-#endif
-    }
+    static float_q DegreesToRadians(const float_q &fDegrees);
 
     /// <summary>
     /// Computes the conversion from a value expressed in radians to its equivalent in degrees.
@@ -173,16 +164,7 @@ public:
     /// <returns>
     /// The same angle converted to degrees.
     /// </returns>
-    inline static float_q RadiansToDegrees(const float_q &fRadians)
-    {
-#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-        // This workaround is necessary due to an unacceptable loss of precision
-        using Kinesis::QuimeraEngine::Tools::DataTypes::f64_q;
-        return (float_q) (f64_q(fRadians) * 180.0 / (4.0 * atan_q(1.0)));
-#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-        return fRadians * SQAngle::DegreesPerRadian;
-#endif
-    }
+    static float_q RadiansToDegrees(const float_q &fRadians);
 
     /// <summary>
     /// Truncates an angle which describes more than one revolution.<br/>
@@ -192,14 +174,7 @@ public:
     /// <returns>
     /// The truncated angle value.
     /// </returns>
-    inline static float_q Truncate(const float_q &fAngle)
-	{
-		#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
-			return fmod_q(fAngle, SQAngle::_2Pi);  
-		#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-			return fmod_q(fAngle, SQAngle::_360);
-		#endif
-    }
+    static float_q Truncate(const float_q &fAngle);
 
     /// <summary>
     /// Counts how many revolutions are represented by an angle, including fractions.
@@ -208,17 +183,7 @@ public:
     /// <returns>
     /// The number of revolutions (partial and complete).
     /// </returns>
-    inline static float_q CountRevolutions(const float_q &fAngle)
-    {
-        const float_q COMPLETE_REVOLUTION =
-            #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
-                SQAngle::_2Pi;
-            #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                SQAngle::_360;
-            #endif
-
-        return fAngle / COMPLETE_REVOLUTION;
-    }
+    static float_q CountRevolutions(const float_q &fAngle);
 
     /// <summary>
     /// Counts how many revolutions are represented by an angle, ignoring fractions.
@@ -227,17 +192,7 @@ public:
     /// <returns>
     /// The number of revolutions (only complete).
     /// </returns>
-    inline static float_q CountCompleteRevolutions(const float_q &fAngle)
-    {
-        const float_q COMPLETE_REVOLUTION =
-            #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
-                SQAngle::_2Pi;
-            #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-                SQAngle::_360;
-            #endif
-
-        return SQFloat::Truncate(fAngle / COMPLETE_REVOLUTION);
-    }
+    static float_q CountCompleteRevolutions(const float_q &fAngle);
 };
 
 } //namespace Math

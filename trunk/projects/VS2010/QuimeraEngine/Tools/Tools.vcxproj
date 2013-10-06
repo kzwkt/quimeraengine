@@ -229,6 +229,18 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\EQIntersections.cpp" />
     <ClCompile Include="..\..\..\..\source\EQSpaceRelation.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseDualQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix2x2.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix3x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix3x4.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix4x3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseMatrix4x4.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBasePlane.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseQuadrilateral.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseQuaternion.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseVector2.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseVector3.cpp" />
+    <ClCompile Include="..\..\..\..\source\QBaseVector4.cpp" />
     <ClCompile Include="..\..\..\..\source\QCircle.cpp" />
     <ClCompile Include="..\..\..\..\source\QDualQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QLineSegment2D.cpp" />
@@ -253,6 +265,7 @@
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
     <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />
+    <ClCompile Include="..\..\..\..\source\SQPoint.cpp" />
     <ClCompile Include="..\..\..\..\source\SQVF32.cpp" />
     <ClCompile Include="..\..\..\..\source\ToolsExports.cpp" />
   </ItemGroup>

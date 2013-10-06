@@ -27,10 +27,14 @@
 #ifndef __QMATRIX3X4__
 #define __QMATRIX3X4__
 
+#include "QBaseMatrix3x4.h"
+
 #include "QBaseMatrix3x3.h"
 #include "QBaseMatrix4x4.h"
-#include "QBaseMatrix3x4.h"
 #include "QBaseMatrix4x3.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+
 
 namespace Kinesis
 {
@@ -40,14 +44,6 @@ namespace Tools
 {
 namespace Math
 {
-    
-// USINGS
-// ---------------
-namespace {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-    using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
-}
 
 /// <summary>
 /// This class implements the functionality of a matrix with 3 rows and 4 columns.<br/>
@@ -87,33 +83,25 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QMatrix3x4()
-    {
-    }
+	QMatrix3x4();
 
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <param name="matrix">[IN] The 3x4 matrix from which we want to create a copy in the resident matrix.</param>
-    inline QMatrix3x4(const QMatrix3x4 &matrix) : QBaseMatrix3x4(matrix)
-    {
-    }
+    QMatrix3x4(const QMatrix3x4 &matrix);
 
 	/// <summary>
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="matrix">[IN] The 3x4 matrix in which we want the resident matrix to be based.</param>
-	inline QMatrix3x4(const QBaseMatrix3x4 &matrix) : QBaseMatrix3x4(matrix)
-    {
-    }
+	QMatrix3x4(const QBaseMatrix3x4 &matrix);
 
 	/// <summary>
 	/// Constructor from a floating point value which with fill all matrix's elements.
 	/// </summary>
 	/// <param name="fValueAll">[IN] The floating point value used to fill the matrix.</param>
-	inline explicit QMatrix3x4(const float_q &fValueAll) : QBaseMatrix3x4(fValueAll)
-    {
-    }
+	explicit QMatrix3x4(const float_q &fValueAll);
 
 	/// <summary>
 	/// Constructor from a floating point value for each element of the matrix.
@@ -130,14 +118,9 @@ public:
 	/// <param name="f21">[IN] Floating point value for element of row 2, column 1.</param>
 	/// <param name="f22">[IN] Floating point value for element of row 2, column 2.</param>
 	/// <param name="f23">[IN] Floating point value for element of row 2, column 3.</param>
-	inline QMatrix3x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
-                      const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
-                      const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23) :
-                          QBaseMatrix3x4(f00, f01, f02, f03,
-							             f10, f11, f12, f13,
-									     f20, f21, f22, f23)
-    {
-    }
+	QMatrix3x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
+               const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
+               const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23);
 
 	/// <summary>
 	/// Constructor that receives a pointer to 12 floating point values.
@@ -148,9 +131,7 @@ public:
 	/// </remarks>
 	/// <param name="arValues">[IN] A 12-length array of floating point values. If the pointer is null, the behavior  
     /// is undefined.</param>
-	inline explicit QMatrix3x4(const float_q *arValues) : QBaseMatrix3x4(arValues)
-    {
-    }
+	explicit QMatrix3x4(const float_q *arValues);
 
 	/// <summary>
 	/// Constructor from three 4x32 floating point packed values. Each param contains a row of the matrix.
@@ -158,10 +139,7 @@ public:
 	/// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
 	/// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
 	/// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
-	inline QMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) :
-		                  QBaseMatrix3x4(row0, row1, row2)
-    {
-    }
+	QMatrix3x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2);
 
 
     // PROPERTIES
@@ -174,13 +152,7 @@ public:
     /// <returns>
     /// A matrix with all components set to 0.
     /// </returns>
-    inline static const QMatrix3x4& GetZeroMatrix()
-    {
-        static const QMatrix3x4 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                           SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                           SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-        return ZEROMATRIX;
-    }
+    static const QMatrix3x4& GetZeroMatrix();
 
     /// <summary>
     /// Stores an identity matrix.<br/>
@@ -192,13 +164,7 @@ public:
     /// <returns>
     /// An identity matrix
     /// </returns>
-    inline static const QMatrix3x4& GetIdentity()
-    {
-        static const QMatrix3x4 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0,
-                                         SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0,
-                                         SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0);
-        return IDENTITY;
-    }
+    static const QMatrix3x4& GetIdentity();
 
 
 	// METHODS
@@ -268,27 +234,7 @@ public:
 	/// <returns>
 	/// The modified matrix.
 	/// </returns>
-	inline QMatrix3x4& operator/=(const float_q &fScalar)
-	{
-		QE_ASSERT(fScalar != SQFloat::_0)
-
-		const float_q &fDivisor = SQFloat::_1/fScalar;
-
-		this->ij[0][0] *= fDivisor;
-		this->ij[0][1] *= fDivisor;
-		this->ij[0][2] *= fDivisor;
-		this->ij[0][3] *= fDivisor;
-		this->ij[1][0] *= fDivisor;
-		this->ij[1][1] *= fDivisor;
-		this->ij[1][2] *= fDivisor;
-		this->ij[1][3] *= fDivisor;
-		this->ij[2][0] *= fDivisor;
-		this->ij[2][1] *= fDivisor;
-		this->ij[2][2] *= fDivisor;
-		this->ij[2][3] *= fDivisor;
-
-		return *this;
-	}
+	QMatrix3x4& operator/=(const float_q &fScalar);
 
 	/// <summary>
 	/// Addition and assign operator. Resident matrix stores the result of the addition.
@@ -297,23 +243,7 @@ public:
 	/// <returns>
 	/// The modified matrix.
 	/// </returns>
-	inline QMatrix3x4& operator+=(const QBaseMatrix3x4 &matrix)
-	{
-		this->ij[0][0] += matrix.ij[0][0];
-		this->ij[0][1] += matrix.ij[0][1];
-		this->ij[0][2] += matrix.ij[0][2];
-		this->ij[0][3] += matrix.ij[0][3];
-		this->ij[1][0] += matrix.ij[1][0];
-		this->ij[1][1] += matrix.ij[1][1];
-		this->ij[1][2] += matrix.ij[1][2];
-		this->ij[1][3] += matrix.ij[1][3];
-		this->ij[2][0] += matrix.ij[2][0];
-		this->ij[2][1] += matrix.ij[2][1];
-		this->ij[2][2] += matrix.ij[2][2];
-		this->ij[2][3] += matrix.ij[2][3];
-
-		return *this;
-	}
+	QMatrix3x4& operator+=(const QBaseMatrix3x4 &matrix);
 
 	/// <summary>
 	/// Subtraction and assign operator. Resident matrix stores the result of the subtraction.
@@ -322,23 +252,7 @@ public:
 	/// <returns>
 	/// The modified matrix.
 	/// </returns>
-	inline QMatrix3x4& operator-=(const QBaseMatrix3x4 &matrix)
-	{
-		this->ij[0][0] -= matrix.ij[0][0];
-		this->ij[0][1] -= matrix.ij[0][1];
-		this->ij[0][2] -= matrix.ij[0][2];
-		this->ij[0][3] -= matrix.ij[0][3];
-		this->ij[1][0] -= matrix.ij[1][0];
-		this->ij[1][1] -= matrix.ij[1][1];
-		this->ij[1][2] -= matrix.ij[1][2];
-		this->ij[1][3] -= matrix.ij[1][3];
-		this->ij[2][0] -= matrix.ij[2][0];
-		this->ij[2][1] -= matrix.ij[2][1];
-		this->ij[2][2] -= matrix.ij[2][2];
-		this->ij[2][3] -= matrix.ij[2][3];
-
-		return *this;
-	}
+	QMatrix3x4& operator-=(const QBaseMatrix3x4 &matrix);
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -347,23 +261,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QMatrix3x4& operator*=(const float_q fScalar)
-    {
-        this->ij[0][0] *= fScalar;
-        this->ij[0][1] *= fScalar;
-        this->ij[0][2] *= fScalar;
-        this->ij[0][3] *= fScalar;
-        this->ij[1][0] *= fScalar;
-        this->ij[1][1] *= fScalar;
-        this->ij[1][2] *= fScalar;
-        this->ij[1][3] *= fScalar;
-        this->ij[2][0] *= fScalar;
-        this->ij[2][1] *= fScalar;
-        this->ij[2][2] *= fScalar;
-        this->ij[2][3] *= fScalar;
-
-        return *this;
-    }
+    QMatrix3x4& operator*=(const float_q fScalar);
 
 	/// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -372,29 +270,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QMatrix3x4& operator*=(const QBaseMatrix4x4 &matrix)
-	{
-		QMatrix3x4 aux;
-
-		aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0] + this->ij[0][1] * matrix.ij[1][0] + this->ij[0][2] * matrix.ij[2][0] + this->ij[0][3] * matrix.ij[3][0];
-		aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1] + this->ij[0][1] * matrix.ij[1][1] + this->ij[0][2] * matrix.ij[2][1] + this->ij[0][3] * matrix.ij[3][1];
-		aux.ij[0][2] = this->ij[0][0] * matrix.ij[0][2] + this->ij[0][1] * matrix.ij[1][2] + this->ij[0][2] * matrix.ij[2][2] + this->ij[0][3] * matrix.ij[3][2];
-		aux.ij[0][3] = this->ij[0][0] * matrix.ij[0][3] + this->ij[0][1] * matrix.ij[1][3] + this->ij[0][2] * matrix.ij[2][3] + this->ij[0][3] * matrix.ij[3][3];
-
-		aux.ij[1][0] = this->ij[1][0] * matrix.ij[0][0] + this->ij[1][1] * matrix.ij[1][0] + this->ij[1][2] * matrix.ij[2][0] + this->ij[1][3] * matrix.ij[3][0];
-		aux.ij[1][1] = this->ij[1][0] * matrix.ij[0][1] + this->ij[1][1] * matrix.ij[1][1] + this->ij[1][2] * matrix.ij[2][1] + this->ij[1][3] * matrix.ij[3][1];
-		aux.ij[1][2] = this->ij[1][0] * matrix.ij[0][2] + this->ij[1][1] * matrix.ij[1][2] + this->ij[1][2] * matrix.ij[2][2] + this->ij[1][3] * matrix.ij[3][2];
-		aux.ij[1][3] = this->ij[1][0] * matrix.ij[0][3] + this->ij[1][1] * matrix.ij[1][3] + this->ij[1][2] * matrix.ij[2][3] + this->ij[1][3] * matrix.ij[3][3];
-
-		aux.ij[2][0] = this->ij[2][0] * matrix.ij[0][0] + this->ij[2][1] * matrix.ij[1][0] + this->ij[2][2] * matrix.ij[2][0] + this->ij[2][3] * matrix.ij[3][0];
-		aux.ij[2][1] = this->ij[2][0] * matrix.ij[0][1] + this->ij[2][1] * matrix.ij[1][1] + this->ij[2][2] * matrix.ij[2][1] + this->ij[2][3] * matrix.ij[3][1];
-		aux.ij[2][2] = this->ij[2][0] * matrix.ij[0][2] + this->ij[2][1] * matrix.ij[1][2] + this->ij[2][2] * matrix.ij[2][2] + this->ij[2][3] * matrix.ij[3][2];
-		aux.ij[2][3] = this->ij[2][0] * matrix.ij[0][3] + this->ij[2][1] * matrix.ij[1][3] + this->ij[2][2] * matrix.ij[2][3] + this->ij[2][3] * matrix.ij[3][3];
-
-		*this = aux;
-
-		return *this;
-	}
+    QMatrix3x4& operator*=(const QBaseMatrix4x4 &matrix);
 
     /// <summary>
     /// Assign operator. Assigns the provided matrix to the resident matrix.
@@ -403,21 +279,12 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QMatrix3x4& operator=(const QBaseMatrix3x4 &matrix)
-    {
-        QBaseMatrix3x4::operator=(matrix);
-		return *this;
-    }
+    QMatrix3x4& operator=(const QBaseMatrix3x4 &matrix);
 
 	/// <summary>
 	/// Resets all matrix elements to 0.
 	/// </summary>
-	inline void ResetToZero()
-	{
-		this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
-		this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = this->ij[1][3] =
-		this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = this->ij[2][3] = SQFloat::_0;
-	}
+	void ResetToZero();
 
 	/// <summary>
 	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
@@ -430,13 +297,7 @@ public:
     /// <returns>
 	/// The transposed matrix, which is a 4x3 matrix.
 	/// </returns>
-	inline QBaseMatrix4x3 Transpose() const
-	{
-        return QBaseMatrix4x3(this->ij[0][0], this->ij[1][0], this->ij[2][0],
-                              this->ij[0][1], this->ij[1][1], this->ij[2][1],
-                              this->ij[0][2], this->ij[1][2], this->ij[2][2],
-                              this->ij[0][3], this->ij[1][3], this->ij[2][3]);
-	}
+	QBaseMatrix4x3 Transpose() const;
 
 	/// <summary>
 	/// Checks if all elements of the matrix are 0 or under tolerance (absolute value).
@@ -444,35 +305,14 @@ public:
 	/// <returns>
 	/// True if all elements are 0, false otherwise.
 	/// </returns>
-	inline bool IsZero() const
-	{
-		return	SQFloat::IsZero(this->ij[0][0]) &&
-				SQFloat::IsZero(this->ij[0][1]) &&
-				SQFloat::IsZero(this->ij[0][2]) &&
-				SQFloat::IsZero(this->ij[0][3]) &&
-				SQFloat::IsZero(this->ij[1][0]) &&
-				SQFloat::IsZero(this->ij[1][1]) &&
-				SQFloat::IsZero(this->ij[1][2]) &&
-				SQFloat::IsZero(this->ij[1][3]) &&
-				SQFloat::IsZero(this->ij[2][0]) &&
-				SQFloat::IsZero(this->ij[2][1]) &&
-				SQFloat::IsZero(this->ij[2][2]) &&
-				SQFloat::IsZero(this->ij[2][3]);
-	}
+	bool IsZero() const;
 
 
 	/// <summary>
     /// Resets the matrix to a identity matrix.<br/>
     /// The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, and it's set to 1 if \f$ i=j\f$.
     /// </summary>
-    inline void ResetToIdentity()
-    {
-        this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = SQFloat::_1;
-
-        this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
-        this->ij[1][0] = this->ij[1][2] = this->ij[1][3] =
-        this->ij[2][0] = this->ij[2][1] = this->ij[2][3] = SQFloat::_0;
-    }
+    void ResetToIdentity();
 
 	/// <summary>
 	/// Converts matrix into a string with the following format:<br/>

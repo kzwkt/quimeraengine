@@ -81,7 +81,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QLineSegment3D()
+    QLineSegment3D()
     {
     }
 
@@ -89,7 +89,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="segment">[IN] Line segment from which we want to create a copy in the resident segment.</param>
-	inline QLineSegment3D(const QLineSegment3D &segment) : QLineSegment<VectorType>(segment.A, segment.B)
+	QLineSegment3D(const QLineSegment3D &segment) : QLineSegment<VectorType>(segment.A, segment.B)
     {
     }
 
@@ -97,7 +97,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="segment">[IN] Line segment in which we want resident segment to be based.</param>
-	inline QLineSegment3D(const QBaseLineSegment<VectorType> &segment) : QLineSegment<VectorType>(segment.A, segment.B)
+	QLineSegment3D(const QBaseLineSegment<VectorType> &segment) : QLineSegment<VectorType>(segment.A, segment.B)
     {
     }
 
@@ -106,7 +106,7 @@ public:
     /// </summary>
     /// <param name="vA">[IN] Vector to define endpoint A.</param>
     /// <param name="vB">[IN] Vector to define endpoint B.</param>
-	inline QLineSegment3D(const VectorType &vA, const VectorType &vB) : QLineSegment<VectorType>(vA,vB)
+	QLineSegment3D(const VectorType &vA, const VectorType &vB) : QLineSegment<VectorType>(vA,vB)
     {
     }
 
@@ -121,7 +121,7 @@ public:
     /// <returns>
 	/// A 1-length line segment.
 	/// </returns>
-	inline static const QLineSegment3D<VectorType>& GetUnitLine()
+	static const QLineSegment3D<VectorType>& GetUnitLine()
 	{
 	    static const QLineSegment3D<VectorType> UNITLINE(VectorType::GetZeroVector(), VectorType::GetUnitVectorX());
 	    return UNITLINE;
@@ -134,7 +134,7 @@ public:
     /// <returns>
 	/// A 0-length line segment.
 	/// </returns>
-	inline static const QLineSegment3D<VectorType>& GetLineZero()
+	static const QLineSegment3D<VectorType>& GetLineZero()
 	{
 	    static const QLineSegment3D<VectorType> LINEZERO(VectorType::GetZeroVector(), VectorType::GetZeroVector());
 	    return LINEZERO;
@@ -152,7 +152,7 @@ public:
     /// <returns>
     /// A reference to the modified line segment.
     /// </returns>
-    inline QLineSegment3D& operator=(const QBaseLineSegment<VectorType> &segment)
+    QLineSegment3D& operator=(const QBaseLineSegment<VectorType> &segment)
     {
         QBaseLineSegment<VectorType>::operator=(segment);
         return *this;
@@ -193,7 +193,7 @@ public:
     /// <b>False</b><br/>
     /// The line segment does not intersect with the plane.
 	/// </returns>
-    inline bool Intersection(const QBasePlane &plane) const
+    bool Intersection(const QBasePlane &plane) const
     {
         // The length of the segment should be greater than zero
         QE_ASSERT(this->A != this->B);
@@ -1639,7 +1639,7 @@ public:
     /// <returns>
     /// A floating point value containing the maximum distance between the resident line segment and a plane provided.
     /// </returns>
-    inline float_q MaxDistance(const QPlane &plane) const
+    float_q MaxDistance(const QPlane &plane) const
     {
         QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
 
@@ -1660,7 +1660,7 @@ public:
     /// <returns>
     /// A floating point value containing the minimum distance between the resident line segment and a plane provided.
     /// </returns>
-    inline float_q MinDistance(const QPlane &plane) const
+    float_q MinDistance(const QPlane &plane) const
     {
         QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
 
@@ -1691,7 +1691,7 @@ public:
     /// <returns>
 	/// The projected segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> ProjectToPlane(const QPlane &plane) const
+    QLineSegment3D<VectorType> ProjectToPlane(const QPlane &plane) const
     {
         // The plane must not be null
         QE_ASSERT( SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c) );
@@ -1747,7 +1747,7 @@ public:
     /// <returns>
 	/// The transformed segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
+    QLineSegment3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Transform(transformation, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1761,7 +1761,7 @@ public:
     /// <returns>
 	/// The transformed segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
+    QLineSegment3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Transform(transformation, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1775,7 +1775,7 @@ public:
     /// <returns>
 	/// The converted segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
+    QLineSegment3D<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Transform(spaceConversion, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1793,7 +1793,7 @@ public:
     /// <returns>
 	/// The transformed segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
+    QLineSegment3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1811,7 +1811,7 @@ public:
     /// <returns>
 	/// The transformed segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
+    QLineSegment3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1825,7 +1825,7 @@ public:
     /// <returns>
 	/// The translated segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
+    QLineSegment3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Translate(vTranslation, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1841,7 +1841,7 @@ public:
     /// <returns>
 	/// The translated segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+    QLineSegment3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1855,7 +1855,7 @@ public:
     /// <returns>
 	/// The translated segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
+    QLineSegment3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Translate(translation, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1869,7 +1869,7 @@ public:
     /// <returns>
 	/// The translated segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
+    QLineSegment3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Translate(translation, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1883,7 +1883,7 @@ public:
     /// <returns>
 	/// The rotated segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Rotate(const QQuaternion &qRotation) const
+    QLineSegment3D<VectorType> Rotate(const QQuaternion &qRotation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Rotate(qRotation, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1897,7 +1897,7 @@ public:
     /// <returns>
 	/// The rotated segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
+    QLineSegment3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Rotate(rotation, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1912,7 +1912,7 @@ public:
     /// <returns>
 	/// The rotated segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
+    QLineSegment3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::RotateWithPivot(qRotation, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1927,7 +1927,7 @@ public:
     /// <returns>
 	/// The rotated segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
+    QLineSegment3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::RotateWithPivot(rotation, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1941,7 +1941,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Scale(const QVector3 &vScale) const
+    QLineSegment3D<VectorType> Scale(const QVector3 &vScale) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Scale(vScale, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1957,7 +1957,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
+    QLineSegment3D<VectorType> Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Scale(fScaleX, fScaleY, fScaleZ, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1971,7 +1971,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> Scale(const QScalingMatrix3x3& scale) const
+    QLineSegment3D<VectorType> Scale(const QScalingMatrix3x3& scale) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::Scale(scale, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -1986,7 +1986,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> ScaleWithPivot(const QVector3 &vScale, const VectorType &vPivot) const
+    QLineSegment3D<VectorType> ScaleWithPivot(const QVector3 &vScale, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -2003,7 +2003,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
+    QLineSegment3D<VectorType> ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::ScaleWithPivot(fScaleX, fScaleY, fScaleZ, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -2018,7 +2018,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3& scale, const VectorType& vPivot) const
+    QLineSegment3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3& scale, const VectorType& vPivot) const
     {
         QLineSegment3D<VectorType> auxLineSegment = *this;
         SQPoint::ScaleWithPivot(scale, vPivot, rcast_q(&auxLineSegment, VectorType*), 2);
@@ -2032,7 +2032,7 @@ protected:
     // The point must be in the same side of every polygon edge than any
     // other polygon vertex not included in the analized edge.
     template <class VectorTypeParam>
-    inline bool PointsInSameSideOfLine(const VectorTypeParam &vPoint1, const VectorTypeParam &vPoint2,
+    bool PointsInSameSideOfLine(const VectorTypeParam &vPoint1, const VectorTypeParam &vPoint2,
                                        const VectorTypeParam &vLine1, const VectorTypeParam &vLine2) const
     {
         VectorTypeParam vLine(vLine2 - vLine1);
@@ -2044,7 +2044,7 @@ protected:
 
     // Calculates if a point is inside the triangle provided applying barycentric technique.
     template <class VectorTypeParam>
-    inline bool PointInsideTriangle(const QBaseTriangle<VectorTypeParam> &triangle, const VectorTypeParam &vPoint) const
+    bool PointInsideTriangle(const QBaseTriangle<VectorTypeParam> &triangle, const VectorTypeParam &vPoint) const
     {
         // Compute vectors
         const VectorTypeParam &V0(triangle.C - triangle.A);
@@ -2077,7 +2077,7 @@ protected:
     // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
     // applying barycentric technique. Is supossed that quadrilateral vertex are consecutive.
     template <class VectorTypeParam>
-    inline bool PointInsideQuadrilateral(const VectorTypeParam &vA, const VectorTypeParam &vB,
+    bool PointInsideQuadrilateral(const VectorTypeParam &vA, const VectorTypeParam &vB,
                                          const VectorTypeParam &vC, const VectorTypeParam &vD, const VectorTypeParam &vPoint) const
     {
         // Compute vectors
@@ -2134,7 +2134,7 @@ protected:
 
     // Calculates if two points are in the same side of a plane defined by 3 points.
     template <class VectorTypeParam>
-    inline bool PointsInSameSideOfPlane(const VectorTypeParam &vPoint1, const VectorTypeParam &vPoint2,
+    bool PointsInSameSideOfPlane(const VectorTypeParam &vPoint1, const VectorTypeParam &vPoint2,
                                         const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC) const
     {
         QPlane p(vA, vB, vC);
@@ -2148,7 +2148,7 @@ protected:
     // [TODO] Thund: This may be replaced with a call to QHexahedron::Contains. This would add a dependency to QHexahedron.
     // Calculates if two points are in the same side of a plane defined by 3 points.
     template <class VectorTypeParam>
-    inline bool PointInsideHexahedron(const QBaseHexahedron<VectorTypeParam> &hexahedron, const VectorTypeParam &vPoint) const
+    bool PointInsideHexahedron(const QBaseHexahedron<VectorTypeParam> &hexahedron, const VectorTypeParam &vPoint) const
     {
         return (PointsInSameSideOfPlane(vPoint, hexahedron.E, hexahedron.A, hexahedron.B, hexahedron.C) &&
                 PointsInSameSideOfPlane(vPoint, hexahedron.A, hexahedron.E, hexahedron.F, hexahedron.G) &&
@@ -3259,7 +3259,7 @@ protected:
     // Changes the coordinate system of a point to other system based in three normal
     // vectors and a point which is the origin.
     template <class VectorTypeParam>
-    inline void ChangeCoordSys(const VectorTypeParam &vPoint, VectorTypeParam &vNewPoint,
+    void ChangeCoordSys(const VectorTypeParam &vPoint, VectorTypeParam &vNewPoint,
                                const VectorTypeParam &vX, const VectorTypeParam &vY, const VectorTypeParam &vZ,
                                const VectorTypeParam &vO) const
     {

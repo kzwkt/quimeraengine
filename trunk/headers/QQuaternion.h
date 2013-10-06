@@ -27,12 +27,8 @@
 #ifndef __QQUATERNION__
 #define __QQUATERNION__
 
-#include "SQAngle.h"
 #include "QBaseQuaternion.h"
-#include "QBaseVector3.h"
-#include "QBaseVector4.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
@@ -52,6 +48,8 @@ class QMatrix4x3;
 class QMatrix4x4;
 template<class MatrixType> class QTransformationMatrix;
 class QRotationMatrix3x3;
+class QBaseVector3;
+class QBaseVector4;
 
 
 /// <summary>
@@ -93,25 +91,19 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QQuaternion() : QBaseQuaternion()
-    {
-    }
+    QQuaternion();
 
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion from which we want to create a copy in the resident quaternion.</param>
-    inline QQuaternion(const QQuaternion &qQuat) : QBaseQuaternion(qQuat)
-    {
-    }
+    QQuaternion(const QQuaternion &qQuat);
 
     /// <summary>
     /// Base type constructor.
     /// </summary>
     /// <param name="qQuat">[IN] The quaternion in which we want resident quaternion to be based.</param>
-    inline QQuaternion(const QBaseQuaternion &qQuat) : QBaseQuaternion(qQuat)
-    {
-    }
+    QQuaternion(const QBaseQuaternion &qQuat);
 
     /// <summary>
     /// Constructor that receives 3 angles, one for each Euler angle, to represent a spacial rotation as a quaternion.<br/>
@@ -133,19 +125,14 @@ public:
     /// <param name="fValueY">[IN] Y component value.</param>
     /// <param name="fValueZ">[IN] Z component value.</param>
     /// <param name="fValueW">[IN] W component value.</param>
-    inline QQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
-                           QBaseQuaternion(fValueX, fValueY, fValueZ, fValueW)
-    {
-    }
+    QQuaternion(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW);
 
     /// <summary>
     /// Constructor that receives a pointer to a sequence of 4 contiguous values, one per quaternion's component in the order: X, Y, Z and W.
     /// </summary>
     /// <param name="arValues">[IN] Sequence of 4 contiguous values. If the pointer is null, the behavior  
     /// is undefined.</param>
-    inline explicit QQuaternion(const float_q* arValues) : QBaseQuaternion(arValues)
-    {
-    }
+    explicit QQuaternion(const float_q* arValues);
 
     /// <summary>
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
@@ -153,9 +140,7 @@ public:
     /// The values order is: X, Y, Z and W.
     /// </summary>
     /// <param name="value">[IN] A four 32 bits floating point types pack.</param>
-    inline explicit QQuaternion(const vf32_q &value) : QBaseQuaternion(value)
-    {
-    }
+    explicit QQuaternion(const vf32_q &value);
 
 	/// <summary>
 	/// Constructor that receives a rotation angle \f$ (\theta)\f$ and
@@ -231,7 +216,6 @@ protected:
         transformation.GetRotation(*this);
     }
 
-
     // PROPERTIES
     // ---------------
 public:
@@ -242,11 +226,7 @@ public:
     /// <returns>
     /// The identity quaternion.
     /// </returns>
-    inline static const QQuaternion& GetIdentity()
-    {
-        static const QQuaternion IDENTITY(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
-        return IDENTITY;
-    }
+    static const QQuaternion& GetIdentity();
 
 
 	// METHODS
@@ -370,14 +350,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator+=(const QBaseQuaternion &qQuat)
-    {
-        this->x += qQuat.x;
-        this->y += qQuat.y;
-        this->z += qQuat.z;
-        this->w += qQuat.w;
-        return *this;
-    }
+    QQuaternion& operator+=(const QBaseQuaternion &qQuat);
 
     /// <summary>
     /// Subtract and assign operator. Each input quaternion's component is subtracted to the corresponding quaternion's.
@@ -389,15 +362,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator-=(const QBaseQuaternion &qQuat)
-    {
-        this->x -= qQuat.x;
-        this->y -= qQuat.y;
-        this->z -= qQuat.z;
-        this->w -= qQuat.w;
-
-        return *this;
-    }
+    QQuaternion& operator-=(const QBaseQuaternion &qQuat);
 
     /// <summary>
     /// Multiply and assign operator. The quaternion is multipled by the input one.
@@ -414,19 +379,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator*=(const QBaseQuaternion &qQuat)
-    {
-        QQuaternion resQuat( qQuat.w * this->x + qQuat.x * this->w + qQuat.y * this->z - qQuat.z * this->y,	   // Vx
-                             qQuat.w * this->y + qQuat.y * this->w + qQuat.z * this->x - qQuat.x * this->z,	   // Vy
-                             qQuat.w * this->z + qQuat.z * this->w + qQuat.x * this->y - qQuat.y * this->x,	   // Vz
-                             qQuat.w * this->w - qQuat.x * this->x - qQuat.y * this->y - qQuat.z * this->z );  // W
-        this->x = resQuat.x;
-        this->y = resQuat.y;
-        this->z = resQuat.z;
-        this->w = resQuat.w;
-
-        return *this;
-    }
+    QQuaternion& operator*=(const QBaseQuaternion &qQuat);
 
     /// <summary>
     /// Multiply by scalar and assign operator. All quaternion's components are multiplied by the scalar.
@@ -438,15 +391,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator*=(const float_q fScalar)
-    {
-        this->x *= fScalar;
-        this->y *= fScalar;
-        this->z *= fScalar;
-        this->w *= fScalar;
-
-        return *this;
-    }
+    QQuaternion& operator*=(const float_q fScalar);
 
 	/// <summary>
     /// Multiply by 3D vector and assign operator.<br/>
@@ -459,14 +404,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator*=(const QBaseVector3 &vVector)
-	{
-		QQuaternion qAux(vVector.x, vVector.y, vVector.z, SQFloat::_0);
-
-		*this *= qAux;
-
-		return *this;
-	}
+    QQuaternion& operator*=(const QBaseVector3 &vVector);
 
 	/// <summary>
     /// Multiply by 4D vector and assign operator.<br/>
@@ -479,14 +417,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    inline QQuaternion& operator*=(const QBaseVector4 &vVector)
-	{
-		QQuaternion qAux(vVector.x, vVector.y, vVector.z, vVector.w);
-
-		*this *= qAux;
-
-		return *this;
-	}
+    QQuaternion& operator*=(const QBaseVector4 &vVector);
 
     /// <summary>
     /// Divide and assign operator. The quaternion is divided by the input one.<br/>
@@ -502,21 +433,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator/=(const QBaseQuaternion &qQuat)
-    {
-        // Note: QQuaternion::Invert method's code copied here. The reason is not to require a QQuaternion as a parameter
-        //       which would break the coherence of the interface (all operators require QBaseQuaternion only). Moreover, if
-        //       rcast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
-        const float_q& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
-
-        QE_ASSERT(SQUARED_LENGTH != SQFloat::_0)
-
-        const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
-
-        *this *= QQuaternion(qQuat.x * NEG_INV_LENGTH, qQuat.y * NEG_INV_LENGTH, qQuat.z * NEG_INV_LENGTH, qQuat.w * -NEG_INV_LENGTH);
-
-        return *this;
-    }
+    QQuaternion& operator/=(const QBaseQuaternion &qQuat);
 
     /// <summary>
     /// Divide by scalar and assign operator. All quaternion's components are divided by the scalar.
@@ -528,19 +445,7 @@ public:
     /// <returns>
     /// The modified quaternion.
     /// </returns>
-    inline QQuaternion& operator/=(const float_q &fScalar)
-    {
-        QE_ASSERT(fScalar != SQFloat::_0)
-
-        const float_q &DIVISOR = SQFloat::_1/fScalar;
-
-        this->x *= DIVISOR;
-        this->y *= DIVISOR;
-        this->z *= DIVISOR;
-        this->w *= DIVISOR;
-
-        return *this;
-    }
+    QQuaternion& operator/=(const float_q &fScalar);
 
     /// <summary>
     /// Assign operator. Assigns the provided quaternion to the resident quaternion.
@@ -549,11 +454,7 @@ public:
     /// <returns>
     /// A reference to the modified quaternion.
     /// </returns>
-    inline QQuaternion& operator=(const QBaseQuaternion &qQuat)
-    {
-        QBaseQuaternion::operator=(qQuat);
-        return *this;
-    }
+    QQuaternion& operator=(const QBaseQuaternion &qQuat);
 
     /// <summary>
     /// Unary minus operator. Obtains a copy of the resident quaternion which has each component multiplied by -1.
@@ -561,10 +462,7 @@ public:
     /// <returns>
     /// A copy of the resident quaternion which has each component multiplied by -1.
     /// </returns>
-	inline QQuaternion operator-() const
-	{
-		return QQuaternion(-this->x, -this->y, -this->z, -this->w);
-	}
+	QQuaternion operator-() const;
 
 	/// <summary>
     /// Normalizes the quaternion by dividing all quaternion's components by the quaternion's length.
@@ -576,14 +474,7 @@ public:
     /// <returns>
     /// The normalized quaternion.
     /// </returns>
-    inline QQuaternion Normalize() const
-    {
-        QE_ASSERT(this->GetLength()) // Code that will not execute, no overhead
-
-        const float_q& INV_LENGTH = SQFloat::_1 / this->GetLength();
-
-        return QQuaternion(this->x * INV_LENGTH, this->y * INV_LENGTH, this->z * INV_LENGTH, this->w * INV_LENGTH);
-    }
+    QQuaternion Normalize() const;
 
     /// <summary>
     /// Calculates the quaternion's inverse.<br/>
@@ -595,17 +486,7 @@ public:
     /// <returns>
     /// The reversed quaternion.
     /// </returns>
-    inline QQuaternion Invert() const
-    {
-        // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
-        const float_q& SQUARED_LENGTH = this->GetSquaredLength();
-
-        QE_ASSERT(SQUARED_LENGTH != SQFloat::_0)
-
-        const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
-
-        return QQuaternion(this->x * NEG_INV_LENGTH, this->y * NEG_INV_LENGTH, this->z * NEG_INV_LENGTH, this->w * -NEG_INV_LENGTH);
-    }
+    QQuaternion Invert() const;
 
     /// <summary>
     /// Calculates the inverse of a normalized quaternion, which coincides with its conjugate.<br/>
@@ -616,27 +497,17 @@ public:
     /// <returns>
     /// The reversed quaternion.
     /// </returns>
-    inline QQuaternion UnitInvert() const
-    {
-		return this->Conjugate();
-    }
+    QQuaternion UnitInvert() const;
 
     /// <summary>
     /// Sets all quaternion's components to zero.
     /// </summary>
-    inline void ResetToZero()
-    {
-        this->x = this->y = this->z = this->w = SQFloat::_0;
-    }
+    void ResetToZero();
 
     /// <summary>
     /// Sets quaternion to the identity quaternion.
     /// </summary>
-    inline void ResetToIdentity()
-    {
-        this->x = this->y = this->z = SQFloat::_0;
-        this->w = SQFloat::_1;
-    }
+    void ResetToIdentity();
 
     /// <summary>
     /// Calculates the dot product between the quaternion and the input quaternion.<br/>
@@ -675,10 +546,7 @@ public:
     /// <returns>
     /// The conjugated quaternion.
     /// </returns>
-    inline QQuaternion Conjugate() const
-    {
-        return QQuaternion(-this->x, -this->y, -this->z, this->w);
-    }
+    QQuaternion Conjugate() const;
 
     /// <summary>
     /// Calculates the linear interpolation between the quaternion and the input quaternion.<br/>
