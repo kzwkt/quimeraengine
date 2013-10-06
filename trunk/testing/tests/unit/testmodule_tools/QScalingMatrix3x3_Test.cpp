@@ -40,6 +40,7 @@ using namespace boost::unit_test;
 #include "QVector3.h"
 #include "QMatrix4x4.h"
 #include "QMatrix4x3.h"
+#include "SQAngle.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;

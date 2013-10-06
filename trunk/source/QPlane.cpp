@@ -35,6 +35,8 @@
 #include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
+#include "SQAngle.h"
+
 
 namespace Kinesis
 {
