@@ -66,7 +66,7 @@ QTEST_SUITE_BEGIN( QPlane_TestSuite )
 /// </summary>
 QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByPlane_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_1 + SQFloat::_0_5;
@@ -75,10 +75,10 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByPlane_Test )
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const float_q SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = SCALAR * PLANE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -90,16 +90,16 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByPlane_Test )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QPlane planeUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -111,7 +111,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_3;
@@ -119,10 +119,10 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 
     const QPlane PLANE_TO_COPY(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -136,7 +136,7 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_3;
@@ -144,10 +144,10 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 
     const QBasePlane PLANE_TO_COPY(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane(PLANE_TO_COPY);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -159,16 +159,16 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_4;
 
-	// Execution
+	// [Execution]
     QPlane planeUT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -180,13 +180,13 @@ QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor5_ValueIsSetForAllComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_5;
 
-	// Execution
+	// [Execution]
     QPlane planeUT(EXPECTED_VALUE_FOR_ALL);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_ALL) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_ALL) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_ALL) );
@@ -198,7 +198,7 @@ QTEST_CASE ( Constructor5_ValueIsSetForAllComponents_Test )
 /// </summary>
 QTEST_CASE ( Constructor6_VectorComponentsAreFilledWithValidReferenceTo4Floats_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_3;
@@ -210,10 +210,10 @@ QTEST_CASE ( Constructor6_VectorComponentsAreFilledWithValidReferenceTo4Floats_T
     VALID_ARRAY_OF_4_FLOATS[2] = EXPECTED_VALUE_FOR_C;
     VALID_ARRAY_OF_4_FLOATS[3] = EXPECTED_VALUE_FOR_D;
 
-	// Execution
+	// [Execution]
     QPlane planeUT(VALID_ARRAY_OF_4_FLOATS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, VALID_ARRAY_OF_4_FLOATS[0]) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, VALID_ARRAY_OF_4_FLOATS[1]) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, VALID_ARRAY_OF_4_FLOATS[2]) );
@@ -230,10 +230,10 @@ QTEST_CASE ( Constructor6_VectorComponentsAreFilledWithValidReferenceTo4Floats_T
 /// </summary>
 QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     float_q* NULL_ARRAY = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -245,7 +245,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -256,7 +256,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 /// </summary>
 QTEST_CASE ( Constructor7_VectorComponentsAreSetToValidVF32PackedValues_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
     using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
@@ -268,10 +268,10 @@ QTEST_CASE ( Constructor7_VectorComponentsAreSetToValidVF32PackedValues_Test )
 	vf32_q PACK;
 	SQVF32::Pack(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D, PACK);
 
-	// Execution
+	// [Execution]
 	QPlane planeUT(PACK);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -285,7 +285,7 @@ QTEST_CASE ( Constructor8_PlaneIsConstructedWhenUsingThreeCommonPoints_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 POINT1 = QVector3(SQFloat::_2, SQFloat::_0, SQFloat::_0);
     const QVector3 POINT2 = QVector3(SQFloat::_0, SQFloat::_2, SQFloat::_0);
     const QVector3 POINT3 = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_2);
@@ -295,10 +295,10 @@ QTEST_CASE ( Constructor8_PlaneIsConstructedWhenUsingThreeCommonPoints_Test )
     const float_q EXPECTED_VALUE_FOR_C = (float_q)0.57735026918962584;
     const float_q EXPECTED_VALUE_FOR_D = (float_q)-1.1547005383792517;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane(POINT1, POINT2, POINT3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -314,13 +314,13 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenAnyOfThePointsCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 SAME_POINT = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 DIFFERENT_POINT = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -354,7 +354,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenAnyOfThePointsCoincide_Test )
         bAssertionFailed3 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed3, ASSERTION_FAILED);
@@ -367,14 +367,14 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointsAreCollinear_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 POINT1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 POINT2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QVector3 POINT3 = QVector3(SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -386,7 +386,7 @@ QTEST_CASE ( Constructor8_AssertionFailsWhenPointsAreCollinear_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -399,7 +399,7 @@ QTEST_CASE ( Constructor8_ConstructedPlaneIsNormalized_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 POINT1 = QVector3(SQFloat::_2, SQFloat::_0, SQFloat::_0);
     const QVector3 POINT2 = QVector3(SQFloat::_0, SQFloat::_2, SQFloat::_0);
     const QVector3 POINT3 = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_2);
@@ -409,10 +409,10 @@ QTEST_CASE ( Constructor8_ConstructedPlaneIsNormalized_Test )
     const float_q EXPECTED_VALUE_FOR_C = (float_q)0.57735026918962584;
     const float_q EXPECTED_VALUE_FOR_D = (float_q)-1.1547005383792517;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane(POINT1, POINT2, POINT3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -426,12 +426,12 @@ QTEST_CASE ( Constructor8_OrderOfPointsAffectsResult_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 POINT1 = QVector3(SQFloat::_2, SQFloat::_0, SQFloat::_0);
     const QVector3 POINT2 = QVector3(SQFloat::_0, SQFloat::_2, SQFloat::_0);
     const QVector3 POINT3 = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     // Imagine that you use the normal of the plane that points to the origin as the rotation axis
     // of a clock whose hands spins pointing, one by one, to the points
     QPlane planeUT1 = QPlane(POINT1, POINT2, POINT3); //  Direction
@@ -441,7 +441,7 @@ QTEST_CASE ( Constructor8_OrderOfPointsAffectsResult_Test )
     QPlane planeUT5 = QPlane(POINT3, POINT1, POINT2); //  Direction
     QPlane planeUT6 = QPlane(POINT3, POINT2, POINT1); // -Direction
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(planeUT1 != planeUT2);
     BOOST_CHECK(planeUT1 != planeUT3);
     BOOST_CHECK(planeUT1 == planeUT4);
@@ -466,7 +466,7 @@ QTEST_CASE ( Constructor9_PlaneIsConstructedWhenUsingThreeCommonPoints_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 POINT1 = QVector4(SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1);
     const QVector4 POINT2 = QVector4(SQFloat::_0, SQFloat::_2, SQFloat::_0, SQFloat::_1);
     const QVector4 POINT3 = QVector4(SQFloat::_0, SQFloat::_0, SQFloat::_2, SQFloat::_1);
@@ -476,10 +476,10 @@ QTEST_CASE ( Constructor9_PlaneIsConstructedWhenUsingThreeCommonPoints_Test )
     const float_q EXPECTED_VALUE_FOR_C = (float_q)0.57735026918962584;
     const float_q EXPECTED_VALUE_FOR_D = (float_q)-1.1547005383792517;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane(POINT1, POINT2, POINT3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -495,13 +495,13 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenAnyOfThePointsCoincides_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 SAME_POINT = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1);
     const QVector4 DIFFERENT_POINT = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1);
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -535,7 +535,7 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenAnyOfThePointsCoincides_Test )
         bAssertionFailed3 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed3, ASSERTION_FAILED);
@@ -548,14 +548,14 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenPointsAreCollinear_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 POINT1 = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1);
     const QVector4 POINT2 = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1);
     const QVector4 POINT3 = QVector4(SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_1);
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -567,7 +567,7 @@ QTEST_CASE ( Constructor9_AssertionFailsWhenPointsAreCollinear_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -580,7 +580,7 @@ QTEST_CASE ( Constructor9_ConstructedPlaneIsNormalized_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 POINT1 = QVector4(SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1);
     const QVector4 POINT2 = QVector4(SQFloat::_0, SQFloat::_2, SQFloat::_0, SQFloat::_1);
     const QVector4 POINT3 = QVector4(SQFloat::_0, SQFloat::_0, SQFloat::_2, SQFloat::_1);
@@ -590,10 +590,10 @@ QTEST_CASE ( Constructor9_ConstructedPlaneIsNormalized_Test )
     const float_q EXPECTED_VALUE_FOR_C = (float_q)0.57735026918962584;
     const float_q EXPECTED_VALUE_FOR_D = (float_q)-1.1547005383792517;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane(POINT1, POINT2, POINT3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -607,12 +607,12 @@ QTEST_CASE ( Constructor9_OrderOfPointsAffectsResult_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 POINT1 = QVector4(SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1);
     const QVector4 POINT2 = QVector4(SQFloat::_0, SQFloat::_2, SQFloat::_0, SQFloat::_1);
     const QVector4 POINT3 = QVector4(SQFloat::_0, SQFloat::_0, SQFloat::_2, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     // Imagine that you use the normal of the plane that points to the origin as the rotation axis
     // of a clock whose hands spins pointing, one by one, to the points
     QPlane planeUT1 = QPlane(POINT1, POINT2, POINT3); //  Direction
@@ -622,7 +622,7 @@ QTEST_CASE ( Constructor9_OrderOfPointsAffectsResult_Test )
     QPlane planeUT5 = QPlane(POINT3, POINT1, POINT2); //  Direction
     QPlane planeUT6 = QPlane(POINT3, POINT2, POINT1); // -Direction
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(planeUT1 != planeUT2);
     BOOST_CHECK(planeUT1 != planeUT3);
     BOOST_CHECK(planeUT1 == planeUT4);
@@ -645,16 +645,16 @@ QTEST_CASE ( Constructor9_OrderOfPointsAffectsResult_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetZeroPlane_ExpectedValueIsReturned_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane::GetZeroPlane();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -666,16 +666,16 @@ QTEST_CASE_TEMPLATE ( GetZeroPlane_ExpectedValueIsReturned_Test, TQVectorTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetPlaneZX_ExpectedValueIsReturned_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane::GetPlaneZX();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -687,16 +687,16 @@ QTEST_CASE_TEMPLATE ( GetPlaneZX_ExpectedValueIsReturned_Test, TQVectorTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetPlaneXY_ExpectedValueIsReturned_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane::GetPlaneXY();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -708,16 +708,16 @@ QTEST_CASE_TEMPLATE ( GetPlaneXY_ExpectedValueIsReturned_Test, TQVectorTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetPlaneYZ_ExpectedValueIsReturned_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane::GetPlaneYZ();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_VALUE_FOR_B) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_VALUE_FOR_C) );
@@ -729,7 +729,7 @@ QTEST_CASE_TEMPLATE ( GetPlaneYZ_ExpectedValueIsReturned_Test, TQVectorTypes )
 /// </summary>
 QTEST_CASE ( OperatorProduct_PlaneIsCorrectlyMultipliedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_2;
@@ -738,10 +738,10 @@ QTEST_CASE ( OperatorProduct_PlaneIsCorrectlyMultipliedByScalar_Test )
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_8);
     const float_q SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE * SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -753,7 +753,7 @@ QTEST_CASE ( OperatorProduct_PlaneIsCorrectlyMultipliedByScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision_PlaneIsCorrectlyDividedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_2;
@@ -762,10 +762,10 @@ QTEST_CASE ( OperatorDivision_PlaneIsCorrectlyDividedByScalar_Test )
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_8);
     const float_q SCALAR = SQFloat::_2;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE / SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -777,7 +777,7 @@ QTEST_CASE ( OperatorDivision_PlaneIsCorrectlyDividedByScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation_PlaneIsCorrectlyMultipliedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_2;
@@ -786,11 +786,11 @@ QTEST_CASE ( OperatorProductAssignation_PlaneIsCorrectlyMultipliedByScalar_Test 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_8);
     const float_q SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE;
     planeUT *= SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -802,7 +802,7 @@ QTEST_CASE ( OperatorProductAssignation_PlaneIsCorrectlyMultipliedByScalar_Test 
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation_PlaneIsCorrectlyDividedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_2;
@@ -811,11 +811,11 @@ QTEST_CASE ( OperatorDivisionAssignation_PlaneIsCorrectlyDividedByScalar_Test )
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_8);
     const float_q SCALAR = SQFloat::_2;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE;
     planeUT /= SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -827,7 +827,7 @@ QTEST_CASE ( OperatorDivisionAssignation_PlaneIsCorrectlyDividedByScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorUnaryMinus_AllComponentsButDAreNegated_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = -SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = -SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = -SQFloat::_4;
@@ -835,10 +835,10 @@ QTEST_CASE ( OperatorUnaryMinus_AllComponentsButDAreNegated_Test )
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = -PLANE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -850,7 +850,7 @@ QTEST_CASE ( OperatorUnaryMinus_AllComponentsButDAreNegated_Test )
 /// </summary>
 QTEST_CASE ( OperatorAssignation_PlaneIsAssignedProperlyToAnother_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_4;
@@ -861,11 +861,11 @@ QTEST_CASE ( OperatorAssignation_PlaneIsAssignedProperlyToAnother_Test )
                                 EXPECTED_VALUE_FOR_C,
                                 EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     planeUT = PLANE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -877,15 +877,15 @@ QTEST_CASE ( OperatorAssignation_PlaneIsAssignedProperlyToAnother_Test )
 /// </summary>
 QTEST_CASE ( Normalize_CommonPlaneIsCorrectlyNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Normalize();
 
-    // Verification
+    // [Verification]
     float_q fSquaredLength = planeUT.GetSquaredLength();
 
     BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
@@ -898,10 +898,10 @@ QTEST_CASE ( Normalize_CommonPlaneIsCorrectlyNormalized_Test )
 /// </summary>
 QTEST_CASE ( Normalize_AssertionFailsWhenNullPlaneIsToBeNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -913,7 +913,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullPlaneIsToBeNormalized_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -926,16 +926,16 @@ QTEST_CASE ( DotProduct1_ReturnsDotProductForCommonVectorAndPlane_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = (float_q)32.0;
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7);
     const QVector3 VECTOR = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProduct(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -946,16 +946,16 @@ QTEST_CASE ( DotProduct1_DotProductEqualsZeroWhenVectorIsOrthogonalToPlane_Test 
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane PLANE = QPlane(SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_3, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProduct(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -964,7 +964,7 @@ QTEST_CASE ( DotProduct1_DotProductEqualsZeroWhenVectorIsOrthogonalToPlane_Test 
 /// </summary>
 QTEST_CASE ( DotProduct1_ReturnsZeroWhenAOperandIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane NONNULL_PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
@@ -973,11 +973,11 @@ QTEST_CASE ( DotProduct1_ReturnsZeroWhenAOperandIsNull_Test )
     const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = NONNULL_PLANE.DotProduct(NULL_VECTOR);
     float_q fResult2UT = NULL_PLANE.DotProduct(NONNULL_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -989,16 +989,16 @@ QTEST_CASE ( DotProduct2_ReturnsDotProductForCommonVectorAndPlane_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = (float_q)32.0;
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7);
     const QVector4 VECTOR = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProduct(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1009,16 +1009,16 @@ QTEST_CASE ( DotProduct2_DotProductEqualsZeroWhenVectorIsOrthogonalToPlane_Test 
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane PLANE = QPlane(SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector4 VECTOR = QVector4(SQFloat::_0, SQFloat::_3, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProduct(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1027,7 +1027,7 @@ QTEST_CASE ( DotProduct2_DotProductEqualsZeroWhenVectorIsOrthogonalToPlane_Test 
 /// </summary>
 QTEST_CASE ( DotProduct2_ReturnsZeroWhenAOperandIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane NONNULL_PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
@@ -1036,11 +1036,11 @@ QTEST_CASE ( DotProduct2_ReturnsZeroWhenAOperandIsNull_Test )
     const QVector4 NONNULL_VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QVector4 NULL_VECTOR = QVector4::GetZeroVector();
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = NONNULL_PLANE.DotProduct(NULL_VECTOR);
     float_q fResult2UT = NULL_PLANE.DotProduct(NONNULL_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -1052,16 +1052,16 @@ QTEST_CASE ( DotProduct2_VectorsWComponentDoesNotTakePartInTheOperation_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 VECTOR1 = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1);
     const QVector4 VECTOR2 = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = PLANE.DotProduct(VECTOR1);
     float_q fResult2UT = PLANE.DotProduct(VECTOR2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -1070,16 +1070,16 @@ QTEST_CASE ( DotProduct2_VectorsWComponentDoesNotTakePartInTheOperation_Test )
 /// </summary>
 QTEST_CASE ( DotProduct3_ReturnsDotProductFor2Commonplanes_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = (float_q)32.0;
 
     const QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7);
     const QPlane OPERAND2 = QPlane(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProduct(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1088,15 +1088,15 @@ QTEST_CASE ( DotProduct3_ReturnsDotProductFor2Commonplanes_Test )
 /// </summary>
 QTEST_CASE ( DotProduct3_DotProductIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7);
     const QPlane OPERAND2 = QPlane(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProduct(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProduct(OPERAND1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -1105,18 +1105,18 @@ QTEST_CASE ( DotProduct3_DotProductIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( DotProduct3_DotProductEqualsZeroWhenPlanesAreOrthogonal_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane OPERAND1 = QPlane(SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QPlane OPERAND2 = QPlane(SQFloat::_0, SQFloat::_3, SQFloat::_0, SQFloat::_0);
     const QPlane OPERAND3 = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_3, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProduct(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProduct(OPERAND3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -1126,17 +1126,17 @@ QTEST_CASE ( DotProduct3_DotProductEqualsZeroWhenPlanesAreOrthogonal_Test )
 /// </summary>
 QTEST_CASE ( DotProduct3_ReturnsZeroWhenAOperandIsNullplane_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane NONNULL_PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = NONNULL_PLANE.DotProduct(NULL_PLANE);
     float_q fResult2UT = NULL_PLANE.DotProduct(NONNULL_PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -1148,7 +1148,7 @@ QTEST_CASE ( DotProductAngle1_ReturnsAngleBetweenCommonVectorAndPlane_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1160,10 +1160,10 @@ QTEST_CASE ( DotProductAngle1_ReturnsAngleBetweenCommonVectorAndPlane_Test )
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
@@ -1174,16 +1174,16 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector3 VECTOR = QVector3(SQFloat::_9, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1194,7 +1194,7 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPl
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1206,10 +1206,10 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPl
     const QPlane PLANE = QPlane(SQFloat::_5, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_5, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1220,7 +1220,7 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlane
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1232,10 +1232,10 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlane
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector3 VECTOR = QVector3(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1246,16 +1246,16 @@ QTEST_CASE ( DotProductAngle1_AngleIsAlwaysPositive_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const QPlane REFERENCE_OPERAND = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);                       // _
     const QVector3 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_0);  // \_
     const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /¨
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2UT, SQFloat::_0) );
 }
@@ -1267,7 +1267,7 @@ QTEST_CASE ( DotProductAngle1_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAnd
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1280,11 +1280,11 @@ QTEST_CASE ( DotProductAngle1_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAnd
     const QVector3 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_0);  // \_
     const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /¨
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessThan(fResult2UT, HALF_CIRCUMFERENCE_ANGLE) );
 }
@@ -1296,18 +1296,18 @@ QTEST_CASE ( DotProductAngle1_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_0_5, SQFloat::_0_5, SQFloat::_0, SQFloat::_0);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultWhenNormalized = NORMALIZED_PLANE.DotProductAngle(VECTOR);
     float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
 }
 
@@ -1320,14 +1320,14 @@ QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    // Preparation
+    // [Preparation]
     const QPlane NULL_PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QPlane NONNULL_PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector3 NULL_VECTOR = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1350,7 +1350,7 @@ QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -1366,7 +1366,7 @@ QTEST_CASE ( DotProductAngle2_ReturnsAngleBetweenCommonVectorAndPlane_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1378,10 +1378,10 @@ QTEST_CASE ( DotProductAngle2_ReturnsAngleBetweenCommonVectorAndPlane_Test )
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
@@ -1392,16 +1392,16 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector4 VECTOR = QVector4(SQFloat::_9, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1412,7 +1412,7 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPl
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1424,10 +1424,10 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPl
     const QPlane PLANE = QPlane(SQFloat::_5, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector4 VECTOR = QVector4(SQFloat::_0, SQFloat::_5, SQFloat::_0, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1438,7 +1438,7 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlane
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1450,10 +1450,10 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlane
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector4 VECTOR = QVector4(-SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1464,16 +1464,16 @@ QTEST_CASE ( DotProductAngle2_AngleIsAlwaysPositive_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const QPlane REFERENCE_OPERAND = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);                                    // _
     const QVector4 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector4(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1);  // \_
     const QVector4 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector4(-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_1); // /¨
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2UT, SQFloat::_0) );
 }
@@ -1485,7 +1485,7 @@ QTEST_CASE ( DotProductAngle2_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAnd
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1498,11 +1498,11 @@ QTEST_CASE ( DotProductAngle2_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAnd
     const QVector4 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector4(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1);  // \_
     const QVector4 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector4(-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_1); // /¨
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessThan(fResult2UT, HALF_CIRCUMFERENCE_ANGLE) );
 }
@@ -1514,18 +1514,18 @@ QTEST_CASE ( DotProductAngle2_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_0_5, SQFloat::_0_5, SQFloat::_0, SQFloat::_0);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     float_q fResultWhenNormalized = NORMALIZED_PLANE.DotProductAngle(VECTOR);
     float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.DotProductAngle(VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
 }
 
@@ -1538,14 +1538,14 @@ QTEST_CASE ( DotProductAngle2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const QPlane NULL_PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QPlane NONNULL_PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector4 NULL_VECTOR = QVector4(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector4 NONNULL_VECTOR = QVector4(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1568,7 +1568,7 @@ QTEST_CASE ( DotProductAngle2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -1584,16 +1584,16 @@ QTEST_CASE ( DotProductAngle2_VectorsWComponentDoesntTakePartInTheOperation_Test
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 VECTOR1 = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1);
     const QVector4 VECTOR2 = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = PLANE.DotProductAngle(VECTOR1);
     float_q fResult2UT = PLANE.DotProductAngle(VECTOR2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -1602,7 +1602,7 @@ QTEST_CASE ( DotProductAngle2_VectorsWComponentDoesntTakePartInTheOperation_Test
 /// </summary>
 QTEST_CASE ( DotProductAngle3_ReturnsAngleBetween2CommonPlanes_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1615,10 +1615,10 @@ QTEST_CASE ( DotProductAngle3_ReturnsAngleBetween2CommonPlanes_Test )
     OPERAND1 = OPERAND1.Normalize();
     const QPlane OPERAND2 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
@@ -1627,7 +1627,7 @@ QTEST_CASE ( DotProductAngle3_ReturnsAngleBetween2CommonPlanes_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle3_DComponentDoesNotTakePartInTheOperation_Test )
 {
-    // Preparation
+    // [Preparation]
     QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     QPlane OPERAND2 = QPlane(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_7);
     QPlane OPERAND3 = QPlane(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_10);
@@ -1635,11 +1635,11 @@ QTEST_CASE ( DotProductAngle3_DComponentDoesNotTakePartInTheOperation_Test )
     OPERAND2 = OPERAND2.Normalize();
     OPERAND3 = OPERAND3.Normalize();
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
     float_q fResult2UT = OPERAND1.DotProductAngle(OPERAND3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -1648,17 +1648,17 @@ QTEST_CASE ( DotProductAngle3_DComponentDoesNotTakePartInTheOperation_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle3_DotProductAngleIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     QPlane OPERAND2 = QPlane(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
     OPERAND1 = OPERAND1.Normalize();
     OPERAND2 = OPERAND2.Normalize();
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -1667,16 +1667,16 @@ QTEST_CASE ( DotProductAngle3_DotProductAngleIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle3_AngleEqualsZeroWhenPlanesAreParallel_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QPlane OPERAND2 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1685,7 +1685,7 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsZeroWhenPlanesAreParallel_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle3_AngleEqualsHalfPiRadiansOr90DegreesWhenPlanesAreOrthogonal_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1698,11 +1698,11 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsHalfPiRadiansOr90DegreesWhenPlanesAreOr
     const QPlane OPERAND2 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QPlane OPERAND3 = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -1712,7 +1712,7 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsHalfPiRadiansOr90DegreesWhenPlanesAreOr
 /// </summary>
 QTEST_CASE ( DotProductAngle3_AngleEqualsPiRadiansOr180DegreesWhenPlaneNormalsAreOpposite_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1724,10 +1724,10 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsPiRadiansOr180DegreesWhenPlaneNormalsAr
     const QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QPlane OPERAND2 = QPlane(-SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1736,16 +1736,16 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsPiRadiansOr180DegreesWhenPlaneNormalsAr
 /// </summary>
 QTEST_CASE ( DotProductAngle3_AngleIsAlwaysPositive_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane REFERENCE_OPERAND = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);                                // _
     const QPlane OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);  // \_
     const QPlane OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QPlane(-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_0); // /¨
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2UT, SQFloat::_0) );
 }
@@ -1755,7 +1755,7 @@ QTEST_CASE ( DotProductAngle3_AngleIsAlwaysPositive_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle3_AngleIsLowerThanPiRadiansOr180DegreesWhenPlaneNormalsAreNotOpposite_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1770,11 +1770,11 @@ QTEST_CASE ( DotProductAngle3_AngleIsLowerThanPiRadiansOr180DegreesWhenPlaneNorm
     OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE.Normalize();
     OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE.Normalize();
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessThan(fResult2UT, HALF_CIRCUMFERENCE_ANGLE) );
 }
@@ -1784,18 +1784,18 @@ QTEST_CASE ( DotProductAngle3_AngleIsLowerThanPiRadiansOr180DegreesWhenPlaneNorm
 /// </summary>
 QTEST_CASE ( DotProductAngle3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultWhenNormalized = NORMALIZED_PLANE.DotProductAngle(PLANE);
     float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.DotProductAngle(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
 }
 
@@ -1806,12 +1806,12 @@ QTEST_CASE ( DotProductAngle3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 /// </summary>
 QTEST_CASE ( DotProductAngle3_AssertionFailsWhenOnePlaneIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane NOT_NULL_PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QPlane NULL_PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1834,7 +1834,7 @@ QTEST_CASE ( DotProductAngle3_AssertionFailsWhenOnePlaneIsNull_Test )
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -1848,7 +1848,7 @@ QTEST_CASE ( DotProductAngle3_AssertionFailsWhenOnePlaneIsNull_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointProjection_ACommonPointIsProjectedOnACommonPlaneCorrectly_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {SQFloat::_0, SQFloat::_2, SQFloat::_0, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);
@@ -1856,10 +1856,10 @@ QTEST_CASE_TEMPLATE ( PointProjection_ACommonPointIsProjectedOnACommonPlaneCorre
     const float_q EXPECTED_POINT_COMPONENTS[] = {SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1};
     T EXPECTED_POINT = T(EXPECTED_POINT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     T vProjectedPoint = PLANE.PointProjection(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vProjectedPoint == EXPECTED_POINT );
 }
 
@@ -1868,16 +1868,16 @@ QTEST_CASE_TEMPLATE ( PointProjection_ACommonPointIsProjectedOnACommonPlaneCorre
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointProjection_PointsThatBelongToPlaneRemainsTheSame_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
     const float_q POINT_COMPONENTS[] = {PLANE.a * -PLANE.d, PLANE.b * -PLANE.d, PLANE.c * -PLANE.d, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     T EXPECTED_POINT = POINT;
 
-	// Execution
+	// [Execution]
     T vProjectedPoint = PLANE.PointProjection(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vProjectedPoint == EXPECTED_POINT );
 }
 
@@ -1886,17 +1886,17 @@ QTEST_CASE_TEMPLATE ( PointProjection_PointsThatBelongToPlaneRemainsTheSame_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointProjection_PointsBehindThePlaneAreCorrectlyProjected_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {SQFloat::_0, -SQFloat::_2, SQFloat::_0, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
     const float_q EXPECTED_POINT_COMPONENTS[] = {-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_1};
     T EXPECTED_POINT = T(EXPECTED_POINT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     T vProjectedPoint = PLANE.PointProjection(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vProjectedPoint == EXPECTED_POINT );
 }
 
@@ -1907,12 +1907,12 @@ QTEST_CASE_TEMPLATE ( PointProjection_PointsBehindThePlaneAreCorrectlyProjected_
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointProjection_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
     const T POINT;
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1924,7 +1924,7 @@ QTEST_CASE_TEMPLATE ( PointProjection_AssertionFailsWhenPlaneIsNull_Test, TQVect
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1935,17 +1935,17 @@ QTEST_CASE_TEMPLATE ( PointProjection_AssertionFailsWhenPlaneIsNull_Test, TQVect
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointProjection_ResultIsDifferentWhenPlaneIsNotNormalized_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QPlane NORMALIZED_PLANE = PLANE.Normalize();
 
-	// Execution
+	// [Execution]
     T vProjectedPointOnNonNormalizedPlane = PLANE.PointProjection(POINT);
     T vProjectedPointOnNormalizedPlane = NORMALIZED_PLANE.PointProjection(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vProjectedPointOnNonNormalizedPlane != vProjectedPointOnNormalizedPlane );
 }
 
@@ -1956,14 +1956,14 @@ QTEST_CASE ( PointProjection_ItDoesNotAffectWComponent_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
 
-    // Preparation
+    // [Preparation]
     const QBaseVector4 POINT = QBaseVector4(SQFloat::_4, -SQFloat::_8, SQFloat::_3, SQFloat::_9);
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
 
-	// Execution
+	// [Execution]
     QBaseVector4 vProjectedPoint = PLANE.PointProjection(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vProjectedPoint.w, POINT.w);
 }
 
@@ -1972,16 +1972,16 @@ QTEST_CASE ( PointProjection_ItDoesNotAffectWComponent_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenUsingACommonPointThatBelongsToThePlane_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
     const bool EXPECTED_VALUE = true;
 
-	// Execution
+	// [Execution]
     bool bResult = PLANE.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( bResult, EXPECTED_VALUE );
 }
 
@@ -1990,16 +1990,16 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenUsingACommonPointThatBelongsToTheP
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenUsingACommonPointThatIsInThePositiveSideOfThePlane_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
     const bool EXPECTED_VALUE = false;
 
-	// Execution
+	// [Execution]
     bool bResult = PLANE.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( bResult, EXPECTED_VALUE );
 }
 
@@ -2008,16 +2008,16 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenUsingACommonPointThatIsInThePosit
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenUsingACommonPointThatIsInTheNegativeSideOfThePlane_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
     const bool EXPECTED_VALUE = false;
 
-	// Execution
+	// [Execution]
     bool bResult = PLANE.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( bResult, EXPECTED_VALUE );
 }
 
@@ -2026,7 +2026,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenUsingACommonPointThatIsInTheNegat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_PlaneNormalizationDoesNotAffectResult_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q CONTAINED_POINT_COMPONENTS[] = {(float_q)2.1250, (float_q)0.8750, SQFloat::_3, SQFloat::_1};
     const float_q NOT_CONTAINED_POINT_COMPONENTS[] = {SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1};
     const T CONTAINED_POINT = T(CONTAINED_POINT_COMPONENTS);
@@ -2034,13 +2034,13 @@ QTEST_CASE_TEMPLATE ( Contains_PlaneNormalizationDoesNotAffectResult_Test, TQVec
     const QPlane NOT_NORMALIZED_PLANE = QPlane(-SQFloat::_8, SQFloat::_8, SQFloat::_0, SQFloat::_10);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();
 
-	// Execution
+	// [Execution]
     bool bResultNotContainedNorNormalized = NOT_NORMALIZED_PLANE.Contains(NOT_CONTAINED_POINT);
     bool bResultNotContainedButNormalized = NORMALIZED_PLANE.Contains(NOT_CONTAINED_POINT);
     bool bResultContainedButNotNormalized = NOT_NORMALIZED_PLANE.Contains(CONTAINED_POINT);
     bool bResultContainedAndNormalized = NORMALIZED_PLANE.Contains(CONTAINED_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( bResultNotContainedNorNormalized, bResultNotContainedButNormalized );
     BOOST_CHECK_EQUAL( bResultContainedButNotNormalized, bResultContainedAndNormalized );
 }
@@ -2052,12 +2052,12 @@ QTEST_CASE_TEMPLATE ( Contains_PlaneNormalizationDoesNotAffectResult_Test, TQVec
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
     const T POINT;
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2069,7 +2069,7 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2080,16 +2080,16 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes
 /// </summary>
 QTEST_CASE ( Contains_WComponentDoesNotAffectTheResult_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 POINT1 = QVector4(SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_1);
     const QVector4 POINT2 = QVector4(SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_10);
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
 
-    // Execution
+    // [Execution]
     bool bResult1 = PLANE.Contains(POINT1);
     bool bResult2 = PLANE.Contains(POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( bResult1, bResult2 );
 }
 
@@ -2098,14 +2098,14 @@ QTEST_CASE ( Contains_WComponentDoesNotAffectTheResult_Test )
 /// </summary>
 QTEST_CASE ( GetLength_ReturnsCorrectLengthFromNonNormalizedPlane_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const float_q EXPECTED_LENGTH = sqrt_q((float_q)14.0);
 
-	// Execution
+	// [Execution]
     float_q fLength = PLANE.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength, EXPECTED_LENGTH) );
 }
 
@@ -2114,14 +2114,14 @@ QTEST_CASE ( GetLength_ReturnsCorrectLengthFromNonNormalizedPlane_Test )
 /// </summary>
 QTEST_CASE ( GetLength_ReturnsOneWhenPlaneIsNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1).Normalize();
     const float_q EXPECTED_LENGTH = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fLength = PLANE.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength, EXPECTED_LENGTH) );
 }
 
@@ -2130,14 +2130,14 @@ QTEST_CASE ( GetLength_ReturnsOneWhenPlaneIsNormalized_Test )
 /// </summary>
 QTEST_CASE ( GetLength_ReturnsZeroWhenPlaneIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane::GetZeroPlane();
     const float_q EXPECTED_LENGTH = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fLength = PLANE.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength, EXPECTED_LENGTH) );
 }
 
@@ -2146,15 +2146,15 @@ QTEST_CASE ( GetLength_ReturnsZeroWhenPlaneIsNull_Test )
 /// </summary>
 QTEST_CASE ( GetLength_DComponentDoesNotAffectResult_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_5);
 
-	// Execution
+	// [Execution]
     float_q fLength1 = PLANE1.GetLength();
     float_q fLength2 = PLANE2.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength1, fLength2) );
 }
 
@@ -2163,14 +2163,14 @@ QTEST_CASE ( GetLength_DComponentDoesNotAffectResult_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_ReturnsCorrectLengthFromNonNormalizedPlane_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const float_q EXPECTED_LENGTH = (float_q)14.0;
 
-	// Execution
+	// [Execution]
     float_q fLength = PLANE.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength, EXPECTED_LENGTH) );
 }
 
@@ -2179,14 +2179,14 @@ QTEST_CASE ( GetSquaredLength_ReturnsCorrectLengthFromNonNormalizedPlane_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_ReturnsOneWhenPlaneIsNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1).Normalize();
     const float_q EXPECTED_LENGTH = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fLength = PLANE.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength, EXPECTED_LENGTH) );
 }
 
@@ -2195,14 +2195,14 @@ QTEST_CASE ( GetSquaredLength_ReturnsOneWhenPlaneIsNormalized_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_ReturnsZeroWhenPlaneIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane::GetZeroPlane();
     const float_q EXPECTED_LENGTH = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fLength = PLANE.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength, EXPECTED_LENGTH) );
 }
 
@@ -2211,15 +2211,15 @@ QTEST_CASE ( GetSquaredLength_ReturnsZeroWhenPlaneIsNull_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_DComponentDoesNotAffectResult_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_5);
 
-	// Execution
+	// [Execution]
     float_q fLength1 = PLANE1.GetSquaredLength();
     float_q fLength2 = PLANE2.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength1, fLength2) );
 }
 
@@ -2228,14 +2228,14 @@ QTEST_CASE ( GetSquaredLength_DComponentDoesNotAffectResult_Test )
 /// </summary>
 QTEST_CASE ( GetNormal_NormalIsCorrectlyComputedWhenUsingCommonPlane_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QVector3 EXPECTED_NORMAL(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vNormal = PLANE.GetNormal();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vNormal == EXPECTED_NORMAL );
 }
 
@@ -2244,14 +2244,14 @@ QTEST_CASE ( GetNormal_NormalIsCorrectlyComputedWhenUsingCommonPlane_Test )
 /// </summary>
 QTEST_CASE ( GetNormal_ItIsNotNormalizedWhenPlaneIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution
+	// [Execution]
     QVector3 vNormal = PLANE.GetNormal();
     QVector3 vNormalizedNormal = vNormal.Normalize();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vNormal != vNormalizedNormal );
 }
 
@@ -2260,14 +2260,14 @@ QTEST_CASE ( GetNormal_ItIsNotNormalizedWhenPlaneIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( GetNormal_ItIsNormalizedWhenPlaneIsNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
 
-	// Execution
+	// [Execution]
     QVector3 vNormal = PLANE.GetNormal();
     QVector3 vNormalizedNormal = vNormal.Normalize();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vNormal == vNormalizedNormal );
 }
 
@@ -2276,17 +2276,17 @@ QTEST_CASE ( GetNormal_ItIsNormalizedWhenPlaneIsNormalized_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointDistance_CorrectlyCalculatedWhenUsingCommonPointAndPlane_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_DISTANCE = SQFloat::_3;
     const float_q POINT_COMPONENTS[] = {-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0};
     T POINT = T(POINT_COMPONENTS);
     POINT = POINT.Normalize() * EXPECTED_DISTANCE;
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
 
-	// Execution
+	// [Execution]
     float_q fDistance = PLANE.PointDistance(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fDistance, EXPECTED_DISTANCE) );
 }
 
@@ -2295,17 +2295,17 @@ QTEST_CASE_TEMPLATE ( PointDistance_CorrectlyCalculatedWhenUsingCommonPointAndPl
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointDistance_DistanceIsPositiveWhenPointIsInTheNegativeSideOfPlane_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_DISTANCE = SQFloat::_3;
     const float_q POINT_COMPONENTS[] = {SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_0};
     T POINT = T(POINT_COMPONENTS);
     POINT = POINT.Normalize() * EXPECTED_DISTANCE;
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
 
-	// Execution
+	// [Execution]
     float_q fDistance = PLANE.PointDistance(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fDistance, EXPECTED_DISTANCE) );
 }
 
@@ -2314,16 +2314,16 @@ QTEST_CASE_TEMPLATE ( PointDistance_DistanceIsPositiveWhenPointIsInTheNegativeSi
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointDistance_ReturnsZeroWhenPointBelongsToThePlane_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_DISTANCE = SQFloat::_0;
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
     const float_q POINT_COMPONENTS[] = {PLANE.a * -PLANE.d, PLANE.b * -PLANE.d, PLANE.c * -PLANE.d, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     float_q fDistance = PLANE.PointDistance(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fDistance, EXPECTED_DISTANCE) );
 }
 
@@ -2332,17 +2332,17 @@ QTEST_CASE_TEMPLATE ( PointDistance_ReturnsZeroWhenPointBelongsToThePlane_Test, 
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointDistance_ResultIsTheSameWhenPlaneIsNotNormalized_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane NOT_NORMALIZED_PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();
 
-	// Execution
+	// [Execution]
     float_q fDistance1 = NOT_NORMALIZED_PLANE.PointDistance(POINT);
     float_q fDistance2 = NORMALIZED_PLANE.PointDistance(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fDistance1, fDistance2) );
 }
 
@@ -2353,12 +2353,12 @@ QTEST_CASE_TEMPLATE ( PointDistance_ResultIsTheSameWhenPlaneIsNotNormalized_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( PointDistance_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
     const T POINT;
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2370,7 +2370,7 @@ QTEST_CASE_TEMPLATE ( PointDistance_AssertionFailsWhenPlaneIsNull_Test, TQVector
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2381,18 +2381,18 @@ QTEST_CASE_TEMPLATE ( PointDistance_AssertionFailsWhenPlaneIsNull_Test, TQVector
 /// </summary>
 QTEST_CASE ( PointDistance_WComponentDoesNotAffectTheResult_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS1[] = {SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_1};
     const float_q POINT_COMPONENTS2[] = {SQFloat::_1, SQFloat::_1, SQFloat::_3, SQFloat::_10};
     const QVector4 POINT1 = QVector4(POINT_COMPONENTS1);
     const QVector4 POINT2 = QVector4(POINT_COMPONENTS2);
     const QPlane PLANE = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
 
-	// Execution
+	// [Execution]
     float_q fResult1 = PLANE.PointDistance(POINT1);
     float_q fResult2 = PLANE.PointDistance(POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1, fResult2 );
 }
 
@@ -2409,17 +2409,17 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenThreePlanesC
     //       | x3
     //
 
-    // Preparation
+    // [Preparation]
     const T EXPECTED_POINT = T::GetZeroVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = PLANE1;
 
-	// Execution
+	// [Execution]
     T vIntersection = EXPECTED_POINT;
     PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersection == EXPECTED_POINT );
 }
 
@@ -2438,17 +2438,17 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenThreePlanesCoincide_T
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = PLANE1;
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResult = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -2465,13 +2465,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesCoi
     //       | x2  /
     //
 
-    // Preparation
+    // [Preparation]
     const T EXPECTED_POINT = T::GetZeroVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = QPlane(SQFloat::_3, SQFloat::_2, SQFloat::_1, SQFloat::_4).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection1 = EXPECTED_POINT;
     T vIntersection2 = EXPECTED_POINT;
     T vIntersection3 = EXPECTED_POINT;
@@ -2485,7 +2485,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesCoi
     PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection5);
     PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection6);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersection1 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection2 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection3 == EXPECTED_POINT );
@@ -2509,13 +2509,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenTwoPlanesCoincideAndT
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = QPlane(SQFloat::_3, SQFloat::_2, SQFloat::_1, SQFloat::_4).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResult1 = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
     EQIntersections eResult2 = PLANE2.IntersectionPoint(PLANE1, PLANE3, vIntersection);
@@ -2524,7 +2524,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenTwoPlanesCoincideAndT
     EQIntersections eResult5 = PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection);
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2546,13 +2546,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesCoi
     //       | x2     |
     //
 
-    // Preparation
+    // [Preparation]
     const T EXPECTED_POINT = T::GetZeroVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_5).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection1 = EXPECTED_POINT;
     T vIntersection2 = EXPECTED_POINT;
     T vIntersection3 = EXPECTED_POINT;
@@ -2566,7 +2566,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesCoi
     PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection5);
     PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection6);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersection1 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection2 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection3 == EXPECTED_POINT );
@@ -2590,13 +2590,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTwoPlanesCoincideAndTheOt
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_5).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResult1 = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
     EQIntersections eResult2 = PLANE2.IntersectionPoint(PLANE1, PLANE3, vIntersection);
@@ -2605,7 +2605,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTwoPlanesCoincideAndTheOt
     EQIntersections eResult5 = PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection);
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2627,13 +2627,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     //       |        |       |
     //
 
-    // Preparation
+    // [Preparation]
     const T EXPECTED_POINT = T::GetZeroVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_5).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_6).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection1 = EXPECTED_POINT;
     T vIntersection2 = EXPECTED_POINT;
     T vIntersection3 = EXPECTED_POINT;
@@ -2647,7 +2647,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection5);
     PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection6);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersection1 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection2 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection3 == EXPECTED_POINT );
@@ -2671,13 +2671,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneTheThreePlanesAreParallel_Tes
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_5).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_6).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResult1 = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
     EQIntersections eResult2 = PLANE2.IntersectionPoint(PLANE1, PLANE3, vIntersection);
@@ -2686,7 +2686,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneTheThreePlanesAreParallel_Tes
     EQIntersections eResult5 = PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection);
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2708,13 +2708,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     //      /        \
     //
 
-    // Preparation
+    // [Preparation]
     const T EXPECTED_POINT = T::GetZeroVector();
     const QPlane PLANE1 = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection1 = EXPECTED_POINT;
     T vIntersection2 = EXPECTED_POINT;
     T vIntersection3 = EXPECTED_POINT;
@@ -2728,7 +2728,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection5);
     PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection6);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersection1 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection2 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection3 == EXPECTED_POINT );
@@ -2752,13 +2752,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTheThreePlanesIntersectBu
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const QPlane PLANE1 = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResult1 = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
     EQIntersections eResult2 = PLANE2.IntersectionPoint(PLANE1, PLANE3, vIntersection);
@@ -2767,7 +2767,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTheThreePlanesIntersectBu
     EQIntersections eResult5 = PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection);
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2789,13 +2789,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesAre
     //       |        |
     //
 
-    // Preparation
+    // [Preparation]
     const T EXPECTED_POINT = T::GetZeroVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_2).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_3).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection1 = EXPECTED_POINT;
     T vIntersection2 = EXPECTED_POINT;
     T vIntersection3 = EXPECTED_POINT;
@@ -2809,7 +2809,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesAre
     PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection5);
     PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection6);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersection1 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection2 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection3 == EXPECTED_POINT );
@@ -2833,13 +2833,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTwoPlanesAreParallelAndIn
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_2).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_3).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResult1 = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
     EQIntersections eResult2 = PLANE2.IntersectionPoint(PLANE1, PLANE3, vIntersection);
@@ -2848,7 +2848,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsNoneWhenTwoPlanesAreParallelAndIn
     EQIntersections eResult5 = PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection);
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2870,14 +2870,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointIsCorrectlyCalculatedWhenTheT
     //      /|\
     //
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {SQFloat::_2, -SQFloat::_4, SQFloat::_3, SQFloat::_0};
     const T EXPECTED_POINT = T(POINT_COMPONENTS);
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_3).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_5, -SQFloat::_9).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection1 = EXPECTED_POINT;
     T vIntersection2 = EXPECTED_POINT;
     T vIntersection3 = EXPECTED_POINT;
@@ -2891,7 +2891,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointIsCorrectlyCalculatedWhenTheT
     PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection5);
     PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection6);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersection1 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection2 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection3 == EXPECTED_POINT );
@@ -2915,13 +2915,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsOneWhenTheThreePlanesShareOnePoin
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_3).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_5, -SQFloat::_9).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResult1 = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
     EQIntersections eResult2 = PLANE2.IntersectionPoint(PLANE1, PLANE3, vIntersection);
@@ -2930,7 +2930,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsOneWhenTheThreePlanesShareOnePoin
     EQIntersections eResult5 = PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection);
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2952,13 +2952,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     //      /|\
     //
 
-    // Preparation
+    // [Preparation]
     const T EXPECTED_POINT = T::GetZeroVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, -SQFloat::_1, SQFloat::_4, -SQFloat::_5).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_3, SQFloat::_1, SQFloat::_1, -SQFloat::_3).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_5, -SQFloat::_1, SQFloat::_9, (float_q)-13.0).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection1 = EXPECTED_POINT;
     T vIntersection2 = EXPECTED_POINT;
     T vIntersection3 = EXPECTED_POINT;
@@ -2972,7 +2972,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection5);
     PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection6);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersection1 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection2 == EXPECTED_POINT );
     BOOST_CHECK( vIntersection3 == EXPECTED_POINT );
@@ -2996,13 +2996,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenTheThreePlanesShareOn
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
     const QPlane PLANE1 = QPlane(SQFloat::_1, -SQFloat::_1, SQFloat::_4, -SQFloat::_5).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_3, SQFloat::_1, SQFloat::_1, -SQFloat::_3).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_5, -SQFloat::_1, SQFloat::_9, (float_q)-13.0).Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResult1 = PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
     EQIntersections eResult2 = PLANE2.IntersectionPoint(PLANE1, PLANE3, vIntersection);
@@ -3011,7 +3011,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnsInfiniteWhenTheThreePlanesShareOn
     EQIntersections eResult5 = PLANE2.IntersectionPoint(PLANE3, PLANE1, vIntersection);
     EQIntersections eResult6 = PLANE3.IntersectionPoint(PLANE1, PLANE2, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -3033,20 +3033,20 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointIsTheSameWhenPlanesAreNotNorm
     //      /|\
     //
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_3).Normalize();
     const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_5, -SQFloat::_9);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersectionNormalizedPlane;
     T vIntersectionNotNormalizedPlane;
 
     PLANE1.IntersectionPoint(PLANE2, NORMALIZED_PLANE, vIntersectionNormalizedPlane);
     PLANE1.IntersectionPoint(PLANE2, NOT_NORMALIZED_PLANE, vIntersectionNotNormalizedPlane);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vIntersectionNormalizedPlane == vIntersectionNotNormalizedPlane );
 }
 
@@ -3065,18 +3065,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_ReturnedValueIsTheSameWhenPlanesAreNotNo
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_3).Normalize();
     const QPlane NOT_NORMALIZED_PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_5, -SQFloat::_9);
     const QPlane NORMALIZED_PLANE = NOT_NORMALIZED_PLANE.Normalize();
 
-	// Execution
+	// [Execution]
     T vIntersection;
     EQIntersections eResultNormalizedPlane = PLANE1.IntersectionPoint(PLANE2, NOT_NORMALIZED_PLANE, vIntersection);
     EQIntersections eResultNotNormalizedPlane = PLANE1.IntersectionPoint(PLANE2, NORMALIZED_PLANE, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultNormalizedPlane, eResultNotNormalizedPlane);
 }
 
@@ -3093,7 +3093,7 @@ QTEST_CASE ( IntersectionPoint_WComponentOfOutputPointIsNeverChanged_Test )
     //      /|\
     //
 
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_W = SQFloat::_5;
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_3).Normalize();
@@ -3101,10 +3101,10 @@ QTEST_CASE ( IntersectionPoint_WComponentOfOutputPointIsNeverChanged_Test )
     QVector4 vIntersection;
     vIntersection.w = EXPECTED_W;
 
-	// Execution
+	// [Execution]
     PLANE1.IntersectionPoint(PLANE2, PLANE3, vIntersection);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vIntersection.w, EXPECTED_W);
 }
 
@@ -3115,14 +3115,14 @@ QTEST_CASE ( IntersectionPoint_WComponentOfOutputPointIsNeverChanged_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( IntersectionPoint_AssertionFailsWhenOnePlaneIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_3).Normalize();
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
     T POINT;
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -3156,7 +3156,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_AssertionFailsWhenOnePlaneIsNull_Test, T
         bAssertionFailed3 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed3, ASSERTION_FAILED);
@@ -3177,15 +3177,15 @@ QTEST_CASE( SpaceRelation_ReturnsPositiveSideWhenTheOtherPlaneIsParallelAndIsInT
 
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE_A = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1).Normalize();
     const QPlane PLANE_B = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_2).Normalize();
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_PositiveSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = PLANE_A.SpaceRelation(PLANE_B);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -3202,15 +3202,15 @@ QTEST_CASE( SpaceRelation_ReturnsNegativeSideWhenTheOtherPlaneIsParallelAndIsInT
 
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE_A = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_3).Normalize();
     const QPlane PLANE_B = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_2).Normalize();
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_NegativeSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = PLANE_A.SpaceRelation(PLANE_B);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -3227,16 +3227,16 @@ QTEST_CASE( SpaceRelation_ReturnsBothSidesWhenPlanesIntersect_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE_A = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_3).Normalize();
     const QPlane PLANE_B = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_BothSides;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult1 = PLANE_A.SpaceRelation(PLANE_B);
     EQSpaceRelation eResult2 = PLANE_B.SpaceRelation(PLANE_A);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
 }
@@ -3254,15 +3254,15 @@ QTEST_CASE( SpaceRelation_ReturnsContainedWhenPlanesCoincide_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE_A = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE_B = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_Contained;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = PLANE_A.SpaceRelation(PLANE_B);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -3273,15 +3273,15 @@ QTEST_CASE( SpaceRelation_ResultIsDifferentWhenOnePlaneIsNotNormalized_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE_NORMALIZED = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE_NOTNORMALIZED = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult1 = PLANE_NORMALIZED.SpaceRelation(PLANE_NORMALIZED);
     EQSpaceRelation eResult2 = PLANE_NORMALIZED.SpaceRelation(PLANE_NOTNORMALIZED);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_NE(eResult1, eResult2);
 }
 
@@ -3292,13 +3292,13 @@ QTEST_CASE( SpaceRelation_ResultIsDifferentWhenOnePlaneIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE( SpaceRelation_AssertionFailsWhenOnePlaneIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -3321,7 +3321,7 @@ QTEST_CASE( SpaceRelation_AssertionFailsWhenOnePlaneIsNull_Test )
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -3336,7 +3336,7 @@ QTEST_CASE ( Rotate1_PlaneIsCorrectlyTransformedByCommonRotationMatrix_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
     const float_q EULER_ANGLE_Y = SQAngle::_Pi;
@@ -3365,10 +3365,10 @@ QTEST_CASE ( Rotate1_PlaneIsCorrectlyTransformedByCommonRotationMatrix_Test )
     // D3DXVec3Normalize(&vRot, &vRot);
     // D3DXVec3TransformNormal(&vRot, &vRot, &rot);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Rotate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3382,15 +3382,15 @@ QTEST_CASE ( Rotate1_PlaneDoesNotChangeWhenTransformedByIdentityMatrix_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Rotate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3405,16 +3405,16 @@ QTEST_CASE ( Rotate1_PlaneIsNullWhenRotationMatrixIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QRotationMatrix3x3 NULL_MATRIX = QRotationMatrix3x3(QMatrix3x3::GetZeroMatrix());
 
     const QPlane EXPECTED_RESULT = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, PLANE.d);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Rotate(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_RESULT.a);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_RESULT.b);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_RESULT.c);
@@ -3429,7 +3429,7 @@ QTEST_CASE ( Rotate2_PlaneIsCorrectlyTransformedByCommonQuaternion_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
     const float_q EULER_ANGLE_Y = SQAngle::_Pi;
@@ -3462,10 +3462,10 @@ QTEST_CASE ( Rotate2_PlaneIsCorrectlyTransformedByCommonQuaternion_Test )
     // D3DXQuaternionMultiply(&qVector, &qRot, &qVector);
     // D3DXQuaternionMultiply(&qVector, &qVector, &qConjugate);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Rotate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3479,15 +3479,15 @@ QTEST_CASE ( Rotate2_PlaneDoesNotChangeWhenTransformedByIdentityQuaternion_Test 
 {
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion TRANSFORMATION = QQuaternion::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Rotate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3501,16 +3501,16 @@ QTEST_CASE ( Rotate2_PlaneIsNullWhenQuaternionIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
     const QPlane EXPECTED_RESULT = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, PLANE.d);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Rotate(NULL_QUATERNION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_RESULT.a);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_RESULT.b);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_RESULT.c);
@@ -3524,16 +3524,16 @@ QTEST_CASE ( Scale1_PlaneIsCorrectlyScaledByCommonScaleMatrix_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QScalingMatrix3x3 TRANSFORMATION = QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QPlane EXPECTED_RESULT = QPlane((float_q)0.70224688317678341, (float_q)0.11704114719613057, (float_q)-0.70224688317678341, (float_q)0.87780860397097937);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Scale(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3547,15 +3547,15 @@ QTEST_CASE ( Scale1_PlaneDoesNotChangeWhenScaledByIdentityMatrix_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const QScalingMatrix3x3 TRANSFORMATION = QScalingMatrix3x3::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE.Normalize();
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Scale(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3572,13 +3572,13 @@ QTEST_CASE ( Scale1_AssertionFailsWhenPlaneIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QPlane NULL_PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
     const QScalingMatrix3x3 TRANSFORMATION = QScalingMatrix3x3::GetIdentity();
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3590,7 +3590,7 @@ QTEST_CASE ( Scale1_AssertionFailsWhenPlaneIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3602,13 +3602,13 @@ QTEST_CASE ( Scale1_AssertionFailsWhenScaleMatrixIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const QScalingMatrix3x3 NULL_MATRIX = QScalingMatrix3x3(QMatrix3x3::GetZeroMatrix());
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3620,7 +3620,7 @@ QTEST_CASE ( Scale1_AssertionFailsWhenScaleMatrixIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3631,16 +3631,16 @@ QTEST_CASE ( Scale1_AssertionFailsWhenScaleMatrixIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale2_PlaneIsCorrectlyScaledByCommonVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QPlane EXPECTED_RESULT = QPlane((float_q)0.70224688317678341, (float_q)0.11704114719613057, (float_q)-0.70224688317678341, (float_q)0.87780860397097937);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Scale(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3652,15 +3652,15 @@ QTEST_CASE ( Scale2_PlaneIsCorrectlyScaledByCommonVector_Test )
 /// </summary>
 QTEST_CASE ( Scale2_PlaneDoesNotChangeWhenScaledByAVectorOfOnes_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3::GetVectorOfOnes();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Scale(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3674,13 +3674,13 @@ QTEST_CASE ( Scale2_PlaneDoesNotChangeWhenScaledByAVectorOfOnes_Test )
 /// </summary>
 QTEST_CASE ( Scale2_AssertionFailsWhenPlaneIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
     const QVector3 TRANSFORMATION = QVector3::GetVectorOfOnes();
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3692,7 +3692,7 @@ QTEST_CASE ( Scale2_AssertionFailsWhenPlaneIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3701,13 +3701,13 @@ QTEST_CASE ( Scale2_AssertionFailsWhenPlaneIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale2_AssertionFailsWhenVectorIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3719,7 +3719,7 @@ QTEST_CASE ( Scale2_AssertionFailsWhenVectorIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3730,7 +3730,7 @@ QTEST_CASE ( Scale2_AssertionFailsWhenVectorIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale3_PlaneIsCorrectlyScaledByCommonScalingValues_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const float_q SCALE_X = SQFloat::_0_25;
     const float_q SCALE_Y = SQFloat::_3;
@@ -3738,10 +3738,10 @@ QTEST_CASE ( Scale3_PlaneIsCorrectlyScaledByCommonScalingValues_Test )
 
     const QPlane EXPECTED_RESULT = QPlane((float_q)0.70224688317678341, (float_q)0.11704114719613057, (float_q)-0.70224688317678341, (float_q)0.87780860397097937);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Scale(SCALE_X, SCALE_Y, SCALE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3753,17 +3753,17 @@ QTEST_CASE ( Scale3_PlaneIsCorrectlyScaledByCommonScalingValues_Test )
 /// </summary>
 QTEST_CASE ( Scale3_PlaneDoesntChangeWhenScaleValuesEqualOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const float_q SCALE_X = SQFloat::_1;
     const float_q SCALE_Y = SQFloat::_1;
     const float_q SCALE_Z = SQFloat::_1;
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Scale(SCALE_X, SCALE_Y, SCALE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3777,7 +3777,7 @@ QTEST_CASE ( Scale3_PlaneDoesntChangeWhenScaleValuesEqualOne_Test )
 /// </summary>
 QTEST_CASE ( Scale3_AssertionFailsWhenPlaneIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
     const float_q SCALE_X = SQFloat::_1;
     const float_q SCALE_Y = SQFloat::_1;
@@ -3785,7 +3785,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenPlaneIsNull_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3797,7 +3797,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenPlaneIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3806,7 +3806,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenPlaneIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale3_AssertionFailsWhenVectorIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const float_q ZERO_SCALE_X = SQFloat::_0;
     const float_q ZERO_SCALE_Y = SQFloat::_0;
@@ -3814,7 +3814,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenVectorIsNull_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3826,7 +3826,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenVectorIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3839,16 +3839,16 @@ QTEST_CASE_TEMPLATE ( Translate1_PlaneIsCorrectlyTranslatedByCommonTranslationMa
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QTranslationMatrix<T> TRANSFORMATION = QTranslationMatrix<T>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
 
     const QPlane EXPECTED_RESULT = QPlane((float_q)0.21821789023599239, (float_q)0.43643578047198478, (float_q)0.87287156094396956, (float_q)4.1461399144838555);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3862,15 +3862,15 @@ QTEST_CASE_TEMPLATE ( Translate1_VectorDoesNotChangeWhenTranslatedByIdentityMatr
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QTranslationMatrix<T> TRANSFORMATION = QTranslationMatrix<T>::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3884,16 +3884,16 @@ QTEST_CASE_TEMPLATE ( Translate1_PlaneDoesNotChangeWhenTranslationMatrixIsNull_T
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QTranslationMatrix<T> NULL_MATRIX = QTranslationMatrix<T>(T::GetZeroMatrix());
 
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3907,16 +3907,16 @@ QTEST_CASE_TEMPLATE ( Translate1_PlaneDoesNotChangeWhenDisplacementVectorIsOrtho
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_5).Normalize();
     const QTranslationMatrix<T> TRANSFORMATION = QTranslationMatrix<T>(-SQFloat::_2, SQFloat::_1, SQFloat::_0);
 
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3928,17 +3928,17 @@ QTEST_CASE_TEMPLATE ( Translate1_PlaneDoesNotChangeWhenDisplacementVectorIsOrtho
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate2_PlaneIsCorrectlyTranslatedByCommonTranslationVector_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const float_q VECTOR_COMPONENTS[] = {SQFloat::_2, SQFloat::_4, -SQFloat::_6, SQFloat::_0};
     const T TRANSFORMATION = T(VECTOR_COMPONENTS);
 
     const QPlane EXPECTED_RESULT = QPlane((float_q)0.21821789023599239, (float_q)0.43643578047198478, (float_q)0.87287156094396956, (float_q)4.1461399144838555);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3950,16 +3950,16 @@ QTEST_CASE_TEMPLATE ( Translate2_PlaneIsCorrectlyTranslatedByCommonTranslationVe
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate2_PlaneDoesNotChangeWhenTranslationVectorIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const T NULL_VECTOR = T::GetZeroVector();
 
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(NULL_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3971,17 +3971,17 @@ QTEST_CASE_TEMPLATE ( Translate2_PlaneDoesNotChangeWhenTranslationVectorIsNull_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate2_PlaneDoesNotChangeWhenDisplacementVectorIsOrthogonalToPlaneNormal_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_5).Normalize();
     const float_q VECTOR_COMPONENTS[] = {-SQFloat::_2, SQFloat::_1, SQFloat::_0, SQFloat::_0};
     const T TRANSFORMATION = T(VECTOR_COMPONENTS);
 
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -3993,7 +3993,7 @@ QTEST_CASE_TEMPLATE ( Translate2_PlaneDoesNotChangeWhenDisplacementVectorIsOrtho
 /// </summary>
 QTEST_CASE ( Translate3_PlaneIsCorrectlyTranslatedByCommonTranslationValues_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
 
     const float_q TRANSLATION_X = SQFloat::_2;
@@ -4002,10 +4002,10 @@ QTEST_CASE ( Translate3_PlaneIsCorrectlyTranslatedByCommonTranslationValues_Test
 
     const QPlane EXPECTED_RESULT = QPlane((float_q)0.21821789023599239, (float_q)0.43643578047198478, (float_q)0.87287156094396956, (float_q)4.1461399144838555);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(TRANSLATION_X, TRANSLATION_Y, TRANSLATION_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4017,7 +4017,7 @@ QTEST_CASE ( Translate3_PlaneIsCorrectlyTranslatedByCommonTranslationValues_Test
 /// </summary>
 QTEST_CASE ( Translate3_PlaneDoesNotChangeWhenTranslationValuesEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
 
     const float_q TRANSLATION_X = SQFloat::_0;
@@ -4026,10 +4026,10 @@ QTEST_CASE ( Translate3_PlaneDoesNotChangeWhenTranslationValuesEqualZero_Test )
 
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(TRANSLATION_X, TRANSLATION_Y, TRANSLATION_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4041,7 +4041,7 @@ QTEST_CASE ( Translate3_PlaneDoesNotChangeWhenTranslationValuesEqualZero_Test )
 /// </summary>
 QTEST_CASE ( Translate3_PlaneDoesNotChangeWhenDisplacementVectorIsOrthogonalToPlaneNormal_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_0, SQFloat::_5).Normalize();
 
     const float_q TRANSLATION_X = -SQFloat::_2;
@@ -4050,10 +4050,10 @@ QTEST_CASE ( Translate3_PlaneDoesNotChangeWhenDisplacementVectorIsOrthogonalToPl
 
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Translate(TRANSLATION_X, TRANSLATION_Y, TRANSLATION_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4071,7 +4071,7 @@ QTEST_CASE_TEMPLATE ( Transform1_PlaneIsCorrectlyTransformedByCommonTransformati
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
     const float_q EULER_ANGLE_Y = SQAngle::_Pi;
@@ -4110,10 +4110,10 @@ QTEST_CASE_TEMPLATE ( Transform1_PlaneIsCorrectlyTransformedByCommonTransformati
     // D3DXPlaneTransform(&planeNew, &plane, &transformation);
     // D3DXPlaneNormalize(&planeNew, &planeNew);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4127,15 +4127,15 @@ QTEST_CASE_TEMPLATE ( Transform1_PlaneDoesNotChangeWhenTransformedByIdentityMatr
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4151,13 +4151,13 @@ QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformationMatrixIsNull_Te
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const QTransformationMatrix<T> NULL_TRANSFORMATION = T::GetZeroMatrix();
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4169,7 +4169,7 @@ QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformationMatrixIsNull_Te
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4183,7 +4183,7 @@ QTEST_CASE( Transform2_PlaneIsCorrectlyTransformedByCommonSpaceConversionMatrix_
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     QSpaceConversionMatrix CONVERSION = QSpaceConversionMatrix();
     CONVERSION.SetViewSpaceMatrix(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3),
@@ -4208,10 +4208,10 @@ QTEST_CASE( Transform2_PlaneIsCorrectlyTransformedByCommonSpaceConversionMatrix_
     // D3DXPlaneTransform(&planeNew, &plane, &transformation);
     // D3DXPlaneNormalize(&planeNew, &planeNew);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Transform(CONVERSION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4225,15 +4225,15 @@ QTEST_CASE( Transform2_PlaneDoesNotChangeWhenTransformedByIdentityMatrix_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QSpaceConversionMatrix TRANSFORMATION = QSpaceConversionMatrix::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4249,13 +4249,13 @@ QTEST_CASE( Transform2_AssertionFailsWhenMatrixIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
     const QSpaceConversionMatrix NULL_TRANSFORMATION = QSpaceConversionMatrix::GetZeroMatrix();
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4267,7 +4267,7 @@ QTEST_CASE( Transform2_AssertionFailsWhenMatrixIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4281,7 +4281,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneIsCorrectlyTransformedByCommonQuater
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
     const float_q EULER_ANGLE_Y = SQAngle::_Pi;
@@ -4301,10 +4301,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneIsCorrectlyTransformedByCommonQuater
                                         .Rotate(TRANSFORMATION)
                                         .Translate(POINT.x, POINT.y, POINT.z);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.RotateWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4316,7 +4316,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneIsCorrectlyTransformedByCommonQuater
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneDoesntChangeWhenTransformedByIdentityQuaternion_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
@@ -4325,10 +4325,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneDoesntChangeWhenTransformedByIdentit
     const QQuaternion TRANSFORMATION = QQuaternion::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.RotateWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4340,7 +4340,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneDoesntChangeWhenTransformedByIdentit
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneIsNullWhenRotationQuaternionIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
@@ -4350,10 +4350,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneIsNullWhenRotationQuaternionIsNull_T
 
     const QPlane EXPECTED_RESULT = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_9);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.RotateWithPivot(NULL_QUATERNION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_RESULT.a);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_RESULT.b);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_RESULT.c);
@@ -4365,7 +4365,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_PlaneIsNullWhenRotationQuaternionIsNull_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -4385,10 +4385,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_ReturnsSameValueAsWithoutPivotWhenPivotIs
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QPlane EXPECTED_RESULT = PLANE.Rotate(TRANSFORMATION);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.RotateWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4400,7 +4400,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_ReturnsSameValueAsWithoutPivotWhenPivotIs
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneIsCorrectlyTransformedByCommonRotationMatrixAndPoint_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -4423,10 +4423,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneIsCorrectlyTransformedByCommonRotati
                                         .Rotate(TRANSFORMATION)
                                         .Translate(POINT.x, POINT.y, POINT.z);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.RotateWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4438,7 +4438,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneIsCorrectlyTransformedByCommonRotati
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneDoesNotChangeWhenTransformedByIdentityMatrix_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
@@ -4447,10 +4447,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneDoesNotChangeWhenTransformedByIdenti
     const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.RotateWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4462,7 +4462,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneDoesNotChangeWhenTransformedByIdenti
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneIsNullWhenRotationMatrixIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
@@ -4473,10 +4473,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneIsNullWhenRotationMatrixIsNull_Test,
 
     const QPlane EXPECTED_RESULT = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_9);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.RotateWithPivot(NULL_MATRIX, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_RESULT.a);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_RESULT.b);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_RESULT.c);
@@ -4488,7 +4488,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneIsNullWhenRotationMatrixIsNull_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -4508,10 +4508,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_ReturnsSameValueAsWithoutPivotWhenPivotIs
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QPlane EXPECTED_RESULT = PLANE.Rotate(TRANSFORMATION);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.RotateWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4523,7 +4523,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_ReturnsSameValueAsWithoutPivotWhenPivotIs
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_PlaneIsCorrectlyScaledByCommonVectorAndPoint_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
@@ -4533,10 +4533,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_PlaneIsCorrectlyScaledByCommonVectorAndPoi
                                         .Scale(TRANSFORMATION)
                                         .Translate(POINT.x, POINT.y, POINT.z);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4548,17 +4548,17 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_PlaneIsCorrectlyScaledByCommonVectorAndPoi
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_PlaneDoesNotChangeWhenScaledByAVectorOfOnes_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3::GetVectorOfOnes();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4572,7 +4572,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_PlaneDoesNotChangeWhenScaledByAVectorOfOne
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane NULL_PLANE = QPlane::GetZeroPlane();
@@ -4580,7 +4580,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenPlaneIsNull_Test, TQVect
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4592,7 +4592,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenPlaneIsNull_Test, TQVect
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4601,7 +4601,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenPlaneIsNull_Test, TQVect
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenVectorIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
@@ -4609,7 +4609,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenVectorIsNull_Test, TQVec
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4621,7 +4621,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenVectorIsNull_Test, TQVec
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4632,17 +4632,17 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenVectorIsNull_Test, TQVec
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const T POINT = T::GetZeroVector();
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QPlane EXPECTED_RESULT = PLANE.Scale(TRANSFORMATION);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4654,7 +4654,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_ReturnsSameValueAsWithoutPivotWhenPivotIsN
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_PlaneIsCorrectlyScaledByCommonVectorAndPoint_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
@@ -4666,10 +4666,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_PlaneIsCorrectlyScaledByCommonVectorAndPoi
                                         .Scale(SCALE_X, SCALE_Y, SCALE_Z)
                                         .Translate(POINT.x, POINT.y, POINT.z);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4681,7 +4681,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_PlaneIsCorrectlyScaledByCommonVectorAndPoi
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_PlaneDoesNotChangeWhenScaledByAVectorOfOnes_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
@@ -4690,10 +4690,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_PlaneDoesNotChangeWhenScaledByAVectorOfOne
     const float_q SCALE_Z = SQFloat::_1;
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4707,7 +4707,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_PlaneDoesNotChangeWhenScaledByAVectorOfOne
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane NULL_PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
@@ -4717,7 +4717,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenPlaneIsNull_Test, TQVect
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4729,7 +4729,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenPlaneIsNull_Test, TQVect
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4738,7 +4738,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenPlaneIsNull_Test, TQVect
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenScaleValuesEqualZero_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
@@ -4748,7 +4748,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenScaleValuesEqualZero_Tes
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4760,7 +4760,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenScaleValuesEqualZero_Tes
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4771,17 +4771,17 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenScaleValuesEqualZero_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const T POINT = T::GetZeroVector();
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QPlane EXPECTED_RESULT = PLANE.Scale(TRANSFORMATION);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4795,7 +4795,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_PlaneIsCorrectlyScaledByCommonVectorAndPoi
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
@@ -4805,10 +4805,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_PlaneIsCorrectlyScaledByCommonVectorAndPoi
                                         .Scale(TRANSFORMATION)
                                         .Translate(POINT.x, POINT.y, POINT.z);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4822,17 +4822,17 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_PlaneDoesNotChangeWhenScaledByAVectorOfOne
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QScalingMatrix3x3 TRANSFORMATION = QScalingMatrix3x3::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4848,7 +4848,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenPlaneIsNull_Test, TQVect
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane NULL_PLANE = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
@@ -4856,7 +4856,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenPlaneIsNull_Test, TQVect
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4868,7 +4868,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenPlaneIsNull_Test, TQVect
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4880,7 +4880,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenVectorIsNull_Test, TQVec
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
@@ -4888,7 +4888,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenVectorIsNull_Test, TQVec
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4900,7 +4900,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenVectorIsNull_Test, TQVec
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4913,7 +4913,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_PlaneIsCorrectlyScaledByCommonVector_Test,
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
@@ -4923,10 +4923,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_PlaneIsCorrectlyScaledByCommonVector_Test,
                                         .Scale(TRANSFORMATION)
                                         .Translate(POINT.x, POINT.y, POINT.z);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4938,17 +4938,17 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_PlaneIsCorrectlyScaledByCommonVector_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot3_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test, TQVectorTypes )
 {
-    // Preparation
+    // [Preparation]
     const T POINT = T::GetZeroVector();
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
     const QPlane EXPECTED_RESULT = PLANE.Scale(TRANSFORMATION);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.ScaleWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -4968,7 +4968,7 @@ void TransformWithPivot_PlaneIsCorrectlyTransformedByCommonTransformationMatrixA
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
     const float_q EULER_ANGLE_Y = SQAngle::_Pi;
@@ -4992,10 +4992,10 @@ void TransformWithPivot_PlaneIsCorrectlyTransformedByCommonTransformationMatrixA
                                         .Transform(TRANSFORMATION)
                                         .Translate(POINT.x, POINT.y, POINT.z);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.TransformWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -5024,17 +5024,17 @@ void TransformWithPivot_PlaneDoesntChangeWhenTransformedByIdentityMatrix_Templat
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const VectorType POINT = VectorType(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
     const QPlane EXPECTED_RESULT = PLANE;
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.TransformWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -5061,7 +5061,7 @@ void TransformWithPivot_AssertionFailsWhenTransformationMatrixIsNull_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const VectorType POINT = VectorType(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
@@ -5069,7 +5069,7 @@ void TransformWithPivot_AssertionFailsWhenTransformationMatrixIsNull_Template()
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5081,7 +5081,7 @@ void TransformWithPivot_AssertionFailsWhenTransformationMatrixIsNull_Template()
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5111,7 +5111,7 @@ void TransformWithPivot_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Template()
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
     const float_q EULER_ANGLE_Y = SQAngle::_Pi;
@@ -5133,10 +5133,10 @@ void TransformWithPivot_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Template()
 
     const QPlane EXPECTED_RESULT = PLANE.Transform(TRANSFORMATION);
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE.TransformWithPivot(TRANSFORMATION, POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_RESULT.a) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.b, EXPECTED_RESULT.b) );
     BOOST_CHECK( SQFloat::AreEqual(planeUT.c, EXPECTED_RESULT.c) );
@@ -5159,7 +5159,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot_ReturnsSameValueAsWithoutPivotWhenPivot
 /// </summary>
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0, SQFloat::_0 );
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -5168,11 +5168,11 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
     const string_q EXPECTED_STRING_FORM = QE_L("PL(0.25,-1.9999999999999999e-006,40000,0)");
 #endif
 
-	// Execution
+	// [Execution]
     QPlane planeUT = PLANE;
     string_q strStringForm = planeUT.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strStringForm == EXPECTED_STRING_FORM);
 }
 

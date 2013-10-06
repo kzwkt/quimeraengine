@@ -65,7 +65,7 @@ QTEST_SUITE_BEGIN( QQuaternion_TestSuite )
 /// </summary>
 QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
@@ -74,10 +74,10 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByQuaternion_Test 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_0, SQFloat::_2, SQFloat::_3);
     const float_q  SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = SCALAR * QUATERNION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -89,16 +89,16 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByQuaternion_Test 
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_W = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -110,7 +110,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
@@ -118,10 +118,10 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 
     const QQuaternion QUAT_TO_COPY(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, EXPECTED_VALUE_FOR_W);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuatUT = QUAT_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuatUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuatUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuatUT.z, EXPECTED_VALUE_FOR_Z);
@@ -133,7 +133,7 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_QuaternionIsCorrectlyCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
     const float_q EXPECTED_VALUE_X = SQFloat::_1;
@@ -142,10 +142,10 @@ QTEST_CASE ( Constructor3_QuaternionIsCorrectlyCopied_Test )
     const float_q EXPECTED_VALUE_W = SQFloat::_4;
     const QBaseQuaternion QUATERNION(EXPECTED_VALUE_X, EXPECTED_VALUE_Y, EXPECTED_VALUE_Z, EXPECTED_VALUE_W);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT(QUATERNION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_Z);
@@ -157,7 +157,7 @@ QTEST_CASE ( Constructor3_QuaternionIsCorrectlyCopied_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_QuaternionIsCorrectlyFormedWhenUsingArbitraryEulerAngles_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -182,10 +182,10 @@ QTEST_CASE ( Constructor4_QuaternionIsCorrectlyFormedWhenUsingArbitraryEulerAngl
     // float_q fRoll = D3DXToRadian(90);
     // D3DXQuaternionRotationYawPitchRoll(&q3, fYaw, fPitch, fRoll);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_Z) );
@@ -197,7 +197,7 @@ QTEST_CASE ( Constructor4_QuaternionIsCorrectlyFormedWhenUsingArbitraryEulerAngl
 /// </summary>
 QTEST_CASE ( Constructor4_ResultIsNormalizedWhenUsingNonZeroAngles_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -212,10 +212,10 @@ QTEST_CASE ( Constructor4_ResultIsNormalizedWhenUsingNonZeroAngles_Test )
 
     const QQuaternion NORMALIZED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == NORMALIZED_RESULT );
 }
 
@@ -224,17 +224,17 @@ QTEST_CASE ( Constructor4_ResultIsNormalizedWhenUsingNonZeroAngles_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_IdentityIsObtainedWhenAllAnglesEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     const float_q ALL_ANGLES_VALUE = SQFloat::_0;
 
     const QQuaternion EXPECTED_VALUE = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT(ALL_ANGLES_VALUE, ALL_ANGLES_VALUE, ALL_ANGLES_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE.x) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE.y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE.z) );
@@ -246,7 +246,7 @@ QTEST_CASE ( Constructor4_IdentityIsObtainedWhenAllAnglesEqualZero_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_FollowsYawPitchRollRotationOrder_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -275,10 +275,10 @@ QTEST_CASE ( Constructor4_FollowsYawPitchRollRotationOrder_Test )
     // D3DXQuaternionRotationYawPitchRoll(&roll, 0, 0, fRoll);
     // q3 = roll * pitch * yaw;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE.x) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE.y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE.z) );
@@ -290,16 +290,16 @@ QTEST_CASE ( Constructor4_FollowsYawPitchRollRotationOrder_Test )
 /// </summary>
 QTEST_CASE ( Constructor5_ValuesAreCorrectlySet_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_Z = SQFloat::_3;
     const float_q EXPECTED_VALUE_W = SQFloat::_4;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_Z);
@@ -311,7 +311,7 @@ QTEST_CASE ( Constructor5_ValuesAreCorrectlySet_Test )
 /// </summary>
 QTEST_CASE ( Constructor6_QuaternionComponentsAreFilledWithValidReferenceTo4Floats_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
@@ -323,10 +323,10 @@ QTEST_CASE ( Constructor6_QuaternionComponentsAreFilledWithValidReferenceTo4Floa
     VALID_ARRAY_OF_4_FLOATS[2] = EXPECTED_VALUE_FOR_Z;
     VALID_ARRAY_OF_4_FLOATS[3] = EXPECTED_VALUE_FOR_W;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT(VALID_ARRAY_OF_4_FLOATS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, VALID_ARRAY_OF_4_FLOATS[0]);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, VALID_ARRAY_OF_4_FLOATS[1]);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, VALID_ARRAY_OF_4_FLOATS[2]);
@@ -343,10 +343,10 @@ QTEST_CASE ( Constructor6_QuaternionComponentsAreFilledWithValidReferenceTo4Floa
 /// </summary>
 QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q* NULL_ARRAY = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -358,7 +358,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -369,7 +369,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 /// </summary>
 QTEST_CASE ( Constructor7_QuaternionComponentsAreSetToValidVF32PackedValues_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
@@ -378,10 +378,10 @@ QTEST_CASE ( Constructor7_QuaternionComponentsAreSetToValidVF32PackedValues_Test
 	vf32_q PACK;
 	SQVF32::Pack(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, EXPECTED_VALUE_FOR_W, PACK);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(PACK);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -393,7 +393,7 @@ QTEST_CASE ( Constructor7_QuaternionComponentsAreSetToValidVF32PackedValues_Test
 /// </summary>
 QTEST_CASE ( Constructor8_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -416,10 +416,10 @@ QTEST_CASE ( Constructor8_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
     // float_q fAngle = SQAngle::_QuarterPi;
     // D3DXQuaternionRotationAxis(&q3, &axis, fAngle);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -432,7 +432,7 @@ QTEST_CASE ( Constructor8_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
 /// </summary>
 QTEST_CASE ( Constructor8_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -446,10 +446,10 @@ QTEST_CASE ( Constructor8_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZ
 
     const QQuaternion NORMALIZED_RESULT = QQuaternion(AXIS, ANGLE).Normalize();
 
-    // Execution
+    // [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == NORMALIZED_RESULT );
 }
 
@@ -458,7 +458,7 @@ QTEST_CASE ( Constructor8_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZ
 /// </summary>
 QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -474,10 +474,10 @@ QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_
     const float_q EXPECTED_VALUE_FOR_VECTOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_VECTOR_Z = SQFloat::_3;
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     // Verifies that the vector doesn't rotate
     QVector3 vVectorForVerification(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     qQuaternionUT = qQuaternionUT.Normalize(); // To assure a correct rotation
@@ -493,7 +493,7 @@ QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_
 /// </summary>
 QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -504,10 +504,10 @@ QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test 
     const float_q EXPECTED_VALUE_FOR_VECTOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_VECTOR_Z = SQFloat::_3;
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     // Verifies that the vector doesn't rotate
     QVector3 vVectorForVerification(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     qQuaternionUT = qQuaternionUT.Normalize(); // To assure a correct rotation
@@ -523,7 +523,7 @@ QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test 
 /// </summary>
 QTEST_CASE ( Constructor8_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -537,10 +537,10 @@ QTEST_CASE ( Constructor8_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 
     const QQuaternion NORMALIZED_RESULT = QQuaternion(AXIS, ANGLE).Normalize();
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -549,7 +549,7 @@ QTEST_CASE ( Constructor8_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 /// </summary>
 QTEST_CASE ( Constructor8_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -563,10 +563,10 @@ QTEST_CASE ( Constructor8_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 
     const QQuaternion CORRECT_QUATERNION(AXIS.Normalize(), ANGLE);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != CORRECT_QUATERNION );
 }
 
@@ -575,7 +575,7 @@ QTEST_CASE ( Constructor8_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 /// </summary>
 QTEST_CASE ( Constructor9_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -598,10 +598,10 @@ QTEST_CASE ( Constructor9_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
     // float_q fAngle = SQAngle::_QuarterPi;
     // D3DXQuaternionRotationAxis(&q3, &axis, fAngle);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -613,7 +613,7 @@ QTEST_CASE ( Constructor9_QuaternionCorrectlyFormedWhenUsingNormalizedVectorAndN
 /// </summary>
 QTEST_CASE ( Constructor9_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZeroAngle_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -627,10 +627,10 @@ QTEST_CASE ( Constructor9_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZ
 
     const QQuaternion NORMALIZED_RESULT = QQuaternion(AXIS, ANGLE).Normalize();
 
-    // Execution
+    // [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == NORMALIZED_RESULT );
 }
 
@@ -639,7 +639,7 @@ QTEST_CASE ( Constructor9_QuaternionIsNormalizedWhenUsingNormalizedVectorAndNonZ
 /// </summary>
 QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -656,10 +656,10 @@ QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_
     const float_q EXPECTED_VALUE_FOR_VECTOR_Z = SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_VECTOR_W = SQFloat::_4;
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     // Verifies that the vector doesn't rotate
     QVector4 vVectorForVerification(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     qQuaternionUT = qQuaternionUT.Normalize(); // To assure a correct rotation
@@ -676,7 +676,7 @@ QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_
 /// </summary>
 QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -688,10 +688,10 @@ QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test 
     const float_q EXPECTED_VALUE_FOR_VECTOR_Z = SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_VECTOR_W = SQFloat::_4;
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     // Verifies that the vector doesn't rotate
     QVector4 vVectorForVerification(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     qQuaternionUT = qQuaternionUT.Normalize(); // To assure a correct rotation
@@ -708,7 +708,7 @@ QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingZeroAsAngle_Test 
 /// </summary>
 QTEST_CASE ( Constructor9_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -722,10 +722,10 @@ QTEST_CASE ( Constructor9_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 
     const QQuaternion NORMALIZED_RESULT = QQuaternion(AXIS, ANGLE).Normalize();
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -734,7 +734,7 @@ QTEST_CASE ( Constructor9_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
 /// </summary>
 QTEST_CASE ( Constructor9_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -748,10 +748,10 @@ QTEST_CASE ( Constructor9_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 
     const QQuaternion CORRECT_QUATERNION(AXIS.Normalize(), ANGLE);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(AXIS, ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != CORRECT_QUATERNION );
 }
 
@@ -760,7 +760,7 @@ QTEST_CASE ( Constructor9_ResultIsIncorrectWhenUsingNotNormalizedAxis_Test )
 /// </summary>
 QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -783,10 +783,10 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
                                                            QScalingMatrix3x3());
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -795,7 +795,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
 /// </summary>
 QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotationAndScale_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -818,10 +818,10 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
                                                            QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -830,7 +830,7 @@ QTEST_CASE ( Constructor10_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
 /// </summary>
 QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNotRotation_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -842,10 +842,10 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
                                                            QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -856,14 +856,14 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 /// </summary>
 QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QTransformationMatrix<QMatrix4x3> ZERO_MATRIX(QTransformationMatrix<QMatrix4x3>::GetZeroMatrix());
     const QQuaternion EXPECTED_RESULT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -875,7 +875,7 @@ QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -886,17 +886,17 @@ QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
 /// </summary>
 QTEST_CASE ( Constructor10_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QTransformationMatrix<QMatrix4x3> TRANSFORMATION(QTransformationMatrix<QMatrix4x3>::GetIdentity());
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -905,7 +905,7 @@ QTEST_CASE ( Constructor10_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 /// </summary>
 QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -928,10 +928,10 @@ QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
                                                            QScalingMatrix3x3());
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -940,7 +940,7 @@ QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotat
 /// </summary>
 QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotationAndScale_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -963,10 +963,10 @@ QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
                                                            QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -975,7 +975,7 @@ QTEST_CASE ( Constructor11_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslati
 /// </summary>
 QTEST_CASE ( Constructor11_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNotRotation_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -987,10 +987,10 @@ QTEST_CASE ( Constructor11_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
                                                            QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1001,14 +1001,14 @@ QTEST_CASE ( Constructor11_IdentityIsObtainedWhenMatrixContainsTranslationAndSca
 /// </summary>
 QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QTransformationMatrix<QMatrix4x4> ZERO_MATRIX(QTransformationMatrix<QMatrix4x4>::GetZeroMatrix());
     const QQuaternion EXPECTED_RESULT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1020,7 +1020,7 @@ QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1031,17 +1031,17 @@ QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
 /// </summary>
 QTEST_CASE ( Constructor11_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTransformationMatrix<QMatrix4x4>::GetIdentity());
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1050,7 +1050,7 @@ QTEST_CASE ( Constructor11_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 /// </summary>
 QTEST_CASE ( Constructor12_QuaternionIsCorrectlyBuiltWhenUsingArbitraryRotationMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -1067,10 +1067,10 @@ QTEST_CASE ( Constructor12_QuaternionIsCorrectlyBuiltWhenUsingArbitraryRotationM
     const QRotationMatrix3x3 ROTATION(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1081,13 +1081,13 @@ QTEST_CASE ( Constructor12_QuaternionIsCorrectlyBuiltWhenUsingArbitraryRotationM
 /// </summary>
 QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
     const QRotationMatrix3x3 ZERO_MATRIX(QRotationMatrix3x3::GetZeroMatrix());
     const QQuaternion EXPECTED_RESULT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1099,7 +1099,7 @@ QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1110,16 +1110,16 @@ QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
 /// </summary>
 QTEST_CASE ( Constructor12_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
     const QRotationMatrix3x3 ROTATION(QRotationMatrix3x3::GetIdentity());
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
 	QQuaternion qQuaternionUT(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1130,7 +1130,7 @@ QTEST_CASE ( Constructor12_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 template<class MatrixType>
 void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::Test::QQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -1153,11 +1153,11 @@ void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRotation_Tem
                                                            QScalingMatrix3x3());
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-	// Execution
+	// [Execution]
 	QQuaternionWhiteBox qQuaternionUT;
     qQuaternionUT.QQuaternionImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1182,7 +1182,7 @@ QTEST_CASE ( QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixOnlyContainsRota
 template<class MatrixType>
 void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotationAndScale_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::Test::QQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -1205,11 +1205,11 @@ void QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslationRotat
                                                            QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
 
-	// Execution
+	// [Execution]
 	QQuaternionWhiteBox qQuaternionUT;
     qQuaternionUT.QQuaternionImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1234,7 +1234,7 @@ QTEST_CASE ( QQuaternionImp_QuaternionIsCorrectlyBuiltWhenMatrixContainsTranslat
 template<class MatrixType>
 void QQuaternionImp_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNotRotation_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::Test::QQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -1246,11 +1246,11 @@ void QQuaternionImp_IdentityIsObtainedWhenMatrixContainsTranslationAndScaleButNo
                                                            QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_0_5, (float_q)200.0));
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
 	QQuaternionWhiteBox qQuaternionUT;
     qQuaternionUT.QQuaternionImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1277,14 +1277,14 @@ QTEST_CASE ( QQuaternionImp_IdentityIsObtainedWhenMatrixContainsTranslationAndSc
 template<class MatrixType>
 void QQuaternionImp_AssertionFailsWhenUsingNullMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::Test::QQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QTransformationMatrix<MatrixType> ZERO_MATRIX(QTransformationMatrix<MatrixType>::GetZeroMatrix());
     const QQuaternion EXPECTED_RESULT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1297,7 +1297,7 @@ void QQuaternionImp_AssertionFailsWhenUsingNullMatrix_Template()
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1324,7 +1324,7 @@ QTEST_CASE ( QQuaternionImp_AssertionFailsWhenUsingNullMatrix_Test )
 template<class MatrixType>
 void QQuaternionImp_IdentityIsObtainedWhenUsingIdentityMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::Test::QQuaternionWhiteBox;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
@@ -1332,11 +1332,11 @@ void QQuaternionImp_IdentityIsObtainedWhenUsingIdentityMatrix_Template()
     const QTransformationMatrix<QMatrix4x4> TRANSFORMATION(QTransformationMatrix<QMatrix4x4>::GetIdentity());
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
 	QQuaternionWhiteBox qQuaternionUT;
     qQuaternionUT.QQuaternionImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1359,14 +1359,14 @@ QTEST_CASE ( QQuaternionImp_IdentityIsObtainedWhenUsingIdentityMatrix_Test )
 /// </summary>
 QTEST_CASE ( GetIdentity_XYZEqualZeroAndWEqualsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_XYZ = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_W = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QQuaternion::GetIdentity();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_XYZ);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_XYZ);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_XYZ);
@@ -1378,7 +1378,7 @@ QTEST_CASE ( GetIdentity_XYZEqualZeroAndWEqualsOne_Test )
 /// </summary>
 QTEST_CASE ( OperatorAddition_TwoDifferentQuaternionsAreCorrectlyAdded_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_3 + SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_5;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_7;
@@ -1387,10 +1387,10 @@ QTEST_CASE ( OperatorAddition_TwoDifferentQuaternionsAreCorrectlyAdded_Test )
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 + OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1402,16 +1402,16 @@ QTEST_CASE ( OperatorAddition_TwoDifferentQuaternionsAreCorrectlyAdded_Test )
 /// </summary>
 QTEST_CASE ( OperatorAddition_ResultIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 + OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 + OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(qQuaternionUT != NORMALIZED_RESULT);
 }
 
@@ -1420,7 +1420,7 @@ QTEST_CASE ( OperatorAddition_ResultIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtraction_TwoDifferentQuaternionsAreCorrectlySubtracted_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = -SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_7;
@@ -1429,10 +1429,10 @@ QTEST_CASE ( OperatorSubtraction_TwoDifferentQuaternionsAreCorrectlySubtracted_T
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_9);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_0_5, SQFloat::_4, -SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 - OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1444,16 +1444,16 @@ QTEST_CASE ( OperatorSubtraction_TwoDifferentQuaternionsAreCorrectlySubtracted_T
 /// </summary>
 QTEST_CASE ( OperatorSubtraction_ResultIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 - OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 - OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(qQuaternionUT != NORMALIZED_RESULT);
 }
 
@@ -1462,7 +1462,7 @@ QTEST_CASE ( OperatorSubtraction_ResultIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_QuaternionIsCorrectlyMultipliedByAnotherQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)0.34045882057130072;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.20951312035156971;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.54997194092287027;
@@ -1471,10 +1471,10 @@ QTEST_CASE ( OperatorProduct1_QuaternionIsCorrectlyMultipliedByAnotherQuaternion
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -1486,15 +1486,15 @@ QTEST_CASE ( OperatorProduct1_QuaternionIsCorrectlyMultipliedByAnotherQuaternion
 /// </summary>
 QTEST_CASE ( OperatorProduct1_ProductIsNotCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternion1UT = OPERAND1 * OPERAND2;
     QQuaternion qQuaternion2UT = OPERAND2 * OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternion1UT != qQuaternion2UT );
 }
 
@@ -1503,16 +1503,16 @@ QTEST_CASE ( OperatorProduct1_ProductIsNotCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_ProductByIdentityReturnsTheSame_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion IDENTITY_QUATERNION = QQuaternion::GetIdentity();
     const QQuaternion EXPECTED_RESULT = OPERAND;
 
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND * IDENTITY_QUATERNION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1521,15 +1521,15 @@ QTEST_CASE ( OperatorProduct1_ProductByIdentityReturnsTheSame_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_ProductByInverseReturnsIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion INVERSE = OPERAND.Invert();
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND * INVERSE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1538,15 +1538,15 @@ QTEST_CASE ( OperatorProduct1_ProductByInverseReturnsIdentity_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_ResultIsNotNormalizedWhenOperandsAreNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2);
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 * OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -1555,15 +1555,15 @@ QTEST_CASE ( OperatorProduct1_ResultIsNotNormalizedWhenOperandsAreNotNormalized_
 /// </summary>
 QTEST_CASE ( OperatorProduct1_ResultIsNormalizedWhenOperandsAreNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 * OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == NORMALIZED_RESULT );
 }
 
@@ -1572,7 +1572,7 @@ QTEST_CASE ( OperatorProduct1_ResultIsNormalizedWhenOperandsAreNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct2_QuaternionIsCorrectlyMultipliedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_1;
@@ -1581,10 +1581,10 @@ QTEST_CASE ( OperatorProduct2_QuaternionIsCorrectlyMultipliedByScalar_Test )
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_0, -SQFloat::_2, SQFloat::_4);
     const float_q SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION * SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1596,17 +1596,17 @@ QTEST_CASE ( OperatorProduct2_QuaternionIsCorrectlyMultipliedByScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct3_QuaternionIsCorrectlyMultipliedBy3DVector_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector3 VECTOR = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)11.0, (float_q)4.0, (float_q)15.0, (float_q)-32.0);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION * VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1615,17 +1615,17 @@ QTEST_CASE ( OperatorProduct3_QuaternionIsCorrectlyMultipliedBy3DVector_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct3_ResultIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector3 VECTOR = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QQuaternion NORMALIZED_RESULT = (QUATERNION * VECTOR).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION * VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -1634,17 +1634,17 @@ QTEST_CASE ( OperatorProduct3_ResultIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct4_QuaternionIsCorrectlyMultipliedBy4DVector_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector4 VECTOR = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)19.0, (float_q)20.0, (float_q)39.0, (float_q)-16.0);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION * VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1653,17 +1653,17 @@ QTEST_CASE ( OperatorProduct4_QuaternionIsCorrectlyMultipliedBy4DVector_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct4_ResultIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector4 VECTOR = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7);
     const QQuaternion NORMALIZED_RESULT = (QUATERNION * VECTOR).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION * VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -1672,7 +1672,7 @@ QTEST_CASE ( OperatorProduct4_ResultIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision1_QuaternionIsCorrectlyDividedByAnotherQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)-0.23570226039551589;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)-5.5511151231257827e-017;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)-0.23570226039551592;
@@ -1681,10 +1681,10 @@ QTEST_CASE ( OperatorDivision1_QuaternionIsCorrectlyDividedByAnotherQuaternion_T
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 / OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -1696,15 +1696,15 @@ QTEST_CASE ( OperatorDivision1_QuaternionIsCorrectlyDividedByAnotherQuaternion_T
 /// </summary>
 QTEST_CASE ( OperatorDivision1_DivisionIsNotCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternion1UT = OPERAND1 / OPERAND2;
     QQuaternion qQuaternion2UT = OPERAND2 / OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternion1UT != qQuaternion2UT );
 }
 
@@ -1713,15 +1713,15 @@ QTEST_CASE ( OperatorDivision1_DivisionIsNotCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision1_DivisionByIdentityReturnsTheSame_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion IDENTITY_QUATERNION = QQuaternion::GetIdentity();
     const QQuaternion EXPECTED_RESULT = OPERAND;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND / IDENTITY_QUATERNION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1730,15 +1730,15 @@ QTEST_CASE ( OperatorDivision1_DivisionByIdentityReturnsTheSame_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision1_ResultIsNotNormalizedWhenOperandsAreNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2);
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 / OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 / OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -1747,15 +1747,15 @@ QTEST_CASE ( OperatorDivision1_ResultIsNotNormalizedWhenOperandsAreNotNormalized
 /// </summary>
 QTEST_CASE ( OperatorDivision1_ResultIsNormalizedWhenOperandsAreNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 / OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1 / OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == NORMALIZED_RESULT );
 }
 
@@ -1764,7 +1764,7 @@ QTEST_CASE ( OperatorDivision1_ResultIsNormalizedWhenOperandsAreNormalized_Test 
 /// </summary>
 QTEST_CASE ( OperatorDivision2_QuaternionIsCorrectlyDividedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_4;
@@ -1773,10 +1773,10 @@ QTEST_CASE ( OperatorDivision2_QuaternionIsCorrectlyDividedByScalar_Test )
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_0, -SQFloat::_2, SQFloat::_4);
     const float_q SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION / SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1789,7 +1789,7 @@ QTEST_CASE ( OperatorDivision2_QuaternionIsCorrectlyDividedByScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignation_TwoDifferentQuaternionsAreCorrectlyAdded_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_3 + SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_5;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_7;
@@ -1798,11 +1798,11 @@ QTEST_CASE ( OperatorAdditionAssignation_TwoDifferentQuaternionsAreCorrectlyAdde
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT += OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1814,17 +1814,17 @@ QTEST_CASE ( OperatorAdditionAssignation_TwoDifferentQuaternionsAreCorrectlyAdde
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignation_ResultIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 + OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT += OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(qQuaternionUT != NORMALIZED_RESULT);
 }
 
@@ -1833,15 +1833,15 @@ QTEST_CASE ( OperatorAdditionAssignation_ResultIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignation_AddedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QQuaternion EXPECTED_RESULT = QQuaternion(SQFloat::_0_5, SQFloat::_2, SQFloat::_4, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT += qQuaternionUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(qQuaternionUT == EXPECTED_RESULT);
 }
 
@@ -1850,7 +1850,7 @@ QTEST_CASE ( OperatorAdditionAssignation_AddedToItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignation_TwoDifferentQuaternionsAreCorrectlySubtracted_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = -SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_7;
@@ -1859,11 +1859,11 @@ QTEST_CASE ( OperatorSubtractionAssignation_TwoDifferentQuaternionsAreCorrectlyS
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_9);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_0_5, SQFloat::_4, -SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT -= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1875,17 +1875,17 @@ QTEST_CASE ( OperatorSubtractionAssignation_TwoDifferentQuaternionsAreCorrectlyS
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignation_ResultIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 - OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT -= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(qQuaternionUT != NORMALIZED_RESULT);
 }
 
@@ -1894,15 +1894,15 @@ QTEST_CASE ( OperatorSubtractionAssignation_ResultIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignation_SubtractedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_0_25, SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QQuaternion EXPECTED_RESULT = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT -= qQuaternionUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(qQuaternionUT == EXPECTED_RESULT);
 }
 
@@ -1911,7 +1911,7 @@ QTEST_CASE ( OperatorSubtractionAssignation_SubtractedToItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByAnotherQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)0.34045882057130072;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.20951312035156971;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.54997194092287027;
@@ -1920,11 +1920,11 @@ QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByAnothe
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -1936,17 +1936,17 @@ QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByAnothe
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_ProductIsNotCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternion1UT = OPERAND1;
     qQuaternion1UT *= OPERAND2;
     QQuaternion qQuaternion2UT = OPERAND2;
     qQuaternion2UT *= OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternion1UT != qQuaternion2UT );
 }
 
@@ -1955,16 +1955,16 @@ QTEST_CASE ( OperatorProductAssignation1_ProductIsNotCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_ProductByIdentityReturnsTheSame_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion IDENTITY_QUATERNION = QQuaternion::GetIdentity();
     const QQuaternion EXPECTED_RESULT = OPERAND;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT *= IDENTITY_QUATERNION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1973,16 +1973,16 @@ QTEST_CASE ( OperatorProductAssignation1_ProductByIdentityReturnsTheSame_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_ProductByInverseReturnsIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion INVERSE = OPERAND.Invert();
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT *= INVERSE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -1991,16 +1991,16 @@ QTEST_CASE ( OperatorProductAssignation1_ProductByInverseReturnsIdentity_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_ResultIsNotNormalizedWhenOperandsAreNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2);
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 * OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -2009,16 +2009,16 @@ QTEST_CASE ( OperatorProductAssignation1_ResultIsNotNormalizedWhenOperandsAreNot
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_ResultIsNormalizedWhenOperandsAreNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 * OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == NORMALIZED_RESULT );
 }
 
@@ -2027,7 +2027,7 @@ QTEST_CASE ( OperatorProductAssignation1_ResultIsNormalizedWhenOperandsAreNormal
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)0.22222222222222221;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.44444444444444448;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)0.66666666666666674;
@@ -2035,11 +2035,11 @@ QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByItself
 
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT *= qQuaternionUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -2051,7 +2051,7 @@ QTEST_CASE ( OperatorProductAssignation1_QuaternionIsCorrectlyMultipliedByItself
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_1;
@@ -2060,11 +2060,11 @@ QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByScalar
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_0, -SQFloat::_2, SQFloat::_4);
     const float_q SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     qQuaternionUT *= SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -2076,7 +2076,7 @@ QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByScalar
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByOneOfItsComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)288.0;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)576.0;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)864.0;
@@ -2084,14 +2084,14 @@ QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByOneOfI
 
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT *= qQuaternionUT.x;
     qQuaternionUT *= qQuaternionUT.y; // x 1
     qQuaternionUT *= qQuaternionUT.z; // x 2
     qQuaternionUT *= qQuaternionUT.w; // x 2 x 3
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -2103,18 +2103,18 @@ QTEST_CASE ( OperatorProductAssignation2_QuaternionIsCorrectlyMultipliedByOneOfI
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation3_QuaternionIsCorrectlyMultipliedBy3DVector_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector3 VECTOR = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)11.0, (float_q)4.0, (float_q)15.0, (float_q)-32.0);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     qQuaternionUT *= VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2123,18 +2123,18 @@ QTEST_CASE ( OperatorProductAssignation3_QuaternionIsCorrectlyMultipliedBy3DVect
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation3_ResultIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector3 VECTOR = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QQuaternion NORMALIZED_RESULT = (QUATERNION * VECTOR).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     qQuaternionUT *= VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -2143,18 +2143,18 @@ QTEST_CASE ( OperatorProductAssignation3_ResultIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation4_QuaternionIsCorrectlyMultipliedBy4DVector_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector4 VECTOR = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8);
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)19.0, (float_q)20.0, (float_q)39.0, (float_q)-16.0);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     qQuaternionUT *= VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2163,18 +2163,18 @@ QTEST_CASE ( OperatorProductAssignation4_QuaternionIsCorrectlyMultipliedBy4DVect
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation4_ResultIsNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QVector4 VECTOR = QVector4(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7);
     const QQuaternion NORMALIZED_RESULT = (QUATERNION * VECTOR).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     qQuaternionUT *= VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -2183,7 +2183,7 @@ QTEST_CASE ( OperatorProductAssignation4_ResultIsNotNormalized_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_QuaternionIsCorrectlyDividedByAnotherQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)-0.23570226039551589;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)-5.5511151231257827e-017;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)-0.23570226039551592;
@@ -2192,11 +2192,11 @@ QTEST_CASE ( OperatorDivisionAssignation1_QuaternionIsCorrectlyDividedByAnotherQ
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT /= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -2208,17 +2208,17 @@ QTEST_CASE ( OperatorDivisionAssignation1_QuaternionIsCorrectlyDividedByAnotherQ
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_DivisionIsNotCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternion1UT = OPERAND1;
     qQuaternion1UT /= OPERAND2;
     QQuaternion qQuaternion2UT = OPERAND2;
     qQuaternion2UT /= OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternion1UT != qQuaternion2UT );
 }
 
@@ -2227,16 +2227,16 @@ QTEST_CASE ( OperatorDivisionAssignation1_DivisionIsNotCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_DivisionByIdentityReturnsTheSame_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion IDENTITY_QUATERNION = QQuaternion::GetIdentity();
     const QQuaternion EXPECTED_RESULT = OPERAND;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT /= IDENTITY_QUATERNION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2245,16 +2245,16 @@ QTEST_CASE ( OperatorDivisionAssignation1_DivisionByIdentityReturnsTheSame_Test 
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_ResultIsNotNormalizedWhenOperandsAreNotNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2);
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 / OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT /= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NORMALIZED_RESULT );
 }
 
@@ -2263,16 +2263,16 @@ QTEST_CASE ( OperatorDivisionAssignation1_ResultIsNotNormalizedWhenOperandsAreNo
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_ResultIsNormalizedWhenOperandsAreNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2).Normalize();
     const QQuaternion NORMALIZED_RESULT = (OPERAND1 / OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1;
     qQuaternionUT /= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == NORMALIZED_RESULT );
 }
 
@@ -2281,15 +2281,15 @@ QTEST_CASE ( OperatorDivisionAssignation1_ResultIsNormalizedWhenOperandsAreNorma
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_QuaternionIsCorrectlyDividedByItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2).Normalize();
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT /= qQuaternionUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2298,7 +2298,7 @@ QTEST_CASE ( OperatorDivisionAssignation1_QuaternionIsCorrectlyDividedByItself_T
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation2_QuaternionIsCorrectlyDividedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_4;
@@ -2307,11 +2307,11 @@ QTEST_CASE ( OperatorDivisionAssignation2_QuaternionIsCorrectlyDividedByScalar_T
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_0, -SQFloat::_2, SQFloat::_4);
     const float_q SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     qQuaternionUT /= SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -2323,7 +2323,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_QuaternionIsCorrectlyDividedByScalar_T
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation2_QuaternionIsCorrectlyDivisionByOneOfItsComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)1.5;
@@ -2331,14 +2331,14 @@ QTEST_CASE ( OperatorDivisionAssignation2_QuaternionIsCorrectlyDivisionByOneOfIt
 
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND;
     qQuaternionUT /= qQuaternionUT.x;
     qQuaternionUT /= qQuaternionUT.y; // / 1
     qQuaternionUT /= qQuaternionUT.z; // / 2
     qQuaternionUT /= qQuaternionUT.w; // / 2 / 3
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z) );
@@ -2350,7 +2350,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_QuaternionIsCorrectlyDivisionByOneOfIt
 /// </summary>
 QTEST_CASE ( OperatorAssignation_QuaternionIsAssignedProperlyToAnother_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
@@ -2358,11 +2358,11 @@ QTEST_CASE ( OperatorAssignation_QuaternionIsAssignedProperlyToAnother_Test )
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT;
     qQuaternionUT = QUATERNION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -2374,7 +2374,7 @@ QTEST_CASE ( OperatorAssignation_QuaternionIsAssignedProperlyToAnother_Test )
 /// </summary>
 QTEST_CASE ( OperatorUnaryMinus_ComponentsAreNegated_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
@@ -2382,10 +2382,10 @@ QTEST_CASE ( OperatorUnaryMinus_ComponentsAreNegated_Test )
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, -SQFloat::_4);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = -QUATERNION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_Z);
@@ -2397,15 +2397,15 @@ QTEST_CASE ( OperatorUnaryMinus_ComponentsAreNegated_Test )
 /// </summary>
 QTEST_CASE ( Normalize_CommonQuaternionIsCorrectlyNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION.Normalize();
 
-    // Verification
+    // [Verification]
     float_q fSquaredLength = qQuaternionUT.GetSquaredLength();
 
     BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
@@ -2418,10 +2418,10 @@ QTEST_CASE ( Normalize_CommonQuaternionIsCorrectlyNormalized_Test )
 /// </summary>
 QTEST_CASE ( Normalize_AssertionFailsWhenNullQuaternionIsToBeNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2433,7 +2433,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullQuaternionIsToBeNormalized_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -2444,14 +2444,14 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullQuaternionIsToBeNormalized_Test )
 /// </summary>
 QTEST_CASE ( Invert_CommonQuaternionIsCorrectlyInverted_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)-0.033333333333333333, (float_q)0.066666666666666666, (float_q)-0.1, (float_q)0.13333333333333333);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION.Invert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2460,14 +2460,14 @@ QTEST_CASE ( Invert_CommonQuaternionIsCorrectlyInverted_Test )
 /// </summary>
 QTEST_CASE ( UnitInvert_NormalizedQuaternionIsCorrectlyInverted_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion NORMALIZED_QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)-0.18257418583505536, (float_q)0.36514837167011072, (float_q)-0.54772255750516607, (float_q)0.73029674334022143);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = NORMALIZED_QUATERNION.UnitInvert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2476,14 +2476,14 @@ QTEST_CASE ( UnitInvert_NormalizedQuaternionIsCorrectlyInverted_Test )
 /// </summary>
 QTEST_CASE ( UnitInvert_NotNormalizedQuaternionIsNotCorrectlyInverted_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion NOT_NORMALIZED_QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion NOT_EXPECTED_RESULT = QQuaternion((float_q)-0.18257418, (float_q)0.36514837, (float_q)-0.54772258, (float_q)0.73029673);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = NOT_NORMALIZED_QUATERNION.UnitInvert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT != NOT_EXPECTED_RESULT );
 }
 
@@ -2492,15 +2492,15 @@ QTEST_CASE ( UnitInvert_NotNormalizedQuaternionIsNotCorrectlyInverted_Test )
 /// </summary>
 QTEST_CASE ( ResetToZero_AllQuaternionComponentsAreSetToZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     qQuaternionUT.ResetToZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_VALUE_FOR_ALL);
@@ -2512,15 +2512,15 @@ QTEST_CASE ( ResetToZero_AllQuaternionComponentsAreSetToZero_Test )
 /// </summary>
 QTEST_CASE ( ResetToIdentity_QuaternionBecomesIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_0);
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     qQuaternionUT.ResetToIdentity();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(qQuaternionUT == IDENTITY);
 }
 
@@ -2529,16 +2529,16 @@ QTEST_CASE ( ResetToIdentity_QuaternionBecomesIdentity_Test )
 /// </summary>
 QTEST_CASE ( DotProduct_ReturnsDotProductFor2CommonQuaternions_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = (float_q)0.97590007294853309;
 
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7).Normalize();
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProduct(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
@@ -2547,15 +2547,15 @@ QTEST_CASE ( DotProduct_ReturnsDotProductFor2CommonQuaternions_Test )
 /// </summary>
 QTEST_CASE ( DotProduct_DotProductIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7).Normalize();
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProduct(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProduct(OPERAND1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -2564,16 +2564,16 @@ QTEST_CASE ( DotProduct_DotProductIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( DotProduct_DotProductEqualsOneWhenRotationAxisIsTheSame_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const float_q EXPECTED_RESULT = (float_q)30.0;
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND.DotProduct(OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -2582,17 +2582,17 @@ QTEST_CASE ( DotProduct_DotProductEqualsOneWhenRotationAxisIsTheSame_Test )
 /// </summary>
 QTEST_CASE ( DotProduct_ReturnsZeroWhenAOperandIsNullQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QQuaternion NONNULL_QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = NONNULL_QUATERNION.DotProduct(NULL_QUATERNION);
     float_q fResult2UT = NULL_QUATERNION.DotProduct(NONNULL_QUATERNION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -2602,7 +2602,7 @@ QTEST_CASE ( DotProduct_ReturnsZeroWhenAOperandIsNullQuaternion_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonQuaternions_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -2617,10 +2617,10 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonQuaternions_Test )
     const QQuaternion OPERAND1 = QQuaternion(ROTATION_AXIS, SQFloat::_0);
     const QQuaternion OPERAND2 = QQuaternion(ROTATION_AXIS, EXPECTED_RESULT);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT, SMALLER_TOLERANCE) );
 }
 
@@ -2629,17 +2629,17 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonQuaternions_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -2648,15 +2648,15 @@ QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND.DotProductAngle(OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -2665,7 +2665,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_
 /// </summary>
 QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -2678,10 +2678,10 @@ QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
     const QQuaternion REFERENCE_OPERAND = QQuaternion::GetIdentity();
     const QQuaternion QUATERNION = QQuaternion(QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0), HALF_CIRCUMFERENCE_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = REFERENCE_OPERAND.DotProductAngle(QUATERNION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResultUT, SQFloat::_0) );
 }
 
@@ -2690,14 +2690,14 @@ QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
 /// </summary>
 QTEST_CASE ( Conjugate_CommonQuaternionIsCorrectlyConjugated_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, -SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion EXPECTED_RESULT = QQuaternion(-SQFloat::_1, SQFloat::_2, -SQFloat::_3, SQFloat::_4);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION.Conjugate();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2706,7 +2706,7 @@ QTEST_CASE ( Conjugate_CommonQuaternionIsCorrectlyConjugated_Test )
 /// </summary>
 QTEST_CASE ( Lerp_CorrectLerpedQuaternionIsObtainedForTwoCommonQuaternions_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -2724,10 +2724,10 @@ QTEST_CASE ( Lerp_CorrectLerpedQuaternionIsObtainedForTwoCommonQuaternions_Test 
     // [TODO] Thund: There is a problem with imprecission, is it a matter of precission degradation or calculus error? It could be even an imprecission inherent to this Lerp process, reason to use Slerp
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)0.032794551514706963, (float_q)0.065589103029413925, (float_q)0.098383654544120888, (float_q)0.99244306812697791);
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Lerp(SQFloat::_0_25, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2736,13 +2736,13 @@ QTEST_CASE ( Lerp_CorrectLerpedQuaternionIsObtainedForTwoCommonQuaternions_Test 
 /// </summary>
 QTEST_CASE ( Lerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion EXPECTED_RESULT = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = EXPECTED_RESULT.Lerp(SQFloat::_0_5, EXPECTED_RESULT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_RESULT.z) );
@@ -2754,15 +2754,15 @@ QTEST_CASE ( Lerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuater
 /// </summary>
 QTEST_CASE ( Lerp_ResultIsAlwaysNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
     const QQuaternion EXPECTED_RESULT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_RESULT.z) );
@@ -2774,15 +2774,15 @@ QTEST_CASE ( Lerp_ResultIsAlwaysNormalized_Test )
 /// </summary>
 QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfQuaternionsAndItsConjugatedGivesIdentityQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = OPERAND1.Conjugate();
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
@@ -2794,16 +2794,16 @@ QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfQuaternionsAndItsConjugatedGivesIden
 /// </summary>
 QTEST_CASE ( Lerp_ProportionZeroMeansNormalizedResidentQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
     const QQuaternion EXPECTED_RESULT = OPERAND1.Normalize();
     const float_q PROPORTION = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Lerp(PROPORTION, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
@@ -2815,16 +2815,16 @@ QTEST_CASE ( Lerp_ProportionZeroMeansNormalizedResidentQuaternion_Test )
 /// </summary>
 QTEST_CASE ( Lerp_ProportionOneMeansNormalizedInputQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
     const QQuaternion EXPECTED_RESULT = OPERAND2.Normalize();
     const float_q PROPORTION = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Lerp(PROPORTION, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
@@ -2836,17 +2836,17 @@ QTEST_CASE ( Lerp_ProportionOneMeansNormalizedInputQuaternion_Test )
 /// </summary>
 QTEST_CASE ( Slerp_CorrectSlerpedQuaternionIsObtainedForTwoCommonQuaternions_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QQuaternion OPERAND1 = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), SQFloat::_0).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), SQFloat::_1).Normalize();
     const QQuaternion EXPECTED_RESULT = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), SQFloat::_0_25).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Slerp(SQFloat::_0_25, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( qQuaternionUT == EXPECTED_RESULT );
 }
 
@@ -2855,13 +2855,13 @@ QTEST_CASE ( Slerp_CorrectSlerpedQuaternionIsObtainedForTwoCommonQuaternions_Tes
 /// </summary>
 QTEST_CASE ( Slerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion EXPECTED_RESULT = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = EXPECTED_RESULT.Slerp(SQFloat::_0_5, EXPECTED_RESULT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
@@ -2873,15 +2873,15 @@ QTEST_CASE ( Slerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuate
 /// </summary>
 QTEST_CASE ( Slerp_ResultIsAlwaysNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8).Normalize();
     const QQuaternion EXPECTED_RESULT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2).Normalize();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Slerp(SQFloat::_0_5, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_RESULT.z) );
@@ -2893,15 +2893,15 @@ QTEST_CASE ( Slerp_ResultIsAlwaysNormalized_Test )
 /// </summary>
 QTEST_CASE ( Slerp_InterpolatingInTheMiddleOfQuaternionAndItsConjugatedGivesIdentityQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = OPERAND1.Conjugate();
     const QQuaternion EXPECTED_RESULT = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Slerp(SQFloat::_0_5, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
@@ -2913,16 +2913,16 @@ QTEST_CASE ( Slerp_InterpolatingInTheMiddleOfQuaternionAndItsConjugatedGivesIden
 /// </summary>
 QTEST_CASE ( Slerp_ProportionZeroMeansNormalizedResidentQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
     const QQuaternion EXPECTED_RESULT = OPERAND1.Normalize();
     const float_q PROPORTION = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Slerp(PROPORTION, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
@@ -2934,16 +2934,16 @@ QTEST_CASE ( Slerp_ProportionZeroMeansNormalizedResidentQuaternion_Test )
 /// </summary>
 QTEST_CASE ( Slerp_ProportionOneMeansNormalizedInputQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion OPERAND1 = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
     const QQuaternion EXPECTED_RESULT = OPERAND2.Normalize();
     const float_q PROPORTION = SQFloat::_1;
     
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = OPERAND1.Slerp(PROPORTION, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.z, EXPECTED_RESULT.z) );
@@ -2955,17 +2955,17 @@ QTEST_CASE ( Slerp_ProportionOneMeansNormalizedInputQuaternion_Test )
 /// </summary>
 QTEST_CASE ( ToEulerAngles_AnglesEqualZeroWhenQuaternionIsIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
     const float_q EXPECTED_ANGLES = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fAngleXUT = SQFloat::_1;
     float_q fAngleYUT = SQFloat::_1;
     float_q fAngleZUT = SQFloat::_1;
     IDENTITY.ToEulerAngles(fAngleXUT, fAngleYUT, fAngleZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fAngleXUT, EXPECTED_ANGLES);
     BOOST_CHECK_EQUAL(fAngleYUT, EXPECTED_ANGLES);
     BOOST_CHECK_EQUAL(fAngleZUT, EXPECTED_ANGLES);
@@ -2976,7 +2976,7 @@ QTEST_CASE ( ToEulerAngles_AnglesEqualZeroWhenQuaternionIsIdentity_Test )
 /// </summary>
 QTEST_CASE ( ToEulerAngles_CorrectAnglesAreObtainedFromCommonQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q EXPECTED_X_ANGLE = SQFloat::_1;
         const float_q EXPECTED_Y_ANGLE = SQFloat::_2;
@@ -2996,13 +2996,13 @@ QTEST_CASE ( ToEulerAngles_CorrectAnglesAreObtainedFromCommonQuaternion_Test )
         const QQuaternion QUATERNION = QQuaternion(SQAngle::RadiansToDegrees(SQFloat::_1), SQAngle::RadiansToDegrees(SQFloat::_2), SQAngle::RadiansToDegrees(SQFloat::_4));
     #endif
     
-	// Execution
+	// [Execution]
     float_q fAngleXUT = SQFloat::_0;
     float_q fAngleYUT = SQFloat::_0;
     float_q fAngleZUT = SQFloat::_0;
     QUATERNION.ToEulerAngles(fAngleXUT, fAngleYUT, fAngleZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fAngleXUT, EXPECTED_X_ANGLE, SMALLER_TOLERANCE) );
     BOOST_CHECK( SQFloat::AreEqual(fAngleYUT, EXPECTED_Y_ANGLE, SMALLER_TOLERANCE) );
     BOOST_CHECK( SQFloat::AreEqual(fAngleZUT, EXPECTED_Z_ANGLE, SMALLER_TOLERANCE) );
@@ -3013,14 +3013,14 @@ QTEST_CASE ( ToEulerAngles_CorrectAnglesAreObtainedFromCommonQuaternion_Test )
 /// </summary>
 QTEST_CASE ( ToEulerAngles_ObtainedAnglesCorrespondToSameRotationEvenWhenAnglesAreNotWhatExpected_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_4);
     const QVector3 VECTOR(SQFloat::_1, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fAngleXUT = SQFloat::_0;
     float_q fAngleYUT = SQFloat::_0;
     float_q fAngleZUT = SQFloat::_0;
@@ -3031,7 +3031,7 @@ QTEST_CASE ( ToEulerAngles_ObtainedAnglesCorrespondToSameRotationEvenWhenAnglesA
     QQuaternion qQuaternionCreatedWithObtainedAngles(fAngleXUT, fAngleYUT, fAngleZUT);
     QVector3 vVectorRotatedWithObtainedAngles = VECTOR.Transform(qQuaternionCreatedWithObtainedAngles);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorRotatedWithOriginalAngles.x, vVectorRotatedWithObtainedAngles.x, SMALLER_TOLERANCE) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorRotatedWithOriginalAngles.y, vVectorRotatedWithObtainedAngles.y, SMALLER_TOLERANCE) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorRotatedWithOriginalAngles.z, vVectorRotatedWithObtainedAngles.z, SMALLER_TOLERANCE) );
@@ -3042,17 +3042,17 @@ QTEST_CASE ( ToEulerAngles_ObtainedAnglesCorrespondToSameRotationEvenWhenAnglesA
 /// </summary>
 QTEST_CASE ( ToEulerAngles_AnglesEqualZeroWhenQuaternionIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const float_q EXPECTED_ANGLES = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fAngleXUT = SQFloat::_1;
     float_q fAngleYUT = SQFloat::_1;
     float_q fAngleZUT = SQFloat::_1;
     NULL_QUATERNION.ToEulerAngles(fAngleXUT, fAngleYUT, fAngleZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fAngleXUT, EXPECTED_ANGLES);
     BOOST_CHECK_EQUAL(fAngleYUT, EXPECTED_ANGLES);
     BOOST_CHECK_EQUAL(fAngleZUT, EXPECTED_ANGLES);
@@ -3065,14 +3065,14 @@ QTEST_CASE ( ToEulerAngles_AnglesEqualZeroWhenQuaternionIsNull_Test )
 /// </summary>
 QTEST_CASE ( GetLength_CorrectLengthObtainedFromCommonQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const float_q EXPECTED_LENGTH = (float_q)5.4772255750516612;
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = QUATERNION.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLengthUT, EXPECTED_LENGTH) );
 }
 
@@ -3081,14 +3081,14 @@ QTEST_CASE ( GetLength_CorrectLengthObtainedFromCommonQuaternion_Test )
 /// </summary>
 QTEST_CASE ( GetLength_EqualsOneWhenUsingUnitQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const float_q EXPECTED_LENGTH = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = QUATERNION.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLengthUT, EXPECTED_LENGTH) );
 }
 
@@ -3097,14 +3097,14 @@ QTEST_CASE ( GetLength_EqualsOneWhenUsingUnitQuaternion_Test )
 /// </summary>
 QTEST_CASE ( GetLength_EqualsOneWhenUsingIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
     const float_q EXPECTED_LENGTH = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = IDENTITY.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
 }
 
@@ -3113,14 +3113,14 @@ QTEST_CASE ( GetLength_EqualsOneWhenUsingIdentity_Test )
 /// </summary>
 QTEST_CASE ( GetLength_EqualsZeroWhenUsingNullQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const float_q EXPECTED_LENGTH = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = NULL_QUATERNION.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
 }
 
@@ -3129,14 +3129,14 @@ QTEST_CASE ( GetLength_EqualsZeroWhenUsingNullQuaternion_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_CorrectLengthObtainedFromCommonQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const float_q EXPECTED_LENGTH = (float_q)30.0;
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = QUATERNION.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
 }
 
@@ -3145,14 +3145,14 @@ QTEST_CASE ( GetSquaredLength_CorrectLengthObtainedFromCommonQuaternion_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_EqualsOneWhenUsingUnitQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const float_q EXPECTED_LENGTH = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = QUATERNION.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLengthUT, EXPECTED_LENGTH) );
 }
 
@@ -3161,14 +3161,14 @@ QTEST_CASE ( GetSquaredLength_EqualsOneWhenUsingUnitQuaternion_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_EqualsOneWhenUsingIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
     const float_q EXPECTED_LENGTH = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = IDENTITY.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
 }
 
@@ -3177,14 +3177,14 @@ QTEST_CASE ( GetSquaredLength_EqualsOneWhenUsingIdentity_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_EqualsZeroWhenUsingNullQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const float_q EXPECTED_LENGTH = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = NULL_QUATERNION.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
 }
 
@@ -3193,7 +3193,7 @@ QTEST_CASE ( GetSquaredLength_EqualsZeroWhenUsingNullQuaternion_Test )
 /// </summary>
 QTEST_CASE ( ToAxisAngle1_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -3207,12 +3207,12 @@ QTEST_CASE ( ToAxisAngle1_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Tes
 
     const QQuaternion QUATERNION(EXPECTED_AXIS, EXPECTED_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector3 vAxisUT;
     QUATERNION.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
     BOOST_CHECK( SQFloat::AreEqual(fAngleUT, EXPECTED_ANGLE) );
 }
@@ -3222,7 +3222,7 @@ QTEST_CASE ( ToAxisAngle1_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Tes
 /// </summary>
 QTEST_CASE ( ToAxisAngle1_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenQuaternionIsIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const float_q EXPECTED_ANGLE = SQFloat::_0;
@@ -3230,12 +3230,12 @@ QTEST_CASE ( ToAxisAngle1_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenQuatern
 
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector3 vAxisUT;
     IDENTITY.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == UNITVECTORX );
     BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
 }
@@ -3245,7 +3245,7 @@ QTEST_CASE ( ToAxisAngle1_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenQuatern
 /// </summary>
 QTEST_CASE ( ToAxisAngle1_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -3259,12 +3259,12 @@ QTEST_CASE ( ToAxisAngle1_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Te
 
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector3 vAxisUT;
     NULL_QUATERNION.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
     BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
 }
@@ -3274,7 +3274,7 @@ QTEST_CASE ( ToAxisAngle1_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Te
 /// </summary>
 QTEST_CASE ( ToAxisAngle1_CorrectValuesObtainedWhenRotationAngleEqualsPiOr180_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -3287,12 +3287,12 @@ QTEST_CASE ( ToAxisAngle1_CorrectValuesObtainedWhenRotationAngleEqualsPiOr180_Te
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
     const QQuaternion QUATERNION = QQuaternion(EXPECTED_AXIS, EXPECTED_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector3 vAxisUT;
     QUATERNION.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
     BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
 }
@@ -3302,7 +3302,7 @@ QTEST_CASE ( ToAxisAngle1_CorrectValuesObtainedWhenRotationAngleEqualsPiOr180_Te
 /// </summary>
 QTEST_CASE ( ToAxisAngle1_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenRotationAngleIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const float_q EXPECTED_ANGLE = SQFloat::_0;
@@ -3310,12 +3310,12 @@ QTEST_CASE ( ToAxisAngle1_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenRotatio
 
     const QQuaternion QUATERNION = QQuaternion(UNITVECTORX, EXPECTED_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector3 vAxisUT;
     QUATERNION.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == UNITVECTORX );
     BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
 }
@@ -3325,7 +3325,7 @@ QTEST_CASE ( ToAxisAngle1_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenRotatio
 /// </summary>
 QTEST_CASE ( ToAxisAngle1_AngleIsAlwaysPositive_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -3340,14 +3340,14 @@ QTEST_CASE ( ToAxisAngle1_AngleIsAlwaysPositive_Test )
     const QQuaternion QUATERNION_USING_POSITIVE_ANGLE = QQuaternion(AXIS, EXPECTED_ANGLE);
     const QQuaternion QUATERNION_USING_NEGATIVE_ANGLE = QQuaternion(AXIS, -EXPECTED_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fAngleUTFromPositive = SQFloat::_0;
     float_q fAngleUTFromNegative = SQFloat::_0;
     QVector3 vAxisUT;
     QUATERNION_USING_POSITIVE_ANGLE.ToAxisAngle(vAxisUT, fAngleUTFromPositive);
     QUATERNION_USING_NEGATIVE_ANGLE.ToAxisAngle(vAxisUT, fAngleUTFromNegative);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fAngleUTFromPositive, EXPECTED_ANGLE) );
     BOOST_CHECK( SQFloat::AreEqual(fAngleUTFromNegative, EXPECTED_ANGLE) );
 }
@@ -3357,7 +3357,7 @@ QTEST_CASE ( ToAxisAngle1_AngleIsAlwaysPositive_Test )
 /// </summary>
 QTEST_CASE ( ToAxisAngle2_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -3372,12 +3372,12 @@ QTEST_CASE ( ToAxisAngle2_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Tes
 
     const QQuaternion QUATERNION(QVector4(-SQFloat::_1, SQFloat::_2, -SQFloat::_3, SQFloat::_4).Normalize(), EXPECTED_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector4 vAxisUT;
     QUATERNION.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
     BOOST_CHECK( SQFloat::AreEqual(fAngleUT, EXPECTED_ANGLE) );
 }
@@ -3387,7 +3387,7 @@ QTEST_CASE ( ToAxisAngle2_CorrectAngleAndAxisAreObtainedFromCommonQuaternion_Tes
 /// </summary>
 QTEST_CASE ( ToAxisAngle2_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenQuaternionIsIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
     const float_q EXPECTED_ANGLE = SQFloat::_0;
@@ -3395,12 +3395,12 @@ QTEST_CASE ( ToAxisAngle2_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenQuatern
 
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector4 vAxisUT;
     IDENTITY.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == UNITVECTORX );
     BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
 }
@@ -3410,7 +3410,7 @@ QTEST_CASE ( ToAxisAngle2_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenQuatern
 /// </summary>
 QTEST_CASE ( ToAxisAngle2_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -3424,12 +3424,12 @@ QTEST_CASE ( ToAxisAngle2_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Te
 
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector4 vAxisUT;
     NULL_QUATERNION.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
     BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
 }
@@ -3439,7 +3439,7 @@ QTEST_CASE ( ToAxisAngle2_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Te
 /// </summary>
 QTEST_CASE ( ToAxisAngle2_CorrectValuesObtainedWhenRotationAngleEqualsPiOr180_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -3453,12 +3453,12 @@ QTEST_CASE ( ToAxisAngle2_CorrectValuesObtainedWhenRotationAngleEqualsPiOr180_Te
     EXPECTED_AXIS.w = SQFloat::_0; // Axis is a vector, not a point
     const QQuaternion QUATERNION = QQuaternion(EXPECTED_AXIS, EXPECTED_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector4 vAxisUT;
     QUATERNION.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
     BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
 }
@@ -3468,7 +3468,7 @@ QTEST_CASE ( ToAxisAngle2_CorrectValuesObtainedWhenRotationAngleEqualsPiOr180_Te
 /// </summary>
 QTEST_CASE ( ToAxisAngle2_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenRotationAngleIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
     const float_q EXPECTED_ANGLE = SQFloat::_0;
@@ -3476,12 +3476,12 @@ QTEST_CASE ( ToAxisAngle2_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenRotatio
 
     const QQuaternion QUATERNION = QQuaternion(EXPECTED_AXIS, EXPECTED_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fAngleUT = SQFloat::_0;
     QVector4 vAxisUT;
     QUATERNION.ToAxisAngle(vAxisUT, fAngleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( vAxisUT == EXPECTED_AXIS );
     BOOST_CHECK_EQUAL( fAngleUT, EXPECTED_ANGLE );
 }
@@ -3491,7 +3491,7 @@ QTEST_CASE ( ToAxisAngle2_AxisIsUnitVectorPointingXAndAngleEqualsZeroWhenRotatio
 /// </summary>
 QTEST_CASE ( ToAxisAngle2_AngleIsAlwaysPositive_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
@@ -3506,14 +3506,14 @@ QTEST_CASE ( ToAxisAngle2_AngleIsAlwaysPositive_Test )
     const QQuaternion QUATERNION_USING_POSITIVE_ANGLE = QQuaternion(AXIS, EXPECTED_ANGLE);
     const QQuaternion QUATERNION_USING_NEGATIVE_ANGLE = QQuaternion(AXIS, -EXPECTED_ANGLE);
 
-	// Execution
+	// [Execution]
     float_q fAngleUTFromPositive = SQFloat::_0;
     float_q fAngleUTFromNegative = SQFloat::_0;
     QVector4 vAxisUT;
     QUATERNION_USING_POSITIVE_ANGLE.ToAxisAngle(vAxisUT, fAngleUTFromPositive);
     QUATERNION_USING_NEGATIVE_ANGLE.ToAxisAngle(vAxisUT, fAngleUTFromNegative);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fAngleUTFromPositive, EXPECTED_ANGLE) );
     BOOST_CHECK( SQFloat::AreEqual(fAngleUTFromNegative, EXPECTED_ANGLE) );
 }
@@ -3523,7 +3523,7 @@ QTEST_CASE ( ToAxisAngle2_AngleIsAlwaysPositive_Test )
 /// </summary>
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
-    // Preparation
+    // [Preparation]
     const QQuaternion QUATERNION = QQuaternion(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0, (float_q)1.0 );
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -3532,11 +3532,11 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
     const string_q EXPECTED_STRING_FORM = QE_L("Q(0.25,-1.9999999999999999e-006,40000,1)");
 #endif
 
-	// Execution
+	// [Execution]
     QQuaternion qQuaternionUT = QUATERNION;
     string_q strStringForm = qQuaternionUT.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strStringForm == EXPECTED_STRING_FORM);
 }
 

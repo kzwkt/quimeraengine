@@ -54,14 +54,14 @@ QTEST_SUITE_BEGIN( SQInteger_TestSuite )
 /// </summary>
 QTEST_CASE ( Abs1_AbsoluteValueIsReturnedWhenUsingNegativeValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i8_q INPUT = -50;
     const i8_q EXPECTED_RESULT = 50;
 
-	// Execution
+	// [Execution]
     i8_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -70,14 +70,14 @@ QTEST_CASE ( Abs1_AbsoluteValueIsReturnedWhenUsingNegativeValue_Test )
 /// </summary>
 QTEST_CASE ( Abs1_AbsoluteValueIsReturnedWhenUsingPositiveValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i8_q INPUT = SQInteger::MaxPositiveI8_Q;
     const i8_q EXPECTED_RESULT = SQInteger::MaxPositiveI8_Q;
 
-	// Execution
+	// [Execution]
     i8_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -86,14 +86,14 @@ QTEST_CASE ( Abs1_AbsoluteValueIsReturnedWhenUsingPositiveValue_Test )
 /// </summary>
 QTEST_CASE ( Abs1_ZeroIsReturnedWhenUsingZeroAsInput_Test )
 {
-    // Preparation
+    // [Preparation]
     const i8_q INPUT = 0;
     const i8_q EXPECTED_RESULT = 0;
 
-	// Execution
+	// [Execution]
     i8_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -102,14 +102,14 @@ QTEST_CASE ( Abs1_ZeroIsReturnedWhenUsingZeroAsInput_Test )
 /// </summary>
 QTEST_CASE ( Abs1_ReturnedValueEqualsInputValueWhenUsingMaximumNegativeValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i8_q INPUT = SQInteger::MaxNegativeI8_Q;
     const i8_q EXPECTED_RESULT = INPUT;
 
-	// Execution
+	// [Execution]
     i8_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -118,14 +118,14 @@ QTEST_CASE ( Abs1_ReturnedValueEqualsInputValueWhenUsingMaximumNegativeValue_Tes
 /// </summary>
 QTEST_CASE ( Abs2_AbsoluteValueIsReturnedWhenUsingNegativeValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i16_q INPUT = -50;
     const i16_q EXPECTED_RESULT = 50;
 
-	// Execution
+	// [Execution]
     i16_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -134,14 +134,14 @@ QTEST_CASE ( Abs2_AbsoluteValueIsReturnedWhenUsingNegativeValue_Test )
 /// </summary>
 QTEST_CASE ( Abs2_AbsoluteValueIsReturnedWhenUsingPositiveValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i16_q INPUT = SQInteger::MaxPositiveI16_Q;
     const i16_q EXPECTED_RESULT = SQInteger::MaxPositiveI16_Q;
 
-	// Execution
+	// [Execution]
     i16_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -150,14 +150,14 @@ QTEST_CASE ( Abs2_AbsoluteValueIsReturnedWhenUsingPositiveValue_Test )
 /// </summary>
 QTEST_CASE ( Abs2_ZeroIsReturnedWhenUsingZeroAsInput_Test )
 {
-    // Preparation
+    // [Preparation]
     const i16_q INPUT = 0;
     const i16_q EXPECTED_RESULT = 0;
 
-	// Execution
+	// [Execution]
     i16_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -166,14 +166,14 @@ QTEST_CASE ( Abs2_ZeroIsReturnedWhenUsingZeroAsInput_Test )
 /// </summary>
 QTEST_CASE ( Abs2_ReturnedValueEqualsInputValueWhenUsingMaximumNegativeValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i16_q INPUT = SQInteger::MaxNegativeI16_Q;
     const i16_q EXPECTED_RESULT = INPUT;
 
-	// Execution
+	// [Execution]
     i16_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -182,14 +182,14 @@ QTEST_CASE ( Abs2_ReturnedValueEqualsInputValueWhenUsingMaximumNegativeValue_Tes
 /// </summary>
 QTEST_CASE ( Abs3_AbsoluteValueIsReturnedWhenUsingNegativeValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i32_q INPUT = -50;
     const i32_q EXPECTED_RESULT = 50;
 
-	// Execution
+	// [Execution]
     i32_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -198,14 +198,14 @@ QTEST_CASE ( Abs3_AbsoluteValueIsReturnedWhenUsingNegativeValue_Test )
 /// </summary>
 QTEST_CASE ( Abs3_AbsoluteValueIsReturnedWhenUsingPositiveValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i32_q INPUT = SQInteger::MaxPositiveI32_Q;
     const i32_q EXPECTED_RESULT = SQInteger::MaxPositiveI32_Q;
 
-	// Execution
+	// [Execution]
     i32_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -214,14 +214,14 @@ QTEST_CASE ( Abs3_AbsoluteValueIsReturnedWhenUsingPositiveValue_Test )
 /// </summary>
 QTEST_CASE ( Abs3_ZeroIsReturnedWhenUsingZeroAsInput_Test )
 {
-    // Preparation
+    // [Preparation]
     const i32_q INPUT = 0;
     const i32_q EXPECTED_RESULT = 0;
 
-	// Execution
+	// [Execution]
     i32_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -230,14 +230,14 @@ QTEST_CASE ( Abs3_ZeroIsReturnedWhenUsingZeroAsInput_Test )
 /// </summary>
 QTEST_CASE ( Abs3_ReturnedValueEqualsInputValueWhenUsingMaximumNegativeValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i32_q INPUT = SQInteger::MaxNegativeI32_Q;
     const i32_q EXPECTED_RESULT = INPUT;
 
-	// Execution
+	// [Execution]
     i32_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -246,14 +246,14 @@ QTEST_CASE ( Abs3_ReturnedValueEqualsInputValueWhenUsingMaximumNegativeValue_Tes
 /// </summary>
 QTEST_CASE ( Abs4_AbsoluteValueIsReturnedWhenUsingNegativeValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i64_q INPUT = -50;
     const i64_q EXPECTED_RESULT = 50;
 
-	// Execution
+	// [Execution]
     i64_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -262,14 +262,14 @@ QTEST_CASE ( Abs4_AbsoluteValueIsReturnedWhenUsingNegativeValue_Test )
 /// </summary>
 QTEST_CASE ( Abs4_AbsoluteValueIsReturnedWhenUsingPositiveValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i64_q INPUT = SQInteger::MaxPositiveI64_Q;
     const i64_q EXPECTED_RESULT = SQInteger::MaxPositiveI64_Q;
 
-	// Execution
+	// [Execution]
     i64_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -278,14 +278,14 @@ QTEST_CASE ( Abs4_AbsoluteValueIsReturnedWhenUsingPositiveValue_Test )
 /// </summary>
 QTEST_CASE ( Abs4_ZeroIsReturnedWhenUsingZeroAsInput_Test )
 {
-    // Preparation
+    // [Preparation]
     const i64_q INPUT = 0;
     const i64_q EXPECTED_RESULT = 0;
 
-	// Execution
+	// [Execution]
     i64_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -294,14 +294,14 @@ QTEST_CASE ( Abs4_ZeroIsReturnedWhenUsingZeroAsInput_Test )
 /// </summary>
 QTEST_CASE ( Abs4_ReturnedValueEqualsInputValueWhenUsingMaximumNegativeValue_Test )
 {
-    // Preparation
+    // [Preparation]
     const i64_q INPUT = SQInteger::MaxNegativeI64_Q;
     const i64_q EXPECTED_RESULT = INPUT;
 
-	// Execution
+	// [Execution]
     i64_q nResult = SQInteger::Abs(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -310,7 +310,7 @@ QTEST_CASE ( Abs4_ReturnedValueEqualsInputValueWhenUsingMaximumNegativeValue_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( SwapEndianess_IsCorrectlySwappedWhenUsingCommonValue_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const size_t SIZE_8 = 1;
     const size_t SIZE_16 = 2;
     const size_t SIZE_32 = 4;
@@ -344,10 +344,10 @@ QTEST_CASE_TEMPLATE ( SwapEndianess_IsCorrectlySwappedWhenUsingCommonValue_Test,
         EXPECTED_RESULT = (T)1;
     }
 
-	// Execution
+	// [Execution]
     T nResult = SQInteger::SwapEndianess(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -356,7 +356,7 @@ QTEST_CASE_TEMPLATE ( SwapEndianess_IsCorrectlySwappedWhenUsingCommonValue_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( SwapEndianess_IsCorrectlySwappedWhenUsingZeroAsInput_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const size_t SIZE_8 = 1;
     const size_t SIZE_16 = 2;
     const size_t SIZE_32 = 4;
@@ -390,10 +390,10 @@ QTEST_CASE_TEMPLATE ( SwapEndianess_IsCorrectlySwappedWhenUsingZeroAsInput_Test,
         EXPECTED_RESULT = -1;
     }
 
-	// Execution
+	// [Execution]
     T nResult = SQInteger::SwapEndianess(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResult, EXPECTED_RESULT);
 }
 
@@ -404,7 +404,7 @@ QTEST_CASE_TEMPLATE ( ToString_SignedValueIsCorrectlyConverted_Test, TQTemplateS
 {
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
-    // Preparation
+    // [Preparation]
     const size_t SIZE_8 = 1;
     const size_t SIZE_16 = 2;
     const size_t SIZE_32 = 4;
@@ -438,10 +438,10 @@ QTEST_CASE_TEMPLATE ( ToString_SignedValueIsCorrectlyConverted_Test, TQTemplateS
         EXPECTED_RESULT = -1;
     }
 
-	// Execution
+	// [Execution]
     string_q strResult = SQInteger::ToString(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
 
@@ -452,7 +452,7 @@ QTEST_CASE_TEMPLATE ( ToString_UnsignedValueIsCorrectlyConverted_Test, TQTemplat
 {
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
-    // Preparation
+    // [Preparation]
     const size_t SIZE_8 = 1;
     const size_t SIZE_16 = 2;
     const size_t SIZE_32 = 4;
@@ -486,10 +486,10 @@ QTEST_CASE_TEMPLATE ( ToString_UnsignedValueIsCorrectlyConverted_Test, TQTemplat
         EXPECTED_RESULT = -1;
     }
 
-	// Execution
+	// [Execution]
     string_q strResult = SQInteger::ToString(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
 
@@ -500,14 +500,14 @@ QTEST_CASE_TEMPLATE ( ToString_ZeroIsCorrectlyConverted_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
-    // Preparation
+    // [Preparation]
     T INPUT = 0;
     string_q EXPECTED_RESULT = QE_L("0");
 
-	// Execution
+	// [Execution]
     string_q strResult = SQInteger::ToString(INPUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
 

@@ -43,14 +43,14 @@ QTEST_CASE ( ToString_TrueValueIsConvertedToStringAsExpected_Test )
 {
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
-    // Preparation
+    // [Preparation]
     const bool BOOLEAN_VALUE_TRUE = true;
     string_q EXPECTED_RESULT = QE_L("true");
 
-	// Execution
+	// [Execution]
     string_q strResultUT = SQBoolean::ToString(BOOLEAN_VALUE_TRUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strResultUT == EXPECTED_RESULT);
 }
 
@@ -61,14 +61,14 @@ QTEST_CASE ( ToString_FalseValueIsConvertedToStringAsExpected_Test )
 {
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
-    // Preparation
+    // [Preparation]
     const bool BOOLEAN_VALUE_FALSE = false;
     string_q EXPECTED_RESULT = QE_L("false");
 
-	// Execution
+	// [Execution]
     string_q strResultUT = SQBoolean::ToString(BOOLEAN_VALUE_FALSE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strResultUT == EXPECTED_RESULT);
 }
 

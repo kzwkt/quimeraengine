@@ -47,13 +47,13 @@ QTEST_SUITE_BEGIN( QBaseQuadrilateral_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
     
-    // Execution
+    // [Execution]
     QBaseQuadrilateral quadrilateralUT;
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_ALL);
@@ -69,7 +69,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_4, SQFloat::_5);
@@ -80,10 +80,10 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
                                                                EXPECTED_VALUE_FOR_C, 
                                                                EXPECTED_VALUE_FOR_D);
 
-    // Execution
+    // [Execution]
     QBaseQuadrilateral quadrilateralUT = QUAD_TO_COPY;
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_A.x);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_A.y);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_B.x);
@@ -99,19 +99,19 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_ValuesAreCorrectlySet_Test )
 {
-	// Preparation
+	// [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_4, SQFloat::_5);
     const QVector2 EXPECTED_VALUE_FOR_D = QVector2(SQFloat::_6, SQFloat::_7);
     
-    // Execution
+    // [Execution]
     QBaseQuadrilateral quadrilateralUT = QBaseQuadrilateral(EXPECTED_VALUE_FOR_A,
                                                             EXPECTED_VALUE_FOR_B,
                                                             EXPECTED_VALUE_FOR_C,
                                                             EXPECTED_VALUE_FOR_D);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_A.x);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_A.y);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_B.x);
@@ -127,7 +127,7 @@ QTEST_CASE ( Constructor3_ValuesAreCorrectlySet_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral LEFT_OPERAND = QBaseQuadrilateral(QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                QVector2(SQFloat::Epsilon, SQFloat::Epsilon), 
                                                                QVector2(SQFloat::Epsilon, SQFloat::Epsilon), 
@@ -138,7 +138,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
                                                                 QVector2(SQFloat::_0, SQFloat::_0), 
                                                                 QVector2(SQFloat::_0, SQFloat::_0));
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -147,7 +147,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral LEFT_OPERAND = QBaseQuadrilateral(QVector2(SQFloat::Epsilon * SQFloat::_0_5,
                                                                         SQFloat::Epsilon * SQFloat::_0_5), 
                                                                QVector2(SQFloat::Epsilon * SQFloat::_0_5,
@@ -162,7 +162,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
                                                                 QVector2(SQFloat::_0, SQFloat::_0), 
                                                                 QVector2(SQFloat::_0, SQFloat::_0));
 
-    // Execution / Verification
+    // [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -171,7 +171,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral LEFT_OPERAND = QBaseQuadrilateral(QVector2(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5,
                                                                         SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5),
                                                                QVector2(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5,
@@ -186,7 +186,7 @@ QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
                                                                 QVector2(SQFloat::_0, SQFloat::_0),
                                                                 QVector2(SQFloat::_0, SQFloat::_0));
 
-    // Execution / Verification
+    // [Execution] / Verification
     BOOST_CHECK(!(LEFT_OPERAND == RIGHT_OPERAND));
 }
 
@@ -195,7 +195,7 @@ QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral LEFT_OPERAND = QBaseQuadrilateral(QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
@@ -206,7 +206,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
                                                                 QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                 QVector2(SQFloat::Epsilon, SQFloat::Epsilon));
 
-    // Execution / Verification
+    // [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -215,7 +215,7 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral LEFT_OPERAND = QBaseQuadrilateral(QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
@@ -226,7 +226,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
                                                                 QVector2(SQFloat::_0, SQFloat::_0),
                                                                 QVector2(SQFloat::_0, SQFloat::_0));
 
-    // Execution / Verification
+    // [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -235,7 +235,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral LEFT_OPERAND = QBaseQuadrilateral(QVector2(SQFloat::Epsilon * SQFloat::_0_5,
                                                                         SQFloat::Epsilon * SQFloat::_0_5),
                                                                QVector2(SQFloat::Epsilon * SQFloat::_0_5,
@@ -250,7 +250,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
                                                                 QVector2(SQFloat::_0, SQFloat::_0),
                                                                 QVector2(SQFloat::_0, SQFloat::_0));
 
-    // Execution / Verification
+    // [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -259,7 +259,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral LEFT_OPERAND = QBaseQuadrilateral(QVector2(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5,
                                                                         SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5),
                                                                QVector2(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5,
@@ -274,7 +274,7 @@ QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test 
                                                                 QVector2(SQFloat::_0, SQFloat::_0),
                                                                 QVector2(SQFloat::_0, SQFloat::_0));
 
-    // Execution / Verification
+    // [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
@@ -283,7 +283,7 @@ QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test 
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral LEFT_OPERAND = QBaseQuadrilateral(QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
@@ -294,7 +294,7 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
                                                                 QVector2(SQFloat::Epsilon, SQFloat::Epsilon),
                                                                 QVector2(SQFloat::Epsilon, SQFloat::Epsilon));
 
-    // Execution / Verification
+    // [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 

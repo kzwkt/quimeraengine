@@ -44,16 +44,16 @@ QTEST_SUITE_BEGIN( QBasePlane_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QBasePlane planeUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -65,7 +65,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_3;
@@ -73,10 +73,10 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 
     const QBasePlane PLANE_TO_COPY(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QBasePlane planeUT = PLANE_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -88,16 +88,16 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_ValuesAreSetProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_4;
 
-	// Execution
+	// [Execution]
     QBasePlane planeUT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -109,13 +109,13 @@ QTEST_CASE ( Constructor3_ValuesAreSetProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_5;
 
-	// Execution
+	// [Execution]
     QBasePlane planeUT(EXPECTED_VALUE_FOR_ALL);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_ALL);
@@ -127,7 +127,7 @@ QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 /// </summary>
 QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo4Floats_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_C = SQFloat::_3;
@@ -139,10 +139,10 @@ QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo4Floats_T
     VALID_ARRAY_OF_4_FLOATS[2] = EXPECTED_VALUE_FOR_C;
     VALID_ARRAY_OF_4_FLOATS[3] = EXPECTED_VALUE_FOR_D;
 
-	// Execution
+	// [Execution]
     QBasePlane planeUT(VALID_ARRAY_OF_4_FLOATS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, VALID_ARRAY_OF_4_FLOATS[0]);
     BOOST_CHECK_EQUAL(planeUT.b, VALID_ARRAY_OF_4_FLOATS[1]);
     BOOST_CHECK_EQUAL(planeUT.c, VALID_ARRAY_OF_4_FLOATS[2]);
@@ -159,10 +159,10 @@ QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo4Floats_T
 /// </summary>
 QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q* NULL_ARRAY = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -174,7 +174,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -185,7 +185,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 /// </summary>
 QTEST_CASE ( Constructor6_VectorComponentsAreSetToValidVF32PackedValues_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
     using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
@@ -197,10 +197,10 @@ QTEST_CASE ( Constructor6_VectorComponentsAreSetToValidVF32PackedValues_Test )
 	vf32_q PACK;
 	SQVF32::Pack(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D, PACK);
 
-	// Execution
+	// [Execution]
 	QBasePlane planeUT(PACK);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(planeUT.a, EXPECTED_VALUE_FOR_A);
     BOOST_CHECK_EQUAL(planeUT.b, EXPECTED_VALUE_FOR_B);
     BOOST_CHECK_EQUAL(planeUT.c, EXPECTED_VALUE_FOR_C);
@@ -212,11 +212,11 @@ QTEST_CASE ( Constructor6_VectorComponentsAreSetToValidVF32PackedValues_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::Epsilon);
     const QBasePlane RIGHT_OPERAND(SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -225,11 +225,11 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5);
     const QBasePlane RIGHT_OPERAND(SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -238,11 +238,11 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5);
     const QBasePlane RIGHT_OPERAND(SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
 }
 
@@ -251,11 +251,11 @@ QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::Epsilon);
     const QBasePlane RIGHT_OPERAND(SQFloat::Epsilon);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -264,11 +264,11 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_FalseWhenOperatorsAreSimilarButNotEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_10);
     const QBasePlane RIGHT_OPERAND(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, SQFloat::_5); // LEFT_OPERAND / 2
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!(LEFT_OPERAND == RIGHT_OPERAND));
 }
 
@@ -277,11 +277,11 @@ QTEST_CASE ( OperatorEquality_FalseWhenOperatorsAreSimilarButNotEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::Epsilon);
     const QBasePlane RIGHT_OPERAND(SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -290,11 +290,11 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5);
     const QBasePlane RIGHT_OPERAND(SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -303,11 +303,11 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5);
     const QBasePlane RIGHT_OPERAND(SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
@@ -316,11 +316,11 @@ QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test 
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::Epsilon);
     const QBasePlane RIGHT_OPERAND(SQFloat::Epsilon);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -329,11 +329,11 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_TrueWhenOperatorsAreSimilarButNotEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBasePlane LEFT_OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_10);
     const QBasePlane RIGHT_OPERAND(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, SQFloat::_5); // LEFT_OPERAND / 2
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 

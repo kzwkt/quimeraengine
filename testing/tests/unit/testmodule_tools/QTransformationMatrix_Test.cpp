@@ -103,13 +103,13 @@ static void CheckFourthColumnIfExists(const QMatrix4x4 &matrixA, const QMatrix4x
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaventChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const T EXPECTED_VALUE(QTransformationMatrix<T>::GetIdentity());
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -130,7 +130,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaventChanged_Test, TQTemplateTy
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_EveryMatrixElementCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[0][1] = SQFloat::_2;
@@ -148,10 +148,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_EveryMatrixElementCopiedProperly_Test, TQTemp
 
     const QTransformationMatrix<T> MATRIX_TO_COPY(EXPECTED_VALUE);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = MATRIX_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -172,7 +172,7 @@ QTEST_CASE_TEMPLATE ( Constructor2_EveryMatrixElementCopiedProperly_Test, TQTemp
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     T EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = SQFloat::_1;
     EXPECTED_VALUE.ij[0][1] = SQFloat::_2;
@@ -188,10 +188,10 @@ QTEST_CASE_TEMPLATE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test
     EXPECTED_VALUE.ij[3][2] = (float_q)15.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)23.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(EXPECTED_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -212,7 +212,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -243,10 +243,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_TransformationIsCorrectlyBuiltFromCommonTrans
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -267,7 +267,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_TransformationIsCorrectlyBuiltFromCommonTrans
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -285,10 +285,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_IdentityIsObtainedWhenNeutralTransformationsA
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -309,7 +309,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_IdentityIsObtainedWhenNeutralTransformationsA
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -322,10 +322,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsTranslat
     EXPECTED_VALUE.ij[3][1] = TRANSLATION.y;
     EXPECTED_VALUE.ij[3][2] = TRANSLATION.z;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -346,7 +346,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsTranslat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -369,10 +369,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -393,7 +393,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsRotation
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -407,10 +407,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsScale_Te
     EXPECTED_VALUE.ij[2][2] = SCALE.z;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -431,7 +431,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_CorrectResultObtainedWhenOnlyContainsScale_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -442,10 +442,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     T EXPECTED_VALUE = T::GetZeroMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -466,7 +466,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -475,11 +475,11 @@ QTEST_CASE_TEMPLATE ( Constructor4_ResultIsDifferentDependingOnQuaternionNormali
     const QQuaternion NOT_NORMALIZED_QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixFromNormalizedQuaternionUT(TRANSLATION, NORMALIZED_QUATERNION, SCALE);
     QTransformationMatrix<T> matrixFromNotNormalizedQuaternionUT(TRANSLATION, NOT_NORMALIZED_QUATERNION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixFromNormalizedQuaternionUT != matrixFromNotNormalizedQuaternionUT );
 }
 
@@ -488,7 +488,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ResultIsDifferentDependingOnQuaternionNormali
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -515,12 +515,12 @@ QTEST_CASE_TEMPLATE ( Constructor4_FollowsLeftHandedRules_Test, TQTemplateTypes 
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Y(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Z(SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
-    // Execution
+    // [Execution]
     QVector3 vPoint1UT = POSITION_BEFORE_ROTATION_AROUND_X.Transform(ROTATION_AROUND_X);
     QVector3 vPoint2UT = POSITION_BEFORE_ROTATION_AROUND_Y.Transform(ROTATION_AROUND_Y);
     QVector3 vPoint3UT = POSITION_BEFORE_ROTATION_AROUND_Z.Transform(ROTATION_AROUND_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.x) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.y) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.z) );
@@ -537,7 +537,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -559,10 +559,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_CompositionOrderIsScaleRotationTranslation_Te
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = QTransformationMatrix<T>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -583,7 +583,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_CompositionOrderIsScaleRotationTranslation_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -615,10 +615,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_TransformationIsCorrectlyBuiltFromCommonTrans
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -639,7 +639,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_TransformationIsCorrectlyBuiltFromCommonTrans
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -658,10 +658,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_IdentityIsObtainedWhenNeutralTransformationsA
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -682,7 +682,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_IdentityIsObtainedWhenNeutralTransformationsA
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -696,10 +696,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsTranslat
     EXPECTED_VALUE.ij[3][1] = TRANSLATION.y;
     EXPECTED_VALUE.ij[3][2] = TRANSLATION.z;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -720,7 +720,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsTranslat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -744,10 +744,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -768,7 +768,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsRotation
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -783,10 +783,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsScale_Te
     EXPECTED_VALUE.ij[2][2] = SCALE.z;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -807,7 +807,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_CorrectResultObtainedWhenOnlyContainsScale_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -819,10 +819,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     T EXPECTED_VALUE = T::GetZeroMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -843,7 +843,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -853,11 +853,11 @@ QTEST_CASE_TEMPLATE ( Constructor5_ResultIsDifferentDependingOnQuaternionNormali
     const QQuaternion NOT_NORMALIZED_QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixFromNormalizedQuaternionUT(TRANSLATION, NORMALIZED_QUATERNION, SCALE);
     QTransformationMatrix<T> matrixFromNotNormalizedQuaternionUT(TRANSLATION, NOT_NORMALIZED_QUATERNION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixFromNormalizedQuaternionUT != matrixFromNotNormalizedQuaternionUT );
 }
 
@@ -866,7 +866,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_ResultIsDifferentDependingOnQuaternionNormali
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -894,12 +894,12 @@ QTEST_CASE_TEMPLATE ( Constructor5_FollowsLeftHandedRules_Test, TQTemplateTypes 
     const QVector4 POSITION_BEFORE_ROTATION_AROUND_Y(-SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1);
     const QVector4 POSITION_BEFORE_ROTATION_AROUND_Z(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QVector4 vPoint1UT = POSITION_BEFORE_ROTATION_AROUND_X.Transform(ROTATION_AROUND_X);
     QVector4 vPoint2UT = POSITION_BEFORE_ROTATION_AROUND_Y.Transform(ROTATION_AROUND_Y);
     QVector4 vPoint3UT = POSITION_BEFORE_ROTATION_AROUND_Z.Transform(ROTATION_AROUND_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.x) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.y) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.z) );
@@ -916,7 +916,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -939,10 +939,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_CompositionOrderIsScaleRotationTranslation_Te
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = QTransformationMatrix<T>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -963,7 +963,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_CompositionOrderIsScaleRotationTranslation_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_FourthComponentOfTranslationVectorDoesntMatter_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -973,11 +973,11 @@ QTEST_CASE_TEMPLATE ( Constructor5_FourthComponentOfTranslationVectorDoesntMatte
     const QBaseQuaternion ROTATION(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7);
     const QBaseVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixVectorWOneUT(TRANSLATION_W_ONE, ROTATION, SCALE);
     QTransformationMatrix<T> matrixVectorWZeroUT(TRANSLATION_W_ZERO, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixVectorWOneUT.ij[0][0], matrixVectorWZeroUT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixVectorWOneUT.ij[0][1], matrixVectorWZeroUT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixVectorWOneUT.ij[0][2], matrixVectorWZeroUT.ij[0][2]) );
@@ -998,7 +998,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_FourthComponentOfTranslationVectorDoesntMatte
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -1029,12 +1029,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_TransformationIsCorrectlyBuiltFromCommonTrans
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                       ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                                       SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1055,7 +1055,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_TransformationIsCorrectlyBuiltFromCommonTrans
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -1073,12 +1073,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_IdentityIsObtainedWhenNeutralTransformationsA
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                       ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                                       SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1099,7 +1099,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_IdentityIsObtainedWhenNeutralTransformationsA
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -1112,12 +1112,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsTranslat
     EXPECTED_VALUE.ij[3][1] = TRANSLATION.y;
     EXPECTED_VALUE.ij[3][2] = TRANSLATION.z;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                       ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                                       SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1138,7 +1138,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsTranslat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -1161,12 +1161,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsRotation
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                       ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                                       SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1187,7 +1187,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsRotation
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -1201,12 +1201,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsScale_Te
     EXPECTED_VALUE.ij[2][2] = SCALE.z;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                       ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                                       SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1227,7 +1227,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_CorrectResultObtainedWhenOnlyContainsScale_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -1238,12 +1238,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     T EXPECTED_VALUE = T::GetZeroMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                       ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                                       SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1264,7 +1264,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -1273,7 +1273,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_ResultIsDifferentDependingOnQuaternionNormali
     const QQuaternion NOT_NORMALIZED_QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixFromNormalizedQuaternionUT(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                                               NORMALIZED_QUATERNION.x, NORMALIZED_QUATERNION.y, NORMALIZED_QUATERNION.z, NORMALIZED_QUATERNION.w,
                                                               SCALE.x, SCALE.y, SCALE.z);
@@ -1281,7 +1281,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_ResultIsDifferentDependingOnQuaternionNormali
                                                                  NOT_NORMALIZED_QUATERNION.x, NOT_NORMALIZED_QUATERNION.y, NOT_NORMALIZED_QUATERNION.z, NOT_NORMALIZED_QUATERNION.w,
                                                                  SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixFromNormalizedQuaternionUT != matrixFromNotNormalizedQuaternionUT );
 }
 
@@ -1290,7 +1290,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_ResultIsDifferentDependingOnQuaternionNormali
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1327,12 +1327,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_FollowsLeftHandedRules_Test, TQTemplateTypes 
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Y(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Z(SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
-    // Execution
+    // [Execution]
     QVector3 vPoint1UT = POSITION_BEFORE_ROTATION_AROUND_X.Transform(ROTATION_AROUND_X);
     QVector3 vPoint2UT = POSITION_BEFORE_ROTATION_AROUND_Y.Transform(ROTATION_AROUND_Y);
     QVector3 vPoint3UT = POSITION_BEFORE_ROTATION_AROUND_Z.Transform(ROTATION_AROUND_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.x) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.y) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.z) );
@@ -1349,7 +1349,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor6_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -1381,12 +1381,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_CompositionOrderIsScaleRotationTranslation_Te
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = QTransformationMatrix<T>(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                                                  ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                                                                  SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1407,7 +1407,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_CompositionOrderIsScaleRotationTranslation_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -1432,10 +1432,10 @@ QTEST_CASE_TEMPLATE ( Constructor7_TransformationIsCorrectlyBuiltFromCommonTrans
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1456,7 +1456,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_TransformationIsCorrectlyBuiltFromCommonTrans
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -1467,10 +1467,10 @@ QTEST_CASE_TEMPLATE ( Constructor7_IdentityIsObtainedWhenNeutralTransformationsA
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1491,7 +1491,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_IdentityIsObtainedWhenNeutralTransformationsA
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -1505,10 +1505,10 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsTranslat
     EXPECTED_VALUE.ij[3][1] = TRANSLATION.ij[3][1];
     EXPECTED_VALUE.ij[3][2] = TRANSLATION.ij[3][2];
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1529,7 +1529,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsTranslat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -1554,10 +1554,10 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsRotation
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1578,7 +1578,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsRotation
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -1593,10 +1593,10 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsScale_Te
     EXPECTED_VALUE.ij[2][2] = SCALE.ij[2][2];
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1617,7 +1617,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_CorrectResultObtainedWhenOnlyContainsScale_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     const T TRANSLATION = T::GetZeroMatrix();
@@ -1627,10 +1627,10 @@ QTEST_CASE_TEMPLATE ( Constructor7_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     T EXPECTED_VALUE = T::GetZeroMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1651,7 +1651,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -1683,12 +1683,12 @@ QTEST_CASE_TEMPLATE ( Constructor7_FollowsLeftHandedRules_Test, TQTemplateTypes 
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Y(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Z(SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
-    // Execution
+    // [Execution]
     QVector3 vPoint1UT = POSITION_BEFORE_ROTATION_AROUND_X.Transform(ROTATION_AROUND_X);
     QVector3 vPoint2UT = POSITION_BEFORE_ROTATION_AROUND_Y.Transform(ROTATION_AROUND_Y);
     QVector3 vPoint3UT = POSITION_BEFORE_ROTATION_AROUND_Z.Transform(ROTATION_AROUND_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.x) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.y) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.z) );
@@ -1705,7 +1705,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor7_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -1725,10 +1725,10 @@ QTEST_CASE_TEMPLATE ( Constructor7_CompositionOrderIsScaleRotationTranslation_Te
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1749,7 +1749,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_CompositionOrderIsScaleRotationTranslation_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor8_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -1774,10 +1774,10 @@ QTEST_CASE_TEMPLATE ( Constructor8_TransformationIsCorrectlyBuiltFromCommonTrans
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1798,7 +1798,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_TransformationIsCorrectlyBuiltFromCommonTrans
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor8_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -1809,10 +1809,10 @@ QTEST_CASE_TEMPLATE ( Constructor8_IdentityIsObtainedWhenNeutralTransformationsA
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1833,7 +1833,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_IdentityIsObtainedWhenNeutralTransformationsA
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -1847,10 +1847,10 @@ QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsTranslat
     EXPECTED_VALUE.ij[3][1] = TRANSLATION.ij[3][1];
     EXPECTED_VALUE.ij[3][2] = TRANSLATION.ij[3][2];
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1871,7 +1871,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsTranslat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -1896,10 +1896,10 @@ QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsRotation
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1920,7 +1920,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsRotation
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -1935,10 +1935,10 @@ QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsScale_Te
     EXPECTED_VALUE.ij[2][2] = SCALE.ij[2][2];
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1959,7 +1959,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_CorrectResultObtainedWhenOnlyContainsScale_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor8_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     const T TRANSLATION = T::GetZeroMatrix();
@@ -1969,10 +1969,10 @@ QTEST_CASE_TEMPLATE ( Constructor8_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     T EXPECTED_VALUE = T::GetZeroMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1993,7 +1993,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor8_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -2025,12 +2025,12 @@ QTEST_CASE_TEMPLATE ( Constructor8_FollowsLeftHandedRules_Test, TQTemplateTypes 
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Y(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Z(SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
-    // Execution
+    // [Execution]
     QVector3 vPoint1UT = POSITION_BEFORE_ROTATION_AROUND_X.Transform(ROTATION_AROUND_X);
     QVector3 vPoint2UT = POSITION_BEFORE_ROTATION_AROUND_Y.Transform(ROTATION_AROUND_Y);
     QVector3 vPoint3UT = POSITION_BEFORE_ROTATION_AROUND_Z.Transform(ROTATION_AROUND_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.x) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.y) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.z) );
@@ -2047,7 +2047,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_FollowsLeftHandedRules_Test, TQTemplateTypes 
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor8_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -2067,10 +2067,10 @@ QTEST_CASE_TEMPLATE ( Constructor8_CompositionOrderIsScaleRotationTranslation_Te
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2093,7 +2093,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_CompositionOrderIsScaleRotationTranslation_Te
 template<class T, class MatrixType>
 void QTransformationMatrixImp_TransformationIsCorrectlyBuiltFromCommonTransformations_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -2118,11 +2118,11 @@ void QTransformationMatrixImp_TransformationIsCorrectlyBuiltFromCommonTransforma
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.template QTransformationMatrixImp<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2156,7 +2156,7 @@ QTEST_CASE_TEMPLATE ( QTransformationMatrixImp_TransformationIsCorrectlyBuiltFro
 template<class T, class MatrixType>
 void QTransformationMatrixImp_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -2167,11 +2167,11 @@ void QTransformationMatrixImp_IdentityIsObtainedWhenNeutralTransformationsAreUse
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.template QTransformationMatrixImp<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2205,7 +2205,7 @@ QTEST_CASE_TEMPLATE ( QTransformationMatrixImp_IdentityIsObtainedWhenNeutralTran
 template<class T, class MatrixType>
 void QTransformationMatrixImp_CorrectResultObtainedWhenOnlyContainsTranslation_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -2219,11 +2219,11 @@ void QTransformationMatrixImp_CorrectResultObtainedWhenOnlyContainsTranslation_T
     EXPECTED_VALUE.ij[3][1] = TRANSLATION.ij[3][1];
     EXPECTED_VALUE.ij[3][2] = TRANSLATION.ij[3][2];
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.template QTransformationMatrixImp<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2257,7 +2257,7 @@ QTEST_CASE_TEMPLATE ( QTransformationMatrixImp_CorrectResultObtainedWhenOnlyCont
 template<class T, class MatrixType>
 void QTransformationMatrixImp_CorrectResultObtainedWhenOnlyContainsRotation_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -2282,11 +2282,11 @@ void QTransformationMatrixImp_CorrectResultObtainedWhenOnlyContainsRotation_Temp
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.template QTransformationMatrixImp<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2320,7 +2320,7 @@ QTEST_CASE_TEMPLATE ( QTransformationMatrixImp_CorrectResultObtainedWhenOnlyCont
 template<class T, class MatrixType>
 void QTransformationMatrixImp_CorrectResultObtainedWhenOnlyContainsScale_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -2335,11 +2335,11 @@ void QTransformationMatrixImp_CorrectResultObtainedWhenOnlyContainsScale_Templat
     EXPECTED_VALUE.ij[2][2] = SCALE.ij[2][2];
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.template QTransformationMatrixImp<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2373,7 +2373,7 @@ QTEST_CASE_TEMPLATE ( QTransformationMatrixImp_CorrectResultObtainedWhenOnlyCont
 template<class T, class MatrixType>
 void QTransformationMatrixImp_ZeroMatrixIsObtainedWhenInputsEqualZero_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     const MatrixType TRANSLATION = MatrixType::GetZeroMatrix();
@@ -2383,11 +2383,11 @@ void QTransformationMatrixImp_ZeroMatrixIsObtainedWhenInputsEqualZero_Template()
     T EXPECTED_VALUE = T::GetZeroMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.template QTransformationMatrixImp<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2421,7 +2421,7 @@ QTEST_CASE_TEMPLATE ( QTransformationMatrixImp_ZeroMatrixIsObtainedWhenInputsEqu
 template<class T, class MatrixType>
 void QTransformationMatrixImp_CompositionOrderIsScaleRotationTranslation_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
@@ -2444,11 +2444,11 @@ void QTransformationMatrixImp_CompositionOrderIsScaleRotationTranslation_Templat
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.template QTransformationMatrixImp<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2480,13 +2480,13 @@ QTEST_CASE_TEMPLATE ( QTransformationMatrixImp_CompositionOrderIsScaleRotationTr
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetIdentity_AllElementsEqualZeroAndDiagonalEqualsOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const T EXPECTED_VALUE = T::GetIdentity();
 
-	// Execution
+	// [Execution]
     QTransformationMatrix<T> matrixUT = QTransformationMatrix<T>::GetIdentity();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2507,7 +2507,7 @@ QTEST_CASE_TEMPLATE ( GetIdentity_AllElementsEqualZeroAndDiagonalEqualsOne_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -2552,10 +2552,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test
     EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2576,7 +2576,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -2622,10 +2622,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test
     EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2646,7 +2646,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct2_FourthColumnOfRightOperandDoesntMatter_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERANDA1;
     OPERANDA1.ij[0][0] = SQFloat::_1;
     OPERANDA1.ij[0][1] = SQFloat::_2;
@@ -2674,11 +2674,11 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_FourthColumnOfRightOperandDoesntMatter_Te
                                                                                                (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
                                                                                                (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
     QTransformationMatrix<T> matrixBUT = OPERANDB1 * OPERANDB2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixAUT == matrixBUT );
 }
 
@@ -2687,7 +2687,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct2_FourthColumnOfRightOperandDoesntMatter_Te
 /// </summary>
 QTEST_CASE( OperatorProduct2_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -2708,10 +2708,10 @@ QTEST_CASE( OperatorProduct2_FourthColumnOfLeftOperandIsJustCopied_Test )
                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -2723,7 +2723,7 @@ QTEST_CASE( OperatorProduct2_FourthColumnOfLeftOperandIsJustCopied_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -2768,10 +2768,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test
     EXPECTED_VALUE.ij[3][2] = (float_q)40.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2792,7 +2792,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct3_OnlyTheFourthRowOfTranslationMatrixMatters_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERANDA1;
     OPERANDA1.ij[0][0] = SQFloat::_1;
     OPERANDA1.ij[0][1] = SQFloat::_2;
@@ -2820,11 +2820,11 @@ QTEST_CASE_TEMPLATE ( OperatorProduct3_OnlyTheFourthRowOfTranslationMatrixMatter
                                                                                          (float_q)43.0, (float_q)44.0, (float_q)45.0,
                                                                                          (float_q)26.0, (float_q)27.0, (float_q)28.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
     QTransformationMatrix<T> matrixBUT = OPERANDB1 * OPERANDB2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixAUT == matrixBUT );
 }
 
@@ -2833,7 +2833,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct3_OnlyTheFourthRowOfTranslationMatrixMatter
 /// </summary>
 QTEST_CASE( OperatorProduct3_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -2854,10 +2854,10 @@ QTEST_CASE( OperatorProduct3_FourthColumnOfLeftOperandIsJustCopied_Test )
                                                                                         (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -2870,7 +2870,7 @@ QTEST_CASE( OperatorProduct3_FourthColumnOfLeftOperandIsJustCopied_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
     QTransformationMatrix<T> OPERAND1;
@@ -2918,10 +2918,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test
     EXPECTED_VALUE.ij[3][2] = (float_q)40.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -2942,7 +2942,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct4_OnlyTheFourthRowOfTranslationMatrixMatters_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
     QTransformationMatrix<T> OPERANDA1;
@@ -2985,11 +2985,11 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_OnlyTheFourthRowOfTranslationMatrixMatter
                                                                                          (float_q)43.0, (float_q)44.0, (float_q)45.0, (float_q)51.0,
                                                                                          (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)52.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
     QTransformationMatrix<T> matrixBUT = OPERANDB1 * OPERANDB2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixAUT == matrixBUT );
 }
 
@@ -2998,7 +2998,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct4_OnlyTheFourthRowOfTranslationMatrixMatter
 /// </summary>
 QTEST_CASE( OperatorProduct4_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -3019,10 +3019,10 @@ QTEST_CASE( OperatorProduct4_FourthColumnOfLeftOperandIsJustCopied_Test )
                                                                                         (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -3034,7 +3034,7 @@ QTEST_CASE( OperatorProduct4_FourthColumnOfLeftOperandIsJustCopied_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
     QTransformationMatrix<T> OPERAND1;
@@ -3078,10 +3078,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test
     EXPECTED_VALUE.ij[3][2] = (float_q)732.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -3102,7 +3102,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test
 /// </summary>
 QTEST_CASE( OperatorProduct5_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -3129,10 +3129,10 @@ QTEST_CASE( OperatorProduct5_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND2.ij[2][1] = (float_q)24.0;
     OPERAND2.ij[2][2] = (float_q)25.0;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -3144,7 +3144,7 @@ QTEST_CASE( OperatorProduct5_FourthColumnOfLeftOperandIsJustCopied_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
     QTransformationMatrix<T> OPERAND1;
@@ -3188,10 +3188,10 @@ QTEST_CASE_TEMPLATE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test
     EXPECTED_VALUE.ij[3][2] = (float_q)300.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -3212,7 +3212,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test
 /// </summary>
 QTEST_CASE( OperatorProduct6_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -3239,10 +3239,10 @@ QTEST_CASE( OperatorProduct6_FourthColumnOfLeftOperandIsJustCopied_Test )
     OPERAND2.ij[2][1] = (float_q)24.0;
     OPERAND2.ij[2][2] = (float_q)25.0;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -3254,7 +3254,7 @@ QTEST_CASE( OperatorProduct6_FourthColumnOfLeftOperandIsJustCopied_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProduct6_OnlyTheDiagonalOfScalingMatrixMatters_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
     QTransformationMatrix<T> OPERANDA1;
@@ -3296,11 +3296,11 @@ QTEST_CASE_TEMPLATE ( OperatorProduct6_OnlyTheDiagonalOfScalingMatrixMatters_Tes
     OPERANDB2.ij[2][1] = (float_q)31.0;
     OPERANDB2.ij[2][2] = (float_q)25.0;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixAUT = OPERANDA1 * OPERANDA2;
     QTransformationMatrix<T> matrixBUT = OPERANDB1 * OPERANDB2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixAUT == matrixBUT );
 }
 
@@ -3309,7 +3309,7 @@ QTEST_CASE_TEMPLATE ( OperatorProduct6_OnlyTheDiagonalOfScalingMatrixMatters_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProductAssignation1_CommonMatricesAreCorrectlyMultiplied_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -3354,11 +3354,11 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation1_CommonMatricesAreCorrectlyMult
     EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = OPERAND1;
     matrixUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -3379,7 +3379,7 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation1_CommonMatricesAreCorrectlyMult
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_CanBeMultipliedByItself_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x3> OPERAND;
     OPERAND.ij[0][0] = SQFloat::_1;
     OPERAND.ij[0][1] = SQFloat::_2;
@@ -3408,11 +3408,11 @@ QTEST_CASE ( OperatorProductAssignation1_CanBeMultipliedByItself_Test )
     EXPECTED_VALUE.ij[3][1] = (float_q)182.0;
     EXPECTED_VALUE.ij[3][2] = (float_q)216.0;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrixUT = OPERAND;
     matrixUT *= matrixUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -3432,7 +3432,7 @@ QTEST_CASE ( OperatorProductAssignation1_CanBeMultipliedByItself_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProductAssignation2_CommonMatricesAreCorrectlyMultiplied_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -3478,11 +3478,11 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation2_CommonMatricesAreCorrectlyMult
     EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = OPERAND1;
     matrixUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -3503,7 +3503,7 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation2_CommonMatricesAreCorrectlyMult
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorProductAssignation2_FourthColumnOfRightOperandDoesntMatter_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERANDA1;
     OPERANDA1.ij[0][0] = SQFloat::_1;
     OPERANDA1.ij[0][1] = SQFloat::_2;
@@ -3531,13 +3531,13 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation2_FourthColumnOfRightOperandDoes
                                                                                                (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
                                                                                                (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixAUT = OPERANDA1;
     matrixAUT *= OPERANDA2;
     QTransformationMatrix<T> matrixBUT = OPERANDB1;
     matrixBUT *= OPERANDB2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixAUT == matrixBUT );
 }
 
@@ -3546,7 +3546,7 @@ QTEST_CASE_TEMPLATE ( OperatorProductAssignation2_FourthColumnOfRightOperandDoes
 /// </summary>
 QTEST_CASE( OperatorProductAssignation2_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -3567,11 +3567,11 @@ QTEST_CASE( OperatorProductAssignation2_FourthColumnOfLeftOperandIsJustCopied_Te
                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND1;
     matrixUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -3583,7 +3583,7 @@ QTEST_CASE( OperatorProductAssignation2_FourthColumnOfLeftOperandIsJustCopied_Te
 /// </summary>
 QTEST_CASE( OperatorProductAssignation2_CanBeMultipliedByItself_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND;
     OPERAND.ij[0][0] = SQFloat::_1;
     OPERAND.ij[0][1] = SQFloat::_2;
@@ -3620,11 +3620,11 @@ QTEST_CASE( OperatorProductAssignation2_CanBeMultipliedByItself_Test )
     EXPECTED_VALUE.ij[2][3] = (float_q)15.0;
     EXPECTED_VALUE.ij[3][3] = (float_q)16.0;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = OPERAND;
     matrixUT *= matrixUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -3644,7 +3644,7 @@ QTEST_CASE( OperatorProductAssignation2_CanBeMultipliedByItself_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorAssignation_EveryElementIsAssignedToRightTargetElement_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> MATRIX;
     MATRIX.ij[0][0] = SQFloat::_1;
     MATRIX.ij[0][1] = SQFloat::_2;
@@ -3662,11 +3662,11 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_EveryElementIsAssignedToRightTargetEle
 
     const QTransformationMatrix<T> EXPECTED_VALUE = MATRIX;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT;
     matrixUT = MATRIX;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -3687,7 +3687,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_EveryElementIsAssignedToRightTargetEle
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetDeterminant_ItsCorrectlyCalculatedForCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> MATRIX;
     MATRIX.ij[0][0] = SQFloat::_1;
     MATRIX.ij[0][1] = SQFloat::_2;
@@ -3705,10 +3705,10 @@ QTEST_CASE_TEMPLATE ( GetDeterminant_ItsCorrectlyCalculatedForCommonMatrix_Test,
 
     const float_q EXPECTED_VALUE = (float_q)27.0;
 
-    // Execution
+    // [Execution]
     float_q fResultUT = MATRIX.GetDeterminant();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -3717,14 +3717,14 @@ QTEST_CASE_TEMPLATE ( GetDeterminant_ItsCorrectlyCalculatedForCommonMatrix_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetDeterminant_DeterminantOfIdentityEqualsOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QTransformationMatrix<T> IDENTITY = QTransformationMatrix<T>::GetIdentity();
     const float_q EXPECTED_VALUE = SQFloat::_1;
 
-    // Execution
+    // [Execution]
     float_q fResultUT = IDENTITY.GetDeterminant();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -3733,7 +3733,7 @@ QTEST_CASE_TEMPLATE ( GetDeterminant_DeterminantOfIdentityEqualsOne_Test, TQTemp
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetDeterminant_OnlyInner3x3MatrixMatters_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> MATRIX1;
     MATRIX1.ij[0][0] = SQFloat::_1;
     MATRIX1.ij[0][1] = SQFloat::_2;
@@ -3764,11 +3764,11 @@ QTEST_CASE_TEMPLATE ( GetDeterminant_OnlyInner3x3MatrixMatters_Test, TQTemplateT
     MATRIX2.ij[3][2] = (float_q)19.0;
     FillFourthColumnIfExists(MATRIX2, (float_q)20.0, (float_q)21.0, (float_q)22.0, (float_q)23.0);
 
-    // Execution
+    // [Execution]
     float_q fResult1UT = MATRIX1.GetDeterminant();
     float_q fResult2UT = MATRIX2.GetDeterminant();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResult1UT, fResult2UT);
 }
 
@@ -3777,14 +3777,14 @@ QTEST_CASE_TEMPLATE ( GetDeterminant_OnlyInner3x3MatrixMatters_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( HasInverse_ReturnsTrueWhenDeterminantIsNotZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QTransformationMatrix<T> MATRIX = QTransformationMatrix<T>::GetIdentity();
     const bool EXPECTED_VALUE = true;
 
-    // Execution
+    // [Execution]
     bool bResultUT = MATRIX.HasInverse();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_VALUE);
 }
 
@@ -3793,14 +3793,14 @@ QTEST_CASE_TEMPLATE ( HasInverse_ReturnsTrueWhenDeterminantIsNotZero_Test, TQTem
 /// </summary>
 QTEST_CASE_TEMPLATE ( HasInverse_ReturnsFalseWhenDeterminantIsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QTransformationMatrix<T> MATRIX(T::GetZeroMatrix());
     const bool EXPECTED_VALUE = false;
 
-    // Execution
+    // [Execution]
     bool bResultUT = MATRIX.HasInverse();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_VALUE);
 }
 
@@ -3809,7 +3809,7 @@ QTEST_CASE_TEMPLATE ( HasInverse_ReturnsFalseWhenDeterminantIsZero_Test, TQTempl
 /// </summary>
 QTEST_CASE_TEMPLATE ( Invert_CommonMatrixIsCorrectlyInverted_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> MATRIX;
     MATRIX.ij[0][0] = SQFloat::_1;
     MATRIX.ij[0][1] = SQFloat::_2;
@@ -3840,10 +3840,10 @@ QTEST_CASE_TEMPLATE ( Invert_CommonMatrixIsCorrectlyInverted_Test, TQTemplateTyp
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT = MATRIX.Invert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -3864,7 +3864,7 @@ QTEST_CASE_TEMPLATE ( Invert_CommonMatrixIsCorrectlyInverted_Test, TQTemplateTyp
 /// </summary>
 QTEST_CASE ( Invert_FourthColumnIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> MATRIX1;
     MATRIX1.ij[0][0] = SQFloat::_1;
     MATRIX1.ij[0][1] = SQFloat::_2;
@@ -3901,11 +3901,11 @@ QTEST_CASE ( Invert_FourthColumnIsJustCopied_Test )
     MATRIX2.ij[2][3] = (float_q)19.0;
     MATRIX2.ij[3][3] = (float_q)20.0;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrix1UT = MATRIX1.Invert();
     QTransformationMatrix<QMatrix4x4> matrix2UT = MATRIX2.Invert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrix1UT.ij[0][0], matrix2UT.ij[0][0]);
     BOOST_CHECK_EQUAL(matrix1UT.ij[0][1], matrix2UT.ij[0][1]);
     BOOST_CHECK_EQUAL(matrix1UT.ij[0][2], matrix2UT.ij[0][2]);
@@ -3934,7 +3934,7 @@ QTEST_CASE ( Invert_FourthColumnIsJustCopied_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetTranslation1_TranslationValuesAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> MATRIX;
     MATRIX.ij[0][0] = SQFloat::_1;
     MATRIX.ij[0][1] = SQFloat::_2;
@@ -3954,13 +3954,13 @@ QTEST_CASE_TEMPLATE ( GetTranslation1_TranslationValuesAreCorrectlyExtractedFrom
     const float_q EXPECTED_VALUE_Y = MATRIX.ij[3][1];
     const float_q EXPECTED_VALUE_Z = MATRIX.ij[3][2];
 
-    // Execution
+    // [Execution]
     float_q fTranslationXUT = SQFloat::_0;
     float_q fTranslationYUT = SQFloat::_0;
     float_q fTranslationZUT = SQFloat::_0;
     MATRIX.GetTranslation(fTranslationXUT, fTranslationYUT, fTranslationZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fTranslationXUT, EXPECTED_VALUE_X);
     BOOST_CHECK_EQUAL(fTranslationYUT, EXPECTED_VALUE_Y);
     BOOST_CHECK_EQUAL(fTranslationZUT, EXPECTED_VALUE_Z);
@@ -3971,20 +3971,20 @@ QTEST_CASE_TEMPLATE ( GetTranslation1_TranslationValuesAreCorrectlyExtractedFrom
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetTranslation1_TranslationValuesEqualZeroWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> MATRIX = T::GetIdentity();
 
     const float_q EXPECTED_VALUE_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_Z = SQFloat::_0;
 
-    // Execution
+    // [Execution]
     float_q fTranslationXUT = SQFloat::_1;
     float_q fTranslationYUT = SQFloat::_1;
     float_q fTranslationZUT = SQFloat::_1;
     MATRIX.GetTranslation(fTranslationXUT, fTranslationYUT, fTranslationZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fTranslationXUT, EXPECTED_VALUE_X);
     BOOST_CHECK_EQUAL(fTranslationYUT, EXPECTED_VALUE_Y);
     BOOST_CHECK_EQUAL(fTranslationZUT, EXPECTED_VALUE_Z);
@@ -3995,7 +3995,7 @@ QTEST_CASE_TEMPLATE ( GetTranslation1_TranslationValuesEqualZeroWhenMatrixIsIden
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
 
     QTransformationMatrix<T> MATRIX;
@@ -4015,11 +4015,11 @@ QTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesAreCorrectlyExtractedFrom
 
     const QBaseVector3 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationUT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
     MATRIX.GetTranslation(vTranslationUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vTranslationUT.x, EXPECTED_VALUE.x);
     BOOST_CHECK_EQUAL(vTranslationUT.y, EXPECTED_VALUE.y);
     BOOST_CHECK_EQUAL(vTranslationUT.z, EXPECTED_VALUE.z);
@@ -4030,18 +4030,18 @@ QTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesAreCorrectlyExtractedFrom
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesEqualZeroWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
 
     QTransformationMatrix<T> MATRIX = T::GetIdentity();
 
     const QBaseVector3 EXPECTED_VALUE(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationUT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
     MATRIX.GetTranslation(vTranslationUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vTranslationUT.x, EXPECTED_VALUE.x);
     BOOST_CHECK_EQUAL(vTranslationUT.y, EXPECTED_VALUE.y);
     BOOST_CHECK_EQUAL(vTranslationUT.z, EXPECTED_VALUE.z);
@@ -4052,7 +4052,7 @@ QTEST_CASE_TEMPLATE ( GetTranslation2_TranslationValuesEqualZeroWhenMatrixIsIden
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
 
     QTransformationMatrix<T> MATRIX;
@@ -4072,11 +4072,11 @@ QTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesAreCorrectlyExtractedFrom
 
     const QBaseVector4 EXPECTED_VALUE(MATRIX.ij[3][0], MATRIX.ij[3][1], MATRIX.ij[3][2], SQFloat::_0);
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationUT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_2);
     MATRIX.GetTranslation(vTranslationUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vTranslationUT.x, EXPECTED_VALUE.x);
     BOOST_CHECK_EQUAL(vTranslationUT.y, EXPECTED_VALUE.y);
     BOOST_CHECK_EQUAL(vTranslationUT.z, EXPECTED_VALUE.z);
@@ -4087,18 +4087,18 @@ QTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesAreCorrectlyExtractedFrom
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesEqualZeroWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
 
     QTransformationMatrix<T> MATRIX = T::GetIdentity();
 
     const QBaseVector4 EXPECTED_VALUE(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationUT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_2);
     MATRIX.GetTranslation(vTranslationUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vTranslationUT.x, EXPECTED_VALUE.x);
     BOOST_CHECK_EQUAL(vTranslationUT.y, EXPECTED_VALUE.y);
     BOOST_CHECK_EQUAL(vTranslationUT.z, EXPECTED_VALUE.z);
@@ -4109,7 +4109,7 @@ QTEST_CASE_TEMPLATE ( GetTranslation3_TranslationValuesEqualZeroWhenMatrixIsIden
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetScale1_ValuesAreCorrectlyExtractedWhenMatrixContainsRotationAndScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
@@ -4136,7 +4136,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ValuesAreCorrectlyExtractedWhenMatrixContainsRot
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     float_q fScaleXUT = SQFloat::_0;
     float_q fScaleYUT = SQFloat::_0;
     float_q fScaleZUT = SQFloat::_0;
@@ -4144,7 +4144,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ValuesAreCorrectlyExtractedWhenMatrixContainsRot
     QTransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(fScaleXUT, fScaleYUT, fScaleZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fScaleXUT, EXPECTED_VALUE_FOR_X) );
     BOOST_CHECK( SQFloat::AreEqual(fScaleYUT, EXPECTED_VALUE_FOR_Y) );
     BOOST_CHECK( SQFloat::AreEqual(fScaleZUT, EXPECTED_VALUE_FOR_Z) );
@@ -4155,7 +4155,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ValuesAreCorrectlyExtractedWhenMatrixContainsRot
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetScale1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
@@ -4181,7 +4181,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContain
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     float_q fScaleXUT = SQFloat::_0;
     float_q fScaleYUT = SQFloat::_0;
     float_q fScaleZUT = SQFloat::_0;
@@ -4189,7 +4189,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContain
     QTransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(fScaleXUT, fScaleYUT, fScaleZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fScaleXUT, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(fScaleYUT, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(fScaleZUT, EXPECTED_VALUE_FOR_Z);
@@ -4200,14 +4200,14 @@ QTEST_CASE_TEMPLATE ( GetScale1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContain
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetScale1_ValuesEqualOneWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     float_q fScaleXUT = SQFloat::_0;
     float_q fScaleYUT = SQFloat::_0;
     float_q fScaleZUT = SQFloat::_0;
@@ -4215,7 +4215,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ValuesEqualOneWhenMatrixIsIdentity_Test, TQTempl
     QTransformationMatrix<T> matrix = TRANSFORMATION;
     matrix.GetScale(fScaleXUT, fScaleYUT, fScaleZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fScaleXUT, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(fScaleYUT, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(fScaleZUT, EXPECTED_VALUE_FOR_Z);
@@ -4226,7 +4226,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ValuesEqualOneWhenMatrixIsIdentity_Test, TQTempl
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetScale1_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -4254,7 +4254,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTy
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     float_q fScaleXUT = SQFloat::_0;
     float_q fScaleYUT = SQFloat::_0;
     float_q fScaleZUT = SQFloat::_0;
@@ -4262,7 +4262,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTy
     QTransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(fScaleXUT, fScaleYUT, fScaleZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fScaleXUT, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(fScaleYUT, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(fScaleZUT, EXPECTED_VALUE_FOR_Z);
@@ -4273,7 +4273,7 @@ QTEST_CASE_TEMPLATE ( GetScale1_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTy
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixContainsRotationAndScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -4299,13 +4299,13 @@ QTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixContainsRot
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vScale;
 
     QTransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(vScale);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vScale.x, EXPECTED_VALUE.x) );
     BOOST_CHECK( SQFloat::AreEqual(vScale.y, EXPECTED_VALUE.y) );
     BOOST_CHECK( SQFloat::AreEqual(vScale.z, EXPECTED_VALUE.z) );
@@ -4316,7 +4316,7 @@ QTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixContainsRot
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -4342,13 +4342,13 @@ QTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixOnlyContain
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vScale;
 
     QTransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(vScale);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vScale.x, EXPECTED_VALUE.x);
     BOOST_CHECK_EQUAL(vScale.y, EXPECTED_VALUE.y);
     BOOST_CHECK_EQUAL(vScale.z, EXPECTED_VALUE.z);
@@ -4359,20 +4359,20 @@ QTEST_CASE_TEMPLATE ( GetScale2_ValuesAreCorrectlyExtractedWhenMatrixOnlyContain
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetScale2_ValuesEqualOneWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
 
     const QBaseVector3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QBaseVector3 vScale;
 
     QTransformationMatrix<T> matrix = TRANSFORMATION;
     matrix.GetScale(vScale);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vScale.x, EXPECTED_VALUE.x);
     BOOST_CHECK_EQUAL(vScale.y, EXPECTED_VALUE.y);
     BOOST_CHECK_EQUAL(vScale.z, EXPECTED_VALUE.z);
@@ -4383,7 +4383,7 @@ QTEST_CASE_TEMPLATE ( GetScale2_ValuesEqualOneWhenMatrixIsIdentity_Test, TQTempl
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetScale2_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
@@ -4409,13 +4409,13 @@ QTEST_CASE_TEMPLATE ( GetScale2_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTy
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vScale;
 
     QTransformationMatrix<T> matrix = ADAPTED_TRANSFORMATION;
     matrix.GetScale(vScale);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vScale.x, EXPECTED_VALUE.x);
     BOOST_CHECK_EQUAL(vScale.y, EXPECTED_VALUE.y);
     BOOST_CHECK_EQUAL(vScale.z, EXPECTED_VALUE.z);
@@ -4426,7 +4426,7 @@ QTEST_CASE_TEMPLATE ( GetScale2_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTy
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4454,14 +4454,14 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixOnlyCont
     ROTATION.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     float_q fRotationXUT = SQFloat::_0;
     float_q fRotationYUT = SQFloat::_0;
     float_q fRotationZUT = SQFloat::_0;
 
     ROTATION.GetRotation(fRotationXUT, fRotationYUT, fRotationZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fRotationXUT, EXPECTED_ROTATION_X, SMALLER_TOLERANCE) );
     BOOST_CHECK( SQFloat::AreEqual(fRotationYUT, EXPECTED_ROTATION_Y) );
     BOOST_CHECK( SQFloat::AreEqual(fRotationZUT, EXPECTED_ROTATION_Z) );
@@ -4472,7 +4472,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixOnlyCont
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreNotWhatExpectedWhenGimbalLockOccurs_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4501,14 +4501,14 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreNotWhatExpectedWhenGimbalLockOccurs_
     ROTATION.ij[3][2] = (float_q)12.0;
     FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     float_q fRotationXUT = SQFloat::_0;
     float_q fRotationYUT = SQFloat::_0;
     float_q fRotationZUT = SQFloat::_0;
 
     ROTATION.GetRotation(fRotationXUT, fRotationYUT, fRotationZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(fRotationXUT, EXPECTED_ROTATION_X) ||
                  SQFloat::AreNotEqual(fRotationYUT, EXPECTED_ROTATION_Y) ||
                  SQFloat::AreNotEqual(fRotationZUT, EXPECTED_ROTATION_Z) );
@@ -4519,7 +4519,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreNotWhatExpectedWhenGimbalLockOccurs_
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixContainsRotationAndPositiveScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -4553,14 +4553,14 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixContains
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     float_q fRotationXUT = SQFloat::_0;
     float_q fRotationYUT = SQFloat::_0;
     float_q fRotationZUT = SQFloat::_0;
 
     ADAPTED_TRANSFORMATION.GetRotation(fRotationXUT, fRotationYUT, fRotationZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fRotationXUT, EXPECTED_ROTATION_X, SMALLER_TOLERANCE) );
     BOOST_CHECK( SQFloat::AreEqual(fRotationYUT, EXPECTED_ROTATION_Y) );
     BOOST_CHECK( SQFloat::AreEqual(fRotationZUT, EXPECTED_ROTATION_Z) );
@@ -4571,7 +4571,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_AnglesAreCorrectlyExtractedWhenMatrixContains
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation1_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
@@ -4605,14 +4605,14 @@ QTEST_CASE_TEMPLATE ( GetRotation1_RotationDoesntEqualOriginalValueWhenMatrixCon
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     float_q fRotationXUT = SQFloat::_0;
     float_q fRotationYUT = SQFloat::_0;
     float_q fRotationZUT = SQFloat::_0;
 
     ADAPTED_TRANSFORMATION.GetRotation(fRotationXUT, fRotationYUT, fRotationZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(fRotationXUT, EXPECTED_ROTATION_X) );
     BOOST_CHECK( SQFloat::AreNotEqual(fRotationYUT, EXPECTED_ROTATION_Y) );
     BOOST_CHECK( SQFloat::AreNotEqual(fRotationZUT, EXPECTED_ROTATION_Z) );
@@ -4623,11 +4623,11 @@ QTEST_CASE_TEMPLATE ( GetRotation1_RotationDoesntEqualOriginalValueWhenMatrixCon
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation1_ValuesEqualZeroWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
-    // Execution
+    // [Execution]
     float_q fRotationXUT = SQFloat::_0;
     float_q fRotationYUT = SQFloat::_0;
     float_q fRotationZUT = SQFloat::_0;
@@ -4635,7 +4635,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_ValuesEqualZeroWhenMatrixIsIdentity_Test, TQT
     QTransformationMatrix<T> matrix = TRANSFORMATION;
     matrix.GetRotation(fRotationXUT, fRotationYUT, fRotationZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fRotationXUT, EXPECTED_VALUE_FOR_ALL );
     BOOST_CHECK_EQUAL( fRotationYUT, EXPECTED_VALUE_FOR_ALL );
     BOOST_CHECK_EQUAL( fRotationZUT, EXPECTED_VALUE_FOR_ALL );
@@ -4646,7 +4646,7 @@ QTEST_CASE_TEMPLATE ( GetRotation1_ValuesEqualZeroWhenMatrixIsIdentity_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation2_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -4677,11 +4677,11 @@ QTEST_CASE_TEMPLATE ( GetRotation2_RotationIsCorrectlyExtractedWhenMatrixOnlyCon
     ROTATION.ij[3][2] = (float_q)12.0;
     FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QQuaternion qRotationUT;
     ROTATION.GetRotation(qRotationUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.x, EXPECTED_VALUE.x) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.y, EXPECTED_VALUE.y) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.z, EXPECTED_VALUE.z) );
@@ -4693,7 +4693,7 @@ QTEST_CASE_TEMPLATE ( GetRotation2_RotationIsCorrectlyExtractedWhenMatrixOnlyCon
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation2_RotationIsCorrectlyExtractedWhenMatrixContainsRotationAndPositiveScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -4730,11 +4730,11 @@ QTEST_CASE_TEMPLATE ( GetRotation2_RotationIsCorrectlyExtractedWhenMatrixContain
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QQuaternion qRotationUT;
     ADAPTED_TRANSFORMATION.GetRotation(qRotationUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.x, EXPECTED_VALUE.x) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.y, EXPECTED_VALUE.y) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.z, EXPECTED_VALUE.z) );
@@ -4746,7 +4746,7 @@ QTEST_CASE_TEMPLATE ( GetRotation2_RotationIsCorrectlyExtractedWhenMatrixContain
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation2_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -4783,11 +4783,11 @@ QTEST_CASE_TEMPLATE ( GetRotation2_RotationDoesntEqualOriginalValueWhenMatrixCon
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QQuaternion qRotationUT;
     ADAPTED_TRANSFORMATION.GetRotation(qRotationUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.x, EXPECTED_VALUE.x) );
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.y, EXPECTED_VALUE.y) );
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.z, EXPECTED_VALUE.z) );
@@ -4799,19 +4799,19 @@ QTEST_CASE_TEMPLATE ( GetRotation2_RotationDoesntEqualOriginalValueWhenMatrixCon
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation2_ValueEqualsIdentityWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
     const QQuaternion IDENTITY = QQuaternion::GetIdentity();
 
-    // Execution
+    // [Execution]
     QQuaternion qRotationUT;
 
     QTransformationMatrix<T> matrix = TRANSFORMATION;
     matrix.GetRotation(qRotationUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( qRotationUT.x, IDENTITY.x );
     BOOST_CHECK_EQUAL( qRotationUT.y, IDENTITY.y );
     BOOST_CHECK_EQUAL( qRotationUT.z, IDENTITY.z );
@@ -4823,7 +4823,7 @@ QTEST_CASE_TEMPLATE ( GetRotation2_ValueEqualsIdentityWhenMatrixIsIdentity_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation3_RotationAngleAndAxisAreCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -4850,12 +4850,12 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationAngleAndAxisAreCorrectlyExtractedWhen
     ROTATION.ij[3][2] = (float_q)12.0;
     FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QVector3 vAxisUT;
     float_q fAngleUT = SQFloat::_0;
     ROTATION.GetRotation(fAngleUT, vAxisUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.x, EXPECTED_AXIS.x) );
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.y, EXPECTED_AXIS.y) );
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.z, EXPECTED_AXIS.z) );
@@ -4867,7 +4867,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationAngleAndAxisAreCorrectlyExtractedWhen
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation3_RotationIsCorrectlyExtractedWhenMatrixContainsRotationAndPositiveScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
@@ -4904,12 +4904,12 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationIsCorrectlyExtractedWhenMatrixContain
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QVector3 vAxisUT;
     float_q fAngleUT = SQFloat::_0;
     ADAPTED_TRANSFORMATION.GetRotation(fAngleUT, vAxisUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.x, EXPECTED_AXIS.x) );
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.y, EXPECTED_AXIS.y) );
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.z, EXPECTED_AXIS.z) );
@@ -4921,7 +4921,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationIsCorrectlyExtractedWhenMatrixContain
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation3_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -4958,12 +4958,12 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationDoesntEqualOriginalValueWhenMatrixCon
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QVector3 vAxisUT;
     float_q fAngleUT = SQFloat::_0;
     ADAPTED_TRANSFORMATION.GetRotation(fAngleUT, vAxisUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.x, EXPECTED_AXIS.x) );
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.y, EXPECTED_AXIS.y) );
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.z, EXPECTED_AXIS.z) );
@@ -4975,7 +4975,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_RotationDoesntEqualOriginalValueWhenMatrixCon
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation3_NullVectorAndZeroAngleAreObtainedWhenMatrixContainsPositiveScaleAndNeutralRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -5010,12 +5010,12 @@ QTEST_CASE_TEMPLATE ( GetRotation3_NullVectorAndZeroAngleAreObtainedWhenMatrixCo
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QVector3 vAxisUT;
     float_q fAngleUT = SQFloat::_0;
     ADAPTED_TRANSFORMATION.GetRotation(fAngleUT, vAxisUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.x, EXPECTED_AXIS.x) );
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.y, EXPECTED_AXIS.y) );
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.z, EXPECTED_AXIS.z) );
@@ -5027,7 +5027,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_NullVectorAndZeroAngleAreObtainedWhenMatrixCo
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation3_NullVectorAndZeroAngleAreObtainedWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -5041,12 +5041,12 @@ QTEST_CASE_TEMPLATE ( GetRotation3_NullVectorAndZeroAngleAreObtainedWhenMatrixIs
 
     QTransformationMatrix<T> IDENTITY = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QVector3 vAxisUT;
     float_q fAngleUT = SQFloat::_0;
     IDENTITY.GetRotation(fAngleUT, vAxisUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.x, EXPECTED_AXIS.x) );
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.y, EXPECTED_AXIS.y) );
     BOOST_CHECK( SQFloat::AreNotEqual(vAxisUT.z, EXPECTED_AXIS.z) );
@@ -5058,7 +5058,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_NullVectorAndZeroAngleAreObtainedWhenMatrixIs
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRotation3_ResultantAxisIsNormalized_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QVector3 EXPECTED_AXIS = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize();
@@ -5078,7 +5078,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_ResultantAxisIsNormalized_Test, TQTemplateTyp
     ROTATION.ij[3][2] = (float_q)12.0;
     FillFourthColumnIfExists(ROTATION, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QVector3 vAxisUT;
     QVector3 vNormalizedAxis;
     float_q fAngleAux = SQFloat::_0;
@@ -5086,7 +5086,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_ResultantAxisIsNormalized_Test, TQTemplateTyp
 
     vNormalizedAxis = vAxisUT.Normalize();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.x, vNormalizedAxis.x) );
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.y, vNormalizedAxis.y) );
     BOOST_CHECK( SQFloat::AreEqual(vAxisUT.z, vNormalizedAxis.z) );
@@ -5097,7 +5097,7 @@ QTEST_CASE_TEMPLATE ( GetRotation3_ResultantAxisIsNormalized_Test, TQTemplateTyp
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose1_TransformationsAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -5139,13 +5139,13 @@ QTEST_CASE_TEMPLATE ( Decompose1_TransformationsAreCorrectlyExtractedFromCommonM
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationUT;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationUT, qRotationUT, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.x, EXPECTED_TRANSLATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.y, EXPECTED_TRANSLATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.z, EXPECTED_TRANSLATION.z) );
@@ -5163,7 +5163,7 @@ QTEST_CASE_TEMPLATE ( Decompose1_TransformationsAreCorrectlyExtractedFromCommonM
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose1_TranslationVectorIsNullWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -5171,13 +5171,13 @@ QTEST_CASE_TEMPLATE ( Decompose1_TranslationVectorIsNullWhenMatrixIsIdentity_Tes
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationUT;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleAux;
     TRANSFORMATION.Decompose(vTranslationUT, qRotationAux, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.x, EXPECTED_TRANSLATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.y, EXPECTED_TRANSLATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.z, EXPECTED_TRANSLATION.z) );
@@ -5188,7 +5188,7 @@ QTEST_CASE_TEMPLATE ( Decompose1_TranslationVectorIsNullWhenMatrixIsIdentity_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose1_RotationQuaternionEqualsIdentityWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -5196,13 +5196,13 @@ QTEST_CASE_TEMPLATE ( Decompose1_RotationQuaternionEqualsIdentityWhenMatrixIsIde
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleAux;
     TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.x, EXPECTED_ROTATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.y, EXPECTED_ROTATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.z, EXPECTED_ROTATION.z) );
@@ -5214,7 +5214,7 @@ QTEST_CASE_TEMPLATE ( Decompose1_RotationQuaternionEqualsIdentityWhenMatrixIsIde
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose1_ScalingVectorComponentsEqualOneWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -5222,13 +5222,13 @@ QTEST_CASE_TEMPLATE ( Decompose1_ScalingVectorComponentsEqualOneWhenMatrixIsIden
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleUT;
     TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.x, EXPECTED_SCALE.x) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.y, EXPECTED_SCALE.y) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.z, EXPECTED_SCALE.z) );
@@ -5239,7 +5239,7 @@ QTEST_CASE_TEMPLATE ( Decompose1_ScalingVectorComponentsEqualOneWhenMatrixIsIden
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose1_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -5281,13 +5281,13 @@ QTEST_CASE_TEMPLATE ( Decompose1_RotationDoesntEqualOriginalValueWhenMatrixConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleAux;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.x, EXPECTED_ROTATION.x) );
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.y, EXPECTED_ROTATION.y) );
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.z, EXPECTED_ROTATION.z) );
@@ -5299,7 +5299,7 @@ QTEST_CASE_TEMPLATE ( Decompose1_RotationDoesntEqualOriginalValueWhenMatrixConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose1_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -5341,13 +5341,13 @@ QTEST_CASE_TEMPLATE ( Decompose1_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleAux;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.x, EXPECTED_ROTATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.y, EXPECTED_ROTATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.z, EXPECTED_ROTATION.z) );
@@ -5359,7 +5359,7 @@ QTEST_CASE_TEMPLATE ( Decompose1_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose1_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -5401,13 +5401,13 @@ QTEST_CASE_TEMPLATE ( Decompose1_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.x, EXPECTED_SCALE.x) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.y, EXPECTED_SCALE.y) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.z, EXPECTED_SCALE.z) );
@@ -5418,7 +5418,7 @@ QTEST_CASE_TEMPLATE ( Decompose1_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -5450,13 +5450,13 @@ QTEST_CASE_TEMPLATE ( Decompose1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContai
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.x, EXPECTED_SCALE.x) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.y, EXPECTED_SCALE.y) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.z, EXPECTED_SCALE.z) );
@@ -5467,7 +5467,7 @@ QTEST_CASE_TEMPLATE ( Decompose1_ValuesAreCorrectlyExtractedWhenMatrixOnlyContai
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose2_TransformationsAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -5510,13 +5510,13 @@ QTEST_CASE_TEMPLATE ( Decompose2_TransformationsAreCorrectlyExtractedFromCommonM
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationUT;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationUT, qRotationUT, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.x, EXPECTED_TRANSLATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.y, EXPECTED_TRANSLATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.z, EXPECTED_TRANSLATION.z) );
@@ -5535,7 +5535,7 @@ QTEST_CASE_TEMPLATE ( Decompose2_TransformationsAreCorrectlyExtractedFromCommonM
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose2_TranslationVectorIsNullWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -5544,13 +5544,13 @@ QTEST_CASE_TEMPLATE ( Decompose2_TranslationVectorIsNullWhenMatrixIsIdentity_Tes
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationUT;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleAux;
     TRANSFORMATION.Decompose(vTranslationUT, qRotationAux, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.x, EXPECTED_TRANSLATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.y, EXPECTED_TRANSLATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.z, EXPECTED_TRANSLATION.z) );
@@ -5561,7 +5561,7 @@ QTEST_CASE_TEMPLATE ( Decompose2_TranslationVectorIsNullWhenMatrixIsIdentity_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose2_RotationQuaternionEqualsIdentityWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -5570,13 +5570,13 @@ QTEST_CASE_TEMPLATE ( Decompose2_RotationQuaternionEqualsIdentityWhenMatrixIsIde
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationAux;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleAux;
     TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.x, EXPECTED_ROTATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.y, EXPECTED_ROTATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.z, EXPECTED_ROTATION.z) );
@@ -5588,7 +5588,7 @@ QTEST_CASE_TEMPLATE ( Decompose2_RotationQuaternionEqualsIdentityWhenMatrixIsIde
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose2_ScalingVectorComponentsEqualOneWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -5597,13 +5597,13 @@ QTEST_CASE_TEMPLATE ( Decompose2_ScalingVectorComponentsEqualOneWhenMatrixIsIden
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationAux;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleUT;
     TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.x, EXPECTED_SCALE.x) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.y, EXPECTED_SCALE.y) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.z, EXPECTED_SCALE.z) );
@@ -5614,7 +5614,7 @@ QTEST_CASE_TEMPLATE ( Decompose2_ScalingVectorComponentsEqualOneWhenMatrixIsIden
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose2_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -5657,13 +5657,13 @@ QTEST_CASE_TEMPLATE ( Decompose2_RotationDoesntEqualOriginalValueWhenMatrixConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationAux;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleAux;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.x, EXPECTED_ROTATION.x) );
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.y, EXPECTED_ROTATION.y) );
     BOOST_CHECK( SQFloat::AreNotEqual(qRotationUT.z, EXPECTED_ROTATION.z) );
@@ -5675,7 +5675,7 @@ QTEST_CASE_TEMPLATE ( Decompose2_RotationDoesntEqualOriginalValueWhenMatrixConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose2_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -5718,13 +5718,13 @@ QTEST_CASE_TEMPLATE ( Decompose2_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationAux;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleAux;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.x, EXPECTED_ROTATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.y, EXPECTED_ROTATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.z, EXPECTED_ROTATION.z) );
@@ -5736,7 +5736,7 @@ QTEST_CASE_TEMPLATE ( Decompose2_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose2_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -5779,13 +5779,13 @@ QTEST_CASE_TEMPLATE ( Decompose2_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationAux;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.x, EXPECTED_SCALE.x) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.y, EXPECTED_SCALE.y) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.z, EXPECTED_SCALE.z) );
@@ -5796,7 +5796,7 @@ QTEST_CASE_TEMPLATE ( Decompose2_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose2_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
@@ -5829,13 +5829,13 @@ QTEST_CASE_TEMPLATE ( Decompose2_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector4 vTranslationAux;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleUT;
     ADAPTED_TRANSFORMATION.Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.x, EXPECTED_SCALE.x) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.y, EXPECTED_SCALE.y) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.z, EXPECTED_SCALE.z) );
@@ -5846,7 +5846,7 @@ QTEST_CASE_TEMPLATE ( Decompose2_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose3_TransformationsAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -5886,13 +5886,13 @@ QTEST_CASE_TEMPLATE ( Decompose3_TransformationsAreCorrectlyExtractedFromCommonM
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> translationUT;
     QTransformationMatrix<QMatrix4x3> rotationUT;
     QTransformationMatrix<QMatrix4x3> scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -5903,18 +5903,18 @@ QTEST_CASE_TEMPLATE ( Decompose3_TransformationsAreCorrectlyExtractedFromCommonM
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose3_ExtractedTransformationsEqualIdentityWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QTransformationMatrix<QMatrix4x3> EXPECTED_TRANSFORMATIONS_VALUE = QTransformationMatrix<QMatrix4x3>::GetIdentity();
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> translationUT;
     QTransformationMatrix<QMatrix4x3> rotationUT;
     QTransformationMatrix<QMatrix4x3> scaleUT;
     TRANSFORMATION.Decompose(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSFORMATIONS_VALUE );
     BOOST_CHECK( rotationUT == EXPECTED_TRANSFORMATIONS_VALUE );
     BOOST_CHECK( scaleUT == EXPECTED_TRANSFORMATIONS_VALUE );
@@ -5925,7 +5925,7 @@ QTEST_CASE_TEMPLATE ( Decompose3_ExtractedTransformationsEqualIdentityWhenMatrix
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose3_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -5963,13 +5963,13 @@ QTEST_CASE_TEMPLATE ( Decompose3_RotationDoesntEqualOriginalValueWhenMatrixConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> translationAux;
     QTransformationMatrix<QMatrix4x3> rotationUT;
     QTransformationMatrix<QMatrix4x3> scaleAux;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT != EXPECTED_ROTATION );
 }
 
@@ -5978,7 +5978,7 @@ QTEST_CASE_TEMPLATE ( Decompose3_RotationDoesntEqualOriginalValueWhenMatrixConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose3_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6016,13 +6016,13 @@ QTEST_CASE_TEMPLATE ( Decompose3_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> translationAux;
     QTransformationMatrix<QMatrix4x3> rotationUT;
     QTransformationMatrix<QMatrix4x3> scaleAux;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
 }
 
@@ -6031,7 +6031,7 @@ QTEST_CASE_TEMPLATE ( Decompose3_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose3_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6059,13 +6059,13 @@ QTEST_CASE_TEMPLATE ( Decompose3_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> translationAux;
     QTransformationMatrix<QMatrix4x3> rotationAux;
     QTransformationMatrix<QMatrix4x3> scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -6074,7 +6074,7 @@ QTEST_CASE_TEMPLATE ( Decompose3_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose3_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6102,13 +6102,13 @@ QTEST_CASE_TEMPLATE ( Decompose3_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> translationAux;
     QTransformationMatrix<QMatrix4x3> rotationAux;
     QTransformationMatrix<QMatrix4x3> scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -6117,7 +6117,7 @@ QTEST_CASE_TEMPLATE ( Decompose3_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose4_TransformationsAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6157,13 +6157,13 @@ QTEST_CASE_TEMPLATE ( Decompose4_TransformationsAreCorrectlyExtractedFromCommonM
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> translationUT;
     QTransformationMatrix<QMatrix4x4> rotationUT;
     QTransformationMatrix<QMatrix4x4> scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -6174,18 +6174,18 @@ QTEST_CASE_TEMPLATE ( Decompose4_TransformationsAreCorrectlyExtractedFromCommonM
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose4_ExtractedTransformationsEqualIdentityWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QTransformationMatrix<QMatrix4x4> EXPECTED_TRANSFORMATIONS_VALUE = QTransformationMatrix<QMatrix4x4>::GetIdentity();
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> translationUT;
     QTransformationMatrix<QMatrix4x4> rotationUT;
     QTransformationMatrix<QMatrix4x4> scaleUT;
     TRANSFORMATION.Decompose(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSFORMATIONS_VALUE );
     BOOST_CHECK( rotationUT == EXPECTED_TRANSFORMATIONS_VALUE );
     BOOST_CHECK( scaleUT == EXPECTED_TRANSFORMATIONS_VALUE );
@@ -6196,7 +6196,7 @@ QTEST_CASE_TEMPLATE ( Decompose4_ExtractedTransformationsEqualIdentityWhenMatrix
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose4_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6234,13 +6234,13 @@ QTEST_CASE_TEMPLATE ( Decompose4_RotationDoesntEqualOriginalValueWhenMatrixConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> translationAux;
     QTransformationMatrix<QMatrix4x4> rotationUT;
     QTransformationMatrix<QMatrix4x4> scaleAux;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT != EXPECTED_ROTATION );
 }
 
@@ -6249,7 +6249,7 @@ QTEST_CASE_TEMPLATE ( Decompose4_RotationDoesntEqualOriginalValueWhenMatrixConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose4_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6287,13 +6287,13 @@ QTEST_CASE_TEMPLATE ( Decompose4_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> translationAux;
     QTransformationMatrix<QMatrix4x4> rotationUT;
     QTransformationMatrix<QMatrix4x4> scaleAux;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
 }
 
@@ -6302,7 +6302,7 @@ QTEST_CASE_TEMPLATE ( Decompose4_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose4_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6330,13 +6330,13 @@ QTEST_CASE_TEMPLATE ( Decompose4_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> translationAux;
     QTransformationMatrix<QMatrix4x4> rotationAux;
     QTransformationMatrix<QMatrix4x4> scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -6345,7 +6345,7 @@ QTEST_CASE_TEMPLATE ( Decompose4_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose4_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6373,13 +6373,13 @@ QTEST_CASE_TEMPLATE ( Decompose4_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> translationAux;
     QTransformationMatrix<QMatrix4x4> rotationAux;
     QTransformationMatrix<QMatrix4x4> scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -6388,7 +6388,7 @@ QTEST_CASE_TEMPLATE ( Decompose4_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose5_TransformationsAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6424,13 +6424,13 @@ QTEST_CASE_TEMPLATE ( Decompose5_TransformationsAreCorrectlyExtractedFromCommonM
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x3> translationUT;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -6441,20 +6441,20 @@ QTEST_CASE_TEMPLATE ( Decompose5_TransformationsAreCorrectlyExtractedFromCommonM
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose5_ExtractedTransformationsEqualIdentityWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QTranslationMatrix<QMatrix4x3> EXPECTED_TRANSLATION = QTranslationMatrix<QMatrix4x3>::GetIdentity();
     const QRotationMatrix3x3 EXPECTED_ROTATION = QRotationMatrix3x3::GetIdentity();
     const QScalingMatrix3x3 EXPECTED_SCALE = QScalingMatrix3x3::GetIdentity();
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x3> translationUT;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleUT;
     TRANSFORMATION.Decompose(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -6465,7 +6465,7 @@ QTEST_CASE_TEMPLATE ( Decompose5_ExtractedTransformationsEqualIdentityWhenMatrix
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose5_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6501,13 +6501,13 @@ QTEST_CASE_TEMPLATE ( Decompose5_RotationDoesntEqualOriginalValueWhenMatrixConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x3> translationAux;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleAux;
     TRANSFORMATION.Decompose(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT != EXPECTED_ROTATION );
 }
 
@@ -6516,7 +6516,7 @@ QTEST_CASE_TEMPLATE ( Decompose5_RotationDoesntEqualOriginalValueWhenMatrixConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose5_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6552,13 +6552,13 @@ QTEST_CASE_TEMPLATE ( Decompose5_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x3> translationAux;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleAux;
     TRANSFORMATION.Decompose(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
 }
 
@@ -6567,7 +6567,7 @@ QTEST_CASE_TEMPLATE ( Decompose5_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose5_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6595,13 +6595,13 @@ QTEST_CASE_TEMPLATE ( Decompose5_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x3> translationAux;
     QRotationMatrix3x3 rotationAux;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -6610,7 +6610,7 @@ QTEST_CASE_TEMPLATE ( Decompose5_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose5_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6636,13 +6636,13 @@ QTEST_CASE_TEMPLATE ( Decompose5_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x3> translationAux;
     QRotationMatrix3x3 rotationAux;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -6651,7 +6651,7 @@ QTEST_CASE_TEMPLATE ( Decompose5_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose6_TransformationsAreCorrectlyExtractedFromCommonMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6687,13 +6687,13 @@ QTEST_CASE_TEMPLATE ( Decompose6_TransformationsAreCorrectlyExtractedFromCommonM
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x4> translationUT;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -6704,20 +6704,20 @@ QTEST_CASE_TEMPLATE ( Decompose6_TransformationsAreCorrectlyExtractedFromCommonM
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose6_ExtractedTransformationsEqualIdentityWhenMatrixIsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QTranslationMatrix<QMatrix4x4> EXPECTED_TRANSLATION = QTranslationMatrix<QMatrix4x4>::GetIdentity();
     const QRotationMatrix3x3 EXPECTED_ROTATION = QRotationMatrix3x3::GetIdentity();
     const QScalingMatrix3x3 EXPECTED_SCALE = QScalingMatrix3x3::GetIdentity();
 
     const QTransformationMatrix<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x4> translationUT;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleUT;
     TRANSFORMATION.Decompose(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -6728,7 +6728,7 @@ QTEST_CASE_TEMPLATE ( Decompose6_ExtractedTransformationsEqualIdentityWhenMatrix
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose6_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6764,13 +6764,13 @@ QTEST_CASE_TEMPLATE ( Decompose6_RotationDoesntEqualOriginalValueWhenMatrixConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x4> translationAux;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleAux;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT != EXPECTED_ROTATION );
 }
 
@@ -6779,7 +6779,7 @@ QTEST_CASE_TEMPLATE ( Decompose6_RotationDoesntEqualOriginalValueWhenMatrixConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose6_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6815,13 +6815,13 @@ QTEST_CASE_TEMPLATE ( Decompose6_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x4> translationAux;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleAux;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
 }
 
@@ -6830,7 +6830,7 @@ QTEST_CASE_TEMPLATE ( Decompose6_RotationIsCorrectlyExtractedWhenMatrixOnlyConta
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose6_ReturnedScaleIsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6858,13 +6858,13 @@ QTEST_CASE_TEMPLATE ( Decompose6_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x4> translationAux;
     QRotationMatrix3x3 rotationAux;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -6873,7 +6873,7 @@ QTEST_CASE_TEMPLATE ( Decompose6_ReturnedScaleIsAlwaysPositive_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Decompose6_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -6899,13 +6899,13 @@ QTEST_CASE_TEMPLATE ( Decompose6_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<QMatrix4x4> translationAux;
     QRotationMatrix3x3 rotationAux;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.Decompose(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -6914,7 +6914,7 @@ QTEST_CASE_TEMPLATE ( Decompose6_ValueIsCorrectlyExtractedWhenMatrixOnlyContains
 /// </summary>
 QTEST_CASE_TEMPLATE ( SwitchHandConvention_MatrixHandConventionIsCorrectlySwitched_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -6956,13 +6956,13 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_MatrixHandConventionIsCorrectlySwitch
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationUT;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleUT;
     ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationUT, qRotationUT, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.x, EXPECTED_TRANSLATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.y, EXPECTED_TRANSLATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.z, EXPECTED_TRANSLATION.z) );
@@ -6980,7 +6980,7 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_MatrixHandConventionIsCorrectlySwitch
 /// </summary>
 QTEST_CASE_TEMPLATE ( SwitchHandConvention_TranslationZComponentIsInverted_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -7010,13 +7010,13 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_TranslationZComponentIsInverted_Test,
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationUT;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleAux;
     ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationUT, qRotationAux, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.x, EXPECTED_TRANSLATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.y, EXPECTED_TRANSLATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(vTranslationUT.z, EXPECTED_TRANSLATION.z) );
@@ -7027,7 +7027,7 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_TranslationZComponentIsInverted_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( SwitchHandConvention_RotationsAreInverted_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -7067,13 +7067,13 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_RotationsAreInverted_Test, TQTemplate
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationUT;
     QBaseVector3 vScaleAux;
     ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationAux, qRotationUT, vScaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.x, EXPECTED_ROTATION.x) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.y, EXPECTED_ROTATION.y) );
     BOOST_CHECK( SQFloat::AreEqual(qRotationUT.z, EXPECTED_ROTATION.z) );
@@ -7085,7 +7085,7 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_RotationsAreInverted_Test, TQTemplate
 /// </summary>
 QTEST_CASE_TEMPLATE ( SwitchHandConvention_ScaleDoesntChange_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -7115,13 +7115,13 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_ScaleDoesntChange_Test, TQTemplateTyp
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleUT;
     ADAPTED_TRANSFORMATION.SwitchHandConvention().Decompose(vTranslationAux, qRotationAux, vScaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.x, EXPECTED_SCALE.x) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.y, EXPECTED_SCALE.y) );
     BOOST_CHECK( SQFloat::AreEqual(vScaleUT.z, EXPECTED_SCALE.z) );
@@ -7134,7 +7134,7 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_ScaleDoesntChange_Test, TQTemplateTyp
 /// </summary>
 QTEST_CASE_TEMPLATE ( SwitchHandConvention_AssertionFailsWhenScaleEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
@@ -7174,7 +7174,7 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_AssertionFailsWhenScaleEqualsZero_Tes
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QBaseVector3 vTranslationAux;
     QQuaternion qRotationAux;
     QBaseVector3 vScaleAux;
@@ -7189,7 +7189,7 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_AssertionFailsWhenScaleEqualsZero_Tes
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, EXPECTED_VALUE);
 }
 
@@ -7200,7 +7200,7 @@ QTEST_CASE_TEMPLATE ( SwitchHandConvention_AssertionFailsWhenScaleEqualsZero_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToRotationMatrix3x3_CorrectRotationIsObtainedWhenUsingCommonMatrixWithPositiveScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -7237,10 +7237,10 @@ QTEST_CASE_TEMPLATE ( ToRotationMatrix3x3_CorrectRotationIsObtainedWhenUsingComm
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QRotationMatrix3x3 rotationUT = ADAPTED_TRANSFORMATION.ToRotationMatrix3x3();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(rotationUT.ij[0][0], EXPECTED_ROTATION.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(rotationUT.ij[0][1], EXPECTED_ROTATION.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(rotationUT.ij[0][2], EXPECTED_ROTATION.ij[0][2]) );
@@ -7257,7 +7257,7 @@ QTEST_CASE_TEMPLATE ( ToRotationMatrix3x3_CorrectRotationIsObtainedWhenUsingComm
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToRotationMatrix3x3_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -7294,10 +7294,10 @@ QTEST_CASE_TEMPLATE ( ToRotationMatrix3x3_RotationDoesntEqualOriginalValueWhenMa
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QRotationMatrix3x3 rotationUT = ADAPTED_TRANSFORMATION.ToRotationMatrix3x3();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rotationUT != EXPECTED_ROTATION);
 }
 
@@ -7306,17 +7306,17 @@ QTEST_CASE_TEMPLATE ( ToRotationMatrix3x3_RotationDoesntEqualOriginalValueWhenMa
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToRotationMatrix3x3_ObtainedRotationEqualsIdentityWhenMatrixEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
     const QRotationMatrix3x3 EXPECTED_ROTATION = QRotationMatrix3x3::GetIdentity();
 
     QTransformationMatrixWhiteBox<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QRotationMatrix3x3 rotationUT = TRANSFORMATION.ToRotationMatrix3x3();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(rotationUT.ij[0][0], EXPECTED_ROTATION.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(rotationUT.ij[0][1], EXPECTED_ROTATION.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(rotationUT.ij[0][2], EXPECTED_ROTATION.ij[0][2]) );
@@ -7333,7 +7333,7 @@ QTEST_CASE_TEMPLATE ( ToRotationMatrix3x3_ObtainedRotationEqualsIdentityWhenMatr
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_TransformationIsCorrectlyBuiltFromCommonTransformations_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -7364,13 +7364,13 @@ QTEST_CASE_TEMPLATE ( Initialize_TransformationIsCorrectlyBuiltFromCommonTransfo
     EXPECTED_VALUE.ij[3][2] = SQFloat::_3;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.Initialize(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                         ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                         SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -7391,7 +7391,7 @@ QTEST_CASE_TEMPLATE ( Initialize_TransformationIsCorrectlyBuiltFromCommonTransfo
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_IdentityIsObtainedWhenNeutralTransformationsAreUsed_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -7409,13 +7409,13 @@ QTEST_CASE_TEMPLATE ( Initialize_IdentityIsObtainedWhenNeutralTransformationsAre
 
     const T EXPECTED_VALUE = T::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.Initialize(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                         ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                         SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -7436,7 +7436,7 @@ QTEST_CASE_TEMPLATE ( Initialize_IdentityIsObtainedWhenNeutralTransformationsAre
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -7449,13 +7449,13 @@ QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsTranslatio
     EXPECTED_VALUE.ij[3][1] = TRANSLATION.y;
     EXPECTED_VALUE.ij[3][2] = TRANSLATION.z;
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.Initialize(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                         ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                         SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -7476,7 +7476,7 @@ QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsTranslatio
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsRotation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -7499,13 +7499,13 @@ QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsRotation_T
     EXPECTED_VALUE.ij[3][2] = SQFloat::_0;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.Initialize(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                         ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                         SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -7526,7 +7526,7 @@ QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsRotation_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsScale_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -7540,13 +7540,13 @@ QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsScale_Test
     EXPECTED_VALUE.ij[2][2] = SCALE.z;
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.Initialize(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                         ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                         SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -7567,7 +7567,7 @@ QTEST_CASE_TEMPLATE ( Initialize_CorrectResultObtainedWhenOnlyContainsScale_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuaternion;
 
@@ -7578,13 +7578,13 @@ QTEST_CASE_TEMPLATE ( Initialize_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, T
     T EXPECTED_VALUE = T::GetZeroMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.Initialize(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                         ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                         SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -7605,7 +7605,7 @@ QTEST_CASE_TEMPLATE ( Initialize_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_ResultIsDifferentDependingOnQuaternionNormalization_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -7614,7 +7614,7 @@ QTEST_CASE_TEMPLATE ( Initialize_ResultIsDifferentDependingOnQuaternionNormaliza
     const QQuaternion NOT_NORMALIZED_QUATERNION = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseVector3 SCALE(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixFromNormalizedQuaternionUT;
     matrixFromNormalizedQuaternionUT.Initialize(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                                                 NORMALIZED_QUATERNION.x, NORMALIZED_QUATERNION.y, NORMALIZED_QUATERNION.z, NORMALIZED_QUATERNION.w,
@@ -7625,7 +7625,7 @@ QTEST_CASE_TEMPLATE ( Initialize_ResultIsDifferentDependingOnQuaternionNormaliza
                                                    NOT_NORMALIZED_QUATERNION.x, NOT_NORMALIZED_QUATERNION.y, NOT_NORMALIZED_QUATERNION.z, NOT_NORMALIZED_QUATERNION.w,
                                                    SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixFromNormalizedQuaternionUT != matrixFromNotNormalizedQuaternionUT );
 }
 
@@ -7634,7 +7634,7 @@ QTEST_CASE_TEMPLATE ( Initialize_ResultIsDifferentDependingOnQuaternionNormaliza
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -7674,12 +7674,12 @@ QTEST_CASE_TEMPLATE ( Initialize_FollowsLeftHandedRules_Test, TQTemplateTypes )
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Y(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 POSITION_BEFORE_ROTATION_AROUND_Z(SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
-    // Execution
+    // [Execution]
     QVector3 vPoint1UT = POSITION_BEFORE_ROTATION_AROUND_X.Transform(ROTATION_AROUND_X);
     QVector3 vPoint2UT = POSITION_BEFORE_ROTATION_AROUND_Y.Transform(ROTATION_AROUND_Y);
     QVector3 vPoint3UT = POSITION_BEFORE_ROTATION_AROUND_Z.Transform(ROTATION_AROUND_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.x, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.x) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.y, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.y) );
     BOOST_CHECK( SQFloat::AreEqual(vPoint1UT.z, EXPECTED_POSITION_AFTER_ROTATION_AROUND_X.z) );
@@ -7696,7 +7696,7 @@ QTEST_CASE_TEMPLATE ( Initialize_FollowsLeftHandedRules_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Initialize_CompositionOrderIsScaleRotationTranslation_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -7731,13 +7731,13 @@ QTEST_CASE_TEMPLATE ( Initialize_CompositionOrderIsScaleRotationTranslation_Test
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT;
     matrixUT.Initialize(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z,
                         ROTATION.x, ROTATION.y, ROTATION.z, ROTATION.w,
                         SCALE.x, SCALE.y, SCALE.z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -7760,7 +7760,7 @@ QTEST_CASE_TEMPLATE ( Initialize_CompositionOrderIsScaleRotationTranslation_Test
 template<class T, class MatrixType>
 void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_Template()
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrixWhiteBox<T> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -7806,11 +7806,11 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_Template()
     EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT;
     OPERAND1.ProductOperatorImp(OPERAND2, matrixUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -7842,7 +7842,7 @@ QTEST_CASE_TEMPLATE ( ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( ProductOperatorImp1_FourthColumnOfRightOperandDoesntMatter_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrixWhiteBox<T> OPERANDA1;
     OPERANDA1.ij[0][0] = SQFloat::_1;
     OPERANDA1.ij[0][1] = SQFloat::_2;
@@ -7870,13 +7870,13 @@ QTEST_CASE_TEMPLATE ( ProductOperatorImp1_FourthColumnOfRightOperandDoesntMatter
                                                                                                (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
                                                                                                (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixAUT;
     QTransformationMatrix<T> matrixBUT;
     OPERANDA1.ProductOperatorImp(OPERANDA2, matrixAUT);
     OPERANDB1.ProductOperatorImp(OPERANDB2, matrixBUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixAUT == matrixBUT );
 }
 
@@ -7885,7 +7885,7 @@ QTEST_CASE_TEMPLATE ( ProductOperatorImp1_FourthColumnOfRightOperandDoesntMatter
 /// </summary>
 QTEST_CASE( ProductOperatorImp1_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrixWhiteBox<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -7906,11 +7906,11 @@ QTEST_CASE( ProductOperatorImp1_FourthColumnOfLeftOperandIsJustCopied_Test )
                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT;
     OPERAND1.ProductOperatorImp(OPERAND2, matrixUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -7924,7 +7924,7 @@ QTEST_CASE( ProductOperatorImp1_FourthColumnOfLeftOperandIsJustCopied_Test )
 template<class T, class MatrixType>
 void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_Template()
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrixWhiteBox<T> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -7969,11 +7969,11 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_Template()
     EXPECTED_VALUE.ij[3][2] = (float_q)40.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixUT;
     OPERAND1.ProductOperatorImp(OPERAND2, matrixUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -8007,7 +8007,7 @@ QTEST_CASE_TEMPLATE ( ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_T
 template<class T, class MatrixType>
 void ProductOperatorImp2_OnlyTheFourthRowOfTranslationMatrixMatters_Template()
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrixWhiteBox<T> OPERANDA1;
     OPERANDA1.ij[0][0] = SQFloat::_1;
     OPERANDA1.ij[0][1] = SQFloat::_2;
@@ -8055,13 +8055,13 @@ void ProductOperatorImp2_OnlyTheFourthRowOfTranslationMatrixMatters_Template()
     OPERANDB2.ij[3][2] = (float_q)28.0;
     FillFourthColumnIfExists(OPERANDB2, (float_q)45.0, (float_q)46.0, (float_q)47.0, (float_q)48.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<T> matrixAUT;
     OPERANDA1.ProductOperatorImp(OPERANDA2, matrixAUT);
     QTransformationMatrix<T> matrixBUT;
     OPERANDB1.ProductOperatorImp(OPERANDB2, matrixBUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixAUT == matrixBUT );
 }
 
@@ -8081,7 +8081,7 @@ QTEST_CASE_TEMPLATE ( ProductOperatorImp2_OnlyTheFourthRowOfTranslationMatrixMat
 /// </summary>
 QTEST_CASE( ProductOperatorImp2_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrixWhiteBox<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -8102,11 +8102,11 @@ QTEST_CASE( ProductOperatorImp2_FourthColumnOfLeftOperandIsJustCopied_Test )
                                                                                         (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
                                                                                         (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT;
     OPERAND1.ProductOperatorImp(OPERAND2, matrixUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -8120,7 +8120,7 @@ QTEST_CASE( ProductOperatorImp2_FourthColumnOfLeftOperandIsJustCopied_Test )
 template<class T, class MatrixType>
 void ProductAssignationOperatorImp_CommonMatricesAreCorrectlyMultiplied_Template()
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -8166,11 +8166,11 @@ void ProductAssignationOperatorImp_CommonMatricesAreCorrectlyMultiplied_Template
     EXPECTED_VALUE.ij[3][2] = (float_q)760.0;
     FillFourthColumnIfExists(EXPECTED_VALUE, (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixUT = OPERAND1;
     matrixUT.ProductAssignationOperatorImp(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -8202,7 +8202,7 @@ QTEST_CASE_TEMPLATE ( ProductAssignationOperatorImp_CommonMatricesAreCorrectlyMu
 /// </summary>
 QTEST_CASE_TEMPLATE ( ProductAssignationOperatorImp_FourthColumnOfRightOperandDoesntMatter_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<T> OPERANDA1;
     OPERANDA1.ij[0][0] = SQFloat::_1;
     OPERANDA1.ij[0][1] = SQFloat::_2;
@@ -8230,13 +8230,13 @@ QTEST_CASE_TEMPLATE ( ProductAssignationOperatorImp_FourthColumnOfRightOperandDo
                                                                                                (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)39.0,
                                                                                                (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)40.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<T> matrixAUT = OPERANDA1;
     matrixAUT.ProductAssignationOperatorImp(OPERANDA2);
     QTransformationMatrixWhiteBox<T> matrixBUT = OPERANDB1;
     matrixBUT.ProductAssignationOperatorImp(OPERANDB2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrixAUT == matrixBUT );
 }
 
@@ -8245,7 +8245,7 @@ QTEST_CASE_TEMPLATE ( ProductAssignationOperatorImp_FourthColumnOfRightOperandDo
 /// </summary>
 QTEST_CASE( ProductAssignationOperatorImp_FourthColumnOfLeftOperandIsJustCopied_Test )
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND1;
     OPERAND1.ij[0][0] = SQFloat::_1;
     OPERAND1.ij[0][1] = SQFloat::_2;
@@ -8266,11 +8266,11 @@ QTEST_CASE( ProductAssignationOperatorImp_FourthColumnOfLeftOperandIsJustCopied_
                                                                                               (float_q)23.0, (float_q)24.0, (float_q)25.0, (float_q)31.0,
                                                                                               (float_q)26.0, (float_q)27.0, (float_q)28.0, (float_q)32.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<QMatrix4x4> matrixUT = OPERAND1;
     matrixUT.ProductAssignationOperatorImp(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( matrixUT.ij[0][3], OPERAND1.ij[0][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[1][3], OPERAND1.ij[1][3] );
     BOOST_CHECK_EQUAL( matrixUT.ij[2][3], OPERAND1.ij[2][3] );
@@ -8284,7 +8284,7 @@ QTEST_CASE( ProductAssignationOperatorImp_FourthColumnOfLeftOperandIsJustCopied_
 template<class T, class MatrixType>
 void ProductAssignationOperatorImp_CanBeMultipliedByItself_Template()
 {
-    // Preparation
+    // [Preparation]
     QTransformationMatrix<QMatrix4x4> OPERAND;
     OPERAND.ij[0][0] = SQFloat::_1;
     OPERAND.ij[0][1] = SQFloat::_2;
@@ -8321,11 +8321,11 @@ void ProductAssignationOperatorImp_CanBeMultipliedByItself_Template()
     EXPECTED_VALUE.ij[2][3] = (float_q)15.0;
     EXPECTED_VALUE.ij[3][3] = (float_q)16.0;
 
-    // Execution
+    // [Execution]
     QTransformationMatrixWhiteBox<QMatrix4x4> matrixUT = OPERAND;
     matrixUT.ProductAssignationOperatorImp(matrixUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -8358,7 +8358,7 @@ QTEST_CASE_TEMPLATE ( ProductAssignationOperatorImp_CanBeMultipliedByItself_Test
 template<class T, class MatrixType>
 void DecomposeImp1_TransformationsAreCorrectlyExtractedFromCommonMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8398,13 +8398,13 @@ void DecomposeImp1_TransformationsAreCorrectlyExtractedFromCommonMatrix_Template
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<MatrixType> translationUT;
     QTransformationMatrix<MatrixType> rotationUT;
     QTransformationMatrix<MatrixType> scaleUT;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -8428,18 +8428,18 @@ QTEST_CASE_TEMPLATE ( DecomposeImp1_TransformationsAreCorrectlyExtractedFromComm
 template<class T, class MatrixType>
 void DecomposeImp1_ExtractedTransformationsEqualIdentityWhenMatrixIsIdentity_Template()
 {
-    // Preparation
+    // [Preparation]
     const QTransformationMatrix<MatrixType> EXPECTED_TRANSFORMATIONS_VALUE = QTransformationMatrix<MatrixType>::GetIdentity();
 
     const QTransformationMatrixWhiteBox<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<MatrixType> translationUT;
     QTransformationMatrix<MatrixType> rotationUT;
     QTransformationMatrix<MatrixType> scaleUT;
     TRANSFORMATION.DecomposeImp(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSFORMATIONS_VALUE );
     BOOST_CHECK( rotationUT == EXPECTED_TRANSFORMATIONS_VALUE );
     BOOST_CHECK( scaleUT == EXPECTED_TRANSFORMATIONS_VALUE );
@@ -8463,7 +8463,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp1_ExtractedTransformationsEqualIdentityWhenMat
 template<class T, class MatrixType>
 void DecomposeImp1_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8501,13 +8501,13 @@ void DecomposeImp1_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeSca
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<MatrixType> translationAux;
     QTransformationMatrix<MatrixType> rotationUT;
     QTransformationMatrix<MatrixType> scaleAux;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT != EXPECTED_ROTATION );
 }
 
@@ -8529,7 +8529,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp1_RotationDoesntEqualOriginalValueWhenMatrixCo
 template<class T, class MatrixType>
 void DecomposeImp1_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8567,13 +8567,13 @@ void DecomposeImp1_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Te
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<MatrixType> translationAux;
     QTransformationMatrix<MatrixType> rotationUT;
     QTransformationMatrix<MatrixType> scaleAux;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
 }
 
@@ -8595,7 +8595,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp1_RotationIsCorrectlyExtractedWhenMatrixOnlyCo
 template<class T, class MatrixType>
 void DecomposeImp1_ReturnedScaleIsAlwaysPositive_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8623,13 +8623,13 @@ void DecomposeImp1_ReturnedScaleIsAlwaysPositive_Template()
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<MatrixType> translationAux;
     QTransformationMatrix<MatrixType> rotationAux;
     QTransformationMatrix<MatrixType> scaleUT;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -8651,7 +8651,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp1_ReturnedScaleIsAlwaysPositive_Test, TQTempla
 template<class T, class MatrixType>
 void DecomposeImp1_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8679,13 +8679,13 @@ void DecomposeImp1_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Template
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<MatrixType> translationAux;
     QTransformationMatrix<MatrixType> rotationAux;
     QTransformationMatrix<MatrixType> scaleUT;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -8707,7 +8707,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp1_ValueIsCorrectlyExtractedWhenMatrixOnlyConta
 template<class T, class MatrixType>
 void DecomposeImp2_TransformationsAreCorrectlyExtractedFromCommonMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8743,13 +8743,13 @@ void DecomposeImp2_TransformationsAreCorrectlyExtractedFromCommonMatrix_Template
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<MatrixType> translationUT;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -8773,20 +8773,20 @@ QTEST_CASE_TEMPLATE ( DecomposeImp2_TransformationsAreCorrectlyExtractedFromComm
 template<class T, class MatrixType>
 void DecomposeImp2_ExtractedTransformationsEqualIdentityWhenMatrixIsIdentity_Template()
 {
-    // Preparation
+    // [Preparation]
     const QTranslationMatrix<MatrixType> EXPECTED_TRANSLATION = QTranslationMatrix<MatrixType>::GetIdentity();
     const QRotationMatrix3x3 EXPECTED_ROTATION = QRotationMatrix3x3::GetIdentity();
     const QScalingMatrix3x3 EXPECTED_SCALE = QScalingMatrix3x3::GetIdentity();
 
     const QTransformationMatrixWhiteBox<T> TRANSFORMATION = QTransformationMatrix<T>::GetIdentity();
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<MatrixType> translationUT;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleUT;
     TRANSFORMATION.DecomposeImp(translationUT, rotationUT, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( translationUT == EXPECTED_TRANSLATION );
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
@@ -8810,7 +8810,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp2_ExtractedTransformationsEqualIdentityWhenMat
 template<class T, class MatrixType>
 void DecomposeImp2_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeScale_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8846,13 +8846,13 @@ void DecomposeImp2_RotationDoesntEqualOriginalValueWhenMatrixContainsNegativeSca
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<MatrixType> translationAux;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleAux;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT != EXPECTED_ROTATION );
 }
 
@@ -8874,7 +8874,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp2_RotationDoesntEqualOriginalValueWhenMatrixCo
 template<class T, class MatrixType>
 void DecomposeImp2_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8910,13 +8910,13 @@ void DecomposeImp2_RotationIsCorrectlyExtractedWhenMatrixOnlyContainsRotation_Te
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<MatrixType> translationAux;
     QRotationMatrix3x3 rotationUT;
     QScalingMatrix3x3 scaleAux;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationAux, rotationUT, scaleAux);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( rotationUT == EXPECTED_ROTATION );
 }
 
@@ -8938,7 +8938,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp2_RotationIsCorrectlyExtractedWhenMatrixOnlyCo
 template<class T, class MatrixType>
 void DecomposeImp2_ReturnedScaleIsAlwaysPositive_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -8966,13 +8966,13 @@ void DecomposeImp2_ReturnedScaleIsAlwaysPositive_Template()
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<MatrixType> translationAux;
     QRotationMatrix3x3 rotationAux;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 
@@ -8994,7 +8994,7 @@ QTEST_CASE_TEMPLATE ( DecomposeImp2_ReturnedScaleIsAlwaysPositive_Test, TQTempla
 template<class T, class MatrixType>
 void DecomposeImp2_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -9020,13 +9020,13 @@ void DecomposeImp2_ValueIsCorrectlyExtractedWhenMatrixOnlyContainsScale_Template
     ADAPTED_TRANSFORMATION.ij[3][2] = TRANSFORMATION.ij[3][2];
     FillFourthColumnIfExists(ADAPTED_TRANSFORMATION, TRANSFORMATION.ij[0][3], TRANSFORMATION.ij[1][3], TRANSFORMATION.ij[2][3], TRANSFORMATION.ij[3][3]);
 
-    // Execution
+    // [Execution]
     QTranslationMatrix<MatrixType> translationAux;
     QRotationMatrix3x3 rotationAux;
     QScalingMatrix3x3 scaleUT;
     ADAPTED_TRANSFORMATION.DecomposeImp(translationAux, rotationAux, scaleUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( scaleUT == EXPECTED_SCALE );
 }
 

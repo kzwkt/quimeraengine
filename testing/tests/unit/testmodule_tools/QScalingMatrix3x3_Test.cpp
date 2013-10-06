@@ -53,13 +53,13 @@ QTEST_SUITE_BEGIN( QScalingMatrix3x3_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const QScalingMatrix3x3 EXPECTED_VALUE(QScalingMatrix3x3::GetIdentity());
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -76,7 +76,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
@@ -95,10 +95,10 @@ QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 
     const QScalingMatrix3x3 MATRIX_TO_COPY(EXPECTED_VALUE);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT = MATRIX_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -115,17 +115,17 @@ QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3,
                                         SQFloat::_4, SQFloat::_5, SQFloat::_6,
                                         SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT(EXPECTED_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -142,17 +142,17 @@ QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ScaleMatrixCorrectlyBuiltFromThreeScalingValues_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_2, SQFloat::_0, SQFloat::_0,
                                         SQFloat::_0, SQFloat::_3, SQFloat::_0,
                                         SQFloat::_0, SQFloat::_0, SQFloat::_4);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT(SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -169,13 +169,13 @@ QTEST_CASE ( Constructor4_ScaleMatrixCorrectlyBuiltFromThreeScalingValues_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_NeutralScaleMatrixIsObtainedWhenScalingValuesEqualOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QScalingMatrix3x3 EXPECTED_VALUE(QScalingMatrix3x3::GetIdentity());
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -192,7 +192,7 @@ QTEST_CASE ( Constructor4_NeutralScaleMatrixIsObtainedWhenScalingValuesEqualOne_
 /// </summary>
 QTEST_CASE ( Constructor5_ScaleMatrixCorrectlyBuiltFrom3DVector_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -202,10 +202,10 @@ QTEST_CASE ( Constructor5_ScaleMatrixCorrectlyBuiltFrom3DVector_Test )
                                         SQFloat::_0, SQFloat::_2, SQFloat::_0,
                                         SQFloat::_0, SQFloat::_0, SQFloat::_3);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT(SCALING_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -222,17 +222,17 @@ QTEST_CASE ( Constructor5_ScaleMatrixCorrectlyBuiltFrom3DVector_Test )
 /// </summary>
 QTEST_CASE ( Constructor5_NeutralScaleMatrixIsObtainedWhenScaling3DVectorComponentsEqualOne_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QVector3 SCALING_VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
     const QScalingMatrix3x3 EXPECTED_VALUE(QScalingMatrix3x3::GetIdentity());
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT(SCALING_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -249,14 +249,14 @@ QTEST_CASE ( Constructor5_NeutralScaleMatrixIsObtainedWhenScaling3DVectorCompone
 /// </summary>
 QTEST_CASE ( GetIdentity_AllElementsEqualZeroAndDiagonalEqualsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_DIAGONAL = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QScalingMatrix3x3 matrixUT = QScalingMatrix3x3::GetIdentity();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_DIAGONAL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_ALL);
@@ -273,7 +273,7 @@ QTEST_CASE ( GetIdentity_AllElementsEqualZeroAndDiagonalEqualsOne_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     const QScalingMatrix3x3 OPERAND1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QScalingMatrix3x3 OPERAND2(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
@@ -287,10 +287,10 @@ QTEST_CASE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test )
     const float_q EXPECTED_VALUE_FOR_21 = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0;
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02) );
@@ -307,15 +307,15 @@ QTEST_CASE ( OperatorProduct1_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_ProductIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QScalingMatrix3x3 OPERAND1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QScalingMatrix3x3 OPERAND2(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrix1UT = OPERAND1 * OPERAND2;
     QScalingMatrix3x3 matrix2UT = OPERAND2 * OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -333,7 +333,7 @@ QTEST_CASE ( OperatorProduct1_ProductIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith3x3ScalingMatrixOperand_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const QBaseMatrix3x3 SCALE_A(SQFloat::_1, SQFloat::_0, SQFloat::_0,
@@ -350,11 +350,11 @@ QTEST_CASE ( OperatorProduct1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
     const QScalingMatrix3x3 MATRIX_OP(OPERAND);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrix1UT = MATRIX_A * MATRIX_OP;
     QScalingMatrix3x3 matrix2UT = MATRIX_B * MATRIX_OP;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -371,7 +371,7 @@ QTEST_CASE ( OperatorProduct1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
 /// </summary>
 QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
@@ -402,10 +402,10 @@ QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
     // D3DXMatrixRotationYawPitchRoll(&rotm, 5.0, 4.0, 6.0);
     // D3DXMATRIX res = scale * rotm;
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE * ROTATION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -430,7 +430,7 @@ QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith3x3RotationMatrixOperand_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -450,11 +450,11 @@ QTEST_CASE ( OperatorProduct2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
     const QRotationMatrix3x3 MATRIX_OP(OPERAND);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrix1UT = MATRIX_A * MATRIX_OP;
     QTransformationMatrix<QMatrix4x4> matrix2UT = MATRIX_B * MATRIX_OP;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -478,7 +478,7 @@ QTEST_CASE ( OperatorProduct2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
 /// </summary>
 QTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
@@ -491,10 +491,10 @@ QTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
                                     SQFloat::_0,  SQFloat::_0,  SQFloat::_3,  SQFloat::_0,
                                     SQFloat::_4,  SQFloat::_5,  SQFloat::_6,  SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE * TRANSLATION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -519,7 +519,7 @@ QTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct3_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4TranslationMatrixOperand_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
@@ -539,11 +539,11 @@ QTEST_CASE ( OperatorProduct3_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
     const QTranslationMatrix<QMatrix4x4> MATRIX_OP(OPERAND);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrix1UT = MATRIX_A * MATRIX_OP;
     QTransformationMatrix<QMatrix4x4> matrix2UT = MATRIX_B * MATRIX_OP;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -567,7 +567,7 @@ QTEST_CASE ( OperatorProduct3_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
 /// </summary>
 QTEST_CASE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
@@ -580,10 +580,10 @@ QTEST_CASE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test )
                                     SQFloat::_0,  SQFloat::_0,  SQFloat::_3,
                                     SQFloat::_4,  SQFloat::_5,  SQFloat::_6);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE * TRANSLATION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -604,7 +604,7 @@ QTEST_CASE ( OperatorProduct4_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct4_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3TranslationMatrixOperand_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
@@ -624,11 +624,11 @@ QTEST_CASE ( OperatorProduct4_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
     const QTranslationMatrix<QMatrix4x3> MATRIX_OP(OPERAND);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrix1UT = MATRIX_A * MATRIX_OP;
     QTransformationMatrix<QMatrix4x3> matrix2UT = MATRIX_B * MATRIX_OP;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -648,7 +648,7 @@ QTEST_CASE ( OperatorProduct4_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
 /// </summary>
 QTEST_CASE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
@@ -663,10 +663,10 @@ QTEST_CASE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test )
                                     (float_q)36.0, (float_q)39.0, (float_q)42.0, SQFloat::_0,
                                     (float_q)16.0, (float_q)17.0, (float_q)18.0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE * TRANSFORMATION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -691,7 +691,7 @@ QTEST_CASE ( OperatorProduct5_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct5_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4TransformationMatrixOperand_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
@@ -713,11 +713,11 @@ QTEST_CASE ( OperatorProduct5_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
     const QTransformationMatrix<QMatrix4x4> MATRIX_OP(OPERAND);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrix1UT = MATRIX_A * MATRIX_OP;
     QTransformationMatrix<QMatrix4x4> matrix2UT = MATRIX_B * MATRIX_OP;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -741,7 +741,7 @@ QTEST_CASE ( OperatorProduct5_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
 /// </summary>
 QTEST_CASE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
@@ -756,10 +756,10 @@ QTEST_CASE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test )
                                     (float_q)36.0, (float_q)39.0, (float_q)42.0,
                                     (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE * TRANSFORMATION;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -780,7 +780,7 @@ QTEST_CASE ( OperatorProduct6_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct6_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3TransformationMatrixOperand_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
@@ -802,11 +802,11 @@ QTEST_CASE ( OperatorProduct6_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
     const QTransformationMatrix<QMatrix4x3> MATRIX_OP(OPERAND);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrix1UT = MATRIX_A * MATRIX_OP;
     QTransformationMatrix<QMatrix4x3> matrix2UT = MATRIX_B * MATRIX_OP;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -826,18 +826,18 @@ QTEST_CASE ( OperatorProduct6_NonDiagonalElementsDoNotHaveInfluenceOnProductWith
 /// </summary>
 QTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const QBaseMatrix3x3 EXPECTED_VALUE(SQFloat::_1, SQFloat::_2, SQFloat::_3,
                                         SQFloat::_4, SQFloat::_5, SQFloat::_6,
                                         SQFloat::_7, SQFloat::_8, SQFloat::_9);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT;
     matrixUT = EXPECTED_VALUE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -854,7 +854,7 @@ QTEST_CASE ( OperatorAssignation_EveryElementAssignedToCorrespondingElement_Test
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation_CommonMatricesAreCorrectlyMultipliedAndAssigned_Test )
 {
-    // Preparation
+    // [Preparation]
     const QScalingMatrix3x3 OPERAND1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QScalingMatrix3x3 OPERAND2(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
@@ -868,11 +868,11 @@ QTEST_CASE ( OperatorProductAssignation_CommonMatricesAreCorrectlyMultipliedAndA
     const float_q EXPECTED_VALUE_FOR_21 = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_22 = (float_q)18.0;
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT = OPERAND1;
     matrixUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02) );
@@ -889,17 +889,17 @@ QTEST_CASE ( OperatorProductAssignation_CommonMatricesAreCorrectlyMultipliedAndA
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation_ProductIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QScalingMatrix3x3 OPERAND1(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QScalingMatrix3x3 OPERAND2(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrix1UT = OPERAND1;
     matrix1UT *= OPERAND2;
     QScalingMatrix3x3 matrix2UT = OPERAND2;
     matrix2UT *= OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -917,7 +917,7 @@ QTEST_CASE ( OperatorProductAssignation_ProductIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation_NonDiagonalElementsDoNotHaveInfluenceOnProductWith3x3ScalingMatrixOperand_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const QBaseMatrix3x3 SCALE_A(SQFloat::_1, SQFloat::_0, SQFloat::_0,
@@ -934,13 +934,13 @@ QTEST_CASE ( OperatorProductAssignation_NonDiagonalElementsDoNotHaveInfluenceOnP
     const QScalingMatrix3x3 MATRIX_B(SCALE_B);
     const QScalingMatrix3x3 MATRIX_OP(OPERAND);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrix1UT = MATRIX_A;
     matrix1UT *= MATRIX_OP;
     QScalingMatrix3x3 matrix2UT = MATRIX_B;
     matrix2UT *= MATRIX_OP;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], MATRIX_A.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], MATRIX_A.ij[0][2]) );
@@ -963,17 +963,17 @@ QTEST_CASE ( OperatorProductAssignation_NonDiagonalElementsDoNotHaveInfluenceOnP
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation_MatrixObjectIsCorrectlyMultipliedAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const QScalingMatrix3x3 OPERAND(SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
     QScalingMatrix3x3 EXPECTED_VALUE = OPERAND;
     EXPECTED_VALUE *= OPERAND;
 
-	// Execution
+	// [Execution]
     QScalingMatrix3x3 matrixUT = OPERAND;
     matrixUT *= matrixUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(matrixUT == EXPECTED_VALUE);
 }
 
@@ -982,7 +982,7 @@ QTEST_CASE ( OperatorProductAssignation_MatrixObjectIsCorrectlyMultipliedAndAssi
 /// </summary>
 QTEST_CASE ( Invert_MatrixIsCorrectlyInverted_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const QScalingMatrix3x3 ORIGINAL_VALUE(QBaseMatrix3x3(SQFloat::_1, SQFloat::_0, SQFloat::_0,
@@ -993,10 +993,10 @@ QTEST_CASE ( Invert_MatrixIsCorrectlyInverted_Test )
                                         SQFloat::_0, SQFloat::_0_5, SQFloat::_0,
                                         SQFloat::_0, SQFloat::_0, SQFloat::_0_25);
 
-    // Execution
+    // [Execution]
     QScalingMatrix3x3 matrixUT = ORIGINAL_VALUE.Invert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -1013,7 +1013,7 @@ QTEST_CASE ( Invert_MatrixIsCorrectlyInverted_Test )
 /// </summary>
 QTEST_CASE ( GetScale1_ValuesAreCorrectlyExtracted_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const QScalingMatrix3x3 ORIGINAL_VALUE(QBaseMatrix3x3(SQFloat::_1, SQFloat::_0, SQFloat::_0,
@@ -1027,11 +1027,11 @@ QTEST_CASE ( GetScale1_ValuesAreCorrectlyExtracted_Test )
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
 
-     // Execution
+     // [Execution]
     QScalingMatrix3x3 matrix = ORIGINAL_VALUE;
     matrix.GetScale(fScaleXUT, fScaleYUT, fScaleZUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fScaleXUT, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(fScaleYUT, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(fScaleZUT, EXPECTED_VALUE_FOR_Z);
@@ -1042,7 +1042,7 @@ QTEST_CASE ( GetScale1_ValuesAreCorrectlyExtracted_Test )
 /// </summary>
 QTEST_CASE ( GetScale2_3DVectorValuesAreCorrectlyExtracted_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1056,11 +1056,11 @@ QTEST_CASE ( GetScale2_3DVectorValuesAreCorrectlyExtracted_Test )
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
 
-     // Execution
+     // [Execution]
     QScalingMatrix3x3 matrix = ORIGINAL_VALUE;
     matrix.GetScale(vScalingVectorUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vScalingVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vScalingVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vScalingVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1071,7 +1071,7 @@ QTEST_CASE ( GetScale2_3DVectorValuesAreCorrectlyExtracted_Test )
 /// </summary>
 QTEST_CASE ( GetDeterminant_ValueIsCorrect_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
 
     const QScalingMatrix3x3 ORIGINAL_VALUE(QBaseMatrix3x3(SQFloat::_1, SQFloat::_0, SQFloat::_0,
@@ -1081,11 +1081,11 @@ QTEST_CASE ( GetDeterminant_ValueIsCorrect_Test )
 
     const float_q EXPECTED_DETERMINANT_VALUE = SQFloat::_6;
 
-     // Execution
+     // [Execution]
     QScalingMatrix3x3 matrix = ORIGINAL_VALUE;
     determinantValueUT = matrix.GetDeterminant();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(determinantValueUT, EXPECTED_DETERMINANT_VALUE);
 }
 
@@ -1095,7 +1095,7 @@ QTEST_CASE ( GetDeterminant_ValueIsCorrect_Test )
 /// </summary>
 void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4x3_Method()
 {
-     // Preparation
+     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
@@ -1109,10 +1109,10 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
                                     SQFloat::_0,  SQFloat::_0,  SQFloat::_3,
                                     SQFloat::_4,  SQFloat::_5,  SQFloat::_6);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE.ProductOperatorImp<QMatrix4x3>(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1133,7 +1133,7 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
 /// </summary>
 void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4x4_Method()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
@@ -1147,10 +1147,10 @@ void ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
                                     SQFloat::_0,  SQFloat::_0,  SQFloat::_3,  SQFloat::_0,
                                     SQFloat::_4,  SQFloat::_5,  SQFloat::_6,  SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE.ProductOperatorImp<QMatrix4x4>(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1186,7 +1186,7 @@ QTEST_CASE ( ProductOperatorImp1_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 void ProductOperatorImp1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3TranslationMatrixOperand_Method()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -1203,11 +1203,11 @@ void ProductOperatorImp1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3Tr
 
     const QTranslationMatrix<QMatrix4x3> OPERAND(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrix1UT = SCALE_A.ProductOperatorImp<QMatrix4x3>(OPERAND);
     QTransformationMatrix<QMatrix4x3> matrix2UT = SCALE_B.ProductOperatorImp<QMatrix4x3>(OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -1228,7 +1228,7 @@ void ProductOperatorImp1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3Tr
 /// </summary>
 void ProductOperatorImp1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4TranslationMatrixOperand_Method()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
@@ -1245,11 +1245,11 @@ void ProductOperatorImp1_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4Tr
 
     const QTranslationMatrix<QMatrix4x4> OPERAND(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrix1UT = SCALE_A.ProductOperatorImp<QMatrix4x4>(OPERAND);
     QTransformationMatrix<QMatrix4x4> matrix2UT = SCALE_B.ProductOperatorImp<QMatrix4x4>(OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -1286,7 +1286,7 @@ QTEST_CASE ( ProductOperatorImp1_NonDiagonalElementsDoNotHaveInfluenceOnProduct_
 /// </summary>
 void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4x3_Method()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QScalingMatrix3x3WhiteBox;
@@ -1302,10 +1302,10 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
                                     (float_q)36.0, (float_q)39.0, (float_q)42.0,
                                     (float_q)16.0, (float_q)17.0, (float_q)18.0);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrixUT = SCALE.ProductOperatorImp<QMatrix4x3>(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1326,7 +1326,7 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
 /// </summary>
 void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4x4_Method()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QScalingMatrix3x3WhiteBox;
@@ -1342,10 +1342,10 @@ void ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_MatrixTypeQMatrix4
                                     (float_q)36.0, (float_q)39.0, (float_q)42.0, SQFloat::_0,
                                     (float_q)16.0, (float_q)17.0, (float_q)18.0, SQFloat::_1);
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrixUT = SCALE.ProductOperatorImp<QMatrix4x4>(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1381,7 +1381,7 @@ QTEST_CASE ( ProductOperatorImp2_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3TransformationMatrixOperand_Method()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
@@ -1400,11 +1400,11 @@ void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3Tr
                                                                (float_q)12.0, (float_q)13.0, (float_q)14.0,
                                                                (float_q)16.0, (float_q)17.0, (float_q)18.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x3> matrix1UT = SCALE_A.ProductOperatorImp<QMatrix4x3>(OPERAND);
     QTransformationMatrix<QMatrix4x3> matrix2UT = SCALE_B.ProductOperatorImp<QMatrix4x3>(OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );
@@ -1425,7 +1425,7 @@ void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x3Tr
 /// </summary>
 void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4TransformationMatrixOperand_Method()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
@@ -1444,11 +1444,11 @@ void ProductOperatorImp2_NonDiagonalElementsDoNotHaveInfluenceOnProductWith4x4Tr
                                                                (float_q)12.0, (float_q)13.0, (float_q)14.0, (float_q)15.0,
                                                                (float_q)16.0, (float_q)17.0, (float_q)18.0, (float_q)19.0));
 
-    // Execution
+    // [Execution]
     QTransformationMatrix<QMatrix4x4> matrix1UT = SCALE_A.ProductOperatorImp<QMatrix4x4>(OPERAND);
     QTransformationMatrix<QMatrix4x4> matrix2UT = SCALE_B.ProductOperatorImp<QMatrix4x4>(OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][0], matrix2UT.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][1], matrix2UT.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrix1UT.ij[0][2], matrix2UT.ij[0][2]) );

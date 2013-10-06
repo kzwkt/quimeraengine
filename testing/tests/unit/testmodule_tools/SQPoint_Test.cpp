@@ -66,7 +66,7 @@ QTEST_SUITE_BEGIN( SQPoint_TestSuite )
 /// </summary>
 QTEST_CASE ( Translate1_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                            QVector2(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7),
@@ -81,10 +81,10 @@ QTEST_CASE ( Translate1_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector2(-SQFloat::_1, SQFloat::_10)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -96,7 +96,7 @@ QTEST_CASE ( Translate1_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate1_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -107,10 +107,10 @@ QTEST_CASE ( Translate1_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector2(SQFloat::_0, SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -122,7 +122,7 @@ QTEST_CASE ( Translate1_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -133,10 +133,10 @@ QTEST_CASE ( Translate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector2(SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -150,14 +150,14 @@ QTEST_CASE ( Translate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate1_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector2 TRANSLATION(SQFloat::_1, -SQFloat::_2);
 
     QVector2* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -169,7 +169,7 @@ QTEST_CASE ( Translate1_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -180,7 +180,7 @@ QTEST_CASE ( Translate1_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Translate2_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                            QVector2(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7),
@@ -195,10 +195,10 @@ QTEST_CASE ( Translate2_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector2(-SQFloat::_1, SQFloat::_10)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -210,7 +210,7 @@ QTEST_CASE ( Translate2_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate2_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -221,10 +221,10 @@ QTEST_CASE ( Translate2_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector2(SQFloat::_0, SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -236,7 +236,7 @@ QTEST_CASE ( Translate2_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -247,10 +247,10 @@ QTEST_CASE ( Translate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector2(SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -264,14 +264,14 @@ QTEST_CASE ( Translate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate2_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector2 TRANSLATION(SQFloat::_1, -SQFloat::_2);
 
     QVector2* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -283,7 +283,7 @@ QTEST_CASE ( Translate2_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -296,7 +296,7 @@ QTEST_CASE ( Rotate1_MoreThanOnePointAreTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_1, SQFloat::_0),
                                            QVector2(SQFloat::_0, SQFloat::_1),
@@ -316,10 +316,10 @@ QTEST_CASE ( Rotate1_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector2(-SQFloat::_4, SQFloat::_4)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -333,7 +333,7 @@ QTEST_CASE ( Rotate1_OnlyOnePointIsTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_1, SQFloat::_0),
                                        };
@@ -349,10 +349,10 @@ QTEST_CASE ( Rotate1_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector2(SQFloat::_0, SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -366,7 +366,7 @@ QTEST_CASE ( Rotate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -382,10 +382,10 @@ QTEST_CASE ( Rotate1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector2(SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -401,7 +401,7 @@ QTEST_CASE ( Rotate1_AssertionFailsWhenInputIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
@@ -413,7 +413,7 @@ QTEST_CASE ( Rotate1_AssertionFailsWhenInputIsNull_Test )
 
     QVector2* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -425,7 +425,7 @@ QTEST_CASE ( Rotate1_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -436,7 +436,7 @@ QTEST_CASE ( Rotate1_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale1_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_0, SQFloat::_3),
                                            QVector2(SQFloat::_0_5, -SQFloat::_9),
@@ -451,10 +451,10 @@ QTEST_CASE ( Scale1_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector2(-SQFloat::_1, SQFloat::_2)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -466,7 +466,7 @@ QTEST_CASE ( Scale1_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale1_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_2, -SQFloat::_3),
                                        };
@@ -477,10 +477,10 @@ QTEST_CASE ( Scale1_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector2(SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -492,7 +492,7 @@ QTEST_CASE ( Scale1_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale1_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -503,10 +503,10 @@ QTEST_CASE ( Scale1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector2(SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -520,14 +520,14 @@ QTEST_CASE ( Scale1_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Scale1_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector2 SCALE(SQFloat::_2, SQFloat::_3);
 
     QVector2* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -539,7 +539,7 @@ QTEST_CASE ( Scale1_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -550,7 +550,7 @@ QTEST_CASE ( Scale1_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale2_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_0, SQFloat::_3),
                                            QVector2(SQFloat::_0_5, -SQFloat::_9),
@@ -565,10 +565,10 @@ QTEST_CASE ( Scale2_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector2(-SQFloat::_1, SQFloat::_2)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -580,7 +580,7 @@ QTEST_CASE ( Scale2_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale2_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_2, -SQFloat::_3),
                                        };
@@ -591,10 +591,10 @@ QTEST_CASE ( Scale2_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector2(SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -606,7 +606,7 @@ QTEST_CASE ( Scale2_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale2_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -617,10 +617,10 @@ QTEST_CASE ( Scale2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector2(SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -634,14 +634,14 @@ QTEST_CASE ( Scale2_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Scale2_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector2 SCALE(SQFloat::_2, SQFloat::_3);
 
     QVector2* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -653,7 +653,7 @@ QTEST_CASE ( Scale2_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -667,7 +667,7 @@ QTEST_CASE ( Transform1_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_0_5, SQFloat::_3),
                                            QVector2(SQFloat::_3 + SQFloat::_0_5, SQFloat::_3 + SQFloat::_0_5),
@@ -693,10 +693,10 @@ QTEST_CASE ( Transform1_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector2(-SQFloat::_1, SQFloat::_10)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -711,7 +711,7 @@ QTEST_CASE ( Transform1_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_0_5, SQFloat::_3),
                                        };
@@ -732,10 +732,10 @@ QTEST_CASE ( Transform1_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector2(SQFloat::_0, SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -750,7 +750,7 @@ QTEST_CASE ( Transform1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -771,10 +771,10 @@ QTEST_CASE ( Transform1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector2(SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -791,7 +791,7 @@ QTEST_CASE ( Transform1_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QVector2 TRANSLATION = QVector2(SQFloat::_1, SQFloat::_3);
@@ -808,7 +808,7 @@ QTEST_CASE ( Transform1_AssertionFailsWhenInputIsNull_Test )
 
     QVector2* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -820,7 +820,7 @@ QTEST_CASE ( Transform1_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -831,7 +831,7 @@ QTEST_CASE ( Transform1_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Translate3_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_1),
                                            QVector3(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7, SQFloat::_3),
@@ -846,10 +846,10 @@ QTEST_CASE ( Translate3_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_10, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -861,7 +861,7 @@ QTEST_CASE ( Translate3_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate3_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_2),
                                        };
@@ -872,10 +872,10 @@ QTEST_CASE ( Translate3_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(SQFloat::_0, SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -887,7 +887,7 @@ QTEST_CASE ( Translate3_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                        };
@@ -898,10 +898,10 @@ QTEST_CASE ( Translate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -915,14 +915,14 @@ QTEST_CASE ( Translate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate3_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 TRANSLATION(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -934,7 +934,7 @@ QTEST_CASE ( Translate3_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -945,7 +945,7 @@ QTEST_CASE ( Translate3_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Translate4_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_1, SQFloat::_0),
                                            QVector4(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7, SQFloat::_3, SQFloat::_0),
@@ -960,10 +960,10 @@ QTEST_CASE ( Translate4_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_10, SQFloat::_1, SQFloat::_0)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -975,7 +975,7 @@ QTEST_CASE ( Translate4_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate4_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_2, SQFloat::_0),
                                        };
@@ -986,10 +986,10 @@ QTEST_CASE ( Translate4_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(SQFloat::_0, SQFloat::_1, -SQFloat::_1, SQFloat::_0),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1001,7 +1001,7 @@ QTEST_CASE ( Translate4_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_3, SQFloat::_0),
                                        };
@@ -1012,10 +1012,10 @@ QTEST_CASE ( Translate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_3, SQFloat::_0),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -1029,14 +1029,14 @@ QTEST_CASE ( Translate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate4_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 TRANSLATION(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1048,7 +1048,7 @@ QTEST_CASE ( Translate4_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1059,7 +1059,7 @@ QTEST_CASE ( Translate4_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Translate5_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_1),
                                            QVector3(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7, SQFloat::_3),
@@ -1074,10 +1074,10 @@ QTEST_CASE ( Translate5_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_10, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1089,7 +1089,7 @@ QTEST_CASE ( Translate5_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate5_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_2),
                                        };
@@ -1100,10 +1100,10 @@ QTEST_CASE ( Translate5_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(SQFloat::_0, SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1115,7 +1115,7 @@ QTEST_CASE ( Translate5_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                        };
@@ -1126,10 +1126,10 @@ QTEST_CASE ( Translate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -1143,14 +1143,14 @@ QTEST_CASE ( Translate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate5_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 TRANSLATION(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1162,7 +1162,7 @@ QTEST_CASE ( Translate5_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1173,7 +1173,7 @@ QTEST_CASE ( Translate5_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Translate6_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_1, SQFloat::_0),
                                            QVector4(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7, SQFloat::_3, SQFloat::_0),
@@ -1188,10 +1188,10 @@ QTEST_CASE ( Translate6_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_10, SQFloat::_1, SQFloat::_0)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1203,7 +1203,7 @@ QTEST_CASE ( Translate6_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate6_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_2, SQFloat::_0),
                                        };
@@ -1214,10 +1214,10 @@ QTEST_CASE ( Translate6_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(SQFloat::_0, SQFloat::_1, -SQFloat::_1, SQFloat::_0),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1229,7 +1229,7 @@ QTEST_CASE ( Translate6_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Translate6_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_3, SQFloat::_0),
                                        };
@@ -1240,10 +1240,10 @@ QTEST_CASE ( Translate6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_3, SQFloat::_0),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION.x, TRANSLATION.y, TRANSLATION.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -1257,14 +1257,14 @@ QTEST_CASE ( Translate6_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate6_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 TRANSLATION(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1276,7 +1276,7 @@ QTEST_CASE ( Translate6_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1290,7 +1290,7 @@ QTEST_CASE ( Translate7_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_1),
                                            QVector3(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7, SQFloat::_3),
@@ -1305,10 +1305,10 @@ QTEST_CASE ( Translate7_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_10, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1323,7 +1323,7 @@ QTEST_CASE ( Translate7_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_2),
                                        };
@@ -1334,10 +1334,10 @@ QTEST_CASE ( Translate7_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(SQFloat::_0, SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1352,7 +1352,7 @@ QTEST_CASE ( Translate7_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                        };
@@ -1363,10 +1363,10 @@ QTEST_CASE ( Translate7_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -1383,14 +1383,14 @@ QTEST_CASE ( Translate7_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1402,7 +1402,7 @@ QTEST_CASE ( Translate7_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1416,7 +1416,7 @@ QTEST_CASE ( Translate8_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_1),
                                            QVector3(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7, SQFloat::_3),
@@ -1431,10 +1431,10 @@ QTEST_CASE ( Translate8_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_10, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1449,7 +1449,7 @@ QTEST_CASE ( Translate8_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_2),
                                        };
@@ -1460,10 +1460,10 @@ QTEST_CASE ( Translate8_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(SQFloat::_0, SQFloat::_1, -SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1478,7 +1478,7 @@ QTEST_CASE ( Translate8_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                        };
@@ -1489,10 +1489,10 @@ QTEST_CASE ( Translate8_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -1509,14 +1509,14 @@ QTEST_CASE ( Translate8_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1528,7 +1528,7 @@ QTEST_CASE ( Translate8_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1542,7 +1542,7 @@ QTEST_CASE ( Translate9_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_1, SQFloat::_1),
                                            QVector4(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7, SQFloat::_3, SQFloat::_1),
@@ -1557,10 +1557,10 @@ QTEST_CASE ( Translate9_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_10, SQFloat::_1, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1575,7 +1575,7 @@ QTEST_CASE ( Translate9_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_2, SQFloat::_1),
                                        };
@@ -1586,10 +1586,10 @@ QTEST_CASE ( Translate9_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(SQFloat::_0, SQFloat::_1, -SQFloat::_1, SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1604,7 +1604,7 @@ QTEST_CASE ( Translate9_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_3, SQFloat::_1),
                                        };
@@ -1615,10 +1615,10 @@ QTEST_CASE ( Translate9_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_3, SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -1635,14 +1635,14 @@ QTEST_CASE ( Translate9_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x3> TRANSLATION(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1654,7 +1654,7 @@ QTEST_CASE ( Translate9_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1668,7 +1668,7 @@ QTEST_CASE ( Translate10_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_1, SQFloat::_1),
                                            QVector4(SQFloat::_0_25 + SQFloat::_1, -SQFloat::_7, SQFloat::_3, SQFloat::_1),
@@ -1683,10 +1683,10 @@ QTEST_CASE ( Translate10_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_10, SQFloat::_1, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1701,7 +1701,7 @@ QTEST_CASE ( Translate10_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_2, SQFloat::_1),
                                        };
@@ -1712,10 +1712,10 @@ QTEST_CASE ( Translate10_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(SQFloat::_0, SQFloat::_1, -SQFloat::_1, SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1730,7 +1730,7 @@ QTEST_CASE ( Translate10_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_3, SQFloat::_1),
                                        };
@@ -1741,10 +1741,10 @@ QTEST_CASE ( Translate10_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(SQFloat::_1, -SQFloat::_1, SQFloat::_3, SQFloat::_1),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Translate(TRANSLATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -1761,14 +1761,14 @@ QTEST_CASE ( Translate10_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x4> TRANSLATION(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1780,7 +1780,7 @@ QTEST_CASE ( Translate10_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1794,7 +1794,7 @@ QTEST_CASE ( Rotate2_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1815,10 +1815,10 @@ QTEST_CASE ( Rotate2_MoreThanOnePointAreTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1833,7 +1833,7 @@ QTEST_CASE ( Rotate2_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1849,10 +1849,10 @@ QTEST_CASE ( Rotate2_OnlyOnePointIsTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1867,7 +1867,7 @@ QTEST_CASE ( Rotate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1883,10 +1883,10 @@ QTEST_CASE ( Rotate2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                        };
     const int POINTS_COUNT = 0;
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -1903,11 +1903,11 @@ QTEST_CASE ( Rotate2_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1916,7 +1916,7 @@ QTEST_CASE ( Rotate2_AssertionFailsWhenInputIsNull_Test )
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1928,7 +1928,7 @@ QTEST_CASE ( Rotate2_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1942,7 +1942,7 @@ QTEST_CASE ( Rotate3_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1963,10 +1963,10 @@ QTEST_CASE ( Rotate3_MoreThanOnePointAreTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -1981,7 +1981,7 @@ QTEST_CASE ( Rotate3_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1997,10 +1997,10 @@ QTEST_CASE ( Rotate3_OnlyOnePointIsTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2015,7 +2015,7 @@ QTEST_CASE ( Rotate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2031,10 +2031,10 @@ QTEST_CASE ( Rotate3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                        };
     const int POINTS_COUNT = 0;
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -2051,11 +2051,11 @@ QTEST_CASE ( Rotate3_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2064,7 +2064,7 @@ QTEST_CASE ( Rotate3_AssertionFailsWhenInputIsNull_Test )
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2076,7 +2076,7 @@ QTEST_CASE ( Rotate3_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2090,7 +2090,7 @@ QTEST_CASE ( Rotate4_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2111,10 +2111,10 @@ QTEST_CASE ( Rotate4_MoreThanOnePointAreTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2129,7 +2129,7 @@ QTEST_CASE ( Rotate4_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2145,10 +2145,10 @@ QTEST_CASE ( Rotate4_OnlyOnePointIsTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2163,7 +2163,7 @@ QTEST_CASE ( Rotate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2179,10 +2179,10 @@ QTEST_CASE ( Rotate4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                        };
     const int POINTS_COUNT = 0;
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -2199,11 +2199,11 @@ QTEST_CASE ( Rotate4_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2212,7 +2212,7 @@ QTEST_CASE ( Rotate4_AssertionFailsWhenInputIsNull_Test )
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2224,7 +2224,7 @@ QTEST_CASE ( Rotate4_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2238,7 +2238,7 @@ QTEST_CASE ( Rotate5_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2259,10 +2259,10 @@ QTEST_CASE ( Rotate5_MoreThanOnePointAreTransformedCorrectly_Test )
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2277,7 +2277,7 @@ QTEST_CASE ( Rotate5_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2293,10 +2293,10 @@ QTEST_CASE ( Rotate5_OnlyOnePointIsTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2311,7 +2311,7 @@ QTEST_CASE ( Rotate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2327,10 +2327,10 @@ QTEST_CASE ( Rotate5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                        };
     const int POINTS_COUNT = 0;
 
-	// Execution
+	// [Execution]
     SQPoint::Rotate(ROTATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -2347,11 +2347,11 @@ QTEST_CASE ( Rotate5_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -2360,7 +2360,7 @@ QTEST_CASE ( Rotate5_AssertionFailsWhenInputIsNull_Test )
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2372,7 +2372,7 @@ QTEST_CASE ( Rotate5_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2383,7 +2383,7 @@ QTEST_CASE ( Rotate5_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale3_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_6, -SQFloat::_2, -SQFloat::_0),
                                            QVector3(SQFloat::_0_25 + SQFloat::_0_5, SQFloat::_10, SQFloat::_4),
@@ -2398,10 +2398,10 @@ QTEST_CASE ( Scale3_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2413,7 +2413,7 @@ QTEST_CASE ( Scale3_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale3_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(-SQFloat::_3, -SQFloat::_8, -SQFloat::_2)
                                        };
@@ -2424,10 +2424,10 @@ QTEST_CASE ( Scale3_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2439,7 +2439,7 @@ QTEST_CASE ( Scale3_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale3_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -2450,10 +2450,10 @@ QTEST_CASE ( Scale3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -2467,14 +2467,14 @@ QTEST_CASE ( Scale3_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Scale3_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2486,7 +2486,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2497,7 +2497,7 @@ QTEST_CASE ( Scale3_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale4_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_6, -SQFloat::_2, -SQFloat::_0, SQFloat::_1),
                                            QVector4(SQFloat::_0_25 + SQFloat::_0_5, SQFloat::_10, SQFloat::_4, SQFloat::_1),
@@ -2512,10 +2512,10 @@ QTEST_CASE ( Scale4_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2527,7 +2527,7 @@ QTEST_CASE ( Scale4_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale4_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(-SQFloat::_3, -SQFloat::_8, -SQFloat::_2, SQFloat::_1)
                                        };
@@ -2538,10 +2538,10 @@ QTEST_CASE ( Scale4_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2553,7 +2553,7 @@ QTEST_CASE ( Scale4_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale4_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -2564,10 +2564,10 @@ QTEST_CASE ( Scale4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -2581,14 +2581,14 @@ QTEST_CASE ( Scale4_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Scale4_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2600,7 +2600,7 @@ QTEST_CASE ( Scale4_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2611,7 +2611,7 @@ QTEST_CASE ( Scale4_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale5_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_6, -SQFloat::_2, -SQFloat::_0),
                                            QVector3(SQFloat::_0_25 + SQFloat::_0_5, SQFloat::_10, SQFloat::_4),
@@ -2626,10 +2626,10 @@ QTEST_CASE ( Scale5_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2641,7 +2641,7 @@ QTEST_CASE ( Scale5_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale5_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(-SQFloat::_3, -SQFloat::_8, -SQFloat::_2)
                                        };
@@ -2652,10 +2652,10 @@ QTEST_CASE ( Scale5_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2667,7 +2667,7 @@ QTEST_CASE ( Scale5_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale5_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                        };
@@ -2678,10 +2678,10 @@ QTEST_CASE ( Scale5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(SQFloat::_1, -SQFloat::_1, SQFloat::_3),
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -2695,14 +2695,14 @@ QTEST_CASE ( Scale5_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Scale5_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 SCALE(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2714,7 +2714,7 @@ QTEST_CASE ( Scale5_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2725,7 +2725,7 @@ QTEST_CASE ( Scale5_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( Scale6_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_6, -SQFloat::_2, -SQFloat::_0, SQFloat::_1),
                                            QVector4(SQFloat::_0_25 + SQFloat::_0_5, SQFloat::_10, SQFloat::_4, SQFloat::_1),
@@ -2740,10 +2740,10 @@ QTEST_CASE ( Scale6_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2755,7 +2755,7 @@ QTEST_CASE ( Scale6_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale6_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(-SQFloat::_3, -SQFloat::_8, -SQFloat::_2, SQFloat::_1)
                                        };
@@ -2766,10 +2766,10 @@ QTEST_CASE ( Scale6_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2781,7 +2781,7 @@ QTEST_CASE ( Scale6_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( Scale6_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -2792,10 +2792,10 @@ QTEST_CASE ( Scale6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE.x, SCALE.y, SCALE.z, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -2809,14 +2809,14 @@ QTEST_CASE ( Scale6_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( Scale6_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2828,7 +2828,7 @@ QTEST_CASE ( Scale6_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2841,7 +2841,7 @@ QTEST_CASE ( Scale7_MoreThanOnePointAreTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_6, -SQFloat::_2, -SQFloat::_0),
                                            QVector3(SQFloat::_0_25 + SQFloat::_0_5, SQFloat::_10, SQFloat::_4),
@@ -2856,10 +2856,10 @@ QTEST_CASE ( Scale7_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2873,7 +2873,7 @@ QTEST_CASE ( Scale7_OnlyOnePointIsTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(-SQFloat::_3, -SQFloat::_8, -SQFloat::_2)
                                        };
@@ -2884,10 +2884,10 @@ QTEST_CASE ( Scale7_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2901,7 +2901,7 @@ QTEST_CASE ( Scale7_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -2912,10 +2912,10 @@ QTEST_CASE ( Scale7_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -2931,14 +2931,14 @@ QTEST_CASE ( Scale7_AssertionFailsWhenInputIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QScalingMatrix3x3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2950,7 +2950,7 @@ QTEST_CASE ( Scale7_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2963,7 +2963,7 @@ QTEST_CASE ( Scale8_MoreThanOnePointAreTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_6, -SQFloat::_2, -SQFloat::_0, SQFloat::_1),
                                            QVector4(SQFloat::_0_25 + SQFloat::_0_5, SQFloat::_10, SQFloat::_4, SQFloat::_1),
@@ -2978,10 +2978,10 @@ QTEST_CASE ( Scale8_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -2995,7 +2995,7 @@ QTEST_CASE ( Scale8_OnlyOnePointIsTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(-SQFloat::_3, -SQFloat::_8, -SQFloat::_2, SQFloat::_1)
                                        };
@@ -3006,10 +3006,10 @@ QTEST_CASE ( Scale8_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3023,7 +3023,7 @@ QTEST_CASE ( Scale8_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -3034,10 +3034,10 @@ QTEST_CASE ( Scale8_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Scale(SCALE, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -3053,14 +3053,14 @@ QTEST_CASE ( Scale8_AssertionFailsWhenInputIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QScalingMatrix3x3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3072,7 +3072,7 @@ QTEST_CASE ( Scale8_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3090,7 +3090,7 @@ QTEST_CASE ( Transform2_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)3.7677669529663689,  SQFloat::_4,  (float_q)-8.4748737341529168),
                                            QVector3((float_q)-8.6507958916223728, SQFloat::_3,  (float_q)4.5624075439740519),
@@ -3113,10 +3113,10 @@ QTEST_CASE ( Transform2_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3135,7 +3135,7 @@ QTEST_CASE ( Transform2_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)10.662058069535208, (float_q)4.5, (float_q)-14.308504678941933)
                                        };
@@ -3153,10 +3153,10 @@ QTEST_CASE ( Transform2_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3175,7 +3175,7 @@ QTEST_CASE ( Transform2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -3193,10 +3193,10 @@ QTEST_CASE ( Transform2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -3217,7 +3217,7 @@ QTEST_CASE ( Transform2_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3231,7 +3231,7 @@ QTEST_CASE ( Transform2_AssertionFailsWhenInputIsNull_Test )
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3243,7 +3243,7 @@ QTEST_CASE ( Transform2_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3261,7 +3261,7 @@ QTEST_CASE ( Transform3_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)3.7677669529663689,  SQFloat::_4,  (float_q)-8.4748737341529168),
                                            QVector3((float_q)-8.6507958916223728, SQFloat::_3,  (float_q)4.5624075439740519),
@@ -3284,10 +3284,10 @@ QTEST_CASE ( Transform3_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3306,7 +3306,7 @@ QTEST_CASE ( Transform3_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)10.662058069535208, (float_q)4.5, (float_q)-14.308504678941933)
                                        };
@@ -3324,10 +3324,10 @@ QTEST_CASE ( Transform3_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3346,7 +3346,7 @@ QTEST_CASE ( Transform3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -3364,10 +3364,10 @@ QTEST_CASE ( Transform3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -3388,7 +3388,7 @@ QTEST_CASE ( Transform3_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3402,7 +3402,7 @@ QTEST_CASE ( Transform3_AssertionFailsWhenInputIsNull_Test )
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3414,7 +3414,7 @@ QTEST_CASE ( Transform3_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3432,7 +3432,7 @@ QTEST_CASE ( Transform4_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)3.7677669529663689,  SQFloat::_4,  (float_q)-8.4748737341529168, SQFloat::_1),
                                            QVector4((float_q)-8.6507958916223728, SQFloat::_3,  (float_q)4.5624075439740519,  SQFloat::_1),
@@ -3456,10 +3456,10 @@ QTEST_CASE ( Transform4_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3478,7 +3478,7 @@ QTEST_CASE ( Transform4_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)10.662058069535208,  (float_q)4.5, (float_q)-14.308504678941933, SQFloat::_1)
                                        };
@@ -3496,10 +3496,10 @@ QTEST_CASE ( Transform4_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3518,7 +3518,7 @@ QTEST_CASE ( Transform4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -3536,10 +3536,10 @@ QTEST_CASE ( Transform4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -3560,7 +3560,7 @@ QTEST_CASE ( Transform4_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3574,7 +3574,7 @@ QTEST_CASE ( Transform4_AssertionFailsWhenInputIsNull_Test )
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3586,7 +3586,7 @@ QTEST_CASE ( Transform4_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3604,7 +3604,7 @@ QTEST_CASE ( Transform5_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)3.7677669529663689,  SQFloat::_4,  (float_q)-8.4748737341529168, SQFloat::_1),
                                            QVector4((float_q)-8.6507958916223728, SQFloat::_3,  (float_q)4.5624075439740519,  SQFloat::_1),
@@ -3627,10 +3627,10 @@ QTEST_CASE ( Transform5_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3649,7 +3649,7 @@ QTEST_CASE ( Transform5_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)10.662058069535208,  (float_q)4.5, (float_q)-14.308504678941933, SQFloat::_1)
                                        };
@@ -3667,10 +3667,10 @@ QTEST_CASE ( Transform5_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3689,7 +3689,7 @@ QTEST_CASE ( Transform5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -3707,10 +3707,10 @@ QTEST_CASE ( Transform5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(TRANSFORMATION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -3731,7 +3731,7 @@ QTEST_CASE ( Transform5_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -3745,7 +3745,7 @@ QTEST_CASE ( Transform5_AssertionFailsWhenInputIsNull_Test )
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3757,7 +3757,7 @@ QTEST_CASE ( Transform5_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3770,7 +3770,7 @@ QTEST_CASE ( Transform6_MoreThanOnePointAreTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)-2.2360679774997898, (float_q)0.74535599249992979, (float_q)2.333333333333333),
                                            QVector3((float_q)-1.1180339887498949, (float_q)-2.6087459737497545, (float_q)7.5833333333333321),
@@ -3789,10 +3789,10 @@ QTEST_CASE ( Transform6_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3806,7 +3806,7 @@ QTEST_CASE ( Transform6_OnlyOnePointIsTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)0.67082039324993692, (float_q)3.577708763999663, SQFloat::_1)
                                        };
@@ -3820,10 +3820,10 @@ QTEST_CASE ( Transform6_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3837,7 +3837,7 @@ QTEST_CASE ( Transform6_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -3851,10 +3851,10 @@ QTEST_CASE ( Transform6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -3870,7 +3870,7 @@ QTEST_CASE ( Transform6_AssertionFailsWhenInputIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     QSpaceConversionMatrix CONVERSION;
@@ -3880,7 +3880,7 @@ QTEST_CASE ( Transform6_AssertionFailsWhenInputIsNull_Test )
 
     QVector3* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3892,7 +3892,7 @@ QTEST_CASE ( Transform6_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3905,7 +3905,7 @@ QTEST_CASE ( Transform7_MoreThanOnePointAreTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)-2.2360679774997898, (float_q)0.74535599249992979, (float_q)2.333333333333333,  SQFloat::_1),
                                            QVector4((float_q)-1.1180339887498949, (float_q)-2.6087459737497545, (float_q)7.5833333333333321, SQFloat::_1),
@@ -3924,10 +3924,10 @@ QTEST_CASE ( Transform7_MoreThanOnePointAreTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3941,7 +3941,7 @@ QTEST_CASE ( Transform7_OnlyOnePointIsTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)0.67082039324993692, (float_q)3.577708763999663, SQFloat::_1, SQFloat::_1)
                                        };
@@ -3955,10 +3955,10 @@ QTEST_CASE ( Transform7_OnlyOnePointIsTransformedCorrectly_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -3972,7 +3972,7 @@ QTEST_CASE ( Transform7_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -3986,10 +3986,10 @@ QTEST_CASE ( Transform7_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                    QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                };
 
-	// Execution
+	// [Execution]
     SQPoint::Transform(CONVERSION, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -4005,7 +4005,7 @@ QTEST_CASE ( Transform7_AssertionFailsWhenInputIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     QSpaceConversionMatrix CONVERSION;
@@ -4015,7 +4015,7 @@ QTEST_CASE ( Transform7_AssertionFailsWhenInputIsNull_Test )
 
     QVector4* arInputPoints = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4027,7 +4027,7 @@ QTEST_CASE ( Transform7_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4040,7 +4040,7 @@ QTEST_CASE ( RotateWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_1, SQFloat::_0),
                                            QVector2(SQFloat::_2, SQFloat::_1),
@@ -4061,10 +4061,10 @@ QTEST_CASE ( RotateWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4078,7 +4078,7 @@ QTEST_CASE ( RotateWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_2, -SQFloat::_4)
                                        };
@@ -4095,10 +4095,10 @@ QTEST_CASE ( RotateWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4112,7 +4112,7 @@ QTEST_CASE ( RotateWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -4129,10 +4129,10 @@ QTEST_CASE ( RotateWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -4148,7 +4148,7 @@ QTEST_CASE ( RotateWithPivot1_AssertionFailsWhenInputIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
@@ -4161,7 +4161,7 @@ QTEST_CASE ( RotateWithPivot1_AssertionFailsWhenInputIsNull_Test )
     QVector2* arInputPoints = null_q;
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4173,7 +4173,7 @@ QTEST_CASE ( RotateWithPivot1_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4184,7 +4184,7 @@ QTEST_CASE ( RotateWithPivot1_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_1, SQFloat::_1),
                                            QVector2(-SQFloat::_0_5, (float_q)-11.0),
@@ -4200,10 +4200,10 @@ QTEST_CASE ( ScaleWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4215,7 +4215,7 @@ QTEST_CASE ( ScaleWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_3, SQFloat::_4)
                                        };
@@ -4227,10 +4227,10 @@ QTEST_CASE ( ScaleWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4242,7 +4242,7 @@ QTEST_CASE ( ScaleWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -4254,10 +4254,10 @@ QTEST_CASE ( ScaleWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -4271,7 +4271,7 @@ QTEST_CASE ( ScaleWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector2 SCALE(SQFloat::_2, SQFloat::_3);
@@ -4279,7 +4279,7 @@ QTEST_CASE ( ScaleWithPivot1_AssertionFailsWhenInputIsNull_Test )
     QVector2* arInputPoints = null_q;
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4291,7 +4291,7 @@ QTEST_CASE ( ScaleWithPivot1_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4302,7 +4302,7 @@ QTEST_CASE ( ScaleWithPivot1_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_1, SQFloat::_1),
                                            QVector2(-SQFloat::_0_5, (float_q)-11.0),
@@ -4318,10 +4318,10 @@ QTEST_CASE ( ScaleWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4333,7 +4333,7 @@ QTEST_CASE ( ScaleWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_3, SQFloat::_4)
                                        };
@@ -4345,10 +4345,10 @@ QTEST_CASE ( ScaleWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4360,7 +4360,7 @@ QTEST_CASE ( ScaleWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -4372,10 +4372,10 @@ QTEST_CASE ( ScaleWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -4389,7 +4389,7 @@ QTEST_CASE ( ScaleWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector2 SCALE(SQFloat::_2, SQFloat::_3);
@@ -4397,7 +4397,7 @@ QTEST_CASE ( ScaleWithPivot2_AssertionFailsWhenInputIsNull_Test )
     QVector2* arInputPoints = null_q;
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4409,7 +4409,7 @@ QTEST_CASE ( ScaleWithPivot2_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4423,7 +4423,7 @@ QTEST_CASE ( TransformWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(SQFloat::_2, SQFloat::_2),
                                            QVector2(SQFloat::_5, SQFloat::_2 + SQFloat::_0_5),
@@ -4450,10 +4450,10 @@ QTEST_CASE ( TransformWithPivot1_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4468,7 +4468,7 @@ QTEST_CASE ( TransformWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_POINTS[] = {
                                            QVector2(-SQFloat::_2 - SQFloat::_0_5, SQFloat::_0)
                                        };
@@ -4490,10 +4490,10 @@ QTEST_CASE ( TransformWithPivot1_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4508,7 +4508,7 @@ QTEST_CASE ( TransformWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 ORIGINAL_POINTS[] = {
                                            QVector2(SQFloat::_1, -SQFloat::_1),
                                        };
@@ -4530,10 +4530,10 @@ QTEST_CASE ( TransformWithPivot1_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -4550,7 +4550,7 @@ QTEST_CASE ( TransformWithPivot1_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QVector2 TRANSLATION = QVector2(SQFloat::_1, SQFloat::_3);
@@ -4568,7 +4568,7 @@ QTEST_CASE ( TransformWithPivot1_AssertionFailsWhenInputIsNull_Test )
     QVector2* arInputPoints = null_q;
     const QBaseVector2 PIVOT(SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4580,7 +4580,7 @@ QTEST_CASE ( TransformWithPivot1_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4594,7 +4594,7 @@ QTEST_CASE ( RotateWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4615,10 +4615,10 @@ QTEST_CASE ( RotateWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4633,7 +4633,7 @@ QTEST_CASE ( RotateWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4650,10 +4650,10 @@ QTEST_CASE ( RotateWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4668,7 +4668,7 @@ QTEST_CASE ( RotateWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4685,10 +4685,10 @@ QTEST_CASE ( RotateWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const int POINTS_COUNT = 0;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -4705,11 +4705,11 @@ QTEST_CASE ( RotateWithPivot2_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4719,7 +4719,7 @@ QTEST_CASE ( RotateWithPivot2_AssertionFailsWhenInputIsNull_Test )
     QVector3* arInputPoints = null_q;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4731,7 +4731,7 @@ QTEST_CASE ( RotateWithPivot2_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4745,7 +4745,7 @@ QTEST_CASE ( RotateWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4766,10 +4766,10 @@ QTEST_CASE ( RotateWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4784,7 +4784,7 @@ QTEST_CASE ( RotateWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4801,10 +4801,10 @@ QTEST_CASE ( RotateWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4819,7 +4819,7 @@ QTEST_CASE ( RotateWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4836,10 +4836,10 @@ QTEST_CASE ( RotateWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const int POINTS_COUNT = 0;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -4856,11 +4856,11 @@ QTEST_CASE ( RotateWithPivot3_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QQuaternion ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4870,7 +4870,7 @@ QTEST_CASE ( RotateWithPivot3_AssertionFailsWhenInputIsNull_Test )
     QVector4* arInputPoints = null_q;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4882,7 +4882,7 @@ QTEST_CASE ( RotateWithPivot3_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4896,7 +4896,7 @@ QTEST_CASE ( RotateWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4917,10 +4917,10 @@ QTEST_CASE ( RotateWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4935,7 +4935,7 @@ QTEST_CASE ( RotateWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4952,10 +4952,10 @@ QTEST_CASE ( RotateWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector3);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -4970,7 +4970,7 @@ QTEST_CASE ( RotateWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -4987,10 +4987,10 @@ QTEST_CASE ( RotateWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const int POINTS_COUNT = 0;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -5007,11 +5007,11 @@ QTEST_CASE ( RotateWithPivot4_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -5021,7 +5021,7 @@ QTEST_CASE ( RotateWithPivot4_AssertionFailsWhenInputIsNull_Test )
     QVector3* arInputPoints = null_q;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5033,7 +5033,7 @@ QTEST_CASE ( RotateWithPivot4_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5047,7 +5047,7 @@ QTEST_CASE ( RotateWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -5068,10 +5068,10 @@ QTEST_CASE ( RotateWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5086,7 +5086,7 @@ QTEST_CASE ( RotateWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -5103,10 +5103,10 @@ QTEST_CASE ( RotateWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
                                        };
     const int POINTS_COUNT = sizeof(EXPECTED_POINTS) / sizeof(QVector4);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5121,7 +5121,7 @@ QTEST_CASE ( RotateWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -5138,10 +5138,10 @@ QTEST_CASE ( RotateWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     const int POINTS_COUNT = 0;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::RotateWithPivot(ROTATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -5158,11 +5158,11 @@ QTEST_CASE ( RotateWithPivot5_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const QRotationMatrix3x3 ROTATION(SQAngle::_HalfPi, SQAngle::_QuarterPi, SQAngle::_ThirdPi);
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -5172,7 +5172,7 @@ QTEST_CASE ( RotateWithPivot5_AssertionFailsWhenInputIsNull_Test )
     QVector4* arInputPoints = null_q;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5184,7 +5184,7 @@ QTEST_CASE ( RotateWithPivot5_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5195,7 +5195,7 @@ QTEST_CASE ( RotateWithPivot5_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_4, SQFloat::_1, SQFloat::_5),
                                            QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9),
@@ -5211,10 +5211,10 @@ QTEST_CASE ( ScaleWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5226,7 +5226,7 @@ QTEST_CASE ( ScaleWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(-SQFloat::_5, -SQFloat::_5, SQFloat::_3)
                                        };
@@ -5238,10 +5238,10 @@ QTEST_CASE ( ScaleWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5253,7 +5253,7 @@ QTEST_CASE ( ScaleWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -5265,10 +5265,10 @@ QTEST_CASE ( ScaleWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -5282,7 +5282,7 @@ QTEST_CASE ( ScaleWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot3_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
@@ -5290,7 +5290,7 @@ QTEST_CASE ( ScaleWithPivot3_AssertionFailsWhenInputIsNull_Test )
     QVector3* arInputPoints = null_q;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5302,7 +5302,7 @@ QTEST_CASE ( ScaleWithPivot3_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5313,7 +5313,7 @@ QTEST_CASE ( ScaleWithPivot3_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_4, SQFloat::_1, SQFloat::_5, SQFloat::_1),
                                            QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9, SQFloat::_1),
@@ -5329,10 +5329,10 @@ QTEST_CASE ( ScaleWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5344,7 +5344,7 @@ QTEST_CASE ( ScaleWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(-SQFloat::_5, -SQFloat::_5, SQFloat::_3, SQFloat::_1)
                                        };
@@ -5356,10 +5356,10 @@ QTEST_CASE ( ScaleWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5371,7 +5371,7 @@ QTEST_CASE ( ScaleWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -5383,10 +5383,10 @@ QTEST_CASE ( ScaleWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -5400,7 +5400,7 @@ QTEST_CASE ( ScaleWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot4_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
@@ -5408,7 +5408,7 @@ QTEST_CASE ( ScaleWithPivot4_AssertionFailsWhenInputIsNull_Test )
     QVector4* arInputPoints = null_q;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5420,7 +5420,7 @@ QTEST_CASE ( ScaleWithPivot4_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5431,7 +5431,7 @@ QTEST_CASE ( ScaleWithPivot4_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_4, SQFloat::_1, SQFloat::_5),
                                            QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9),
@@ -5447,10 +5447,10 @@ QTEST_CASE ( ScaleWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5462,7 +5462,7 @@ QTEST_CASE ( ScaleWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(-SQFloat::_5, -SQFloat::_5, SQFloat::_3)
                                        };
@@ -5474,10 +5474,10 @@ QTEST_CASE ( ScaleWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5489,7 +5489,7 @@ QTEST_CASE ( ScaleWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -5501,10 +5501,10 @@ QTEST_CASE ( ScaleWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -5518,7 +5518,7 @@ QTEST_CASE ( ScaleWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot5_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
@@ -5526,7 +5526,7 @@ QTEST_CASE ( ScaleWithPivot5_AssertionFailsWhenInputIsNull_Test )
     QVector3* arInputPoints = null_q;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5538,7 +5538,7 @@ QTEST_CASE ( ScaleWithPivot5_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5549,7 +5549,7 @@ QTEST_CASE ( ScaleWithPivot5_AssertionFailsWhenInputIsNull_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot6_MoreThanOnePointAreTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_4, SQFloat::_1, SQFloat::_5, SQFloat::_1),
                                            QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9, SQFloat::_1),
@@ -5565,10 +5565,10 @@ QTEST_CASE ( ScaleWithPivot6_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5580,7 +5580,7 @@ QTEST_CASE ( ScaleWithPivot6_MoreThanOnePointAreTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot6_OnlyOnePointIsTransformedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(-SQFloat::_5, -SQFloat::_5, SQFloat::_3, SQFloat::_1)
                                        };
@@ -5592,10 +5592,10 @@ QTEST_CASE ( ScaleWithPivot6_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5607,7 +5607,7 @@ QTEST_CASE ( ScaleWithPivot6_OnlyOnePointIsTransformedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot6_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -5619,10 +5619,10 @@ QTEST_CASE ( ScaleWithPivot6_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE.x, SCALE.y, SCALE.z, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -5636,7 +5636,7 @@ QTEST_CASE ( ScaleWithPivot6_NoWorkIsDoneWhenInputNumberIsZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot6_AssertionFailsWhenInputIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QBaseVector3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
@@ -5644,7 +5644,7 @@ QTEST_CASE ( ScaleWithPivot6_AssertionFailsWhenInputIsNull_Test )
     QVector4* arInputPoints = null_q;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5656,7 +5656,7 @@ QTEST_CASE ( ScaleWithPivot6_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5669,7 +5669,7 @@ QTEST_CASE ( ScaleWithPivot7_MoreThanOnePointAreTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(SQFloat::_4, SQFloat::_1, SQFloat::_5),
                                            QVector3(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9),
@@ -5685,10 +5685,10 @@ QTEST_CASE ( ScaleWithPivot7_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5702,7 +5702,7 @@ QTEST_CASE ( ScaleWithPivot7_OnlyOnePointIsTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3(-SQFloat::_5, -SQFloat::_5, SQFloat::_3)
                                        };
@@ -5714,10 +5714,10 @@ QTEST_CASE ( ScaleWithPivot7_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5731,7 +5731,7 @@ QTEST_CASE ( ScaleWithPivot7_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -5743,10 +5743,10 @@ QTEST_CASE ( ScaleWithPivot7_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -5762,7 +5762,7 @@ QTEST_CASE ( ScaleWithPivot7_AssertionFailsWhenInputIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QScalingMatrix3x3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
@@ -5770,7 +5770,7 @@ QTEST_CASE ( ScaleWithPivot7_AssertionFailsWhenInputIsNull_Test )
     QVector3* arInputPoints = null_q;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5782,7 +5782,7 @@ QTEST_CASE ( ScaleWithPivot7_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5795,7 +5795,7 @@ QTEST_CASE ( ScaleWithPivot8_MoreThanOnePointAreTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(SQFloat::_4, SQFloat::_1, SQFloat::_5, SQFloat::_1),
                                            QVector4(-SQFloat::_0_25 - SQFloat::_1, (float_q)13.0, SQFloat::_9, SQFloat::_1),
@@ -5811,10 +5811,10 @@ QTEST_CASE ( ScaleWithPivot8_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5828,7 +5828,7 @@ QTEST_CASE ( ScaleWithPivot8_OnlyOnePointIsTransformedCorrectly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4(-SQFloat::_5, -SQFloat::_5, SQFloat::_3, SQFloat::_1)
                                        };
@@ -5840,10 +5840,10 @@ QTEST_CASE ( ScaleWithPivot8_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5857,7 +5857,7 @@ QTEST_CASE ( ScaleWithPivot8_NoWorkIsDoneWhenInputNumberIsZero_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -5869,10 +5869,10 @@ QTEST_CASE ( ScaleWithPivot8_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::ScaleWithPivot(SCALE, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -5888,7 +5888,7 @@ QTEST_CASE ( ScaleWithPivot8_AssertionFailsWhenInputIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QScalingMatrix3x3 SCALE(SQFloat::_3, -SQFloat::_2, -SQFloat::_4);
@@ -5896,7 +5896,7 @@ QTEST_CASE ( ScaleWithPivot8_AssertionFailsWhenInputIsNull_Test )
     QVector4* arInputPoints = null_q;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -5908,7 +5908,7 @@ QTEST_CASE ( ScaleWithPivot8_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5926,7 +5926,7 @@ QTEST_CASE ( TransformWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)2.823223304703363,  SQFloat::_4,  (float_q)-5.1767766952966365),
                                            QVector3((float_q)-9.59533953988538,  SQFloat::_3,  (float_q)7.8605045828303322),
@@ -5951,10 +5951,10 @@ QTEST_CASE ( TransformWithPivot2_MoreThanOnePointAreTransformedCorrectly_Test )
 
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -5973,7 +5973,7 @@ QTEST_CASE ( TransformWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653)
                                        };
@@ -5992,10 +5992,10 @@ QTEST_CASE ( TransformWithPivot2_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -6014,7 +6014,7 @@ QTEST_CASE ( TransformWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -6033,10 +6033,10 @@ QTEST_CASE ( TransformWithPivot2_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -6057,7 +6057,7 @@ QTEST_CASE ( TransformWithPivot2_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -6072,7 +6072,7 @@ QTEST_CASE ( TransformWithPivot2_AssertionFailsWhenInputIsNull_Test )
     QVector3* arInputPoints = null_q;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -6084,7 +6084,7 @@ QTEST_CASE ( TransformWithPivot2_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -6102,7 +6102,7 @@ QTEST_CASE ( TransformWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)2.823223304703363,  SQFloat::_4,  (float_q)-5.1767766952966365, SQFloat::_1),
                                            QVector4((float_q)-9.59533953988538,  SQFloat::_3,  (float_q)7.8605045828303322,  SQFloat::_1),
@@ -6126,10 +6126,10 @@ QTEST_CASE ( TransformWithPivot3_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -6148,7 +6148,7 @@ QTEST_CASE ( TransformWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653, SQFloat::_1)
                                        };
@@ -6167,10 +6167,10 @@ QTEST_CASE ( TransformWithPivot3_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -6189,7 +6189,7 @@ QTEST_CASE ( TransformWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -6208,10 +6208,10 @@ QTEST_CASE ( TransformWithPivot3_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -6232,7 +6232,7 @@ QTEST_CASE ( TransformWithPivot3_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -6247,7 +6247,7 @@ QTEST_CASE ( TransformWithPivot3_AssertionFailsWhenInputIsNull_Test )
     QVector4* arInputPoints = null_q;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -6259,7 +6259,7 @@ QTEST_CASE ( TransformWithPivot3_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -6277,7 +6277,7 @@ QTEST_CASE ( TransformWithPivot3_WComponentOfPivotDoesNotMatter_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x3> TRANSLATION = QTranslationMatrix<QMatrix4x3>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -6297,11 +6297,11 @@ QTEST_CASE ( TransformWithPivot3_WComponentOfPivotDoesNotMatter_Test )
     const QBaseVector4 PIVOT1(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
     const QBaseVector4 PIVOT2(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT1, arInputPoints1, POINTS_COUNT);
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT2, arInputPoints2, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(arInputPoints1[0] == arInputPoints2[0]);
 }
 
@@ -6317,7 +6317,7 @@ QTEST_CASE ( TransformWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)2.823223304703363,  SQFloat::_4,  (float_q)-5.1767766952966365),
                                            QVector3((float_q)-9.59533953988538,  SQFloat::_3,  (float_q)7.8605045828303322),
@@ -6341,10 +6341,10 @@ QTEST_CASE ( TransformWithPivot4_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -6363,7 +6363,7 @@ QTEST_CASE ( TransformWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_POINTS[] = {
                                            QVector3((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653)
                                        };
@@ -6382,10 +6382,10 @@ QTEST_CASE ( TransformWithPivot4_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -6404,7 +6404,7 @@ QTEST_CASE ( TransformWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector3 ORIGINAL_POINTS[] = {
                                            QVector3(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5)
                                        };
@@ -6423,10 +6423,10 @@ QTEST_CASE ( TransformWithPivot4_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -6447,7 +6447,7 @@ QTEST_CASE ( TransformWithPivot4_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -6462,7 +6462,7 @@ QTEST_CASE ( TransformWithPivot4_AssertionFailsWhenInputIsNull_Test )
     QVector3* arInputPoints = null_q;
     const QBaseVector3 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -6474,7 +6474,7 @@ QTEST_CASE ( TransformWithPivot4_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -6492,7 +6492,7 @@ QTEST_CASE ( TransformWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)2.823223304703363,  SQFloat::_4,  (float_q)-5.1767766952966365, SQFloat::_1),
                                            QVector4((float_q)-9.59533953988538,  SQFloat::_3,  (float_q)7.8605045828303322,  SQFloat::_1),
@@ -6516,10 +6516,10 @@ QTEST_CASE ( TransformWithPivot5_MoreThanOnePointAreTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -6538,7 +6538,7 @@ QTEST_CASE ( TransformWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 EXPECTED_POINTS[] = {
                                            QVector4((float_q)9.7175144212722024, (float_q)4.5, (float_q)-11.010407640085653, SQFloat::_1)
                                        };
@@ -6557,10 +6557,10 @@ QTEST_CASE ( TransformWithPivot5_OnlyOnePointIsTransformedCorrectly_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == EXPECTED_POINTS[i]);
@@ -6579,7 +6579,7 @@ QTEST_CASE ( TransformWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector4 ORIGINAL_POINTS[] = {
                                            QVector4(-SQFloat::_1, SQFloat::_4, SQFloat::_0_5, SQFloat::_1)
                                        };
@@ -6598,10 +6598,10 @@ QTEST_CASE ( TransformWithPivot5_NoWorkIsDoneWhenInputNumberIsZero_Test )
                                };
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT, arInputPoints, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     for(int i = 0; i < POINTS_COUNT; ++i)
     {
         BOOST_CHECK(arInputPoints[i] == ORIGINAL_POINTS[i]);
@@ -6622,7 +6622,7 @@ QTEST_CASE ( TransformWithPivot5_AssertionFailsWhenInputIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
@@ -6637,7 +6637,7 @@ QTEST_CASE ( TransformWithPivot5_AssertionFailsWhenInputIsNull_Test )
     QVector4* arInputPoints = null_q;
     const QBaseVector4 PIVOT(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -6649,7 +6649,7 @@ QTEST_CASE ( TransformWithPivot5_AssertionFailsWhenInputIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -6667,7 +6667,7 @@ QTEST_CASE ( TransformWithPivot5_WComponentOfPivotDoesNotMatter_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const int POINTS_COUNT = 1;
     const QTranslationMatrix<QMatrix4x4> TRANSLATION = QTranslationMatrix<QMatrix4x4>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -6687,11 +6687,11 @@ QTEST_CASE ( TransformWithPivot5_WComponentOfPivotDoesNotMatter_Test )
     const QBaseVector4 PIVOT1(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1);
     const QBaseVector4 PIVOT2(SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT1, arInputPoints1, POINTS_COUNT);
     SQPoint::TransformWithPivot(TRANSFORMATION, PIVOT2, arInputPoints2, POINTS_COUNT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(arInputPoints1[0] == arInputPoints2[0]);
 }
 

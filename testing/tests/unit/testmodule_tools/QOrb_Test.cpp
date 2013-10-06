@@ -57,16 +57,16 @@ QTEST_SUITE_BEGIN( QOrb_TestSuite )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QOrb<T> orbUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -76,7 +76,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
@@ -84,10 +84,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     const QOrb<T> EXPECTED_ORB(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
-	// Execution
+	// [Execution]
     QOrb<T> orbUT(EXPECTED_ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -97,7 +97,7 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
@@ -105,10 +105,10 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     const QBaseOrb<T> EXPECTED_ORB(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
-	// Execution
+	// [Execution]
     QOrb<T> orbUT(EXPECTED_ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -118,16 +118,16 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_5;
 
-	// Execution
+	// [Execution]
     QOrb<T> orbUT(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -137,7 +137,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetUnitOrb_ValueHasNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_CENTER(VECTOR_COMPONENTS);
@@ -145,10 +145,10 @@ QTEST_CASE_TEMPLATE ( GetUnitOrb_ValueHasNotChanged_Test, TQTemplateTypes )
 
     const QOrb<T> EXPECTED_ORB = QOrb<T>(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
-	// Execution
+	// [Execution]
     QOrb<T> orbUT = QOrb<T>::GetUnitOrb();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -158,7 +158,7 @@ QTEST_CASE_TEMPLATE ( GetUnitOrb_ValueHasNotChanged_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorAssignation_OrbIsAssignedProperlyToAnother_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
     const T EXPECTED_VALUE_FOR_CENTER(VECTOR_COMPONENTS);
@@ -166,11 +166,11 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_OrbIsAssignedProperlyToAnother_Test, T
 
     const QBaseOrb<T> OTHER_ORB = QBaseOrb<T>(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
-	// Execution
+	// [Execution]
     QOrb<T> orbUT;
     orbUT = OTHER_ORB;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -180,7 +180,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_OrbIsAssignedProperlyToAnother_Test, T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenTheOrbDoesNotContainThePoint_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_POINT[] = { SQFloat::_9, SQFloat::_8, SQFloat::_7, SQFloat::_1 };
 
@@ -188,10 +188,10 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenTheOrbDoesNotContainThePoint_Test
     const T POINT = T(VECTOR_COMPONENTS_POINT);
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bIsContained = ORB.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bIsContained, EXPECTED_RESULT);
 }
 
@@ -200,7 +200,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenTheOrbDoesNotContainThePoint_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenTheOrbContainsThePoint_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_POINT[] = { SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1 };
 
@@ -208,10 +208,10 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenTheOrbContainsThePoint_Test, TQTem
     const T POINT = T(VECTOR_COMPONENTS_POINT);
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bIsContained = ORB.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bIsContained, EXPECTED_RESULT);
 }
 
@@ -220,7 +220,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenTheOrbContainsThePoint_Test, TQTem
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenThePointLiesOnTheSurfaceOfTheOrb_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
@@ -228,10 +228,10 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenThePointLiesOnTheSurfaceOfTheOrb_T
     const T POINT = T(VECTOR_COMPONENTS_POINT);
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bIsContained = ORB.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bIsContained, EXPECTED_RESULT);
 }
 
@@ -242,7 +242,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenThePointLiesOnTheSurfaceOfTheOrb_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenRadiusEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
 
     const QOrb<T> ORB( T(VECTOR_COMPONENTS), SQFloat::_0 );
@@ -250,7 +250,7 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenRadiusEqualsZero_Test, TQTempla
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -262,7 +262,7 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenRadiusEqualsZero_Test, TQTempla
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -276,7 +276,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsExpectedResultWhenRadiusEqualsZero_Test, T
     // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
     //       method behaves as expected when assertions are disabled.
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR1_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR2_COMPONENTS[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
 
@@ -287,11 +287,11 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsExpectedResultWhenRadiusEqualsZero_Test, T
     const bool EXPECTED_RESULT_COINCIDENT = true;
     const bool EXPECTED_RESULT_NOT_COINCIDENT = false;
 
-	// Execution
+	// [Execution]
     bool bResultCoincident = ORB.Contains(POINT_COINCIDENT);
     bool bResultNotCoincident = ORB.Contains(POINT_NOT_COINCIDENT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultCoincident, EXPECTED_RESULT_COINCIDENT);
     BOOST_CHECK_EQUAL(bResultNotCoincident, EXPECTED_RESULT_NOT_COINCIDENT);
 }
@@ -303,7 +303,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsExpectedResultWhenRadiusEqualsZero_Test, T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenOrbsDoNotIntersect_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_CENTER2[] = { SQFloat::_9, SQFloat::_9, SQFloat::_9, SQFloat::_1 };
 
@@ -312,11 +312,11 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenOrbsDoNotIntersect_Test, TQTe
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bIntersect1 = ORB1.Intersection(ORB2);
     bool bIntersect2 = ORB2.Intersection(ORB1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bIntersect1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bIntersect2, EXPECTED_RESULT);
 }
@@ -326,7 +326,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenOrbsDoNotIntersect_Test, TQTe
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsIntersect_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_CENTER2[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
@@ -335,11 +335,11 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsIntersect_Test, TQTemplate
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bIntersect1 = ORB1.Intersection(ORB2);
     bool bIntersect2 = ORB2.Intersection(ORB1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bIntersect1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bIntersect2, EXPECTED_RESULT);
 }
@@ -349,7 +349,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsIntersect_Test, TQTemplate
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTangent_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_CENTER2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
@@ -358,11 +358,11 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTangent_Test, TQTemplat
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bIntersect1 = ORB1.Intersection(ORB2);
     bool bIntersect2 = ORB2.Intersection(ORB1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bIntersect1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bIntersect2, EXPECTED_RESULT);
 }
@@ -372,7 +372,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTangent_Test, TQTemplat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTheSame_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
     const QOrb<T> ORB1( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
@@ -380,11 +380,11 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTheSame_Test, TQTemplat
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bIntersect1 = ORB1.Intersection(ORB2);
     bool bIntersect2 = ORB2.Intersection(ORB1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bIntersect1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bIntersect2, EXPECTED_RESULT);
 }
@@ -394,7 +394,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOrbsAreTheSame_Test, TQTemplat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOneOrbIsContainedInOther_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_CENTER2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
@@ -403,11 +403,11 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOneOrbIsContainedInOther_Test,
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bIntersect1 = ORB1.Intersection(ORB2);
     bool bIntersect2 = ORB2.Intersection(ORB1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bIntersect1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bIntersect2, EXPECTED_RESULT);
 }
@@ -419,7 +419,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOneOrbIsContainedInOther_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_CENTER2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
@@ -428,7 +428,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusEqualsZero_Test, TQTe
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -451,7 +451,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusEqualsZero_Test, TQTe
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -466,7 +466,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusEqualsZero_Tes
     // Note: This is a special test that checks too many things (which is incorrect in a unit test) just to assure that the 
     //       method behaves as expected when assertions are disabled.
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_CENTER2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
@@ -477,11 +477,11 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusEqualsZero_Tes
     const bool EXPECTE_RESULT_INTERSECTION = true;
     const bool EXPECTE_RESULT_NO_INTERSECTION = false;
 
-	// Execution
+	// [Execution]
     bool bResultNoIntersection = ORB1.Intersection(ORB2);
     bool bResultIntersection = ORB1.Intersection(ORB3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultIntersection, EXPECTE_RESULT_INTERSECTION);
     BOOST_CHECK_EQUAL(bResultNoIntersection, EXPECTE_RESULT_NO_INTERSECTION);
 }
@@ -493,7 +493,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusEqualsZero_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     const T VECTOR_FOR_CENTER(VECTOR_COMPONENTS_CENTER);
     const float_q RADIUS = SQFloat::_5;
@@ -502,10 +502,10 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
     const string_q CENTER_STRING = VECTOR_FOR_CENTER.ToString();
     const string_q EXPECTED_STRING = QE_L("OB(c(") + CENTER_STRING + QE_L("),r(") + SQFloat::ToString(RADIUS) + QE_L("))");
 
-	// Execution
+	// [Execution]
     string_q strReturnedString = ORB.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strReturnedString == EXPECTED_STRING);
 }
 

@@ -44,13 +44,13 @@ QTEST_SUITE_BEGIN( SQVF32_TestSuite )
 /// </summary>
 QTEST_CASE ( Pack_EveryValueIsSetInTheRightPlace_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_FLOAT1 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_FLOAT2 = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_FLOAT3 = SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_FLOAT4 = SQFloat::_4;
 
-	// Execution
+	// [Execution]
     vf32_q vectorUT;
     SQVF32::Pack(EXPECTED_VALUE_FOR_FLOAT1,
                  EXPECTED_VALUE_FOR_FLOAT2,
@@ -58,7 +58,7 @@ QTEST_CASE ( Pack_EveryValueIsSetInTheRightPlace_Test )
                  EXPECTED_VALUE_FOR_FLOAT4,
                  vectorUT);
 
-    // Verification
+    // [Verification]
     float_q fFloatValueInPosition1;
     float_q fFloatValueInPosition2;
     float_q fFloatValueInPosition3;

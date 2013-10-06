@@ -42,14 +42,14 @@ QTEST_SUITE_BEGIN( SQFloat_TestSuite )
 /// </summary>
 QTEST_CASE ( IsNaN_ReturnsTrueWhenValueIsNaN_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NAN_VALUE = SQFloat::_0 / SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNaN(NAN_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -58,14 +58,14 @@ QTEST_CASE ( IsNaN_ReturnsTrueWhenValueIsNaN_Test )
 /// </summary>
 QTEST_CASE ( IsNaN_ReturnsFalseWhenValueIsANumber_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NUMBER = SQFloat::_1;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNaN(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -74,14 +74,14 @@ QTEST_CASE ( IsNaN_ReturnsFalseWhenValueIsANumber_Test )
 /// </summary>
 QTEST_CASE ( IsNaN_ReturnsFalseWhenValueIsInfinite_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q INFINITE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNaN(INFINITE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -90,14 +90,14 @@ QTEST_CASE ( IsNaN_ReturnsFalseWhenValueIsInfinite_Test )
 /// </summary>
 QTEST_CASE ( IsInfinite_ReturnsTrueWhenValueIsInfinite_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q INFINITE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsInfinite(INFINITE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -106,14 +106,14 @@ QTEST_CASE ( IsInfinite_ReturnsTrueWhenValueIsInfinite_Test )
 /// </summary>
 QTEST_CASE ( IsInfinite_ReturnsFalseWhenValueIsNotInfinite_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NOT_INFINITE = SQFloat::_1;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsInfinite(NOT_INFINITE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -122,14 +122,14 @@ QTEST_CASE ( IsInfinite_ReturnsFalseWhenValueIsNotInfinite_Test )
 /// </summary>
 QTEST_CASE ( IsInfinite_ReturnsFalseWhenValueIsNaN_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NAN_VALUE = SQFloat::_0 / SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsInfinite(NAN_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -138,14 +138,14 @@ QTEST_CASE ( IsInfinite_ReturnsFalseWhenValueIsNaN_Test )
 /// </summary>
 QTEST_CASE ( IsNanOrInfinite_ReturnsTrueWhenValueIsNaN_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NAN_VALUE = SQFloat::_0 / SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNanOrInfinite(NAN_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -154,14 +154,14 @@ QTEST_CASE ( IsNanOrInfinite_ReturnsTrueWhenValueIsNaN_Test )
 /// </summary>
 QTEST_CASE ( IsNanOrInfinite_ReturnsFalseWhenValueIsACommonNumber_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NUMBER = SQFloat::_1;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNanOrInfinite(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -170,14 +170,14 @@ QTEST_CASE ( IsNanOrInfinite_ReturnsFalseWhenValueIsACommonNumber_Test )
 /// </summary>
 QTEST_CASE ( IsNanOrInfinite_ReturnsTrueWhenValueIsInfinite_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q INFINITE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNanOrInfinite(INFINITE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -186,15 +186,15 @@ QTEST_CASE ( IsNanOrInfinite_ReturnsTrueWhenValueIsInfinite_Test )
 /// </summary>
 QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -203,15 +203,15 @@ QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -220,15 +220,15 @@ QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreEqual1_ReturnsFalseWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -237,15 +237,15 @@ QTEST_CASE ( AreEqual1_ReturnsFalseWhenOperandsDifferGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -254,16 +254,16 @@ QTEST_CASE ( AreEqual1_ReturnsTrueWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -272,16 +272,16 @@ QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE - TOLERANCE * SQFloat::_0_5;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -290,16 +290,16 @@ QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreEqual2_ReturnsFalseWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE + TOLERANCE * SQFloat::_0_5;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -308,16 +308,16 @@ QTEST_CASE ( AreEqual2_ReturnsFalseWhenOperandsDifferGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = TOLERANCE;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -326,15 +326,15 @@ QTEST_CASE ( AreEqual2_ReturnsTrueWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( AreNotEqual1_ReturnsFalseWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreNotEqual(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -343,15 +343,15 @@ QTEST_CASE ( AreNotEqual1_ReturnsFalseWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreNotEqual1_ReturnsFalseWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreNotEqual(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -360,15 +360,15 @@ QTEST_CASE ( AreNotEqual1_ReturnsFalseWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreNotEqual1_ReturnsTrueWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreNotEqual(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -377,15 +377,15 @@ QTEST_CASE ( AreNotEqual1_ReturnsTrueWhenOperandsDifferGreaterThanTolerance_Test
 /// </summary>
 QTEST_CASE ( AreNotEqual1_ReturnsFalseWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreNotEqual(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -394,16 +394,16 @@ QTEST_CASE ( AreNotEqual1_ReturnsFalseWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( AreNotEqual2_ReturnsFalseWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreNotEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -412,16 +412,16 @@ QTEST_CASE ( AreNotEqual2_ReturnsFalseWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreNotEqual2_ReturnsFalseWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE - TOLERANCE * SQFloat::_0_5;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreNotEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -430,16 +430,16 @@ QTEST_CASE ( AreNotEqual2_ReturnsFalseWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( AreNotEqual2_ReturnsTrueWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE + TOLERANCE * SQFloat::_0_5;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreNotEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -448,16 +448,16 @@ QTEST_CASE ( AreNotEqual2_ReturnsTrueWhenOperandsDifferGreaterThanTolerance_Test
 /// </summary>
 QTEST_CASE ( AreNotEqual2_ReturnsFalseWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = TOLERANCE;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::AreNotEqual(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -466,15 +466,15 @@ QTEST_CASE ( AreNotEqual2_ReturnsFalseWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( IsGreaterThan1_ReturnsTrueWhenLeftOperandIsGreaterThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterThan(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -483,15 +483,15 @@ QTEST_CASE ( IsGreaterThan1_ReturnsTrueWhenLeftOperandIsGreaterThanRightOneByMor
 /// </summary>
 QTEST_CASE ( IsGreaterThan1_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByExactlyTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterThan(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -500,15 +500,15 @@ QTEST_CASE ( IsGreaterThan1_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByEx
 /// </summary>
 QTEST_CASE ( IsGreaterThan1_ReturnsFalseWhenOperandsAreEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterThan(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -517,15 +517,15 @@ QTEST_CASE ( IsGreaterThan1_ReturnsFalseWhenOperandsAreEqual_Test )
 /// </summary>
 QTEST_CASE ( IsGreaterThan1_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterThan(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -534,16 +534,16 @@ QTEST_CASE ( IsGreaterThan1_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByMore
 /// </summary>
 QTEST_CASE ( IsGreaterThan2_ReturnsTrueWhenLeftOperandIsGreaterThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE + TOLERANCE;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterThan(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -552,16 +552,16 @@ QTEST_CASE ( IsGreaterThan2_ReturnsTrueWhenLeftOperandIsGreaterThanRightOneByMor
 /// </summary>
 QTEST_CASE ( IsGreaterThan2_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByExactlyTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterThan(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -570,16 +570,16 @@ QTEST_CASE ( IsGreaterThan2_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByEx
 /// </summary>
 QTEST_CASE ( IsGreaterThan2_ReturnsFalseWhenOperandsAreEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = TOLERANCE;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterThan(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -588,16 +588,16 @@ QTEST_CASE ( IsGreaterThan2_ReturnsFalseWhenOperandsAreEqual_Test )
 /// </summary>
 QTEST_CASE ( IsGreaterThan2_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = TOLERANCE + TOLERANCE;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterThan(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -606,15 +606,15 @@ QTEST_CASE ( IsGreaterThan2_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByMore
 /// </summary>
 QTEST_CASE ( IsLessThan1_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessThan(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -623,15 +623,15 @@ QTEST_CASE ( IsLessThan1_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByMoreT
 /// </summary>
 QTEST_CASE ( IsLessThan1_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByExactlyTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessThan(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -640,15 +640,15 @@ QTEST_CASE ( IsLessThan1_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByExactly
 /// </summary>
 QTEST_CASE ( IsLessThan1_ReturnsFalseWhenOperandsAreEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessThan(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -657,15 +657,15 @@ QTEST_CASE ( IsLessThan1_ReturnsFalseWhenOperandsAreEqual_Test )
 /// </summary>
 QTEST_CASE ( IsLessThan1_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessThan(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -674,16 +674,16 @@ QTEST_CASE ( IsLessThan1_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMoreThan
 /// </summary>
 QTEST_CASE ( IsLessThan2_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE + TOLERANCE;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessThan(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -692,16 +692,16 @@ QTEST_CASE ( IsLessThan2_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByMoreT
 /// </summary>
 QTEST_CASE ( IsLessThan2_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByExactlyTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = TOLERANCE;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessThan(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -710,16 +710,16 @@ QTEST_CASE ( IsLessThan2_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByExactly
 /// </summary>
 QTEST_CASE ( IsLessThan2_ReturnsFalseWhenOperandsAreEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = TOLERANCE;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessThan(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -728,16 +728,16 @@ QTEST_CASE ( IsLessThan2_ReturnsFalseWhenOperandsAreEqual_Test )
 /// </summary>
 QTEST_CASE ( IsLessThan2_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = TOLERANCE + TOLERANCE;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessThan(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -746,15 +746,15 @@ QTEST_CASE ( IsLessThan2_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMoreThan
 /// </summary>
 QTEST_CASE ( IsGreaterOrEquals1_ReturnsTrueWhenLeftOperandIsGreaterOrEqualsRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -763,15 +763,15 @@ QTEST_CASE ( IsGreaterOrEquals1_ReturnsTrueWhenLeftOperandIsGreaterOrEqualsRight
 /// </summary>
 QTEST_CASE ( IsGreaterOrEquals1_ReturnsTrueWhenLeftOperandIsGreaterOrEqualsRightOneByExactlyTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -780,15 +780,15 @@ QTEST_CASE ( IsGreaterOrEquals1_ReturnsTrueWhenLeftOperandIsGreaterOrEqualsRight
 /// </summary>
 QTEST_CASE ( IsGreaterOrEquals1_ReturnsTrueWhenOperandsAreEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -797,15 +797,15 @@ QTEST_CASE ( IsGreaterOrEquals1_ReturnsTrueWhenOperandsAreEqual_Test )
 /// </summary>
 QTEST_CASE ( IsGreaterOrEquals1_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -814,16 +814,16 @@ QTEST_CASE ( IsGreaterOrEquals1_ReturnsFalseWhenLeftOperandIsLowerThanRightOneBy
 /// </summary>
 QTEST_CASE ( IsGreaterOrEquals2_ReturnsTrueWhenLeftOperandIsGreaterOrEqualsRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE + TOLERANCE;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterOrEquals(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -832,16 +832,16 @@ QTEST_CASE ( IsGreaterOrEquals2_ReturnsTrueWhenLeftOperandIsGreaterOrEqualsRight
 /// </summary>
 QTEST_CASE ( IsGreaterOrEquals2_ReturnsTrueWhenLeftOperandIsGreaterOrEqualsRightOneByExactlyTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterOrEquals(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -850,16 +850,16 @@ QTEST_CASE ( IsGreaterOrEquals2_ReturnsTrueWhenLeftOperandIsGreaterOrEqualsRight
 /// </summary>
 QTEST_CASE ( IsGreaterOrEquals2_ReturnsTrueWhenOperandsAreEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = TOLERANCE;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterOrEquals(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -868,16 +868,16 @@ QTEST_CASE ( IsGreaterOrEquals2_ReturnsTrueWhenOperandsAreEqual_Test )
 /// </summary>
 QTEST_CASE ( IsGreaterOrEquals2_ReturnsFalseWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = TOLERANCE + TOLERANCE;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsGreaterOrEquals(LEFT_OPERAND, RIGHT_OPERAND, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -886,15 +886,15 @@ QTEST_CASE ( IsGreaterOrEquals2_ReturnsFalseWhenLeftOperandIsLowerThanRightOneBy
 /// </summary>
 QTEST_CASE ( IsLessOrEquals1_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -903,15 +903,15 @@ QTEST_CASE ( IsLessOrEquals1_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByM
 /// </summary>
 QTEST_CASE ( IsLessOrEquals1_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByExactlyTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -920,15 +920,15 @@ QTEST_CASE ( IsLessOrEquals1_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByExac
 /// </summary>
 QTEST_CASE ( IsLessOrEquals1_ReturnsTrueWhenOperandsAreEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::Epsilon;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -937,15 +937,15 @@ QTEST_CASE ( IsLessOrEquals1_ReturnsTrueWhenOperandsAreEqual_Test )
 /// </summary>
 QTEST_CASE ( IsLessOrEquals1_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = SQFloat::Epsilon + SQFloat::Epsilon;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -954,16 +954,16 @@ QTEST_CASE ( IsLessOrEquals1_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMore
 /// </summary>
 QTEST_CASE ( IsLessOrEquals2_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE + TOLERANCE;
     const float_q RIGHT_OPERAND = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -972,16 +972,16 @@ QTEST_CASE ( IsLessOrEquals2_ReturnsFalseWhenLeftOperandIsGreaterThanRightOneByM
 /// </summary>
 QTEST_CASE ( IsLessOrEquals2_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByExactlyTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = TOLERANCE;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -990,16 +990,16 @@ QTEST_CASE ( IsLessOrEquals2_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByExac
 /// </summary>
 QTEST_CASE ( IsLessOrEquals2_ReturnsTrueWhenOperandsAreEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = TOLERANCE;
     const float_q RIGHT_OPERAND = TOLERANCE;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1008,16 +1008,16 @@ QTEST_CASE ( IsLessOrEquals2_ReturnsTrueWhenOperandsAreEqual_Test )
 /// </summary>
 QTEST_CASE ( IsLessOrEquals2_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMoreThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q LEFT_OPERAND = SQFloat::_0;
     const float_q RIGHT_OPERAND = TOLERANCE + TOLERANCE;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsLessOrEquals(LEFT_OPERAND, RIGHT_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1026,14 +1026,14 @@ QTEST_CASE ( IsLessOrEquals2_ReturnsTrueWhenLeftOperandIsLowerThanRightOneByMore
 /// </summary>
 QTEST_CASE ( IsZero1_ReturnsTrueWhenValueEqualsTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1042,14 +1042,14 @@ QTEST_CASE ( IsZero1_ReturnsTrueWhenValueEqualsTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero1_ReturnsTrueWhenValueEqualsNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = -SQFloat::Epsilon;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1058,14 +1058,14 @@ QTEST_CASE ( IsZero1_ReturnsTrueWhenValueEqualsNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero1_ReturnsTrueWhenValueIsLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1074,14 +1074,14 @@ QTEST_CASE ( IsZero1_ReturnsTrueWhenValueIsLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero1_ReturnsFalseWhenValueIsGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1090,14 +1090,14 @@ QTEST_CASE ( IsZero1_ReturnsFalseWhenValueIsGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero1_ReturnsFalseWhenValueIsLessThanNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = -SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1106,14 +1106,14 @@ QTEST_CASE ( IsZero1_ReturnsFalseWhenValueIsLessThanNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero1_ReturnsTrueWhenValueExactlyEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1122,15 +1122,15 @@ QTEST_CASE ( IsZero1_ReturnsTrueWhenValueExactlyEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( IsZero2_ReturnsTrueWhenValueEqualsTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = (float_q)1e-3;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1139,15 +1139,15 @@ QTEST_CASE ( IsZero2_ReturnsTrueWhenValueEqualsTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero2_ReturnsTrueWhenValueEqualsNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = -TOLERANCE;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1156,15 +1156,15 @@ QTEST_CASE ( IsZero2_ReturnsTrueWhenValueEqualsNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero2_ReturnsTrueWhenValueIsLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = TOLERANCE - TOLERANCE * SQFloat::_0_5;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1173,15 +1173,15 @@ QTEST_CASE ( IsZero2_ReturnsTrueWhenValueIsLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero2_ReturnsFalseWhenValueIsGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = TOLERANCE + TOLERANCE * SQFloat::_0_5;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1190,15 +1190,15 @@ QTEST_CASE ( IsZero2_ReturnsFalseWhenValueIsGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero2_ReturnsFalseWhenValueIsLessThanNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = -TOLERANCE - TOLERANCE * SQFloat::_0_5;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1207,15 +1207,15 @@ QTEST_CASE ( IsZero2_ReturnsFalseWhenValueIsLessThanNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsZero2_ReturnsTrueWhenValueExactlyEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = SQFloat::_0;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1224,14 +1224,14 @@ QTEST_CASE ( IsZero2_ReturnsTrueWhenValueExactlyEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero1_ReturnsFalseWhenValueEqualsTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1240,14 +1240,14 @@ QTEST_CASE ( IsNotZero1_ReturnsFalseWhenValueEqualsTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero1_ReturnsFalseWhenValueEqualsNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = -SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1256,14 +1256,14 @@ QTEST_CASE ( IsNotZero1_ReturnsFalseWhenValueEqualsNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero1_ReturnsFalseWhenValueIsLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1272,14 +1272,14 @@ QTEST_CASE ( IsNotZero1_ReturnsFalseWhenValueIsLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero1_ReturnsTrueWhenValueIsGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1288,14 +1288,14 @@ QTEST_CASE ( IsNotZero1_ReturnsTrueWhenValueIsGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero1_ReturnsTrueWhenValueIsLessThanNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = -SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1304,14 +1304,14 @@ QTEST_CASE ( IsNotZero1_ReturnsTrueWhenValueIsLessThanNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero1_ReturnsFalseWhenValueExactlyEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1320,15 +1320,15 @@ QTEST_CASE ( IsNotZero1_ReturnsFalseWhenValueExactlyEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueEqualsTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = TOLERANCE;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1337,15 +1337,15 @@ QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueEqualsTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueEqualsNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = -TOLERANCE;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1354,15 +1354,15 @@ QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueEqualsNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueIsLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = TOLERANCE - TOLERANCE * SQFloat::_0_5;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1371,15 +1371,15 @@ QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueIsLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero2_ReturnsTrueWhenValueIsGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = TOLERANCE + TOLERANCE * SQFloat::_0_5;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1388,15 +1388,15 @@ QTEST_CASE ( IsNotZero2_ReturnsTrueWhenValueIsGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero2_ReturnsTrueWhenValueIsLessThanNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = -TOLERANCE - TOLERANCE * SQFloat::_0_5;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1405,15 +1405,15 @@ QTEST_CASE ( IsNotZero2_ReturnsTrueWhenValueIsLessThanNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueExactlyEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q TOLERANCE = (float_q)1e-3;
     const float_q VALUE = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNotZero(VALUE, TOLERANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1422,7 +1422,7 @@ QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueExactlyEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -1433,10 +1433,10 @@ QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )
     string_q EXPECTED_RESULT = QE_L("-1.2345678901234569e+027");
 #endif
 
-	// Execution
+	// [Execution]
     string_q strResultUT = SQFloat::ToString(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strResultUT == EXPECTED_RESULT);
 }
 
@@ -1445,7 +1445,7 @@ QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )
 /// </summary>
 QTEST_CASE ( ToString_TinyNumberIsCorrectlyConverted_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -1456,10 +1456,10 @@ QTEST_CASE ( ToString_TinyNumberIsCorrectlyConverted_Test )
     string_q EXPECTED_RESULT = QE_L("-1.2345678901234124e-009");
 #endif
 
-	// Execution
+	// [Execution]
     string_q strResultUT = SQFloat::ToString(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strResultUT == EXPECTED_RESULT);
 }
 
@@ -1468,7 +1468,7 @@ QTEST_CASE ( ToString_TinyNumberIsCorrectlyConverted_Test )
 /// </summary>
 QTEST_CASE ( ToString_CommonNumberIsCorrectlyConverted_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -1479,10 +1479,10 @@ QTEST_CASE ( ToString_CommonNumberIsCorrectlyConverted_Test )
     string_q EXPECTED_RESULT = QE_L("-1234567890.1234567");
 #endif
 
-	// Execution
+	// [Execution]
     string_q strResultUT = SQFloat::ToString(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strResultUT == EXPECTED_RESULT);
 }
 
@@ -1491,7 +1491,7 @@ QTEST_CASE ( ToString_CommonNumberIsCorrectlyConverted_Test )
 /// </summary>
 QTEST_CASE ( ToInteger_WhenValueEqualsZeroPointFiveItsRoundedOffToZero_Test )
 {
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
@@ -1503,10 +1503,10 @@ QTEST_CASE ( ToInteger_WhenValueEqualsZeroPointFiveItsRoundedOffToZero_Test )
     const float_q NUMBER = SQFloat::_0_5;
     IntegerTypeForTest EXPECTED_RESULT = (IntegerTypeForTest)0;
 
-	// Execution
+	// [Execution]
     IntegerTypeForTest nResultUT = SQFloat::ToInteger<IntegerTypeForTest>(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResultUT, EXPECTED_RESULT);
 }
 
@@ -1515,7 +1515,7 @@ QTEST_CASE ( ToInteger_WhenValueEqualsZeroPointFiveItsRoundedOffToZero_Test )
 /// </summary>
 QTEST_CASE ( ToInteger_WhenValueIsGreaterThanZeroPointFiveItsRoundedOffToOne_Test )
 {
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
@@ -1527,10 +1527,10 @@ QTEST_CASE ( ToInteger_WhenValueIsGreaterThanZeroPointFiveItsRoundedOffToOne_Tes
     const float_q NUMBER = SQFloat::_0_5 + SQFloat::_0_25;
     IntegerTypeForTest EXPECTED_RESULT = (IntegerTypeForTest)1;
 
-	// Execution
+	// [Execution]
     IntegerTypeForTest nResultUT = SQFloat::ToInteger<IntegerTypeForTest>(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResultUT, EXPECTED_RESULT);
 }
 
@@ -1539,7 +1539,7 @@ QTEST_CASE ( ToInteger_WhenValueIsGreaterThanZeroPointFiveItsRoundedOffToOne_Tes
 /// </summary>
 QTEST_CASE ( ToInteger_WhenValueIsLessThanZeroPointFiveItsRoundedToZero_Test )
 {
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
@@ -1551,10 +1551,10 @@ QTEST_CASE ( ToInteger_WhenValueIsLessThanZeroPointFiveItsRoundedToZero_Test )
     const float_q NUMBER = SQFloat::_0_25;
     IntegerTypeForTest EXPECTED_RESULT = (IntegerTypeForTest)0;
 
-	// Execution
+	// [Execution]
     IntegerTypeForTest nResultUT = SQFloat::ToInteger<IntegerTypeForTest>(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(nResultUT, EXPECTED_RESULT);
 }
 
@@ -1565,7 +1565,7 @@ QTEST_CASE ( ToInteger_WhenValueIsLessThanZeroPointFiveItsRoundedToZero_Test )
 /// </summary>
 QTEST_CASE ( ToInteger_AssertionFailsWhenTheMemorySizeOfIntegerTypeIsDifferentFromSizeOfFloatType_Test )
 {
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
@@ -1576,7 +1576,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenTheMemorySizeOfIntegerTypeIsDifferentFr
 
     const float_q NUMBER = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1588,7 +1588,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenTheMemorySizeOfIntegerTypeIsDifferentFr
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1597,7 +1597,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenTheMemorySizeOfIntegerTypeIsDifferentFr
 /// </summary>
 QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsHigherThanTheMaximumIntegerPossible_Test )
 {
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
@@ -1610,7 +1610,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsHigherThanTheMaximumIntege
 
     const float_q NUMBER = MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED + SQFloat::_1;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1622,7 +1622,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsHigherThanTheMaximumIntege
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1631,7 +1631,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsHigherThanTheMaximumIntege
 /// </summary>
 QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumIntegerPossible_Test )
 {
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
@@ -1644,7 +1644,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumInteger
 
     const float_q NUMBER = MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED - SQFloat::_1;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1656,7 +1656,7 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumInteger
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1667,14 +1667,14 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumInteger
 /// </summary>
 QTEST_CASE ( Truncate_ValueIsNotRoundedOff_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NUMBER = (float_q)1.9999999;
     const float_q EXPECTED_RESULT = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQFloat::Truncate(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_RESULT);
 }
 
@@ -1683,14 +1683,14 @@ QTEST_CASE ( Truncate_ValueIsNotRoundedOff_Test )
 /// </summary>
 QTEST_CASE ( Truncate_FractionalPartDissapears_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NUMBER = (float_q)12345.6789;
     const float_q EXPECTED_RESULT = (float_q)12345;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQFloat::Truncate(NUMBER);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_RESULT);
 }
 
@@ -1699,16 +1699,16 @@ QTEST_CASE ( Truncate_FractionalPartDissapears_Test )
 /// </summary>
 QTEST_CASE ( Clamp_ReturnsMaxWhenValueIsHigherThanMax_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NUMBER = SQFloat::_5;
     const float_q MAX_BOUND = SQFloat::_2;
     const float_q MIN_BOUND = SQFloat::_1;
     const float_q EXPECTED_RESULT = MAX_BOUND;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQFloat::Clamp(NUMBER, MIN_BOUND, MAX_BOUND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_RESULT);
 }
 
@@ -1717,16 +1717,16 @@ QTEST_CASE ( Clamp_ReturnsMaxWhenValueIsHigherThanMax_Test )
 /// </summary>
 QTEST_CASE ( Clamp_ReturnsMinWhenValueIsLowerThanMin_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NUMBER = -SQFloat::_5;
     const float_q MAX_BOUND = SQFloat::_2;
     const float_q MIN_BOUND = SQFloat::_1;
     const float_q EXPECTED_RESULT = MIN_BOUND;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQFloat::Clamp(NUMBER, MIN_BOUND, MAX_BOUND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_RESULT);
 }
 
@@ -1735,16 +1735,16 @@ QTEST_CASE ( Clamp_ReturnsMinWhenValueIsLowerThanMin_Test )
 /// </summary>
 QTEST_CASE ( Clamp_WhenValueIsEnclosedBetweenMaxAndMinItsReturnedAsIs_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q NUMBER = (float_q)1.5;
     const float_q MAX_BOUND = SQFloat::_2;
     const float_q MIN_BOUND = SQFloat::_1;
     const float_q EXPECTED_RESULT = NUMBER;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQFloat::Clamp(NUMBER, MIN_BOUND, MAX_BOUND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_RESULT);
 }
 
@@ -1753,7 +1753,7 @@ QTEST_CASE ( Clamp_WhenValueIsEnclosedBetweenMaxAndMinItsReturnedAsIs_Test )
 /// </summary>
 QTEST_CASE ( SwapEndianess_BytesAreCorrectlyReordered_Test )
 {
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q VALUE = 123456789.1234f;            // a3 79 eb 4c
     const float_q EXPECTED_RESULT = -1.3548143e-017f; // 4c eb 79 a3
@@ -1762,10 +1762,10 @@ QTEST_CASE ( SwapEndianess_BytesAreCorrectlyReordered_Test )
     const float_q EXPECTED_RESULT = -3.1530333220209750e-220	; // 92 5c 7e 54 34 6f 9d 41
 #endif
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQFloat::SwapEndianess(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_RESULT);
 }
 
@@ -1774,14 +1774,14 @@ QTEST_CASE ( SwapEndianess_BytesAreCorrectlyReordered_Test )
 /// </summary>
 QTEST_CASE ( IsNegative_ReturnsFalseWhenValueEqualsNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = -SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNegative(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1790,14 +1790,14 @@ QTEST_CASE ( IsNegative_ReturnsFalseWhenValueEqualsNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNegative_ReturnsTrueWhenValueIsLessThanNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = -SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNegative(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1806,14 +1806,14 @@ QTEST_CASE ( IsNegative_ReturnsTrueWhenValueIsLessThanNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsNegative_ReturnsFalseWhenValueIsGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsNegative(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1822,14 +1822,14 @@ QTEST_CASE ( IsNegative_ReturnsFalseWhenValueIsGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsPositive_ReturnsFalseWhenValueEqualsTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsPositive(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1838,14 +1838,14 @@ QTEST_CASE ( IsPositive_ReturnsFalseWhenValueEqualsTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsPositive_ReturnsFalseWhenValueIsLessThanNegativeTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = -SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsPositive(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1854,14 +1854,14 @@ QTEST_CASE ( IsPositive_ReturnsFalseWhenValueIsLessThanNegativeTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsPositive_ReturnsTrueWhenValueIsGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsPositive(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1870,14 +1870,14 @@ QTEST_CASE ( IsPositive_ReturnsTrueWhenValueIsGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( IsPositive_ReturnsFalseWhenValueEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::_0;
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResultUT = SQFloat::IsPositive(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
 }
 
@@ -1886,16 +1886,16 @@ QTEST_CASE ( IsPositive_ReturnsFalseWhenValueEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( CopySign_SignIsCopiedWhenSourceIsPositiveAndTargetIsNegative_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q SOURCE = SQFloat::_1;
     float_q fTargetUT = -SQFloat::_1;
 
     const float_q EXPECTED_RESULT = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     SQFloat::CopySign(SOURCE, fTargetUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fTargetUT, EXPECTED_RESULT);
 }
 
@@ -1904,16 +1904,16 @@ QTEST_CASE ( CopySign_SignIsCopiedWhenSourceIsPositiveAndTargetIsNegative_Test )
 /// </summary>
 QTEST_CASE ( CopySign_SignIsCopiedWhenSourceIsNegativeAndTargetIsPositive_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q SOURCE = -SQFloat::_1;
     float_q fTargetUT = SQFloat::_1;
 
     const float_q EXPECTED_RESULT = -SQFloat::_1;
 
-	// Execution
+	// [Execution]
     SQFloat::CopySign(SOURCE, fTargetUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fTargetUT, EXPECTED_RESULT);
 }
 
@@ -1922,16 +1922,16 @@ QTEST_CASE ( CopySign_SignIsCopiedWhenSourceIsNegativeAndTargetIsPositive_Test )
 /// </summary>
 QTEST_CASE ( CopySign_SignIsTheSameWhenSourceIsPositiveAndTargetIsPositive_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q SOURCE = SQFloat::_1;
     float_q fTargetUT = SQFloat::_1;
 
     const float_q EXPECTED_RESULT = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     SQFloat::CopySign(SOURCE, fTargetUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fTargetUT, EXPECTED_RESULT);
 }
 
@@ -1940,16 +1940,16 @@ QTEST_CASE ( CopySign_SignIsTheSameWhenSourceIsPositiveAndTargetIsPositive_Test 
 /// </summary>
 QTEST_CASE ( CopySign_SignIsTheSameWhenSourceIsNegativeAndTargetIsNegative_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q SOURCE = -SQFloat::_1;
     float_q fTargetUT = -SQFloat::_1;
 
     const float_q EXPECTED_RESULT = -SQFloat::_1;
 
-	// Execution
+	// [Execution]
     SQFloat::CopySign(SOURCE, fTargetUT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fTargetUT, EXPECTED_RESULT);
 }
 
@@ -1958,14 +1958,14 @@ QTEST_CASE ( CopySign_SignIsTheSameWhenSourceIsNegativeAndTargetIsNegative_Test 
 /// </summary>
 QTEST_CASE ( Abs_ReturnsPositiveWhenValueIsAlreadyPositive_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = SQFloat::_1;
     const float_q EXPECTED_RESULT = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQFloat::Abs(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_RESULT);
 }
 
@@ -1974,14 +1974,14 @@ QTEST_CASE ( Abs_ReturnsPositiveWhenValueIsAlreadyPositive_Test )
 /// </summary>
 QTEST_CASE ( Abs_ReturnsPositiveWhenValueIsNegative_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VALUE = -SQFloat::_1;
     const float_q EXPECTED_RESULT = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQFloat::Abs(VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_RESULT);
 }
 

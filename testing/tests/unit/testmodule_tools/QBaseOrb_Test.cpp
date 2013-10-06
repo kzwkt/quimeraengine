@@ -55,16 +55,16 @@ QTEST_SUITE_BEGIN( QBaseOrb_TestSuite )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QBaseOrb<T> orbUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -74,7 +74,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
@@ -82,10 +82,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     const QBaseOrb<T> EXPECTED_ORB(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
-	// Execution
+	// [Execution]
     QBaseOrb<T> orbUT(EXPECTED_ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -95,16 +95,16 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
 
     const T EXPECTED_VALUE_FOR_CENTER = T(VECTOR_COMPONENTS_CENTER);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_5;
 
-	// Execution
+	// [Execution]
     QBaseOrb<T> orbUT(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(orbUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(orbUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -114,11 +114,11 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseOrb<T> LEFT_OPERAND = QBaseOrb<T>( T::GetZeroVector(), SQFloat::_0 );
     const QBaseOrb<T> RIGHT_OPERAND = QBaseOrb<T>( T::GetZeroVector(), SQFloat::_0 );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -127,11 +127,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseOrb<T> LEFT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5);
     const QBaseOrb<T> RIGHT_OPERAND = QBaseOrb<T>( T::GetZeroVector(), SQFloat::_0 );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -140,11 +140,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseOrb<T> LEFT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5);
     const QBaseOrb<T> RIGHT_OPERAND = QBaseOrb<T>( T::GetZeroVector(), SQFloat::_0 );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
 }
 
@@ -153,11 +153,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanToleran
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseOrb<T> LEFT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon), SQFloat::Epsilon );
     const QBaseOrb<T> RIGHT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon), SQFloat::Epsilon );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -166,11 +166,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseOrb<T> LEFT_OPERAND =  QBaseOrb<T>( T(SQFloat::Epsilon), SQFloat::Epsilon );
     const QBaseOrb<T> RIGHT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon), SQFloat::Epsilon );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -179,11 +179,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test, 
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseOrb<T> LEFT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5);
     const QBaseOrb<T> RIGHT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon), SQFloat::Epsilon );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -192,11 +192,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferLessThanToleranc
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseOrb<T> LEFT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5 );
     const QBaseOrb<T> RIGHT_OPERAND = QBaseOrb<T>( T::GetZeroVector(), SQFloat::_0 );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
@@ -205,11 +205,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolera
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseOrb<T> LEFT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon), SQFloat::Epsilon );
     const QBaseOrb<T> RIGHT_OPERAND = QBaseOrb<T>( T(SQFloat::Epsilon), SQFloat::Epsilon );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 

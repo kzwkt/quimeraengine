@@ -60,17 +60,17 @@ QTEST_SUITE_BEGIN( QRay_TestSuite )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const QVector3 EXPECTED_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> rayUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction == EXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -80,7 +80,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
 
@@ -89,10 +89,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     QRay<T, QVector3> EXPECTED_RAY(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> rayUT(EXPECTED_RAY);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_RAY.Origin);
     BOOST_CHECK(rayUT.Direction == EXPECTED_RAY.Direction);
 }
@@ -104,7 +104,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseRay;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
 
@@ -113,10 +113,10 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     QBaseRay<T, QVector3> EXPECTED_RAY(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> rayUT(EXPECTED_RAY);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_RAY.Origin);
     BOOST_CHECK(rayUT.Direction == EXPECTED_RAY.Direction);
 }
@@ -126,17 +126,17 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
     const T EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const QVector3 EXPECTED_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> rayUT(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction == EXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -146,7 +146,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ConstructedRayIsNotNormalizedWhenDirectionVectorIsNot_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
@@ -156,10 +156,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_ConstructedRayIsNotNormalizedWhenDirectionVec
     const T UNEXPECTED_VALUE_FOR_ORIGIN = INPUT_VALUE_FOR_ORIGIN.Normalize();
     const QVector3 UNEXPECTED_VALUE_FOR_DIRECTION = QVector3(INPUT_VALUE_FOR_DIRECTION).Normalize();
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> rayUT(INPUT_VALUE_FOR_ORIGIN, INPUT_VALUE_FOR_DIRECTION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin != UNEXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction != UNEXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -169,13 +169,13 @@ QTEST_CASE_TEMPLATE ( Constructor4_ConstructedRayIsNotNormalizedWhenDirectionVec
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetRayZero_ReturnsWhatExpected_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     QRay<T, QVector3> EXPECTED_VALUE(T::GetZeroVector(), QVector3::GetZeroVector());
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> obtinedRay = QRay<T, QVector3>::GetRayZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(obtinedRay.Origin == EXPECTED_VALUE.Origin);
     BOOST_CHECK(obtinedRay.Direction == EXPECTED_VALUE.Direction);
 }
@@ -187,7 +187,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_RayIsAssignedProperlyToAnother_Test, T
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseRay;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_5 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_6 };
     const T EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -195,11 +195,11 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_RayIsAssignedProperlyToAnother_Test, T
 
     const QRay<T, QVector3> OTHER_RAY = QRay<T, QVector3>(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> rayUT;
     rayUT = OTHER_RAY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction == EXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -209,7 +209,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_RayIsAssignedProperlyToAnother_Test, T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Invert_CorrectValueIsReturnedForACommonRay_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -218,10 +218,10 @@ QTEST_CASE_TEMPLATE ( Invert_CorrectValueIsReturnedForACommonRay_Test, TQTemplat
     const QRay<T, QVector3> RAY = QRay<T, QVector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
     const QRay<T, QVector3> EXPECTED_RAY = QRay<T, QVector3>(RAY.Origin, -RAY.Direction);
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> invertedRay = RAY.Invert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(invertedRay.Origin == EXPECTED_RAY.Origin);
     BOOST_CHECK(invertedRay.Direction == EXPECTED_RAY.Direction);
 }
@@ -231,7 +231,7 @@ QTEST_CASE_TEMPLATE ( Invert_CorrectValueIsReturnedForACommonRay_Test, TQTemplat
 /// </summary>
 QTEST_CASE_TEMPLATE ( Invert_ConstructedRayIsNotNormalizedWhenDirectionVectorIsNot_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
@@ -241,11 +241,11 @@ QTEST_CASE_TEMPLATE ( Invert_ConstructedRayIsNotNormalizedWhenDirectionVectorIsN
     const T UNEXPECTED_VALUE_FOR_ORIGIN = INPUT_VALUE_FOR_ORIGIN.Normalize();
     const QVector3 UNEXPECTED_VALUE_FOR_DIRECTION = -INPUT_VALUE_FOR_DIRECTION.Normalize();
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> rayUT(INPUT_VALUE_FOR_ORIGIN, INPUT_VALUE_FOR_DIRECTION);
     rayUT = rayUT.Invert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin != UNEXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction != UNEXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -255,7 +255,7 @@ QTEST_CASE_TEMPLATE ( Invert_ConstructedRayIsNotNormalizedWhenDirectionVectorIsN
 /// </summary>
 QTEST_CASE_TEMPLATE ( Normalize_CorrectValueIsReturnedForACommonRay_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -264,10 +264,10 @@ QTEST_CASE_TEMPLATE ( Normalize_CorrectValueIsReturnedForACommonRay_Test, TQTemp
     const QRay<T, QVector3> RAY = QRay<T, QVector3>(VALUE_FOR_ORIGIN, VALUE_FOR_DIRECTION);
     const QRay<T, QVector3> EXPECTED_RAY = QRay<T, QVector3>(RAY.Origin, RAY.Direction.Normalize());
 
-	// Execution
+	// [Execution]
     QRay<T, QVector3> normalizedRay = RAY.Normalize();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(normalizedRay.Origin == EXPECTED_RAY.Origin);
     BOOST_CHECK(normalizedRay.Direction == EXPECTED_RAY.Direction);
 }
@@ -277,7 +277,7 @@ QTEST_CASE_TEMPLATE ( Normalize_CorrectValueIsReturnedForACommonRay_Test, TQTemp
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetPoint_ExpectedPointIsReturnedForACommonDistance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -289,10 +289,10 @@ QTEST_CASE_TEMPLATE ( GetPoint_ExpectedPointIsReturnedForACommonDistance_Test, T
     const float_q DISTANCE = SQFloat::_5;
     const T EXPECTED_POINT = RAY.Origin + RAY.Direction * DISTANCE;
 
-	// Execution
+	// [Execution]
     T vPoint = RAY.GetPoint(DISTANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
 
@@ -301,7 +301,7 @@ QTEST_CASE_TEMPLATE ( GetPoint_ExpectedPointIsReturnedForACommonDistance_Test, T
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetPoint_ObtainedPointCoincidesWithOriginOfRayWhenDistanceEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -313,10 +313,10 @@ QTEST_CASE_TEMPLATE ( GetPoint_ObtainedPointCoincidesWithOriginOfRayWhenDistance
     const float_q DISTANCE = SQFloat::_0;
     const T EXPECTED_POINT = RAY.Origin;
 
-	// Execution
+	// [Execution]
     T vPoint = RAY.GetPoint(DISTANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
 
@@ -325,7 +325,7 @@ QTEST_CASE_TEMPLATE ( GetPoint_ObtainedPointCoincidesWithOriginOfRayWhenDistance
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetPoint_ExpectedPointIsReturnedForANegativeDistance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -337,10 +337,10 @@ QTEST_CASE_TEMPLATE ( GetPoint_ExpectedPointIsReturnedForANegativeDistance_Test,
     const float_q DISTANCE = -SQFloat::_5;
     const T EXPECTED_POINT = RAY.Origin + RAY.Direction * DISTANCE;
 
-	// Execution
+	// [Execution]
     T vPoint = RAY.GetPoint(DISTANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
 
@@ -351,7 +351,7 @@ QTEST_CASE_TEMPLATE ( GetPoint_ExpectedPointIsReturnedForANegativeDistance_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetPoint_AssertionFailsWhenRayIsNotNormalized_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -362,7 +362,7 @@ QTEST_CASE_TEMPLATE ( GetPoint_AssertionFailsWhenRayIsNotNormalized_Test, TQTemp
     const float_q DISTANCE = SQFloat::_5;
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -374,7 +374,7 @@ QTEST_CASE_TEMPLATE ( GetPoint_AssertionFailsWhenRayIsNotNormalized_Test, TQTemp
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -385,7 +385,7 @@ QTEST_CASE_TEMPLATE ( GetPoint_AssertionFailsWhenRayIsNotNormalized_Test, TQTemp
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetPoint_UnexpectedPointIsReturnedWhenRayIsNotNormalized_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -396,11 +396,11 @@ QTEST_CASE_TEMPLATE ( GetPoint_UnexpectedPointIsReturnedWhenRayIsNotNormalized_T
     
     const float_q DISTANCE = SQFloat::_5;
 
-	// Execution
+	// [Execution]
     T vPointWhenNotNormalized = NOT_NORMALIZED_RAY.GetPoint(DISTANCE);
     T vPointWhenNormalized = NORMALIZED_RAY.GetPoint(DISTANCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vPointWhenNotNormalized != vPointWhenNormalized);
 }
 
@@ -419,7 +419,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenRayDoesNotIntersectTheOrb_Tes
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { -SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { -SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -434,10 +434,10 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenRayDoesNotIntersectTheOrb_Tes
     
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = RAY.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -454,7 +454,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenRayIntersectsTheOrbTwice_Test,
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { -SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -469,10 +469,10 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenRayIntersectsTheOrbTwice_Test,
     
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = RAY.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -489,7 +489,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginLiesOnTheSurfaceOfTheOrb
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -504,10 +504,10 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginLiesOnTheSurfaceOfTheOrb
     
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = RAY.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -524,7 +524,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginIsContainedInTheOrb_Test
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -539,10 +539,10 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOriginIsContainedInTheOrb_Test
     
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = RAY.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -559,7 +559,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenRayIsTangentToTheOrb_Test, TQT
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -574,10 +574,10 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenRayIsTangentToTheOrb_Test, TQT
     
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = RAY.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -594,7 +594,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenRayDoesNotIntersectTheOrbButW
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { -SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -609,10 +609,10 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenRayDoesNotIntersectTheOrbButW
     
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = RAY.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -629,7 +629,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusOfTheOrbEqualsZero_Te
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -643,7 +643,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusOfTheOrbEqualsZero_Te
     const QBaseOrb<T> ORB = QBaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -655,7 +655,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRadiusOfTheOrbEqualsZero_Te
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -672,7 +672,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenDirectionVectorIsNull_Test,
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -685,7 +685,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenDirectionVectorIsNull_Test,
     const QBaseOrb<T> ORB = QBaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -697,7 +697,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenDirectionVectorIsNull_Test,
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -708,7 +708,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRayIsNotNormalized_Test, TQ
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_3, SQFloat::_5};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -721,7 +721,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRayIsNotNormalized_Test, TQ
     const QBaseOrb<T> ORB = QBaseOrb<T>(VALUE_FOR_CENTER, RADIUS);
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -733,7 +733,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenRayIsNotNormalized_Test, TQ
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -750,7 +750,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusOfTheOrbEquals
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -771,11 +771,11 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsExpectedResultWhenRadiusOfTheOrbEquals
     const bool EXPECTED_RESULT_CONTAINED = true;
     const bool EXPECTED_RESULT_NOT_CONTAINED = false;
 
-	// Execution
+	// [Execution]
     bool bResultContained = RAY.Intersection(ORB_CONTAINED);
     bool bResultNotContained = RAY.Intersection(ORB_NOT_CONTAINED);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
 }
@@ -798,7 +798,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_NoIntersectionPointsAreReturnedWhenRayD
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_3, SQFloat::_5};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -812,10 +812,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_NoIntersectionPointsAreReturnedWhenRayD
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINT = EXPECTED_POINT;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -834,7 +834,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoIntersectionPointsWhenRayInte
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -849,10 +849,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoIntersectionPointsWhenRayInte
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -871,7 +871,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginLiesOnTheSurfa
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -887,10 +887,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginLiesOnTheSurfa
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -909,7 +909,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOriginLiesOnTheSurf
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { -SQFloat::_1, SQFloat::_0, SQFloat::_0 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -925,10 +925,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOriginLiesOnTheSurf
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -947,7 +947,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginIsContainedInT
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -963,10 +963,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenOriginIsContainedInT
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -985,7 +985,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenRayIsTangentToTheOrb
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1001,10 +1001,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenRayIsTangentToTheOrb
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -1023,7 +1023,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointsWhenRayDoesNotIntersectT
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { -SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1038,10 +1038,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointsWhenRayDoesNotIntersectT
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -1059,7 +1059,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRadiusOfTheOrbEqualsZ
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1074,7 +1074,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRadiusOfTheOrbEqualsZ
     T OUTPUT_POINT = T::GetZeroVector();
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1086,7 +1086,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRadiusOfTheOrbEqualsZ
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1103,7 +1103,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenDirectionVectorIsNull
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const QVector3 VALUE_FOR_DIRECTION = QVector3::GetZeroVector();
@@ -1116,7 +1116,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenDirectionVectorIsNull
     T OUTPUT_POINT = T::GetZeroVector();
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1128,7 +1128,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenDirectionVectorIsNull
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1139,7 +1139,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRayIsNotNormalized_Te
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_3, SQFloat::_5};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1153,7 +1153,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRayIsNotNormalized_Te
     T OUTPUT_POINT = T::GetZeroVector();
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1165,7 +1165,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenRayIsNotNormalized_Te
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1183,7 +1183,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrb
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1208,14 +1208,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenRadiusOfTheOrb
     const T EXPECTED_POINT_CONTAINED = T(EXPECTED_POINT_COMPONENTS_CONTAINED);
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     T vPointContained = T::GetZeroVector();
     T vPointNotContained = T::GetZeroVector();
 
     EQIntersections eResultContained = RAY.IntersectionPoint(ORB_CONTAINED, vPointContained);
     EQIntersections eResultNotContained = RAY.IntersectionPoint(ORB_NOT_CONTAINED, vPointNotContained);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vPointContained == EXPECTED_POINT_CONTAINED);
@@ -1236,7 +1236,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsWrongResultWhenRayDirectionIsNot
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_7, SQFloat::_0, SQFloat::_0};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1251,14 +1251,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsWrongResultWhenRayDirectionIsNot
     float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
 
-	// Execution
+	// [Execution]
     T vNormalizedRayResult = T::GetZeroVector();
     T vNotNormalizedRayResult = T::GetZeroVector();
 
     NORMALIZED_RAY.IntersectionPoint(ORB, vNormalizedRayResult);
     NOT_NORMALIZED_RAY.IntersectionPoint(ORB, vNotNormalizedRayResult);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vNormalizedRayResult != vNotNormalizedRayResult);
 }
 
@@ -1278,7 +1278,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnedPointIsTheClosestOneToRayOrigin
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1302,11 +1302,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnedPointIsTheClosestOneToRayOrigin
     T OUTPUT_POINT = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     RAY.IntersectionPoint(ORB, OUTPUT_POINT);   // I
     RAY2.IntersectionPoint(ORB, OUTPUT_POINT2); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
 }
@@ -1327,7 +1327,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointsAreReturnedWhenRayD
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_3, SQFloat::_5};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1341,10 +1341,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointsAreReturnedWhenRayD
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINT = EXPECTED_POINT;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -1363,7 +1363,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionPointsWhenRayInte
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1381,10 +1381,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoIntersectionPointsWhenRayInte
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
@@ -1404,7 +1404,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginLiesOnTheSurfa
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1422,10 +1422,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginLiesOnTheSurfa
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
@@ -1445,7 +1445,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOriginLiesOnTheSurf
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { -SQFloat::_1, SQFloat::_0, SQFloat::_0 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1464,10 +1464,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOriginLiesOnTheSurf
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
@@ -1487,7 +1487,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginIsContainedInT
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1505,10 +1505,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenOriginIsContainedInT
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
@@ -1528,7 +1528,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenRayIsTangentToTheOrb
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1546,10 +1546,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenRayIsTangentToTheOrb
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT2);
@@ -1569,7 +1569,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointsWhenRayDoesNotIntersectT
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { -SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1585,10 +1585,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointsWhenRayDoesNotIntersectT
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINT2 == EXPECTED_POINT);
@@ -1607,7 +1607,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRadiusOfTheOrbEqualsZ
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1623,7 +1623,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRadiusOfTheOrbEqualsZ
     T OUTPUT_POINT2 = T::GetZeroVector();
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1635,7 +1635,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRadiusOfTheOrbEqualsZ
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1652,7 +1652,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenDirectionVectorIsNull
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const QVector3 VALUE_FOR_DIRECTION = QVector3::GetZeroVector();
@@ -1666,7 +1666,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenDirectionVectorIsNull
     T OUTPUT_POINT2 = T::GetZeroVector();
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1678,7 +1678,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenDirectionVectorIsNull
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1689,7 +1689,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRayIsNotNormalized_Te
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_3, SQFloat::_5};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1704,7 +1704,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRayIsNotNormalized_Te
     T OUTPUT_POINT2 = T::GetZeroVector();
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1716,7 +1716,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenRayIsNotNormalized_Te
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1734,7 +1734,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenRadiusOfTheOrb
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0 };
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1759,7 +1759,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenRadiusOfTheOrb
     const T EXPECTED_SECONDPOINT_CONTAINED = T::GetZeroVector();
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     T vFirstPointContained = T::GetZeroVector();
     T vFirstPointNotContained = T::GetZeroVector();
     T vSecondPointContained = T::GetZeroVector();
@@ -1768,7 +1768,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenRadiusOfTheOrb
     EQIntersections eResultContained = RAY.IntersectionPoint(ORB_CONTAINED, vFirstPointContained, vSecondPointContained);
     EQIntersections eResultNotContained = RAY.IntersectionPoint(ORB_NOT_CONTAINED, vFirstPointNotContained, vSecondPointNotContained);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vFirstPointContained == EXPECTED_FIRSTPOINT_CONTAINED);
@@ -1791,7 +1791,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsWrongResultWhenRayDirectionIsNot
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_7, SQFloat::_0, SQFloat::_0};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1806,7 +1806,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsWrongResultWhenRayDirectionIsNot
     float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
 
-	// Execution
+	// [Execution]
     T vFirstNormalizedRayResult = T::GetZeroVector();
     T vSecondNormalizedRayResult = T::GetZeroVector();
     T vFisrtNotNormalizedRayResult = T::GetZeroVector();
@@ -1815,7 +1815,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsWrongResultWhenRayDirectionIsNot
     NORMALIZED_RAY.IntersectionPoint(ORB, vFirstNormalizedRayResult, vSecondNormalizedRayResult);
     NOT_NORMALIZED_RAY.IntersectionPoint(ORB, vFisrtNotNormalizedRayResult, vSecondNotNormalizedRayResult);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vFirstNormalizedRayResult != vFisrtNotNormalizedRayResult);
     BOOST_CHECK(vSecondNormalizedRayResult != vSecondNotNormalizedRayResult);
 }
@@ -1836,7 +1836,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_FirstReturnedPointIsTheClosestOneToRayO
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1862,11 +1862,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_FirstReturnedPointIsTheClosestOneToRayO
     T OUTPUT_POINT3 = T::GetZeroVector();
     T OUTPUT_POINT4 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     RAY.IntersectionPoint(ORB, OUTPUT_POINT1, OUTPUT_POINT2);   // I
     RAY2.IntersectionPoint(ORB, OUTPUT_POINT3, OUTPUT_POINT4); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINT3 == EXPECTED_POINT2);
 }
@@ -1876,7 +1876,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_FirstReturnedPointIsTheClosestOneToRayO
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6};
     const T VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
@@ -1885,10 +1885,10 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
 
     const string_q EXPECTED_STRING = QE_L("RY(o(") + VALUE_FOR_ORIGIN.ToString() + QE_L("),d(") + VALUE_FOR_DIRECTION.ToString() + QE_L("))");
 
-	// Execution
+	// [Execution]
     string_q strReturnedString = RAY.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strReturnedString == EXPECTED_STRING);
 }
 
