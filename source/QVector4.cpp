@@ -36,6 +36,7 @@
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
 #include "QBaseVector3.h"
+#include "SQAngle.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 
