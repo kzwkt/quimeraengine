@@ -161,11 +161,7 @@ public:
     /// <returns>
     /// If the value is not a number, then returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsNaN(const float_q &fValue)
-    {
-        // [REVIEW] Thund: Boost provides functions to check this
-        return fValue != fValue;
-    }
+    static bool IsNaN(const float_q &fValue);
 
     /// <summary>
     /// Checks if the floating point value's state is Infinite.<br/>
@@ -177,11 +173,7 @@ public:
     /// <returns>
     /// If the value is infinite, then returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsInfinite(const float_q &fValue)
-    {
-        // [REVIEW] Thund: Boost provides functions to check this
-        return SQFloat::IsLessThan(fValue, -SQFloat::MaxFloat_Q) || SQFloat::IsGreaterThan(fValue, SQFloat::MaxFloat_Q);
-    }
+    static bool IsInfinite(const float_q &fValue);
 
     /// <summary>
     /// Checks if the floating point value's state is one of the special ones described in IEEE specification.<br/>
@@ -191,10 +183,7 @@ public:
     /// <returns>
     /// If the value is infinite or is not a number, then returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsNanOrInfinite(const float_q &fValue)
-    {
-        return SQFloat::IsNaN(fValue) || SQFloat::IsInfinite(fValue);
-    }
+    static bool IsNanOrInfinite(const float_q &fValue);
 
     /// <summary>
     /// Performs an equality comparison between two floating point numbers, taking into account the system tolerance
@@ -205,11 +194,8 @@ public:
     /// <returns>
     /// If values are the same, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool AreEqual(const float_q &fValueA, const float_q &fValueB)
-    {
-        return SQFloat::Abs(fValueA - fValueB) <= SQFloat::Epsilon;
-    }
-    
+    static bool AreEqual(const float_q &fValueA, const float_q &fValueB);
+
     /// <summary>
     /// Performs an equality comparison between two floating point numbers, using a custom tolerance.
     /// </summary>
@@ -219,13 +205,7 @@ public:
     /// <returns>
     /// If values are the same, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool AreEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
-    {
-        // The tolerance provided must be equal to or greater than the system tolerance. If the tolerance is too small it could become useless.
-        QE_ASSERT(fTolerance >= SQFloat::Epsilon);
-
-        return SQFloat::Abs(fValueA - fValueB) <= fTolerance;
-    }
+    static bool AreEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance);
 
     /// <summary>
     /// Performs an inequality comparison between two floating point numbers, taking into account the system tolerance
@@ -236,11 +216,8 @@ public:
     /// <returns>
     /// If values are not the same, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool AreNotEqual(const float_q &fValueA, const float_q &fValueB)
-    {
-        return SQFloat::Abs(fValueA - fValueB) > SQFloat::Epsilon;
-    }
-    
+    static bool AreNotEqual(const float_q &fValueA, const float_q &fValueB);
+
     /// <summary>
     /// Performs an inequality comparison between two floating point numbers, using a custom tolerance.
     /// </summary>
@@ -250,10 +227,7 @@ public:
     /// <returns>
     /// If values are not the same, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool AreNotEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
-    {
-        return SQFloat::Abs(fValueA - fValueB) > fTolerance;
-    }
+    static bool AreNotEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance);
 
     /// <summary>
     /// Checks if a floating point value is greater than a reference value, taking into account the system tolerance
@@ -264,12 +238,8 @@ public:
     /// <returns>
     /// If the first value is greater than the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue)
-    {
-        // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
-        return (fGreaterValue - fReferenceValue) > SQFloat::Epsilon;
-    }
-    
+    static bool IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue);
+
     /// <summary>
     /// Checks if a floating point value is greater than a reference value, using a custom tolerance.
     /// </summary>
@@ -279,11 +249,7 @@ public:
     /// <returns>
     /// If the first value is greater than the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue, const float_q &fTolerance)
-    {
-        // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
-        return (fGreaterValue - fReferenceValue) > fTolerance;
-    }
+    static bool IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue, const float_q &fTolerance);
 
     /// <summary>
     /// Checks if a floating point value is lower than a reference value, taking into account the system tolerance
@@ -294,12 +260,8 @@ public:
     /// <returns>
     /// If the first value is lower than the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue)
-    {
-        // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
-        return (fLowerValue - fReferenceValue) < -SQFloat::Epsilon;
-    }
-    
+    static bool IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue);
+
     /// <summary>
     /// Checks if a floating point value is lower than a reference value, using a custom tolerance.
     /// </summary>
@@ -309,11 +271,7 @@ public:
     /// <returns>
     /// If the first value is lower than the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue, const float_q &fTolerance)
-    {
-        // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
-        return (fLowerValue - fReferenceValue) < -fTolerance;
-    }
+    static bool IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue, const float_q &fTolerance);
 
     /// <summary>
     /// Checks if a floating point value is greater than or equals to a reference value, taking into account the
@@ -324,12 +282,8 @@ public:
     /// <returns>
     /// If the first value is greater than or equals to the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue)
-    {
-        // If subtraction is greater or equals to -Epsilon, the value is greater or equals
-        return (fGreaterOrEqualsValue - fReferenceValue) >= -SQFloat::Epsilon;
-    }
-    
+    static bool IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue);
+
     /// <summary>
     /// Checks if a floating point value is greater than or equals to a reference value, using a custom tolerance.
     /// </summary>
@@ -339,11 +293,7 @@ public:
     /// <returns>
     /// If the first value is greater than or equals to the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance)
-    {
-        // If subtraction is greater or equals to -Epsilon, the value is greater or equals
-        return (fGreaterOrEqualsValue - fReferenceValue) >= -fTolerance;
-    }
+    static bool IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance);
 
     /// <summary>
     /// Checks if a floating point value is lower than or equals to a reference value, taking into account the
@@ -354,12 +304,8 @@ public:
     /// <returns>
     /// If the first value is lower than or equals to the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue)
-    {
-        // If subtraction is lower or equals to Epsilon, the value is lower or equals
-        return (fLessOrEqualsValue - fReferenceValue) <= SQFloat::Epsilon;
-    }
-    
+    static bool IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue);
+
     /// <summary>
     /// Checks if a floating point value is lower than or equals to a reference value, using a custom tolerance.
     /// </summary>
@@ -369,11 +315,7 @@ public:
     /// <returns>
     /// If the first value is lower than or equals to the reference one, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance)
-    {
-        // If subtraction is lower or equals to Epsilon, the value is lower or equals
-        return (fLessOrEqualsValue - fReferenceValue) <= fTolerance;
-    }
+    static bool IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance);
 
     /// <summary>
     /// Checks whether a floating point number equals zero or is close to zero, taking into account the system tolerance
@@ -383,11 +325,8 @@ public:
     /// <returns>
     /// If the value equals zero, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsZero(const float_q &fValue)
-    {
-        return SQFloat::AreEqual(fValue, SQFloat::_0);
-    }
-    
+    static bool IsZero(const float_q &fValue);
+
     /// <summary>
     /// Checks whether a floating point number equals zero or is close to zero, taking into account the system tolerance
     /// constant (Epsilon).
@@ -397,10 +336,7 @@ public:
     /// <returns>
     /// If the value equals zero, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsZero(const float_q &fValue, const float_q &fTolerance)
-    {
-        return SQFloat::AreEqual(fValue, SQFloat::_0, fTolerance);
-    }
+    static bool IsZero(const float_q &fValue, const float_q &fTolerance);
 
     /// <summary>
     /// Checks whether a floating point number doesn't equal zero or is close to zero, taking into account the system tolerance
@@ -410,11 +346,8 @@ public:
     /// <returns>
     /// If the value doesn't equal zero, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsNotZero(const float_q &fValue)
-    {
-        return SQFloat::AreNotEqual(fValue, SQFloat::_0);
-    }
-    
+    static bool IsNotZero(const float_q &fValue);
+
     /// <summary>
     /// Checks whether a floating point number doesn't equal zero or is close to zero, taking into account the system tolerance
     /// constant (Epsilon).
@@ -424,10 +357,7 @@ public:
     /// <returns>
     /// If the value doesn't equal zero, then it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsNotZero(const float_q &fValue, const float_q &fTolerance)
-    {
-        return SQFloat::AreNotEqual(fValue, SQFloat::_0, fTolerance);
-    }
+    static bool IsNotZero(const float_q &fValue, const float_q &fTolerance);
 
     /// <summary>
     /// Converts the floating point number to a readable character string that represents it.
@@ -461,7 +391,7 @@ public:
     /// Integer value obtained.
     /// </returns>
     template<typename IntegerType>
-    inline static IntegerType ToInteger(const float_q &fValue)
+    static IntegerType ToInteger(const float_q &fValue)
     {
         IntegerType outInteger;
 
@@ -533,10 +463,7 @@ public:
     /// <returns>
     /// Value without fractional part.
     /// </returns>
-    inline static float_q Truncate(const float_q &fValue)
-    {
-        return boost::math::trunc(fValue);
-    }
+    static float_q Truncate(const float_q &fValue);
 
 	/// <summary>
 	/// This method clamps the input value to lie within the range [Min..Max]. No tolerance is used for this operation.
@@ -547,13 +474,7 @@ public:
     /// <returns>
     /// The clamped value.
     /// </returns>
-	inline static float_q Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax)
-	{
-		const float_q CAMPLED_VALUE = (fValue > fMax) ?  fMax :
-										                 (fValue < fMin) ?  fMin :
-														                    fValue;
-        return CAMPLED_VALUE;
-	}
+	static float_q Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax);
 
     /// <summary>
     /// Inverts the order of bytes which compound a floating point number and returns the result as output parameter.<br/>
@@ -564,29 +485,7 @@ public:
     /// <returns>
     /// The transformed value.
     /// </returns>
-    inline static float_q SwapEndianess(const float_q &fValue)
-    {
-        const unsigned int FLOAT_SIZE = sizeof(float_q);
-
-        // Ambiguous type to treat the same bit strip as byte array and floating point types
-        // Note: The type change is not immediate, it has memory reading/writing cost
-        union FloatOrBytesUnion
-        {
-            float_q _float;
-            u8_q    _bytes[FLOAT_SIZE];
-        };
-
-        FloatOrBytesUnion srcValue;
-        srcValue._float = fValue;
-
-        FloatOrBytesUnion swappedValue;
-
-        // Float's bytes are copied in inverse order to the output float
-        for(unsigned int i = 0, j = FLOAT_SIZE - 1; i < FLOAT_SIZE; ++i, --j)
-            swappedValue._bytes[i] = srcValue._bytes[j];
-
-        return swappedValue._float;
-    }
+    static float_q SwapEndianess(const float_q &fValue);
 
     /// <summary>
     /// Indicates whether the floating point number has negative sign.
@@ -598,10 +497,7 @@ public:
     /// <returns>
     /// If the number is lower than zero, it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsNegative(const float_q &fValue)
-    {
-        return SQFloat::IsLessThan(fValue, SQFloat::_0);
-    }
+    static bool IsNegative(const float_q &fValue);
 
     /// <summary>
     /// Indicates whether the number is positive or not.
@@ -613,28 +509,14 @@ public:
     /// <returns>
     /// If the number is greater than zero, it returns True. Otherwise, it returns False.
     /// </returns>
-    inline static bool IsPositive(const float_q &fValue)
-    {
-        return SQFloat::IsGreaterThan(fValue, SQFloat::_0);
-    }
+    static bool IsPositive(const float_q &fValue);
 
     /// <summary>
     /// Copies a floating point number sign to another one.
     /// </summary>
     /// <param name="fSignedValue">[IN] A floating point number whose sign is to be copied.</param>
     /// <param name="fValueToCopyTo">[OUT] A floating point number whose sign is to be replaced.</param>
-    inline static void CopySign(const float_q &fSignedValue, float_q &fValueToCopyTo)
-    {
-        // Negative source & Negative target = Keep negative
-        // Negative source & Positive target = Change sign
-        // Positive source & Negative target = Change sign
-        // Positive source & Positive target = Keep positive
-        fValueToCopyTo = SQFloat::IsNegative(fSignedValue)
-                            ?
-                            SQFloat::IsNegative(fValueToCopyTo) ? fValueToCopyTo : -fValueToCopyTo
-                            :
-                            SQFloat::IsNegative(fValueToCopyTo) ? -fValueToCopyTo : fValueToCopyTo;
-    }
+    static void CopySign(const float_q &fSignedValue, float_q &fValueToCopyTo);
 
     /// <summary>
     /// Calculates the absolute value of the provided floating point number.
@@ -644,18 +526,7 @@ public:
     /// If the provided number is greater or equals to zero, it returns the same number,
     /// otherwise it returns the same number but with opposite sign.
     /// </returns>
-    inline static float_q Abs(const float_q &fValue)
-    {
-        #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-
-            return fabsf(fValue);
-
-        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-
-            return fabsl(fValue);
-
-        #endif
-    }
+    static float_q Abs(const float_q &fValue);
 
 };
 

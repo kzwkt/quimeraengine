@@ -31,9 +31,11 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QDualQuaternion.h"
+
 #include "QDualQuaternionWhiteBox.h"
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
+#include "SQFloat.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;

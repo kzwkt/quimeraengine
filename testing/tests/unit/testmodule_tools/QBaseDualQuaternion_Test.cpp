@@ -35,6 +35,9 @@ using namespace boost::unit_test;
 
 #include "QBaseDualQuaternion.h"
 
+#include "SQFloat.h"
+#include "SQVF32.h"
+
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;

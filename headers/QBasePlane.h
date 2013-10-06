@@ -27,10 +27,8 @@
 #ifndef __QBASEPLANE__
 #define __QBASEPLANE__
 
-#include "SQFloat.h"
-#include "SQVF32.h"
+#include "DataTypesDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
@@ -57,21 +55,13 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBasePlane() : a(SQFloat::_0), b(SQFloat::_0), c(SQFloat::_0), d(SQFloat::_0)
-    {
-    }
+	QBasePlane();
 
     /// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="plane">[IN] The plane from which we want to create a copy in the resident plane.</param>
-	inline QBasePlane(const QBasePlane &plane)
-	{
-	    this->a = plane.a;
-	    this->b = plane.b;
-	    this->c = plane.c;
-	    this->d = plane.d;
-	}
+	QBasePlane(const QBasePlane &plane);
 
 	/// <summary>
 	/// Constructor from a floating point value for each coefficient.
@@ -80,35 +70,20 @@ public:
 	/// <param name="fValueB">[IN] Floating point value for b coefficient.</param>
 	/// <param name="fValueC">[IN] Floating point value for c coefficient.</param>
 	/// <param name="fValueD">[IN] Floating point value for independent term d.</param>
-	inline QBasePlane(const float_q &fValueA, const float_q &fValueB, const float_q &fValueC, const float_q &fValueD) :
-                        a(fValueA), b(fValueB), c(fValueC), d(fValueD)
-    {
-    }
+	QBasePlane(const float_q &fValueA, const float_q &fValueB, const float_q &fValueC, const float_q &fValueD);
 
 	/// <summary>
 	/// Constructor from a floating point value for all coefficients.
 	/// </summary>
 	/// <param name="fValueAll">[IN] Floating point value.</param>
-	inline explicit QBasePlane(const float_q &fValueAll) : a(fValueAll), b(fValueAll), c(fValueAll), d(fValueAll)
-    {
-    }
+	explicit QBasePlane(const float_q &fValueAll);
 
 	/// <summary>
 	/// Constructor from a pointer to a array of floating point values.
 	/// </summary>
 	/// <param name="arValues">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
     /// is undefined.</param>
-	inline explicit QBasePlane(const float_q* arValues)
-	{
-		// Null pointer checkout
-		QE_ASSERT(arValues != null_q)
-
-		// Assignments
-		this->a = arValues[0];
-		this->b = arValues[1];
-		this->c = arValues[2];
-		this->d = arValues[3];
-	}
+	explicit QBasePlane(const float_q* arValues);
 
 	/// <summary>
 	/// Constructor from a 4x32 packed float value.
@@ -116,12 +91,8 @@ public:
 	/// <param name="value">[IN] 4x32 packed float containing the four components.<br/>
 	/// The parse order: 1st value (a coefficient), 2nd value (b coefficient),
 	/// 3rd value (c coefficient), 4th value (d independent term).</param>
-	inline explicit QBasePlane(const vf32_q &value)
-	{
-        using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+	explicit QBasePlane(const vf32_q &value);
 
-		SQVF32::Unpack(value, this->a, this->b, this->c, this->d);
-	}
 
     // METHODS
     // --------------
@@ -139,11 +110,7 @@ public:
     /// <returns>
     /// True if planes are the same, false otherwise.
     /// </returns>
-    inline bool operator==(const QBasePlane &plane) const
-    {
-        return ( SQFloat::AreEqual(plane.a, this->a) && SQFloat::AreEqual(plane.b, this->b) &&
-                 SQFloat::AreEqual(plane.c, this->c) && SQFloat::AreEqual(plane.d, this->d) );
-    }
+    bool operator==(const QBasePlane &plane) const;
 
     /// <summary>
     /// Inequality operator. Compares two planes.
@@ -157,10 +124,7 @@ public:
     /// <returns>
     /// True if planes are not the same, false otherwise.
     /// </returns>
-    inline bool operator!=(const QBasePlane &plane) const
-    {
-        return !(*this == plane);
-    }
+    bool operator!=(const QBasePlane &plane) const;
 
 
 	// ATTRIBUTES

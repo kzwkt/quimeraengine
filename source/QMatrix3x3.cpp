@@ -24,9 +24,13 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "SQAngle.h"
+
 #include "QMatrix3x3.h"
-#include "QMatrix3x4.h"
+
+#include "SQFloat.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -36,6 +40,47 @@ namespace Tools
 {
 namespace Math
 {
+
+    
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+QMatrix3x3::QMatrix3x3()
+{
+}
+
+QMatrix3x3::QMatrix3x3(const QMatrix3x3 &matrix) : QBaseMatrix3x3(matrix)
+{
+}
+
+QMatrix3x3::QMatrix3x3(const QBaseMatrix3x3 &matrix) : QBaseMatrix3x3(matrix)
+{
+}
+
+QMatrix3x3::QMatrix3x3(const float_q &fValueAll) : QBaseMatrix3x3(fValueAll)
+{
+}
+
+QMatrix3x3::QMatrix3x3(const float_q &f00, const float_q &f01, const float_q &f02,
+                       const float_q &f10, const float_q &f11, const float_q &f12,
+                       const float_q &f20, const float_q &f21, const float_q &f22) :
+                          QBaseMatrix3x3(f00, f01, f02, f10, f11, f12, f20, f21, f22)
+{
+}
+
+QMatrix3x3::QMatrix3x3(const float_q *arValues) : QBaseMatrix3x3(arValues)
+{
+}
+
+QMatrix3x3::QMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2) : QBaseMatrix3x3(row0, row1, row2)
+{
+}
 
 
 //##################=======================================================##################
@@ -103,7 +148,7 @@ QMatrix3x3 QMatrix3x3::operator*(const QBaseMatrix3x3 &matrix) const
 
 QBaseMatrix3x4 QMatrix3x3::operator*(const QBaseMatrix3x4& matrix) const
 {
-    QMatrix3x4 aux;
+    QBaseMatrix3x4 aux;
 
     aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0] + this->ij[0][1] * matrix.ij[1][0] + this->ij[0][2] * matrix.ij[2][0];
     aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1] + this->ij[0][1] * matrix.ij[1][1] + this->ij[0][2] * matrix.ij[2][1];
@@ -216,11 +261,108 @@ QMatrix3x3& QMatrix3x3::operator*=(const QBaseMatrix3x3 &matrix)
     return *this;
 }
 
+QMatrix3x3& QMatrix3x3::operator/=(const float_q &fScalar)
+{
+    QE_ASSERT(fScalar != SQFloat::_0)
+
+    const float_q &DIVISOR = SQFloat::_1/fScalar;
+
+    this->ij[0][0] *= DIVISOR;
+    this->ij[0][1] *= DIVISOR;
+    this->ij[0][2] *= DIVISOR;
+    this->ij[1][0] *= DIVISOR;
+    this->ij[1][1] *= DIVISOR;
+    this->ij[1][2] *= DIVISOR;
+    this->ij[2][0] *= DIVISOR;
+    this->ij[2][1] *= DIVISOR;
+    this->ij[2][2] *= DIVISOR;
+
+    return *this;
+}
+
+QMatrix3x3& QMatrix3x3::operator+=(const QBaseMatrix3x3 &matrix)
+{
+    this->ij[0][0] += matrix.ij[0][0];
+    this->ij[0][1] += matrix.ij[0][1];
+    this->ij[0][2] += matrix.ij[0][2];
+    this->ij[1][0] += matrix.ij[1][0];
+    this->ij[1][1] += matrix.ij[1][1];
+    this->ij[1][2] += matrix.ij[1][2];
+    this->ij[2][0] += matrix.ij[2][0];
+    this->ij[2][1] += matrix.ij[2][1];
+    this->ij[2][2] += matrix.ij[2][2];
+
+    return *this;
+}
+
+QMatrix3x3& QMatrix3x3::operator-=(const QBaseMatrix3x3 &matrix)
+{
+    this->ij[0][0] -= matrix.ij[0][0];
+    this->ij[0][1] -= matrix.ij[0][1];
+    this->ij[0][2] -= matrix.ij[0][2];
+    this->ij[1][0] -= matrix.ij[1][0];
+    this->ij[1][1] -= matrix.ij[1][1];
+    this->ij[1][2] -= matrix.ij[1][2];
+    this->ij[2][0] -= matrix.ij[2][0];
+    this->ij[2][1] -= matrix.ij[2][1];
+    this->ij[2][2] -= matrix.ij[2][2];
+
+    return *this;
+}
+
+QMatrix3x3& QMatrix3x3::operator=(const QBaseMatrix3x3 &matrix)
+{
+    QBaseMatrix3x3::operator=(matrix);
+    return *this;
+}
+
+void QMatrix3x3::ResetToZero()
+{
+    this->ij[0][0] = this->ij[0][1] = this->ij[0][2] =
+    this->ij[1][0] = this->ij[1][1] = this->ij[1][2] =
+    this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = SQFloat::_0;
+}
+
+void QMatrix3x3::ResetToIdentity()
+{
+    this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = SQFloat::_1;
+
+    this->ij[0][1] = this->ij[0][2] =
+    this->ij[1][0] = this->ij[1][2] =
+    this->ij[2][0] = this->ij[2][1] = SQFloat::_0;
+}
+
 QMatrix3x3 QMatrix3x3::Transpose() const
 {
     return QMatrix3x3(this->ij[0][0], this->ij[1][0], this->ij[2][0],
                       this->ij[0][1], this->ij[1][1], this->ij[2][1],
                       this->ij[0][2], this->ij[1][2], this->ij[2][2]);
+}
+
+bool QMatrix3x3::IsZero() const
+{
+    return  SQFloat::IsZero(this->ij[0][0]) &&
+            SQFloat::IsZero(this->ij[0][1]) &&
+            SQFloat::IsZero(this->ij[0][2]) &&
+            SQFloat::IsZero(this->ij[1][0]) &&
+            SQFloat::IsZero(this->ij[1][1]) &&
+            SQFloat::IsZero(this->ij[1][2]) &&
+            SQFloat::IsZero(this->ij[2][0]) &&
+            SQFloat::IsZero(this->ij[2][1]) &&
+            SQFloat::IsZero(this->ij[2][2]);
+}
+
+bool QMatrix3x3::IsIdentity() const
+{
+    return  SQFloat::AreEqual(this->ij[0][0], SQFloat::_1) &&
+            SQFloat::IsZero(this->ij[0][1]) &&
+            SQFloat::IsZero(this->ij[0][2]) &&
+            SQFloat::IsZero(this->ij[1][0]) &&
+            SQFloat::AreEqual(this->ij[1][1], SQFloat::_1) &&
+            SQFloat::IsZero(this->ij[1][2]) &&
+            SQFloat::IsZero(this->ij[2][0]) &&
+            SQFloat::IsZero(this->ij[2][1]) &&
+            SQFloat::AreEqual(this->ij[2][2], SQFloat::_1);
 }
 
 float_q QMatrix3x3::GetDeterminant() const
@@ -249,6 +391,12 @@ QMatrix3x3 QMatrix3x3::Invert() const
                        INV_DET * (this->ij[0][0] * this->ij[1][1] - this->ij[0][1] * this->ij[1][0]) );
 }
 
+bool QMatrix3x3::HasInverse() const
+{
+    // If Determinant is 0, this matrix has not inverse.
+    return SQFloat::IsNotZero(this->GetDeterminant());
+}
+
 string_q QMatrix3x3::ToString() const
 {
     return QE_L("M3x3(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",") +
@@ -260,6 +408,32 @@ string_q QMatrix3x3::ToString() const
                            SQFloat::ToString(this->ij[2][0]) + QE_L(",") +
                            SQFloat::ToString(this->ij[2][1]) + QE_L(",") +
                            SQFloat::ToString(this->ij[2][2]) + QE_L(")");
+}
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QMatrix3x3& QMatrix3x3::GetZeroMatrix()
+{
+    static const QMatrix3x3 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    return ZEROMATRIX;
+}
+
+const QMatrix3x3& QMatrix3x3::GetIdentity()
+{
+    static const QMatrix3x3 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_1);
+    return IDENTITY;
 }
 
 } //namespace Math

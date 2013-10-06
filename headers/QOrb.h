@@ -69,7 +69,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QOrb()
+	QOrb()
     {
     }
 
@@ -77,7 +77,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="orb">[IN] The orb from which we want to create a copy in the resident orb.</param>
-	inline QOrb(const QOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
+	QOrb(const QOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
     {
     }
 
@@ -85,7 +85,7 @@ public:
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="orb">[IN] The orb in which we want resident orb to be based.</param>
-	inline QOrb(const QBaseOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
+	QOrb(const QBaseOrb<VectorType> &orb) : QBaseOrb<VectorType>(orb)
     {
     }
 
@@ -95,7 +95,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the orb.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    inline QOrb(const VectorType &vCenter, const float_q &fRadius) : QBaseOrb<VectorType>(vCenter, fRadius)
+    QOrb(const VectorType &vCenter, const float_q &fRadius) : QBaseOrb<VectorType>(vCenter, fRadius)
     {
     }
 
@@ -110,7 +110,7 @@ public:
 	/// <returns>
 	/// A unit orb.
 	/// </returns>
-    inline static const QOrb<VectorType>& GetUnitOrb()
+    static const QOrb<VectorType>& GetUnitOrb()
     {
         static const QOrb<VectorType> UNITORB(VectorType::GetZeroVector(), SQFloat::_1);
         return UNITORB;
@@ -128,7 +128,7 @@ public:
     /// <returns>
 	/// A reference to the modified orb.
 	/// </returns>
-    inline QOrb& operator=(const QBaseOrb<VectorType> &orb)
+    QOrb& operator=(const QBaseOrb<VectorType> &orb)
     {
         QBaseOrb<VectorType>::operator=(orb);
         return *this;
@@ -144,7 +144,7 @@ public:
 	/// <returns>
 	/// True if the point is inside the orb (or if it belongs to its bounds). Otherwise returns false.
 	/// </returns>
-    inline bool Contains(const VectorType &vPoint) const
+    bool Contains(const VectorType &vPoint) const
     {
         // If the radius of the orb equals zero, it doesn't exist
         QE_ASSERT( SQFloat::IsNotZero(this->Radius) );
@@ -175,7 +175,7 @@ public:
     /// <b>False</b><br/>
     /// The orbs do not intersect.
 	/// </returns>
-    inline bool Intersection(const QBaseOrb<VectorType> &orb) const
+    bool Intersection(const QBaseOrb<VectorType> &orb) const
     {
         // If the radius of the orb equals zero, it doesn't exist
         QE_ASSERT( SQFloat::IsNotZero(this->Radius) && SQFloat::IsNotZero(orb.Radius) );

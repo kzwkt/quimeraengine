@@ -66,7 +66,7 @@ public:
     /// <returns>A reference to the object but using a different type. It's worth to remark that the reference
     /// points to the original object.</returns>
     template<class TargetType>
-    inline TargetType& As()
+    TargetType& As()
     {
         return rcast_q(*this, TargetType&);
     }
@@ -78,7 +78,7 @@ public:
     /// <returns>A reference to the object but using a different type. It's worth to remark that the reference
     /// points to the original object.</returns>
     template<class TargetType>
-    inline TargetType& As() const
+    TargetType& As() const
     {
         return rcast_q(*this, TargetType&);
     }
@@ -90,7 +90,7 @@ public:
     /// <returns>A pointer to the object but using a different type. It's worth to remark that the pionter
     /// points to the original object.</returns>
     template<class TargetType>
-    inline TargetType* AsPtr()
+    TargetType* AsPtr()
     {
         return rcast_q(this, TargetType*);
     }
@@ -102,7 +102,7 @@ public:
     /// <returns>A pointer to the object but using a different type. It's worth to remark that the pionter
     /// points to the original object.</returns>
     template<class TargetType>
-    inline TargetType* AsPtr() const
+    TargetType* AsPtr() const
     {
         return rcast_q(this, TargetType*);
     }

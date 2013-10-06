@@ -27,12 +27,8 @@
 #ifndef __QROTATIONMATRIX3X3__
 #define __QROTATIONMATRIX3X3__
 
-#include "QBaseVector3.h"
 #include "QMatrix3x3.h"
-#include "QMatrix4x3.h"
-#include "QMatrix4x4.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
 
@@ -47,11 +43,13 @@ namespace Math
 
 // Forward declarations
 // ----------------------
+class QBaseVector3;
 class QBaseQuaternion;
 class QScalingMatrix3x3;
 template<class MatrixType> class QTransformationMatrix;
 template<class MatrixType> class QTranslationMatrix;
-
+class QMatrix4x3;
+class QMatrix4x4;
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a rotation.
@@ -66,18 +64,13 @@ public:
 	/// <summary>
 	/// Default constructor. It's initialized to identity matrix.
 	/// </summary>
-    inline QRotationMatrix3x3()
-    {
-        this->ResetToIdentity();
-    }
+    QRotationMatrix3x3();
 
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <param name="rotation">[IN] The 3x3 rotation matrix from which we want to create a copy in the resident matrix.</param>
-    inline QRotationMatrix3x3(const QRotationMatrix3x3 &rotation) : QMatrix3x3(rotation)
-    {
-    }
+    QRotationMatrix3x3(const QRotationMatrix3x3 &rotation);
 
     /// <summary>
     /// Base type constructor.
@@ -87,9 +80,7 @@ public:
     /// Otherwise, unpredictable behavior could be happen.
     /// </remarks>
     /// <param name="rotation">[IN] The 3x3 matrix in which we want the resident 3x3 rotation matrix to be based.</param>
-    inline QRotationMatrix3x3(const QBaseMatrix3x3 &rotation) : QMatrix3x3(rotation)
-    {
-    }
+    QRotationMatrix3x3(const QBaseMatrix3x3 &rotation);
 
     /// <summary>
     /// Constructor that receives 3 angles, one for each Euler angle, to construct the rotation
@@ -161,11 +152,7 @@ public:
     /// <returns>
     /// The identity matrix.
     /// </returns>
-    inline static const QRotationMatrix3x3& GetIdentity()
-    {
-        static const QRotationMatrix3x3 IDENTITY(QMatrix3x3::GetIdentity());
-        return IDENTITY;
-    }
+    static const QRotationMatrix3x3& GetIdentity();
 
 
 	// METHODS
@@ -257,11 +244,7 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QRotationMatrix3x3& operator=(const QBaseMatrix3x3 &matrix)
-    {
-        QBaseMatrix3x3::operator=(matrix);
-        return *this;
-    }
+    QRotationMatrix3x3& operator=(const QBaseMatrix3x3 &matrix);
 
     /// <summary>
     /// Product and assign operator. Current matrix stores the result of the multiplication.
@@ -280,10 +263,7 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    inline QMatrix3x3 Invert() const
-    {
-        return this->Transpose();
-    }
+    QMatrix3x3 Invert() const;
 
     /// <summary>
     /// Converts rotation matrix to Euler angles.<br/>

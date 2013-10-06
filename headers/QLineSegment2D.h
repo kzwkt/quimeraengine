@@ -29,12 +29,8 @@
 
 #include "QLineSegment.h"
 #include "QVector2.h"
-#include "SQPoint.h"
 
-#include "QBaseTriangle.h"
-#include "QBaseQuadrilateral.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
 
@@ -46,6 +42,9 @@ namespace Tools
 {
 namespace Math
 {
+
+template<class VectorType> class QBaseTriangle;
+class QBaseQuadrilateral;
 
 /// <summary>
 /// This class represents a chunk (segment) of straight line into 2D space, defined by two
@@ -72,34 +71,26 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QLineSegment2D()
-    {
-    }
+	QLineSegment2D();
 
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <param name="segment">[IN] 2D line segment containing the two endpoints from which we want to create a copy in the resident segment.</param>
-	inline QLineSegment2D(const QLineSegment2D &segment) : QLineSegment<QVector2>(segment.A, segment.B)
-    {
-    }
+	QLineSegment2D(const QLineSegment2D &segment);
 
     /// <summary>
     /// Base type constructor.
     /// </summary>
     /// <param name="segment">[IN] The 2D line segment containing the two endpoints in which we want resident segment to be based.</param>
-	inline QLineSegment2D(const QBaseLineSegment<QVector2> &segment) : QLineSegment<QVector2>(segment.A, segment.B)
-    {
-    }
+	QLineSegment2D(const QBaseLineSegment<QVector2> &segment);
 
 	/// <summary>
     /// Constructor from two vectors.
     /// </summary>
     /// <param name="vA">[IN] 2D vector to define endpoint A.</param>
     /// <param name="vB">[IN] 2D vector to define endpoint B.</param>
-	inline QLineSegment2D(const QVector2& vA, const QVector2& vB) : QLineSegment<QVector2>(vA,vB)
-    {
-    }
+	QLineSegment2D(const QVector2& vA, const QVector2& vB);
 
 
     // PROPERTIES
@@ -112,11 +103,7 @@ public:
     /// <returns>
 	/// A 1-length line segment.
 	/// </returns>
-	inline static const QLineSegment2D& GetUnitLine()
-	{
-	    static const QLineSegment2D UNITLINE(QVector2::GetZeroVector(), QVector2::GetUnitVectorX());
-	    return UNITLINE;
-    }
+	static const QLineSegment2D& GetUnitLine();
 
     /// <summary>
     /// Zero segment lying in the coordinates center whose endpoints
@@ -125,11 +112,8 @@ public:
     /// <returns>
 	/// A 0-length line segment.
 	/// </returns>
-	inline static const QLineSegment2D& GetLineZero()
-	{
-	    static const QLineSegment2D LINEZERO(QVector2::GetZeroVector(), QVector2::GetZeroVector());
-	    return LINEZERO;
-	}
+	static const QLineSegment2D& GetLineZero();
+
 
 	// METHODS
 	// ---------------
@@ -143,11 +127,7 @@ public:
 	/// <returns>
 	/// A reference to the modified line segment.
 	/// </returns>
-    inline QLineSegment2D& operator=(const QBaseLineSegment<QVector2> &segment)
-    {
-        QBaseLineSegment<QVector2>::operator=(segment);
-        return *this;
-    }
+    QLineSegment2D& operator=(const QBaseLineSegment<QVector2> &segment);
 
     /// <summary>
 	/// This method receives a 2D triangle, and computes whether they intersect each other or not.
@@ -208,12 +188,7 @@ public:
     /// <returns>
 	/// The rotated segment.
 	/// </returns>
-	inline QLineSegment2D Rotate(const float_q &fRotationAngle) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-        SQPoint::Rotate(fRotationAngle, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+	QLineSegment2D Rotate(const float_q &fRotationAngle) const;
 
 	/// <summary>
 	/// This method performs a translation of the resident line segment given by the provided vector.
@@ -222,12 +197,7 @@ public:
     /// <returns>
 	/// The translated segment.
 	/// </returns>
-    inline QLineSegment2D Translate(const QBaseVector2 &vTranslation) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Translate(vTranslation, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+    QLineSegment2D Translate(const QBaseVector2 &vTranslation) const;
 
 	/// <summary>
 	/// This method performs a translation of the resident line segment given by the provided amounts for every axis.
@@ -237,12 +207,7 @@ public:
 	/// <returns>
 	/// The translated segment.
 	/// </returns>
-    inline QLineSegment2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+    QLineSegment2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
 
 	/// <summary>
 	/// This method scales the resident line segment by the scale contained in the provided vector.
@@ -251,12 +216,7 @@ public:
 	/// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment2D Scale(const QBaseVector2 &vScale) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Scale(vScale, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+    QLineSegment2D Scale(const QBaseVector2 &vScale) const;
 
 	/// <summary>
 	/// This method scales the resident line segment by the provided amounts for every axis.
@@ -266,12 +226,7 @@ public:
 	/// <returns>
 	/// The scaled segment.
 	/// </returns>
-    inline QLineSegment2D Scale(const float_q &fScaleX, const float_q &fScaleY) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+    QLineSegment2D Scale(const float_q &fScaleX, const float_q &fScaleY) const;
 
 	/// <summary>
 	/// Receives a transformation matrix and applies the transformations to the resident
@@ -281,12 +236,7 @@ public:
     /// <returns>
 	/// The transformed segment.
 	/// </returns>
-	inline QLineSegment2D Transform(const QTransformationMatrix3x3 &transformation) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::Transform(transformation, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+	QLineSegment2D Transform(const QTransformationMatrix3x3 &transformation) const;
 
 	/// <summary>
 	/// This method transforms the 2D segment by rotating an amount defined by a rotation angle
@@ -297,12 +247,7 @@ public:
     /// <returns>
 	/// The rotated segment.
 	/// </returns>
-	inline QLineSegment2D RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+	QLineSegment2D RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const;
 
 	/// <summary>
 	/// This method scales the resident line segment by the scale contained in the provided vector,
@@ -313,12 +258,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-	inline QLineSegment2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+	QLineSegment2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const;
 
 	/// <summary>
 	/// This method scales the resident line segment by the provided amounts for every axis,
@@ -330,12 +270,7 @@ public:
     /// <returns>
 	/// The scaled segment.
 	/// </returns>
-	inline QLineSegment2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+	QLineSegment2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const;
 
 	/// <summary>
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
@@ -347,12 +282,7 @@ public:
     /// <returns>
 	/// The transformed segment.
 	/// </returns>
-	inline QLineSegment2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
-	{
-        QLineSegment2D auxLineSegment = *this;
-	    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
-        return auxLineSegment;
-	}
+	QLineSegment2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
 
 	/// <summary>
 	/// This method receives a 2D triangle, and computes the intersection point between it and the segment,
@@ -388,11 +318,7 @@ public:
     /// There are infinite intersections.<br/>
     /// - The segment is contained in the triangle (the endpoints are not tangent to the edges).
     /// </returns>
-	inline EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
-	{
-		QBaseVector2 vAux;
-		return this->IntersectionPoint(triangle, vIntersection, vAux);
-	}
+	EQIntersections IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const;
     
 	/// <summary>
 	/// This method receives a 2D triangle, and computes the intersection points between it and the segment,
@@ -466,11 +392,7 @@ public:
     /// There are infinite intersections.<br/>
     /// - The segment is contained in the quadrilateral (the endpoints are not tangent to the edges).
     /// </returns>
-	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
-	{
-		QBaseVector2 vAux;
-		return this->IntersectionPoint(quad, vIntersection, vAux);
-	}
+	EQIntersections IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const;
 
 	/// <summary>
 	/// This method receives a quadrilateral, and computes the intersection points between it and the segment,
@@ -514,36 +436,14 @@ protected:
 
 	// Checks if a point is inside a triangle.
 	// [TODO] jwladi: Replace by the QTriangle2D or QTriangle Contains method, when it exists.
-	inline bool PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const
-	{
-        return ( PointsInSameSideOfLine(vPoint, triangle.A, triangle.B, triangle.C) &&
-                 PointsInSameSideOfLine(vPoint, triangle.B, triangle.C, triangle.A) &&
-                 PointsInSameSideOfLine(vPoint, triangle.C, triangle.A, triangle.B) );
-	}
+	bool PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const;
 
     // Check if two points are in the same side of a line.
-	inline bool PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const
-	{
-        const float_q &ORIENTATION1 = (vLine1.x - vP1.x)*(vLine2.y - vP1.y) - (vLine1.y - vP1.y)*(vLine2.x - vP1.x);
-        const float_q &ORIENTATION2 = (vLine1.x - vP2.x)*(vLine2.y - vP2.y) - (vLine1.y - vP2.y)*(vLine2.x - vP2.x);
-
-        if ( SQFloat::IsZero(ORIENTATION1) || SQFloat::IsZero(ORIENTATION2) )
-            return true;
-        else if ( SQFloat::IsNegative(ORIENTATION1) == SQFloat::IsNegative(ORIENTATION2) )
-            return true;
-        else
-            return false;
-	}
+	bool PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const;
 
 	// Checks if a point is inside a quadrilateral.
 	// [TODO] jwladi: Replace by the QQuadrilateral Contains method, when it exists.
-	inline bool PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const
-	{
-	    return ( PointsInSameSideOfLine(vPoint, quad.C, quad.A, quad.B) &&
-                 PointsInSameSideOfLine(vPoint, quad.A, quad.B, quad.C) &&
-                 PointsInSameSideOfLine(vPoint, quad.A, quad.C, quad.D) &&
-                 PointsInSameSideOfLine(vPoint, quad.C, quad.D, quad.A) );
-	}
+	bool PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const;
 };
 
 } //namespace Math

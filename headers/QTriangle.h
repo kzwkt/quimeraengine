@@ -72,7 +72,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QTriangle()
+	QTriangle()
     {
     }
 
@@ -80,7 +80,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="triangle">[IN] The triangle from which we want to create a copy in the resident triangle.</param>
-	inline QTriangle(const QTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
+	QTriangle(const QTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
     {
     }
 
@@ -88,7 +88,7 @@ public:
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="triangle">[IN] The triangle in which we want resident triangle to be based.</param>
-	inline QTriangle(const QBaseTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
+	QTriangle(const QBaseTriangle<VectorType> &triangle) : QBaseTriangle<VectorType>(triangle)
     {
     }
 
@@ -98,7 +98,7 @@ public:
 	/// <param name="vA">[IN] Vector to define vertex A.</param>
 	/// <param name="vB">[IN] Vector to define vertex B.</param>
 	/// <param name="vC">[IN] Vector to define vertex C.</param>
-	inline QTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) : QBaseTriangle<VectorType>(vA, vB, vC)
+	QTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) : QBaseTriangle<VectorType>(vA, vB, vC)
     {
     }
 
@@ -108,7 +108,7 @@ public:
 	/// <param name="arValuesA">[IN] Array of components of the vertex A. If it is null, the behavior is undefined.</param>
 	/// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
 	/// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
-	inline QTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
+	QTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
                          QBaseTriangle<VectorType>(arValuesA, arValuesB, arValuesC)
     {
     }
@@ -119,7 +119,7 @@ public:
 	/// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
 	/// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
 	/// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) : QBaseTriangle<VectorType>(valueA, valueB, valueC)
+	QTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) : QBaseTriangle<VectorType>(valueA, valueB, valueC)
     {
     }
 
@@ -135,7 +135,7 @@ public:
     /// <returns>
     /// The assigned value.
     /// </returns>
-	inline QTriangle<VectorType>& operator=(const QBaseTriangle<VectorType> &triangle)
+	QTriangle<VectorType>& operator=(const QBaseTriangle<VectorType> &triangle)
 	{
         QBaseTriangle<VectorType>::operator=(triangle);
         return *this;
@@ -276,7 +276,7 @@ public:
 	/// <returns>
     /// The centroid.
     /// </returns>
-	inline VectorType GetCentroid() const
+	VectorType GetCentroid() const
 	{
         // The triangle's points should not coincide, otherwise it would not exist
         QE_ASSERT( !(this->A == this->B && this->A == this->C) );

@@ -28,11 +28,9 @@
 #define __QTRIANGLE2D__
 
 #include "QTriangle.h"
-#include "QVector2.h"
-#include "QTransformationMatrix3x3.h"
-#include "SQPoint.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+#include "QVector2.h"
+
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
@@ -45,6 +43,11 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+// ---------------------
+class QTransformationMatrix3x3;
+
 
 /// <summary>
 /// Class which represents a triangle in 2D.<br/>
@@ -60,25 +63,19 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QTriangle2D()
-    {
-    }
+	QTriangle2D();
 
     /// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="triangle">[IN] The 2D triangle from which we want to create a copy in the resident 2D triangle.</param>
-	inline QTriangle2D(const QTriangle2D &triangle) : QTriangle<QVector2>(triangle)
-    {
-    }
+	QTriangle2D(const QTriangle2D &triangle);
 
 	/// <summary>
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="triangle">[IN] The 2D triangle in which we want resident 2D triangle to be based.</param>
-	inline QTriangle2D(const QBaseTriangle<QVector2> &triangle) : QTriangle<QVector2>(triangle)
-    {
-    }
+	QTriangle2D(const QBaseTriangle<QVector2> &triangle);
 
 	/// <summary>
 	/// Constructor from three 2D vectors, one for each vertex.
@@ -86,9 +83,7 @@ public:
 	/// <param name="vA">[IN] 2D Vector which defines vertex A.</param>
 	/// <param name="vB">[IN] 2D Vector which defines vertex B.</param>
 	/// <param name="vC">[IN] 2D Vector which defines vertex C.</param>
-	inline QTriangle2D(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC) : QTriangle<QVector2>(vA, vB, vC)
-    {
-    }
+	QTriangle2D(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC);
 
 	/// <summary>
 	/// Constructor from three pointer-to-float type, one for each vertex.<br/>
@@ -97,10 +92,7 @@ public:
 	/// <param name="arValuesA">[IN] Array of components of the vertex A. If it is null, the behavior is undefined.</param>
 	/// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
 	/// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
-	inline QTriangle2D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC) :
-                           QTriangle<QVector2>(arValuesA, arValuesB, arValuesC)
-    {
-    }
+	QTriangle2D(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC);
 
 	/// <summary>
 	/// Constructor from three 4x32 packed floating point values, one for each vertex.
@@ -108,9 +100,7 @@ public:
 	/// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
 	/// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
 	/// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QTriangle2D(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) : QTriangle<QVector2>(valueA, valueB, valueC)
-    {
-    }
+	QTriangle2D(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC);
 
 
 	// METHODS
@@ -125,11 +115,7 @@ public:
     /// <returns>
     /// A reference to the triangle.
     /// </returns>
-	QTriangle2D& operator=(const QBaseTriangle<QVector2> &triangle)
-	{
-        QBaseTriangle<QVector2>::operator=(triangle);
-		return *this;
-	}
+	QTriangle2D& operator=(const QBaseTriangle<QVector2> &triangle);
 
 	/// <summary>
 	/// Receives a transformation matrix and applies its transformations to the resident triangle.<br/>
@@ -139,12 +125,7 @@ public:
     /// <returns>
     /// The transformed triangle.
     /// </returns>
-	inline QTriangle2D Transform(const QTransformationMatrix3x3 &transformation) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::Transform(transformation, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D Transform(const QTransformationMatrix3x3 &transformation) const;
 
 	/// <summary>
 	/// Receives a transformation matrix and a 2D vector (transformation pivot) and applies the transformations
@@ -156,12 +137,7 @@ public:
     /// <returns>
     /// The transformed triangle.
     /// </returns>
-	inline QTriangle2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
 
 	/// <summary>
 	/// Calculates the circumcenter of the triangle.
@@ -172,48 +148,7 @@ public:
     /// <returns>
     /// The circumcenter.
     /// </returns>
-	inline QVector2 GetCircumcenter() const
-	{
-        // All the vertices shouldn't coincide
-        QE_ASSERT( !(this->A == this->B && this->B == this->C) );
-
-		//STEP 1: Obtain the gradient of height A.
-		//
-		// We can obtain the gradient of a line using this formula:
-		// m = (y - y1) / (x - x1), where (x1, y1) is a point contained into the line
-		const float_q gradientBC = (C.y - B.y) / (C.x - B.x);
-		const float_q gradientHA = - SQFloat::_1 / gradientBC;
-
-		//STEP 1.1: Obtain middle point of side BC
-		const QVector2 middlePointBC = (C + B) * SQFloat::_0_5;
-
-		//STEP 2: Obtain the gradient of height B.
-		const float_q gradientAC = (C.y - A.y) / (C.x - A.x);
-		const float_q gradientHB = - SQFloat::_1 / gradientAC;
-
-		//STEP 2.1: Obtain middle point of side AC
-		const QVector2 middlePointAC = (C + A) * SQFloat::_0_5;
-
-		//STEP 3: Calculate the intersection of the perpendicular bisectors
-		//
-		// The gradient equations of the perpendicular bisectors are like this:
-		// hA (identical) y - middlePointBC.y = m * (x - middlePointBC.x) -> y = m * x - m * middlePointBC.x + middlePointBC.y
-		// hB (identical) y - middlePointAC.y = n * (x - middlePointAC.x) -> y = n * x - n * middlePointAC.x + middlePointAC.y
-		//
-		// The intersection point is that point where both formulas are equal.
-
-		// Here we got x:
-		// m * x - m * middlePointBC.x + middlePointBC.y = n * x - n * middlePointAC.x + middlePointAC.y
-		// m * x - n * x = m * middlePointBC.x - middlePointBC.y - n * middlePointAC.x + middlePointAC.y
-		// x = (m * middlePointBC.x - middlePointBC.y - n * middlePointAC.x + middlePointAC.y) / (m - n)
-		QVector2 vCircumcenter;
-        vCircumcenter.x = (gradientHA * middlePointBC.x - middlePointBC.y - gradientHB * middlePointAC.x + middlePointAC.y) / (gradientHA - gradientHB);
-
-		// With x calculated we can now obtain y appliying the x to one of the equations explained before.
-		vCircumcenter.y = gradientHA * vCircumcenter.x - gradientHA * middlePointBC.x + middlePointBC.y;
-
-        return vCircumcenter;
-	}
+	QVector2 GetCircumcenter() const;
 
 	/// <summary>
 	/// Calculates the orthocenter of the triangle.
@@ -224,42 +159,7 @@ public:
     /// <returns>
     /// The orthocenter.
     /// </returns>
-	inline QVector2 GetOrthocenter() const
-	{
-        // All the vertices shouldn't coincide
-        QE_ASSERT( !(this->A == this->B && this->B == this->C) );
-
-		//STEP 1: Obtain the gradient of height A.
-		//
-		// We can obtain the gradient of a line using this formula:
-		// m = (y - y1) / (x - x1), where (x1, y1) is a point contained into the line
-		float_q gradientBC = (C.y - B.y) / (C.x - B.x);
-		float_q gradientHA = - SQFloat::_1 / gradientBC;
-
-		//STEP 2: Obtain the gradient of height B.
-		float_q gradientAC = (C.y - A.y) / (C.x - A.x);
-		float_q gradientHB = - SQFloat::_1 / gradientAC;
-
-		//STEP 3: Calculate the intersection of the heights
-		//
-		// The gradient equations of the heights are like this:
-		// hA (identical) y - A.y = m * (x - A.x) -> y = m * x - m * A.x + A.y
-		// hB (identical) y - B.y = n * (x - B.x) -> y = n * x - n * B.x + B.y
-		//
-		// The intersection point is that point where both formulas are equal.
-
-		// Here we got x:
-		// m * x - m * A.x + A.y = n * x - n * B.x + B.y
-		// m * x - n * x = m * A.x - A.y - n * B.x + B.y
-		// x = (m * A.x - A.y - n * B.x + B.y) / (m - n)
-        QVector2 vOrthocenter;
-		vOrthocenter.x = (gradientHA * A.x - A.y - gradientHB * B.x + B.y) / (gradientHA - gradientHB);
-
-		// With x calculated we can now obtain y appliying the x to one of the equations explained before.
-		vOrthocenter.y = gradientHA * vOrthocenter.x - gradientHA * A.x + A.y;
-
-        return vOrthocenter;
-	}
+	QVector2 GetOrthocenter() const;
 
 	/// <summary>
 	/// This method performs a translation of the resident triangle given by the provided vector.
@@ -268,12 +168,7 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-    inline QTriangle2D Translate(const QBaseVector2 &vTranslation) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::Translate(vTranslation, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+    QTriangle2D Translate(const QBaseVector2 &vTranslation) const;
 
 	/// <summary>
 	/// This method performs a translation of the resident triangle given by the provided amounts for every axis.
@@ -283,12 +178,7 @@ public:
     /// <returns>
     /// The translated triangle.
     /// </returns>
-	inline QTriangle2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
 
     /// <summary>
 	/// This method applies to the resident triangle the rotation defined by the provided angle
@@ -298,12 +188,7 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-	inline QTriangle2D Rotate(const float_q &fRotationAngle) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::Rotate(fRotationAngle, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D Rotate(const float_q &fRotationAngle) const;
 
     /// <summary>
 	/// This method transforms the resident triangle by rotating it an amount defined by a rotation angle
@@ -314,12 +199,7 @@ public:
     /// <returns>
     /// The rotated triangle.
     /// </returns>
-	inline QTriangle2D RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const;
 
 	/// <summary>
 	/// This method scales the resident triangle by the scale contained in the provided vector.
@@ -328,12 +208,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-	inline QTriangle2D Scale(const QBaseVector2 &vScale) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::Scale(vScale, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D Scale(const QBaseVector2 &vScale) const;
 
 	/// <summary>
 	/// This method scales the resident triangle by the provided amounts for every axis.
@@ -343,12 +218,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-	inline QTriangle2D Scale(const float_q &fScaleX, const float_q &fScaleY) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D Scale(const float_q &fScaleX, const float_q &fScaleY) const;
 
     /// <summary>
 	/// This method scales the resident triangle by the scale contained in the provided vector,
@@ -359,12 +229,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-	inline QTriangle2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const;
 
 	/// <summary>
 	/// This method scales the resident triangle by the provided amounts for every axis,
@@ -376,12 +241,7 @@ public:
     /// <returns>
     /// The scaled triangle.
     /// </returns>
-	inline QTriangle2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
-	{
-        QTriangle2D auxTriangle = *this;
-		SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxTriangle, QVector2*), 3);
-        return auxTriangle;
-	}
+	QTriangle2D ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const;
 };
 
 } //namespace Math

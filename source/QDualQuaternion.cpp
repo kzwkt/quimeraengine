@@ -42,6 +42,60 @@ namespace Math
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+QDualQuaternion::QDualQuaternion()
+{
+}
+
+QDualQuaternion::QDualQuaternion(const QDualQuaternion &dualQuat) : QBaseDualQuaternion(dualQuat)
+{
+}
+
+QDualQuaternion::QDualQuaternion(const QBaseDualQuaternion &dualQuat) : QBaseDualQuaternion(dualQuat)
+{
+}
+
+QDualQuaternion::QDualQuaternion(const QBaseQuaternion &qReal, const QBaseQuaternion &qDual) : QBaseDualQuaternion(qReal, qDual)
+{
+}
+
+QDualQuaternion::QDualQuaternion(const QBaseQuaternion &qRotation, const QBaseVector3 &vTranslation)
+{
+    QDualQuaternionImp(qRotation, vTranslation);
+}
+
+QDualQuaternion::QDualQuaternion(const QBaseQuaternion &qRotation, const QBaseVector4 &vTranslation)
+{
+    QDualQuaternionImp(qRotation, vTranslation);
+}
+
+QDualQuaternion::QDualQuaternion(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation)
+{
+    QDualQuaternionImp(vTranslation, qRotation);
+}
+
+QDualQuaternion::QDualQuaternion(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation)
+{
+    QDualQuaternionImp(vTranslation, qRotation);
+}
+
+QDualQuaternion::QDualQuaternion(const float_q *arValuesReal, const float_q *arValuesDual)
+{
+    QE_ASSERT(arValuesReal != null_q && arValuesDual != null_q)
+
+    this->r = QQuaternion(arValuesReal[0], arValuesReal[1], arValuesReal[2], arValuesReal[3]);
+    this->d = QQuaternion(arValuesDual[0], arValuesDual[1], arValuesDual[2], arValuesDual[3]);
+}
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
 //##################		    |		    METHODS			 |			   ##################
 //##################		   /|							 |\			   ##################
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
@@ -104,9 +158,119 @@ QDualQuaternion QDualQuaternion::operator/(const float_q &fScalar) const
     return QDualQuaternion(QBaseQuaternion(this->r * DIVISOR), QBaseQuaternion(this->d * DIVISOR));
 }
 
+QDualQuaternion& QDualQuaternion::operator+=(const QBaseDualQuaternion &dualQuat)
+{
+    this->r += dualQuat.r;
+    this->d += dualQuat.d;
+
+    return *this;
+}
+
+QDualQuaternion& QDualQuaternion::operator-=(const QBaseDualQuaternion &dualQuat)
+{
+    this->r -= dualQuat.r;
+    this->d -= dualQuat.d;
+
+    return *this;
+}
+
+QDualQuaternion& QDualQuaternion::operator*=(const QBaseDualQuaternion &dualQuat)
+{
+    QDualQuaternion aux(*this);
+
+    this->r = aux.r * dualQuat.r;
+    this->d = aux.r * dualQuat.d + aux.d * dualQuat.r;
+
+    return *this;
+}
+
+QDualQuaternion& QDualQuaternion::operator*=(const float_q fScalar)
+{
+    this->r *= fScalar;
+    this->d *= fScalar;
+
+    return *this;
+}
+
+QDualQuaternion& QDualQuaternion::operator/=(const float_q &fScalar)
+{
+    // Checkout to avoid division by zero.
+    QE_ASSERT(fScalar != SQFloat::_0)
+
+    const float_q &DIVISOR = SQFloat::_1/fScalar;
+
+    this->r *= DIVISOR;
+    this->d *= DIVISOR;
+
+    return *this;
+}
+
+QDualQuaternion& QDualQuaternion::operator=(const QBaseDualQuaternion &dualQuat)
+{
+    QBaseDualQuaternion::operator=(dualQuat);
+    return *this;
+}
+
+void QDualQuaternion::ResetToZero()
+{
+    this->r.ResetToZero();
+    this->d.ResetToZero();
+}
+
+void QDualQuaternion::ResetToIdentity()
+{
+    this->r.ResetToIdentity();
+    this->d.ResetToZero();
+}
+
+QDualQuaternion QDualQuaternion::Conjugate() const
+{
+    return QDualQuaternion(r.Conjugate(), d.Conjugate());
+}
+
+QDualQuaternion QDualQuaternion::DoubleConjugate() const
+{
+    return QDualQuaternion(r.Conjugate(), d.Conjugate() * -SQFloat::_1);
+}
+
+float_q QDualQuaternion::GetNonDualLength() const
+{
+    return this->r.GetLength();
+}
+
 QDualQuaternion QDualQuaternion::Transform(const QDualQuaternion &transformation) const
 {
     return QDualQuaternion(transformation * (*this) * transformation.DoubleConjugate());
+}
+
+QDualQuaternion QDualQuaternion::TransformRotationFirst(const QBaseQuaternion &qRotation, const QBaseVector3 &vTranslation) const
+{
+    return this->TransformRotationFirstImp(qRotation, vTranslation);
+}
+
+QDualQuaternion QDualQuaternion::TransformRotationFirst(const QBaseQuaternion &qRotation, const QBaseVector4 &vTranslation) const
+{
+    return this->TransformRotationFirstImp(qRotation, vTranslation);
+}
+
+QDualQuaternion QDualQuaternion::TransformTranslationFirst(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation) const
+{
+    return this->TransformTranslationFirstImp(vTranslation, qRotation);
+}
+
+QDualQuaternion QDualQuaternion::TransformTranslationFirst(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation) const
+{
+    return this->TransformTranslationFirstImp(vTranslation, qRotation);
+}
+
+QDualQuaternion QDualQuaternion::Lerp(const float_q &fProportion, const QDualQuaternion &dualQuat) const
+{
+    QDualQuaternion auxDualQuat = (SQFloat::_1 - fProportion) * (*this) + fProportion * dualQuat;
+    float_q fLength = auxDualQuat.GetNonDualLength();
+
+    QE_ASSERT(fLength != SQFloat::_0)
+
+    return auxDualQuat / fLength;
 }
 
 string_q QDualQuaternion::ToString() const
@@ -114,6 +278,24 @@ string_q QDualQuaternion::ToString() const
     return QE_L("DQ(r(") + r.ToString() +
            QE_L("),d(")  + d.ToString() + QE_L("))");
 }
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QDualQuaternion& QDualQuaternion::GetIdentity()
+{
+    static const QDualQuaternion IDENTITY(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
+                                            QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
+    return IDENTITY;
+}
+
 
 } //namespace Math
 } //namespace Tools

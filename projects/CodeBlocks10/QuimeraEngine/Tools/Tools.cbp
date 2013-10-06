@@ -273,6 +273,42 @@
 		<Unit filename="..\..\..\..\source\EQSpaceRelation.cpp">
 			<Option virtualFolder="Math\" />
 		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseDualQuaternion.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseMatrix2x2.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseMatrix3x3.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseMatrix3x4.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseMatrix4x3.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseMatrix4x4.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBasePlane.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseQuadrilateral.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseQuaternion.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseVector2.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseVector3.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\QBaseVector4.cpp">
+			<Option virtualFolder="Math\" />
+		</Unit>
 		<Unit filename="..\..\..\..\source\QCircle.cpp">
 			<Option virtualFolder="Math\" />
 		</Unit>
@@ -344,6 +380,9 @@
 		</Unit>
 		<Unit filename="..\..\..\..\source\SQInteger.cpp">
 			<Option virtualFolder="DataTypes\" />
+		</Unit>
+		<Unit filename="..\..\..\..\source\SQPoint.cpp">
+			<Option virtualFolder="Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\source\SQVF32.cpp">
 			<Option virtualFolder="DataTypes\" />

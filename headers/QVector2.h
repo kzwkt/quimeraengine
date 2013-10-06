@@ -27,11 +27,8 @@
 #ifndef __QVECTOR2__
 #define __QVECTOR2__
 
-#include "MathDefinitions.h"
 #include "QBaseVector2.h"
-#include "QBaseMatrix2x2.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
@@ -47,7 +44,10 @@ namespace Math
 {
 
 // Forward declarations
+// ---------------------
 class QTransformationMatrix3x3;
+class QBaseMatrix2x2;
+
 
 /// <summary>
 /// A vector with two components: X and Y.
@@ -82,42 +82,32 @@ public:
     /// <remarks>
     ///	By default, all the components are set to zero.
     /// </remarks>
-	inline QVector2()
-    {
-    }
+	QVector2();
 
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-	inline QVector2(const QVector2 &vVector) : QBaseVector2(vVector)
-	{
-	}
+	QVector2(const QVector2 &vVector);
 
 	/// <summary>
 	/// Constructor that receives an instance of the base type.
 	/// </summary>
 	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-	inline QVector2(const QBaseVector2 &vVector) : QBaseVector2(vVector)
-    {
-    }
+	QVector2(const QBaseVector2 &vVector);
 
 	/// <summary>
 	/// Constructor that receives the value of every vector's component.
 	/// </summary>
 	/// <param name="fValueX">[IN] The value for X component.</param>
 	/// <param name="fValueY">[IN] The value for Y component.</param>
-	inline QVector2(const float_q &fValueX, const float_q &fValueY) : QBaseVector2(fValueX, fValueY)
-    {
-    }
+	QVector2(const float_q &fValueX, const float_q &fValueY);
 
 	/// <summary>
 	/// Constructor from a single value for all the vector's components.
 	/// </summary>
 	/// <param name="fValueAll">[IN] The value for all components.</param>
-	inline explicit QVector2(const float_q &fValueAll) : QBaseVector2(fValueAll)
-    {
-    }
+	explicit QVector2(const float_q &fValueAll);
 
 	/// <summary>
 	/// Constructor that receives an array of scalars.
@@ -126,9 +116,7 @@ public:
     /// The array must contain, at least, two elements. Only the first two elements will be considered; the rest will be ignored.
     /// </remarks>
 	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, two elements. If it is null, the behavior is undefined.</param>
-	inline explicit QVector2(const float_q* arValues) : QBaseVector2(arValues)
-    {
-    }
+	explicit QVector2(const float_q* arValues);
 
 	/// <summary>
     /// Constructor that receives a pack of four scalars.
@@ -137,9 +125,7 @@ public:
     /// Only the two first elements in the pack (most significant bits) are considered.
     /// </remarks>
     /// <param name="value">[IN] 4x32 packed floating point value containing the two components.</param>
-    inline explicit QVector2(const vf32_q value) : QBaseVector2 (value)
-    {
-    }
+    explicit QVector2(const vf32_q value);
 
 
     // PROPERTIES
@@ -152,11 +138,7 @@ public:
 	/// <returns>
 	/// A null vector.
 	/// </returns>
-	inline static const QVector2& GetZeroVector()
-	{
-	    static const QVector2 ZEROVECTOR(SQFloat::_0,  SQFloat::_0);
-	    return ZEROVECTOR;
-	}
+	static const QVector2& GetZeroVector();
 
 	/// <summary>
 	/// Gets a vector whose components equal one.
@@ -164,11 +146,7 @@ public:
 	/// <returns>
 	/// A vector of ones.
 	/// </returns>
-	inline static const QVector2& GetVectorOfOnes()
-	{
-	    static const QVector2 VECTOROFONES(SQFloat::_1,  SQFloat::_1);
-	    return VECTOROFONES;
-    }
+	static const QVector2& GetVectorOfOnes();
 
 	/// <summary>
 	/// Gets a unit vector that points to the positive direction of the X axis.
@@ -176,11 +154,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the positive direction of the X axis.
 	/// </returns>
-	inline static const QVector2& GetUnitVectorX()
-	{
-	    static const QVector2 UNITVECTORX(SQFloat::_1,  SQFloat::_0);
-	    return UNITVECTORX;
-	}
+	static const QVector2& GetUnitVectorX();
 
 	/// <summary>
 	/// Gets a unit vector that points to the positive direction of the Y axis.
@@ -188,11 +162,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the positive direction of the Y axis.
 	/// </returns>
-	inline static const QVector2& GetUnitVectorY()
-	{
-	    static const QVector2 UNITVECTORY(SQFloat::_0,  SQFloat::_1);
-	    return UNITVECTORY;
-	}
+	static const QVector2& GetUnitVectorY();
 
 	/// <summary>
 	/// Gets a unit vector that points to the negative direction of the X axis.
@@ -200,11 +170,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the negative direction of the X axis.
 	/// </returns>
-	inline static const QVector2& GetUnitVectorInvX()
-	{
-	    static const QVector2 UNITVECTORINVX(-SQFloat::_1,  SQFloat::_0);
-	    return UNITVECTORINVX;
-	}
+	static const QVector2& GetUnitVectorInvX();
 
 	/// <summary>
 	/// Gets a unit vector that points to the negative direction of the Y axis.
@@ -212,11 +178,7 @@ public:
 	/// <returns>
 	/// A unit vector that points to the negative direction of the Y axis.
 	/// </returns>
-	inline static const QVector2& GetUnitVectorInvY()
-	{
-	    static const QVector2 UNITVECTORINVY(SQFloat::_0,  -SQFloat::_1);
-	    return UNITVECTORINVY;
-	}
+	static const QVector2& GetUnitVectorInvY();
 
 
 	// METHODS
@@ -296,13 +258,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the addition.
 	/// </returns>
-	inline QVector2& operator+=(const QBaseVector2 &vVector)
-	{
-		this->x += vVector.x;
-		this->y += vVector.y;
-
-		return *this;
-	}
+	QVector2& operator+=(const QBaseVector2 &vVector);
 
 	/// <summary>
 	/// Subtracts a vector to the resident vector. The resident vector is set to the result.
@@ -311,13 +267,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the subtraction.
 	/// </returns>
-	inline QVector2& operator-=(const QBaseVector2 &vVector)
-	{
-		this->x -= vVector.x;
-		this->y -= vVector.y;
-
-		return *this;
-	}
+	QVector2& operator-=(const QBaseVector2 &vVector);
 
 	/// <summary>
 	/// Multiplies the resident vector by a scalar. The resident vector is set to the result.
@@ -326,13 +276,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the product.
 	/// </returns>
-	inline QVector2& operator*=(const float_q fScalar)
-	{
-		this->x *= fScalar;
-		this->y *= fScalar;
-
-		return *this;
-	}
+	QVector2& operator*=(const float_q fScalar);
 
 	/// <summary>
     /// Multiplies the resident vector by a 2x2 matrix. The resident vector is set to the result.
@@ -344,16 +288,7 @@ public:
     /// <returns>
     /// A reference to the resident vector, result of the product.
     /// </returns>
-    inline QVector2& operator*=(const QBaseMatrix2x2 &matrix)
-	{
-		float_q fValueX = this->x * matrix.ij[0][0] + this->y * matrix.ij[1][0];
-		float_q fValueY = this->x * matrix.ij[0][1] + this->y * matrix.ij[1][1];
-
-		this->x = fValueX;
-		this->y = fValueY;
-
-		return *this;
-	}
+    QVector2& operator*=(const QBaseMatrix2x2 &matrix);
 
 	/// <summary>
 	/// Multiplies two vectors by multiplying each component. The resident vector is set to the result.
@@ -362,13 +297,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the product.
 	/// </returns>
-	inline QVector2& operator*=(const QBaseVector2 &vVector)
-	{
-		this->x *= vVector.x;
-		this->y *= vVector.y;
-
-		return *this;
-	}
+	QVector2& operator*=(const QBaseVector2 &vVector);
 
 	/// <summary>
 	/// Divides the vector by a scalar. The resident vector is set to the result.
@@ -377,18 +306,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the division.
 	/// </returns>
-	inline QVector2& operator/=(const float_q &fScalar)
-	{
-		// Checkout to avoid division by 0
-		QE_ASSERT(fScalar != SQFloat::_0)
-
-		const float_q &fDivisor = SQFloat::_1/fScalar;
-
-		this->x *= fDivisor;
-		this->y *= fDivisor;
-
-		return *this;
-	}
+	QVector2& operator/=(const float_q &fScalar);
 
 	/// <summary>
 	/// Divides two vectors by dividing each component. The resident vector is set to the result.
@@ -397,17 +315,7 @@ public:
 	/// <returns>
 	/// A reference to the resident vector, result of the division.
 	/// </returns>
-	inline QVector2& operator/=(const QBaseVector2 &vVector)
-	{
-		// Checkout to avoid division by 0
-		QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0)
-
-		this->x /= vVector.x;
-		this->y /= vVector.y;
-
-
-		return *this;
-	}
+	QVector2& operator/=(const QBaseVector2 &vVector);
 
     /// <summary>
     /// Assigns the provided vector to the resident vector.
@@ -416,11 +324,7 @@ public:
     /// <returns>
     /// A reference to the resident vector.
     /// </returns>
-    inline QVector2& operator=(const QBaseVector2 &vVector)
-    {
-        QBaseVector2::operator=(vVector);
-        return *this;
-    }
+    QVector2& operator=(const QBaseVector2 &vVector);
 
    	/// <summary>
 	/// Negates the vector by negating each component.
@@ -469,35 +373,17 @@ public:
     /// <returns>
 	/// The normalized vector.
 	/// </returns>
-	inline QVector2 Normalize() const
-	{
-		// Gets vector length
-		const float_q fLength = this->GetLength();
-
-		// Checkout to avoid division by 0
-		QE_ASSERT(fLength != SQFloat::_0)
-
-		//Normalize
-        return QVector2(this->x / fLength, this->y / fLength);
-	}
+	QVector2 Normalize() const;
 
 	/// <summary>
 	/// Sets all the components of the vector to one.
 	/// </summary>
-	inline void ResetToOne()
-	{
-		this->x = SQFloat::_1;
-		this->y = SQFloat::_1;
-	}
+	void ResetToOne();
 
 	/// <summary>
 	/// Sets all the components of the vector to zero.
 	/// </summary>
-	inline void ResetToZero()
-	{
-		this->x = SQFloat::_0;
-		this->y = SQFloat::_0;
-	}
+	void ResetToZero();
 
 	/// <summary>
 	/// Applies a transformation to the resident vector, multiplying it by a transformation matrix.
@@ -568,11 +454,7 @@ public:
     /// <returns>
     /// A vector that is the result of the interpolation.
     /// </returns>
-	inline QVector2 Lerp(const float_q &fProportion, const QBaseVector2 &vVector) const
-	{
-        return QVector2(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
-                        this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion);
-	}
+	QVector2 Lerp(const float_q &fProportion, const QBaseVector2 &vVector) const;
 
 	/// <summary>
 	/// Calculates the distance between two vectors (two points).
@@ -581,10 +463,7 @@ public:
 	/// <returns>
 	/// A positive value that equals the distance between both vectors.
 	/// </returns>
-	inline float_q Distance(const QVector2 &vVector) const
-	{
-		return hypot_q(this->x-vVector.x, this->y-vVector.y);
-	}
+	float_q Distance(const QVector2 &vVector) const;
 
 	/// <summary>
 	/// Converts vector into a string with the following format:<br/>

@@ -31,6 +31,15 @@
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
+#include "QVector3.h"
+#include "QVector4.h"
+#include "QBaseQuaternion.h"
+#include "QMatrix4x3.h"
+#include "SQFloat.h"
+#include "SQAngle.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -40,6 +49,28 @@ namespace Tools
 {
 namespace Math
 {
+    
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+    
+QSpaceConversionMatrix::QSpaceConversionMatrix()
+{
+    this->ResetToIdentity();
+}
+
+QSpaceConversionMatrix::QSpaceConversionMatrix(const QSpaceConversionMatrix &matrix) : QMatrix4x4(matrix)
+{
+}
+
+QSpaceConversionMatrix::QSpaceConversionMatrix(const QBaseMatrix4x4 &matrix) : QMatrix4x4(matrix)
+{
+}
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -50,7 +81,11 @@ namespace Math
 //##################													   ##################
 //##################=======================================================##################
 
-// Binary operators
+QSpaceConversionMatrix& QSpaceConversionMatrix::operator=(const QBaseMatrix4x4 &matrix)
+{
+    QBaseMatrix4x4::operator=(matrix);
+    return *this;
+}
 
 QSpaceConversionMatrix QSpaceConversionMatrix::operator*(const QSpaceConversionMatrix &matrix) const
 {
@@ -210,6 +245,14 @@ void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatri
 void QSpaceConversionMatrix::SetWorldSpaceMatrix(const QTranslationMatrix<QMatrix4x4> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
 {
     SetWorldSpaceMatrixImp(translation, rotation, scale);
+}
+
+QSpaceConversionMatrix QSpaceConversionMatrix::SwitchHandConventionProjectionSpaceMatrix() const
+{
+    QSpaceConversionMatrix switchedMatrix = *this;
+    switchedMatrix.ij[2][2] = -this->ij[2][2];
+    switchedMatrix.ij[2][3] = -this->ij[2][3];
+    return switchedMatrix;
 }
 
 template <class MatrixType>

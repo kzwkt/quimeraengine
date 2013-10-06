@@ -29,7 +29,6 @@
 
 #include "QOrb.h"
 #include "QVector2.h"
-#include "SQPoint.h"
 #include "EQIntersections.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
@@ -67,25 +66,19 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QCircle()
-    {
-    }
+	QCircle();
 
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="circle">[IN] The circle from which we want to create a copy in the resident circle.</param>
-	inline QCircle(const QCircle &circle) : QOrb<QVector2>(circle)
-    {
-    }
+	QCircle(const QCircle &circle);
 
 	/// <summary>
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="orb">[IN] The orb in which we want resident circle to be based.</param>
-	inline QCircle(const QBaseOrb<QVector2> &orb) : QOrb<QVector2>(orb)
-    {
-    }
+	QCircle(const QBaseOrb<QVector2> &orb);
 
     /// <summary>
     /// Constructor from a vector which defines the center point and a floating point value which
@@ -93,9 +86,7 @@ public:
     /// </summary>
     /// <param name="vCenter">[IN] Vector to define the center of the cirle.</param>
     /// <param name="fRadius">[IN] A floating point value to define the radius.</param>
-    inline QCircle(const QVector2 &vCenter, const float_q &fRadius) : QOrb<QVector2>(vCenter, fRadius)
-    {
-    }
+    QCircle(const QVector2 &vCenter, const float_q &fRadius);
 
 
     // PROPERTIES
@@ -108,11 +99,7 @@ public:
 	/// <returns>
 	/// A unit circle.
 	/// </returns>
-    inline static const QCircle& GetUnitCircle()
-    {
-        static const QCircle UNITCIRCLE(QVector2::GetZeroVector(), SQFloat::_1);
-        return UNITCIRCLE;
-    }
+    static const QCircle& GetUnitCircle();
 
 
 	// METHODS
@@ -126,11 +113,7 @@ public:
     /// <returns>
 	/// A reference to the modified orb.
 	/// </returns>
-    inline QCircle& operator=(const QBaseOrb<QVector2> &orb)
-    {
-        QBaseOrb<QVector2>::operator=(orb);
-        return *this;
-    }
+    QCircle& operator=(const QBaseOrb<QVector2> &orb);
 
 	/// <summary>
 	/// Translates the circle.
@@ -139,12 +122,7 @@ public:
     /// <returns>
 	/// The translated circle.
 	/// </returns>
-    inline QCircle Translate(const QBaseVector2 &vTranslation) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::Translate(vTranslation, &auxCircle.Center, 1);
-        return auxCircle;
-    }
+    QCircle Translate(const QBaseVector2 &vTranslation) const;
 
 	/// <summary>
 	/// Translates the circle.
@@ -154,12 +132,7 @@ public:
     /// <returns>
 	/// The translated circle.
 	/// </returns>
-    inline QCircle Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::Translate(fTranslationX, fTranslationY, &auxCircle.Center, 1);
-        return auxCircle;
-    }
+    QCircle Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
 
 	/// <summary>
 	/// Rotates the circle.
@@ -168,12 +141,7 @@ public:
     /// <returns>
 	/// The rotated circle.
 	/// </returns>
-    inline QCircle Rotate(const float_q &fRotationAngle) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::Rotate(fRotationAngle, &auxCircle.Center, 1);
-        return auxCircle;
-    }
+    QCircle Rotate(const float_q &fRotationAngle) const;
 
 	/// <summary>
 	/// Rotates the circle using a pivot.
@@ -183,12 +151,7 @@ public:
     /// <returns>
 	/// The rotated circle.
 	/// </returns>
-    inline QCircle RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::RotateWithPivot(fRotationAngle, vPivot, &auxCircle.Center, 1);
-        return auxCircle;
-    }
+    QCircle RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot) const;
 
  	/// <summary>
 	/// Scales the circle.
@@ -198,13 +161,7 @@ public:
     /// <returns>
 	/// The scaled circle.
 	/// </returns>
-    inline QCircle Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::Scale(vScale, &auxCircle.Center, 1);
-        auxCircle.Radius *= fRadiusScale;
-        return auxCircle;
-    }
+    QCircle Scale(const QBaseVector2 &vScale, const float_q &fRadiusScale) const;
 
  	/// <summary>
 	/// Scales the circle.
@@ -215,13 +172,7 @@ public:
     /// <returns>
 	/// The scaled circle.
 	/// </returns>
-    inline QCircle Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::Scale(fScaleX, fScaleY, &auxCircle.Center, 1);
-        auxCircle.Radius *= fRadiusScale;
-        return auxCircle;
-    }
+    QCircle Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale) const;
 
  	/// <summary>
 	/// Scales the circle using a pivot.
@@ -232,13 +183,7 @@ public:
     /// <returns>
 	/// The scaled circle.
 	/// </returns>
-    inline QCircle ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::ScaleWithPivot(vScale, vPivot, &auxCircle.Center, 1);
-        auxCircle.Radius *= fRadiusScale;
-        return auxCircle;
-    }
+    QCircle ScaleWithPivot(const QBaseVector2 &vScale, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const;
 
  	/// <summary>
 	/// Scales the circle using a pivot.
@@ -250,13 +195,7 @@ public:
     /// <returns>
 	/// The scaled circle.
 	/// </returns>
-    inline QCircle ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, &auxCircle.Center, 1);
-        auxCircle.Radius *= fRadiusScale;
-        return auxCircle;
-    }
+    QCircle ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const;
 
  	/// <summary>
 	/// Transforms the circle.
@@ -266,13 +205,7 @@ public:
     /// <returns>
 	/// The transformed circle.
 	/// </returns>
-    inline QCircle Transform(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::Transform(transformation, &auxCircle.Center, 1);
-        auxCircle.Radius *= fRadiusScale;
-        return auxCircle;
-    }
+    QCircle Transform(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale) const;
 
  	/// <summary>
 	/// Transforms the circle using a pivot.
@@ -283,13 +216,7 @@ public:
     /// <returns>
 	/// The transformed circle.
 	/// </returns>
-    inline QCircle TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const
-    {
-        QCircle auxCircle = *this;
-        SQPoint::TransformWithPivot(transformation, vPivot, &auxCircle.Center, 1);
-        auxCircle.Radius *= fRadiusScale;
-        return auxCircle;
-    }
+    QCircle TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const;
 
  	/// <summary>
 	/// Calculates possible intersections between resident circle and a circle received as parameter.<br/>
@@ -321,72 +248,8 @@ public:
     /// - Circles are the same.
     /// - One circle is contained in the other.
     /// </returns>
-    inline EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &circle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const
-    {
-        // More information: http://mathforum.org/library/drmath/view/51710.html
-
-        QVector2 vFirstI(vIntersection1);
-        QVector2 vSecondI(vIntersection2);
-
-        //STEP 1: Obtain V1, a unit vector that points from the first circle's center to second circle's center, and the distance between both centers.
-        QVector2 vV1 = circle.Center - this->Center;
-        float_q fDistance = vV1.GetLength();
-
-        if (SQFloat::IsNotZero(fDistance))
-        {
-            vV1 = vV1.Normalize();
-
-            //STEP 2: Obtain V2, a normal vector to V1.
-            QVector2 vV2(vV1.y, -vV1.x);
-
-            //STEP 3: Obtain the angle between V1 and V3. V3 is a vector that points from first circle's center to one of the intersection points.
-            float_q fAngle = acos_q((this->Radius * this->Radius + fDistance * fDistance - circle.Radius * circle.Radius) / (SQFloat::_2 * this->Radius * fDistance));
-
-            //STEP 4: If the equation above gives a value different of NaN, then circles intersect. Intersection points are calculated.
-            if (!SQFloat::IsNaN(fAngle))
-            {
-                vFirstI = this->Center + vV1 * (this->Radius * cos_q(fAngle)) + vV2 * (this->Radius * sin_q(fAngle));
-                vSecondI = this->Center + vV1 * (this->Radius * cos_q(fAngle)) - vV2 * (this->Radius * sin_q(fAngle));
-
-                if (SQFloat::AreEqual(vFirstI.x, vSecondI.x) && SQFloat::AreEqual(vFirstI.y, vSecondI.y))
-                {
-                    float_q fRadiusAddition = this->Radius + circle.Radius;
-
-                    if (fRadiusAddition > fDistance)
-                    {
-                        //One circle is contained into another.
-                        return EQIntersections::E_Infinite;
-                    }
-                    else
-                    {
-                        vIntersection1 = vFirstI;
-
-                        //Circles intersect in one point.
-                        return EQIntersections::E_One;
-                    }
-
-                }
-                else
-                {
-                    vIntersection1 = vFirstI;
-                    vIntersection2 = vSecondI;
-
-                    //Circles intersect in two points.
-                    return EQIntersections::E_Two;
-                }
-            }
-        }
-
-        //STEP 5: Checks if one circle is contained or not into the other (circles may even have the same center point). Otherwise, circles don't intersect.
-        if (Intersection(circle))
-        {
-            //One of the circles is contained into the other.
-            return EQIntersections::E_Infinite;
-        }
-
-        //Circles don't intersect.
-        return EQIntersections::E_None;
-    }
+    EQIntersections IntersectionPoint(const QBaseOrb<QVector2> &circle, QBaseVector2 &vIntersection1, QBaseVector2 &vIntersection2) const;
+    
 };
 
 } //namespace Math

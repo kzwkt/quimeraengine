@@ -32,6 +32,12 @@
 #include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
 #include "SQAngle.h"
+#include "QMatrix4x3.h"
+#include "QMatrix4x4.h"
+#include "SQFloat.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -50,6 +56,19 @@ namespace Math
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
+   
+QRotationMatrix3x3::QRotationMatrix3x3()
+{
+    this->ResetToIdentity();
+}
+
+QRotationMatrix3x3::QRotationMatrix3x3(const QRotationMatrix3x3 &rotation) : QMatrix3x3(rotation)
+{
+}
+
+QRotationMatrix3x3::QRotationMatrix3x3(const QBaseMatrix3x3 &rotation) : QMatrix3x3(rotation)
+{
+}
 
 QRotationMatrix3x3::QRotationMatrix3x3(const float_q &fRotationAngleX, const float_q &fRotationAngleY, const float_q &fRotationAngleZ)
 {
@@ -231,6 +250,12 @@ QTransformationMatrix<QMatrix4x3> QRotationMatrix3x3::operator*(const QTransform
     return this->ProductOperatorImp<QMatrix4x3>(matrix);
 }
 
+QRotationMatrix3x3& QRotationMatrix3x3::operator=(const QBaseMatrix3x3 &matrix)
+{
+    QBaseMatrix3x3::operator=(matrix);
+    return *this;
+}
+
 QRotationMatrix3x3& QRotationMatrix3x3::operator*=(const QRotationMatrix3x3 &matrix)
 {
     QRotationMatrix3x3 aux;
@@ -250,6 +275,11 @@ QRotationMatrix3x3& QRotationMatrix3x3::operator*=(const QRotationMatrix3x3 &mat
     *this = aux;
 
     return *this;
+}
+
+QMatrix3x3 QRotationMatrix3x3::Invert() const
+{
+    return this->Transpose();
 }
 
 void QRotationMatrix3x3::GetRotation(float_q &fRotationAngleX, float_q &fRotationAngleY, float_q &fRotationAngleZ) const
@@ -423,6 +453,22 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 float_q QRotationMatrix3x3::GetDeterminant() const
 {
 	return SQFloat::_1;
+}
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QRotationMatrix3x3& QRotationMatrix3x3::GetIdentity()
+{
+    static const QRotationMatrix3x3 IDENTITY(QMatrix3x3::GetIdentity());
+    return IDENTITY;
 }
 
 } //namespace Math

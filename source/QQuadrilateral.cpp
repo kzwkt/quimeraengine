@@ -26,7 +26,12 @@
 
 #include "QQuadrilateral.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::Math;
+#include "QLineSegment2D.h"
+#include "SQAngle.h"
+#include "SQPoint.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -39,6 +44,33 @@ namespace Math
 
 
 //##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+QQuadrilateral::QQuadrilateral()
+{
+}
+
+QQuadrilateral::QQuadrilateral(const QQuadrilateral &quad) : QBaseQuadrilateral(quad)
+{
+}
+
+QQuadrilateral::QQuadrilateral(const QBaseQuadrilateral &quad) : QBaseQuadrilateral(quad)
+{
+}
+
+QQuadrilateral::QQuadrilateral(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC, const QVector2 &vD ) :
+                                    QBaseQuadrilateral(vA, vB, vC, vD)
+{
+}
+
+
+//##################=======================================================##################
 //##################             ____________________________              ##################
 //##################            |                            |             ##################
 //##################            |            METHODS         |             ##################
@@ -46,6 +78,12 @@ namespace Math
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
+
+QQuadrilateral& QQuadrilateral::operator=(const QBaseQuadrilateral &quad)
+{
+    QBaseQuadrilateral::operator=(quad);
+    return *this;
+}
 
 bool QQuadrilateral::Contains (const QBaseVector2 &vPoint) const
 {
@@ -248,6 +286,76 @@ float_q QQuadrilateral::GetAngleD() const
         return ANGLE;
 }
 
+QQuadrilateral QQuadrilateral::Rotate(const float_q &fRotationAngle) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::Rotate(fRotationAngle, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::Translate(const QBaseVector2 &vTranslation) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::Translate(vTranslation, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::Scale(const QBaseVector2 &vScale) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::Scale(vScale, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::Scale(const float_q &fScaleX, const float_q &fScaleY) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::Transform(const QTransformationMatrix3x3 &transformation) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::Transform(transformation, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
+QQuadrilateral QQuadrilateral::TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
+{
+    QQuadrilateral auxQuadrilateral = *this;
+    SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
+    return auxQuadrilateral;
+}
+
 string_q QQuadrilateral::ToString() const
 {
     return QE_L("QL(a(") + this->A.ToString() + QE_L("),b(") +
@@ -285,6 +393,26 @@ bool QQuadrilateral::IsConcaveHere(const QVector2 &vAngleVertex, const QVector2 
         return ( ls.MinDistance(vAngleVertex) < ls.MinDistance(vOppositeVertex) );
     }
 }
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QQuadrilateral& QQuadrilateral::GetUnitSquare()
+{
+    static const QQuadrilateral UNITSQUARE(QVector2(-SQFloat::_0_5,   SQFloat::_0_5),
+                                           QVector2( SQFloat::_0_5,   SQFloat::_0_5),
+                                           QVector2( SQFloat::_0_5,  -SQFloat::_0_5),
+                                           QVector2(-SQFloat::_0_5,  -SQFloat::_0_5));
+    return UNITSQUARE;
+}
+
 
 } //namespace Math
 } //namespace Tools

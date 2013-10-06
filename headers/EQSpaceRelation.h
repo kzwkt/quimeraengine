@@ -84,7 +84,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">[IN] A valid enumeration value.</param>
-    inline EQSpaceRelation(const EQSpaceRelation::EnumType &eValue) : m_value(eValue)
+    EQSpaceRelation(const EQSpaceRelation::EnumType &eValue) : m_value(eValue)
     {
     }
 
@@ -92,7 +92,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">[IN] An integer number.</param>
-    inline EQSpaceRelation(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQSpaceRelation::EnumType))
+    EQSpaceRelation(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQSpaceRelation::EnumType))
     {
     }
 
@@ -101,7 +101,7 @@ public:
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">[IN] The name of a valid enumeration value.</param>
-    inline EQSpaceRelation(const string_q &strValueName)
+    EQSpaceRelation(const string_q &strValueName)
     {
         *this = strValueName;
     }
@@ -110,7 +110,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="eValue">[IN] Another enumeration.</param>
-    inline EQSpaceRelation(const EQSpaceRelation &eValue) : m_value(eValue.m_value)
+    EQSpaceRelation(const EQSpaceRelation &eValue) : m_value(eValue.m_value)
     {
     }
 
@@ -121,7 +121,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQSpaceRelation& operator=(const enum_int_q &nValue)
+    EQSpaceRelation& operator=(const enum_int_q &nValue)
     {
         m_value = scast_q(nValue, const EQSpaceRelation::EnumType);
         return *this;
@@ -134,7 +134,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQSpaceRelation& operator=(const string_q &strValueName)
+    EQSpaceRelation& operator=(const string_q &strValueName)
     {
         if(EQSpaceRelation::sm_mapValueName.find(strValueName) != EQSpaceRelation::sm_mapValueName.end())
             m_value = sm_mapValueName[strValueName];
@@ -151,7 +151,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQSpaceRelation& operator=(const EQSpaceRelation::EnumType &eValue)
+    EQSpaceRelation& operator=(const EQSpaceRelation::EnumType &eValue)
     {
         m_value = eValue;
         return *this;
@@ -164,7 +164,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQSpaceRelation& operator=(const EQSpaceRelation &eValue)
+    EQSpaceRelation& operator=(const EQSpaceRelation &eValue)
     {
         m_value = eValue.m_value;
         return *this;
@@ -190,7 +190,7 @@ public:
     /// <returns>
     /// True if the name corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    inline bool operator==(const string_q &strValueName) const
+    bool operator==(const string_q &strValueName) const
     {
         if(EQSpaceRelation::sm_mapValueName.find(strValueName) != EQSpaceRelation::sm_mapValueName.end())
             return m_value == sm_mapValueName[strValueName];
@@ -205,7 +205,7 @@ public:
     /// <returns>
     /// True if the number corresponds to a valid enumeration value and it equals the contained value. False otherwise.
     /// </returns>
-    inline bool operator==(const enum_int_q &nValue) const
+    bool operator==(const enum_int_q &nValue) const
     {
         return m_value == scast_q(nValue, const EQSpaceRelation::EnumType);
     }
@@ -253,7 +253,7 @@ public:
     /// <returns>
     /// The contained enumeration value.
     /// </returns>
-    inline operator EQSpaceRelation::EnumType() const
+    operator EQSpaceRelation::EnumType() const
     {
         return m_value;
     }

@@ -72,7 +72,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QRay3D()
+	QRay3D()
     {
     }
 
@@ -80,7 +80,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="ray">[IN] The 3D ray from which we want to create a copy in the resident 3D ray.</param>
-	inline QRay3D(const QRay3D<VectorType> &ray) : QRay<VectorType, QVector3>(ray)
+	QRay3D(const QRay3D<VectorType> &ray) : QRay<VectorType, QVector3>(ray)
 	{
 	}
 
@@ -88,7 +88,7 @@ public:
     /// Base type constructor.
     /// </summary>
     /// <param name="ray">[IN] The 3D ray in which we want resident 3D ray to be based.</param>
-    inline QRay3D(const QBaseRay<VectorType, QVector3> &ray) : QRay<VectorType, QVector3>(ray)
+    QRay3D(const QBaseRay<VectorType, QVector3> &ray) : QRay<VectorType, QVector3>(ray)
     {
     }
 
@@ -100,7 +100,7 @@ public:
     /// <remarks>
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
-    inline QRay3D(const VectorType &vOrigin, const QVector3 &vDirection) : QRay<VectorType, QVector3>(vOrigin, vDirection)
+    QRay3D(const VectorType &vOrigin, const QVector3 &vDirection) : QRay<VectorType, QVector3>(vOrigin, vDirection)
     {
     }
 
@@ -115,7 +115,7 @@ public:
 	/// <returns>
     /// The null ray.
     /// </returns>
-    inline static const QRay3D<VectorType>& GetRayZero()
+    static const QRay3D<VectorType>& GetRayZero()
     {
         static const QRay3D<VectorType> RAY_ZERO(VectorType::GetZeroVector(), QVector3::GetZeroVector());
         return RAY_ZERO;
@@ -127,7 +127,7 @@ public:
 	/// <returns>
     /// A ray that points to X direction.
     /// </returns>
-    inline static const QRay3D<VectorType>& GetRayX()
+    static const QRay3D<VectorType>& GetRayX()
     {
         static const QRay3D<VectorType> RAY_X(VectorType::GetZeroVector(), QVector3::GetUnitVectorX());
         return RAY_X;
@@ -139,7 +139,7 @@ public:
 	/// <returns>
     /// A ray that points to Y direction.
     /// </returns>
-    inline static const QRay3D<VectorType>& GetRayY()
+    static const QRay3D<VectorType>& GetRayY()
     {
         static const QRay3D<VectorType> RAY_Y(VectorType::GetZeroVector(), QVector3::GetUnitVectorY());
         return RAY_Y;
@@ -151,7 +151,7 @@ public:
 	/// <returns>
     /// A ray that points to Z direction.
     /// </returns>
-    inline static const QRay3D<VectorType>& GetRayZ()
+    static const QRay3D<VectorType>& GetRayZ()
     {
         static const QRay3D<VectorType> RAY_Z(VectorType::GetZeroVector(), QVector3::GetUnitVectorZ());
         return RAY_Z;
@@ -169,7 +169,7 @@ public:
     /// <returns>
     /// A reference to this ray, after assignation.
     /// </returns>
-    inline QRay3D& operator=(const QBaseRay<VectorType, QVector3> &ray)
+    QRay3D& operator=(const QBaseRay<VectorType, QVector3> &ray)
     {
         QBaseRay<VectorType, QVector3>::operator=(ray);
         return *this;
@@ -392,7 +392,7 @@ public:
     /// - The ray is parallel to the plane and is not contained in it.
     /// - The origin of the ray belongs to one side of the space divided by the plane and does not point to the other side.
 	/// </returns>
-    inline bool Intersection(const QBasePlane &plane) const
+    bool Intersection(const QBasePlane &plane) const
     {
         // The plane shouldn't be null
         QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
@@ -436,7 +436,7 @@ public:
     /// <b>False</b><br/>
     /// The ray and the triangle do not intersect.
 	/// </returns>
-    inline bool Intersection(const QBaseTriangle<VectorType> &triangle) const
+    bool Intersection(const QBaseTriangle<VectorType> &triangle) const
     {
         // Vertices of the triangle must not coincide
         QE_ASSERT( triangle.A != triangle.B && 
@@ -491,7 +491,7 @@ public:
     /// <b>False</b><br/>
     /// The ray and the hexahedron do not intersect.
 	/// </returns>
-    inline bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
+    bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         // The direction vector of the ray mustn't be null
         QE_ASSERT( !this->Direction.IsZero() );
@@ -1861,7 +1861,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType> Rotate(const QQuaternion &qRotation) const
+	QRay3D<VectorType> Rotate(const QQuaternion &qRotation) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Rotate(qRotation, &auxRay.Origin, 1);
@@ -1878,7 +1878,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
+	QRay3D<VectorType> RotateWithPivot(const QQuaternion &qRotation, const VectorType &vPivot) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::RotateWithPivot(qRotation, vPivot, &auxRay.Origin, 1);
@@ -1893,7 +1893,7 @@ public:
     /// <returns>
     /// The translated ray.
     /// </returns>
-	inline QRay3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
+	QRay3D<VectorType> Translate(const QBaseVector3 &vTranslation) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(vTranslation, &auxRay.Origin, 1);
@@ -1909,7 +1909,7 @@ public:
     /// <returns>
     /// The translated ray.
     /// </returns>
-	inline QRay3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
+	QRay3D<VectorType> Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, &auxRay.Origin, 1);
@@ -1927,7 +1927,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType> Scale(const QBaseVector3 &vScale) const
+	QRay3D<VectorType> Scale(const QBaseVector3 &vScale) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Scale(vScale, &auxRay.Origin, 1);
@@ -1948,7 +1948,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType> Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ) const
+	QRay3D<VectorType> Scale(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Scale(vScaleX, vScaleY, vScaleZ, &auxRay.Origin, 1);
@@ -1969,7 +1969,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
+	QRay3D<VectorType> ScaleWithPivot(const QBaseVector3 &vScale, const VectorType &vPivot) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::ScaleWithPivot(vScale, vPivot, &auxRay.Origin, 1);
@@ -1992,7 +1992,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType> ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot) const
+	QRay3D<VectorType> ScaleWithPivot(const float_q &vScaleX, const float_q &vScaleY, const float_q &vScaleZ, const VectorType &vPivot) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::ScaleWithPivot(vScaleX, vScaleY, vScaleZ, vPivot, &auxRay.Origin, 1);
@@ -2008,7 +2008,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
+	QRay3D<VectorType> Rotate(const QRotationMatrix3x3 &rotation) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Rotate(rotation, &auxRay.Origin, 1);
@@ -2023,7 +2023,7 @@ public:
     /// <returns>
     /// The translated ray.
     /// </returns>
-	inline QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
+	QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x3> &translation) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(translation, &auxRay.Origin, 1);
@@ -2037,7 +2037,7 @@ public:
     /// <returns>
     /// The translated ray.
     /// </returns>
-	inline QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
+	QRay3D<VectorType> Translate(const QTranslationMatrix<QMatrix4x4> &translation) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Translate(translation, &auxRay.Origin, 1);
@@ -2055,7 +2055,7 @@ public:
     /// <returns>
     /// The scaled ray.
     /// </returns>
-	inline QRay3D<VectorType> Scale(const QScalingMatrix3x3 &scale) const
+	QRay3D<VectorType> Scale(const QScalingMatrix3x3 &scale) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Scale(scale, &auxRay.Origin, 1);
@@ -2074,7 +2074,7 @@ public:
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
+	QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x3> &transformation) const
     {
         return this->TransformImp(transformation);
 	}
@@ -2090,7 +2090,7 @@ public:
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
+	QRay3D<VectorType> Transform(const QTransformationMatrix<QMatrix4x4> &transformation) const
     {
         return this->TransformImp(transformation);
 	}
@@ -2105,7 +2105,7 @@ public:
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
+	QRay3D<VectorType> Transform(const QSpaceConversionMatrix &spaceConversion) const
 	{
         return QRay3D<VectorType>(this->Origin.Transform(spaceConversion), 
                                   this->Direction.Transform(spaceConversion));
@@ -2120,7 +2120,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
+	QRay3D<VectorType> RotateWithPivot(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::RotateWithPivot(rotation, vPivot, &auxRay.Origin, 1);
@@ -2141,7 +2141,7 @@ public:
     /// <returns>
     /// The rotated ray.
     /// </returns>
-	inline QRay3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
+	QRay3D<VectorType> ScaleWithPivot(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::ScaleWithPivot(scale, vPivot, &auxRay.Origin, 1);
@@ -2163,7 +2163,7 @@ public:
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
+	QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const VectorType &vPivot) const
     {
         return this->TransformWithPivotImp(transformation, vPivot);
 	}
@@ -2182,7 +2182,7 @@ public:
     /// <returns>
     /// The transformed ray.
     /// </returns>
-	inline QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
+	QRay3D<VectorType> TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const VectorType &vPivot) const
     {
         return this->TransformWithPivotImp(transformation, vPivot);
 	}
@@ -2190,7 +2190,7 @@ public:
 protected:
 
     // Checks if resident ray contains a given point. Ray must be normalized to works fine.
-    inline bool Contains(const VectorType &vPoint) const
+    bool Contains(const VectorType &vPoint) const
     {
         if (vPoint == this->Origin) // The point is the ray position.
             return true;
@@ -2210,7 +2210,7 @@ protected:
 
     // Calculates if a point is inside the triangle provided applying barycentric technique.
     template <class VectorTypeParam>
-    inline bool PointInsideTriangle(const QBaseTriangle<VectorTypeParam> &triangle, const VectorTypeParam &vPoint) const
+    bool PointInsideTriangle(const QBaseTriangle<VectorTypeParam> &triangle, const VectorTypeParam &vPoint) const
     {
         // Compute vectors
         const VectorTypeParam &V0(triangle.C - triangle.A);
@@ -2300,7 +2300,7 @@ protected:
     }
 
     // Checks if resident ray intersects with a quadrilateral given by its four vertices
-    inline bool Intersection(const VectorType &vVertexA, const VectorType &vVertexB, const VectorType &vVertexC, const VectorType &vVertexD) const
+    bool Intersection(const VectorType &vVertexA, const VectorType &vVertexB, const VectorType &vVertexC, const VectorType &vVertexD) const
     {
         // Plane that contains quadrilateral
         QPlane auxP(vVertexA, vVertexB, vVertexC);
@@ -2712,7 +2712,7 @@ protected:
     // The transformed ray.
     // </returns>
 	template <class MatrixType>
-	inline QRay3D<VectorType> TransformImp(const MatrixType &transformation) const
+	QRay3D<VectorType> TransformImp(const MatrixType &transformation) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::Transform(transformation, &auxRay.Origin, 1);
@@ -2739,7 +2739,7 @@ protected:
     // The transformed ray.
     // </returns>
 	template <class MatrixType>
-	inline QRay3D<VectorType> TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const
+	QRay3D<VectorType> TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const
 	{
         QRay3D<VectorType> auxRay = *this;
         SQPoint::TransformWithPivot(transformation, vPivot, &auxRay.Origin, 1);

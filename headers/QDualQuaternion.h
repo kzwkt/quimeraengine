@@ -29,9 +29,9 @@
 
 #include "QBaseDualQuaternion.h"
 
+#include "SQFloat.h"
+
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
 
 namespace Kinesis
@@ -87,34 +87,26 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QDualQuaternion()
-    {
-    }
+    QDualQuaternion();
 
     /// <summary>
     /// Copy constructor.
     /// </summary>
     /// <param name="dualQuat">[IN] The dual quaternion from which we want to create a copy in the resident dual quaternion.</param>
-    inline QDualQuaternion(const QDualQuaternion &dualQuat) : QBaseDualQuaternion(dualQuat)
-    {
-    }
+    QDualQuaternion(const QDualQuaternion &dualQuat);
 
     /// <summary>
     /// Base type constructor.
     /// </summary>
     /// <param name="dualQuat">[IN] The dual quaternion from which we want to create a copy in the resident dual quaternion.</param>
-    inline QDualQuaternion(const QBaseDualQuaternion &dualQuat) : QBaseDualQuaternion(dualQuat)
-    {
-    }
+    QDualQuaternion(const QBaseDualQuaternion &dualQuat);
 
     /// <summary>
     /// Constructor from two regular quaternions.
     /// </summary>
     /// <param name="qReal">[IN] Regular quaternion to define non-dual part.</param>
     /// <param name="qDual">[IN] Regular quaternion to define dual part.</param>
-    inline QDualQuaternion(const QBaseQuaternion &qReal, const QBaseQuaternion &qDual) : QBaseDualQuaternion(qReal, qDual)
-    {
-    }
+    QDualQuaternion(const QBaseQuaternion &qReal, const QBaseQuaternion &qDual);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -139,10 +131,7 @@ public:
     /// </remarks>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
-    QDualQuaternion(const QBaseQuaternion &qRotation, const QBaseVector3 &vTranslation)
-    {
-        QDualQuaternionImp(qRotation, vTranslation);
-    }
+    QDualQuaternion(const QBaseQuaternion &qRotation, const QBaseVector3 &vTranslation);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -168,10 +157,7 @@ public:
     /// </remarks>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
-    QDualQuaternion(const QBaseQuaternion &qRotation, const QBaseVector4 &vTranslation)
-    {
-        QDualQuaternionImp(qRotation, vTranslation);
-    }
+    QDualQuaternion(const QBaseQuaternion &qRotation, const QBaseVector4 &vTranslation);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -197,10 +183,7 @@ public:
     /// </remarks>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
-    QDualQuaternion(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation)
-    {
-        QDualQuaternionImp(vTranslation, qRotation);
-    }
+    QDualQuaternion(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -226,25 +209,16 @@ public:
     /// </remarks>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
-    QDualQuaternion(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation)
-    {
-        QDualQuaternionImp(vTranslation, qRotation);
-    }
+    QDualQuaternion(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation);
 
     /// <summary>
     /// Constructor from two four components arrays of floating point values, one for each quaternion component.
     /// </summary>
-    /// <param name="arValuesReal">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
+    /// <param name="arValuesReal">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior
     /// is undefined.</param>
-    /// <param name="arValuesDual">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior  
+    /// <param name="arValuesDual">[IN] Array of floating point values. It must have at least four elements. If the pointer is null, the behavior
     /// is undefined.</param>
-    inline QDualQuaternion(const float_q *arValuesReal, const float_q *arValuesDual)
-    {
-        QE_ASSERT(arValuesReal != null_q && arValuesDual != null_q)
-
-        this->r = QQuaternion(arValuesReal[0], arValuesReal[1], arValuesReal[2], arValuesReal[3]);
-        this->d = QQuaternion(arValuesDual[0], arValuesDual[1], arValuesDual[2], arValuesDual[3]);
-    }
+    QDualQuaternion(const float_q *arValuesReal, const float_q *arValuesDual);
 
 protected:
 
@@ -309,12 +283,7 @@ public:
     /// <returns>
     /// The identity dual quaternion.
     /// </returns>
-    inline static const QDualQuaternion& GetIdentity()
-    {
-        static const QDualQuaternion IDENTITY(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
-                                              QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
-        return IDENTITY;
-    }
+    static const QDualQuaternion& GetIdentity();
 
 
 	// METHODS
@@ -367,7 +336,7 @@ public:
     /// Product by a vector (multiplying to the dual quaternion by the right).
     /// </summary>
     /// <remarks>
-    /// The vector is transformed into a dual quaternion, then is multiplied by the resident dual quaternion 
+    /// The vector is transformed into a dual quaternion, then is multiplied by the resident dual quaternion
     /// by the left and transformed back to a vector.<br/>
     /// If vector is \f$ \vec{v}=(x, y, z)\f$, it's transformed into \f$ \hat{Q}=(0, 0, 0, 1)(x, y, z, 0)\f$.
     /// </remarks>
@@ -408,13 +377,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    inline QDualQuaternion& operator+=(const QBaseDualQuaternion &dualQuat)
-    {
-        this->r += dualQuat.r;
-        this->d += dualQuat.d;
-
-        return *this;
-    }
+    QDualQuaternion& operator+=(const QBaseDualQuaternion &dualQuat);
 
     /// <summary>
     /// Subtract and assign operator. Each input quaternion component is subtracted to the corresponding quaternion
@@ -424,13 +387,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    inline QDualQuaternion& operator-=(const QBaseDualQuaternion &dualQuat)
-    {
-        this->r -= dualQuat.r;
-        this->d -= dualQuat.d;
-
-        return *this;
-    }
+    QDualQuaternion& operator-=(const QBaseDualQuaternion &dualQuat);
 
     /// <summary>
     /// Multiply and assign operator. The resident dual quaternion is multiplied by the input one.
@@ -446,15 +403,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    inline QDualQuaternion& operator*=(const QBaseDualQuaternion &dualQuat)
-    {
-        QDualQuaternion aux(*this);
-
-        this->r = aux.r * dualQuat.r;
-        this->d = aux.r * dualQuat.d + aux.d * dualQuat.r;
-
-        return *this;
-    }
+    QDualQuaternion& operator*=(const QBaseDualQuaternion &dualQuat);
 
     /// <summary>
     /// Multiply by a floating point value and assign operator. Each dual quaternion component is
@@ -464,13 +413,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    inline QDualQuaternion& operator*=(const float_q fScalar)
-    {
-        this->r *= fScalar;
-        this->d *= fScalar;
-
-        return *this;
-    }
+    QDualQuaternion& operator*=(const float_q fScalar);
 
     /// <summary>
     /// Divide and assign operator. Each dual quaternion component is divided by the input floating point value.
@@ -479,18 +422,7 @@ public:
     /// <returns>
     /// The modified dual quaternion.
     /// </returns>
-    inline QDualQuaternion& operator/=(const float_q &fScalar)
-    {
-        // Checkout to avoid division by zero.
-        QE_ASSERT(fScalar != SQFloat::_0)
-
-        const float_q &DIVISOR = SQFloat::_1/fScalar;
-
-        this->r *= DIVISOR;
-        this->d *= DIVISOR;
-
-        return *this;
-    }
+    QDualQuaternion& operator/=(const float_q &fScalar);
 
     /// <summary>
     /// Assign operator. Assigns the provided dual quaternion to the resident dual quaternion.
@@ -499,30 +431,18 @@ public:
     /// <returns>
     /// A reference to the modified dual quaternion.
     /// </returns>
-    inline QDualQuaternion& operator=(const QBaseDualQuaternion &dualQuat)
-    {
-        QBaseDualQuaternion::operator=(dualQuat);
-        return *this;
-    }
+    QDualQuaternion& operator=(const QBaseDualQuaternion &dualQuat);
 
     /// <summary>
     /// Resets to zero all components of both quaternions of the dual quaternion.
     /// </summary>
-    inline void ResetToZero()
-    {
-        this->r.ResetToZero();
-        this->d.ResetToZero();
-    }
+    void ResetToZero();
 
     /// <summary>
     /// Resets to identity the dual quaternion. This implies that de non-dual component is reset to identity
     /// and de dual component is reset to zero.
     /// </summary>
-    inline void ResetToIdentity()
-    {
-        this->r.ResetToIdentity();
-        this->d.ResetToZero();
-    }
+    void ResetToIdentity();
 
     /// <summary>
     /// Calculates the SINGLE dual quaternion's conjugate. It's calculated this way:
@@ -532,10 +452,7 @@ public:
     /// <returns>
     /// The single dual quaternion conjugate.
     /// </returns>
-    inline QDualQuaternion Conjugate() const
-    {
-        return QDualQuaternion(r.Conjugate(), d.Conjugate());
-    }
+    QDualQuaternion Conjugate() const;
 
     /// <summary>
     /// Calculates the DOUBLE dual quaternion's conjugate. It's calculated this way:
@@ -545,10 +462,7 @@ public:
     /// <returns>
     /// The double dual quaternion conjugate.
     /// </returns>
-    inline QDualQuaternion DoubleConjugate() const
-    {
-        return QDualQuaternion(r.Conjugate(), d.Conjugate() * -SQFloat::_1);
-    }
+    QDualQuaternion DoubleConjugate() const;
 
     /// <summary>
     /// Calculates the length of the non-dual part of the resident dual quaternion. It is used to normalize
@@ -557,10 +471,7 @@ public:
     /// <returns>
     /// A floating point value that is the length of the non-dual part of the dual quaternion.
     /// </returns>
-    inline float_q GetNonDualLength() const
-    {
-        return this->r.GetLength();
-    }
+    float_q GetNonDualLength() const;
 
     /// <summary>
     /// Applies a transformation to the resident dual quaternion.
@@ -589,10 +500,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    QDualQuaternion TransformRotationFirst(const QBaseQuaternion &qRotation, const QBaseVector3 &vTranslation) const
-    {
-        return this->TransformRotationFirstImp(qRotation, vTranslation);
-    }
+    QDualQuaternion TransformRotationFirst(const QBaseQuaternion &qRotation, const QBaseVector3 &vTranslation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
@@ -602,10 +510,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    QDualQuaternion TransformRotationFirst(const QBaseQuaternion &qRotation, const QBaseVector4 &vTranslation) const
-    {
-        return this->TransformRotationFirstImp(qRotation, vTranslation);
-    }
+    QDualQuaternion TransformRotationFirst(const QBaseQuaternion &qRotation, const QBaseVector4 &vTranslation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
@@ -615,10 +520,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    QDualQuaternion TransformTranslationFirst(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation) const
-    {
-        return this->TransformTranslationFirstImp(vTranslation, qRotation);
-    }
+    QDualQuaternion TransformTranslationFirst(const QBaseVector3 &vTranslation, const QBaseQuaternion &qRotation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
@@ -628,10 +530,7 @@ public:
     /// <returns>
     /// The transformed dual quaternion.
     /// </returns>
-    QDualQuaternion TransformTranslationFirst(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation) const
-    {
-        return this->TransformTranslationFirstImp(vTranslation, qRotation);
-    }
+    QDualQuaternion TransformTranslationFirst(const QBaseVector4 &vTranslation, const QBaseQuaternion &qRotation) const;
 
     /// <summary>
     /// Returns a dual quaternion, assuming current one is a transformation, which is a linear interpolation
@@ -656,15 +555,7 @@ public:
     /// <returns>
     /// The "lerped" dual quaternion.
     /// </returns>
-    inline QDualQuaternion Lerp(const float_q &fProportion, const QDualQuaternion &dualQuat) const
-    {
-        QDualQuaternion auxDualQuat = (SQFloat::_1 - fProportion) * (*this) + fProportion * dualQuat;
-        float_q fLength = auxDualQuat.GetNonDualLength();
-
-        QE_ASSERT(fLength != SQFloat::_0)
-
-        return auxDualQuat / fLength;
-    }
+    QDualQuaternion Lerp(const float_q &fProportion, const QDualQuaternion &dualQuat) const;
 
     /// <summary>
     /// Converts dual quaternion into a string with the following format:<br/>
@@ -696,6 +587,7 @@ protected:
         return this->Transform(translation * rotation);
     }
 
+
     // <summary>
     // Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
     // </summary>
@@ -713,6 +605,7 @@ protected:
 
         return this->Transform(rotation * translation);
     }
+
 };
 
 } //namespace Math

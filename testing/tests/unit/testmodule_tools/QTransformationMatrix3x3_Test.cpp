@@ -31,7 +31,10 @@ using namespace boost::unit_test;
 #include "../../testsystem/TestingExternalDefinitions.h"
 
 #include "QTransformationMatrix3x3.h"
+
 #include "QVector2.h"
+#include "SQFloat.h"
+#include "SQAngle.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;

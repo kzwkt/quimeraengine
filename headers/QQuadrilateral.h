@@ -28,11 +28,9 @@
 #define __QQUADRILATERAL__
 
 #include "QBaseQuadrilateral.h"
-#include "QLineSegment2D.h"
-#include "QVector2.h"
-#include "SQAngle.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+#include "QVector2.h"
+
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 
@@ -45,6 +43,9 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+class QLineSegment2D;
 
 /// <summary>
 /// Class which represents a quadrilateral in 2D space. Methods in this class are related to transformations in 2D.<br/>
@@ -60,25 +61,19 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QQuadrilateral()
-    {
-    }
+    QQuadrilateral();
 
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="quad">[IN] The quadrilateral from which we want to create a copy in the resident quadrilateral.</param>
-	inline QQuadrilateral(const QQuadrilateral &quad) : QBaseQuadrilateral(quad)
-    {
-    }
+	QQuadrilateral(const QQuadrilateral &quad);
 
 	/// <summary>
 	/// Base type constructor.
 	/// </summary>
 	/// <param name="quad">[IN] The quadrilateral in which we want resident quadrilateral to be based.</param>
-	inline QQuadrilateral(const QBaseQuadrilateral &quad) : QBaseQuadrilateral(quad)
-    {
-    }
+	QQuadrilateral(const QBaseQuadrilateral &quad);
 
     /// <summary>
     /// Constructor from four 2D vectors.
@@ -90,10 +85,7 @@ public:
     /// <param name="vB">[IN] The 2D vector which defines B vertex.</param>
     /// <param name="vC">[IN] The 2D vector which defines C vertex.</param>
     /// <param name="vD">[IN] The 2D vector which defines D vertex.</param>
-    inline QQuadrilateral(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC, const QVector2 &vD ) :
-                              QBaseQuadrilateral(vA, vB, vC, vD)
-    {
-    }
+    QQuadrilateral(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC, const QVector2 &vD);
 
 
     // PROPERTIES
@@ -106,21 +98,12 @@ public:
     /// <returns>
     /// The "unit square".
     /// </returns>
-    inline static const QQuadrilateral& GetUnitSquare()
-    {
-        static const QQuadrilateral UNITSQUARE(QVector2(-SQFloat::_0_5,   SQFloat::_0_5),
-                                               QVector2( SQFloat::_0_5,   SQFloat::_0_5),
-                                               QVector2( SQFloat::_0_5,  -SQFloat::_0_5),
-                                               QVector2(-SQFloat::_0_5,  -SQFloat::_0_5));
-        return UNITSQUARE;
-    }
+    static const QQuadrilateral& GetUnitSquare();
 
 
     // METHODS
     // ---------------
 public:
-
-    //Unary operators
 
     /// <summary>
     /// Assign operator. Assigns the provided quadrilateral to the resident quadrilateral.
@@ -129,13 +112,7 @@ public:
     /// <returns>
     /// A reference to the modified quadrilateral.
     /// </returns>
-    inline QQuadrilateral& operator=(const QBaseQuadrilateral &quad)
-    {
-        QBaseQuadrilateral::operator=(quad);
-        return *this;
-    }
-
-    //Methods
+    QQuadrilateral& operator=(const QBaseQuadrilateral &quad);
 
     /// <summary>
     /// Checks if a given point is inside quadrilateral or not.
@@ -262,12 +239,7 @@ public:
     /// <returns>
     /// The rotated quadrilateral.
     /// </returns>
-	inline QQuadrilateral Rotate(const float_q &fRotationAngle) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Rotate(fRotationAngle, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral Rotate(const float_q &fRotationAngle) const;
 
 	/// <summary>
 	/// This method performs a translation of the resident quadrilateral given by the provided vector.
@@ -276,12 +248,7 @@ public:
     /// <returns>
     /// The translated quadrilateral.
     /// </returns>
-    inline QQuadrilateral Translate(const QBaseVector2 &vTranslation) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Translate(vTranslation, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+    QQuadrilateral Translate(const QBaseVector2 &vTranslation) const;
 
 	/// <summary>
 	/// This method performs a translation of the resident quadrilateral given by the provided amounts for every axis.
@@ -291,12 +258,7 @@ public:
     /// <returns>
     /// The translated quadrilateral.
     /// </returns>
-	inline QQuadrilateral Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral Translate(const float_q &fTranslationX, const float_q &fTranslationY) const;
 
 	/// <summary>
 	/// This method scales the resident quadrilateral by the scale contained in the provided vector.
@@ -305,12 +267,7 @@ public:
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-	inline QQuadrilateral Scale(const QBaseVector2 &vScale) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Scale(vScale, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral Scale(const QBaseVector2 &vScale) const;
 
 	/// <summary>
 	/// This method scales the resident quadrilateral by the provided amounts for every axis.
@@ -320,12 +277,7 @@ public:
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-	inline QQuadrilateral Scale(const float_q &fScaleX, const float_q &fScaleY) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral Scale(const float_q &fScaleX, const float_q &fScaleY) const;
 
 	/// <summary>
 	/// Receives a transformation matrix and applies the transformations to the resident quadrilateral.<br/>
@@ -335,12 +287,7 @@ public:
     /// <returns>
     /// The transformed quadrilateral.
     /// </returns>
-	inline QQuadrilateral Transform(const QTransformationMatrix3x3 &transformation) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::Transform(transformation, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral Transform(const QTransformationMatrix3x3 &transformation) const;
 
 	/// <summary>
 	/// This method transforms the 2D quadrilateral by rotating an amount defined by a rotation angle
@@ -351,12 +298,7 @@ public:
     /// <returns>
     /// The rotated quadrilateral.
     /// </returns>
-	inline QQuadrilateral RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const;
 
 	/// <summary>
 	/// This method scales the resident quadrilateral by the scale contained in the provided vector,
@@ -367,12 +309,7 @@ public:
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-	inline QQuadrilateral ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const;
 
 	/// <summary>
 	/// This method scales the resident quadrilateral by the provided amounts for every axis,
@@ -384,12 +321,7 @@ public:
     /// <returns>
     /// The scaled quadrilateral.
     /// </returns>
-	inline QQuadrilateral ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const;
 
 	/// <summary>
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
@@ -401,12 +333,7 @@ public:
     /// <returns>
     /// The transformed quadrilateral.
     /// </returns>
-	inline QQuadrilateral TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
-	{
-        QQuadrilateral auxQuadrilateral = *this;
-        SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxQuadrilateral, QVector2*), 4);
-        return auxQuadrilateral;
-	}
+	QQuadrilateral TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
 
     /// <summary>
     /// Converts quadrilateral into a string with the following format:<br/>

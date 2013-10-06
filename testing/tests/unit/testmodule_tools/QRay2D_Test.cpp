@@ -34,13 +34,19 @@ using namespace boost::unit_test;
 
 #include "QRay2D.h"
 
+#include "QBaseQuadrilateral.h"
+#include "QBaseTriangle.h"
+#include "QTransformationMatrix3x3.h"
+#include "QBaseLineSegment.h"
+#include "SQAngle.h"
+
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QRay2D;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 
-QTEST_SUITE_BEGIN( QRay2D_TestSuite )
 
+QTEST_SUITE_BEGIN( QRay2D_TestSuite )
 
 /// <summary>
 /// Checks if default values have not changed.

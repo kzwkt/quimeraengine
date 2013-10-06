@@ -27,10 +27,8 @@
 #ifndef __QBASEDUALQUATERNION__
 #define __QBASEDUALQUATERNION__
 
-#include "SQFloat.h"
 #include "QQuaternion.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 
 
@@ -67,35 +65,21 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-    inline QBaseDualQuaternion() : r(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0)),
-                                   d(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0))
-    {
-    }
+    QBaseDualQuaternion();
 
     /// <summary>
 	/// Copy constructor. Copies attributes from given dual quaternion.
 	/// </summary>
 	/// <param name="dualQuat">[IN] The dual quaternion from which we want to create a copy in the resident dual quaternion.</param>
-	inline QBaseDualQuaternion(const QBaseDualQuaternion &dualQuat)
-	{
-	    this->r.x = dualQuat.r.x;
-	    this->d.x = dualQuat.d.x;
-	    this->r.y = dualQuat.r.y;
-	    this->d.y = dualQuat.d.y;
-	    this->r.z = dualQuat.r.z;
-	    this->d.z = dualQuat.d.z;
-	    this->r.w = dualQuat.r.w;
-        this->d.w = dualQuat.d.w;
-    }
+	QBaseDualQuaternion(const QBaseDualQuaternion &dualQuat);
 
     /// <summary>
     /// Constructor from two quaternions, one to initialize the non-dual part and another to do it with the dual part.
     /// </summary>
     /// <param name="qReal">[IN] Quaternion which is the non-dual part of the dual quaternion.</param>
     /// <param name="qDual">[IN] Quaternion which is the dual part of the dual quaternion.</param>
-    inline QBaseDualQuaternion(const QBaseQuaternion &qReal, const QBaseQuaternion &qDual) : r(qReal), d(qDual)
-    {
-    }
+    QBaseDualQuaternion(const QBaseQuaternion &qReal, const QBaseQuaternion &qDual);
+
 
 	// METHODS
 	// ---------------
@@ -108,10 +92,7 @@ public:
     /// <returns>
     /// If dual quaternions are equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator==(const QBaseDualQuaternion &dualQuat) const
-    {
-        return this->r == dualQuat.r && this->d == dualQuat.d;
-    }
+    bool operator==(const QBaseDualQuaternion &dualQuat) const;
 
     /// <summary>
     /// Inequality operator. Compares two dual quaternions component by component.
@@ -120,10 +101,8 @@ public:
     /// <returns>
     /// If dual quaternions are not equals, then it returns true. Otherwise, it returns false.
     /// </returns>
-    inline bool operator!=(const QBaseDualQuaternion &dualQuat) const
-    {
-        return !(*this == dualQuat);
-    }
+    bool operator!=(const QBaseDualQuaternion &dualQuat) const;
+
 
 	// ATTRIBUTES
 	// ---------------
@@ -138,7 +117,6 @@ public:
     /// Dual part of the dual quaternion. Generally it represents the traslation applied (modified by the rotation).
     /// </summary>
     QQuaternion d;
-
 
 };
 

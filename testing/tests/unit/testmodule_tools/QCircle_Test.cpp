@@ -33,7 +33,10 @@ using namespace boost::unit_test;
 #include "ToolsExports.h"
 
 #include "QCircle.h"
+
 #include "QTransformationMatrix3x3.h"
+#include "SQPoint.h"
+#include "SQAngle.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;

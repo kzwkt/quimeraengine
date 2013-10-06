@@ -27,17 +27,14 @@
 #ifndef __SQPOINT__
 #define __SQPOINT__
 
-#include "SQFloat.h"
-#include "SQAngle.h"
-#include "QVector2.h"
-#include "QVector3.h"
-#include "QVector4.h"
-#include "QTransformationMatrix.h"
-#include "QTranslationMatrix.h"
-#include "QSpaceConversionMatrix.h"
+#include "QBaseVector3.h"
 #include "QQuaternion.h"
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
+#include "QSpaceConversionMatrix.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+
 
 namespace Kinesis
 {
@@ -47,6 +44,20 @@ namespace Tools
 {
 namespace Math
 {
+
+// Forward declarations
+// ---------------------
+class QBaseVector2;
+class QBaseVector4;
+class QVector2;
+class QVector3;
+class QVector4;
+class QMatrix4x3;
+class QMatrix4x4;
+template<class MatrixType> class QTransformationMatrix;
+template<class MatrixType> class QTranslationMatrix;
+class QTransformationMatrix3x3;
+
 
 /// <summary>
 /// Helper class that will be used to perform transformations related to arrays of points (2D, 3D or 4D).
@@ -58,7 +69,8 @@ class QDllExport SQPoint
 	// ---------------
 private:
 
-	inline SQPoint() { }
+	SQPoint() { }
+
 
 	// METHODS
 	// ---------------
@@ -73,16 +85,7 @@ public:
     /// <param name="vTranslation">[IN] 2D Vector type that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const QBaseVector2 &vTranslation, QVector2* arPoints, const unsigned int& uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] += vTranslation;
-        }
-	}
+	static void Translate(const QBaseVector2 &vTranslation, QVector2* arPoints, const unsigned int& uElements);
 
 	/// <summary>
 	/// Translates 2D points.<br/>
@@ -92,17 +95,7 @@ public:
     /// <param name="fTranslationY">[IN] Floating point value that contains the translation to be applied on Y component.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i].x += fTranslationX;
-            arPoints[i].y += fTranslationY;
-        }
-	}
+	static void Translate(const float_q &fTranslationX, const float_q &fTranslationY, QVector2* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 2D points.<br/>
@@ -111,16 +104,7 @@ public:
     /// <param name="fRotationAngle">[IN] Floating point value that contains the angle that we will use to rotate the points.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	static void Rotate(const float_q &fRotationAngle, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] = arPoints[i].Transform(fRotationAngle);
-        }
-	}
+	static void Rotate(const float_q &fRotationAngle, QVector2* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Scales 2D points.<br/>
@@ -129,16 +113,7 @@ public:
     /// <param name="vScale">[IN] 2D Vector type that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const QBaseVector2 &vScale, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] *= vScale;
-        }
-	}
+	static void Scale(const QBaseVector2 &vScale, QVector2* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Scales 2D points.<br/>
@@ -148,17 +123,7 @@ public:
     /// <param name="fScaleY">[IN] Floating point value that contains the scale to be applied on Y component.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const float_q &fScaleX, const float_q &fScaleY, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i].x *= fScaleX;
-            arPoints[i].y *= fScaleY;
-        }
-	}
+	static void Scale(const float_q &fScaleX, const float_q &fScaleY, QVector2* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Transforms 2D points using a transformation matrix.<br/>
@@ -167,16 +132,7 @@ public:
     /// <param name="transformation">[IN] Transformation matrix that will be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Transform(const QTransformationMatrix3x3 &transformation, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] = arPoints[i].Transform(transformation);
-        }
-	}
+	static void Transform(const QTransformationMatrix3x3 &transformation, QVector2* arPoints, const unsigned int &uElements);
 
 	// 3D TRANSFORMATIONS
 
@@ -187,16 +143,7 @@ public:
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const QBaseVector3 &vTranslation, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Translate(vTranslation, arPoints[i]);
-        }
-	}
+	static void Translate(const QBaseVector3 &vTranslation, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Translates 4D points.<br/>
@@ -205,16 +152,7 @@ public:
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const QBaseVector3 &vTranslation, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Translate(vTranslation, arPoints[i]);
-        }
-	}
+	static void Translate(const QBaseVector3 &vTranslation, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Translates 3D points.<br/>
@@ -225,16 +163,7 @@ public:
     /// <param name="fTranslationZ">[IN] Scalar value that contains the translation to be applied on Z component.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, arPoints[i]);
-        }
-	}
+	static void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Translates 4D points.<br/>
@@ -245,16 +174,7 @@ public:
     /// <param name="fTranslationZ">[IN] Scalar value that contains the translation to be applied on Z component.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Translate(fTranslationX, fTranslationY, fTranslationZ, arPoints[i]);
-        }
-	}
+	static void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Translates 3D points.<br/>
@@ -263,16 +183,7 @@ public:
     /// <param name="translation">[IN] 4x3 matrix that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const QTranslationMatrix<QMatrix4x3> &translation, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Translate(translation, arPoints[i]);
-        }
-	}
+	static void Translate(const QTranslationMatrix<QMatrix4x3> &translation, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Translates 3D points.<br/>
@@ -281,16 +192,7 @@ public:
     /// <param name="translation">[IN] 4x4 matrix that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const QTranslationMatrix<QMatrix4x4> &translation, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Translate(translation, arPoints[i]);
-        }
-	}
+	static void Translate(const QTranslationMatrix<QMatrix4x4> &translation, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Translates 4D points.<br/>
@@ -299,16 +201,7 @@ public:
     /// <param name="translation">[IN] 4x3 matrix that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const QTranslationMatrix<QMatrix4x3> &translation, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Translate(translation, arPoints[i]);
-        }
-	}
+	static void Translate(const QTranslationMatrix<QMatrix4x3> &translation, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Translates 4D points.<br/>
@@ -317,16 +210,7 @@ public:
     /// <param name="translation">[IN] 4x4 matrix that contains the translation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be translated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Translate(const QTranslationMatrix<QMatrix4x4> &translation, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Translate(translation, arPoints[i]);
-        }
-	}
+	static void Translate(const QTranslationMatrix<QMatrix4x4> &translation, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 3D points.<br/>
@@ -335,16 +219,7 @@ public:
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Rotate(const QQuaternion &qRotation, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-	    {
-	        SQPoint::Rotate(qRotation, arPoints[i]);
-	    }
-	}
+	static void Rotate(const QQuaternion &qRotation, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 4D points.<br/>
@@ -353,16 +228,7 @@ public:
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Rotate(const QQuaternion &qRotation, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-	    {
-	        SQPoint::Rotate(qRotation, arPoints[i]);
-	    }
-	}
+	static void Rotate(const QQuaternion &qRotation, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 3D points.<br/>
@@ -371,16 +237,7 @@ public:
     /// <param name="rotation">[IN] Rotation matrix that contains the rotation to be done.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Rotate(const QRotationMatrix3x3 &rotation, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-	    {
-	        SQPoint::Rotate(rotation, arPoints[i]);
-	    }
-	}
+	static void Rotate(const QRotationMatrix3x3 &rotation, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 4D points.<br/>
@@ -389,16 +246,7 @@ public:
     /// <param name="rotation">[IN] Rotation matrix that contains the rotation to be done.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Rotate(const QRotationMatrix3x3 &rotation, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-	    {
-	        SQPoint::Rotate(rotation, arPoints[i]);
-	    }
-	}
+	static void Rotate(const QRotationMatrix3x3 &rotation, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Scales 3D points.<br/>
@@ -407,16 +255,7 @@ public:
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const QBaseVector3 &vScale, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Scale(vScale, arPoints[i]);
-        }
-	}
+	static void Scale(const QBaseVector3 &vScale, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Scales 4D points.<br/>
@@ -425,16 +264,7 @@ public:
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const QBaseVector3 &vScale, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Scale(vScale, arPoints[i]);
-        }
-	}
+	static void Scale(const QBaseVector3 &vScale, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Scales 3D points.<br/>
@@ -445,16 +275,7 @@ public:
     /// <param name="fScaleZ">[IN] Floating point value that contains the scale to be applied on Z component.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
-        }
-	}
+	static void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Scales 4D points.<br/>
@@ -465,16 +286,7 @@ public:
     /// <param name="fScaleZ">[IN] Floating point value that contains the scale to be applied on Z component.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
-        }
-	}
+	static void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Scales 3D points.<br/>
@@ -483,16 +295,7 @@ public:
     /// <param name="scale">[IN] Scale matrix that contains the scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const QScalingMatrix3x3 &scale, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Scale(scale, arPoints[i]);
-        }
-	}
+	static void Scale(const QScalingMatrix3x3 &scale, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Scales 4D points.<br/>
@@ -501,16 +304,7 @@ public:
     /// <param name="scale">[IN] Scale matrix that contains the Scale to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Scale(const QScalingMatrix3x3 &scale, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Scale(scale, arPoints[i]);
-        }
-	}
+	static void Scale(const QScalingMatrix3x3 &scale, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Transforms 3D points.<br/>
@@ -519,16 +313,7 @@ public:
     /// <param name="transformation">[IN] 4x3 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Transform(const QTransformationMatrix<QMatrix4x3> &transformation, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Transform(transformation, arPoints[i]);
-        }
-	}
+	static void Transform(const QTransformationMatrix<QMatrix4x3> &transformation, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Transforms 3D points.<br/>
@@ -537,16 +322,7 @@ public:
     /// <param name="transformation">[IN] 4x4 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Transform(const QTransformationMatrix<QMatrix4x4> &transformation, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Transform(transformation, arPoints[i]);
-        }
-	}
+	static void Transform(const QTransformationMatrix<QMatrix4x4> &transformation, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Transforms 4D points.<br/>
@@ -555,16 +331,7 @@ public:
     /// <param name="transformation">[IN] 4x3 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Transform(const QTransformationMatrix<QMatrix4x3> &transformation, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Transform(transformation, arPoints[i]);
-        }
-	}
+	static void Transform(const QTransformationMatrix<QMatrix4x3> &transformation, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Transforms 4D points.<br/>
@@ -573,16 +340,7 @@ public:
     /// <param name="transformation">[IN] 4x4 matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Transform(const QTransformationMatrix<QMatrix4x4> &transformation, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Transform(transformation, arPoints[i]);
-        }
-	}
+	static void Transform(const QTransformationMatrix<QMatrix4x4> &transformation, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Transforms 3D points.<br/>
@@ -591,16 +349,7 @@ public:
     /// <param name="spaceConversion">[IN] Space conversion matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Transform(const QSpaceConversionMatrix &spaceConversion, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Transform(spaceConversion, arPoints[i]);
-        }
-	}
+	static void Transform(const QSpaceConversionMatrix &spaceConversion, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Transforms 4D points.<br/>
@@ -609,16 +358,7 @@ public:
     /// <param name="spaceConversion">[IN] Space conversion matrix that contains the transformation to be applied.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void Transform(const QSpaceConversionMatrix &spaceConversion, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            SQPoint::Transform(spaceConversion, arPoints[i]);
-        }
-	}
+	static void Transform(const QSpaceConversionMatrix &spaceConversion, QVector4* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Rotates 2D points, using the provided pivot as the center of transformation.<br/>
@@ -628,20 +368,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-        for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            arPoints[i] = arPoints[i].Transform(fRotationAngle);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void RotateWithPivot(const float_q &fRotationAngle, const QBaseVector2 &vPivot, QVector2* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Scales 2D points, using the provided pivot as the center of transformation.<br/>
@@ -652,21 +379,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            arPoints[i].x *= fScaleX;
-            arPoints[i].y *= fScaleY;
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot, QVector2* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Scales 2D points, using the provided pivot as the center of transformation.<br/>
@@ -676,20 +389,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            arPoints[i] *= vScale;
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot, QVector2* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Transforms 2D points, using the provided pivot as the center of transformation.<br/>
@@ -699,20 +399,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 2D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot, QVector2* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            arPoints[i] = arPoints[i].Transform(transformation);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot, QVector2* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 3D points, using the provided pivot as the center of transformation.<br/>
@@ -722,20 +409,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void RotateWithPivot(const QQuaternion &qRotation, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Rotate(qRotation, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void RotateWithPivot(const QQuaternion &qRotation, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 4D points, using the provided pivot as the center of transformation.<br/>
@@ -745,20 +419,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void RotateWithPivot(const QQuaternion &qRotation, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Rotate(qRotation, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void RotateWithPivot(const QQuaternion &qRotation, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 3D points, using the provided pivot as the center of transformation.<br/>
@@ -768,20 +429,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void RotateWithPivot(const QRotationMatrix3x3 &rotation, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Rotate(rotation, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void RotateWithPivot(const QRotationMatrix3x3 &rotation, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements);
 
 	/// <summary>
 	/// Rotates 4D points, using the provided pivot as the center of transformation.<br/>
@@ -791,20 +439,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be rotated. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void RotateWithPivot(const QRotationMatrix3x3 &rotation, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Rotate(rotation, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void RotateWithPivot(const QRotationMatrix3x3 &rotation, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Scales 3D points, using the provided pivot as the center of transformation.<br/>
@@ -814,20 +449,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const QBaseVector3& vScale, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Scale(vScale, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void ScaleWithPivot(const QBaseVector3& vScale, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Scales 4D points, using the provided pivot as the center of transformation.<br/>
@@ -837,20 +459,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const QBaseVector3 &vScale, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Scale(vScale, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void ScaleWithPivot(const QBaseVector3 &vScale, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Scales 3D points, using the provided pivot as the center of transformation.<br/>
@@ -862,21 +471,8 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const float_q &fScaleX, const float_q  fScaleY, const float_q &fScaleZ, const QBaseVector3 &vPivot,
-                                      QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void ScaleWithPivot(const float_q &fScaleX, const float_q  fScaleY, const float_q &fScaleZ, const QBaseVector3 &vPivot,
+                                      QVector3* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Scales 4D points, using the provided pivot as the center of transformation.<br/>
@@ -888,21 +484,8 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QBaseVector4 &vPivot,
-                                      QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Scale(fScaleX, fScaleY, fScaleZ, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const QBaseVector4 &vPivot,
+                                      QVector4* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Scales 3D points, using the provided pivot as the center of transformation.<br/>
@@ -912,20 +495,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const QScalingMatrix3x3 &scale, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Scale(scale, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void ScaleWithPivot(const QScalingMatrix3x3 &scale, const QBaseVector3 &vPivot, QVector3* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Scales 4D points, using the provided pivot as the center of transformation.<br/>
@@ -935,20 +505,7 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be scaled. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void ScaleWithPivot(const QScalingMatrix3x3 &scale, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Scale(scale, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void ScaleWithPivot(const QScalingMatrix3x3 &scale, const QBaseVector4 &vPivot, QVector4* arPoints, const unsigned int &uElements);
 
     /// <summary>
 	/// Transforms 3D points, using the provided pivot as the center of transformation.<br/>
@@ -958,21 +515,8 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QBaseVector3 &vPivot, QVector3* arPoints,
-                                          const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Transform(transformation, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QBaseVector3 &vPivot, QVector3* arPoints,
+                                          const unsigned int &uElements);
 
     /// <summary>
 	/// Transforms 4D points, using the provided pivot as the center of transformation.<br/>
@@ -985,25 +529,8 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QBaseVector4 &vPivot, QVector4* arPoints,
-                                          const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i].x -= vPivot.x;
-            arPoints[i].y -= vPivot.y;
-            arPoints[i].z -= vPivot.z;
-
-            SQPoint::Transform(transformation, arPoints[i]);
-
-            arPoints[i].x += vPivot.x;
-            arPoints[i].y += vPivot.y;
-            arPoints[i].z += vPivot.z;
-        }
-	}
+	static void TransformWithPivot(const QTransformationMatrix<QMatrix4x3> &transformation, const QBaseVector4 &vPivot, QVector4* arPoints,
+                                          const unsigned int &uElements);
 
     /// <summary>
 	/// Transforms 3D points, using the provided pivot as the center of transformation.<br/>
@@ -1013,21 +540,8 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 3D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QBaseVector3 &vPivot, QVector3* arPoints,
-                                          const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i] -= vPivot;
-
-            SQPoint::Transform(transformation, arPoints[i]);
-
-            arPoints[i] += vPivot;
-        }
-	}
+	static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QBaseVector3 &vPivot, QVector3* arPoints,
+                                          const unsigned int &uElements);
 
     /// <summary>
 	/// Transforms 4D points, using the provided pivot as the center of transformation.<br/>
@@ -1040,25 +554,8 @@ public:
     /// <param name="vPivot">[IN] Point that acts as pivot.</param>
 	/// <param name="arPoints">[IN/OUT] Array of 4D points that will be transformed. If it is null, the behavior is undefined.</param>
 	/// <param name="uElements">[IN] Number of elements in the array.</param>
-	inline static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QBaseVector4 &vPivot, QVector4* arPoints,
-                                          const unsigned int &uElements)
-	{
-        // Checks that the point array is not null
-        QE_ASSERT( arPoints != null_q );
-
-	    for(unsigned int i = 0; i < uElements; ++i)
-        {
-            arPoints[i].x -= vPivot.x;
-            arPoints[i].y -= vPivot.y;
-            arPoints[i].z -= vPivot.z;
-
-            SQPoint::Transform(transformation, arPoints[i]);
-
-            arPoints[i].x += vPivot.x;
-            arPoints[i].y += vPivot.y;
-            arPoints[i].z += vPivot.z;
-        }
-	}
+	static void TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QBaseVector4 &vPivot, QVector4* arPoints,
+                                          const unsigned int &uElements);
 
 private:
 
@@ -1068,7 +565,7 @@ private:
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
 	template <class VectorType>
-    inline static void Translate(const QBaseVector3 &vTranslation, VectorType &vPoint)
+    static void Translate(const QBaseVector3 &vTranslation, VectorType &vPoint)
 	{
 	    vPoint.x += vTranslation.x;
 	    vPoint.y += vTranslation.y;
@@ -1083,7 +580,7 @@ private:
     /// <param name="fTranslationZ">[IN] Floating point value that contains the translation to be applied on Z component.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
 	template <class VectorType>
-	inline static void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ, VectorType &vPoint)
+	static void Translate(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ, VectorType &vPoint)
 	{
 	    vPoint.x += fTranslationX;
 	    vPoint.y += fTranslationY;
@@ -1096,7 +593,7 @@ private:
     /// <param name="translation">[IN] 3x3 or 4x4 translation matrix that contains the transformation to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
 	template <class MatrixType, class VectorType>
-	inline static void Translate(const MatrixType &translation, VectorType &vPoint)
+	static void Translate(const MatrixType &translation, VectorType &vPoint)
 	{
         vPoint = vPoint.Transform(translation);
 	}
@@ -1107,7 +604,7 @@ private:
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be rotated.</param>
 	template <class VectorType>
-	inline static void Rotate(const QQuaternion &qRotation, VectorType &vPoint)
+	static void Rotate(const QQuaternion &qRotation, VectorType &vPoint)
 	{
         vPoint = vPoint.Transform(qRotation);
 	}
@@ -1118,7 +615,7 @@ private:
     /// <param name="rotation">[IN] Rotation matrix that contains the rotation to be done.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be rotated.</param>
 	template <class VectorType>
-	inline static void Rotate(const QRotationMatrix3x3 &rotation, VectorType &vPoint)
+	static void Rotate(const QRotationMatrix3x3 &rotation, VectorType &vPoint)
 	{
 	    vPoint = vPoint.Transform(rotation);
 	}
@@ -1129,7 +626,7 @@ private:
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
 	template <class VectorType>
-    inline static void Scale(const QBaseVector3 &vScale, VectorType &vPoint)
+    static void Scale(const QBaseVector3 &vScale, VectorType &vPoint)
 	{
 	    vPoint.x *= vScale.x;
 	    vPoint.y *= vScale.y;
@@ -1144,7 +641,7 @@ private:
     /// <param name="fScaleZ">[IN] Scalar value that contains the scale to be applied on Z component.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
 	template <class VectorType>
-	inline static void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, VectorType &vPoint)
+	static void Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, VectorType &vPoint)
 	{
 	    vPoint.x *= fScaleX;
 	    vPoint.y *= fScaleY;
@@ -1157,7 +654,7 @@ private:
     /// <param name="scale">[IN] Scale matrix that contains the scale to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
 	template <class VectorType>
-    inline static void Scale(const QScalingMatrix3x3 &scale, VectorType &vPoint)
+    static void Scale(const QScalingMatrix3x3 &scale, VectorType &vPoint)
 	{
 	    vPoint = vPoint.Transform(scale);
 	}
@@ -1168,7 +665,7 @@ private:
     /// <param name="transformation">[IN] 4x3 or 4x4 matrix that contains the transformation to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be transformed.</param>
 	template <class MatrixType, class VectorType>
-	inline static void Transform(const MatrixType &transformation, VectorType &vPoint)
+	static void Transform(const MatrixType &transformation, VectorType &vPoint)
 	{
         vPoint = vPoint.Transform(transformation);
 	}
@@ -1179,7 +676,7 @@ private:
     /// <param name="spaceConversion">[IN] Space conversion matrix that contains the transformation to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be transformed.</param>
 	template <class VectorType>
-	inline static void Transform(const QSpaceConversionMatrix &spaceConversion, VectorType &vPoint)
+	static void Transform(const QSpaceConversionMatrix &spaceConversion, VectorType &vPoint)
 	{
         vPoint = vPoint.Transform(spaceConversion);
 	}

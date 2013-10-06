@@ -43,6 +43,8 @@ using namespace boost::unit_test;
 #include "QTranslationMatrix.h"
 #include "QTransformationMatrix.h"
 #include "SQVF32.h"
+#include "SQAngle.h"
+#include "QSpaceConversionMatrix.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;

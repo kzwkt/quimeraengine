@@ -56,7 +56,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0)
+	QBaseRay() : Origin(SQFloat::_0), Direction(SQFloat::_0)
     {
     }
 
@@ -64,7 +64,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="ray">[IN] The ray from which we want to create a copy in the resident ray.</param>
-	inline QBaseRay(const QBaseRay &ray) : Origin(ray.Origin), Direction(ray.Direction)
+	QBaseRay(const QBaseRay &ray) : Origin(ray.Origin), Direction(ray.Direction)
 	{
 	}
 
@@ -76,7 +76,7 @@ public:
     /// </remarks>
     /// <param name="vOrigin">[IN] Point where the vector is located.</param>
 	/// <param name="vDirection">[IN] A vector which defines the direction of the ray.</param>
-	inline QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) :
+	QBaseRay (const VectorTypeOrigin &vOrigin, const VectorTypeDirection &vDirection) :
                         Origin(vOrigin), Direction(vDirection)
     {
     }
@@ -96,7 +96,7 @@ public:
     /// <returns>
     /// True if rays are the same, false otherwise.
     /// </returns>
-    inline bool operator==(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
+    bool operator==(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
     {
         return ( this->Origin == ray.Origin && this->Direction == ray.Direction );
     }
@@ -111,7 +111,7 @@ public:
     /// <returns>
     /// True if rays are not the same, false otherwise.
     /// </returns>
-    inline bool operator!=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
+    bool operator!=(const QBaseRay<VectorTypeOrigin, VectorTypeDirection> &ray) const
     {
         return !(*this == ray);
     }

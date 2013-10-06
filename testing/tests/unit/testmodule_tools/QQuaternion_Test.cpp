@@ -42,6 +42,8 @@ using namespace boost::unit_test;
 #include "QMatrix4x4.h"
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
+#include "SQVF32.h"
+#include "SQAngle.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;

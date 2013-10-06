@@ -24,8 +24,13 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "SQAngle.h"
 #include "QMatrix4x4.h"
+
+#include "SQAngle.h"
+#include "SQFloat.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -35,6 +40,50 @@ namespace Tools
 {
 namespace Math
 {
+
+    
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+QMatrix4x4::QMatrix4x4()
+{
+}
+
+QMatrix4x4::QMatrix4x4(const QMatrix4x4 &matrix) : QBaseMatrix4x4(matrix)
+{
+}
+
+QMatrix4x4::QMatrix4x4(const QBaseMatrix4x4 &matrix) : QBaseMatrix4x4(matrix)
+{
+}
+
+QMatrix4x4::QMatrix4x4(const float_q &fValueAll) : QBaseMatrix4x4(fValueAll)
+{
+}
+
+QMatrix4x4::QMatrix4x4(const float_q &f00, const float_q &f01, const float_q &f02, const float_q &f03,
+                       const float_q &f10, const float_q &f11, const float_q &f12, const float_q &f13,
+                       const float_q &f20, const float_q &f21, const float_q &f22, const float_q &f23,
+                       const float_q &f30, const float_q &f31, const float_q &f32, const float_q &f33) :
+                            QBaseMatrix4x4(f00, f01, f02, f03, f10, f11, f12, f13,
+                                           f20, f21, f22, f23, f30, f31, f32, f33)
+{
+}
+
+QMatrix4x4::QMatrix4x4(const float_q* arValues) : QBaseMatrix4x4(arValues)
+{
+}
+
+QMatrix4x4::QMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3) :
+		                    QBaseMatrix4x4(row0, row1, row2, row3)
+{
+}
 
 
 //##################=======================================================##################
@@ -250,12 +299,152 @@ QMatrix4x4& QMatrix4x4::operator*=(const QBaseMatrix4x4 &matrix)
 	return *this;
 }
 
+QMatrix4x4& QMatrix4x4::operator*=(const float_q fScalar)
+{
+    *this = fScalar * *this;
+    return *this;
+}
+
+QMatrix4x4& QMatrix4x4::operator/=(const float_q &fScalar)
+{
+	QE_ASSERT(fScalar != SQFloat::_0)
+
+	const float_q &fDivisor = SQFloat::_1/fScalar;
+
+	this->ij[0][0] *= fDivisor;
+	this->ij[0][1] *= fDivisor;
+	this->ij[0][2] *= fDivisor;
+	this->ij[0][3] *= fDivisor;
+	this->ij[1][0] *= fDivisor;
+	this->ij[1][1] *= fDivisor;
+	this->ij[1][2] *= fDivisor;
+	this->ij[1][3] *= fDivisor;
+	this->ij[2][0] *= fDivisor;
+	this->ij[2][1] *= fDivisor;
+	this->ij[2][2] *= fDivisor;
+	this->ij[2][3] *= fDivisor;
+	this->ij[3][0] *= fDivisor;
+	this->ij[3][1] *= fDivisor;
+	this->ij[3][2] *= fDivisor;
+	this->ij[3][3] *= fDivisor;
+
+	return *this;
+}
+
+QMatrix4x4& QMatrix4x4::operator+=(const QBaseMatrix4x4 &matrix)
+{
+	this->ij[0][0] += matrix.ij[0][0];
+	this->ij[0][1] += matrix.ij[0][1];
+	this->ij[0][2] += matrix.ij[0][2];
+	this->ij[0][3] += matrix.ij[0][3];
+	this->ij[1][0] += matrix.ij[1][0];
+	this->ij[1][1] += matrix.ij[1][1];
+	this->ij[1][2] += matrix.ij[1][2];
+	this->ij[1][3] += matrix.ij[1][3];
+	this->ij[2][0] += matrix.ij[2][0];
+	this->ij[2][1] += matrix.ij[2][1];
+	this->ij[2][2] += matrix.ij[2][2];
+	this->ij[2][3] += matrix.ij[2][3];
+	this->ij[3][0] += matrix.ij[3][0];
+	this->ij[3][1] += matrix.ij[3][1];
+	this->ij[3][2] += matrix.ij[3][2];
+	this->ij[3][3] += matrix.ij[3][3];
+
+	return *this;
+}
+
+QMatrix4x4& QMatrix4x4::operator-=(const QBaseMatrix4x4 &matrix)
+{
+	this->ij[0][0] -= matrix.ij[0][0];
+	this->ij[0][1] -= matrix.ij[0][1];
+	this->ij[0][2] -= matrix.ij[0][2];
+	this->ij[0][3] -= matrix.ij[0][3];
+	this->ij[1][0] -= matrix.ij[1][0];
+	this->ij[1][1] -= matrix.ij[1][1];
+	this->ij[1][2] -= matrix.ij[1][2];
+	this->ij[1][3] -= matrix.ij[1][3];
+	this->ij[2][0] -= matrix.ij[2][0];
+	this->ij[2][1] -= matrix.ij[2][1];
+	this->ij[2][2] -= matrix.ij[2][2];
+	this->ij[2][3] -= matrix.ij[2][3];
+	this->ij[3][0] -= matrix.ij[3][0];
+	this->ij[3][1] -= matrix.ij[3][1];
+	this->ij[3][2] -= matrix.ij[3][2];
+	this->ij[3][3] -= matrix.ij[3][3];
+
+	return *this;
+}
+
+QMatrix4x4& QMatrix4x4::operator=(const QBaseMatrix4x4 &matrix)
+{
+    QBaseMatrix4x4::operator=(matrix);
+    return *this;
+}
+
+void QMatrix4x4::ResetToZero()
+{
+	this->ij[0][0] = this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
+	this->ij[1][0] = this->ij[1][1] = this->ij[1][2] = this->ij[1][3] =
+	this->ij[2][0] = this->ij[2][1] = this->ij[2][2] = this->ij[2][3] =
+	this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = this->ij[3][3] = SQFloat::_0;
+}
+
+void QMatrix4x4::ResetToIdentity()
+{
+	this->ij[0][0] = this->ij[1][1] = this->ij[2][2] = this->ij[3][3] = SQFloat::_1;
+
+	this->ij[0][1] = this->ij[0][2] = this->ij[0][3] =
+	this->ij[1][0] = this->ij[1][2] = this->ij[1][3] =
+	this->ij[2][0] = this->ij[2][1] = this->ij[2][3] =
+	this->ij[3][0] = this->ij[3][1] = this->ij[3][2] = SQFloat::_0;
+}
+
 QMatrix4x4 QMatrix4x4::Transpose() const
 {
     return QMatrix4x4(this->ij[0][0], this->ij[1][0], this->ij[2][0], this->ij[3][0],
                       this->ij[0][1], this->ij[1][1], this->ij[2][1], this->ij[3][1],
                       this->ij[0][2], this->ij[1][2], this->ij[2][2], this->ij[3][2],
                       this->ij[0][3], this->ij[1][3], this->ij[2][3], this->ij[3][3]);
+}
+
+bool QMatrix4x4::IsZero() const
+{
+	return	SQFloat::IsZero(this->ij[0][0]) &&
+			SQFloat::IsZero(this->ij[0][1]) &&
+			SQFloat::IsZero(this->ij[0][2]) &&
+			SQFloat::IsZero(this->ij[0][3]) &&
+			SQFloat::IsZero(this->ij[1][0]) &&
+			SQFloat::IsZero(this->ij[1][1]) &&
+			SQFloat::IsZero(this->ij[1][2]) &&
+			SQFloat::IsZero(this->ij[1][3]) &&
+			SQFloat::IsZero(this->ij[2][0]) &&
+			SQFloat::IsZero(this->ij[2][1]) &&
+			SQFloat::IsZero(this->ij[2][2]) &&
+			SQFloat::IsZero(this->ij[2][3]) &&
+			SQFloat::IsZero(this->ij[3][0]) &&
+			SQFloat::IsZero(this->ij[3][1]) &&
+			SQFloat::IsZero(this->ij[3][2]) &&
+			SQFloat::IsZero(this->ij[3][3]);
+}
+
+bool QMatrix4x4::IsIdentity() const
+{
+	return	SQFloat::AreEqual(this->ij[0][0], SQFloat::_1) &&
+			SQFloat::IsZero(this->ij[0][1]) &&
+			SQFloat::IsZero(this->ij[0][2]) &&
+			SQFloat::IsZero(this->ij[0][3]) &&
+			SQFloat::IsZero(this->ij[1][0]) &&
+			SQFloat::AreEqual(this->ij[1][1], SQFloat::_1) &&
+			SQFloat::IsZero(this->ij[1][2]) &&
+			SQFloat::IsZero(this->ij[1][3]) &&
+			SQFloat::IsZero(this->ij[2][0]) &&
+			SQFloat::IsZero(this->ij[2][1]) &&
+			SQFloat::AreEqual(this->ij[2][2], SQFloat::_1) &&
+			SQFloat::IsZero(this->ij[2][3]) &&
+			SQFloat::IsZero(this->ij[3][0]) &&
+			SQFloat::IsZero(this->ij[3][1]) &&
+			SQFloat::IsZero(this->ij[3][2]) &&
+			SQFloat::AreEqual(this->ij[3][3], SQFloat::_1);
 }
 
 float_q QMatrix4x4::GetDeterminant() const
@@ -356,6 +545,12 @@ QMatrix4x4 QMatrix4x4::Invert() const
 					              fU * this->ij[2][1] - fE * this->ij[2][2] - fT * this->ij[2][0] ));
 }
 
+bool QMatrix4x4::HasInverse() const
+{
+    // If Determinant is 0, this matrix has not inverse.
+    return SQFloat::IsNotZero(this->GetDeterminant());
+}
+
 string_q QMatrix4x4::ToString() const
 {
 	return QE_L("M4x4(") + SQFloat::ToString(this->ij[0][0]) + QE_L(",") +
@@ -375,6 +570,35 @@ string_q QMatrix4x4::ToString() const
                            SQFloat::ToString(this->ij[3][2]) + QE_L(",") +
                            SQFloat::ToString(this->ij[3][3]) + QE_L(")");
 }
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QMatrix4x4& QMatrix4x4::GetZeroMatrix()
+{
+    static const QMatrix4x4 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    return ZEROMATRIX;
+}
+
+const QMatrix4x4& QMatrix4x4::GetIdentity()
+{
+    static const QMatrix4x4 IDENTITY(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0,
+                                        SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+    return IDENTITY;
+}
+
 
 } //namespace Math
 } //namespace Tools

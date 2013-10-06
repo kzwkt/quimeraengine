@@ -134,10 +134,7 @@ public:
     /// <returns>
     /// The absolute value, expressed as an 8-bit integer.
     /// </returns>
-    inline static i8_q Abs(i8_q& nValue)
-    {
-       return abs(nValue);
-    }
+    static i8_q Abs(i8_q& nValue);
 
     /// <summary>
     /// Returns the absolute value of a short integer value.
@@ -146,10 +143,7 @@ public:
     /// <returns>
     /// The absolute value, expressed as a short integer.
     /// </returns>
-    inline static i16_q Abs(const i16_q& nValue)
-    {
-       return abs(nValue);
-    }
+    static i16_q Abs(const i16_q& nValue);
 
     /// <summary>
     /// Returns the absolute value of an integer value.
@@ -158,10 +152,7 @@ public:
     /// <returns>
     /// The absolute value, expressed as an integer.
     /// </returns>
-    inline static i32_q Abs(const i32_q& nValue)
-    {
-       return abs(nValue);
-    }
+    static i32_q Abs(const i32_q& nValue);
 
     /// <summary>
     /// Returns the absolute value of a long integer value.
@@ -170,10 +161,7 @@ public:
     /// <returns>
     /// The absolute value, expressed as a long integer.
     /// </returns>
-    inline static i64_q Abs(const i64_q& nValue)
-    {
-	   return llabs(nValue);
-    }
+    static i64_q Abs(const i64_q& nValue);
 
     /// <summary>
     /// Inverts the order of bytes which compound an integer number and returns the result as output parameter.<br/>
@@ -184,7 +172,7 @@ public:
     /// The transformed value.
     /// </returns>
     template<typename IntegerType>
-    inline static IntegerType SwapEndianess(const IntegerType &nValue)
+    static IntegerType SwapEndianess(const IntegerType &nValue)
     {
         const unsigned int INTEGER_SIZE = sizeof(IntegerType);
 

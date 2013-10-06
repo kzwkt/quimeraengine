@@ -61,7 +61,7 @@ public:
 	/// <summary>
 	/// Default constructor.
 	/// </summary>
-	inline QBaseTriangle() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0)
+	QBaseTriangle() : A(SQFloat::_0), B(SQFloat::_0), C(SQFloat::_0)
     {
     }
 
@@ -69,7 +69,7 @@ public:
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="triangle">[IN] The triangle from which we want to create a copy in the resident triangle.</param>
-	inline QBaseTriangle(const QBaseTriangle &triangle) : A(triangle.A), B(triangle.B), C(triangle.C)
+	QBaseTriangle(const QBaseTriangle &triangle) : A(triangle.A), B(triangle.B), C(triangle.C)
 	{
 	}
 
@@ -79,7 +79,7 @@ public:
 	/// <param name="vA">[IN] Vector to define vertex A.</param>
 	/// <param name="vB">[IN] Vector to define vertex B.</param>
 	/// <param name="vC">[IN] Vector to define vertex C.</param>
-	inline QBaseTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) :
+	QBaseTriangle(const VectorType &vA, const VectorType &vB, const VectorType &vC) :
                             A(vA), B(vB), C(vC)
     {
     }
@@ -94,7 +94,7 @@ public:
     /// is undefined.</param>
 	/// <param name="arValuesC">[IN] Array of values that define the vertex C. If the pointer is null, the behavior 
     /// is undefined.</param>
-	inline QBaseTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC)
+	QBaseTriangle(const float_q* arValuesA, const float_q* arValuesB, const float_q* arValuesC)
 	{
 		// Checkout to ensure pointers are not null.
 		QE_ASSERT( (arValuesA != null_q) && (arValuesB != null_q) && (arValuesC != null_q) )
@@ -110,10 +110,11 @@ public:
 	/// <param name="valueA">[IN] 4x32 packed value which defines vertex A.</param>
 	/// <param name="valueB">[IN] 4x32 packed value which defines vertex B.</param>
 	/// <param name="valueC">[IN] 4x32 packed value which defines vertex C.</param>
-	inline QBaseTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) :
+	QBaseTriangle(const vf32_q &valueA, const vf32_q &valueB, const vf32_q &valueC) :
                              A(valueA), B(valueB), C(valueC)
     {
     }
+
 
     // METHODS
     // ---------------
@@ -126,7 +127,7 @@ public:
     /// <returns>
     /// True if triangles are the same, false otherwise.
     /// </returns>
-    inline bool operator==(const QBaseTriangle<VectorType> &triangle) const
+    bool operator==(const QBaseTriangle<VectorType> &triangle) const
     {
         return ( this->A == triangle.A && this->B == triangle.B && this->C == triangle.C );
     }
@@ -138,10 +139,11 @@ public:
     /// <returns>
     /// True if triangles are not the same, false otherwise.
     /// </returns>
-    inline bool operator!=(const QBaseTriangle<VectorType> &triangle) const
+    bool operator!=(const QBaseTriangle<VectorType> &triangle) const
     {
         return !(*this == triangle);
     }
+
 
 	// ATTRIBUTES
 	// ---------------

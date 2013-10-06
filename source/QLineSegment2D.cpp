@@ -24,12 +24,16 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QBaseTriangle.h"
-#include "QBaseQuadrilateral.h"
-
-#include "QTransformationMatrix3x3.h"
 
 #include "QLineSegment2D.h"
+
+#include "QBaseTriangle.h"
+#include "QBaseQuadrilateral.h"
+#include "SQPoint.h"
+#include "QTransformationMatrix3x3.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -39,6 +43,32 @@ namespace Tools
 {
 namespace Math
 {
+    
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |       CONSTRUCTORS		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+QLineSegment2D::QLineSegment2D()
+{
+}
+
+QLineSegment2D::QLineSegment2D(const QLineSegment2D &segment) : QLineSegment<QVector2>(segment.A, segment.B)
+{
+}
+
+QLineSegment2D::QLineSegment2D(const QBaseLineSegment<QVector2> &segment) : QLineSegment<QVector2>(segment.A, segment.B)
+{
+}
+
+QLineSegment2D::QLineSegment2D(const QVector2& vA, const QVector2& vB) : QLineSegment<QVector2>(vA,vB)
+{
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -48,6 +78,12 @@ namespace Math
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
+
+QLineSegment2D& QLineSegment2D::operator=(const QBaseLineSegment<QVector2> &segment)
+{
+    QBaseLineSegment<QVector2>::operator=(segment);
+    return *this;
+}
 
 bool QLineSegment2D::Intersection (const QBaseTriangle<QVector2>& triangle) const
 {
@@ -88,6 +124,82 @@ bool QLineSegment2D::Intersection (const QBaseQuadrilateral& quad) const
         return true;
     else
         return false;
+}
+
+QLineSegment2D QLineSegment2D::Rotate(const float_q &fRotationAngle) const
+{
+    QLineSegment2D auxLineSegment = *this;
+    SQPoint::Rotate(fRotationAngle, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::Translate(const QBaseVector2 &vTranslation) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::Translate(vTranslation, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::Translate(const float_q &fTranslationX, const float_q &fTranslationY) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::Translate(fTranslationX, fTranslationY, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::Scale(const QBaseVector2 &vScale) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::Scale(vScale, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::Scale(const float_q &fScaleX, const float_q &fScaleY) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::Scale(fScaleX, fScaleY, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::Transform(const QTransformationMatrix3x3 &transformation) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::Transform(transformation, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::RotateWithPivot(const float_q &fRotationAngle, const QVector2 &vPivot) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::RotateWithPivot(fRotationAngle, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::ScaleWithPivot(const QBaseVector2 &vScale, const QBaseVector2 &vPivot) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::ScaleWithPivot(vScale, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::ScaleWithPivot(const float_q &fScaleX, const float_q &fScaleY, const QBaseVector2 &vPivot) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::ScaleWithPivot(fScaleX, fScaleY, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+QLineSegment2D QLineSegment2D::TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const
+{
+    QLineSegment2D auxLineSegment = *this;
+	SQPoint::TransformWithPivot(transformation, vPivot, rcast_q(&auxLineSegment, QVector2*), 2);
+    return auxLineSegment;
+}
+
+EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangle, QBaseVector2 &vIntersection) const
+{
+	QBaseVector2 vAux;
+	return this->IntersectionPoint(triangle, vIntersection, vAux);
 }
 
 EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>& triangle, QBaseVector2& vIntersection1, QBaseVector2& vIntersection2) const
@@ -1724,6 +1836,62 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
 
     return EQIntersections::E_None;
 }
+
+EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseVector2 &vIntersection) const
+{
+	QBaseVector2 vAux;
+	return this->IntersectionPoint(quad, vIntersection, vAux);
+}
+
+bool QLineSegment2D::PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const
+{
+    return ( PointsInSameSideOfLine(vPoint, triangle.A, triangle.B, triangle.C) &&
+                PointsInSameSideOfLine(vPoint, triangle.B, triangle.C, triangle.A) &&
+                PointsInSameSideOfLine(vPoint, triangle.C, triangle.A, triangle.B) );
+}
+
+bool QLineSegment2D::PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const
+{
+    const float_q &ORIENTATION1 = (vLine1.x - vP1.x)*(vLine2.y - vP1.y) - (vLine1.y - vP1.y)*(vLine2.x - vP1.x);
+    const float_q &ORIENTATION2 = (vLine1.x - vP2.x)*(vLine2.y - vP2.y) - (vLine1.y - vP2.y)*(vLine2.x - vP2.x);
+
+    if ( SQFloat::IsZero(ORIENTATION1) || SQFloat::IsZero(ORIENTATION2) )
+        return true;
+    else if ( SQFloat::IsNegative(ORIENTATION1) == SQFloat::IsNegative(ORIENTATION2) )
+        return true;
+    else
+        return false;
+}
+
+bool QLineSegment2D::PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const
+{
+	return ( PointsInSameSideOfLine(vPoint, quad.C, quad.A, quad.B) &&
+                PointsInSameSideOfLine(vPoint, quad.A, quad.B, quad.C) &&
+                PointsInSameSideOfLine(vPoint, quad.A, quad.C, quad.D) &&
+                PointsInSameSideOfLine(vPoint, quad.C, quad.D, quad.A) );
+}
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QLineSegment2D& QLineSegment2D::GetUnitLine()
+{
+	static const QLineSegment2D UNITLINE(QVector2::GetZeroVector(), QVector2::GetUnitVectorX());
+	return UNITLINE;
+}
+
+const QLineSegment2D& QLineSegment2D::GetLineZero()
+{
+	static const QLineSegment2D LINEZERO(QVector2::GetZeroVector(), QVector2::GetZeroVector());
+	return LINEZERO;
+}
+
 
 } //namespace Math
 } //namespace Tools

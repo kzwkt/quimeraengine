@@ -32,11 +32,15 @@ using namespace boost::unit_test;
 
 #include "QBaseMatrix4x3.h"
 
+#include "SQVF32.h"
+#include "SQFloat.h"
+
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x3;
+
 
 QTEST_SUITE_BEGIN( QBaseMatrix4x3_TestSuite )
 

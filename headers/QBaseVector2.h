@@ -27,10 +27,8 @@
 #ifndef __QBASEVECTOR2__
 #define __QBASEVECTOR2__
 
-#include "SQFloat.h"
-#include "SQVF32.h"
+#include "DataTypesDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
@@ -62,36 +60,26 @@ public:
     /// <remarks>
     ///	By default, all the components are set to zero.
     /// </remarks>
-	inline QBaseVector2() : x(SQFloat::_0), y(SQFloat::_0)
-    {
-    }
+	QBaseVector2();
 
 	/// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="vVector">[IN] The vector whose components are to be copied.</param>
-	inline QBaseVector2(const QBaseVector2 &vVector)
-	{
-	    this->x = vVector.x;
-	    this->y = vVector.y;
-	}
+	QBaseVector2(const QBaseVector2 &vVector);
 
 	/// <summary>
 	/// Constructor that receives the value of every vector's component.
 	/// </summary>
 	/// <param name="fValueX">[IN] The value for X component.</param>
 	/// <param name="fValueY">[IN] The value for Y component.</param>
-	inline QBaseVector2(const float_q &fValueX, const float_q &fValueY) : x(fValueX), y(fValueY)
-    {
-    }
+	QBaseVector2(const float_q &fValueX, const float_q &fValueY);
 
 	/// <summary>
 	/// Constructor from a single value for all the vector's components.
 	/// </summary>
 	/// <param name="fValueAll">[IN] The value for all components.</param>
-	inline explicit QBaseVector2(const float_q &fValueAll) : x(fValueAll), y(fValueAll)
-    {
-    }
+	explicit QBaseVector2(const float_q &fValueAll);
 
 	/// <summary>
 	/// Constructor that receives an array of scalars.
@@ -101,15 +89,7 @@ public:
     /// </remarks>
 	/// <param name="arValues">[IN] An array of scalars. It must contain, at least, two elements. If the pointer is null, the behavior  
     /// is undefined.</param>
-	inline explicit QBaseVector2(const float_q* arValues)
-	{
-		// Null pointer checkout
-		QE_ASSERT(arValues != null_q)
-
-		// Assignments
-		x = arValues[0];
-		y = arValues[1];
-	}
+	explicit QBaseVector2(const float_q* arValues);
 
 	/// <summary>
     /// Constructor that receives a pack of four scalars.
@@ -118,14 +98,7 @@ public:
     /// Only the two first elements in the pack (most significant bits) are considered.
     /// </remarks>
     /// <param name="value">[IN] 4x32 packed floating point value containing the two components.</param>
-    inline explicit QBaseVector2(const vf32_q &value)
-	{
-        using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
-
-		float_q fAux;
-
-		SQVF32::Unpack(value, this->x, this->y, fAux, fAux);
-	}
+    explicit QBaseVector2(const vf32_q &value);
 
 
 	// METHODS
@@ -139,10 +112,7 @@ public:
 	/// <returns>
 	/// True if vectors are the same; False otherwise.
 	/// </returns>
-	inline bool operator==(const QBaseVector2 &vVector) const
-	{
-        return ( SQFloat::AreEqual(vVector.x, this->x) && SQFloat::AreEqual(vVector.y, this->y) );
-	}
+	bool operator==(const QBaseVector2 &vVector) const;
 
 	/// <summary>
 	/// Checks if two vectors are not equal.
@@ -151,10 +121,8 @@ public:
 	/// <returns>
 	/// True if vectors are not the same; False otherwise.
 	/// </returns>
-	inline bool operator!=(const QBaseVector2 &vVector) const
-	{
-        return !(*this == vVector);
-	}
+	bool operator!=(const QBaseVector2 &vVector) const;
+
 
 	// ATTRIBUTES
 	// ---------------

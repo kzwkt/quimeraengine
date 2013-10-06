@@ -59,13 +59,13 @@ public:
     /// <summary>
     /// Default constructor.
     /// </summary>
-    inline QBaseLineSegment() : A(SQFloat::_0), B(SQFloat::_0) { }
+    QBaseLineSegment() : A(SQFloat::_0), B(SQFloat::_0) { }
 
     /// <summary>
 	/// Copy constructor.
 	/// </summary>
 	/// <param name="segment">[IN] The segment from which we want to create a copy in the resident segment.</param>
-	inline QBaseLineSegment(const QBaseLineSegment &segment) : A(segment.A), B(segment.B)
+	QBaseLineSegment(const QBaseLineSegment &segment) : A(segment.A), B(segment.B)
 	{
 	}
 
@@ -74,7 +74,7 @@ public:
     /// </summary>
     /// <param name="vA">[IN] Vector to define end A.</param>
     /// <param name="vB">[IN] Vector to define end B.</param>
-    inline QBaseLineSegment(const VectorType &vA, const VectorType &vB) : A(vA), B(vB)  { }
+    QBaseLineSegment(const VectorType &vA, const VectorType &vB) : A(vA), B(vB)  { }
 
 
     // METHODS
@@ -88,7 +88,7 @@ public:
     /// <returns>
     /// True if line segments are the same, false otherwise.
     /// </returns>
-    inline bool operator==(const QBaseLineSegment<VectorType> &segment) const
+    bool operator==(const QBaseLineSegment<VectorType> &segment) const
     {
         return ( this->A == segment.A && this->B == segment.B );
     }
@@ -100,7 +100,7 @@ public:
     /// <returns>
     /// True if line segments are not the same, false otherwise.
     /// </returns>
-    inline bool operator!=(const QBaseLineSegment<VectorType> &segment) const
+    bool operator!=(const QBaseLineSegment<VectorType> &segment) const
     {
         return !(*this == segment);
     }

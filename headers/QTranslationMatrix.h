@@ -31,6 +31,8 @@
 #include "QBaseVector4.h"
 #include "QRotationMatrix3x3.h"
 #include "QScalingMatrix3x3.h"
+#include "SQFloat.h"
+#include "QTransformationMatrix.h"
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
@@ -44,11 +46,6 @@ namespace Tools
 {
 namespace Math
 {
-
-// Forward declarations
-class QMatrix4x4;
-class QMatrix4x3;
-template<class MatrixType> class QTransformationMatrix;
 
 
 /// <summary>
@@ -69,7 +66,7 @@ public:
 	/// <summary>
 	/// Default constructor. It's initialized to identity matrix.
 	/// </summary>
-	inline QTranslationMatrix()
+	QTranslationMatrix()
     {
         this->ResetToIdentity();
     }
@@ -78,7 +75,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="matrix">[IN] The matrix from which we want to create a copy in the resident matrix.</param>
-    inline QTranslationMatrix(const QTranslationMatrix<MatrixType> &matrix) : MatrixType(matrix)
+    QTranslationMatrix(const QTranslationMatrix<MatrixType> &matrix) : MatrixType(matrix)
     {
     }
 
@@ -90,7 +87,7 @@ public:
     /// otherwise unpredictable behavior could happen.
     /// </remarks>
     /// <param name="matrix">[IN] The matrix in which we want the resident matrix to be based.</param>
-    inline QTranslationMatrix(const MatrixType &matrix) : MatrixType(matrix)
+    QTranslationMatrix(const MatrixType &matrix) : MatrixType(matrix)
     {
     }
 
@@ -100,7 +97,7 @@ public:
     /// <param name="fTranslationX">[IN] Displacement in X direction.</param>
     /// <param name="fTranslationY">[IN] Displacement in Y direction.</param>
     /// <param name="fTranslationZ">[IN] Displacement in Z direction.</param>
-    inline QTranslationMatrix(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ)
+    QTranslationMatrix(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ)
     {
         this->ResetToIdentity();
 
@@ -113,7 +110,7 @@ public:
     /// Constructor from a 3D vector which stores the three displacement values, one for each axis direction.
     /// </summary>
     /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
-    inline explicit QTranslationMatrix(const QBaseVector3 &vTranslation)
+    explicit QTranslationMatrix(const QBaseVector3 &vTranslation)
     {
         this->ResetToIdentity();
 
@@ -126,7 +123,7 @@ public:
     /// Constructor from a 4D vector which stores the three scaling values, one for each axis direction.
     /// </summary>
     /// <param name="vTranslation">[IN] Vector with the displacement values.</param>
-    inline explicit QTranslationMatrix(const QBaseVector4 &vTranslation)
+    explicit QTranslationMatrix(const QBaseVector4 &vTranslation)
     {
         this->ResetToIdentity();
 
@@ -151,7 +148,7 @@ public:
     /// <returns>
     /// The identity matrix.
     /// </returns>
-    inline static const QTranslationMatrix<MatrixType>& GetIdentity()
+    static const QTranslationMatrix<MatrixType>& GetIdentity()
     {
         static const QTranslationMatrix<MatrixType> IDENTITY(MatrixType::GetIdentity());
         return IDENTITY;
@@ -314,7 +311,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x3> &matrix)
+    QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x3> &matrix)
     {
         ProductAssignationOperatorImp(matrix);
         return *this;
@@ -333,7 +330,7 @@ public:
     /// <returns>
     /// The modified matrix.
     /// </returns>
-    inline QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x4> &matrix)
+    QTranslationMatrix<MatrixType>& operator*=(const QTranslationMatrix<QMatrix4x4> &matrix)
     {
         ProductAssignationOperatorImp(matrix);
         return *this;
@@ -350,7 +347,7 @@ public:
     /// <returns>
     /// A reference to the modified matrix.
     /// </returns>
-    inline QTranslationMatrix<MatrixType>& operator=(const MatrixType &matrix)
+    QTranslationMatrix<MatrixType>& operator=(const MatrixType &matrix)
     {
         MatrixType::operator=(matrix);
         return *this;
@@ -368,7 +365,7 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    inline MatrixType Invert() const
+    MatrixType Invert() const
     {
         return QTranslationMatrix<MatrixType>(-this->ij[3][0], -this->ij[3][1], -this->ij[3][2]);
     }
@@ -380,7 +377,7 @@ public:
     /// <returns>
     /// True if the matrix has inverse, false otherwise.
     /// </returns>
-    inline bool HasInverse() const
+    bool HasInverse() const
     {
         // If Determinant is 0, this matrix has not inverse.
         return SQFloat::IsNotZero(this->GetDeterminant());
@@ -392,7 +389,7 @@ public:
     /// <param name="fTranslationX">[OUT] Displacement in X axis direction.</param>
     /// <param name="fTranslationY">[OUT] Displacement in Y axis direction.</param>
     /// <param name="fTranslationZ">[OUT] Displacement in Z axis direction.</param>
-    inline void GetTranslation(float_q &fTranslationX, float_q &fTranslationY, float_q &fTranslationZ) const
+    void GetTranslation(float_q &fTranslationX, float_q &fTranslationY, float_q &fTranslationZ) const
     {
         fTranslationX = this->ij[3][0];
         fTranslationY = this->ij[3][1];
@@ -403,7 +400,7 @@ public:
     /// Extracts the displacement components from the matrix.
     /// </summary>
     /// <param name="vTranslation">[OUT] Vector where to store the displacement.</param>
-    inline void GetTranslation(QBaseVector3 &vTranslation) const
+    void GetTranslation(QBaseVector3 &vTranslation) const
     {
         vTranslation.x = this->ij[3][0];
         vTranslation.y = this->ij[3][1];
@@ -414,7 +411,7 @@ public:
     /// Extracts the displacement components from the matrix.
     /// </summary>
     /// <param name="vTranslation">[OUT] Vector where to store the displacement. W component of this vector will be set to 0.</param>
-    inline void GetTranslation(QBaseVector4 &vTranslation) const
+    void GetTranslation(QBaseVector4 &vTranslation) const
     {
         vTranslation.x = this->ij[3][0];
         vTranslation.y = this->ij[3][1];
@@ -471,7 +468,7 @@ protected:
     // </summary>
     // <param name="matrix">[IN] The matrix to be multiplied by.</param>
     template <class MatrixTypeParam>
-    inline void ProductAssignationOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix)
+    void ProductAssignationOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix)
     {
         this->ij[3][0] += matrix.ij[3][0];
         this->ij[3][1] += matrix.ij[3][1];

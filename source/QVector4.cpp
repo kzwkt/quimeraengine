@@ -35,6 +35,10 @@
 #include "QScalingMatrix3x3.h"
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
+#include "QBaseVector3.h"
+
+using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+
 
 namespace Kinesis
 {
@@ -54,6 +58,39 @@ namespace Math
 //##################             \/\/\/\/\/\/\/\/\/\/\/\/\/\/              ##################
 //##################                                                       ##################
 //##################=======================================================##################
+
+QVector4::QVector4()
+{
+}
+
+QVector4::QVector4(const QVector4 &vVector) : QBaseVector4(vVector)
+{
+}
+
+QVector4::QVector4(const QBaseVector4 &vVector) : QBaseVector4(vVector)
+{
+}
+
+QVector4::QVector4(const QBaseVector3 &vVector) : QBaseVector4(vVector.x, vVector.y, vVector.z, SQFloat::_0)
+{
+}
+
+QVector4::QVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
+                    QBaseVector4(fValueX, fValueY, fValueZ, fValueW)
+{
+}
+
+QVector4::QVector4(const float_q &fValueAll) : QBaseVector4(fValueAll)
+{
+}
+
+QVector4::QVector4(const float_q* arValues) : QBaseVector4(arValues)
+{
+}
+
+QVector4::QVector4(const vf32_q value) : QBaseVector4(value)
+{
+}
 
 QVector4::QVector4(const QTranslationMatrix<QMatrix4x3> &translation) :
                        QBaseVector4(translation.ij[3][0], translation.ij[3][1], translation.ij[3][2], SQFloat::_1)
@@ -140,6 +177,64 @@ QVector4 QVector4::operator/(const QBaseVector4 &vVector) const
     return QVector4(this->x / vVector.x, this->y / vVector.y, this->z / vVector.z, this->w / vVector.w);
 }
 
+QVector4& QVector4::operator+=(const QBaseVector4 &vVector)
+{
+    this->x += vVector.x;
+    this->y += vVector.y;
+    this->z += vVector.z;
+    this->w += vVector.w;
+
+    return *this;
+}
+
+QVector4& QVector4::operator+=(const QBaseVector3 &vVector)
+{
+    this->x += vVector.x;
+    this->y += vVector.y;
+    this->z += vVector.z;
+
+    return *this;
+}
+
+QVector4& QVector4::operator-=(const QBaseVector4 &vVector)
+{
+    this->x -= vVector.x;
+    this->y -= vVector.y;
+    this->z -= vVector.z;
+    this->w -= vVector.w;
+
+    return *this;
+}
+
+QVector4& QVector4::operator-=(const QBaseVector3 &vVector)
+{
+    this->x -= vVector.x;
+    this->y -= vVector.y;
+    this->z -= vVector.z;
+
+    return *this;
+}
+
+QVector4& QVector4::operator*=(const float_q fScalar)
+{
+    this->x *= fScalar;
+    this->y *= fScalar;
+    this->z *= fScalar;
+    this->w *= fScalar;
+
+    return *this;
+}
+
+QVector4& QVector4::operator*=(const QBaseVector4 &vVector)
+{
+    this->x *= vVector.x;
+    this->y *= vVector.y;
+    this->z *= vVector.z;
+    this->w *= vVector.w;
+
+    return *this;
+}
+
 QVector4& QVector4::operator*=(const QBaseMatrix4x4 &matrix)
 {
     QVector4 vAux(*this);
@@ -149,6 +244,40 @@ QVector4& QVector4::operator*=(const QBaseMatrix4x4 &matrix)
     this->z = vAux.x * matrix.ij[0][2] + vAux.y * matrix.ij[1][2] + vAux.z * matrix.ij[2][2] + vAux.w * matrix.ij[3][2];
     this->w = vAux.x * matrix.ij[0][3] + vAux.y * matrix.ij[1][3] + vAux.z * matrix.ij[2][3] + vAux.w * matrix.ij[3][3];
 
+    return *this;
+}
+
+QVector4& QVector4::operator/=(const float_q &fScalar)
+{
+    // Checkout to avoid division by 0
+    QE_ASSERT(fScalar != SQFloat::_0)
+
+    const float_q &DIVISOR = SQFloat::_1 / fScalar;
+
+    this->x *= DIVISOR;
+    this->y *= DIVISOR;
+    this->z *= DIVISOR;
+    this->w *= DIVISOR;
+
+    return *this;
+}
+
+QVector4& QVector4::operator/=(const QBaseVector4 &vVector)
+{
+    // Checkout to avoid division by 0
+    QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0 && vVector.z != SQFloat::_0 && vVector.w != SQFloat::_0)
+
+    this->x /= vVector.x;
+    this->y /= vVector.y;
+    this->z /= vVector.z;
+    this->w /= vVector.w;
+
+    return *this;
+}
+
+QVector4& QVector4::operator=(const QBaseVector4 &vVector)
+{
+    QBaseVector4::operator=(vVector);
     return *this;
 }
 
@@ -173,6 +302,42 @@ float_q QVector4::GetSquaredLength() const
     return this->x*this->x + this->y*this->y + this->z*this->z + this->w*this->w;
 }
 
+QVector4 QVector4::Normalize() const
+{
+    // Checkout to avoid division by 0
+    QE_ASSERT(this->GetLength() != SQFloat::_0)
+
+    // Gets inverse of the vector length
+    float_q fInvLength = SQFloat::_1 / this->GetLength();
+
+    //Normalize
+    return QVector4(this->x * fInvLength, this->y * fInvLength, this->z * fInvLength, this->w * fInvLength);
+}
+
+void QVector4::ResetToOne()
+{
+    this->x = SQFloat::_1;
+    this->y = SQFloat::_1;
+    this->z = SQFloat::_1;
+    this->w = SQFloat::_1;
+}
+
+void QVector4::ResetToZeroPoint()
+{
+    this->x = SQFloat::_0;
+    this->y = SQFloat::_0;
+    this->z = SQFloat::_0;
+    this->w = SQFloat::_1;
+}
+
+void QVector4::ResetToZeroVector()
+{
+    this->x = SQFloat::_0;
+    this->y = SQFloat::_0;
+    this->z = SQFloat::_0;
+    this->w = SQFloat::_0;
+}
+    
 bool QVector4::IsZero() const
 {
     return SQFloat::IsZero(this->x) && SQFloat::IsZero(this->y) &&
@@ -223,6 +388,37 @@ QVector4 QVector4::CrossProduct(const QBaseVector4 &vVector) const
                     this->z * vVector.x - this->x * vVector.z,
                     this->x * vVector.y - this->y * vVector.x,
                     this->w);
+}
+
+QVector4 QVector4::Lerp(const float_q &fProportion, const QBaseVector4 &vVector) const
+{
+    return QVector4(this->x * (SQFloat::_1 - fProportion) + vVector.x * fProportion,
+                    this->y * (SQFloat::_1 - fProportion) + vVector.y * fProportion,
+                    this->z * (SQFloat::_1 - fProportion) + vVector.z * fProportion,
+                    this->w * (SQFloat::_1 - fProportion) + vVector.w * fProportion);
+}
+
+float_q QVector4::Distance(const QBaseVector4 &vVector) const
+{
+    return sqrt_q( (this->x - vVector.x)*(this->x - vVector.x) + (this->y - vVector.y)*(this->y - vVector.y) +
+                    (this->z - vVector.z)*(this->z - vVector.z) );
+}
+
+QVector4 QVector4::Homogenize() const
+{
+    QVector4 homogenizedVector;
+
+    if(this->w != SQFloat::_0) // Exactly zero
+    {
+        float_q fInvW = SQFloat::_1 / this->w;
+        homogenizedVector = QVector4(this->x * fInvW, this->y * fInvW, this->z * fInvW, SQFloat::_1);
+    }
+    else
+    {
+        homogenizedVector = *this;
+    }
+
+    return homogenizedVector;
 }
 
 QVector4 QVector4::Transform(const QQuaternion &qRotation) const
@@ -293,6 +489,71 @@ string_q QVector4::ToString() const
            QE_L(",")  + SQFloat::ToString(this->z) +
            QE_L(",")  + SQFloat::ToString(this->w) + QE_L(")");
 }
+
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+const QVector4& QVector4::GetZeroPoint()
+{
+    static const QVector4 ZEROPOINT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1);
+    return ZEROPOINT;
+}
+
+const QVector4& QVector4::GetZeroVector()
+{
+    static const QVector4 ZEROVECTOR(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    return ZEROVECTOR;
+}
+
+const QVector4& QVector4::GetVectorOfOnes()
+{
+    static const QVector4 VECTOROFONES(SQFloat::_1,  SQFloat::_1,  SQFloat::_1, SQFloat::_1);
+    return VECTOROFONES;
+}
+
+const QVector4& QVector4::GetUnitVectorX()
+{
+    static const QVector4 UNITVECTORX(SQFloat::_1,  SQFloat::_0,  SQFloat::_0, SQFloat::_0);
+    return UNITVECTORX;
+}
+
+const QVector4& QVector4::GetUnitVectorY()
+{
+    static const QVector4 UNITVECTORY(SQFloat::_0,  SQFloat::_1,  SQFloat::_0, SQFloat::_0);
+    return UNITVECTORY;
+}
+
+const QVector4& QVector4::GetUnitVectorZ()
+{
+    static const QVector4 UNITVECTORZ(SQFloat::_0,  SQFloat::_0,  SQFloat::_1, SQFloat::_0);
+    return UNITVECTORZ;
+}
+
+const QVector4& QVector4::GetUnitVectorInvX()
+{
+    static const QVector4 UNITVECTORINVX(-SQFloat::_1,  SQFloat::_0,  SQFloat::_0, SQFloat::_0);
+    return UNITVECTORINVX;
+}
+
+const QVector4& QVector4::GetUnitVectorInvY()
+{
+    static const QVector4 UNITVECTORINVY(SQFloat::_0,  -SQFloat::_1,  SQFloat::_0, SQFloat::_0);
+    return UNITVECTORINVY;
+}
+
+const QVector4& QVector4::GetUnitVectorInvZ()
+{
+    static const QVector4 UNITVECTORINVZ(SQFloat::_0,  SQFloat::_0,  -SQFloat::_1, SQFloat::_0);
+    return UNITVECTORINVZ;
+}
+
 
 } //namespace Math
 } //namespace Tools
