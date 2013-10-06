@@ -52,14 +52,14 @@ QTEST_SUITE_BEGIN( QLineSegment2D_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2::GetZeroVector();
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QLineSegment2D lineSegmentUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -69,16 +69,16 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
     const QVector2 EXPECTED_VALUE_FOR_B(SQFloat::_4, SQFloat::_5);
 
     const QLineSegment2D EXPECTED_LINESEGMENT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D lineSegmentUT(EXPECTED_LINESEGMENT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -90,16 +90,16 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
     const QVector2 EXPECTED_VALUE_FOR_B(SQFloat::_4, SQFloat::_5);
 
     const QBaseLineSegment<QVector2> EXPECTED_LINESEGMENT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D lineSegmentUT(EXPECTED_LINESEGMENT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -109,14 +109,14 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
     const QVector2 EXPECTED_VALUE_FOR_B(SQFloat::_4, SQFloat::_5);
 
-	// Execution
+	// [Execution]
     QLineSegment2D lineSegmentUT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -126,14 +126,14 @@ QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 /// </summary>
 QTEST_CASE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedInPositiveXAxisIsReturned_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2::GetZeroVector();
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2::GetUnitVectorX();
 
-	// Execution
+	// [Execution]
     QLineSegment2D lineSegmentUT = QLineSegment2D::GetUnitLine();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -143,14 +143,14 @@ QTEST_CASE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedInPositiveX
 /// </summary>
 QTEST_CASE ( GetLineZero_AZeroLengthSegmentPlacedAtOriginIsReturned_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2::GetZeroVector();
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QLineSegment2D lineSegmentUT = QLineSegment2D::GetLineZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -162,17 +162,17 @@ QTEST_CASE ( OperatorAssignation_LineIsAssignedProperlyToAnother_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A(SQFloat::_1, SQFloat::_2);
     const QVector2 EXPECTED_VALUE_FOR_B(SQFloat::_4, SQFloat::_5);
 
     const QBaseLineSegment<QVector2> OTHER_LINE = QBaseLineSegment<QVector2>(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D lineSegmentUT;
     lineSegmentUT = OTHER_LINE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -195,7 +195,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineIntersectsWithVertex_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -214,12 +214,12 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineIntersectsWithVertex_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultA = LINE_SEGMENT1.Intersection(TRIANGLE); // I
     bool bResultB = LINE_SEGMENT2.Intersection(TRIANGLE); // II
     bool bResultC = LINE_SEGMENT3.Intersection(TRIANGLE); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultA, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultC, EXPECTED_RESULT);
@@ -243,7 +243,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineIntersectsWithTriangleTwice_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -262,12 +262,12 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineIntersectsWithTriangleTwice_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAC_AB = LINE_SEGMENT1.Intersection(TRIANGLE); // I
     bool bResultBA_BC = LINE_SEGMENT2.Intersection(TRIANGLE); // II
     bool bResultCB_CA = LINE_SEGMENT3.Intersection(TRIANGLE); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAC_AB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBA_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultCB_CA, EXPECTED_RESULT);
@@ -290,7 +290,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineIsContainedInTriangle_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -301,10 +301,10 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineIsContainedInTriangle_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(TRIANGLE); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -336,7 +336,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenOnlyOneEndpointIsInsideTheTriangle_Tes
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -358,7 +358,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenOnlyOneEndpointIsInsideTheTriangle_Tes
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAC1 = LINE_SEGMENT1.Intersection(TRIANGLE); // I
     bool bResultAC2 = LINE_SEGMENT2.Intersection(TRIANGLE); // II
     bool bResultAB1 = LINE_SEGMENT3.Intersection(TRIANGLE); // III
@@ -366,7 +366,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenOnlyOneEndpointIsInsideTheTriangle_Tes
     bool bResultBC1 = LINE_SEGMENT5.Intersection(TRIANGLE); // V
     bool bResultBC2 = LINE_SEGMENT6.Intersection(TRIANGLE); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAC1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAC2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB1, EXPECTED_RESULT);
@@ -392,7 +392,7 @@ QTEST_CASE ( Intersection1_ReturnsFalseWhenLineAndTriangleDoNotIntersect_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -403,10 +403,10 @@ QTEST_CASE ( Intersection1_ReturnsFalseWhenLineAndTriangleDoNotIntersect_Test )
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(TRIANGLE); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -427,7 +427,7 @@ QTEST_CASE ( Intersection1_ReturnsFalseWhenLineAndTriangleDoNotIntersectButWould
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -438,10 +438,10 @@ QTEST_CASE ( Intersection1_ReturnsFalseWhenLineAndTriangleDoNotIntersectButWould
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(TRIANGLE); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -464,7 +464,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineIntersectsTwoVertices_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -483,12 +483,12 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineIntersectsTwoVertices_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAB = LINE_SEGMENT1.Intersection(TRIANGLE); // I
     bool bResultBC = LINE_SEGMENT2.Intersection(TRIANGLE); // II
     bool bResultCA = LINE_SEGMENT3.Intersection(TRIANGLE); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultCA, EXPECTED_RESULT);
@@ -509,7 +509,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineBelongsToAnEdge_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -528,12 +528,12 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenLineBelongsToAnEdge_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAB = LINE_SEGMENT1.Intersection(TRIANGLE); // I
     bool bResultBC = LINE_SEGMENT2.Intersection(TRIANGLE); // II
     bool bResultCA = LINE_SEGMENT3.Intersection(TRIANGLE); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultCA, EXPECTED_RESULT);
@@ -570,7 +570,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenAnEndpointCoincidesWithVertex_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -592,7 +592,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenAnEndpointCoincidesWithVertex_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultA1 = LINE_SEGMENT1.Intersection(TRIANGLE); // I
     bool bResultA2 = LINE_SEGMENT2.Intersection(TRIANGLE); // II
     bool bResultB1 = LINE_SEGMENT3.Intersection(TRIANGLE); // III
@@ -600,7 +600,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenAnEndpointCoincidesWithVertex_Test )
     bool bResultC1 = LINE_SEGMENT5.Intersection(TRIANGLE); // V
     bool bResultC2 = LINE_SEGMENT6.Intersection(TRIANGLE); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultA1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultA2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultB1, EXPECTED_RESULT);
@@ -618,7 +618,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenBothEndpointsCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -628,7 +628,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenBothEndpointsCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -640,7 +640,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenBothEndpointsCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -651,7 +651,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 VERTEX = QVector2(SQFloat::_1, SQFloat::_2);
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX, VERTEX, VERTEX);
 
@@ -661,7 +661,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenAllVerticesCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -673,7 +673,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenAllVerticesCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -688,7 +688,7 @@ QTEST_CASE ( Intersection1_CorrectResultIsReturnedWhenBothEndpointsCoincide_Test
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_2, SQFloat::_0),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -701,11 +701,11 @@ QTEST_CASE ( Intersection1_CorrectResultIsReturnedWhenBothEndpointsCoincide_Test
     const bool EXPECTED_RESULT_INSIDE = true;
     const bool EXPECTED_RESULT_OUTSIDE = false;
 
-	// Execution
+	// [Execution]
     bool bResultInside = LINE_SEGMENT_INSIDE.Intersection(TRIANGLE);
     bool bResultOutside = LINE_SEGMENT_OUTSIDE.Intersection(TRIANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultInside, EXPECTED_RESULT_INSIDE);
     BOOST_CHECK_EQUAL(bResultOutside, EXPECTED_RESULT_OUTSIDE);
 }
@@ -737,7 +737,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenOnlyOneEndPointBelongsToAnEdge_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -759,7 +759,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenOnlyOneEndPointBelongsToAnEdge_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAB1 = LINE_SEGMENT1.Intersection(TRIANGLE); // I
     bool bResultAB2 = LINE_SEGMENT2.Intersection(TRIANGLE); // II
     bool bResultBC1 = LINE_SEGMENT3.Intersection(TRIANGLE); // III
@@ -767,7 +767,7 @@ QTEST_CASE ( Intersection1_ReturnsTrueWhenOnlyOneEndPointBelongsToAnEdge_Test )
     bool bResultCA1 = LINE_SEGMENT5.Intersection(TRIANGLE); // V
     bool bResultCA2 = LINE_SEGMENT6.Intersection(TRIANGLE); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC1, EXPECTED_RESULT);
@@ -789,7 +789,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithVertex_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -813,13 +813,13 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithVertex_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultA = LINE_SEGMENT1.Intersection(QUAD);
     bool bResultB = LINE_SEGMENT2.Intersection(QUAD);
     bool bResultC = LINE_SEGMENT3.Intersection(QUAD);
     bool bResultD = LINE_SEGMENT4.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultA, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultC, EXPECTED_RESULT);
@@ -833,7 +833,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithTwoContiguousEdges_T
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -857,13 +857,13 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithTwoContiguousEdges_T
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAD_AB = LINE_SEGMENT1.Intersection(QUAD);
     bool bResultBA_BC = LINE_SEGMENT2.Intersection(QUAD);
     bool bResultCB_CD = LINE_SEGMENT3.Intersection(QUAD);
     bool bResultDA_AB = LINE_SEGMENT4.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAD_AB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBA_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultCB_CD, EXPECTED_RESULT);
@@ -877,7 +877,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIsContainedInQuadrilateral_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -889,10 +889,10 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIsContainedInQuadrilateral_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -903,7 +903,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenOnlyOneEndpointIsInsideTheQuadrilatera
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -931,7 +931,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenOnlyOneEndpointIsInsideTheQuadrilatera
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAD1 = LINE_SEGMENT1.Intersection(QUAD);
     bool bResultAD2 = LINE_SEGMENT2.Intersection(QUAD);
     bool bResultAB1 = LINE_SEGMENT3.Intersection(QUAD);
@@ -941,7 +941,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenOnlyOneEndpointIsInsideTheQuadrilatera
     bool bResultCD1 = LINE_SEGMENT7.Intersection(QUAD);
     bool bResultCD2 = LINE_SEGMENT8.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAD1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAD2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB1, EXPECTED_RESULT);
@@ -959,7 +959,7 @@ QTEST_CASE ( Intersection2_ReturnsFalseWhenLineAndQuadrilateralDoNotIntersect_Te
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -971,10 +971,10 @@ QTEST_CASE ( Intersection2_ReturnsFalseWhenLineAndQuadrilateralDoNotIntersect_Te
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -985,7 +985,7 @@ QTEST_CASE ( Intersection2_ReturnsFalseWhenLineAndQuadrilateralDoNotIntersectBut
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -997,10 +997,10 @@ QTEST_CASE ( Intersection2_ReturnsFalseWhenLineAndQuadrilateralDoNotIntersectBut
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1011,7 +1011,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsTwoContiguousVertices_Te
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -1035,13 +1035,13 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsTwoContiguousVertices_Te
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAB = LINE_SEGMENT1.Intersection(QUAD);
     bool bResultBC = LINE_SEGMENT2.Intersection(QUAD);
     bool bResultCD = LINE_SEGMENT3.Intersection(QUAD);
     bool bResultDA = LINE_SEGMENT4.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultCD, EXPECTED_RESULT);
@@ -1055,7 +1055,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineBelongsToAnEdge_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_4, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -1079,13 +1079,13 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineBelongsToAnEdge_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAB = LINE_SEGMENT1.Intersection(QUAD);
     bool bResultBC = LINE_SEGMENT2.Intersection(QUAD);
     bool bResultCD = LINE_SEGMENT3.Intersection(QUAD);
     bool bResultDA = LINE_SEGMENT4.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultCD, EXPECTED_RESULT);
@@ -1099,7 +1099,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenAnEndpointCoincidesWithVertex_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -1127,7 +1127,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenAnEndpointCoincidesWithVertex_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultA1 = LINE_SEGMENT1.Intersection(QUAD);
     bool bResultA2 = LINE_SEGMENT2.Intersection(QUAD);
     bool bResultB1 = LINE_SEGMENT3.Intersection(QUAD);
@@ -1137,7 +1137,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenAnEndpointCoincidesWithVertex_Test )
     bool bResultD1 = LINE_SEGMENT7.Intersection(QUAD);
     bool bResultD2 = LINE_SEGMENT8.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultA1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultA2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultB1, EXPECTED_RESULT);
@@ -1155,7 +1155,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithTwoNonContiguousEdge
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -1171,11 +1171,11 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenLineIntersectsWithTwoNonContiguousEdge
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAD_BC = LINE_SEGMENT1.Intersection(QUAD);
     bool bResultAB_CD = LINE_SEGMENT2.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAD_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB_CD, EXPECTED_RESULT);
 }
@@ -1189,7 +1189,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenBothEndpointsCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_3),
                                                        QVector2(SQFloat::_1, SQFloat::_1),
@@ -1200,7 +1200,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenBothEndpointsCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1212,7 +1212,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenBothEndpointsCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1223,7 +1223,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QVector2 VERTEX = QVector2(SQFloat::_1, SQFloat::_2);
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(VERTEX, VERTEX, VERTEX, VERTEX);
 
@@ -1233,7 +1233,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenAllVerticesCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1245,7 +1245,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenAllVerticesCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1261,7 +1261,7 @@ QTEST_CASE ( Intersection2_CorrectResultIsReturnedWhenBothEndpointsCoincide_Test
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_1),
@@ -1275,11 +1275,11 @@ QTEST_CASE ( Intersection2_CorrectResultIsReturnedWhenBothEndpointsCoincide_Test
     const bool EXPECTED_RESULT_INSIDE = true;
     const bool EXPECTED_RESULT_OUTSIDE = false;
 
-	// Execution
+	// [Execution]
     bool bResultInside = LINE_SEGMENT_INSIDE.Intersection(QUAD);
     bool bResultOutside = LINE_SEGMENT_OUTSIDE.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultInside, EXPECTED_RESULT_INSIDE);
     BOOST_CHECK_EQUAL(bResultOutside, EXPECTED_RESULT_OUTSIDE);
 }
@@ -1293,7 +1293,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenOnlyOneEndPointBelongsToAnEdge_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -1321,7 +1321,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenOnlyOneEndPointBelongsToAnEdge_Test )
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAB1 = LINE_SEGMENT1.Intersection(QUAD);
     bool bResultAB2 = LINE_SEGMENT2.Intersection(QUAD);
     bool bResultBC1 = LINE_SEGMENT3.Intersection(QUAD);
@@ -1331,7 +1331,7 @@ QTEST_CASE ( Intersection2_ReturnsTrueWhenOnlyOneEndPointBelongsToAnEdge_Test )
     bool bResultDA1 = LINE_SEGMENT7.Intersection(QUAD);
     bool bResultDA2 = LINE_SEGMENT8.Intersection(QUAD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC1, EXPECTED_RESULT);
@@ -1349,7 +1349,7 @@ QTEST_CASE ( Rotate_IsCorrectlyRotatedWhenUsingCommonAngle_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_2);
 
@@ -1365,10 +1365,10 @@ QTEST_CASE ( Rotate_IsCorrectlyRotatedWhenUsingCommonAngle_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Rotate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1378,17 +1378,17 @@ QTEST_CASE ( Rotate_IsCorrectlyRotatedWhenUsingCommonAngle_Test )
 /// </summary>
 QTEST_CASE ( Rotate_IsNotRotatedWhenAngleIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(-SQFloat::_3, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_2, -SQFloat::_2);
     const float_q ANGLE = SQFloat::_0;
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Rotate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1398,7 +1398,7 @@ QTEST_CASE ( Rotate_IsNotRotatedWhenAngleIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate1_IsCorrectlyTranslatedWhenUsingCommonTranslationVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_2);
 
@@ -1409,10 +1409,10 @@ QTEST_CASE ( Translate1_IsCorrectlyTranslatedWhenUsingCommonTranslationVector_Te
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Translate(TRANSLATION_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1422,7 +1422,7 @@ QTEST_CASE ( Translate1_IsCorrectlyTranslatedWhenUsingCommonTranslationVector_Te
 /// </summary>
 QTEST_CASE ( Translate1_IsNotTranslatedWhenTranslationIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_4, SQFloat::_7);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_1, SQFloat::_6);
 
@@ -1430,10 +1430,10 @@ QTEST_CASE ( Translate1_IsNotTranslatedWhenTranslationIsZero_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     const QLineSegment2D returnedLine = LINE.Translate(TRANSLATION_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1443,7 +1443,7 @@ QTEST_CASE ( Translate1_IsNotTranslatedWhenTranslationIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate2_IsCorrectlyTranslatedWhenUsingCommonTranslationValues_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_2);
 
@@ -1454,10 +1454,10 @@ QTEST_CASE ( Translate2_IsCorrectlyTranslatedWhenUsingCommonTranslationValues_Te
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
-	// Execution
+	// [Execution]
     const QLineSegment2D returnedLine = LINE.Translate(TRANSLATION_VECTOR.x, TRANSLATION_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1467,7 +1467,7 @@ QTEST_CASE ( Translate2_IsCorrectlyTranslatedWhenUsingCommonTranslationValues_Te
 /// </summary>
 QTEST_CASE ( Translate2_IsNotTranslatedWhenTranslationIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_4, SQFloat::_7);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_1, SQFloat::_6);
 
@@ -1475,10 +1475,10 @@ QTEST_CASE ( Translate2_IsNotTranslatedWhenTranslationIsZero_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     const QLineSegment2D returnedLine = LINE.Translate(TRANSLATION_VECTOR.x, TRANSLATION_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1488,7 +1488,7 @@ QTEST_CASE ( Translate2_IsNotTranslatedWhenTranslationIsZero_Test )
 /// </summary>
 QTEST_CASE ( Scale1_TriangleIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
 
@@ -1499,10 +1499,10 @@ QTEST_CASE ( Scale1_TriangleIsCorrectlyScaled_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Scale(SCALING_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1512,7 +1512,7 @@ QTEST_CASE ( Scale1_TriangleIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( Scale1_IsNotScaledIfScalationIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
 
@@ -1520,10 +1520,10 @@ QTEST_CASE ( Scale1_IsNotScaledIfScalationIsOne_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Scale(SCALING_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1533,7 +1533,7 @@ QTEST_CASE ( Scale1_IsNotScaledIfScalationIsOne_Test )
 /// </summary>
 QTEST_CASE ( Scale2_IsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
 
@@ -1544,10 +1544,10 @@ QTEST_CASE ( Scale2_IsCorrectlyScaled_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Scale(SCALING_VECTOR.x, SCALING_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1557,7 +1557,7 @@ QTEST_CASE ( Scale2_IsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( Scale2_IsNotScaledIfScalationIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
 
@@ -1565,10 +1565,10 @@ QTEST_CASE ( Scale2_IsNotScaledIfScalationIsOne_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Scale(SCALING_VECTOR.x, SCALING_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1581,7 +1581,7 @@ QTEST_CASE ( Transform_IsCorrectlyTransformed_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_POS_A = QVector2(SQFloat::_1, SQFloat::_2);
     const QVector2 INIT_POS_B = QVector2(SQFloat::_3, SQFloat::_4);
 
@@ -1602,10 +1602,10 @@ QTEST_CASE ( Transform_IsCorrectlyTransformed_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(INIT_POS_A, INIT_POS_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Transform(TRANSFORMATION_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1617,7 +1617,7 @@ QTEST_CASE ( Transform_DoesNotChangeWhenTransformedByIdentityMatrix_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_5);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_1, SQFloat::_9);
 
@@ -1625,10 +1625,10 @@ QTEST_CASE ( Transform_DoesNotChangeWhenTransformedByIdentityMatrix_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1641,7 +1641,7 @@ QTEST_CASE ( Transform_EndpointsAreMovedToCoordinateOriginWhenTransfomedByZeroMa
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2::GetZeroVector();
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2::GetZeroVector();
 
@@ -1649,10 +1649,10 @@ QTEST_CASE ( Transform_EndpointsAreMovedToCoordinateOriginWhenTransfomedByZeroMa
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1664,7 +1664,7 @@ QTEST_CASE ( RotateWithPivot_IsCorrectlyRotated_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_2);
 
@@ -1681,10 +1681,10 @@ QTEST_CASE ( RotateWithPivot_IsCorrectlyRotated_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.RotateWithPivot(ANGLE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1694,7 +1694,7 @@ QTEST_CASE ( RotateWithPivot_IsCorrectlyRotated_Test )
 /// </summary>
 QTEST_CASE ( RotateWithPivot_IsNotRotatedWithPivotWhenAngleIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(-SQFloat::_3, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_2, -SQFloat::_2);
 
@@ -1703,10 +1703,10 @@ QTEST_CASE ( RotateWithPivot_IsNotRotatedWithPivotWhenAngleIsZero_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.RotateWithPivot(ANGLE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1716,7 +1716,7 @@ QTEST_CASE ( RotateWithPivot_IsNotRotatedWithPivotWhenAngleIsZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_IsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
 
@@ -1729,10 +1729,10 @@ QTEST_CASE ( ScaleWithPivot1_IsCorrectlyScaled_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.ScaleWithPivot(SCALING_VECTOR, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1742,7 +1742,7 @@ QTEST_CASE ( ScaleWithPivot1_IsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_IsNotScaledWithPivotIfScaleIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
 
@@ -1752,10 +1752,10 @@ QTEST_CASE ( ScaleWithPivot1_IsNotScaledWithPivotIfScaleIsOne_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.ScaleWithPivot(SCALING_VECTOR, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1765,7 +1765,7 @@ QTEST_CASE ( ScaleWithPivot1_IsNotScaledWithPivotIfScaleIsOne_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_IsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
 
@@ -1778,10 +1778,10 @@ QTEST_CASE ( ScaleWithPivot2_IsCorrectlyScaled_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(POINT_A, POINT_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.ScaleWithPivot(SCALING_VECTOR.x, SCALING_VECTOR.y, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1791,7 +1791,7 @@ QTEST_CASE ( ScaleWithPivot2_IsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_IsNotScaledWithPivotIfScaleIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
 
@@ -1801,10 +1801,10 @@ QTEST_CASE ( ScaleWithPivot2_IsNotScaledWithPivotIfScaleIsOne_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.ScaleWithPivot(SCALING_VECTOR.x, SCALING_VECTOR.y, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1817,7 +1817,7 @@ QTEST_CASE ( TransformWithPivot_IsCorrectlyTransformedWithPivot_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_POS_A = QVector2(SQFloat::_1, SQFloat::_2);
     const QVector2 INIT_POS_B = QVector2(SQFloat::_3, SQFloat::_4);
 
@@ -1840,10 +1840,10 @@ QTEST_CASE ( TransformWithPivot_IsCorrectlyTransformedWithPivot_Test )
 
     const QLineSegment2D LINE = QLineSegment2D(INIT_POS_A, INIT_POS_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.TransformWithPivot(TRANSFORMATION_MATRIX, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1855,7 +1855,7 @@ QTEST_CASE ( TransformWithPivot_DoesntChangeWhenTransformedWithPivotByIdentityMa
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_5);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_1, SQFloat::_9);
 
@@ -1865,10 +1865,10 @@ QTEST_CASE ( TransformWithPivot_DoesntChangeWhenTransformedWithPivotByIdentityMa
 
     const QLineSegment2D LINE = QLineSegment2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedLine.B == EXPECTED_VALUE_FOR_B);
 }
@@ -1881,7 +1881,7 @@ QTEST_CASE ( TransformWithPivot_EndpointsAreMovedToPivotPointWhenTransformedByZe
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_5);
     const QVector2 VALUE_FOR_B = QVector2(-SQFloat::_1, SQFloat::_9);
 
@@ -1891,10 +1891,10 @@ QTEST_CASE ( TransformWithPivot_EndpointsAreMovedToPivotPointWhenTransformedByZe
 
     const QLineSegment2D LINE = QLineSegment2D(VALUE_FOR_A, VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment2D returnedLine = LINE.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedLine.A == PIVOT_POINT);
     BOOST_CHECK(returnedLine.B == PIVOT_POINT);
 }
@@ -1918,7 +1918,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenLineIntersectsWithVert
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -1941,7 +1941,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenLineIntersectsWithVert
     const QVector2 EXPECTED_POINTB = TRIANGLE.B;
     const QVector2 EXPECTED_POINTC = TRIANGLE.C;
 
-	// Execution
+	// [Execution]
     QVector2 vPointA;
     QVector2 vPointB;
     QVector2 vPointC;
@@ -1949,7 +1949,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenLineIntersectsWithVert
     EQIntersections eResultB = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vPointB); // II
     EQIntersections eResultC = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vPointC); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultA, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultC, EXPECTED_RESULT);
@@ -1977,7 +1977,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineIntersectsWithTri
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2004,7 +2004,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineIntersectsWithTri
     const QVector2 EXPECTED_POINT_BA = MIDPOINT_AB;
     const QVector2 EXPECTED_POINT_CB = MIDPOINT_BC;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAC;
     QVector2 vPointBA;
     QVector2 vPointCB;
@@ -2012,7 +2012,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineIntersectsWithTri
     EQIntersections eResultBA_BC = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vPointBA); // II
     EQIntersections eResultCB_CA = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vPointCB); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAC_AB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBA_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCB_CA, EXPECTED_RESULT);
@@ -2039,7 +2039,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenLineIsContainedI
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2051,11 +2051,11 @@ QTEST_CASE ( IntersectionPoint1_ReturnsInfiniteIntersectionsWhenLineIsContainedI
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
     const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(TRIANGLE, vPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
@@ -2089,7 +2089,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2120,7 +2120,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     const QVector2 EXPECTED_POINT_BC1 = TRIANGLE.B.Lerp(SQFloat::_0_5, TRIANGLE.C);
     const QVector2 EXPECTED_POINT_BC2 = TRIANGLE.B.Lerp(SQFloat::_0_5, TRIANGLE.C);
 
-	// Execution
+	// [Execution]
     QVector2 vPointAC1;
     QVector2 vPointAC2;
     QVector2 vPointAB1;
@@ -2134,7 +2134,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     EQIntersections eResultBC1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vPointBC1); // V
     EQIntersections eResultBC2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vPointBC2); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAC1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAC2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB1, EXPECTED_RESULT);
@@ -2167,7 +2167,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsNoIntersectionsWhenLineAndTriangleDoNotIn
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2179,11 +2179,11 @@ QTEST_CASE ( IntersectionPoint1_ReturnsNoIntersectionsWhenLineAndTriangleDoNotIn
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(TRIANGLE, vPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
@@ -2206,7 +2206,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsNoIntersectionsWhenLineAndTriangleDoNotIn
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2218,11 +2218,11 @@ QTEST_CASE ( IntersectionPoint1_ReturnsNoIntersectionsWhenLineAndTriangleDoNotIn
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(TRIANGLE, vPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
@@ -2247,7 +2247,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineIntersectsTwoVert
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2270,7 +2270,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineIntersectsTwoVert
     const QVector2 EXPECTED_POINT_BC = TRIANGLE.B;
     const QVector2 EXPECTED_POINT_CA = TRIANGLE.C;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB;
     QVector2 vPointBC;
     QVector2 vPointCA;
@@ -2278,7 +2278,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineIntersectsTwoVert
     EQIntersections eResultBC = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vPointBC); // II
     EQIntersections eResultCA = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vPointCA); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCA, EXPECTED_RESULT);
@@ -2303,7 +2303,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2326,7 +2326,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     const QVector2 EXPECTED_POINT_BC = LINE_SEGMENT2.A;
     const QVector2 EXPECTED_POINT_CA = LINE_SEGMENT3.A;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB = QVector2::GetZeroVector();
     QVector2 vPointBC = QVector2::GetZeroVector();
     QVector2 vPointCA = QVector2::GetZeroVector();
@@ -2334,7 +2334,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     EQIntersections eResultBC = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vPointBC); // II
     EQIntersections eResultCA = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vPointCA); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCA, EXPECTED_RESULT);
@@ -2375,7 +2375,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2404,7 +2404,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     const QVector2 EXPECTED_POINT_C1 = TRIANGLE.C;
     const QVector2 EXPECTED_POINT_C2 = TRIANGLE.C;
 
-	// Execution
+	// [Execution]
     QVector2 vPointA1;
     QVector2 vPointA2;
     QVector2 vPointB1;
@@ -2418,7 +2418,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     EQIntersections eResultC1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vPointC1); // V
     EQIntersections eResultC2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vPointC2); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultA1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultA2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultB1, EXPECTED_RESULT);
@@ -2442,7 +2442,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenBothEndpointsCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2452,7 +2452,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenBothEndpointsCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QVector2 vPoint;
 
@@ -2465,7 +2465,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenBothEndpointsCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2476,7 +2476,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 VERTEX = QVector2(SQFloat::_1, SQFloat::_2);
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX, VERTEX, VERTEX);
 
@@ -2486,7 +2486,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenAllVerticesCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QVector2 vPoint;
 
@@ -2499,7 +2499,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenAllVerticesCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2516,7 +2516,7 @@ QTEST_CASE ( IntersectionPoint1_ExpectedIntersectionsReturnedWhenBothEndpointsCo
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_3, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_1),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2536,7 +2536,7 @@ QTEST_CASE ( IntersectionPoint1_ExpectedIntersectionsReturnedWhenBothEndpointsCo
     const EQIntersections EXPECTED_RESULT_OUTSIDE = EQIntersections::E_None;
     const QVector2 EXPECTED_POINT_OUTSIDE = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vPointInside = QVector2::GetZeroVector();
     QVector2 vPointInEdge = QVector2::GetZeroVector();
     QVector2 vPointOutside = QVector2::GetZeroVector();
@@ -2545,7 +2545,7 @@ QTEST_CASE ( IntersectionPoint1_ExpectedIntersectionsReturnedWhenBothEndpointsCo
     EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(TRIANGLE, vPointInEdge);
     EQIntersections eResultOutside = LINE_SEGMENT_OUTSIDE.IntersectionPoint(TRIANGLE, vPointOutside);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultInside, EXPECTED_RESULT_INSIDE);
     BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
     BOOST_CHECK_EQUAL(eResultOutside, EXPECTED_RESULT_OUTSIDE);
@@ -2582,7 +2582,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2611,7 +2611,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     const QVector2 EXPECTED_POINT_CA1 = TRIANGLE.C.Lerp(SQFloat::_0_5, TRIANGLE.A);
     const QVector2 EXPECTED_POINT_CA2 = TRIANGLE.C.Lerp(SQFloat::_0_5, TRIANGLE.A);
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB1;
     QVector2 vPointAB2;
     QVector2 vPointBC1;
@@ -2625,7 +2625,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     EQIntersections bResultCA1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vPointCA1); // V
     EQIntersections bResultCA2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vPointCA2); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC1, EXPECTED_RESULT);
@@ -2666,7 +2666,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2697,7 +2697,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     const QVector2 EXPECTED_POINT_CA1 = TRIANGLE.C.Lerp(SQFloat::_0_5, TRIANGLE.A);
     const QVector2 EXPECTED_POINT_CA2 = TRIANGLE.C.Lerp(SQFloat::_0_5, TRIANGLE.A);
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB1;
     QVector2 vPointAB2;
     QVector2 vPointBC1;
@@ -2711,7 +2711,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     EQIntersections bResultCA1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vPointCA1); // V
     EQIntersections bResultCA2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vPointCA2); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC1, EXPECTED_RESULT);
@@ -2745,7 +2745,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnedPointIsTheClosestOneToEndpointA_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2760,11 +2760,11 @@ QTEST_CASE ( IntersectionPoint1_ReturnedPointIsTheClosestOneToEndpointA_Test )
     const QVector2 CLOSEST_INTERSECTION_TO_A = MIDPOINT_AB;
     const QVector2 FARTHEST_INTERSECTION_TO_A = MIDPOINT_BC;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB;
     LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vPointAB); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vPointAB == CLOSEST_INTERSECTION_TO_A);
     BOOST_CHECK(vPointAB != FARTHEST_INTERSECTION_TO_A);
 }
@@ -2788,7 +2788,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenLineIntersectsWithVert
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2812,7 +2812,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenLineIntersectsWithVert
     const QVector2 EXPECTED_FIRSTPOINTC = TRIANGLE.C;
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointA;
     QVector2 vFirstPointB;
     QVector2 vFirstPointC;
@@ -2823,7 +2823,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenLineIntersectsWithVert
     EQIntersections eResultB = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vFirstPointB, vSecondPointB); // II
     EQIntersections eResultC = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vFirstPointC, vSecondPointC); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultA, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultC, EXPECTED_RESULT);
@@ -2854,7 +2854,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineIntersectsWithTri
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2884,7 +2884,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineIntersectsWithTri
     const QVector2 EXPECTED_SECONDPOINT_BA_BC = MIDPOINT_BC;
     const QVector2 EXPECTED_SECONDPOINT_CB_CA = MIDPOINT_CA;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAC_AB;
     QVector2 vFirstPointBA_BC;
     QVector2 vFirstPointCB_CA;
@@ -2895,7 +2895,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineIntersectsWithTri
     EQIntersections eResultBA_BC = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vFirstPointBA_BC, vSecondPointBA_BC); // II
     EQIntersections eResultCB_CA = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vFirstPointCB_CA, vSecondPointCB_CA); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAC_AB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBA_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCB_CA, EXPECTED_RESULT);
@@ -2925,7 +2925,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsInfiniteIntersectionsWhenLineIsContainedI
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -2938,12 +2938,12 @@ QTEST_CASE ( IntersectionPoint2_ReturnsInfiniteIntersectionsWhenLineIsContainedI
     const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint = QVector2::GetZeroVector();
     QVector2 vSecondPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(TRIANGLE, vFirstPoint, vSecondPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vFirstPoint == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondPoint == EXPECTED_SECONDPOINT);
@@ -2978,7 +2978,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3010,7 +3010,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     const QVector2 EXPECTED_FIRSTPOINT_BC2 = TRIANGLE.B.Lerp(SQFloat::_0_5, TRIANGLE.C);
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAC1;
     QVector2 vFirstPointAC2;
     QVector2 vFirstPointAB1;
@@ -3030,7 +3030,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     EQIntersections eResultBC1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vFirstPointBC1, vSecondPointBC1); // V
     EQIntersections eResultBC2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vFirstPointBC2, vSecondPointBC2); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAC1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAC2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB1, EXPECTED_RESULT);
@@ -3069,7 +3069,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsNoIntersectionsWhenLineAndTriangleDoNotIn
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3082,12 +3082,12 @@ QTEST_CASE ( IntersectionPoint2_ReturnsNoIntersectionsWhenLineAndTriangleDoNotIn
     const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint = QVector2::GetZeroVector();
     QVector2 vSecondPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(TRIANGLE, vFirstPoint, vSecondPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vFirstPoint == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondPoint == EXPECTED_SECONDPOINT);
@@ -3111,7 +3111,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsNoIntersectionsWhenLineAndTriangleDoNotIn
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3124,12 +3124,12 @@ QTEST_CASE ( IntersectionPoint2_ReturnsNoIntersectionsWhenLineAndTriangleDoNotIn
     const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint = QVector2::GetZeroVector();
     QVector2 vSecondPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(TRIANGLE, vFirstPoint, vSecondPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vFirstPoint == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondPoint == EXPECTED_SECONDPOINT);
@@ -3155,7 +3155,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineIntersectsTwoVert
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3181,7 +3181,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineIntersectsTwoVert
     const QVector2 EXPECTED_SECONDPOINT_BC = TRIANGLE.C;
     const QVector2 EXPECTED_SECONDPOINT_CA = TRIANGLE.A;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAB;
     QVector2 vFirstPointBC;
     QVector2 vFirstPointCA;
@@ -3192,7 +3192,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineIntersectsTwoVert
     EQIntersections eResultBC = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vFirstPointBC, vSecondPointBC); // II
     EQIntersections eResultCA = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vFirstPointCA, vSecondPointCA); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCA, EXPECTED_RESULT);
@@ -3220,7 +3220,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3246,7 +3246,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     const QVector2 EXPECTED_FIRSTPOINT_CA = ENDPOINT_A3;
     const QVector2 EXPECTED_SECONDPOINT_CA = ENDPOINT_B3;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAB = QVector2::GetZeroVector();
     QVector2 vFirstPointBC = QVector2::GetZeroVector();
     QVector2 vFirstPointCA = QVector2::GetZeroVector();
@@ -3257,7 +3257,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     EQIntersections eResultBC = LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vFirstPointBC, vSecondPointBC); // II
     EQIntersections eResultCA = LINE_SEGMENT3.IntersectionPoint(TRIANGLE, vFirstPointCA, vSecondPointCA); // III
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCA, EXPECTED_RESULT);
@@ -3301,7 +3301,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3331,7 +3331,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     const QVector2 EXPECTED_FIRSTPOINT_C2 = TRIANGLE.C;
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointA1  = QVector2::GetZeroVector();
     QVector2 vFirstPointA2  = QVector2::GetZeroVector();
     QVector2 vFirstPointB1  = QVector2::GetZeroVector();
@@ -3351,7 +3351,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     EQIntersections eResultC1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vFirstPointC1, vSecondPointC1); // V
     EQIntersections eResultC2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vFirstPointC2, vSecondPointC2); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultA1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultA2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultB1, EXPECTED_RESULT);
@@ -3399,7 +3399,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3431,7 +3431,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     const QVector2 EXPECTED_FIRSTPOINT_CA2 = TRIANGLE.C.Lerp(SQFloat::_0_5, TRIANGLE.A);
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAB1;
     QVector2 vFirstPointAB2;
     QVector2 vFirstPointBC1;
@@ -3451,7 +3451,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     EQIntersections bResultCA1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vFirstPointCA1, vSecondPointCA1); // V
     EQIntersections bResultCA2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vFirstPointCA2, vSecondPointCA2); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC1, EXPECTED_RESULT);
@@ -3481,7 +3481,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenBothEndpointsCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3491,7 +3491,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenBothEndpointsCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QVector2 vFirstPoint, vSecondPoint;
 
@@ -3504,7 +3504,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenBothEndpointsCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3515,7 +3515,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 VERTEX = QVector2(SQFloat::_1, SQFloat::_2);
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX, VERTEX, VERTEX);
 
@@ -3525,7 +3525,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenAllVerticesCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QVector2 vFirstPoint, vSecondPoint;
 
@@ -3538,7 +3538,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenAllVerticesCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -3555,7 +3555,7 @@ QTEST_CASE ( IntersectionPoint2_ExpectedIntersectionsReturnedWhenBothEndpointsCo
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_3, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_1),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3575,7 +3575,7 @@ QTEST_CASE ( IntersectionPoint2_ExpectedIntersectionsReturnedWhenBothEndpointsCo
     const EQIntersections EXPECTED_RESULT_OUTSIDE = EQIntersections::E_None;
     const QVector2 EXPECTED_POINT_OUTSIDE = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointInside = QVector2::GetZeroVector();
     QVector2 vFirstPointInEdge = QVector2::GetZeroVector();
     QVector2 vFirstPointOutside = QVector2::GetZeroVector();
@@ -3587,7 +3587,7 @@ QTEST_CASE ( IntersectionPoint2_ExpectedIntersectionsReturnedWhenBothEndpointsCo
     EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(TRIANGLE, vFirstPointInEdge, vSecondPointInEdge);
     EQIntersections eResultOutside = LINE_SEGMENT_OUTSIDE.IntersectionPoint(TRIANGLE, vFirstPointOutside, vSecondPointOutside);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultInside, EXPECTED_RESULT_INSIDE);
     BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
     BOOST_CHECK_EQUAL(eResultOutside, EXPECTED_RESULT_OUTSIDE);
@@ -3627,7 +3627,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3657,7 +3657,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     const QVector2 EXPECTED_FIRSTPOINT_CA2 = TRIANGLE.C.Lerp(SQFloat::_0_5, TRIANGLE.A);
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAB1;
     QVector2 vFirstPointAB2;
     QVector2 vFirstPointBC1;
@@ -3677,7 +3677,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     EQIntersections bResultCA1 = LINE_SEGMENT5.IntersectionPoint(TRIANGLE, vFirstPointCA1, vSecondPointCA1); // V
     EQIntersections bResultCA2 = LINE_SEGMENT6.IntersectionPoint(TRIANGLE, vFirstPointCA2, vSecondPointCA2); // VI
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC1, EXPECTED_RESULT);
@@ -3717,7 +3717,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnedPointIsTheClosestOneToEndpointA_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(QVector2(SQFloat::_1, SQFloat::_3),
                                                                      QVector2(SQFloat::_3, SQFloat::_2),
                                                                      QVector2(-SQFloat::_1, SQFloat::_0));
@@ -3732,11 +3732,11 @@ QTEST_CASE ( IntersectionPoint2_ReturnedPointIsTheClosestOneToEndpointA_Test )
     const QVector2 CLOSEST_INTERSECTION_TO_A = MIDPOINT_AB;
     const QVector2 FARTHEST_INTERSECTION_TO_A = MIDPOINT_BC;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint, vSecondPoint;
     LINE_SEGMENT2.IntersectionPoint(TRIANGLE, vFirstPoint, vSecondPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vFirstPoint == CLOSEST_INTERSECTION_TO_A);
     BOOST_CHECK(vFirstPoint != FARTHEST_INTERSECTION_TO_A);
 }
@@ -3755,7 +3755,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenLineIntersectsWithVert
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -3783,7 +3783,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenLineIntersectsWithVert
     const QVector2 EXPECTED_POINT_C = QUAD.C;
     const QVector2 EXPECTED_POINT_D = QUAD.D;
 
-	// Execution
+	// [Execution]
     QVector2 vPointA;
     QVector2 vPointB;
     QVector2 vPointC;
@@ -3793,7 +3793,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenLineIntersectsWithVert
     EQIntersections eResultC = LINE_SEGMENT3.IntersectionPoint(QUAD, vPointC);
     EQIntersections eResultD = LINE_SEGMENT4.IntersectionPoint(QUAD, vPointD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultA, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultC, EXPECTED_RESULT);
@@ -3812,7 +3812,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -3845,7 +3845,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     const QVector2 EXPECTED_POINT_CB_CD = MIDPOINT_BC;
     const QVector2 EXPECTED_POINT_DC_DA = MIDPOINT_CD;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAD_AB;
     QVector2 vPointBA_BC;
     QVector2 vPointCB_CD;
@@ -3855,7 +3855,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     EQIntersections eResultCB_CD = LINE_SEGMENT3.IntersectionPoint(QUAD, vPointCB_CD);
     EQIntersections eResultDA_AB = LINE_SEGMENT4.IntersectionPoint(QUAD, vPointDA_AB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAD_AB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBA_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCB_CD, EXPECTED_RESULT);
@@ -3874,7 +3874,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenLineIsContainedI
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -3887,11 +3887,11 @@ QTEST_CASE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenLineIsContainedI
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
     const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(QUAD, vPoint);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
@@ -3904,7 +3904,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -3946,7 +3946,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     const QVector2 EXPECTED_POINT_CB_CD2 = MIDPOINT_CD;
     const QVector2 EXPECTED_POINT_DC_DA2 = MIDPOINT_DA;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAD1;
     QVector2 vPointBA1;
     QVector2 vPointCB1;
@@ -3964,7 +3964,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     EQIntersections eResultCD1 = LINE_SEGMENT7.IntersectionPoint(QUAD, vPointDA1);
     EQIntersections eResultCD2 = LINE_SEGMENT8.IntersectionPoint(QUAD, vPointDA2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAD1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAD2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB1, EXPECTED_RESULT);
@@ -3991,7 +3991,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsNoIntersectionWhenLineAndQuadrilateralDoN
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4004,11 +4004,11 @@ QTEST_CASE ( IntersectionPoint3_ReturnsNoIntersectionWhenLineAndQuadrilateralDoN
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(QUAD, vPoint);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
@@ -4021,7 +4021,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsNoIntersectionWhenLineAndQuadrilateralDoN
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4034,11 +4034,11 @@ QTEST_CASE ( IntersectionPoint3_ReturnsNoIntersectionWhenLineAndQuadrilateralDoN
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(QUAD, vPoint);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vPoint == EXPECTED_POINT);
 }
@@ -4051,7 +4051,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsTwoCont
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4079,7 +4079,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsTwoCont
     const QVector2 EXPECTED_POINT_CD = QUAD.C;
     const QVector2 EXPECTED_POINT_DA = QUAD.D;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB;
     QVector2 vPointBC;
     QVector2 vPointCD;
@@ -4089,7 +4089,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsTwoCont
     EQIntersections eResultCD = LINE_SEGMENT3.IntersectionPoint(QUAD, vPointCD);
     EQIntersections eResultDA = LINE_SEGMENT4.IntersectionPoint(QUAD, vPointDA);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
@@ -4108,7 +4108,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_4, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4136,7 +4136,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     const QVector2 EXPECTED_POINT_CD = LINE_SEGMENT3.A;
     const QVector2 EXPECTED_POINT_DA = LINE_SEGMENT4.A;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB;
     QVector2 vPointBC;
     QVector2 vPointCD;
@@ -4146,7 +4146,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     EQIntersections eResultCD = LINE_SEGMENT3.IntersectionPoint(QUAD, vPointCD);
     EQIntersections eResultDA = LINE_SEGMENT4.IntersectionPoint(QUAD, vPointDA);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
@@ -4165,7 +4165,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4201,7 +4201,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     const QVector2 EXPECTED_POINT_C2 = QUAD.C;
     const QVector2 EXPECTED_POINT_D2 = QUAD.D;
 
-	// Execution
+	// [Execution]
     QVector2 vPointA1;
     QVector2 vPointB1;
     QVector2 vPointC1;
@@ -4219,7 +4219,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     EQIntersections eResultD1 = LINE_SEGMENT7.IntersectionPoint(QUAD, vPointD1);
     EQIntersections eResultD2 = LINE_SEGMENT8.IntersectionPoint(QUAD, vPointD2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultA1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultA2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultB1, EXPECTED_RESULT);
@@ -4246,7 +4246,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4269,13 +4269,13 @@ QTEST_CASE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     const QVector2 EXPECTED_POINT_AD_BC = MIDPOINT_DA;
     const QVector2 EXPECTED_POINT_AB_CD = MIDPOINT_AB;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAD_BC;
     QVector2 vPointAB_CD;
     EQIntersections eResultAD_BC = LINE_SEGMENT1.IntersectionPoint(QUAD, vPointAD_BC);
     EQIntersections eResultAB_CD = LINE_SEGMENT2.IntersectionPoint(QUAD, vPointAB_CD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAD_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB_CD, EXPECTED_RESULT);
     BOOST_CHECK(vPointAD_BC == EXPECTED_POINT_AD_BC);
@@ -4291,7 +4291,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenBothEndpointsCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_3),
                                                        QVector2(SQFloat::_1, SQFloat::_1),
@@ -4302,7 +4302,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenBothEndpointsCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QVector2 vPoint;
 
@@ -4315,7 +4315,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenBothEndpointsCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4326,7 +4326,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QVector2 VERTEX = QVector2(SQFloat::_1, SQFloat::_2);
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(VERTEX, VERTEX, VERTEX, VERTEX);
 
@@ -4336,7 +4336,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenAllVerticesCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QVector2 vPoint;
 
@@ -4349,7 +4349,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenAllVerticesCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 #elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
@@ -4368,7 +4368,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsExpectedIntersectionPointWhenBothEndpoint
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_1),
@@ -4389,7 +4389,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsExpectedIntersectionPointWhenBothEndpoint
     const EQIntersections EXPECTED_RESULT_INSIDE = EQIntersections::E_Infinite;
     const QVector2 EXPECTED_POINT_INSIDE = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vPointOutside = QVector2::GetZeroVector();
     QVector2 vPointInEdge = QVector2::GetZeroVector();
     QVector2 vPointInside = QVector2::GetZeroVector();
@@ -4398,7 +4398,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsExpectedIntersectionPointWhenBothEndpoint
     EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(QUAD, vPointInEdge);
     EQIntersections eResultInside = LINE_SEGMENT_INSIDE.IntersectionPoint(QUAD, vPointInside);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultOutside, EXPECTED_RESULT_OUTSIDE);
     BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
     BOOST_CHECK_EQUAL(eResultInside, EXPECTED_RESULT_INSIDE);
@@ -4417,7 +4417,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4458,7 +4458,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     const QVector2 EXPECTED_POINT_CD2 = MIDPOINT_CD;
     const QVector2 EXPECTED_POINT_DA2 = MIDPOINT_DA;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB1;
     QVector2 vPointBC1;
     QVector2 vPointCD1;
@@ -4476,7 +4476,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     EQIntersections eResultDA1 = LINE_SEGMENT7.IntersectionPoint(QUAD, vPointDA1);
     EQIntersections eResultDA2 = LINE_SEGMENT8.IntersectionPoint(QUAD, vPointDA2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC1, EXPECTED_RESULT);
@@ -4503,7 +4503,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4545,7 +4545,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     const QVector2 EXPECTED_POINT_CD2 = MIDPOINT_CD;
     const QVector2 EXPECTED_POINT_DA2 = MIDPOINT_DA;
 
-	// Execution
+	// [Execution]
     QVector2 vPointAB1;
     QVector2 vPointBC1;
     QVector2 vPointCD1;
@@ -4563,7 +4563,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     EQIntersections eResultDA1 = LINE_SEGMENT7.IntersectionPoint(QUAD, vPointDA1);
     EQIntersections eResultDA2 = LINE_SEGMENT8.IntersectionPoint(QUAD, vPointDA2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC1, EXPECTED_RESULT);
@@ -4591,7 +4591,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnedPointIsTheClosestOneToEndpointA_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4607,11 +4607,11 @@ QTEST_CASE ( IntersectionPoint3_ReturnedPointIsTheClosestOneToEndpointA_Test )
     const QVector2 CLOSEST_INTERSECTION_TO_A = MIDPOINT_AB;
     const QVector2 FARTHEST_INTERSECTION_TO_A = MIDPOINT_BC;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint;
     LINE_SEGMENT2.IntersectionPoint(QUAD, vFirstPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vFirstPoint == CLOSEST_INTERSECTION_TO_A);
     BOOST_CHECK(vFirstPoint != FARTHEST_INTERSECTION_TO_A);
 }
@@ -4630,7 +4630,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenLineIntersectsWithVert
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4659,7 +4659,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenLineIntersectsWithVert
     const QVector2 EXPECTED_FIRSTPOINT_D = QUAD.D;
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointA, vSecondPointA;
     QVector2 vFirstPointB, vSecondPointB;
     QVector2 vFirstPointC, vSecondPointC;
@@ -4669,7 +4669,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenLineIntersectsWithVert
     EQIntersections eResultC = LINE_SEGMENT3.IntersectionPoint(QUAD, vFirstPointC, vSecondPointC);
     EQIntersections eResultD = LINE_SEGMENT4.IntersectionPoint(QUAD, vFirstPointD, vSecondPointD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultA, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultC, EXPECTED_RESULT);
@@ -4692,7 +4692,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4729,7 +4729,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     const QVector2 EXPECTED_SECONDPOINT_CB_CD = MIDPOINT_CD;
     const QVector2 EXPECTED_SECONDPOINT_DC_DA = MIDPOINT_DA;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAD_AB;
     QVector2 vFirstPointBA_BC;
     QVector2 vFirstPointCB_CD;
@@ -4743,7 +4743,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     EQIntersections eResultCB_CD = LINE_SEGMENT3.IntersectionPoint(QUAD, vFirstPointCB_CD, vSecondPointCB_CD);
     EQIntersections eResultDA_AB = LINE_SEGMENT4.IntersectionPoint(QUAD, vFirstPointDA_AB, vSecondPointDA_AB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAD_AB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBA_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCB_CD, EXPECTED_RESULT);
@@ -4766,7 +4766,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenLineIsContainedI
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4780,12 +4780,12 @@ QTEST_CASE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenLineIsContainedI
     const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint = QVector2::GetZeroVector();
     QVector2 vSecondPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(QUAD, vFirstPoint, vSecondPoint);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vFirstPoint == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondPoint == EXPECTED_SECONDPOINT);
@@ -4799,7 +4799,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4842,7 +4842,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     const QVector2 EXPECTED_FIRSTPOINT_DC_DA2 = MIDPOINT_DA;
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAD1, vSecondPointAD1;
     QVector2 vFirstPointBA1, vSecondPointBA1;
     QVector2 vFirstPointCB1, vSecondPointCB1;
@@ -4860,7 +4860,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndpointIsInsid
     EQIntersections eResultCD1 = LINE_SEGMENT7.IntersectionPoint(QUAD, vFirstPointDA1, vSecondPointDA1);
     EQIntersections eResultCD2 = LINE_SEGMENT8.IntersectionPoint(QUAD, vFirstPointDA2, vSecondPointDA2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAD1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAD2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB1, EXPECTED_RESULT);
@@ -4895,7 +4895,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsNoIntersectionWhenLineAndQuadrilateralDoN
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4909,12 +4909,12 @@ QTEST_CASE ( IntersectionPoint4_ReturnsNoIntersectionWhenLineAndQuadrilateralDoN
     const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint = QVector2::GetZeroVector();
     QVector2 vSecondPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(QUAD, vFirstPoint, vSecondPoint);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vFirstPoint == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondPoint == EXPECTED_SECONDPOINT);
@@ -4928,7 +4928,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsNoIntersectionWhenLineAndQuadrilateralDoN
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4942,12 +4942,12 @@ QTEST_CASE ( IntersectionPoint4_ReturnsNoIntersectionWhenLineAndQuadrilateralDoN
     const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint = QVector2::GetZeroVector();
     QVector2 vSecondPoint = QVector2::GetZeroVector();
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(QUAD, vFirstPoint, vSecondPoint);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(vFirstPoint == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(vSecondPoint == EXPECTED_SECONDPOINT);
@@ -4961,7 +4961,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsTwoCont
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -4993,7 +4993,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsTwoCont
     const QVector2 EXPECTED_SECONDPOINT_CD = QUAD.D;
     const QVector2 EXPECTED_SECONDPOINT_DA = QUAD.A;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAB, vSecondPointAB;
     QVector2 vFirstPointBC, vSecondPointBC;
     QVector2 vFirstPointCD, vSecondPointCD;
@@ -5003,7 +5003,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsTwoCont
     EQIntersections eResultCD = LINE_SEGMENT3.IntersectionPoint(QUAD, vFirstPointCD, vSecondPointCD);
     EQIntersections eResultDA = LINE_SEGMENT4.IntersectionPoint(QUAD, vFirstPointDA, vSecondPointDA);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
@@ -5026,7 +5026,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_4, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -5058,7 +5058,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     const QVector2 EXPECTED_SECONDPOINT_CD = LINE_SEGMENT3.B;
     const QVector2 EXPECTED_SECONDPOINT_DA = LINE_SEGMENT4.B;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAB, vSecondPointAB;
     QVector2 vFirstPointBC, vSecondPointBC;
     QVector2 vFirstPointCD, vSecondPointCD;
@@ -5068,7 +5068,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineBelongsToAnEdge_T
     EQIntersections eResultCD = LINE_SEGMENT3.IntersectionPoint(QUAD, vFirstPointCD, vSecondPointCD);
     EQIntersections eResultDA = LINE_SEGMENT4.IntersectionPoint(QUAD, vFirstPointDA, vSecondPointDA);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultCD, EXPECTED_RESULT);
@@ -5091,7 +5091,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -5128,7 +5128,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     const QVector2 EXPECTED_FIRSTPOINT_D2 = QUAD.D;
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointA1;
     QVector2 vFirstPointB1;
     QVector2 vFirstPointC1;
@@ -5154,7 +5154,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenAnEndpointCoincidesWit
     EQIntersections eResultD1 = LINE_SEGMENT7.IntersectionPoint(QUAD, vFirstPointD1, vSecondPointD1);
     EQIntersections eResultD2 = LINE_SEGMENT8.IntersectionPoint(QUAD, vFirstPointD2, vSecondPointD2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultA1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultA2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultB1, EXPECTED_RESULT);
@@ -5189,7 +5189,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -5214,13 +5214,13 @@ QTEST_CASE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenLineIntersectsWithTwo
     const QVector2 EXPECTED_SECONDPOINT_AD_BC = MIDPOINT_BC;
     const QVector2 EXPECTED_SECONDPOINT_AB_CD = MIDPOINT_CD;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAD_BC, vSecondPointAD_BC;
     QVector2 vFirstPointAB_CD, vSecondPointAB_CD;
     EQIntersections eResultAD_BC = LINE_SEGMENT1.IntersectionPoint(QUAD, vFirstPointAD_BC, vSecondPointAD_BC);
     EQIntersections eResultAB_CD = LINE_SEGMENT2.IntersectionPoint(QUAD, vFirstPointAB_CD, vSecondPointAB_CD);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAD_BC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB_CD, EXPECTED_RESULT);
     BOOST_CHECK(vFirstPointAD_BC == EXPECTED_FIRSTPOINT_AD_BC);
@@ -5238,7 +5238,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenBothEndpointsCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_3),
                                                        QVector2(SQFloat::_1, SQFloat::_1),
@@ -5249,7 +5249,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenBothEndpointsCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QVector2 vFirstPoint;
     QVector2 vSecondPoint;
@@ -5263,7 +5263,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenBothEndpointsCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5274,7 +5274,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenAllVerticesCoincide_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QVector2 VERTEX = QVector2(SQFloat::_1, SQFloat::_2);
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(VERTEX, VERTEX, VERTEX, VERTEX);
 
@@ -5284,7 +5284,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenAllVerticesCoincide_Test )
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QVector2 vFirstPoint;
     QVector2 vSecondPoint;
@@ -5298,7 +5298,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenAllVerticesCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -5321,7 +5321,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsExpectedIntersectionPointWhenBothEndpoint
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_1),
@@ -5342,7 +5342,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsExpectedIntersectionPointWhenBothEndpoint
     const EQIntersections EXPECTED_RESULT_INSIDE = EQIntersections::E_Infinite;
     const QVector2 EXPECTED_POINT_INSIDE = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointOutside = QVector2::GetZeroVector();
     QVector2 vFirstPointInEdge = QVector2::GetZeroVector();
     QVector2 vFirstPointInside = QVector2::GetZeroVector();
@@ -5354,7 +5354,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsExpectedIntersectionPointWhenBothEndpoint
     EQIntersections eResultInEdge = LINE_SEGMENT_IN_EDGE.IntersectionPoint(QUAD, vFirstPointInEdge, vSecondPointInEdge);
     EQIntersections eResultInside = LINE_SEGMENT_INSIDE.IntersectionPoint(QUAD, vFirstPointInside, vSecondPointInside);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultOutside, EXPECTED_RESULT_OUTSIDE);
     BOOST_CHECK_EQUAL(eResultInEdge, EXPECTED_RESULT_IN_EDGE);
     BOOST_CHECK_EQUAL(eResultInside, EXPECTED_RESULT_INSIDE);
@@ -5376,7 +5376,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -5418,7 +5418,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     const QVector2 EXPECTED_FIRSTPOINT_DA2 = MIDPOINT_DA;
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAB1;
     QVector2 vFirstPointBC1;
     QVector2 vFirstPointCD1;
@@ -5444,7 +5444,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     EQIntersections eResultDA1 = LINE_SEGMENT7.IntersectionPoint(QUAD, vFirstPointDA1, vSecondPointDA1);
     EQIntersections eResultDA2 = LINE_SEGMENT8.IntersectionPoint(QUAD, vFirstPointDA2, vSecondPointDA2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC1, EXPECTED_RESULT);
@@ -5479,7 +5479,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -5522,7 +5522,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     const QVector2 EXPECTED_FIRSTPOINT_DA2 = MIDPOINT_DA;
     const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPointAB1;
     QVector2 vFirstPointBC1;
     QVector2 vFirstPointCD1;
@@ -5548,7 +5548,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsOneIntersectionWhenOnlyOneEndPointBelongs
     EQIntersections eResultDA1 = LINE_SEGMENT7.IntersectionPoint(QUAD, vFirstPointDA1, vSecondPointDA1);
     EQIntersections eResultDA2 = LINE_SEGMENT8.IntersectionPoint(QUAD, vFirstPointDA2, vSecondPointDA2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultAB1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultAB2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResultBC1, EXPECTED_RESULT);
@@ -5584,7 +5584,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnedPointIsTheClosestOneToEndpointA_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const QBaseQuadrilateral QUAD = QBaseQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                                        QVector2(SQFloat::_3, SQFloat::_2),
                                                        QVector2(SQFloat::_3, SQFloat::_0),
@@ -5600,11 +5600,11 @@ QTEST_CASE ( IntersectionPoint4_ReturnedPointIsTheClosestOneToEndpointA_Test )
     const QVector2 CLOSEST_INTERSECTION_TO_A = MIDPOINT_AB;
     const QVector2 FARTHEST_INTERSECTION_TO_A = MIDPOINT_BC;
 
-	// Execution
+	// [Execution]
     QVector2 vFirstPoint, vSecondPoint;
     LINE_SEGMENT2.IntersectionPoint(QUAD, vFirstPoint, vSecondPoint); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vFirstPoint == CLOSEST_INTERSECTION_TO_A);
     BOOST_CHECK(vFirstPoint != FARTHEST_INTERSECTION_TO_A);
 }

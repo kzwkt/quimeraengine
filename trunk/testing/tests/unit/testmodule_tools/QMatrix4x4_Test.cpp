@@ -51,7 +51,7 @@ QTEST_SUITE_BEGIN( QMatrix4x4_TestSuite )
 /// </summary>
 QTEST_CASE ( FriendOperatorProduct_EveryElementIsMultipliedByTheScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4,
                             SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8,
                             SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0,
@@ -76,10 +76,10 @@ QTEST_CASE ( FriendOperatorProduct_EveryElementIsMultipliedByTheScalar_Test )
 
     const float_q SCALAR_VALUE = SQFloat::_2;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = SCALAR_VALUE * MATRIX;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -103,13 +103,13 @@ QTEST_CASE ( FriendOperatorProduct_EveryElementIsMultipliedByTheScalar_Test )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_ALL);
@@ -132,7 +132,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_3;
@@ -155,10 +155,10 @@ QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
                                     EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22, EXPECTED_VALUE_FOR_23,
                                     EXPECTED_VALUE_FOR_30, EXPECTED_VALUE_FOR_31, EXPECTED_VALUE_FOR_32, EXPECTED_VALUE_FOR_33);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = MATRIX_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -182,17 +182,17 @@ QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
     const QBaseMatrix4x4 EXPECTED_VALUE(SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_3,
                                         SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7,
                                         SQFloat::_8, SQFloat::_9, SQFloat::_10, (float_q)11.0,
                                         (float_q)12.0, (float_q)13.0, (float_q)14.0, (float_q)15.0);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT(EXPECTED_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -216,13 +216,13 @@ QTEST_CASE ( Constructor3_EveryElementCopiedToCorrespondingElement_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_5;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT(EXPECTED_VALUE_FOR_ALL);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_ALL);
@@ -246,7 +246,7 @@ QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 /// </summary>
 QTEST_CASE ( Constructor5_ValuesAreSetProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_3;
@@ -264,13 +264,13 @@ QTEST_CASE ( Constructor5_ValuesAreSetProperly_Test )
     const float_q EXPECTED_VALUE_FOR_32 = SQFloat::_10+SQFloat::_5;
     const float_q EXPECTED_VALUE_FOR_33 = SQFloat::_10+SQFloat::_6;
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_02, EXPECTED_VALUE_FOR_03,
                             EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, EXPECTED_VALUE_FOR_12, EXPECTED_VALUE_FOR_13,
                             EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22, EXPECTED_VALUE_FOR_23,
                             EXPECTED_VALUE_FOR_30, EXPECTED_VALUE_FOR_31, EXPECTED_VALUE_FOR_32, EXPECTED_VALUE_FOR_33);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -294,7 +294,7 @@ QTEST_CASE ( Constructor5_ValuesAreSetProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor6_MatrixComponentsAreFilledWithValidReferenceTo16Floats_Test )
 {
-   // Preparation
+   // [Preparation]
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_3;
@@ -331,10 +331,10 @@ QTEST_CASE ( Constructor6_MatrixComponentsAreFilledWithValidReferenceTo16Floats_
     VALID_ARRAY_OF_16_FLOATS[14] = EXPECTED_VALUE_FOR_32;
     VALID_ARRAY_OF_16_FLOATS[15] = EXPECTED_VALUE_FOR_33;
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT(VALID_ARRAY_OF_16_FLOATS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -364,10 +364,10 @@ QTEST_CASE ( Constructor6_MatrixComponentsAreFilledWithValidReferenceTo16Floats_
 /// </summary>
 QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q* NULL_ARRAY = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -379,7 +379,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -390,7 +390,7 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 /// </summary>
 QTEST_CASE ( Constructor7_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_02 = SQFloat::_3;
@@ -415,10 +415,10 @@ QTEST_CASE ( Constructor7_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 	SQVF32::Pack(EXPECTED_VALUE_FOR_20, EXPECTED_VALUE_FOR_21, EXPECTED_VALUE_FOR_22, EXPECTED_VALUE_FOR_23, PACK2);
 	SQVF32::Pack(EXPECTED_VALUE_FOR_30, EXPECTED_VALUE_FOR_31, EXPECTED_VALUE_FOR_32, EXPECTED_VALUE_FOR_33, PACK3);
 
-	// Execution
+	// [Execution]
 	QMatrix4x4 matrixUT(PACK0, PACK1, PACK2, PACK3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -442,13 +442,13 @@ QTEST_CASE ( Constructor7_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 /// </summary>
 QTEST_CASE ( GetZeroMatrix_AllElementsEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT = QMatrix4x4::GetZeroMatrix();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_ALL);
@@ -472,14 +472,14 @@ QTEST_CASE ( GetZeroMatrix_AllElementsEqualZero_Test )
 /// </summary>
 QTEST_CASE ( GetIdentity_AllElementsEqualZeroAndDiagonalEqualsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_DIAGONAL = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT = QMatrix4x4::GetIdentity();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_DIAGONAL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_ALL);
@@ -503,7 +503,7 @@ QTEST_CASE ( GetIdentity_AllElementsEqualZeroAndDiagonalEqualsOne_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_EveryElementIsMultipliedByTheScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
     const QMatrix4x4 MATRIX(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                             SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
@@ -529,10 +529,10 @@ QTEST_CASE ( OperatorProduct1_EveryElementIsMultipliedByTheScalar_Test )
 
     const float_q SCALAR_VALUE = SQFloat::_2;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = MATRIX * SCALAR_VALUE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -556,7 +556,7 @@ QTEST_CASE ( OperatorProduct1_EveryElementIsMultipliedByTheScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QMatrix4x4 OPERAND1(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
@@ -586,10 +586,10 @@ QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
     const float_q EXPECTED_VALUE_FOR_32 = (float_q)1470.0;
     const float_q EXPECTED_VALUE_FOR_33 = (float_q)1528.0;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -613,7 +613,7 @@ QTEST_CASE ( OperatorProduct2_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct2_ProductIsNotCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 OPERAND1(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                               SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
                               SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
@@ -624,11 +624,11 @@ QTEST_CASE ( OperatorProduct2_ProductIsNotCommutative_Test )
                               (float_q)25.0, (float_q)26.0, (float_q)27.0, (float_q)28.0,
                               (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrix1UT = OPERAND1 * OPERAND2;
     QMatrix4x4 matrix2UT = OPERAND2 * OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrix1UT != matrix2UT );
 }
 
@@ -637,7 +637,7 @@ QTEST_CASE ( OperatorProduct2_ProductIsNotCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x3;
 
     const QMatrix4x4 OPERAND1(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
@@ -663,10 +663,10 @@ QTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
     const float_q EXPECTED_VALUE_FOR_31 = (float_q)1412.0;
     const float_q EXPECTED_VALUE_FOR_32 = (float_q)1470.0;
 
-    // Execution
+    // [Execution]
     QBaseMatrix4x3 matrixUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -686,7 +686,7 @@ QTEST_CASE ( OperatorProduct3_CommonMatricesAreCorrectlyMultiplied_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision_EveryElementIsDividedByTheScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,    SQFloat::_8,
                             SQFloat::_10,   (float_q)12.0, (float_q)14.0, (float_q)16.0,
                             (float_q)18.0, (float_q)20.0, (float_q)22.0, (float_q)24.0,
@@ -711,10 +711,10 @@ QTEST_CASE ( OperatorDivision_EveryElementIsDividedByTheScalar_Test )
 
     const float_q SCALAR_VALUE = SQFloat::_2;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = MATRIX / SCALAR_VALUE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -740,10 +740,10 @@ QTEST_CASE ( OperatorDivision_EveryElementIsDividedByTheScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q ZERO_SCALAR = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -756,7 +756,7 @@ QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -767,7 +767,7 @@ QTEST_CASE ( OperatorDivision_AssertionFailsWhenScalarEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( OperatorAddition_CommonMatricesAreCorrectlyAdded_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QMatrix4x4 OPERAND1(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
@@ -797,10 +797,10 @@ QTEST_CASE ( OperatorAddition_CommonMatricesAreCorrectlyAdded_Test )
     const float_q EXPECTED_VALUE_FOR_32 = (float_q)46.0;
     const float_q EXPECTED_VALUE_FOR_33 = (float_q)48.0;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = OPERAND1 + OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -824,7 +824,7 @@ QTEST_CASE ( OperatorAddition_CommonMatricesAreCorrectlyAdded_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtraction_CommonMatricesAreCorrectlySubtracted_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QMatrix4x4 OPERAND1((float_q)18.0, (float_q)20.0, (float_q)22.0, (float_q)24.0,
@@ -842,10 +842,10 @@ QTEST_CASE ( OperatorSubtraction_CommonMatricesAreCorrectlySubtracted_Test )
                                     SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
                                     (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = OPERAND1 - OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -869,7 +869,7 @@ QTEST_CASE ( OperatorSubtraction_CommonMatricesAreCorrectlySubtracted_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_CommonMatricesAreCorrectlyMultiplied_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QBaseMatrix4x4 OPERAND1(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
@@ -899,11 +899,11 @@ QTEST_CASE ( OperatorProductAssignation1_CommonMatricesAreCorrectlyMultiplied_Te
     const float_q EXPECTED_VALUE_FOR_32 = (float_q)1470.0;
     const float_q EXPECTED_VALUE_FOR_33 = (float_q)1528.0;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT(OPERAND1);
     matrixUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -927,7 +927,7 @@ QTEST_CASE ( OperatorProductAssignation1_CommonMatricesAreCorrectlyMultiplied_Te
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_ProductIsNotCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QBaseMatrix4x4 OPERAND1(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
@@ -940,13 +940,13 @@ QTEST_CASE ( OperatorProductAssignation1_ProductIsNotCommutative_Test )
                                   (float_q)25.0, (float_q)26.0, (float_q)27.0, (float_q)28.0,
                                   (float_q)29.0, (float_q)30.0, (float_q)31.0, (float_q)32.0);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrix1UT(OPERAND1);
     matrix1UT *= OPERAND2;
     QMatrix4x4 matrix2UT(OPERAND2);
     matrix2UT *= OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( matrix1UT != matrix2UT );
 }
 
@@ -955,7 +955,7 @@ QTEST_CASE ( OperatorProductAssignation1_ProductIsNotCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_MatrixObjectIsCorrectlyMultipliedAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 OPERAND(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                              SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
                              SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
@@ -963,11 +963,11 @@ QTEST_CASE ( OperatorProductAssignation1_MatrixObjectIsCorrectlyMultipliedAndAss
 
     const QMatrix4x4 EXPECTED_VALUE = OPERAND * OPERAND;
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT = OPERAND;
     matrixUT *= matrixUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(matrixUT == EXPECTED_VALUE);
 }
 
@@ -976,7 +976,7 @@ QTEST_CASE ( OperatorProductAssignation1_MatrixObjectIsCorrectlyMultipliedAndAss
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                             SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
                             SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
@@ -989,11 +989,11 @@ QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalar_Tes
                                     (float_q)18.0, (float_q)20.0, (float_q)22.0, (float_q)24.0,
                                     (float_q)26.0, (float_q)28.0, (float_q)30.0, (float_q)32.0);
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT = MATRIX;
     matrixUT *= SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -1017,7 +1017,7 @@ QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalar_Tes
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalarAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX((float_q)0.9,  SQFloat::_1,    SQFloat::_2,     (float_q)0.3,
                             SQFloat::_7,    SQFloat::_0_5,  SQFloat::_4,     (float_q)0.02,
                             SQFloat::_3,    (float_q)0.07, (float_q)0.033, (float_q)0.001,
@@ -1045,7 +1045,7 @@ QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalarAndA
     EXPECTED_VALUE = EXPECTED_VALUE * EXPECTED_VALUE.ij[3][2];
     EXPECTED_VALUE = EXPECTED_VALUE * EXPECTED_VALUE.ij[3][3];
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT = MATRIX;
     matrixUT *= matrixUT.ij[0][0];
     matrixUT *= matrixUT.ij[0][1];
@@ -1064,7 +1064,7 @@ QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalarAndA
     matrixUT *= matrixUT.ij[3][2];
     matrixUT *= matrixUT.ij[3][3];
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -1088,7 +1088,7 @@ QTEST_CASE ( OperatorProductAssignation2_MatrixIsCorrectlyMultipliedByScalarAndA
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation_EveryElementIsDividedByTheScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_2,    SQFloat::_4,    SQFloat::_6,    SQFloat::_8,
                             SQFloat::_10,   (float_q)12.0, (float_q)14.0, (float_q)16.0,
                             (float_q)18.0, (float_q)20.0, (float_q)22.0, (float_q)24.0,
@@ -1113,11 +1113,11 @@ QTEST_CASE ( OperatorDivisionAssignation_EveryElementIsDividedByTheScalar_Test )
 
     const float_q SCALAR_VALUE = SQFloat::_2;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = MATRIX;
     matrixUT /= SCALAR_VALUE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -1141,7 +1141,7 @@ QTEST_CASE ( OperatorDivisionAssignation_EveryElementIsDividedByTheScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation_MatrixIsCorrectlyDividedByScalarAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                             SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
                             SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
@@ -1169,7 +1169,7 @@ QTEST_CASE ( OperatorDivisionAssignation_MatrixIsCorrectlyDividedByScalarAndAssi
     EXPECTED_VALUE = EXPECTED_VALUE / EXPECTED_VALUE.ij[3][2];
     EXPECTED_VALUE = EXPECTED_VALUE / EXPECTED_VALUE.ij[3][3];
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT = MATRIX;
     matrixUT /= matrixUT.ij[0][0];
     matrixUT /= matrixUT.ij[0][1];
@@ -1188,7 +1188,7 @@ QTEST_CASE ( OperatorDivisionAssignation_MatrixIsCorrectlyDividedByScalarAndAssi
     matrixUT /= matrixUT.ij[3][2];
     matrixUT /= matrixUT.ij[3][3];
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -1214,10 +1214,10 @@ QTEST_CASE ( OperatorDivisionAssignation_MatrixIsCorrectlyDividedByScalarAndAssi
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q ZERO_SCALAR = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1230,7 +1230,7 @@ QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1241,7 +1241,7 @@ QTEST_CASE ( OperatorDivisionAssignation_AssertionFailsWhenScalarEqualsZero_Test
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignation_CommonMatricesAreCorrectlyAdded_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QMatrix4x4 OPERAND1(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
@@ -1271,11 +1271,11 @@ QTEST_CASE ( OperatorAdditionAssignation_CommonMatricesAreCorrectlyAdded_Test )
     const float_q EXPECTED_VALUE_FOR_32 = (float_q)46.0;
     const float_q EXPECTED_VALUE_FOR_33 = (float_q)48.0;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = OPERAND1;
     matrixUT += OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_02);
@@ -1299,7 +1299,7 @@ QTEST_CASE ( OperatorAdditionAssignation_CommonMatricesAreCorrectlyAdded_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignation_CommonMatricesAreCorrectlySubtracted_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QMatrix4x4 OPERAND1((float_q)18.0, (float_q)20.0, (float_q)22.0, (float_q)24.0,
@@ -1317,11 +1317,11 @@ QTEST_CASE ( OperatorSubtractionAssignation_CommonMatricesAreCorrectlySubtracted
                                     SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
                                     (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = OPERAND1;
     matrixUT -= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -1345,7 +1345,7 @@ QTEST_CASE ( OperatorSubtractionAssignation_CommonMatricesAreCorrectlySubtracted
 /// </summary>
 QTEST_CASE ( OperatorAssignation_EveryElementIsAssignedToRightTargetElement_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QBaseMatrix4x4 EXPECTED_VALUE(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
@@ -1353,11 +1353,11 @@ QTEST_CASE ( OperatorAssignation_EveryElementIsAssignedToRightTargetElement_Test
                                         SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
                                         (float_q)13.0, (float_q)14.0, (float_q)15.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT;
     matrixUT = EXPECTED_VALUE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -1381,7 +1381,7 @@ QTEST_CASE ( OperatorAssignation_EveryElementIsAssignedToRightTargetElement_Test
 /// </summary>
 QTEST_CASE ( ResetToZero_AllElementsEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseMatrix4x4;
 
     const QBaseMatrix4x4 MATRIX(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
@@ -1391,11 +1391,11 @@ QTEST_CASE ( ResetToZero_AllElementsEqualZero_Test )
 
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT(MATRIX);
     matrixUT.ResetToZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_ALL);
@@ -1419,7 +1419,7 @@ QTEST_CASE ( ResetToZero_AllElementsEqualZero_Test )
 /// </summary>
 QTEST_CASE ( ResetToIdentity_AllElementsEqualZeroButDiagonalThatEqualsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                             SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
                             SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
@@ -1428,11 +1428,11 @@ QTEST_CASE ( ResetToIdentity_AllElementsEqualZeroButDiagonalThatEqualsOne_Test )
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_DIAGONAL = SQFloat::_1;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT(MATRIX);
     matrixUT.ResetToIdentity();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_DIAGONAL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE_FOR_ALL);
@@ -1456,7 +1456,7 @@ QTEST_CASE ( ResetToIdentity_AllElementsEqualZeroButDiagonalThatEqualsOne_Test )
 /// </summary>
 QTEST_CASE ( Transpose_TheRowAndColumOfElementsAreSwapped_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_1,    SQFloat::_2,    SQFloat::_3,    SQFloat::_4,
                             SQFloat::_5,    SQFloat::_6,    SQFloat::_7,    SQFloat::_8,
                             SQFloat::_9,    SQFloat::_10,   (float_q)11.0, (float_q)12.0,
@@ -1467,10 +1467,10 @@ QTEST_CASE ( Transpose_TheRowAndColumOfElementsAreSwapped_Test )
                                     SQFloat::_3, SQFloat::_7, (float_q)11.0, (float_q)15.0,
                                     SQFloat::_4, SQFloat::_8, (float_q)12.0, (float_q)16.0);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = MATRIX.Transpose();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]);
@@ -1494,15 +1494,15 @@ QTEST_CASE ( Transpose_TheRowAndColumOfElementsAreSwapped_Test )
 /// </summary>
 QTEST_CASE ( IsZero_ReturnsTrueWhenAllElementsEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
     const bool EXPECTED_VALUE = true;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = ZERO_MATRIX;
     bool bResult = matrixUT.IsZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
 }
 
@@ -1511,11 +1511,11 @@ QTEST_CASE ( IsZero_ReturnsTrueWhenAllElementsEqualZero_Test )
 /// </summary>
 QTEST_CASE ( IsZero_ReturnsFalseWhenNotAllElementsEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
     const bool EXPECTED_VALUE = false;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = ZERO_MATRIX;
     bool bAtLeastOneReturnsTrue = false;
 
@@ -1536,7 +1536,7 @@ QTEST_CASE ( IsZero_ReturnsFalseWhenNotAllElementsEqualZero_Test )
     matrixUT.ij[3][2] = SQFloat::_1;    bAtLeastOneReturnsTrue |= matrixUT.IsZero();    matrixUT.ij[3][2] = SQFloat::_0;
     matrixUT.ij[3][3] = SQFloat::_1;    bAtLeastOneReturnsTrue |= matrixUT.IsZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAtLeastOneReturnsTrue, EXPECTED_VALUE);
 }
 
@@ -1545,15 +1545,15 @@ QTEST_CASE ( IsZero_ReturnsFalseWhenNotAllElementsEqualZero_Test )
 /// </summary>
 QTEST_CASE ( IsIdentity_ReturnsTrueWhenAllElementsEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 IDENTITY = QMatrix4x4::GetIdentity();
     const bool EXPECTED_VALUE = true;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = IDENTITY;
     bool bResult = matrixUT.IsIdentity();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
 }
 
@@ -1562,11 +1562,11 @@ QTEST_CASE ( IsIdentity_ReturnsTrueWhenAllElementsEqualZero_Test )
 /// </summary>
 QTEST_CASE ( IsIdentity_ReturnsFalseWhenItsNotIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 IDENTITY = QMatrix4x4::GetIdentity();
     const bool EXPECTED_VALUE = false;
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = IDENTITY;
     bool bAtLeastOneReturnsTrue = false;
 
@@ -1587,7 +1587,7 @@ QTEST_CASE ( IsIdentity_ReturnsFalseWhenItsNotIdentity_Test )
     matrixUT.ij[3][2] = SQFloat::_1;    bAtLeastOneReturnsTrue |= matrixUT.IsIdentity();    matrixUT.ij[3][2] = SQFloat::_0;
     matrixUT.ij[3][3] = SQFloat::_0;    bAtLeastOneReturnsTrue |= matrixUT.IsIdentity();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAtLeastOneReturnsTrue, EXPECTED_VALUE);
 }
 
@@ -1596,7 +1596,7 @@ QTEST_CASE ( IsIdentity_ReturnsFalseWhenItsNotIdentity_Test )
 /// </summary>
 QTEST_CASE ( GetDeterminant_ItsCorrectlyCalculatedForCommonMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_3,    SQFloat::_2,    SQFloat::_0,    SQFloat::_1,
                             SQFloat::_4,    SQFloat::_0,    SQFloat::_1,    SQFloat::_2,
                             SQFloat::_3,    SQFloat::_0,    SQFloat::_2,    SQFloat::_1,
@@ -1604,10 +1604,10 @@ QTEST_CASE ( GetDeterminant_ItsCorrectlyCalculatedForCommonMatrix_Test )
 
     const float_q EXPECTED_VALUE = (float_q)24.0;
 
-    // Execution
+    // [Execution]
     float_q fResultUT = MATRIX.GetDeterminant();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -1616,14 +1616,14 @@ QTEST_CASE ( GetDeterminant_ItsCorrectlyCalculatedForCommonMatrix_Test )
 /// </summary>
 QTEST_CASE ( GetDeterminant_DeterminantOfIdentityEqualsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 IDENTITY = QMatrix4x4::GetIdentity();
     const float_q EXPECTED_VALUE = SQFloat::_1;
 
-    // Execution
+    // [Execution]
     float_q fResultUT = IDENTITY.GetDeterminant();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -1632,14 +1632,14 @@ QTEST_CASE ( GetDeterminant_DeterminantOfIdentityEqualsOne_Test )
 /// </summary>
 QTEST_CASE ( GetDeterminant_DeterminantOfZeroMatrixEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
     const float_q EXPECTED_VALUE = SQFloat::_0;
 
-    // Execution
+    // [Execution]
     float_q fResultUT = ZERO_MATRIX.GetDeterminant();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -1648,7 +1648,7 @@ QTEST_CASE ( GetDeterminant_DeterminantOfZeroMatrixEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( Invert_CommonMatrixIsCorrectlyInverted_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_3,    SQFloat::_2,    SQFloat::_0,    SQFloat::_1,
                             SQFloat::_4,    SQFloat::_0,    SQFloat::_1,    SQFloat::_2,
                             SQFloat::_3,    SQFloat::_0,    SQFloat::_2,    SQFloat::_1,
@@ -1659,10 +1659,10 @@ QTEST_CASE ( Invert_CommonMatrixIsCorrectlyInverted_Test )
                                     (float_q)0.16666666666666666, -SQFloat::_0_5,  SQFloat::_1,    (float_q)-0.16666666666666666,
                                     (float_q)0.41666666666666663, SQFloat::_0_25,  SQFloat::_0_5,  (float_q)-0.41666666666666663);
 
-    // Execution
+    // [Execution]
     QMatrix4x4 matrixUT = MATRIX.Invert();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][0], EXPECTED_VALUE.ij[0][0]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][1], EXPECTED_VALUE.ij[0][1]) );
     BOOST_CHECK( SQFloat::AreEqual(matrixUT.ij[0][2], EXPECTED_VALUE.ij[0][2]) );
@@ -1686,14 +1686,14 @@ QTEST_CASE ( Invert_CommonMatrixIsCorrectlyInverted_Test )
 /// </summary>
 QTEST_CASE ( HasInverse_ReturnsTrueWhenDeterminantIsNotZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX = QMatrix4x4::GetIdentity();
     const bool EXPECTED_VALUE = true;
 
-    // Execution
+    // [Execution]
     bool bResultUT = MATRIX.HasInverse();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_VALUE);
 }
 
@@ -1702,14 +1702,14 @@ QTEST_CASE ( HasInverse_ReturnsTrueWhenDeterminantIsNotZero_Test )
 /// </summary>
 QTEST_CASE ( HasInverse_ReturnsFalseWhenDeterminantIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX = QMatrix4x4::GetZeroMatrix();
     const bool EXPECTED_VALUE = false;
 
-    // Execution
+    // [Execution]
     bool bResultUT = MATRIX.HasInverse();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_VALUE);
 }
 
@@ -1718,7 +1718,7 @@ QTEST_CASE ( HasInverse_ReturnsFalseWhenDeterminantIsZero_Test )
 /// </summary>
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
-    // Preparation
+    // [Preparation]
     const QMatrix4x4 MATRIX(SQFloat::_0,    SQFloat::_1,    SQFloat::_2,    (float_q)0.654321,
                             SQFloat::_4,    SQFloat::_5,    SQFloat::_6,    (float_q)-2.2,
                             SQFloat::_8,    SQFloat::_9,    SQFloat::_10,   (float_q)123456.0,
@@ -1730,11 +1730,11 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
         const string_q EXPECTED_STRING_FORM = QE_L("M4x4(0,1,2,0.65432100000000004,4,5,6,-2.2000000000000002,8,9,10,123456,12,13,14,1234567.8899999999)");
     #endif
 
-	// Execution
+	// [Execution]
     QMatrix4x4 matrixUT = MATRIX;
     string_q strStringForm = matrixUT.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strStringForm == EXPECTED_STRING_FORM);
 }
 

@@ -55,14 +55,14 @@ QTEST_SUITE_BEGIN( QCircle_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2();
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QCircle circleUT;
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -72,17 +72,17 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(SQFloat::_5, SQFloat::_6);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_4;
 
     const QCircle CIRCLE_TO_COPY = QCircle(EXPECTED_VALUE_FOR_CENTER,
                                            EXPECTED_VALUE_FOR_RADIUS);
 
-	// Execution
+	// [Execution]
     QCircle circleUT(CIRCLE_TO_COPY);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -92,17 +92,17 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(SQFloat::_8, SQFloat::_9);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_3;
 
     const QOrb<QVector2> ORB_TO_COPY = QOrb<QVector2>(EXPECTED_VALUE_FOR_CENTER,
                                                       EXPECTED_VALUE_FOR_RADIUS);
 
-	// Execution
+	// [Execution]
     QCircle circleUT(ORB_TO_COPY);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -112,14 +112,14 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ValuesAreCorrectlySet_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(SQFloat::_1, SQFloat::_5);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_4;
 
-	// Execution
+	// [Execution]
     QCircle circleUT = QCircle(EXPECTED_VALUE_FOR_CENTER, EXPECTED_VALUE_FOR_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -129,14 +129,14 @@ QTEST_CASE ( Constructor4_ValuesAreCorrectlySet_Test )
 /// </summary>
 QTEST_CASE ( GetUnitCircle_ValueHasNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(SQFloat::_0, SQFloat::_0);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QCircle circleUT = QCircle::GetUnitCircle();
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -146,17 +146,17 @@ QTEST_CASE ( GetUnitCircle_ValueHasNotChanged_Test )
 /// </summary>
 QTEST_CASE ( OperatorAssignation_CircleIsAssignedProperlyToAnother_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(SQFloat::_2, SQFloat::_3);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_8;
     const QCircle CIRCLE_TO_COPY = QCircle(EXPECTED_VALUE_FOR_CENTER,
                                            EXPECTED_VALUE_FOR_RADIUS);
 
-	// Execution
+	// [Execution]
     QCircle circleUT;
     circleUT = CIRCLE_TO_COPY;
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -166,7 +166,7 @@ QTEST_CASE ( OperatorAssignation_CircleIsAssignedProperlyToAnother_Test )
 /// </summary>
 QTEST_CASE ( Translate1_CircleIsCorrectlyTranslated_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 TRANSLATION_VECTOR = QVector2(SQFloat::_3, SQFloat::_7);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
@@ -174,11 +174,11 @@ QTEST_CASE ( Translate1_CircleIsCorrectlyTranslated_Test )
     QVector2 vExpectedValueForCenter = QVector2(INIT_CENTER_POS);
     SQPoint::Translate(TRANSLATION_VECTOR, &vExpectedValueForCenter,1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.Translate(TRANSLATION_VECTOR);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -188,17 +188,17 @@ QTEST_CASE ( Translate1_CircleIsCorrectlyTranslated_Test )
 /// </summary>
 QTEST_CASE ( Translate1_CircleIsNotTranslatedWhenTranslationIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 TRANSLATION_VECTOR = QVector2(SQFloat::_0, SQFloat::_0);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(INIT_CENTER_POS);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.Translate(TRANSLATION_VECTOR);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -208,7 +208,7 @@ QTEST_CASE ( Translate1_CircleIsNotTranslatedWhenTranslationIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate2_CircleIsCorrectlyTranslated_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 TRANSLATION_VECTOR = QVector2(SQFloat::_3, SQFloat::_7);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
@@ -216,11 +216,11 @@ QTEST_CASE ( Translate2_CircleIsCorrectlyTranslated_Test )
     QVector2 vExpectedValueForCenter = QVector2(INIT_CENTER_POS);
     SQPoint::Translate(TRANSLATION_VECTOR, &vExpectedValueForCenter,1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.Translate(TRANSLATION_VECTOR.x, TRANSLATION_VECTOR.y);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -230,17 +230,17 @@ QTEST_CASE ( Translate2_CircleIsCorrectlyTranslated_Test )
 /// </summary>
 QTEST_CASE ( Translate2_CircleIsNotTranslatedWhenTranslationIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 TRANSLATION_VECTOR = QVector2(SQFloat::_0, SQFloat::_0);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(INIT_CENTER_POS);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.Translate(TRANSLATION_VECTOR.x, TRANSLATION_VECTOR.y);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -250,7 +250,7 @@ QTEST_CASE ( Translate2_CircleIsNotTranslatedWhenTranslationIsZero_Test )
 /// </summary>
 QTEST_CASE ( Rotate_CircleIsCorrectlyRotated_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -264,11 +264,11 @@ QTEST_CASE ( Rotate_CircleIsCorrectlyRotated_Test )
     QVector2 vExpectedValueForCenter = QVector2(INIT_CENTER_POS);
     SQPoint::Rotate(ANGLE, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.Rotate(ANGLE);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -278,17 +278,17 @@ QTEST_CASE ( Rotate_CircleIsCorrectlyRotated_Test )
 /// </summary>
 QTEST_CASE ( Rotate_CircleIsNotRotatedWhenAngleIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q ANGLE = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
     const QVector2 EXPECTED_VALUE_FOR_CENTER = INIT_CENTER_POS;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.Rotate(ANGLE);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -298,7 +298,7 @@ QTEST_CASE ( Rotate_CircleIsNotRotatedWhenAngleIsZero_Test )
 /// </summary>
 QTEST_CASE ( RotateWithPivot_CircleIsCorrectlyRotated_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         const float_q ANGLE = SQAngle::_90;
@@ -311,11 +311,11 @@ QTEST_CASE ( RotateWithPivot_CircleIsCorrectlyRotated_Test )
     QVector2 vExpectedValueForCenter = QVector2(INIT_CENTER_POS);
     SQPoint::RotateWithPivot(ANGLE, PIVOT_POINT, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.RotateWithPivot(ANGLE, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -325,18 +325,18 @@ QTEST_CASE ( RotateWithPivot_CircleIsCorrectlyRotated_Test )
 /// </summary>
 QTEST_CASE ( RotateWithPivot_CircleIsNotRotatedWhenAngleIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q ANGLE = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_1;
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_1, SQFloat::_9);
     const QVector2 EXPECTED_VALUE_FOR_CENTER = INIT_CENTER_POS;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.RotateWithPivot(ANGLE, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -346,7 +346,7 @@ QTEST_CASE ( RotateWithPivot_CircleIsNotRotatedWhenAngleIsZero_Test )
 /// </summary>
 QTEST_CASE ( RotateWithPivot_CircleIsCorrectlyRotatedWithPivotInCenter_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         const float_q ANGLE = SQAngle::_90;
@@ -359,11 +359,11 @@ QTEST_CASE ( RotateWithPivot_CircleIsCorrectlyRotatedWithPivotInCenter_Test )
     QVector2 vExpectedValueForCenter = QVector2(INIT_CENTER_POS);
     SQPoint::RotateWithPivot(ANGLE, PIVOT_POINT, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, EXPECTED_VALUE_FOR_RADIUS);
     circleUT = circleUT.RotateWithPivot(ANGLE, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -373,7 +373,7 @@ QTEST_CASE ( RotateWithPivot_CircleIsCorrectlyRotatedWithPivotInCenter_Test )
 /// </summary>
 QTEST_CASE ( Scale1_CircleIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_2;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_2, SQFloat::_2);
@@ -385,11 +385,11 @@ QTEST_CASE ( Scale1_CircleIsCorrectlyScaled_Test )
     fExpectedValueForRadius *= SCALE_RADIUS; 
     SQPoint::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Scale(SCALE_VECTOR, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == fExpectedValueForRadius);
 }
@@ -399,7 +399,7 @@ QTEST_CASE ( Scale1_CircleIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( Scale1_CircleIsNotScaledWhenScalationIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_2;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
@@ -407,11 +407,11 @@ QTEST_CASE ( Scale1_CircleIsNotScaledWhenScalationIsOne_Test )
     const float_q EXPECTED_VALUE_FOR_RADIUS = INIT_RADIUS;
     const QVector2 EXPECTED_VALUE_FOR_CENTER = INIT_CENTER_POS;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Scale(SCALE_VECTOR, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -421,7 +421,7 @@ QTEST_CASE ( Scale1_CircleIsNotScaledWhenScalationIsOne_Test )
 /// </summary>
 QTEST_CASE ( Scale1_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_2;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_0, SQFloat::_0);
@@ -429,11 +429,11 @@ QTEST_CASE ( Scale1_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(SQFloat::_0, SQFloat::_0);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Scale(SCALE_VECTOR, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -443,7 +443,7 @@ QTEST_CASE ( Scale1_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
 /// </summary>
 QTEST_CASE ( Scale1_CircleWidthZeroRadiusIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_0;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_4, SQFloat::_4);
@@ -453,11 +453,11 @@ QTEST_CASE ( Scale1_CircleWidthZeroRadiusIsCorrectlyScaled_Test )
     QVector2 vExpectedValueForCenter = QVector2(INIT_CENTER_POS);
     SQPoint::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Scale(SCALE_VECTOR, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -467,7 +467,7 @@ QTEST_CASE ( Scale1_CircleWidthZeroRadiusIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( Scale2_CircleIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_2;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_2, SQFloat::_2);
@@ -479,11 +479,11 @@ QTEST_CASE ( Scale2_CircleIsCorrectlyScaled_Test )
     fExpectedValueForRadius *= SCALE_RADIUS; 
     SQPoint::Scale(SCALE_VECTOR.x, SCALE_VECTOR.y, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Scale(SCALE_VECTOR.x, SCALE_VECTOR.y, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == fExpectedValueForRadius);
 }
@@ -493,7 +493,7 @@ QTEST_CASE ( Scale2_CircleIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( Scale2_CircleIsNotScaledWhenScalationIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_2;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
@@ -501,11 +501,11 @@ QTEST_CASE ( Scale2_CircleIsNotScaledWhenScalationIsOne_Test )
     const float_q EXPECTED_VALUE_FOR_RADIUS = INIT_RADIUS;
     const QVector2 EXPECTED_VALUE_FOR_CENTER = INIT_CENTER_POS;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Scale(SCALE_VECTOR.x, SCALE_VECTOR.y, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -515,7 +515,7 @@ QTEST_CASE ( Scale2_CircleIsNotScaledWhenScalationIsOne_Test )
 /// </summary>
 QTEST_CASE ( Scale2_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_2;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_0, SQFloat::_0);
@@ -523,11 +523,11 @@ QTEST_CASE ( Scale2_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
     const QVector2 EXPECTED_VALUE_FOR_CENTER = QVector2(SQFloat::_0, SQFloat::_0);
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Scale(SCALE_VECTOR.x, SCALE_VECTOR.y, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -537,7 +537,7 @@ QTEST_CASE ( Scale2_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
 /// </summary>
 QTEST_CASE ( Scale2_CircleWidthRadiusEqualsToZeroIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_0;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_4, SQFloat::_4);
@@ -547,11 +547,11 @@ QTEST_CASE ( Scale2_CircleWidthRadiusEqualsToZeroIsCorrectlyScaled_Test )
     QVector2 vExpectedValueForCenter = QVector2(INIT_CENTER_POS);
     SQPoint::Scale(SCALE_VECTOR, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Scale(SCALE_VECTOR.x, SCALE_VECTOR.y, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -561,7 +561,7 @@ QTEST_CASE ( Scale2_CircleWidthRadiusEqualsToZeroIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_CircleIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_2;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_2, SQFloat::_2);
@@ -574,11 +574,11 @@ QTEST_CASE ( ScaleWithPivot1_CircleIsCorrectlyScaled_Test )
     fExpectedValueForRadius *= SCALE_RADIUS; 
     SQPoint::ScaleWithPivot(SCALE_VECTOR, PIVOT_POINT, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.ScaleWithPivot(SCALE_VECTOR, SCALE_RADIUS, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == fExpectedValueForRadius);
 }
@@ -588,7 +588,7 @@ QTEST_CASE ( ScaleWithPivot1_CircleIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_CircleIsNotScaledWhenScalationIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_3;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
@@ -597,11 +597,11 @@ QTEST_CASE ( ScaleWithPivot1_CircleIsNotScaledWhenScalationIsOne_Test )
     const QVector2 EXPECTED_VALUE_FOR_CENTER = INIT_CENTER_POS;
     const float_q EXPECTED_VALUE_FOR_RADIUS = INIT_RADIUS;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.ScaleWithPivot(SCALE_VECTOR, SCALE_RADIUS, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -611,7 +611,7 @@ QTEST_CASE ( ScaleWithPivot1_CircleIsNotScaledWhenScalationIsOne_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_3;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_0, SQFloat::_0);
@@ -620,11 +620,11 @@ QTEST_CASE ( ScaleWithPivot1_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
     const QVector2 EXPECTED_VALUE_FOR_CENTER = PIVOT_POINT;
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.ScaleWithPivot(SCALE_VECTOR, SCALE_RADIUS, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -634,7 +634,7 @@ QTEST_CASE ( ScaleWithPivot1_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_CircleIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_2;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_2, SQFloat::_2);
@@ -647,11 +647,11 @@ QTEST_CASE ( ScaleWithPivot2_CircleIsCorrectlyScaled_Test )
     fExpectedValueForRadius *= SCALE_RADIUS; 
     SQPoint::ScaleWithPivot(SCALE_VECTOR, PIVOT_POINT, &vExpectedValueForCenter, 1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.ScaleWithPivot(SCALE_VECTOR.x, SCALE_VECTOR.y, SCALE_RADIUS, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == fExpectedValueForRadius);
 }
@@ -661,7 +661,7 @@ QTEST_CASE ( ScaleWithPivot2_CircleIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_CircleIsNotScaledWhenScalationIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_3;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_1, SQFloat::_1);
@@ -670,11 +670,11 @@ QTEST_CASE ( ScaleWithPivot2_CircleIsNotScaledWhenScalationIsOne_Test )
     const QVector2 EXPECTED_VALUE_FOR_CENTER = INIT_CENTER_POS;
     const float_q EXPECTED_VALUE_FOR_RADIUS = INIT_RADIUS;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.ScaleWithPivot(SCALE_VECTOR.x, SCALE_VECTOR.y, SCALE_RADIUS, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -684,7 +684,7 @@ QTEST_CASE ( ScaleWithPivot2_CircleIsNotScaledWhenScalationIsOne_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_3;
     const QVector2 SCALE_VECTOR = QVector2(SQFloat::_0, SQFloat::_0);
@@ -693,11 +693,11 @@ QTEST_CASE ( ScaleWithPivot2_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
     const QVector2 EXPECTED_VALUE_FOR_CENTER = PIVOT_POINT;
     const float_q EXPECTED_VALUE_FOR_RADIUS = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.ScaleWithPivot(SCALE_VECTOR.x, SCALE_VECTOR.y, SCALE_RADIUS, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -707,7 +707,7 @@ QTEST_CASE ( ScaleWithPivot2_CircleRadiusEqualsZeroWhenIsScaledByZero_Test )
 /// </summary>
 QTEST_CASE ( Transform_CircleIsCorrectlyTransformed_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_1;
     const float_q SCALE_RADIUS = SQFloat::_3;
@@ -728,11 +728,11 @@ QTEST_CASE ( Transform_CircleIsCorrectlyTransformed_Test )
     fExpectedValueForRadius *= SCALE_RADIUS; 
     SQPoint::Transform(TRANSFORMATION_MATRIX, &vExpectedValueForCenter,1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Transform(TRANSFORMATION_MATRIX, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == fExpectedValueForRadius);
 }
@@ -742,7 +742,7 @@ QTEST_CASE ( Transform_CircleIsCorrectlyTransformed_Test )
 /// </summary>
 QTEST_CASE ( Transform_CircleIsNotTransformedWhenTransformationIsIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_1;
     const float_q SCALE_RADIUS = SQFloat::_1;
@@ -750,11 +750,11 @@ QTEST_CASE ( Transform_CircleIsNotTransformedWhenTransformationIsIdentity_Test )
     const float_q EXPECTED_VALUE_FOR_RADIUS = INIT_RADIUS;
     const QVector2 EXPECTED_VALUE_FOR_CENTER = INIT_CENTER_POS;
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.Transform(TRANSFORMATION_MATRIX, SCALE_RADIUS);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -764,7 +764,7 @@ QTEST_CASE ( Transform_CircleIsNotTransformedWhenTransformationIsIdentity_Test )
 /// </summary>
 QTEST_CASE ( TransformWithPivot_CircleIsCorrectlyTransformed_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_1;
     const float_q SCALE_RADIUS = SQFloat::_3;
@@ -787,11 +787,11 @@ QTEST_CASE ( TransformWithPivot_CircleIsCorrectlyTransformed_Test )
     fExpectedValueForRadius *= SCALE_RADIUS; 
     SQPoint::TransformWithPivot(TRANSFORMATION_MATRIX, PIVOT_POINT, &vExpectedValueForCenter,1);
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.TransformWithPivot(TRANSFORMATION_MATRIX, SCALE_RADIUS, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == vExpectedValueForCenter);
     BOOST_CHECK(circleUT.Radius == fExpectedValueForRadius);
 }
@@ -801,7 +801,7 @@ QTEST_CASE ( TransformWithPivot_CircleIsCorrectlyTransformed_Test )
 /// </summary>
 QTEST_CASE ( TransformWithPivot_CircleIsNotTransformedWhenTransformationIsIdentity_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_CENTER_POS = QVector2(SQFloat::_2, SQFloat::_4);
     const float_q INIT_RADIUS = SQFloat::_1;
     const float_q SCALE_RADIUS = SQFloat::_1;
@@ -811,11 +811,11 @@ QTEST_CASE ( TransformWithPivot_CircleIsNotTransformedWhenTransformationIsIdenti
 
     const QTransformationMatrix3x3 TRANSFORMATION_MATRIX = QTransformationMatrix3x3::GetIdentity();
 
-	// Execution
+	// [Execution]
     QCircle circleUT= QCircle(INIT_CENTER_POS, INIT_RADIUS);
     circleUT = circleUT.TransformWithPivot(TRANSFORMATION_MATRIX, SCALE_RADIUS, PIVOT_POINT);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(circleUT.Center == EXPECTED_VALUE_FOR_CENTER);
     BOOST_CHECK(circleUT.Radius == EXPECTED_VALUE_FOR_RADIUS);
 }
@@ -825,17 +825,17 @@ QTEST_CASE ( TransformWithPivot_CircleIsNotTransformedWhenTransformationIsIdenti
 /// </summary>
 QTEST_CASE ( IntersectionPoint_ReturnsNoneWhenCirclesNotIntersecting_Test )
 {
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_VALUE_FOR_INTERSECTION = EQIntersections::E_None;
     const QCircle CIRCLE_ONE = QCircle(QVector2(SQFloat::_0, SQFloat::_0), SQFloat::_1);
     const QCircle CIRCLE_TWO = QCircle(QVector2(SQFloat::_3, SQFloat::_0), SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QVector2 intersection1 = QVector2();
     QVector2 intersection2 = QVector2();
     EQIntersections intersectionUT = CIRCLE_ONE.IntersectionPoint(CIRCLE_TWO, intersection1, intersection2);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(intersectionUT == EXPECTED_VALUE_FOR_INTERSECTION);
 }
 
@@ -844,18 +844,18 @@ QTEST_CASE ( IntersectionPoint_ReturnsNoneWhenCirclesNotIntersecting_Test )
 /// </summary>
 QTEST_CASE ( IntersectionPoint_ReturnsOneWhenCirclesAreIntersectingInOnePoint_Test )
 {
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_VALUE_FOR_INTERSECTION = EQIntersections::E_One;
     const QCircle CIRCLE_ONE = QCircle(QVector2(SQFloat::_0, SQFloat::_0), SQFloat::_1);
     const QCircle CIRCLE_TWO = QCircle(QVector2(SQFloat::_2, SQFloat::_0), SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QVector2 intersection1 = QVector2();
     QVector2 intersection2 = QVector2();
     EQIntersections intersection1UT = CIRCLE_ONE.IntersectionPoint(CIRCLE_TWO, intersection1, intersection2);
     EQIntersections intersection2UT = CIRCLE_TWO.IntersectionPoint(CIRCLE_ONE, intersection1, intersection2);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(intersection1UT == EXPECTED_VALUE_FOR_INTERSECTION);
     BOOST_CHECK(intersection2UT == EXPECTED_VALUE_FOR_INTERSECTION);
 }
@@ -865,18 +865,18 @@ QTEST_CASE ( IntersectionPoint_ReturnsOneWhenCirclesAreIntersectingInOnePoint_Te
 /// </summary>
 QTEST_CASE ( IntersectionPoint_ReturnsTwoWhenCirclesAreIntersectingInTwoPoints_Test )
 {
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_VALUE_FOR_INTERSECTION = EQIntersections::E_Two;
     const QCircle CIRCLE_ONE = QCircle(QVector2(SQFloat::_0, SQFloat::_0), SQFloat::_1);
     const QCircle CIRCLE_TWO = QCircle(QVector2(SQFloat::_1, SQFloat::_0), SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QVector2 intersection1 = QVector2();
     QVector2 intersection2 = QVector2();
     EQIntersections intersection1UT = CIRCLE_ONE.IntersectionPoint(CIRCLE_TWO, intersection1, intersection2);
     EQIntersections intersection2UT = CIRCLE_TWO.IntersectionPoint(CIRCLE_ONE, intersection1, intersection2);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(intersection1UT == EXPECTED_VALUE_FOR_INTERSECTION);
     BOOST_CHECK(intersection2UT == EXPECTED_VALUE_FOR_INTERSECTION);
 }
@@ -886,18 +886,18 @@ QTEST_CASE ( IntersectionPoint_ReturnsTwoWhenCirclesAreIntersectingInTwoPoints_T
 /// </summary>
 QTEST_CASE ( IntersectionPoint_ReturnsInfiniteWhenTwoCirclesAreTheSame_Test )
 {
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_VALUE_FOR_INTERSECTION = EQIntersections::E_Infinite;
     const QCircle CIRCLE_ONE = QCircle(QVector2(SQFloat::_0, SQFloat::_0), SQFloat::_1);
     const QCircle CIRCLE_TWO = CIRCLE_ONE;
 
-	// Execution
+	// [Execution]
     QVector2 intersection1 = QVector2();
     QVector2 intersection2 = QVector2();
     EQIntersections intersection1UT = CIRCLE_ONE.IntersectionPoint(CIRCLE_TWO, intersection1, intersection2);
     EQIntersections intersection2UT = CIRCLE_TWO.IntersectionPoint(CIRCLE_ONE, intersection1, intersection2);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(intersection1UT == EXPECTED_VALUE_FOR_INTERSECTION);
     BOOST_CHECK(intersection2UT == EXPECTED_VALUE_FOR_INTERSECTION);
 }
@@ -907,18 +907,18 @@ QTEST_CASE ( IntersectionPoint_ReturnsInfiniteWhenTwoCirclesAreTheSame_Test )
 /// </summary>
 QTEST_CASE ( IntersectionPoint_ReturnsInfiniteWhenOneCircleIsContainedIntoTheOther_Test )
 {
-    // Preparation
+    // [Preparation]
     const EQIntersections EXPECTED_VALUE_FOR_INTERSECTION = EQIntersections::E_Infinite;
     const QCircle CIRCLE_ONE = QCircle(QVector2(SQFloat::_0, SQFloat::_0), SQFloat::_1);
     const QCircle CIRCLE_TWO = QCircle(QVector2(SQFloat::_0, SQFloat::_0), SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector2 intersection1 = QVector2();
     QVector2 intersection2 = QVector2();
     EQIntersections intersection1UT = CIRCLE_ONE.IntersectionPoint(CIRCLE_TWO, intersection1, intersection2);
     EQIntersections intersection2UT = CIRCLE_TWO.IntersectionPoint(CIRCLE_ONE, intersection1, intersection2);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(intersection1UT == EXPECTED_VALUE_FOR_INTERSECTION);
     BOOST_CHECK(intersection2UT == EXPECTED_VALUE_FOR_INTERSECTION);
 }
@@ -930,13 +930,13 @@ QTEST_CASE ( IntersectionPoint_ReturnsInfiniteWhenOneCircleIsContainedIntoTheOth
 /// </summary>
 QTEST_CASE ( IntersectionPoint_AssertionFailsWhenRadiusEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool ASSERTION_FAILED = true;
 
     const QCircle CIRCLE_ONE = QCircle(QVector2(SQFloat::_8, SQFloat::_7), SQFloat::_0);
     const QCircle CIRCLE_TWO = QCircle(QVector2(SQFloat::_6, SQFloat::_5), SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QVector2 intersection1 = QVector2();
     QVector2 intersection2 = QVector2();
 
@@ -960,7 +960,7 @@ QTEST_CASE ( IntersectionPoint_AssertionFailsWhenRadiusEqualsZero_Test )
         bAssertionFailed2 = true;
     }
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed1 == ASSERTION_FAILED);
     BOOST_CHECK(bAssertionFailed2 == ASSERTION_FAILED);
 }

@@ -61,7 +61,7 @@ QTEST_SUITE_BEGIN( QVector3_TestSuite )
 /// </summary>
 QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
@@ -69,10 +69,10 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByVector_Test )
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_2);
     const float_q  SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = SCALAR * VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -83,15 +83,15 @@ QTEST_CASE ( FriendOperatorProduct_ScalarIsCorrectlyMultipliedByVector_Test )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -102,17 +102,17 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
 
     const QVector3 VECTOR_TO_COPY(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -123,7 +123,7 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_VectorComponentsAreCopiedToRightComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
 
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
@@ -132,10 +132,10 @@ QTEST_CASE ( Constructor3_VectorComponentsAreCopiedToRightComponents_Test )
 
     QBaseVector3 BASEVECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT(BASEVECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -146,13 +146,13 @@ QTEST_CASE ( Constructor3_VectorComponentsAreCopiedToRightComponents_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_5;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT(EXPECTED_VALUE_FOR_ALL);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_ALL);
@@ -163,7 +163,7 @@ QTEST_CASE ( Constructor4_ValueIsSetForAllComponents_Test )
 /// </summary>
 QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo3Floats_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
@@ -173,10 +173,10 @@ QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo3Floats_T
     VALID_ARRAY_OF_3_FLOATS[1] = EXPECTED_VALUE_FOR_Y;
     VALID_ARRAY_OF_3_FLOATS[2] = EXPECTED_VALUE_FOR_Z;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT(VALID_ARRAY_OF_3_FLOATS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -192,10 +192,10 @@ QTEST_CASE ( Constructor5_VectorComponentsAreFilledWithValidReferenceTo3Floats_T
 /// </summary>
 QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q* NULL_ARRAY = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -207,7 +207,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -218,7 +218,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 /// </summary>
 QTEST_CASE ( Constructor6_VectorComponentsAreSetToValidVF32PackedValues_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
@@ -226,10 +226,10 @@ QTEST_CASE ( Constructor6_VectorComponentsAreSetToValidVF32PackedValues_Test )
 	vf32_q PACK;
 	SQVF32::Pack(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, SQFloat::_0, PACK);
 
-	// Execution
+	// [Execution]
 	QVector3 vVectorUT(PACK);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -240,7 +240,7 @@ QTEST_CASE ( Constructor6_VectorComponentsAreSetToValidVF32PackedValues_Test )
 /// </summary>
 QTEST_CASE ( Constructor7_VectorComponentsAreFilledWithRightMatrixElements_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_4;
@@ -253,10 +253,10 @@ QTEST_CASE ( Constructor7_VectorComponentsAreFilledWithRightMatrixElements_Test 
                             EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
     const QTranslationMatrix<QMatrix4x3> TRANSLATION(MATRIX);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -267,7 +267,7 @@ QTEST_CASE ( Constructor7_VectorComponentsAreFilledWithRightMatrixElements_Test 
 /// </summary>
 QTEST_CASE ( Constructor8_VectorComponentsAreFilledWithRightMatrixElements_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_4;
@@ -280,10 +280,10 @@ QTEST_CASE ( Constructor8_VectorComponentsAreFilledWithRightMatrixElements_Test 
                             EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, SQFloat::_1);
     const QTranslationMatrix<QMatrix4x4> TRANSLATION(MATRIX);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -294,7 +294,7 @@ QTEST_CASE ( Constructor8_VectorComponentsAreFilledWithRightMatrixElements_Test 
 /// </summary>
 QTEST_CASE ( Constructor9_VectorComponentsAreCopiedIntoCorrectComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector3;
 
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
@@ -303,10 +303,10 @@ QTEST_CASE ( Constructor9_VectorComponentsAreCopiedIntoCorrectComponents_Test )
 
 	QBaseVector3 INPUT_VECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z);
 
-	// Execution
+	// [Execution]
 	QVector3 vVectorUT(INPUT_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -317,7 +317,7 @@ QTEST_CASE ( Constructor9_VectorComponentsAreCopiedIntoCorrectComponents_Test )
 /// </summary>
 QTEST_CASE ( Constructor10_VectorComponentsAreCopiedIntoCorrectComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QBaseVector4;
 
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
@@ -326,10 +326,10 @@ QTEST_CASE ( Constructor10_VectorComponentsAreCopiedIntoCorrectComponents_Test )
 
 	QBaseVector4 INPUT_VECTOR(EXPECTED_VALUE_FOR_X, EXPECTED_VALUE_FOR_Y, EXPECTED_VALUE_FOR_Z, SQFloat::_0);
 
-	// Execution
+	// [Execution]
 	QVector3 vVectorUT(INPUT_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -340,15 +340,15 @@ QTEST_CASE ( Constructor10_VectorComponentsAreCopiedIntoCorrectComponents_Test )
 /// </summary>
 QTEST_CASE ( GetZeroVector_ReturnsANullVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = QVector3::GetZeroVector();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -359,15 +359,15 @@ QTEST_CASE ( GetZeroVector_ReturnsANullVector_Test )
 /// </summary>
 QTEST_CASE ( GetVectorOfOnes_ReturnsAVectorOfOnes_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = QVector3::GetVectorOfOnes();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -378,15 +378,15 @@ QTEST_CASE ( GetVectorOfOnes_ReturnsAVectorOfOnes_Test )
 /// </summary>
 QTEST_CASE ( GetUnitVectorX_ReturnsAUnitVectorThatPointsToPositiveDirectionOfXAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = QVector3::GetUnitVectorX();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -397,15 +397,15 @@ QTEST_CASE ( GetUnitVectorX_ReturnsAUnitVectorThatPointsToPositiveDirectionOfXAx
 /// </summary>
 QTEST_CASE ( GetUnitVectorY_ReturnsAUnitVectorThatPointsToPositiveDirectionOfYAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = QVector3::GetUnitVectorY();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -416,15 +416,15 @@ QTEST_CASE ( GetUnitVectorY_ReturnsAUnitVectorThatPointsToPositiveDirectionOfYAx
 /// </summary>
 QTEST_CASE ( GetUnitVectorZ_ReturnsAUnitVectorThatPointsToPositiveDirectionOfZAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = QVector3::GetUnitVectorZ();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -435,15 +435,15 @@ QTEST_CASE ( GetUnitVectorZ_ReturnsAUnitVectorThatPointsToPositiveDirectionOfZAx
 /// </summary>
 QTEST_CASE ( GetUnitVectorInvX_ReturnsAUnitVectorThatPointsToNegativeDirectionOfXAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = QVector3::GetUnitVectorInvX();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -454,15 +454,15 @@ QTEST_CASE ( GetUnitVectorInvX_ReturnsAUnitVectorThatPointsToNegativeDirectionOf
 /// </summary>
 QTEST_CASE ( GetUnitVectorInvY_ReturnsAUnitVectorThatPointsToNegativeDirectionOfYAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = -SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = QVector3::GetUnitVectorInvY();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -473,15 +473,15 @@ QTEST_CASE ( GetUnitVectorInvY_ReturnsAUnitVectorThatPointsToNegativeDirectionOf
 /// </summary>
 QTEST_CASE ( GetUnitVectorInvZ_ReturnsAUnitVectorThatPointsToNegativeDirectionOfZAxis_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = QVector3::GetUnitVectorInvZ();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -492,7 +492,7 @@ QTEST_CASE ( GetUnitVectorInvZ_ReturnsAUnitVectorThatPointsToNegativeDirectionOf
 /// </summary>
 QTEST_CASE ( OperatorAddition_TwoDifferentVectorsAreCorrectlyAdded_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_3 + SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_5;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_7;
@@ -500,10 +500,10 @@ QTEST_CASE ( OperatorAddition_TwoDifferentVectorsAreCorrectlyAdded_Test )
     const QVector3 OPERAND1 = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
     const QVector3 OPERAND2 = QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_5);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1 + OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -514,17 +514,17 @@ QTEST_CASE ( OperatorAddition_TwoDifferentVectorsAreCorrectlyAdded_Test )
 /// </summary>
 QTEST_CASE ( OperatorAddition_VectorIsCorrectlyAddedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_4;
 
     const QVector3 OPERAND = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND + OPERAND;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -535,7 +535,7 @@ QTEST_CASE ( OperatorAddition_VectorIsCorrectlyAddedToItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorSubtraction_TwoDifferentVectorsAreCorrectlySubtracted_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_2 - SQFloat::_0_5 - SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = -SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_4;
@@ -543,10 +543,10 @@ QTEST_CASE ( OperatorSubtraction_TwoDifferentVectorsAreCorrectlySubtracted_Test 
     const QVector3 OPERAND1 = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
     const QVector3 OPERAND2 = QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1 - OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -557,17 +557,17 @@ QTEST_CASE ( OperatorSubtraction_TwoDifferentVectorsAreCorrectlySubtracted_Test 
 /// </summary>
 QTEST_CASE ( OperatorSubtraction_VectorIsCorrectlySubtractedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
     const QVector3 OPERAND = QVector3(-SQFloat::_0_25, SQFloat::_1, -SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND - OPERAND;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -578,7 +578,7 @@ QTEST_CASE ( OperatorSubtraction_VectorIsCorrectlySubtractedToItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct1_VectorIsCorrectlyMultipliedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
@@ -586,10 +586,10 @@ QTEST_CASE ( OperatorProduct1_VectorIsCorrectlyMultipliedByScalar_Test )
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_2);
     const float_q  SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR * SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -600,7 +600,7 @@ QTEST_CASE ( OperatorProduct1_VectorIsCorrectlyMultipliedByScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct2_VectorIsCorrectlyMultipliedByAnotherVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_4;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)10.0;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)18.0;
@@ -608,10 +608,10 @@ QTEST_CASE ( OperatorProduct2_VectorIsCorrectlyMultipliedByAnotherVector_Test )
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1 * OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -622,15 +622,15 @@ QTEST_CASE ( OperatorProduct2_VectorIsCorrectlyMultipliedByAnotherVector_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct2_ProductIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QVector3 vVector1UT = OPERAND1 * OPERAND2;
     QVector3 vVector2UT = OPERAND2 * OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vVector1UT == vVector2UT);
 }
 
@@ -639,17 +639,17 @@ QTEST_CASE ( OperatorProduct2_ProductIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct2_VectorCanBeMultipliedByItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_4;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_9;
 
     const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND * OPERAND;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -660,7 +660,7 @@ QTEST_CASE ( OperatorProduct2_VectorCanBeMultipliedByItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct3_VectorIsCorrectlyMultipliedByMatrix3x3_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)24.0;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)30.0;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)36.0;
@@ -673,10 +673,10 @@ QTEST_CASE ( OperatorProduct3_VectorIsCorrectlyMultipliedByMatrix3x3_Test )
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR * MATRIX;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -687,7 +687,7 @@ QTEST_CASE ( OperatorProduct3_VectorIsCorrectlyMultipliedByMatrix3x3_Test )
 /// </summary>
 QTEST_CASE ( OperatorProduct4_VectorIsCorrectlyMultipliedByMatrix3x4_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)32.0;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)38.0;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)44.0;
@@ -702,10 +702,10 @@ QTEST_CASE ( OperatorProduct4_VectorIsCorrectlyMultipliedByMatrix3x4_Test )
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QBaseVector4 vVectorUT = VECTOR * MATRIX;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -717,7 +717,7 @@ QTEST_CASE ( OperatorProduct4_VectorIsCorrectlyMultipliedByMatrix3x4_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision1_VectorIsCorrectlyDividedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_2;
@@ -725,10 +725,10 @@ QTEST_CASE ( OperatorDivision1_VectorIsCorrectlyDividedByScalar_Test )
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const float_q  SCALAR = SQFloat::_2;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR / SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -741,10 +741,10 @@ QTEST_CASE ( OperatorDivision1_VectorIsCorrectlyDividedByScalar_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision1_AssertionFailsWhenDivisorEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q  SCALAR = SQFloat::_0;
 
-    // Execution
+    // [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -757,7 +757,7 @@ QTEST_CASE ( OperatorDivision1_AssertionFailsWhenDivisorEqualsZero_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -768,7 +768,7 @@ QTEST_CASE ( OperatorDivision1_AssertionFailsWhenDivisorEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision2_VectorIsCorrectlyDividedByAnotherVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
@@ -776,10 +776,10 @@ QTEST_CASE ( OperatorDivision2_VectorIsCorrectlyDividedByAnotherVector_Test )
     const QVector3 OPERAND1 = QVector3(SQFloat::_2, SQFloat::_8, SQFloat::_9);
     const QVector3 OPERAND2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1 / OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -790,15 +790,15 @@ QTEST_CASE ( OperatorDivision2_VectorIsCorrectlyDividedByAnotherVector_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision2_DivisionIsNotCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QVector3 vVector1UT = OPERAND1 / OPERAND2;
     QVector3 vVector2UT = OPERAND2 / OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vVector1UT != vVector2UT);
 }
 
@@ -807,17 +807,17 @@ QTEST_CASE ( OperatorDivision2_DivisionIsNotCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision2_VectorCanBeDividedByItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
 
     const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND / OPERAND;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -830,12 +830,12 @@ QTEST_CASE ( OperatorDivision2_VectorCanBeDividedByItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND_WITH_ZERO_X = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_1);
     const QVector3 OPERAND_WITH_ZERO_Y = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_1);
     const QVector3 OPERAND_WITH_ZERO_Z = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailedWhenXEqualsZero = false;
     bool bAssertionFailedWhenYEqualsZero = false;
     bool bAssertionFailedWhenZEqualsZero = false;
@@ -868,7 +868,7 @@ QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
         bAssertionFailedWhenZEqualsZero = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailedWhenXEqualsZero);
     BOOST_CHECK(bAssertionFailedWhenYEqualsZero);
     BOOST_CHECK(bAssertionFailedWhenZEqualsZero);
@@ -881,7 +881,7 @@ QTEST_CASE ( OperatorDivision2_AssertionFailsWhenAnyComponentEqualsZero_Test )
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignation_TwoDifferentVectorsAreCorrectlyAdded_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_3 + SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_5;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_7;
@@ -889,11 +889,11 @@ QTEST_CASE ( OperatorAdditionAssignation_TwoDifferentVectorsAreCorrectlyAdded_Te
     const QVector3 OPERAND1 = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
     const QVector3 OPERAND2 = QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_5);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1;
     vVectorUT += OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -904,18 +904,18 @@ QTEST_CASE ( OperatorAdditionAssignation_TwoDifferentVectorsAreCorrectlyAdded_Te
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignation_VectorIsCorrectlyAddedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_4;
 
     const QVector3 OPERAND = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND;
     vVectorUT += OPERAND;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -926,18 +926,18 @@ QTEST_CASE ( OperatorAdditionAssignation_VectorIsCorrectlyAddedToItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorAdditionAssignation_VectorObjectIsCorrectlyAddedAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_4;
 
     const QVector3 OPERAND = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND;
     vVectorUT += vVectorUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -948,7 +948,7 @@ QTEST_CASE ( OperatorAdditionAssignation_VectorObjectIsCorrectlyAddedAndAssigned
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignation_TwoDifferentVectorsAreCorrectlySubtracted_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)-2.75;
     const float_q EXPECTED_VALUE_FOR_Y = -SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_4;
@@ -956,11 +956,11 @@ QTEST_CASE ( OperatorSubtractionAssignation_TwoDifferentVectorsAreCorrectlySubtr
     const QVector3 OPERAND1 = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
     const QVector3 OPERAND2 = QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1;
     vVectorUT -= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -971,18 +971,18 @@ QTEST_CASE ( OperatorSubtractionAssignation_TwoDifferentVectorsAreCorrectlySubtr
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignation_VectorIsCorrectlySubtractedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
     const QVector3 OPERAND = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND;
     vVectorUT -= OPERAND;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -993,18 +993,18 @@ QTEST_CASE ( OperatorSubtractionAssignation_VectorIsCorrectlySubtractedToItself_
 /// </summary>
 QTEST_CASE ( OperatorSubtractionAssignation_VectorObjectIsCorrectlySubtractedAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
     const QVector3 OPERAND = QVector3(SQFloat::_0_25, SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND;
     vVectorUT -= vVectorUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1015,7 +1015,7 @@ QTEST_CASE ( OperatorSubtractionAssignation_VectorObjectIsCorrectlySubtractedAnd
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
@@ -1023,11 +1023,11 @@ QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalar_Tes
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_2);
     const float_q  SCALAR = SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR;
     vVectorUT *= SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1038,20 +1038,20 @@ QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalar_Tes
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalarAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = (float_q)1152;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)1728;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)2304;
 
     const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR;
     vVectorUT *= vVectorUT.x; // x2  Now x==4,    y==6,    z==8
     vVectorUT *= vVectorUT.y; // x6  Now x==24,   y==36,   z==48
     vVectorUT *= vVectorUT.z; // x48 Now x==1152, y==1728, z==2304
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1062,7 +1062,7 @@ QTEST_CASE ( OperatorProductAssignation1_VectorIsCorrectlyMultipliedByScalarAndA
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation2_VectorIsCorrectlyMultipliedByAnotherVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_4;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)10.0;
     const float_q EXPECTED_VALUE_FOR_Z = (float_q)18.0;
@@ -1070,11 +1070,11 @@ QTEST_CASE ( OperatorProductAssignation2_VectorIsCorrectlyMultipliedByAnotherVec
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1;
     vVectorUT *= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1085,17 +1085,17 @@ QTEST_CASE ( OperatorProductAssignation2_VectorIsCorrectlyMultipliedByAnotherVec
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation2_ProductIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QVector3 vVector1UT = OPERAND1;
     vVector1UT *= OPERAND2;
     QVector3 vVector2UT = OPERAND2;
     vVector2UT *= OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vVector1UT == vVector2UT);
 }
 
@@ -1104,18 +1104,18 @@ QTEST_CASE ( OperatorProductAssignation2_ProductIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation2_VectorCanBeMultipliedByItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_4;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_9;
 
     const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND;
     vVectorUT *= OPERAND;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1126,18 +1126,18 @@ QTEST_CASE ( OperatorProductAssignation2_VectorCanBeMultipliedByItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation2_VectorObjectIsCorrectlyMultipliedAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_4;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_9;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
 
     const QVector3 OPERAND = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND;
     vVectorUT *= vVectorUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1148,7 +1148,7 @@ QTEST_CASE ( OperatorProductAssignation2_VectorObjectIsCorrectlyMultipliedAndAss
 /// </summary>
 QTEST_CASE ( OperatorProductAssignation3_VectorIsCorrectlyMultipliedByMatrix3x3_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = 24;
     const float_q EXPECTED_VALUE_FOR_Y = 30;
     const float_q EXPECTED_VALUE_FOR_Z = 36;
@@ -1161,11 +1161,11 @@ QTEST_CASE ( OperatorProductAssignation3_VectorIsCorrectlyMultipliedByMatrix3x3_
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR;
     vVectorUT *= MATRIX;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1176,7 +1176,7 @@ QTEST_CASE ( OperatorProductAssignation3_VectorIsCorrectlyMultipliedByMatrix3x3_
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_VectorIsCorrectlyDividedByScalar_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_2;
@@ -1184,11 +1184,11 @@ QTEST_CASE ( OperatorDivisionAssignation1_VectorIsCorrectlyDividedByScalar_Test 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const float_q  SCALAR = SQFloat::_2;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR;
     vVectorUT /= SCALAR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1201,10 +1201,10 @@ QTEST_CASE ( OperatorDivisionAssignation1_VectorIsCorrectlyDividedByScalar_Test 
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_AssertionFailsWhenDivisorEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q  SCALAR = SQFloat::_0;
 
-    // Execution
+    // [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1217,7 +1217,7 @@ QTEST_CASE ( OperatorDivisionAssignation1_AssertionFailsWhenDivisorEqualsZero_Te
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1228,20 +1228,20 @@ QTEST_CASE ( OperatorDivisionAssignation1_AssertionFailsWhenDivisorEqualsZero_Te
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation1_VectorComponentIsCorrectlyDividedByScalarAndAssignedToItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0_5;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
 
     const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_8);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR;
     vVectorUT /= vVectorUT.x; // :2 Now x==1,    y==2,   z==4
     vVectorUT /= vVectorUT.y; // :2 Now x==0.5,  y==1,   z==2
     vVectorUT /= vVectorUT.z; // :2 Now x==0.25, y==0.5, z==1
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1252,7 +1252,7 @@ QTEST_CASE ( OperatorDivisionAssignation1_VectorComponentIsCorrectlyDividedBySca
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation2_VectorIsCorrectlyDividedByAnotherVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = 2;
     const float_q EXPECTED_VALUE_FOR_Z = 3;
@@ -1260,11 +1260,11 @@ QTEST_CASE ( OperatorDivisionAssignation2_VectorIsCorrectlyDividedByAnotherVecto
     const QVector3 OPERAND1 = QVector3(SQFloat::_2, SQFloat::_8, SQFloat::_9);
     const QVector3 OPERAND2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1;
     vVectorUT /= OPERAND2;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1275,7 +1275,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_VectorIsCorrectlyDividedByAnotherVecto
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation2_DivisionIsNotCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0_25;
     const float_q EXPECTED_VALUE_FOR_Y = (float_q)0.4;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0_5;
@@ -1283,13 +1283,13 @@ QTEST_CASE ( OperatorDivisionAssignation2_DivisionIsNotCommutative_Test )
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     QVector3 vVector1UT = OPERAND1;
     vVector1UT /= OPERAND2;
     QVector3 vVector2UT = OPERAND2;
     vVector2UT /= OPERAND1;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVector1UT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVector1UT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVector1UT.z, EXPECTED_VALUE_FOR_Z);
@@ -1303,18 +1303,18 @@ QTEST_CASE ( OperatorDivisionAssignation2_DivisionIsNotCommutative_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation2_VectorCanBeDividedByItself_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_1;
 
     const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND;
     vVectorUT /= vVectorUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1327,12 +1327,12 @@ QTEST_CASE ( OperatorDivisionAssignation2_VectorCanBeDividedByItself_Test )
 /// </summary>
 QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND_WITH_ZERO_X = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_1);
     const QVector3 OPERAND_WITH_ZERO_Y = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_1);
     const QVector3 OPERAND_WITH_ZERO_Z = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailedWhenXEqualsZero = false;
     bool bAssertionFailedWhenYEqualsZero = false;
     bool bAssertionFailedWhenZEqualsZero = false;
@@ -1365,7 +1365,7 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
         bAssertionFailedWhenZEqualsZero = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailedWhenXEqualsZero);
     BOOST_CHECK(bAssertionFailedWhenYEqualsZero);
     BOOST_CHECK(bAssertionFailedWhenZEqualsZero);
@@ -1378,18 +1378,18 @@ QTEST_CASE ( OperatorDivisionAssignation2_AssertionFailsWhenAnyComponentEqualsZe
 /// </summary>
 QTEST_CASE ( OperatorAssignation_VectorIsAssignedProperlyToAnother_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_3;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT;
     vVectorUT = VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1400,17 +1400,17 @@ QTEST_CASE ( OperatorAssignation_VectorIsAssignedProperlyToAnother_Test )
 /// </summary>
 QTEST_CASE ( OperatorUnaryMinus_ComponentsAreNegated_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = -SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_Z = -SQFloat::_3;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = -VECTOR;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_Y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_Z);
@@ -1421,15 +1421,15 @@ QTEST_CASE ( OperatorUnaryMinus_ComponentsAreNegated_Test )
 /// </summary>
 QTEST_CASE ( GetLength_LengthOfACommonVectorIsCalculatedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_LENGTH = SQFloat::_7;
 
     const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     float_q fLengthUT = VECTOR.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fLengthUT, EXPECTED_LENGTH);
 }
 
@@ -1438,15 +1438,15 @@ QTEST_CASE ( GetLength_LengthOfACommonVectorIsCalculatedCorrectly_Test )
 /// </summary>
 QTEST_CASE ( GetSquaredLength_SquaredLengthOfACommonVectorIsCalculatedCorrectly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE = (float_q)49.0;
 
     const QVector3 VECTOR = QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     float_q fSquaredLengthUT = VECTOR.GetSquaredLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fSquaredLengthUT, EXPECTED_VALUE);
 }
 
@@ -1455,15 +1455,15 @@ QTEST_CASE ( GetSquaredLength_SquaredLengthOfACommonVectorIsCalculatedCorrectly_
 /// </summary>
 QTEST_CASE ( Normalize_CommonVectorIsCorrectlyNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_SQUAREDLENGTH = SQFloat::_1;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Normalize();
 
-    // Verification
+    // [Verification]
     float_q fSquaredLength = vVectorUT.GetSquaredLength();
 
     BOOST_CHECK(SQFloat::AreEqual(fSquaredLength, EXPECTED_SQUAREDLENGTH));
@@ -1476,10 +1476,10 @@ QTEST_CASE ( Normalize_CommonVectorIsCorrectlyNormalized_Test )
 /// </summary>
 QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1491,7 +1491,7 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -1502,16 +1502,16 @@ QTEST_CASE ( Normalize_AssertionFailsWhenNullVectorIsToBeNormalized_Test )
 /// </summary>
 QTEST_CASE ( ResetToOne_AllVectorComponentsAreSetToOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_1;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR;
     vVectorUT.ResetToOne();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_ALL);
@@ -1522,16 +1522,16 @@ QTEST_CASE ( ResetToOne_AllVectorComponentsAreSetToOne_Test )
 /// </summary>
 QTEST_CASE ( ResetToZero_AllVectorComponentsAreSetToZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, -SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR;
     vVectorUT.ResetToZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_VALUE_FOR_ALL);
@@ -1542,15 +1542,15 @@ QTEST_CASE ( ResetToZero_AllVectorComponentsAreSetToZero_Test )
 /// </summary>
 QTEST_CASE ( IsZero_ReturnsTrueWhenAllVectorComponentsEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool EXPECTED_RESULT = true;
 
     const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bResult = VECTOR.IsZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1559,19 +1559,19 @@ QTEST_CASE ( IsZero_ReturnsTrueWhenAllVectorComponentsEqualZero_Test )
 /// </summary>
 QTEST_CASE ( IsZero_ReturnsFalseWhenNotAllVectorComponentsEqualZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool EXPECTED_RESULT = false;
 
     const QVector3 VECTOR_X_NOT_EQUAL_ZERO = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 VECTOR_Y_NOT_EQUAL_ZERO = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
     const QVector3 VECTOR_Z_NOT_EQUAL_ZERO = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bResult = VECTOR_X_NOT_EQUAL_ZERO.IsZero();
     bResult |= VECTOR_Y_NOT_EQUAL_ZERO.IsZero();
     bResult |= VECTOR_Z_NOT_EQUAL_ZERO.IsZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1580,15 +1580,15 @@ QTEST_CASE ( IsZero_ReturnsFalseWhenNotAllVectorComponentsEqualZero_Test )
 /// </summary>
 QTEST_CASE ( IsVectorOfOnes_ReturnsTrueWhenAllVectorComponentsEqualOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool EXPECTED_RESULT = true;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     bool bResult = VECTOR.IsVectorOfOnes();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1597,19 +1597,19 @@ QTEST_CASE ( IsVectorOfOnes_ReturnsTrueWhenAllVectorComponentsEqualOne_Test )
 /// </summary>
 QTEST_CASE ( IsVectorOfOnes_ReturnsFalseWhenNotAllVectorComponentsEqualOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const bool EXPECTED_RESULT = false;
 
     const QVector3 VECTOR_X_NOT_EQUAL_ONE = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_1);
     const QVector3 VECTOR_Y_NOT_EQUAL_ONE = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_1);
     const QVector3 VECTOR_Z_NOT_EQUAL_ONE = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     bool bResult = VECTOR_X_NOT_EQUAL_ONE.IsVectorOfOnes();
     bResult |= VECTOR_Y_NOT_EQUAL_ONE.IsVectorOfOnes();
     bResult |= VECTOR_Z_NOT_EQUAL_ONE.IsVectorOfOnes();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1618,16 +1618,16 @@ QTEST_CASE ( IsVectorOfOnes_ReturnsFalseWhenNotAllVectorComponentsEqualOne_Test 
 /// </summary>
 QTEST_CASE ( DotProduct_ReturnsDotProductFor2CommonVectors_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = (float_q)32;
 
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProduct(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1636,15 +1636,15 @@ QTEST_CASE ( DotProduct_ReturnsDotProductFor2CommonVectors_Test )
 /// </summary>
 QTEST_CASE ( DotProduct_DotProductIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProduct(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProduct(OPERAND1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -1653,18 +1653,18 @@ QTEST_CASE ( DotProduct_DotProductIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( DotProduct_DotProductEqualsZeroWhenVectorsAreOrthogonal_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QVector3 OPERAND1 = QVector3(SQFloat::_3, SQFloat::_0, SQFloat::_0);
     const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_3, SQFloat::_0);
     const QVector3 OPERAND3 = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProduct(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProduct(OPERAND3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -1674,17 +1674,17 @@ QTEST_CASE ( DotProduct_DotProductEqualsZeroWhenVectorsAreOrthogonal_Test )
 /// </summary>
 QTEST_CASE ( DotProduct_ReturnsZeroWhenAOperandIsNullVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = NONNULL_VECTOR.DotProduct(NULL_VECTOR);
     float_q fResult2UT = NULL_VECTOR.DotProduct(NONNULL_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -1694,7 +1694,7 @@ QTEST_CASE ( DotProduct_ReturnsZeroWhenAOperandIsNullVector_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1706,10 +1706,10 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
     const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
@@ -1718,15 +1718,15 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
     const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
 }
 
@@ -1735,16 +1735,16 @@ QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenVectorsAreParallel_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 OPERAND2 = QVector3(SQFloat::_9, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1753,7 +1753,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenVectorsAreParallel_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOrthogonal_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1766,11 +1766,11 @@ QTEST_CASE ( DotProductAngle_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOr
     const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_5, SQFloat::_0);
     const QVector3 OPERAND3 = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_5);
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
     float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
     BOOST_CHECK_EQUAL( fResult2UT, EXPECTED_RESULT );
 }
@@ -1780,7 +1780,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOr
 /// </summary>
 QTEST_CASE ( DotProductAngle_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOpposite_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1792,10 +1792,10 @@ QTEST_CASE ( DotProductAngle_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOppos
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 OPERAND2 = QVector3(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
 
-	// Execution
+	// [Execution]
     float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
 }
 
@@ -1804,16 +1804,16 @@ QTEST_CASE ( DotProductAngle_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOppos
 /// </summary>
 QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 REFERENCE_OPERAND = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);                                // _
     const QVector3 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_0);  // \_
     const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /¨
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult2UT, SQFloat::_0) );
 }
@@ -1823,7 +1823,7 @@ QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
 /// </summary>
 QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAreNotOpposite_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -1836,11 +1836,11 @@ QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAre
     const QVector3 OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, SQFloat::_1, SQFloat::_0);  // \_
     const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /¨
 
-	// Execution
+	// [Execution]
     float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
     float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessThan(fResult2UT, HALF_CIRCUMFERENCE_ANGLE) );
 }
@@ -1850,15 +1850,15 @@ QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAre
 /// </summary>
 QTEST_CASE ( CrossProduct_AThirdVectorIsCorrectlyCalculated_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
     const QVector3 EXPECTED_RESULT = QVector3(-SQFloat::_10, (float_q)13.0, (float_q)-4.0);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -1869,15 +1869,15 @@ QTEST_CASE ( CrossProduct_AThirdVectorIsCorrectlyCalculated_Test )
 /// </summary>
 QTEST_CASE ( CrossProduct_ResultIsNullWhenVectorsAreParallelAndSameDirection_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_6);
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -1888,15 +1888,15 @@ QTEST_CASE ( CrossProduct_ResultIsNullWhenVectorsAreParallelAndSameDirection_Tes
 /// </summary>
 QTEST_CASE ( CrossProduct_ResultIsNullWhenVectorsAreParallelAndOppositeDirection_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(-SQFloat::_1, -SQFloat::_2, -SQFloat::_3);
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -1907,15 +1907,15 @@ QTEST_CASE ( CrossProduct_ResultIsNullWhenVectorsAreParallelAndOppositeDirection
 /// </summary>
 QTEST_CASE ( CrossProduct_FollowsLeftHandedRule_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
     const QVector3 OPERAND2 = QVector3(SQFloat::_0, SQFloat::_1, SQFloat::_0);
     const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -1926,17 +1926,17 @@ QTEST_CASE ( CrossProduct_FollowsLeftHandedRule_Test )
 /// </summary>
 QTEST_CASE ( CrossProduct_ReturnsNullVectorWhenAOperandIsNullVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_RESULT_FOR_ALL = SQFloat::_0;
 
     const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
     const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT1 = NULL_VECTOR.CrossProduct(NONNULL_VECTOR);;
     QVector3 vVectorUT2 = NONNULL_VECTOR.CrossProduct(NULL_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT1.x, EXPECTED_RESULT_FOR_ALL);
     BOOST_CHECK_EQUAL(vVectorUT1.y, EXPECTED_RESULT_FOR_ALL);
     BOOST_CHECK_EQUAL(vVectorUT1.z, EXPECTED_RESULT_FOR_ALL);
@@ -1950,14 +1950,14 @@ QTEST_CASE ( CrossProduct_ReturnsNullVectorWhenAOperandIsNullVector_Test )
 /// </summary>
 QTEST_CASE ( CrossProduct_BehavesCorrectlyWhenSameInstanceIsUsedAsParameter_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND.CrossProduct(OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -1968,15 +1968,15 @@ QTEST_CASE ( CrossProduct_BehavesCorrectlyWhenSameInstanceIsUsedAsParameter_Test
 /// </summary>
 QTEST_CASE ( Lerp_CorrectLerpedVectorIsObtainedForTwoCommonVectors_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QVector3 EXPECTED_RESULT = QVector3((float_q)2.5, (float_q)3.5, (float_q)4.5);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -1987,13 +1987,13 @@ QTEST_CASE ( Lerp_CorrectLerpedVectorIsObtainedForTwoCommonVectors_Test )
 /// </summary>
 QTEST_CASE ( Lerp_InterpolatingTwoEquivalentVectorsGivesSameVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = EXPECTED_RESULT.Lerp(SQFloat::_0_5, EXPECTED_RESULT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2004,15 +2004,15 @@ QTEST_CASE ( Lerp_InterpolatingTwoEquivalentVectorsGivesSameVector_Test )
 /// </summary>
 QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfTwoOppositeVectorsGivesNullVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = -OPERAND1;
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2023,15 +2023,15 @@ QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfTwoOppositeVectorsGivesNullVector_Te
 /// </summary>
 QTEST_CASE ( Lerp_WhenUsedNonNullVectorAndNullVectorTheResultIsAScaledNonNullVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3::GetZeroVector();
     const QVector3 EXPECTED_RESULT = OPERAND1 * (SQFloat::_1 - SQFloat::_0_25);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_25, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2042,15 +2042,15 @@ QTEST_CASE ( Lerp_WhenUsedNonNullVectorAndNullVectorTheResultIsAScaledNonNullVec
 /// </summary>
 QTEST_CASE ( Lerp_ProportionZeroMeansResidentVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
     const QVector3 EXPECTED_RESULT = OPERAND1;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2061,15 +2061,15 @@ QTEST_CASE ( Lerp_ProportionZeroMeansResidentVector_Test )
 /// </summary>
 QTEST_CASE ( Lerp_ProportionOneMeansInputVector_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_5, SQFloat::_6, SQFloat::_7);
     const QVector3 EXPECTED_RESULT = OPERAND2;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_1, OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2080,15 +2080,15 @@ QTEST_CASE ( Lerp_ProportionOneMeansInputVector_Test )
 /// </summary>
 QTEST_CASE ( Distance_CorrectlyCalculatedForTwoCommonVectors_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const float_q EXPECTED_RESULT = (float_q)5.196152422706632;
 
-	// Execution
+	// [Execution]
     float_q fDistancerUT = OPERAND1.Distance(OPERAND2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fDistancerUT, EXPECTED_RESULT) );
 }
 
@@ -2097,14 +2097,14 @@ QTEST_CASE ( Distance_CorrectlyCalculatedForTwoCommonVectors_Test )
 /// </summary>
 QTEST_CASE ( Distance_ExactlyZeroWhenTwoVectorsAreTheSame_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fDistancerUT = OPERAND.Distance(OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fDistancerUT, EXPECTED_RESULT);
 }
 
@@ -2113,15 +2113,15 @@ QTEST_CASE ( Distance_ExactlyZeroWhenTwoVectorsAreTheSame_Test )
 /// </summary>
 QTEST_CASE ( Distance_ForTwoOppositeVectorsResultEqualsSumOfTheirLengths_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QVector3 OPPOSITE_OPERAND = QVector3(-SQFloat::_0_5, -SQFloat::_1, -SQFloat::_2);
     const float_q EXPECTED_RESULT = OPERAND.GetLength() + OPPOSITE_OPERAND.GetLength();
 
-	// Execution
+	// [Execution]
     float_q fDistancerUT = OPERAND.Distance(OPPOSITE_OPERAND);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fDistancerUT, EXPECTED_RESULT) );
 }
 
@@ -2130,7 +2130,7 @@ QTEST_CASE ( Distance_ForTwoOppositeVectorsResultEqualsSumOfTheirLengths_Test )
 /// </summary>
 QTEST_CASE ( Transform1_VectorIsCorrectlyTransformedByCommonQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -2162,10 +2162,10 @@ QTEST_CASE ( Transform1_VectorIsCorrectlyTransformedByCommonQuaternion_Test )
     // D3DXQuaternionMultiply(&qVector, &qRot, &qv);
     // D3DXQuaternionMultiply(&qVector, &qVector, &qConjugate);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2176,17 +2176,17 @@ QTEST_CASE ( Transform1_VectorIsCorrectlyTransformedByCommonQuaternion_Test )
 /// </summary>
 QTEST_CASE ( Transform1_VectorDoesntChangeWhenTransformedByIdentityQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QQuaternion UNIT_QUATERNION = QQuaternion::GetIdentity();
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(UNIT_QUATERNION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2197,17 +2197,17 @@ QTEST_CASE ( Transform1_VectorDoesntChangeWhenTransformedByIdentityQuaternion_Te
 /// </summary>
 QTEST_CASE ( Transform1_VectorIsNullWhenQuaternionIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_QUATERNION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2218,7 +2218,7 @@ QTEST_CASE ( Transform1_VectorIsNullWhenQuaternionIsNull_Test )
 /// </summary>
 QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2249,10 +2249,10 @@ QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test 
 
     #endif
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2263,17 +2263,17 @@ QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test 
 /// </summary>
 QTEST_CASE ( Transform2_VectorDoesntChangeWhenTransformedByIdentityDualQuaternion_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QDualQuaternion TRANSFORMATION = QDualQuaternion::GetIdentity();
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2284,7 +2284,7 @@ QTEST_CASE ( Transform2_VectorDoesntChangeWhenTransformedByIdentityDualQuaternio
 /// </summary>
 QTEST_CASE ( Transform2_VectorIsNullWhenDualQuaternionIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QDualQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
@@ -2293,10 +2293,10 @@ QTEST_CASE ( Transform2_VectorIsNullWhenDualQuaternionIsNull_Test )
 
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_DUALQUATERNION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2307,7 +2307,7 @@ QTEST_CASE ( Transform2_VectorIsNullWhenDualQuaternionIsNull_Test )
 /// </summary>
 QTEST_CASE ( Transform3_VectorIsCorrectlyTransformedByCommonRotationMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -2337,10 +2337,10 @@ QTEST_CASE ( Transform3_VectorIsCorrectlyTransformedByCommonRotationMatrix_Test 
     // D3DXVECTOR3 vRot(1, 2, 4);
     // D3DXVec3TransformNormal(&vRot, &vRot, &rot);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2351,17 +2351,17 @@ QTEST_CASE ( Transform3_VectorIsCorrectlyTransformedByCommonRotationMatrix_Test 
 /// </summary>
 QTEST_CASE ( Transform3_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3::GetIdentity();
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2372,7 +2372,7 @@ QTEST_CASE ( Transform3_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 /// </summary>
 QTEST_CASE ( Transform3_VectorIsNullWhenRotationMatrixIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
@@ -2381,10 +2381,10 @@ QTEST_CASE ( Transform3_VectorIsNullWhenRotationMatrixIsNull_Test )
 
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2395,7 +2395,7 @@ QTEST_CASE ( Transform3_VectorIsNullWhenRotationMatrixIsNull_Test )
 /// </summary>
 QTEST_CASE ( Transform3_RotationFollowsLeftHandedRules_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -2423,10 +2423,10 @@ QTEST_CASE ( Transform3_RotationFollowsLeftHandedRules_Test )
     // D3DXVECTOR3 vRot(1, 0, 0);
     // D3DXVec3TransformNormal(&vRot, &vRot, &rot);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2437,7 +2437,7 @@ QTEST_CASE ( Transform3_RotationFollowsLeftHandedRules_Test )
 /// </summary>
 QTEST_CASE ( Transform4_VectorIsCorrectlyTransformedByCommonScaleMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
@@ -2445,10 +2445,10 @@ QTEST_CASE ( Transform4_VectorIsCorrectlyTransformedByCommonScaleMatrix_Test )
 
     const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0_25, SQFloat::_6, -SQFloat::_4);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2459,17 +2459,17 @@ QTEST_CASE ( Transform4_VectorIsCorrectlyTransformedByCommonScaleMatrix_Test )
 /// </summary>
 QTEST_CASE ( Transform4_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QScalingMatrix3x3 TRANSFORMATION = QScalingMatrix3x3::GetIdentity();
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2480,7 +2480,7 @@ QTEST_CASE ( Transform4_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 /// </summary>
 QTEST_CASE ( Transform4_VectorIsNullWhenScaleMatrixIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
@@ -2489,10 +2489,10 @@ QTEST_CASE ( Transform4_VectorIsNullWhenScaleMatrixIsNull_Test )
 
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2505,7 +2505,7 @@ QTEST_CASE ( Transform4_VectorIsNullWhenScaleMatrixIsNull_Test )
 template<class MatrixType>
 void Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
@@ -2513,10 +2513,10 @@ void Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template()
 
     const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_3, SQFloat::_6, -SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2543,17 +2543,17 @@ QTEST_CASE ( Transform5_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Te
 template<class MatrixType>
 void Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QTranslationMatrix<MatrixType> TRANSFORMATION = QTranslationMatrix<MatrixType>::GetIdentity();
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2580,7 +2580,7 @@ QTEST_CASE ( Transform5_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 template<class MatrixType>
 void Transform5_VectorDoesNotChangeWhenTranslationMatrixIsNull_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
@@ -2588,10 +2588,10 @@ void Transform5_VectorDoesNotChangeWhenTranslationMatrixIsNull_Template()
 
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2618,7 +2618,7 @@ QTEST_CASE ( Transform5_VectorDoesNotChangeWhenTranslationMatrixIsNull_Test )
 template<class MatrixType>
 void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -2656,10 +2656,10 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
     // transformation = scaling * rotation * translation;
     // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2686,17 +2686,17 @@ QTEST_CASE ( Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix
 template<class MatrixType>
 void Transform6_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>::GetIdentity();
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2723,7 +2723,7 @@ QTEST_CASE ( Transform6_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 template<class MatrixType>
 void Transform6_VectorIsNullWhenTransformationMatrixIsNull_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
@@ -2731,10 +2731,10 @@ void Transform6_VectorIsNullWhenTransformationMatrixIsNull_Template()
 
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2759,7 +2759,7 @@ QTEST_CASE ( Transform6_VectorIsNullWhenTransformationMatrixIsNull_Test )
 /// </summary>
 QTEST_CASE ( Transform7_VectorIsCorrectlyTransformedByCommonSpaceConversionMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -2780,10 +2780,10 @@ QTEST_CASE ( Transform7_VectorIsCorrectlyTransformedByCommonSpaceConversionMatri
     // D3DXMatrixLookAtLH(&transformation, &vEye, &vAt, &vUp);
     // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(CONVERSION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2794,7 +2794,7 @@ QTEST_CASE ( Transform7_VectorIsCorrectlyTransformedByCommonSpaceConversionMatri
 /// </summary>
 QTEST_CASE ( Transform7_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
@@ -2802,10 +2802,10 @@ QTEST_CASE ( Transform7_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
     const QSpaceConversionMatrix CONVERSION = QSpaceConversionMatrix(QMatrix4x4::GetIdentity());
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(CONVERSION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2816,7 +2816,7 @@ QTEST_CASE ( Transform7_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
 /// </summary>
 QTEST_CASE ( Transform7_VectorIsNullWhenSpaceConversionMatrixIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
@@ -2825,10 +2825,10 @@ QTEST_CASE ( Transform7_VectorIsNullWhenSpaceConversionMatrixIsNull_Test )
 
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2839,7 +2839,7 @@ QTEST_CASE ( Transform7_VectorIsNullWhenSpaceConversionMatrixIsNull_Test )
 /// </summary>
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 VECTOR = QVector3(SQFloat::_0_25, (float_q)-0.000002, (float_q)40000.0 );
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -2848,11 +2848,11 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
     const string_q EXPECTED_STRING_FORM = QE_L("V3(0.25,-1.9999999999999999e-006,40000)");
 #endif
 
-	// Execution
+	// [Execution]
     QVector3 vVectorUT = VECTOR;
     string_q strStringForm = vVectorUT.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strStringForm == EXPECTED_STRING_FORM);
 }
 
@@ -2863,7 +2863,7 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 template<class MatrixType>
 void TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
 
@@ -2872,10 +2872,10 @@ void TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Templat
 
     const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_3, SQFloat::_6, -SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2902,7 +2902,7 @@ QTEST_CASE ( TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix
 template<class MatrixType>
 void TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
 
@@ -2910,10 +2910,10 @@ void TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
     const QTranslationMatrix<MatrixType> TRANSFORMATION = QTranslationMatrix<MatrixType>::GetIdentity();
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -2940,7 +2940,7 @@ QTEST_CASE ( TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Tes
 template<class MatrixType>
 void TransformImp1_VectorDoesntChangeWhenTranslationMatrixIsNull_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
 
@@ -2949,10 +2949,10 @@ void TransformImp1_VectorDoesntChangeWhenTranslationMatrixIsNull_Template()
 
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -2979,7 +2979,7 @@ QTEST_CASE ( TransformImp1_VectorDoesntChangeWhenTranslationMatrixIsNull_Test )
 template<class MatrixType>
 void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -3018,10 +3018,10 @@ void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Temp
     // transformation = scaling * rotation * translation;
     // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
 
-	// Execution
+	// [Execution]
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -3048,7 +3048,7 @@ QTEST_CASE ( TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMat
 template<class MatrixType>
 void TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
 
@@ -3056,10 +3056,10 @@ void TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>::GetIdentity();
     const QVector3 EXPECTED_RESULT = VECTOR;
 
-	// Execution
+	// [Execution]
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
@@ -3086,7 +3086,7 @@ QTEST_CASE ( TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Tes
 template<class MatrixType>
 void TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
 
@@ -3095,10 +3095,10 @@ void TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Template()
 
     const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(NULL_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
@@ -3125,7 +3125,7 @@ QTEST_CASE ( TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Test )
 template<class MatrixType>
 void TransformImp2_RotationFollowsLeftHandedRules_Template()
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
@@ -3164,10 +3164,10 @@ void TransformImp2_RotationFollowsLeftHandedRules_Template()
     // transformation = scaling * rotation * translation;
     // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
 
-	// Execution
+	// [Execution]
     QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
     BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );

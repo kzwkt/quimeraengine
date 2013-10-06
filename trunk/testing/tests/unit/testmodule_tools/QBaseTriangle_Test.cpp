@@ -56,7 +56,7 @@ QTEST_SUITE_BEGIN( QBaseTriangle_TestSuite )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
@@ -65,10 +65,10 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QBaseTriangle<T> triangleUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -79,7 +79,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -90,10 +90,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     const QBaseTriangle<T> EXPECTED_TRIANGLE(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QBaseTriangle<T> triangleUT(EXPECTED_TRIANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -104,7 +104,7 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -113,10 +113,10 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QBaseTriangle<T> triangleUT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -127,7 +127,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -136,10 +136,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QBaseTriangle<T> triangleUT(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -152,7 +152,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_AssertionFailsWhenInputValuesAreNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -167,7 +167,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_AssertionFailsWhenInputValuesAreNull_Test, TQ
     const bool ASSERTION_FAILED_WHEN_B_IS_NULL = true;
     const bool ASSERTION_FAILED_WHEN_C_IS_NULL = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailedWhenAIsNull = false;
 
     try
@@ -201,7 +201,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_AssertionFailsWhenInputValuesAreNull_Test, TQ
         bAssertionFailedWhenCIsNull = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailedWhenAIsNull, ASSERTION_FAILED_WHEN_A_IS_NULL);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBIsNull, ASSERTION_FAILED_WHEN_B_IS_NULL);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCIsNull, ASSERTION_FAILED_WHEN_C_IS_NULL);
@@ -217,7 +217,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
     using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
     using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -232,10 +232,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
     SQVF32::Pack(VECTOR_COMPONENTS_B[0], VECTOR_COMPONENTS_B[1], VECTOR_COMPONENTS_B[2], VECTOR_COMPONENTS_B[3], INPUT_FVECTOR_B);
     SQVF32::Pack(VECTOR_COMPONENTS_C[0], VECTOR_COMPONENTS_C[1], VECTOR_COMPONENTS_C[2], VECTOR_COMPONENTS_C[3], INPUT_FVECTOR_C);
 
-	// Execution
+	// [Execution]
     QBaseTriangle<T> triangleUT(INPUT_FVECTOR_A, INPUT_FVECTOR_B, INPUT_FVECTOR_C);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -246,11 +246,11 @@ QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
     const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -259,11 +259,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5));
     const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -272,11 +272,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
 }
 
@@ -285,11 +285,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanToleran
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -298,11 +298,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND =  QBaseTriangle<T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -311,11 +311,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test, 
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -324,11 +324,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferLessThanToleranc
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
@@ -337,11 +337,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolera
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 

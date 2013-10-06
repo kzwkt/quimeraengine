@@ -54,17 +54,17 @@ QTEST_SUITE_BEGIN( QBaseRay_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const QVector4 EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const QVector3 EXPECTED_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
-	// Execution
+	// [Execution]
     QBaseRay<QVector4, QVector3> rayUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction == EXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -74,7 +74,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
 
@@ -83,10 +83,10 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 
     QBaseRay<QVector4, QVector3> EXPECTED_RAY(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
-	// Execution
+	// [Execution]
     QBaseRay<QVector4, QVector3> rayUT(EXPECTED_RAY);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_RAY.Origin);
     BOOST_CHECK(rayUT.Direction == EXPECTED_RAY.Direction);
 }
@@ -96,17 +96,17 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_ValuesAreSetProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
 
     const QVector4 EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const QVector3 EXPECTED_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
-	// Execution
+	// [Execution]
     QBaseRay<QVector4, QVector3> rayUT(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction == EXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -116,7 +116,7 @@ QTEST_CASE ( Constructor3_ValuesAreSetProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_ConstructedRayIsNotNormalizedWhenDirectionVectorIsNot_Test )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
 
@@ -126,10 +126,10 @@ QTEST_CASE ( Constructor3_ConstructedRayIsNotNormalizedWhenDirectionVectorIsNot_
     const QVector4 UNEXPECTED_VALUE_FOR_ORIGIN = INPUT_VALUE_FOR_ORIGIN.Normalize();
     const QVector3 UNEXPECTED_VALUE_FOR_DIRECTION = INPUT_VALUE_FOR_DIRECTION.Normalize();
 
-	// Execution
+	// [Execution]
     QBaseRay<QVector4, QVector3> rayUT(INPUT_VALUE_FOR_ORIGIN, INPUT_VALUE_FOR_DIRECTION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin != UNEXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction != UNEXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -139,11 +139,11 @@ QTEST_CASE ( Constructor3_ConstructedRayIsNotNormalizedWhenDirectionVectorIsNot_
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::_0), QVector3(SQFloat::_0) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -152,11 +152,11 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), QVector3(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5));
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::_0), QVector3(SQFloat::_0) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -165,11 +165,11 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), QVector3(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::_0), QVector3(SQFloat::_0) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
 }
 
@@ -178,11 +178,11 @@ QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -191,11 +191,11 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_FalseWhenOperandsAreSimilarButNotEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) * SQFloat::_3 ); // LEFT_OPERAND's direction x3
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK( !(LEFT_OPERAND == RIGHT_OPERAND) );
 }
 
@@ -204,11 +204,11 @@ QTEST_CASE ( OperatorEquality_FalseWhenOperandsAreSimilarButNotEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND =  QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -217,11 +217,11 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), QVector3(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -230,11 +230,11 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), QVector3(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::_0), QVector3(SQFloat::_0) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
@@ -243,11 +243,11 @@ QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test 
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -256,11 +256,11 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_TrueWhenOperandsAreSimilarButNotEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<QVector4, QVector3> LEFT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon) );
     const QBaseRay<QVector4, QVector3> RIGHT_OPERAND = QBaseRay<QVector4, QVector3>( QVector4(SQFloat::Epsilon), QVector3(SQFloat::Epsilon * SQFloat::_3) ); // LEFT_OPERAND's direction x3
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 

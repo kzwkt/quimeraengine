@@ -58,17 +58,17 @@ QTEST_SUITE_BEGIN( QBaseRay_TestSuite )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const T EXPECTED_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
-	// Execution
+	// [Execution]
     QBaseRay<T, T> rayUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction == EXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -78,7 +78,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6 };
 
@@ -87,10 +87,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     QBaseRay<T, T> EXPECTED_RAY(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
-	// Execution
+	// [Execution]
     QBaseRay<T, T> rayUT(EXPECTED_RAY);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_RAY.Origin);
     BOOST_CHECK(rayUT.Direction == EXPECTED_RAY.Direction);
 }
@@ -100,17 +100,17 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6 };
 
     const T EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
     const T EXPECTED_VALUE_FOR_DIRECTION(VECTOR_COMPONENTS_DIRECTION);
 
-	// Execution
+	// [Execution]
     QBaseRay<T, T> rayUT(EXPECTED_VALUE_FOR_ORIGIN, EXPECTED_VALUE_FOR_DIRECTION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin == EXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction == EXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -120,7 +120,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor3_ConstructedRayIsNotNormalizedWhenDirectionVectorIsNot_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3 };
     float_q VECTOR_COMPONENTS_DIRECTION[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6 };
 
@@ -130,10 +130,10 @@ QTEST_CASE_TEMPLATE ( Constructor3_ConstructedRayIsNotNormalizedWhenDirectionVec
     const T UNEXPECTED_VALUE_FOR_ORIGIN = INPUT_VALUE_FOR_ORIGIN.Normalize();
     const T UNEXPECTED_VALUE_FOR_DIRECTION = INPUT_VALUE_FOR_DIRECTION.Normalize();
 
-	// Execution
+	// [Execution]
     QBaseRay<T, T> rayUT(INPUT_VALUE_FOR_ORIGIN, INPUT_VALUE_FOR_DIRECTION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(rayUT.Origin != UNEXPECTED_VALUE_FOR_ORIGIN);
     BOOST_CHECK(rayUT.Direction != UNEXPECTED_VALUE_FOR_DIRECTION);
 }
@@ -143,11 +143,11 @@ QTEST_CASE_TEMPLATE ( Constructor3_ConstructedRayIsNotNormalizedWhenDirectionVec
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::_0), T(SQFloat::_0) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -156,11 +156,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5));
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::_0), T(SQFloat::_0) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -169,11 +169,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::_0), T(SQFloat::_0) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
 }
 
@@ -182,11 +182,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanToleran
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -195,11 +195,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsAreSimilarButNotEqual_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) * SQFloat::_3 ); // LEFT_OPERAND's direction x3
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK( !(LEFT_OPERAND == RIGHT_OPERAND) );
 }
 
@@ -208,11 +208,11 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsAreSimilarButNotEqual_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND =  QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -221,11 +221,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test, 
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -234,11 +234,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsDifferLessThanToleranc
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::_0), T(SQFloat::_0) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
@@ -247,11 +247,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolera
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -260,11 +260,11 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test, 
 /// </summary>
 QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsAreSimilarButNotEqual_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QBaseRay<T, T> LEFT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon) );
     const QBaseRay<T, T> RIGHT_OPERAND = QBaseRay<T, T>( T(SQFloat::Epsilon), T(SQFloat::Epsilon * SQFloat::_3) ); // LEFT_OPERAND's direction x3
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 

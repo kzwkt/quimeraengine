@@ -48,12 +48,12 @@ QTEST_SUITE_BEGIN( QBaseMatrix2x2_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
     QBaseMatrix2x2 matrixUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_ALL);
@@ -65,7 +65,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaventChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_2;
@@ -74,10 +74,10 @@ QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
     const QBaseMatrix2x2 MATRIX_TO_COPY(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01,
                                         EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11);
 
-    // Execution
+    // [Execution]
     QBaseMatrix2x2 matrixUT = MATRIX_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
@@ -89,12 +89,12 @@ QTEST_CASE ( Constructor2_EveryMatrixElementCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor3_ValueIsSetForAllComponents_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_5;
 
     QBaseMatrix2x2 matrixUT(EXPECTED_VALUE_FOR_ALL);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_ALL);
@@ -106,16 +106,16 @@ QTEST_CASE ( Constructor3_ValueIsSetForAllComponents_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 {
-   // Preparation
+   // [Preparation]
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_3;
     const float_q EXPECTED_VALUE_FOR_11 = SQFloat::_4;
 
-	// Execution
+	// [Execution]
     QBaseMatrix2x2 matrixUT(EXPECTED_VALUE_FOR_00,EXPECTED_VALUE_FOR_01,EXPECTED_VALUE_FOR_10,EXPECTED_VALUE_FOR_11);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
@@ -127,7 +127,7 @@ QTEST_CASE ( Constructor4_ValuesAreSetProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor5_MatrixComponentsAreFilledWithValidReferenceTo4Floats_Test )
 {
-   // Preparation
+   // [Preparation]
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_3;
@@ -139,10 +139,10 @@ QTEST_CASE ( Constructor5_MatrixComponentsAreFilledWithValidReferenceTo4Floats_T
     VALID_ARRAY_OF_4_FLOATS[2] = EXPECTED_VALUE_FOR_10;
     VALID_ARRAY_OF_4_FLOATS[3] = EXPECTED_VALUE_FOR_11;
 
-	// Execution
+	// [Execution]
     QBaseMatrix2x2 matrixUT(VALID_ARRAY_OF_4_FLOATS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
@@ -160,10 +160,10 @@ QTEST_CASE ( Constructor5_MatrixComponentsAreFilledWithValidReferenceTo4Floats_T
 /// </summary>
 QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q* NULL_ARRAY = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -175,7 +175,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(bAssertionFailed);
 }
 
@@ -186,7 +186,7 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 /// </summary>
 QTEST_CASE ( Constructor6_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_00 = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_01 = SQFloat::_2;
     const float_q EXPECTED_VALUE_FOR_10 = SQFloat::_3;
@@ -195,10 +195,10 @@ QTEST_CASE ( Constructor6_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 	vf32_q PACK;
 	SQVF32::Pack(EXPECTED_VALUE_FOR_00, EXPECTED_VALUE_FOR_01, EXPECTED_VALUE_FOR_10, EXPECTED_VALUE_FOR_11, PACK);
 
-	// Execution
+	// [Execution]
 	QBaseMatrix2x2 matrixUT(PACK);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_00);
     BOOST_CHECK_EQUAL(matrixUT.ij[0][1], EXPECTED_VALUE_FOR_01);
     BOOST_CHECK_EQUAL(matrixUT.ij[1][0], EXPECTED_VALUE_FOR_10);
@@ -210,11 +210,11 @@ QTEST_CASE ( Constructor6_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseMatrix2x2 LEFT_OPERAND(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon);
     const QBaseMatrix2x2 RIGHT_OPERAND(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -223,13 +223,13 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q HALF_TOLERANCE = SQFloat::Epsilon * SQFloat::_0_5;
 
     const QBaseMatrix2x2 LEFT_OPERAND(HALF_TOLERANCE, HALF_TOLERANCE, HALF_TOLERANCE, HALF_TOLERANCE);
     const QBaseMatrix2x2 RIGHT_OPERAND(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -238,13 +238,13 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q ONE_AND_A_HALF_TOLERANCE = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
 
     const QBaseMatrix2x2 LEFT_OPERAND(ONE_AND_A_HALF_TOLERANCE, ONE_AND_A_HALF_TOLERANCE, ONE_AND_A_HALF_TOLERANCE, ONE_AND_A_HALF_TOLERANCE);
     const QBaseMatrix2x2 RIGHT_OPERAND(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
 }
 
@@ -253,11 +253,11 @@ QTEST_CASE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseMatrix2x2 LEFT_OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseMatrix2x2 RIGHT_OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
 }
 
@@ -266,11 +266,11 @@ QTEST_CASE ( OperatorEquality_TrueWhenOperandsAreExactlyEqual_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseMatrix2x2 LEFT_OPERAND(SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon, SQFloat::Epsilon);
     const QBaseMatrix2x2 RIGHT_OPERAND(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -281,11 +281,11 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 {
     const float_q HALF_TOLERANCE = SQFloat::Epsilon * SQFloat::_0_5;
 
-   // Preparation
+   // [Preparation]
     const QBaseMatrix2x2 LEFT_OPERAND(HALF_TOLERANCE, HALF_TOLERANCE, HALF_TOLERANCE, HALF_TOLERANCE);
     const QBaseMatrix2x2 RIGHT_OPERAND(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND ));
 }
 
@@ -294,13 +294,13 @@ QTEST_CASE ( OperatorInequality_FalseWhenOperandsDifferLessThanTolerance_Test )
 /// </summary>
 QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q ONE_AND_A_HALF_TOLERANCE = SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5;
 
     const QBaseMatrix2x2 LEFT_OPERAND(ONE_AND_A_HALF_TOLERANCE, ONE_AND_A_HALF_TOLERANCE, ONE_AND_A_HALF_TOLERANCE, ONE_AND_A_HALF_TOLERANCE);
     const QBaseMatrix2x2 RIGHT_OPERAND(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);
 }
 
@@ -309,11 +309,11 @@ QTEST_CASE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolerance_Test 
 /// </summary>
 QTEST_CASE ( OperatorInequality_FalseWhenOperandsAreExactlyEqual_Test )
 {
-    // Preparation
+    // [Preparation]
     const QBaseMatrix2x2 LEFT_OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QBaseMatrix2x2 RIGHT_OPERAND(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
 
-	// Execution / Verification
+	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND != RIGHT_OPERAND));
 }
 

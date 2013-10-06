@@ -59,17 +59,17 @@ QTEST_SUITE_BEGIN( QLineSegment_TestSuite )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
 
-	// Execution
+	// [Execution]
     QLineSegment<T> lineSegmentUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -79,7 +79,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
 
@@ -88,10 +88,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     const QLineSegment<T> EXPECTED_LINESEGMENT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment<T> lineSegmentUT(EXPECTED_LINESEGMENT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -103,7 +103,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
 
@@ -112,10 +112,10 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     const QBaseLineSegment<T> EXPECTED_LINESEGMENT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment<T> lineSegmentUT(EXPECTED_LINESEGMENT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -125,17 +125,17 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
 
     const T EXPECTED_VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
 
-	// Execution
+	// [Execution]
     QLineSegment<T> lineSegmentUT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -145,14 +145,14 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedInPositiveXAxisIsReturned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
     const T EXPECTED_VALUE_FOR_B = T::GetUnitVectorX();
 
-	// Execution
+	// [Execution]
     QLineSegment<T> lineSegmentUT = QLineSegment<T>::GetUnitLine();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -162,14 +162,14 @@ QTEST_CASE_TEMPLATE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedIn
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetLineZero_AZeroLengthSegmentPlacedAtOriginIsReturned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
     const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QLineSegment<T> lineSegmentUT = QLineSegment<T>::GetLineZero();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -181,7 +181,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_LineIsAssignedProperlyToAnother_Test, 
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseLineSegment;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
@@ -190,11 +190,11 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_LineIsAssignedProperlyToAnother_Test, 
 
     const QBaseLineSegment<T> OTHER_LINE = QBaseLineSegment<T>(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     QLineSegment<T> lineSegmentUT;
     lineSegmentUT = OTHER_LINE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(lineSegmentUT.B == EXPECTED_VALUE_FOR_B);
 }
@@ -204,7 +204,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_LineIsAssignedProperlyToAnother_Test, 
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetLength_TheCorrectLengthIsReturnedForCommonLine_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
@@ -214,10 +214,10 @@ QTEST_CASE_TEMPLATE ( GetLength_TheCorrectLengthIsReturnedForCommonLine_Test, TQ
 
     const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     float_q fLength = LINE_SEGMENT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength, EXPECTED_LENGTH) );
 }
 
@@ -226,7 +226,7 @@ QTEST_CASE_TEMPLATE ( GetLength_TheCorrectLengthIsReturnedForCommonLine_Test, TQ
 /// </summary>
 QTEST_CASE ( GetLength_WComponentDoesNotAffectTheResult_Test )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_2 };
     float_q VECTOR_COMPONENTS_A2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_9 };
@@ -240,11 +240,11 @@ QTEST_CASE ( GetLength_WComponentDoesNotAffectTheResult_Test )
     const QLineSegment<QVector4> LINE_SEGMENT1 = QLineSegment<QVector4>(VALUE_FOR_A1, VALUE_FOR_B1);
     const QLineSegment<QVector4> LINE_SEGMENT2 = QLineSegment<QVector4>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-	// Execution
+	// [Execution]
     float_q fLength1 = LINE_SEGMENT1.GetLength();
     float_q fLength2 = LINE_SEGMENT2.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength1, fLength2) );
 }
 
@@ -253,7 +253,7 @@ QTEST_CASE ( GetLength_WComponentDoesNotAffectTheResult_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetLength_IsAlwaysPositive_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
@@ -265,13 +265,13 @@ QTEST_CASE_TEMPLATE ( GetLength_IsAlwaysPositive_Test, TQTemplateTypes )
     const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>( VALUE_FOR_A, -VALUE_FOR_B);
     const QLineSegment<T> LINE_SEGMENT4 = QLineSegment<T>(-VALUE_FOR_A, -VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     float_q fLengthBothPositive = LINE_SEGMENT1.GetLength();
     float_q fLengthANegative = LINE_SEGMENT2.GetLength();
     float_q fLengthBNegative = LINE_SEGMENT3.GetLength();
     float_q fLengthBothNegative = LINE_SEGMENT4.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(SQFloat::IsGreaterOrEquals(fLengthBothPositive, SQFloat::_0));
     BOOST_CHECK(SQFloat::IsGreaterOrEquals(fLengthANegative, SQFloat::_0));
     BOOST_CHECK(SQFloat::IsGreaterOrEquals(fLengthBNegative, SQFloat::_0));
@@ -283,7 +283,7 @@ QTEST_CASE_TEMPLATE ( GetLength_IsAlwaysPositive_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetLength_ReturnsZeroWhenBothPointsCoincide_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
 
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -292,10 +292,10 @@ QTEST_CASE_TEMPLATE ( GetLength_ReturnsZeroWhenBothPointsCoincide_Test, TQTempla
 
     const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     float_q fLength = LINE_SEGMENT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength, EXPECTED_LENGTH) );
 }
 
@@ -304,7 +304,7 @@ QTEST_CASE_TEMPLATE ( GetLength_ReturnsZeroWhenBothPointsCoincide_Test, TQTempla
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetLength_PointsOrderDoesNotMatter_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_2[] = { -SQFloat::_4, -SQFloat::_5, -SQFloat::_6, -SQFloat::_8 };
 
@@ -314,11 +314,11 @@ QTEST_CASE_TEMPLATE ( GetLength_PointsOrderDoesNotMatter_Test, TQTemplateTypes )
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_1, VALUE_FOR_2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_2, VALUE_FOR_1);
 
-	// Execution
+	// [Execution]
     float_q fLength1 = LINE_SEGMENT1.GetLength();
     float_q fLength2 = LINE_SEGMENT2.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fLength1, fLength2) );
 }
 
@@ -327,7 +327,7 @@ QTEST_CASE_TEMPLATE ( GetLength_PointsOrderDoesNotMatter_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetCenter_TheCenterIsCorrectlyCalculatedForCommonLine_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_1 };
 
@@ -338,10 +338,10 @@ QTEST_CASE_TEMPLATE ( GetCenter_TheCenterIsCorrectlyCalculatedForCommonLine_Test
 
     const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     T vCenter = LINE_SEGMENT.GetCenter();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vCenter == EXPECTED_CENTER);
 }
 
@@ -350,7 +350,7 @@ QTEST_CASE_TEMPLATE ( GetCenter_TheCenterIsCorrectlyCalculatedForCommonLine_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetCenter_PointsOrderDoesNotMatter_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_2[] = { -SQFloat::_4, -SQFloat::_5, -SQFloat::_6, -SQFloat::_8 };
 
@@ -360,11 +360,11 @@ QTEST_CASE_TEMPLATE ( GetCenter_PointsOrderDoesNotMatter_Test, TQTemplateTypes )
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_1, VALUE_FOR_2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_2, VALUE_FOR_1);
 
-	// Execution
+	// [Execution]
     T vCenter1 = LINE_SEGMENT1.GetCenter();
     T vCenter2 = LINE_SEGMENT2.GetCenter();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vCenter1 == vCenter2);
 }
 
@@ -373,7 +373,7 @@ QTEST_CASE_TEMPLATE ( GetCenter_PointsOrderDoesNotMatter_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetCenter_CenterEqualsSegmentEndPointsWhenTheyCoincide_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
 
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -381,10 +381,10 @@ QTEST_CASE_TEMPLATE ( GetCenter_CenterEqualsSegmentEndPointsWhenTheyCoincide_Tes
 
     const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_B);
 
-	// Execution
+	// [Execution]
     T vCenter = LINE_SEGMENT.GetCenter();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vCenter == VALUE_FOR_A);
     BOOST_CHECK(vCenter == VALUE_FOR_B);
 }
@@ -394,7 +394,7 @@ QTEST_CASE_TEMPLATE ( GetCenter_CenterEqualsSegmentEndPointsWhenTheyCoincide_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection1_ReturnsFalseWhenLinesDoNotIntersect_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -409,10 +409,10 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsFalseWhenLinesDoNotIntersect_Test, TQ
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT1.Intersection(LINE_SEGMENT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -429,7 +429,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesIntersectSomewhereBetwee
     //   /  \
     //  B2   B1
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -444,10 +444,10 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesIntersectSomewhereBetwee
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT1.Intersection(LINE_SEGMENT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -459,7 +459,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesCoincideTotally_Test, TQ
     // A1A2------B1B2  (I
     // A1B2------B1A2  (II
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -472,13 +472,13 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesCoincideTotally_Test, TQ
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(LINE_SEGMENT2); // I
     bool bResult2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT1); // I
     bool bResult3 = LINE_SEGMENT1.Intersection(LINE_SEGMENT3); // II
     bool bResult4 = LINE_SEGMENT3.Intersection(LINE_SEGMENT1); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult3, EXPECTED_RESULT);
@@ -496,7 +496,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenAnEndPointIsContainedInTheOth
     //
     //       I              II             III              IV
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -514,7 +514,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenAnEndPointIsContainedInTheOth
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(LINE_SEGMENT2); // I
     bool bResult2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT1); // I
     bool bResult3 = LINE_SEGMENT1.Intersection(LINE_SEGMENT4); // II
@@ -524,7 +524,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenAnEndPointIsContainedInTheOth
     bool bResult7 = LINE_SEGMENT3.Intersection(LINE_SEGMENT4); // IV
     bool bResult8 = LINE_SEGMENT4.Intersection(LINE_SEGMENT3); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult3, EXPECTED_RESULT);
@@ -546,7 +546,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesShareOneEndPointOnly_Tes
     //
     //     I           II           III           IV           V           VI           VII         VIII            IX                  X                XI                XII
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -580,7 +580,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesShareOneEndPointOnly_Tes
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult1  = LINE_SEGMENT1.Intersection(LINE_SEGMENT2); // I
     bool bResult2  = LINE_SEGMENT2.Intersection(LINE_SEGMENT1); // I
     bool bResult3  = LINE_SEGMENT1.Intersection(LINE_SEGMENT4); // II
@@ -606,7 +606,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesShareOneEndPointOnly_Tes
     bool bResult23 = LINE_SEGMENT3.Intersection(LINE_SEGMENT8); // XII
     bool bResult24 = LINE_SEGMENT8.Intersection(LINE_SEGMENT3); // XII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1,  EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2,  EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult3,  EXPECTED_RESULT);
@@ -644,7 +644,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheLengthOfOneSegmentEqual
     //
     //        I
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -657,7 +657,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheLengthOfOneSegmentEqual
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -680,7 +680,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheLengthOfOneSegmentEqual
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -699,7 +699,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsExpectedResultsWhenTheLengthOfOneSegm
     //
     //        I
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -717,13 +717,13 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsExpectedResultsWhenTheLengthOfOneSegm
     const bool EXPECTED_RESULT_WHEN_INTERSECT = true;
     const bool EXPECTED_RESULT_WHEN_DONT_INTERSECT = false;
 
-	// Execution
+	// [Execution]
     bool bResultIntersection1 = LINE_SEGMENT1.Intersection(LINE_SEGMENT2);
     bool bResultIntersection2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT1);
     bool bResultNoIntersection1 = LINE_SEGMENT3.Intersection(LINE_SEGMENT2);
     bool bResultNoIntersection2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT3);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultIntersection1, EXPECTED_RESULT_WHEN_INTERSECT);
     BOOST_CHECK_EQUAL(bResultIntersection2, EXPECTED_RESULT_WHEN_INTERSECT);
     BOOST_CHECK_EQUAL(bResultNoIntersection1, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
@@ -745,7 +745,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsFalseWhenSegmentDoesNotIntersectButWo
     //     /·
     //   B2  ·
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -760,11 +760,11 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsFalseWhenSegmentDoesNotIntersectButWo
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(LINE_SEGMENT2);
     bool bResult2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -779,7 +779,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesCoincidePartially_Test, 
     //
     //         I                   II                   III                  IV
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -797,7 +797,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesCoincidePartially_Test, 
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(LINE_SEGMENT2); // I
     bool bResult2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT1); // I
     bool bResult3 = LINE_SEGMENT1.Intersection(LINE_SEGMENT4); // II
@@ -807,7 +807,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenLinesCoincidePartially_Test, 
     bool bResult7 = LINE_SEGMENT3.Intersection(LINE_SEGMENT4); // IV
     bool bResult8 = LINE_SEGMENT4.Intersection(LINE_SEGMENT3); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult3, EXPECTED_RESULT);
@@ -828,7 +828,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenOneSegmentIsContainedInTheOth
     //
     //         I                  II                 III               IV                V
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -852,7 +852,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenOneSegmentIsContainedInTheOth
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(LINE_SEGMENT2); // I
     bool bResult2 = LINE_SEGMENT2.Intersection(LINE_SEGMENT1); // I
     bool bResult3  = LINE_SEGMENT1.Intersection(LINE_SEGMENT4);// II
@@ -864,7 +864,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsTrueWhenOneSegmentIsContainedInTheOth
     bool bResult9  = LINE_SEGMENT3.Intersection(LINE_SEGMENT5);// V
     bool bResult10 = LINE_SEGMENT5.Intersection(LINE_SEGMENT3);// V
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult3, EXPECTED_RESULT);
@@ -892,7 +892,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsFalseWhenLineDoesNotIntersectTheOrb_T
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -904,10 +904,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsFalseWhenLineDoesNotIntersectTheOrb_T
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -925,7 +925,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenOnlyOneEndPointIsInsideTheOrb
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -938,11 +938,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenOnlyOneEndPointIsInsideTheOrb
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(ORB); // I
     bool bResult2 = LINE_SEGMENT2.Intersection(ORB); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -961,7 +961,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsTangentToTheOrbByAnE
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -974,11 +974,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsTangentToTheOrbByAnE
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(ORB); // I
     bool bResult2 = LINE_SEGMENT2.Intersection(ORB); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -997,7 +997,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrb_Te
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -1009,10 +1009,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrb_Te
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1032,7 +1032,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAnd
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -1045,11 +1045,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAnd
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(ORB); // I
     bool bResult2 = LINE_SEGMENT2.Intersection(ORB); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -1068,7 +1068,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAnd
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -1080,10 +1080,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsContainedInTheOrbAnd
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1101,7 +1101,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIntersectsTheOrbInTwoP
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -1113,10 +1113,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIntersectsTheOrbInTwoP
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1134,7 +1134,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsTangentToTheOrb_Test
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -1146,10 +1146,10 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsTrueWhenTheLineIsTangentToTheOrb_Test
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = LINE_SEGMENT.Intersection(ORB);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1167,7 +1167,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsFalseWhenTheSegmentDoesNotIntersectTh
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = {-SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -1180,11 +1180,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsFalseWhenTheSegmentDoesNotIntersectTh
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult1 = LINE_SEGMENT1.Intersection(ORB); // I
     bool bResult2 = LINE_SEGMENT2.Intersection(ORB); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -1202,7 +1202,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheRadiusEqualsZeroAndTheL
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -1215,7 +1215,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheRadiusEqualsZeroAndTheL
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1238,7 +1238,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheRadiusEqualsZeroAndTheL
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -1257,7 +1257,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfSegmentEqualsZe
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_7 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_A);
@@ -1267,7 +1267,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfSegmentEqualsZe
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1279,7 +1279,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheLengthOfSegmentEqualsZe
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1299,7 +1299,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheRadiusEqualsZer
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -1315,11 +1315,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheRadiusEqualsZer
     const bool EXPECTED_RESULT_CONTAINED = true;
     const bool EXPECTED_RESULT_NOT_CONTAINED = false;
 
-	// Execution
+	// [Execution]
     bool bResultContained = LINE_SEGMENT.Intersection(ORB_CONTAINED);
     bool bResultNotContained = LINE_SEGMENT.Intersection(ORB_NOT_CONTAINED);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
 }
@@ -1338,7 +1338,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheLengthOfSegment
 
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_CONTAINED[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T POINT_CONTAINED(VECTOR_COMPONENTS_CONTAINED);
     const QLineSegment<T> LINE_SEGMENT_CONTAINED = QLineSegment<T>(POINT_CONTAINED, POINT_CONTAINED);
@@ -1353,11 +1353,11 @@ QTEST_CASE_TEMPLATE ( Intersection2_ReturnsExpectedResultsWhenTheLengthOfSegment
     const bool EXPECTED_RESULT_CONTAINED = true;
     const bool EXPECTED_RESULT_NOT_CONTAINED = false;
 
-	// Execution
+	// [Execution]
     bool bResultContained = LINE_SEGMENT_CONTAINED.Intersection(ORB);
     bool bResultNotContained = LINE_SEGMENT_NOT_CONTAINED.Intersection(ORB);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(bResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
 }
@@ -1375,7 +1375,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_NoIntersectionPointReturnedWhenLinesDoN
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -1392,10 +1392,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_NoIntersectionPointReturnedWhenLinesDoN
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -1407,7 +1407,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_OutputPointIsNotModifiedWhenThereIsNoIn
 {
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -1423,10 +1423,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_OutputPointIsNotModifiedWhenThereIsNoIn
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
 
@@ -1445,7 +1445,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_OneIntersectionPointIsReturnedWhenLines
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -1463,10 +1463,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_OneIntersectionPointIsReturnedWhenLines
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_EXPECTED);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -1481,7 +1481,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenLinesCoincideT
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -1499,13 +1499,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenLinesCoincideT
     T OUTPUT_POINT3 = T::GetZeroVector();
     T OUTPUT_POINT4 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2); // I
     EQIntersections eResult3 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT3, OUTPUT_POINT3); // II
     EQIntersections eResult4 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT4); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -1529,7 +1529,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndPointIsC
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -1557,7 +1557,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndPointIsC
     T OUTPUT_POINT7 = T::GetZeroVector();
     T OUTPUT_POINT8 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2); // I
     EQIntersections eResult3 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT4, OUTPUT_POINT3); // II
@@ -1567,7 +1567,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndPointIsC
     EQIntersections eResult7 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT4, OUTPUT_POINT7); // IV
     EQIntersections eResult8 = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT3, OUTPUT_POINT8); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -1599,7 +1599,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenLinesShareOneEndPoin
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -1661,7 +1661,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenLinesShareOneEndPoin
     T OUTPUT_POINT23 = T::GetZeroVector();
     T OUTPUT_POINT24 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1); // I
     EQIntersections eResult2  = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2); // I
     EQIntersections eResult3  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT4, OUTPUT_POINT3); // II
@@ -1687,7 +1687,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenLinesShareOneEndPoin
     EQIntersections eResult23 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT8, OUTPUT_POINT23); // XII
     EQIntersections eResult24 = LINE_SEGMENT8.IntersectionPoint(LINE_SEGMENT3, OUTPUT_POINT24); // XII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -1751,7 +1751,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheLengthOfOneSegment
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -1768,7 +1768,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheLengthOfOneSegment
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1791,7 +1791,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheLengthOfOneSegment
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
@@ -1814,7 +1814,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultsWhenTheLengthOfOn
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -1835,7 +1835,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultsWhenTheLengthOfOn
     const T EXPECTED_INTERSECTION_POINT = VALUE_FOR_A1B1;
     const T EXPECTED_NO_INTERSECTION_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     T vIntersection1 = T::GetZeroVector();
     T vIntersection2 = T::GetZeroVector();
     T vNoIntersection1 = T::GetZeroVector();
@@ -1846,7 +1846,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultsWhenTheLengthOfOn
     EQIntersections eResultNoIntersection1 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT2, vNoIntersection1);
     EQIntersections eResultNoIntersection2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT3, vNoIntersection2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultIntersection1, EXPECTED_RESULT_WHEN_INTERSECT);
     BOOST_CHECK_EQUAL(eResultIntersection2, EXPECTED_RESULT_WHEN_INTERSECT);
     BOOST_CHECK_EQUAL(eResultNoIntersection1, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
@@ -1874,7 +1874,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointWhenSegmentDoesNotInterse
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -1892,11 +1892,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointWhenSegmentDoesNotInterse
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1);
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
@@ -1926,7 +1926,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenLinesCoincidePartia
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q FIRST_POSITION_COMPONENTS[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const float_q SECOND_POSITION_COMPONENTS[] = { SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const float_q THIRD_POSITION_COMPONENTS[] = { SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
@@ -1978,7 +1978,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenLinesCoincidePartia
     T OUTPUT_POINT7 = T::GetZeroVector();
     T OUTPUT_POINT8 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_POINT1); // I
     EQIntersections eResult2 = LINE_SEGMENTA_2.IntersectionPoint(LINE_SEGMENTB_2, OUTPUT_POINT2); // II
     EQIntersections eResult3 = LINE_SEGMENTA_3.IntersectionPoint(LINE_SEGMENTB_3, OUTPUT_POINT3); // III
@@ -1988,7 +1988,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenLinesCoincidePartia
     EQIntersections eResult7 = LINE_SEGMENTA_7.IntersectionPoint(LINE_SEGMENTB_7, OUTPUT_POINT7); // VII
     EQIntersections eResult8 = LINE_SEGMENTA_8.IntersectionPoint(LINE_SEGMENTB_8, OUTPUT_POINT8); // VIII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2029,7 +2029,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOneSegmentIsContain
     // A2B1---B2---A1  VIII
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q FIRST_POSITION_COMPONENTS[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const float_q SECOND_POSITION_COMPONENTS[] = { SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const float_q THIRD_POSITION_COMPONENTS[] = { SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
@@ -2079,7 +2079,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOneSegmentIsContain
     T OUTPUT_POINT7  = T::GetZeroVector();
     T OUTPUT_POINT8  = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1  = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_POINT1);// I
     EQIntersections eResult2  = LINE_SEGMENTA_2.IntersectionPoint(LINE_SEGMENTB_2, OUTPUT_POINT2);// II
     EQIntersections eResult3  = LINE_SEGMENTA_3.IntersectionPoint(LINE_SEGMENTB_3, OUTPUT_POINT3);// III
@@ -2089,7 +2089,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOneSegmentIsContain
     EQIntersections eResult7  = LINE_SEGMENTA_7.IntersectionPoint(LINE_SEGMENTB_7, OUTPUT_POINT7);// VII
     EQIntersections eResult8  = LINE_SEGMENTA_8.IntersectionPoint(LINE_SEGMENTB_8, OUTPUT_POINT8);// VIII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2119,7 +2119,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointReturnedWhenLinesDoN
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -2137,10 +2137,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointReturnedWhenLinesDoN
     T OUTPUT_FIRSTPOINT = T::GetZeroVector();
     T OUTPUT_SECONDPOINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_FIRSTPOINT == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_SECONDPOINT == EXPECTED_POINT);
@@ -2153,7 +2153,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_OutputPointIsNotModifiedWhenThereIsNoIn
 {
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -2170,10 +2170,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_OutputPointIsNotModifiedWhenThereIsNoIn
     T OUTPUT_FIRSTPOINT = T::GetZeroVector();
     T OUTPUT_SECONDPOINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(OUTPUT_FIRSTPOINT == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_SECONDPOINT == EXPECTED_POINT);
 }
@@ -2193,7 +2193,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_OneIntersectionPointIsReturnedWhenLines
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -2213,10 +2213,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_OneIntersectionPointIsReturnedWhenLines
     T OUTPUT_FIRSTPOINT = T::GetZeroVector();
     T OUTPUT_SECONDPOINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_FIRSTPOINT == EXPECTED_FIRSTPOINT);
     BOOST_CHECK(OUTPUT_SECONDPOINT == EXPECTED_SECONDPOINT);
@@ -2232,7 +2232,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsInfinitePointsWhenLinesCoincideT
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -2254,13 +2254,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsInfinitePointsWhenLinesCoincideT
     T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
     T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // I
     EQIntersections eResult3 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3); // II
     EQIntersections eResult4 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT4, OUTPUT_SECONDPOINT4); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2288,7 +2288,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndPointIsC
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -2325,7 +2325,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndPointIsC
     T OUTPUT_SECONDPOINT7 = T::GetZeroVector();
     T OUTPUT_SECONDPOINT8 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // I
     EQIntersections eResult3 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT4, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3); // II
@@ -2335,7 +2335,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndPointIsC
     EQIntersections eResult7 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT4, OUTPUT_FIRSTPOINT7, OUTPUT_SECONDPOINT7); // IV
     EQIntersections eResult8 = LINE_SEGMENT4.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT8, OUTPUT_SECONDPOINT8); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2375,7 +2375,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenLinesShareOneEndPoin
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -2438,7 +2438,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenLinesShareOneEndPoin
     T OUTPUT_FIRSTPOINT23 = T::GetZeroVector();   T OUTPUT_SECONDPOINT23 = T::GetZeroVector();
     T OUTPUT_FIRSTPOINT24 = T::GetZeroVector();   T OUTPUT_SECONDPOINT24 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
     EQIntersections eResult2  = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // I
     EQIntersections eResult3  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT4, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3); // II
@@ -2464,7 +2464,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenLinesShareOneEndPoin
     EQIntersections eResult23 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT8, OUTPUT_FIRSTPOINT23, OUTPUT_SECONDPOINT23); // XII
     EQIntersections eResult24 = LINE_SEGMENT8.IntersectionPoint(LINE_SEGMENT3, OUTPUT_FIRSTPOINT24, OUTPUT_SECONDPOINT24); // XII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2552,7 +2552,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -2571,7 +2571,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -2594,7 +2594,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -2615,7 +2615,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultsWhenTheLengthOfOn
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -2636,7 +2636,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultsWhenTheLengthOfOn
     const T EXPECTED_INTERSECTION_POINT = VALUE_FOR_A1B1;
     const T EXPECTED_NO_INTERSECTION_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     T vFirstIntersection1 = T::GetZeroVector();
     T vSecondIntersection1 = T::GetZeroVector();
     T vFirstIntersection2 = T::GetZeroVector();
@@ -2651,7 +2651,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultsWhenTheLengthOfOn
     EQIntersections eResultNoIntersection1 = LINE_SEGMENT3.IntersectionPoint(LINE_SEGMENT2, vFirstNoIntersection1, vSecondNoIntersection1);
     EQIntersections eResultNoIntersection2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT3, vFirstNoIntersection2, vSecondNoIntersection2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultIntersection1, EXPECTED_RESULT_WHEN_INTERSECT);
     BOOST_CHECK_EQUAL(eResultIntersection2, EXPECTED_RESULT_WHEN_INTERSECT);
     BOOST_CHECK_EQUAL(eResultNoIntersection1, EXPECTED_RESULT_WHEN_DONT_INTERSECT);
@@ -2683,7 +2683,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointWhenSegmentDoesNotInterse
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -2703,11 +2703,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointWhenSegmentDoesNotInterse
     T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
     T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1);
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_FIRSTPOINT1 == EXPECTED_POINT);
@@ -2739,7 +2739,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenLinesCoincidePartia
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q FIRST_POSITION_COMPONENTS[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const float_q SECOND_POSITION_COMPONENTS[] = { SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const float_q THIRD_POSITION_COMPONENTS[] = { SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
@@ -2807,7 +2807,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenLinesCoincidePartia
     T OUTPUT_SECONDPOINT7 = T::GetZeroVector();
     T OUTPUT_SECONDPOINT8 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
     EQIntersections eResult2 = LINE_SEGMENTA_2.IntersectionPoint(LINE_SEGMENTB_2, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2); // II
     EQIntersections eResult3 = LINE_SEGMENTA_3.IntersectionPoint(LINE_SEGMENTB_3, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3); // III
@@ -2817,7 +2817,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenLinesCoincidePartia
     EQIntersections eResult7 = LINE_SEGMENTA_7.IntersectionPoint(LINE_SEGMENTB_7, OUTPUT_FIRSTPOINT7, OUTPUT_SECONDPOINT7); // VII
     EQIntersections eResult8 = LINE_SEGMENTA_8.IntersectionPoint(LINE_SEGMENTB_8, OUTPUT_FIRSTPOINT8, OUTPUT_SECONDPOINT8); // VIII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2866,7 +2866,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOneSegmentIsContain
     // A2B1---B2---A1  VIII
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q FIRST_POSITION_COMPONENTS[] = { SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const float_q SECOND_POSITION_COMPONENTS[] = { SQFloat::_2, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
     const float_q THIRD_POSITION_COMPONENTS[] = { SQFloat::_3, SQFloat::_0, SQFloat::_0, SQFloat::_1 };
@@ -2932,7 +2932,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOneSegmentIsContain
     T OUTPUT_SECONDPOINT7  = T::GetZeroVector();
     T OUTPUT_SECONDPOINT8  = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1  = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1);// I
     EQIntersections eResult2  = LINE_SEGMENTA_2.IntersectionPoint(LINE_SEGMENTB_2, OUTPUT_FIRSTPOINT2, OUTPUT_SECONDPOINT2);// II
     EQIntersections eResult3  = LINE_SEGMENTA_3.IntersectionPoint(LINE_SEGMENTB_3, OUTPUT_FIRSTPOINT3, OUTPUT_SECONDPOINT3);// III
@@ -2942,7 +2942,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOneSegmentIsContain
     EQIntersections eResult7  = LINE_SEGMENTA_7.IntersectionPoint(LINE_SEGMENTB_7, OUTPUT_FIRSTPOINT7, OUTPUT_SECONDPOINT7);// VII
     EQIntersections eResult8  = LINE_SEGMENTA_8.IntersectionPoint(LINE_SEGMENTB_8, OUTPUT_FIRSTPOINT8, OUTPUT_SECONDPOINT8);// VIII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult3, EXPECTED_RESULT);
@@ -2985,7 +2985,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionPointsAreReturnedWhenLine
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3000,10 +3000,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionPointsAreReturnedWhenLine
     T OUTPUT_POINT1F = EXPECTED_POINT;
     T OUTPUT_POINT1S = EXPECTED_POINT;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1F == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINT1S == EXPECTED_POINT);
@@ -3025,7 +3025,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionPointWhenOnlyOneE
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3045,11 +3045,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionPointWhenOnlyOneE
     T OUTPUT_POINT2F = T::GetZeroVector();
     T OUTPUT_POINT2S = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2F, OUTPUT_POINT2S); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1F == EXPECTED_POINTF);
@@ -3073,7 +3073,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3093,11 +3093,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
     T OUTPUT_POINT2F = T::GetZeroVector();
     T OUTPUT_POINT2S = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2F, OUTPUT_POINT2S); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1F == EXPECTED_POINTF);
@@ -3121,7 +3121,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenTheLine
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3136,10 +3136,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenTheLine
     T OUTPUT_POINTF = EXPECTED_POINT;
     T OUTPUT_POINTS = EXPECTED_POINT;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINTF, OUTPUT_POINTS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINTF == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINTS == EXPECTED_POINT);
@@ -3162,7 +3162,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsCont
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3182,11 +3182,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsCont
     T OUTPUT_POINT2F = T::GetZeroVector();
     T OUTPUT_POINT2S = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2F, OUTPUT_POINT2S); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1F == EXPECTED_POINTF);
@@ -3210,7 +3210,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIsCon
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3228,10 +3228,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIsCon
     T OUTPUT_POINTF = T::GetZeroVector();
     T OUTPUT_POINTS = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINTF, OUTPUT_POINTS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINTF == EXPECTED_POINTF);
     BOOST_CHECK(OUTPUT_POINTS == EXPECTED_POINTS);
@@ -3252,7 +3252,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineInter
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3270,10 +3270,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineInter
     T OUTPUT_POINTF = T::GetZeroVector();
     T OUTPUT_POINTS = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINTF, OUTPUT_POINTS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINTF == EXPECTED_POINTF);
     BOOST_CHECK(OUTPUT_POINTS == EXPECTED_POINTS);
@@ -3294,7 +3294,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3311,10 +3311,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
     T OUTPUT_POINTF = T::GetZeroVector();
     T OUTPUT_POINTS = EXPECTED_POINTS;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINTF, OUTPUT_POINTS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINTF == EXPECTED_POINTF);
     BOOST_CHECK(OUTPUT_POINTS == EXPECTED_POINTS);
@@ -3335,7 +3335,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheSegmentD
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = {-SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3353,11 +3353,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheSegmentD
     T OUTPUT_POINT2F = EXPECTED_POINT;
     T OUTPUT_POINT2S = EXPECTED_POINT;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2F, OUTPUT_POINT2S); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1F == EXPECTED_POINT);
@@ -3380,7 +3380,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3399,7 +3399,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -3422,7 +3422,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK(OUTPUT_POINT1F == EXPECTED_POINT);
@@ -3446,7 +3446,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_7 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_A);
@@ -3460,7 +3460,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -3472,7 +3472,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
     BOOST_CHECK(OUTPUT_POINTF == EXPECTED_POINT);
     BOOST_CHECK(OUTPUT_POINTS == EXPECTED_POINT);
@@ -3495,7 +3495,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheRadiusEqua
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3513,13 +3513,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheRadiusEqua
     const T EXPECTED_POINT_CONTAINED = T(VECTOR_COMPONENTS_CENTER_CONTAINED);
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     T vPointContained = T::GetZeroVector();
     T vPointNotContained = T::GetZeroVector();
     EQIntersections eResultContained = LINE_SEGMENT.IntersectionPoint(ORB_CONTAINED, vPointContained);
     EQIntersections eResultNotContained = LINE_SEGMENT.IntersectionPoint(ORB_NOT_CONTAINED, vPointNotContained);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vPointContained == EXPECTED_POINT_CONTAINED);
@@ -3544,7 +3544,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheLengthOfSe
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_CONTAINED[] = { (float_q)2.5, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T POINT_CONTAINED(VECTOR_COMPONENTS_CONTAINED);
     const QLineSegment<T> LINE_SEGMENT_CONTAINED = QLineSegment<T>(POINT_CONTAINED, POINT_CONTAINED);
@@ -3567,7 +3567,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheLengthOfSe
     const T EXPECTED_POINT_IN_SURFACE = POINT_IN_SURFACE;
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     T vPointContained = T::GetZeroVector();
     T vPointInSurface = T::GetZeroVector();
     T vPointNotContained = T::GetZeroVector();
@@ -3576,7 +3576,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheLengthOfSe
     EQIntersections eResultInSurface = LINE_SEGMENT_IN_SURFACE.IntersectionPoint(ORB, vPointInSurface);
     EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(ORB, vPointNotContained);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(eResultInSurface, EXPECTED_RESULT_IN_SURFACE);
     BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
@@ -3602,7 +3602,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_FirstPointIsNearerToAThanSecondPoint_Te
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3625,11 +3625,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_FirstPointIsNearerToAThanSecondPoint_Te
     T OUTPUT_POINT2F = T::GetZeroVector();
     T OUTPUT_POINT2S = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S);
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2F, OUTPUT_POINT2S);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1F == EXPECTED_POINT1F);
@@ -3654,7 +3654,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionPointsAreReturnedWhenLine
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3668,10 +3668,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionPointsAreReturnedWhenLine
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINT = EXPECTED_POINT;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -3692,7 +3692,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionPointWhenOnlyOneE
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3709,11 +3709,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionPointWhenOnlyOneE
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
@@ -3735,7 +3735,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTang
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3752,11 +3752,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTang
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
@@ -3778,7 +3778,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenTheLine
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3792,10 +3792,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenTheLine
     const T EXPECTED_POINT = T::GetZeroVector();
     T OUTPUT_POINT = EXPECTED_POINT;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -3817,7 +3817,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsCont
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3834,11 +3834,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsCont
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
@@ -3860,7 +3860,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineIsCon
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3875,10 +3875,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineIsCon
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -3898,7 +3898,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineInter
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3913,10 +3913,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineInter
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -3936,7 +3936,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTang
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3951,10 +3951,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTang
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     T OUTPUT_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -3974,7 +3974,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionIsReturnedWhenTheSegmentD
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = {-SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -3990,11 +3990,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionIsReturnedWhenTheSegmentD
     T OUTPUT_POINT1 = EXPECTED_POINT;
     T OUTPUT_POINT2 = EXPECTED_POINT;
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1); // I
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
@@ -4015,7 +4015,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheRadiusEqualsZeroAn
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -4032,7 +4032,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheRadiusEqualsZeroAn
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -4055,7 +4055,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheRadiusEqualsZeroAn
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT);
@@ -4077,7 +4077,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqu
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_7 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
     const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A, VALUE_FOR_A);
@@ -4090,7 +4090,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqu
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4102,7 +4102,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqu
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
     BOOST_CHECK(OUTPUT_POINT == EXPECTED_POINT);
 }
@@ -4124,7 +4124,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheRadiusEqua
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -4143,7 +4143,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheRadiusEqua
     const T EXPECTED_SECONDPOINT_CONTAINED = T::GetZeroVector();
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     T vFirstPointContained = T::GetZeroVector();
     T vFirstPointNotContained = T::GetZeroVector();
     T vSecondPointContained = T::GetZeroVector();
@@ -4151,7 +4151,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheRadiusEqua
     EQIntersections eResultContained = LINE_SEGMENT.IntersectionPoint(ORB_CONTAINED, vFirstPointContained, vSecondPointContained);
     EQIntersections eResultNotContained = LINE_SEGMENT.IntersectionPoint(ORB_NOT_CONTAINED, vFirstPointNotContained, vSecondPointNotContained);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
     BOOST_CHECK(vFirstPointContained == EXPECTED_FIRSTPOINT_CONTAINED);
@@ -4178,7 +4178,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheLengthOfSe
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_CONTAINED[] = { (float_q)2.5, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T POINT_CONTAINED(VECTOR_COMPONENTS_CONTAINED);
     const QLineSegment<T> LINE_SEGMENT_CONTAINED = QLineSegment<T>(POINT_CONTAINED, POINT_CONTAINED);
@@ -4201,7 +4201,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheLengthOfSe
     const T EXPECTED_POINT_IN_SURFACE = POINT_IN_SURFACE;
     const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     T vFirstPointContained = T::GetZeroVector();
     T vSecondPointContained = T::GetZeroVector();
     T vFirstPointInSurface = T::GetZeroVector();
@@ -4213,7 +4213,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheLengthOfSe
     EQIntersections eResultInSurface = LINE_SEGMENT_IN_SURFACE.IntersectionPoint(ORB, vFirstPointInSurface, vSecondPointInSurface);
     EQIntersections eResultNotContained = LINE_SEGMENT_NOT_CONTAINED.IntersectionPoint(ORB, vFirstPointNotContained, vSecondPointNotContained);
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
     BOOST_CHECK_EQUAL(eResultInSurface, EXPECTED_RESULT_IN_SURFACE);
     BOOST_CHECK_EQUAL(eResultNotContained, EXPECTED_RESULT_NOT_CONTAINED);
@@ -4242,7 +4242,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_FirstPointIsNearerToA_Test, TQTemplateT
     using Kinesis::QuimeraEngine::Tools::Math::QBaseOrb;
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T VALUE_FOR_A(VECTOR_COMPONENTS_A);
@@ -4261,11 +4261,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_FirstPointIsNearerToA_Test, TQTemplateT
     T OUTPUT_POINT1 = T::GetZeroVector();
     T OUTPUT_POINT2 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1);
     EQIntersections eResult2 = LINE_SEGMENT2.IntersectionPoint(ORB, OUTPUT_POINT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(eResult2, EXPECTED_RESULT);
     BOOST_CHECK(OUTPUT_POINT1 == EXPECTED_POINT1);
@@ -4277,7 +4277,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_FirstPointIsNearerToA_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsExpectedDistanceWhenLinesDoNotIntersect_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_6, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4292,10 +4292,10 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsExpectedDistanceWhenLinesDoNotIntersec
 
     const float_q EXPECTED_RESULT = sqrt_q(SQFloat::_0_5);
 
-	// Execution
+	// [Execution]
     float_q fResult = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
@@ -4312,7 +4312,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesIntersectSomewhereBetween
     //   /  \
     //  B2   B1
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4327,10 +4327,10 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesIntersectSomewhereBetween
 
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResult = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
@@ -4342,7 +4342,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesCoincideTotally_Test, TQT
     // A1A2------B1B2  (I
     // A1B2------B1A2  (II
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4355,13 +4355,13 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesCoincideTotally_Test, TQT
 
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResult1 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2); // I
     float_q fResult2 = LINE_SEGMENT2.MinDistance(LINE_SEGMENT1); // I
     float_q fResult3 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT3); // II
     float_q fResult4 = LINE_SEGMENT3.MinDistance(LINE_SEGMENT1); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult1, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult2, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult3, EXPECTED_RESULT) );
@@ -4379,7 +4379,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenAnEndPointIsContainedInTheOthe
     //
     //       I              II             III              IV
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4397,7 +4397,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenAnEndPointIsContainedInTheOthe
 
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResult1 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2); // I
     float_q fResult2 = LINE_SEGMENT2.MinDistance(LINE_SEGMENT1); // I
     float_q fResult3 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT4); // II
@@ -4407,7 +4407,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenAnEndPointIsContainedInTheOthe
     float_q fResult7 = LINE_SEGMENT3.MinDistance(LINE_SEGMENT4); // IV
     float_q fResult8 = LINE_SEGMENT4.MinDistance(LINE_SEGMENT3); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult1, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult2, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult3, EXPECTED_RESULT) );
@@ -4429,7 +4429,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesShareOneEndPointOnly_Test
     //
     //     I           II           III           IV           V           VI           VII         VIII            IX                  X                XI                XII
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4463,7 +4463,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesShareOneEndPointOnly_Test
 
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResult1  = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2); // I
     float_q fResult2  = LINE_SEGMENT2.MinDistance(LINE_SEGMENT1); // I
     float_q fResult3  = LINE_SEGMENT1.MinDistance(LINE_SEGMENT4); // II
@@ -4489,7 +4489,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesShareOneEndPointOnly_Test
     float_q fResult23 = LINE_SEGMENT3.MinDistance(LINE_SEGMENT8); // XII
     float_q fResult24 = LINE_SEGMENT8.MinDistance(LINE_SEGMENT3); // XII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult1,  EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult2,  EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult3,  EXPECTED_RESULT) );
@@ -4527,7 +4527,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_AssertionFailsWhenTheLengthOfOneSegmentEquals
     //
     //        I
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_7, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -4540,7 +4540,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_AssertionFailsWhenTheLengthOfOneSegmentEquals
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -4563,7 +4563,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_AssertionFailsWhenTheLengthOfOneSegmentEquals
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -4579,7 +4579,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsExpectedResultWhenTheLengthOfOneSegmen
     //
     //        I
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_7, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -4592,11 +4592,11 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsExpectedResultWhenTheLengthOfOneSegmen
 
     const float_q EXPECTED_RESULT = SQFloat::_3;
 
-	// Execution
+	// [Execution]
     float_q fResult1 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2); // I
     float_q fResult2 = LINE_SEGMENT2.MinDistance(LINE_SEGMENT1); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(fResult2, EXPECTED_RESULT);
 }
@@ -4613,7 +4613,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesCoincidePartially_Test, T
     //
     //         I                   II                   III                  IV
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4631,7 +4631,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesCoincidePartially_Test, T
 
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResult1 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2); // I
     float_q fResult2 = LINE_SEGMENT2.MinDistance(LINE_SEGMENT1); // I
     float_q fResult3 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT4); // II
@@ -4641,7 +4641,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenLinesCoincidePartially_Test, T
     float_q fResult7 = LINE_SEGMENT3.MinDistance(LINE_SEGMENT4); // IV
     float_q fResult8 = LINE_SEGMENT4.MinDistance(LINE_SEGMENT3); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult1, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult2, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult3, EXPECTED_RESULT) );
@@ -4662,7 +4662,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenOneSegmentIsContainedInTheOthe
     //
     //         I                  II                 III               IV                V
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4686,7 +4686,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenOneSegmentIsContainedInTheOthe
 
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResult1 = LINE_SEGMENT1.MinDistance(LINE_SEGMENT2); // I
     float_q fResult2 = LINE_SEGMENT2.MinDistance(LINE_SEGMENT1); // I
     float_q fResult3  = LINE_SEGMENT1.MinDistance(LINE_SEGMENT4);// II
@@ -4698,7 +4698,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenOneSegmentIsContainedInTheOthe
     float_q fResult9  = LINE_SEGMENT3.MinDistance(LINE_SEGMENT5);// V
     float_q fResult10 = LINE_SEGMENT5.MinDistance(LINE_SEGMENT3);// V
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult1, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult2, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult3, EXPECTED_RESULT) );
@@ -4716,7 +4716,7 @@ QTEST_CASE_TEMPLATE ( MinDistance1_ReturnsZeroWhenOneSegmentIsContainedInTheOthe
 /// </summary>
 QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsExpectedDistanceWhenLineAndPointDoNotIntersect_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_6, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4728,10 +4728,10 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsExpectedDistanceWhenLineAndPointDoNotI
 
     const float_q EXPECTED_RESULT = sqrt_q(SQFloat::_0_5);
 
-	// Execution
+	// [Execution]
     float_q fResult = LINE_SEGMENT1.MinDistance(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
@@ -4745,7 +4745,7 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsZeroWhenThePointIsContainedInTheLine_T
     //
     //      I             II
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4758,11 +4758,11 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsZeroWhenThePointIsContainedInTheLine_T
 
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResult1 = LINE_SEGMENT1.MinDistance(POINT); // I
     float_q fResult2 = LINE_SEGMENT2.MinDistance(POINT); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult1, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult2, EXPECTED_RESULT) );
 }
@@ -4777,7 +4777,7 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsZeroWhenSegmentEndPointCoincidesWithPo
     //
     //     I          II
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4790,11 +4790,11 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsZeroWhenSegmentEndPointCoincidesWithPo
 
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResult1 = LINE_SEGMENT1.MinDistance(POINT); // I
     float_q fResult2 = LINE_SEGMENT2.MinDistance(POINT); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult1, EXPECTED_RESULT) );
     BOOST_CHECK( SQFloat::AreEqual(fResult2, EXPECTED_RESULT) );
 }
@@ -4810,7 +4810,7 @@ QTEST_CASE_TEMPLATE ( MinDistance2_AssertionFailsWhenTheLengthOfTheSegmentEquals
     //
     //     I
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_7, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT1 = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -4820,7 +4820,7 @@ QTEST_CASE_TEMPLATE ( MinDistance2_AssertionFailsWhenTheLengthOfTheSegmentEquals
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4832,7 +4832,7 @@ QTEST_CASE_TEMPLATE ( MinDistance2_AssertionFailsWhenTheLengthOfTheSegmentEquals
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4847,7 +4847,7 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsExpectedResultWhenTheLengthOfTheSegmen
     //
     //      I
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A1B1[] = { SQFloat::_7, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1B1(VECTOR_COMPONENTS_A1B1);
     const QLineSegment<T> LINE_SEGMENT = QLineSegment<T>(VALUE_FOR_A1B1, VALUE_FOR_A1B1);
@@ -4857,10 +4857,10 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsExpectedResultWhenTheLengthOfTheSegmen
 
     const float_q EXPECTED_RESULT = SQFloat::_3;
 
-	// Execution
+	// [Execution]
     float_q fResult = LINE_SEGMENT.MinDistance(POINT); // I
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResult, EXPECTED_RESULT);
 }
 
@@ -4871,7 +4871,7 @@ QTEST_CASE_TEMPLATE ( MinDistance2_ReturnsExpectedResultWhenTheLengthOfTheSegmen
 /// </summary>
 QTEST_CASE_TEMPLATE ( Lengthen_ItIsLengthenedTheCorrectAmountWhenUsingCommonValue_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4882,11 +4882,11 @@ QTEST_CASE_TEMPLATE ( Lengthen_ItIsLengthenedTheCorrectAmountWhenUsingCommonValu
     const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.Lengthen(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -4895,7 +4895,7 @@ QTEST_CASE_TEMPLATE ( Lengthen_ItIsLengthenedTheCorrectAmountWhenUsingCommonValu
 /// </summary>
 QTEST_CASE_TEMPLATE ( Lengthen_LengthDoesNotChangeWhenValueEqualsOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4906,11 +4906,11 @@ QTEST_CASE_TEMPLATE ( Lengthen_LengthDoesNotChangeWhenValueEqualsOne_Test, TQTem
     const float_q ORIGINAL_LENGTH = lineSegmentUT.GetLength();
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.Lengthen(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, ORIGINAL_LENGTH) );
 }
 
@@ -4919,7 +4919,7 @@ QTEST_CASE_TEMPLATE ( Lengthen_LengthDoesNotChangeWhenValueEqualsOne_Test, TQTem
 /// </summary>
 QTEST_CASE_TEMPLATE ( Lengthen_LengthEqualsZeroWhenInputValueEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4930,11 +4930,11 @@ QTEST_CASE_TEMPLATE ( Lengthen_LengthEqualsZeroWhenInputValueEqualsZero_Test, TQ
     float_q fSegmentLength = SQFloat::_0;
     QLineSegment<T> lineSegmentUT = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
-	// Execution
+	// [Execution]
     lineSegmentUT.Lengthen(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -4943,7 +4943,7 @@ QTEST_CASE_TEMPLATE ( Lengthen_LengthEqualsZeroWhenInputValueEqualsZero_Test, TQ
 /// </summary>
 QTEST_CASE_TEMPLATE ( Lengthen_SegmentIsLengthenedFromCenter_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4953,10 +4953,10 @@ QTEST_CASE_TEMPLATE ( Lengthen_SegmentIsLengthenedFromCenter_Test, TQTemplateTyp
     const T SEGMENT_CENTER = lineSegmentUT.GetCenter();
     const float_q FACTOR = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.Lengthen(FACTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == SEGMENT_CENTER);
     BOOST_CHECK(lineSegmentUT.B == SEGMENT_CENTER);
 }
@@ -4966,7 +4966,7 @@ QTEST_CASE_TEMPLATE ( Lengthen_SegmentIsLengthenedFromCenter_Test, TQTemplateTyp
 /// </summary>
 QTEST_CASE_TEMPLATE ( Lengthen_ItIsLengthenedTheCorrectAmountWhenValueIsPositiveAndLowerThanOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -4977,11 +4977,11 @@ QTEST_CASE_TEMPLATE ( Lengthen_ItIsLengthenedTheCorrectAmountWhenValueIsPositive
     const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.Lengthen(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -4990,7 +4990,7 @@ QTEST_CASE_TEMPLATE ( Lengthen_ItIsLengthenedTheCorrectAmountWhenValueIsPositive
 /// </summary>
 QTEST_CASE_TEMPLATE ( Lengthen_ItIsFlippedWhenInputValueIsNegative_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5000,10 +5000,10 @@ QTEST_CASE_TEMPLATE ( Lengthen_ItIsFlippedWhenInputValueIsNegative_Test, TQTempl
 
     const float_q FACTOR = -SQFloat::_1;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.Lengthen(FACTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A ==  FLIPPED_LINE_SEGMENT.A);
     BOOST_CHECK(lineSegmentUT.B ==  FLIPPED_LINE_SEGMENT.B);
 }
@@ -5013,7 +5013,7 @@ QTEST_CASE_TEMPLATE ( Lengthen_ItIsFlippedWhenInputValueIsNegative_Test, TQTempl
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsLengthenedTheCorrectAmountWhenUsingCommonValue_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5024,11 +5024,11 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsLengthenedTheCorrectAmountWhenUsingCommo
     const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromA(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -5037,7 +5037,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsLengthenedTheCorrectAmountWhenUsingCommo
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromA_LengthDoesNotChangeWhenValueEqualsOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5048,11 +5048,11 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_LengthDoesNotChangeWhenValueEqualsOne_Test, 
     const float_q ORIGINAL_LENGTH = lineSegmentUT.GetLength();
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromA(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, ORIGINAL_LENGTH) );
 }
 
@@ -5061,7 +5061,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_LengthDoesNotChangeWhenValueEqualsOne_Test, 
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromA_LengthEqualsZeroWhenInputValueEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5072,11 +5072,11 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_LengthEqualsZeroWhenInputValueEqualsZero_Tes
     float_q fSegmentLength = SQFloat::_0;
     QLineSegment<T> lineSegmentUT = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromA(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -5085,7 +5085,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_LengthEqualsZeroWhenInputValueEqualsZero_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromA_SegmentIsLengthenedFromA_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5095,10 +5095,10 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_SegmentIsLengthenedFromA_Test, TQTemplateTyp
     const T SEGMENT_A = lineSegmentUT.A;
     const float_q FACTOR = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromA(FACTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == SEGMENT_A);
     BOOST_CHECK(lineSegmentUT.B == SEGMENT_A);
 }
@@ -5108,7 +5108,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_SegmentIsLengthenedFromA_Test, TQTemplateTyp
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsLengthenedTheCorrectAmountWhenValueIsPositiveAndLowerThanOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5119,11 +5119,11 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsLengthenedTheCorrectAmountWhenValueIsPos
     const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromA(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -5132,7 +5132,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsLengthenedTheCorrectAmountWhenValueIsPos
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsFlippedWhenInputValueIsNegative_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5142,10 +5142,10 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsFlippedWhenInputValueIsNegative_Test, TQ
 
     const float_q FACTOR = -SQFloat::_1;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromA(FACTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A ==  FLIPPED_LINE_SEGMENT.A);
     BOOST_CHECK(lineSegmentUT.B ==  FLIPPED_LINE_SEGMENT.B);
 }
@@ -5155,7 +5155,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromA_ItIsFlippedWhenInputValueIsNegative_Test, TQ
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsLengthenedTheCorrectAmountWhenUsingCommonValue_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5166,11 +5166,11 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsLengthenedTheCorrectAmountWhenUsingCommo
     const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromB(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -5179,7 +5179,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsLengthenedTheCorrectAmountWhenUsingCommo
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromB_LengthDoesNotChangeWhenValueEqualsOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5190,11 +5190,11 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_LengthDoesNotChangeWhenValueEqualsOne_Test, 
     const float_q ORIGINAL_LENGTH = lineSegmentUT.GetLength();
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromB(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, ORIGINAL_LENGTH) );
 }
 
@@ -5203,7 +5203,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_LengthDoesNotChangeWhenValueEqualsOne_Test, 
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromB_LengthEqualsZeroWhenInputValueEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5214,11 +5214,11 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_LengthEqualsZeroWhenInputValueEqualsZero_Tes
     float_q fSegmentLength = SQFloat::_0;
     QLineSegment<T> lineSegmentUT = QLineSegment<T>(VALUE_FOR_A1, VALUE_FOR_B1);
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromB(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -5227,7 +5227,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_LengthEqualsZeroWhenInputValueEqualsZero_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromB_SegmentIsLengthenedFromB_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5237,10 +5237,10 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_SegmentIsLengthenedFromB_Test, TQTemplateTyp
     const T SEGMENT_A = lineSegmentUT.B;
     const float_q FACTOR = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromB(FACTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == SEGMENT_A);
     BOOST_CHECK(lineSegmentUT.B == SEGMENT_A);
 }
@@ -5250,7 +5250,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_SegmentIsLengthenedFromB_Test, TQTemplateTyp
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsLengthenedTheCorrectAmountWhenValueIsPositiveAndLowerThanOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5261,11 +5261,11 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsLengthenedTheCorrectAmountWhenValueIsPos
     const float_q EXPECTED_LENGTH = lineSegmentUT.GetLength() * FACTOR;
     float_q fSegmentLength = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromB(FACTOR);
     fSegmentLength = lineSegmentUT.GetLength();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fSegmentLength, EXPECTED_LENGTH) );
 }
 
@@ -5274,7 +5274,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsLengthenedTheCorrectAmountWhenValueIsPos
 /// </summary>
 QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsFlippedWhenInputValueIsNegative_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5284,10 +5284,10 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsFlippedWhenInputValueIsNegative_Test, TQ
 
     const float_q FACTOR = -SQFloat::_1;
 
-	// Execution
+	// [Execution]
     lineSegmentUT.LengthenFromB(FACTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(lineSegmentUT.A == FLIPPED_LINE_SEGMENT.A);
     BOOST_CHECK(lineSegmentUT.B == FLIPPED_LINE_SEGMENT.B);
 }
@@ -5297,7 +5297,7 @@ QTEST_CASE_TEMPLATE ( LengthenFromB_ItIsFlippedWhenInputValueIsNegative_Test, TQ
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5308,10 +5308,10 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
     const string_q B_STRING = VALUE_FOR_B1.ToString();
     const string_q EXPECTED_STRING = string_q(QE_L("LS(a(")) + A_STRING + string_q(QE_L("),b(")) + B_STRING + string_q(QE_L("))"));
 
-	// Execution
+	// [Execution]
     string_q strReturnedString = lineSegmentUT.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strReturnedString == EXPECTED_STRING);
 }
 
@@ -5324,7 +5324,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ExpectedPointsAreReturnedWhenLinesDoNotIn
     //
     // A2-------B2
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5344,10 +5344,10 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ExpectedPointsAreReturnedWhenLinesDoNotIn
     T S1TOS2_POINT = T::GetZeroVector();
     T S2TOS1_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT, S2TOS1_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(S1TOS2_POINT == EXPECTED_POINT1);
     BOOST_CHECK(S2TOS1_POINT == EXPECTED_POINT2);
 }
@@ -5365,7 +5365,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPoi
     //   /  \
     //  B2   B1
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5385,10 +5385,10 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPoi
     T S1TOS2_POINT = T::GetZeroVector();
     T S2TOS1_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT, S2TOS1_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(S1TOS2_POINT == EXPECTED_POINT1);
     BOOST_CHECK(S2TOS1_POINT == EXPECTED_POINT2);
 }
@@ -5406,7 +5406,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWhenLinesIntersectS
     //   /  \
     //  B2   B1
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_6, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5422,10 +5422,10 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWhenLinesIntersectS
     T S1TOS2_POINT = T::GetZeroVector();
     T S2TOS1_POINT = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT, S2TOS1_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(S1TOS2_POINT == S2TOS1_POINT);
 }
 
@@ -5439,7 +5439,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithEndPointAWhenLinesC
 
     using Kinesis::QuimeraEngine::Tools::Math::EQIntersections;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5463,13 +5463,13 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithEndPointAWhenLinesC
     T S1TOS2_POINT4 = T::GetZeroVector();
     T S2TOS1_POINT4 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1); // I
     LINE_SEGMENT2.GetClosestPoints(LINE_SEGMENT1, S1TOS2_POINT2, S2TOS1_POINT2); // I
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT3, S1TOS2_POINT3, S2TOS1_POINT3); // II
     LINE_SEGMENT3.GetClosestPoints(LINE_SEGMENT1, S1TOS2_POINT4, S2TOS1_POINT4); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(S1TOS2_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(S2TOS1_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(S1TOS2_POINT2 == EXPECTED_POINT1);
@@ -5491,7 +5491,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPoi
     //
     //       I              II             III              IV
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5526,7 +5526,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPoi
     T S1TOS2_POINT8 = T::GetZeroVector();
     T S2TOS1_POINT8 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1); // I
     LINE_SEGMENT2.GetClosestPoints(LINE_SEGMENT1, S1TOS2_POINT2, S2TOS1_POINT2); // I
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT4, S1TOS2_POINT3, S2TOS1_POINT3); // II
@@ -5536,7 +5536,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPoi
     LINE_SEGMENT3.GetClosestPoints(LINE_SEGMENT4, S1TOS2_POINT7, S2TOS1_POINT7); // IV
     LINE_SEGMENT4.GetClosestPoints(LINE_SEGMENT3, S1TOS2_POINT8, S2TOS1_POINT8); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(S1TOS2_POINT1 == EXPECTED_POINT);
     BOOST_CHECK(S2TOS1_POINT1 == EXPECTED_POINT);
     BOOST_CHECK(S1TOS2_POINT2 == EXPECTED_POINT);
@@ -5566,7 +5566,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithSharedEndPointWhenL
     //
     //     I           II           III           IV           V           VI           VII         VIII            IX                  X                XI                XII
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5627,7 +5627,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithSharedEndPointWhenL
     T S1TOS2_POINT23 = T::GetZeroVector();    T S2TOS1_POINT23 = T::GetZeroVector();
     T S1TOS2_POINT24 = T::GetZeroVector();    T S2TOS1_POINT24 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1); // I
     LINE_SEGMENT2.GetClosestPoints(LINE_SEGMENT1, S1TOS2_POINT2, S2TOS1_POINT2); // I
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT4, S1TOS2_POINT3, S2TOS1_POINT3); // II
@@ -5653,7 +5653,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithSharedEndPointWhenL
     LINE_SEGMENT3.GetClosestPoints(LINE_SEGMENT8, S1TOS2_POINT23, S2TOS1_POINT23); // XII
     LINE_SEGMENT8.GetClosestPoints(LINE_SEGMENT3, S1TOS2_POINT24, S2TOS1_POINT24); // XII
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(S1TOS2_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(S2TOS1_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(S1TOS2_POINT2 == EXPECTED_POINT1);
@@ -5715,7 +5715,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
     //
     //         I                   II                   III                  IV
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5744,7 +5744,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
     T S1TOS2_POINT7 = T::GetZeroVector();    T S2TOS1_POINT7 = T::GetZeroVector();
     T S1TOS2_POINT8 = T::GetZeroVector();    T S2TOS1_POINT8 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1); // I
     LINE_SEGMENT2.GetClosestPoints(LINE_SEGMENT1, S1TOS2_POINT2, S2TOS1_POINT2); // I
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT4, S1TOS2_POINT3, S2TOS1_POINT3); // II
@@ -5754,7 +5754,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
     LINE_SEGMENT3.GetClosestPoints(LINE_SEGMENT4, S1TOS2_POINT7, S2TOS1_POINT7); // IV
     LINE_SEGMENT4.GetClosestPoints(LINE_SEGMENT3, S1TOS2_POINT8, S2TOS1_POINT8); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(S1TOS2_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(S2TOS1_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(S1TOS2_POINT2 == EXPECTED_POINT1);
@@ -5784,7 +5784,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
     //
     //         I                  II                 III               IV                V
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A1[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     float_q VECTOR_COMPONENTS_B1[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T VALUE_FOR_A1(VECTOR_COMPONENTS_A1);
@@ -5821,7 +5821,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
     T S1TOS2_POINT9 = T::GetZeroVector();    T S2TOS1_POINT9 = T::GetZeroVector();
     T S1TOS2_POINT10 = T::GetZeroVector();   T S2TOS1_POINT10 = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1);// I
     LINE_SEGMENT2.GetClosestPoints(LINE_SEGMENT1, S1TOS2_POINT2, S2TOS1_POINT2);// I
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT4, S1TOS2_POINT3, S2TOS1_POINT3);// II
@@ -5833,7 +5833,7 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
     LINE_SEGMENT3.GetClosestPoints(LINE_SEGMENT5, S1TOS2_POINT9, S2TOS1_POINT9);// V
     LINE_SEGMENT5.GetClosestPoints(LINE_SEGMENT3, S1TOS2_POINT10, S2TOS1_POINT10);// V
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(S1TOS2_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(S2TOS1_POINT1 == EXPECTED_POINT1);
     BOOST_CHECK(S1TOS2_POINT2 == EXPECTED_POINT1);

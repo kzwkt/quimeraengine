@@ -45,14 +45,14 @@ QTEST_SUITE_BEGIN( SQAngle_TestSuite )
 /// </summary>
 QTEST_CASE ( DegreesToRadians_DegreesAreCorrectlyConvertedToRadians_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q DEGREES = SQAngle::_45;
     const float_q EXPECTED_VALUE = SQAngle::_QuarterPi;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::DegreesToRadians(DEGREES);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -61,14 +61,14 @@ QTEST_CASE ( DegreesToRadians_DegreesAreCorrectlyConvertedToRadians_Test )
 /// </summary>
 QTEST_CASE ( RadiansToDegrees_RadiansAreCorrectlyConvertedToDegrees_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q RADIANS = SQAngle::_QuarterPi;
     const float_q EXPECTED_VALUE = SQAngle::_45;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::RadiansToDegrees(RADIANS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -77,7 +77,7 @@ QTEST_CASE ( RadiansToDegrees_RadiansAreCorrectlyConvertedToDegrees_Test )
 /// </summary>
 QTEST_CASE ( Truncate_FullRevolutionPositiveAngleIsTruncatedToZero_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
 		const float_q ANGLE = SQAngle::_2Pi;
 	#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -86,10 +86,10 @@ QTEST_CASE ( Truncate_FullRevolutionPositiveAngleIsTruncatedToZero_Test )
 
     const float_q EXPECTED_VALUE = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::Truncate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -98,7 +98,7 @@ QTEST_CASE ( Truncate_FullRevolutionPositiveAngleIsTruncatedToZero_Test )
 /// </summary>
 QTEST_CASE ( Truncate_FullRevolutionNegativeAngleIsTruncatedToZero_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
 		const float_q ANGLE = -SQAngle::_2Pi;
 	#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -107,10 +107,10 @@ QTEST_CASE ( Truncate_FullRevolutionNegativeAngleIsTruncatedToZero_Test )
 
     const float_q EXPECTED_VALUE = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::Truncate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -119,7 +119,7 @@ QTEST_CASE ( Truncate_FullRevolutionNegativeAngleIsTruncatedToZero_Test )
 /// </summary>
 QTEST_CASE ( Truncate_PositiveAnglesGreaterThanFullRevolutionPositiveAngleAreCorrectlyTruncated_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
 		const float_q ANGLE = SQAngle::_2Pi + SQAngle::_QuarterPi;
 		const float_q EXPECTED_VALUE = SQAngle::_QuarterPi;
@@ -128,10 +128,10 @@ QTEST_CASE ( Truncate_PositiveAnglesGreaterThanFullRevolutionPositiveAngleAreCor
 		const float_q EXPECTED_VALUE = SQAngle::_45;
 	#endif
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::Truncate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_VALUE) );   // Due to precission issues
 }
 
@@ -140,7 +140,7 @@ QTEST_CASE ( Truncate_PositiveAnglesGreaterThanFullRevolutionPositiveAngleAreCor
 /// </summary>
 QTEST_CASE ( Truncate_NegativeAnglesLowerThanFullRevolutionNegativeAngleAreCorrectlyTruncated_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
 		const float_q ANGLE = -SQAngle::_2Pi - SQAngle::_QuarterPi;
 		const float_q EXPECTED_VALUE = -SQAngle::_QuarterPi;
@@ -149,10 +149,10 @@ QTEST_CASE ( Truncate_NegativeAnglesLowerThanFullRevolutionNegativeAngleAreCorre
 		const float_q EXPECTED_VALUE = -SQAngle::_45;
 	#endif
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::Truncate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_VALUE) );   // Due to precission issues
 }
 
@@ -161,7 +161,7 @@ QTEST_CASE ( Truncate_NegativeAnglesLowerThanFullRevolutionNegativeAngleAreCorre
 /// </summary>
 QTEST_CASE ( Truncate_PositiveAnglesLowerThanFullRevolutionPositiveAngleAreNotTruncated_Test )
 {
-    // Preparation
+    // [Preparation]
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
 		const float_q ANGLE = SQAngle::_3HalfsPi;
 		const float_q EXPECTED_VALUE = SQAngle::_3HalfsPi;
@@ -170,10 +170,10 @@ QTEST_CASE ( Truncate_PositiveAnglesLowerThanFullRevolutionPositiveAngleAreNotTr
 		const float_q EXPECTED_VALUE = SQAngle::_270;
 	#endif
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::Truncate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -182,7 +182,7 @@ QTEST_CASE ( Truncate_PositiveAnglesLowerThanFullRevolutionPositiveAngleAreNotTr
 /// </summary>
 QTEST_CASE ( Truncate_NegativeAnglesGreaterThanFullRevolutionNegativeAngleAreNotTruncated_Test )
 {
-    // Preparation
+    // [Preparation]
 	#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
 		const float_q ANGLE = -SQAngle::_3HalfsPi;
 		const float_q EXPECTED_VALUE = -SQAngle::_3HalfsPi;
@@ -191,10 +191,10 @@ QTEST_CASE ( Truncate_NegativeAnglesGreaterThanFullRevolutionNegativeAngleAreNot
 		const float_q EXPECTED_VALUE = -SQAngle::_270;
 	#endif
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::Truncate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -203,14 +203,14 @@ QTEST_CASE ( Truncate_NegativeAnglesGreaterThanFullRevolutionNegativeAngleAreNot
 /// </summary>
 QTEST_CASE ( CountRevolutions_ZeroAngleIsCountAsZeroRevolutions_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q ANGLE = SQFloat::_0;
     const float_q EXPECTED_VALUE = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::CountRevolutions(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -219,7 +219,7 @@ QTEST_CASE ( CountRevolutions_ZeroAngleIsCountAsZeroRevolutions_Test )
 /// </summary>
 QTEST_CASE ( CountRevolutions_CompleteCircunferenceIsCountAsOneRevolution_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q ANGLE = SQAngle::_2Pi;
     #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -228,10 +228,10 @@ QTEST_CASE ( CountRevolutions_CompleteCircunferenceIsCountAsOneRevolution_Test )
 
     const float_q EXPECTED_VALUE = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::CountRevolutions(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -240,7 +240,7 @@ QTEST_CASE ( CountRevolutions_CompleteCircunferenceIsCountAsOneRevolution_Test )
 /// </summary>
 QTEST_CASE ( CountRevolutions_RevolutionFractionsAreTakenIntoAccount_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q ANGLE = SQAngle::_2Pi + SQAngle::_Pi;
     #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -249,10 +249,10 @@ QTEST_CASE ( CountRevolutions_RevolutionFractionsAreTakenIntoAccount_Test )
 
     const float_q EXPECTED_VALUE = SQFloat::_1 + SQFloat::_0_5;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::CountRevolutions(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -261,7 +261,7 @@ QTEST_CASE ( CountRevolutions_RevolutionFractionsAreTakenIntoAccount_Test )
 /// </summary>
 QTEST_CASE ( CountRevolutions_RevolutionsAreNegativeWhenNegativeAnglesAreUsed_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q ANGLE = -SQFloat::_2 * SQAngle::_2Pi;
     #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -270,10 +270,10 @@ QTEST_CASE ( CountRevolutions_RevolutionsAreNegativeWhenNegativeAnglesAreUsed_Te
 
     const float_q EXPECTED_VALUE = -SQFloat::_2;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::CountRevolutions(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -282,14 +282,14 @@ QTEST_CASE ( CountRevolutions_RevolutionsAreNegativeWhenNegativeAnglesAreUsed_Te
 /// </summary>
 QTEST_CASE ( CountCompleteRevolutions_ZeroAngleIsCountAsZeroRevolutions_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q ANGLE = SQFloat::_0;
     const float_q EXPECTED_VALUE = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::CountCompleteRevolutions(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -298,7 +298,7 @@ QTEST_CASE ( CountCompleteRevolutions_ZeroAngleIsCountAsZeroRevolutions_Test )
 /// </summary>
 QTEST_CASE ( CountCompleteRevolutions_CompleteCircunferenceIsCountAsOneRevolution_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q ANGLE = SQAngle::_2Pi;
     #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -307,10 +307,10 @@ QTEST_CASE ( CountCompleteRevolutions_CompleteCircunferenceIsCountAsOneRevolutio
 
     const float_q EXPECTED_VALUE = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::CountCompleteRevolutions(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -319,7 +319,7 @@ QTEST_CASE ( CountCompleteRevolutions_CompleteCircunferenceIsCountAsOneRevolutio
 /// </summary>
 QTEST_CASE ( CountCompleteRevolutions_RevolutionFractionsAreNotTakenIntoAccount_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q ANGLE = SQAngle::_2Pi + SQAngle::_Pi;
     #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -328,10 +328,10 @@ QTEST_CASE ( CountCompleteRevolutions_RevolutionFractionsAreNotTakenIntoAccount_
 
     const float_q EXPECTED_VALUE = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::CountCompleteRevolutions(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 
@@ -340,7 +340,7 @@ QTEST_CASE ( CountCompleteRevolutions_RevolutionFractionsAreNotTakenIntoAccount_
 /// </summary>
 QTEST_CASE ( CountCompleteRevolutions_RevolutionsAreNegativeWhenNegativeAnglesAreUsed_Test )
 {
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
         const float_q ANGLE = -SQFloat::_2 * SQAngle::_2Pi;
     #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
@@ -349,10 +349,10 @@ QTEST_CASE ( CountCompleteRevolutions_RevolutionsAreNegativeWhenNegativeAnglesAr
 
     const float_q EXPECTED_VALUE = -SQFloat::_2;
 
-	// Execution
+	// [Execution]
     float_q fResultUT = SQAngle::CountCompleteRevolutions(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(fResultUT, EXPECTED_VALUE);
 }
 

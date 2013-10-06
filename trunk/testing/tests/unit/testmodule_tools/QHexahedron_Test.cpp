@@ -61,7 +61,7 @@ QTEST_SUITE_BEGIN( QHexahedron_TestSuite )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
@@ -80,10 +80,10 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
     const T EXPECTED_VALUE_FOR_G(VECTOR_COMPONENTS_G);
     const T EXPECTED_VALUE_FOR_H(VECTOR_COMPONENTS_H);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedronUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedronUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(hexahedronUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(hexahedronUT.C == EXPECTED_VALUE_FOR_C);
@@ -99,7 +99,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_1, -SQFloat::_2, -SQFloat::_3, -SQFloat::_4 };
@@ -127,10 +127,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
                                              EXPECTED_VALUE_FOR_G,
                                              EXPECTED_VALUE_FOR_H);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedronUT(EXPECTED_HEXAHEDRON);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedronUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(hexahedronUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(hexahedronUT.C == EXPECTED_VALUE_FOR_C);
@@ -145,7 +145,7 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_1, -SQFloat::_2, -SQFloat::_3, -SQFloat::_4 };
@@ -164,7 +164,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
     const T EXPECTED_VALUE_FOR_G(VECTOR_COMPONENTS_G);
     const T EXPECTED_VALUE_FOR_H(VECTOR_COMPONENTS_H);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedronUT(EXPECTED_VALUE_FOR_A,
                                 EXPECTED_VALUE_FOR_B,
                                 EXPECTED_VALUE_FOR_C,
@@ -174,7 +174,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
                                 EXPECTED_VALUE_FOR_G,
                                 EXPECTED_VALUE_FOR_H);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedronUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(hexahedronUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(hexahedronUT.C == EXPECTED_VALUE_FOR_C);
@@ -197,7 +197,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_ItsBuiltCorrectlyFromTwoCommonPoints_Test, TQ
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_2, SQFloat::_1, SQFloat::_4 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_3, SQFloat::_2, SQFloat::_1, SQFloat::_4 };
@@ -216,11 +216,11 @@ QTEST_CASE_TEMPLATE ( Constructor5_ItsBuiltCorrectlyFromTwoCommonPoints_Test, TQ
     const T EXPECTED_VALUE_FOR_G(VECTOR_COMPONENTS_G);
     const T EXPECTED_VALUE_FOR_H(VECTOR_COMPONENTS_H);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedronUT(EXPECTED_VALUE_FOR_A,
                                 EXPECTED_VALUE_FOR_G);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedronUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(hexahedronUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(hexahedronUT.C == EXPECTED_VALUE_FOR_C);
@@ -243,16 +243,16 @@ QTEST_CASE_TEMPLATE ( Constructor5_AllPointsCoincideWhenInputPointsCoincide_Test
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_EVERY_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
 
     const T EXPECTED_VALUE_FOR_ALL_POINTS(VECTOR_COMPONENTS_EVERY_POINT);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedronUT(EXPECTED_VALUE_FOR_ALL_POINTS,
                                 EXPECTED_VALUE_FOR_ALL_POINTS);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedronUT.A == EXPECTED_VALUE_FOR_ALL_POINTS);
     BOOST_CHECK(hexahedronUT.B == EXPECTED_VALUE_FOR_ALL_POINTS);
     BOOST_CHECK(hexahedronUT.C == EXPECTED_VALUE_FOR_ALL_POINTS);
@@ -275,7 +275,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_ItsBuiltCorrectlyFromCommonLengthsAndCentralP
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_10 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_1, SQFloat::_2, SQFloat::_1, SQFloat::_10 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_2, SQFloat::_1, SQFloat::_10 };
@@ -300,10 +300,10 @@ QTEST_CASE_TEMPLATE ( Constructor6_ItsBuiltCorrectlyFromCommonLengthsAndCentralP
     const float_q INPUT_Z = SQFloat::_2;
     const T INPUT_CENTER(VECTOR_COMPONENTS_CENTER);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedronUT(INPUT_CENTER, INPUT_X, INPUT_Y, INPUT_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedronUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(hexahedronUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(hexahedronUT.C == EXPECTED_VALUE_FOR_C);
@@ -326,7 +326,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_AllPointsCoincideWithCoordinateOriginWhenLeng
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     const T EXPECTED_VALUE_FOR_ALL_POINTS = T::GetZeroVector();
 
     const float_q INPUT_X = SQFloat::_0;
@@ -334,10 +334,10 @@ QTEST_CASE_TEMPLATE ( Constructor6_AllPointsCoincideWithCoordinateOriginWhenLeng
     const float_q INPUT_Z = SQFloat::_0;
     const T INPUT_CENTER = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedronUT(INPUT_CENTER, INPUT_X, INPUT_Y, INPUT_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedronUT.A == EXPECTED_VALUE_FOR_ALL_POINTS);
     BOOST_CHECK(hexahedronUT.B == EXPECTED_VALUE_FOR_ALL_POINTS);
     BOOST_CHECK(hexahedronUT.C == EXPECTED_VALUE_FOR_ALL_POINTS);
@@ -353,7 +353,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_AllPointsCoincideWithCoordinateOriginWhenLeng
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetUnitCube_ItReturnsWhatExpected_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5, SQFloat::_0_5, SQFloat::_0_5, SQFloat::_1 };
     const float_q POINT_COMPONENTS_B[] = {-SQFloat::_0_5, SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
     const float_q POINT_COMPONENTS_C[] = {SQFloat::_0_5, SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
@@ -372,10 +372,10 @@ QTEST_CASE_TEMPLATE ( GetUnitCube_ItReturnsWhatExpected_Test, TQTemplateTypes )
                                                      T(POINT_COMPONENTS_G),
                                                      T(POINT_COMPONENTS_H) );
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedron = QHexahedron<T>::GetUnitCube();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedron.A == UNIT_CUBE.A);
     BOOST_CHECK(hexahedron.B == UNIT_CUBE.B);
     BOOST_CHECK(hexahedron.C == UNIT_CUBE.C);
@@ -393,7 +393,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_ValuesAreCopiedProperly_Test, TQTempla
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseHexahedron;
 
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_1, -SQFloat::_2, -SQFloat::_3, -SQFloat::_4 };
@@ -421,11 +421,11 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_ValuesAreCopiedProperly_Test, TQTempla
                                                  EXPECTED_VALUE_FOR_G,
                                                  EXPECTED_VALUE_FOR_H);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedronUT;
     hexahedronUT = EXPECTED_HEXAHEDRON;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedronUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(hexahedronUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(hexahedronUT.C == EXPECTED_VALUE_FOR_C);
@@ -441,7 +441,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_ValuesAreCopiedProperly_Test, TQTempla
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate1_HexahedronIsCorrectlyTransformedByCommonRotationMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -477,10 +477,10 @@ QTEST_CASE_TEMPLATE ( Rotate1_HexahedronIsCorrectlyTransformedByCommonRotationMa
     const T EXPECTED_VALUE_FOR_G(EXPECTED_VECTOR_COMPONENTS_G);
     const T EXPECTED_VALUE_FOR_H(EXPECTED_VECTOR_COMPONENTS_H);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -497,7 +497,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_HexahedronIsCorrectlyTransformedByCommonRotationMa
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate1_HexahedronIsNotRotatedWhenQuaternionEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -514,10 +514,10 @@ QTEST_CASE_TEMPLATE ( Rotate1_HexahedronIsNotRotatedWhenQuaternionEqualsIdentity
     const T EXPECTED_VALUE_FOR_G = HEXAHEDRON.G;
     const T EXPECTED_VALUE_FOR_H = HEXAHEDRON.H;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -533,7 +533,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_HexahedronIsNotRotatedWhenQuaternionEqualsIdentity
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate1_VerticesAreMovedToCoordinateOriginWhenQuaternionIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -544,10 +544,10 @@ QTEST_CASE_TEMPLATE ( Rotate1_VerticesAreMovedToCoordinateOriginWhenQuaternionIs
     const float_q NULL_VECTOR_COMPONENTS[] = {SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1};
     const T COORDINATE_ORIGIN = T(NULL_VECTOR_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == COORDINATE_ORIGIN);
     BOOST_CHECK(returnedHexahedron.B == COORDINATE_ORIGIN);
     BOOST_CHECK(returnedHexahedron.C == COORDINATE_ORIGIN);
@@ -563,7 +563,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_VerticesAreMovedToCoordinateOriginWhenQuaternionIs
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_HexahedronIsCorrectlyTransformedByCommonQuaternions_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -602,10 +602,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_HexahedronIsCorrectlyTransformedByCommonQ
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -621,7 +621,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_HexahedronIsCorrectlyTransformedByCommonQ
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_HexahedronIsNotRotateWithPivotdWhenQuaternionEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -641,10 +641,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_HexahedronIsNotRotateWithPivotdWhenQuater
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -660,7 +660,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_HexahedronIsNotRotateWithPivotdWhenQuater
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_VerticesAreMovedToPivotPositionWhenQuaternionIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -680,10 +680,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_VerticesAreMovedToPivotPositionWhenQuater
     const T EXPECTED_VALUE_FOR_G = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_H = PIVOT_POINT;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -699,7 +699,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_VerticesAreMovedToPivotPositionWhenQuater
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate1_CommonHexahedronIsCorrectlyTranslatedWhenUsingCommonVector_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -738,10 +738,10 @@ QTEST_CASE_TEMPLATE ( Translate1_CommonHexahedronIsCorrectlyTranslatedWhenUsingC
 
     const QVector3 TRANSLATION = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -757,7 +757,7 @@ QTEST_CASE_TEMPLATE ( Translate1_CommonHexahedronIsCorrectlyTranslatedWhenUsingC
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate1_HexahedronIsNotTranslatedWhenTranslationIsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -771,10 +771,10 @@ QTEST_CASE_TEMPLATE ( Translate1_HexahedronIsNotTranslatedWhenTranslationIsZero_
 
     const QVector3 TRANSLATION = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -790,7 +790,7 @@ QTEST_CASE_TEMPLATE ( Translate1_HexahedronIsNotTranslatedWhenTranslationIsZero_
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate2_CommonHexahedronIsCorrectlyTranslatedWhenUsingCommonValues_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -831,10 +831,10 @@ QTEST_CASE_TEMPLATE ( Translate2_CommonHexahedronIsCorrectlyTranslatedWhenUsingC
     const float_q TRANSLATION_Y = SQFloat::_2;
     const float_q TRANSLATION_Z = SQFloat::_3;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION_X, TRANSLATION_Y, TRANSLATION_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -850,7 +850,7 @@ QTEST_CASE_TEMPLATE ( Translate2_CommonHexahedronIsCorrectlyTranslatedWhenUsingC
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate2_HexahedronIsNotTranslatedWhenTranslationIsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -866,10 +866,10 @@ QTEST_CASE_TEMPLATE ( Translate2_HexahedronIsNotTranslatedWhenTranslationIsZero_
     const float_q TRANSLATION_Y = SQFloat::_0;
     const float_q TRANSLATION_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION_X, TRANSLATION_Y, TRANSLATION_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -885,7 +885,7 @@ QTEST_CASE_TEMPLATE ( Translate2_HexahedronIsNotTranslatedWhenTranslationIsZero_
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale1_CommonHexahedronIsCorrectlyScaledWhenUsingCommonVector_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1,  SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3,  SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2,  SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -924,10 +924,10 @@ QTEST_CASE_TEMPLATE ( Scale1_CommonHexahedronIsCorrectlyScaledWhenUsingCommonVec
 
     const QVector3 SCALE = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -943,7 +943,7 @@ QTEST_CASE_TEMPLATE ( Scale1_CommonHexahedronIsCorrectlyScaledWhenUsingCommonVec
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale1_HexahedronIsNotScaledWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -957,10 +957,10 @@ QTEST_CASE_TEMPLATE ( Scale1_HexahedronIsNotScaledWhenVectorComponentsEqualOne_T
 
     const QVector3 SCALE = QVector3::GetVectorOfOnes();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -976,7 +976,7 @@ QTEST_CASE_TEMPLATE ( Scale1_HexahedronIsNotScaledWhenVectorComponentsEqualOne_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q NULL_VECTOR_COMPONENTS[] = {SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1};
@@ -984,10 +984,10 @@ QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_
 
     const QVector3 SCALE = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == COORDINATE_ORIGIN);
     BOOST_CHECK(returnedHexahedron.B == COORDINATE_ORIGIN);
     BOOST_CHECK(returnedHexahedron.C == COORDINATE_ORIGIN);
@@ -1003,7 +1003,7 @@ QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale2_CommonHexahedronIsCorrectlyScaledWhenUsingCommonVector_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1,  SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3,  SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2,  SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1044,10 +1044,10 @@ QTEST_CASE_TEMPLATE ( Scale2_CommonHexahedronIsCorrectlyScaledWhenUsingCommonVec
     const float_q SCALE_Y = SQFloat::_2;
     const float_q SCALE_Z = SQFloat::_3;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE_X, SCALE_Y, SCALE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -1063,7 +1063,7 @@ QTEST_CASE_TEMPLATE ( Scale2_CommonHexahedronIsCorrectlyScaledWhenUsingCommonVec
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale2_HexahedronIsNotScaledWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -1079,10 +1079,10 @@ QTEST_CASE_TEMPLATE ( Scale2_HexahedronIsNotScaledWhenVectorComponentsEqualOne_T
     const float_q SCALE_Y = SQFloat::_1;
     const float_q SCALE_Z = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE_X, SCALE_Y, SCALE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -1098,7 +1098,7 @@ QTEST_CASE_TEMPLATE ( Scale2_HexahedronIsNotScaledWhenVectorComponentsEqualOne_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale2_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q NULL_VECTOR_COMPONENTS[] = {SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1};
@@ -1108,10 +1108,10 @@ QTEST_CASE_TEMPLATE ( Scale2_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_
     const float_q SCALE_Y = SQFloat::_0;
     const float_q SCALE_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE_X, SCALE_Y, SCALE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == COORDINATE_ORIGIN);
     BOOST_CHECK(returnedHexahedron.B == COORDINATE_ORIGIN);
     BOOST_CHECK(returnedHexahedron.C == COORDINATE_ORIGIN);
@@ -1127,7 +1127,7 @@ QTEST_CASE_TEMPLATE ( Scale2_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_CommonHexahedronIsCorrectlyScaledWhenUsingCommonVector_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1,  SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3,  SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2,  SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1169,10 +1169,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_CommonHexahedronIsCorrectlyScaledWhenUsing
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -1188,7 +1188,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_CommonHexahedronIsCorrectlyScaledWhenUsing
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_HexahedronIsNotScaledWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -1205,10 +1205,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_HexahedronIsNotScaledWhenVectorComponentsE
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -1224,7 +1224,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_HexahedronIsNotScaledWhenVectorComponentsE
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
@@ -1232,10 +1232,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_VerticesAreMovedToCoordinateOriginWhenVect
 
     const QVector3 SCALE = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == PIVOT_POINT);
     BOOST_CHECK(returnedHexahedron.B == PIVOT_POINT);
     BOOST_CHECK(returnedHexahedron.C == PIVOT_POINT);
@@ -1251,7 +1251,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_VerticesAreMovedToCoordinateOriginWhenVect
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_CommonHexahedronIsCorrectlyScaledWhenUsingCommonVector_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1,  SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3,  SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2,  SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1295,10 +1295,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_CommonHexahedronIsCorrectlyScaledWhenUsing
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -1314,7 +1314,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_CommonHexahedronIsCorrectlyScaledWhenUsing
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_HexahedronIsNotScaledWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -1333,10 +1333,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_HexahedronIsNotScaledWhenVectorComponentsE
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -1352,7 +1352,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_HexahedronIsNotScaledWhenVectorComponentsE
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
@@ -1362,10 +1362,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_VerticesAreMovedToCoordinateOriginWhenVect
     const float_q SCALE_Y = SQFloat::_0;
     const float_q SCALE_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == PIVOT_POINT);
     BOOST_CHECK(returnedHexahedron.B == PIVOT_POINT);
     BOOST_CHECK(returnedHexahedron.C == PIVOT_POINT);
@@ -1390,7 +1390,7 @@ QTEST_CASE_TEMPLATE ( GetPlanes_ReturnsExpectedPlanesFromCommonHexahedron_Test, 
 
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const QPlane EXPECTED_PLANE_ABCD = QPlane(SQFloat::_0,  SQFloat::_1,  SQFloat::_0, -SQFloat::_0_5);
@@ -1400,11 +1400,11 @@ QTEST_CASE_TEMPLATE ( GetPlanes_ReturnsExpectedPlanesFromCommonHexahedron_Test, 
     const QPlane EXPECTED_PLANE_BCGH = QPlane(SQFloat::_0,  SQFloat::_0, -SQFloat::_1, -SQFloat::_0_5);
     const QPlane EXPECTED_PLANE_CDFG = QPlane(SQFloat::_1,  SQFloat::_0,  SQFloat::_0, -SQFloat::_0_5);
 
-	// Execution
+	// [Execution]
     QPlane arOutputPlanes[6];
     HEXAHEDRON.GetPlanes(arOutputPlanes);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(arOutputPlanes[0] == EXPECTED_PLANE_ABCD);
     BOOST_CHECK(arOutputPlanes[1] == EXPECTED_PLANE_EFGH);
     BOOST_CHECK(arOutputPlanes[2] == EXPECTED_PLANE_AEFD);
@@ -1422,13 +1422,13 @@ QTEST_CASE_TEMPLATE ( GetPlanes_AssertionFailsWhenAllVerticesCoincide_Test, TQTe
 {
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     const T POINT = T(POINT_COMPONENTS);
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>(POINT, POINT, POINT, POINT, POINT, POINT, POINT, POINT);
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     QPlane arOutputPlanes[6];
 
@@ -1441,7 +1441,7 @@ QTEST_CASE_TEMPLATE ( GetPlanes_AssertionFailsWhenAllVerticesCoincide_Test, TQTe
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1452,12 +1452,12 @@ QTEST_CASE_TEMPLATE ( GetPlanes_AssertionFailsWhenListOfPlanesIsNull_Test, TQTem
 {
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
     const bool ASSERTION_FAILED = true;
     QPlane* pNullList = null_q;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1469,7 +1469,7 @@ QTEST_CASE_TEMPLATE ( GetPlanes_AssertionFailsWhenListOfPlanesIsNull_Test, TQTem
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1487,7 +1487,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenCommonPointIsInsideTheHexahedron_T
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -1509,10 +1509,10 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenCommonPointIsInsideTheHexahedron_T
     const T POINT = HEXAHEDRON.A.Lerp(SQFloat::_0_5, HEXAHEDRON.G);
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = HEXAHEDRON.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1528,7 +1528,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointBelongsToAFaceOfHexahedron_Te
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -1556,7 +1556,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointBelongsToAFaceOfHexahedron_Te
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultABCD = HEXAHEDRON.Contains(POINT_ABCD);
     bool bResultEFGH = HEXAHEDRON.Contains(POINT_EFGH);
     bool bResultAEFD = HEXAHEDRON.Contains(POINT_AEFD);
@@ -1564,7 +1564,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointBelongsToAFaceOfHexahedron_Te
     bool bResultBCGH = HEXAHEDRON.Contains(POINT_BCGH);
     bool bResultCDFG = HEXAHEDRON.Contains(POINT_CDFG);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultABCD, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultEFGH, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultAEFD, EXPECTED_RESULT);
@@ -1585,7 +1585,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointBelongsToAnEdgeOfHexahedron_T
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -1619,7 +1619,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointBelongsToAnEdgeOfHexahedron_T
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultAB = HEXAHEDRON.Contains(POINT_AB);
     bool bResultBC = HEXAHEDRON.Contains(POINT_BC);
     bool bResultCD = HEXAHEDRON.Contains(POINT_CD);
@@ -1633,7 +1633,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointBelongsToAnEdgeOfHexahedron_T
     bool bResultBH = HEXAHEDRON.Contains(POINT_BH);
     bool bResultCG = HEXAHEDRON.Contains(POINT_CG);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultCD, EXPECTED_RESULT);
@@ -1660,7 +1660,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenCommonPointIsOutsideTheHexahedron
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -1682,10 +1682,10 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsFalseWhenCommonPointIsOutsideTheHexahedron
     const T POINT = HEXAHEDRON.A.Lerp(SQFloat::_2, HEXAHEDRON.G);
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = HEXAHEDRON.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1701,7 +1701,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointCoincidesWithVertex_Test, TQT
     //  |/    |/
     //  H --- G
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -1731,7 +1731,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointCoincidesWithVertex_Test, TQT
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultA = HEXAHEDRON.Contains(POINT_A);
     bool bResultB = HEXAHEDRON.Contains(POINT_B);
     bool bResultC = HEXAHEDRON.Contains(POINT_C);
@@ -1741,7 +1741,7 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointCoincidesWithVertex_Test, TQT
     bool bResultG = HEXAHEDRON.Contains(POINT_G);
     bool bResultH = HEXAHEDRON.Contains(POINT_H);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultA, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultC, EXPECTED_RESULT);
@@ -1760,14 +1760,14 @@ QTEST_CASE_TEMPLATE ( Contains_ReturnsTrueWhenPointCoincidesWithVertex_Test, TQT
 QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenAllVerticesCoincide_Test, TQTemplateTypes )
 {
 
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     const T POINT = T(POINT_COMPONENTS);
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>(POINT, POINT, POINT, POINT, POINT, POINT, POINT, POINT);
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -1779,7 +1779,7 @@ QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenAllVerticesCoincide_Test, TQTem
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -1793,7 +1793,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsBothSidesWhenHexahedronAndPlaneInters
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -1816,10 +1816,10 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsBothSidesWhenHexahedronAndPlaneInters
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_BothSides;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -1831,7 +1831,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsPositiveSideWhenHexahedronIsInPositiv
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -1854,10 +1854,10 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsPositiveSideWhenHexahedronIsInPositiv
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_PositiveSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -1869,7 +1869,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsNegativeSideWhenHexahedronIsInNegativ
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -1892,10 +1892,10 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsNegativeSideWhenHexahedronIsInNegativ
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_NegativeSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -1907,7 +1907,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsContainedWhenHexahedronBelongsToPlane
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
@@ -1930,10 +1930,10 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsContainedWhenHexahedronBelongsToPlane
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_Contained;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -1945,7 +1945,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsPositiveSideWhenSomePartOfTheHexahedr
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_5, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_5, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_5, SQFloat::_2, SQFloat::_1 };
@@ -1968,10 +1968,10 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsPositiveSideWhenSomePartOfTheHexahedr
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_PositiveSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -1983,7 +1983,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsNegativeSideWhenSomePartOfTheHexahedr
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_0, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
@@ -2006,10 +2006,10 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_ReturnsNegativeSideWhenSomePartOfTheHexahedr
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_NegativeSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = HEXAHEDRON.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -2022,7 +2022,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenAllVerticesCoincide_Test, 
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const QBasePlane PLANE = QBasePlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, -SQFloat::_1);
     const float_q POINT_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     const T POINT = T(POINT_COMPONENTS);
@@ -2030,7 +2030,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenAllVerticesCoincide_Test, 
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2042,7 +2042,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenAllVerticesCoincide_Test, 
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2053,7 +2053,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenThePlaneIsNull_Test, TQTem
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_0, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
@@ -2076,7 +2076,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenThePlaneIsNull_Test, TQTem
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2088,7 +2088,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_AssertionFailsWhenThePlaneIsNull_Test, TQTem
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2105,7 +2105,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_CorrectResultIsReturnedWhenAllVerticesCoinci
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const QBasePlane PLANE = QBasePlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, -SQFloat::_1);
 
     const float_q POINT_COMPONENTS_POSITIVE[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
@@ -2124,12 +2124,12 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_CorrectResultIsReturnedWhenAllVerticesCoinci
     const EQSpaceRelation EXPECTED_RESULT_NEGATIVE = EQSpaceRelation::E_NegativeSide;
     const EQSpaceRelation EXPECTED_RESULT_CONTAINED = EQSpaceRelation::E_Contained;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResultPositive  = HEXAHEDRON_POSITIVE.SpaceRelation(PLANE);
     EQSpaceRelation eResultNegative  = HEXAHEDRON_NEGATIVE.SpaceRelation(PLANE);
     EQSpaceRelation eResultContained = HEXAHEDRON_CONTAINED.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultPositive, EXPECTED_RESULT_POSITIVE);
     BOOST_CHECK_EQUAL(eResultNegative, EXPECTED_RESULT_NEGATIVE);
     BOOST_CHECK_EQUAL(eResultContained, EXPECTED_RESULT_CONTAINED);
@@ -2142,7 +2142,7 @@ QTEST_CASE_TEMPLATE ( SpaceRelation_CorrectResultIsReturnedWhenAllVerticesCoinci
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate2_HexahedronIsCorrectlyTransformedByCommonRotationMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -2178,10 +2178,10 @@ QTEST_CASE_TEMPLATE ( Rotate2_HexahedronIsCorrectlyTransformedByCommonRotationMa
     const T EXPECTED_VALUE_FOR_G(EXPECTED_VECTOR_COMPONENTS_G);
     const T EXPECTED_VALUE_FOR_H(EXPECTED_VECTOR_COMPONENTS_H);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2197,7 +2197,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_HexahedronIsCorrectlyTransformedByCommonRotationMa
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate2_HexahedronIsNotRotatedWhenMatrixEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2215,10 +2215,10 @@ QTEST_CASE_TEMPLATE ( Rotate2_HexahedronIsNotRotatedWhenMatrixEqualsIdentity_Tes
     const T EXPECTED_VALUE_FOR_G = HEXAHEDRON.G;
     const T EXPECTED_VALUE_FOR_H = HEXAHEDRON.H;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2234,7 +2234,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_HexahedronIsNotRotatedWhenMatrixEqualsIdentity_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2254,10 +2254,10 @@ QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEquals
     const T EXPECTED_VALUE_FOR_G = T(NULL_VECTOR_COMPONENTS);
     const T EXPECTED_VALUE_FOR_H = T(NULL_VECTOR_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2273,7 +2273,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEquals
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_HexahedronIsCorrectlyTransformedByCommonRotationMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -2312,10 +2312,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_HexahedronIsCorrectlyTransformedByCommonR
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2331,7 +2331,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_HexahedronIsCorrectlyTransformedByCommonR
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_HexahedronIsNotRotatedWhenMatrixEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2352,10 +2352,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_HexahedronIsNotRotatedWhenMatrixEqualsIde
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2371,7 +2371,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_HexahedronIsNotRotatedWhenMatrixEqualsIde
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_VerticesAreMovedToPivotPointWhenMatrixEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2392,10 +2392,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_VerticesAreMovedToPivotPointWhenMatrixEqu
     const T EXPECTED_VALUE_FOR_G = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_H = PIVOT_POINT;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2415,7 +2415,7 @@ void Translate3_CommonHexahedronIsCorrectlyTranslatedWhenUsingCommonTranslationM
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2454,10 +2454,10 @@ void Translate3_CommonHexahedronIsCorrectlyTranslatedWhenUsingCommonTranslationM
 
     const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2491,7 +2491,7 @@ void Translate3_HexahedronIsNotTranslatedWhenTranslationIsZero_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -2505,10 +2505,10 @@ void Translate3_HexahedronIsNotTranslatedWhenTranslationIsZero_Template()
 
     const QTranslationMatrix<MatrixType> TRANSLATION = MatrixType::GetZeroMatrix();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2542,7 +2542,7 @@ void Translate3_HexahedronIsNotTranslatedWhenTranslationMatrixEqualsIdentity_Tem
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -2556,10 +2556,10 @@ void Translate3_HexahedronIsNotTranslatedWhenTranslationMatrixEqualsIdentity_Tem
 
     const QTranslationMatrix<MatrixType> TRANSLATION = MatrixType::GetIdentity();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2591,7 +2591,7 @@ QTEST_CASE_TEMPLATE ( Scale3_CommonHexahedronIsCorrectlyScaledWhenUsingCommonSca
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1,  SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3,  SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2,  SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2630,10 +2630,10 @@ QTEST_CASE_TEMPLATE ( Scale3_CommonHexahedronIsCorrectlyScaledWhenUsingCommonSca
 
     const QScalingMatrix3x3 SCALE = QScalingMatrix3x3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2652,7 +2652,7 @@ QTEST_CASE_TEMPLATE ( Scale3_HexahedronIsNotTranslatedWhenMatrixEqualsIdentity_T
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -2666,10 +2666,10 @@ QTEST_CASE_TEMPLATE ( Scale3_HexahedronIsNotTranslatedWhenMatrixEqualsIdentity_T
 
     const QScalingMatrix3x3 SCALE = QMatrix3x3::GetIdentity();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2685,7 +2685,7 @@ QTEST_CASE_TEMPLATE ( Scale3_HexahedronIsNotTranslatedWhenMatrixEqualsIdentity_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale3_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
@@ -2696,10 +2696,10 @@ QTEST_CASE_TEMPLATE ( Scale3_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZ
     const float_q NULL_VECTOR_COMPONENTS[] = {SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1};
     const T COORDINATE_ORIGIN = T(NULL_VECTOR_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == COORDINATE_ORIGIN);
     BOOST_CHECK(returnedHexahedron.B == COORDINATE_ORIGIN);
     BOOST_CHECK(returnedHexahedron.C == COORDINATE_ORIGIN);
@@ -2717,7 +2717,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_CommonHexahedronIsCorrectlyScaledWhenUsing
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1,  SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3,  SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2,  SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2759,10 +2759,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_CommonHexahedronIsCorrectlyScaledWhenUsing
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2780,7 +2780,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_HexahedronIsNotScaledWhenVectorComponentsE
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -2797,10 +2797,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_HexahedronIsNotScaledWhenVectorComponentsE
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2818,7 +2818,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_VerticesAreMovedToCoordinateOriginWhenVect
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
@@ -2826,10 +2826,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_VerticesAreMovedToCoordinateOriginWhenVect
 
     const QScalingMatrix3x3 SCALE = QScalingMatrix3x3::GetZeroMatrix();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == PIVOT_POINT);
     BOOST_CHECK(returnedHexahedron.B == PIVOT_POINT);
     BOOST_CHECK(returnedHexahedron.C == PIVOT_POINT);
@@ -2853,7 +2853,7 @@ void Transform1_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformat
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { (float_q)3.1490485194281401, (float_q)4.5, (float_q)-6.9722718241315027, SQFloat::_1 };
@@ -2890,10 +2890,10 @@ void Transform1_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTransformat
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2927,7 +2927,7 @@ void Transform1_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIs
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q NULL_VECTOR_COMPONENTS[] = {SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1};
@@ -2943,10 +2943,10 @@ void Transform1_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIs
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetZeroMatrix();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -2980,7 +2980,7 @@ void Transform1_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -2994,10 +2994,10 @@ void Transform1_HexahedronIsNotTransformedWhenTransformationMatrixEqualsIdentity
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetIdentity();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -3029,7 +3029,7 @@ QTEST_CASE_TEMPLATE ( Transform2_IsCorrectlyTransformedByCommonSpaceConversionMa
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     QSpaceConversionMatrix CONVERSION = QSpaceConversionMatrix();
     CONVERSION.SetViewSpaceMatrix(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                   QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1),
@@ -3065,10 +3065,10 @@ QTEST_CASE_TEMPLATE ( Transform2_IsCorrectlyTransformedByCommonSpaceConversionMa
                                                               EXPECTED_VALUE_FOR_G,
                                                               EXPECTED_VALUE_FOR_H);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedron = HEXAHEDRON.Transform(CONVERSION);
     	
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedron == EXPECTED_HEXAHEDRON);
 }
 
@@ -3079,17 +3079,17 @@ QTEST_CASE_TEMPLATE ( Transform2_LineSegmentDoesNotChangeWhenTransformedByIdenti
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QSpaceConversionMatrix IDENTITY_MATRIX = QSpaceConversionMatrix::GetIdentity();
 
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const QHexahedron<T> EXPECTED_HEXAHEDRON = HEXAHEDRON;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedron = HEXAHEDRON.Transform(IDENTITY_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedron == EXPECTED_HEXAHEDRON);
 }
 
@@ -3101,17 +3101,17 @@ QTEST_CASE_TEMPLATE ( Transform2_EndpointsAreNullifiedWhenMatrixIsZero_Test, TQT
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const QSpaceConversionMatrix ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
 
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const QHexahedron<T> EXPECTED_HEXAHEDRON = QHexahedron<T>(T::GetZeroVector(), T::GetZeroVector());
 
-	// Execution
+	// [Execution]
     QHexahedron<T> hexahedron = HEXAHEDRON.Transform(ZERO_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(hexahedron == EXPECTED_HEXAHEDRON);
 }
 
@@ -3128,7 +3128,7 @@ void TransformWithPivot_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTra
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q EXPECTED_VECTOR_COMPONENTS_A[] = { (float_q)0.083184527605490999, (float_q)3.5, (float_q)0.44714555828441904, SQFloat::_1 };
@@ -3168,10 +3168,10 @@ void TransformWithPivot_CommonHexahedronIsCorrectlyTransformedWhenUsingCommonTra
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -3205,7 +3205,7 @@ void TransformWithPivot_HexahedronVerticesAreMovedToCoordinateOriginWhenTransfor
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
@@ -3222,10 +3222,10 @@ void TransformWithPivot_HexahedronVerticesAreMovedToCoordinateOriginWhenTransfor
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetZeroMatrix();
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -3259,7 +3259,7 @@ void TransformWithPivot_HexahedronIsNotTransformedWhenTransformationMatrixEquals
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
     const T EXPECTED_VALUE_FOR_A = HEXAHEDRON.A;
@@ -3276,10 +3276,10 @@ void TransformWithPivot_HexahedronIsNotTransformedWhenTransformationMatrixEquals
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_VALUE_FOR_C);
@@ -3322,7 +3322,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsShareVertex_Test, T
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
     const float_q QUARTER_ROTATION = SQAngle::_90;
     const float_q HALF_ROTATION = SQAngle::_180;
@@ -3379,7 +3379,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsShareVertex_Test, T
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultP1R1 = HEXAHEDRON1_POS1_ROT1.Intersection(HEXAHEDRON2);
     bool bResultP1R2 = HEXAHEDRON1_POS1_ROT2.Intersection(HEXAHEDRON2);
     bool bResultP1R3 = HEXAHEDRON1_POS1_ROT3.Intersection(HEXAHEDRON2);
@@ -3452,7 +3452,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsShareVertex_Test, T
     bool bResultP8R7 = HEXAHEDRON2.Intersection(HEXAHEDRON1_POS4_ROT7);
     bool bResultP8R8 = HEXAHEDRON2.Intersection(HEXAHEDRON1_POS4_ROT8);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultP1R1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultP1R2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultP1R3, EXPECTED_RESULT);
@@ -3531,16 +3531,16 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsShareVertex_Test, T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsCoincide_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube();
     const QHexahedron<T> HEXAHEDRON2 = HEXAHEDRON1;
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = HEXAHEDRON1.Intersection(HEXAHEDRON2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -3549,16 +3549,16 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsCoincide_Test, TQTe
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOneHexahedronsIsInsideTheOther_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube();
     const QHexahedron<T> HEXAHEDRON2 = HEXAHEDRON1.Scale(SQFloat::_0_5, SQFloat::_0_5, SQFloat::_0_5);
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = HEXAHEDRON1.Intersection(HEXAHEDRON2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -3567,16 +3567,16 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenOneHexahedronsIsInsideTheOther
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsIntersect_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube();
     const QHexahedron<T> HEXAHEDRON2 = HEXAHEDRON1.Translate(SQFloat::_0_5, SQFloat::_0_5, SQFloat::_0_5);
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResult = HEXAHEDRON1.Intersection(HEXAHEDRON2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -3585,16 +3585,16 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenHexahedronsIntersect_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_ReturnsFalseWhenHexahedronsDoNotIntersect_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>::GetUnitCube();
     const QHexahedron<T> HEXAHEDRON2 = HEXAHEDRON1.Translate(SQFloat::_10, SQFloat::_0, SQFloat::_0);
 
     const bool EXPECTED_RESULT = false;
 
-	// Execution
+	// [Execution]
     bool bResult = HEXAHEDRON1.Intersection(HEXAHEDRON2);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -3606,7 +3606,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheFaceOfOneHexahedronIsPierce
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
     const float_q QUARTER_ROTATION = SQAngle::_90;
     const float_q HALF_ROTATION = SQAngle::_180;
@@ -3641,7 +3641,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheFaceOfOneHexahedronIsPierce
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultH1R1_H2R1 = HEXAHEDRON1_ROT1.Intersection(HEXAHEDRON2_ROT1);
     bool bResultH1R2_H2R1 = HEXAHEDRON1_ROT2.Intersection(HEXAHEDRON2_ROT1);
     bool bResultH1R3_H2R1 = HEXAHEDRON1_ROT3.Intersection(HEXAHEDRON2_ROT1);
@@ -3698,7 +3698,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheFaceOfOneHexahedronIsPierce
     bool bResultH1R5_H2R8 = HEXAHEDRON1_ROT5.Intersection(HEXAHEDRON2_ROT8);
     bool bResultH1R6_H2R8 = HEXAHEDRON1_ROT6.Intersection(HEXAHEDRON2_ROT8);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultH1R1_H2R1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultH1R2_H2R1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultH1R3_H2R1, EXPECTED_RESULT);
@@ -3764,7 +3764,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheOneHexahedronIsPiercedByAnE
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
     const QQuaternion INITIAL_ROTATION = QQuaternion(SQAngle::_45, SQAngle::_45, SQFloat::_0);
     const float_q QUARTER_ROTATION = SQAngle::_90;
@@ -3801,7 +3801,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheOneHexahedronIsPiercedByAnE
 
     const bool EXPECTED_RESULT = true;
 
-	// Execution
+	// [Execution]
     bool bResultH1R1_H2R1 = HEXAHEDRON1_ROT1.Intersection(HEXAHEDRON2_ROT1);
     bool bResultH1R2_H2R1 = HEXAHEDRON1_ROT2.Intersection(HEXAHEDRON2_ROT1);
     bool bResultH1R3_H2R1 = HEXAHEDRON1_ROT3.Intersection(HEXAHEDRON2_ROT1);
@@ -3858,7 +3858,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheOneHexahedronIsPiercedByAnE
     bool bResultH1R5_H2R8 = HEXAHEDRON1_ROT5.Intersection(HEXAHEDRON2_ROT8);
     bool bResultH1R6_H2R8 = HEXAHEDRON1_ROT6.Intersection(HEXAHEDRON2_ROT8);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultH1R1_H2R1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultH1R2_H2R1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultH1R3_H2R1, EXPECTED_RESULT);
@@ -3923,7 +3923,7 @@ QTEST_CASE_TEMPLATE ( Intersection_ReturnsTrueWhenTheOneHexahedronIsPiercedByAnE
 /// </summary>
 QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q POINT_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     const T POINT = T(POINT_COMPONENTS);
     const QHexahedron<T> HEXAHEDRON1 = QHexahedron<T>(POINT, POINT, POINT, POINT, POINT, POINT, POINT, POINT);
@@ -3931,7 +3931,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test, T
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -3954,7 +3954,7 @@ QTEST_CASE_TEMPLATE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test, T
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -3968,7 +3968,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenHexahedronAndPlaneI
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -4007,10 +4007,10 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenHexahedronAndPlaneI
                                                           T(EXPECTED_VECTOR_COMPONENTS_G),
                                                           T(EXPECTED_VECTOR_COMPONENTS_H));
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ProjectToPlane(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_RESULT.A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_RESULT.B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_RESULT.C);
@@ -4028,7 +4028,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenHexahedronIsInPosit
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -4067,10 +4067,10 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenHexahedronIsInPosit
                                                           T(EXPECTED_VECTOR_COMPONENTS_G),
                                                           T(EXPECTED_VECTOR_COMPONENTS_H));
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ProjectToPlane(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_RESULT.A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_RESULT.B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_RESULT.C);
@@ -4088,7 +4088,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenHexahedronIsInNegat
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -4127,10 +4127,10 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenHexahedronIsInNegat
                                                           T(EXPECTED_VECTOR_COMPONENTS_G),
                                                           T(EXPECTED_VECTOR_COMPONENTS_H));
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ProjectToPlane(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_RESULT.A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_RESULT.B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_RESULT.C);
@@ -4148,7 +4148,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_ItDoesNotChangeWhenItAlreadyBelongsToPlane_
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_1, SQFloat::_2, SQFloat::_1 };
@@ -4171,10 +4171,10 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_ItDoesNotChangeWhenItAlreadyBelongsToPlane_
 
     const QHexahedron<T> EXPECTED_RESULT = HEXAHEDRON;
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ProjectToPlane(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_RESULT.A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_RESULT.B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_RESULT.C);
@@ -4194,7 +4194,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenAllVerticesCoincide_Test,
 {
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, -SQFloat::_1);
     const float_q POINT_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     const T POINT = T(POINT_COMPONENTS);
@@ -4202,7 +4202,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenAllVerticesCoincide_Test,
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4214,7 +4214,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenAllVerticesCoincide_Test,
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4225,7 +4225,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenThePlaneIsNull_Test, TQTe
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_0, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_0, SQFloat::_2, SQFloat::_1 };
@@ -4248,7 +4248,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenThePlaneIsNull_Test, TQTe
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -4260,7 +4260,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_AssertionFailsWhenThePlaneIsNull_Test, TQTe
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -4273,7 +4273,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenAllVerticesCoincide
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const QBasePlane PLANE = QBasePlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, -SQFloat::_1);
     const float_q POINT_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4 };
     const T POINT = T(POINT_COMPONENTS);
@@ -4297,10 +4297,10 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenAllVerticesCoincide
                                                           T(EXPECTED_VECTOR_COMPONENTS_G),
                                                           T(EXPECTED_VECTOR_COMPONENTS_H));
 
-	// Execution
+	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ProjectToPlane(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedHexahedron.A == EXPECTED_RESULT.A);
     BOOST_CHECK(returnedHexahedron.B == EXPECTED_RESULT.B);
     BOOST_CHECK(returnedHexahedron.C == EXPECTED_RESULT.C);
@@ -4318,7 +4318,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_IsCorrectlyProjectedWhenAllVerticesCoincide
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_0, SQFloat::_0_5, SQFloat::_0_25 };
@@ -4351,10 +4351,10 @@ QTEST_CASE_TEMPLATE ( ToString_ExpectedOutputIsReturned_Test, TQTemplateTypes )
     const string_q EXPECTED_STRING = QE_L("HX(a(") + A_STRING + QE_L("),b(") + B_STRING + QE_L("),c(") + C_STRING + QE_L("),d(") + D_STRING + QE_L("),") +
                                      QE_L(   "e(") + E_STRING + QE_L("),f(") + F_STRING + QE_L("),g(") + G_STRING + QE_L("),h(") + H_STRING + QE_L("))");
 
-	// Execution
+	// [Execution]
     string_q strReturnedString = HEXAHEDRON.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strReturnedString == EXPECTED_STRING);
 }
 

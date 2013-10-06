@@ -50,13 +50,13 @@ QTEST_SUITE_BEGIN( QQuadrilateral_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
-    // Execution
+    // [Execution]
     QQuadrilateral quadrilateralUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_ALL);
@@ -72,7 +72,7 @@ QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_4, SQFloat::_5);
@@ -83,10 +83,10 @@ QTEST_CASE ( Constructor2_ValuesAreCopiedProperly_Test )
                                                        EXPECTED_VALUE_FOR_C,
                                                        EXPECTED_VALUE_FOR_D);
 
-    // Execution
+    // [Execution]
     QQuadrilateral quadrilateralUT = QUAD_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_A.x);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_A.y);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_B.x);
@@ -104,7 +104,7 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_4, SQFloat::_5);
@@ -115,10 +115,10 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
                                                                EXPECTED_VALUE_FOR_C,
                                                                EXPECTED_VALUE_FOR_D);
 
-    // Execution
+    // [Execution]
     QQuadrilateral quadrilateralUT = QUAD_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_A.x);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_A.y);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_B.x);
@@ -134,19 +134,19 @@ QTEST_CASE ( Constructor3_ValuesAreCopiedProperly_Test )
 /// </summary>
 QTEST_CASE ( Constructor4_ValuesAreCorrectlySet_Test )
 {
-	// Preparation
+	// [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_4, SQFloat::_5);
     const QVector2 EXPECTED_VALUE_FOR_D = QVector2(SQFloat::_6, SQFloat::_7);
 
-    // Execution
+    // [Execution]
     QQuadrilateral quadrilateralUT = QQuadrilateral(EXPECTED_VALUE_FOR_A,
                                                     EXPECTED_VALUE_FOR_B,
                                                     EXPECTED_VALUE_FOR_C,
                                                     EXPECTED_VALUE_FOR_D);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_A.x);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_A.y);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_B.x);
@@ -162,16 +162,16 @@ QTEST_CASE ( Constructor4_ValuesAreCorrectlySet_Test )
 /// </summary>
 QTEST_CASE ( GetUnitSquare_ReturnsTheExpectedSquare_Test )
 {
-	// Preparation
+	// [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(-SQFloat::_0_5, SQFloat::_0_5);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_0_5, SQFloat::_0_5);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_0_5, -SQFloat::_0_5);
     const QVector2 EXPECTED_VALUE_FOR_D = QVector2(-SQFloat::_0_5, -SQFloat::_0_5);
 
-    // Execution
+    // [Execution]
     QQuadrilateral quadrilateralUT = QQuadrilateral::GetUnitSquare();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_A.x);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_A.y);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_B.x);
@@ -189,7 +189,7 @@ QTEST_CASE ( AssignationOperator_ValuesAreCopiedProperly_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_4, SQFloat::_5);
@@ -200,11 +200,11 @@ QTEST_CASE ( AssignationOperator_ValuesAreCopiedProperly_Test )
                                                                EXPECTED_VALUE_FOR_C,
                                                                EXPECTED_VALUE_FOR_D);
 
-    // Execution
+    // [Execution]
     QQuadrilateral quadrilateralUT;
     quadrilateralUT = QUAD_TO_COPY;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(quadrilateralUT.A.x, EXPECTED_VALUE_FOR_A.x);
     BOOST_CHECK_EQUAL(quadrilateralUT.A.y, EXPECTED_VALUE_FOR_A.y);
     BOOST_CHECK_EQUAL(quadrilateralUT.B.x, EXPECTED_VALUE_FOR_B.x);
@@ -228,16 +228,16 @@ QTEST_CASE ( Contains_ReturnsFalseWhenThePointIsNotInsideTheQuadrilateral_Test )
     //   D----------C
     //
 
-    // Preparation
+    // [Preparation]
     const QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     const QVector2 POINT = QVector2(SQFloat::_3, SQFloat::_4);
 
     const bool EXPECTED_RESULT = false;
 
-    // Execution
+    // [Execution]
     bool bResult = QUAD.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -255,7 +255,7 @@ QTEST_CASE ( Contains_ReturnsTrueWhenThePointBelongsToAnEdgeOfQuadrilateral_Test
     //
     //        I              II             III           IV
 
-    // Preparation
+    // [Preparation]
     const QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     const QVector2 POINT_AB = QUAD.A.Lerp(SQFloat::_0_25, QUAD.B);
     const QVector2 POINT_BC = QUAD.B.Lerp(SQFloat::_0_25, QUAD.C);
@@ -264,13 +264,13 @@ QTEST_CASE ( Contains_ReturnsTrueWhenThePointBelongsToAnEdgeOfQuadrilateral_Test
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResultAB = QUAD.Contains(POINT_AB); // I
     bool bResultBC = QUAD.Contains(POINT_BC); // II
     bool bResultCD = QUAD.Contains(POINT_CD); // III
     bool bResultDA = QUAD.Contains(POINT_DA); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultAB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultBC, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultCD, EXPECTED_RESULT);
@@ -291,7 +291,7 @@ QTEST_CASE ( Contains_ReturnsTrueWhenThePointCoincidesWithVertexOfQuadrilateral_
     //
     //        I              II             III           IV
 
-    // Preparation
+    // [Preparation]
     const QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     const QVector2 POINT_A = QUAD.A;
     const QVector2 POINT_B = QUAD.B;
@@ -300,13 +300,13 @@ QTEST_CASE ( Contains_ReturnsTrueWhenThePointCoincidesWithVertexOfQuadrilateral_
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResultA = QUAD.Contains(POINT_A); // I
     bool bResultB = QUAD.Contains(POINT_B); // II
     bool bResultC = QUAD.Contains(POINT_C); // III
     bool bResultD = QUAD.Contains(POINT_D); // IV
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultA, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultB, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultC, EXPECTED_RESULT);
@@ -326,16 +326,16 @@ QTEST_CASE ( Contains_ReturnsTrueWhenThePointIsInsideTheQuadrilateral_Test )
     //   D----------C
     //
 
-    // Preparation
+    // [Preparation]
     const QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     const QVector2 POINT = QVector2(SQFloat::_0_25, SQFloat::_0_25);
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResult = QUAD.Contains(POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -346,14 +346,14 @@ QTEST_CASE ( Contains_ReturnsTrueWhenThePointIsInsideTheQuadrilateral_Test )
 /// </summary>
 QTEST_CASE ( Contains_AssertionFailsWhenAllVerticesCoincide_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 QUAD_POINT = QVector2(SQFloat::_1, SQFloat::_2);
     const QQuadrilateral QUAD = QQuadrilateral(QUAD_POINT, QUAD_POINT, QUAD_POINT, QUAD_POINT);
     const QVector2 POINT = QVector2(SQFloat::_0_25, SQFloat::_0_25);
 
     const bool ASSERTION_FAILED = true;
 
-    // Execution
+    // [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -365,7 +365,7 @@ QTEST_CASE ( Contains_AssertionFailsWhenAllVerticesCoincide_Test )
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -385,7 +385,7 @@ QTEST_CASE ( Contains_ReturnsWhatExpectedWhenTheQuadrilateralIsComplex_Test )
     //
     //      I           II
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     const QVector2 AUX = QUAD.C;
     QUAD.C = QUAD.D;
@@ -396,11 +396,11 @@ QTEST_CASE ( Contains_ReturnsWhatExpectedWhenTheQuadrilateralIsComplex_Test )
     const bool EXPECTED_RESULT_OUTSIDE = false;
     const bool EXPECTED_RESULT_INSIDE = true;
 
-    // Execution
+    // [Execution]
     bool bResultOutside = QUAD.Contains(POINT_OUTSIDE); // I
     bool bResultInside = QUAD.Contains(POINT_INSIDE); // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultOutside, EXPECTED_RESULT_OUTSIDE);
     BOOST_CHECK_EQUAL(bResultInside, EXPECTED_RESULT_INSIDE);
 }
@@ -418,7 +418,7 @@ QTEST_CASE ( Contains_ReturnsWhatExpectedWhenTheQuadrilateralIsConcave_Test )
     //
     //      I           II
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral(QVector2(SQFloat::_1, SQFloat::_1),
                                          QVector2(SQFloat::_4, SQFloat::_5),
                                          QVector2(SQFloat::_3, SQFloat::_2),
@@ -430,11 +430,11 @@ QTEST_CASE ( Contains_ReturnsWhatExpectedWhenTheQuadrilateralIsConcave_Test )
     const bool EXPECTED_RESULT_OUTSIDE = false;
     const bool EXPECTED_RESULT_INSIDE = true;
 
-    // Execution
+    // [Execution]
     bool bResultOutside = QUAD.Contains(POINT_OUTSIDE); // I
     bool bResultInside = QUAD.Contains(POINT_INSIDE);   // II
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultOutside, EXPECTED_RESULT_OUTSIDE);
     BOOST_CHECK_EQUAL(bResultInside, EXPECTED_RESULT_INSIDE);
 }
@@ -452,17 +452,17 @@ QTEST_CASE ( Intersection_ReturnsFalseWhenQuadrilateralsDoesNotIntersect_Test )
     //   D----------C   D----------C
     //
 
-    // Preparation
+    // [Preparation]
     const QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     const QQuadrilateral QUAD2 = QUAD1.Translate(SQFloat::_10, SQFloat::_10);
 
     const bool EXPECTED_RESULT = false;
 
-    // Execution
+    // [Execution]
     bool bResult1 = QUAD1.Intersection(QUAD2);
     bool bResult2 = QUAD2.Intersection(QUAD1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -482,17 +482,17 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenQuadrilateralsIntersect_Test )
     //         |          |
     //         D----------C
 
-    // Preparation
+    // [Preparation]
     const QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     const QQuadrilateral QUAD2 = QUAD1.Translate(SQFloat::_0_5, SQFloat::_0_5);
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResult1 = QUAD1.Intersection(QUAD2);
     bool bResult2 = QUAD2.Intersection(QUAD1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -514,7 +514,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenQuadrilateralsShareVertex_Test )
 
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
     const float_q QUARTER_ROTATION = SQAngle::_90;
     const float_q HALF_ROTATION = SQAngle::_180;
@@ -538,7 +538,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenQuadrilateralsShareVertex_Test )
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResultQ1R1_Q2R1 = QUAD1_ROT1.Intersection(QUAD2_ROT1);
     bool bResultQ1R1_Q2R2 = QUAD1_ROT1.Intersection(QUAD2_ROT2);
     bool bResultQ1R1_Q2R3 = QUAD1_ROT1.Intersection(QUAD2_ROT3);
@@ -559,7 +559,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenQuadrilateralsShareVertex_Test )
     bool bResultQ1R4_Q2R3 = QUAD1_ROT4.Intersection(QUAD2_ROT3);
     bool bResultQ1R4_Q2R4 = QUAD1_ROT4.Intersection(QUAD2_ROT4);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R3, EXPECTED_RESULT);
@@ -597,7 +597,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralCornerIntersectsWithAnE
 
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
     const float_q INITIAL_ROTATION = SQAngle::_45;
     const float_q QUARTER_ROTATION = SQAngle::_90;
@@ -623,7 +623,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralCornerIntersectsWithAnE
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResultQ1R1_Q2R1 = QUAD1_ROT1.Intersection(QUAD2_ROT1);
     bool bResultQ1R1_Q2R2 = QUAD1_ROT1.Intersection(QUAD2_ROT2);
     bool bResultQ1R1_Q2R3 = QUAD1_ROT1.Intersection(QUAD2_ROT3);
@@ -644,7 +644,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralCornerIntersectsWithAnE
     bool bResultQ1R4_Q2R3 = QUAD1_ROT4.Intersection(QUAD2_ROT3);
     bool bResultQ1R4_Q2R4 = QUAD1_ROT4.Intersection(QUAD2_ROT4);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R3, EXPECTED_RESULT);
@@ -682,7 +682,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralVertexBelongsToAnEdgeOf
 
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
     const float_q INITIAL_ROTATION = SQAngle::_45;
     const float_q QUARTER_ROTATION = SQAngle::_90;
@@ -712,7 +712,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralVertexBelongsToAnEdgeOf
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResultQ1R1_Q2R1 = QUAD1_ROT1.Intersection(QUAD2_ROT1);
     bool bResultQ1R1_Q2R2 = QUAD1_ROT1.Intersection(QUAD2_ROT2);
     bool bResultQ1R1_Q2R3 = QUAD1_ROT1.Intersection(QUAD2_ROT3);
@@ -733,7 +733,7 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralVertexBelongsToAnEdgeOf
     bool bResultQ1R4_Q2R3 = QUAD1_ROT4.Intersection(QUAD2_ROT3);
     bool bResultQ1R4_Q2R4 = QUAD1_ROT4.Intersection(QUAD2_ROT4);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R2, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResultQ1R1_Q2R3, EXPECTED_RESULT);
@@ -767,17 +767,17 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenQuadrilateralsCoincide_Test )
     //   |          |
     //   DD---------CC
 
-    // Preparation
+    // [Preparation]
     const QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     const QQuadrilateral QUAD2 = QUAD1;
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResult1 = QUAD1.Intersection(QUAD2);
     bool bResult2 = QUAD2.Intersection(QUAD1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -794,17 +794,17 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralContainsTheOther_Test )
     //   |  D----C  |
     //   D----------C
 
-    // Preparation
+    // [Preparation]
     const QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     const QQuadrilateral QUAD2 = QUAD1.Scale(SQFloat::_0_5, SQFloat::_0_5);
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResult1 = QUAD1.Intersection(QUAD2);
     bool bResult2 = QUAD2.Intersection(QUAD1);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult1, EXPECTED_RESULT);
     BOOST_CHECK_EQUAL(bResult2, EXPECTED_RESULT);
 }
@@ -816,14 +816,14 @@ QTEST_CASE ( Intersection_ReturnsTrueWhenOneQuadrilateralContainsTheOther_Test )
 /// </summary>
 QTEST_CASE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT = QVector2(SQFloat::_1, SQFloat::_2);
     const QQuadrilateral QUAD1 = QQuadrilateral(POINT, POINT, POINT, POINT);
     const QQuadrilateral QUAD2 = QQuadrilateral::GetUnitSquare();
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -846,7 +846,7 @@ QTEST_CASE ( Intersection_AssertionFailsWhenAllVerticesCoincide_Test )
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -865,7 +865,7 @@ QTEST_CASE ( IsComplex_ReturnsTrueWhenQuadrilateralIsComplex_Test )
     //    /  \
     //   D----C
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     QVector2 AUX = QUAD.B;
     QUAD.B = QUAD.A;
@@ -873,10 +873,10 @@ QTEST_CASE ( IsComplex_ReturnsTrueWhenQuadrilateralIsComplex_Test )
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResult = QUAD.IsComplex();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -892,15 +892,15 @@ QTEST_CASE ( IsComplex_ReturnsFalseWhenQuadrilateralIsNotComplex_Test )
     //   |    |
     //   D----C
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
 
     const bool EXPECTED_RESULT = false;
 
-    // Execution
+    // [Execution]
     bool bResult = QUAD.IsComplex();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -916,15 +916,15 @@ QTEST_CASE ( IsConvex_ReturnsTrueWhenQuadrilateralIsConvex_Test )
     //   |    |
     //   D----C
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResult = QUAD.IsConvex();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -941,7 +941,7 @@ QTEST_CASE ( IsConvex_ReturnsFalseWhenQuadrilateralIsNotConvex_Test )
     //   |/
     //   D
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                          QVector2(SQFloat::_2, SQFloat::_2),
                                          QVector2(SQFloat::_3, SQFloat::_2),
@@ -949,10 +949,10 @@ QTEST_CASE ( IsConvex_ReturnsFalseWhenQuadrilateralIsNotConvex_Test )
 
     const bool EXPECTED_RESULT = false;
 
-    // Execution
+    // [Execution]
     bool bResult = QUAD.IsConvex();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -969,7 +969,7 @@ QTEST_CASE ( IsConcave_ReturnsTrueWhenQuadrilateralIsConcave_Test )
     //   |/
     //   D
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral(QVector2(SQFloat::_1, SQFloat::_3),
                                          QVector2(SQFloat::_2, SQFloat::_2),
                                          QVector2(SQFloat::_3, SQFloat::_2),
@@ -977,10 +977,10 @@ QTEST_CASE ( IsConcave_ReturnsTrueWhenQuadrilateralIsConcave_Test )
 
     const bool EXPECTED_RESULT = true;
 
-    // Execution
+    // [Execution]
     bool bResult = QUAD.IsConcave();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -996,15 +996,15 @@ QTEST_CASE ( IsConcave_ReturnsFalseWhenQuadrilateralIsNotConcave_Test )
     //   |    |
     //   D----C
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
 
     const bool EXPECTED_RESULT = false;
 
-    // Execution
+    // [Execution]
     bool bResult = QUAD.IsConcave();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
@@ -1015,7 +1015,7 @@ QTEST_CASE ( GetAngleA_ReturnsExpectedAngleForCommonCorner_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     QUAD.B = QVector2(SQFloat::_0, SQFloat::_0);
 
@@ -1025,10 +1025,10 @@ QTEST_CASE ( GetAngleA_ReturnsExpectedAngleForCommonCorner_Test )
     const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
 #endif
 
-    // Execution
+    // [Execution]
     float_q fResult = QUAD.GetAngleA();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
@@ -1039,7 +1039,7 @@ QTEST_CASE ( GetAngleA_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.A = QVector2(SQFloat::_2, -SQFloat::_2);
 
@@ -1053,11 +1053,11 @@ QTEST_CASE ( GetAngleA_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
     const float_q STRAIGHT_ANGLE = SQAngle::_Pi;
 #endif
 
-    // Execution
+    // [Execution]
     float_q fResult1 = QUAD1.GetAngleA(); // Corner in opposite side
     float_q fResult2 = QUAD2.GetAngleA(); // Straight angle
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult1, STRAIGHT_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult2, STRAIGHT_ANGLE) );
 }
@@ -1069,7 +1069,7 @@ QTEST_CASE ( GetAngleA_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
 /// </summary>
 QTEST_CASE ( GetAngleA_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test )
 {
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.B = QUAD1.A;
     QQuadrilateral QUAD2 = QQuadrilateral::GetUnitSquare();
@@ -1077,7 +1077,7 @@ QTEST_CASE ( GetAngleA_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1100,7 +1100,7 @@ QTEST_CASE ( GetAngleA_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -1114,7 +1114,7 @@ QTEST_CASE ( GetAngleB_ReturnsExpectedAngleForCommonCorner_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     QUAD.A = QVector2(SQFloat::_0, SQFloat::_0);
 
@@ -1124,10 +1124,10 @@ QTEST_CASE ( GetAngleB_ReturnsExpectedAngleForCommonCorner_Test )
     const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
 #endif
 
-    // Execution
+    // [Execution]
     float_q fResult = QUAD.GetAngleB();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
@@ -1138,7 +1138,7 @@ QTEST_CASE ( GetAngleB_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.B = QVector2(-SQFloat::_2, -SQFloat::_2);
 
@@ -1151,11 +1151,11 @@ QTEST_CASE ( GetAngleB_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
     const float_q STRAIGHT_ANGLE = SQAngle::_Pi;
 #endif
 
-    // Execution
+    // [Execution]
     float_q fResult1 = QUAD1.GetAngleB(); // Corner in opposite side
     float_q fResult2 = QUAD2.GetAngleB(); // Straight angle
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult1, STRAIGHT_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult2, STRAIGHT_ANGLE) );
 }
@@ -1167,7 +1167,7 @@ QTEST_CASE ( GetAngleB_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
 /// </summary>
 QTEST_CASE ( GetAngleB_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test )
 {
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.A = QUAD1.B;
     QQuadrilateral QUAD2 = QQuadrilateral::GetUnitSquare();
@@ -1175,7 +1175,7 @@ QTEST_CASE ( GetAngleB_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1198,7 +1198,7 @@ QTEST_CASE ( GetAngleB_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -1212,7 +1212,7 @@ QTEST_CASE ( GetAngleC_ReturnsExpectedAngleForCommonCorner_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     QUAD.B = QVector2(SQFloat::_0, SQFloat::_0);
 
@@ -1222,10 +1222,10 @@ QTEST_CASE ( GetAngleC_ReturnsExpectedAngleForCommonCorner_Test )
     const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
 #endif
 
-    // Execution
+    // [Execution]
     float_q fResult = QUAD.GetAngleC();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
@@ -1236,7 +1236,7 @@ QTEST_CASE ( GetAngleC_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.C = QVector2(-SQFloat::_2, SQFloat::_2);
 
@@ -1249,11 +1249,11 @@ QTEST_CASE ( GetAngleC_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
     const float_q STRAIGHT_ANGLE = SQAngle::_Pi;
 #endif
 
-    // Execution
+    // [Execution]
     float_q fResult1 = QUAD1.GetAngleC(); // Corner in opposite side
     float_q fResult2 = QUAD2.GetAngleC(); // Straight angle
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult1, STRAIGHT_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult2, STRAIGHT_ANGLE) );
 }
@@ -1265,7 +1265,7 @@ QTEST_CASE ( GetAngleC_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
 /// </summary>
 QTEST_CASE ( GetAngleC_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test )
 {
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.B = QUAD1.C;
     QQuadrilateral QUAD2 = QQuadrilateral::GetUnitSquare();
@@ -1273,7 +1273,7 @@ QTEST_CASE ( GetAngleC_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1296,7 +1296,7 @@ QTEST_CASE ( GetAngleC_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -1310,7 +1310,7 @@ QTEST_CASE ( GetAngleD_ReturnsExpectedAngleForCommonCorner_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral::GetUnitSquare();
     QUAD.A = QVector2(SQFloat::_0, SQFloat::_0);
 
@@ -1320,10 +1320,10 @@ QTEST_CASE ( GetAngleD_ReturnsExpectedAngleForCommonCorner_Test )
     const float_q EXPECTED_RESULT = SQAngle::_QuarterPi;
 #endif
 
-    // Execution
+    // [Execution]
     float_q fResult = QUAD.GetAngleD();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResult, EXPECTED_RESULT) );
 }
 
@@ -1334,7 +1334,7 @@ QTEST_CASE ( GetAngleD_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.D = QVector2(SQFloat::_2, SQFloat::_2);
 
@@ -1347,11 +1347,11 @@ QTEST_CASE ( GetAngleD_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
     const float_q STRAIGHT_ANGLE = SQAngle::_Pi;
 #endif
 
-    // Execution
+    // [Execution]
     float_q fResult1 = QUAD1.GetAngleD(); // Corner in opposite side
     float_q fResult2 = QUAD2.GetAngleD(); // Straight angle
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult1, STRAIGHT_ANGLE) );
     BOOST_CHECK( SQFloat::IsLessOrEquals(fResult2, STRAIGHT_ANGLE) );
 }
@@ -1363,7 +1363,7 @@ QTEST_CASE ( GetAngleD_ReturnedAngleIsAlwaysLessThanOrEqualsStraightAngle_Test )
 /// </summary>
 QTEST_CASE ( GetAngleD_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test )
 {
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD1 = QQuadrilateral::GetUnitSquare();
     QUAD1.C = QUAD1.D;
     QQuadrilateral QUAD2 = QQuadrilateral::GetUnitSquare();
@@ -1371,7 +1371,7 @@ QTEST_CASE ( GetAngleD_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed1 = false;
 
     try
@@ -1394,7 +1394,7 @@ QTEST_CASE ( GetAngleD_AssertionFailsWhenContiguousVertexAndCornerCoincide_Test 
         bAssertionFailed2 = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
     BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
 }
@@ -1408,7 +1408,7 @@ QTEST_CASE ( Rotate_QuadrilateralIsCorrectlyRotated_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_2);
     const QVector2 POINT_C = QVector2(SQFloat::_0, SQFloat::_5);
@@ -1427,10 +1427,10 @@ QTEST_CASE ( Rotate_QuadrilateralIsCorrectlyRotated_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Rotate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1442,7 +1442,7 @@ QTEST_CASE ( Rotate_QuadrilateralIsCorrectlyRotated_Test )
 /// </summary>
 QTEST_CASE ( Rotate_QuadrilateralIsNotRotatedWhenAngleIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(-SQFloat::_3, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_2, -SQFloat::_2);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(-SQFloat::_5, SQFloat::_0);
@@ -1451,10 +1451,10 @@ QTEST_CASE ( Rotate_QuadrilateralIsNotRotatedWhenAngleIsZero_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Rotate(ANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1466,7 +1466,7 @@ QTEST_CASE ( Rotate_QuadrilateralIsNotRotatedWhenAngleIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate1_QuadrilateralIsCorrectlyTranslated_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_2);
     const QVector2 POINT_C = QVector2(SQFloat::_4, SQFloat::_5);
@@ -1481,10 +1481,10 @@ QTEST_CASE ( Translate1_QuadrilateralIsCorrectlyTranslated_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Translate(TRANSLATION_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1496,7 +1496,7 @@ QTEST_CASE ( Translate1_QuadrilateralIsCorrectlyTranslated_Test )
 /// </summary>
 QTEST_CASE ( Translate1_QuadrilateralIsNotTranslatedWhenTranslationIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_4, SQFloat::_7);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_1, SQFloat::_6);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_9);
@@ -1506,10 +1506,10 @@ QTEST_CASE ( Translate1_QuadrilateralIsNotTranslatedWhenTranslationIsZero_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Translate(TRANSLATION_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1521,7 +1521,7 @@ QTEST_CASE ( Translate1_QuadrilateralIsNotTranslatedWhenTranslationIsZero_Test )
 /// </summary>
 QTEST_CASE ( Translate2_QuadrilateralIsCorrectlyTranslated_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_2);
     const QVector2 POINT_C = QVector2(SQFloat::_4, SQFloat::_5);
@@ -1536,10 +1536,10 @@ QTEST_CASE ( Translate2_QuadrilateralIsCorrectlyTranslated_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Translate(TRANSLATION_VECTOR.x, TRANSLATION_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1551,7 +1551,7 @@ QTEST_CASE ( Translate2_QuadrilateralIsCorrectlyTranslated_Test )
 /// </summary>
 QTEST_CASE ( Translate2_QuadrilateralIsNotTranslatedWhenTranslationIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_4, SQFloat::_7);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_1, SQFloat::_6);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_9);
@@ -1561,10 +1561,10 @@ QTEST_CASE ( Translate2_QuadrilateralIsNotTranslatedWhenTranslationIsZero_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Translate(TRANSLATION_VECTOR.x, TRANSLATION_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1576,7 +1576,7 @@ QTEST_CASE ( Translate2_QuadrilateralIsNotTranslatedWhenTranslationIsZero_Test )
 /// </summary>
 QTEST_CASE ( Scale1_QuadrilateralIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1591,10 +1591,10 @@ QTEST_CASE ( Scale1_QuadrilateralIsCorrectlyScaled_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Scale(SCALING_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1606,7 +1606,7 @@ QTEST_CASE ( Scale1_QuadrilateralIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( Scale1_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1616,10 +1616,10 @@ QTEST_CASE ( Scale1_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Scale(SCALING_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1631,7 +1631,7 @@ QTEST_CASE ( Scale1_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 /// </summary>
 QTEST_CASE ( Scale1_AllVerticesAreMovedToCoordinatesOriginWhenScaleEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1643,10 +1643,10 @@ QTEST_CASE ( Scale1_AllVerticesAreMovedToCoordinatesOriginWhenScaleEqualsZero_Te
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Scale(SCALING_VECTOR);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_ALL);
@@ -1658,7 +1658,7 @@ QTEST_CASE ( Scale1_AllVerticesAreMovedToCoordinatesOriginWhenScaleEqualsZero_Te
 /// </summary>
 QTEST_CASE ( Scale2_QuadrilateralIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1673,10 +1673,10 @@ QTEST_CASE ( Scale2_QuadrilateralIsCorrectlyScaled_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Scale(SCALING_VECTOR.x, SCALING_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1688,7 +1688,7 @@ QTEST_CASE ( Scale2_QuadrilateralIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( Scale2_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1698,10 +1698,10 @@ QTEST_CASE ( Scale2_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Scale(SCALING_VECTOR.x, SCALING_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1713,7 +1713,7 @@ QTEST_CASE ( Scale2_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 /// </summary>
 QTEST_CASE ( Scale2_AllVerticesAreMovedToCoordinatesOriginWhenScaleEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1725,10 +1725,10 @@ QTEST_CASE ( Scale2_AllVerticesAreMovedToCoordinatesOriginWhenScaleEqualsZero_Te
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.Scale(SCALING_VECTOR.x, SCALING_VECTOR.y);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_ALL);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_ALL);
@@ -1743,7 +1743,7 @@ QTEST_CASE ( Transform_QuadrilateralIsCorrectlyTransformed_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_POS_A = QVector2(SQFloat::_1, SQFloat::_2);
     const QVector2 INIT_POS_B = QVector2(SQFloat::_3, SQFloat::_4);
     const QVector2 INIT_POS_C = QVector2(SQFloat::_2, SQFloat::_6);
@@ -1767,10 +1767,10 @@ QTEST_CASE ( Transform_QuadrilateralIsCorrectlyTransformed_Test )
 
     const QQuadrilateral QUAD = QQuadrilateral(INIT_POS_A, INIT_POS_B, INIT_POS_C, INIT_POS_D);
 
-	// Execution
+	// [Execution]
     const QQuadrilateral result = QUAD.Transform(TRANSFORMATION_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1784,7 +1784,7 @@ QTEST_CASE ( Transform_QuadrilateralDoesNotChangeWhenTransformedByIdentityMatrix
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_5);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_1, SQFloat::_9);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(-SQFloat::_2, SQFloat::_7);
@@ -1794,10 +1794,10 @@ QTEST_CASE ( Transform_QuadrilateralDoesNotChangeWhenTransformedByIdentityMatrix
 
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
-	// Execution
+	// [Execution]
     const QQuadrilateral result = QUAD.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1812,7 +1812,7 @@ QTEST_CASE ( Transform_AllVerticesAreMovedToCoordinateOriginWhenTransfomedByZero
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1824,10 +1824,10 @@ QTEST_CASE ( Transform_AllVerticesAreMovedToCoordinateOriginWhenTransfomedByZero
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
-	// Execution
+	// [Execution]
     const QQuadrilateral result = QUAD.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_RESULT_ALL);
     BOOST_CHECK(result.B == EXPECTED_RESULT_ALL);
     BOOST_CHECK(result.C == EXPECTED_RESULT_ALL);
@@ -1841,7 +1841,7 @@ QTEST_CASE ( RotateWithPivot_QuadrilateralIsCorrectlyRotated_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(-SQFloat::_2, SQFloat::_2);
     const QVector2 POINT_C = QVector2(SQFloat::_0, SQFloat::_5);
@@ -1861,10 +1861,10 @@ QTEST_CASE ( RotateWithPivot_QuadrilateralIsCorrectlyRotated_Test )
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_3, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.RotateWithPivot(ANGLE, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1876,7 +1876,7 @@ QTEST_CASE ( RotateWithPivot_QuadrilateralIsCorrectlyRotated_Test )
 /// </summary>
 QTEST_CASE ( RotateWithPivot_QuadrilateralIsNotRotatedWhenAngleIsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(-SQFloat::_3, SQFloat::_1);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_2, -SQFloat::_2);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(-SQFloat::_5, SQFloat::_0);
@@ -1886,10 +1886,10 @@ QTEST_CASE ( RotateWithPivot_QuadrilateralIsNotRotatedWhenAngleIsZero_Test )
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
     const QVector2 PIVOT = QVector2(SQFloat::_3, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.RotateWithPivot(ANGLE, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1901,7 +1901,7 @@ QTEST_CASE ( RotateWithPivot_QuadrilateralIsNotRotatedWhenAngleIsZero_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_QuadrilateralIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1917,10 +1917,10 @@ QTEST_CASE ( ScaleWithPivot1_QuadrilateralIsCorrectlyScaled_Test )
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.ScaleWithPivot(SCALING_VECTOR, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1932,7 +1932,7 @@ QTEST_CASE ( ScaleWithPivot1_QuadrilateralIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1943,10 +1943,10 @@ QTEST_CASE ( ScaleWithPivot1_QuadrilateralIsNotScaledIfScaleIsOne_Test )
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.ScaleWithPivot(SCALING_VECTOR, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -1958,7 +1958,7 @@ QTEST_CASE ( ScaleWithPivot1_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot1_AllVerticesAreMovedToPositionOfPivotWhenScaleEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -1969,10 +1969,10 @@ QTEST_CASE ( ScaleWithPivot1_AllVerticesAreMovedToPositionOfPivotWhenScaleEquals
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.ScaleWithPivot(SCALING_VECTOR, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == PIVOT);
     BOOST_CHECK(result.B == PIVOT);
     BOOST_CHECK(result.C == PIVOT);
@@ -1984,7 +1984,7 @@ QTEST_CASE ( ScaleWithPivot1_AllVerticesAreMovedToPositionOfPivotWhenScaleEquals
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_QuadrilateralIsCorrectlyScaled_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -2000,10 +2000,10 @@ QTEST_CASE ( ScaleWithPivot2_QuadrilateralIsCorrectlyScaled_Test )
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.ScaleWithPivot(SCALING_VECTOR.x, SCALING_VECTOR.y, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -2015,7 +2015,7 @@ QTEST_CASE ( ScaleWithPivot2_QuadrilateralIsCorrectlyScaled_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -2026,10 +2026,10 @@ QTEST_CASE ( ScaleWithPivot2_QuadrilateralIsNotScaledIfScaleIsOne_Test )
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.ScaleWithPivot(SCALING_VECTOR.x, SCALING_VECTOR.y, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -2041,7 +2041,7 @@ QTEST_CASE ( ScaleWithPivot2_QuadrilateralIsNotScaledIfScaleIsOne_Test )
 /// </summary>
 QTEST_CASE ( ScaleWithPivot2_AllVerticesAreMovedToPositionOfPivotWhenScaleEqualsZero_Test )
 {
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -2052,10 +2052,10 @@ QTEST_CASE ( ScaleWithPivot2_AllVerticesAreMovedToPositionOfPivotWhenScaleEquals
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     QQuadrilateral result = QUAD.ScaleWithPivot(SCALING_VECTOR.x, SCALING_VECTOR.y, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == PIVOT);
     BOOST_CHECK(result.B == PIVOT);
     BOOST_CHECK(result.C == PIVOT);
@@ -2070,7 +2070,7 @@ QTEST_CASE ( TransformWithPivot_QuadrilateralIsCorrectlyTransformed_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const QVector2 INIT_POS_A = QVector2(SQFloat::_1, SQFloat::_2);
     const QVector2 INIT_POS_B = QVector2(SQFloat::_3, SQFloat::_4);
     const QVector2 INIT_POS_C = QVector2(SQFloat::_2, SQFloat::_6);
@@ -2095,10 +2095,10 @@ QTEST_CASE ( TransformWithPivot_QuadrilateralIsCorrectlyTransformed_Test )
     const QQuadrilateral QUAD = QQuadrilateral(INIT_POS_A, INIT_POS_B, INIT_POS_C, INIT_POS_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     const QQuadrilateral result = QUAD.TransformWithPivot(TRANSFORMATION_MATRIX, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -2112,7 +2112,7 @@ QTEST_CASE ( TransformWithPivot_QuadrilateralDoesNotChangeWhenTransformedByIdent
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_0, SQFloat::_5);
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(-SQFloat::_1, SQFloat::_9);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(-SQFloat::_2, SQFloat::_7);
@@ -2123,10 +2123,10 @@ QTEST_CASE ( TransformWithPivot_QuadrilateralDoesNotChangeWhenTransformedByIdent
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     const QQuadrilateral result = QUAD.TransformWithPivot(TRANSFORMATION, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(result.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(result.C == EXPECTED_VALUE_FOR_C);
@@ -2141,7 +2141,7 @@ QTEST_CASE ( TransformWithPivot_AllVerticesAreMovedToPositionOfPivotWhenTransfom
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QVector2 POINT_A = QVector2(SQFloat::_1, SQFloat::_3);
     const QVector2 POINT_B = QVector2(SQFloat::_2, SQFloat::_4);
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
@@ -2152,10 +2152,10 @@ QTEST_CASE ( TransformWithPivot_AllVerticesAreMovedToPositionOfPivotWhenTransfom
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
 
-	// Execution
+	// [Execution]
     const QQuadrilateral result = QUAD.TransformWithPivot(TRANSFORMATION, PIVOT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(result.A == PIVOT);
     BOOST_CHECK(result.B == PIVOT);
     BOOST_CHECK(result.C == PIVOT);
@@ -2167,7 +2167,7 @@ QTEST_CASE ( TransformWithPivot_AllVerticesAreMovedToPositionOfPivotWhenTransfom
 /// </summary>
 QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 {
-    // Preparation
+    // [Preparation]
     QQuadrilateral QUAD = QQuadrilateral(QVector2(SQFloat::_0_25, (float_q)-0.000002),
                                          QVector2((float_q)40000.0, SQFloat::_0),
                                          QVector2(SQFloat::_3, SQFloat::_2),
@@ -2179,11 +2179,11 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
     const string_q EXPECTED_STRING_FORM = QE_L("QL(a(V2(0.25,-1.9999999999999999e-006)),b(V2(40000,0)),c(V2(3,2)),d(V2(1,-0)))");
 #endif
 
-	// Execution
+	// [Execution]
     QQuadrilateral quadrilateralUT = QUAD;
     string_q strStringForm = quadrilateralUT.ToString();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(strStringForm == EXPECTED_STRING_FORM);
 }
 

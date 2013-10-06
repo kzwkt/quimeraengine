@@ -60,7 +60,7 @@ QTEST_SUITE_BEGIN( QTriangle3D_TestSuite )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
@@ -69,10 +69,10 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangleUT;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -83,7 +83,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0 };
@@ -94,10 +94,10 @@ QTEST_CASE_TEMPLATE ( Constructor2_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     const QTriangle3D<T> EXPECTED_TRIANGLE(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangleUT(EXPECTED_TRIANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -110,7 +110,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0 };
@@ -121,10 +121,10 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 
     const QBaseTriangle<T> EXPECTED_TRIANGLE(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangleUT(EXPECTED_TRIANGLE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -135,7 +135,7 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreCopiedProperly_Test, TQTemplateTypes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0 };
@@ -144,10 +144,10 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangleUT(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -158,7 +158,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -167,10 +167,10 @@ QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
     const T EXPECTED_VALUE_FOR_B(VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangleUT(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -183,7 +183,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -198,7 +198,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
     const bool ASSERTION_FAILED_WHEN_B_IS_NULL = true;
     const bool ASSERTION_FAILED_WHEN_C_IS_NULL = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailedWhenAIsNull = false;
 
     try
@@ -232,7 +232,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test, TQ
         bAssertionFailedWhenCIsNull = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailedWhenAIsNull, ASSERTION_FAILED_WHEN_A_IS_NULL);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBIsNull, ASSERTION_FAILED_WHEN_B_IS_NULL);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCIsNull, ASSERTION_FAILED_WHEN_C_IS_NULL);
@@ -248,7 +248,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_ValuesAreSetProperly_Test, TQTemplateTypes )
     using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
     using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -263,10 +263,10 @@ QTEST_CASE_TEMPLATE ( Constructor6_ValuesAreSetProperly_Test, TQTemplateTypes )
     SQVF32::Pack(VECTOR_COMPONENTS_B[0], VECTOR_COMPONENTS_B[1], VECTOR_COMPONENTS_B[2], VECTOR_COMPONENTS_B[3], INPUT_FVECTOR_B);
     SQVF32::Pack(VECTOR_COMPONENTS_C[0], VECTOR_COMPONENTS_C[1], VECTOR_COMPONENTS_C[2], VECTOR_COMPONENTS_C[3], INPUT_FVECTOR_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangleUT(INPUT_FVECTOR_A, INPUT_FVECTOR_B, INPUT_FVECTOR_C);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -279,7 +279,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_TriangleIsAssignedProperlyToAnother_Te
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBaseTriangle;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_9, SQFloat::_10, (float_q)11.0, (float_q)12.0 };
@@ -290,11 +290,11 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_TriangleIsAssignedProperlyToAnother_Te
 
     const QBaseTriangle<T> OTHER_TRIANGLE = QBaseTriangle<T>(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangleUT;
     triangleUT = OTHER_TRIANGLE;
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangleUT.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(triangleUT.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(triangleUT.C == EXPECTED_VALUE_FOR_C);
@@ -305,7 +305,7 @@ QTEST_CASE_TEMPLATE ( OperatorAssignation_TriangleIsAssignedProperlyToAnother_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetNormal_ReturnsExpectedNormalFromCommonTriangle_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_3, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_9 };
@@ -322,10 +322,10 @@ QTEST_CASE_TEMPLATE ( GetNormal_ReturnsExpectedNormalFromCommonTriangle_Test, TQ
     const QVector3 EXPECTED_NORMAL = QVector3((float_q)-0.30151134457776363, (float_q)0.30151134457776363, (float_q)0.90453403373329089);
 #endif
 
-	// Execution
+	// [Execution]
     QVector3 vNormal = TRIANGLE.GetNormal();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vNormal.x == EXPECTED_NORMAL.x);
     BOOST_CHECK(vNormal.y == EXPECTED_NORMAL.y);
     BOOST_CHECK(vNormal.z == EXPECTED_NORMAL.z);
@@ -336,7 +336,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_ReturnsExpectedNormalFromCommonTriangle_Test, TQ
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetNormal_FollowsLeftHandedRules_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_0, SQFloat::_1, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_2, SQFloat::_0, SQFloat::_2, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_0, SQFloat::_1, SQFloat::_9 };
@@ -347,10 +347,10 @@ QTEST_CASE_TEMPLATE ( GetNormal_FollowsLeftHandedRules_Test, TQTemplateTypes )
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VALUE_FOR_A, VALUE_FOR_B, VALUE_FOR_C);
 
-	// Execution
+	// [Execution]
     QVector3 vNormal = TRIANGLE.GetNormal();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(SQFloat::IsGreaterOrEquals(vNormal.y, SQFloat::_0));
 }
 
@@ -361,7 +361,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_FollowsLeftHandedRules_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -374,7 +374,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenTwoVerticesCoincide_Test, TQTe
     const QTriangle3D<T> TRIANGLE_B_AND_C(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_B);
     const QTriangle3D<T> TRIANGLE_C_AND_A(VECTOR_COMPONENTS_C, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailedWhenABCoincide = false;
 
     try
@@ -408,7 +408,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenTwoVerticesCoincide_Test, TQTe
         bAssertionFailedWhenCACoincide = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailedWhenABCoincide, ASSERTION_FAILED_WHEN_A_AND_B_COINCIDE);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBCCoincide, ASSERTION_FAILED_WHEN_B_AND_C_COINCIDE);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCACoincide, ASSERTION_FAILED_WHEN_C_AND_A_COINCIDE);
@@ -419,7 +419,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenTwoVerticesCoincide_Test, TQTe
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenVerticesAreAligned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10 };
@@ -428,7 +428,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenVerticesAreAligned_Test, TQTem
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -440,7 +440,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenVerticesAreAligned_Test, TQTem
         bAssertionFailed = true;
     }
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -451,7 +451,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_AssertionFailsWhenVerticesAreAligned_Test, TQTem
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetNormal_ResultIsNormalized_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_3, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_2, SQFloat::_9 };
@@ -462,10 +462,10 @@ QTEST_CASE_TEMPLATE ( GetNormal_ResultIsNormalized_Test, TQTemplateTypes )
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VALUE_FOR_A, VALUE_FOR_B, VALUE_FOR_C);
 
-	// Execution
+	// [Execution]
     QVector3 vNormal = TRIANGLE.GetNormal();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vNormal == vNormal.Normalize());
 }
 
@@ -474,7 +474,7 @@ QTEST_CASE_TEMPLATE ( GetNormal_ResultIsNormalized_Test, TQTemplateTypes )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetCircumcenter_ReturnsExpectedResultFromCommonTriangle_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -488,10 +488,10 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_ReturnsExpectedResultFromCommonTriangle_Te
     const float_q CIRCUMCENTER_COMPONENTS[] = { (float_q)2.214285714285714, (float_q)1.9285714285714288, (float_q)3.6428571428571428, SQFloat::_1 };
     const T EXPECTED_CIRCUMCENTER = T(CIRCUMCENTER_COMPONENTS);
 
-	// Execution
+	// [Execution]
     T vCircumcenter = TRIANGLE.GetCircumcenter();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(vCircumcenter == EXPECTED_CIRCUMCENTER);
 }
 
@@ -502,7 +502,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_ReturnsExpectedResultFromCommonTriangle_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -515,7 +515,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenTwoVerticesCoincide_Test
     const QTriangle3D<T> TRIANGLE_B_AND_C(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_B);
     const QTriangle3D<T> TRIANGLE_C_AND_A(VECTOR_COMPONENTS_C, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     bool bAssertionFailedWhenABCoincide = false;
 
     try
@@ -549,7 +549,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenTwoVerticesCoincide_Test
         bAssertionFailedWhenCACoincide = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailedWhenABCoincide, ASSERTION_FAILED_WHEN_A_AND_B_COINCIDE);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBCCoincide, ASSERTION_FAILED_WHEN_B_AND_C_COINCIDE);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCACoincide, ASSERTION_FAILED_WHEN_C_AND_A_COINCIDE);
@@ -560,7 +560,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenTwoVerticesCoincide_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenVerticesAreAligned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10 };
@@ -569,7 +569,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenVerticesAreAligned_Test,
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -581,7 +581,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenVerticesAreAligned_Test,
         bAssertionFailed = true;
     }
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -592,7 +592,7 @@ QTEST_CASE_TEMPLATE ( GetCircumcenter_AssertionFailsWhenVerticesAreAligned_Test,
 /// </summary>
 QTEST_CASE ( GetCircumcenter_OutputWComponentDependsOnInputVertices_Test)
 {
-    // Preparation
+    // [Preparation]
     const QVector4 VALUE_FOR_A(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1);
     const QVector4 VALUE_FOR_B(SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1);
     const QVector4 VALUE_FOR_C(SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1);
@@ -605,11 +605,11 @@ QTEST_CASE ( GetCircumcenter_OutputWComponentDependsOnInputVertices_Test)
 
     const QVector4 EXPECTED_CIRCUMCENTER = QVector4((float_q)2.2142856, (float_q)1.9285715, (float_q)3.6428571, SQFloat::_1);
 
-	// Execution
+	// [Execution]
     QVector4 vCircumcenter1 = TRIANGLE1.GetCircumcenter();
     QVector4 vCircumcenter2 = TRIANGLE2.GetCircumcenter();
 
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(vCircumcenter1.w, vCircumcenter2.w) );
 }
 
@@ -618,7 +618,7 @@ QTEST_CASE ( GetCircumcenter_OutputWComponentDependsOnInputVertices_Test)
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate1_CommonTriangleIsCorrectlyTranslatedWhenUsingCommonVector_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -635,10 +635,10 @@ QTEST_CASE_TEMPLATE ( Translate1_CommonTriangleIsCorrectlyTranslatedWhenUsingCom
 
     const QVector3 TRANSLATION = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -649,7 +649,7 @@ QTEST_CASE_TEMPLATE ( Translate1_CommonTriangleIsCorrectlyTranslatedWhenUsingCom
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate1_TriangleIsNotTranslatedWhenTranslationIsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -662,10 +662,10 @@ QTEST_CASE_TEMPLATE ( Translate1_TriangleIsNotTranslatedWhenTranslationIsZero_Te
 
     const QVector3 TRANSLATION = QVector3::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -676,7 +676,7 @@ QTEST_CASE_TEMPLATE ( Translate1_TriangleIsNotTranslatedWhenTranslationIsZero_Te
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate2_CommonTriangleIsCorrectlyTranslatedWhenUsingCommonValues_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -695,10 +695,10 @@ QTEST_CASE_TEMPLATE ( Translate2_CommonTriangleIsCorrectlyTranslatedWhenUsingCom
     const float_q TRANSLATION_Y = SQFloat::_2;
     const float_q TRANSLATION_Z = SQFloat::_3;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION_X, TRANSLATION_Y, TRANSLATION_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -709,7 +709,7 @@ QTEST_CASE_TEMPLATE ( Translate2_CommonTriangleIsCorrectlyTranslatedWhenUsingCom
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate2_TriangleIsNotTranslatedWhenTranslationIsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -724,10 +724,10 @@ QTEST_CASE_TEMPLATE ( Translate2_TriangleIsNotTranslatedWhenTranslationIsZero_Te
     const float_q TRANSLATION_Y = SQFloat::_0;
     const float_q TRANSLATION_Z = SQFloat::_0;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION_X, TRANSLATION_Y, TRANSLATION_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -742,7 +742,7 @@ void Translate3_CommonTriangleIsCorrectlyTranslatedWhenUsingCommonTranslationMat
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -759,10 +759,10 @@ void Translate3_CommonTriangleIsCorrectlyTranslatedWhenUsingCommonTranslationMat
 
     const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -791,7 +791,7 @@ void Translate3_TriangleIsNotTranslatedWhenTranslationIsZero_Template()
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -804,10 +804,10 @@ void Translate3_TriangleIsNotTranslatedWhenTranslationIsZero_Template()
 
     const QTranslationMatrix<MatrixType> TRANSLATION = MatrixType::GetZeroMatrix();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -836,7 +836,7 @@ void Translate3_TriangleIsNotTranslatedWhenTranslationMatrixEqualsIdentity_Templ
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -849,10 +849,10 @@ void Translate3_TriangleIsNotTranslatedWhenTranslationMatrixEqualsIdentity_Templ
 
     const QTranslationMatrix<MatrixType> TRANSLATION = MatrixType::GetIdentity();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -877,7 +877,7 @@ QTEST_CASE_TEMPLATE ( Translate3_TriangleIsNotTranslatedWhenTranslationMatrixEqu
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate1_TriangleIsCorrectlyTransformedByCommonRotationMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -907,10 +907,10 @@ QTEST_CASE_TEMPLATE ( Rotate1_TriangleIsCorrectlyTransformedByCommonRotationMatr
     const T EXPECTED_VALUE_FOR_B(EXPECTED_VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(EXPECTED_VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -921,7 +921,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_TriangleIsCorrectlyTransformedByCommonRotationMatr
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate1_TriangleIsNotRotatedWhenQuaternionEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     
@@ -937,10 +937,10 @@ QTEST_CASE_TEMPLATE ( Rotate1_TriangleIsNotRotatedWhenQuaternionEqualsIdentity_T
     const T EXPECTED_VALUE_FOR_B = TRIANGLE.B;
     const T EXPECTED_VALUE_FOR_C = TRIANGLE.C;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -951,7 +951,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_TriangleIsNotRotatedWhenQuaternionEqualsIdentity_T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate1_VerticesAreMovedToCoordinateOriginWhenQuaternionIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     
@@ -967,10 +967,10 @@ QTEST_CASE_TEMPLATE ( Rotate1_VerticesAreMovedToCoordinateOriginWhenQuaternionIs
     const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
     const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -981,7 +981,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_VerticesAreMovedToCoordinateOriginWhenQuaternionIs
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate2_TriangleIsCorrectlyTransformedByCommonRotationMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -1017,10 +1017,10 @@ QTEST_CASE_TEMPLATE ( Rotate2_TriangleIsCorrectlyTransformedByCommonRotationMatr
     const T EXPECTED_VALUE_FOR_B(EXPECTED_VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(EXPECTED_VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1031,7 +1031,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_TriangleIsCorrectlyTransformedByCommonRotationMatr
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate2_TriangleIsNotRotatedWhenMatrixEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1048,10 +1048,10 @@ QTEST_CASE_TEMPLATE ( Rotate2_TriangleIsNotRotatedWhenMatrixEqualsIdentity_Test,
     const T EXPECTED_VALUE_FOR_B = TRIANGLE.B;
     const T EXPECTED_VALUE_FOR_C = TRIANGLE.C;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1062,7 +1062,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_TriangleIsNotRotatedWhenMatrixEqualsIdentity_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1079,10 +1079,10 @@ QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEquals
     const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
     const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Rotate(ROTATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1093,7 +1093,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEquals
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_TriangleIsCorrectlyTransformedByCommonQuaternions_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -1126,10 +1126,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_TriangleIsCorrectlyTransformedByCommonQua
     const T EXPECTED_VALUE_FOR_B(EXPECTED_VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(EXPECTED_VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1140,7 +1140,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_TriangleIsCorrectlyTransformedByCommonQua
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_TriangleIsNotRotateWithPivotdWhenQuaternionEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     
@@ -1159,10 +1159,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_TriangleIsNotRotateWithPivotdWhenQuaterni
     const T EXPECTED_VALUE_FOR_B = TRIANGLE.B;
     const T EXPECTED_VALUE_FOR_C = TRIANGLE.C;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1173,7 +1173,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_TriangleIsNotRotateWithPivotdWhenQuaterni
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot1_VerticesAreMovedToPivotPositionWhenQuaternionIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     
@@ -1192,10 +1192,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_VerticesAreMovedToPivotPositionWhenQuater
     const T EXPECTED_VALUE_FOR_B = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_C = PIVOT_POINT;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1206,7 +1206,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_VerticesAreMovedToPivotPositionWhenQuater
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale1_CommonTriangleIsCorrectlyScaledWhenUsingCommonVector_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1223,10 +1223,10 @@ QTEST_CASE_TEMPLATE ( Scale1_CommonTriangleIsCorrectlyScaledWhenUsingCommonVecto
 
     const QVector3 SCALE = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1237,7 +1237,7 @@ QTEST_CASE_TEMPLATE ( Scale1_CommonTriangleIsCorrectlyScaledWhenUsingCommonVecto
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale1_TriangleIsNotScaledWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1250,10 +1250,10 @@ QTEST_CASE_TEMPLATE ( Scale1_TriangleIsNotScaledWhenVectorComponentsEqualOne_Tes
 
     const QVector3 SCALE = QVector3::GetVectorOfOnes();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1264,7 +1264,7 @@ QTEST_CASE_TEMPLATE ( Scale1_TriangleIsNotScaledWhenVectorComponentsEqualOne_Tes
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 SCALE = QVector3::GetZeroVector();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
@@ -1277,10 +1277,10 @@ QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_
     const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
     const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1291,7 +1291,7 @@ QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale2_CommonTriangleIsCorrectlyScaledWhenUsingCommonValues_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1310,10 +1310,10 @@ QTEST_CASE_TEMPLATE ( Scale2_CommonTriangleIsCorrectlyScaledWhenUsingCommonValue
     const float_q SCALE_Y = SQFloat::_2;
     const float_q SCALE_Z = SQFloat::_3;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE_X, SCALE_Y, SCALE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1324,7 +1324,7 @@ QTEST_CASE_TEMPLATE ( Scale2_CommonTriangleIsCorrectlyScaledWhenUsingCommonValue
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale2_TriangleIsNotScaledWhenValuesEqualOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1339,10 +1339,10 @@ QTEST_CASE_TEMPLATE ( Scale2_TriangleIsNotScaledWhenValuesEqualOne_Test, TQTempl
     const float_q SCALE_Y = SQFloat::_1;
     const float_q SCALE_Z = SQFloat::_1;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE_X, SCALE_Y, SCALE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1353,7 +1353,7 @@ QTEST_CASE_TEMPLATE ( Scale2_TriangleIsNotScaledWhenValuesEqualOne_Test, TQTempl
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale2_VerticesAreMovedToCoordinateOriginWhenValuesEqualZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q SCALE_X = SQFloat::_0;
     const float_q SCALE_Y = SQFloat::_0;
     const float_q SCALE_Z = SQFloat::_0;
@@ -1368,10 +1368,10 @@ QTEST_CASE_TEMPLATE ( Scale2_VerticesAreMovedToCoordinateOriginWhenValuesEqualZe
     const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
     const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE_X, SCALE_Y, SCALE_Z);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1384,7 +1384,7 @@ QTEST_CASE_TEMPLATE ( Scale3_CommonTriangleIsCorrectlyScaledWhenUsingCommonScali
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1401,10 +1401,10 @@ QTEST_CASE_TEMPLATE ( Scale3_CommonTriangleIsCorrectlyScaledWhenUsingCommonScali
 
     const QScalingMatrix3x3 SCALE = QScalingMatrix3x3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1418,7 +1418,7 @@ QTEST_CASE_TEMPLATE ( Scale3_TriangleIsNotScaledWhenMatrixEqualsIdentity_Test, T
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1431,10 +1431,10 @@ QTEST_CASE_TEMPLATE ( Scale3_TriangleIsNotScaledWhenMatrixEqualsIdentity_Test, T
 
     const QScalingMatrix3x3 SCALE = QMatrix3x3::GetIdentity();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1445,7 +1445,7 @@ QTEST_CASE_TEMPLATE ( Scale3_TriangleIsNotScaledWhenMatrixEqualsIdentity_Test, T
 /// </summary>
 QTEST_CASE_TEMPLATE ( Scale3_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     
@@ -1461,10 +1461,10 @@ QTEST_CASE_TEMPLATE ( Scale3_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZ
     const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
     const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1475,7 +1475,7 @@ QTEST_CASE_TEMPLATE ( Scale3_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZ
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_CommonTriangleIsCorrectlyScaledWhenUsingCommonVector_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1495,10 +1495,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_CommonTriangleIsCorrectlyScaledWhenUsingCo
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1509,7 +1509,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_CommonTriangleIsCorrectlyScaledWhenUsingCo
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_TriangleIsNotTranslatedWhenVectorComponentsEqualOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1525,10 +1525,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_TriangleIsNotTranslatedWhenVectorComponent
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1539,7 +1539,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_TriangleIsNotTranslatedWhenVectorComponent
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_VerticesAreMovedToPivotPositionWhenVectorIsNull_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const QVector3 SCALE = QVector3::GetZeroVector();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
@@ -1555,10 +1555,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_VerticesAreMovedToPivotPositionWhenVectorI
     const T EXPECTED_VALUE_FOR_B = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_C = PIVOT_POINT;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1569,7 +1569,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_VerticesAreMovedToPivotPositionWhenVectorI
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_CommonTriangleIsCorrectlyScaledWhenUsingCommonValues_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1591,10 +1591,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_CommonTriangleIsCorrectlyScaledWhenUsingCo
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1605,7 +1605,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_CommonTriangleIsCorrectlyScaledWhenUsingCo
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_TriangleIsNotScaledWhenValuesEqualOne_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1623,10 +1623,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_TriangleIsNotScaledWhenValuesEqualOne_Test
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1637,7 +1637,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_TriangleIsNotScaledWhenValuesEqualOne_Test
 /// </summary>
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_VerticesAreMovedPivotPositionWhenValuesEqualZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q SCALE_X = SQFloat::_0;
     const float_q SCALE_Y = SQFloat::_0;
     const float_q SCALE_Z = SQFloat::_0;
@@ -1655,10 +1655,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_VerticesAreMovedPivotPositionWhenValuesEqu
     const T EXPECTED_VALUE_FOR_B = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_C = PIVOT_POINT;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE_X, SCALE_Y, SCALE_Z, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1677,7 +1677,7 @@ void Transform1_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformatio
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1708,10 +1708,10 @@ void Transform1_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTransformatio
     const T EXPECTED_VALUE_FOR_B(EXPECTED_VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(EXPECTED_VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1740,7 +1740,7 @@ void Transform1_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZe
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_0 };
@@ -1753,10 +1753,10 @@ void Transform1_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZe
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetZeroMatrix();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1785,7 +1785,7 @@ void Transform1_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_T
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1798,10 +1798,10 @@ void Transform1_TriangleIsNotTransformedWhenTransformationMatrixEqualsIdentity_T
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetIdentity();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Transform(TRANSFORMATION);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1826,7 +1826,7 @@ QTEST_CASE_TEMPLATE ( Transform1_TriangleIsNotTransformedWhenTransformationMatri
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_TriangleIsCorrectlyTransformedByCommonRotationMatrix_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
@@ -1859,10 +1859,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_TriangleIsCorrectlyTransformedByCommonRot
     const T EXPECTED_VALUE_FOR_B(EXPECTED_VECTOR_COMPONENTS_B);
     const T EXPECTED_VALUE_FOR_C(EXPECTED_VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1873,7 +1873,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_TriangleIsCorrectlyTransformedByCommonRot
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_TriangleIsNotRotateWithPivotdWhenMatrixEqualsIdentity_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     
@@ -1892,10 +1892,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_TriangleIsNotRotateWithPivotdWhenMatrixEq
     const T EXPECTED_VALUE_FOR_B = TRIANGLE.B;
     const T EXPECTED_VALUE_FOR_C = TRIANGLE.C;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1906,7 +1906,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_TriangleIsNotRotateWithPivotdWhenMatrixEq
 /// </summary>
 QTEST_CASE_TEMPLATE ( RotateWithPivot2_VerticesAreMovedToPivotPositionWhenMatrixEqualsZero_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     
@@ -1925,10 +1925,10 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_VerticesAreMovedToPivotPositionWhenMatrix
     const T EXPECTED_VALUE_FOR_B = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_C = PIVOT_POINT;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.RotateWithPivot(ROTATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1941,7 +1941,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_CommonTriangleIsCorrectlyScaledWhenUsingCo
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_4, SQFloat::_2, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1961,10 +1961,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_CommonTriangleIsCorrectlyScaledWhenUsingCo
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -1977,7 +1977,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_TriangleIsNotTranslatedWhenMatrixEqualsIde
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -1993,10 +1993,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_TriangleIsNotTranslatedWhenMatrixEqualsIde
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -2009,7 +2009,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_VerticesAreMovedToPivotPositionWhenMatrixE
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    // Preparation
+    // [Preparation]
     const QScalingMatrix3x3 SCALE = QScalingMatrix3x3::GetZeroMatrix();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
@@ -2025,10 +2025,10 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_VerticesAreMovedToPivotPositionWhenMatrixE
     const T EXPECTED_VALUE_FOR_B = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_C = PIVOT_POINT;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.ScaleWithPivot(SCALE, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -2047,7 +2047,7 @@ void TransformWithPivot_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTrans
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2081,10 +2081,10 @@ void TransformWithPivot_CommonTriangleIsCorrectlyTransformedWhenUsingCommonTrans
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -2113,7 +2113,7 @@ void TransformWithPivot_TriangleVerticesAreMovedPivotPositionWhenTransformationI
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2129,10 +2129,10 @@ void TransformWithPivot_TriangleVerticesAreMovedPivotPositionWhenTransformationI
 
     const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetZeroMatrix();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -2161,7 +2161,7 @@ void TransformWithPivot_TriangleIsNotTransformedWhenTransformationMatrixEqualsId
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_2, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2177,10 +2177,10 @@ void TransformWithPivot_TriangleIsNotTransformedWhenTransformationMatrixEqualsId
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_VALUE_FOR_A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_VALUE_FOR_B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_VALUE_FOR_C);
@@ -2207,7 +2207,7 @@ QTEST_CASE_TEMPLATE ( Transform2_IsCorrectlyTransformedByCommonSpaceConversionMa
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     QSpaceConversionMatrix CONVERSION = QSpaceConversionMatrix();
     CONVERSION.SetViewSpaceMatrix(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3),
                                   QVector3(SQFloat::_0, SQFloat::_0, SQFloat::_1),
@@ -2231,10 +2231,10 @@ QTEST_CASE_TEMPLATE ( Transform2_IsCorrectlyTransformedByCommonSpaceConversionMa
                                                             EXPECTED_VALUE_FOR_B,
                                                             EXPECTED_VALUE_FOR_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangle = TRIANGLE.Transform(CONVERSION);
     	
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangle == EXPECTED_TRIANGLE);
 }
 
@@ -2245,7 +2245,7 @@ QTEST_CASE_TEMPLATE ( Transform2_LineSegmentDoesNotChangeWhenTransformedByIdenti
 {
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
-    // Preparation
+    // [Preparation]
     const QSpaceConversionMatrix IDENTITY_MATRIX = QSpaceConversionMatrix::GetIdentity();
 
     const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
@@ -2258,10 +2258,10 @@ QTEST_CASE_TEMPLATE ( Transform2_LineSegmentDoesNotChangeWhenTransformedByIdenti
 
     const QTriangle3D<T> EXPECTED_TRIANGLE = TRIANGLE;
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangle = TRIANGLE.Transform(IDENTITY_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangle == EXPECTED_TRIANGLE);
 }
 
@@ -2273,7 +2273,7 @@ QTEST_CASE_TEMPLATE ( Transform2_EndpointsAreNullifiedWhenMatrixIsZero_Test, TQT
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    // Preparation
+    // [Preparation]
     const QSpaceConversionMatrix ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
 
     const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
@@ -2286,10 +2286,10 @@ QTEST_CASE_TEMPLATE ( Transform2_EndpointsAreNullifiedWhenMatrixIsZero_Test, TQT
 
     const QTriangle3D<T> EXPECTED_TRIANGLE = QTriangle3D<T>(T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector());
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> triangle = TRIANGLE.Transform(ZERO_MATRIX);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(triangle == EXPECTED_TRIANGLE);
 }
 
@@ -2307,7 +2307,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheTriangleIsBehindPla
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, -SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, -SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2317,10 +2317,10 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheTriangleIsBehindPla
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_NegativeSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -2338,7 +2338,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheTriangleIsInFrontPl
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2348,10 +2348,10 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheTriangleIsInFrontPl
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_PositiveSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -2370,7 +2370,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsBothSidesWhenTheTriangleIntersectsWith
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, -SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, -SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2380,10 +2380,10 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsBothSidesWhenTheTriangleIntersectsWith
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_BothSides;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -2403,7 +2403,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsContainedWhenTheTriangleBelongsToPlane
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_10).Normalize();
 
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2414,10 +2414,10 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsContainedWhenTheTriangleBelongsToPlane
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_Contained;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -2435,7 +2435,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheTriangleIsBehindPla
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, -SQFloat::_10).Normalize();
 
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2445,10 +2445,10 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsNegativeSideWhenTheTriangleIsBehindPla
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_NegativeSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -2466,7 +2466,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheTriangleIsInFrontPl
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_10).Normalize();
 
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
@@ -2476,10 +2476,10 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ReturnsPositiveSideWhenTheTriangleIsInFrontPl
 
     const EQSpaceRelation EXPECTED_RESULT = EQSpaceRelation::E_PositiveSide;
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResult = TRIANGLE.SpaceRelation(PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResult, EXPECTED_RESULT);
 }
 
@@ -2497,7 +2497,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane NONNORMALIZED_PLANE = QPlane(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, -SQFloat::_10);
     const QPlane NORMALIZED_PLANE = NONNORMALIZED_PLANE.Normalize();
 
@@ -2506,11 +2506,11 @@ QTEST_CASE_TEMPLATE( SpaceRelation_ResultIsNotDifferentWhenPlaneIsNotNormalized_
     const float_q VECTOR_COMPONENTS_C[] = { NORMALIZED_PLANE.a * -NORMALIZED_PLANE.d, NORMALIZED_PLANE.b * -NORMALIZED_PLANE.d, NORMALIZED_PLANE.c * -NORMALIZED_PLANE.d, SQFloat::_1 };
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     EQSpaceRelation eResultNonNotmalized = TRIANGLE.SpaceRelation(NONNORMALIZED_PLANE);
     EQSpaceRelation eResultNormalized = TRIANGLE.SpaceRelation(NORMALIZED_PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(eResultNonNotmalized, eResultNormalized);
 }
 
@@ -2523,7 +2523,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
@@ -2533,7 +2533,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2545,7 +2545,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenPlaneIsNull_Test, TQTemplat
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2558,7 +2558,7 @@ QTEST_CASE_TEMPLATE( Extrude_ReturnsWhatExpectedWhenInputValueIsPositive_Test, T
 {
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2571,10 +2571,10 @@ QTEST_CASE_TEMPLATE( Extrude_ReturnsWhatExpectedWhenInputValueIsPositive_Test, T
     EXPECTED_TRIANGLE.B += DISPLACEMENT;
     EXPECTED_TRIANGLE.C += DISPLACEMENT;
     
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Extrude(INPUT_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_TRIANGLE.A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_TRIANGLE.B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_TRIANGLE.C);
@@ -2587,7 +2587,7 @@ QTEST_CASE_TEMPLATE( Extrude_ReturnsWhatExpectedWhenInputValueIsNegative_Test, T
 {
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2600,10 +2600,10 @@ QTEST_CASE_TEMPLATE( Extrude_ReturnsWhatExpectedWhenInputValueIsNegative_Test, T
     EXPECTED_TRIANGLE.B += DISPLACEMENT;
     EXPECTED_TRIANGLE.C += DISPLACEMENT;
     
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Extrude(INPUT_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_TRIANGLE.A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_TRIANGLE.B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_TRIANGLE.C);
@@ -2616,7 +2616,7 @@ QTEST_CASE_TEMPLATE( Extrude_TriangleDoesNotChangeWhenInputValueIsZero_Test, TQT
 {
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2625,10 +2625,10 @@ QTEST_CASE_TEMPLATE( Extrude_TriangleDoesNotChangeWhenInputValueIsZero_Test, TQT
     const float_q INPUT_VALUE = SQFloat::_0;
     const QTriangle3D<T> EXPECTED_TRIANGLE = TRIANGLE;
     
-	// Execution
+	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Extrude(INPUT_VALUE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(returnedTriangle.A == EXPECTED_TRIANGLE.A);
     BOOST_CHECK(returnedTriangle.B == EXPECTED_TRIANGLE.B);
     BOOST_CHECK(returnedTriangle.C == EXPECTED_TRIANGLE.C);
@@ -2641,7 +2641,7 @@ QTEST_CASE_TEMPLATE( Extrude_TriangleDoesNotChangeWhenInputValueIsZero_Test, TQT
 /// </summary>
 QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_0_5, SQFloat::_0, SQFloat::_9, SQFloat::_10 };
@@ -2656,7 +2656,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemp
 
     const float_q INPUT_VALUE = -SQFloat::_3;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailedWhenABCoincide = false;
 
     try
@@ -2690,7 +2690,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemp
         bAssertionFailedWhenCACoincide = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailedWhenABCoincide, ASSERTION_FAILED_WHEN_A_AND_B_COINCIDE);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenBCCoincide, ASSERTION_FAILED_WHEN_B_AND_C_COINCIDE);
     BOOST_CHECK_EQUAL(bAssertionFailedWhenCACoincide, ASSERTION_FAILED_WHEN_C_AND_A_COINCIDE);
@@ -2701,7 +2701,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenTwoVerticesCoincide_Test, TQTemp
 /// </summary>
 QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenVerticesAreAligned_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_7, SQFloat::_8, SQFloat::_9, SQFloat::_10 };
@@ -2712,7 +2712,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenVerticesAreAligned_Test, TQTempl
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2724,7 +2724,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenVerticesAreAligned_Test, TQTempl
         bAssertionFailed = true;
     }
     
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2735,7 +2735,7 @@ QTEST_CASE_TEMPLATE ( Extrude_AssertionFailsWhenVerticesAreAligned_Test, TQTempl
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetOrthocenter_OrthocenterIsCorrectlyCalculatedWhenUsingCommonTriangle_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_6, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { -SQFloat::_2, SQFloat::_3, SQFloat::_6, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_3, SQFloat::_4, SQFloat::_6, SQFloat::_1 };
@@ -2749,10 +2749,10 @@ QTEST_CASE_TEMPLATE ( GetOrthocenter_OrthocenterIsCorrectlyCalculatedWhenUsingCo
     const float_q EXPECTED_VALUE_COMPONENTES[] = { SQFloat::_3, -SQFloat::_2, SQFloat::_6, SQFloat::_1 };
     const T EXPECTED_VALUE_ORTHOCENTER = T(EXPECTED_VALUE_COMPONENTES);
 
-	// Execution
+	// [Execution]
     T orthocenter = TRIANGLE.GetOrthocenter();
     
-    // Verification
+    // [Verification]
     BOOST_CHECK(orthocenter == EXPECTED_VALUE_ORTHOCENTER);
 }
 
@@ -2761,7 +2761,7 @@ QTEST_CASE_TEMPLATE ( GetOrthocenter_OrthocenterIsCorrectlyCalculatedWhenUsingCo
 /// </summary>
 QTEST_CASE ( GetOrthocenter_WComponentAffectsResult_Test )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_2, SQFloat::_3, SQFloat::_6, SQFloat::_7 };
     const float_q VECTOR_COMPONENTS_B[] = { -SQFloat::_2, SQFloat::_3, SQFloat::_6, SQFloat::_8 };
     const float_q VECTOR_COMPONENTS_C1[] = { SQFloat::_3, SQFloat::_4, SQFloat::_6, SQFloat::_10 };
@@ -2775,11 +2775,11 @@ QTEST_CASE ( GetOrthocenter_WComponentAffectsResult_Test )
     const QTriangle3D<QVector4> TRIANGLE1 = QTriangle3D<QVector4>(POINT_A, POINT_B, POINT_C1);
     const QTriangle3D<QVector4> TRIANGLE2 = QTriangle3D<QVector4>(POINT_A, POINT_B, POINT_C2);
     
-    // Execution
+    // [Execution]
     QVector4 orthocenter1 = TRIANGLE1.GetOrthocenter();
     QVector4 orthocenter2 = TRIANGLE2.GetOrthocenter();
     
-    // Verification
+    // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(orthocenter1.w, orthocenter2.w) );
 }
 
@@ -2790,7 +2790,7 @@ QTEST_CASE ( GetOrthocenter_WComponentAffectsResult_Test )
 /// </summary>
 QTEST_CASE_TEMPLATE ( GetOrthocenter_AssertionFailsWhenAllPointsCoincide_Test, TQTemplateTypes )
 {
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS[] = { SQFloat::_2, SQFloat::_3, SQFloat::_6, SQFloat::_7 };
     const T POINT = T(VECTOR_COMPONENTS);
 
@@ -2798,7 +2798,7 @@ QTEST_CASE_TEMPLATE ( GetOrthocenter_AssertionFailsWhenAllPointsCoincide_Test, T
     
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
     
     try
@@ -2810,7 +2810,7 @@ QTEST_CASE_TEMPLATE ( GetOrthocenter_AssertionFailsWhenAllPointsCoincide_Test, T
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
@@ -2824,7 +2824,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIsInNegativeSide_T
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_5, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, -SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, -SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2841,10 +2841,10 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIsInNegativeSide_T
 
     const QPlane PLANE = QPlane(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, -SQFloat::_10).Normalize();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> projectedTriangle = TRIANGLE.ProjectToPlane(PLANE);
     
-    // Verification
+    // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedTriangle.SpaceRelation(PLANE);
     //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
@@ -2861,7 +2861,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIsInPositiveSide_T
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2874,10 +2874,10 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIsInPositiveSide_T
 
     const QPlane PLANE = QPlane(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, SQFloat::_10).Normalize();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> projectedTriangle = TRIANGLE.ProjectToPlane(PLANE);
     
-    // Verification
+    // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedTriangle.SpaceRelation(PLANE);
     //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
@@ -2894,7 +2894,7 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIntersectsWithPlan
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, -SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, -SQFloat::_6, -SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { -SQFloat::_3, -SQFloat::_5, -SQFloat::_4, SQFloat::_1 };
@@ -2911,10 +2911,10 @@ QTEST_CASE_TEMPLATE ( ProjectToPlane_TriangleIsProjectedWhenItIntersectsWithPlan
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_10).Normalize();
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> projectedTriangle = TRIANGLE.ProjectToPlane(PLANE);
     
-    // Verification
+    // [Verification]
     // [TODO] Thund: Uncomment when imprecision issues are resolved
     //EQSpaceRelation eResult = projectedTriangle.SpaceRelation(PLANE);
     //BOOST_CHECK_EQUAL(eResult, EQSpaceRelation::E_Contained);
@@ -2931,7 +2931,7 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_ResultIsDifferentWhenPlaneIsNotNormalized_Te
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
     using Kinesis::QuimeraEngine::Tools::Math::EQSpaceRelation;
 
-    // Preparation
+    // [Preparation]
     const QPlane NONNORMALIZED_PLANE = QPlane(SQFloat::_0_5, SQFloat::_1, SQFloat::_2, -SQFloat::_10);
     const QPlane NORMALIZED_PLANE = NONNORMALIZED_PLANE.Normalize();
 
@@ -2940,11 +2940,11 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_ResultIsDifferentWhenPlaneIsNotNormalized_Te
     const float_q VECTOR_COMPONENTS_C[] = { NORMALIZED_PLANE.a * -NORMALIZED_PLANE.d, NORMALIZED_PLANE.b * -NORMALIZED_PLANE.d, NORMALIZED_PLANE.c * -NORMALIZED_PLANE.d, SQFloat::_1 };
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-	// Execution
+	// [Execution]
     QTriangle3D<T> resultNonNotmalized = TRIANGLE.ProjectToPlane(NONNORMALIZED_PLANE);
     QTriangle3D<T> resultNormalized = TRIANGLE.ProjectToPlane(NORMALIZED_PLANE);
 
-    // Verification
+    // [Verification]
     BOOST_CHECK(resultNonNotmalized != resultNormalized);
 }
 
@@ -2957,7 +2957,7 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
 {
     using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
-    // Preparation
+    // [Preparation]
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_3, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_0, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const float_q VECTOR_COMPONENTS_C[] = { SQFloat::_4, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
@@ -2967,7 +2967,7 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
 
     const bool ASSERTION_FAILED = true;
 
-	// Execution
+	// [Execution]
     bool bAssertionFailed = false;
 
     try
@@ -2979,7 +2979,7 @@ QTEST_CASE_TEMPLATE( ProjectToPlane_AssertionFailsWhenPlaneIsNull_Test, TQTempla
         bAssertionFailed = true;
     }
 
-    // Verification
+    // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
 
