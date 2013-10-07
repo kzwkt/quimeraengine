@@ -46,7 +46,9 @@ namespace Math
 {
 
 /// <summary>
-/// This class implements the functionality of a matrix with 3 rows and 4 columns.<br/>
+/// This class implements the functionality of a matrix with 3 rows and 4 columns.
+/// </summary>
+/// <remarks>
 /// A matrix is a rectangular arrangement of numbers.<br/>
 /// The horizontal and vertical lines in a matrix
 /// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br/>
@@ -55,11 +57,10 @@ namespace Math
 /// Every element is referenced by its position in the matrix.<br/>
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
 /// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$.<br/>
-/// In this case, we will work with 4x3 matrices, therefore our matrix will be:
-///
+/// In this case, we will work with 4x3 matrices, therefore our matrix will be:<br/>
+/// <br/>
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02} & a_{03}\\ a_{10} & a_{11} & a_{12} & a_{13}\\ a_{20} & a_{21} & a_{22} & a_{23}\end{bmatrix}\f$
-///
-/// </summary>
+/// <remarks>
 class QDllExport QMatrix3x4 : public QBaseMatrix3x4
 {
 	// FRIENDS
@@ -273,7 +274,7 @@ public:
     QMatrix3x4& operator*=(const QBaseMatrix4x4 &matrix);
 
     /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// Assignation operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
@@ -288,8 +289,7 @@ public:
 
 	/// <summary>
 	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-	/// and each column becomes a row.<br/>
-	/// Every element Aij becomes Aji. It's noted A^T
+	/// and each column becomes a row. Every element Aij becomes Aji. It's noted A^T.
  	/// </summary>
 	/// <remarks>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
@@ -315,10 +315,13 @@ public:
     void ResetToIdentity();
 
 	/// <summary>
-	/// Converts matrix into a string with the following format:<br/>
+	/// Converts the matrix into a string.
+	/// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
     /// "M3x4($ij[0][0],$ij[0][1],$ij[0][2],$ij[0][3],$ij[1][0],$ij[1][1],$ij[1][2],$ij[1][3],$ij[2][0],$ij[2][1],$ij[2][2],$ij[2][3])".<br/>
     /// Where "$" means "string representation of attribute".
-	/// </summary>
+    /// </remarks>
 	/// <returns>
     /// The string with the format specified.
     /// </returns>

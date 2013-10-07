@@ -53,9 +53,11 @@ class QTransformationMatrix3x3;
 
 
 /// <summary>
-/// Represents a ray in 2D space, which consists of a origin point or position, and a direction.<br/>
-/// The direction symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
+/// Represents a ray in 2D space, which consists of a origin point or position, and a direction.
 /// </summary>
+/// <remarks>
+/// The direction symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
+/// </remarks>
 class QDllExport QRay2D : public QRay<QVector2, QVector2>
 {
     // BASE CLASS USINGS
@@ -88,14 +90,13 @@ public:
     QRay2D(const QBaseRay<QVector2, QVector2> &ray);
 
     /// <summary>
-    /// Constructor that receives the ray's position and direction.<br/>
-    /// The direction vector must be normalized.
+    /// Constructor that receives the ray's position and direction.
     /// </summary>
-    /// <param name="vOrigin">[IN] Ray's position.</param>
-    /// <param name="vDirection">[IN] Ray's direction.</param>
     /// <remarks>
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
+    /// <param name="vOrigin">[IN] Ray's position.</param>
+    /// <param name="vDirection">[IN] Ray's direction.</param>
     QRay2D(const QVector2 &vOrigin, const QVector2 &vDirection);
 
 
@@ -133,7 +134,7 @@ public:
 public:
 
     /// <summary>
-    /// Assign operator that receives another ray.
+    /// Assignation operator that receives another ray.
     /// </summary>
     /// <param name="ray">[IN] An existing ray.</param>
     /// <returns>

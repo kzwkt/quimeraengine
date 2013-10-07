@@ -50,8 +50,7 @@ class QTransformationMatrix3x3;
 
 
 /// <summary>
-/// Class which represents a triangle in 2D.<br/>
-/// Methods in this class are related to transformations in 2D.
+/// Class which represents a triangle in 2D.
 /// </summary>
 class QDllExport QTriangle2D : public QTriangle<QVector2>
 {
@@ -86,9 +85,11 @@ public:
 	QTriangle2D(const QVector2 &vA, const QVector2 &vB, const QVector2 &vC);
 
 	/// <summary>
-	/// Constructor from three pointer-to-float type, one for each vertex.<br/>
+	/// Constructor from three pointer-to-float type, one for each vertex.
+    /// </summary>
+    /// <remarks>
 	/// Each pointer references to an array which has at least two elements.
-	/// </summary>
+    /// </remarks>
 	/// <param name="arValuesA">[IN] Array of components of the vertex A. If it is null, the behavior is undefined.</param>
 	/// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
 	/// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
@@ -108,8 +109,7 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator.<br/>
-	/// Assigns the provided triangle to the resident triangle.
+	/// Assignation operator. Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle that is assigned to current triangle.</param>
     /// <returns>
@@ -118,9 +118,11 @@ public:
 	QTriangle2D& operator=(const QBaseTriangle<QVector2> &triangle);
 
 	/// <summary>
-	/// Receives a transformation matrix and applies its transformations to the resident triangle.<br/>
+	/// Receives a transformation matrix and applies its transformations to the resident triangle.
+    /// </summary>
+    /// <remarks>
 	/// The origin of transformations is the coordinate axis origin.
-	/// </summary>
+	/// </remarks>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
     /// <returns>
     /// The transformed triangle.
@@ -129,9 +131,11 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a 2D vector (transformation pivot) and applies the transformations
-	/// to the resident triangle.<br/>
+	/// to the resident triangle.
+    /// </summary>
+    /// <remarks>
 	/// The origin of transformations is the vector type point received as parameter.
-	/// </summary>
+	/// </remarks>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] 2D Vector Pivot used for the transformation.</param>
     /// <returns>

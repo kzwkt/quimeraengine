@@ -43,7 +43,9 @@ namespace Math
 {
 
 /// <summary>
-/// This class implements the functionality of a matrix with 2 rows and 2 columns.<br/>
+/// This class implements the functionality of a matrix with 2 rows and 2 columns.
+/// </summary>
+/// <remarks>
 /// A matrix is a rectangular arrangement of numbers.<br/>
 /// The horizontal and vertical lines in a matrix
 /// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br/>
@@ -55,7 +57,7 @@ namespace Math
 /// In this case, we will work with 2x2 matrices, therefore our matrix will be:<br/>
 ///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} \\ a_{10} & a_{11} \end{bmatrix}\f$
-/// </summary>
+/// </remarks>
 class QDllExport QMatrix2x2 : public QBaseMatrix2x2
 {
     // FRIENDS
@@ -141,11 +143,13 @@ public:
 
     /// <summary>
     /// Gets an identity matrix.
+    /// </summary>
+    /// <remarks>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 \\ 0 & 1 \end{bmatrix}\f$
     ///
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// An identity matrix.
     /// </returns>
@@ -166,7 +170,9 @@ public:
     QMatrix2x2 operator*(const float_q &fScalar) const;
 
     /// <summary>
-    /// Multiplies a 2x2 matrix by the current matrix.<br/>
+    /// Multiplies a 2x2 matrix by the resident matrix.
+    /// </summary>
+    /// <remarks>
     /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix [m x p].<br/>
     /// So, left matrix must have same number of columns than rows have right matrix.<br/>
     /// The product is not conmutative. To perform a product of matrices, each element is calculated as
@@ -175,9 +181,7 @@ public:
     /// \f$ A\times B = C \f$
     ///
     /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
-    ///
-    /// </summary>
-    /// <remarks>
+    /// <br/>
     /// This product is not conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
@@ -197,7 +201,7 @@ public:
     QMatrix2x2 operator/(const float_q &fScalar) const;
 
     /// <summary>
-    /// Adds a 2x2 matrix to the current matrix.
+    /// Adds a 2x2 matrix to the resident matrix.
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be added to.</param>
     /// <returns>
@@ -206,7 +210,7 @@ public:
     QMatrix2x2 operator+(const QBaseMatrix2x2 &matrix) const;
 
     /// <summary>
-    /// Subtracts a 2x2 matrix to the current matrix.
+    /// Subtracts a 2x2 matrix to the resident matrix.
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be subtracted to.</param>
     /// <returns>
@@ -215,8 +219,11 @@ public:
     QMatrix2x2 operator-(const QBaseMatrix2x2 &matrix) const;
 
     /// <summary>
-    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// Product and assign operator. 
     /// </summary>
+    /// <remarks>
+    /// Resident matrix stores the result of the multiplication.
+    /// </remarks>
     /// <param name="fScalar">[IN] The floating point value to be multiplied by.</param>
     /// <returns>
     /// The modified matrix.
@@ -224,8 +231,11 @@ public:
     QMatrix2x2& operator*=(const float_q fScalar);
 
     /// <summary>
-    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// Product and assign operator.
     /// </summary>
+    /// <remarks>
+    /// Resident matrix stores the result of the multiplication.
+    /// </remarks>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     /// <returns>
     /// The modified matrix.
@@ -233,8 +243,11 @@ public:
     QMatrix2x2& operator*=(const QBaseMatrix2x2 &matrix);
 
     /// <summary>
-    /// Division and assign operator. Current matrix stores the result of the division.
+    /// Division and assign operator.
     /// </summary>
+    /// <remarks>
+    /// Resident matrix stores the result of the division.
+    /// </remarks>
     /// <param name="fScalar">[IN] The floating point value by which to divide. If the number equals zero, the result 
     /// is undefined.</param>
     /// <returns>
@@ -243,8 +256,11 @@ public:
     QMatrix2x2& operator/=(const float_q &fScalar);
 
     /// <summary>
-    /// Addition and assign operator. Current matrix stores the result of the addition.
+    /// Addition and assign operator.
     /// </summary>
+    /// <remarks>
+    /// Resident matrix stores the result of the addition.
+    /// </remarks>
     /// <param name="matrix">[IN] The matrix to be added to.</param>
     /// <returns>
     /// The modified matrix.
@@ -252,8 +268,11 @@ public:
     QMatrix2x2& operator+=(const QBaseMatrix2x2 &matrix);
 
     /// <summary>
-    /// Subtraction and assign operator. Current matrix stores the result of the subtraction.
+    /// Subtraction and assign operator.
     /// </summary>
+    /// <remarks>
+    /// Resident matrix stores the result of the subtraction.
+    /// </remarks>
     /// <param name="matrix">[IN] The matrix to be subtracted to.</param>
     /// <returns>
     /// The modified matrix.
@@ -261,8 +280,11 @@ public:
     QMatrix2x2& operator-=(const QBaseMatrix2x2 &matrix);
 
     /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// Assignation operator.
     /// </summary>
+    /// <remarks>
+    /// Assigns the provided matrix to the resident matrix.
+    /// </remarks>
     /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
     /// A reference to the modified matrix.
@@ -275,18 +297,20 @@ public:
     void ResetToZero();
 
     /// <summary>
-    /// Resets the matrix to a identity matrix.<br/>
-    /// The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, and it's set to 1 if \f$ i=j \f$.
+    /// Resets the matrix to a identity matrix.
     /// </summary>
+    /// <remarks>
+    /// The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, and it's set to 1 if \f$ i=j \f$.
+    /// </remarks>
     void ResetToIdentity();
 
     /// <summary>
     /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row.<br/>
-    /// Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$.<br/>
-    /// It's noted \f$ A^T \f$.
+    /// and each column becomes a row.
     /// </summary>
     /// <remarks>
+    /// Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$.<br/>
+    /// It's noted \f$ A^T \f$.<br/>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
     /// </remarks>
     /// <returns>
@@ -312,46 +336,49 @@ public:
     bool IsIdentity() const;
 
     /// <summary>
-    /// Calculates the determinant of the matrix.<br/>
+    /// Calculates the determinant of the matrix.
+    /// </summary>
+    /// <remarks>
     /// It's only applicable to square matrices.<br/>
     /// A determinant is a real number obtained
     /// through the addition of all possible products between elements of different
     /// row and column, where the sign of a product derives from the parity of the permutation involved.
-    /// In practice, we can calculate any determinant this way:
-    ///
-    /// Order 1: \f$\left|A\right| = a_{00}\f$
-    ///
-    /// Order 2: \f$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\f$
-    ///
-    /// Order 3: \f$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$
-    ///
+    /// In practice, we can calculate any determinant this way:<br/>
+    /// <br/>
+    /// Order 1: \f$\left|A\right| = a_{00}\f$<br/>
+    /// <br/>
+    /// Order 2: \f$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\f$<br/>
+    /// <br/>
+    /// Order 3: \f$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$<br/>
+    /// <br/>
     /// Any other order can be solved developing determinant by a row or a column, reducing
     /// the problem to other of one order less.
-    /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
-    ///
-    /// \f$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\f$,
-    ///
+    /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:<br/>
+    /// <br/>
+    /// \f$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\f$,<br/>
+    /// <br/>
     /// where \f$ M_{ij}\f$ is the submatrix obtained by deleting from the original matrix the i row and the j column.<br/>
     /// After that, we add all products to obtain the final value of the determinant.
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
     float_q GetDeterminant() const;
 
     /// <summary>
-    /// Inverses the matrix.<br/>
-    /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-    ///
-    /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
-    ///
-    /// We can calculate the inverse of any matrix by:
-    ///
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,
-    ///
-    /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
-    ///
+    /// Inverses the matrix.
     /// </summary>
+    /// <remarks>
+    /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:<br/>
+    /// <br/>
+    /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$<br/>
+    /// <br/>
+    /// We can calculate the inverse of any matrix by:<br/>
+    /// <br/>
+    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,<br/>
+    /// <br/>
+    /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
+    /// </remarks>
     /// <returns>
     /// The inverted matrix.
     /// </returns>
@@ -359,18 +386,23 @@ public:
 
     /// <summary>
     /// Calculates whether the matrix has inverse or not.
-    /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
+    /// <remarks>
+    /// A matrix has inverse when its determinant doesn't equal zero.
+    /// </remarks>
     /// <returns>
     /// True if the matrix has inverse, false otherwise.
     /// </returns>
     bool HasInverse() const;
 
     /// <summary>
-    /// Converts matrix into a string with the following format:<br/>
+    /// Converts matrix into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:
     /// "M2x2($ij[0][0],$ij[0][1],$ij[1][0],$ij[1][1])".<br/>
     /// Where "$" means "string representation of attribute".
-    /// </summary>
+    /// </remarks>
     /// <returns>The string with the format specified.</returns>
     string_q ToString() const;
 };

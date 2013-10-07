@@ -53,10 +53,12 @@ class QMatrix4x4;
 
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a scale factor
-/// in the direction of each coordinate axis.<br/>
+/// in the direction of each coordinate axis.
+/// </summary>
+/// <remarks>
 /// It's a diagonal matrix where element \f$ a_{00}\f$ stores the scaling value in X direction, element \f$ a_{11}\f$ stores it
 /// in Y direction and element \f$ a_{22}\f$ does it in Z direction.
-/// </summary>
+/// </remarks>
 class QDllExport QScalingMatrix3x3 : public QMatrix3x3
 {
 
@@ -106,12 +108,13 @@ public:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.<br/>
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
-    ///
+    /// Gets an identity matrix.
     /// </summary>
+    /// <remarks>
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:<br/>
+    /// <br/>
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$<br/>
+    /// </remarks>
     /// <returns>
     /// The identity matrix.
     /// </returns>
@@ -197,7 +200,7 @@ public:
 	QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const;
 
     /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// Assignation operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
     /// <remarks>
     /// If you use this operator, be sure that you are assigning a scaling matrix.
@@ -219,11 +222,13 @@ public:
     QScalingMatrix3x3& operator*=(const QScalingMatrix3x3 &matrix);
 
     /// <summary>
-    /// Inverts the matrix.<br/>
+    /// Inverts the matrix.
+    /// </summary>
+    /// <remarks>
     /// In the case of scale matrices, the inverse is composed by the inverses of its non zero elements.<br/>
     /// So, it's faster than base class method.<br/>
     /// If one of the diagonal elements is 0, the matrix has not inverse.
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
@@ -244,9 +249,11 @@ public:
     void GetScale(QBaseVector3 &vScale) const;
 
     /// <summary>
-    /// Calculates the determinant of the matrix.<br/>
-    /// Since this is a scale matrix, which is a diagonal matrix, its determinant is the product of the elements of the main diagonal.
+    /// Calculates the determinant of the matrix.
     /// </summary>
+    /// <remarks>
+    /// Since this is a scale matrix, which is a diagonal matrix, its determinant is the product of the elements of the main diagonal.
+    /// </remarks>
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>

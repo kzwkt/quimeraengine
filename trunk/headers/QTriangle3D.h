@@ -50,8 +50,7 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in 3D.<br/>
-/// Methods in this class are related to transformations in 3D.
+/// Class which represents a triangle in 3D.
 /// </summary>
 template <class VectorType>
 class QTriangle3D : public QTriangle<VectorType>
@@ -95,9 +94,11 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from three pointer-to-float type, one for each vertex.<br/>
+	/// Constructor from three pointer-to-float type, one for each vertex.
+    /// </summary>
+    /// <remarks>
 	/// Each pointer references to an array which has at least three or four elements.
-	/// </summary>
+	/// </remarks>
 	/// <param name="arValuesA">[IN] Array of components of the vertex A. If it is null, the behavior is undefined.</param>
 	/// <param name="arValuesB">[IN] Array of components of the vertex B. If it is null, the behavior is undefined.</param>
 	/// <param name="arValuesC">[IN] Array of components of the vertex C. If it is null, the behavior is undefined.</param>
@@ -123,8 +124,7 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator.<br/>
-	/// Assigns the provided triangle to the resident triangle.
+	/// Assignation operator. Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] 3D triangle that is assigned to current triangle.</param>
     /// <returns>
@@ -141,8 +141,7 @@ public:
     /// </summary>
     /// <remarks>
 	/// The resultant vector can be deduced by imagining that the triangle is facing the screen; if the vertices are traversed in alphabetical order (A, B, C then A again),
-    /// clockwise, the vector points toward the outside of the screen. If the turn direction is counter-clockwise, the vector points toward the interior of the screem. 
-    /// be deduced.<br/>
+    /// clockwise, the vector points toward the outside of the screen. If the turn direction is counter-clockwise, the vector points toward the interior of the screen.<br/>
     /// If any of the vertices of the triangle coincide or if they are colinear, the result is undefined.
 	/// </remarks>
     /// <returns>
@@ -483,11 +482,11 @@ public:
 	}
 
 	/// <summary>
-	/// Checks the space relation between current triangle and a plane recieved as parameter.<br/>
-	/// Space Relation means that the triangle is in the positive side of the space divided by the plane, 
-    /// in the negative side, in both sides (intersection) or even the triangle is contained in the plane.
+	/// Checks the space relation between the triangle and a plane received as parameter.
 	/// </summary>
     /// <remarks>
+    /// Space relation means that the triangle is in the positive side of the space divided by the plane, 
+    /// in the negative side, in both sides (intersection) or even the triangle is contained in the plane.<br/>
     /// If one or two vertices belong to the plane, the third vertex will determine whether the triangle
     /// is in the positive or negative side.
     /// </remarks>

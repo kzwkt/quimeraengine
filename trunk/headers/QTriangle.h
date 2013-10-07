@@ -47,11 +47,13 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in the space.<br/>
+/// Class which represents a triangle in the space.
+/// </summary>
+/// <remarks>
 /// The triangle may be represented in 2D or 3D,
 ///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
-/// </summary>
+/// </remarks>
 template <class VectorType>
 class QTriangle : public QBaseTriangle<VectorType>
 {
@@ -123,12 +125,13 @@ public:
     {
     }
 
+
 	// METHODS
 	// ---------------
 public:
 
 	/// <summary>
-	/// Assign operator.<br/>
+	/// Assignation operator.<br/>
 	/// Assigns the provided triangle to the resident triangle.
 	/// </summary>
 	/// <param name="triangle">[IN] Triangle that will be assigned to current triangle.</param>
@@ -235,10 +238,11 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates the incenter of the triangle. The incenter is the center of the incircle or inscribed circle of a triangle, which is 
-    /// the largest circle contained in it; it touches (is tangent to) the three sides.
+	/// Calculates the incenter of the triangle.
 	/// </summary>
     /// <remarks>
+    /// The incenter is the center of the incircle or inscribed circle of a triangle, which is 
+    /// the largest circle contained in it; it touches (is tangent to) the three sides.<br/>
     /// The points of the triangle should not coincide with each other in order to obtain a valid result.
     /// </remarks>
 	/// <returns>
@@ -266,11 +270,12 @@ public:
 	}
 
 	/// <summary>
-	/// Calculates the centroid of the triangle. The centroid or geomatric center is the arithmetic mean ("average") 
-    /// position of all the points in the triangle. The centroid will always coincide with the first third of the segment
-    /// that starts at the middle of an edge and ends in the opposite vertex.
+	/// Calculates the centroid of the triangle.
 	/// </summary>
     /// <remarks>
+    /// The centroid or geomatric center is the arithmetic mean ("average") 
+    /// position of all the points in the triangle. The centroid will always coincide with the first third of the segment
+    /// that starts at the middle of an edge and ends in the opposite vertex.<br/>
     /// The points of the triangle should not coincide with each other in order to obtain a valid result.
     /// </remarks>
 	/// <returns>
@@ -285,7 +290,10 @@ public:
 	}
 
 	/// <summary>
-	/// Converts triangle into a string with the following format:<br/>
+	/// Converts triangle into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
 	/// "T(a($A),b($B),c($C))"<br/>
     /// Where "$" means "string representation of".
 	/// </summary>

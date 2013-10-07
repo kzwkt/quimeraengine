@@ -48,12 +48,14 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.<br/>
+/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.
+/// </summary>
+/// <remarks>
 /// It's supossed that ABCD defines a face of the hexahedron (eventually the top face) and
 /// EFGH defines the opposite face (eventually the bottom one).<br/>
 /// The six faces are defined by the followings vertices: ABCD, EFGH, AEFD, ABHE, BCGH, CDFG.<br/>
 /// The twelve edges are AB, BC, CD, DA, EF, FG, GH, HE, AE, BH, CG, DF.
-/// </summary>
+/// </remarks>
 template <class VectorType>
 class QHexahedron : public QBaseHexahedron<VectorType>
 {
@@ -113,9 +115,11 @@ public:
 
     /// <summary>
     /// Constructor from a vector which defines the gravity center of the box and three floating
-    /// points values which defines its height (Y), width (X) and depth (Z).<br/>
-    /// It's supossed that all edges are parallel to one of the axis.
+    /// points values which defines its height (Y), width (X) and depth (Z).
     /// </summary>
+    /// <remarks>
+    /// It's supossed that all edges are parallel to one of the axis.
+    /// </remarks>
     /// <param name="vCenter">[IN] Center point of the box.</param>
     /// <param name="fLengthX">[IN] Length of an edge parallel to X axis (width).</param>
     /// <param name="fLengthY">[IN] Length of an edge parallel to Y axis (height).</param>
@@ -165,7 +169,7 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator.
+	/// Assignation operator.
 	/// </summary>
 	/// <param name="hexahedron">[IN] The hexahedron to be copied from.</param>
 	/// <returns>
@@ -359,24 +363,24 @@ public:
     }
 
     /// <summary>
-    /// Checks the relation between resident hexahedron and the provided plane.<br/>
+    /// Checks the relation between resident hexahedron and the provided plane.
+    /// </summary>
+    /// <remarks>
     /// Since a plane divides space into two parts, we can check if the "distances" (allowing distances having sign) from
     /// the plane to all vertices of hexahedron have diferent sign, in which case the segment crosses the plane.<br/>
     /// If distances from plane to all vertices have the same sign, all hexahedron is in the same
-    /// side of the space.
-    /// </summary>
-    /// <remarks>
+    /// side of the space.<br/>
     /// Note that if a vertex of the resident hexahedron lies on the plane, we don't consider that it is
     /// crossing the plane.
     /// </remarks>
     /// <param name="plane">[IN] The plane the relation with resident hexahedron will be check. If the plane is null,
     /// the behavior is undefined.</param>
     /// <returns>
-    /// An enumerated value like follows:<br/>
-    /// - Contained: All hexahedron lies on plane.<br/>
-    /// - PositiveSide: The hexahedron is fully contained in the positive side of the space defined by the plane.<br/>
-    /// - NegativeSide: The hexahedron is fully contained in the negative side of the space defined by the plane.<br/>
-    /// - BothSides: The hexahedron crosses the plane.<br/>
+    /// An enumerated value indicating the space relation:<br/>
+    /// - Contained: All hexahedron lies on the plane.
+    /// - Positive Side: The hexahedron is fully contained in the positive side of the space defined by the plane.
+    /// - Negative Side: The hexahedron is fully contained in the negative side of the space defined by the plane.
+    /// - BothSides: The hexahedron crosses the plane.
     /// <br/>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>
@@ -676,10 +680,13 @@ public:
     }
 
     /// <summary>
-    /// Converts hexahedron into a string with the following format:<br/>
+    /// Converts hexahedron into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
     /// "HX(a($A),b($B),c($C),d($D),e($E),f($F),g($G),h($H))".<br/>
     /// Where "$" means "string representation of attribute".
-    /// </summary>
+    /// </remarks>
     /// <returns>The string with the specified format.</returns>
     string_q ToString() const
     {

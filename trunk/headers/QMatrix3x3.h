@@ -43,7 +43,9 @@ namespace Math
 {
 
 /// <summary>
-/// This class implements the functionality of a matrix with 3 rows and 3 columns.<br/>
+/// This class implements the functionality of a matrix with 3 rows and 3 columns.
+/// </summary>
+/// <remarks>
 /// A matrix is a rectangular arrangement of numbers.<br/>
 /// The horizontal and vertical lines in a matrix
 /// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br/>
@@ -52,11 +54,10 @@ namespace Math
 /// Every element is referenced by its position in the matrix.<br/>
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
 /// column: the element in the i row and the j column is denoted A_ij.<br/>
-/// In this case, we will work with 3x3 matrices, therefore our matrix will be:
-///
+/// In this case, we will work with 3x3 matrices, therefore our matrix will be:<br/>
+/// <br/>
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\end{bmatrix}\f$
-///
-/// </summary>
+/// </remarks>
 class QDllExport QMatrix3x3 : public QBaseMatrix3x3
 {
     // FRIENDS
@@ -129,8 +130,10 @@ public:
 
     /// <summary>
     /// Constructor from three 4x32 floating point packed values. Each param contains a row of the matrix.
-    /// Last component of each pack will be ignored.
     /// </summary>
+    /// <remarks>
+    /// Last component of each pack will be ignored.
+    /// </remarks>
     /// <param name="row0">[IN] 4x32 values for row 0, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row1">[IN] 4x32 values for row 1, columns 0 to 3 unpacked in this order.</param>
     /// <param name="row2">[IN] 4x32 values for row 2, columns 0 to 3 unpacked in this order.</param>
@@ -151,11 +154,13 @@ public:
 
     /// <summary>
     /// Gets an identity matrix.
+    /// </summary>
+    /// <remarks>
     /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
     ///
     /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
     ///
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// An identity matrix
     /// </returns>
@@ -176,19 +181,19 @@ public:
     QMatrix3x3 operator*(const float_q &fScalar) const;
 
     /// <summary>
-    /// Multiplies a 3x3 matrix by the current matrix.<br/>
+    /// Multiplies a 3x3 matrix by the resident matrix.
+    /// </summary>
+    /// <remarks>
     /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br/>
     /// So, left matrix must have same number of columns than rows have right matrix.<br/>
     /// The product is not conmutative.<br/>
     /// To perform a product of matrices, each element is calculated as
-    /// ( being A(m x n), B(n x p), C (m x p) ):
-    ///
-    /// \f$ A \times B = C \f$
-    ///
-    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
-    ///
-    /// </summary>
-    /// <remarks>
+    /// ( being A(m x n), B(n x p), C (m x p) ):<br/>
+    /// <br/>
+    /// \f$ A \times B = C \f$<br/>
+    /// <br/>
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$<br/>
+    /// <br/>
     /// This product is not conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
@@ -198,18 +203,18 @@ public:
     QMatrix3x3 operator*(const QBaseMatrix3x3 &matrix) const;
 
     /// <summary>
-    /// Multiplies a 3x4 matrix by the current matrix.<br/>
+    /// Multiplies a 3x4 matrix by the current matrix.
+    /// </summary>
+    /// <remarks>
     /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br/>
     /// So, left matrix must have same number of columns than rows have right matrix.<br/>
     /// The product is not conmutative.<br/>
-    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
-    ///
-    /// \f$ A\times B = C \f$
-    ///
-    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
-    ///
-    /// </summary>
-    /// <remarks>
+    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):<br/>
+    /// <br/>
+    /// \f$ A\times B = C \f$<br/>
+    /// <br/>
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$<br/>
+    /// <br/>
     /// This product is not conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
@@ -293,7 +298,7 @@ public:
     QMatrix3x3& operator-=(const QBaseMatrix3x3 &matrix);
 
     /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// Assignation operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
@@ -307,18 +312,19 @@ public:
     void ResetToZero();
 
     /// <summary>
-    /// Resets the matrix to a identity matrix. The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$,
-    /// and it's set to 1 if \f$ i=j\f$.
+    /// Resets the matrix to a identity matrix.
     /// </summary>
+    /// <remarks>
+    /// The element \f$ A_{ij} \f$ is set to 0 if \f$ i\neq j \f$, and it's set to 1 if \f$ i=j\f$.
+    /// </remarks>
     void ResetToIdentity();
 
     /// <summary>
-    /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
-    /// and each column becomes a row.<br/>
-    /// Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$.<br/>
-    /// It's noted \f$ A^T \f$.
+    /// The transpose of a matrix m x n is a matrix n x m where each row becomes a column and each column becomes a row.
     /// </summary>
     /// <remarks>
+    /// Every element \f$ A_{ij} \f$  becomes \f$ A_{ji}\f$.<br/>
+    /// It's noted \f$ A^T \f$.<br/>
     /// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
     /// </remarks>
     /// <returns>
@@ -344,46 +350,49 @@ public:
     bool IsIdentity() const;
 
     /// <summary>
-    /// Calculates the determinant of the matrix.<br/>
+    /// Calculates the determinant of the matrix.
+    /// </summary>
+    /// <remarks>
     /// It's only applicable to square matrices.<br/>
     /// A determinant is a real number obtained
     /// through the addition of all possible products between elements of different
     /// row and column, where the sign of a product derives from the parity of the permutation involved.<br/>
-    /// In practice, we can calculate any determinant this way:
-    ///
-    /// Order 1: \f$\left|A\right| = a_{00}\f$
-    ///
-    /// Order 2: \f$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\f$
-    ///
-    /// Order 3: \f$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$
-    ///
+    /// In practice, we can calculate any determinant this way:<br/>
+    /// <br/>
+    /// Order 1: \f$\left|A\right| = a_{00}\f$<br/>
+    /// <br/>
+    /// Order 2: \f$\left|A\right| = a_{00}\cdot a_{11} - a_{01}\cdot a_{10}\f$<br/>
+    /// <br/>
+    /// Order 3: \f$\left|A\right| = a_{00}\cdot a_{11}\cdot a_{22} + a_{01}\cdot a_{12}\cdot a_{20} + a_{02}\cdot a_{21} - (a_{02}\cdot a_{11}\cdot a_{20} + a_{00}\cdot a_{12}\cdot a_{21} + a_{01}\cdot a_{10}\cdot a_{22})\f$<br/>
+    /// <br/>
     /// Any other order can be solved developing determinant by a row or a column, reducing
     /// the problem to other of one order less.<br/>
-    /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:
-    ///
-    /// \f$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\f$,
-    ///
+    /// To do that, we multiply each element of the row or column selected by his cofactor, defined as:<br/>
+    /// <br/>
+    /// \f$ C_{ij} = -1^{i+j} \cdot \left|M_{ij}\right|\f$,<br/>
+    /// v
     /// where \f$ M_{ij}\f$ is the submatrix obtained by deleting from the original matrix the i row and the j column.<br/>
     /// After that, we add all products to obtain the final value of the determinant.
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>
     float_q GetDeterminant() const;
 
     /// <summary>
-    /// Inverses the matrix.<br/>
-    /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:
-    ///
-    /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$
-    ///
-    /// We can calculate the inverse of any matrix by:
-    ///
-    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,
-    ///
-    /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
-    ///
+    /// Inverts the matrix.
     /// </summary>
+    /// <remarks>
+    /// The inverse of a square matrix with non zero determinant is another matrix which verifies that:<br/>
+    /// <br/>
+    /// \f$ A\cdot A^{-1} = A^{-1}\cdot A = I\f$<br/>
+    /// <br/>
+    /// We can calculate the inverse of any matrix by:<br/>
+    /// <br/>
+    /// \f$ A^{-1} = \frac{1}{\left|A\right|}\cdot C^{T}_{ij}\f$,<br/>
+    /// <br/>
+    /// where \f$ C^{T}_{ij}\f$ is the matrix formed by each cofactor of each element of A, trasposed.
+    /// </remarks>
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
@@ -391,18 +400,23 @@ public:
 
     /// <summary>
     /// Calculates whether the matrix has inverse or not.
-    /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
+    /// <remarks>
+    /// A matrix has inverse when its determinant doesn't equal zero.
+    /// </remarks>
     /// <returns>
     /// True if the matrix has inverse, false otherwise.
     /// </returns>
     bool HasInverse() const;
 
     /// <summary>
-    /// Converts matrix into a string with the following format:<br/>
+    /// Converts the matrix into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
     /// "M3x3($ij[0][0],$ij[0][1],$ij[0][2],$ij[1][0],$ij[1][1],$ij[1][2],$ij[2][0],$ij[2][1],$ij[2][2])".<br/>
     /// Where "$" means "string representation of attribute".
-    /// </summary>
+    /// </remarks>
     /// <returns>The string with the format specified.</returns>
     string_q ToString() const;
 

@@ -46,7 +46,9 @@ namespace Math
 {
 
 /// <summary>
-/// This class implements the functionality of a matrix with 4 rows and 3 columns.<br/>
+/// This class implements the functionality of a matrix with 4 rows and 3 columns.
+/// </summary>
+/// <remarks>
 /// A matrix is a rectangular arrangement of numbers.<br/>
 /// The horizontal and vertical lines in a matrix
 /// are called rows and columns, respectively. The numbers in the matrix are called its entries or its elements.<br/>
@@ -55,13 +57,13 @@ namespace Math
 /// Every element is referenced by its position in the matrix.<br/>
 /// Due to we use a row by column convention, we will always write first the row of the element and then its
 /// column: the element in the i row and the j column is denoted \f$ A_{ij} \f$.<br/>
-/// In this case, we will work with 4x3 matrices, therefore our matrix will be:
-///
-/// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\\ a_{30} & a_{31} & a_{32}\end{bmatrix}\f$
-///
+/// In this case, we will work with 4x3 matrices, therefore our matrix will be:<br/>
+/// <br/>
+/// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\\ a_{30} & a_{31} & a_{32}\end{bmatrix}\f$<br/>
+/// <br/>
 /// This allows us to compute the special case of transformatios, where 4th column has the values (0, 0, 0, 1), and
 /// we can ignore it in some cases.
-/// </summary>
+/// </remarks>
 class QDllExport QMatrix4x3 : public QBaseMatrix4x3
 {
 	// FRIENDS
@@ -161,14 +163,16 @@ public:
     static const QMatrix4x3& GetZeroMatrix();
 
 	/// <summary>
-	/// Gets a pseudo-identity matrix.<br/>
-	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}\f$
-    ///
+	/// Gets a pseudo-identity matrix.
+    /// </summary>
+    /// <remarks>
+	/// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:<br/>
+    /// <br/>
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \\ 0 & 0 & 0 \end{bmatrix}\f$<br/>
+    /// <br/>
     /// In this case, as it's not a square matrix, it's not a real identity matrix.<br/>
     /// This constant exists due to compatibility reasons only, as an exception.
-	/// </summary>
+	/// </remarks>
     /// <returns>
     /// An identity matrix
     /// </returns>
@@ -189,18 +193,18 @@ public:
 	QMatrix4x3 operator*(const float_q &fScalar) const;
 
     /// <summary>
-    /// Multiply resident matrix by a square 3x3 matrix.<br/>
+    /// Multiply resident matrix by a square 3x3 matrix.
+    /// </summary>
+	/// <remarks>
     /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br/>
     /// So, left matrix must have same number of columns than rows have right matrix.<br/>
     /// The product is not conmutative.<br/>
-    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
-    ///
-    /// \f$ A\times B = C \f$
-    ///
-    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
-    ///
-    /// </summary>
-	/// <remarks>
+    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):<br/>
+    /// <br/>
+    /// \f$ A\times B = C \f$<br/>
+    /// <br/>
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$<br/>
+    /// <br/>
     /// This product is not conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] The square 3x3 matrix to multiply by.</param>
@@ -210,18 +214,18 @@ public:
     QMatrix4x3 operator*(const QBaseMatrix3x3 &matrix) const;
 
     /// <summary>
-    /// Multiply resident matrix by a non-square 3x4 matrix.<br/>
+    /// Multiply resident matrix by a non-square 3x4 matrix.
+    /// </summary>
+    /// <remarks>
     /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br/>
     /// So, left matrix must have same number of columns than rows have right matrix.<br/>
     /// The product is not conmutative.<br/>
-    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
-    ///
-    /// \f$ A x B = C \f$
-    ///
-    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
-    ///
-    /// </summary>
-    /// <remarks>
+    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):<br/>
+    /// <br/>
+    /// \f$ A x B = C \f$<br/>
+    /// <br/>
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$<br/>
+    /// <br/>
     /// This product is not conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] The 3x4 matrix to multiply by.</param>
@@ -242,18 +246,17 @@ public:
     /// <summary>
     /// Multiply resident matrix by a square 3x3 matrix, being the resultant
 	/// matrix stored as well in the whole resident one.
-	///
+	/// </summary>
+	/// <remarks>
     /// A matrix [m x n] can only be multiplied by a matrix [n x p], being the resultant matrix m x p.<br/>
     /// So, left matrix must have same number of columns than rows have right matrix.<br/>
     /// The product is not conmutative.<br/>
-    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):
-    ///
-    /// \f$ A x B = C \f$
-    ///
-    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$
-    ///
-    /// </summary>
-	/// <remarks>
+    /// To perform a product of matrices, each element is calculated as ( being A(m x n), B(n x p), C (m x p) ):<br/>
+    /// <br/>
+    /// \f$ A x B = C \f$<br/>
+    /// <br/>
+    /// \f$ C_{ij} = \sum_{r=1}^{n} A_{ir}B_{rj} \f$<br/>
+    /// <br/>
     /// This product is not conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] The square 3x3 matrix to multiply by.</param>
@@ -319,7 +322,7 @@ public:
 	QMatrix4x3& operator-=(const QBaseMatrix4x3 &matrix);
 
     /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// Assignation operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
@@ -341,10 +344,9 @@ public:
 	/// <summary>
 	/// The transpose of a matrix m x n is a matrix n x m where each row becomes a column
 	/// and each column becomes a row.<br/>
-	/// Every element Aij becomes Aji.<br/>
-	/// It's noted A^T.
- 	/// </summary>
+	/// </summary>
 	/// <remarks>
+    /// Every element Aij becomes Aji. It's noted A^T.<br/>
 	/// If the matrix is a rotation matrix, then the transpose is guaranteed to be the inverse of the matrix.
 	/// </remarks>
     /// <returns>
@@ -361,10 +363,13 @@ public:
 	bool IsZero() const;
 
 	/// <summary>
-	/// Converts matrix into a string with the following format:<br/>
+	/// Converts matrix into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
     /// "M4x3($ij[0][0],$ij[0][1],$ij[0][2],$ij[1][0],$ij[1][1],$ij[1][2],$ij[2][0],$ij[2][1],$ij[2][2],$ij[3][0],$ij[3][1],$ij[3][2])".<br/>
     /// Where "$" means "string representation of attribute".
-	/// </summary>
+	/// </remarks>
 	/// <returns>
     /// The string with the format specified.
     /// </returns>

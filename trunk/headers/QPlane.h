@@ -59,13 +59,16 @@ class QMatrix4x4;
 
 
 /// <summary>
-/// It represents the basic form of a 3D plane, defined by the equation:
-///
-/// \f$ ax + by + cz + d = 0\f$.
-///
+/// It represents the basic form of a 3D plane.
+/// </remarks>
+/// <remarks>
+/// A plane is defined by the equation:<br/>
+/// <br/>
+/// \f$ ax + by + cz + d = 0\f$.<br/>
+/// <br/>
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from
 /// plane to the origin, when the normal is normalized.
-/// </summary>
+/// </remarks>
 class QDllExport QPlane : public QBasePlane
 {
 	// FRIENDS
@@ -73,8 +76,7 @@ class QDllExport QPlane : public QBasePlane
 public:
 
     /// <summary>
-    /// Product by a scalar: all coefficients are multiplied by the floating point value provided.<br/>
-    /// Shortcut to multiply on the left.
+    /// Product by a scalar: all coefficients are multiplied by the floating point value provided.
     /// </summary>
     /// <remarks>
     /// Note that it may be necessary re-normalize the plane after this operation!!
@@ -261,7 +263,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Note that it may be necessary re-normalize the plane after this operation!!
-    /// </remarks>
+    
     /// <param name="fScalar">[IN] Dividing floating point value.</param>
     /// <returns>
     /// A reference to plane result of the division.
@@ -269,17 +271,19 @@ public:
     QPlane& operator/=(const float_q &fScalar);
 
     /// <summary>
-    /// Opposite plane: multiplies each coefficient by -1, maintaining its distance to the origin. Note that
-    /// this operation does not flips the normal of the plane but also moves the plane to the opposite place 
-    /// regarding the coordinate origin.
+    /// Opposite plane: multiplies each coefficient by -1, maintaining its distance to the origin.
     /// </summary>
+    /// <remarks>
+    /// Note that this operation does not flips the normal of the plane but also moves the plane to the opposite place 
+    /// regarding the coordinate origin.
+    /// </remarks>
     /// <returns>
     /// A plane that is the opposite of the resident plane.
     /// </returns>
     QPlane operator-() const;
 
     /// <summary>
-    /// Assign operator. Assigns the provided plane to the resident plane.
+    /// Assignation operator. Assigns the provided plane to the resident plane.
     /// </summary>
     /// <param name="plane">[IN] The plane to be assigned.</param>
     /// <returns>
@@ -601,9 +605,12 @@ public:
     QPlane Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const;
 
     /// <summary>
-    /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
-    /// but the distance from the plane to the origin is modified according to the translation applied.
+    /// Applies a translation to the resident plane.
     /// </summary>
+    /// <remarks>
+    /// The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according to the translation applied.
+    /// </remarks>
     /// <param name="translation">[IN] A [4x3] matrix containing the translation to be applied.</param>
     /// <returns>
     /// The translated plane.
@@ -611,9 +618,12 @@ public:
     QPlane Translate(const QTranslationMatrix<QMatrix4x3> &translation) const;
 
     /// <summary>
-    /// Applies a translation to the resident plane. The normal vector to the plane remains unchanged,
-    /// but the distance from the plane to the origin is modified according to the translation applied.
+    /// Applies a translation to the resident plane.
     /// </summary>
+    /// <remarks>
+    /// The normal vector to the plane remains unchanged,
+    /// but the distance from the plane to the origin is modified according to the translation applied.
+    /// </remarks>
     /// <param name="translation">[IN] A [4x4] matrix containing the translation to be applied.</param>
     /// <returns>
     /// The translated plane.
@@ -621,10 +631,12 @@ public:
     QPlane Translate(const QTranslationMatrix<QMatrix4x4> &translation) const;
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided vector.<br/>
+    /// Applies a translation to the resident plane given by the provided vector.
+    /// </summary>
+    /// <remarks>
     /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according with the applied translation.
-    /// </summary>
+    /// </remarks>
     /// <param name="vTranslation">[IN] A 3d vector containing the translation to be applied.</param>
     /// <returns>
     /// The translated plane.
@@ -632,10 +644,12 @@ public:
     QPlane Translate(const QBaseVector3 &vTranslation) const;
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided vector.<br/>
+    /// Applies a translation to the resident plane given by the provided vector.
+    /// </summary>
+    /// <remarks>
     /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according to the applied translation.
-    /// </summary>
+    /// </remarks>
     /// <param name="vTranslation">[IN] A 3d vector containing the translation to be applied.</param>
     /// <returns>
     /// The translated plane.
@@ -643,10 +657,12 @@ public:
     QPlane Translate(const QBaseVector4 &vTranslation) const;
 
     /// <summary>
-    /// Applies a translation to the resident plane given by the provided amounts for every axis.<br/>
+    /// Applies a translation to the resident plane given by the provided amounts for every axis.
+    /// </summary>
+    /// <remarks>
     /// The normal vector to the plane remains unchanged,
     /// but the distance from the plane to the origin is modified according to the applied translation.
-    /// </summary>
+    /// </remarks>
     /// <param name="fTranslationX">[IN] Translation amount to be applied in X direction.</param>
     /// <param name="fTranslationY">[IN] Translation amount to be applied in Y direction.</param>
     /// <param name="fTranslationZ">[IN] Translation amount to be applied in Z direction.</param>
@@ -893,10 +909,13 @@ public:
     QPlane TransformWithPivot(const QTransformationMatrix<QMatrix4x4> &transformation, const QVector4 &vPivot) const;
 
     /// <summary>
-    /// Converts plane into a string with the following format:<br/>
+    /// Converts plane into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
     /// "PL($a,$b,$c,$d)".<br/>
     /// Where "$" means "string representation of attribute".
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// The string with the format specified.
     /// </returns>

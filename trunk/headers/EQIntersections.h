@@ -115,7 +115,7 @@ public:
     }
 
     /// <summary>
-    /// Assign operator that accepts an integer number that corresponds to a valid enumeration value.
+    /// Assignation operator that accepts an integer number that corresponds to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">An integer number.</param>
     /// <returns>
@@ -128,7 +128,7 @@ public:
     }
 
     /// <summary>
-    /// Assign operator that accepts a valid enumeration value name.
+    /// Assignation operator that accepts a valid enumeration value name.
     /// </summary>
     /// <param name="strValueName">The enumeration value name.</param>
     /// <returns>
@@ -145,7 +145,7 @@ public:
     }
 
     /// <summary>
-    /// Assign operator that accepts a valid enumeration value.
+    /// Assignation operator that accepts a valid enumeration value.
     /// </summary>
     /// <param name="eValue">A valid enumeration value.</param>
     /// <returns>
@@ -158,7 +158,7 @@ public:
     }
     
     /// <summary>
-    /// Assign operator that accepts another enumeration.
+    /// Assignation operator that accepts another enumeration.
     /// </summary>
     /// <param name="eValue">[IN] Another enumeration.</param>
     /// <returns>

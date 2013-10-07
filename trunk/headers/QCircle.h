@@ -45,9 +45,11 @@ namespace Math
 {
     
 /// <summary>
-/// Class which represents a circle in bidimensional space.<br/>
-/// A circle is the collection of all points that are equidistant from other point known as "Center".
+/// Class which represents a circle in bidimensional space.
 /// </summary>
+/// <remarks>
+/// A circle is the collection of all points that are equidistant from other point known as "Center".
+/// </remarks>
 class QDllExport QCircle : public QOrb<QVector2>
 {
 
@@ -107,7 +109,7 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator.
+	/// Assignation operator.
 	/// </summary>
     /// <param name="orb">[IN] The orb to be copied from.</param>
     /// <returns>
@@ -219,8 +221,7 @@ public:
     QCircle TransformWithPivot(const QTransformationMatrix3x3 &transformation, const float_q &fRadiusScale, const QBaseVector2 &vPivot) const;
 
  	/// <summary>
-	/// Calculates possible intersections between resident circle and a circle received as parameter.<br/>
-	/// When no intersections are detected, output parameters are not modified.
+	/// Calculates possible intersections between resident circle and a circle received as parameter.
 	/// </summary>
     /// <remarks>
     /// If any of both circles' radius equals zero, the result is undefined.<br/>

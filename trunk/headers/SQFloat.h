@@ -152,11 +152,13 @@ private:
 public:
 
     /// <summary>
-    /// Checks if the floating point value's state is NaN.<br/>
+    /// Checks if the floating point value's state is NaN.
+    /// </summary>
+    /// <remarks>
     /// That kind of value is undefined or non-representable, and it's said it isn't a number (NaN = Not a Number).<br/>
     /// Every time you use functions like acos, asin or atan2, you should check the result
     /// value.
-    /// </summary>
+    /// </remarks>
     /// <param name="fValue">[IN] A floating point number.</param>
     /// <returns>
     /// If the value is not a number, then returns True. Otherwise, it returns False.
@@ -164,11 +166,13 @@ public:
     static bool IsNaN(const float_q &fValue);
 
     /// <summary>
-    /// Checks if the floating point value's state is Infinite.<br/>
+    /// Checks if the floating point value's state is Infinite.
+    /// </summary>
+    /// <remarks>
     /// That kind of value is non-representable and appears as an arithmetic
     /// operation result that overflows the floating point type bounds.<br/>
     /// Every time you use functions like tan, you should check the result value.
-    /// </summary>
+    /// </remarks>
     /// <param name="fValue">[IN] A floating point number.</param>
     /// <returns>
     /// If the value is infinite, then returns True. Otherwise, it returns False.
@@ -176,9 +180,11 @@ public:
     static bool IsInfinite(const float_q &fValue);
 
     /// <summary>
-    /// Checks if the floating point value's state is one of the special ones described in IEEE specification.<br/>
-    /// That kind of values are undefined or non-representable (like infinite).
+    /// Checks if the floating point value's state is one of the special ones described in IEEE specification.
     /// </summary>
+    /// <remarks>
+    /// That kind of values are undefined or non-representable (like infinite).
+    /// </remarks>
     /// <param name="fValue">[IN] A floating point number.</param>
     /// <returns>
     /// If the value is infinite or is not a number, then returns True. Otherwise, it returns False.
@@ -372,12 +378,12 @@ public:
     static string_q ToString(const float_q &fValue);
 
     /// <summary>
-    /// Converts a floating point number type to an integer number type.<br/>
-    /// The result will be rounded (>0.5 --> 1.0).<br/>
-    /// Expected template parameters are: int, long, long long, i32_q, i64_q.<br/>
-    /// Integer type size should equals floating point type size or unexpected behavior will occur.
+    /// Converts a floating point number type to an integer number type.
     /// </summary>
     /// <remarks>
+    /// The result will be rounded (>0.5 --> 1.0).<br/>
+    /// Expected template parameters are: int, long, long long, i32_q, i64_q.<br/>
+    /// Integer type size should equals floating point type size or unexpected behavior will occur.<br/>
     /// Depending on the configured precission, there is a performance overload due to standard conversion use when the value<br/>
     /// is greater than the one representable by floating point type mantissa:<br/>
     /// - For 32-bits floating point type values:<br/>
@@ -456,9 +462,11 @@ public:
     }
 
     /// <summary>
-    /// Removes the fractional part of a floating point number and returns the result as output parameter.<br/>
-    /// No rounding off is performed.
+    /// Removes the fractional part of a floating point number and returns the result as output parameter.
     /// </summary>
+    /// <remarks>
+    /// No rounding off is performed.
+    /// </remarks>
     /// <param name="fValue">[IN] Value to be truncated.</param>
     /// <returns>
     /// Value without fractional part.
@@ -466,8 +474,11 @@ public:
     static float_q Truncate(const float_q &fValue);
 
 	/// <summary>
-	/// This method clamps the input value to lie within the range [Min..Max]. No tolerance is used for this operation.
+	/// This method clamps the input value to lie within the range [Min..Max].
 	/// </summary>
+    /// <remarks>
+    /// No tolerance is used for this operation.
+    /// </remarks>
 	/// <param name="fValue">[IN] A floating point value; the value to be clamped, if neccesary.</param>
 	/// <param name="fMin">[IN] A floating point value; the minimum value into the range.</param>
 	/// <param name="fMax">[IN] A floating point value; the maximum value into the range.</param>
@@ -477,10 +488,12 @@ public:
 	static float_q Clamp(const float_q& fValue, const float_q& fMin, const float_q& fMax);
 
     /// <summary>
-    /// Inverts the order of bytes which compound a floating point number and returns the result as output parameter.<br/>
+    /// Inverts the order of bytes which compound a floating point number and returns the result as output parameter.
+    /// </summary>
+    /// <remarks>
     /// A 32-bits floating point number whose value equals to 0xAABBCCDD will be
     /// transformed to 0xDDCCBBAA, for example.
-    /// </summary>
+    /// </remarks>
     /// <param name="fValue">[IN] The value whose bytes are to be swapped.</param>
     /// <returns>
     /// The transformed value.

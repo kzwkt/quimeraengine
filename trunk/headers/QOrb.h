@@ -44,12 +44,14 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents an orb in the space, defined by its center point and radius.<br/>
+/// Class which represents an orb in the space, defined by its center point and radius.
+/// </summary>
+/// <remarks>
 /// Center point may be expressed as 2D or 3D point or vector, depending on the parameter of the template,
 /// which may be 2D vector, 3D vector or 4D vector.<br/>
 /// Radius is expressed as a floating point value which is always nonnegative.<br/>
 /// Remember that an orb is the sum of equidistant points from a given one.
-/// </summary>
+/// </remarks>
 template <class VectorType>
 class QOrb : public QBaseOrb<VectorType>
 {
@@ -188,10 +190,13 @@ public:
     }
 
 	/// <summary>
-	/// Converts the orb into a string with the following format:<br/>
+	/// Converts the orb into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
 	/// "OB(c($Center),r($Radius))".<br/>
     /// Where "$" means "string representation of attribute".
-	/// </summary>
+	/// </remarks>
 	/// <returns>
 	/// The string with the specified format.
 	/// </returns>

@@ -44,12 +44,13 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a hexahedron in the space. The hexahedron is defined by its eight vertices.<br/>
-/// It's supossed that ABCD defines a face of the hexahedron (eventually the top face) and
-/// EFGH defines the opposite face (eventually the bottom one).
+/// Class which represents a hexahedron in the space. 
 /// </summary>
 /// <remarks>
-/// It's developer's reponsibility to keep the fourth component of all the points (when using 4D vectors) set to the same value.
+/// The hexahedron is defined by its eight vertices.<br/>
+/// It is supossed that ABCD defines a face of the hexahedron (eventually the top face) and
+/// EFGH defines the opposite face (eventually the bottom one).<br/>
+/// It is developer's reponsibility to keep the fourth component of all the points (when using 4D vectors) set to the same value.
 /// </remarks>
 template <class VectorType>
 class QBaseHexahedron
@@ -95,11 +96,11 @@ public:
 
     /// <summary>
     /// Constructor from two vectors which defines two opposite vertices, with no common faces between them
-    /// (the ends of any inner diagonals).<br/>
-    /// Top face is compound of A, B, C and D points whilst bottom face is compound of E, F, G and H points. A point shares
-    /// edge with B, D and E points whereas G point shares edge with C, F and H points.
+    /// (the ends of any inner diagonals).
     /// </summary>
     /// <remarks>
+    /// Top face is compound of A, B, C and D points whilst bottom face is compound of E, F, G and H points. A point shares
+    /// edge with B, D and E points whereas G point shares edge with C, F and H points.<br/>
     /// When using 4D vectors, the W component of the top-face's points will equal the A point's and the W component of the 
     /// bottom-face's points will equal the G point's.
     /// </remarks>
@@ -125,10 +126,10 @@ public:
 
     /// <summary>
     /// Constructor from a vector which defines the gravity center of the box and three floating
-    /// points values which defines its height (Y), width (X) and depth (Z).<br/>
-    /// It's supossed that all edges are parallel to one of the axis.
+    /// points values which defines its height (Y), width (X) and depth (Z).
     /// </summary>
     /// <remarks>
+    /// It's supossed that all edges are parallel to one of the axis.<br/>
     /// When using 4D vectors, the W component of all the points will equal the central point's.
     /// </remarks>
     /// <param name="vCenter">[IN] Center point of the box.</param>

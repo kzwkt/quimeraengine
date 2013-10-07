@@ -721,7 +721,10 @@ public:
 	QVector4 Transform(const QSpaceConversionMatrix &spaceConversion) const;
 
     /// <summary>
-	/// Converts vector into a string with the following format:<br/>
+	/// Converts vector into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
 	/// "V4($x,$y,$z,$w)".<br/>
     /// Where "$" means "string representation of attribute".
 	/// </summary>

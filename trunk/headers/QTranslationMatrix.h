@@ -49,12 +49,13 @@ namespace Math
 
 
 /// <summary>
-/// Class to represent a matrix of floating point values with 4 rows and 3 or 4 columns, depending on template parameter,
-/// which contains a displacement in the direction of each coordinate axis that can be represented by a 3D or homogeneus 4D vector.<br/>
-/// It's a identity matrix with the elements \f$ a_{30}\f$, \f$ a_{31}\f$ and \f$ a_{32}\f$ replaced by the components of displacement:
-///
-/// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
+/// Class to represent a matrix that contains a displacement in the direction of each coordinate axis.
 /// </summary>
+/// <remarks>
+/// It is an identity matrix with the elements \f$ a_{30}\f$, \f$ a_{31}\f$ and \f$ a_{32}\f$ replaced by the components of displacement:<br/>
+/// <br/>
+/// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
+/// </remarks>
 template <class MatrixType>
 class QTranslationMatrix : public MatrixType
 {
@@ -64,7 +65,7 @@ class QTranslationMatrix : public MatrixType
 public:
 
 	/// <summary>
-	/// Default constructor. It's initialized to identity matrix.
+	/// Default constructor.
 	/// </summary>
 	QTranslationMatrix()
     {
@@ -138,13 +139,15 @@ public:
 public:
 
     /// <summary>
-    /// Stores an identity matrix.<br/>
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$
-    ///
-    /// If the matrix is 4x3, we simply remove fourth column.
+    /// Stores an identity matrix.
     /// </summary>
+    /// <remarks>
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:<br/>
+    /// <br/>
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{bmatrix}\f$<br/>
+    /// <br/>
+    /// If the matrix is 4x3, the fourth column is ignored.
+    /// </remarks>
     /// <returns>
     /// The identity matrix.
     /// </returns>
@@ -162,14 +165,14 @@ public:
     // Binary operators
 
     /// <summary>
-    /// Multiplies a translation matrix by the resident matrix.<br/>
-    /// Since both are translation matrices, the product is calculated as follows:
-    ///
-    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
-    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
-    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
+    /// Multiplies a translation matrix by the resident matrix.
     /// </summary>
     /// <remarks>
+    /// Since both are translation matrices, the product is calculated as follows:<br/>
+    /// <br/>
+    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
+    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$<br/>
     /// This product is conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
@@ -182,14 +185,15 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a translation matrix by the resident matrix.<br/>
-    /// Since both are translation matrices, the product is calculated as follows:
-    ///
-    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
-    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
-    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
+    /// Multiplies a translation matrix by the resident matrix.
     /// </summary>
     /// <remarks>
+    /// Since both are translation matrices, the product is calculated as follows:<br/>
+    /// <br/>
+    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
+    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$<br/>
+    /// <br/>
     /// This product is conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
@@ -229,10 +233,10 @@ public:
     }
 
     /// <summary>
-    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.<br/>
-    /// Rotation matrix is extended to a 4x4 matrix to allow this product.
+    /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.
     /// </summary>
     /// <remarks>
+    /// Rotation matrix is extended to a 4x4 matrix to allow this product.<br/>
     /// This product is not conmmutative.
     /// </remarks>
     /// <param name="matrix">[IN] Rotation matrix to be multiplied by.</param>
@@ -295,18 +299,16 @@ public:
         return aux;
     }
 
-    // Assign operators
-
     /// <summary>
-    /// Product and assign operator.<br/>
-    /// Current matrix stores the result of the multiplication.<br/>
-    /// Multiplies a translation matrix by the resident matrix.<br/>
-    /// Since both are translation matrices, the product is calculated as follows:
-    ///
+    /// Product and assign operator. Multiplies the resident matrix and stores the result of the multiplication.
+    /// </summary>
+    /// <remarks>
+    /// Since both are translation matrices, the product is calculated as follows:<br/>
+    /// <br/>
     /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
     /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
     /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
-    /// </summary>
+    /// </remarks>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     /// <returns>
     /// The modified matrix.
@@ -318,10 +320,11 @@ public:
     }
 
     /// <summary>
-    /// Product and assign operator.<br/>
-    /// Current matrix stores the result of the multiplication.<br/>
-    /// Multiplies a translation matrix by the resident matrix. Since both are translation matrices, the product is calculated as follows:
-    ///
+    /// Product and assign operator. Multiplies the resident matrix and stores the result of the multiplication.
+    /// </summary>
+    /// <remarks>
+    /// Multiplies a translation matrix by the resident matrix. Since both are translation matrices, the product is calculated as follows:<br/>
+    /// <br/>
     /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
     /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
     /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
@@ -337,7 +340,7 @@ public:
     }
 
     /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// Assignation operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
     /// <remarks>
     /// If you use this operator, be sure that you are assigning a translation matrix.
@@ -354,12 +357,14 @@ public:
     }
 
     /// <summary>
-    /// Inverts the matrix.<br/>
+    /// Inverts the matrix.
+    /// </summary>
+    /// <remarks>
     /// In the case of translation matrices, the inverse is composed
-    /// of the opposite of the elements which defines the displacement:
-    ///
-    /// \f$ T^{-1}= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ -d_{x} & -d_{y} & -d_{z} & 1 \end{bmatrix}\f$
-    ///
+    /// of the opposite of the elements which defines the displacement:<br/>
+    /// <br/>
+    /// \f$ T^{-1}= \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ -d_{x} & -d_{y} & -d_{z} & 1 \end{bmatrix}\f$<br/>
+    /// <br/>
     /// So, it's faster than base class method.
     /// </summary>
     /// <returns>
@@ -372,8 +377,10 @@ public:
 
     /// <summary>
     /// Calculates whether the matrix has inverse or not.
-    /// A matrix has inverse when its determinant doesn't equal zero.
     /// </summary>
+    /// <remarks>
+    /// A matrix has inverse when its determinant doesn't equal zero.
+    /// </remarks>
     /// <returns>
     /// True if the matrix has inverse, false otherwise.
     /// </returns>
@@ -420,10 +427,12 @@ public:
     }
 
 	/// <summary>
-    /// Calculates the determinant of the matrix.<br/>
+    /// Calculates the determinant of the matrix. 
+    /// </summary>
+    /// <remarks>
     /// Since this is a translation matrix,
     /// which is a diagonal matrix with its main diagonal composed of 1s, its determinant is 1.
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// Floating point value which is the result of the determinant.
     /// </returns>

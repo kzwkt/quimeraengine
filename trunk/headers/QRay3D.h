@@ -51,9 +51,11 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in 3D space, which consists of a origin point or position, and a direction.<br/>
-/// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
+/// Represents a ray in 3D space, which consists of a origin point or position, and a direction.
 /// </summary>
+/// <remarks>
+/// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
+/// </remarks>
 template <class VectorType>
 class QRay3D : public QRay<VectorType, QVector3>
 {
@@ -163,7 +165,7 @@ public:
 public:
 
     /// <summary>
-    /// Assign operator that receives another ray.
+    /// Assignation operator that receives another ray.
     /// </summary>
     /// <param name="ray">[IN] An existing ray.</param>
     /// <returns>

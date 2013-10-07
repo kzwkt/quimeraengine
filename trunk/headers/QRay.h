@@ -47,9 +47,11 @@ namespace Math
 {
 
 /// <summary>
-/// Represents a ray in the space, which consists of a origin point, or position, and a direction.<br/>
-/// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
+/// Represents a ray in the space, which consists of a origin point, or position, and a direction.
 /// </summary>
+/// <remarks>
+/// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
+/// </remarks>
 template<class VectorTypeOrigin, class VectorTypeDirection>
 class QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
 {
@@ -116,7 +118,7 @@ public:
 public:
 
     /// <summary>
-    /// Assign operator that receives another ray.
+    /// Assignation operator that receives another ray.
     /// </summary>
     /// <param name="ray">[IN] An existing ray.</param>
     /// <returns>
@@ -384,7 +386,10 @@ public:
     }
 
     /// <summary>
-	/// Converts ray into a string representation with the following format:<br/>
+	/// Converts ray into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
 	/// "RY(o($Origin),d($Direction))".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>

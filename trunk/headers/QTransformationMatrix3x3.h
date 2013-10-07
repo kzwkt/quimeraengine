@@ -93,12 +93,13 @@ public:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.<br/>
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
-    ///
+    /// Gets an identity matrix.
     /// </summary>
+    /// <remarks>
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:<br/>
+    /// <br/>
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$<br/>
+    /// </remarks>
     /// <returns>
     /// The identity matrix.
     /// </returns>
@@ -110,7 +111,7 @@ public:
 public:
 
     /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// Assignation operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
     /// <param name="matrix">[IN] The matrix to be assigned.</param>
     /// <returns>
@@ -151,10 +152,12 @@ public:
     void GetScale(QBaseVector2 &vScale) const;
 
     /// <summary>
-    /// Turns the hand convention into opposite rules.<br/>
+    /// Turns the hand convention into opposite rules.
+    /// </summary>
+    /// <remarks>
 	/// Remember that Quimera Engine works with left-hand convention by default.<br/>
 	/// To do that, we simply invert rotation (by trasposing its submatrix).
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// The switched matrix.
     /// </returns>

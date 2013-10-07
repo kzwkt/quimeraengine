@@ -81,9 +81,11 @@ public:
 
     /// <summary>
     /// Constructor that receives four 32 bits floating point type, one per quaternion's component, packaged
-    /// into a 128 bits structure.<br/>
-    /// The values order is: X, Y, Z and W.
+    /// into a 128 bits structure.
     /// </summary>
+    /// <remarks>
+    /// The values order is: X, Y, Z and W.
+    /// </remarks>
     /// <param name="value">[IN] A four 32 bits floating point types pack.</param>
     explicit QBaseQuaternion(const vf32_q &value);
 

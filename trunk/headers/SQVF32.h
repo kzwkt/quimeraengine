@@ -45,9 +45,11 @@ namespace DataTypes
 {
 
 /// <summary>
-/// Helper class that offers functionality related to 4 x 32-bits floating point variables packs.<br/>
-/// This kind of packs are used in SIMD operations.
+/// Helper class that offers functionality related to 4 x 32-bits floating point variables packs.
 /// </summary>
+/// <remarks>
+/// This kind of packs are used in SIMD operations.
+/// </remarks>
 class QDllExport SQVF32
 {
 
@@ -66,12 +68,14 @@ private:
 public:
     // [TODO] Thund: Review this doc.
     /// <summary>
-    /// Packs four input floating point variables into a 128-bits output variable.<br/>
+    /// Packs four input floating point variables into a 128-bits type.
+    /// </summary>
+    /// <remarks>
     /// The order of variables in the package must be read from left to right, this is:<br/>
     ///  | Fourth | Third | Second | First | position<br/>
     /// 128       96     64        32      0 bit<br/>
     /// This is endianess-independent.
-    /// </summary>
+    /// </remarks>
     /// <param name="fFirst">[IN] First value in the packet.</param>
     /// <param name="fSecond">[IN] Second value in the packet.</param>
     /// <param name="fThird">[IN] Third value in the packet.</param>
@@ -80,12 +84,14 @@ public:
     static void Pack(const float_q &fFirst, const float_q &fSecond, const float_q &fThird, const float_q &fFourth, vf32_q &pack);
 
     /// <summary>
-    /// Unpacks into four output floating point variables stored in a 128-bits input variable.<br/>
+    /// Unpacks into four output floating point variables stored in a 128-bits type.
+    /// </summary>
+    /// <remarks>
     /// The order of variables in the package is read from left to right, this is:<br/>
     ///  | Fourth | Third | Second | First | position<br/>
     /// 128       96     64        32      0 bit<br/>
     /// This is endianess-independent.
-    /// </summary>
+    /// </remarks>
     /// <param name="pack">[IN] The package containing four 32-bits floating point values.</param>
     /// <param name="fFirst">[OUT] First value in the packet.</param>
     /// <param name="fSecond">[OUT] Second value in the packet.</param>
