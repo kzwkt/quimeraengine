@@ -50,9 +50,11 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a sphere in space.<br/>
-/// A sphere is the collection of all points that are equidistant from other point known as "Center".
+/// Class which represents a sphere in space.
 /// </summary>
+/// <remarks>
+/// A sphere is the collection of all points that are equidistant from other point known as "Center".
+/// </remarks>
 template <class VectorType>
 class QSphere : public QOrb<VectorType>
 {
@@ -124,7 +126,7 @@ public:
 public:
 
 	/// <summary>
-	/// Assign operator.
+	/// Assignation operator.
 	/// </summary>
     /// <param name="sphere">[IN] The orb to be copied from.</param>
     /// <returns>
@@ -385,8 +387,10 @@ public:
 
     /// <summary>
 	/// This method transforms the resident sphere applying the provided space conversion matrix.
+    /// </summary>
+    /// <remarks>
     /// Only the center of sphere is affected by this transformation.
-	/// </summary>
+	/// </remarks>
 	/// <param name="spaceConversion">[IN] Matrix which contains the space conversion transformation to be applied.</param>
     /// <returns>
     /// The transformed sphere.
@@ -441,20 +445,19 @@ public:
 	}
 
 	/// <summary>
-	/// Checks the space relation between current sphere and a plane received as parameter.<br/>
-	/// Space relation means that
-	/// the sphere is in the positive side of the space divided by the plane (subspace pointed by plane´s normal),
-	/// in the negative side or in both sides (intersection).
-	/// </summary>
+	/// Checks the space relation between current sphere and a plane received as parameter.
+    /// </summary>
     /// <remarks>
-	/// The plane must be normalized to obtain correct result.
+	/// Space relation means that the sphere is in the positive side of the space divided by the plane (subspace pointed by plane´s normal),
+	/// in the negative side or in both sides (intersection).
 	/// </remarks>
-	/// <param name="plane">[IN] The plane we want check the relation with current sphere. If it is null, the result is undefined.</param>
+	/// <param name="plane">[IN] The plane we want check the relation with current sphere. It must be normalized to obtain correct result. 
+    /// If it is null, the result is undefined.</param>
     /// <returns>
     /// An enumerated value like follows:
     /// - Positive Side
     /// - Negative Side
-    /// - Both Sides (intersects the plane).
+    /// - Both Sides (intersects with the plane).
     /// </returns>
 	EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
@@ -484,13 +487,13 @@ public:
 	}
 
 	/// <summary>
-	/// Projects the sphere to a plane perpendicularly.<br/>
-	/// Only the center point of the sphere is projected. Radius keeps its original value.
+	/// Projects the sphere to a plane perpendicularly.
 	/// </summary>
     /// <remarks>
-	/// The plane must be normalized to obtain correct result.
+	/// Only the center point of the sphere is projected. Radius keeps its original value. 
 	/// </remarks>
-	/// <param name="plane">[IN] Plane where current sphere will be projected. If it is null, the result is undefined.</param>
+	/// <param name="plane">[IN] Plane where current sphere will be projected. It must be normalized to obtain correct result. 
+    /// If it is null, the result is undefined.</param>
     /// <returns>
 	/// The projected sphere.
 	/// </returns>

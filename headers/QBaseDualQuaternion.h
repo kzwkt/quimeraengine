@@ -42,17 +42,17 @@ namespace Math
 {
 
 /// <summary>
-/// Base class which implements the basic functionality of a dual quaternion.<br/>
+/// Base class which implements the basic functionality of a dual quaternion.
+/// </summary>
+/// <remarks>
 /// A dual quaternion is a complex number with two components, a non-dual component and a dual one, e.g. \f$ r + d\varepsilon \f$<br/>
 /// Both components (r and d) of a dual quaternion are (regular) quaternions.<br/>
 /// The dual unit, called epsilon (\f$ \varepsilon \f$), verifies \f$ \varepsilon^2=0 \f$. Then, a full quaternion looks like:
 ///<br/>
-/// \f$ r_w + r_xi + r_yj + r_zk + (d_w + d_xi + d_yj + d_zk)\varepsilon\f$
+/// \f$ r_w + r_xi + r_yj + r_zk + (d_w + d_xi + d_yj + d_zk)\varepsilon\f$<br/>
 ///<br/>
 /// We'll normally employ it to represent and execute rigid transformations, that is, transformations which involves
-/// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).
-/// </summary>
-/// <remarks>
+/// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br/>
 /// This class is experimental and therefore subject to changes.
 /// </remarks>
 class QDllExport QBaseDualQuaternion

@@ -57,11 +57,13 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a chunk (segment) of straight line in 3D space, defined by two endpoints A and B.<br/>
+/// Class which represents a chunk (segment) of straight line in 3D space, defined by two endpoints A and B.
+/// </summary>
+/// <remarks>
 /// These points may be expressed as 3D points or vectors, depending on the template parameter,
 /// which may be 3D vector or 4D vector.<br/>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment.
-/// </summary>
+/// </remarks>
 template <class VectorType>
 class QLineSegment3D : public QLineSegment<VectorType>
 {
@@ -128,8 +130,7 @@ public:
     }
 
     /// <summary>
-    /// Zero segment lying in the coordinates center whose endpoints
-	/// both equals (0, 0, 0) and it's length equals 0.
+    /// Zero segment lying in the coordinates center whose endpoints both equals (0, 0, 0) and it's length equals 0.
     /// </summary>
     /// <returns>
 	/// A 0-length line segment.
@@ -146,7 +147,7 @@ public:
 public:
 
     /// <summary>
-    /// Assign operator. Assigns the provided line segment to the resident line segment.
+    /// Assignation operator. Assigns the provided line segment to the resident line segment.
     /// </summary>
     /// <param name="segment">[IN] The line segment to be assigned.</param>
     /// <returns>
@@ -1701,13 +1702,13 @@ public:
     }
 
     /// <summary>
-    /// Checks the relation between resident line segment and the provided plane.<br/>
+    /// Checks the relation between resident line segment and the provided plane.
+    /// </summary>
+    /// <remarks>
     /// Since a plane divides space into two parts, we can check if the "distances" (allowing distances having sign) from
     /// the plane to both end points of line segment are 0, or have diferent sign, in which case the segment crosses the plane.<br/>
     /// If distances from plane to both end points have the same sign, all line segment is in the same
-    /// side of the space, and they haven't a common point.
-    /// </summary>
-    /// <remarks>
+    /// side of the space, and they haven't a common point.<br/>
     /// Note that if only one end point of the resident line segment lies on the plane, we consider that it is
     /// in one of the sides in which the plane divides the space.
     /// </remarks>
@@ -1715,10 +1716,10 @@ public:
     /// is undefined.</param>
     /// <returns>
     /// An integer value like follows:<br/><ul>
-    /// <li>0 (Contained): All the line segment lies on plane.</li>
-    /// <li>1 (PositiveSide): The line segment is fully contained in the positive side of the space defined by the plane.</li>
-    /// <li>2 (NegativeSide): The line segment is fully contained in the negative side of the space defined by the plane.</li>
-    /// <li>3 (BothSides): One end point of the line segment is in the positive side and the other is in the negative one.</li>
+    /// <li>Contained: All the line segment lies on plane.</li>
+    /// <li>Positive Side: The line segment is fully contained in the positive side of the space defined by the plane.</li>
+    /// <li>Negative Side: The line segment is fully contained in the negative side of the space defined by the plane.</li>
+    /// <li>BothSides: One end point of the line segment is in the positive side and the other is in the negative one.</li>
     /// </ul><br/>
     /// We consider "positive part of the space" the locus of points which verifies \f$ Ax + By + Cz + D > 0 \f$.
     /// </returns>

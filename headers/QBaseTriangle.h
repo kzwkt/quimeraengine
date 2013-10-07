@@ -45,11 +45,13 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a triangle in the space.<br/>
+/// Class which represents a triangle in the space.
+/// </summary>
+/// <remarks>
 /// The triangle may be represented in 2D or 3D,
 ///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
-/// </summary>
+/// </remarks>
 template <class VectorType>
 class QBaseTriangle
 {
@@ -85,9 +87,11 @@ public:
     }
 
 	/// <summary>
-	/// Constructor from a pointer to floating point values to define each vertex.<br/>
+	/// Constructor from a pointer to floating point values to define each vertex.
+    /// </summary>
+    /// <remarks>
 	/// Pointer must have two, three or four values depending on VectorType.
-	/// </summary>
+	/// </remarks>
 	/// <param name="arValuesA">[IN] Array of values that define the vertex A. If the pointer is null, the behavior  
     /// is undefined.</param>
 	/// <param name="arValuesB">[IN] Array of values that define the vertex B. If the pointer is null, the behavior  

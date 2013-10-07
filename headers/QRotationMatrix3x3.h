@@ -124,17 +124,14 @@ public:
     /// Constructor from a quaternion.
     /// </summary>
     /// <remarks>
-    /// Is constructed as follows:
-    ///
+    /// Is constructed as follows:<br/>
+    /// <br/>
     /// \f$ R = \begin{bmatrix} 1 - 2(q_y^2 + q_z^2) & 2(q_xq_y - q_wq_z) & 2(q_xq_z + q_wq_y) \\
     /// 2(q_xq_y + q_wq_z) & 1 - 2(q_x^2 + q_z^2) & 2(q_yq_z - q_wq_x) \\
     /// 2(q_xq_z - q_wq_y) & 2(q_yq_z + q_wq_x) & 1 - 2(q_x^2 + q_y^2)
-    /// \end{bmatrix}\f$
+    /// \end{bmatrix}\f$<br/>
     /// </remarks>
-    /// <param name="qRotation">[IN] Quaternion which contains the rotation.</param>
-    /// <remarks>
-    /// The quaternion must be normalized to construct the rotation matrix properly.
-    /// </remarks>
+    /// <param name="qRotation">[IN] Quaternion which contains the rotation. It must be normalized to construct the rotation matrix properly</param>
     explicit QRotationMatrix3x3(const QBaseQuaternion &qRotation);
 
 
@@ -143,12 +140,13 @@ public:
 public:
 
     /// <summary>
-    /// Gets an identity matrix.<br/>
-    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:
-    ///
-    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$
-    ///
+    /// Gets an identity matrix.
     /// </summary>
+    /// <remarks>
+    /// The identity matrix is a matrix whose elements are zero except the main diagonal that is composed by ones:<br/>
+    /// <br/>
+    /// \f$ I = \begin{bmatrix} 1 & 0 & 0 \\ 0 & 1 & 0 \\ 0 & 0 & 1 \end{bmatrix}\f$<br/>
+    /// </remarks>
     /// <returns>
     /// The identity matrix.
     /// </returns>
@@ -158,8 +156,6 @@ public:
 	// METHODS
 	// ---------------
 public:
-
-    //Binary operators
 
 	/// <summary>
     /// Multiplies a 3x3 rotation matrix by the current matrix, following matrices product rules.
@@ -234,7 +230,7 @@ public:
 	QTransformationMatrix<QMatrix4x3> operator*(const QTransformationMatrix<QMatrix4x3> &matrix) const;
 
     /// <summary>
-    /// Assign operator. Assigns the provided matrix to the resident matrix.
+    /// Assignation operator. Assigns the provided matrix to the resident matrix.
     /// </summary>
     /// <remarks>
     /// If you use this operator, be sure that you are assigning a rotation matrix.
@@ -256,19 +252,23 @@ public:
 	QRotationMatrix3x3& operator*=(const QRotationMatrix3x3 &matrix);
 
     /// <summary>
-    /// Inverts the matrix.<br/>
-    /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.<br/>
-    /// So, it's faster than base class method.
+    /// Inverts the matrix.
     /// </summary>
+    /// <remarks>
+    /// In the case of rotation matrices, the transpose is guaranteed to be the inverse of the matrix.
+    /// So, it's faster than base class method.
+    /// </remarks>
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
     QMatrix3x3 Invert() const;
 
     /// <summary>
-    /// Converts rotation matrix to Euler angles.<br/>
-    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
+    /// Converts rotation matrix to Euler angles.
     /// </summary>
+    /// <remarks>
+    /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.
+    /// </remarks>
     /// <param name="fRotationAngleX">[OUT] Resultant rotation around X axis.</param>
     /// <param name="fRotationAngleY">[OUT] Resultant rotation around Y axis.</param>
     /// <param name="fRotationAngleZ">[OUT] Resultant rotation around Z axis.</param>

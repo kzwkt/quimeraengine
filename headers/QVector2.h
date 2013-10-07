@@ -387,8 +387,10 @@ public:
 
 	/// <summary>
 	/// Applies a transformation to the resident vector, multiplying it by a transformation matrix.
-	/// The transformation can be a rotation, scale, translation or a combination of them.
 	/// </summary>
+    /// <remarks>
+    /// The transformation can be a rotation, scale, translation or a combination of them.
+    /// </remarks>
 	/// <param name="matrix">[IN] The transformation matrix.</param>
     /// <returns>
 	/// The transformed vector.
@@ -466,7 +468,10 @@ public:
 	float_q Distance(const QVector2 &vVector) const;
 
 	/// <summary>
-	/// Converts vector into a string with the following format:<br/>
+	/// Converts vector into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
 	/// "V2($x,$y)".<br/>
     /// Where "$" means "string representation of attribute".
 	/// </summary>

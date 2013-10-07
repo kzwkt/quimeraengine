@@ -49,12 +49,14 @@ namespace Math
 {
 
 /// <summary>
-/// Class which represents a chunk (segment) of straight line in the space, defined by two endpoints A and B.<br/>
+/// Class which represents a chunk (segment) of straight line in the space, defined by two endpoints A and B.
+/// </summary>
+/// <remarks>
 /// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter,
 /// which may be 2D vector, 3D vector or 4D vector.<br/>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below).
-/// </summary>
+/// </remarks>
 template <class VectorType>
 class QLineSegment : public QBaseLineSegment<VectorType>
 {
@@ -1457,10 +1459,13 @@ public:
 	}
 
 	/// <summary>
-	/// Converts vector into a string with the following format:<br/>
-	/// "LS(a($A),b($B))".<br/>
+	/// Converts vector into a string.
+    /// </summary>
+	/// <remarks>
+    /// The format of the string is:<br/>
+    /// "LS(a($A),b($B))".<br/>
     /// Where "$" means "string representation of attribute".
-	/// </summary>
+    /// </remarks>
 	/// <returns>
     /// The string with the format specified.
     /// </returns>

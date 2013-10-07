@@ -50,9 +50,9 @@ class QBaseVector4;
 
 /// <summary>
 /// Class which implements the basic functionality of a dual quaternion.
-/// A dual quaternion is a complex number with two components, a non-dual component and a dual one.
 /// </summary>
 /// <remarks>
+/// A dual quaternion is a complex number with two components, a non-dual component and a dual one.<br/>
 /// e.g. \f$ r + d\varepsilon \f$.<br/>
 /// Both components (r and d) of a dual quaternion are (regular) quaternions.<br/>
 /// The dual unit, called epsilon (\f$ \varepsilon \f$), verifies \f$ \varepsilon^2=0 \f$. Then, a full quaternion looks like:
@@ -425,7 +425,7 @@ public:
     QDualQuaternion& operator/=(const float_q &fScalar);
 
     /// <summary>
-    /// Assign operator. Assigns the provided dual quaternion to the resident dual quaternion.
+    /// Assignation operator. Assigns the provided dual quaternion to the resident dual quaternion.
     /// </summary>
     /// <param name="dualQuat">[IN] The dual quaternion to be assigned.</param>
     /// <returns>
@@ -558,10 +558,13 @@ public:
     QDualQuaternion Lerp(const float_q &fProportion, const QDualQuaternion &dualQuat) const;
 
     /// <summary>
-    /// Converts dual quaternion into a string with the following format:<br/>
+    /// Converts dual quaternion into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
     /// "DQ(r($r),d($d))".<br/>
     /// Where "$" means "string representation of attribute".
-    /// </summary>
+    /// </remarks>
     /// <returns>
     /// The std::string with the format specified.
     /// </returns>

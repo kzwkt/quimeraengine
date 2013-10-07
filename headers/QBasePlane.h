@@ -44,8 +44,10 @@ namespace Math
 
 /// <summary>
 /// It represents the basic form of a 3D plane, defined by the equation \f$ ax + by + cz + d = 0 \f$.<br/>
-/// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from plane to the origin.
 /// </summary>
+/// <remarks>
+/// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from plane to the origin.
+/// </remarks>
 class QDllExport QBasePlane
 {
     // CONSTRUCTORS

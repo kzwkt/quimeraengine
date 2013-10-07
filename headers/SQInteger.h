@@ -45,8 +45,7 @@ namespace DataTypes
 {
 
 /// <summary>
-/// Helper class that offers functionality related to integer types.<br/>
-/// Use these static methods extensively in your code, as far as you can.
+/// Helper class that offers functionality related to integer types.
 /// </summary>
 class QDllExport SQInteger
 {
@@ -164,9 +163,11 @@ public:
     static i64_q Abs(const i64_q& nValue);
 
     /// <summary>
-    /// Inverts the order of bytes which compound an integer number and returns the result as output parameter.<br/>
-    /// A 32-bits integer number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
+    /// Inverts the order of bytes which compound an integer number and returns the result as output parameter.
     /// </summary>
+    /// <remarks>
+    /// A 32-bits integer number whose value equals to 0xAABBCCDD will be transformed to 0xDDCCBBAA, for example.
+    /// </remarks>
     /// <param name="nValue">[IN] The value whose bytes are to be swapped.</param>
     /// <returns>
     /// The transformed value.

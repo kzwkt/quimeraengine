@@ -48,12 +48,14 @@ class QBaseQuadrilateral;
 
 /// <summary>
 /// This class represents a chunk (segment) of straight line into 2D space, defined by two
-/// endpoints, A and B.<br/>
+/// endpoints, A and B.
+/// </summary>
+/// <remarks>
 /// These points will always be expressed as 2D points or vectors.<br/>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below). However, some transforming methods will rotate the segment using A
 /// by default as the pivot point.
-/// </summary>
+/// </remarks>
 class QDllExport QLineSegment2D : public QLineSegment<QVector2>
 {
     // BASE CLASS USINGS
@@ -106,8 +108,7 @@ public:
 	static const QLineSegment2D& GetUnitLine();
 
     /// <summary>
-    /// Zero segment lying in the coordinates center whose endpoints
-	/// both equals (0, 0) and it's length equals 0.
+    /// Zero segment lying in the coordinates center whose endpoints both equals (0, 0) and it's length equals 0.
     /// </summary>
     /// <returns>
 	/// A 0-length line segment.
@@ -274,8 +275,7 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
-	/// to the resident line segment.<br/>
-	/// The transformation pivot is the vector received as parameter.
+	/// to the resident line segment.
 	/// </summary>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>

@@ -48,9 +48,11 @@ namespace Math
 class QLineSegment2D;
 
 /// <summary>
-/// Class which represents a quadrilateral in 2D space. Methods in this class are related to transformations in 2D.<br/>
-/// The quadrilateral is defined by four consecutive vertices A, B, C, D, being the edges AB, BC, CD and DA segments.
+/// Class which represents a quadrilateral in 2D space.
 /// </summary>
+/// <remarks>
+/// The quadrilateral is defined by four consecutive vertices A, B, C, D, being the edges AB, BC, CD and DA segments.
+/// </remarks>
 class QDllExport QQuadrilateral : public QBaseQuadrilateral
 {
 
@@ -106,7 +108,7 @@ public:
 public:
 
     /// <summary>
-    /// Assign operator. Assigns the provided quadrilateral to the resident quadrilateral.
+    /// Assignation operator. Assigns the provided quadrilateral to the resident quadrilateral.
     /// </summary>
     /// <param name="quad">[IN] The quadrilateral to be assigned.</param>
     /// <returns>
@@ -152,10 +154,7 @@ public:
     bool Intersection(const QBaseQuadrilateral &quad) const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral is complex.<br/>
-    /// To do that, it checks if A and D vertices are in the
-    /// same side of BC segment AND C and D vertices are in the same side of AB segment, in which case the quadrilateral
-    /// is not complex.
+    /// Checks if the resident quadrilateral is complex.
     /// </summary>
     /// <returns>
     /// True if the resident quadrilateral is complex, false otherwise.
@@ -163,8 +162,7 @@ public:
     bool IsComplex() const;
 
     /// <summary>
-    /// Checks if the resident quadrilateral is convex.<br/>
-    /// To do that, it checks if the quadrilateral diagonals intersects.
+    /// Checks if the resident quadrilateral is convex.
     /// </summary>
     /// <remarks>
     /// Crossed quadrilaterals are considered as convex.<br/>
@@ -280,9 +278,11 @@ public:
 	QQuadrilateral Scale(const float_q &fScaleX, const float_q &fScaleY) const;
 
 	/// <summary>
-	/// Receives a transformation matrix and applies the transformations to the resident quadrilateral.<br/>
+	/// Receives a transformation matrix and applies the transformations to the resident quadrilateral.
+    /// </summary>
+    /// <remarks>
 	/// The transformation pivot is the origin of coordinates.
-	/// </summary>
+	/// </remarks>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
     /// <returns>
     /// The transformed quadrilateral.
@@ -325,9 +325,11 @@ public:
 
 	/// <summary>
 	/// Receives a transformation matrix and a vector (transformation pivot) and applies the transformations
-	/// to the resident quadrilateral.<br/>
+	/// to the resident quadrilateral.
+    /// </summary>
+    /// <remarks>
 	/// The transformation pivot is the vector received as parameter.
-	/// </summary>
+	/// </remarks>
 	/// <param name="transformation">[IN] Matrix that contains the transformation to apply.</param>
 	/// <param name="vPivot">[IN] Pivot point used for the transformation.</param>
     /// <returns>
@@ -336,7 +338,10 @@ public:
 	QQuadrilateral TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
 
     /// <summary>
-    /// Converts quadrilateral into a string with the following format:<br/>
+    /// Converts quadrilateral into a string.
+    /// </summary>
+    /// <remarks>
+    /// The format of the string is:<br/>
     /// "QL(a($A),b($B),c($C),d($D))".<br/>
     /// Where "$" means "string representation of attribute".
     /// </summary>
