@@ -50,6 +50,7 @@ namespace Math
 /// These points may be expressed as 2D or 3D points or vectors, depending on the template parameter,
 /// which may be 2D vector, 3D vector or 4D vector.
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QBaseLineSegment
 {

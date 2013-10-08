@@ -52,6 +52,7 @@ namespace Math
 /// Radius is expressed as a floating point value.<br/>
 /// Remember that a orb is the locus of points equidistant from a given one.
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QBaseOrb
 {

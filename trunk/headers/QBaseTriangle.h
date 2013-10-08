@@ -47,11 +47,7 @@ namespace Math
 /// <summary>
 /// Class which represents a triangle in the space.
 /// </summary>
-/// <remarks>
-/// The triangle may be represented in 2D or 3D,
-///	and using points or vectors, depending on the parameter of the template, which may be
-///	2D vector, 3D vector or 4D vector.
-/// </remarks>
+/// <typeparam name="VectorType">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QBaseTriangle
 {

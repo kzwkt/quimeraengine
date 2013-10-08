@@ -50,8 +50,9 @@ namespace Math
 /// The hexahedron is defined by its eight vertices.<br/>
 /// It is supossed that ABCD defines a face of the hexahedron (eventually the top face) and
 /// EFGH defines the opposite face (eventually the bottom one).<br/>
-/// It is developer's reponsibility to keep the fourth component of all the points (when using 4D vectors) set to the same value.
+/// It is developer's reponsibility to keep the fourth component of all the points (when using 4D vectors) set to the same value.<br/>
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QBaseHexahedron
 {

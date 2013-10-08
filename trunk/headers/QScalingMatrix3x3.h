@@ -159,7 +159,7 @@ public:
     /// </remarks>
     /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
     /// <returns>
-    /// The resultant 4x4 transformation matrix, depending on the method template parameter.
+    /// The resultant 4x4 transformation matrix.
     /// </returns>
 	QTransformationMatrix<QMatrix4x4> operator*(const QTranslationMatrix<QMatrix4x4> &matrix) const;
 
@@ -171,7 +171,7 @@ public:
     /// </remarks>
     /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
     /// <returns>
-    /// The resultant 4x3 transformation matrix, depending on the method template parameter.
+    /// The resultant 4x3 transformation matrix.
     /// </returns>
 	QTransformationMatrix<QMatrix4x3> operator*(const QTranslationMatrix<QMatrix4x3> &matrix) const;
 
@@ -183,7 +183,7 @@ public:
     /// </remarks>
     /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
     /// <returns>
-    /// The resultant 4x4 transformation matrix, depending on the method template parameter.
+    /// The resultant 4x4 transformation matrix.
     /// </returns>
 	QTransformationMatrix<QMatrix4x4> operator*(const QTransformationMatrix<QMatrix4x4> &matrix) const;
 
@@ -270,6 +270,7 @@ protected:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
+    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
@@ -296,6 +297,7 @@ protected:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
+    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.

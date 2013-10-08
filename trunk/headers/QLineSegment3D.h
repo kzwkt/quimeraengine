@@ -64,6 +64,7 @@ namespace Math
 /// which may be 3D vector or 4D vector.<br/>
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment.
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QLineSegment3D : public QLineSegment<VectorType>
 {
@@ -2031,6 +2032,7 @@ protected:
     /// <summary>
 	/// Calculates if a point is inside the triangle provided applying barycentric technique.
     /// </summary>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="triangle">[IN] The triangle that may contain the point.</param>
     /// <param name="vPoint">[IN] The point that may be contained in the triangle.</param>
     /// <returns>
@@ -2071,6 +2073,7 @@ protected:
 	/// Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
     /// applying barycentric technique. Is supossed that quadrilateral vertex are consecutive.
     /// </summary>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vA">[IN] The point A of the quadrilateral.</param>
     /// <param name="vB">[IN] The point B of the quadrilateral.</param>
     /// <param name="vC">[IN] The point C of the quadrilateral.</param>
@@ -2138,6 +2141,7 @@ protected:
     /// <summary>
 	/// Calculates if two points are in the same side of a plane defined by 3 points.
     /// </summary>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vPoint1">[IN] The first point to be checked.</param>
     /// <param name="vPoint2">[IN] The second point to be checked.</param>
     /// <param name="vA">[IN] One of the points that define the plane that divides the space in two parts.</param>
@@ -2163,6 +2167,7 @@ protected:
     /// <summary>
 	/// Checks whether a point is contained or not in a hexahedron.
     /// </summary>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="hexahedron">[IN] The hexahedron where the point may be contained.</param>
     /// <param name="vPoint">[IN] The point to be checked.</param>
     /// <returns>
@@ -2185,6 +2190,7 @@ protected:
     /// <remarks>
     /// It's supossed that A, B, C, D are consecutive vertices of a cuadrilateral.
 	/// </remarks>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="segment">[IN] The segment whose intersections are to be calculated.</param>
     /// <param name="vA">[IN] The point A of the quadrilateral.</param>
     /// <param name="vB">[IN] The point B of the quadrilateral.</param>
@@ -2254,6 +2260,7 @@ protected:
     /// <remarks>
     /// It's supossed that A, B, C, D are consecutive vertices of a cuadrilateral.
 	/// </remarks>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="segment">[IN] The segment whose intersections are to be calculated.</param>
     /// <param name="vA">[IN] The point A of the quadrilateral.</param>
     /// <param name="vB">[IN] The point B of the quadrilateral.</param>
@@ -2300,6 +2307,7 @@ protected:
     /// <remarks>
     /// It's supossed that A, B, C, D are consecutive vertices of a cuadrilateral.
 	/// </remarks>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="segment">[IN] The segment whose intersections are to be calculated.</param>
     /// <param name="vA">[IN] The point A of the quadrilateral.</param>
     /// <param name="vB">[IN] The point B of the quadrilateral.</param>

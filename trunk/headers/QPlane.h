@@ -174,6 +174,7 @@ protected:
     /// <remarks>
     /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.
     /// </remarks>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
 	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
 	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
 	/// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
@@ -926,6 +927,7 @@ protected:
     /// <summary>
     /// Calculates the dot product between the direction vector of the resident plane and the provided vector.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
     /// <param name="vVector">[IN] The vector which we want to calculate the dot product with.</param>
     template <class VectorType>
     float_q DotProductImp(const VectorType &vVector) const;
@@ -933,6 +935,7 @@ protected:
     /// <summary>
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
     /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     template <class VectorType>
     float_q DotProductAngleImp(const VectorType &vVector) const;
@@ -941,6 +944,7 @@ protected:
     /// Applies the rotation contained in the provided quaternion to the resident plane
     /// around the given point, that acts as pivot of rotation.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="qRotation">[IN] A quaternion containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
     /// <returns>
@@ -953,6 +957,7 @@ protected:
     /// Applies the rotation contained in the provided matrix to the resident plane
     /// around the given point, that acts as pivot of rotation.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="rotation">[IN] A [3x3] matrix containing the rotation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
     /// <returns>
@@ -965,6 +970,7 @@ protected:
     /// Applies the scale contained in the provided vector to the resident plane,
     /// acting the given point as pivot of scale.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <returns>
@@ -977,6 +983,7 @@ protected:
     /// Scales the resident plane by the provided amounts for every axis,
     /// acting the given point as pivot of scale.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="fScaleX">[IN] Amount of scale to be applied in X direction.</param>
     /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
     /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
@@ -991,6 +998,7 @@ protected:
     /// Applies the scale contained in the provided matrix to the resident plane,
     /// acting the given point as pivot of scale.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="scale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
     /// <returns>
@@ -1003,6 +1011,7 @@ protected:
     /// Applies the transformation contained in the provided matrix to the resident plane
     /// around the given point, that acts as pivot of transformation.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="transformation">[IN] A [4x3] or [4x4] matrix containing the transformation to be applied.</param>
     /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
     /// <returns>
@@ -1015,6 +1024,7 @@ protected:
     /// <summary>
     /// Calculates the orthogonal projection of a given point over the resident plane.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vPoint">[IN] A 3D vector which represents the point we want project.</param>
     /// <returns>
     /// The projected point.
@@ -1025,6 +1035,7 @@ protected:
     /// <summary>
     /// Calculates if a point is contained on the resident plane.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vPoint">[IN] The point we want know if it is contained on the resident plane.</param>
     /// <returns>
     /// True if the point is contained, false otherwise.
@@ -1036,6 +1047,7 @@ protected:
     /// Calculates the minimum distance from the given point to the resident plane, which is the length
     /// of the normal to the plane which passes through the point.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vPoint">[IN] The point we want know it distance from resident plane.</param>
     /// <returns>
     /// A floating point value which represents the minimum distance between the plane and the point.
@@ -1047,6 +1059,7 @@ protected:
     /// Calculates the number of intersections between the resident plane and two planes provided,
     /// and also calculates the intersection point if there is only one.
     /// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="plane1">[IN] The first plane we want to calculate the intersection with.</param>
     /// <param name="plane2">[IN] The second plane we want to calculate the intersection with.</param>
     /// <param name="vIntersection">[OUT] The intersection point of the three planes, if it exists.</param>

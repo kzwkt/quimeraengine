@@ -52,6 +52,7 @@ namespace Math
 /// Radius is expressed as a floating point value which is always nonnegative.<br/>
 /// Remember that an orb is the sum of equidistant points from a given one.
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QOrb : public QBaseOrb<VectorType>
 {

@@ -55,6 +55,7 @@ namespace Math
 /// <remarks>
 /// A sphere is the collection of all points that are equidistant from other point known as "Center".
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QVector2, QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QSphere : public QOrb<VectorType>
 {

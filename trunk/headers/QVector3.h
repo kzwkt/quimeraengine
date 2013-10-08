@@ -661,6 +661,7 @@ protected:
 	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
+    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="translation">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
     /// <returns>
     /// The transformed vector.
@@ -678,6 +679,7 @@ protected:
 	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
 	/// since a 3D vector cannot be displaced.
     /// </summary>
+    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="transformation">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
     /// <returns>
     /// The transformed vector.

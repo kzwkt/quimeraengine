@@ -54,6 +54,7 @@ namespace Math
 ///	and using points or vectors, depending on the parameter of the template, which may be
 ///	2D vector, 3D vector or 4D vector.
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QVector2, QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QTriangle : public QBaseTriangle<VectorType>
 {
