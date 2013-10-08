@@ -34,7 +34,6 @@ using namespace boost::unit_test;
 
 #include "QVector3.h"
 
-#include "QVector3WhiteBox.h"
 #include "QMatrix4x3.h"
 #include "QMatrix4x4.h"
 #include "QTranslationMatrix.h"
@@ -2236,7 +2235,7 @@ QTEST_CASE ( Transform2_VectorIsCorrectlyTransformedByCommonDualQuaternion_Test 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QDualQuaternion TRANSFORMATION = QDualQuaternion(QVector3(SQFloat::_3, SQFloat::_4, SQFloat::_5),
                                                            QQuaternion(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z));
-    
+
     #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
         const QVector3 EXPECTED_RESULT = QVector3( (float_q)-9.1923866,
                                                    (float_q)-3.5355341,
@@ -2624,7 +2623,7 @@ void Transform6_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Templat
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
-    
+
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
     const float_q EULER_ANGLE_Y = SQAngle::_Pi;
@@ -2772,7 +2771,7 @@ QTEST_CASE ( Transform7_VectorIsCorrectlyTransformedByCommonSpaceConversionMatri
     const QVector3 EXPECTED_RESULT = QVector3( (float_q)0.44721359549995787,
                                                (float_q)-0.59628479399994383,
                                                (float_q)-0.66666666666666652);
-    
+
     // Results calculated with DirectX SDK
     // D3DXMATRIX transformation;
     // D3DXVECTOR3 vVector(1, 2, 4);
@@ -2854,337 +2853,6 @@ QTEST_CASE ( ToString_ReturnedFormatMatchesExpected_Test )
 
     // [Verification]
     BOOST_CHECK(strStringForm == EXPECTED_STRING_FORM);
-}
-
-/// <summary>
-/// Template method used by TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Test to test
-/// using different template parameters for class QTranslationMatrix.
-/// </summary>
-template<class MatrixType>
-void TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template()
-{
-    // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
-
-    const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QTranslationMatrix<MatrixType> TRANSFORMATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
-
-    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_3, SQFloat::_6, -SQFloat::_2);
-
-	// [Execution]
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
-
-    // [Verification]
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
-}
-
-/// <summary>
-/// Checks the vector is correctly transformed by an arbitrary translation matrix.
-/// </summary>
-QTEST_CASE ( TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
-
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template<QMatrix4x3>();
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    TransformImp1_VectorIsCorrectlyTransformedByCommonTranslationMatrix_Template<QMatrix4x4>();
-}
-
-/// <summary>
-/// Template method used by TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test to test
-/// using different template parameters for class QTranslationMatrix.
-/// </summary>
-template<class MatrixType>
-void TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
-{
-    // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
-
-    const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QTranslationMatrix<MatrixType> TRANSFORMATION = QTranslationMatrix<MatrixType>::GetIdentity();
-    const QVector3 EXPECTED_RESULT = VECTOR;
-
-	// [Execution]
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
-
-    // [Verification]
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
-}
-
-/// <summary>
-/// Checks that the vector doesn't change when it's transformed by an identity matrix.
-/// </summary>
-QTEST_CASE ( TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
-
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x3>();
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    TransformImp1_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x4>();
-}
-
-/// <summary>
-/// Template method used by TransformImp1_VectorIsNullWhenTranslationMatrixIsNull_Test to test
-/// using different template parameters for class QTranslationMatrix.
-/// </summary>
-template<class MatrixType>
-void TransformImp1_VectorDoesntChangeWhenTranslationMatrixIsNull_Template()
-{
-    // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
-
-    const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QTranslationMatrix<MatrixType> NULL_MATRIX = QTranslationMatrix<MatrixType>(MatrixType::GetZeroMatrix());
-
-    const QVector3 EXPECTED_RESULT = VECTOR;
-
-	// [Execution]
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(NULL_MATRIX);
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
-}
-
-/// <summary>
-/// Checks that the vector doesn't change when the transformation matrix is null.
-/// </summary>
-QTEST_CASE ( TransformImp1_VectorDoesntChangeWhenTranslationMatrixIsNull_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
-
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    TransformImp1_VectorDoesntChangeWhenTranslationMatrixIsNull_Template<QMatrix4x3>();
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    TransformImp1_VectorDoesntChangeWhenTranslationMatrixIsNull_Template<QMatrix4x4>();
-}
-
-/// <summary>
-/// Template method used by TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Test to test
-/// using different template parameters for class QTransformationMatrix.
-/// </summary>
-template<class MatrixType>
-void TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template()
-{
-    // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
-    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
-
-#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
-    const float_q EULER_ANGLE_X = SQAngle::_HalfPi;
-    const float_q EULER_ANGLE_Y = SQAngle::_Pi;
-    const float_q EULER_ANGLE_Z = SQAngle::_QuarterPi;
-#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-    const float_q EULER_ANGLE_X = SQAngle::_90;
-    const float_q EULER_ANGLE_Y = SQAngle::_180;
-    const float_q EULER_ANGLE_Z = SQAngle::_45;
-#endif
-
-    const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
-    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
-    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
-
-    const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
-
-    const QVector3 EXPECTED_RESULT = QVector3((float_q)6.0658639918226491, SQFloat::_8, (float_q)-10.419417382415922);
-
-    // Results calculated using DirectX SDK
-    // float_q fYaw = SQAngle::_Pi;
-    // float_q fPitch = SQAngle::_HalfPi;
-    // float_q fRoll = SQAngle::_QuarterPi;
-    // D3DXMATRIX rotation, translation, scaling, transformation;
-    // D3DXMatrixRotationYawPitchRoll(&rotation, fYaw, fPitch, fRoll);
-    // D3DXMatrixScaling(&scaling, SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
-    // D3DXMatrixTranslation(&translation, SQFloat::_2, SQFloat::_4, -SQFloat::_6);
-    // D3DXVECTOR3 vVector(1, 2, 4);
-    // transformation = scaling * rotation * translation;
-    // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
-
-	// [Execution]
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
-
-    // [Verification]
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
-}
-
-/// <summary>
-/// Checks the vector is correctly transformed by an arbitrary transformation matrix.
-/// </summary>
-QTEST_CASE ( TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
-
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template<QMatrix4x3>();
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    TransformImp2_VectorIsCorrectlyTransformedByCommonTransformationMatrix_Template<QMatrix4x4>();
-}
-
-/// <summary>
-/// Template method used by TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test to test
-/// using different template parameters for class QTransformationMatrix.
-/// </summary>
-template<class MatrixType>
-void TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template()
-{
-    // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
-
-    const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>::GetIdentity();
-    const QVector3 EXPECTED_RESULT = VECTOR;
-
-	// [Execution]
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
-
-    // [Verification]
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
-}
-
-/// <summary>
-/// Checks that the vector doesn't change when it's transformed by an identity matrix.
-/// </summary>
-QTEST_CASE ( TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
-
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x3>();
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    TransformImp2_VectorDoesntChangeWhenTransformedByIdentityMatrix_Template<QMatrix4x4>();
-}
-
-/// <summary>
-/// Template method used by TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Test to test
-/// using different template parameters for class QTransformationMatrix.
-/// </summary>
-template<class MatrixType>
-void TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Template()
-{
-    // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
-
-    const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QTransformationMatrix<MatrixType> NULL_MATRIX = QTransformationMatrix<MatrixType>(MatrixType::GetZeroMatrix());
-
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
-
-	// [Execution]
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(NULL_MATRIX);
-
-    // [Verification]
-    BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_RESULT.x);
-    BOOST_CHECK_EQUAL(vVectorUT.y, EXPECTED_RESULT.y);
-    BOOST_CHECK_EQUAL(vVectorUT.z, EXPECTED_RESULT.z);
-}
-
-/// <summary>
-/// Checks that the vector is nulled when the transformation matrix is null.
-/// </summary>
-QTEST_CASE ( TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
-
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Template<QMatrix4x3>();
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    TransformImp2_VectorIsNullWhenTransformationMatrixIsNull_Template<QMatrix4x4>();
-}
-
-/// <summary>
-/// Template method used by TransformImp2_RotationFollowsLeftHandedRules_Test to test
-/// using different template parameters for class QTransformationMatrix.
-/// </summary>
-template<class MatrixType>
-void TransformImp2_RotationFollowsLeftHandedRules_Template()
-{
-    // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
-    using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
-    using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
-    using Kinesis::QuimeraEngine::Tools::Math::Test::QVector3WhiteBox;
-
-#if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
-    const float_q EULER_ANGLE_X = SQFloat::_0;
-    const float_q EULER_ANGLE_Y = SQAngle::_HalfPi;
-    const float_q EULER_ANGLE_Z = SQFloat::_0;
-#elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
-    const float_q EULER_ANGLE_X = SQFloat::_0;
-    const float_q EULER_ANGLE_Y = SQAngle::_90;
-    const float_q EULER_ANGLE_Z = SQFloat::_0;
-#endif
-
-    const QVector3WhiteBox VECTOR = QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0);
-    const QTranslationMatrix<MatrixType> TRANSLATION = QTranslationMatrix<MatrixType>(SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
-    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3(SQFloat::_1, SQFloat::_1, SQFloat::_1);
-
-    const QTransformationMatrix<MatrixType> TRANSFORMATION = QTransformationMatrix<MatrixType>(TRANSLATION, ROTATION, SCALE);
-
-    const QVector3 EXPECTED_RESULT = QVector3(SQFloat::_0, SQFloat::_0, -SQFloat::_1);
-
-    // Results calculated using DirectX SDK
-    // float_q fYaw = SQAngle::_HalfPi;
-    // float_q fPitch = SQFloat::_0;
-    // float_q fRoll = SQFloat::_0;
-    // D3DXMATRIX rotation, translation, scaling, transformation;
-    // D3DXMatrixRotationYawPitchRoll(&rotation, fYaw, fPitch, fRoll);
-    // D3DXMatrixScaling(&scaling, SQFloat::_1, SQFloat::_1, -SQFloat::_1);
-    // D3DXMatrixTranslation(&translation, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    // D3DXVECTOR3 vVector(1, 0, 0);
-    // transformation = scaling * rotation * translation;
-    // D3DXVec3TransformCoord(&vVector, &vVector, &transformation);
-
-	// [Execution]
-    QVector3WhiteBox vVectorUT = VECTOR.TransformImp(TRANSFORMATION);
-
-    // [Verification]
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.x, EXPECTED_RESULT.x) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.y, EXPECTED_RESULT.y) );
-    BOOST_CHECK( SQFloat::AreEqual(vVectorUT.z, EXPECTED_RESULT.z) );
-}
-
-/// <summary>
-/// Checks that the vector is nulled when the transformation matrix is null.
-/// </summary>
-QTEST_CASE ( TransformImp2_RotationFollowsLeftHandedRules_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
-    using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
-
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x3");
-    TransformImp2_RotationFollowsLeftHandedRules_Template<QMatrix4x3>();
-    BOOST_TEST_MESSAGE("MatrixType=QMatrix4x4");
-    TransformImp2_RotationFollowsLeftHandedRules_Template<QMatrix4x4>();
 }
 
 // End - Test Suite: QVector3

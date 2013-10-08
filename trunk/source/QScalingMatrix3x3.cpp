@@ -187,6 +187,57 @@ QScalingMatrix3x3& QScalingMatrix3x3::operator*=(const QScalingMatrix3x3 &matrix
     return *this;
 }
 
+template <class MatrixType>
+QTransformationMatrix<MatrixType> QScalingMatrix3x3::ProductOperatorImp(const QTranslationMatrix<MatrixType> &matrix) const
+{
+    QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
+
+    aux.ij[0][0] = this->ij[0][0];
+    aux.ij[1][1] = this->ij[1][1];
+    aux.ij[2][2] = this->ij[2][2];
+
+    aux.ij[3][0] = matrix.ij[3][0];
+    aux.ij[3][1] = matrix.ij[3][1];
+    aux.ij[3][2] = matrix.ij[3][2];
+
+    return aux;
+}
+
+/// <summary>
+/// Multiplies a 4x3 or 4x4 transformation matrix by the resident matrix.
+/// </summary>
+/// <remarks>
+/// This product is not conmmutative.
+/// </remarks>
+/// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
+/// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
+/// <returns>
+/// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
+/// </returns>
+template <class MatrixType>
+QTransformationMatrix<MatrixType> QScalingMatrix3x3::ProductOperatorImp(const QTransformationMatrix<MatrixType> &matrix) const
+{
+    QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
+
+    aux.ij[3][0] = matrix.ij[3][0];
+    aux.ij[3][1] = matrix.ij[3][1];
+    aux.ij[3][2] = matrix.ij[3][2];
+
+    aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0];
+    aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1];
+    aux.ij[0][2] = this->ij[0][0] * matrix.ij[0][2];
+
+    aux.ij[1][0] = this->ij[1][1] * matrix.ij[1][0];
+    aux.ij[1][1] = this->ij[1][1] * matrix.ij[1][1];
+    aux.ij[1][2] = this->ij[1][1] * matrix.ij[1][2];
+
+    aux.ij[2][0] = this->ij[2][2] * matrix.ij[2][0];
+    aux.ij[2][1] = this->ij[2][2] * matrix.ij[2][1];
+    aux.ij[2][2] = this->ij[2][2] * matrix.ij[2][2];
+
+    return aux;
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

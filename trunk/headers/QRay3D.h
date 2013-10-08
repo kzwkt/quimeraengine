@@ -2772,6 +2772,8 @@ protected:
             return EQIntersections::E_None;
     }
 
+private:
+
     /// <summary>
 	/// This method applies to the resident ray the transformation contained in the provided matrix.
 	/// </summary>

@@ -163,7 +163,7 @@ public:
     /// </returns>
     QTransformationMatrix3x3 SwitchHandConvention() const;
 
-protected:
+private:
 
     // Hidden method to prevent it could be used.
     void ResetToZero();

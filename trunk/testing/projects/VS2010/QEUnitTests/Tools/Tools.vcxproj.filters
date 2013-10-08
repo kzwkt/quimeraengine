@@ -233,34 +233,13 @@
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h">
       <Filter>Tests\Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector4Whitebox.h">
-      <Filter>Tests\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhitebox.h">
-      <Filter>Tests\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3WhiteBox.h">
-      <Filter>Tests\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3WhiteBox.h">
-      <Filter>Tests\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrixWhiteBox.h">
-      <Filter>Tests\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternionWhiteBox.h">
-      <Filter>Tests\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h">
-      <Filter>Tests\Math</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrixWhiteBox.h">
-      <Filter>Tests\Math</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_core\EQEnumerationMock.h">
       <Filter>Tests\General</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhitebox.h">
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhiteBox.h">
+      <Filter>Tests\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h">
       <Filter>Tests\Math</Filter>
     </ClInclude>
   </ItemGroup>

@@ -653,7 +653,7 @@ public:
 	/// </returns>
     string_q ToString() const;
 
-protected:
+private:
 
     /// <summary>
     /// Applies a translation to resident vector, multiplying the vector by a translation matrix
@@ -667,10 +667,7 @@ protected:
     /// The transformed vector.
     /// </returns>
 	template <class MatrixType>
-    QVector3 TransformImp(const QTranslationMatrix<MatrixType> &translation) const
-    {
-        return QVector3(this->x + translation.ij[3][0], this->y + translation.ij[3][1], this->z + translation.ij[3][2]);
-    }
+    QVector3 TransformImp(const QTranslationMatrix<MatrixType> &translation) const;
 
     /// <summary>
     /// Applies a transformation composed of a scale, a rotation and a translation
@@ -685,12 +682,7 @@ protected:
     /// The transformed vector.
     /// </returns>
     template <class MatrixType>
-    QVector3 TransformImp(const QTransformationMatrix<MatrixType> &transformation) const
-    {
-        return QVector3(this->x * transformation.ij[0][0] + this->y * transformation.ij[1][0] + this->z * transformation.ij[2][0] + transformation.ij[3][0],
-                        this->x * transformation.ij[0][1] + this->y * transformation.ij[1][1] + this->z * transformation.ij[2][1] + transformation.ij[3][1],
-                        this->x * transformation.ij[0][2] + this->y * transformation.ij[1][2] + this->z * transformation.ij[2][2] + transformation.ij[3][2]);
-    }
+    QVector3 TransformImp(const QTransformationMatrix<MatrixType> &transformation) const;
 };
 
 } //namespace Math

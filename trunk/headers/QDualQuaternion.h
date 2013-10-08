@@ -220,7 +220,7 @@ public:
     /// is undefined.</param>
     QDualQuaternion(const float_q *arValuesReal, const float_q *arValuesDual);
 
-protected:
+private:
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -237,18 +237,11 @@ protected:
     /// the rotation dual quaternion, taking into account that the transfomation is done as follows:<br/>
     /// FIRST ROTATION THEN TRANSLATION.
     /// </remarks>
+    /// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
-    /// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
     template <class VectorType>
-    void QDualQuaternionImp(const QBaseQuaternion &qRotation, const VectorType &vTranslation)
-    {
-        QDualQuaternion rotation(qRotation, QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
-        QDualQuaternion translation(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
-                                    QBaseQuaternion(vTranslation.x * SQFloat::_0_5, vTranslation.y * SQFloat::_0_5, vTranslation.z * SQFloat::_0_5, SQFloat::_0));
-
-        *this = translation * rotation;
-    }
+    void QDualQuaternionImp(const QBaseQuaternion &qRotation, const VectorType &vTranslation);
 
     /// <summary>
     /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
@@ -265,18 +258,11 @@ protected:
     /// the translation dual quaternion, taking into account that the transfomation is done as follows:<br/>
     /// FIRST TRANSLATION THEN ROTATION.
     /// </remarks>
+    /// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
     /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
-    /// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
     template <class VectorType>
-    void QDualQuaternionImp(const VectorType &vTranslation, const QBaseQuaternion &qRotation)
-    {
-        QDualQuaternion rotation(qRotation, QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
-        QDualQuaternion translation(QBaseQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1),
-                                    QBaseQuaternion(vTranslation.x * SQFloat::_0_5, vTranslation.y * SQFloat::_0_5, vTranslation.z * SQFloat::_0_5, SQFloat::_0));
-
-        *this = rotation * translation;
-    }
+    void QDualQuaternionImp(const VectorType &vTranslation, const QBaseQuaternion &qRotation);
 
 
     // PROPERTIES
@@ -576,7 +562,7 @@ public:
     /// </returns>
     string_q ToString() const;
 
-protected:
+private:
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
@@ -588,15 +574,7 @@ protected:
     /// The transformed dual quaternion.
     /// </returns>
     template <class VectorType>
-    QDualQuaternion TransformRotationFirstImp(const QBaseQuaternion &qRotation, const VectorType &vTranslation) const
-    {
-        QDualQuaternion rotation(qRotation, QBaseQuaternion());
-        QDualQuaternion translation(QQuaternion::GetIdentity(),
-                                    QBaseQuaternion(vTranslation.x * SQFloat::_0_5, vTranslation.y * SQFloat::_0_5, vTranslation.z * SQFloat::_0_5, SQFloat::_0));
-
-        return this->Transform(translation * rotation);
-    }
-
+    QDualQuaternion TransformRotationFirstImp(const QBaseQuaternion &qRotation, const VectorType &vTranslation) const;
 
     /// <summary>
     /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
@@ -608,14 +586,7 @@ protected:
     /// The transformed dual quaternion.
     /// </returns>
     template <class VectorType>
-    QDualQuaternion TransformTranslationFirstImp(const VectorType &vTranslation, const QBaseQuaternion &qRotation) const
-    {
-        QDualQuaternion rotation(qRotation, QBaseQuaternion());
-        QDualQuaternion translation(QQuaternion::GetIdentity(),
-                                    QBaseQuaternion(vTranslation.x * SQFloat::_0_5, vTranslation.y * SQFloat::_0_5, vTranslation.z * SQFloat::_0_5, SQFloat::_0));
-
-        return this->Transform(rotation * translation);
-    }
+    QDualQuaternion TransformTranslationFirstImp(const VectorType &vTranslation, const QBaseQuaternion &qRotation) const;
 
 };
 

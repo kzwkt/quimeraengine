@@ -184,7 +184,7 @@ public:
         QTransformationMatrixImp(translation, rotation, scale);
     }
 
-protected:
+private:
 
     /// <summary>
     /// Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and
@@ -866,6 +866,7 @@ protected:
         this->ij[3][2] = fTranslationZ;
     }
 
+private:
 
     /// <summary>
     /// Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
@@ -1028,8 +1029,6 @@ protected:
         translation.ij[3][1] = vAux.y;
         translation.ij[3][2] = vAux.z;
     }
-
-private:
 
     // Hidden method to prevent it could be used.
     void ResetToZero(){}

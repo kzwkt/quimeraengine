@@ -233,7 +233,7 @@ public:
     /// </returns>
     QSpaceConversionMatrix SwitchHandConventionProjectionSpaceMatrix() const;
 
-protected:
+private:
 
     // Hidden method to prevent it could be used.
     void ResetToZero();

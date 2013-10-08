@@ -82,13 +82,7 @@ public:
     }
 
     // Exposed methods
-	template<class MatrixTypeParam>
-    void QTransformationMatrixImp(const QTranslationMatrix<MatrixTypeParam> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
-    {
-        return QTransformationMatrix<MatrixType>::QTransformationMatrixImp(translation, rotation, scale);
-    }
-
-    QRotationMatrix3x3 ToRotationMatrix3x3() const
+	QRotationMatrix3x3 ToRotationMatrix3x3() const
     {
         return QTransformationMatrix<MatrixType>::ToRotationMatrix3x3();
     }
@@ -102,43 +96,6 @@ public:
                                                       fScaleX, fScaleY, fScaleZ);
     }
 
-    template <class MatrixTypeParam>
-    void ProductOperatorImp(const QTransformationMatrix<MatrixTypeParam> &matrix, QTransformationMatrix<MatrixType> &outMatrix) const
-    {
-        QTransformationMatrix<MatrixType>::ProductOperatorImp(matrix, outMatrix);
-    }
-
-    template <class MatrixTypeParam>
-    void ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix, QTransformationMatrix<MatrixType> &outMatrix) const
-    {
-        QTransformationMatrix<MatrixType>::ProductOperatorImp(matrix, outMatrix);
-    }
-
-    template <class MatrixTypeParam>
-    void ProductAssignationOperatorImp(const QTransformationMatrix<MatrixTypeParam> &matrix)
-    {
-        QTransformationMatrix<MatrixType>::ProductAssignationOperatorImp(matrix);
-    }
-
-    template <class MatrixTypeParam>
-    void DecomposeImp(QTransformationMatrix<MatrixTypeParam> &translation,
-                      QTransformationMatrix<MatrixTypeParam> &rotation,
-                      QTransformationMatrix<MatrixTypeParam> &scale) const
-    {
-        QTransformationMatrix<MatrixType>::DecomposeImp(translation,
-                                                        rotation,
-                                                        scale);
-    }
-
-    template <class MatrixTypeParam>
-    void DecomposeImp(QTranslationMatrix<MatrixTypeParam> &translation,
-                      QRotationMatrix3x3 &rotation,
-                      QScalingMatrix3x3 &scale) const
-    {
-        QTransformationMatrix<MatrixType>::DecomposeImp(translation,
-                                                        rotation,
-                                                        scale);
-    }
 };
 
 } //namespace Test
