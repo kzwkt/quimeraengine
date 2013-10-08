@@ -185,13 +185,13 @@ public:
 
 protected:
 
-    // <summary>
-    // Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and
-    // a 3x3 scale matrix.
-    // </summary>
-    // <param name="translation">[IN] A translation matrix.</param>
-    // <param name="rotation">[IN] A rotation matrix.</param>
-    // <param name="scale">[IN] A scale matrix.</param>
+    /// <summary>
+    /// Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and
+    /// a 3x3 scale matrix.
+    /// </summary>
+    /// <param name="translation">[IN] A translation matrix.</param>
+    /// <param name="rotation">[IN] A rotation matrix.</param>
+    /// <param name="scale">[IN] A scale matrix.</param>
     template <class MatrixTypeParam>
     void QTransformationMatrixImp(const QTranslationMatrix<MatrixTypeParam> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale)
     {
@@ -796,11 +796,19 @@ public:
 
 protected:
 
-    // Function to convert the 3x3 submatrix which contains the rotation and the scale into
-    // a 3x3 rotation matrix without the scale. It uses the fact that in a 3x3 rotation matrix,
-    // the length of any row o column vector is 1, so current length of each row in the transformation matrix
-    // is the scale factor (each row have a scale factor which matches with an axis).
-    // Dividing each row by its length we obtain the original rotation matrix.
+    /// <summary>
+    /// Function to convert the 3x3 submatrix which contains the rotation and the scale into
+    /// a 3x3 rotation matrix without the scale.
+    /// </summary>
+    /// <remarks>
+    /// It uses the fact that in a 3x3 rotation matrix,
+    /// the length of any row o column vector is 1, so current length of each row in the transformation matrix
+    /// is the scale factor (each row have a scale factor which matches with an axis).
+    /// Dividing each row by its length we obtain the original rotation matrix.
+    /// </remarks>
+    /// <returns>
+    /// The extracted rotation matrix.
+    /// </returns>
     QRotationMatrix3x3 ToRotationMatrix3x3() const
     {
         QVector3 vScale;
@@ -815,20 +823,20 @@ protected:
                                              this->ij[2][0] * vInvScale.z, this->ij[2][1] * vInvScale.z, this->ij[2][2] * vInvScale.z));
     }
 
-    // <summary>
-    // Initializes the transformation matrix from the components of a scale vector,
-    // a rotation quaternion and a translation vector.
-    // </summary>
-    // <param name="fTranslationX">[IN] Displazament within X direction.</param>
-    // <param name="fTranslationY">[IN] Displazament within Y direction.</param>
-    // <param name="fTranslationZ">[IN] Displazament within Z direction.</param>
-    // <param name="fRotationX">[IN] X component of the rotation quaternion.</param>
-    // <param name="fRotationY">[IN] Y component of the rotation quaternion.</param>
-    // <param name="fRotationZ">[IN] Z component of the rotation quaternion.</param>
-    // <param name="fRotationW">[IN] W component of the rotation quaternion.</param>
-    // <param name="fScaleX">[IN] Scale within X direction.</param>
-    // <param name="fScaleY">[IN] Scale within Y direction.</param>
-    // <param name="fScaleZ">[IN] Scale within Z direction.</param>
+    /// <summary>
+    /// Initializes the transformation matrix from the components of a scale vector,
+    /// a rotation quaternion and a translation vector.
+    /// </summary>
+    /// <param name="fTranslationX">[IN] Displazament within X direction.</param>
+    /// <param name="fTranslationY">[IN] Displazament within Y direction.</param>
+    /// <param name="fTranslationZ">[IN] Displazament within Z direction.</param>
+    /// <param name="fRotationX">[IN] X component of the rotation quaternion.</param>
+    /// <param name="fRotationY">[IN] Y component of the rotation quaternion.</param>
+    /// <param name="fRotationZ">[IN] Z component of the rotation quaternion.</param>
+    /// <param name="fRotationW">[IN] W component of the rotation quaternion.</param>
+    /// <param name="fScaleX">[IN] Scale within X direction.</param>
+    /// <param name="fScaleY">[IN] Scale within Y direction.</param>
+    /// <param name="fScaleZ">[IN] Scale within Z direction.</param>
     void Initialize(const float_q &fTranslationX, const float_q &fTranslationY, const float_q &fTranslationZ,
                     const float_q &fRotationX, const float_q &fRotationY, const float_q &fRotationZ, const float_q &fRotationW,
                     const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ)
@@ -857,16 +865,16 @@ protected:
     }
 
 
-    // <summary>
-    // Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    // 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
-    // knowing that fourth column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
-    // </summary>
-    // <remarks>
-    // This product is not conmmutative.
-    // </remarks>
-    // <param name="matrix">[IN] Matrix to be multiplied by.</param>
-    // <param name="outMatrix">[OUT] Resultant matrix.</param>
+    /// <summary>
+    /// Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
+    /// knowing that fourth column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
+    /// <param name="outMatrix">[OUT] Resultant matrix.</param>
     template <class MatrixTypeParam>
     void ProductOperatorImp(const QTransformationMatrix<MatrixTypeParam> &matrix, QTransformationMatrix<MatrixType> &outMatrix) const
     {
@@ -889,15 +897,15 @@ protected:
         outMatrix.ij[3][2] = this->ij[3][0] * matrix.ij[0][2] + this->ij[3][1] * matrix.ij[1][2] + this->ij[3][2] * matrix.ij[2][2] + matrix.ij[3][2];
     }
 
-    // <summary>
-    // Multiplies a 4x4 or 4x3 (depending on the method template parameter) translation matrix by the current matrix,
-    // following matrices product rules.
-    // </summary>
-    // <remarks>
-    // This product is not conmmutative.
-    // </remarks>
-    // <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
-    // <param name="outMatrix">[OUT] Resultant matrix.</param>
+    /// <summary>
+    /// Multiplies a 4x4 or 4x3 (depending on the method template parameter) translation matrix by the current matrix,
+    /// following matrices product rules.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
+    /// <param name="outMatrix">[OUT] Resultant matrix.</param>
     template <class MatrixTypeParam>
     void ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix, QTransformationMatrix<MatrixType> &outMatrix) const
     {
@@ -908,13 +916,13 @@ protected:
         outMatrix.ij[3][2] += matrix.ij[3][2];
     }
 
-    // <summary>
-    // Product and assign operator. Current matrix stores the result of the multiplication.
-    // Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    // 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
-    // knowing that last column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
-    // </summary>
-    // <param name="matrix">[IN] The matrix to be multiplied by.</param>
+    /// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// Multiplies a transformation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
+    /// knowing that last column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     template <class MatrixTypeParam>
     void ProductAssignationOperatorImp(const QTransformationMatrix<MatrixTypeParam> &matrix)
     {
@@ -941,13 +949,13 @@ protected:
         *this = aux;
     }
 
-    // <summary>
-    // Extracts the scale, the rotation and the translation into separated transformation matrices.
-    // They can be 4x3 or 4x4 matrices, depending on the method template parameter.
-    // </summary>
-    // <param name="translation">[OUT] Matrix to store the translation.</param>
-    // <param name="rotation">[OUT] Matrix to store the rotation.</param>
-    // <param name="scale">[OUT] Matrix to store the scale.</param>
+    /// <summary>
+    /// Extracts the scale, the rotation and the translation into separated transformation matrices.
+    /// They can be 4x3 or 4x4 matrices, depending on the method template parameter.
+    /// </summary>
+    /// <param name="translation">[OUT] Matrix to store the translation.</param>
+    /// <param name="rotation">[OUT] Matrix to store the rotation.</param>
+    /// <param name="scale">[OUT] Matrix to store the scale.</param>
     template <class MatrixTypeParam>
     void DecomposeImp(QTransformationMatrix<MatrixTypeParam> &translation,
                       QTransformationMatrix<MatrixTypeParam> &rotation,
@@ -978,13 +986,13 @@ protected:
         translation.ij[3][2] = vAux.z;
     }
 
-    // <summary>
-    // Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
-    // The translation matrix can be 4x3 or 4x4 matrix, depending on the method template parameter.
-    // </summary>
-    // <param name="translation">[OUT] Matrix to store the translation.</param>
-    // <param name="rotation">[OUT] Matrix to store the rotation.</param>
-    // <param name="scale">[OUT] Matrix to store the scale.</param>
+    /// <summary>
+    /// Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
+    /// The translation matrix can be 4x3 or 4x4 matrix, depending on the method template parameter.
+    /// </summary>
+    /// <param name="translation">[OUT] Matrix to store the translation.</param>
+    /// <param name="rotation">[OUT] Matrix to store the rotation.</param>
+    /// <param name="scale">[OUT] Matrix to store the scale.</param>
     template <class MatrixTypeParam>
     void DecomposeImp(QTranslationMatrix<MatrixTypeParam> &translation,
                       QRotationMatrix3x3 &rotation,

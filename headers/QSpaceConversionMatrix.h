@@ -238,12 +238,12 @@ protected:
     // Hidden method to prevent it could be used.
     void ResetToZero();
 
-    // <summary>
-    // Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
-    // </summary>
-    // <param name="translation">[IN] Matrix which contains the translation (position).</param>
-    // <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
-    // <param name="scale">[IN] Matrix which contains the scale (size).</param>
+    /// <summary>
+    /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
+    /// </summary>
+    /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
+    /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
+    /// <param name="scale">[IN] Matrix which contains the scale (size).</param>
     template <class MatrixType>
     void SetWorldSpaceMatrixImp(const QTranslationMatrix<MatrixType> &translation, const QRotationMatrix3x3 &rotation, const QScalingMatrix3x3 &scale);
 };

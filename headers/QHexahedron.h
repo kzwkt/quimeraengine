@@ -699,7 +699,15 @@ public:
 
 protected:
 
-    // Calculates if two points are in the same side of a plane defined by 3 points.
+    /// <summary>
+    /// Calculates if two points are in the same side of a plane defined by 3 points.
+    /// </summary>
+    /// <param name="vP1">[IN] The first point to check.</param>
+    /// <param name="vP2">[IN] The second point to check.</param>
+    /// <param name="vA">[IN] The first of the points that define the plane that will divide the space.</param>
+    /// <param name="vB">[IN] The second of the points that define the plane that will divide the space.</param>
+    /// <param name="vC">[IN] The third of the points that define the plane that will divide the space.</param>
+    /// <returns>True if the two points belong to the same side; False otherwise.</returns>
     template <class VectorTypeParam>
     bool PointsInSameSideOfPlane(const VectorTypeParam &vP1, const VectorTypeParam &vP2,
                                         const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC) const

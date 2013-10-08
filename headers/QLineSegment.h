@@ -1476,16 +1476,16 @@ public:
 
 protected:
 
-	// <summary>
-	// This method computes the closest points between two line segments.
-	// </summary>
-	// <param name="segment">[IN] The segment to whom the distace has to be computed from.</param>
-	// <param name="vClosestPtInS1ToS2">[OUT] It stores the closest point to S2 belonging to S1.</param>
-	// <param name="vClosestPtInS2ToS1">[OUT] It stores the closest point to S1 belonging to S2.</param>
-	// <remarks>
-	// We assume S1 is the segment which executes this member function, and S2 the segment passed as
-	// a parameter to S1.
-	// </remarks>
+	/// <summary>
+	/// This method computes the closest points between two line segments.
+	/// </summary>
+	/// <param name="segment">[IN] The segment to whom the distace has to be computed from.</param>
+	/// <param name="vClosestPtInS1ToS2">[OUT] It stores the closest point to S2 belonging to S1.</param>
+	/// <param name="vClosestPtInS2ToS1">[OUT] It stores the closest point to S1 belonging to S2.</param>
+	/// <remarks>
+	/// We assume S1 is the segment which executes this member function, and S2 the segment passed as
+	/// a parameter to S1.
+	/// </remarks>
 	void GetClosestPoints(const QBaseLineSegment<VectorType> &segment,
 						  VectorType& vClosestPtInS1ToS2, VectorType& vClosestPtInS2ToS1) const
 	{

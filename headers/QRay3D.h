@@ -2191,7 +2191,16 @@ public:
 
 protected:
 
-    // Checks if resident ray contains a given point. Ray must be normalized to works fine.
+    /// <summary>
+	/// Checks if the ray contains a given point.
+	/// </summary>
+    /// <remarks>
+	/// Ray must be normalized for the operation to return a correct result.
+	/// </remarks>
+	/// <param name="vPoint">[IN] The point to be checked.</param>
+    /// <returns>
+    /// True if the point belongs to the ray; False otherwise.
+    /// </returns>
     bool Contains(const VectorType &vPoint) const
     {
         if (vPoint == this->Origin) // The point is the ray position.
@@ -2210,7 +2219,13 @@ protected:
 
     }
 
-    // Calculates if a point is inside the triangle provided applying barycentric technique.
+    /// <summary>
+	/// Checks if a triangle contains a given point.
+	/// </summary>
+	/// <param name="vPoint">[IN] The point to be checked.</param>
+    /// <returns>
+    /// True if the point belongs to the triangle; False otherwise.
+    /// </returns>
     template <class VectorTypeParam>
     bool PointInsideTriangle(const QBaseTriangle<VectorTypeParam> &triangle, const VectorTypeParam &vPoint) const
     {
@@ -2242,8 +2257,20 @@ protected:
                SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1);
     }
 
-    // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
-    // applying barycentric technique. Is supossed that quadrilateral vertex are consecutive.
+    /// <summary>
+	/// Calculates if a point is inside the quadrilateral provided by four vertices.
+	/// </summary>
+    /// <remarks>
+	/// The quadrilateral is suppossed to be convex and not complex.
+	/// </remarks>
+	/// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
+    /// <param name="vVertexB">[IN] The vertex B of the quadrilateral.</param>
+    /// <param name="vVertexC">[IN] The vertex C of the quadrilateral.</param>
+    /// <param name="vVertexD">[IN] The vertex D of the quadrilateral.</param>
+    /// <param name="vPoint">[IN] The point to be checked.</param>
+    /// <returns>
+    /// True if the point belongs to the quadrilateral; False otherwise.
+    /// </returns>
     template <class VectorTypeParam>
     bool PointInsideQuadrilateral(const VectorTypeParam &vVertexA, const VectorTypeParam &vVertexB,
                                   const VectorTypeParam &vVertexC,const VectorTypeParam &vVertexD,
@@ -2301,7 +2328,16 @@ protected:
                 SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);
     }
 
-    // Checks if resident ray intersects with a quadrilateral given by its four vertices
+    /// <summary>
+    /// Checks if the ray intersects with a quadrilateral given by its four vertices.
+	/// </summary>
+	/// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
+    /// <param name="vVertexB">[IN] The vertex B of the quadrilateral.</param>
+    /// <param name="vVertexC">[IN] The vertex C of the quadrilateral.</param>
+    /// <param name="vVertexD">[IN] The vertex D of the quadrilateral.</param>
+    /// <returns>
+    /// True if the ray intersects with the quadrilateral; False otherwise.
+    /// </returns>
     bool Intersection(const VectorType &vVertexA, const VectorType &vVertexB, const VectorType &vVertexC, const VectorType &vVertexD) const
     {
         // Plane that contains quadrilateral
@@ -2319,7 +2355,37 @@ protected:
             return false;
     }
 
-    // Calculates the intersection point between a quadrilateral given by its four vertices and resident ray, if it exists.
+    /// <summary>
+    /// Calculates the intersection point between a quadrilateral given by its four vertices and the resident ray.
+	/// </summary>
+	/// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
+    /// <param name="vVertexB">[IN] The vertex B of the quadrilateral.</param>
+    /// <param name="vVertexC">[IN] The vertex C of the quadrilateral.</param>
+    /// <param name="vVertexD">[IN] The vertex D of the quadrilateral.</param>
+    /// <param name="vIntersection1">[OUT] The vertex D of the quadrilateral.</param>
+    /// <param name="vIntersection2">[OUT] The vertex D of the quadrilateral.</param>
+    /// <returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the quadrilateral.
+    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the quadrilateral.
+    /// - The ray intersects with only one vertex of the quadrilateral.
+    /// - The origin of the ray is contained in the quadrilateral.
+    /// - The origin of the ray is contained in the quadrilateral but the ray does not intersect with any edge.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The ray intersects with two edges of the quadrilateral.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with another edge.
+    /// - The origin of the ray coincides with a vertex of the quadrilateral and the ray intersects with another edge.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray intersects with a vertex of the edge.
+    /// - The ray intersects with two vertices of the quadrilateral.
+    /// </returns>
     EQIntersections IntersectionPoint (const VectorType &vVertexA, const VectorType &vVertexB, const VectorType &vVertexC, const VectorType &vVertexD,
                                        VectorType &vIntersection1, VectorType &vIntersection2) const
     {
@@ -2703,16 +2769,16 @@ protected:
             return EQIntersections::E_None;
     }
 
-    // <summary>
-	// This method applies to the resident ray the transformation contained in the provided matrix.
-	// </summary>
-	// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
-	// <remarks>
-	// Resultant ray is normalized after this operation.
-	// </remarks>
-    // <returns>
-    // The transformed ray.
-    // </returns>
+    /// <summary>
+	/// This method applies to the resident ray the transformation contained in the provided matrix.
+	/// </summary>
+    /// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
+    /// <returns>
+    /// The transformed ray.
+    /// </returns>
 	template <class MatrixType>
 	QRay3D<VectorType> TransformImp(const MatrixType &transformation) const
 	{
@@ -2728,18 +2794,18 @@ protected:
         return auxRay;
 	}
 
-    // <summary>
-	// This method applies to the resident ray the transformation contained in the provided matrix using
-	// a given point as pivot of transformation.
-	// </summary>
-	// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
-	// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
-	// <remarks>
-	// Resultant ray is normalized after this operation.
-	// </remarks>
-    // <returns>
-    // The transformed ray.
-    // </returns>
+    /// <summary>
+	/// This method applies to the resident ray the transformation contained in the provided matrix using
+	/// a given point as pivot of transformation.
+	/// </summary>
+    /// <remarks>
+	/// Resultant ray is normalized after this operation.
+	/// </remarks>
+	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
+	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
+    /// <returns>
+    /// The transformed ray.
+    /// </returns>
 	template <class MatrixType>
 	QRay3D<VectorType> TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const
 	{

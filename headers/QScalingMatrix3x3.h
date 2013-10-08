@@ -264,7 +264,16 @@ protected:
     // Hidden method to prevent it could be used.
     void ResetToZero();
 
-    // Implementation of product by translation matrix operator
+    /// <summary>
+    /// Multiplies a 4x3 or 4x4 translation matrix by the resident matrix.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
+    /// </returns>
     template <class MatrixType>
     QTransformationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixType> &matrix) const
     {
@@ -281,7 +290,16 @@ protected:
         return aux;
     }
 
-    // Implementation of product by transformation matrix operator
+    /// <summary>
+    /// Multiplies a 4x3 or 4x4 transformation matrix by the resident matrix.
+    /// </summary>
+    /// <remarks>
+    /// This product is not conmmutative.
+    /// </remarks>
+    /// <param name="matrix">[IN] Transformation matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
+    /// </returns>
     template <class MatrixType>
     QTransformationMatrix<MatrixType> ProductOperatorImp(const QTransformationMatrix<MatrixType> &matrix) const
     {

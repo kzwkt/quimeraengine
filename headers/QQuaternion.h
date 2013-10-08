@@ -112,7 +112,7 @@ public:
     /// </summary>
     /// <remarks>
     /// Quimera Engine follows the rotation order convention: Z, then X, then Y, aka Yaw-Pitch-Roll.<br/>
-    /// This is a slow operation.</br>
+    /// This is a slow operation.<br/>
     /// This method produces a normalized quaternion.
     /// </remarks>
     /// <param name="fRotationAngleX">[IN] Rotation angle about X global axis.</param>
@@ -205,15 +205,16 @@ public:
 
 protected:
 
-	// <summary>
-	// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
-    // </summary>
-    // <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
+	/// <summary>
+	/// Constructor that receives a transformation matrix. The quaternion will contain the rotation the matrix represents.
+    /// </summary>
+    /// <param name="transformation">[IN] A transformation matrix. If it is a null matrix, the result is undefined.</param>
 	template <class MatrixType>
     void QQuaternionImp(const QTransformationMatrix<MatrixType> &transformation)
     {
         transformation.GetRotation(*this);
     }
+
 
     // PROPERTIES
     // ---------------
