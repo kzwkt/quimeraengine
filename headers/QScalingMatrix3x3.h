@@ -259,7 +259,7 @@ public:
     /// </returns>
 	float_q GetDeterminant() const;
 
-protected:
+private:
 
     // Hidden method to prevent it could be used.
     void ResetToZero();
@@ -276,20 +276,7 @@ protected:
     /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
     /// </returns>
     template <class MatrixType>
-    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixType> &matrix) const
-    {
-        QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
-
-        aux.ij[0][0] = this->ij[0][0];
-        aux.ij[1][1] = this->ij[1][1];
-        aux.ij[2][2] = this->ij[2][2];
-
-        aux.ij[3][0] = matrix.ij[3][0];
-        aux.ij[3][1] = matrix.ij[3][1];
-        aux.ij[3][2] = matrix.ij[3][2];
-
-        return aux;
-    }
+    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixType> &matrix) const;
 
     /// <summary>
     /// Multiplies a 4x3 or 4x4 transformation matrix by the resident matrix.
@@ -303,28 +290,7 @@ protected:
     /// The resultant 4x3 or 4x4 transformation matrix, depending on the method template parameter.
     /// </returns>
     template <class MatrixType>
-    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTransformationMatrix<MatrixType> &matrix) const
-    {
-        QTransformationMatrix<MatrixType> aux(QTransformationMatrix<MatrixType>::GetIdentity());
-
-        aux.ij[3][0] = matrix.ij[3][0];
-        aux.ij[3][1] = matrix.ij[3][1];
-        aux.ij[3][2] = matrix.ij[3][2];
-
-        aux.ij[0][0] = this->ij[0][0] * matrix.ij[0][0];
-        aux.ij[0][1] = this->ij[0][0] * matrix.ij[0][1];
-        aux.ij[0][2] = this->ij[0][0] * matrix.ij[0][2];
-
-        aux.ij[1][0] = this->ij[1][1] * matrix.ij[1][0];
-        aux.ij[1][1] = this->ij[1][1] * matrix.ij[1][1];
-        aux.ij[1][2] = this->ij[1][1] * matrix.ij[1][2];
-
-        aux.ij[2][0] = this->ij[2][2] * matrix.ij[2][0];
-        aux.ij[2][1] = this->ij[2][2] * matrix.ij[2][1];
-        aux.ij[2][2] = this->ij[2][2] * matrix.ij[2][2];
-
-        return aux;
-    }
+    QTransformationMatrix<MatrixType> ProductOperatorImp(const QTransformationMatrix<MatrixType> &matrix) const;
 };
 
 } //namespace Math

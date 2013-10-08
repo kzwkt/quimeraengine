@@ -188,9 +188,6 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QCircle_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternionWhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
-		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
@@ -233,9 +230,6 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuadrilateral_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternionWhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
-		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QQuaternion_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
@@ -251,19 +245,10 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRay_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3WhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
-		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QRotationMatrix3x3_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3WhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
-		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
-		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrixWhiteBox.h">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrix_Test.cpp">
@@ -281,9 +266,6 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrixWhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
-		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
@@ -296,13 +278,7 @@
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector2_Test.cpp">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3WhiteBox.h">
-			<Option virtualFolder="Tests\Math\" />
-		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp">
-			<Option virtualFolder="Tests\Math\" />
-		</Unit>
-		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector4WhiteBox.h">
 			<Option virtualFolder="Tests\Math\" />
 		</Unit>
 		<Unit filename="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp">

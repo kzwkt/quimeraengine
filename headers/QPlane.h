@@ -166,7 +166,7 @@ public:
 	/// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
     QPlane(const QVector4 &vPoint1, const QVector4 &vPoint2, const QVector4 &vPoint3);
 
-protected:
+private:
 
 	/// <summary>
 	/// Constructor from three points.
@@ -922,7 +922,7 @@ public:
     /// </returns>
     string_q ToString() const;
 
-protected:
+private:
 
     /// <summary>
     /// Calculates the dot product between the direction vector of the resident plane and the provided vector.

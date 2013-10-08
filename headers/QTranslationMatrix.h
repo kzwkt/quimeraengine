@@ -442,7 +442,7 @@ public:
 		return SQFloat::_1;
 	}
 
-protected:
+private:
 
     /// <summary>
     /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
@@ -486,8 +486,6 @@ protected:
         this->ij[3][1] += matrix.ij[3][1];
         this->ij[3][2] += matrix.ij[3][2];
     }
-
-private:
 
     // Hidden method to prevent it could be used.
     void ResetToZero(){}
