@@ -52,6 +52,8 @@ namespace Math
 /// <remarks>
 /// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </remarks>
+/// <typeparam name="VectorTypeOrigin">Allowed types: QVector2, QVector3, QVector4.</typeparam>
+/// <typeparam name="VectorTypeDirection">Allowed types: QVector2 (when VectorTypeOrigin is QVector2), QVector3 (when VectorTypeOrigin is QVector3 or QVector4).</typeparam>
 template<class VectorTypeOrigin, class VectorTypeDirection>
 class QRay : public QBaseRay<VectorTypeOrigin, VectorTypeDirection>
 {

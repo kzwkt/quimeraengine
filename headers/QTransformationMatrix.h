@@ -75,6 +75,7 @@ template<class MatrixType> class QTranslationMatrix;
 /// <br/>
 /// \f$ \begin{bmatrix} 0 \\ 0 \\ 0 \\ 1 \end{bmatrix}\f$.
 /// </remarks>
+/// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
 template <class MatrixType>
 class QTransformationMatrix : public MatrixType
 {
@@ -189,6 +190,7 @@ protected:
     /// Constructor from a 4x3 or 4x4 (depending on the constructor template parameter) translation matrix, a 3x3 rotation matrix and
     /// a 3x3 scale matrix.
     /// </summary>
+    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="translation">[IN] A translation matrix.</param>
     /// <param name="rotation">[IN] A rotation matrix.</param>
     /// <param name="scale">[IN] A scale matrix.</param>
@@ -873,6 +875,7 @@ protected:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
+    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
     /// <param name="outMatrix">[OUT] Resultant matrix.</param>
     template <class MatrixTypeParam>
@@ -904,6 +907,7 @@ protected:
     /// <remarks>
     /// This product is not conmmutative.
     /// </remarks>
+    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] Translation matrix to be multiplied by.</param>
     /// <param name="outMatrix">[OUT] Resultant matrix.</param>
     template <class MatrixTypeParam>
@@ -922,6 +926,7 @@ protected:
     /// 4x3 or 4x4 matrices ore one of each type. Since both are transformation matrices, the product is calculated
     /// knowing that last column of both matrices is (0,0,0,1), even in 4x3 ones, where it is implicit.
     /// </summary>
+    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     template <class MatrixTypeParam>
     void ProductAssignationOperatorImp(const QTransformationMatrix<MatrixTypeParam> &matrix)
@@ -953,6 +958,7 @@ protected:
     /// Extracts the scale, the rotation and the translation into separated transformation matrices.
     /// They can be 4x3 or 4x4 matrices, depending on the method template parameter.
     /// </summary>
+    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="translation">[OUT] Matrix to store the translation.</param>
     /// <param name="rotation">[OUT] Matrix to store the rotation.</param>
     /// <param name="scale">[OUT] Matrix to store the scale.</param>
@@ -990,6 +996,7 @@ protected:
     /// Extracts the scale, the rotation and the translation into separated scale, rotation and translation matrices.
     /// The translation matrix can be 4x3 or 4x4 matrix, depending on the method template parameter.
     /// </summary>
+    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="translation">[OUT] Matrix to store the translation.</param>
     /// <param name="rotation">[OUT] Matrix to store the rotation.</param>
     /// <param name="scale">[OUT] Matrix to store the scale.</param>

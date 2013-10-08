@@ -57,6 +57,7 @@ namespace Math
 /// Please note there's really no "source" and "end" points implicit, that is, it's not an oriented segment
 /// except for the unit line (see below).
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QLineSegment : public QBaseLineSegment<VectorType>
 {

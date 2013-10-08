@@ -56,6 +56,7 @@ namespace Math
 /// <br/>
 /// \f$ T = \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_x & d_y & d_z & 1 \end{bmatrix}\f$
 /// </remarks>
+/// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
 template <class MatrixType>
 class QTranslationMatrix : public MatrixType
 {
@@ -454,6 +455,7 @@ protected:
     /// <remarks>
     /// This product is conmmutative.
     /// </remarks>
+    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
     /// <returns>
     /// The resultant translation matrix.
@@ -475,6 +477,7 @@ protected:
     /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
     /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
     /// </summary>
+    /// <typeparam name="MatrixTypeParam">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     template <class MatrixTypeParam>
     void ProductAssignationOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix)

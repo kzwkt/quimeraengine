@@ -45,6 +45,9 @@ namespace Math
 /// <summary>
 /// Implements the funcionality of a ray, which is a vector located at a point.
 /// </summary>
+/// <typeparam name="VectorTypeOrigin">Allowed types: QBaseVector2, QBaseVector3, QBaseVector4, QVector2, QVector3, QVector4.</typeparam>
+/// <typeparam name="VectorTypeDirection">Allowed types: QBaseVector2 (when VectorTypeOrigin is QBaseVector2), QBaseVector3 (when VectorTypeOrigin is QBaseVector3 or QBaseVector4), 
+/// QVector2 (when VectorTypeOrigin is QVector2), QVector3 (when VectorTypeOrigin is QVector3 or QVector4).</typeparam>
 template<class VectorTypeOrigin, class VectorTypeDirection>
 class QBaseRay
 {

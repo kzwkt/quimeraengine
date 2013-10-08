@@ -241,6 +241,7 @@ protected:
     /// <summary>
     /// Sets the world space matrix, which usually defines the size, orientation and position of an object in the world space.
     /// </summary>
+    /// <typeparam name="MatrixType">Allowed types: QMatrix4x3, QMatrix4x4.</typeparam>
     /// <param name="translation">[IN] Matrix which contains the translation (position).</param>
     /// <param name="rotation">[IN] Matrix which contains the rotation (orientation).</param>
     /// <param name="scale">[IN] Matrix which contains the scale (size).</param>

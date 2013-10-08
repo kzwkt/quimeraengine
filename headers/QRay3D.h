@@ -56,6 +56,7 @@ namespace Math
 /// <remarks>
 /// The direction symbolizes a line with only one end (which coincides with the origin) and that extends to the infinite.
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QRay3D : public QRay<VectorType, QVector3>
 {
@@ -2222,6 +2223,7 @@ protected:
     /// <summary>
 	/// Checks if a triangle contains a given point.
 	/// </summary>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
 	/// <param name="vPoint">[IN] The point to be checked.</param>
     /// <returns>
     /// True if the point belongs to the triangle; False otherwise.
@@ -2263,6 +2265,7 @@ protected:
     /// <remarks>
 	/// The quadrilateral is suppossed to be convex and not complex.
 	/// </remarks>
+    /// <typeparam name="VectorTypeParam">Allowed types: QVector3, QVector4.</typeparam>
 	/// <param name="vVertexA">[IN] The vertex A of the quadrilateral.</param>
     /// <param name="vVertexB">[IN] The vertex B of the quadrilateral.</param>
     /// <param name="vVertexC">[IN] The vertex C of the quadrilateral.</param>
@@ -2775,6 +2778,7 @@ protected:
     /// <remarks>
 	/// Resultant ray is normalized after this operation.
 	/// </remarks>
+    /// <typeparam name="MatrixType">Allowed types: QTransformationMatrix<QMatrix4x3>, QTransformationMatrix<QMatrix4x4>.</typeparam>
 	/// <param name="transformation">[IN] Matrix which contains the transformation to be applied.</param>
     /// <returns>
     /// The transformed ray.
@@ -2801,6 +2805,7 @@ protected:
     /// <remarks>
 	/// Resultant ray is normalized after this operation.
 	/// </remarks>
+    /// <typeparam name="MatrixType">Allowed types: QTransformationMatrix<QMatrix4x3>, QTransformationMatrix<QMatrix4x4>.</typeparam>
 	/// <param name="transformation">[IN] Tranformation matrix to be applied.</param>
 	/// <param name="vPivot">[IN] Point that acts as pivot of the transformation.</param>
     /// <returns>

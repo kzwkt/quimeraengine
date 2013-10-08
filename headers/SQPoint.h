@@ -652,6 +652,7 @@ private:
 	/// <summary>
 	/// Translates 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vTranslation">[IN] 3D Vector type that contains the translation to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
 	template <class VectorType>
@@ -665,6 +666,7 @@ private:
 	/// <summary>
 	/// Translates 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="fTranslationX">[IN] Floating point value that contains the translation to be applied on X component.</param>
     /// <param name="fTranslationY">[IN] Floating point value that contains the translation to be applied on Y component.</param>
     /// <param name="fTranslationZ">[IN] Floating point value that contains the translation to be applied on Z component.</param>
@@ -680,6 +682,8 @@ private:
 	/// <summary>
 	/// Translates 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="MatrixType">Allowed types: QTranslationMatrix<QMatrix4x3>, QTranslationMatrix<QMatrix4x4>.</typeparam>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="translation">[IN] 3x3 or 4x4 translation matrix that contains the transformation to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be translated.</param>
 	template <class MatrixType, class VectorType>
@@ -691,6 +695,7 @@ private:
 	/// <summary>
 	/// Rotates 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="qRotation">[IN] Quaternion that contains the rotation to be done.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be rotated.</param>
 	template <class VectorType>
@@ -702,6 +707,7 @@ private:
 	/// <summary>
 	/// Rotates 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="rotation">[IN] Rotation matrix that contains the rotation to be done.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be rotated.</param>
 	template <class VectorType>
@@ -713,6 +719,7 @@ private:
 	/// <summary>
 	/// Scales 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="vScale">[IN] 3D Vector type that contains the scale to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be scaled.</param>
 	template <class VectorType>
@@ -726,6 +733,7 @@ private:
 	/// <summary>
 	/// Scales 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="fScaleX">[IN] Scalar value that contains the scale to be applied on X component.</param>
     /// <param name="fScaleY">[IN] Scalar value that contains the scale to be applied on Y component.</param>
     /// <param name="fScaleZ">[IN] Scalar value that contains the scale to be applied on Z component.</param>
@@ -752,6 +760,8 @@ private:
 	/// <summary>
 	/// Transforms 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="MatrixType">Allowed types: QTransformationMatrix<QMatrix4x3>, QTransformationMatrix<QMatrix4x4>.</typeparam>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="transformation">[IN] 4x3 or 4x4 matrix that contains the transformation to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be transformed.</param>
 	template <class MatrixType, class VectorType>
@@ -763,6 +773,7 @@ private:
 	/// <summary>
 	/// Transforms 3D or 4D points.
 	/// </summary>
+    /// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
     /// <param name="spaceConversion">[IN] Space conversion matrix that contains the transformation to be applied.</param>
 	/// <param name="vPoint">[IN/OUT] 3D or 4D point that will be transformed.</param>
 	template <class VectorType>

@@ -56,6 +56,7 @@ namespace Math
 /// The six faces are defined by the followings vertices: ABCD, EFGH, AEFD, ABHE, BCGH, CDFG.<br/>
 /// The twelve edges are AB, BC, CD, DA, EF, FG, GH, HE, AE, BH, CG, DF.
 /// </remarks>
+/// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QHexahedron : public QBaseHexahedron<VectorType>
 {
@@ -702,6 +703,7 @@ protected:
     /// <summary>
     /// Calculates if two points are in the same side of a plane defined by 3 points.
     /// </summary>
+    /// <typeparam name="VectorTypeParam">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
     /// <param name="vP1">[IN] The first point to check.</param>
     /// <param name="vP2">[IN] The second point to check.</param>
     /// <param name="vA">[IN] The first of the points that define the plane that will divide the space.</param>

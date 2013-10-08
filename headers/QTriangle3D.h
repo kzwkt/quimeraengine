@@ -52,6 +52,7 @@ namespace Math
 /// <summary>
 /// Class which represents a triangle in 3D.
 /// </summary>
+/// <typeparam name="VectorType">Allowed types: QVector3, QVector4.</typeparam>
 template <class VectorType>
 class QTriangle3D : public QTriangle<VectorType>
 {
