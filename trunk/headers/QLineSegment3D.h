@@ -313,12 +313,12 @@ public:
         QE_ASSERT(this->A != this->B);
 
         // Checks if there is an intersection with any face.
-        if (CuadrilateralIntersection(*this, hexahedron.A, hexahedron.B, hexahedron.C, hexahedron.D) ||
-            CuadrilateralIntersection(*this, hexahedron.E, hexahedron.F, hexahedron.G, hexahedron.H) ||
-            CuadrilateralIntersection(*this, hexahedron.A, hexahedron.B, hexahedron.H, hexahedron.E) ||
-            CuadrilateralIntersection(*this, hexahedron.B, hexahedron.C, hexahedron.G, hexahedron.H) ||
-            CuadrilateralIntersection(*this, hexahedron.A, hexahedron.D, hexahedron.F, hexahedron.E) ||
-            CuadrilateralIntersection(*this, hexahedron.C, hexahedron.D, hexahedron.F, hexahedron.G) ||
+        if (QuadrilateralIntersection(*this, hexahedron.A, hexahedron.B, hexahedron.C, hexahedron.D) ||
+            QuadrilateralIntersection(*this, hexahedron.E, hexahedron.F, hexahedron.G, hexahedron.H) ||
+            QuadrilateralIntersection(*this, hexahedron.A, hexahedron.B, hexahedron.H, hexahedron.E) ||
+            QuadrilateralIntersection(*this, hexahedron.B, hexahedron.C, hexahedron.G, hexahedron.H) ||
+            QuadrilateralIntersection(*this, hexahedron.A, hexahedron.D, hexahedron.F, hexahedron.E) ||
+            QuadrilateralIntersection(*this, hexahedron.C, hexahedron.D, hexahedron.F, hexahedron.G) ||
             (this->PointInsideHexahedron(hexahedron, this->A) && this->PointInsideHexahedron(hexahedron, this->B)) )
             return true;
         else
@@ -2028,22 +2028,14 @@ public:
 
 protected:
 
-    // Calculates if two points are in the same side of a line segment. Can be used to know
-    // if a point is inside or outside a plane convex polygon, being point and polygon coplanars.
-    // The point must be in the same side of every polygon edge than any
-    // other polygon vertex not included in the analized edge.
-    template <class VectorTypeParam>
-    bool PointsInSameSideOfLine(const VectorTypeParam &vPoint1, const VectorTypeParam &vPoint2,
-                                       const VectorTypeParam &vLine1, const VectorTypeParam &vLine2) const
-    {
-        VectorTypeParam vLine(vLine2 - vLine1);
-        VectorTypeParam vCP1 = vLine.CrossProduct(vPoint1 - vLine1);
-        VectorTypeParam vCP2 = vLine.CrossProduct(vPoint2 - vLine1);
-
-        return SQFloat::IsGreaterOrEquals(vCP1.DotProduct(vCP2), SQFloat::_0);
-    }
-
-    // Calculates if a point is inside the triangle provided applying barycentric technique.
+    /// <summary>
+	/// Calculates if a point is inside the triangle provided applying barycentric technique.
+    /// </summary>
+    /// <param name="triangle">[IN] The triangle that may contain the point.</param>
+    /// <param name="vPoint">[IN] The point that may be contained in the triangle.</param>
+    /// <returns>
+	/// True if the point is inside the triangle; False otherwise.
+	/// </returns>
     template <class VectorTypeParam>
     bool PointInsideTriangle(const QBaseTriangle<VectorTypeParam> &triangle, const VectorTypeParam &vPoint) const
     {
@@ -2075,11 +2067,21 @@ protected:
                SQFloat::IsLessOrEquals(fU + fV, SQFloat::_1);
     }
 
-    // Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
-    // applying barycentric technique. Is supossed that quadrilateral vertex are consecutive.
+    /// <summary>
+	/// Calculates if a point is inside the convex quadrilateral provided by the vertex A, B, C and D,
+    /// applying barycentric technique. Is supossed that quadrilateral vertex are consecutive.
+    /// </summary>
+    /// <param name="vA">[IN] The point A of the quadrilateral.</param>
+    /// <param name="vB">[IN] The point B of the quadrilateral.</param>
+    /// <param name="vC">[IN] The point C of the quadrilateral.</param>
+    /// <param name="vD">[IN] The point D of the quadrilateral.</param>
+    /// <param name="vPoint">[IN] The point that may be contained in the quadrilateral.</param>
+    /// <returns>
+	/// True if the point belongs to the quadrilateral; False otherwise.
+	/// </returns>
     template <class VectorTypeParam>
     bool PointInsideQuadrilateral(const VectorTypeParam &vA, const VectorTypeParam &vB,
-                                         const VectorTypeParam &vC, const VectorTypeParam &vD, const VectorTypeParam &vPoint) const
+                                  const VectorTypeParam &vC, const VectorTypeParam &vD, const VectorTypeParam &vPoint) const
     {
         // Compute vectors
         const VectorTypeParam &V0(vC - vA);
@@ -2133,10 +2135,20 @@ protected:
                SQFloat::IsLessOrEquals(fU2 + fV2, SQFloat::_1);
     }
 
-    // Calculates if two points are in the same side of a plane defined by 3 points.
+    /// <summary>
+	/// Calculates if two points are in the same side of a plane defined by 3 points.
+    /// </summary>
+    /// <param name="vPoint1">[IN] The first point to be checked.</param>
+    /// <param name="vPoint2">[IN] The second point to be checked.</param>
+    /// <param name="vA">[IN] One of the points that define the plane that divides the space in two parts.</param>
+    /// <param name="vB">[IN] One of the points that define the plane that divides the space in two parts.</param>
+    /// <param name="vC">[IN] One of the points that define the plane that divides the space in two parts.</param>
+    /// <returns>
+	/// True if both points lies in the same side of the plane.
+	/// </returns>
     template <class VectorTypeParam>
     bool PointsInSameSideOfPlane(const VectorTypeParam &vPoint1, const VectorTypeParam &vPoint2,
-                                        const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC) const
+                                 const VectorTypeParam &vA, const VectorTypeParam &vB, const VectorTypeParam &vC) const
     {
         QPlane p(vA, vB, vC);
 
@@ -2147,7 +2159,15 @@ protected:
     }
 
     // [TODO] Thund: This may be replaced with a call to QHexahedron::Contains. This would add a dependency to QHexahedron.
-    // Calculates if two points are in the same side of a plane defined by 3 points.
+    
+    /// <summary>
+	/// Checks whether a point is contained or not in a hexahedron.
+    /// </summary>
+    /// <param name="hexahedron">[IN] The hexahedron where the point may be contained.</param>
+    /// <param name="vPoint">[IN] The point to be checked.</param>
+    /// <returns>
+	/// True if the point is inside the hexahedron (if it lies in a face, it is considered as inside); False otherwise.
+	/// </returns>
     template <class VectorTypeParam>
     bool PointInsideHexahedron(const QBaseHexahedron<VectorTypeParam> &hexahedron, const VectorTypeParam &vPoint) const
     {
@@ -2159,10 +2179,37 @@ protected:
                 PointsInSameSideOfPlane(vPoint, hexahedron.A, hexahedron.C, hexahedron.D, hexahedron.F) );
     }
 
-    // Checks if a segment intersects a cuadrilateral. It's supossed that A, B, C, D are consecutive
-    // vertices of a cuadrilateral.
+    /// <summary>
+	/// Checks if a segment intersects a cuadrilateral.
+    /// </summary>
+    /// <remarks>
+    /// It's supossed that A, B, C, D are consecutive vertices of a cuadrilateral.
+	/// </remarks>
+    /// <param name="segment">[IN] The segment whose intersections are to be calculated.</param>
+    /// <param name="vA">[IN] The point A of the quadrilateral.</param>
+    /// <param name="vB">[IN] The point B of the quadrilateral.</param>
+    /// <param name="vC">[IN] The point C of the quadrilateral.</param>
+    /// <param name="vD">[IN] The point D of the quadrilateral.</param>
+    /// <returns>
+	/// A boolean value that indicates whether the segment and the quadrilateral intersect or not.<br/>
+    /// <br/>
+    /// <b>True</b><br/>
+    /// The segment and the quadrilateral intersect, including the following cases:
+    /// - The line segment intersects with a vertex of the quadrilateral.
+    /// - Only one endpoint is contained in the quadrilateral.
+    /// - Only one endpoint is contained in an edge of the quadrilateral.
+    /// - The line segment intersects with an edge of the quadrilateral, being both endpoints outside.
+    /// - An endpoint coincide with a vertex of the quadrilateral.
+    /// - The segment intersects with two edges of the quadrilateral.
+    /// - Both endpoints belong to two different edges of the quadrilateral.
+    /// - Both endpoints belong to the same edge of the quadrilateral.
+    /// - The segment is contained in the quadrilateral (endpoints are not tangent to any edge).
+    ///
+    /// <b>False</b><br/>
+    /// The line segment does not intersect with the quadrilateral.
+	/// </returns>
     template <class VectorTypeParam>
-    bool CuadrilateralIntersection(const QLineSegment3D<VectorTypeParam> &segment,
+    bool QuadrilateralIntersection(const QLineSegment3D<VectorTypeParam> &segment,
                                    const VectorTypeParam &vA, const VectorTypeParam &vB,
                                    const VectorTypeParam &vC, const VectorTypeParam &vD) const
     {
@@ -2200,11 +2247,43 @@ protected:
         // otherwise it's outside.
         return PointInsideQuadrilateral(vA, vB, vC, vD, vAux);
     }
-
-    // Computes the intersection between a line segment and a cuadrilateral. It's supossed that A, B, C, D are consecutive
-    // vertices of a cuadrilateral.
-    // Returns a value indicating the number of intersections (E_None, E_One, E_Two and E_Infinite)
-    // Stores the closest intersection point to A end point of line segment in the vector provided.
+        
+    /// <summary>
+	/// Computes the intersection between a line segment and a cuadrilateral. 
+    /// </summary>
+    /// <remarks>
+    /// It's supossed that A, B, C, D are consecutive vertices of a cuadrilateral.
+	/// </remarks>
+    /// <param name="segment">[IN] The segment whose intersections are to be calculated.</param>
+    /// <param name="vA">[IN] The point A of the quadrilateral.</param>
+    /// <param name="vB">[IN] The point B of the quadrilateral.</param>
+    /// <param name="vC">[IN] The point C of the quadrilateral.</param>
+    /// <param name="vD">[IN] The point D of the quadrilateral.</param>
+    /// <param name="vIntersection">[OUT] The closest intersection point to the endpoint A.</param>
+    /// <returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The line segment intersects with a vertex of the quadrilateral.
+    /// - Only one endpoint is contained in the quadrilateral.
+    /// - Only one endpoint is contained in an edge of the quadrilateral.
+    /// - The line segment intersects with an edge of the quadrilateral, being both endpoints outside.
+    /// - An endpoint coincide with a vertex of the quadrilateral.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The segment intersects with two edges of the quadrilateral.
+    /// - Both endpoints belong to two different edges of the quadrilateral.
+    /// - Both endpoints belong to the same edge of the quadrilateral.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the quadrilateral (endpoints are not tangent to any edge).
+    /// </returns>
     template <class VectorTypeParam>
     EQIntersections QuadrilateralIntersectionPoint(const QLineSegment3D<VectorTypeParam> &segment,
                                                    const VectorTypeParam &vA, const VectorTypeParam &vB,
@@ -2215,11 +2294,43 @@ protected:
         return this->QuadrilateralIntersectionPoint(segment, vA, vB, vC, vD, vIntersection, vAux);
     }
 
-    // Computes the intersection between a line segment and a cuadrilateral. It's supossed that A, B, C, D are consecutive
-    // vertices of a cuadrilateral.
-    // Returns a value indicating the number of intersections (E_None, E_One, E_Two and E_Infinite)
-    // Stores the closest intersection point to A end point of line segment in the first vector provided, and the farthest intersection
-    // point in the second one, if it exists.
+    /// <summary>
+	/// Computes the intersection between a line segment and a cuadrilateral. 
+    /// </summary>
+    /// <remarks>
+    /// It's supossed that A, B, C, D are consecutive vertices of a cuadrilateral.
+	/// </remarks>
+    /// <param name="segment">[IN] The segment whose intersections are to be calculated.</param>
+    /// <param name="vA">[IN] The point A of the quadrilateral.</param>
+    /// <param name="vB">[IN] The point B of the quadrilateral.</param>
+    /// <param name="vC">[IN] The point C of the quadrilateral.</param>
+    /// <param name="vD">[IN] The point D of the quadrilateral.</param>
+    /// <param name="vIntersection1">[OUT] The closest intersection point to the endpoint A.</param>
+    /// <param name="vIntersection2">[OUT] The furthest intersection point to the endpoint B.</param>
+    /// <returns>
+    /// An enumerated value that indicates how many intersections were found:<br/>
+    /// <br/>
+    /// <b>None</b><br/>
+    /// There are no intersections.<br/>
+    ///
+    /// <b>One</b><br/>
+    /// There is one intersection.<br/>
+    /// - The line segment intersects with a vertex of the quadrilateral.
+    /// - Only one endpoint is contained in the quadrilateral.
+    /// - Only one endpoint is contained in an edge of the quadrilateral.
+    /// - The line segment intersects with an edge of the quadrilateral, being both endpoints outside.
+    /// - An endpoint coincide with a vertex of the quadrilateral.
+    ///
+    /// <b>Two</b><br/>
+    /// There are two intersections.<br/>
+    /// - The segment intersects with two edges of the quadrilateral.
+    /// - Both endpoints belong to two different edges of the quadrilateral.
+    /// - Both endpoints belong to the same edge of the quadrilateral.
+    ///
+    /// <b>Infinite</b><br/>
+    /// There are infinite intersections.<br/>
+    /// - The segment is contained in the quadrilateral (endpoints are not tangent to any edge).
+    /// </returns>
     template <class VectorTypeParam>
     EQIntersections QuadrilateralIntersectionPoint(const QLineSegment3D<VectorTypeParam> &segment,
                                                    const VectorTypeParam &vA, const VectorTypeParam &vB,
@@ -3256,19 +3367,6 @@ protected:
 
         return EQIntersections::E_None;
     }
-
-    // Changes the coordinate system of a point to other system based in three normal
-    // vectors and a point which is the origin.
-    template <class VectorTypeParam>
-    void ChangeCoordSys(const VectorTypeParam &vPoint, VectorTypeParam &vNewPoint,
-                               const VectorTypeParam &vX, const VectorTypeParam &vY, const VectorTypeParam &vZ,
-                               const VectorTypeParam &vO) const
-    {
-        vNewPoint.x = (vPoint.x-vO.x)*vX.x + (vPoint.y-vO.y)*vX.y + (vPoint.z-vO.z)*vX.z;
-        vNewPoint.y = (vPoint.x-vO.x)*vY.x + (vPoint.y-vO.y)*vY.y + (vPoint.z-vO.z)*vY.z;
-        vNewPoint.z = (vPoint.x-vO.x)*vZ.x + (vPoint.y-vO.y)*vZ.y + (vPoint.z-vO.z)*vZ.z;
-    }
-
 };
 
 

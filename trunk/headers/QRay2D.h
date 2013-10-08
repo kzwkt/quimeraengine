@@ -361,8 +361,8 @@ public:
     ///
     /// <b>One</b><br/>
     /// There is one intersection.<br/>
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the triangle.
-    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the triangle.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the quadrilateral.
+    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the quadrilateral.
     /// - The ray intersects with only one vertex of the quadrilateral.
     /// - The origin of the ray is contained in the quadrilateral.
     ///
@@ -395,8 +395,8 @@ public:
     ///
     /// <b>One</b><br/>
     /// There is one intersection.<br/>
-    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the triangle.
-    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the triangle.
+    /// - The origin of the ray belongs to an edge of the quadrilateral and the ray does not point to the quadrilateral.
+    /// - The origin of the ray coincide with a vertex of the quadrilateral and the ray does not point to the quadrilateral.
     /// - The ray intersects with only one vertex of the quadrilateral.
     /// - The origin of the ray is contained in the quadrilateral.
     ///
@@ -647,25 +647,50 @@ public:
 	QRay2D TransformWithPivot(const QTransformationMatrix3x3 &transformation, const QBaseVector2 &vPivot) const;
 
 protected:
-
-    // Checks if resident ray contains a given point.
+    
+    /// <summary>
+	/// Checks if the resident ray contains a given point.
+	/// </summary>
+	/// <param name="vPoint">[IN] The point to be checked.</param>
+    /// <returns>
+    /// True if the point belongs to the ray; False otherwise.
+    /// </returns>
     bool Contains(const QVector2 &vPoint) const;
 
-    // Checks if resident ray intersects the AB line segment
-    bool Intersection(const QVector2 &vA, const QVector2 &vB) const;
-
-    // Checks if resident ray intersects the AB line segment and calculates the intersection point if exists
-    EQIntersections IntersectionPoint(const QVector2 &vA, const QVector2 &vB, QBaseVector2 &vIntersection) const;
-
-    // Checks if a point is inside a triangle.
 	// [TODO] jwladi: Replace by the QTriangle2D or QTriangle Contains method, when it exists.
+
+    /// <summary>
+	/// Checks if a point is inside a triangle.
+	/// </summary>
+	/// <param name="triangle">[IN] The triangle that may contain or not the point.</param>
+	/// <param name="vPoint">[IN] The point that may be inside or not of the triangle.</param>
+    /// <returns>
+    /// True if the point belongs to the triangle; False otherwise.
+    /// </returns>
 	bool PointInsideTriangle(const QBaseTriangle<QVector2>& triangle, const QVector2& vPoint) const;
 
-    // Check if two points are in the same side of a line.
+    /// <summary>
+	/// Check if two points are in the same side of a line.
+	/// </summary>
+	/// <param name="vP1">[IN] One of the points to be checked.</param>
+	/// <param name="vP2">[IN] One of the points to be checked.</param>
+    /// <param name="vLine1">[IN] A point that belongs to the line that divides the two-dimensional space in to two parts.</param>
+    /// <param name="vLine2">[IN] Another point that belongs to the line that divides the two-dimensional space in to two parts.</param>
+    /// <returns>
+    /// True if the two points belong to the same side of the space divided by the line; False otherwise.
+    /// </returns>
 	bool PointsInSameSideOfLine(const QVector2 &vP1, const QVector2 &vP2, const QVector2 &vLine1, const QVector2 &vLine2) const;
 
-	// Checks if a point is inside a quadrilateral.
 	// [TODO] jwladi: Replace by the QQuadrilateral Contains method, when it exists.
+
+    /// <summary>
+	/// Checks if a point is inside a quadrilateral.
+	/// </summary>
+	/// <param name="quad">[IN] The quadrilateral that may contain or not the point.</param>
+	/// <param name="vPoint">[IN] The point that may be inside or not of the quadrilateral.</param>
+    /// <returns>
+    /// True if the point belongs to the quadrilateral; False otherwise.
+    /// </returns>
 	bool PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVector2& vPoint) const;
 };
 

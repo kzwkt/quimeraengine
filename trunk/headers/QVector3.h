@@ -655,33 +655,33 @@ public:
 
 protected:
 
-    // <summary>
-    // Applies a translation to resident vector, multiplying the vector by a translation matrix
-	// to transform it. We assume that resident vector represents a 3D point
-	// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
-	// since a 3D vector cannot be displaced.
-    // </summary>
-    // <param name="translation">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
-    // <returns>
-    // The transformed vector.
-    // </returns>
+    /// <summary>
+    /// Applies a translation to resident vector, multiplying the vector by a translation matrix
+	/// to transform it. We assume that resident vector represents a 3D point
+	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+	/// since a 3D vector cannot be displaced.
+    /// </summary>
+    /// <param name="translation">[IN] The translation matrix. It must be a 4x3 or a 4x4 translation matrix.</param>
+    /// <returns>
+    /// The transformed vector.
+    /// </returns>
 	template <class MatrixType>
     QVector3 TransformImp(const QTranslationMatrix<MatrixType> &translation) const
     {
         return QVector3(this->x + translation.ij[3][0], this->y + translation.ij[3][1], this->z + translation.ij[3][2]);
     }
 
-    // <summary>
-    // Applies a transformation composed of a scale, a rotation and a translation
-	// to resident vector, multiplying the vector by a transformation matrix
-	// to transform it. We assume that resident vector represents a 3D point
-	// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
-	// since a 3D vector cannot be displaced.
-    // </summary>
-    // <param name="transformation">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
-    // <returns>
-    // The transformed vector.
-    // </returns>
+    /// <summary>
+    /// Applies a transformation composed of a scale, a rotation and a translation
+	/// to resident vector, multiplying the vector by a transformation matrix
+	/// to transform it. We assume that resident vector represents a 3D point
+	/// \f$(v_x, v_y, v_z, 1)\f$ and not a 3D vector \f$(v_x, v_y, v_z, 0)\f$,
+	/// since a 3D vector cannot be displaced.
+    /// </summary>
+    /// <param name="transformation">[IN] The transformation matrix. It must be a 4x3 or a 4x4 matrix.</param>
+    /// <returns>
+    /// The transformed vector.
+    /// </returns>
     template <class MatrixType>
     QVector3 TransformImp(const QTransformationMatrix<MatrixType> &transformation) const
     {

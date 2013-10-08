@@ -120,7 +120,7 @@ bool QQuadrilateral::Contains (const QBaseVector2 &vPoint) const
                   PointsInSameSideOfLine(vPoint, vAux, this->B, this->C) ));
         }
     }
-    else if (this->IsConcaveHere(this->A, this->B, this->D, this->C)) // Its concave in A vertex
+    else if (this->IsReflexAngle(this->A, this->B, this->D, this->C)) // Its concave in A vertex
     {
         // We check the two triangles around A vertex
         return (( PointsInSameSideOfLine(vPoint, this->C, this->A, this->B) &&
@@ -130,7 +130,7 @@ bool QQuadrilateral::Contains (const QBaseVector2 &vPoint) const
                   PointsInSameSideOfLine(vPoint, this->A, this->D, this->C) &&
                   PointsInSameSideOfLine(vPoint, this->D, this->C, this->A) ));
     }
-    else if (this->IsConcaveHere(this->B, this->A, this->C, this->D)) // Its concave in B vertex
+    else if (this->IsReflexAngle(this->B, this->A, this->C, this->D)) // Its concave in B vertex
     {
         // We check the two triangles around B vertex
         return (( PointsInSameSideOfLine(vPoint, this->D, this->B, this->C) &&
@@ -140,7 +140,7 @@ bool QQuadrilateral::Contains (const QBaseVector2 &vPoint) const
                   PointsInSameSideOfLine(vPoint, this->B, this->D, this->A) &&
                   PointsInSameSideOfLine(vPoint, this->D, this->A, this->B) ));
     }
-    else if (this->IsConcaveHere(this->C, this->B, this->D, this->A)) // Its concave in C vertex
+    else if (this->IsReflexAngle(this->C, this->B, this->D, this->A)) // Its concave in C vertex
     {
         // We check the two triangles around C vertex
         return (( PointsInSameSideOfLine(vPoint, this->A, this->C, this->D) &&
@@ -217,7 +217,7 @@ float_q QQuadrilateral::GetAngleA() const
 
     const float_q &ANGLE = (this->D - this->A).DotProductAngle(this->B - this->A);
 
-    if (this->IsConcaveHere(this->A, this->B, this->D, this->C))
+    if (this->IsReflexAngle(this->A, this->B, this->D, this->C))
     {
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             return SQAngle::_360 - ANGLE;
@@ -236,7 +236,7 @@ float_q QQuadrilateral::GetAngleB() const
 
     const float_q &ANGLE = (this->A - this->B).DotProductAngle(this->C - this->B);
 
-    if (this->IsConcaveHere(this->B, this->A, this->C, this->D))
+    if (this->IsReflexAngle(this->B, this->A, this->C, this->D))
     {
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             return SQAngle::_360 - ANGLE;
@@ -255,7 +255,7 @@ float_q QQuadrilateral::GetAngleC() const
 
     const float_q &ANGLE = (this->B - this->C).DotProductAngle(this->D - this->C);
 
-    if (this->IsConcaveHere(this->C, this->B, this->D, this->A))
+    if (this->IsReflexAngle(this->C, this->B, this->D, this->A))
     {
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             return SQAngle::_360 - ANGLE;
@@ -274,7 +274,7 @@ float_q QQuadrilateral::GetAngleD() const
 
     const float_q &ANGLE = (this->C - this->D).DotProductAngle(this->A - this->D);
 
-    if (this->IsConcaveHere(this->D, this->A, this->C, this->B))
+    if (this->IsReflexAngle(this->D, this->A, this->C, this->B))
     {
         #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
             return SQAngle::_360 - ANGLE;
@@ -378,16 +378,16 @@ bool QQuadrilateral::PointsInSameSideOfLine(const QBaseVector2 &vPoint1, const Q
 }
 
 
-bool QQuadrilateral::IsConcaveHere(const QVector2 &vAngleVertex, const QVector2 &vAngleEndVertex1,
-                                   const QVector2 &vAngleEndVertex2, const QVector2 &vOppositeVertex) const
+bool QQuadrilateral::IsReflexAngle(const QVector2 &vAngleVertex, const QVector2 &vContiguousVertex1,
+                                   const QVector2 &vContiguousVertex2, const QVector2 &vOppositeVertex) const
 {
     if (this->IsConvex() || this->IsComplex()) // There isn't a concave angle.
         return false;
-    else if ( !PointsInSameSideOfLine(vOppositeVertex, vAngleVertex, vAngleEndVertex1, vAngleEndVertex2) )
+    else if ( !PointsInSameSideOfLine(vOppositeVertex, vAngleVertex, vContiguousVertex1, vContiguousVertex2) )
         return false; // The outer diagonal should not divide quadrilateral
     else
     {
-        QLineSegment2D ls(vAngleEndVertex1, vAngleEndVertex2);
+        QLineSegment2D ls(vContiguousVertex1, vContiguousVertex2);
 
         // Angle vertex must be the closest to outer diagonal
         return ( ls.MinDistance(vAngleVertex) < ls.MinDistance(vOppositeVertex) );

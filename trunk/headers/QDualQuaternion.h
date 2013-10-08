@@ -222,21 +222,23 @@ public:
 
 protected:
 
-    // <summary>
-    // Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
-    // The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
-    // in the direction of the rotation axis as follows:
-    // \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
-    // and the dual quaternion will be:
-    // \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
-    // In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
-    // \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
-    // Our transformation dual quaternion is given by the product of the translation dual quaternion by
-    // the rotation dual quaternion, taking into account that the transfomation is done as follows:
-    // FIRST ROTATION THEN TRANSLATION.
-    // </summary>
-    // <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
-    // <param name="vTranslation">[IN] The vector which represents the translation.</param>
+    /// <summary>
+    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
+    /// </summary>
+    /// <remarks>
+    /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
+    /// in the direction of the rotation axis as follows:<br/>
+    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
+    /// and the dual quaternion will be:<br/>
+    /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.<br/>
+    /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:<br/>
+    /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.<br/>
+    /// Our transformation dual quaternion is given by the product of the translation dual quaternion by
+    /// the rotation dual quaternion, taking into account that the transfomation is done as follows:<br/>
+    /// FIRST ROTATION THEN TRANSLATION.
+    /// </remarks>
+    /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
+    /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
     template <class VectorType>
     void QDualQuaternionImp(const QBaseQuaternion &qRotation, const VectorType &vTranslation)
     {
@@ -247,21 +249,23 @@ protected:
         *this = translation * rotation;
     }
 
-    // <summary>
-    // Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
-    // The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
-    // in the direction of the rotation axis as follows:
-    // \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
-    // and the dual quaternion will be:
-    // \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.
-    // In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:
-    // \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.
-    // Our transformation dual quaternion is given by the product of the rotation dual quaternion by
-    // the translation dual quaternion, taking into account that the transfomation is done as follows:
-    // FIRST TRANSLATION THEN ROTATION.
-    // </summary>
-    // <param name="vTranslation">[IN] The vector which represents the translation.</param>
-    // <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
+    /// <summary>
+    /// Constructor from a regular quaternion which represents a rotation and a vector which represents a translation.
+    /// </summary>
+    /// <remarks>
+    /// The rotation regular quaternion is built from an angle (\f$\theta\f$) and a unit vector \f$\vec{n}(n_x, n_y, n_z)\f$
+    /// in the direction of the rotation axis as follows:<br/>
+    /// \f$ q(x, y, z, w) = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2}))\f$,
+    /// and the dual quaternion will be:<br/>
+    /// \f$\hat{q}_r = (n_xsin(\frac{\theta}{2}), n_ysin(\frac{\theta}{2}), n_zsin(\frac{\theta}{2}), cos(\frac{\theta}{2})) (0, 0, 0, 0)\f$.<br/>
+    /// In the other side, the translation \f$(d_x, d_y, d_z)\f$ is directly converted to a dual quaternion as follows:<br/>
+    /// \f$\hat{q}_d = (0, 0, 0, 1) (\frac{d_x}{2}, \frac{d_y}{2}, \frac{d_z}{2}, 0)\f$.<br/>
+    /// Our transformation dual quaternion is given by the product of the rotation dual quaternion by
+    /// the translation dual quaternion, taking into account that the transfomation is done as follows:<br/>
+    /// FIRST TRANSLATION THEN ROTATION.
+    /// </remarks>
+    /// <param name="vTranslation">[IN] The vector which represents the translation.</param>
+    /// <param name="qRotation">[IN] The quaternion that keeps the rotation.</param>
     template <class VectorType>
     void QDualQuaternionImp(const VectorType &vTranslation, const QBaseQuaternion &qRotation)
     {
@@ -572,14 +576,14 @@ public:
 
 protected:
 
-    // <summary>
-    // Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
-    // </summary>
-    // <param name="qRotation">[IN] Regular quaternion which defines the rotation.</param>
-    // <param name="vTranslation">[IN] Vector which defines the translation.</param>
-    // <returns>
-    // The transformed dual quaternion.
-    // </returns>
+    /// <summary>
+    /// Applies a transformation composed of a rotation and a translation, performing the rotation first and then the traslation.
+    /// </summary>
+    /// <param name="qRotation">[IN] Regular quaternion which defines the rotation.</param>
+    /// <param name="vTranslation">[IN] Vector which defines the translation.</param>
+    /// <returns>
+    /// The transformed dual quaternion.
+    /// </returns>
     template <class VectorType>
     QDualQuaternion TransformRotationFirstImp(const QBaseQuaternion &qRotation, const VectorType &vTranslation) const
     {
@@ -591,14 +595,14 @@ protected:
     }
 
 
-    // <summary>
-    // Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
-    // </summary>
-    // <param name="vTranslation">[IN] Vector which defines the translation.</param>
-    // <param name="qRotation">[IN] Regular quaternion which defines the rotation.</param>
-    // <returns>
-    // The transformed dual quaternion.
-    // </returns>
+    /// <summary>
+    /// Applies a transformation composed of a rotation and a translation, performing the traslation first and then the rotation.
+    /// </summary>
+    /// <param name="vTranslation">[IN] Vector which defines the translation.</param>
+    /// <param name="qRotation">[IN] Regular quaternion which defines the rotation.</param>
+    /// <returns>
+    /// The transformed dual quaternion.
+    /// </returns>
     template <class VectorType>
     QDualQuaternion TransformTranslationFirstImp(const VectorType &vTranslation, const QBaseQuaternion &qRotation) const
     {

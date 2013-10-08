@@ -168,15 +168,15 @@ public:
 
 protected:
 
-	// <summary>
-	// Constructor from three points.
-	// </summary>
-    // <remarks>
-    // This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.
-    // </remarks>
-	// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
-	// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
-	// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
+	/// <summary>
+	/// Constructor from three points.
+	/// </summary>
+    /// <remarks>
+    /// This method produces a normalized plane. The normal of the plane depends on the order the points are passed as parameters.
+    /// </remarks>
+	/// <param name="vPoint1">[IN] A 3D vector which represents the first point.</param>
+	/// <param name="vPoint2">[IN] A 3D vector which represents the second point.</param>
+	/// <param name="vPoint3">[IN] A 3D vector which represents the third point.</param>
     template <class VectorType>
     void QPlaneImp(const VectorType &vPoint1, const VectorType &vPoint2, const VectorType &vPoint3);
 
@@ -923,137 +923,137 @@ public:
 
 protected:
 
-    // <summary>
-    // Calculates the dot product between the direction vector of the resident plane and the provided vector.
-    // </summary>
-    // <param name="vVector">[IN] The vector which we want to calculate the dot product with.</param>
+    /// <summary>
+    /// Calculates the dot product between the direction vector of the resident plane and the provided vector.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector which we want to calculate the dot product with.</param>
     template <class VectorType>
     float_q DotProductImp(const VectorType &vVector) const;
 
-    // <summary>
-    // Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
-    // </summary>
-    // <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
+    /// <summary>
+    /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     template <class VectorType>
     float_q DotProductAngleImp(const VectorType &vVector) const;
 
-    // <summary>
-    // Applies the rotation contained in the provided quaternion to the resident plane
-    // around the given point, that acts as pivot of rotation.
-    // </summary>
-    // <param name="qRotation">[IN] A quaternion containing the rotation to be applied.</param>
-    // <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
-    // <returns>
-    // The rotated plane.
-    // </returns>
+    /// <summary>
+    /// Applies the rotation contained in the provided quaternion to the resident plane
+    /// around the given point, that acts as pivot of rotation.
+    /// </summary>
+    /// <param name="qRotation">[IN] A quaternion containing the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
+    /// <returns>
+    /// The rotated plane.
+    /// </returns>
     template <class VectorType>
     QPlane RotateWithPivotImp(const QQuaternion &qRotation, const VectorType &vPivot) const;
 
-    // <summary>
-    // Applies the rotation contained in the provided matrix to the resident plane
-    // around the given point, that acts as pivot of rotation.
-    // </summary>
-    // <param name="rotation">[IN] A [3x3] matrix containing the rotation to be applied.</param>
-    // <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
-    // <returns>
-    // The rotated plane.
-    // </returns>
+    /// <summary>
+    /// Applies the rotation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of rotation.
+    /// </summary>
+    /// <param name="rotation">[IN] A [3x3] matrix containing the rotation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of rotation.</param>
+    /// <returns>
+    /// The rotated plane.
+    /// </returns>
     template <class VectorType>
     QPlane RotateWithPivotImp(const QRotationMatrix3x3 &rotation, const VectorType &vPivot) const;
 
-    // <summary>
-    // Applies the scale contained in the provided vector to the resident plane,
-    // acting the given point as pivot of scale.
-    // </summary>
-    // <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
-    // <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    // <returns>
-    // The scaled plane.
-    // </returns>
+    /// <summary>
+    /// Applies the scale contained in the provided vector to the resident plane,
+    /// acting the given point as pivot of scale.
+    /// </summary>
+    /// <param name="vScale">[IN] A vector containing the scale to be applied in every axis.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <returns>
+    /// The scaled plane.
+    /// </returns>
     template <class VectorType>
     QPlane ScaleWithPivotImp(const QBaseVector3 &vScale, const VectorType &vPivot) const;
 
-    // <summary>
-    // Scales the resident plane by the provided amounts for every axis,
-    // acting the given point as pivot of scale.
-    // </summary>
-    // <param name="fScaleX">[IN] Amount of scale to be applied in X direction.</param>
-    // <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
-    // <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
-    // <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    // <returns>
-    // The scaled plane.
-    // </returns>
+    /// <summary>
+    /// Scales the resident plane by the provided amounts for every axis,
+    /// acting the given point as pivot of scale.
+    /// </summary>
+    /// <param name="fScaleX">[IN] Amount of scale to be applied in X direction.</param>
+    /// <param name="fScaleY">[IN] Amount of scale to be applied in Y direction.</param>
+    /// <param name="fScaleZ">[IN] Amount of scale to be applied in Z direction.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <returns>
+    /// The scaled plane.
+    /// </returns>
     template <class VectorType>
     QPlane ScaleWithPivotImp(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ, const VectorType &vPivot) const;
 
-    // <summary>
-    // Applies the scale contained in the provided matrix to the resident plane,
-    // acting the given point as pivot of scale.
-    // </summary>
-    // <param name="scale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
-    // <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
-    // <returns>
-    // The scaled plane.
-    // </returns>
+    /// <summary>
+    /// Applies the scale contained in the provided matrix to the resident plane,
+    /// acting the given point as pivot of scale.
+    /// </summary>
+    /// <param name="scale">[IN] A [3x3] matrix containing the scale to be applied in every axis.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of scale.</param>
+    /// <returns>
+    /// The scaled plane.
+    /// </returns>
     template <class VectorType>
     QPlane ScaleWithPivotImp(const QScalingMatrix3x3 &scale, const VectorType &vPivot) const;
 
-    // <summary>
-    // Applies the transformation contained in the provided matrix to the resident plane
-    // around the given point, that acts as pivot of transformation.
-    // </summary>
-    // <param name="transformation">[IN] A [4x3] or [4x4] matrix containing the transformation to be applied.</param>
-    // <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
-    // <returns>
-    // The transformed plane.
-    // </returns>
+    /// <summary>
+    /// Applies the transformation contained in the provided matrix to the resident plane
+    /// around the given point, that acts as pivot of transformation.
+    /// </summary>
+    /// <param name="transformation">[IN] A [4x3] or [4x4] matrix containing the transformation to be applied.</param>
+    /// <param name="vPivot">[IN] The point that acts as pivot of transformation.</param>
+    /// <returns>
+    /// The transformed plane.
+    /// </returns>
     template <class MatrixType, class VectorType>
     QPlane TransformWithPivotImp(const MatrixType &transformation, const VectorType &vPivot) const;
 
 
-    // <summary>
-    // Calculates the orthogonal projection of a given point over the resident plane.
-    // </summary>
-    // <param name="vPoint">[IN] A 3D vector which represents the point we want project.</param>
-    // <returns>
-    // The projected point.
-    // </returns>
+    /// <summary>
+    /// Calculates the orthogonal projection of a given point over the resident plane.
+    /// </summary>
+    /// <param name="vPoint">[IN] A 3D vector which represents the point we want project.</param>
+    /// <returns>
+    /// The projected point.
+    /// </returns>
     template <class VectorType>
     VectorType PointProjectionImp(const VectorType &vPoint) const;
 
-    // <summary>
-    // Calculates if a point is contained on the resident plane.
-    // </summary>
-    // <param name="vPoint">[IN] The point we want know if it is contained on the resident plane.</param>
-    // <returns>
-    // True if the point is contained, false otherwise.
-    // </returns>
+    /// <summary>
+    /// Calculates if a point is contained on the resident plane.
+    /// </summary>
+    /// <param name="vPoint">[IN] The point we want know if it is contained on the resident plane.</param>
+    /// <returns>
+    /// True if the point is contained, false otherwise.
+    /// </returns>
     template <class VectorType>
     bool ContainsImp(const VectorType &vPoint) const;
 
-    // <summary>
-    // Calculates the minimum distance from the given point to the resident plane, which is the length
-    // of the normal to the plane which passes through the point.
-    // </summary>
-    // <param name="vPoint">[IN] The point we want know it distance from resident plane.</param>
-    // <returns>
-    // A floating point value which represents the minimum distance between the plane and the point.
-    // </returns>
+    /// <summary>
+    /// Calculates the minimum distance from the given point to the resident plane, which is the length
+    /// of the normal to the plane which passes through the point.
+    /// </summary>
+    /// <param name="vPoint">[IN] The point we want know it distance from resident plane.</param>
+    /// <returns>
+    /// A floating point value which represents the minimum distance between the plane and the point.
+    /// </returns>
     template <class VectorType>
     float_q PointDistanceImp(const VectorType &vPoint) const;
 
-    // <summary>
-    // Calculates the number of intersections between the resident plane and two planes provided,
-    // and also calculates the intersection point if there is only one.
-    // </summary>
-    // <param name="plane1">[IN] The first plane we want to calculate the intersection with.</param>
-    // <param name="plane2">[IN] The second plane we want to calculate the intersection with.</param>
-    // <param name="vIntersection">[OUT] The intersection point of the three planes, if it exists.</param>
-    // <returns>
-    // An enumerated value which represents the number of intersections between the three planes, and can take
-    // the following values: E_None, E_One and E_Infinite.
-    // </returns>
+    /// <summary>
+    /// Calculates the number of intersections between the resident plane and two planes provided,
+    /// and also calculates the intersection point if there is only one.
+    /// </summary>
+    /// <param name="plane1">[IN] The first plane we want to calculate the intersection with.</param>
+    /// <param name="plane2">[IN] The second plane we want to calculate the intersection with.</param>
+    /// <param name="vIntersection">[OUT] The intersection point of the three planes, if it exists.</param>
+    /// <returns>
+    /// An enumerated value which represents the number of intersections between the three planes, and can take
+    /// the following values: E_None, E_One and E_Infinite.
+    /// </returns>
     template <class VectorType>
     EQIntersections IntersectionPointImp(const QBasePlane &plane1, const QBasePlane &plane2, VectorType &vIntersection) const;
 };

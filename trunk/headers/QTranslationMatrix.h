@@ -443,21 +443,21 @@ public:
 
 protected:
 
-    // <summary>
-    // Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    // 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
-    //
-    // \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
-    // \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
-    // \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
-    // </summary>
-    // <remarks>
-    // This product is conmmutative.
-    // </remarks>
-    // <param name="matrix">[IN] Matrix to be multiplied by.</param>
-    // <returns>
-    // The resultant translation matrix.
-    // </returns>
+    /// <summary>
+    /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
+    ///
+    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
+    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
+    /// </summary>
+    /// <remarks>
+    /// This product is conmmutative.
+    /// </remarks>
+    /// <param name="matrix">[IN] Matrix to be multiplied by.</param>
+    /// <returns>
+    /// The resultant translation matrix.
+    /// </returns>
     template <class MatrixTypeParam>
     QTranslationMatrix<MatrixType> ProductOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix) const
     {
@@ -466,16 +466,16 @@ protected:
                                               this->ij[3][2] + matrix.ij[3][2]);
     }
 
-    // <summary>
-    // Product and assign operator. Current matrix stores the result of the multiplication.
-    // Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
-    // 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
-    //
-    // \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
-    // \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
-    // \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
-    // </summary>
-    // <param name="matrix">[IN] The matrix to be multiplied by.</param>
+    /// <summary>
+    /// Product and assign operator. Current matrix stores the result of the multiplication.
+    /// Multiplies a translation matrix by the resident matrix. No matter if the input matrix or the resident one are
+    /// 4x3 or 4x4 matrices ore one of each type. Since both are translation matrices, the product is calculated as follows:
+    ///
+    /// \f$ \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x} & d_{1y} & d_{1z} & 1 \end{bmatrix}
+    /// \cdot \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{2x} & d_{2y} & d_{2z} & 1 \end{bmatrix} =
+    /// \begin{bmatrix} 1 & 0 & 0 & 0 \\ 0 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ d_{1x}+d_{2x} & d_{1y}+d_{2y} & d_{1z}+d_{2z} & 1 \end{bmatrix}\f$
+    /// </summary>
+    /// <param name="matrix">[IN] The matrix to be multiplied by.</param>
     template <class MatrixTypeParam>
     void ProductAssignationOperatorImp(const QTranslationMatrix<MatrixTypeParam> &matrix)
     {

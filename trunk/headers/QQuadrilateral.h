@@ -352,19 +352,38 @@ public:
 
 protected:
 
-    // Calculates if two points are in the same side of a line segment. Used to know if
-    // a quadrilateral is crossed, and to check if a point is inside a triangle.
-    // In 2D case, I think is more efficient than the baricentric method.
-    // It is bassed on the orientation of the two tringles compossed by
-    // each point of the two we want to check and the end points of the line. If both triangles have
-    // the same orientation, both points are in the same side of the line.
+    /// <summary>
+	/// Calculates if two points are in the same side of a line segment.
+    /// </summary>
+    /// <remarks>
+	/// Used to know if a quadrilateral is complex, and to check if a point is inside a triangle.
+    /// In 2D case, it may be more efficient than the baricentric method.
+    /// It is bassed on the orientation of the two tringles compossed by
+    /// each point of the two we want to check and the end points of the line. If both triangles have
+    /// the same orientation, both points are in the same side of the line.
+	/// </remarks>
+	/// <param name="vPoint1">[IN] One of the points to be checked.</param>
+	/// <param name="vPoint2">[IN] One of the points to be checked..</param>
+    /// <param name="vLine1">[IN] A point that belongs to the line that divides de two-dimensional space in two parts.</param>
+    /// <param name="vLine2">[IN] Another point that belongs to the line that divides de two-dimensional space in two parts.</param>
+    /// <returns>
+    /// True if both points belong to the same side of the space divided by the line; False otherwise.
+    /// </returns>
     bool PointsInSameSideOfLine(const QBaseVector2 &vPoint1, const QBaseVector2 &vPoint2,
                                 const QBaseVector2 &vLine1, const QBaseVector2 &vLine2) const;
 
-    // Checks if exists concavity in the "AngleVertex" vertex.
-    // AngleEndVertex1 and 2 are the two vertices in the end of the segments which defines the angle (adjacent vertices)
-    bool IsConcaveHere(const QVector2 &vAngleVertex, const QVector2 &vAngleEndVertex1,
-                       const QVector2 &vAngleEndVertex2, const QVector2 &vOppositeVertex) const;
+    /// <summary>
+	/// Checks if the angle formed by three contiguous vertices is a reflex angle (> 180º or Pi radians).
+    /// </summary>
+	/// <param name="vAngleVertex">[IN] The angle's peak.</param>
+	/// <param name="vContiguousVertex1">[IN] An adjacent vertex that forms one side of the angle.</param>
+    /// <param name="vContiguousVertex2">[IN] The other adjacent vertex that forms the other side of the angle.</param>
+    /// <param name="vOppositeVertex">[IN] The peak of the opposite angle in the quadrilateral.</param>
+    /// <returns>
+    /// True if the angle formed by the three vertices is a reflex angle; False otherwise.
+    /// </returns>
+    bool IsReflexAngle(const QVector2 &vAngleVertex, const QVector2 &vContiguousVertex1,
+                       const QVector2 &vContiguousVertex2, const QVector2 &vOppositeVertex) const;
 };
 
 } //namespace Math
