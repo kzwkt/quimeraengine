@@ -371,7 +371,7 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    MatrixType Invert() const
+    QTranslationMatrix<MatrixType> Invert() const
     {
         return QTranslationMatrix<MatrixType>(-this->ij[3][0], -this->ij[3][1], -this->ij[3][2]);
     }

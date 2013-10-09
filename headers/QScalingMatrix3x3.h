@@ -232,7 +232,7 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    QMatrix3x3 Invert() const;
+    QScalingMatrix3x3 Invert() const;
 
     /// <summary>
     /// Extracts the scale factors from the matrix.

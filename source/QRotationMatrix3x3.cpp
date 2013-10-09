@@ -277,7 +277,7 @@ QRotationMatrix3x3& QRotationMatrix3x3::operator*=(const QRotationMatrix3x3 &mat
     return *this;
 }
 
-QMatrix3x3 QRotationMatrix3x3::Invert() const
+QRotationMatrix3x3 QRotationMatrix3x3::Invert() const
 {
     return this->Transpose();
 }
