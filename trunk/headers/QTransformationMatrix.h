@@ -500,7 +500,7 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    MatrixType Invert() const
+    QTransformationMatrix<MatrixType> Invert() const
     {
         // The results will be wrong when the determinant equals zero
         QE_ASSERT( this->GetDeterminant() != SQFloat::_0 );

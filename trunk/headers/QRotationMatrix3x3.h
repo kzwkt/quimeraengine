@@ -261,7 +261,7 @@ public:
     /// <returns>
     /// The inverse of the matrix.
     /// </returns>
-    QMatrix3x3 Invert() const;
+    QRotationMatrix3x3 Invert() const;
 
     /// <summary>
     /// Converts rotation matrix to Euler angles.
