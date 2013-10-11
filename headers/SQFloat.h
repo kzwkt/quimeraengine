@@ -123,7 +123,7 @@ public:
 
     /// <summary>
     /// Defines the comparison tolerance, or how much different can be two floating point values
-    /// to be considered equals, according to the configured precission.
+    /// to be considered equal, according to the configured precision.
     /// </summary>
     static const float_q Epsilon;
 
