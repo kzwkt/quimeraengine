@@ -1427,10 +1427,18 @@ QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q NUMBER = -12345678901234.0f;
-    string_q EXPECTED_RESULT = QE_L("-1.2345679e+013");
+    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
+        string_q EXPECTED_RESULT = QE_L("-1.2345679e+13");
+    #else
+        string_q EXPECTED_RESULT = QE_L("-1.2345679e+013");
+    #endif
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     const float_q NUMBER = -1234567890123456789123456789.0;
-    string_q EXPECTED_RESULT = QE_L("-1.2345678901234569e+027");
+    #if defined(QE_COMPILER_GCC) && defined(QE_OS_LINUX) // This is necessary due to a different implementation of the STL when compiling with GCC on Linux
+        string_q EXPECTED_RESULT = QE_L("-1.2345678901234569e+27");
+    #else
+        string_q EXPECTED_RESULT = QE_L("-1.2345678901234569e+027");
+    #endif
 #endif
 
 	// [Execution]
