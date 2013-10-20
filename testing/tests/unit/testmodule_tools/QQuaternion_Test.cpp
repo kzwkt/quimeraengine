@@ -2426,7 +2426,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_
     float_q fResultUT = OPERAND.DotProductAngle(OPERAND);
 
     // [Verification]
-    BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
 }
 
 /// <summary>
@@ -2490,7 +2490,7 @@ QTEST_CASE ( Lerp_CorrectLerpedQuaternionIsObtainedForTwoCommonQuaternions_Test 
     const QQuaternion OPERAND1 = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), ANGLE1).Normalize();
     const QQuaternion OPERAND2 = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), ANGLE2).Normalize();
     //const QQuaternion EXPECTED_RESULT = QQuaternion(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3).Normalize(), SQFloat::_0_25).Normalize();
-    // [TODO] Thund: There is a problem with imprecission, is it a matter of precission degradation or calculus error? It could be even an imprecission inherent to this Lerp process, reason to use Slerp
+    // [TODO] Thund: There is a problem with imprecision, is it a matter of precision degradation or calculus error? It could be even an imprecision inherent to this Lerp process, reason to use Slerp
     const QQuaternion EXPECTED_RESULT = QQuaternion((float_q)0.032794551514706963, (float_q)0.065589103029413925, (float_q)0.098383654544120888, (float_q)0.99244306812697791);
 
 	// [Execution]
@@ -2634,7 +2634,7 @@ QTEST_CASE ( Slerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuate
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
-    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_RESULT.w);
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_RESULT.w) );
 }
 
 /// <summary>
