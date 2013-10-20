@@ -384,13 +384,13 @@ public:
     /// The result will be rounded (>0.5 --> 1.0).<br/>
     /// Expected template parameters are: int, long, long long, i32_q, i64_q.<br/>
     /// Integer type size should equals floating point type size or unexpected behavior will occur.<br/>
-    /// Depending on the configured precission, there is a performance overload due to standard conversion use when the value<br/>
+    /// Depending on the configured precission, there is a performance overload due to standard conversion use when the value
     /// is greater than the one representable by floating point type mantissa:<br/>
     /// - For 32-bits floating point type values:<br/>
     ///  - Must be greater than or equals to \f$ -2^{22} \f$ (-4194304) and lower than or equals to \f$ 2^{23} \f$ (8388608).<br/>
     /// - For 64-bits floating point type values:<br/>
     ///  - Must be greater than or equals to \f$ -2^{51} \f$ (-2251799813685248l) and lower than or equals to \f$ 2^{52} \f$ (4503599627370496l).<br/>
-    /// The behavior of this method when the size of the integer type and the size of the floating point number type are different is undefined.
+    /// Use this method in case the values are expected to be between those ranges.
     /// </remarks>
     /// <param name="fValue">[IN] Floating point number to be converted.</param>
     /// <returns>
@@ -423,6 +423,10 @@ public:
         if(fValue > MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED ||
            fValue < MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED)
         {
+            // [TODO] Thund: Maybe, using assertions for notifying this fact is too hard since a user could think that
+            //               using this this method is worth for the majority of the cases, although several values are not inside the appropiate ranges.
+            //               In that case, getting assertion failures would be very annoying.
+
             // Checks whether the value is too big to be converted this way
             QE_ASSERT( fValue <= MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED )
 
@@ -448,12 +452,12 @@ public:
             finalValue._float = fValue;
 
             if(finalValue._integer < 0)
-                biasValue._integer = (EXPONENT << LOWEST_EXPONENT_BIT_POS) + (IntegerType(1) << (LOWEST_EXPONENT_BIT_POS - IntegerType(1))); // Equivalent to 1 x 2 ^ LOWEST_MANTISSA_BIT_POS + 1 x 2 ^ (LOWEST_MANTISSA_BIT_POS - 1)
+                biasValue._integer = (EXPONENT << LOWEST_EXPONENT_BIT_POS) + (IntegerType(1) << (LOWEST_EXPONENT_BIT_POS - IntegerType(1))); // Equivalent to 1 x 2 ^ LOWEST_EXPONENT_BIT_POS + 1 x 2 ^ (LOWEST_EXPONENT_BIT_POS - 1)
             else
-                biasValue._integer = EXPONENT << LOWEST_EXPONENT_BIT_POS; // Equivalent to 1 x 2 ^ LOWEST_MANTISSA_BIT_POS
+                biasValue._integer = EXPONENT << LOWEST_EXPONENT_BIT_POS; // Equivalent to 1 x 2 ^ LOWEST_EXPONENT_BIT_POS
 
-            finalValue._float   += biasValue._float;
-            finalValue._integer -= biasValue._integer; // Removes the exponent bits
+            finalValue._float   += biasValue._float; // The mantissa is displaced N bits to the right (where N is bias exponent - original exponent). The exponent now equals bias exponent.
+            finalValue._integer -= biasValue._integer; // Removes the exponent bits so only the displaced 
 
             outInteger = finalValue._integer;
         }

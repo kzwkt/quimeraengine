@@ -1511,6 +1511,31 @@ QTEST_CASE ( ToInteger_WhenValueEqualsZeroPointFiveItsRoundedOffToZero_Test )
 }
 
 /// <summary>
+/// Checks that a common integer value is correctly converted.
+/// </summary>
+QTEST_CASE ( ToInteger_CommonIntegerIsCorrectlyConverted_Test )
+{
+    // [Preparation]
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
+    typedef i32_q IntegerTypeForTest;
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
+    typedef i64_q IntegerTypeForTest;
+#endif
+
+    const float_q NUMBER = (float_q)102844.592;
+    int yeah = NUMBER;
+    IntegerTypeForTest EXPECTED_RESULT = (IntegerTypeForTest)102845;
+
+	// [Execution]
+    IntegerTypeForTest nResultUT = SQFloat::ToInteger<IntegerTypeForTest>(NUMBER);
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(nResultUT, EXPECTED_RESULT);
+}
+
+/// <summary>
 /// Checks if the value is rounded off to one when it is greater than zero point five.
 /// </summary>
 QTEST_CASE ( ToInteger_WhenValueIsGreaterThanZeroPointFiveItsRoundedOffToOne_Test )

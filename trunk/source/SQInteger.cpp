@@ -47,15 +47,15 @@ namespace DataTypes
 const u8_q SQInteger::MaxU8_Q = 0xFF;
 const u16_q SQInteger::MaxU16_Q = 0xFFFF;
 const u32_q SQInteger::MaxU32_Q = 0xFFFFFFFF;
-const u64_q SQInteger::MaxU64_Q = 0xFFFFFFFFFFFFFFFF;
+const u64_q SQInteger::MaxU64_Q = 0xFFFFFFFFFFFFFFFFULL;
 const i8_q SQInteger::MaxPositiveI8_Q = 127;
 const i8_q SQInteger::MaxNegativeI8_Q = -128;
 const i16_q SQInteger::MaxPositiveI16_Q = 32767;
 const i16_q SQInteger::MaxNegativeI16_Q = -32768;
 const i32_q SQInteger::MaxPositiveI32_Q = 2147483647;
 const i32_q SQInteger::MaxNegativeI32_Q = -2147483647 - 1;// Defined this way to avoid compiler warnings due to size overflow, see http://bytes.com/topic/c/answers/674140-int-2147483648-a
-const i64_q SQInteger::MaxPositiveI64_Q = 9223372036854775807;
-const i64_q SQInteger::MaxNegativeI64_Q = -9223372036854775807 - 1;// Defined this way to avoid compiler warnings due to size overflow, see http://bytes.com/topic/c/answers/674140-int-2147483648-a
+const i64_q SQInteger::MaxPositiveI64_Q = 9223372036854775807LL;
+const i64_q SQInteger::MaxNegativeI64_Q = -9223372036854775807LL - 1LL;// Defined this way to avoid compiler warnings due to size overflow, see http://bytes.com/topic/c/answers/674140-int-2147483648-a
 
 
 //##################=======================================================##################
