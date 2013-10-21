@@ -535,7 +535,8 @@ public:
     /// Calculates the angle between resident quaternion and the provided quaternion, via dot product.
     /// </summary>
     /// <remarks>
-    /// Both quaternions have to be normalized to obtain a more precise value.
+    /// Both quaternions have to be normalized to obtain a more precise value.<br/>
+    /// The result could be not as accurate as expected due to loss of precision when working with angles using floating point numbers.
     /// </remarks>
     /// <param name="qQuat">[IN] Multiplying quaternion.</param>
     /// <returns>
