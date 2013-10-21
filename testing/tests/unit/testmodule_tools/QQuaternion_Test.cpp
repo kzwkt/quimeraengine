@@ -2426,7 +2426,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_
     float_q fResultUT = OPERAND.DotProductAngle(OPERAND);
 
     // [Verification]
-    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT, (float_q)1e-07) ); // There is a big loss of precision so a greater tolerance must be used
 }
 
 /// <summary>
@@ -2634,7 +2634,7 @@ QTEST_CASE ( Slerp_InterpolatingTwoEquivalentNormalizedQuaternionsGivesSameQuate
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
-    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_RESULT.w) );
+    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_RESULT.w);
 }
 
 /// <summary>
@@ -2674,7 +2674,7 @@ QTEST_CASE ( Slerp_InterpolatingInTheMiddleOfQuaternionAndItsConjugatedGivesIden
     BOOST_CHECK_EQUAL(qQuaternionUT.x, EXPECTED_RESULT.x);
     BOOST_CHECK_EQUAL(qQuaternionUT.y, EXPECTED_RESULT.y);
     BOOST_CHECK_EQUAL(qQuaternionUT.z, EXPECTED_RESULT.z);
-    BOOST_CHECK_EQUAL(qQuaternionUT.w, EXPECTED_RESULT.w);
+    BOOST_CHECK( SQFloat::AreEqual(qQuaternionUT.w, EXPECTED_RESULT.w) );
 }
 
 /// <summary>
