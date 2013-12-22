@@ -44,8 +44,8 @@ using namespace boost::unit_test;
 #include "QTransformationMatrix.h"
 #include "QSpaceConversionMatrix.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 using Kinesis::QuimeraEngine::Tools::Math::QRay3D;
 using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 using Kinesis::QuimeraEngine::Tools::Math::QVector4;

@@ -29,9 +29,9 @@
 
 #include "QBaseVector3.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -67,7 +67,7 @@ class QBaseVector4;
 /// <remarks>
 ///	A vector is a geometric object that has both a magnitude (or length) and a direction.
 /// </remarks>
-class QDllExport QVector3 : public QBaseVector3
+class QE_LAYER_TOOLS_SYMBOLS QVector3 : public QBaseVector3
 {
     // FRIENDS
     // ---------------
@@ -81,7 +81,7 @@ public:
 	/// <returns>
 	/// A vector that is the result of the product.
 	/// </returns>
-    friend QVector3 QDllExport operator*(const float_q &fScalar, const QVector3 &vVector);
+    friend QVector3 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QVector3 &vVector);
 
 
 	// CONSTRUCTORS

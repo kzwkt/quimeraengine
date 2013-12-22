@@ -32,8 +32,8 @@ using namespace boost::unit_test;
 
 #include "SQFloat.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 QTEST_SUITE_BEGIN( SQFloat_TestSuite )
 
@@ -1423,7 +1423,7 @@ QTEST_CASE ( IsNotZero2_ReturnsFalseWhenValueExactlyEqualsZero_Test )
 QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )
 {
     // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q NUMBER = -12345678901234.0f;
@@ -1454,7 +1454,7 @@ QTEST_CASE ( ToString_HighNumberIsCorrectlyConverted_Test )
 QTEST_CASE ( ToString_TinyNumberIsCorrectlyConverted_Test )
 {
     // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q NUMBER = -0.0000000012345678901234f;
@@ -1485,7 +1485,7 @@ QTEST_CASE ( ToString_TinyNumberIsCorrectlyConverted_Test )
 QTEST_CASE ( ToString_CommonNumberIsCorrectlyConverted_Test )
 {
     // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     const float_q NUMBER = (float_q)-12345.6789;
@@ -1509,10 +1509,10 @@ QTEST_CASE ( ToInteger_WhenValueEqualsZeroPointFiveItsRoundedOffToZero_Test )
 {
     // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
 
@@ -1533,10 +1533,10 @@ QTEST_CASE ( ToInteger_CommonIntegerIsCorrectlyConverted_Test )
 {
     // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
 
@@ -1557,10 +1557,10 @@ QTEST_CASE ( ToInteger_WhenValueIsGreaterThanZeroPointFiveItsRoundedOffToOne_Tes
 {
     // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
 
@@ -1581,10 +1581,10 @@ QTEST_CASE ( ToInteger_WhenValueIsLessThanZeroPointFiveItsRoundedToZero_Test )
 {
     // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
 
@@ -1607,10 +1607,10 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenTheMemorySizeOfIntegerTypeIsDifferentFr
 {
     // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
 #endif
 
@@ -1639,11 +1639,11 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsHigherThanTheMaximumIntege
 {
     // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
     const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  8388608; // Maximum convertible integer value = 2^23
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
     const float_q MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED =  4503599627370496l; // Maximum convertible integer value = 2^52
 #endif
@@ -1673,11 +1673,11 @@ QTEST_CASE ( ToInteger_AssertionFailsWhenFloatNumberIsLowerThanTheMinimumInteger
 {
     // [Preparation]
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
     typedef i32_q IntegerTypeForTest;
     const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -4194304; // Maximum convertible integer negative value = 2^22
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-    using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
     typedef i64_q IntegerTypeForTest;
     const float_q MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED = -2251799813685248l; // Maximum convertible integer negative value = 2^51
 #endif

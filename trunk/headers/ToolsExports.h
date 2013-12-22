@@ -30,7 +30,7 @@
 // When compiling to a binary file, all the symbols that may be used by the clients of the library
 // must be exposed, or exported, so they can be seen by those clients.
 // Since template classes are not compiled until they are instanced somewhere, they are not exported
-// in the same way the normal classes are (using QDllExport). These templates are instanced, in fact,
+// in the same way the normal classes are (using QE_LAYER_TOOLS_SYMBOLS). These templates are instanced, in fact,
 // internally, when they are used by other classes of the library. However:
 //      1- The client can't find those instances since the template specialization types are not exported.
 //      2- Even exporting those types, if the client links a type exported in a header file and then
@@ -50,7 +50,7 @@
 #ifndef __TOOLSEXPORTS__
 #define __TOOLSEXPORTS__
 
-#include "InternalDefinitions.h"
+#include "ToolsDefinitions.h"
 
 #ifdef QE_COMPILER_MSVC
 
@@ -58,7 +58,7 @@
 #pragma QE_DISABLE_WARNING(4231)
 
 // If exporting or importing symbols (when compiling as dynamically linked library)
-#if defined(QE_PREPROCESSOR_COMPILER_SHAREDLIB) || defined(QE_PREPROCESSOR_COMPILER_IMPORT)
+#if defined(QE_PREPROCESSOR_EXPORTLIB_TOOLS) || defined(QE_PREPROCESSOR_IMPORTLIB_TOOLS) || defined(QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE)
 
 
 //##################=======================================================##################
@@ -95,59 +95,59 @@ namespace Tools
 namespace Math
 {
 
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseOrb<QVector2>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseOrb<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseOrb<QVector4>;
-QE_DLLIMPORT_EXTERN template class QDllExport QOrb<QVector2>;
-QE_DLLIMPORT_EXTERN template class QDllExport QOrb<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QOrb<QVector4>;
-QE_DLLIMPORT_EXTERN template class QDllExport QSphere<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QSphere<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseOrb<QVector2>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseOrb<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseOrb<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QOrb<QVector2>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QOrb<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QOrb<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QSphere<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QSphere<QVector4>;
 
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseLineSegment<QVector2>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseLineSegment<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseLineSegment<QVector4>;
-QE_DLLIMPORT_EXTERN template class QDllExport QLineSegment<QVector2>;
-QE_DLLIMPORT_EXTERN template class QDllExport QLineSegment<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QLineSegment<QVector4>;
-QE_DLLIMPORT_EXTERN template class QDllExport QLineSegment3D<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QLineSegment3D<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseLineSegment<QVector2>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseLineSegment<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseLineSegment<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QLineSegment<QVector2>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QLineSegment<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QLineSegment<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QLineSegment3D<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QLineSegment3D<QVector4>;
 
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseRay<QVector2, QVector2>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseRay<QVector3, QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseRay<QVector4, QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QRay<QVector2, QVector2>;
-QE_DLLIMPORT_EXTERN template class QDllExport QRay<QVector3, QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QRay<QVector4, QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QRay3D<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QRay3D<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseRay<QVector2, QVector2>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseRay<QVector3, QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseRay<QVector4, QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QRay<QVector2, QVector2>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QRay<QVector3, QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QRay<QVector4, QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QRay3D<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QRay3D<QVector4>;
 
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseTriangle<QVector2>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseTriangle<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseTriangle<QVector4>;
-QE_DLLIMPORT_EXTERN template class QDllExport QTriangle<QVector2>;
-QE_DLLIMPORT_EXTERN template class QDllExport QTriangle<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QTriangle<QVector4>;
-QE_DLLIMPORT_EXTERN template class QDllExport QTriangle3D<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QTriangle3D<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseTriangle<QVector2>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseTriangle<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseTriangle<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTriangle<QVector2>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTriangle<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTriangle<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTriangle3D<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTriangle3D<QVector4>;
 
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseHexahedron<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QBaseHexahedron<QVector4>;
-QE_DLLIMPORT_EXTERN template class QDllExport QHexahedron<QVector3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QHexahedron<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseHexahedron<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QBaseHexahedron<QVector4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QHexahedron<QVector3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QHexahedron<QVector4>;
 
-QE_DLLIMPORT_EXTERN template class QDllExport QTransformationMatrix<QMatrix4x3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QTransformationMatrix<QMatrix4x4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTransformationMatrix<QMatrix4x3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTransformationMatrix<QMatrix4x4>;
 
-QE_DLLIMPORT_EXTERN template class QDllExport QTranslationMatrix<QMatrix4x3>;
-QE_DLLIMPORT_EXTERN template class QDllExport QTranslationMatrix<QMatrix4x4>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTranslationMatrix<QMatrix4x3>;
+QE_LAYER_TOOLS_EXTERN template class QE_LAYER_TOOLS_SYMBOLS QTranslationMatrix<QMatrix4x4>;
 
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // QE_PREPROCESSOR_COMPILER_SHAREDLIB || QE_PREPROCESSOR_COMPILER_IMPORT
+#endif // QE_PREPROCESSOR_EXPORTLIB_TOOLS) || QE_PREPROCESSOR_IMPORTLIB_TOOLS || QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE
 
 #endif // QE_COMPILER_MSVC
 

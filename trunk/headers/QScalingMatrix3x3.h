@@ -29,7 +29,7 @@
 
 #include "QMatrix3x3.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -59,7 +59,7 @@ class QMatrix4x4;
 /// It's a diagonal matrix where element \f$ a_{00}\f$ stores the scaling value in X direction, element \f$ a_{11}\f$ stores it
 /// in Y direction and element \f$ a_{22}\f$ does it in Z direction.
 /// </remarks>
-class QDllExport QScalingMatrix3x3 : public QMatrix3x3
+class QE_LAYER_TOOLS_SYMBOLS QScalingMatrix3x3 : public QMatrix3x3
 {
 
 	// CONSTRUCTORS

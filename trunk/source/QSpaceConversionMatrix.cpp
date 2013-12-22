@@ -26,6 +26,7 @@
 
 #include "QSpaceConversionMatrix.h"
 
+#include "Assertions.h"
 #include "QBaseQuaternion.h"
 #include "QTranslationMatrix.h"
 #include "QRotationMatrix3x3.h"
@@ -38,7 +39,7 @@
 #include "SQFloat.h"
 #include "SQAngle.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis

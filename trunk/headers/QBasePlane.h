@@ -28,9 +28,10 @@
 #define __QBASEPLANE__
 
 #include "DataTypesDefinitions.h"
+#include "ToolsDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 
 
 namespace Kinesis
@@ -48,7 +49,7 @@ namespace Math
 /// <remarks>
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from plane to the origin.
 /// </remarks>
-class QDllExport QBasePlane
+class QE_LAYER_TOOLS_SYMBOLS QBasePlane
 {
     // CONSTRUCTORS
 	// ---------------

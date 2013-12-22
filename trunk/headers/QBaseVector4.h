@@ -28,9 +28,10 @@
 #define __QBASEVECTOR4__
 
 #include "DataTypesDefinitions.h"
+#include "ToolsDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 
 
 namespace Kinesis
@@ -49,7 +50,7 @@ namespace Math
 ///	A vector is a geometric object that has both a magnitude (or length) and a direction.
 /// The fourth component may equal 0, if the vector represents a normal in 3D space, or 1, if it represents a point.
 /// </remarks>
-class QDllExport QBaseVector4
+class QE_LAYER_TOOLS_SYMBOLS QBaseVector4
 {
 	// CONSTRUCTORS
 	// ---------------

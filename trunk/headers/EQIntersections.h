@@ -30,10 +30,16 @@
 #include <map>
 #include <vector>
 
+#include "Assertions.h"
 #include "DataTypesDefinitions.h"
+#include "ToolsDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::enum_int_q;
+#ifdef QE_COMPILER_MSVC
+#pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
+#endif
+
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::enum_int_q;
 
 
 namespace Kinesis
@@ -48,7 +54,7 @@ namespace Math
 /// <summary>
 /// Enumerates the number of intersections between objects or entities.
 /// </summary>
-class EQIntersections
+class QE_LAYER_TOOLS_SYMBOLS EQIntersections
 {
     // ENUMERATIONS
     // ---------------

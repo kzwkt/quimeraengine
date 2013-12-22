@@ -30,9 +30,10 @@
 #include <memory>
 
 #include "DataTypesDefinitions.h"
+#include "ToolsDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 
 
 namespace Kinesis
@@ -47,7 +48,7 @@ namespace Math
 /// <summary>
 /// Base class to represent a matrix of floating point values with 3 rows and 3 columns.
 /// </summary>
-class QDllExport QBaseMatrix3x3
+class QE_LAYER_TOOLS_SYMBOLS QBaseMatrix3x3
 {
 	// CONSTRUCTORS
 	// ---------------

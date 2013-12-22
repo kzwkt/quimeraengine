@@ -28,15 +28,16 @@
 #define __SQBOOLEAN__
 
 #include "DataTypesDefinitions.h"
+#include "CommonDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
 namespace DataTypes
 {
@@ -44,7 +45,7 @@ namespace DataTypes
 /// <summary>
 /// Helper class that offers functionality related to boolean types.
 /// </summary>
-class QDllExport SQBoolean
+class QE_LAYER_COMMON_SYMBOLS SQBoolean
 {
 	// CONSTRUCTORS
 	// ---------------

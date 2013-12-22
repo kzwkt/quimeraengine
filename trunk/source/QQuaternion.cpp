@@ -27,6 +27,7 @@
 #include "QQuaternion.h"
 #include "MathDefinitions.h"
 
+#include "Assertions.h"
 #include "SQAngle.h"
 #include "QVector3.h"
 #include "QVector4.h"
@@ -35,7 +36,7 @@
 #include "QRotationMatrix3x3.h"
 #include "QTransformationMatrix.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis
@@ -536,7 +537,7 @@ void QQuaternion::ToEulerAngles(float_q &fRotationAngleX, float_q &fRotationAngl
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
     // This workaround is necessary due to an unacceptable loss of precision
-    using Kinesis::QuimeraEngine::Tools::DataTypes::f64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
     fRotationAngleX = (float_q)asin_q(f64_q(SQFloat::_2 * (this->w * this->x - this->z * this->y)));
 #elif QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
 

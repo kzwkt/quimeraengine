@@ -89,7 +89,8 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCore.lib</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
       <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <ProjectReference>
@@ -109,7 +110,7 @@
     <ClCompile>
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_COMPILER_SHAREDLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_EXPORTLIB_TOOLS;QE_PREPROCESSOR_IMPORTLIB_COMMON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <MinimalRebuild>true</MinimalRebuild>
@@ -121,9 +122,9 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <SubSystem>NotSet</SubSystem>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\DebugWin32SharedrtDynamic;$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineCommon.lib;kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
       <ImportLibrary>
       </ImportLibrary>
@@ -166,7 +167,6 @@
     </ProjectReference>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\EQIntersections.h" />
     <ClInclude Include="..\..\..\..\headers\EQSpaceRelation.h" />
     <ClInclude Include="..\..\..\..\headers\MathDefinitions.h" />
@@ -219,12 +219,9 @@
     <ClInclude Include="..\..\..\..\headers\QVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QVector4.h" />
     <ClInclude Include="..\..\..\..\headers\SQAngle.h" />
-    <ClInclude Include="..\..\..\..\headers\SQBoolean.h" />
-    <ClInclude Include="..\..\..\..\headers\SQFloat.h" />
-    <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
     <ClInclude Include="..\..\..\..\headers\SQPoint.h" />
-    <ClInclude Include="..\..\..\..\headers\SQVF32.h" />
     <ClInclude Include="..\..\..\..\headers\ToolsExports.h" />
+    <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\EQIntersections.cpp" />
@@ -262,11 +259,7 @@
     <ClCompile Include="..\..\..\..\source\QVector3.cpp" />
     <ClCompile Include="..\..\..\..\source\QVector4.cpp" />
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp" />
-    <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
-    <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
-    <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />
     <ClCompile Include="..\..\..\..\source\SQPoint.cpp" />
-    <ClCompile Include="..\..\..\..\source\SQVF32.cpp" />
     <ClCompile Include="..\..\..\..\source\ToolsExports.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

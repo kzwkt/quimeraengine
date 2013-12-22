@@ -40,9 +40,9 @@ using namespace boost::unit_test;
 #include "QVector4.h"
 #include "QBaseOrb.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QLineSegment;
 using Kinesis::QuimeraEngine::Tools::Math::Test::QLineSegmentWhiteBox;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;

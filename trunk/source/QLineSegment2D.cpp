@@ -27,12 +27,13 @@
 
 #include "QLineSegment2D.h"
 
+#include "Assertions.h"
 #include "QBaseTriangle.h"
 #include "QBaseQuadrilateral.h"
 #include "SQPoint.h"
 #include "QTransformationMatrix3x3.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis

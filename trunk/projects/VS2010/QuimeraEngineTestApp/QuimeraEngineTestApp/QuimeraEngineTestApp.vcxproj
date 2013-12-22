@@ -64,7 +64,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>QuimeraEngineCore.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='DebugWin32SharedrtDynamic|Win32'">
@@ -72,7 +72,7 @@
       <PrecompiledHeader>Use</PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_COMPILER_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\headers;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAsManaged>false</CompileAsManaged>
       <StringPooling>true</StringPooling>
@@ -87,7 +87,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>QuimeraEngineCore.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreLinkEvent>
       <Command>copy $(TargetDir)\..\..\..\..\bin\VS2010\$(Configuration) $(TargetDir)</Command>

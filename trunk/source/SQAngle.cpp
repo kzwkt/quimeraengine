@@ -104,7 +104,7 @@ float_q SQAngle::DegreesToRadians(const float_q &fDegrees)
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     // This workaround is necessary due to an unacceptable loss of precision
-    using Kinesis::QuimeraEngine::Tools::DataTypes::f64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
     return (float_q) (f64_q(fDegrees) * 4.0 * atan_q(1.0) / 180.0);
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     return fDegrees * SQAngle::RadiansPerDegree;
@@ -117,7 +117,7 @@ float_q SQAngle::RadiansToDegrees(const float_q &fRadians)
 
 #if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
     // This workaround is necessary due to an unacceptable loss of precision
-    using Kinesis::QuimeraEngine::Tools::DataTypes::f64_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::f64_q;
     return (float_q) (f64_q(fRadians) * 180.0 / (4.0 * atan_q(1.0)));
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     return fRadians * SQAngle::DegreesPerRadian;

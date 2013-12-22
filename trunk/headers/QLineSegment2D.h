@@ -31,7 +31,7 @@
 #include "QVector2.h"
 
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -56,7 +56,7 @@ class QBaseQuadrilateral;
 /// except for the unit line (see below). However, some transforming methods will rotate the segment using A
 /// by default as the pivot point.
 /// </remarks>
-class QDllExport QLineSegment2D : public QLineSegment<QVector2>
+class QE_LAYER_TOOLS_SYMBOLS QLineSegment2D : public QLineSegment<QVector2>
 {
     // BASE CLASS USINGS
     // ------------------

@@ -45,7 +45,7 @@ namespace NAMESPACE
 /// <summary>
 /// [DOC]
 /// </summary>
-class QDllExport ClassName
+class QDll<LayerName>Export ClassName
 {
     friends
 

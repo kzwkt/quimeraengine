@@ -26,10 +26,11 @@
 
 #include "QBaseMatrix3x3.h"
 
+#include "Assertions.h"
 #include "SQFloat.h"
 #include "SQVF32.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis
@@ -102,7 +103,7 @@ QBaseMatrix3x3::QBaseMatrix3x3(const float_q* arValues)
 
 QBaseMatrix3x3::QBaseMatrix3x3(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2)
 {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 
 	float_q fAux;
 

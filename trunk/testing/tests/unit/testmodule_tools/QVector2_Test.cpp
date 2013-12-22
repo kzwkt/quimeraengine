@@ -39,10 +39,10 @@ using namespace boost::unit_test;
 #include "QMatrix3x3.h"
 #include "QTransformationMatrix3x3.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 
 QTEST_SUITE_BEGIN( QVector2_TestSuite )
@@ -2001,7 +2001,7 @@ QTEST_CASE ( Transform2_VectorIsNullWhenTransformationMatrixIsNull_Test )
 /// </summary>
 QTEST_CASE ( ToString_StringIsCorrectlyGenerated_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
     // [Preparation]
     const string_q EXPECTED_RESULT = QE_L("V2(1,0.5)");

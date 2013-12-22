@@ -28,9 +28,10 @@
 #define __QBASEQUATERNION__
 
 #include "DataTypesDefinitions.h"
+#include "ToolsDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -45,7 +46,7 @@ namespace Math
 /// <summary>
 /// It represents the basic form of a quaternion with its four components: x, y, z and w.
 /// </summary>
-class QDllExport QBaseQuaternion
+class QE_LAYER_TOOLS_SYMBOLS QBaseQuaternion
 {
 
 	// CONSTRUCTORS

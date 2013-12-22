@@ -31,8 +31,8 @@
 
 #include "QVector2.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 
 
 namespace Kinesis
@@ -52,7 +52,7 @@ class QTransformationMatrix3x3;
 /// <summary>
 /// Class which represents a triangle in 2D.
 /// </summary>
-class QDllExport QTriangle2D : public QTriangle<QVector2>
+class QE_LAYER_TOOLS_SYMBOLS QTriangle2D : public QTriangle<QVector2>
 {
 
 	// CONSTRUCTORS

@@ -45,11 +45,11 @@ using namespace boost::unit_test;
 #include "SQVF32.h"
 #include "SQAngle.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES && QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
@@ -2426,7 +2426,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_
     float_q fResultUT = OPERAND.DotProductAngle(OPERAND);
 
     // [Verification]
-    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT, (float_q)1e-07) ); // There is a big loss of precision so a greater tolerance must be used
+    BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT, (float_q)1e-05) ); // There is a big loss of precision so a greater tolerance must be used
 }
 
 /// <summary>

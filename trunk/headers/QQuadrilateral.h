@@ -31,8 +31,8 @@
 
 #include "QVector2.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -53,7 +53,7 @@ class QLineSegment2D;
 /// <remarks>
 /// The quadrilateral is defined by four consecutive vertices A, B, C, D, being the edges AB, BC, CD and DA segments.
 /// </remarks>
-class QDllExport QQuadrilateral : public QBaseQuadrilateral
+class QE_LAYER_TOOLS_SYMBOLS QQuadrilateral : public QBaseQuadrilateral
 {
 
 	// CONSTRUCTORS

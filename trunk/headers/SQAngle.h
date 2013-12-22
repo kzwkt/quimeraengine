@@ -30,8 +30,9 @@
 #include <string>
 
 #include "DataTypesDefinitions.h"
+#include "ToolsDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -46,7 +47,7 @@ namespace Math
 /// <summary>
 /// Helper class that offers functionality related to angles (radians and degrees).
 /// </summary>
-class QDllExport SQAngle
+class QE_LAYER_TOOLS_SYMBOLS SQAngle
 {
     // CONSTANTS
     // ---------------

@@ -26,6 +26,7 @@
 
 #include "QVector3.h"
 
+#include "Assertions.h"
 #include "QQuaternion.h"
 #include "QDualQuaternion.h"
 #include "QMatrix4x3.h"
@@ -36,7 +37,7 @@
 #include "QBaseVector4.h"
 #include "SQAngle.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis

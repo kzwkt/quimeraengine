@@ -29,7 +29,7 @@
 
 #include "QQuaternion.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -55,7 +55,7 @@ namespace Math
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br/>
 /// This class is experimental and therefore subject to changes.
 /// </remarks>
-class QDllExport QBaseDualQuaternion
+class QE_LAYER_TOOLS_SYMBOLS QBaseDualQuaternion
 {
 
 	// CONSTRUCTORS

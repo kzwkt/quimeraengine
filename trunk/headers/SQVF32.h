@@ -27,19 +27,17 @@
 #ifndef __SQVF32__
 #define __SQVF32__
 
-#include <string>
-#include "DataTypesDefinitions.h"
 #include "SQFloat.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
 namespace DataTypes
 {
@@ -50,7 +48,7 @@ namespace DataTypes
 /// <remarks>
 /// This kind of packs are used in SIMD operations.
 /// </remarks>
-class QDllExport SQVF32
+class QE_LAYER_COMMON_SYMBOLS SQVF32
 {
 
 	// CONSTRUCTORS
@@ -112,7 +110,7 @@ public:
 };
 
 } //namespace DataTypes
-} //namespace Tools
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
 

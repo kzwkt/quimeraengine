@@ -29,9 +29,9 @@
 
 #include "QBaseQuaternion.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -66,7 +66,7 @@ class QBaseVector4;
 /// <br/>
 /// (Text extracted from: Flipcode.)
 /// </remarks>
-class QDllExport QQuaternion : public QBaseQuaternion
+class QE_LAYER_TOOLS_SYMBOLS QQuaternion : public QBaseQuaternion
 {
     // FRIENDS
     // ---------------
@@ -83,7 +83,7 @@ public:
     /// <returns>
     /// The resultant quaternion.
     /// </returns>
-    friend QQuaternion QDllExport operator*(const float_q &fScalar, const QQuaternion &qQuat);
+    friend QQuaternion QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QQuaternion &qQuat);
 
 
 	// CONSTRUCTORS
@@ -145,7 +145,7 @@ public:
     explicit QQuaternion(const vf32_q &value);
 
 	/// <summary>
-    /// Constructor that receives a rotation angle  and a normalized vector in the direction of the spin axis.
+    /// Constructor that receives a rotation angle and a normalized vector in the direction of the spin axis.
     /// </summary>
     /// <remarks>
 	/// Being \f$ (\theta)\f$ the angle and \f$ \vec{n}(n_x, n_y, n_z)\f$ the axis, he resultant quaternion is:
@@ -159,7 +159,7 @@ public:
 	QQuaternion(const QBaseVector3 &vRotationAxis, const float_q &fRotationAngle);
 
 	/// <summary>
-    /// Constructor that receives a rotation angle  and a normalized vector in the direction of the spin axis.
+    /// Constructor that receives a rotation angle and a normalized vector in the direction of the spin axis.
     /// </summary>
     /// <remarks>
 	/// Being \f$ (\theta)\f$ the angle and \f$ \vec{n}(n_x, n_y, n_z)\f$ the axis, he resultant quaternion is:

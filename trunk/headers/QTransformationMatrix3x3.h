@@ -29,7 +29,7 @@
 
 #include "QMatrix3x3.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -50,7 +50,7 @@ class QBaseVector2;
 /// It represents a 3x3 matrix containing spatial transformations relating to translation, rotation and scaling,
 /// applying them to 2D space points.
 /// </summary>
-class QDllExport QTransformationMatrix3x3 : public QMatrix3x3
+class QE_LAYER_TOOLS_SYMBOLS QTransformationMatrix3x3 : public QMatrix3x3
 {
 
     // CONSTRUCTORS

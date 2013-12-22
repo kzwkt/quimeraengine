@@ -26,10 +26,11 @@
 
 #include "QMatrix2x2.h"
 
+#include "Assertions.h"
 #include "SQAngle.h"
 #include "SQFloat.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis

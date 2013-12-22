@@ -18,9 +18,9 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCore.a" />
-					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineSystem.a" />
-					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineTools.a" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineCore.a" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineSystem.a" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				</Linker>
 			</Target>
@@ -36,9 +36,9 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCore.lib" />
-					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineSystem.lib" />
-					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
+					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
+					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
+					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 				</Linker>
 			</Target>
@@ -54,14 +54,17 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="libQuimeraEngineCore.dll.a" />
-					<Add library="libQuimeraEngineSystem.dll.a" />
-					<Add library="libQuimeraEngineTools.dll.a" />
+					<Add library="libQuimeraEngineCommon.a" />
+					<Add library="libQuimeraEngineTools.a" />
+					<Add library="libQuimeraEngineSystem.a" />
+					<Add library="libQuimeraEngineCore.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCore.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineSystem.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineTools.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCommon.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -78,9 +81,9 @@
 					<Add option="-DQE_PREPROCESSOR_COMPILER_IMPORT" />
 				</Compiler>
 				<Linker>
-					<Add library="./QuimeraEngineCore.so" />
-					<Add library="./QuimeraEngineSystem.so" />
-					<Add library="./QuimeraEngineTools.so" />
+					<Add library=".\QuimeraEngineCore.so" />
+					<Add library=".\QuimeraEngineSystem.so" />
+					<Add library=".\QuimeraEngineTools.so" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="mkdir -p $(TARGET_OUTPUT_DIR)" />

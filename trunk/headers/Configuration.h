@@ -31,7 +31,7 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Core
+namespace Common
 {
 namespace Configuration
 {
@@ -104,7 +104,7 @@ namespace Configuration
 #define QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT QE_CONFIG_ASSERTSBEHAVIOR_ENABLED // [Configurable]
 
 }//namespace Configuration
-}//namespace Core
+}//namespace Common
 }//namespace QuimeraEngine
 }//namespace Kinesis
 

@@ -29,7 +29,7 @@
 
 #include "QMatrix4x4.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -60,7 +60,7 @@ class QMatrix4x3;
 /// <remarks>
 /// It adds functionality to change to view, projection and world spaces.
 /// </remarks>
-class QDllExport QSpaceConversionMatrix : public QMatrix4x4
+class QE_LAYER_TOOLS_SYMBOLS QSpaceConversionMatrix : public QMatrix4x4
 {
     // CONSTRUCTORS
     // ---------------

@@ -31,17 +31,19 @@
 
 #include <boost/math/special_functions/trunc.hpp>
 
+#include "Assertions.h"
 #include "DataTypesDefinitions.h"
+#include "CommonDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
 namespace DataTypes
 {
@@ -50,7 +52,7 @@ namespace DataTypes
 /// Helper class that offers functionality related to floating point (IEEE 754) types.<br/>
 /// Use these constants and static methods extensively in your code, as far as you can.
 /// </summary>
-class QDllExport SQFloat
+class QE_LAYER_COMMON_SYMBOLS SQFloat
 {
     // CONSTANTS
     // ---------------
@@ -457,7 +459,7 @@ public:
                 biasValue._integer = EXPONENT << LOWEST_EXPONENT_BIT_POS; // Equivalent to 1 x 2 ^ LOWEST_EXPONENT_BIT_POS
 
             finalValue._float   += biasValue._float; // The mantissa is displaced N bits to the right (where N is bias exponent - original exponent). The exponent now equals bias exponent.
-            finalValue._integer -= biasValue._integer; // Removes the exponent bits so only the displaced 
+            finalValue._integer -= biasValue._integer; // Removes the exponent bits so only the displaced
 
             outInteger = finalValue._integer;
         }
@@ -548,7 +550,7 @@ public:
 };
 
 } //namespace DataTypes
-} //namespace Tools
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
 

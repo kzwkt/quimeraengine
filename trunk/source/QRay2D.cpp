@@ -32,7 +32,7 @@
 #include "QTransformationMatrix3x3.h"
 #include "SQPoint.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis

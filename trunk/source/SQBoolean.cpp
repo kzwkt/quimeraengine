@@ -30,7 +30,7 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
 namespace DataTypes
 {
@@ -57,6 +57,6 @@ string_q SQBoolean::ToString(const bool& bValue)
 }
 
 } //namespace DataTypes
-} //namespace Tools
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis

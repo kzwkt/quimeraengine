@@ -30,58 +30,47 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "SQVF32.h"
+#include "SQBoolean.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQBoolean;
 
-QTEST_SUITE_BEGIN( SQVF32_TestSuite )
+QTEST_SUITE_BEGIN( SQBoolean_TestSuite )
 
 /// <summary>
-/// Checks if every floating point value is set in the correct place into the vector.
+/// Checks if the string returned for the TRUE value meets the expectations.
 /// </summary>
-QTEST_CASE ( Pack_EveryValueIsSetInTheRightPlace_Test )
+QTEST_CASE ( ToString_TrueValueIsConvertedToStringAsExpected_Test )
 {
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
     // [Preparation]
-    const float_q EXPECTED_VALUE_FOR_FLOAT1 = SQFloat::_1;
-    const float_q EXPECTED_VALUE_FOR_FLOAT2 = SQFloat::_2;
-    const float_q EXPECTED_VALUE_FOR_FLOAT3 = SQFloat::_3;
-    const float_q EXPECTED_VALUE_FOR_FLOAT4 = SQFloat::_4;
+    const bool BOOLEAN_VALUE_TRUE = true;
+    string_q EXPECTED_RESULT = QE_L("true");
 
 	// [Execution]
-    vf32_q vectorUT;
-    SQVF32::Pack(EXPECTED_VALUE_FOR_FLOAT1,
-                 EXPECTED_VALUE_FOR_FLOAT2,
-                 EXPECTED_VALUE_FOR_FLOAT3,
-                 EXPECTED_VALUE_FOR_FLOAT4,
-                 vectorUT);
+    string_q strResultUT = SQBoolean::ToString(BOOLEAN_VALUE_TRUE);
 
     // [Verification]
-    float_q fFloatValueInPosition1;
-    float_q fFloatValueInPosition2;
-    float_q fFloatValueInPosition3;
-    float_q fFloatValueInPosition4;
-    SQVF32::Unpack(vectorUT,
-                   fFloatValueInPosition1,
-                   fFloatValueInPosition2,
-                   fFloatValueInPosition3,
-                   fFloatValueInPosition4);
-
-    BOOST_CHECK_EQUAL(fFloatValueInPosition1, EXPECTED_VALUE_FOR_FLOAT1);
-    BOOST_CHECK_EQUAL(fFloatValueInPosition2, EXPECTED_VALUE_FOR_FLOAT2);
-    BOOST_CHECK_EQUAL(fFloatValueInPosition3, EXPECTED_VALUE_FOR_FLOAT3);
-    BOOST_CHECK_EQUAL(fFloatValueInPosition4, EXPECTED_VALUE_FOR_FLOAT4);
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
 }
 
 /// <summary>
-/// Not tested. It's the same as Pack so it's not repeated.
+/// Checks if the string returned for the FALSE value meets the expectations.
 /// </summary>
-QTEST_CASE ( Unpack_NotTested_Test )
+QTEST_CASE ( ToString_FalseValueIsConvertedToStringAsExpected_Test )
 {
-    BOOST_MESSAGE(QE_L("It's not a testable method: no inputs, no outputs, just executes a method of a component."));
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+
+    // [Preparation]
+    const bool BOOLEAN_VALUE_FALSE = false;
+    string_q EXPECTED_RESULT = QE_L("false");
+
+	// [Execution]
+    string_q strResultUT = SQBoolean::ToString(BOOLEAN_VALUE_FALSE);
+
+    // [Verification]
+    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
 }
 
-// End - Test Suite: SQVF32
+// End - Test Suite: SQBoolean
 QTEST_SUITE_END()

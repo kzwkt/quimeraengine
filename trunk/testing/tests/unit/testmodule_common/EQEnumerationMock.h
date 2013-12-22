@@ -30,9 +30,10 @@
 #include <map>
 #include <vector>
 
+#include "Assertions.h"
 #include "DataTypesDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis

@@ -26,6 +26,7 @@
 
 #include "QScalingMatrix3x3.h"
 
+#include "Assertions.h"
 #include "QVector3.h"
 #include "QTranslationMatrix.h"
 #include "QRotationMatrix3x3.h"
@@ -34,7 +35,7 @@
 #include "QMatrix4x4.h"
 #include "SQFloat.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis
