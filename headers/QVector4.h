@@ -29,9 +29,9 @@
 
 #include "QBaseVector4.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -68,7 +68,7 @@ class QBaseVector3;
 /// The fourth component may equal 0, if the vector represents a normal in 3D space, or 1, if it represents a point.
 /// This is important when applying transformations to the vector.
 /// </remarks>
-class QDllExport QVector4 : public QBaseVector4
+class QE_LAYER_TOOLS_SYMBOLS QVector4 : public QBaseVector4
 {
     // FRIENDS
     // ---------------
@@ -82,7 +82,7 @@ public:
 	/// <returns>
 	/// A vector that is the result of the product.
 	/// </returns>
-    friend QVector4 QDllExport operator*(const float_q &fScalar, const QVector4 &vVector);
+    friend QVector4 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QVector4 &vVector);
 
 
     // CONSTRUCTORS

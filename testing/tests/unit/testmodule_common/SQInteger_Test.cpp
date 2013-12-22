@@ -33,15 +33,15 @@ using namespace boost::unit_test;
 
 #include "SQInteger.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQInteger;
-using Kinesis::QuimeraEngine::Tools::DataTypes::i8_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::i16_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::i32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::i64_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::u8_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::u16_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::u32_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::u64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQInteger;
+using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i16_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::i64_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u8_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u16_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
 
 typedef boost::mpl::list<i8_q, i16_q, i32_q, i64_q, u8_q, u16_q, u32_q, u64_q> TQTemplateTypes;
 typedef boost::mpl::list<i8_q, i16_q, i32_q, i64_q> TQTemplateSignedTypes;
@@ -402,7 +402,7 @@ QTEST_CASE_TEMPLATE ( SwapEndianess_IsCorrectlySwappedWhenUsingZeroAsInput_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_SignedValueIsCorrectlyConverted_Test, TQTemplateSignedTypes )
 {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
     // [Preparation]
     const size_t SIZE_8 = 1;
@@ -450,7 +450,7 @@ QTEST_CASE_TEMPLATE ( ToString_SignedValueIsCorrectlyConverted_Test, TQTemplateS
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_UnsignedValueIsCorrectlyConverted_Test, TQTemplateUnsignedTypes )
 {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
     // [Preparation]
     const size_t SIZE_8 = 1;
@@ -498,7 +498,7 @@ QTEST_CASE_TEMPLATE ( ToString_UnsignedValueIsCorrectlyConverted_Test, TQTemplat
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_ZeroIsCorrectlyConverted_Test, TQTemplateTypes )
 {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
     // [Preparation]
     T INPUT = 0;

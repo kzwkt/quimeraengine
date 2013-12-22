@@ -34,7 +34,7 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
 namespace DataTypes
 {
@@ -137,7 +137,7 @@ bool SQFloat::AreEqual(const float_q &fValueA, const float_q &fValueB)
 {
     return SQFloat::Abs(fValueA - fValueB) <= SQFloat::Epsilon;
 }
-    
+
 bool SQFloat::AreEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
 {
     // The tolerance provided must be equal to or greater than the system tolerance. If the tolerance is too small it could become useless.
@@ -150,7 +150,7 @@ bool SQFloat::AreNotEqual(const float_q &fValueA, const float_q &fValueB)
 {
     return SQFloat::Abs(fValueA - fValueB) > SQFloat::Epsilon;
 }
-    
+
 bool SQFloat::AreNotEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
 {
     return SQFloat::Abs(fValueA - fValueB) > fTolerance;
@@ -161,7 +161,7 @@ bool SQFloat::IsGreaterThan(const float_q &fGreaterValue, const float_q &fRefere
     // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
     return (fGreaterValue - fReferenceValue) > SQFloat::Epsilon;
 }
-    
+
 bool SQFloat::IsGreaterThan(const float_q &fGreaterValue, const float_q &fReferenceValue, const float_q &fTolerance)
 {
     // If subtraction result is positive, and is greater than Epsilon (are different numbers), the value is greater
@@ -173,7 +173,7 @@ bool SQFloat::IsLessThan(const float_q &fLowerValue, const float_q &fReferenceVa
     // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
     return (fLowerValue - fReferenceValue) < -SQFloat::Epsilon;
 }
-    
+
 bool SQFloat::IsLessThan(const float_q &fLowerValue, const float_q &fReferenceValue, const float_q &fTolerance)
 {
     // If subtraction result is negative, and is lower than Epsilon (are different numbers), the value is lower
@@ -185,7 +185,7 @@ bool SQFloat::IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const floa
     // If subtraction is greater or equals to -Epsilon, the value is greater or equals
     return (fGreaterOrEqualsValue - fReferenceValue) >= -SQFloat::Epsilon;
 }
-    
+
 bool SQFloat::IsGreaterOrEquals(const float_q &fGreaterOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance)
 {
     // If subtraction is greater or equals to -Epsilon, the value is greater or equals
@@ -197,7 +197,7 @@ bool SQFloat::IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &f
     // If subtraction is lower or equals to Epsilon, the value is lower or equals
     return (fLessOrEqualsValue - fReferenceValue) <= SQFloat::Epsilon;
 }
-    
+
 bool SQFloat::IsLessOrEquals(const float_q &fLessOrEqualsValue, const float_q &fReferenceValue, const float_q &fTolerance)
 {
     // If subtraction is lower or equals to Epsilon, the value is lower or equals
@@ -208,7 +208,7 @@ bool SQFloat::IsZero(const float_q &fValue)
 {
     return SQFloat::AreEqual(fValue, SQFloat::_0);
 }
-    
+
 bool SQFloat::IsZero(const float_q &fValue, const float_q &fTolerance)
 {
     return SQFloat::AreEqual(fValue, SQFloat::_0, fTolerance);
@@ -218,7 +218,7 @@ bool SQFloat::IsNotZero(const float_q &fValue)
 {
     return SQFloat::AreNotEqual(fValue, SQFloat::_0);
 }
-    
+
 bool SQFloat::IsNotZero(const float_q &fValue, const float_q &fTolerance)
 {
     return SQFloat::AreNotEqual(fValue, SQFloat::_0, fTolerance);
@@ -301,7 +301,7 @@ string_q SQFloat::ToString(const float_q &fValue)
 {
     string_q strOut = boost::lexical_cast<string_q>(fValue);
 	return strOut;
-  
+
 // Is this better? [SMELL] Thund:
 //    template <class T> std::string stringify(T x)
 //    {
@@ -312,6 +312,6 @@ string_q SQFloat::ToString(const float_q &fValue)
 }
 
 } //namespace DataTypes
-} //namespace Tools
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis

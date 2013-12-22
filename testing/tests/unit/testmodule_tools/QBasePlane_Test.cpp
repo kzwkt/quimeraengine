@@ -33,8 +33,8 @@ using namespace boost::unit_test;
 #include "QBasePlane.h"
 #include "SQVF32.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QBasePlane;
 
 QTEST_SUITE_BEGIN( QBasePlane_TestSuite )
@@ -186,8 +186,8 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenPointerIsNull_Test )
 QTEST_CASE ( Constructor6_VectorComponentsAreSetToValidVF32PackedValues_Test )
 {
     // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
-    using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
+    using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;

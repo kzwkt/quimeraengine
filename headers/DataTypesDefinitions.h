@@ -39,7 +39,7 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
 namespace DataTypes
 {
@@ -99,8 +99,8 @@ namespace DataTypes
         typedef short int           i16_q;  // Signed 16-bits integer
         typedef unsigned int        u32_q;  // Unsigned 32-bits integer
         typedef int                 i32_q;  // Signed 32-bits integer
-        typedef unsigned long long  u64_q;  // Unsigned 64-bits integer
-        typedef long long           i64_q;  // Signed 64-bits integer
+        typedef unsigned long int   u64_q;  // Unsigned 64-bits integer
+        typedef long int            i64_q;  // Signed 64-bits integer
         typedef float               f32_q;  // 32-bits floating point number
         typedef double              f64_q;  // 64-bits floating point number
         typedef union  // [TODO] Thund: Check if this type can be used with SSE instructions
@@ -133,49 +133,16 @@ namespace DataTypes
     typedef f32_q float_q;
 #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
     typedef f64_q float_q;
-#else
-    typedef f32_q float_q;
 #endif
 
 // --------------------------------------------------------------------------------------------------------
 // Float type size: Defines the floating point type size (in bytes), depending on the configured precission.
 // The size depens on the operative system / compiler too.
 // --------------------------------------------------------------------------------------------------------
-#if defined(QE_OS_WINDOWS) && (QE_OS_WINDOWS == 32)
-    #ifdef QE_COMPILER_MSVC
-        #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-            #define QE_FLOAT_SIZE 4
-        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-            #define QE_FLOAT_SIZE 8
-        #else
-            #define QE_FLOAT_SIZE 4
-        #endif
-    #elif QE_COMPILER_GCC
-         #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-            #define QE_FLOAT_SIZE 4
-        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-            #define QE_FLOAT_SIZE 8
-        #else
-            #define QE_FLOAT_SIZE 4
-        #endif
-    #else
-        // [TODO] Thund: Test the system in another compiler and write the type sizes in that compiler
-    #endif
-#elif defined(QE_OS_LINUX) && (QE_OS_LINUX == 32)
-    #if QE_COMPILER_GCC
-         #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
-            #define QE_FLOAT_SIZE 4
-        #elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
-            #define QE_FLOAT_SIZE 8
-        #else
-            #define QE_FLOAT_SIZE 4
-        #endif
-    #else
-        // [TODO] Thund: Test the system in another compiler and write the type sizes in that compiler
-    #endif
-#else
-    // [TODO] Thund: Test the system in another platform and write the type sizes in that machine
-    // Win64, Linux 32, Mac OS 32
+#if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    #define QE_FLOAT_SIZE 4
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    #define QE_FLOAT_SIZE 8
 #endif
 
 // --------------------------------------------------------------------------------------------------------
@@ -255,8 +222,6 @@ namespace DataTypes
     typedef std::wstring string_q;
 #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_MBCS && defined(QE_OS_WINDOWS)
     typedef std::wstring string_q;
-#else
-    typedef std::string string_q;
 #endif
 
 
@@ -270,8 +235,6 @@ namespace DataTypes
     #define QE_L(str) L##str
 #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_MBCS && defined(QE_OS_WINDOWS)
     #define QE_L(str) L##str
-#else
-    #define QE_L
 #endif
 
 

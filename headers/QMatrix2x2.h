@@ -29,9 +29,9 @@
 
 #include "QBaseMatrix2x2.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 
 namespace Kinesis
 {
@@ -58,7 +58,7 @@ namespace Math
 ///
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} \\ a_{10} & a_{11} \end{bmatrix}\f$
 /// </remarks>
-class QDllExport QMatrix2x2 : public QBaseMatrix2x2
+class QE_LAYER_TOOLS_SYMBOLS QMatrix2x2 : public QBaseMatrix2x2
 {
     // FRIENDS
     // ---------------
@@ -72,7 +72,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend QMatrix2x2 QDllExport operator*(const float_q &fScalar, const QMatrix2x2 &matrix);
+    friend QMatrix2x2 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QMatrix2x2 &matrix);
 
 
     // CONSTRUCTORS

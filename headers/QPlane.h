@@ -69,7 +69,7 @@ class QMatrix4x4;
 /// We can see that the vector (a, b, c) is normal to the plane, and d represents the sorthest distance from
 /// plane to the origin, when the normal is normalized.
 /// </remarks>
-class QDllExport QPlane : public QBasePlane
+class QE_LAYER_TOOLS_SYMBOLS QPlane : public QBasePlane
 {
 	// FRIENDS
 	// ---------------
@@ -86,7 +86,7 @@ public:
     /// <returns>
     /// A plane that is the result of the product.
     /// </returns>
-    friend QPlane QDllExport operator*(const float_q &fScalar, const QPlane &plane);
+    friend QPlane QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QPlane &plane);
 
 
 	// CONSTRUCTORS
@@ -264,7 +264,6 @@ public:
     /// </summary>
     /// <remarks>
     /// Note that it may be necessary re-normalize the plane after this operation!!
-    
     /// <param name="fScalar">[IN] Dividing floating point value.</param>
     /// <returns>
     /// A reference to plane result of the division.

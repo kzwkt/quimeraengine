@@ -45,8 +45,8 @@ using namespace boost::unit_test;
 #include "QScalingMatrix3x3.h"
 #include "SQAngle.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 using Kinesis::QuimeraEngine::Tools::Math::Test::QTransformationMatrixWhiteBox;
 using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;

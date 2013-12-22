@@ -26,6 +26,7 @@
 
 #include "SQPoint.h"
 
+#include "Assertions.h"
 #include "SQFloat.h"
 #include "SQAngle.h"
 #include "QVector2.h"

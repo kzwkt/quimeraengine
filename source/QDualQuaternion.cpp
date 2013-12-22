@@ -26,6 +26,7 @@
 
 #include "QDualQuaternion.h"
 
+#include "Assertions.h"
 #include "QBaseVector3.h"
 #include "QBaseVector4.h"
 

@@ -29,7 +29,7 @@
 
 #include "QMatrix3x3.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -54,7 +54,7 @@ class QMatrix4x4;
 /// <summary>
 /// Class to represent a matrix of floating point values with 3 rows and 3 columns which contains a rotation.
 /// </summary>
-class QDllExport QRotationMatrix3x3 : public QMatrix3x3
+class QE_LAYER_TOOLS_SYMBOLS QRotationMatrix3x3 : public QMatrix3x3
 {
 
 	// CONSTRUCTORS

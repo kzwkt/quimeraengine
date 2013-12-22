@@ -33,7 +33,7 @@
 #include "QBaseMatrix3x4.h"
 #include "QBaseMatrix4x4.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -64,7 +64,7 @@ namespace Math
 /// This allows us to compute the special case of transformatios, where 4th column has the values (0, 0, 0, 1), and
 /// we can ignore it in some cases.
 /// </remarks>
-class QDllExport QMatrix4x3 : public QBaseMatrix4x3
+class QE_LAYER_TOOLS_SYMBOLS QMatrix4x3 : public QBaseMatrix4x3
 {
 	// FRIENDS
 	// ---------------
@@ -78,7 +78,7 @@ public:
 	/// <returns>
 	/// The resultant matrix.
 	/// </returns>
-	friend QMatrix4x3 QDllExport operator*(const float_q &fScalar, const QMatrix4x3 &matrix);
+	friend QMatrix4x3 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QMatrix4x3 &matrix);
 
 
  	// CONSTRUCTORS

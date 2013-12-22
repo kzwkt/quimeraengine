@@ -42,8 +42,8 @@ using namespace boost::unit_test;
 #include "QMatrix4x4.h"
 #include "QMatrix4x3.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES && QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE

@@ -22,20 +22,20 @@ LDFLAGS_DEBUGWIN32SHAREDRTSTATIC =
 OBJDIR_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)\\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtStatic
 DEP_DEBUGWIN32SHAREDRTSTATIC = 
 OUT_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)\\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtStatic\\QuimeraEngineCore.lib
-OBJ_DEBUGWIN32SHAREDRTSTATIC = $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\InternalDefinitions.o
+OBJ_DEBUGWIN32SHAREDRTSTATIC = $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o 
 
 #DebugWin32SharedrtDynamic
 INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)/trunk/headers -I$(MAKEPATH)/trunk/3rdparty/Boost/include
-CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -D_DEBUG -DQE_PREPROCESSOR_COMPILER_SHAREDLIB
+CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -D_DEBUG -DQE_PREPROCESSOR_IMPORTLIB_COMMON -DQE_PREPROCESSOR_IMPORTLIB_TOOLS -DQE_PREPROCESSOR_IMPORTLIB_SYSTEM -DQE_PREPROCESSOR_EXPORTLIB_CORE
 RESINC_DEBUGWIN32SHAREDRTDYNAMIC =  
 RCFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
-LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  -L..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic
-LIB_DEBUGWIN32SHAREDRTDYNAMIC = 
+LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  -L..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic -L$(MAKEPATH)\\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic
+LIB_DEBUGWIN32SHAREDRTDYNAMIC = libQuimeraEngineCommon.dll.a libQuimeraEngineTools.dll.a libQuimeraEngineSystem.dll.a
 LDFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
 OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtDynamic
 DEP_DEBUGWIN32SHAREDRTDYNAMIC = 
 OUT_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic\\QuimeraEngineCore.dll
-OBJ_DEBUGWIN32SHAREDRTDYNAMIC = $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\InternalDefinitions.o
+OBJ_DEBUGWIN32SHAREDRTDYNAMIC = $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o 
 OUT_IMPORT_DEBUGWIN32SHAREDRTDYNAMIC = libQuimeraEngineCore.dll.a
 	
 all: debugwin32sharedrtstatic debugwin32sharedrtdynamic
@@ -60,9 +60,6 @@ out_debugwin32sharedrtstatic: $(OBJ_DEBUGWIN32SHAREDRTSTATIC) $(DEP_DEBUGWIN32SH
 $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o: $(MAKEPATH)\\trunk\\source\\Prueba.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)\\trunk\\source\\Prueba.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o
 
-$(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\InternalDefinitions.o: $(MAKEPATH)\\trunk\\source\\InternalDefinitions.cpp
-	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)\\trunk\\source\\InternalDefinitions.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\source\\InternalDefinitions.o
-
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #	DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~   DebugWin32SharedrtDynamic   ~~~  #  
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
@@ -80,9 +77,6 @@ out_debugwin32sharedrtdynamic: $(OBJ_DEBUGWIN32SHAREDRTDYNAMIC) $(DEP_DEBUGWIN32
 
 $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o: $(MAKEPATH)\\trunk\\source\\Prueba.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)\\trunk\\source\\Prueba.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o
-
-$(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\InternalDefinitions.o: $(MAKEPATH)\\trunk\\source\\InternalDefinitions.cpp
-	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)\\trunk\\source\\InternalDefinitions.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\InternalDefinitions.o
 
 clean_debugwin32sharedrtdynamic: 
 	

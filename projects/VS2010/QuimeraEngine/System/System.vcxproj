@@ -84,7 +84,8 @@
     </Link>
     <Lib>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>libboost_thread-vc100-mt-gd.lib;QuimeraEngineTools.lib;QuimeraEngineCore.lib</AdditionalDependencies>
+      <AdditionalDependencies>
+      </AdditionalDependencies>
       <AdditionalOptions>/ignore:4006 /ignore:4221 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
     <ProjectReference>
@@ -101,7 +102,7 @@
       <MultiProcessorCompilation>false</MultiProcessorCompilation>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_COMPILER_SHAREDLIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_WINDOWS;QE_PREPROCESSOR_EXPORTLIB_SYSTEM;QE_PREPROCESSOR_IMPORTLIB_TOOLS;QE_PREPROCESSOR_IMPORTLIB_COMMON;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>true</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
       <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
@@ -113,7 +114,7 @@
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <SubSystem>Console</SubSystem>
+      <SubSystem>NotSet</SubSystem>
       <ImportLibrary>
       </ImportLibrary>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
@@ -159,6 +160,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\Prueba.h" />
+    <ClInclude Include="..\..\..\..\headers\SystemDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\Prueba.cpp" />

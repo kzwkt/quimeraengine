@@ -24,7 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifdef QE_PREPROCESSOR_COMPILER_SHAREDLIB
+#ifdef QE_PREPROCESSOR_EXPORTLIB_TOOLS
     #include "ToolsExports.h"
 #endif
 

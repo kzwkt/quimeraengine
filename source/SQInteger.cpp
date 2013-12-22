@@ -30,7 +30,7 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
 namespace DataTypes
 {
@@ -98,6 +98,6 @@ string_q SQInteger::ToString<i8_q>(const char &nValue)
 }
 
 } //namespace DataTypes
-} //namespace Tools
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis

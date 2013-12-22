@@ -33,7 +33,7 @@
 #include "QScalingMatrix3x3.h"
 #include "QSpaceConversionMatrix.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -62,7 +62,7 @@ class QTransformationMatrix3x3;
 /// <summary>
 /// Helper class that will be used to perform transformations related to arrays of points (2D, 3D or 4D).
 /// </summary>
-class QDllExport SQPoint
+class QE_LAYER_TOOLS_SYMBOLS SQPoint
 {
 
 	// CONSTRUCTORS

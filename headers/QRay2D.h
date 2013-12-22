@@ -32,7 +32,7 @@
 #include "QVector2.h"
 #include "EQIntersections.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -58,7 +58,7 @@ class QTransformationMatrix3x3;
 /// <remarks>
 /// The direction symbolizes a line with only one end (which coincides with the point) and that extends to the infinite.
 /// </remarks>
-class QDllExport QRay2D : public QRay<QVector2, QVector2>
+class QE_LAYER_TOOLS_SYMBOLS QRay2D : public QRay<QVector2, QVector2>
 {
     // BASE CLASS USINGS
     // ------------------

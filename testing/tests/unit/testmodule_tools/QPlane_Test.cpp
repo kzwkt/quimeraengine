@@ -46,9 +46,9 @@ using namespace boost::unit_test;
 #include "SQAngle.h"
 #include "QSpaceConversionMatrix.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 using Kinesis::QuimeraEngine::Tools::Math::QVector4;
@@ -257,8 +257,8 @@ QTEST_CASE ( Constructor6_AssertionFailsWhenPointerIsNull_Test )
 QTEST_CASE ( Constructor7_VectorComponentsAreSetToValidVF32PackedValues_Test )
 {
     // [Preparation]
-    using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
-    using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
+    using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_1;
     const float_q EXPECTED_VALUE_FOR_B = SQFloat::_2;

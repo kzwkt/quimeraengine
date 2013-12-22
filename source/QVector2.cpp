@@ -26,13 +26,14 @@
 
 #include "QVector2.h"
 
+#include "Assertions.h"
 #include "SQAngle.h"
 #include "QTransformationMatrix3x3.h"
 #include "QBaseMatrix2x2.h"
 #include "SQFloat.h"
 #include "MathDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis

@@ -14,7 +14,6 @@
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_core\EQEnumeration_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseDualQuaternion_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseHexahedron_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QBaseLineSegment_Test.cpp" />
@@ -66,11 +65,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QVector4_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQAngle_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQBoolean_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQFloat_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQInteger_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQPoint_Test.cpp" />
-    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\SQVF32_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\TestModule_Tools.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -83,7 +78,6 @@
     <ClInclude Include="..\..\..\..\testsystem\QUnitTestModuleBase.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
-    <ClInclude Include="..\..\..\..\tests\unit\testmodule_core\EQEnumerationMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QLineSegmentWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrixWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_tools\QVector3Whitebox.h" />
@@ -149,7 +143,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libboost_unit_test_framework-vc100-mt-gd.lib;QuimeraEngineTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libboost_unit_test_framework-vc100-mt-gd.lib;QuimeraEngineCommon.lib;QuimeraEngineTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -174,14 +168,14 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_CONSOLE;QE_PREPROCESSOR_COMPILER_IMPORT;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_CONSOLE;QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\tests\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libboost_unit_test_framework-vc100-mt-gd.lib;QuimeraEngineTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>libboost_unit_test_framework-vc100-mt-gd.lib;QuimeraEngineCommon.lib;QuimeraEngineTools.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
@@ -191,7 +185,8 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <PreBuildEvent>
-      <Command>copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineTools.dll $(TargetDir)</Command>
+      <Command>copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineCommon.dll $(TargetDir)
+copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineTools.dll $(TargetDir)</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir) /Y</Command>

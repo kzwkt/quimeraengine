@@ -36,9 +36,9 @@ using namespace boost::unit_test;
 #include "SQFloat.h"
 #include "SQAngle.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::Math::QQuadrilateral;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 

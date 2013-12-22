@@ -37,8 +37,8 @@
 #include "QBaseHexahedron.h"
 #include "SQPoint.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -98,11 +98,11 @@ public:
     /// <summary>
     /// Constructor that receives the ray's position and direction.
     /// </summary>
-    /// <param name="vOrigin">[IN] Ray's position.</param>
-    /// <param name="vDirection">[IN] Ray's direction.</param>
     /// <remarks>
     /// The direction vector must be normalized to construct the ray properly.
     /// </remarks>
+    /// <param name="vOrigin">[IN] Ray's position.</param>
+    /// <param name="vDirection">[IN] Ray's direction.</param>
     QRay3D(const VectorType &vOrigin, const QVector3 &vDirection) : QRay<VectorType, QVector3>(vOrigin, vDirection)
     {
     }

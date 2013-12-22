@@ -37,8 +37,8 @@ using namespace boost::unit_test;
 #include "QTransformationMatrix3x3.h"
 #include "SQAngle.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Tools::Math::QVector2;
 using Kinesis::QuimeraEngine::Tools::Math::QTriangle2D;
 
@@ -220,8 +220,8 @@ QTEST_CASE ( Constructor5_AssertionFailsWhenInputValuesAreNull_Test )
 /// </summary>
 QTEST_CASE ( Constructor6_ValuesAreCorrectlySet_Test )
 {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
-    using Kinesis::QuimeraEngine::Tools::DataTypes::vf32_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
+    using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 
     // [Preparation]
     const QVector2 EXPECTED_VALUE_FOR_A = QVector2(SQFloat::_5, SQFloat::_3);

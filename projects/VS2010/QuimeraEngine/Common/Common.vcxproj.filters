@@ -1,0 +1,45 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="DataTypes">
+      <UniqueIdentifier>{d6d4def4-d964-439f-a86f-f232a48c980c}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQBoolean.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQFloat.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQInteger.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\SQVF32.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\CommonDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\Configuration.h" />
+    <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\Assertions.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQFloat.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQInteger.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\SQVF32.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
+  </ItemGroup>
+</Project>

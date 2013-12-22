@@ -30,7 +30,13 @@
 #include <map>
 #include <vector>
 
+#include "Assertions.h"
 #include "DataTypesDefinitions.h"
+#include "<LayerName>Definitions.h"
+
+#ifdef QE_COMPILER_MSVC
+#pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
+#endif
 
 using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Tools::DataTypes::enum_int_q;
@@ -46,7 +52,7 @@ namespace NAMESPACE
 /// <summary>
 /// [DOC]
 /// </summary>
-class EQEnumeration
+class QDll<LayerName>Export EQEnumeration
 {
     // ENUMERATIONS
     // ---------------

@@ -50,9 +50,12 @@
     #define QE_OS_LINUX 32      // Linux 32 bits
 #elif defined(LINUX64) && defined(__linux__)
     #define QE_OS_LINUX 64      // Linux 64 bits
+#elif defined(__APPLE__) && !defined(__LP64__)
+    #define QE_OS_MAC 32
+#elif defined(__APPLE__) && defined(__LP64__)
+    #define QE_OS_MAC 64
 #else
     #error Unknown operative system.
-// [TODO] Thund: Complete the list, including: Linux 32 bits, Linux 64 bits and MacOS
 #endif
 
 // --------------------------------------------------------------------------------------------------------

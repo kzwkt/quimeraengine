@@ -31,7 +31,7 @@
 
 #include "SQFloat.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis
@@ -63,7 +63,7 @@ class QBaseVector4;
 /// one rotation and one translation, without deforming the transformed solid (which acts as a rigid solid).<br/>
 /// This class has been included for experimental purposes only. Use it at your own risk.
 /// </remarks>
-class QDllExport QDualQuaternion : public QBaseDualQuaternion
+class QE_LAYER_TOOLS_SYMBOLS QDualQuaternion : public QBaseDualQuaternion
 {
     // FRIENDS
     // ---------------
@@ -77,7 +77,7 @@ public:
     /// <returns>
     /// The resultant dual quaternion.
     /// </returns>
-    friend QDualQuaternion QDllExport operator*(const float_q &fScalar, const QDualQuaternion &dualQuat);
+    friend QDualQuaternion QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QDualQuaternion &dualQuat);
 
 
 	// CONSTRUCTORS

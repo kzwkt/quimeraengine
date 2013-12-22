@@ -28,7 +28,7 @@
 
 #include "SQFloat.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 namespace Kinesis
 {

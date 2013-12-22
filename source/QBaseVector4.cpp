@@ -26,11 +26,11 @@
 
 #include "QBaseVector4.h"
 
-
+#include "Assertions.h"
 #include "SQFloat.h"
 #include "SQVF32.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 namespace Kinesis
 {
@@ -85,7 +85,7 @@ QBaseVector4::QBaseVector4(const float_q* arValues)
 
 QBaseVector4::QBaseVector4(const vf32_q &value)
 {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 
     SQVF32::Unpack(value, this->x, this->y, this->z, this->w);
 }

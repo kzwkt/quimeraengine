@@ -26,10 +26,11 @@
 
 #include "QBaseMatrix4x4.h"
 
+#include "Assertions.h"
 #include "SQFloat.h"
 #include "SQVF32.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 
 
 namespace Kinesis
@@ -119,7 +120,7 @@ QBaseMatrix4x4::QBaseMatrix4x4(const float_q* arValues)
 
 QBaseMatrix4x4::QBaseMatrix4x4(const vf32_q &row0, const vf32_q &row1, const vf32_q &row2, const vf32_q &row3)
 {
-    using Kinesis::QuimeraEngine::Tools::DataTypes::SQVF32;
+    using Kinesis::QuimeraEngine::Common::DataTypes::SQVF32;
 
 	SQVF32::Unpack(row0, this->ij[0][0], this->ij[0][1], this->ij[0][2], this->ij[0][3]);
 	SQVF32::Unpack(row1, this->ij[1][0], this->ij[1][1], this->ij[1][2], this->ij[1][3]);

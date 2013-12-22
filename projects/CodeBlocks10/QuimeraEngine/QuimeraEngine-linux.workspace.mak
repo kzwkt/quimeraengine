@@ -9,7 +9,7 @@ WRKDIR = %cd%
 #  DebugLinux32SharedrtStatic ~~~  DebugLinux32SharedrtStatic  ~~~  DebugLinux32SharedrtStatic  ~~~  DebugLinux32SharedrtStatic  ~~~  DebugLinux32SharedrtStatic  ~~~        #  
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
-buildDebugLinux32SharedrtStatic: core_debuglinux32sharedrtstatic system_debuglinux32sharedrtstatic tools_debuglinux32sharedrtstatic
+buildDebugLinux32SharedrtStatic: common_debuglinux32sharedrtstatic tools_debuglinux32sharedrtstatic system_debuglinux32sharedrtstatic core_debuglinux32sharedrtstatic
 
 core_debuglinux32sharedrtstatic:
 	$(MAKE) debuglinux32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-linux.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
@@ -20,7 +20,10 @@ system_debuglinux32sharedrtstatic:
 tools_debuglinux32sharedrtstatic:
 	$(MAKE) debuglinux32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-linux.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
 	
-cleanDebugLinux32SharedrtStatic: clean_core_debuglinux32sharedrtstatic clean_system_debuglinux32sharedrtstatic clean_tools_debuglinux32sharedrtstatic
+common_debuglinux32sharedrtstatic:
+	$(MAKE) debuglinux32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Common/Common-linux.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
+	
+cleanDebugLinux32SharedrtStatic: clean_core_debuglinux32sharedrtstatic clean_system_debuglinux32sharedrtstatic clean_tools_debuglinux32sharedrtstatic clean_common_debuglinux32sharedrtstatic
 
 clean_core_debuglinux32sharedrtstatic: 
 	$(MAKE) clean_debuglinux32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-linux.cbp.mak
@@ -31,11 +34,14 @@ clean_system_debuglinux32sharedrtstatic:
 clean_tools_debuglinux32sharedrtstatic: 
 	$(MAKE) clean_debuglinux32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-linux.cbp.mak
 
+clean_common_debuglinux32sharedrtstatic: 
+	$(MAKE) clean_debuglinux32sharedrtstatic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Common/Common-linux.cbp.mak
+
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 #  DebugLinux32SharedrtDynamic  ~~~  DebugLinux32SharedrtDynamic  ~~~  DebugLinux32SharedrtDynamic  ~~~  DebugLinux32SharedrtDynamic  ~~~  DebugLinux32SharedrtDynamic  ~~~  #  
 #----------------------------------------------------------------------------------------------------------------------------------------------------------------------------#
 
-buildDebugLinux32SharedrtDynamic: core_debuglinux32sharedrtdynamic system_debuglinux32sharedrtdynamic tools_debuglinux32sharedrtdynamic
+buildDebugLinux32SharedrtDynamic: common_debuglinux32sharedrtdynamic tools_debuglinux32sharedrtdynamic system_debuglinux32sharedrtdynamic core_debuglinux32sharedrtdynamic
 
 core_debuglinux32sharedrtdynamic:
 	$(MAKE) debuglinux32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-linux.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
@@ -46,7 +52,10 @@ system_debuglinux32sharedrtdynamic:
 tools_debuglinux32sharedrtdynamic:
 	$(MAKE) debuglinux32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-linux.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
 	
-cleanDebugLinux32SharedrtDynamic: clean_core_debuglinux32sharedrtdynamic clean_system_debuglinux32sharedrtdynamic clean_tools_debuglinux32sharedrtdynamic
+common_debuglinux32sharedrtdynamic:
+	$(MAKE) debuglinux32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Common/Common-linux.cbp.mak MAKEFILE="$(MAKEPATH)" MAKEFILE__="$(MAKEPATH__)"
+	
+cleanDebugLinux32SharedrtDynamic: clean_core_debuglinux32sharedrtdynamic clean_system_debuglinux32sharedrtdynamic clean_tools_debuglinux32sharedrtdynamic clean_common_debuglinux32sharedrtdynamic
 
 clean_core_debuglinux32sharedrtdynamic: 
 	$(MAKE) clean_debuglinux32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Core/Core-linux.cbp.mak
@@ -56,6 +65,9 @@ clean_system_debuglinux32sharedrtdynamic:
 
 clean_tools_debuglinux32sharedrtdynamic: 
 	$(MAKE) clean_debuglinux32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Tools/Tools-linux.cbp.mak
+
+clean_common_debuglinux32sharedrtdynamic: 
+	$(MAKE) clean_debuglinux32sharedrtdynamic -f $(MAKEPATH)trunk/projects/CodeBlocks10/QuimeraEngine/Common/Common-linux.cbp.mak
 
 
 .PHONY: clean_core_core clean_system_system clean_tools_tools

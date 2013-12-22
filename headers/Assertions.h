@@ -24,53 +24,42 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include <boost/test/auto_unit_test.hpp>
-#include <boost/test/unit_test_log.hpp>
-using namespace boost::unit_test;
+#ifndef __ASSERTIONS__
+#define __ASSERTIONS__
 
-#include "../../testsystem/TestingExternalDefinitions.h"
+#include "CommonDefinitions.h"
 
-#include "SQBoolean.h"
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQBoolean;
+    #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
+        #include <exception>
+        #define QE_ASSERT(expr) { if(!(expr)) throw new std::exception(); } // TODO [Thund]: Create an special exception class for this
+    #else
 
-QTEST_SUITE_BEGIN( SQBoolean_TestSuite )
+        #ifdef QE_COMPILER_GCC
 
-/// <summary>
-/// Checks if the string returned for the TRUE value meets the expectations.
-/// </summary>
-QTEST_CASE ( ToString_TrueValueIsConvertedToStringAsExpected_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+            /// <summary>
+            /// Special behaviour for using GDB so it stops at the line the assertion fails and let the
+            /// developer to continue debugging from there on advance.
+            /// </summary>
+            QE_LAYER_COMMON_SYMBOLS void QE_ASSERT_FAILED();
 
-    // [Preparation]
-    const bool BOOLEAN_VALUE_TRUE = true;
-    string_q EXPECTED_RESULT = QE_L("true");
+            #define QE_ASSERT(expr) (expr) ? (void(0)) : QE_ASSERT_FAILED(); // This sentence makes GDB to stop at the failing line and continue the execution later
+        #else
+            #include <boost/assert.hpp>
 
-	// [Execution]
-    string_q strResultUT = SQBoolean::ToString(BOOLEAN_VALUE_TRUE);
+            #ifdef BOOST_ASSERT
+                #define QE_ASSERT(expr) BOOST_ASSERT(expr);
+            #else
+                #define QE_ASSERT(expr) ;
+            #endif
+        #endif
+    #endif
 
-    // [Verification]
-    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
-}
+#else
 
-/// <summary>
-/// Checks if the string returned for the FALSE value meets the expectations.
-/// </summary>
-QTEST_CASE ( ToString_FalseValueIsConvertedToStringAsExpected_Test )
-{
-    using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+    #define QE_ASSERT(expr) ;
 
-    // [Preparation]
-    const bool BOOLEAN_VALUE_FALSE = false;
-    string_q EXPECTED_RESULT = QE_L("false");
+#endif
 
-	// [Execution]
-    string_q strResultUT = SQBoolean::ToString(BOOLEAN_VALUE_FALSE);
-
-    // [Verification]
-    BOOST_CHECK(strResultUT == EXPECTED_RESULT);
-}
-
-// End - Test Suite: SQBoolean
-QTEST_SUITE_END()
+#endif // __ASSERTIONS__

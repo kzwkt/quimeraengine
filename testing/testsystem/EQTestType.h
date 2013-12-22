@@ -32,8 +32,8 @@
 
 #include "DataTypesDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::enum_int_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::enum_int_q;
 
 
 namespace Kinesis
@@ -237,7 +237,7 @@ public:
             const size_t ENUM_ARRAY_COUNT = EQTestType::sm_mapValueName.size();
 
             // An empty enumeration makes no sense
-            QE_ASSERT(ENUM_ARRAY_COUNT > 0);
+            //QE_ASSERT(ENUM_ARRAY_COUNT > 0);
 
             for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
                 arValues.push_back(EQTestType::sm_arValueName[i].second);

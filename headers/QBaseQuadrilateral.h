@@ -29,7 +29,7 @@
 
 #include "QVector2.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -44,7 +44,7 @@ namespace Math
 /// <summary>
 /// Class which represents a four-sided polygon. The quadrilateral is defined by its four vertices.
 /// </summary>
-class QDllExport QBaseQuadrilateral
+class QE_LAYER_TOOLS_SYMBOLS QBaseQuadrilateral
 {
 
     // CONSTRUCTORS

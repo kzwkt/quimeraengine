@@ -5,10 +5,6 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
-    <Filter Include="DataTypes">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h">
@@ -164,21 +160,6 @@
     <ClInclude Include="..\..\..\..\headers\SQAngle.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h">
-      <Filter>DataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\SQBoolean.h">
-      <Filter>DataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\SQInteger.h">
-      <Filter>DataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\SQFloat.h">
-      <Filter>DataTypes</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\SQVF32.h">
-      <Filter>DataTypes</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\..\..\headers\QSphere.h">
       <Filter>Math</Filter>
     </ClInclude>
@@ -186,17 +167,9 @@
       <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\ToolsExports.h" />
+    <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
-      <Filter>DataTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\SQFloat.cpp">
-      <Filter>DataTypes</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\SQVF32.cpp">
-      <Filter>DataTypes</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -259,9 +232,6 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QScalingMatrix3x3.cpp">
       <Filter>Math</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\source\SQInteger.cpp">
-      <Filter>DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QCircle.cpp">
       <Filter>Math</Filter>

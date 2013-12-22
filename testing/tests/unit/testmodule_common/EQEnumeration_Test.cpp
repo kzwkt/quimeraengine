@@ -32,7 +32,7 @@ using namespace boost::unit_test;
 
 #include "EQEnumerationMock.h"
 
-using namespace Kinesis::QuimeraEngine::Tools::DataTypes;
+using namespace Kinesis::QuimeraEngine::Common::DataTypes;
 using Kinesis::QuimeraEngine::Test::EQEnumerationMock;
 
 

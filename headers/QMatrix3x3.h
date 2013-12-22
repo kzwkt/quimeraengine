@@ -30,7 +30,7 @@
 #include "QBaseMatrix3x3.h"
 #include "QBaseMatrix3x4.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
@@ -58,7 +58,7 @@ namespace Math
 /// <br/>
 /// \f$ A = \begin{bmatrix} a_{00} & a_{01} & a_{02}\\ a_{10} & a_{11} & a_{12}\\ a_{20} & a_{21} & a_{22}\end{bmatrix}\f$
 /// </remarks>
-class QDllExport QMatrix3x3 : public QBaseMatrix3x3
+class QE_LAYER_TOOLS_SYMBOLS QMatrix3x3 : public QBaseMatrix3x3
 {
     // FRIENDS
     // ---------------
@@ -71,7 +71,7 @@ public:
     /// <returns>
     /// The resultant matrix.
     /// </returns>
-    friend QMatrix3x3 QDllExport operator*(const float_q &fScalar, const QMatrix3x3 &matrix);
+    friend QMatrix3x3 QE_LAYER_TOOLS_SYMBOLS operator*(const float_q &fScalar, const QMatrix3x3 &matrix);
 
 
     // CONSTRUCTORS

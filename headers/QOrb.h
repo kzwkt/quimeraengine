@@ -27,11 +27,12 @@
 #ifndef __QORB__
 #define __QORB__
 
+#include "Assertions.h"
 #include "QBaseOrb.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis

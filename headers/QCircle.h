@@ -31,8 +31,8 @@
 #include "QVector2.h"
 #include "EQIntersections.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::SQFloat;
-using Kinesis::QuimeraEngine::Tools::DataTypes::float_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
+using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
 
 
 namespace Kinesis
@@ -50,7 +50,7 @@ namespace Math
 /// <remarks>
 /// A circle is the collection of all points that are equidistant from other point known as "Center".
 /// </remarks>
-class QDllExport QCircle : public QOrb<QVector2>
+class QE_LAYER_TOOLS_SYMBOLS QCircle : public QOrb<QVector2>
 {
 
     // BASE CLASS USINGS

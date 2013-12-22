@@ -31,15 +31,16 @@
 #include <boost/lexical_cast.hpp>
 
 #include "DataTypesDefinitions.h"
+#include "CommonDefinitions.h"
 
-using Kinesis::QuimeraEngine::Tools::DataTypes::string_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
 namespace DataTypes
 {
@@ -47,7 +48,7 @@ namespace DataTypes
 /// <summary>
 /// Helper class that offers functionality related to integer types.
 /// </summary>
-class QDllExport SQInteger
+class QE_LAYER_COMMON_SYMBOLS SQInteger
 {
     // CONSTANTS
     // ---------------
@@ -224,10 +225,10 @@ public:
 /// The string that represents the number.
 /// </returns>
 template<>
-string_q QDllExport SQInteger::ToString<i8_q>(const char &nValue);
+string_q QE_LAYER_COMMON_SYMBOLS SQInteger::ToString<i8_q>(const char &nValue);
 
 } //namespace DataTypes
-} //namespace Tools
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
