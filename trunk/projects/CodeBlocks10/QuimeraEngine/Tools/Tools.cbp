@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Math\;" />
+		<Option virtualFolders="Math/;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -72,7 +72,8 @@
 					<Add option="-g" />
 					<Add option="-m32" />
 					<Add option="-D_DEBUG" />
-					<Add option="-DQE_PREPROCESSOR_COMPILER_SHAREDLIB" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_TOOLS" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />

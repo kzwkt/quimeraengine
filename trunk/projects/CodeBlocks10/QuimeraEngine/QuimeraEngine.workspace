@@ -9,6 +9,6 @@
 			<Depends filename="Tools/Tools.cbp" />
 			<Depends filename="Common/Common.cbp" />
 		</Project>
-		<Project filename="Core/Core.cbp" />
+		<Project filename="Core/Core.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>

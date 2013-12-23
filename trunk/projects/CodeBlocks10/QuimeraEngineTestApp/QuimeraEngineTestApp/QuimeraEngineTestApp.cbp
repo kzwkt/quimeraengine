@@ -18,9 +18,10 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineCore.a" />
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineSystem.a" />
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools.a" />
+					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCommon.a" />
+					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineTools.a" />
+					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineSystem.a" />
+					<Add library="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCore.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				</Linker>
 			</Target>
@@ -36,9 +37,9 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
-					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
+					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCore.lib" />
+					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineSystem.lib" />
+					<Add library="$(WORKSPACEDIR)/../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 				</Linker>
 			</Target>
@@ -78,21 +79,24 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-D_DEBUG" />
-					<Add option="-DQE_PREPROCESSOR_COMPILER_IMPORT" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE" />
 				</Compiler>
 				<Linker>
-					<Add library=".\QuimeraEngineCore.so" />
-					<Add library=".\QuimeraEngineSystem.so" />
-					<Add library=".\QuimeraEngineTools.so" />
+					<Add library="./QuimeraEngineCommon.so" />
+					<Add library="./QuimeraEngineTools.so" />
+					<Add library="./QuimeraEngineSystem.so" />
+					<Add library="./QuimeraEngineCore.so" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="mkdir -p $(TARGET_OUTPUT_DIR)" />
-					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCore.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCommon.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
 					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineTools.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
 					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineSystem.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
-					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCore.so&quot; &quot;.&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCore.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCommon.so&quot; &quot;.&quot;' />
 					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineTools.so&quot; &quot;.&quot;' />
 					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineSystem.so&quot; &quot;.&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCore.so&quot; &quot;.&quot;' />
 					<Add after="rm *.so" />
 					<Mode after="always" />
 				</ExtraCommands>
