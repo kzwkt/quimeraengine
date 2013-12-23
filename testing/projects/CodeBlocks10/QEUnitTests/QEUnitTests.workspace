@@ -2,6 +2,6 @@
 <CodeBlocks_workspace_file>
 	<Workspace title="QEUnitTests">
 		<Project filename="Common/Common.cbp" />
-		<Project filename="Tools/Tools.cbp" />
+		<Project filename="Tools/Tools.cbp" active="1" />
 	</Workspace>
 </CodeBlocks_workspace_file>

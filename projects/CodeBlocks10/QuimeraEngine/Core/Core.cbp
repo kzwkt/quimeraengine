@@ -78,7 +78,10 @@
 					<Add option="-g" />
 					<Add option="-m32" />
 					<Add option="-D_DEBUG" />
-					<Add option="-DQE_PREPROCESSOR_COMPILER_SHAREDLIB" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_CORE" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_SYSTEM" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_TOOLS" />
+					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />

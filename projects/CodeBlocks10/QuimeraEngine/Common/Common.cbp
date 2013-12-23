@@ -6,7 +6,7 @@
 		<Option execution_dir="/home/mar/Proyectos/C++/QuimeraEngine/projects/CodeBlocks10/QuimeraEngine/" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="DataTypes\;" />
+		<Option virtualFolders="DataTypes/;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -72,7 +72,7 @@
 					<Add option="-g" />
 					<Add option="-m32" />
 					<Add option="-D_DEBUG" />
-					<Add option="-DQE_PREPROCESSOR_COMPILER_SHAREDLIB" />
+					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
