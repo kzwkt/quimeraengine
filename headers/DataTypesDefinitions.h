@@ -99,8 +99,8 @@ namespace DataTypes
         typedef short int           i16_q;  // Signed 16-bits integer
         typedef unsigned int        u32_q;  // Unsigned 32-bits integer
         typedef int                 i32_q;  // Signed 32-bits integer
-        typedef unsigned long int   u64_q;  // Unsigned 64-bits integer
-        typedef long int            i64_q;  // Signed 64-bits integer
+        typedef unsigned long long  u64_q;  // Unsigned 64-bits integer
+        typedef long long           i64_q;  // Signed 64-bits integer
         typedef float               f32_q;  // 32-bits floating point number
         typedef double              f64_q;  // 64-bits floating point number
         typedef union  // [TODO] Thund: Check if this type can be used with SSE instructions
