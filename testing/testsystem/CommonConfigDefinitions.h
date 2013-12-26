@@ -29,46 +29,22 @@
 
 #include "ExternalDefinitions.h"
 
-/*
-[TODO] Thund: Identificar y añadir al bloque de abajo
-// Linux 32 bits OS, Debug, Shared runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_STATICOUT
-// Linux 32 bits OS, Debug, Shared runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_DYNAMICOUT
-// Linux 32 bits OS, Release, Shared runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_STATICOUT
-// Linux 32 bits OS, Release, Shared runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_DYNAMICOUT
-// Linux 32 bits OS, Debug, Static runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_STATICOUT
-// Linux 32 bits OS, Debug, Static runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_DYNAMICOUT
-// Linux 32 bits OS, Release, Static runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_STATICOUT
-// Linux 32 bits OS, Release, Static runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_DYNAMICOUT
+// --------------------------------------------------------------------------------------------------------
+// Test execution configuration: This flag defines how the tests are executed, whether they are ignored or
+// executed in the normal order. The main purpose of including this flag is to let a developer to check the
+// results of the tests he/she is developing at the moment, not having to wait for the execution of all
+// the other tests of the module previously implemented. So, when creating the tests for class C, this flag
+// would nullify all the tests but those that are marked as exceptions. See definitions EXQTEST_-. 
+// --------------------------------------------------------------------------------------------------------
+#define QE_TEST_CONFIG_TEST_EXECUTION_NORMAL 0x0
+#define QE_TEST_CONFIG_TEST_EXECUTION_IGNORE 0x1
 
-// Macintosh 32 bits OS, Debug, Shared runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_STATICOUT
-// Macintosh 32 bits OS, Debug, Shared runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_DYNAMICOUT
-// Macintosh 32 bits OS, Release, Shared runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_STATICOUT
-// Macintosh 32 bits OS, Release, Shared runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_DYNAMICOUT
-// Macintosh 32 bits OS, Debug, Static runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_STATICOUT
-// Macintosh 32 bits OS, Debug, Static runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_DYNAMICOUT
-// Macintosh 32 bits OS, Release, Static runtime linking, Static library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_STATICOUT
-// Macintosh 32 bits OS, Release, Static runtime linking, Dynamic library output
-#define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_DYNAMICOUT
-*/
+#define QE_TEST_CONFIG_TEST_EXECUTION QE_TEST_CONFIG_TEST_EXECUTION_IGNORE
 
-// CURRENT CONFIGURATION INDENTIFICATION
-// ---------------------------------------
-
+// --------------------------------------------------------------------------------------------------------
+// Current compilation configuration: This group of definitions identifies the compilation configuration
+// that is currently selected for the operative system where it is running on.
+// --------------------------------------------------------------------------------------------------------
 #if defined(QE_OS_WINDOWS)
 
     #ifdef QE_COMPILER_MSVC // Microsoft Visual C++
@@ -166,12 +142,34 @@
     #endif
 #else
     #error "Operative system not supported."
+/*
+[TODO] Thund: Identify and add to the block
+
+// Macintosh 32 bits OS, Debug, Shared runtime linking, Static library output
+#define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_STATICOUT
+// Macintosh 32 bits OS, Debug, Shared runtime linking, Dynamic library output
+#define QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_DYNAMICOUT
+// Macintosh 32 bits OS, Release, Shared runtime linking, Static library output
+#define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_STATICOUT
+// Macintosh 32 bits OS, Release, Shared runtime linking, Dynamic library output
+#define QE_TEST_CONFIG_WIN32_RELEASE_SHAREDRUNTIME_DYNAMICOUT
+// Macintosh 32 bits OS, Debug, Static runtime linking, Static library output
+#define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_STATICOUT
+// Macintosh 32 bits OS, Debug, Static runtime linking, Dynamic library output
+#define QE_TEST_CONFIG_WIN32_DEBUG_STATICRUNTIME_DYNAMICOUT
+// Macintosh 32 bits OS, Release, Static runtime linking, Static library output
+#define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_STATICOUT
+// Macintosh 32 bits OS, Release, Static runtime linking, Dynamic library output
+#define QE_TEST_CONFIG_WIN32_RELEASE_STATICRUNTIME_DYNAMICOUT
+*/
 #endif
 
 
-// CONFIGURATION DEFINITIONS
-// ----------------------------
-
+// --------------------------------------------------------------------------------------------------------
+// Compilation configuration names: Depending on the operative system and the compilation configuration
+// currently selected, a name is assigned. This name is going to be used, for example, to generate the
+// test result file.
+// --------------------------------------------------------------------------------------------------------
 #if   defined(QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_STATICOUT)
     #define QE_TEST_CONFIG_NAME "Win32DebugSharedrtStatic"
 #elif defined(QE_TEST_CONFIG_WIN32_DEBUG_SHAREDRUNTIME_DYNAMICOUT)
