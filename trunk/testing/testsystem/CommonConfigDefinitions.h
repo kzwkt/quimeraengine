@@ -34,12 +34,12 @@
 // executed in the normal order. The main purpose of including this flag is to let a developer to check the
 // results of the tests he/she is developing at the moment, not having to wait for the execution of all
 // the other tests of the module previously implemented. So, when creating the tests for class C, this flag
-// would nullify all the tests but those that are marked as exceptions. See definitions EXQTEST_-. 
+// would nullify all the tests but those that are marked as exceptions. See definitions EXQTEST_-.
 // --------------------------------------------------------------------------------------------------------
 #define QE_TEST_CONFIG_TEST_EXECUTION_NORMAL 0x0
 #define QE_TEST_CONFIG_TEST_EXECUTION_IGNORE 0x1
 
-#define QE_TEST_CONFIG_TEST_EXECUTION QE_TEST_CONFIG_TEST_EXECUTION_IGNORE
+#define QE_TEST_CONFIG_TEST_EXECUTION QE_TEST_CONFIG_TEST_EXECUTION_NORMAL
 
 // --------------------------------------------------------------------------------------------------------
 // Current compilation configuration: This group of definitions identifies the compilation configuration
