@@ -1144,7 +1144,7 @@ QTEST_CASE ( DotProduct3_ReturnsZeroWhenAOperandIsNullplane_Test )
 /// <summary>
 /// Checks that the returned angle result for a common vector and a plane equals the expected value.
 /// </summary>
-QTEST_CASE ( DotProductAngle1_ReturnsAngleBetweenCommonVectorAndPlane_Test )
+QTEST_CASE ( AngleBetween1_ReturnsAngleBetweenCommonVectorAndPlane_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1161,7 +1161,7 @@ QTEST_CASE ( DotProductAngle1_ReturnsAngleBetweenCommonVectorAndPlane_Test )
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = PLANE.DotProductAngle(VECTOR);
+    float_q fResultUT = PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
@@ -1170,7 +1170,7 @@ QTEST_CASE ( DotProductAngle1_ReturnsAngleBetweenCommonVectorAndPlane_Test )
 /// <summary>
 /// Checks that the angle equals zero when the normal of the plane and the vector are parallel.
 /// </summary>
-QTEST_CASE ( DotProductAngle1_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel_Test )
+QTEST_CASE ( AngleBetween1_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1181,7 +1181,7 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel
     const QVector3 VECTOR = QVector3(SQFloat::_9, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = PLANE.DotProductAngle(VECTOR);
+    float_q fResultUT = PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -1190,7 +1190,7 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel
 /// <summary>
 /// Checks that the angle equals PI/2 (or 90º) when the normal of the plane and the vector are orthogonal.
 /// </summary>
-QTEST_CASE ( DotProductAngle1_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPlaneNormalAreOrthogonal_Test )
+QTEST_CASE ( AngleBetween1_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPlaneNormalAreOrthogonal_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1207,7 +1207,7 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPl
     const QVector3 VECTOR = QVector3(SQFloat::_0, SQFloat::_5, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = PLANE.DotProductAngle(VECTOR);
+    float_q fResultUT = PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -1216,7 +1216,7 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPl
 /// <summary>
 /// Checks that the angle equals Pi (or 180º) when vector and the normal of the plane are opposite.
 /// </summary>
-QTEST_CASE ( DotProductAngle1_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlaneNormalAreOpposite_Test )
+QTEST_CASE ( AngleBetween1_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlaneNormalAreOpposite_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1233,7 +1233,7 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlane
     const QVector3 VECTOR = QVector3(-SQFloat::_1, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = PLANE.DotProductAngle(VECTOR);
+    float_q fResultUT = PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -1242,7 +1242,7 @@ QTEST_CASE ( DotProductAngle1_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlane
 /// <summary>
 /// Checks that the angle is always positive.
 /// </summary>
-QTEST_CASE ( DotProductAngle1_AngleIsAlwaysPositive_Test )
+QTEST_CASE ( AngleBetween1_AngleIsAlwaysPositive_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1252,8 +1252,8 @@ QTEST_CASE ( DotProductAngle1_AngleIsAlwaysPositive_Test )
     const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /¨
 
 	// [Execution]
-    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
-    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
@@ -1263,7 +1263,7 @@ QTEST_CASE ( DotProductAngle1_AngleIsAlwaysPositive_Test )
 /// <summary>
 /// Checks that the angle is lower than Pi (or 180º) when vector and the normal of the plane are not opposite.
 /// </summary>
-QTEST_CASE ( DotProductAngle1_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAndPlaneNormalAreNotOpposite_Test )
+QTEST_CASE ( AngleBetween1_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAndPlaneNormalAreNotOpposite_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1281,8 +1281,8 @@ QTEST_CASE ( DotProductAngle1_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAnd
     const QVector3 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector3(-SQFloat::_1, -SQFloat::_1, SQFloat::_0); // /¨
 
 	// [Execution]
-    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
-    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
@@ -1292,7 +1292,7 @@ QTEST_CASE ( DotProductAngle1_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAnd
 /// <summary>
 /// Checks that the operation returns a different angle when the plane is not normalized.
 /// </summary>
-QTEST_CASE ( DotProductAngle1_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test )
+QTEST_CASE ( AngleBetween1_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1304,8 +1304,8 @@ QTEST_CASE ( DotProductAngle1_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_1, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultWhenNormalized = NORMALIZED_PLANE.DotProductAngle(VECTOR);
-    float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.DotProductAngle(VECTOR);
+    float_q fResultWhenNormalized = NORMALIZED_PLANE.AngleBetween(VECTOR);
+    float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
@@ -1316,7 +1316,7 @@ QTEST_CASE ( DotProductAngle1_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 /// <summary>
 /// Checks that an assertion fails when either the plane or the vector is null.
 /// </summary>
-QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
+QTEST_CASE ( AngleBetween1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
@@ -1332,7 +1332,7 @@ QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 
     try
     {
-        NULL_PLANE.DotProductAngle(NONNULL_VECTOR);
+        NULL_PLANE.AngleBetween(NONNULL_VECTOR);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be defined for this
     {
@@ -1343,7 +1343,7 @@ QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 
     try
     {
-        NONNULL_PLANE.DotProductAngle(NULL_VECTOR);
+        NONNULL_PLANE.AngleBetween(NULL_VECTOR);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be defined for this
     {
@@ -1362,7 +1362,7 @@ QTEST_CASE ( DotProductAngle1_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 /// <summary>
 /// Checks that the returned angle result for a common vector and a plane equals the expected value.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_ReturnsAngleBetweenCommonVectorAndPlane_Test )
+QTEST_CASE ( AngleBetween2_ReturnsAngleBetweenCommonVectorAndPlane_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1379,7 +1379,7 @@ QTEST_CASE ( DotProductAngle2_ReturnsAngleBetweenCommonVectorAndPlane_Test )
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1);
 
 	// [Execution]
-    float_q fResultUT = PLANE.DotProductAngle(VECTOR);
+    float_q fResultUT = PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
@@ -1388,7 +1388,7 @@ QTEST_CASE ( DotProductAngle2_ReturnsAngleBetweenCommonVectorAndPlane_Test )
 /// <summary>
 /// Checks that the angle equals zero when the normal of the plane and the vector are parallel.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel_Test )
+QTEST_CASE ( AngleBetween2_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1399,7 +1399,7 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel
     const QVector4 VECTOR = QVector4(SQFloat::_9, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = PLANE.DotProductAngle(VECTOR);
+    float_q fResultUT = PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -1408,7 +1408,7 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsZeroWhenVectorAndPlaneNormalAreParallel
 /// <summary>
 /// Checks that the angle equals PI/2 (or 90º) when the normal of the plane and the vector are orthogonal.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPlaneNormalAreOrthogonal_Test )
+QTEST_CASE ( AngleBetween2_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPlaneNormalAreOrthogonal_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1425,7 +1425,7 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPl
     const QVector4 VECTOR = QVector4(SQFloat::_0, SQFloat::_5, SQFloat::_0, SQFloat::_1);
 
 	// [Execution]
-    float_q fResultUT = PLANE.DotProductAngle(VECTOR);
+    float_q fResultUT = PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -1434,7 +1434,7 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorAndPl
 /// <summary>
 /// Checks that the angle equals Pi (or 180º) when vector and the normal of the plane are opposite.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlaneNormalAreOpposite_Test )
+QTEST_CASE ( AngleBetween2_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlaneNormalAreOpposite_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1451,7 +1451,7 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlane
     const QVector4 VECTOR = QVector4(-SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1);
 
 	// [Execution]
-    float_q fResultUT = PLANE.DotProductAngle(VECTOR);
+    float_q fResultUT = PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -1460,7 +1460,7 @@ QTEST_CASE ( DotProductAngle2_AngleEqualsPiRadiansOr180DegreesWhenVectorAndPlane
 /// <summary>
 /// Checks that the angle is always positive.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_AngleIsAlwaysPositive_Test )
+QTEST_CASE ( AngleBetween2_AngleIsAlwaysPositive_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1470,8 +1470,8 @@ QTEST_CASE ( DotProductAngle2_AngleIsAlwaysPositive_Test )
     const QVector4 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector4(-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_1); // /¨
 
 	// [Execution]
-    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
-    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
@@ -1481,7 +1481,7 @@ QTEST_CASE ( DotProductAngle2_AngleIsAlwaysPositive_Test )
 /// <summary>
 /// Checks that the angle is lower than Pi (or 180º) when vector and the normal of the plane are not opposite.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAndPlaneNormalAreNotOpposite_Test )
+QTEST_CASE ( AngleBetween2_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAndPlaneNormalAreNotOpposite_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1499,8 +1499,8 @@ QTEST_CASE ( DotProductAngle2_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAnd
     const QVector4 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector4(-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_1); // /¨
 
 	// [Execution]
-    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
-    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
@@ -1510,7 +1510,7 @@ QTEST_CASE ( DotProductAngle2_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorAnd
 /// <summary>
 /// Checks that the operation returns a different angle when the plane is not normalized.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test )
+QTEST_CASE ( AngleBetween2_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1522,8 +1522,8 @@ QTEST_CASE ( DotProductAngle2_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
     const QVector4 VECTOR = QVector4(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1);
 
 	// [Execution]
-    float_q fResultWhenNormalized = NORMALIZED_PLANE.DotProductAngle(VECTOR);
-    float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.DotProductAngle(VECTOR);
+    float_q fResultWhenNormalized = NORMALIZED_PLANE.AngleBetween(VECTOR);
+    float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.AngleBetween(VECTOR);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
@@ -1534,7 +1534,7 @@ QTEST_CASE ( DotProductAngle2_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 /// <summary>
 /// Checks that an assertion fails when either the plane or the vector is null.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
+QTEST_CASE ( AngleBetween2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1550,7 +1550,7 @@ QTEST_CASE ( DotProductAngle2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 
     try
     {
-        NULL_PLANE.DotProductAngle(NONNULL_VECTOR);
+        NULL_PLANE.AngleBetween(NONNULL_VECTOR);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be defined for this
     {
@@ -1561,7 +1561,7 @@ QTEST_CASE ( DotProductAngle2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 
     try
     {
-        NONNULL_PLANE.DotProductAngle(NULL_VECTOR);
+        NONNULL_PLANE.AngleBetween(NULL_VECTOR);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be defined for this
     {
@@ -1580,7 +1580,7 @@ QTEST_CASE ( DotProductAngle2_AssertionFailsWhenPlaneOrVectorIsNull_Test )
 /// <summary>
 /// Checks that the W component doesn't take part in the dot product operation.
 /// </summary>
-QTEST_CASE ( DotProductAngle2_VectorsWComponentDoesntTakePartInTheOperation_Test )
+QTEST_CASE ( AngleBetween2_VectorsWComponentDoesntTakePartInTheOperation_Test )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
@@ -1590,8 +1590,8 @@ QTEST_CASE ( DotProductAngle2_VectorsWComponentDoesntTakePartInTheOperation_Test
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResult1UT = PLANE.DotProductAngle(VECTOR1);
-    float_q fResult2UT = PLANE.DotProductAngle(VECTOR2);
+    float_q fResult1UT = PLANE.AngleBetween(VECTOR1);
+    float_q fResult2UT = PLANE.AngleBetween(VECTOR2);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
@@ -1600,7 +1600,7 @@ QTEST_CASE ( DotProductAngle2_VectorsWComponentDoesntTakePartInTheOperation_Test
 /// <summary>
 /// Checks that the returned angle result for 2 common planes equals the expected value.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_ReturnsAngleBetween2CommonPlanes_Test )
+QTEST_CASE ( AngleBetween3_ReturnsAngleBetween2CommonPlanes_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1616,7 +1616,7 @@ QTEST_CASE ( DotProductAngle3_ReturnsAngleBetween2CommonPlanes_Test )
     const QPlane OPERAND2 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResultUT = OPERAND1.AngleBetween(OPERAND2);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
@@ -1625,7 +1625,7 @@ QTEST_CASE ( DotProductAngle3_ReturnsAngleBetween2CommonPlanes_Test )
 /// <summary>
 /// Checks that the W component doesn't take part in the dot product operation.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_DComponentDoesNotTakePartInTheOperation_Test )
+QTEST_CASE ( AngleBetween3_DComponentDoesNotTakePartInTheOperation_Test )
 {
     // [Preparation]
     QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
@@ -1636,8 +1636,8 @@ QTEST_CASE ( DotProductAngle3_DComponentDoesNotTakePartInTheOperation_Test )
     OPERAND3 = OPERAND3.Normalize();
 
 	// [Execution]
-    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
-    float_q fResult2UT = OPERAND1.DotProductAngle(OPERAND3);
+    float_q fResult1UT = OPERAND1.AngleBetween(OPERAND2);
+    float_q fResult2UT = OPERAND1.AngleBetween(OPERAND3);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
@@ -1646,7 +1646,7 @@ QTEST_CASE ( DotProductAngle3_DComponentDoesNotTakePartInTheOperation_Test )
 /// <summary>
 /// Checks that the "get angle from dot product" is commutative.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_DotProductAngleIsCommutative_Test )
+QTEST_CASE ( AngleBetween_AngleBetweenIsCommutative_Test )
 {
     // [Preparation]
     QPlane OPERAND1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
@@ -1655,8 +1655,8 @@ QTEST_CASE ( DotProductAngle3_DotProductAngleIsCommutative_Test )
     OPERAND2 = OPERAND2.Normalize();
 
 	// [Execution]
-    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
-    float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
+    float_q fResult1UT = OPERAND1.AngleBetween(OPERAND2);
+    float_q fResult2UT = OPERAND2.AngleBetween(OPERAND1);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
@@ -1665,7 +1665,7 @@ QTEST_CASE ( DotProductAngle3_DotProductAngleIsCommutative_Test )
 /// <summary>
 /// Checks that the angle equals zero when planes are parallel.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_AngleEqualsZeroWhenPlanesAreParallel_Test )
+QTEST_CASE ( AngleBetween3_AngleEqualsZeroWhenPlanesAreParallel_Test )
 {
     // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
@@ -1674,7 +1674,7 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsZeroWhenPlanesAreParallel_Test )
     const QPlane OPERAND2 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_2);
 
 	// [Execution]
-    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResultUT = OPERAND1.AngleBetween(OPERAND2);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -1683,7 +1683,7 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsZeroWhenPlanesAreParallel_Test )
 /// <summary>
 /// Checks that the angle equals PI/2 (or 90º) when planes are orthogonal.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_AngleEqualsHalfPiRadiansOr90DegreesWhenPlanesAreOrthogonal_Test )
+QTEST_CASE ( AngleBetween3_AngleEqualsHalfPiRadiansOr90DegreesWhenPlanesAreOrthogonal_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1699,8 +1699,8 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsHalfPiRadiansOr90DegreesWhenPlanesAreOr
     const QPlane OPERAND3 = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_1, SQFloat::_0);
 
 	// [Execution]
-    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
-    float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND3);
+    float_q fResult1UT = OPERAND1.AngleBetween(OPERAND2);
+    float_q fResult2UT = OPERAND2.AngleBetween(OPERAND3);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
@@ -1710,7 +1710,7 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsHalfPiRadiansOr90DegreesWhenPlanesAreOr
 /// <summary>
 /// Checks that the angle equals Pi (or 180º) when plane normals are opposite.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_AngleEqualsPiRadiansOr180DegreesWhenPlaneNormalsAreOpposite_Test )
+QTEST_CASE ( AngleBetween3_AngleEqualsPiRadiansOr180DegreesWhenPlaneNormalsAreOpposite_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1725,7 +1725,7 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsPiRadiansOr180DegreesWhenPlaneNormalsAr
     const QPlane OPERAND2 = QPlane(-SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResultUT = OPERAND1.AngleBetween(OPERAND2);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -1734,7 +1734,7 @@ QTEST_CASE ( DotProductAngle3_AngleEqualsPiRadiansOr180DegreesWhenPlaneNormalsAr
 /// <summary>
 /// Checks that the angle is always positive.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_AngleIsAlwaysPositive_Test )
+QTEST_CASE ( AngleBetween3_AngleIsAlwaysPositive_Test )
 {
     // [Preparation]
     const QPlane REFERENCE_OPERAND = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);                                // _
@@ -1742,8 +1742,8 @@ QTEST_CASE ( DotProductAngle3_AngleIsAlwaysPositive_Test )
     const QPlane OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QPlane(-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_0); // /¨
 
 	// [Execution]
-    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
-    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
@@ -1753,7 +1753,7 @@ QTEST_CASE ( DotProductAngle3_AngleIsAlwaysPositive_Test )
 /// <summary>
 /// Checks that the angle is lower than Pi (or 180º) when plane normals are not opposite.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_AngleIsLowerThanPiRadiansOr180DegreesWhenPlaneNormalsAreNotOpposite_Test )
+QTEST_CASE ( AngleBetween3_AngleIsLowerThanPiRadiansOr180DegreesWhenPlaneNormalsAreNotOpposite_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1771,8 +1771,8 @@ QTEST_CASE ( DotProductAngle3_AngleIsLowerThanPiRadiansOr180DegreesWhenPlaneNorm
     OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE.Normalize();
 
 	// [Execution]
-    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
-    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );
@@ -1782,7 +1782,7 @@ QTEST_CASE ( DotProductAngle3_AngleIsLowerThanPiRadiansOr180DegreesWhenPlaneNorm
 /// <summary>
 /// Checks that the operation returns a different angle when the plane is not normalized.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test )
+QTEST_CASE ( AngleBetween3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1792,8 +1792,8 @@ QTEST_CASE ( DotProductAngle3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultWhenNormalized = NORMALIZED_PLANE.DotProductAngle(PLANE);
-    float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.DotProductAngle(PLANE);
+    float_q fResultWhenNormalized = NORMALIZED_PLANE.AngleBetween(PLANE);
+    float_q fResultWhenNotNormalized = NOT_NORMALIZED_PLANE.AngleBetween(PLANE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreNotEqual(fResultWhenNormalized, fResultWhenNotNormalized) );
@@ -1804,7 +1804,7 @@ QTEST_CASE ( DotProductAngle3_ReturnsDifferentAngleWhenPlaneIsNotNormalized_Test
 /// <summary>
 /// Checks that an assertion fails when one of the planes is null.
 /// </summary>
-QTEST_CASE ( DotProductAngle3_AssertionFailsWhenOnePlaneIsNull_Test )
+QTEST_CASE ( AngleBetween3_AssertionFailsWhenOnePlaneIsNull_Test )
 {
     // [Preparation]
     const QPlane NOT_NULL_PLANE = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
@@ -1816,7 +1816,7 @@ QTEST_CASE ( DotProductAngle3_AssertionFailsWhenOnePlaneIsNull_Test )
 
     try
     {
-        NOT_NULL_PLANE.DotProductAngle(NULL_PLANE);
+        NOT_NULL_PLANE.AngleBetween(NULL_PLANE);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be defined for this
     {
@@ -1827,7 +1827,7 @@ QTEST_CASE ( DotProductAngle3_AssertionFailsWhenOnePlaneIsNull_Test )
 
     try
     {
-        NULL_PLANE.DotProductAngle(NOT_NULL_PLANE);
+        NULL_PLANE.AngleBetween(NOT_NULL_PLANE);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be defined for this
     {

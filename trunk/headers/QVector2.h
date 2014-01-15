@@ -444,7 +444,7 @@ public:
     /// <returns>
     /// A scalar whose value equals the angle between the vectors.
     /// </returns>
-    float_q DotProductAngle(const QVector2 &vVector) const;
+    float_q AngleBetween(const QVector2 &vVector) const;
 
 	/// <summary>
 	/// Calculates the linear interpolation between two vectors.

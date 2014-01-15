@@ -202,17 +202,17 @@ float_q QPlane::DotProduct(const QBasePlane &plane) const
     return plane.a * this->a + plane.b * this->b + plane.c * this->c;
 }
 
-float_q QPlane::DotProductAngle(const QVector3 &vVector) const
+float_q QPlane::AngleBetween(const QVector3 &vVector) const
 {
-    return this->DotProductAngleImp(vVector);
+    return this->AngleBetweenImp(vVector);
 }
 
-float_q QPlane::DotProductAngle(const QVector4 &vVector) const
+float_q QPlane::AngleBetween(const QVector4 &vVector) const
 {
-    return this->DotProductAngleImp(vVector);
+    return this->AngleBetweenImp(vVector);
 }
 
-float_q QPlane::DotProductAngle(const QBasePlane &plane) const
+float_q QPlane::AngleBetween(const QBasePlane &plane) const
 {
     // When the length of a plane equals zero, the calculated angle is not correct
     QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
@@ -581,7 +581,7 @@ float_q QPlane::DotProductImp(const VectorType &vVector) const
 }
 
 template <class VectorType>
-float_q QPlane::DotProductAngleImp(const VectorType &vVector) const
+float_q QPlane::AngleBetweenImp(const VectorType &vVector) const
 {
     // When the length of either the plane or the vector equals zero, the calculated angle is not correct
     QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(vVector.x) && SQFloat::IsZero(vVector.y) && SQFloat::IsZero(vVector.z)) );

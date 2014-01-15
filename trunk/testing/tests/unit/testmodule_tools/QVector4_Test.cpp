@@ -1978,7 +1978,7 @@ QTEST_CASE ( DotProduct_ReturnsZeroWhenAnOperandIsNullVector_Test )
 /// <summary>
 /// Checks that the returned angle result for 2 common vectors equals the expected value.
 /// </summary>
-QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
+QTEST_CASE ( AngleBetween_ReturnsAngleBetween2CommonVectors_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -1993,7 +1993,7 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
     const QVector4 OPERAND2 = QVector4(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResultUT = OPERAND1.AngleBetween(OPERAND2);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT) );
@@ -2002,7 +2002,7 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonVectors_Test )
 /// <summary>
 /// Checks that the W component doesn't take part in the dot product operation.
 /// </summary>
-QTEST_CASE ( DotProductAngle_WComponentDoesntTakePartInTheOperation_Test )
+QTEST_CASE ( AngleBetween_WComponentDoesntTakePartInTheOperation_Test )
 {
     // [Preparation]
     const QVector4 OPERAND1 = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
@@ -2010,8 +2010,8 @@ QTEST_CASE ( DotProductAngle_WComponentDoesntTakePartInTheOperation_Test )
     const QVector4 OPERAND3 = QVector4(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_10);
 
 	// [Execution]
-    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
-    float_q fResult2UT = OPERAND1.DotProductAngle(OPERAND3);
+    float_q fResult1UT = OPERAND1.AngleBetween(OPERAND2);
+    float_q fResult2UT = OPERAND1.AngleBetween(OPERAND3);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
@@ -2020,15 +2020,15 @@ QTEST_CASE ( DotProductAngle_WComponentDoesntTakePartInTheOperation_Test )
 /// <summary>
 /// Checks that the "get angle from dot product" is commutative.
 /// </summary>
-QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
+QTEST_CASE ( AngleBetween_AngleBetweenIsCommutative_Test )
 {
     // [Preparation]
     const QVector4 OPERAND1 = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QVector4 OPERAND2 = QVector4(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
 
 	// [Execution]
-    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
-    float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
+    float_q fResult1UT = OPERAND1.AngleBetween(OPERAND2);
+    float_q fResult2UT = OPERAND2.AngleBetween(OPERAND1);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
@@ -2037,7 +2037,7 @@ QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
 /// <summary>
 /// Checks that the angle equals zero when vectors are parallel.
 /// </summary>
-QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenVectorsAreParallel_Test )
+QTEST_CASE ( AngleBetween_AngleEqualsZeroWhenVectorsAreParallel_Test )
 {
     // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
@@ -2046,7 +2046,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenVectorsAreParallel_Test )
     const QVector4 OPERAND2 = QVector4(SQFloat::_9, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResultUT = OPERAND1.AngleBetween(OPERAND2);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -2055,7 +2055,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenVectorsAreParallel_Test )
 /// <summary>
 /// Checks that the angle equals PI/2 (or 90º) when vectors are orthogonal.
 /// </summary>
-QTEST_CASE ( DotProductAngle_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOrthogonal_Test )
+QTEST_CASE ( AngleBetween_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOrthogonal_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2071,8 +2071,8 @@ QTEST_CASE ( DotProductAngle_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOr
     const QVector4 OPERAND3 = QVector4(SQFloat::_0, SQFloat::_0, SQFloat::_5, SQFloat::_0);
 
 	// [Execution]
-    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
-    float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND3);
+    float_q fResult1UT = OPERAND1.AngleBetween(OPERAND2);
+    float_q fResult2UT = OPERAND2.AngleBetween(OPERAND3);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, EXPECTED_RESULT );
@@ -2082,7 +2082,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsHalfPiRadiansOr90DegreesWhenVectorsAreOr
 /// <summary>
 /// Checks that the angle equals Pi (or 180º) when vectors are opposite.
 /// </summary>
-QTEST_CASE ( DotProductAngle_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOpposite_Test )
+QTEST_CASE ( AngleBetween_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOpposite_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2097,7 +2097,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOppos
     const QVector4 OPERAND2 = QVector4(-SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
-    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResultUT = OPERAND1.AngleBetween(OPERAND2);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResultUT, EXPECTED_RESULT );
@@ -2106,7 +2106,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsPiRadiansOr180DegreesWhenVectorsAreOppos
 /// <summary>
 /// Checks that the angle is always positive.
 /// </summary>
-QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
+QTEST_CASE ( AngleBetween_AngleIsAlwaysPositive_Test )
 {
     // [Preparation]
     const QVector4 REFERENCE_OPERAND = QVector4(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_0);                                // _
@@ -2114,8 +2114,8 @@ QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
     const QVector4 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector4(-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_0); // /¨
 
 	// [Execution]
-    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
-    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResult1UT, SQFloat::_0) );
@@ -2125,7 +2125,7 @@ QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
 /// <summary>
 /// Checks that the angle is lower than Pi (or 180º) when vector are not opposite.
 /// </summary>
-QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAreNotOpposite_Test )
+QTEST_CASE ( AngleBetween_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAreNotOpposite_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2141,8 +2141,8 @@ QTEST_CASE ( DotProductAngle_AngleIsLowerThanPiRadiansOr180DegreesWhenVectorsAre
     const QVector4 OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE = QVector4(-SQFloat::_1, -SQFloat::_1, SQFloat::_0, SQFloat::_0); // /¨
 
 	// [Execution]
-    float_q fResult1UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
-    float_q fResult2UT = REFERENCE_OPERAND.DotProductAngle(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult1UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_MORE_THAN_HALF_CIRCUMFERENCE);
+    float_q fResult2UT = REFERENCE_OPERAND.AngleBetween(OPERAND_SEPARATED_LESS_THAN_HALF_CIRCUMFERENCE);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsLessThan(fResult1UT, HALF_CIRCUMFERENCE_ANGLE) );

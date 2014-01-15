@@ -401,7 +401,7 @@ float_q QQuaternion::DotProduct(const QBaseQuaternion &qQuat) const
     return this->x * qQuat.x + this->y * qQuat.y + this->z * qQuat.z + this->w * qQuat.w;
 }
 
-float_q QQuaternion::DotProductAngle(const QQuaternion &qQuat) const
+float_q QQuaternion::AngleBetween(const QQuaternion &qQuat) const
 {
     // NOTE [Thund]: We should investigate why, if the following product is performed in only
     //               one line, it's different. Tested using MinGW with DOUBLE precision configuration.

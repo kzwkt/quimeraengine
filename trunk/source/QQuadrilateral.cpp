@@ -215,7 +215,7 @@ float_q QQuadrilateral::GetAngleA() const
     // Contiguous vertices shouldn't coincide
     QE_ASSERT(this->A != this->B && this->A != this->D);
 
-    const float_q &ANGLE = (this->D - this->A).DotProductAngle(this->B - this->A);
+    const float_q &ANGLE = (this->D - this->A).AngleBetween(this->B - this->A);
 
     if (this->IsReflexAngle(this->A, this->B, this->D, this->C))
     {
@@ -234,7 +234,7 @@ float_q QQuadrilateral::GetAngleB() const
     // Contiguous vertices shouldn't coincide
     QE_ASSERT(this->B != this->A && this->B != this->C);
 
-    const float_q &ANGLE = (this->A - this->B).DotProductAngle(this->C - this->B);
+    const float_q &ANGLE = (this->A - this->B).AngleBetween(this->C - this->B);
 
     if (this->IsReflexAngle(this->B, this->A, this->C, this->D))
     {
@@ -253,7 +253,7 @@ float_q QQuadrilateral::GetAngleC() const
     // Contiguous vertices shouldn't coincide
     QE_ASSERT(this->C != this->B && this->C != this->D);
 
-    const float_q &ANGLE = (this->B - this->C).DotProductAngle(this->D - this->C);
+    const float_q &ANGLE = (this->B - this->C).AngleBetween(this->D - this->C);
 
     if (this->IsReflexAngle(this->C, this->B, this->D, this->A))
     {
@@ -272,7 +272,7 @@ float_q QQuadrilateral::GetAngleD() const
     // Contiguous vertices shouldn't coincide
     QE_ASSERT(this->D != this->A && this->D != this->C);
 
-    const float_q &ANGLE = (this->C - this->D).DotProductAngle(this->A - this->D);
+    const float_q &ANGLE = (this->C - this->D).AngleBetween(this->A - this->D);
 
     if (this->IsReflexAngle(this->D, this->A, this->C, this->B))
     {

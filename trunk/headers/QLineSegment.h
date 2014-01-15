@@ -339,7 +339,7 @@ public:
 
 			// Compute the sinus of the angle between v1 and v2.
 
-			float_q fAngle = v1.DotProductAngle(v2);
+			float_q fAngle = v1.AngleBetween(v2);
 
 			// If angles are currently specified in degrees, then converts angle to radians
 			// so we can use "sin" function.
@@ -756,7 +756,7 @@ public:
 
 			// Compute the sinus of the angle between v1 and v2.
 
-			float_q fAngle = v1.DotProductAngle(v2);
+			float_q fAngle = v1.AngleBetween(v2);
 
 			// If angles are currently specified in degrees, then converts angle to radians
 			// so we can use "sin" function.

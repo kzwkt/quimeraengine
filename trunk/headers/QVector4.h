@@ -528,7 +528,7 @@ public:
     /// <returns>
     /// A scalar whose value equals the angle between the vectors.
     /// </returns>
-    float_q DotProductAngle(const QBaseVector4 &vVector) const;
+    float_q AngleBetween(const QBaseVector4 &vVector) const;
 
     /// <summary>
     /// Calculates the cross product between two vectors.

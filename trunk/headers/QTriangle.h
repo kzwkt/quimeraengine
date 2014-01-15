@@ -192,7 +192,7 @@ public:
 		VectorType u = B - A;
 		VectorType v = C - A;
 
-		return u.DotProductAngle(v);
+		return u.AngleBetween(v);
 	}
 
 	/// <summary>
@@ -214,7 +214,7 @@ public:
 		VectorType u = A - B;
 		VectorType v = C - B;
 
-		return u.DotProductAngle(v);
+		return u.AngleBetween(v);
 	}
 
 	/// <summary>
@@ -236,7 +236,7 @@ public:
 		const VectorType u = A - C;
 		const VectorType v = B - C;
 
-		return u.DotProductAngle(v);
+		return u.AngleBetween(v);
 	}
 
 	/// <summary>

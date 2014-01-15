@@ -340,7 +340,7 @@ public:
     /// <returns>
     /// The result of the dot product.
     /// </returns>
-    float_q DotProductAngle(const QVector3 &vVector) const;
+    float_q AngleBetween(const QVector3 &vVector) const;
 
     /// <summary>
     /// Calculates the angle between the direction vector of the resident plane and the provided vector via dot product.
@@ -353,7 +353,7 @@ public:
     /// <returns>
     /// The result of the dot product.
     /// </returns>
-    float_q DotProductAngle(const QVector4 &vVector) const;
+    float_q AngleBetween(const QVector4 &vVector) const;
 
     /// <summary>
     /// Calculates the angle between resident and provided planes via dot product between their direction vectors.
@@ -366,7 +366,7 @@ public:
     /// <returns>
     /// The result of the dot product.
     /// </returns>
-    float_q DotProductAngle(const QBasePlane &plane) const;
+    float_q AngleBetween(const QBasePlane &plane) const;
 
     /// <summary>
     /// Calculates the orthogonal projection of a given point over the resident plane.
@@ -937,7 +937,7 @@ private:
     /// <typeparam name="VectorType">Allowed types: QBaseVector3, QBaseVector4, QVector3, QVector4.</typeparam>
     /// <param name="vVector">[IN] The vector whose angle with the resident plane we want to calculate.</param>
     template <class VectorType>
-    float_q DotProductAngleImp(const VectorType &vVector) const;
+    float_q AngleBetweenImp(const VectorType &vVector) const;
 
     /// <summary>
     /// Applies the rotation contained in the provided quaternion to the resident plane

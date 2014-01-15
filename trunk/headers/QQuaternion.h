@@ -542,7 +542,7 @@ public:
     /// <returns>
     /// A floating point value which is the smaller angle between quaternions (less or equal to \f$ 180^0\f$).
     /// </returns>
-    float_q DotProductAngle(const QQuaternion &qQuat) const;
+    float_q AngleBetween(const QQuaternion &qQuat) const;
 
     /// <summary>
     /// Calculates the quaternion's conjugate.
