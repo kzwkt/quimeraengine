@@ -2369,7 +2369,7 @@ QTEST_CASE ( DotProduct_ReturnsZeroWhenAOperandIsNullQuaternion_Test )
 /// <summary>
 /// Checks that the returned angle result for 2 common quaternions equals the expected value.
 /// </summary>
-QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonQuaternions_Test )
+QTEST_CASE ( AngleBetween_ReturnsAngleBetween2CommonQuaternions_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2387,7 +2387,7 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonQuaternions_Test )
     const QQuaternion OPERAND2 = QQuaternion(ROTATION_AXIS, EXPECTED_RESULT);
 
 	// [Execution]
-    float_q fResultUT = OPERAND1.DotProductAngle(OPERAND2);
+    float_q fResultUT = OPERAND1.AngleBetween(OPERAND2);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT, SMALLER_TOLERANCE) );
@@ -2396,7 +2396,7 @@ QTEST_CASE ( DotProductAngle_ReturnsAngleBetween2CommonQuaternions_Test )
 /// <summary>
 /// Checks that the "get angle from dot product" is commutative.
 /// </summary>
-QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
+QTEST_CASE ( AngleBetween_AngleBetweenIsCommutative_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
@@ -2405,8 +2405,8 @@ QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
     const QQuaternion OPERAND2 = QQuaternion(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
 
 	// [Execution]
-    float_q fResult1UT = OPERAND1.DotProductAngle(OPERAND2);
-    float_q fResult2UT = OPERAND2.DotProductAngle(OPERAND1);
+    float_q fResult1UT = OPERAND1.AngleBetween(OPERAND2);
+    float_q fResult2UT = OPERAND2.AngleBetween(OPERAND1);
 
     // [Verification]
     BOOST_CHECK_EQUAL( fResult1UT, fResult2UT );
@@ -2415,7 +2415,7 @@ QTEST_CASE ( DotProductAngle_DotProductAngleIsCommutative_Test )
 /// <summary>
 /// Checks that the angle equals zero when both quaternions are normalized and are the same.
 /// </summary>
-QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_Test )
+QTEST_CASE ( AngleBetween_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_Test )
 {
     // [Preparation]
     const float_q EXPECTED_RESULT = SQFloat::_0;
@@ -2423,7 +2423,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_
     const QQuaternion OPERAND = QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
 
 	// [Execution]
-    float_q fResultUT = OPERAND.DotProductAngle(OPERAND);
+    float_q fResultUT = OPERAND.AngleBetween(OPERAND);
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(fResultUT, EXPECTED_RESULT, (float_q)1e-05) ); // There is a big loss of precision so a greater tolerance must be used
@@ -2432,7 +2432,7 @@ QTEST_CASE ( DotProductAngle_AngleEqualsZeroWhenNormalizedQuaternionsAreTheSame_
 /// <summary>
 /// Checks that the angle is always positive.
 /// </summary>
-QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
+QTEST_CASE ( AngleBetween_AngleIsAlwaysPositive_Test )
 {
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
@@ -2448,7 +2448,7 @@ QTEST_CASE ( DotProductAngle_AngleIsAlwaysPositive_Test )
     const QQuaternion QUATERNION = QQuaternion(QVector3(SQFloat::_1, SQFloat::_0, SQFloat::_0), HALF_CIRCUMFERENCE_ANGLE);
 
 	// [Execution]
-    float_q fResultUT = REFERENCE_OPERAND.DotProductAngle(QUATERNION);
+    float_q fResultUT = REFERENCE_OPERAND.AngleBetween(QUATERNION);
 
     // [Verification]
     BOOST_CHECK( SQFloat::IsGreaterOrEquals(fResultUT, SQFloat::_0) );

@@ -307,7 +307,7 @@ float_q QVector3::DotProduct(const QBaseVector3 &vVector) const
     return(this->x * vVector.x + this->y * vVector.y + this->z * vVector.z);
 }
 
-float_q QVector3::DotProductAngle(const QVector3 &vVector) const
+float_q QVector3::AngleBetween(const QVector3 &vVector) const
 {
     // Note: Square root is performed outside to avoid loss of precision and gain performance
     float_q fLength = sqrt_q(this->GetSquaredLength() * vVector.GetSquaredLength());
