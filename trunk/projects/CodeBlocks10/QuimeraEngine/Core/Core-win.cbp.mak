@@ -29,14 +29,13 @@ INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)/trunk/headers -I$(MAKEPATH)/trunk
 CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -D_DEBUG -DQE_PREPROCESSOR_IMPORTLIB_COMMON -DQE_PREPROCESSOR_IMPORTLIB_TOOLS -DQE_PREPROCESSOR_IMPORTLIB_SYSTEM -DQE_PREPROCESSOR_EXPORTLIB_CORE
 RESINC_DEBUGWIN32SHAREDRTDYNAMIC =  
 RCFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
-LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  -L..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic -L$(MAKEPATH)\\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic
-LIB_DEBUGWIN32SHAREDRTDYNAMIC = libQuimeraEngineCommon.dll.a libQuimeraEngineTools.dll.a libQuimeraEngineSystem.dll.a
+LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  -L$(MAKEPATH)\trunk\3rdparty\Boost\bin\Win32\DebugSharedrtStatic
+LIB_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineSystem.dll -lboost_system-mt-d -lboost_thread-mt-d
 LDFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
 OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\garbage\\CodeBlocks10\\DebugWin32SharedrtDynamic
 DEP_DEBUGWIN32SHAREDRTDYNAMIC = 
 OUT_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)\\trunk\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic\\QuimeraEngineCore.dll
 OBJ_DEBUGWIN32SHAREDRTDYNAMIC = $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o 
-OUT_IMPORT_DEBUGWIN32SHAREDRTDYNAMIC = libQuimeraEngineCore.dll.a
 	
 all: debugwin32sharedrtstatic debugwin32sharedrtdynamic
 
@@ -73,7 +72,7 @@ after_debugwin32sharedrtdynamic:
 debugwin32sharedrtdynamic: before_debugwin32sharedrtdynamic out_debugwin32sharedrtdynamic after_debugwin32sharedrtdynamic
 
 out_debugwin32sharedrtdynamic: $(OBJ_DEBUGWIN32SHAREDRTDYNAMIC) $(DEP_DEBUGWIN32SHAREDRTDYNAMIC)
-	$(LD) -shared $(LDFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC) $(OBJ_DEBUGWIN32SHAREDRTDYNAMIC) $(LIB_DEBUGWIN32SHAREDRTDYNAMIC) -o $(OUT_DEBUGWIN32SHAREDRTDYNAMIC) -Wl,--out-implib,$(OUT_IMPORT_DEBUGWIN32SHAREDRTDYNAMIC)
+	$(LD) -shared $(LDFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC) $(OBJ_DEBUGWIN32SHAREDRTDYNAMIC) $(LIB_DEBUGWIN32SHAREDRTDYNAMIC) -o $(OUT_DEBUGWIN32SHAREDRTDYNAMIC) 
 
 $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o: $(MAKEPATH)\\trunk\\source\\Prueba.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)\\trunk\\source\\Prueba.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\source\\Prueba.o

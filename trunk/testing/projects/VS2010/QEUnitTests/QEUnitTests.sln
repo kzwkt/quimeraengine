@@ -2,9 +2,6 @@
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual C++ Express 2010
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Tools", "Tools\Tools.vcxproj", "{40B8A776-0BED-40E6-B2F2-5CE7386733D8}"
-	ProjectSection(ProjectDependencies) = postProject
-		{186DC61B-8070-4227-9F30-25C36982512F} = {186DC61B-8070-4227-9F30-25C36982512F}
-	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Common", "Common\Common.vcxproj", "{186DC61B-8070-4227-9F30-25C36982512F}"
 EndProject
