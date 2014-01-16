@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Math/;" />
+		<Option virtualFolders="Math\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -46,8 +46,6 @@
 				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtDynamic" />
 				<Option type="3" />
 				<Option compiler="gcc" />
-				<Option createDefFile="1" />
-				<Option createStaticLib="1" />
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-fpermissive" />
@@ -56,7 +54,7 @@
 					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
-					<Add library="libQuimeraEngineCommon.dll.a" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 				</Linker>
 			</Target>

@@ -27,8 +27,7 @@
 #ifndef __SQINTEGER__
 #define __SQINTEGER__
 
-#include <stdlib.h>
-#include <boost/lexical_cast.hpp>
+#include <sstream>
 
 #include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
@@ -208,8 +207,14 @@ public:
     template<typename IntegerType>
     static string_q ToString(const IntegerType &nValue)
     {
-        string_q strOut = boost::lexical_cast<string_q>(nValue);
-        return strOut;
+    #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+        std::wstringstream output;
+    #else
+        std::ostringstream output;
+    #endif
+
+        output << nValue;
+        return output.str();
     }
 
 };

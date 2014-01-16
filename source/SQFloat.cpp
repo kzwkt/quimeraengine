@@ -26,7 +26,6 @@
 
 #include <sstream>
 
-#include <boost/lexical_cast.hpp>
 
 #include "SQFloat.h"
 
@@ -299,16 +298,19 @@ float_q SQFloat::Abs(const float_q &fValue)
 
 string_q SQFloat::ToString(const float_q &fValue)
 {
-    string_q strOut = boost::lexical_cast<string_q>(fValue);
-	return strOut;
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+    std::wstringstream output;
+#else
+    std::ostringstream output;
+#endif
 
-// Is this better? [SMELL] Thund:
-//    template <class T> std::string stringify(T x)
-//    {
-//	    std::ostringstream o;
-//	    o << x;
-//	    return o.str();
-//    }
+#if QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
+    output << std::setprecision(9)
+#elif QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_DOUBLE
+    output << std::setprecision(17)
+#endif
+           << fValue;
+    return output.str();
 }
 
 } //namespace DataTypes

@@ -26,6 +26,8 @@
 
 #include "SQInteger.h"
 
+#include <stdlib.h>
+
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -90,11 +92,16 @@ i64_q SQInteger::Abs(const i64_q& nValue)
 template<>
 string_q SQInteger::ToString<i8_q>(const char &nValue)
 {
-    // [SMELL] Thund: This specialization is necessary since Boost's converter treats signed chars
-    //                in a different way than how it does with the other integer types. If this changes
-    //                in future versions of Boost libraries, this method should disappear
-    string_q strOut = boost::lexical_cast<string_q>(scast_q(nValue, i32_q));
-    return strOut;
+    // [SMELL] Thund: This specialization is necessary since STL's converter treats signed chars
+    //                in a different way than how it does with the other integer types.
+#if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+    std::wstringstream output;
+#else
+    std::ostringstream output;
+#endif
+
+    output << scast_q(nValue, i32_q);
+    return output.str();
 }
 
 } //namespace DataTypes
