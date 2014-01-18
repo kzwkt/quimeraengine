@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;" />
+		<Option virtualFolders="TestSystem (shared)/;Tests/;Tests/Math/;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -22,10 +22,12 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineCommon.a" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools.a" />
-					<Add library="..\..\..\..\..\3rdparty\Boost\bin\Linux32\DebugSharedrtStatic\libboost_unit_test_framework.a" />
+					<Add library="libQuimeraEngineCommon.a" />
+					<Add library="libQuimeraEngineTools.a" />
+					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
+					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
+					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
@@ -43,8 +45,8 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
@@ -68,8 +70,8 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
+					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
 				</Linker>
@@ -96,16 +98,18 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add library=".\QuimeraEngineTools.so" />
-					<Add library=".\QuimeraEngineCommon.so" />
-					<Add library="..\..\..\..\..\3rdparty\Boost\bin\Linux32\DebugSharedrtStatic\libboost_unit_test_framework.a" />
+					<Add library="libQuimeraEngineCommon" />
+					<Add library="libQuimeraEngineTools" />
+					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add directory="../../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic/" />
+					<Add directory="../../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="mkdir -p $(TARGET_OUTPUT_DIR)" />
-					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCommon.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
-					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineTools.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
-					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineCommon.so&quot; &quot;.&quot;' />
-					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/QuimeraEngineTools.so&quot; &quot;.&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/libQuimeraEngineCommon.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/libQuimeraEngineTools.so&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/libQuimeraEngineCommon.so&quot; &quot;.&quot;' />
+					<Add before='cp &quot;$(TARGET_OUTPUT_DIR)../../../../bin/CodeBlocks10/$(TARGET_NAME)/libQuimeraEngineTools.so&quot; &quot;.&quot;' />
 					<Add after='cp &quot;$(TARGET_OUTPUT_DIR)../../TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot;' />
 					<Add after="rm *.so" />
 					<Mode after="always" />

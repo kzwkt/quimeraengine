@@ -16,12 +16,12 @@ INC_DEBUGLINUX32SHAREDRTSTATIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/
 CFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -m32 -D_DEBUG
 RESINC_DEBUGLINUX32SHAREDRTSTATIC =  
 RCFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  
-LIBDIR_DEBUGLINUX32SHAREDRTSTATIC =  -L$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic -L$(MAKEPATH)trunk/3rdparty/Boost/bin/Linux32/DebugSharedrtStatic
-LIB_DEBUGLINUX32SHAREDRTSTATIC = $(MAKEPATH)trunk/bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCommon.a libboost_unit_test_framework.a
+LIBDIR_DEBUGLINUX32SHAREDRTSTATIC =  -L$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic -L$(MAKEPATH)trunk/3rdparty/Boost/bin/Linux32/DebugSharedrtStatic -L$(MAKEPATH)trunk/bin/CodeBlocks10/DebugLinux32SharedrtStatic
+LIB_DEBUGLINUX32SHAREDRTSTATIC = -lQuimeraEngineCommon -lboost_unit_test_framework-mt-d
 LDFLAGS_DEBUGLINUX32SHAREDRTSTATIC =  -m32
 OBJDIR_DEBUGLINUX32SHAREDRTSTATIC = $(MAKEPATH)trunk/testing/garbage/CodeBlocks10/DebugLinux32SharedrtStatic
 DEP_DEBUGLINUX32SHAREDRTSTATIC = 
-OUT_DEBUGLINUX32SHAREDRTSTATIC = $(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic/Unit_TestModule_Common
+OUT_DEBUGLINUX32SHAREDRTSTATIC = $(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic/Unit_TestModule_Common.sh
 OBJ_DEBUGLINUX32SHAREDRTSTATIC = $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/SQFloat_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/SQVF32_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/TestModule_Common.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/EQTestType.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/QCommonTestConfig.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/testsystem/QSimpleConfigLoader.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/EQEnumeration_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/SQInteger_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/SQBoolean_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/QAlignment_Test.o
 
 #DebugLinux32SharedrtDynamic
@@ -29,12 +29,12 @@ INC_DEBUGLINUX32SHAREDRTDYNAMIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk
 CFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -m32 -D_DEBUG -DQE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE
 RESINC_DEBUGLINUX32SHAREDRTDYNAMIC =  
 RCFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC =  
-LIBDIR_DEBUGLINUX32SHAREDRTDYNAMIC =  -L$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtDynamic -L$(MAKEPATH)trunk/3rdparty/Boost/bin/Linux32/DebugSharedrtStatic
-LIB_DEBUGLINUX32SHAREDRTDYNAMIC = libQuimeraEngineCommon.so libboost_unit_test_framework.a
+LIBDIR_DEBUGLINUX32SHAREDRTDYNAMIC =  -L$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtDynamic -L$(MAKEPATH)trunk/3rdparty/Boost/bin/Linux32/DebugSharedrtStatic -L$(MAKEPATH)trunk/bin/CodeBlocks10/DebugLinux32SharedrtDynamic
+LIB_DEBUGLINUX32SHAREDRTDYNAMIC = -lQuimeraEngineCommon -lboost_unit_test_framework-mt-d
 LDFLAGS_DEBUGLINUX32SHAREDRTDYNAMIC =  -m32
 OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC = $(MAKEPATH)trunk/testing/garbage/CodeBlocks10/DebugLinux32SharedrtDynamic
 DEP_DEBUGLINUX32SHAREDRTDYNAMIC = 
-OUT_DEBUGLINUX32SHAREDRTDYNAMIC = $(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtDynamic/Unit_TestModule_Common
+OUT_DEBUGLINUX32SHAREDRTDYNAMIC = $(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtDynamic/Unit_TestModule_Common.sh
 OBJ_DEBUGLINUX32SHAREDRTDYNAMIC = $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/SQFloat_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/SQVF32_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/TestModule_Common.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/EQTestType.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/QCommonTestConfig.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/testsystem/QSimpleConfigLoader.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/EQEnumeration_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/SQInteger_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/SQBoolean_Test.o $(OBJDIR_DEBUGLINUX32SHAREDRTDYNAMIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_common/QAlignment_Test.o
 
 
