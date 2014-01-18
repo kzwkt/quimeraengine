@@ -13,6 +13,9 @@
     <Filter Include="Tests\General">
       <UniqueIdentifier>{8cc96c95-271b-4301-abf4-4108d835eb8f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Memory">
+      <UniqueIdentifier>{c44c38bc-170e-42af-88f6-4c449d4ec840}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\EQEnumeration_Test.cpp">
       <Filter>Tests\General</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAlignment_Test.cpp">
+      <Filter>Tests\Memory</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

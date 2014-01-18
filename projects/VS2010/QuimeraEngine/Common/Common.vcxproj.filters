@@ -4,6 +4,9 @@
     <Filter Include="DataTypes">
       <UniqueIdentifier>{d6d4def4-d964-439f-a86f-f232a48c980c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Memory">
+      <UniqueIdentifier>{582dca16-3437-4d29-b0f9-59a5fc38bcc2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h">
@@ -26,6 +29,9 @@
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\Assertions.h" />
+    <ClInclude Include="..\..\..\..\headers\QAlignment.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -41,5 +47,8 @@
       <Filter>DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
+    <ClCompile Include="..\..\..\..\source\QAlignment.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

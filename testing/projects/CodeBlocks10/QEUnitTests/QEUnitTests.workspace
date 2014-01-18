@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_workspace_file>
 	<Workspace title="QEUnitTests">
-		<Project filename="Common/Common.cbp" />
-		<Project filename="Tools/Tools.cbp" active="1" />
+		<Project filename="Common/Common.cbp" active="1" />
+		<Project filename="Tools/Tools.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>

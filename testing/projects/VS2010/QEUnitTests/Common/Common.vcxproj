@@ -15,6 +15,7 @@
     <ClCompile Include="..\..\..\..\testsystem\QCommonTestConfig.cpp" />
     <ClCompile Include="..\..\..\..\testsystem\QSimpleConfigLoader.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\EQEnumeration_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAlignment_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQBoolean_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQFloat_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQInteger_Test.cpp" />
