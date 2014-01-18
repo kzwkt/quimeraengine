@@ -5,7 +5,7 @@
 		<Option title="Common" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\DataTypes\;Tests\General\;" />
+		<Option virtualFolders="Tests\;Tests\DataTypes\;Tests\General\;Tests\Memory\;TestSystem (shared)\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -117,6 +117,12 @@
 			<Add directory="../../../../../3rdparty/Boost/include" />
 			<Add directory="../../../../tests/unit" />
 		</Compiler>
+		<Unit filename="../../../../../headers/QAlignment.h">
+			<Option virtualFolder="Tests/Memory/" />
+		</Unit>
+		<Unit filename="../../../../../source/QAlignment.cpp">
+			<Option virtualFolder="Tests/Memory/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/EQEnumerationMock.h">
 			<Option virtualFolder="Tests/General/" />
 		</Unit>

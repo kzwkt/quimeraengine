@@ -5,10 +5,10 @@
 		<Project filename="Tools/Tools.cbp">
 			<Depends filename="Common/Common.cbp" />
 		</Project>
-		<Project filename="System/System.cbp">
+		<Project filename="System/System.cbp" active="1">
 			<Depends filename="Tools/Tools.cbp" />
 			<Depends filename="Common/Common.cbp" />
 		</Project>
-		<Project filename="Core/Core.cbp" active="1" />
+		<Project filename="Core/Core.cbp" />
 	</Workspace>
 </CodeBlocks_workspace_file>
