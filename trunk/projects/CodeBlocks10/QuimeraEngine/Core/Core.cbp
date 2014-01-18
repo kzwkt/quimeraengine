@@ -9,7 +9,7 @@
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
-				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/QuimeraEngineCore.a" prefix_auto="0" extension_auto="0" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/libQuimeraEngineCore.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
 				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				<Option type="2" />
@@ -57,9 +57,9 @@
 					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
-					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineSystem.dll" />
+					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
+					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
+					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineSystem.dll" />
 					<Add library="libboost_thread-mt-d.a" />
 					<Add library="libboost_system-mt-d.a" />
 					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
@@ -68,7 +68,7 @@
 			</Target>
 			<Target title="DebugLinux32SharedrtDynamic">
 				<Option platforms="Unix;" />
-				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic/QuimeraEngineCore.so" prefix_auto="0" extension_auto="0" />
+				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic/libQuimeraEngineCore.so" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="../../../../bin/CodeBlocks10/DebugLinux32SharedrtDynamic" />
 				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtDynamic" />
 				<Option type="3" />

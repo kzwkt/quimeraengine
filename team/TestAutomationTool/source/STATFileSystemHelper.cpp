@@ -63,7 +63,7 @@ namespace Backend
 #ifdef TAT_OS_WINDOWS
     const wxString STATFileSystemHelper::sm_strExecutableFileExtension = wxT("exe");
 #elif defined(TAT_OS_LINUX)
-    const wxString STATFileSystemHelper::sm_strExecutableFileExtension = wxT("");
+    const wxString STATFileSystemHelper::sm_strExecutableFileExtension = wxT("sh");
 // TODO [Thund]: Port for Mac
 #endif
 
