@@ -77,6 +77,10 @@ QVector4::QVector4(const QBaseVector3 &vVector) : QBaseVector4(vVector.x, vVecto
 {
 }
 
+QVector4::QVector4(const QBaseVector3 &vVector, const float &fValue) : QBaseVector4(vVector.x, vVector.y, vVector.z, fValue)
+{
+}
+
 QVector4::QVector4(const float_q &fValueX, const float_q &fValueY, const float_q &fValueZ, const float_q &fValueW) :
                     QBaseVector4(fValueX, fValueY, fValueZ, fValueW)
 {
