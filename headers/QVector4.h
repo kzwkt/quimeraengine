@@ -116,6 +116,13 @@ public:
     explicit QVector4(const QBaseVector3 &vVector);
 
     /// <summary>
+    /// Constructor that receives a vector and a scalar to fill the W component.
+    /// </summary>
+    /// <param name="vVector">[IN] The vector to copy its components.</param>
+    /// <param name="fValue">[IN] Scalar value representing the W component.</param>
+	explicit QVector4(const QBaseVector3 &vVector, const float &fValue);
+
+    /// <summary>
 	/// Constructor that receives the value of every vector's component.
 	/// </summary>
 	/// <param name="fValueX">[IN] The value for X component.</param>
