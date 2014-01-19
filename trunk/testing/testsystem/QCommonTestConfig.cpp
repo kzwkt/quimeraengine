@@ -68,7 +68,6 @@ QCommonTestConfig::QCommonTestConfig(const std::string &strTestModuleName, const
     // Loads configuration values from disk
     // -------------------------------------
     Kinesis::QuimeraEngine::Test::QSimpleConfigLoader config(QCommonTestConfig::TestConfigFileName);
-    //Kinesis::QuimeraEngine::Test::QSimpleConfigLoader config("C:\\Users\\RauL\\Documents\\projects_raul\\Quimera\\trunk\\testing\\bin\\VS2010\\DebugWin32SharedrtStatic\\TextConfig.txt");
     if(config.LoadEntries())
     {
         // Entries order in the configuration file
