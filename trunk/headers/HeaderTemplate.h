@@ -40,12 +40,12 @@ namespace Kinesis
 namespace QuimeraEngine
 {
 namespace NAMESPACE
-{
+{QE_LAYER_COMMON_SYMBOLS
 
 /// <summary>
 /// [DOC]
 /// </summary>
-class QDll<LayerName>Export ClassName
+class QE_LAYER_<LayerName>_SYMBOLS ClassName
 {
     friends
 
