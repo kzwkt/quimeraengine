@@ -40,7 +40,7 @@ namespace Kinesis
 namespace QuimeraEngine
 {
 namespace NAMESPACE
-{QE_LAYER_COMMON_SYMBOLS
+{
 
 /// <summary>
 /// [DOC]
