@@ -61,7 +61,7 @@ namespace DataTypes
         typedef long long           i64_q;  // Signed 64-bits integer
         typedef float               f32_q;  // 32-bits floating point number
         typedef double              f64_q;  // 64-bits floating point number
-        typedef __m128              vf32_q; // 4 x 32-bits packed floating point numbers
+        typedef __m128              vf32_q; // 4 x 32-bits packed floating point numbers 
         // Note: There is no integer or float whose size is greater than 64 bits on Windows 32 bits
     #elif QE_COMPILER_GCC
         typedef unsigned char       u8_q;   // Unsigned 8-bits integer
@@ -91,6 +91,8 @@ namespace DataTypes
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
     #endif
 
+    typedef u32_q        pointer_uint_q; // Unsigned integer types for pointer conversion (32 bits) common for ms and gcc compilers
+
 #elif defined(QE_OS_LINUX) && (QE_OS_LINUX == 32)
     #if QE_COMPILER_GCC
         typedef unsigned char       u8_q;   // Unsigned 8-bits integer
@@ -118,9 +120,12 @@ namespace DataTypes
     #else
         // [TODO] Thund: Test the system in another compiler and write the basic types for that compiler
     #endif
+
+    typedef u32_q        pointer_uint_q; // Unsigned integer types for pointer conversion (32 bits) common for ms and gcc compilers
+
     // [TODO] Thund: Test the system in another platform and write the basic types for that machine
     // Win64, Linux 32, Mac OS 32
-
+    
 #endif
 
 
