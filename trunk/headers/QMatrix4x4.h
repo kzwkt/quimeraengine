@@ -158,7 +158,7 @@ public:
     /// <returns>
     /// A matrix with all components set to 0.
     /// </returns>
-    static const QMatrix4x4& GetZeroMatrix();
+    static const QMatrix4x4& GetNullMatrix();
 
     /// <summary>
     /// Gets an identity matrix.<br/>

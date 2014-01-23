@@ -1502,7 +1502,7 @@ QTEST_CASE ( Translate1_QuadrilateralIsNotTranslatedWhenTranslationIsZero_Test )
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_9);
     const QVector2 EXPECTED_VALUE_FOR_D = QVector2(SQFloat::_3, SQFloat::_5);
 
-    const QVector2 TRANSLATION_VECTOR = QVector2::GetZeroVector();
+    const QVector2 TRANSLATION_VECTOR = QVector2::GetNullVector();
 
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
@@ -1557,7 +1557,7 @@ QTEST_CASE ( Translate2_QuadrilateralIsNotTranslatedWhenTranslationIsZero_Test )
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_9);
     const QVector2 EXPECTED_VALUE_FOR_D = QVector2(SQFloat::_3, SQFloat::_5);
 
-    const QVector2 TRANSLATION_VECTOR = QVector2::GetZeroVector();
+    const QVector2 TRANSLATION_VECTOR = QVector2::GetNullVector();
 
     const QQuadrilateral QUAD = QQuadrilateral(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C, EXPECTED_VALUE_FOR_D);
 
@@ -1637,9 +1637,9 @@ QTEST_CASE ( Scale1_AllVerticesAreMovedToCoordinatesOriginWhenScaleEqualsZero_Te
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
     const QVector2 POINT_D = QVector2(SQFloat::_2, SQFloat::_0);
 
-    const QVector2 EXPECTED_VALUE_FOR_ALL = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_VALUE_FOR_ALL = QVector2::GetNullVector();
 
-    const QVector2 SCALING_VECTOR = QVector2::GetZeroVector();
+    const QVector2 SCALING_VECTOR = QVector2::GetNullVector();
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
@@ -1719,9 +1719,9 @@ QTEST_CASE ( Scale2_AllVerticesAreMovedToCoordinatesOriginWhenScaleEqualsZero_Te
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
     const QVector2 POINT_D = QVector2(SQFloat::_2, SQFloat::_0);
 
-    const QVector2 EXPECTED_VALUE_FOR_ALL = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_VALUE_FOR_ALL = QVector2::GetNullVector();
 
-    const QVector2 SCALING_VECTOR = QVector2::GetZeroVector();
+    const QVector2 SCALING_VECTOR = QVector2::GetNullVector();
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
@@ -1818,9 +1818,9 @@ QTEST_CASE ( Transform_AllVerticesAreMovedToCoordinateOriginWhenTransfomedByZero
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
     const QVector2 POINT_D = QVector2(SQFloat::_2, SQFloat::_0);
 
-    const QVector2 EXPECTED_RESULT_ALL = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_RESULT_ALL = QVector2::GetNullVector();
 
-    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetZeroMatrix();
+    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetNullMatrix();
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
 
@@ -1964,7 +1964,7 @@ QTEST_CASE ( ScaleWithPivot1_AllVerticesAreMovedToPositionOfPivotWhenScaleEquals
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
     const QVector2 POINT_D = QVector2(SQFloat::_2, SQFloat::_0);
 
-    const QVector2 SCALING_VECTOR = QVector2::GetZeroVector();
+    const QVector2 SCALING_VECTOR = QVector2::GetNullVector();
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
@@ -2047,7 +2047,7 @@ QTEST_CASE ( ScaleWithPivot2_AllVerticesAreMovedToPositionOfPivotWhenScaleEquals
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
     const QVector2 POINT_D = QVector2(SQFloat::_2, SQFloat::_0);
 
-    const QVector2 SCALING_VECTOR = QVector2::GetZeroVector();
+    const QVector2 SCALING_VECTOR = QVector2::GetNullVector();
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);
@@ -2147,7 +2147,7 @@ QTEST_CASE ( TransformWithPivot_AllVerticesAreMovedToPositionOfPivotWhenTransfom
     const QVector2 POINT_C = QVector2(SQFloat::_7, SQFloat::_5);
     const QVector2 POINT_D = QVector2(SQFloat::_2, SQFloat::_0);
 
-    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetZeroMatrix();
+    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetNullMatrix();
 
     const QQuadrilateral QUAD = QQuadrilateral(POINT_A, POINT_B, POINT_C, POINT_D);
     const QVector2 PIVOT = QVector2(SQFloat::_1, SQFloat::_2);

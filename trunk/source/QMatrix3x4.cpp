@@ -412,12 +412,12 @@ string_q QMatrix3x4::ToString() const
 //##################													   ##################
 //##################=======================================================##################
 
-const QMatrix3x4& QMatrix3x4::GetZeroMatrix()
+const QMatrix3x4& QMatrix3x4::GetNullMatrix()
 {
-    static const QMatrix3x4 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
+    static const QMatrix3x4 NULLMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
                                         SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0,
                                         SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    return ZEROMATRIX;
+    return NULLMATRIX;
 }
 
 const QMatrix3x4& QMatrix3x4::GetIdentity()

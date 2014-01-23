@@ -150,7 +150,7 @@ public:
     /// <returns>
     /// A matrix with all components set to 0.
     /// </returns>
-    static const QMatrix3x3& GetZeroMatrix();
+    static const QMatrix3x3& GetNullMatrix();
 
     /// <summary>
     /// Gets an identity matrix.

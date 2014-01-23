@@ -64,7 +64,7 @@ QTEST_CASE_TEMPLATE ( Constructor1_DefaultValuesHaveNotChanged_Test, TQTemplateT
     float_q VECTOR_COMPONENTS_ORIGIN[] = { SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0 };
 
     const T EXPECTED_VALUE_FOR_ORIGIN(VECTOR_COMPONENTS_ORIGIN);
-    const QVector3 EXPECTED_VALUE_FOR_DIRECTION = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_VALUE_FOR_DIRECTION = QVector3::GetNullVector();
 
 	// [Execution]
     QRay3D<T> rayUT;
@@ -160,13 +160,13 @@ QTEST_CASE_TEMPLATE ( Constructor4_ConstructedRayIsNotNormalizedWhenDirectionVec
 /// <summary>
 /// Checks that it returns a null ray placed at the origin.
 /// </summary>
-QTEST_CASE_TEMPLATE ( GetRayZero_ReturnsWhatExpected_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( GetNullRay_ReturnsWhatExpected_Test, TQTemplateTypes )
 {
     // [Preparation]
-    QRay3D<T> EXPECTED_VALUE(T::GetZeroVector(), QVector3::GetZeroVector());
+    QRay3D<T> EXPECTED_VALUE(T::GetNullVector(), QVector3::GetNullVector());
 
 	// [Execution]
-    QRay3D<T> obtinedRay = QRay3D<T>::GetRayZero();
+    QRay3D<T> obtinedRay = QRay3D<T>::GetNullRay();
 
     // [Verification]
     BOOST_CHECK(obtinedRay.Origin == EXPECTED_VALUE.Origin);
@@ -179,7 +179,7 @@ QTEST_CASE_TEMPLATE ( GetRayZero_ReturnsWhatExpected_Test, TQTemplateTypes )
 QTEST_CASE_TEMPLATE ( GetRayX_ReturnsWhatExpected_Test, TQTemplateTypes )
 {
     // [Preparation]
-    QRay3D<T> EXPECTED_VALUE(T::GetZeroVector(), QVector3::GetUnitVectorX());
+    QRay3D<T> EXPECTED_VALUE(T::GetNullVector(), QVector3::GetUnitVectorX());
 
 	// [Execution]
     QRay3D<T> obtinedRay = QRay3D<T>::GetRayX();
@@ -195,7 +195,7 @@ QTEST_CASE_TEMPLATE ( GetRayX_ReturnsWhatExpected_Test, TQTemplateTypes )
 QTEST_CASE_TEMPLATE ( GetRayY_ReturnsWhatExpected_Test, TQTemplateTypes )
 {
     // [Preparation]
-    QRay3D<T> EXPECTED_VALUE(T::GetZeroVector(), QVector3::GetUnitVectorY());
+    QRay3D<T> EXPECTED_VALUE(T::GetNullVector(), QVector3::GetUnitVectorY());
 
 	// [Execution]
     QRay3D<T> obtinedRay = QRay3D<T>::GetRayY();
@@ -211,7 +211,7 @@ QTEST_CASE_TEMPLATE ( GetRayY_ReturnsWhatExpected_Test, TQTemplateTypes )
 QTEST_CASE_TEMPLATE ( GetRayZ_ReturnsWhatExpected_Test, TQTemplateTypes )
 {
     // [Preparation]
-    QRay3D<T> EXPECTED_VALUE(T::GetZeroVector(), QVector3::GetUnitVectorZ());
+    QRay3D<T> EXPECTED_VALUE(T::GetNullVector(), QVector3::GetUnitVectorZ());
 
 	// [Execution]
     QRay3D<T> obtinedRay = QRay3D<T>::GetRayZ();
@@ -410,7 +410,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_AssertionFailsWhenTheDirectionVectorIsNull_T
     // [Preparation]
     const float_q ORIGIN_COMPONENTS1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN1(ORIGIN_COMPONENTS1);
-    const QVector3 DIRECTION1 = QVector3::GetZeroVector();
+    const QVector3 DIRECTION1 = QVector3::GetNullVector();
     const QRay3D<T> RAY1 = QRay3D<T>(ORIGIN1, DIRECTION1);
 
     const float_q ORIGIN_COMPONENTS2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
@@ -470,7 +470,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsExpectedResultWhenTheDirectionVectorI
     // [Preparation]
     const float_q ORIGIN_COMPONENTS1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN1(ORIGIN_COMPONENTS1);
-    const QVector3 DIRECTION1 = QVector3::GetZeroVector();
+    const QVector3 DIRECTION1 = QVector3::GetNullVector();
     const QRay3D<T> RAY1 = QRay3D<T>(ORIGIN1, DIRECTION1);
 
     const float_q ORIGIN_COMPONENTS2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
@@ -480,7 +480,7 @@ QTEST_CASE_TEMPLATE ( Intersection1_ReturnsExpectedResultWhenTheDirectionVectorI
 
     const float_q ORIGIN_COMPONENTS3[] = { SQFloat::_9, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN3(ORIGIN_COMPONENTS3);
-    const QVector3 DIRECTION3 = QVector3::GetZeroVector();
+    const QVector3 DIRECTION3 = QVector3::GetNullVector();
     const QRay3D<T> RAY3 = QRay3D<T>(ORIGIN3, DIRECTION3);
 
     const bool EXPECTED_RESULT_CONTAINED = true;
@@ -864,7 +864,7 @@ QTEST_CASE_TEMPLATE ( Intersection2_AssertionFailsWhenTheDirectionVectorIsNull_T
 
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
@@ -1237,7 +1237,7 @@ QTEST_CASE_TEMPLATE ( Intersection3_AssertionFailsWhenRayDirectionIsNull_Test, T
     // [Preparation]
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_4).Normalize();
@@ -1615,7 +1615,7 @@ QTEST_CASE_TEMPLATE ( Intersection4_AssertionFailsWhenRayDirectionIsNull_Test, T
     // [Preparation]
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_3, SQFloat::_3, SQFloat::_1, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_1 };
@@ -2372,7 +2372,7 @@ QTEST_CASE_TEMPLATE ( Intersection5_AssertionFailsWhenRayDirectionIsNull_Test, T
     // [Preparation]
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_3, SQFloat::_3, SQFloat::_1, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
@@ -2469,7 +2469,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoIntersectionPointsWhenRaysDoNo
     const QRay3D<T> RAY2 = QRay3D<T>(ORIGIN2, DIRECTION2);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
 
 	// [Execution]
     T vIntersection;
@@ -2645,7 +2645,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheDirectionVectorIsN
     // [Preparation]
     const float_q ORIGIN_COMPONENTS1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN1(ORIGIN_COMPONENTS1);
-    const QVector3 DIRECTION1 = QVector3::GetZeroVector();
+    const QVector3 DIRECTION1 = QVector3::GetNullVector();
     const QRay3D<T> RAY1 = QRay3D<T>(ORIGIN1, DIRECTION1);
 
     const float_q ORIGIN_COMPONENTS2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
@@ -2709,7 +2709,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenTheDirectionVe
     // [Preparation]
     const float_q ORIGIN_COMPONENTS1[] = { SQFloat::_2, SQFloat::_4, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN1(ORIGIN_COMPONENTS1);
-    const QVector3 DIRECTION1 = QVector3::GetZeroVector();
+    const QVector3 DIRECTION1 = QVector3::GetNullVector();
     const QRay3D<T> RAY1 = QRay3D<T>(ORIGIN1, DIRECTION1);
 
     const float_q ORIGIN_COMPONENTS2[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
@@ -2719,20 +2719,20 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultWhenTheDirectionVe
 
     const float_q ORIGIN_COMPONENTS3[] = { SQFloat::_9, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN3(ORIGIN_COMPONENTS3);
-    const QVector3 DIRECTION3 = QVector3::GetZeroVector();
+    const QVector3 DIRECTION3 = QVector3::GetNullVector();
     const QRay3D<T> RAY3 = QRay3D<T>(ORIGIN3, DIRECTION3);
 
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
     const float_q EXPECTED_POINT_CONTAINED_COMPONENTS[] = { SQFloat::_2, SQFloat::_4, SQFloat::_3, SQFloat::_0 };
     const T EXPECTED_POINT_CONTAINED = T(EXPECTED_POINT_CONTAINED_COMPONENTS);
-    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
 
 	// [Execution]
-    T vIntersectionContained1 = T::GetZeroVector();
-    T vIntersectionContained2 = T::GetZeroVector();
-    T vIntersectionNotContained1 = T::GetZeroVector();
-    T vIntersectionNotContained2 = T::GetZeroVector();
+    T vIntersectionContained1 = T::GetNullVector();
+    T vIntersectionContained2 = T::GetNullVector();
+    T vIntersectionNotContained1 = T::GetNullVector();
+    T vIntersectionNotContained2 = T::GetNullVector();
 
     EQIntersections eResultContained1 = RAY1.IntersectionPoint(RAY2, vIntersectionContained1); // I
     EQIntersections eResultContained2 = RAY2.IntersectionPoint(RAY1, vIntersectionContained2); // I
@@ -2779,7 +2779,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoIntersectionsWhenRaysDoNotInte
     const QRay3D<T> RAY2 = QRay3D<T>(ORIGIN2, DIRECTION2);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
 
 	// [Execution]
     T vIntersection1;
@@ -2969,7 +2969,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayAndLineDoN
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
 
 	// [Execution]
     T vIntersection;
@@ -3209,7 +3209,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheDirectionVectorIsN
 
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
@@ -3311,11 +3311,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultWhenTheDirectionVe
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
     const float_q EXPECTED_POINT_CONTAINED_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
     const T EXPECTED_POINT_CONTAINED = T(EXPECTED_POINT_CONTAINED_COMPONENTS);
-    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
 
 	// [Execution]
-    T vIntersectionContained = T::GetZeroVector();
-    T vIntersectionNotContained = T::GetZeroVector();
+    T vIntersectionContained = T::GetNullVector();
+    T vIntersectionNotContained = T::GetNullVector();
 
     EQIntersections eResultContained = RAY.IntersectionPoint(LINE_SEGMENT_CONTAINED, vIntersectionContained); // I
     EQIntersections eResultNotContained = RAY.IntersectionPoint(LINE_SEGMENT_NOT_CONTAINED, vIntersectionNotContained); // II
@@ -3358,7 +3358,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayAndLineDoN
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
 
     // [Execution]
     T vIntersection;
@@ -3398,7 +3398,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayAndLineDoN
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
 
     // [Execution]
     T vIntersection;
@@ -3508,12 +3508,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_FIRSTPOINT = T::GetZeroVector();
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_FIRSTPOINT = T::GetNullVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
 
 	// [Execution]
-    T vFirstIntersection = T::GetZeroVector();
-    T vSecondIntersection = T::GetZeroVector();
+    T vFirstIntersection = T::GetNullVector();
+    T vSecondIntersection = T::GetNullVector();
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
@@ -3547,7 +3547,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenRayAndLineInt
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_FIRSTPOINT = LINE_SEGMENT.A.Lerp(SQFloat::_0_5, LINE_SEGMENT.B);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
 
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_0 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -3556,7 +3556,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenRayAndLineInt
 
 	// [Execution]
     T vFirstIntersection;
-    T vSecondIntersection = T::GetZeroVector();
+    T vSecondIntersection = T::GetNullVector();
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection);
 
     // [Verification]
@@ -3638,11 +3638,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenOriginIsConta
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_FIRSTPOINT = ORIGIN;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
 
     // [Execution]
     T vFirstIntersection;
-    T vSecondIntersection = T::GetZeroVector();
+    T vSecondIntersection = T::GetNullVector();
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
 
     // [Verification]
@@ -3679,16 +3679,16 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenRayAndLineSha
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_FIRSTPOINT1 = VALUE_FOR_A;
-    const T EXPECTED_SECONDPOINT1 = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT1 = T::GetNullVector();
     const T EXPECTED_FIRSTPOINT2 = VALUE_FOR_B;
-    const T EXPECTED_SECONDPOINT2 = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT2 = T::GetNullVector();
 
     // [Execution]
     T vFirstIntersection1;
-    T vSecondIntersection1 = T::GetZeroVector();
+    T vSecondIntersection1 = T::GetNullVector();
     EQIntersections eResult1 = RAY1.IntersectionPoint(LINE_SEGMENT, vFirstIntersection1, vSecondIntersection1); // I
     T vFirstIntersection2;
-    T vSecondIntersection2 = T::GetZeroVector();
+    T vSecondIntersection2 = T::GetNullVector();
     EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vFirstIntersection2, vSecondIntersection2); // II
 
     // [Verification]
@@ -3732,16 +3732,16 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneInersectionWhenRayOnlyInterse
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_FIRSTPOINT1 = VALUE_FOR_A;
-    const T EXPECTED_SECONDPOINT1 = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT1 = T::GetNullVector();
     const T EXPECTED_FIRSTPOINT2 = VALUE_FOR_B;
-    const T EXPECTED_SECONDPOINT2 = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT2 = T::GetNullVector();
 
     // [Execution]
     T vFirstIntersection1;
-    T vSecondIntersection1 = T::GetZeroVector();
+    T vSecondIntersection1 = T::GetNullVector();
     EQIntersections eResult1 = RAY1.IntersectionPoint(LINE_SEGMENT, vFirstIntersection1, vSecondIntersection1); // I
     T vFirstIntersection2;
-    T vSecondIntersection2 = T::GetZeroVector();
+    T vSecondIntersection2 = T::GetNullVector();
     EQIntersections eResult2 = RAY2.IntersectionPoint(LINE_SEGMENT, vFirstIntersection2, vSecondIntersection2); // II
 
     // [Verification]
@@ -3775,7 +3775,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheDirectionVectorIsN
 
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
@@ -3879,13 +3879,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultWhenTheDirectionVe
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
     const float_q EXPECTED_POINT_CONTAINED_COMPONENTS[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
     const T EXPECTED_POINT_CONTAINED = T(EXPECTED_POINT_CONTAINED_COMPONENTS);
-    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
 
 	// [Execution]
-    T vFirstIntersectionContained = T::GetZeroVector();
-    T vFirstIntersectionNotContained = T::GetZeroVector();
-    T vSecondIntersectionContained = T::GetZeroVector();
-    T vSecondIntersectionNotContained = T::GetZeroVector();
+    T vFirstIntersectionContained = T::GetNullVector();
+    T vFirstIntersectionNotContained = T::GetNullVector();
+    T vSecondIntersectionContained = T::GetNullVector();
+    T vSecondIntersectionNotContained = T::GetNullVector();
 
     EQIntersections eResultContained = RAY.IntersectionPoint(LINE_SEGMENT_CONTAINED, vFirstIntersectionContained, vSecondIntersectionContained); // I
     EQIntersections eResultNotContained = RAY.IntersectionPoint(LINE_SEGMENT_NOT_CONTAINED, vFirstIntersectionNotContained, vSecondIntersectionNotContained); // II
@@ -3930,7 +3930,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
 
     // [Execution]
     T vIntersection;
@@ -3970,7 +3970,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayAndLineDoN
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
 
     // [Execution]
     T vIntersection;
@@ -4104,7 +4104,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsNoIntersectionsWhenRayIsParallel
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_0, -SQFloat::_4).Normalize();
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
 	// [Execution]
@@ -4133,7 +4133,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenRayIsCo
     const QVector3 DIRECTION = QVector3(-SQFloat::_2, SQFloat::_1, SQFloat::_0).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
 
 	// [Execution]
@@ -4161,7 +4161,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsNoIntersectionsWhenRayDoesNotInt
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_4).Normalize();
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
 	// [Execution]
@@ -4242,7 +4242,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenRayDirectionIsNull_Te
     // [Preparation]
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_4).Normalize();
@@ -4443,7 +4443,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_ReturnsNoIntersectionsWhenRayDoesNotInt
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
 	// [Execution]
@@ -4762,7 +4762,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint5_AssertionFailsWhenRayDirectionIsNull_Te
     // [Preparation]
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_3, SQFloat::_3, SQFloat::_1, SQFloat::_0 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_0 };
@@ -5033,7 +5033,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionPointWhenCommonRa
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
     const T EXPECTED_FIRSTPOINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B).Lerp(SQFloat::_0_5, VERTEX_C);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
@@ -5087,7 +5087,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayIntersects
     const T EXPECTED_FIRSTPOINT_A = VERTEX_A;
     const T EXPECTED_FIRSTPOINT_B = VERTEX_B;
     const T EXPECTED_FIRSTPOINT_C = VERTEX_C;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// [Execution]
@@ -5136,7 +5136,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsNoIntersectionsWhenRayDoesNotInt
 
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
 	// [Execution]
@@ -5173,7 +5173,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginIsConta
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
     const T EXPECTED_FIRSTPOINT = ORIGIN;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// [Execution]
@@ -5204,7 +5204,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayBelongsToT
     const T VERTEX_C = T(VERTEX_C_COMPONENTS);
 
     const T EXPECTED_FIRSTPOINT = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
 
     const T ORIGIN = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B) + (VERTEX_C - VERTEX_B) * SQFloat::_0_25;
     const QVector3 DIRECTION = QVector3(EXPECTED_FIRSTPOINT - ORIGIN).Normalize();
@@ -5254,7 +5254,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginBelongs
     const T EXPECTED_FIRSTPOINT1 = ORIGIN1;
     const T EXPECTED_FIRSTPOINT2 = ORIGIN2;
     const T EXPECTED_FIRSTPOINT3 = ORIGIN3;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// [Execution]
@@ -5368,7 +5368,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenRayIntersects
     const T EXPECTED_FIRSTPOINT1 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
     const T EXPECTED_FIRSTPOINT2 = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C);
     const T EXPECTED_FIRSTPOINT3 = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// [Execution]
@@ -5420,7 +5420,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ReturnsOneIntersectionWhenOriginAndTria
     const T EXPECTED_FIRSTPOINT1 = VERTEX_A;
     const T EXPECTED_FIRSTPOINT2 = VERTEX_B;
     const T EXPECTED_FIRSTPOINT3 = VERTEX_C;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// [Execution]
@@ -5465,7 +5465,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_ItIsNotNecessaryToNormalizeTheRay_Test,
     const QBaseTriangle<T> TRIANGLE = QBaseTriangle<T>(VERTEX_A, VERTEX_B, VERTEX_C);
 
     const T EXPECTED_FIRSTPOINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B).Lerp(SQFloat::_0_5, VERTEX_C);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
@@ -5496,7 +5496,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint6_AssertionFailsWhenRayDirectionIsNull_Te
     // [Preparation]
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_3, SQFloat::_3, SQFloat::_1, SQFloat::_0 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_1, SQFloat::_1, SQFloat::_0 };
@@ -6029,10 +6029,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsNoIntersectionsWhenRayDoesNotInt
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
-    const T EXPECTED_FIRSTPOINT = T::GetZeroVector();
+    const T EXPECTED_FIRSTPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
-    T vFirstIntersection = T::GetZeroVector();
+    T vFirstIntersection = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection);
@@ -6114,12 +6114,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginIsConta
     const T EXPECTED_FIRSTPOINT_ABCD = ORIGIN_ABCD;
     const T EXPECTED_FIRSTPOINT_EFGH = ORIGIN_EFGH;
 
-    T vFirstIntersectionDFGC = T::GetZeroVector();
-    T vFirstIntersectionADFE = T::GetZeroVector();
-    T vFirstIntersectionAEHB = T::GetZeroVector();
-    T vFirstIntersectionCGHB = T::GetZeroVector();
-    T vFirstIntersectionABCD = T::GetZeroVector();
-    T vFirstIntersectionEFGH = T::GetZeroVector();
+    T vFirstIntersectionDFGC = T::GetNullVector();
+    T vFirstIntersectionADFE = T::GetNullVector();
+    T vFirstIntersectionAEHB = T::GetNullVector();
+    T vFirstIntersectionCGHB = T::GetNullVector();
+    T vFirstIntersectionABCD = T::GetNullVector();
+    T vFirstIntersectionEFGH = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResultDFGC = RAY_IN_DFGC.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC);
@@ -6210,12 +6210,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_ReturnsTwoIntersectionWhenRayBelongsToH
     const T EXPECTED_FIRSTPOINT_ABCD = ORIGIN_ABCD;
     const T EXPECTED_FIRSTPOINT_EFGH = ORIGIN_EFGH;
 
-    T vFirstIntersectionDFGC = T::GetZeroVector();
-    T vFirstIntersectionADFE = T::GetZeroVector();
-    T vFirstIntersectionAEHB = T::GetZeroVector();
-    T vFirstIntersectionCGHB = T::GetZeroVector();
-    T vFirstIntersectionABCD = T::GetZeroVector();
-    T vFirstIntersectionEFGH = T::GetZeroVector();
+    T vFirstIntersectionDFGC = T::GetNullVector();
+    T vFirstIntersectionADFE = T::GetNullVector();
+    T vFirstIntersectionAEHB = T::GetNullVector();
+    T vFirstIntersectionCGHB = T::GetNullVector();
+    T vFirstIntersectionABCD = T::GetNullVector();
+    T vFirstIntersectionEFGH = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResultDFGC = RAY_IN_DFGC.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC);
@@ -6961,7 +6961,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint7_AssertionFailsWhenRayDirectionIsNull_Te
     // [Preparation]
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_3, SQFloat::_3, SQFloat::_1, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
@@ -7064,7 +7064,7 @@ QTEST_CASE ( IntersectionPoint7_WComponentDoesNotChangeWhenIntersectionsAreDetec
     const QVector4 INTERSECTION_POINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
 
     const QVector3 DIRECTION = QVector3(INTERSECTION_POINT).Normalize();
-    const QRay3D<QVector4> RAY = QRay3D<QVector4>(QVector4::GetZeroVector(), DIRECTION);
+    const QRay3D<QVector4> RAY = QRay3D<QVector4>(QVector4::GetNullVector(), DIRECTION);
 
     const float_q EXPECTED_FIRST_WCOMPONENT = SQFloat::_5;
 
@@ -7199,7 +7199,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenRayIntersects
     const T EXPECTED_FIRSTPOINT_F = VERTEX_F;
     const T EXPECTED_FIRSTPOINT_G = VERTEX_G;
     const T EXPECTED_FIRSTPOINT_H = VERTEX_H;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
 
     T vFirstIntersectionA;
     T vFirstIntersectionB;
@@ -7209,14 +7209,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenRayIntersects
     T vFirstIntersectionF;
     T vFirstIntersectionG;
     T vFirstIntersectionH;
-    T vSecondIntersectionA = T::GetZeroVector();
-    T vSecondIntersectionB = T::GetZeroVector();
-    T vSecondIntersectionC = T::GetZeroVector();
-    T vSecondIntersectionD = T::GetZeroVector();
-    T vSecondIntersectionE = T::GetZeroVector();
-    T vSecondIntersectionF = T::GetZeroVector();
-    T vSecondIntersectionG = T::GetZeroVector();
-    T vSecondIntersectionH = T::GetZeroVector();
+    T vSecondIntersectionA = T::GetNullVector();
+    T vSecondIntersectionB = T::GetNullVector();
+    T vSecondIntersectionC = T::GetNullVector();
+    T vSecondIntersectionD = T::GetNullVector();
+    T vSecondIntersectionE = T::GetNullVector();
+    T vSecondIntersectionF = T::GetNullVector();
+    T vSecondIntersectionG = T::GetNullVector();
+    T vSecondIntersectionH = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eIntersectionWithA = RAY_A.IntersectionPoint(HEXAHEDRON, vFirstIntersectionA, vSecondIntersectionA);
@@ -7288,12 +7288,12 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsNoIntersectionsWhenRayDoesNotInt
 
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
-    const T EXPECTED_FIRSTPOINT = T::GetZeroVector();
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_FIRSTPOINT = T::GetNullVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
-    T vFirstIntersection = T::GetZeroVector();
-    T vSecondIntersection = T::GetZeroVector();
+    T vFirstIntersection = T::GetNullVector();
+    T vSecondIntersection = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
@@ -7375,20 +7375,20 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginIsConta
     const T EXPECTED_FIRSTPOINT_CGHB = ORIGIN_CGHB;
     const T EXPECTED_FIRSTPOINT_ABCD = ORIGIN_ABCD;
     const T EXPECTED_FIRSTPOINT_EFGH = ORIGIN_EFGH;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
 
-    T vFirstIntersectionDFGC = T::GetZeroVector();
-    T vFirstIntersectionADFE = T::GetZeroVector();
-    T vFirstIntersectionAEHB = T::GetZeroVector();
-    T vFirstIntersectionCGHB = T::GetZeroVector();
-    T vFirstIntersectionABCD = T::GetZeroVector();
-    T vFirstIntersectionEFGH = T::GetZeroVector();
-    T vSecondIntersectionDFGC = T::GetZeroVector();
-    T vSecondIntersectionADFE = T::GetZeroVector();
-    T vSecondIntersectionAEHB = T::GetZeroVector();
-    T vSecondIntersectionCGHB = T::GetZeroVector();
-    T vSecondIntersectionABCD = T::GetZeroVector();
-    T vSecondIntersectionEFGH = T::GetZeroVector();
+    T vFirstIntersectionDFGC = T::GetNullVector();
+    T vFirstIntersectionADFE = T::GetNullVector();
+    T vFirstIntersectionAEHB = T::GetNullVector();
+    T vFirstIntersectionCGHB = T::GetNullVector();
+    T vFirstIntersectionABCD = T::GetNullVector();
+    T vFirstIntersectionEFGH = T::GetNullVector();
+    T vSecondIntersectionDFGC = T::GetNullVector();
+    T vSecondIntersectionADFE = T::GetNullVector();
+    T vSecondIntersectionAEHB = T::GetNullVector();
+    T vSecondIntersectionCGHB = T::GetNullVector();
+    T vSecondIntersectionABCD = T::GetNullVector();
+    T vSecondIntersectionEFGH = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResultDFGC = RAY_IN_DFGC.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC, vSecondIntersectionDFGC);
@@ -7491,18 +7491,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsTwoIntersectionsWhenRayBelongsTo
     const T EXPECTED_SECONDPOINT_ABCD = CENTER_POINT_AB;
     const T EXPECTED_SECONDPOINT_EFGH = CENTER_POINT_EF;
 
-    T vFirstIntersectionDFGC = T::GetZeroVector();
-    T vFirstIntersectionADFE = T::GetZeroVector();
-    T vFirstIntersectionAEHB = T::GetZeroVector();
-    T vFirstIntersectionCGHB = T::GetZeroVector();
-    T vFirstIntersectionABCD = T::GetZeroVector();
-    T vFirstIntersectionEFGH = T::GetZeroVector();
-    T vSecondIntersectionDFGC = T::GetZeroVector();
-    T vSecondIntersectionADFE = T::GetZeroVector();
-    T vSecondIntersectionAEHB = T::GetZeroVector();
-    T vSecondIntersectionCGHB = T::GetZeroVector();
-    T vSecondIntersectionABCD = T::GetZeroVector();
-    T vSecondIntersectionEFGH = T::GetZeroVector();
+    T vFirstIntersectionDFGC = T::GetNullVector();
+    T vFirstIntersectionADFE = T::GetNullVector();
+    T vFirstIntersectionAEHB = T::GetNullVector();
+    T vFirstIntersectionCGHB = T::GetNullVector();
+    T vFirstIntersectionABCD = T::GetNullVector();
+    T vFirstIntersectionEFGH = T::GetNullVector();
+    T vSecondIntersectionDFGC = T::GetNullVector();
+    T vSecondIntersectionADFE = T::GetNullVector();
+    T vSecondIntersectionAEHB = T::GetNullVector();
+    T vSecondIntersectionCGHB = T::GetNullVector();
+    T vSecondIntersectionABCD = T::GetNullVector();
+    T vSecondIntersectionEFGH = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResultDFGC = RAY_IN_DFGC.IntersectionPoint(HEXAHEDRON, vFirstIntersectionDFGC, vSecondIntersectionDFGC);
@@ -7572,7 +7572,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginIsConta
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const T EXPECTED_FIRSTPOINT = VERTEX_G.Lerp(SQFloat::_0_5, VERTEX_D);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
 
     const T ORIGIN = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_G);
     const QVector3 DIRECTION = QVector3(EXPECTED_FIRSTPOINT - ORIGIN).Normalize();
@@ -7581,7 +7581,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginIsConta
     const QBaseHexahedron<T> HEXAHEDRON = QBaseHexahedron<T>(VERTEX_A, VERTEX_B, VERTEX_C, VERTEX_D, VERTEX_E, VERTEX_F, VERTEX_G, VERTEX_H);
 
     T vFirstIntersection;
-    T vSecondIntersection = T::GetZeroVector();
+    T vSecondIntersection = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(HEXAHEDRON, vFirstIntersection, vSecondIntersection);
@@ -7673,7 +7673,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginBelongs
     const T EXPECTED_FIRSTPOINT_AE = ORIGIN_IN_AE;
     const T EXPECTED_FIRSTPOINT_BH = ORIGIN_IN_BH;
     const T EXPECTED_FIRSTPOINT_CG = ORIGIN_IN_CG;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     T vFirstIntersectionAB;
@@ -7688,18 +7688,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginBelongs
     T vFirstIntersectionAE;
     T vFirstIntersectionBH;
     T vFirstIntersectionCG;
-    T vSecondIntersectionAB = T::GetZeroVector();
-    T vSecondIntersectionBC = T::GetZeroVector();
-    T vSecondIntersectionCD = T::GetZeroVector();
-    T vSecondIntersectionDA = T::GetZeroVector();
-    T vSecondIntersectionEF = T::GetZeroVector();
-    T vSecondIntersectionFG = T::GetZeroVector();
-    T vSecondIntersectionGH = T::GetZeroVector();
-    T vSecondIntersectionHE = T::GetZeroVector();
-    T vSecondIntersectionDF = T::GetZeroVector();
-    T vSecondIntersectionAE = T::GetZeroVector();
-    T vSecondIntersectionBH = T::GetZeroVector();
-    T vSecondIntersectionCG = T::GetZeroVector();
+    T vSecondIntersectionAB = T::GetNullVector();
+    T vSecondIntersectionBC = T::GetNullVector();
+    T vSecondIntersectionCD = T::GetNullVector();
+    T vSecondIntersectionDA = T::GetNullVector();
+    T vSecondIntersectionEF = T::GetNullVector();
+    T vSecondIntersectionFG = T::GetNullVector();
+    T vSecondIntersectionGH = T::GetNullVector();
+    T vSecondIntersectionHE = T::GetNullVector();
+    T vSecondIntersectionDF = T::GetNullVector();
+    T vSecondIntersectionAE = T::GetNullVector();
+    T vSecondIntersectionBH = T::GetNullVector();
+    T vSecondIntersectionCG = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResultAB = RAY_IN_AB.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAB, vSecondIntersectionAB);
@@ -7984,7 +7984,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenRayIntersects
     const T EXPECTED_FIRSTPOINT_AE = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_E);
     const T EXPECTED_FIRSTPOINT_BH = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_H);
     const T EXPECTED_FIRSTPOINT_CG = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_G);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     const float_q ORIGIN_OVER_COMPONENTS[]  = { (float_q)1.5, SQFloat::_3, SQFloat::_2, SQFloat::_1 };
@@ -8046,18 +8046,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenRayIntersects
     T vFirstIntersectionAE;
     T vFirstIntersectionBH;
     T vFirstIntersectionCG;
-    T vSecondIntersectionAB = T::GetZeroVector();
-    T vSecondIntersectionBC = T::GetZeroVector();
-    T vSecondIntersectionCD = T::GetZeroVector();
-    T vSecondIntersectionDA = T::GetZeroVector();
-    T vSecondIntersectionEF = T::GetZeroVector();
-    T vSecondIntersectionFG = T::GetZeroVector();
-    T vSecondIntersectionGH = T::GetZeroVector();
-    T vSecondIntersectionHE = T::GetZeroVector();
-    T vSecondIntersectionDF = T::GetZeroVector();
-    T vSecondIntersectionAE = T::GetZeroVector();
-    T vSecondIntersectionBH = T::GetZeroVector();
-    T vSecondIntersectionCG = T::GetZeroVector();
+    T vSecondIntersectionAB = T::GetNullVector();
+    T vSecondIntersectionBC = T::GetNullVector();
+    T vSecondIntersectionCD = T::GetNullVector();
+    T vSecondIntersectionDA = T::GetNullVector();
+    T vSecondIntersectionEF = T::GetNullVector();
+    T vSecondIntersectionFG = T::GetNullVector();
+    T vSecondIntersectionGH = T::GetNullVector();
+    T vSecondIntersectionHE = T::GetNullVector();
+    T vSecondIntersectionDF = T::GetNullVector();
+    T vSecondIntersectionAE = T::GetNullVector();
+    T vSecondIntersectionBH = T::GetNullVector();
+    T vSecondIntersectionCG = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eIntersectionsWithAB = RAY_TO_AB.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAB, vSecondIntersectionAB);
@@ -8160,7 +8160,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsOneIntersectionWhenOriginAndHexa
     const T EXPECTED_FIRSTPOINT_F = VERTEX_F;
     const T EXPECTED_FIRSTPOINT_G = VERTEX_G;
     const T EXPECTED_FIRSTPOINT_H = VERTEX_H;
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     T vFirstIntersectionA;
@@ -8409,7 +8409,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_AssertionFailsWhenRayDirectionIsNull_Te
     // [Preparation]
     const float_q ORIGIN_COMPONENTS[] = { SQFloat::_3, SQFloat::_3, SQFloat::_1, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
-    const QVector3 DIRECTION = QVector3::GetZeroVector();
+    const QVector3 DIRECTION = QVector3::GetNullVector();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
     const float_q VERTEX_A_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_0 };
@@ -8514,7 +8514,7 @@ QTEST_CASE ( IntersectionPoint8_WComponentDoesNotChangeWhenIntersectionsAreDetec
     const QVector4 INTERSECTION_POINT = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B);
 
     const QVector3 DIRECTION = QVector3(INTERSECTION_POINT).Normalize();
-    const QRay3D<QVector4> RAY = QRay3D<QVector4>(QVector4::GetZeroVector(), DIRECTION);
+    const QRay3D<QVector4> RAY = QRay3D<QVector4>(QVector4::GetNullVector(), DIRECTION);
 
     const float_q EXPECTED_FIRST_WCOMPONENT = SQFloat::_5;
     const float_q EXPECTED_SECOND_WCOMPONENT = SQFloat::_6;
@@ -8757,18 +8757,18 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint8_ReturnsTwoIntersectionsWhenRayBelongsTo
     T vFirstIntersectionAE;
     T vFirstIntersectionBH;
     T vFirstIntersectionCG;
-    T vSecondIntersectionAB = T::GetZeroVector();
-    T vSecondIntersectionBC = T::GetZeroVector();
-    T vSecondIntersectionCD = T::GetZeroVector();
-    T vSecondIntersectionDA = T::GetZeroVector();
-    T vSecondIntersectionEF = T::GetZeroVector();
-    T vSecondIntersectionFG = T::GetZeroVector();
-    T vSecondIntersectionGH = T::GetZeroVector();
-    T vSecondIntersectionHE = T::GetZeroVector();
-    T vSecondIntersectionDF = T::GetZeroVector();
-    T vSecondIntersectionAE = T::GetZeroVector();
-    T vSecondIntersectionBH = T::GetZeroVector();
-    T vSecondIntersectionCG = T::GetZeroVector();
+    T vSecondIntersectionAB = T::GetNullVector();
+    T vSecondIntersectionBC = T::GetNullVector();
+    T vSecondIntersectionCD = T::GetNullVector();
+    T vSecondIntersectionDA = T::GetNullVector();
+    T vSecondIntersectionEF = T::GetNullVector();
+    T vSecondIntersectionFG = T::GetNullVector();
+    T vSecondIntersectionGH = T::GetNullVector();
+    T vSecondIntersectionHE = T::GetNullVector();
+    T vSecondIntersectionDF = T::GetNullVector();
+    T vSecondIntersectionAE = T::GetNullVector();
+    T vSecondIntersectionBH = T::GetNullVector();
+    T vSecondIntersectionCG = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResultAB = RAY_IN_AB.IntersectionPoint(HEXAHEDRON, vFirstIntersectionAB, vSecondIntersectionAB);
@@ -9128,7 +9128,7 @@ QTEST_CASE_TEMPLATE( SpaceRelation_AssertionFailsWhenRayIsNull_Test, TQTemplateT
     using Kinesis::QuimeraEngine::Tools::Math::QPlane;
 
     // [Preparation]
-    const QRay3D<T> RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> RAY = QRay3D<T>::GetNullRay();
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
 
     const bool ASSERTION_FAILED = true;
@@ -9288,7 +9288,7 @@ QTEST_CASE_TEMPLATE ( Rotate1_OriginAndDirectionAreNullifiedWhenQuaternionIsNull
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
 	// [Execution]
     QRay3D<T> ray = RAY.Rotate(NULL_QUATERNION);
@@ -9380,7 +9380,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivotWithPivot1_OriginAndDirectionAreNullifiedWh
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
 	// [Execution]
     QRay3D<T> ray = RAY.RotateWithPivot(NULL_QUATERNION, PIVOT);
@@ -9420,7 +9420,7 @@ QTEST_CASE_TEMPLATE ( Translate1_RayIsCorrectlyTransformedByCommonTranslationVec
 QTEST_CASE_TEMPLATE ( Translate1_RayDoesNotChangeWhenTransformedByNullVector_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NULL_VECTOR = QVector3::GetNullVector();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -9541,7 +9541,7 @@ QTEST_CASE_TEMPLATE ( Scale1_RayDoesNotChangeWhenTransformedByVectorOfOnes_Test,
 QTEST_CASE_TEMPLATE ( Scale1_AssertionFailsWhenTransformedByNullScalingVector_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NULL_VECTOR = QVector3::GetNullVector();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -9659,7 +9659,7 @@ QTEST_CASE_TEMPLATE ( Scale2_AssertionFailsWhenTransformedByScalingValuesThatEqu
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
     const bool ASSERTION_FAILED = true;
 
@@ -9773,14 +9773,14 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_RayDoesNotChangeWhenTransformedByVectorOfO
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenTransformedByNullScalingVector_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NULL_VECTOR = QVector3::GetNullVector();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
@@ -9907,7 +9907,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenTransformedByNullScaling
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
@@ -10035,17 +10035,17 @@ QTEST_CASE_TEMPLATE ( Rotate2_OriginAndDirectionAreNullifiedWhenMatrixIsZero_Tes
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    const QRotationMatrix3x3 ZERO_MATRIX = QMatrix3x3::GetZeroMatrix();
+    const QRotationMatrix3x3 NULL_MATRIX = QMatrix3x3::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
 	// [Execution]
-    QRay3D<T> ray = RAY.Rotate(ZERO_MATRIX);
+    QRay3D<T> ray = RAY.Rotate(NULL_MATRIX);
 
     // [Verification]
     BOOST_CHECK(ray.Direction == EXPECTED_RAY.Direction);
@@ -10078,7 +10078,7 @@ QTEST_CASE_TEMPLATE ( Translate3_RayIsCorrectlyTransformedByCommonTranslationVec
 }
 
 /// <summary>
-/// Checks that the ray doesn't change when it's transformed by a zero translation matrix.
+/// Checks that the ray doesn't change when it's transformed by a null translation matrix.
 /// </summary>
 QTEST_CASE_TEMPLATE ( Translate3_RayDoesNotChangeWhenTransformedByNullVector_Test, TQTemplateTypes )
 {
@@ -10086,7 +10086,7 @@ QTEST_CASE_TEMPLATE ( Translate3_RayDoesNotChangeWhenTransformedByNullVector_Tes
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
     // [Preparation]
-    const QTranslationMatrix<QMatrix4x3> ZERO_MATRIX = QMatrix4x3::GetZeroMatrix();
+    const QTranslationMatrix<QMatrix4x3> NULL_MATRIX = QMatrix4x3::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -10096,7 +10096,7 @@ QTEST_CASE_TEMPLATE ( Translate3_RayDoesNotChangeWhenTransformedByNullVector_Tes
     const QRay3D<T> EXPECTED_RAY = RAY;
 
 	// [Execution]
-    QRay3D<T> ray = RAY.Translate(ZERO_MATRIX);
+    QRay3D<T> ray = RAY.Translate(NULL_MATRIX);
 
     // [Verification]
     BOOST_CHECK(ray == EXPECTED_RAY);
@@ -10129,15 +10129,15 @@ QTEST_CASE_TEMPLATE ( Translate4_RayIsCorrectlyTransformedByCommonTranslationMat
 }
 
 /// <summary>
-/// Checks that the ray doesn't change when it's transformed by a zero translation matrix.
+/// Checks that the ray doesn't change when it's transformed by a null translation matrix.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Translate4_RayDoesNotChangeWhenTransformedByZeroMatrix_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Translate4_RayDoesNotChangeWhenTransformedByNullMatrix_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     // [Preparation]
-    const QTranslationMatrix<QMatrix4x4> ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
+    const QTranslationMatrix<QMatrix4x4> NULL_MATRIX = QMatrix4x4::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -10147,7 +10147,7 @@ QTEST_CASE_TEMPLATE ( Translate4_RayDoesNotChangeWhenTransformedByZeroMatrix_Tes
     const QRay3D<T> EXPECTED_RAY = RAY;
 
 	// [Execution]
-    QRay3D<T> ray = RAY.Translate(ZERO_MATRIX);
+    QRay3D<T> ray = RAY.Translate(NULL_MATRIX);
 
     // [Verification]
     BOOST_CHECK(ray == EXPECTED_RAY);
@@ -10232,13 +10232,13 @@ QTEST_CASE_TEMPLATE ( Scale3_RayDoesNotChangeWhenTransformedByIdentityMatrix_Tes
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by an null scaling matrix.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Scale3_AssertionFailsWhenTransformedByZeroScalingMatrix_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Scale3_AssertionFailsWhenTransformedByNullScalingMatrix_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     // [Preparation]
-    const QScalingMatrix3x3 ZERO_MATRIX = QMatrix3x3::GetZeroMatrix();
+    const QScalingMatrix3x3 NULL_MATRIX = QMatrix3x3::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -10252,7 +10252,7 @@ QTEST_CASE_TEMPLATE ( Scale3_AssertionFailsWhenTransformedByZeroScalingMatrix_Te
 
     try
     {
-        RAY.Scale(ZERO_MATRIX);
+        RAY.Scale(NULL_MATRIX);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
     {
@@ -10355,15 +10355,15 @@ QTEST_CASE_TEMPLATE ( Transform1_RayDoesNotChangeWhenTransformedByIdentityMatrix
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that the ray is nullified when it's transformed by a zero transformation matrix.
+/// Checks that the ray is nullified when it's transformed by a null transformation matrix.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformedByZeroTransformationMatrix_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformedByNullTransformationMatrix_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
     // [Preparation]
-    const QTransformationMatrix<QMatrix4x3> ZERO_MATRIX = QMatrix4x3::GetZeroMatrix();
+    const QTransformationMatrix<QMatrix4x3> NULL_MATRIX = QMatrix4x3::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -10377,7 +10377,7 @@ QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformedByZeroTransformati
 
     try
     {
-        RAY.Transform(ZERO_MATRIX);
+        RAY.Transform(NULL_MATRIX);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
     {
@@ -10492,13 +10492,13 @@ QTEST_CASE_TEMPLATE ( Transform2_RayDoesNotChangeWhenTransformedByIdentityMatrix
 /// <summary>
 /// Checks that the ray is nullified when it's transformed by a zero transformation matrix.
 /// </summary>
-QTEST_CASE_TEMPLATE ( Transform2_AssertionFailsWhenTransformedByZeroTransformationMatrix_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( Transform2_AssertionFailsWhenTransformedByNullTransformationMatrix_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     // [Preparation]
-    const QTransformationMatrix<QMatrix4x4> ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
+    const QTransformationMatrix<QMatrix4x4> NULL_MATRIX = QMatrix4x4::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -10512,7 +10512,7 @@ QTEST_CASE_TEMPLATE ( Transform2_AssertionFailsWhenTransformedByZeroTransformati
 
     try
     {
-        RAY.Transform(ZERO_MATRIX);
+        RAY.Transform(NULL_MATRIX);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
     {
@@ -10623,17 +10623,17 @@ QTEST_CASE_TEMPLATE ( Transform3_OriginAndDirectionAreNullifiedWhenMatrixIsZero_
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     // [Preparation]
-    const QSpaceConversionMatrix ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
+    const QSpaceConversionMatrix NULL_MATRIX = QMatrix4x4::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6).Normalize();
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
 	// [Execution]
-    QRay3D<T> ray = RAY.Transform(ZERO_MATRIX);
+    QRay3D<T> ray = RAY.Transform(NULL_MATRIX);
 
     // [Verification]
     BOOST_CHECK(ray == EXPECTED_RAY);
@@ -10714,20 +10714,20 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_OriginAndDirectionAreNullifiedWhenMatrixI
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    const QRotationMatrix3x3 ZERO_MATRIX = QMatrix3x3::GetZeroMatrix();
+    const QRotationMatrix3x3 NULL_MATRIX = QMatrix3x3::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
     const QVector3 DIRECTION = QVector3(SQFloat::_4, SQFloat::_5, SQFloat::_6);
     const QRay3D<T> RAY = QRay3D<T>(ORIGIN, DIRECTION);
 
-    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetRayZero();
+    const QRay3D<T> EXPECTED_RAY = QRay3D<T>::GetNullRay();
 
     const float_q PIVOT_COMPONENTS[] = { SQFloat::_3, SQFloat::_4, SQFloat::_5, SQFloat::_1 };
     const T PIVOT = T(PIVOT_COMPONENTS);
 
 	// [Execution]
-    QRay3D<T> ray = RAY.RotateWithPivot(ZERO_MATRIX, PIVOT);
+    QRay3D<T> ray = RAY.RotateWithPivot(NULL_MATRIX, PIVOT);
 
     // [Verification]
     BOOST_CHECK(ray.Direction == EXPECTED_RAY.Direction);
@@ -10799,7 +10799,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenTransformedByZeroScaling
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     // [Preparation]
-    const QScalingMatrix3x3 ZERO_MATRIX = QMatrix3x3::GetZeroMatrix();
+    const QScalingMatrix3x3 NULL_MATRIX = QMatrix3x3::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -10816,7 +10816,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenTransformedByZeroScaling
 
     try
     {
-        RAY.ScaleWithPivot(ZERO_MATRIX, PIVOT);
+        RAY.ScaleWithPivot(NULL_MATRIX, PIVOT);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
     {
@@ -10937,15 +10937,15 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot1_RayDoesNotChangeWhenTransformedByIdent
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that the ray is nullified when it's transformed by a zero translation matrix.
+/// Checks that the ray is nullified when it's transformed by a null translation matrix.
 /// </summary>
-QTEST_CASE_TEMPLATE ( TransformWithPivot1_AssertionFailsWhenTransformedByZeroTransformationMatrix_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( TransformWithPivot1_AssertionFailsWhenTransformedByNullTransformationMatrix_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
 
     // [Preparation]
-    const QTransformationMatrix<QMatrix4x3> ZERO_MATRIX = QMatrix4x3::GetZeroMatrix();
+    const QTransformationMatrix<QMatrix4x3> NULL_MATRIX = QMatrix4x3::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -10962,7 +10962,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot1_AssertionFailsWhenTransformedByZeroTra
 
     try
     {
-        RAY.TransformWithPivot(ZERO_MATRIX, PIVOT);
+        RAY.TransformWithPivot(NULL_MATRIX, PIVOT);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
     {
@@ -11093,15 +11093,15 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot2_RayDoesNotChangeWhenTransformedByIdent
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
 
 /// <summary>
-/// Checks that the ray is nullified when it's transformed by a zero translation matrix.
+/// Checks that the ray is nullified when it's transformed by a null translation matrix.
 /// </summary>
-QTEST_CASE_TEMPLATE ( TransformWithPivot2_AssertionFailsWhenTransformedByZeroTransformationMatrix_Test, TQTemplateTypes )
+QTEST_CASE_TEMPLATE ( TransformWithPivot2_AssertionFailsWhenTransformedByNullTransformationMatrix_Test, TQTemplateTypes )
 {
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     // [Preparation]
-    const QTransformationMatrix<QMatrix4x4> ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
+    const QTransformationMatrix<QMatrix4x4> NULL_MATRIX = QMatrix4x4::GetNullMatrix();
 
 	const float_q ORIGIN_COMPONENTS[] = { SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T ORIGIN(ORIGIN_COMPONENTS);
@@ -11118,7 +11118,7 @@ QTEST_CASE_TEMPLATE ( TransformWithPivot2_AssertionFailsWhenTransformedByZeroTra
 
     try
     {
-        RAY.TransformWithPivot(ZERO_MATRIX, PIVOT);
+        RAY.TransformWithPivot(NULL_MATRIX, PIVOT);
     }
     catch(...) // [TODO] Thund: A concrete exception has to be used when implemented
     {

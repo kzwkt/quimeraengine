@@ -660,7 +660,7 @@ QTEST_CASE( SetWorldSpaceMatrix1_ZeroMatrixWhoseElement33EqualsOneIsObtainedWhen
     const QBaseQuaternion ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QBaseVector3 SCALE(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetZeroMatrix();
+    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetNullMatrix();
     EXPECTED_VALUE.ij[3][3] = SQFloat::_1;
 
     // [Execution]
@@ -788,9 +788,9 @@ QTEST_CASE( SetWorldSpaceMatrix1_CompositionOrderIsScaleRotationTranslation_Test
     QSpaceConversionMatrix TRANSLATION_MATRIX;
     TRANSLATION_MATRIX.SetWorldSpaceMatrix(TRANSLATION, QQuaternion::GetIdentity(), QVector3::GetVectorOfOnes());
     QSpaceConversionMatrix ROTATION_MATRIX;
-    ROTATION_MATRIX.SetWorldSpaceMatrix(QVector3::GetZeroVector(), ROTATION, QVector3::GetVectorOfOnes());
+    ROTATION_MATRIX.SetWorldSpaceMatrix(QVector3::GetNullVector(), ROTATION, QVector3::GetVectorOfOnes());
     QSpaceConversionMatrix SCALE_MATRIX;
-    SCALE_MATRIX.SetWorldSpaceMatrix(QVector3::GetZeroVector(), QQuaternion::GetIdentity(), SCALE);
+    SCALE_MATRIX.SetWorldSpaceMatrix(QVector3::GetNullVector(), QQuaternion::GetIdentity(), SCALE);
 
     const QSpaceConversionMatrix EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
@@ -1086,7 +1086,7 @@ QTEST_CASE( SetWorldSpaceMatrix2_ZeroMatrixWhoseElement33EqualsOneIsObtainedWhen
     const QBaseQuaternion ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QBaseVector3 SCALE(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetZeroMatrix();
+    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetNullMatrix();
     EXPECTED_VALUE.ij[3][3] = SQFloat::_1;
 
     // [Execution]
@@ -1217,9 +1217,9 @@ QTEST_CASE( SetWorldSpaceMatrix2_CompositionOrderIsScaleRotationTranslation_Test
     QSpaceConversionMatrix TRANSLATION_MATRIX;
     TRANSLATION_MATRIX.SetWorldSpaceMatrix(TRANSLATION, QQuaternion::GetIdentity(), QVector3::GetVectorOfOnes());
     QSpaceConversionMatrix ROTATION_MATRIX;
-    ROTATION_MATRIX.SetWorldSpaceMatrix(QVector3::GetZeroVector(), ROTATION, QVector3::GetVectorOfOnes());
+    ROTATION_MATRIX.SetWorldSpaceMatrix(QVector3::GetNullVector(), ROTATION, QVector3::GetVectorOfOnes());
     QSpaceConversionMatrix SCALE_MATRIX;
-    SCALE_MATRIX.SetWorldSpaceMatrix(QVector3::GetZeroVector(), QQuaternion::GetIdentity(), SCALE);
+    SCALE_MATRIX.SetWorldSpaceMatrix(QVector3::GetNullVector(), QQuaternion::GetIdentity(), SCALE);
 
     const QSpaceConversionMatrix EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
@@ -1500,11 +1500,11 @@ QTEST_CASE( SetWorldSpaceMatrix3_ZeroMatrixWhoseElement33EqualsOneIsObtainedWhen
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    const QMatrix4x4 TRANSLATION = QMatrix4x4::GetZeroMatrix();
-    const QMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
-    const QMatrix3x3 SCALE = QMatrix3x3::GetZeroMatrix();
+    const QMatrix4x4 TRANSLATION = QMatrix4x4::GetNullMatrix();
+    const QMatrix3x3 ROTATION = QMatrix3x3::GetNullMatrix();
+    const QMatrix3x3 SCALE = QMatrix3x3::GetNullMatrix();
 
-    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetZeroMatrix();
+    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetNullMatrix();
     EXPECTED_VALUE.ij[3][3] = SQFloat::_1;
 
     // [Execution]
@@ -1605,7 +1605,7 @@ QTEST_CASE( SetWorldSpaceMatrix3_CompositionOrderIsScaleRotationTranslation_Test
     const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
-    const QMatrix4x4 NEUTRAL_TRANSLATION = QMatrix4x4::GetZeroMatrix();
+    const QMatrix4x4 NEUTRAL_TRANSLATION = QMatrix4x4::GetNullMatrix();
     const QRotationMatrix3x3 NEUTRAL_ROTATION = QRotationMatrix3x3::GetIdentity();
     const QScalingMatrix3x3 NEUTRAL_SCALE = QScalingMatrix3x3::GetIdentity();
 
@@ -1890,11 +1890,11 @@ QTEST_CASE( SetWorldSpaceMatrix4_ZeroMatrixWhoseElement33EqualsOneIsObtainedWhen
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
-    const QMatrix4x4 TRANSLATION = QMatrix4x4::GetZeroMatrix();
-    const QMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
-    const QMatrix3x3 SCALE = QMatrix3x3::GetZeroMatrix();
+    const QMatrix4x4 TRANSLATION = QMatrix4x4::GetNullMatrix();
+    const QMatrix3x3 ROTATION = QMatrix3x3::GetNullMatrix();
+    const QMatrix3x3 SCALE = QMatrix3x3::GetNullMatrix();
 
-    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetZeroMatrix();
+    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetNullMatrix();
     EXPECTED_VALUE.ij[3][3] = SQFloat::_1;
 
     // [Execution]
@@ -1994,7 +1994,7 @@ QTEST_CASE( SetWorldSpaceMatrix4_CompositionOrderIsScaleRotationTranslation_Test
     const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
-    const QMatrix4x4 NEUTRAL_TRANSLATION = QMatrix4x4::GetZeroMatrix();
+    const QMatrix4x4 NEUTRAL_TRANSLATION = QMatrix4x4::GetNullMatrix();
     const QRotationMatrix3x3 NEUTRAL_ROTATION = QRotationMatrix3x3::GetIdentity();
     const QScalingMatrix3x3 NEUTRAL_SCALE = QScalingMatrix3x3::GetIdentity();
 
@@ -2042,8 +2042,8 @@ QTEST_CASE( SetWorldSpaceMatrix5_TransformationIsCorrectlyBuiltFromCommonTransfo
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QTransformationMatrix<QMatrix4x4> TRANSLATION(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3), QQuaternion::GetIdentity(), QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<QMatrix4x4> ROTATION(QVector3::GetZeroVector(), QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7), QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<QMatrix4x4> SCALE(QVector3::GetZeroVector(), QQuaternion::GetIdentity(), QVector3(SQFloat::_8, SQFloat::_9, SQFloat::_10));
+    const QTransformationMatrix<QMatrix4x4> ROTATION(QVector3::GetNullVector(), QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7), QVector3::GetVectorOfOnes());
+    const QTransformationMatrix<QMatrix4x4> SCALE(QVector3::GetNullVector(), QQuaternion::GetIdentity(), QVector3(SQFloat::_8, SQFloat::_9, SQFloat::_10));
 
     QMatrix4x4 EXPECTED_VALUE;
     EXPECTED_VALUE.ij[0][0] = (float_q)-968.0;
@@ -2179,7 +2179,7 @@ QTEST_CASE( SetWorldSpaceMatrix5_CorrectResultObtainedWhenOnlyContainsRotation_T
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     const QTransformationMatrix<QMatrix4x4> TRANSLATION = QTransformationMatrix<QMatrix4x4>::GetIdentity();
-    const QTransformationMatrix<QMatrix4x4> ROTATION(QVector3::GetZeroVector(), QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize(), QVector3::GetVectorOfOnes());
+    const QTransformationMatrix<QMatrix4x4> ROTATION(QVector3::GetNullVector(), QQuaternion(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize(), QVector3::GetVectorOfOnes());
     const QTransformationMatrix<QMatrix4x4> SCALE = QTransformationMatrix<QMatrix4x4>::GetIdentity();
 
     QMatrix4x4 EXPECTED_VALUE;
@@ -2236,7 +2236,7 @@ QTEST_CASE( SetWorldSpaceMatrix5_CorrectResultObtainedWhenOnlyContainsScale_Test
 
     const QTransformationMatrix<QMatrix4x4> TRANSLATION = QTransformationMatrix<QMatrix4x4>::GetIdentity();
     const QTransformationMatrix<QMatrix4x4> ROTATION = QTransformationMatrix<QMatrix4x4>::GetIdentity();
-    const QTransformationMatrix<QMatrix4x4> SCALE = QTransformationMatrix<QMatrix4x4>(QVector3::GetZeroVector(), QQuaternion::GetIdentity(), QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_4));
+    const QTransformationMatrix<QMatrix4x4> SCALE = QTransformationMatrix<QMatrix4x4>(QVector3::GetNullVector(), QQuaternion::GetIdentity(), QVector3(SQFloat::_2, SQFloat::_3, SQFloat::_4));
 
     QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetIdentity();
     EXPECTED_VALUE.ij[0][0] = SCALE.ij[0][0];
@@ -2277,11 +2277,11 @@ QTEST_CASE( SetWorldSpaceMatrix5_ZeroMatrixWhoseElement33EqualsOneIsObtainedWhen
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    const QTransformationMatrix<QMatrix4x4> TRANSLATION(QMatrix4x4::GetZeroMatrix());
-    const QTransformationMatrix<QMatrix4x4> ROTATION(QMatrix4x4::GetZeroMatrix());
-    const QTransformationMatrix<QMatrix4x4> SCALE(QMatrix4x4::GetZeroMatrix());
+    const QTransformationMatrix<QMatrix4x4> TRANSLATION(QMatrix4x4::GetNullMatrix());
+    const QTransformationMatrix<QMatrix4x4> ROTATION(QMatrix4x4::GetNullMatrix());
+    const QTransformationMatrix<QMatrix4x4> SCALE(QMatrix4x4::GetNullMatrix());
 
-    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetZeroMatrix();
+    QMatrix4x4 EXPECTED_VALUE = QMatrix4x4::GetNullMatrix();
     EXPECTED_VALUE.ij[3][3] = SQFloat::_1;
 
     // [Execution]
@@ -2328,9 +2328,9 @@ QTEST_CASE( SetWorldSpaceMatrix5_FollowsLeftHandedRules_Test )
     const QTransformationMatrix<QMatrix4x4> TRANSLATION = QTransformationMatrix<QMatrix4x4>::GetIdentity();
     const QTransformationMatrix<QMatrix4x4> SCALE = QTransformationMatrix<QMatrix4x4>::GetIdentity();
 
-    const QTransformationMatrix<QMatrix4x4> ROTATION_QUATERNION_AROUND_X(QVector3::GetZeroVector(), QQuaternion(ROTATION_ANGLE, SQFloat::_0, SQFloat::_0).Normalize(), QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<QMatrix4x4> ROTATION_QUATERNION_AROUND_Y(QVector3::GetZeroVector(), QQuaternion(SQFloat::_0, ROTATION_ANGLE, SQFloat::_0).Normalize(), QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<QMatrix4x4> ROTATION_QUATERNION_AROUND_Z(QVector3::GetZeroVector(), QQuaternion(SQFloat::_0, SQFloat::_0, ROTATION_ANGLE).Normalize(), QVector3::GetVectorOfOnes());
+    const QTransformationMatrix<QMatrix4x4> ROTATION_QUATERNION_AROUND_X(QVector3::GetNullVector(), QQuaternion(ROTATION_ANGLE, SQFloat::_0, SQFloat::_0).Normalize(), QVector3::GetVectorOfOnes());
+    const QTransformationMatrix<QMatrix4x4> ROTATION_QUATERNION_AROUND_Y(QVector3::GetNullVector(), QQuaternion(SQFloat::_0, ROTATION_ANGLE, SQFloat::_0).Normalize(), QVector3::GetVectorOfOnes());
+    const QTransformationMatrix<QMatrix4x4> ROTATION_QUATERNION_AROUND_Z(QVector3::GetNullVector(), QQuaternion(SQFloat::_0, SQFloat::_0, ROTATION_ANGLE).Normalize(), QVector3::GetVectorOfOnes());
 
     QSpaceConversionMatrix ROTATION_AROUND_X;
     ROTATION_AROUND_X.SetWorldSpaceMatrix(TRANSLATION, ROTATION_QUATERNION_AROUND_X, SCALE);
@@ -2376,10 +2376,10 @@ QTEST_CASE( SetWorldSpaceMatrix5_CompositionOrderIsScaleRotationTranslation_Test
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
     const QTransformationMatrix<QMatrix4x4> TRANSLATION(QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3), QQuaternion::GetIdentity(), QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<QMatrix4x4> ROTATION(QVector3::GetZeroVector(), QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7), QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<QMatrix4x4> SCALE(QVector3::GetZeroVector(), QQuaternion::GetIdentity(), QVector3(SQFloat::_8, SQFloat::_9, SQFloat::_10));
+    const QTransformationMatrix<QMatrix4x4> ROTATION(QVector3::GetNullVector(), QQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7), QVector3::GetVectorOfOnes());
+    const QTransformationMatrix<QMatrix4x4> SCALE(QVector3::GetNullVector(), QQuaternion::GetIdentity(), QVector3(SQFloat::_8, SQFloat::_9, SQFloat::_10));
 
-    const QTransformationMatrix<QMatrix4x4> NEUTRAL_TRANSLATION = QTransformationMatrix<QMatrix4x4>::GetZeroMatrix();
+    const QTransformationMatrix<QMatrix4x4> NEUTRAL_TRANSLATION = QTransformationMatrix<QMatrix4x4>::GetNullMatrix();
     const QTransformationMatrix<QMatrix4x4> NEUTRAL_ROTATION = QTransformationMatrix<QMatrix4x4>::GetIdentity();
     const QTransformationMatrix<QMatrix4x4> NEUTRAL_SCALE = QTransformationMatrix<QMatrix4x4>::GetIdentity();
 
@@ -2592,7 +2592,7 @@ QTEST_CASE( SetViewSpaceMatrix2_AssertionFailsWhenUpVectorIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    const QVector4 UP_DIRECTION = QVector4::GetZeroVector();
+    const QVector4 UP_DIRECTION = QVector4::GetNullVector();
     const QVector4 POINT_OF_VIEW = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
     const QVector4 TARGET = QVector4(SQFloat::_5, SQFloat::_6, SQFloat::_7, SQFloat::_8);
 

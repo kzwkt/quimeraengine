@@ -192,7 +192,7 @@ public:
     /// <returns>
     /// A plane with all components set to 0.
     /// </returns>
-    static const QPlane& GetZeroPlane();
+    static const QPlane& GetNullPlane();
 
     /// <summary>
     /// Gets the plane that contains the Z and X axis, and its normal is in the Y axis.

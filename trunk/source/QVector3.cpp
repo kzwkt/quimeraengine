@@ -443,10 +443,10 @@ QVector3 QVector3::TransformImp(const QTransformationMatrix<MatrixType> &transfo
 //##################													   ##################
 //##################=======================================================##################
 
-const QVector3& QVector3::GetZeroVector()
+const QVector3& QVector3::GetNullVector()
 {
-    static const QVector3 ZEROVECTOR(SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-    return ZEROVECTOR;
+    static const QVector3 NULLVECTOR(SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+    return NULLVECTOR;
 }
 
 const QVector3& QVector3::GetVectorOfOnes()

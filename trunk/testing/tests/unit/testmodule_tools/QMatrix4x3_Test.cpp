@@ -383,13 +383,13 @@ QTEST_CASE ( Constructor7_MatrixComponentsAreSetToValidVF32PackedValues_Test )
 /// <summary>
 /// Checks that all the elements of the returned matrix equal zero.
 /// </summary>
-QTEST_CASE ( GetZeroMatrix_AllElementsEqualZero_Test )
+QTEST_CASE ( GetNullMatrix_AllElementsEqualZero_Test )
 {
     // [Preparation]
     const float_q EXPECTED_VALUE_FOR_ALL = SQFloat::_0;
 
 	// [Execution]
-    QMatrix4x3 matrixUT = QMatrix4x3::GetZeroMatrix();
+    QMatrix4x3 matrixUT = QMatrix4x3::GetNullMatrix();
 
     // [Verification]
     BOOST_CHECK_EQUAL(matrixUT.ij[0][0], EXPECTED_VALUE_FOR_ALL);
@@ -1252,14 +1252,14 @@ QTEST_CASE ( Transpose_TheRowAndColumOfElementsAreSwapped_Test )
 /// <summary>
 /// Checks that it returns True when all the matrix elements equal zero.
 /// </summary>
-QTEST_CASE ( IsZero_ReturnsTrueWhenAllElementsEqualZero_Test )
+QTEST_CASE ( IsNull_ReturnsTrueWhenAllElementsEqualZero_Test )
 {
     // [Preparation]
-    const QMatrix4x3 ZERO_MATRIX = QMatrix4x3::GetZeroMatrix();
+    const QMatrix4x3 NULL_MATRIX = QMatrix4x3::GetNullMatrix();
     const bool EXPECTED_VALUE = true;
 
     // [Execution]
-    QMatrix4x3 matrixUT = ZERO_MATRIX;
+    QMatrix4x3 matrixUT = NULL_MATRIX;
     bool bResult = matrixUT.IsZero();
 
     // [Verification]
@@ -1269,14 +1269,14 @@ QTEST_CASE ( IsZero_ReturnsTrueWhenAllElementsEqualZero_Test )
 /// <summary>
 /// Checks that it returns False when not all the matrix elements equal zero.
 /// </summary>
-QTEST_CASE ( IsZero_ReturnsFalseWhenNotAllElementsEqualZero_Test )
+QTEST_CASE ( IsNull_ReturnsFalseWhenNotAllElementsEqualZero_Test )
 {
     // [Preparation]
-    const QMatrix4x3 ZERO_MATRIX = QMatrix4x3::GetZeroMatrix();
+    const QMatrix4x3 NULL_MATRIX = QMatrix4x3::GetNullMatrix();
     const bool EXPECTED_VALUE = false;
 
     // [Execution]
-    QMatrix4x3 matrixUT = ZERO_MATRIX;
+    QMatrix4x3 matrixUT = NULL_MATRIX;
     bool bAtLeastOneReturnsTrue = false;
 
     matrixUT.ij[0][0] = SQFloat::_1;    bAtLeastOneReturnsTrue |= matrixUT.IsZero();    matrixUT.ij[0][0] = SQFloat::_0;

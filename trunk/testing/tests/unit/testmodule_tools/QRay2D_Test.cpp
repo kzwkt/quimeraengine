@@ -54,8 +54,8 @@ QTEST_SUITE_BEGIN( QRay2D_TestSuite )
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // [Preparation]
-    const QVector2 EXPECTED_VALUE_FOR_ORIGIN(QVector2::GetZeroVector());
-    const QVector2 EXPECTED_VALUE_FOR_DIRECTION = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_VALUE_FOR_ORIGIN(QVector2::GetNullVector());
+    const QVector2 EXPECTED_VALUE_FOR_DIRECTION = QVector2::GetNullVector();
 
 	// [Execution]
     QRay2D rayUT;
@@ -143,13 +143,13 @@ QTEST_CASE ( Constructor4_ConstructedRayIsNotNormalizedWhenDirectionVectorIsNot_
 /// <summary>
 /// Checks that it returns a null ray placed at the origin.
 /// </summary>
-QTEST_CASE ( GetRayZero_ReturnsWhatExpected_Test )
+QTEST_CASE ( GetNullRay_ReturnsWhatExpected_Test )
 {
     // [Preparation]
-    QRay2D EXPECTED_VALUE(QVector2::GetZeroVector(), QVector2::GetZeroVector());
+    QRay2D EXPECTED_VALUE(QVector2::GetNullVector(), QVector2::GetNullVector());
 
 	// [Execution]
-    QRay2D obtinedRay = QRay2D::GetRayZero();
+    QRay2D obtinedRay = QRay2D::GetNullRay();
 
     // [Verification]
     BOOST_CHECK(obtinedRay.Origin == EXPECTED_VALUE.Origin);
@@ -162,7 +162,7 @@ QTEST_CASE ( GetRayZero_ReturnsWhatExpected_Test )
 QTEST_CASE ( GetRayX_ReturnsWhatExpected_Test )
 {
     // [Preparation]
-    QRay2D EXPECTED_VALUE(QVector2::GetZeroVector(), QVector2::GetUnitVectorX());
+    QRay2D EXPECTED_VALUE(QVector2::GetNullVector(), QVector2::GetUnitVectorX());
 
 	// [Execution]
     QRay2D obtinedRay = QRay2D::GetRayX();
@@ -178,7 +178,7 @@ QTEST_CASE ( GetRayX_ReturnsWhatExpected_Test )
 QTEST_CASE ( GetRayY_ReturnsWhatExpected_Test )
 {
     // [Preparation]
-    QRay2D EXPECTED_VALUE(QVector2::GetZeroVector(), QVector2::GetUnitVectorY());
+    QRay2D EXPECTED_VALUE(QVector2::GetNullVector(), QVector2::GetUnitVectorY());
 
 	// [Execution]
     QRay2D obtinedRay = QRay2D::GetRayY();
@@ -365,7 +365,7 @@ QTEST_CASE ( Intersection1_AssertionFailsWhenTheDirectionVectorIsNull_Test )
 
     // [Preparation]
     const QVector2 ORIGIN1 = QVector2(SQFloat::_2, SQFloat::_4);
-    const QVector2 DIRECTION1 = QVector2::GetZeroVector();
+    const QVector2 DIRECTION1 = QVector2::GetNullVector();
     const QRay2D RAY1 = QRay2D(ORIGIN1, DIRECTION1);
     
     const QVector2 ORIGIN2 = QVector2(SQFloat::_1, SQFloat::_2);
@@ -427,7 +427,7 @@ QTEST_CASE ( Intersection1_ExpectedResultReturnedWhenTheDirectionVectorIsNull_Te
 
     // [Preparation]
     const QVector2 ORIGIN1 = QVector2(SQFloat::_2, SQFloat::_4);
-    const QVector2 DIRECTION1 = QVector2::GetZeroVector();
+    const QVector2 DIRECTION1 = QVector2::GetNullVector();
     const QRay2D RAY1 = QRay2D(ORIGIN1, DIRECTION1);
     
     const QVector2 ORIGIN2 = QVector2(SQFloat::_1, SQFloat::_2);
@@ -435,7 +435,7 @@ QTEST_CASE ( Intersection1_ExpectedResultReturnedWhenTheDirectionVectorIsNull_Te
     const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
 
     const QVector2 ORIGIN3 = QVector2(SQFloat::_4, SQFloat::_2);
-    const QVector2 DIRECTION3 = QVector2::GetZeroVector();
+    const QVector2 DIRECTION3 = QVector2::GetNullVector();
     const QRay2D RAY3 = QRay2D(ORIGIN3, DIRECTION3);
 
     const bool EXPECTED_RESULT_INTERSECTION = true;
@@ -809,7 +809,7 @@ QTEST_CASE ( Intersection2_AssertionFailsWhenRayDirectionIsNull_Test )
 
     // [Preparation]
     const QVector2 ORIGIN(SQFloat::_3, SQFloat::_3);
-    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QVector2 DIRECTION = QVector2::GetNullVector();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const QVector2 VERTEX_A = QVector2(SQFloat::_1, SQFloat::_1);
@@ -1251,7 +1251,7 @@ QTEST_CASE ( Intersection3_AssertionFailsWhenRayDirectionIsNull )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
     // [Preparation]
-    const QRay2D NULL_RAY = QRay2D::GetRayZero();
+    const QRay2D NULL_RAY = QRay2D::GetNullRay();
 
     const QVector2 VERTEX_A = QVector2(SQFloat::_0_5, SQFloat::_1);
     const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_2);
@@ -1404,7 +1404,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsNoIntersectionPointsWhenRaysDoNotIntersec
     const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
 
 	// [Execution]
     QVector2 vIntersection;
@@ -1569,7 +1569,7 @@ QTEST_CASE ( IntersectionPoint1_AssertionFailsWhenTheDirectionVectorIsNull_Test 
 
     // [Preparation]
     const QVector2 ORIGIN1(SQFloat::_2, SQFloat::_4);
-    const QVector2 DIRECTION1 = QVector2::GetZeroVector();
+    const QVector2 DIRECTION1 = QVector2::GetNullVector();
     const QRay2D RAY1 = QRay2D(ORIGIN1, DIRECTION1);
     
     const QVector2 ORIGIN2(SQFloat::_1, SQFloat::_2);
@@ -1635,7 +1635,7 @@ QTEST_CASE ( IntersectionPoint1_ReturnsNoIntersectionsWhenRaysDoNotIntersectButW
     const QRay2D RAY2 = QRay2D(ORIGIN2, DIRECTION2);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
 
 	// [Execution]
     QVector2 vIntersection1;
@@ -1861,7 +1861,7 @@ QTEST_CASE ( IntersectionPoint2_ReturnsNoIntersectionsWhenRayDoesNotIntersectWit
 
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX_A, VERTEX_B, VERTEX_C);
 
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
 	// [Execution]
@@ -2130,7 +2130,7 @@ QTEST_CASE ( IntersectionPoint2_AssertionFailsWhenRayDirectionIsNull_Test )
 
     // [Preparation]
     const QVector2 ORIGIN(SQFloat::_3, SQFloat::_3);
-    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QVector2 DIRECTION = QVector2::GetNullVector();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const QVector2 VERTEX_A = QVector2(SQFloat::_1, SQFloat::_1);
@@ -2391,7 +2391,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenRayIntersectsWithTrian
     const QVector2 EXPECTED_FIRSTPOINT_A = VERTEX_A;
     const QVector2 EXPECTED_FIRSTPOINT_B = VERTEX_B;
     const QVector2 EXPECTED_FIRSTPOINT_C = VERTEX_C;
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     const QVector2 DIRECTION1 = QVector2(SQFloat::_1, -SQFloat::_1).Normalize();
@@ -2448,7 +2448,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsNoIntersectionsWhenRayDoesNotIntersectWit
 
     const QBaseTriangle<QVector2> TRIANGLE = QBaseTriangle<QVector2>(VERTEX_A, VERTEX_B, VERTEX_C);
 
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
 
 	// [Execution]
@@ -2476,7 +2476,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenRayBelongsToTriangle_T
     const QVector2 VERTEX_C = QVector2(SQFloat::_3, SQFloat::_2);
 
     const QVector2 EXPECTED_FIRSTPOINT = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     const QVector2 ORIGIN = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_B) + (VERTEX_C - VERTEX_B) * SQFloat::_0_25;
@@ -2526,7 +2526,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOriginBelongsToEdgeOfT
     const QVector2 EXPECTED_FIRSTPOINT1 = ORIGIN1;
     const QVector2 EXPECTED_FIRSTPOINT2 = ORIGIN2;
     const QVector2 EXPECTED_FIRSTPOINT3 = ORIGIN3;
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// [Execution]
@@ -2631,7 +2631,7 @@ QTEST_CASE ( IntersectionPoint3_ReturnsOneIntersectionWhenOriginAndTriangleVerte
     const QVector2 EXPECTED_FIRSTPOINT1 = VERTEX_A;
     const QVector2 EXPECTED_FIRSTPOINT2 = VERTEX_B;
     const QVector2 EXPECTED_FIRSTPOINT3 = VERTEX_C;
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
 	// [Execution]
@@ -2758,7 +2758,7 @@ QTEST_CASE ( IntersectionPoint3_AssertionFailsWhenRayDirectionIsNull_Test )
 
     // [Preparation]
     const QVector2 ORIGIN(SQFloat::_3, SQFloat::_3);
-    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QVector2 DIRECTION = QVector2::GetNullVector();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const QVector2 VERTEX_A = QVector2(SQFloat::_1, SQFloat::_1);
@@ -3337,7 +3337,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsNoIntersectionsWhenRayDoesNotIntersectWit
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
 
     QVector2 vIntersection;
 
@@ -3369,7 +3369,7 @@ QTEST_CASE ( IntersectionPoint4_ReturnsNoIntersectionsWhenRayAndQuadrilateralDoe
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
 
     QVector2 vIntersection;
 
@@ -3615,7 +3615,7 @@ QTEST_CASE ( IntersectionPoint4_AssertionFailsWhenRayDirectionIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
     // [Preparation]
-    const QRay2D NULL_RAY = QRay2D::GetRayZero();
+    const QRay2D NULL_RAY = QRay2D::GetNullRay();
 
     const QVector2 VERTEX_A = QVector2(SQFloat::_0_5, SQFloat::_1);
     const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_2);
@@ -3827,7 +3827,7 @@ QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayOriginAndQuadrilate
     const QVector2 EXPECTED_FIRSTPOINT_B = VERTEX_B;
     const QVector2 EXPECTED_FIRSTPOINT_C = VERTEX_C;
     const QVector2 EXPECTED_FIRSTPOINT_D = VERTEX_D;
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
     QVector2 vFirstIntersectionA, vSecondIntersectionA;
     QVector2 vFirstIntersectionB, vSecondIntersectionB;
@@ -3960,7 +3960,7 @@ QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenOnlyRayOriginBelongsTo
     const QVector2 EXPECTED_FIRSTPOINT_BC = ORIGIN_BC;
     const QVector2 EXPECTED_FIRSTPOINT_CD = ORIGIN_CD;
     const QVector2 EXPECTED_FIRSTPOINT_DA = ORIGIN_DA;
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
     QVector2 vFirstIntersection_AB, vSecondIntersectionAB;
     QVector2 vFirstIntersection_BC, vSecondIntersectionBC;
@@ -4008,11 +4008,11 @@ QTEST_CASE ( IntersectionPoint5_ReturnsNoIntersectionsWhenRayDoesNotIntersectWit
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetNullVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
-    QVector2 vFirstIntersection = QVector2::GetZeroVector();
-    QVector2 vSecondIntersection = QVector2::GetZeroVector();
+    QVector2 vFirstIntersection = QVector2::GetNullVector();
+    QVector2 vSecondIntersection = QVector2::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(QUAD, vFirstIntersection, vSecondIntersection);
@@ -4043,11 +4043,11 @@ QTEST_CASE ( IntersectionPoint5_ReturnsNoIntersectionsWhenRayAndQuadrilateralDoe
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetNullVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
-    QVector2 vFirstIntersection = QVector2::GetZeroVector();
-    QVector2 vSecondIntersection = QVector2::GetZeroVector();
+    QVector2 vFirstIntersection = QVector2::GetNullVector();
+    QVector2 vSecondIntersection = QVector2::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = RAY.IntersectionPoint(QUAD, vFirstIntersection, vSecondIntersection);
@@ -4101,7 +4101,7 @@ QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayIntersectsWithQuadr
     const QVector2 EXPECTED_FIRSTPOINT_B = VERTEX_B;
     const QVector2 EXPECTED_FIRSTPOINT_C = VERTEX_C;
     const QVector2 EXPECTED_FIRSTPOINT_D = VERTEX_D;
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
     QVector2 vFirstIntersectionA, vSecondIntersectionA;
     QVector2 vFirstIntersectionB, vSecondIntersectionB;
@@ -4148,7 +4148,7 @@ QTEST_CASE ( IntersectionPoint5_ReturnsOneIntersectionWhenRayOriginIsContainedIn
     const QVector2 EXPECTED_FIRSTPOINT_BC = VERTEX_B.Lerp(SQFloat::_0_5, VERTEX_C);
     const QVector2 EXPECTED_FIRSTPOINT_CD = VERTEX_C.Lerp(SQFloat::_0_5, VERTEX_D);
     const QVector2 EXPECTED_FIRSTPOINT_DA = VERTEX_D.Lerp(SQFloat::_0_5, VERTEX_A);
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
 
     const QVector2 ORIGIN = VERTEX_A.Lerp(SQFloat::_0_5, VERTEX_C);
@@ -4384,7 +4384,7 @@ QTEST_CASE ( IntersectionPoint5_AssertionFailsWhenRayDirectionIsNull )
     using Kinesis::QuimeraEngine::Tools::Math::QBaseQuadrilateral;
 
     // [Preparation]
-    const QRay2D NULL_RAY = QRay2D::GetRayZero();
+    const QRay2D NULL_RAY = QRay2D::GetNullRay();
 
     const QVector2 VERTEX_A = QVector2(SQFloat::_0_5, SQFloat::_1);
     const QVector2 VERTEX_B = QVector2(SQFloat::_2, SQFloat::_2);
@@ -4780,7 +4780,7 @@ QTEST_CASE ( Intersection4_AssertionFailsWhenTheDirectionVectorIsNull_Test )
     const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
 
     const QVector2 ORIGIN(SQFloat::_1, SQFloat::_2);
-    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QVector2 DIRECTION = QVector2::GetNullVector();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
@@ -4998,7 +4998,7 @@ QTEST_CASE ( IntersectionPoint6_ReturnsNoIntersectionsWhenRayAndLineDoNotInterse
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
 
 	// [Execution]
     QVector2 vIntersection;
@@ -5223,7 +5223,7 @@ QTEST_CASE ( IntersectionPoint6_AssertionFailsWhenTheDirectionVectorIsNull_Test 
     const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
 
     const QVector2 ORIGIN(SQFloat::_1, SQFloat::_2);
-    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QVector2 DIRECTION = QVector2::GetNullVector();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
@@ -5317,11 +5317,11 @@ QTEST_CASE ( IntersectionPoint6_ReturnsExpectedResultWhenTheLengthOfTheLineEqual
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
 
     const QVector2 EXPECTED_POINT_CONTAINED = ENDPOINT_CONTAINED;
-    const QVector2 EXPECTED_POINT_NOT_CONTAINED = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT_NOT_CONTAINED = QVector2::GetNullVector();
     
 	// [Execution]
-    QVector2 vPointContained = QVector2::GetZeroVector();
-    QVector2 vPointNotContained = QVector2::GetZeroVector();
+    QVector2 vPointContained = QVector2::GetNullVector();
+    QVector2 vPointNotContained = QVector2::GetNullVector();
 
     EQIntersections eResultContained = RAY.IntersectionPoint(LINE_SEGMENT_CONTAINED, vPointContained); // I
     EQIntersections eResultNotContained = RAY.IntersectionPoint(LINE_SEGMENT_NOT_CONTAINED, vPointNotContained); // II
@@ -5361,7 +5361,7 @@ QTEST_CASE ( IntersectionPoint6_ReturnsNoIntersectionsWhenRayAndLineDoNotInterse
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
 
     // [Execution]
     QVector2 vIntersection;
@@ -5398,7 +5398,7 @@ QTEST_CASE ( IntersectionPoint6_ReturnsNoIntersectionsWhenRayAndLineDoNotInterse
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
 
     // [Execution]
     QVector2 vIntersection;
@@ -5464,7 +5464,7 @@ QTEST_CASE ( IntersectionPoint7_ReturnsNoIntersectionsWhenRayAndLineDoNotInterse
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_POINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT = QVector2::GetNullVector();
 
 	// [Execution]
     QVector2 vFirstIntersection;
@@ -5500,7 +5500,7 @@ QTEST_CASE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayAndLineIntersectSom
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const QVector2 EXPECTED_FIRSTPOINT = LINE_SEGMENT.A.Lerp(SQFloat::_0_5, LINE_SEGMENT.B);
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
     const QVector2 ORIGIN(SQFloat::_4, SQFloat::_5);
     const QVector2 DIRECTION = QVector2(EXPECTED_FIRSTPOINT - ORIGIN).Normalize();
@@ -5586,11 +5586,11 @@ QTEST_CASE ( IntersectionPoint7_ReturnsOneIntersectionWhenOriginIsContainedInThe
     
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const QVector2 EXPECTED_FIRSTPOINT = ORIGIN;
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
     // [Execution]
     QVector2 vFirstIntersection;
-    QVector2 vSecondIntersection = QVector2::GetZeroVector();
+    QVector2 vSecondIntersection = QVector2::GetNullVector();
     EQIntersections eResult = RAY.IntersectionPoint(LINE_SEGMENT, vFirstIntersection, vSecondIntersection); // I
 
     // [Verification]
@@ -5625,9 +5625,9 @@ QTEST_CASE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayAndLineShareOneEndP
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const QVector2 EXPECTED_FIRSTPOINT1 = VALUE_FOR_A;
-    const QVector2 EXPECTED_SECONDPOINT1 = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT1 = QVector2::GetNullVector();
     const QVector2 EXPECTED_FIRSTPOINT2 = VALUE_FOR_B;
-    const QVector2 EXPECTED_SECONDPOINT2 = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT2 = QVector2::GetNullVector();
 
     // [Execution]
     QVector2 vFirstIntersection1;
@@ -5675,9 +5675,9 @@ QTEST_CASE ( IntersectionPoint7_ReturnsOneIntersectionWhenRayOnlyIntersectsWithL
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const QVector2 EXPECTED_FIRSTPOINT1 = VALUE_FOR_A;
-    const QVector2 EXPECTED_SECONDPOINT1 = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT1 = QVector2::GetNullVector();
     const QVector2 EXPECTED_FIRSTPOINT2 = VALUE_FOR_B;
-    const QVector2 EXPECTED_SECONDPOINT2 = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT2 = QVector2::GetNullVector();
 
     // [Execution]
     QVector2 vFirstIntersection1;
@@ -5715,7 +5715,7 @@ QTEST_CASE ( IntersectionPoint7_AssertionFailsWhenTheDirectionVectorIsNull_Test 
     const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
 
     const QVector2 ORIGIN(SQFloat::_1, SQFloat::_2);
-    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QVector2 DIRECTION = QVector2::GetNullVector();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
@@ -5811,13 +5811,13 @@ QTEST_CASE ( IntersectionPoint7_ReturnsExpectedResultWhenTheLengthOfTheLineEqual
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
 
     const QVector2 EXPECTED_POINT_CONTAINED = ENDPOINT_CONTAINED;
-    const QVector2 EXPECTED_POINT_NOT_CONTAINED = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_POINT_NOT_CONTAINED = QVector2::GetNullVector();
     
 	// [Execution]
-    QVector2 vFirstPointContained = QVector2::GetZeroVector();
-    QVector2 vSecondPointContained = QVector2::GetZeroVector();
-    QVector2 vFirstPointNotContained = QVector2::GetZeroVector();
-    QVector2 vSecondPointNotContained = QVector2::GetZeroVector();
+    QVector2 vFirstPointContained = QVector2::GetNullVector();
+    QVector2 vSecondPointContained = QVector2::GetNullVector();
+    QVector2 vFirstPointNotContained = QVector2::GetNullVector();
+    QVector2 vSecondPointNotContained = QVector2::GetNullVector();
 
     EQIntersections eResultContained = RAY.IntersectionPoint(LINE_SEGMENT_CONTAINED, vFirstPointContained, vSecondPointContained); // I
     EQIntersections eResultNotContained = RAY.IntersectionPoint(LINE_SEGMENT_NOT_CONTAINED, vFirstPointNotContained, vSecondPointNotContained); // II
@@ -5859,8 +5859,8 @@ QTEST_CASE ( IntersectionPoint7_ReturnsNoIntersectionsWhenRayAndLineDoNotInterse
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetNullVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
     // [Execution]
     QVector2 vFirstIntersection;
@@ -5899,8 +5899,8 @@ QTEST_CASE ( IntersectionPoint7_ReturnsNoIntersectionsWhenRayAndLineDoNotInterse
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetZeroVector();
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_FIRSTPOINT = QVector2::GetNullVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
     // [Execution]
     QVector2 vFirstIntersection;
@@ -5936,7 +5936,7 @@ QTEST_CASE ( IntersectionPoint7_ItIsNotNecessaryToNormalize_Test )
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     const QVector2 EXPECTED_FIRSTPOINT = LINE_SEGMENT.A.Lerp(SQFloat::_0_5, LINE_SEGMENT.B);
-    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_SECONDPOINT = QVector2::GetNullVector();
 
     const QVector2 ORIGIN(SQFloat::_4, SQFloat::_5);
     const QVector2 DIRECTION = QVector2(EXPECTED_FIRSTPOINT - ORIGIN);
@@ -6281,7 +6281,7 @@ QTEST_CASE ( Reflection1_AssertionFailsWhenRayIsNull_Test )
     const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
 
     const QVector2 ORIGIN(SQFloat::_1, SQFloat::_2);
-    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QVector2 DIRECTION = QVector2::GetNullVector();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
@@ -6722,7 +6722,7 @@ QTEST_CASE ( Reflection2_AssertionFailsWhenRayIsNull_Test )
     const QBaseLineSegment<QVector2> LINE_SEGMENT = QBaseLineSegment<QVector2>(VALUE_FOR_A, VALUE_FOR_B);
 
     const QVector2 ORIGIN(SQFloat::_1, SQFloat::_2);
-    const QVector2 DIRECTION = QVector2::GetZeroVector();
+    const QVector2 DIRECTION = QVector2::GetNullVector();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
     const bool ASSERTION_FAILED = true;
@@ -6930,7 +6930,7 @@ QTEST_CASE ( Transform_AssertionFailsWhenMatrixIsNull_Test )
     const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
-    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetZeroMatrix();
+    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetNullMatrix();
 
     const bool ASSERTION_FAILED = true;
 
@@ -7125,7 +7125,7 @@ QTEST_CASE ( Translate1_RayIsNotTranslatedWhenTranslationIsZero_Test )
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
     const QRay2D EXPECTED_RAY = RAY;
 
-    const QVector2 TRANSLATION_VECTOR = QVector2::GetZeroVector();
+    const QVector2 TRANSLATION_VECTOR = QVector2::GetNullVector();
 
 	// [Execution]
     QRay2D returnedRay = RAY.Translate(TRANSLATION_VECTOR);
@@ -7239,7 +7239,7 @@ QTEST_CASE ( Scale1_AssertionFailsWhenScaleVectorIsNull_Test )
     const QVector2 DIRECTION = QVector2(-SQFloat::_1, SQFloat::_1).Normalize();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
-    const QVector2 SCALING_VECTOR = QVector2::GetZeroVector();
+    const QVector2 SCALING_VECTOR = QVector2::GetNullVector();
 
     const bool ASSERTION_FAILED = true;
 
@@ -7449,7 +7449,7 @@ QTEST_CASE ( ScaleWithPivot1_AssertionFailsWhenScaleWithPivotVectorIsNull_Test )
 
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_2, SQFloat::_4);
 
-    const QVector2 SCALING_VECTOR = QVector2::GetZeroVector();
+    const QVector2 SCALING_VECTOR = QVector2::GetNullVector();
 
     const bool ASSERTION_FAILED = true;
 
@@ -7682,7 +7682,7 @@ QTEST_CASE ( TransformWithPivot_AssertionFailsWhenMatrixIsNull_Test )
     const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
-    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetZeroMatrix();
+    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetNullMatrix();
 
 	const QVector2 PIVOT_POINT = QVector2(SQFloat::_3, SQFloat::_2);
 
@@ -7722,11 +7722,11 @@ QTEST_CASE ( TransformWithPivot_RayIsMovedToPivotPointWhenTransfomedByZeroMatrix
     const QVector2 DIRECTION = QVector2(SQFloat::_1, SQFloat::_1).Normalize();
     const QRay2D RAY = QRay2D(ORIGIN, DIRECTION);
 
-    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetZeroMatrix();
+    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetNullMatrix();
 
 	const QVector2 PIVOT_POINT = QVector2(SQFloat::_3, SQFloat::_2);
 
-    const QRay2D EXPECTED_RAY = QRay2D(PIVOT_POINT, QVector2::GetZeroVector());
+    const QRay2D EXPECTED_RAY = QRay2D(PIVOT_POINT, QVector2::GetNullVector());
 
 	// [Execution]
     QRay2D returnedRay = RAY.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);

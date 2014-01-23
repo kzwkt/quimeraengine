@@ -462,7 +462,7 @@ QTEST_CASE ( Constructor8_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QVector3 AXIS = QVector3::GetZeroVector();
+    const QVector3 AXIS = QVector3::GetNullVector();
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q ANGLE = SQAngle::_QuarterPi;
@@ -527,7 +527,7 @@ QTEST_CASE ( Constructor8_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QVector3 AXIS = QVector3::GetZeroVector();
+    const QVector3 AXIS = QVector3::GetNullVector();
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q ANGLE = SQAngle::_QuarterPi;
@@ -643,7 +643,7 @@ QTEST_CASE ( Constructor9_NoRotationStoredInQuaternionWhenUsingNullVectorAsAxis_
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QVector4 AXIS = QVector4::GetZeroVector();
+    const QVector4 AXIS = QVector4::GetNullVector();
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q ANGLE = SQAngle::_QuarterPi;
@@ -712,7 +712,7 @@ QTEST_CASE ( Constructor9_ResultIsNotNormalizedWhenUsingNullVectorAsAxis_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QVector4 AXIS = QVector4::GetZeroVector();
+    const QVector4 AXIS = QVector4::GetNullVector();
 
 #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_RADIANS
     const float_q ANGLE = SQAngle::_QuarterPi;
@@ -860,7 +860,7 @@ QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    const QTransformationMatrix<QMatrix4x3> ZERO_MATRIX(QTransformationMatrix<QMatrix4x3>::GetZeroMatrix());
+    const QTransformationMatrix<QMatrix4x3> NULL_MATRIX(QTransformationMatrix<QMatrix4x3>::GetNullMatrix());
     const QQuaternion EXPECTED_RESULT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
@@ -868,7 +868,7 @@ QTEST_CASE ( Constructor10_AssertionFailsWhenUsingNullMatrix_Test )
 
     try
     {
-        QQuaternion qQuaternionUT(ZERO_MATRIX);
+        QQuaternion qQuaternionUT(NULL_MATRIX);
     }
     catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
     {
@@ -1005,7 +1005,7 @@ QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
-    const QTransformationMatrix<QMatrix4x4> ZERO_MATRIX(QTransformationMatrix<QMatrix4x4>::GetZeroMatrix());
+    const QTransformationMatrix<QMatrix4x4> NULL_MATRIX(QTransformationMatrix<QMatrix4x4>::GetNullMatrix());
     const QQuaternion EXPECTED_RESULT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
@@ -1013,7 +1013,7 @@ QTEST_CASE ( Constructor11_AssertionFailsWhenUsingNullMatrix_Test )
 
     try
     {
-        QQuaternion qQuaternionUT(ZERO_MATRIX);
+        QQuaternion qQuaternionUT(NULL_MATRIX);
     }
     catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
     {
@@ -1084,7 +1084,7 @@ QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
 
-    const QRotationMatrix3x3 ZERO_MATRIX(QRotationMatrix3x3::GetZeroMatrix());
+    const QRotationMatrix3x3 NULL_MATRIX(QRotationMatrix3x3::GetNullMatrix());
     const QQuaternion EXPECTED_RESULT(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
 	// [Execution]
@@ -1092,7 +1092,7 @@ QTEST_CASE ( Constructor12_AssertionFailsWhenUsingNullMatrix_Test )
 
     try
     {
-        QQuaternion qQuaternionUT = QQuaternion(ZERO_MATRIX);
+        QQuaternion qQuaternionUT = QQuaternion(NULL_MATRIX);
     }
     catch(...) // TODO [Thund]: Only must catch the proper exception class, not implemented yet
     {
@@ -3024,7 +3024,7 @@ QTEST_CASE ( ToAxisAngle1_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Te
     const float_q EXPECTED_ANGLE = SQAngle::_180;
 #endif
 
-    const QVector3 EXPECTED_AXIS = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_AXIS = QVector3::GetNullVector();
 
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
@@ -3189,7 +3189,7 @@ QTEST_CASE ( ToAxisAngle2_AxisIsNullAndAngleEqualsPiOr180WhenQuaternionIsNull_Te
     const float_q EXPECTED_ANGLE = SQAngle::_180;
 #endif
 
-    const QVector4 EXPECTED_AXIS = QVector4::GetZeroVector();
+    const QVector4 EXPECTED_AXIS = QVector4::GetNullVector();
 
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
 

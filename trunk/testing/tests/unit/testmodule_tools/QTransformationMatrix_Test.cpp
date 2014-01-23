@@ -442,7 +442,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     const QBaseQuaternion ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QBaseVector3 SCALE(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    T EXPECTED_VALUE = T::GetZeroMatrix();
+    T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
     // [Execution]
@@ -557,8 +557,8 @@ QTEST_CASE_TEMPLATE ( Constructor4_CompositionOrderIsScaleRotationTranslation_Te
     const QVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     const QTransformationMatrix<T> TRANSLATION_MATRIX(TRANSLATION, QQuaternion::GetIdentity(), QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<T> ROTATION_MATRIX(QVector3::GetZeroVector(), ROTATION, QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<T> SCALE_MATRIX(QVector3::GetZeroVector(), QQuaternion::GetIdentity(), SCALE);
+    const QTransformationMatrix<T> ROTATION_MATRIX(QVector3::GetNullVector(), ROTATION, QVector3::GetVectorOfOnes());
+    const QTransformationMatrix<T> SCALE_MATRIX(QVector3::GetNullVector(), QQuaternion::GetIdentity(), SCALE);
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
@@ -819,7 +819,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     const QBaseQuaternion ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QBaseVector3 SCALE(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    T EXPECTED_VALUE = T::GetZeroMatrix();
+    T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
     // [Execution]
@@ -937,8 +937,8 @@ QTEST_CASE_TEMPLATE ( Constructor5_CompositionOrderIsScaleRotationTranslation_Te
     const QVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
     const QTransformationMatrix<T> TRANSLATION_MATRIX(TRANSLATION, QQuaternion::GetIdentity(), QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<T> ROTATION_MATRIX(QVector4::GetZeroVector(), ROTATION, QVector3::GetVectorOfOnes());
-    const QTransformationMatrix<T> SCALE_MATRIX(QVector4::GetZeroVector(), QQuaternion::GetIdentity(), SCALE);
+    const QTransformationMatrix<T> ROTATION_MATRIX(QVector4::GetNullVector(), ROTATION, QVector3::GetVectorOfOnes());
+    const QTransformationMatrix<T> SCALE_MATRIX(QVector4::GetNullVector(), QQuaternion::GetIdentity(), SCALE);
 
     const QTransformationMatrix<T> EXPECTED_VALUE = SCALE_MATRIX * ROTATION_MATRIX * TRANSLATION_MATRIX;
 
@@ -1238,7 +1238,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     const QBaseQuaternion ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QBaseVector3 SCALE(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    T EXPECTED_VALUE = T::GetZeroMatrix();
+    T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
     // [Execution]
@@ -1368,7 +1368,7 @@ QTEST_CASE_TEMPLATE ( Constructor6_CompositionOrderIsScaleRotationTranslation_Te
     const QQuaternion ROTATION(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7);
     const QVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
-    const QVector3 ZERO_VECTOR = QVector3::GetZeroVector();
+    const QVector3 ZERO_VECTOR = QVector3::GetNullVector();
     const QQuaternion IDENTITY_QUATERNION = QQuaternion::GetIdentity();
     const QVector3 VECTOR_OF_ONES = QVector3::GetVectorOfOnes();
 
@@ -1623,11 +1623,11 @@ QTEST_CASE_TEMPLATE ( Constructor7_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    const T TRANSLATION = T::GetZeroMatrix();
-    const QMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
-    const QMatrix3x3 SCALE = QMatrix3x3::GetZeroMatrix();
+    const T TRANSLATION = T::GetNullMatrix();
+    const QMatrix3x3 ROTATION = QMatrix3x3::GetNullMatrix();
+    const QMatrix3x3 SCALE = QMatrix3x3::GetNullMatrix();
 
-    T EXPECTED_VALUE = T::GetZeroMatrix();
+    T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
     // [Execution]
@@ -1718,7 +1718,7 @@ QTEST_CASE_TEMPLATE ( Constructor7_CompositionOrderIsScaleRotationTranslation_Te
     const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
-    const T NEUTRAL_TRANSLATION = T::GetZeroMatrix();
+    const T NEUTRAL_TRANSLATION = T::GetNullMatrix();
     const QRotationMatrix3x3 NEUTRAL_ROTATION = QRotationMatrix3x3::GetIdentity();
     const QScalingMatrix3x3 NEUTRAL_SCALE = QScalingMatrix3x3::GetIdentity();
 
@@ -1965,11 +1965,11 @@ QTEST_CASE_TEMPLATE ( Constructor8_ZeroMatrixIsObtainedWhenInputsEqualZero_Test,
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
-    const T TRANSLATION = T::GetZeroMatrix();
-    const QMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
-    const QMatrix3x3 SCALE = QMatrix3x3::GetZeroMatrix();
+    const T TRANSLATION = T::GetNullMatrix();
+    const QMatrix3x3 ROTATION = QMatrix3x3::GetNullMatrix();
+    const QMatrix3x3 SCALE = QMatrix3x3::GetNullMatrix();
 
-    T EXPECTED_VALUE = T::GetZeroMatrix();
+    T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
     // [Execution]
@@ -2060,7 +2060,7 @@ QTEST_CASE_TEMPLATE ( Constructor8_CompositionOrderIsScaleRotationTranslation_Te
     const QRotationMatrix3x3 ROTATION(QBaseQuaternion(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7));
     const QScalingMatrix3x3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
-    const T NEUTRAL_TRANSLATION = T::GetZeroMatrix();
+    const T NEUTRAL_TRANSLATION = T::GetNullMatrix();
     const QRotationMatrix3x3 NEUTRAL_ROTATION = QRotationMatrix3x3::GetIdentity();
     const QScalingMatrix3x3 NEUTRAL_SCALE = QScalingMatrix3x3::GetIdentity();
 
@@ -3408,7 +3408,7 @@ QTEST_CASE_TEMPLATE ( HasInverse_ReturnsTrueWhenDeterminantIsNotZero_Test, TQTem
 QTEST_CASE_TEMPLATE ( HasInverse_ReturnsFalseWhenDeterminantIsZero_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QTransformationMatrix<T> MATRIX(T::GetZeroMatrix());
+    const QTransformationMatrix<T> MATRIX(T::GetNullMatrix());
     const bool EXPECTED_VALUE = false;
 
     // [Execution]
@@ -7189,7 +7189,7 @@ QTEST_CASE_TEMPLATE ( Initialize_ZeroMatrixIsObtainedWhenInputsEqualZero_Test, T
     const QBaseQuaternion ROTATION(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
     const QBaseVector3 SCALE(SQFloat::_0, SQFloat::_0, SQFloat::_0);
 
-    T EXPECTED_VALUE = T::GetZeroMatrix();
+    T EXPECTED_VALUE = T::GetNullMatrix();
     FillFourthColumnIfExists(EXPECTED_VALUE, SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1); // For 4x4 matrices, the (3,3) element equals 1
 
     // [Execution]
@@ -7326,7 +7326,7 @@ QTEST_CASE_TEMPLATE ( Initialize_CompositionOrderIsScaleRotationTranslation_Test
     const QQuaternion ROTATION(SQFloat::_4, SQFloat::_5, SQFloat::_6, SQFloat::_7);
     const QVector3 SCALE(SQFloat::_8, SQFloat::_9, SQFloat::_10);
 
-    const QVector3 ZERO_VECTOR = QVector3::GetZeroVector();
+    const QVector3 ZERO_VECTOR = QVector3::GetNullVector();
     const QQuaternion IDENTITY_QUATERNION = QQuaternion::GetIdentity();
     const QVector3 VECTOR_OF_ONES = QVector3::GetVectorOfOnes();
 

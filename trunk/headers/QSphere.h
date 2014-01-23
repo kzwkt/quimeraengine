@@ -117,7 +117,7 @@ public:
 	/// </returns>
     static const QSphere<VectorType>& GetUnitSphere()
     {
-        static const QSphere<VectorType> UNITSPHERE(VectorType::GetZeroVector(), SQFloat::_1);
+        static const QSphere<VectorType> UNITSPHERE(VectorType::GetNullVector(), SQFloat::_1);
         return UNITSPHERE;
     }
 

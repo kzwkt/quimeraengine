@@ -759,10 +759,10 @@ EQIntersections QPlane::IntersectionPointImp(const QBasePlane &plane1, const QBa
 //##################													   ##################
 //##################=======================================================##################
 
-const QPlane& QPlane::GetZeroPlane()
+const QPlane& QPlane::GetNullPlane()
 {
-    static const QPlane ZEROPLANE(SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
-    return ZEROPLANE;
+    static const QPlane NULLPLANE(SQFloat::_0,  SQFloat::_0,  SQFloat::_0,  SQFloat::_0);
+    return NULLPLANE;
 }
 
 const QPlane& QPlane::GetPlaneZX()

@@ -146,7 +146,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_ValuesAreSetProperly_Test, TQTemplateTypes )
 QTEST_CASE_TEMPLATE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedInPositiveXAxisIsReturned_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_A = T::GetNullVector();
     const T EXPECTED_VALUE_FOR_B = T::GetUnitVectorX();
 
 	// [Execution]
@@ -163,8 +163,8 @@ QTEST_CASE_TEMPLATE ( GetUnitLine_AUnitLengthSegmentPlacedAtOriginAndContainedIn
 QTEST_CASE_TEMPLATE ( GetLineZero_AZeroLengthSegmentPlacedAtOriginIsReturned_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_A = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_B = T::GetNullVector();
 
 	// [Execution]
     QLineSegment<T> lineSegmentUT = QLineSegment<T>::GetLineZero();
@@ -1388,9 +1388,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_NoIntersectionPointReturnedWhenLinesDoN
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    T OUTPUT_POINT = T::GetZeroVector();
+    T OUTPUT_POINT = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT);
@@ -1420,8 +1420,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_OutputPointIsNotModifiedWhenThereIsNoIn
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
+    T OUTPUT_POINT = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT);
@@ -1461,7 +1461,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_OneIntersectionPointIsReturnedWhenLines
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_EXPECTED[] = { SQFloat::_1 + SQFloat::_0_5, SQFloat::_1 + SQFloat::_0_5, SQFloat::_4 + SQFloat::_0_5, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_EXPECTED);
-    T OUTPUT_POINT = T::GetZeroVector();
+    T OUTPUT_POINT = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT);
@@ -1493,11 +1493,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsInfinitePointsWhenLinesCoincideT
     const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_B1, VALUE_FOR_A1);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
-    T OUTPUT_POINT3 = T::GetZeroVector();
-    T OUTPUT_POINT4 = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
+    T OUTPUT_POINT3 = T::GetNullVector();
+    T OUTPUT_POINT4 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1); // I
@@ -1548,14 +1548,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOneIntersectionWhenAnEndPointIsC
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_EXPECTED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_EXPECTED);
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
-    T OUTPUT_POINT3 = T::GetZeroVector();
-    T OUTPUT_POINT4 = T::GetZeroVector();
-    T OUTPUT_POINT5 = T::GetZeroVector();
-    T OUTPUT_POINT6 = T::GetZeroVector();
-    T OUTPUT_POINT7 = T::GetZeroVector();
-    T OUTPUT_POINT8 = T::GetZeroVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
+    T OUTPUT_POINT3 = T::GetNullVector();
+    T OUTPUT_POINT4 = T::GetNullVector();
+    T OUTPUT_POINT5 = T::GetNullVector();
+    T OUTPUT_POINT6 = T::GetNullVector();
+    T OUTPUT_POINT7 = T::GetNullVector();
+    T OUTPUT_POINT8 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1); // I
@@ -1636,30 +1636,30 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsOnePointWhenLinesShareOneEndPoin
     const float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
-    T OUTPUT_POINT3 = T::GetZeroVector();
-    T OUTPUT_POINT4 = T::GetZeroVector();
-    T OUTPUT_POINT5 = T::GetZeroVector();
-    T OUTPUT_POINT6 = T::GetZeroVector();
-    T OUTPUT_POINT7 = T::GetZeroVector();
-    T OUTPUT_POINT8 = T::GetZeroVector();
-    T OUTPUT_POINT9 = T::GetZeroVector();
-    T OUTPUT_POINT10 = T::GetZeroVector();
-    T OUTPUT_POINT11 = T::GetZeroVector();
-    T OUTPUT_POINT12 = T::GetZeroVector();
-    T OUTPUT_POINT13 = T::GetZeroVector();
-    T OUTPUT_POINT14 = T::GetZeroVector();
-    T OUTPUT_POINT15 = T::GetZeroVector();
-    T OUTPUT_POINT16 = T::GetZeroVector();
-    T OUTPUT_POINT17 = T::GetZeroVector();
-    T OUTPUT_POINT18 = T::GetZeroVector();
-    T OUTPUT_POINT19 = T::GetZeroVector();
-    T OUTPUT_POINT20 = T::GetZeroVector();
-    T OUTPUT_POINT21 = T::GetZeroVector();
-    T OUTPUT_POINT22 = T::GetZeroVector();
-    T OUTPUT_POINT23 = T::GetZeroVector();
-    T OUTPUT_POINT24 = T::GetZeroVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
+    T OUTPUT_POINT3 = T::GetNullVector();
+    T OUTPUT_POINT4 = T::GetNullVector();
+    T OUTPUT_POINT5 = T::GetNullVector();
+    T OUTPUT_POINT6 = T::GetNullVector();
+    T OUTPUT_POINT7 = T::GetNullVector();
+    T OUTPUT_POINT8 = T::GetNullVector();
+    T OUTPUT_POINT9 = T::GetNullVector();
+    T OUTPUT_POINT10 = T::GetNullVector();
+    T OUTPUT_POINT11 = T::GetNullVector();
+    T OUTPUT_POINT12 = T::GetNullVector();
+    T OUTPUT_POINT13 = T::GetNullVector();
+    T OUTPUT_POINT14 = T::GetNullVector();
+    T OUTPUT_POINT15 = T::GetNullVector();
+    T OUTPUT_POINT16 = T::GetNullVector();
+    T OUTPUT_POINT17 = T::GetNullVector();
+    T OUTPUT_POINT18 = T::GetNullVector();
+    T OUTPUT_POINT19 = T::GetNullVector();
+    T OUTPUT_POINT20 = T::GetNullVector();
+    T OUTPUT_POINT21 = T::GetNullVector();
+    T OUTPUT_POINT22 = T::GetNullVector();
+    T OUTPUT_POINT23 = T::GetNullVector();
+    T OUTPUT_POINT24 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1); // I
@@ -1762,9 +1762,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_AssertionFailsWhenTheLengthOfOneSegment
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
 
     const bool ASSERTION_FAILED = true;
 
@@ -1833,13 +1833,13 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsExpectedResultsWhenTheLengthOfOn
     const EQIntersections EXPECTED_RESULT_WHEN_DONT_INTERSECT = EQIntersections::E_None;
 
     const T EXPECTED_INTERSECTION_POINT = VALUE_FOR_A1B1;
-    const T EXPECTED_NO_INTERSECTION_POINT = T::GetZeroVector();
+    const T EXPECTED_NO_INTERSECTION_POINT = T::GetNullVector();
 
 	// [Execution]
-    T vIntersection1 = T::GetZeroVector();
-    T vIntersection2 = T::GetZeroVector();
-    T vNoIntersection1 = T::GetZeroVector();
-    T vNoIntersection2 = T::GetZeroVector();
+    T vIntersection1 = T::GetNullVector();
+    T vIntersection2 = T::GetNullVector();
+    T vNoIntersection1 = T::GetNullVector();
+    T vNoIntersection2 = T::GetNullVector();
     
     EQIntersections eResultIntersection1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, vIntersection1);
     EQIntersections eResultIntersection2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, vIntersection2);
@@ -1888,9 +1888,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsNoPointWhenSegmentDoesNotInterse
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_POINT1);
@@ -1969,14 +1969,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenLinesCoincidePartia
     const T EXPECTED_POINT6 = THIRD_POSITION;
     const T EXPECTED_POINT7 = SECOND_POSITION;
     const T EXPECTED_POINT8 = SECOND_POSITION;
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
-    T OUTPUT_POINT3 = T::GetZeroVector();
-    T OUTPUT_POINT4 = T::GetZeroVector();
-    T OUTPUT_POINT5 = T::GetZeroVector();
-    T OUTPUT_POINT6 = T::GetZeroVector();
-    T OUTPUT_POINT7 = T::GetZeroVector();
-    T OUTPUT_POINT8 = T::GetZeroVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
+    T OUTPUT_POINT3 = T::GetNullVector();
+    T OUTPUT_POINT4 = T::GetNullVector();
+    T OUTPUT_POINT5 = T::GetNullVector();
+    T OUTPUT_POINT6 = T::GetNullVector();
+    T OUTPUT_POINT7 = T::GetNullVector();
+    T OUTPUT_POINT8 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_POINT1); // I
@@ -2070,14 +2070,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint1_ReturnsTwoPointsWhenOneSegmentIsContain
     const T EXPECTED_POINT6 = FIRST_POSITION;
     const T EXPECTED_POINT7 = SECOND_POSITION;
     const T EXPECTED_POINT8 = SECOND_POSITION;
-    T OUTPUT_POINT1  = T::GetZeroVector();
-    T OUTPUT_POINT2  = T::GetZeroVector();
-    T OUTPUT_POINT3  = T::GetZeroVector();
-    T OUTPUT_POINT4  = T::GetZeroVector();
-    T OUTPUT_POINT5  = T::GetZeroVector();
-    T OUTPUT_POINT6  = T::GetZeroVector();
-    T OUTPUT_POINT7  = T::GetZeroVector();
-    T OUTPUT_POINT8  = T::GetZeroVector();
+    T OUTPUT_POINT1  = T::GetNullVector();
+    T OUTPUT_POINT2  = T::GetNullVector();
+    T OUTPUT_POINT3  = T::GetNullVector();
+    T OUTPUT_POINT4  = T::GetNullVector();
+    T OUTPUT_POINT5  = T::GetNullVector();
+    T OUTPUT_POINT6  = T::GetNullVector();
+    T OUTPUT_POINT7  = T::GetNullVector();
+    T OUTPUT_POINT8  = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1  = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_POINT1);// I
@@ -2132,10 +2132,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_NoIntersectionPointReturnedWhenLinesDoN
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    T OUTPUT_FIRSTPOINT = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT = T::GetNullVector();
+    T OUTPUT_SECONDPOINT = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
@@ -2166,9 +2166,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_OutputPointIsNotModifiedWhenThereIsNoIn
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT = T::GetNullVector();
+    T OUTPUT_SECONDPOINT = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
@@ -2209,9 +2209,9 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_OneIntersectionPointIsReturnedWhenLines
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_EXPECTED[] = { SQFloat::_1 + SQFloat::_0_5, SQFloat::_1 + SQFloat::_0_5, SQFloat::_4 + SQFloat::_0_5, SQFloat::_1 };
     const T EXPECTED_FIRSTPOINT = T(VECTOR_COMPONENTS_EXPECTED);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT = T::GetNullVector();
+    T OUTPUT_SECONDPOINT = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT, OUTPUT_SECONDPOINT);
@@ -2244,15 +2244,15 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsInfinitePointsWhenLinesCoincideT
     const QLineSegment<T> LINE_SEGMENT3 = QLineSegment<T>(VALUE_FOR_B1, VALUE_FOR_A1);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT3 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT4 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT3 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT4 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT1 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT2 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT3 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT4 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
@@ -2307,23 +2307,23 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOneIntersectionWhenAnEndPointIsC
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_EXPECTED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_FIRSTPOINT = T(VECTOR_COMPONENTS_EXPECTED);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT3 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT4 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT5 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT6 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT7 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT8 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT5 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT6 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT7 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT8 = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT3 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT4 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT5 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT6 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT7 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT8 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT1 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT2 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT3 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT4 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT5 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT6 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT7 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT8 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
@@ -2412,31 +2412,31 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsOnePointWhenLinesShareOneEndPoin
     const float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
-    const T EXPECTED_SECONDPOINT = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT3 = T::GetZeroVector();    T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT4 = T::GetZeroVector();    T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT5 = T::GetZeroVector();    T OUTPUT_SECONDPOINT5 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT6 = T::GetZeroVector();    T OUTPUT_SECONDPOINT6 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT7 = T::GetZeroVector();    T OUTPUT_SECONDPOINT7 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT8 = T::GetZeroVector();    T OUTPUT_SECONDPOINT8 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT9 = T::GetZeroVector();    T OUTPUT_SECONDPOINT9 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT10 = T::GetZeroVector();   T OUTPUT_SECONDPOINT10 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT11 = T::GetZeroVector();   T OUTPUT_SECONDPOINT11 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT12 = T::GetZeroVector();   T OUTPUT_SECONDPOINT12 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT13 = T::GetZeroVector();   T OUTPUT_SECONDPOINT13 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT14 = T::GetZeroVector();   T OUTPUT_SECONDPOINT14 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT15 = T::GetZeroVector();   T OUTPUT_SECONDPOINT15 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT16 = T::GetZeroVector();   T OUTPUT_SECONDPOINT16 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT17 = T::GetZeroVector();   T OUTPUT_SECONDPOINT17 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT18 = T::GetZeroVector();   T OUTPUT_SECONDPOINT18 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT19 = T::GetZeroVector();   T OUTPUT_SECONDPOINT19 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT20 = T::GetZeroVector();   T OUTPUT_SECONDPOINT20 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT21 = T::GetZeroVector();   T OUTPUT_SECONDPOINT21 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT22 = T::GetZeroVector();   T OUTPUT_SECONDPOINT22 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT23 = T::GetZeroVector();   T OUTPUT_SECONDPOINT23 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT24 = T::GetZeroVector();   T OUTPUT_SECONDPOINT24 = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetNullVector();    T OUTPUT_SECONDPOINT1 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetNullVector();    T OUTPUT_SECONDPOINT2 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT3 = T::GetNullVector();    T OUTPUT_SECONDPOINT3 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT4 = T::GetNullVector();    T OUTPUT_SECONDPOINT4 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT5 = T::GetNullVector();    T OUTPUT_SECONDPOINT5 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT6 = T::GetNullVector();    T OUTPUT_SECONDPOINT6 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT7 = T::GetNullVector();    T OUTPUT_SECONDPOINT7 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT8 = T::GetNullVector();    T OUTPUT_SECONDPOINT8 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT9 = T::GetNullVector();    T OUTPUT_SECONDPOINT9 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT10 = T::GetNullVector();   T OUTPUT_SECONDPOINT10 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT11 = T::GetNullVector();   T OUTPUT_SECONDPOINT11 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT12 = T::GetNullVector();   T OUTPUT_SECONDPOINT12 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT13 = T::GetNullVector();   T OUTPUT_SECONDPOINT13 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT14 = T::GetNullVector();   T OUTPUT_SECONDPOINT14 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT15 = T::GetNullVector();   T OUTPUT_SECONDPOINT15 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT16 = T::GetNullVector();   T OUTPUT_SECONDPOINT16 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT17 = T::GetNullVector();   T OUTPUT_SECONDPOINT17 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT18 = T::GetNullVector();   T OUTPUT_SECONDPOINT18 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT19 = T::GetNullVector();   T OUTPUT_SECONDPOINT19 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT20 = T::GetNullVector();   T OUTPUT_SECONDPOINT20 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT21 = T::GetNullVector();   T OUTPUT_SECONDPOINT21 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT22 = T::GetNullVector();   T OUTPUT_SECONDPOINT22 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT23 = T::GetNullVector();   T OUTPUT_SECONDPOINT23 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT24 = T::GetNullVector();   T OUTPUT_SECONDPOINT24 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1  = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
@@ -2563,11 +2563,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_AssertionFailsWhenTheLengthOfOneSegment
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT1 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT2 = T::GetNullVector();
 
     const bool ASSERTION_FAILED = true;
 
@@ -2634,17 +2634,17 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsExpectedResultsWhenTheLengthOfOn
     const EQIntersections EXPECTED_RESULT_WHEN_DONT_INTERSECT = EQIntersections::E_None;
 
     const T EXPECTED_INTERSECTION_POINT = VALUE_FOR_A1B1;
-    const T EXPECTED_NO_INTERSECTION_POINT = T::GetZeroVector();
+    const T EXPECTED_NO_INTERSECTION_POINT = T::GetNullVector();
 
 	// [Execution]
-    T vFirstIntersection1 = T::GetZeroVector();
-    T vSecondIntersection1 = T::GetZeroVector();
-    T vFirstIntersection2 = T::GetZeroVector();
-    T vSecondIntersection2 = T::GetZeroVector();
-    T vFirstNoIntersection1 = T::GetZeroVector();
-    T vSecondNoIntersection1 = T::GetZeroVector();
-    T vFirstNoIntersection2 = T::GetZeroVector();
-    T vSecondNoIntersection2 = T::GetZeroVector();
+    T vFirstIntersection1 = T::GetNullVector();
+    T vSecondIntersection1 = T::GetNullVector();
+    T vFirstIntersection2 = T::GetNullVector();
+    T vSecondIntersection2 = T::GetNullVector();
+    T vFirstNoIntersection1 = T::GetNullVector();
+    T vSecondNoIntersection1 = T::GetNullVector();
+    T vFirstNoIntersection2 = T::GetNullVector();
+    T vSecondNoIntersection2 = T::GetNullVector();
     
     EQIntersections eResultIntersection1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, vFirstIntersection1, vSecondIntersection1);
     EQIntersections eResultIntersection2 = LINE_SEGMENT2.IntersectionPoint(LINE_SEGMENT1, vFirstIntersection2, vSecondIntersection2);
@@ -2697,11 +2697,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsNoPointWhenSegmentDoesNotInterse
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT1 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT2 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(LINE_SEGMENT2, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1);
@@ -2790,22 +2790,22 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenLinesCoincidePartia
     const T EXPECTED_SECONDPOINT6 = SECOND_POSITION;
     const T EXPECTED_SECONDPOINT7 = THIRD_POSITION;
     const T EXPECTED_SECONDPOINT8 = THIRD_POSITION;
-    T OUTPUT_FIRSTPOINT1 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT2 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT3 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT4 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT5 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT6 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT7 = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT8 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT1 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT2 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT3 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT4 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT5 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT6 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT7 = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT8 = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT1 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT2 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT3 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT4 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT5 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT6 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT7 = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT8 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT1 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT2 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT3 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT4 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT5 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT6 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT7 = T::GetNullVector();
+    T OUTPUT_SECONDPOINT8 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1); // I
@@ -2915,22 +2915,22 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint2_ReturnsTwoPointsWhenOneSegmentIsContain
     const T EXPECTED_SECONDPOINT6 = SECOND_POSITION;
     const T EXPECTED_SECONDPOINT7 = FIRST_POSITION;
     const T EXPECTED_SECONDPOINT8 = FIRST_POSITION;
-    T OUTPUT_FIRSTPOINT1  = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT2  = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT3  = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT4  = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT5  = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT6  = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT7  = T::GetZeroVector();
-    T OUTPUT_FIRSTPOINT8  = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT1  = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT2  = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT3  = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT4  = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT5  = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT6  = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT7  = T::GetZeroVector();
-    T OUTPUT_SECONDPOINT8  = T::GetZeroVector();
+    T OUTPUT_FIRSTPOINT1  = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT2  = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT3  = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT4  = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT5  = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT6  = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT7  = T::GetNullVector();
+    T OUTPUT_FIRSTPOINT8  = T::GetNullVector();
+    T OUTPUT_SECONDPOINT1  = T::GetNullVector();
+    T OUTPUT_SECONDPOINT2  = T::GetNullVector();
+    T OUTPUT_SECONDPOINT3  = T::GetNullVector();
+    T OUTPUT_SECONDPOINT4  = T::GetNullVector();
+    T OUTPUT_SECONDPOINT5  = T::GetNullVector();
+    T OUTPUT_SECONDPOINT6  = T::GetNullVector();
+    T OUTPUT_SECONDPOINT7  = T::GetNullVector();
+    T OUTPUT_SECONDPOINT8  = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1  = LINE_SEGMENTA_1.IntersectionPoint(LINE_SEGMENTB_1, OUTPUT_FIRSTPOINT1, OUTPUT_SECONDPOINT1);// I
@@ -2996,7 +2996,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionPointsAreReturnedWhenLine
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINT1F = EXPECTED_POINT;
     T OUTPUT_POINT1S = EXPECTED_POINT;
 
@@ -3039,11 +3039,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionPointWhenOnlyOneE
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_OUTPUT_POINTF[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINTF = T(VECTOR_COMPONENTS_OUTPUT_POINTF);
-    const T EXPECTED_POINTS = T::GetZeroVector();
-    T OUTPUT_POINT1F = T::GetZeroVector();
-    T OUTPUT_POINT1S = T::GetZeroVector();
-    T OUTPUT_POINT2F = T::GetZeroVector();
-    T OUTPUT_POINT2S = T::GetZeroVector();
+    const T EXPECTED_POINTS = T::GetNullVector();
+    T OUTPUT_POINT1F = T::GetNullVector();
+    T OUTPUT_POINT1S = T::GetNullVector();
+    T OUTPUT_POINT2F = T::GetNullVector();
+    T OUTPUT_POINT2S = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S); // I
@@ -3087,11 +3087,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_OUTPUT_POINTF[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINTF = T(VECTOR_COMPONENTS_OUTPUT_POINTF);
-    const T EXPECTED_POINTS = T::GetZeroVector();
-    T OUTPUT_POINT1F = T::GetZeroVector();
-    T OUTPUT_POINT1S = T::GetZeroVector();
-    T OUTPUT_POINT2F = T::GetZeroVector();
-    T OUTPUT_POINT2S = T::GetZeroVector();
+    const T EXPECTED_POINTS = T::GetNullVector();
+    T OUTPUT_POINT1F = T::GetNullVector();
+    T OUTPUT_POINT1S = T::GetNullVector();
+    T OUTPUT_POINT2F = T::GetNullVector();
+    T OUTPUT_POINT2S = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S); // I
@@ -3132,7 +3132,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsInfiniteIntersectionsWhenTheLine
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_3 );
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINTF = EXPECTED_POINT;
     T OUTPUT_POINTS = EXPECTED_POINT;
 
@@ -3176,11 +3176,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsCont
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_OUTPUT_POINTF[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINTF = T(VECTOR_COMPONENTS_OUTPUT_POINTF);
-    const T EXPECTED_POINTS = T::GetZeroVector();
-    T OUTPUT_POINT1F = T::GetZeroVector();
-    T OUTPUT_POINT1S = T::GetZeroVector();
-    T OUTPUT_POINT2F = T::GetZeroVector();
-    T OUTPUT_POINT2S = T::GetZeroVector();
+    const T EXPECTED_POINTS = T::GetNullVector();
+    T OUTPUT_POINT1F = T::GetNullVector();
+    T OUTPUT_POINT1S = T::GetNullVector();
+    T OUTPUT_POINT2F = T::GetNullVector();
+    T OUTPUT_POINT2S = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S); // I
@@ -3225,8 +3225,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineIsCon
     const T EXPECTED_POINTF = T(VECTOR_COMPONENTS_OUTPUT_POINTF);
     float_q VECTOR_COMPONENTS_OUTPUT_POINTS[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINTS = T(VECTOR_COMPONENTS_OUTPUT_POINTS);
-    T OUTPUT_POINTF = T::GetZeroVector();
-    T OUTPUT_POINTS = T::GetZeroVector();
+    T OUTPUT_POINTF = T::GetNullVector();
+    T OUTPUT_POINTS = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINTF, OUTPUT_POINTS);
@@ -3267,8 +3267,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsTwoIntersectionsWhenTheLineInter
     const T EXPECTED_POINTF = T(VECTOR_COMPONENTS_OUTPUT_POINTF);
     float_q VECTOR_COMPONENTS_OUTPUT_POINTS[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINTS = T(VECTOR_COMPONENTS_OUTPUT_POINTS);
-    T OUTPUT_POINTF = T::GetZeroVector();
-    T OUTPUT_POINTS = T::GetZeroVector();
+    T OUTPUT_POINTF = T::GetNullVector();
+    T OUTPUT_POINTS = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINTF, OUTPUT_POINTS);
@@ -3307,8 +3307,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsOneIntersectionWhenTheLineIsTang
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_OUTPUT_POINTF[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINTF = T(VECTOR_COMPONENTS_OUTPUT_POINTF);
-    const T EXPECTED_POINTS = T::GetZeroVector();
-    T OUTPUT_POINTF = T::GetZeroVector();
+    const T EXPECTED_POINTS = T::GetNullVector();
+    T OUTPUT_POINTF = T::GetNullVector();
     T OUTPUT_POINTS = EXPECTED_POINTS;
 
 	// [Execution]
@@ -3347,7 +3347,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_NoIntersectionIsReturnedWhenTheSegmentD
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINT1F = EXPECTED_POINT;
     T OUTPUT_POINT1S = EXPECTED_POINT;
     T OUTPUT_POINT2F = EXPECTED_POINT;
@@ -3391,7 +3391,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheRadiusEqualsZeroAn
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_0 );
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINT1F = EXPECTED_POINT;
     T OUTPUT_POINT1S = EXPECTED_POINT;
     T OUTPUT_POINT2F = EXPECTED_POINT;
@@ -3454,7 +3454,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_AssertionFailsWhenTheLengthOfSegmentEqu
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINTF = EXPECTED_POINT;
     T OUTPUT_POINTS = EXPECTED_POINT;
 
@@ -3511,11 +3511,11 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheRadiusEqua
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = false;
     const T EXPECTED_POINT_CONTAINED = T(VECTOR_COMPONENTS_CENTER_CONTAINED);
-    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
 
 	// [Execution]
-    T vPointContained = T::GetZeroVector();
-    T vPointNotContained = T::GetZeroVector();
+    T vPointContained = T::GetNullVector();
+    T vPointNotContained = T::GetNullVector();
     EQIntersections eResultContained = LINE_SEGMENT.IntersectionPoint(ORB_CONTAINED, vPointContained);
     EQIntersections eResultNotContained = LINE_SEGMENT.IntersectionPoint(ORB_NOT_CONTAINED, vPointNotContained);
 
@@ -3563,14 +3563,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_ReturnsExpectedResultsWhenTheLengthOfSe
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
     const EQIntersections EXPECTED_RESULT_IN_SURFACE = EQIntersections::E_Two;
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
-    const T EXPECTED_POINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_CONTAINED = T::GetNullVector();
     const T EXPECTED_POINT_IN_SURFACE = POINT_IN_SURFACE;
-    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
 
 	// [Execution]
-    T vPointContained = T::GetZeroVector();
-    T vPointInSurface = T::GetZeroVector();
-    T vPointNotContained = T::GetZeroVector();
+    T vPointContained = T::GetNullVector();
+    T vPointInSurface = T::GetNullVector();
+    T vPointNotContained = T::GetNullVector();
 
     EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(ORB, vPointContained);
     EQIntersections eResultInSurface = LINE_SEGMENT_IN_SURFACE.IntersectionPoint(ORB, vPointInSurface);
@@ -3620,10 +3620,10 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint3_FirstPointIsNearerToAThanSecondPoint_Te
     const T EXPECTED_POINT1S = T(VECTOR_COMPONENTS_OUTPUT_POINTS);
     const T EXPECTED_POINT2F = T(VECTOR_COMPONENTS_OUTPUT_POINTS);
     const T EXPECTED_POINT2S = T(VECTOR_COMPONENTS_OUTPUT_POINTF);
-    T OUTPUT_POINT1F = T::GetZeroVector();
-    T OUTPUT_POINT1S = T::GetZeroVector();
-    T OUTPUT_POINT2F = T::GetZeroVector();
-    T OUTPUT_POINT2S = T::GetZeroVector();
+    T OUTPUT_POINT1F = T::GetNullVector();
+    T OUTPUT_POINT1S = T::GetNullVector();
+    T OUTPUT_POINT2F = T::GetNullVector();
+    T OUTPUT_POINT2S = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1F, OUTPUT_POINT1S);
@@ -3665,7 +3665,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionPointsAreReturnedWhenLine
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINT = EXPECTED_POINT;
 
 	// [Execution]
@@ -3706,8 +3706,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionPointWhenOnlyOneE
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1); // I
@@ -3749,8 +3749,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTang
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1); // I
@@ -3789,7 +3789,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsInfiniteIntersectionsWhenTheLine
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_3 );
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Infinite;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINT = EXPECTED_POINT;
 
 	// [Execution]
@@ -3831,8 +3831,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsCont
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1); // I
@@ -3873,7 +3873,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineIsCon
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
     float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
-    T OUTPUT_POINT = T::GetZeroVector();
+    T OUTPUT_POINT = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
@@ -3911,7 +3911,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsTwoIntersectionsWhenTheLineInter
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_Two;
     float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
-    T OUTPUT_POINT = T::GetZeroVector();
+    T OUTPUT_POINT = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
@@ -3949,7 +3949,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsOneIntersectionWhenTheLineIsTang
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_One;
     float_q VECTOR_COMPONENTS_OUTPUT_POINT[] = { SQFloat::_1, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_OUTPUT_POINT);
-    T OUTPUT_POINT = T::GetZeroVector();
+    T OUTPUT_POINT = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult = LINE_SEGMENT.IntersectionPoint(ORB, OUTPUT_POINT);
@@ -3986,7 +3986,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_NoIntersectionIsReturnedWhenTheSegmentD
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
 
     const EQIntersections EXPECTED_RESULT = EQIntersections::E_None;
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINT1 = EXPECTED_POINT;
     T OUTPUT_POINT2 = EXPECTED_POINT;
 
@@ -4026,7 +4026,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheRadiusEqualsZeroAn
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_0 );
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINT1 = EXPECTED_POINT;
     T OUTPUT_POINT2 = EXPECTED_POINT;
 
@@ -4085,7 +4085,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_AssertionFailsWhenTheLengthOfSegmentEqu
     float_q VECTOR_COMPONENTS_CENTER[] = { SQFloat::_2, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     QBaseOrb<T> ORB = QBaseOrb<T>( T(VECTOR_COMPONENTS_CENTER), SQFloat::_1 );
 
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     T OUTPUT_POINT = EXPECTED_POINT;
 
     const bool ASSERTION_FAILED = true;
@@ -4140,14 +4140,14 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheRadiusEqua
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_One;
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = false;
     const T EXPECTED_FIRSTPOINT_CONTAINED = T(VECTOR_COMPONENTS_CENTER_CONTAINED);
-    const T EXPECTED_SECONDPOINT_CONTAINED = T::GetZeroVector();
-    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_SECONDPOINT_CONTAINED = T::GetNullVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
 
 	// [Execution]
-    T vFirstPointContained = T::GetZeroVector();
-    T vFirstPointNotContained = T::GetZeroVector();
-    T vSecondPointContained = T::GetZeroVector();
-    T vSecondPointNotContained = T::GetZeroVector();
+    T vFirstPointContained = T::GetNullVector();
+    T vFirstPointNotContained = T::GetNullVector();
+    T vSecondPointContained = T::GetNullVector();
+    T vSecondPointNotContained = T::GetNullVector();
     EQIntersections eResultContained = LINE_SEGMENT.IntersectionPoint(ORB_CONTAINED, vFirstPointContained, vSecondPointContained);
     EQIntersections eResultNotContained = LINE_SEGMENT.IntersectionPoint(ORB_NOT_CONTAINED, vFirstPointNotContained, vSecondPointNotContained);
 
@@ -4197,17 +4197,17 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_ReturnsExpectedResultsWhenTheLengthOfSe
     const EQIntersections EXPECTED_RESULT_CONTAINED = EQIntersections::E_Infinite;
     const EQIntersections EXPECTED_RESULT_IN_SURFACE = EQIntersections::E_Two;
     const EQIntersections EXPECTED_RESULT_NOT_CONTAINED = EQIntersections::E_None;
-    const T EXPECTED_POINT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_CONTAINED = T::GetNullVector();
     const T EXPECTED_POINT_IN_SURFACE = POINT_IN_SURFACE;
-    const T EXPECTED_POINT_NOT_CONTAINED = T::GetZeroVector();
+    const T EXPECTED_POINT_NOT_CONTAINED = T::GetNullVector();
 
 	// [Execution]
-    T vFirstPointContained = T::GetZeroVector();
-    T vSecondPointContained = T::GetZeroVector();
-    T vFirstPointInSurface = T::GetZeroVector();
-    T vSecondPointInSurface = T::GetZeroVector();
-    T vFirstPointNotContained = T::GetZeroVector();
-    T vSecondPointNotContained = T::GetZeroVector();
+    T vFirstPointContained = T::GetNullVector();
+    T vSecondPointContained = T::GetNullVector();
+    T vFirstPointInSurface = T::GetNullVector();
+    T vSecondPointInSurface = T::GetNullVector();
+    T vFirstPointNotContained = T::GetNullVector();
+    T vSecondPointNotContained = T::GetNullVector();
 
     EQIntersections eResultContained = LINE_SEGMENT_CONTAINED.IntersectionPoint(ORB, vFirstPointContained, vSecondPointContained);
     EQIntersections eResultInSurface = LINE_SEGMENT_IN_SURFACE.IntersectionPoint(ORB, vFirstPointInSurface, vSecondPointInSurface);
@@ -4258,8 +4258,8 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint4_FirstPointIsNearerToA_Test, TQTemplateT
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_OUTPUT_POINT);
     float_q VECTOR_COMPONENTS_OUTPUT_POINTS[] = { SQFloat::_3, SQFloat::_2, SQFloat::_2, SQFloat::_1 };
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_OUTPUT_POINTS);
-    T OUTPUT_POINT1 = T::GetZeroVector();
-    T OUTPUT_POINT2 = T::GetZeroVector();
+    T OUTPUT_POINT1 = T::GetNullVector();
+    T OUTPUT_POINT2 = T::GetNullVector();
 
 	// [Execution]
     EQIntersections eResult1 = LINE_SEGMENT1.IntersectionPoint(ORB, OUTPUT_POINT1);
@@ -5341,8 +5341,8 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ExpectedPointsAreReturnedWhenLinesDoNotIn
     float_q VECTOR_COMPONENTS_EXPECTED2[] = { (float_q)0.2, (float_q)2.4, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
-    T S1TOS2_POINT = T::GetZeroVector();
-    T S2TOS1_POINT = T::GetZeroVector();
+    T S1TOS2_POINT = T::GetNullVector();
+    T S2TOS1_POINT = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT, S2TOS1_POINT);
@@ -5382,8 +5382,8 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPoi
     float_q VECTOR_COMPONENTS_EXPECTED2[] = { (float_q)1.5, (float_q)1.5, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
-    T S1TOS2_POINT = T::GetZeroVector();
-    T S2TOS1_POINT = T::GetZeroVector();
+    T S1TOS2_POINT = T::GetNullVector();
+    T S2TOS1_POINT = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT, S2TOS1_POINT);
@@ -5419,8 +5419,8 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWhenLinesIntersectS
     const T VALUE_FOR_B2(VECTOR_COMPONENTS_B2);
     const QLineSegment<T> LINE_SEGMENT2 = QLineSegment<T>(VALUE_FOR_A2, VALUE_FOR_B2);
 
-    T S1TOS2_POINT = T::GetZeroVector();
-    T S2TOS1_POINT = T::GetZeroVector();
+    T S1TOS2_POINT = T::GetNullVector();
+    T S2TOS1_POINT = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT, S2TOS1_POINT);
@@ -5454,14 +5454,14 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithEndPointAWhenLinesC
     float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_2, SQFloat::_1, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
-    T S1TOS2_POINT1 = T::GetZeroVector();
-    T S2TOS1_POINT1 = T::GetZeroVector();
-    T S1TOS2_POINT2 = T::GetZeroVector();
-    T S2TOS1_POINT2 = T::GetZeroVector();
-    T S1TOS2_POINT3 = T::GetZeroVector();
-    T S2TOS1_POINT3 = T::GetZeroVector();
-    T S1TOS2_POINT4 = T::GetZeroVector();
-    T S2TOS1_POINT4 = T::GetZeroVector();
+    T S1TOS2_POINT1 = T::GetNullVector();
+    T S2TOS1_POINT1 = T::GetNullVector();
+    T S1TOS2_POINT2 = T::GetNullVector();
+    T S2TOS1_POINT2 = T::GetNullVector();
+    T S1TOS2_POINT3 = T::GetNullVector();
+    T S2TOS1_POINT3 = T::GetNullVector();
+    T S1TOS2_POINT4 = T::GetNullVector();
+    T S2TOS1_POINT4 = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1); // I
@@ -5509,22 +5509,22 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_ObtainedPointsCoincideWithIntersectionPoi
 
     float_q VECTOR_COMPONENTS_EXPECTED[] = { SQFloat::_2, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT = T(VECTOR_COMPONENTS_EXPECTED);
-    T S1TOS2_POINT1 = T::GetZeroVector();
-    T S2TOS1_POINT1 = T::GetZeroVector();
-    T S1TOS2_POINT2 = T::GetZeroVector();
-    T S2TOS1_POINT2 = T::GetZeroVector();
-    T S1TOS2_POINT3 = T::GetZeroVector();
-    T S2TOS1_POINT3 = T::GetZeroVector();
-    T S1TOS2_POINT4 = T::GetZeroVector();
-    T S2TOS1_POINT4 = T::GetZeroVector();
-    T S1TOS2_POINT5 = T::GetZeroVector();
-    T S2TOS1_POINT5 = T::GetZeroVector();
-    T S1TOS2_POINT6 = T::GetZeroVector();
-    T S2TOS1_POINT6 = T::GetZeroVector();
-    T S1TOS2_POINT7 = T::GetZeroVector();
-    T S2TOS1_POINT7 = T::GetZeroVector();
-    T S1TOS2_POINT8 = T::GetZeroVector();
-    T S2TOS1_POINT8 = T::GetZeroVector();
+    T S1TOS2_POINT1 = T::GetNullVector();
+    T S2TOS1_POINT1 = T::GetNullVector();
+    T S1TOS2_POINT2 = T::GetNullVector();
+    T S2TOS1_POINT2 = T::GetNullVector();
+    T S1TOS2_POINT3 = T::GetNullVector();
+    T S2TOS1_POINT3 = T::GetNullVector();
+    T S1TOS2_POINT4 = T::GetNullVector();
+    T S2TOS1_POINT4 = T::GetNullVector();
+    T S1TOS2_POINT5 = T::GetNullVector();
+    T S2TOS1_POINT5 = T::GetNullVector();
+    T S1TOS2_POINT6 = T::GetNullVector();
+    T S2TOS1_POINT6 = T::GetNullVector();
+    T S1TOS2_POINT7 = T::GetNullVector();
+    T S2TOS1_POINT7 = T::GetNullVector();
+    T S1TOS2_POINT8 = T::GetNullVector();
+    T S2TOS1_POINT8 = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1); // I
@@ -5602,30 +5602,30 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsCoincideWithSharedEndPointWhenL
     float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
-    T S1TOS2_POINT1 = T::GetZeroVector();    T S2TOS1_POINT1 = T::GetZeroVector();
-    T S1TOS2_POINT2 = T::GetZeroVector();    T S2TOS1_POINT2 = T::GetZeroVector();
-    T S1TOS2_POINT3 = T::GetZeroVector();    T S2TOS1_POINT3 = T::GetZeroVector();
-    T S1TOS2_POINT4 = T::GetZeroVector();    T S2TOS1_POINT4 = T::GetZeroVector();
-    T S1TOS2_POINT5 = T::GetZeroVector();    T S2TOS1_POINT5 = T::GetZeroVector();
-    T S1TOS2_POINT6 = T::GetZeroVector();    T S2TOS1_POINT6 = T::GetZeroVector();
-    T S1TOS2_POINT7 = T::GetZeroVector();    T S2TOS1_POINT7 = T::GetZeroVector();
-    T S1TOS2_POINT8 = T::GetZeroVector();    T S2TOS1_POINT8 = T::GetZeroVector();
-    T S1TOS2_POINT9 = T::GetZeroVector();    T S2TOS1_POINT9 = T::GetZeroVector();
-    T S1TOS2_POINT10 = T::GetZeroVector();    T S2TOS1_POINT10 = T::GetZeroVector();
-    T S1TOS2_POINT11 = T::GetZeroVector();    T S2TOS1_POINT11 = T::GetZeroVector();
-    T S1TOS2_POINT12 = T::GetZeroVector();    T S2TOS1_POINT12 = T::GetZeroVector();
-    T S1TOS2_POINT13 = T::GetZeroVector();    T S2TOS1_POINT13 = T::GetZeroVector();
-    T S1TOS2_POINT14 = T::GetZeroVector();    T S2TOS1_POINT14 = T::GetZeroVector();
-    T S1TOS2_POINT15 = T::GetZeroVector();    T S2TOS1_POINT15 = T::GetZeroVector();
-    T S1TOS2_POINT16 = T::GetZeroVector();    T S2TOS1_POINT16 = T::GetZeroVector();
-    T S1TOS2_POINT17 = T::GetZeroVector();    T S2TOS1_POINT17 = T::GetZeroVector();
-    T S1TOS2_POINT18 = T::GetZeroVector();    T S2TOS1_POINT18 = T::GetZeroVector();
-    T S1TOS2_POINT19 = T::GetZeroVector();    T S2TOS1_POINT19 = T::GetZeroVector();
-    T S1TOS2_POINT20 = T::GetZeroVector();    T S2TOS1_POINT20 = T::GetZeroVector();
-    T S1TOS2_POINT21 = T::GetZeroVector();    T S2TOS1_POINT21 = T::GetZeroVector();
-    T S1TOS2_POINT22 = T::GetZeroVector();    T S2TOS1_POINT22 = T::GetZeroVector();
-    T S1TOS2_POINT23 = T::GetZeroVector();    T S2TOS1_POINT23 = T::GetZeroVector();
-    T S1TOS2_POINT24 = T::GetZeroVector();    T S2TOS1_POINT24 = T::GetZeroVector();
+    T S1TOS2_POINT1 = T::GetNullVector();    T S2TOS1_POINT1 = T::GetNullVector();
+    T S1TOS2_POINT2 = T::GetNullVector();    T S2TOS1_POINT2 = T::GetNullVector();
+    T S1TOS2_POINT3 = T::GetNullVector();    T S2TOS1_POINT3 = T::GetNullVector();
+    T S1TOS2_POINT4 = T::GetNullVector();    T S2TOS1_POINT4 = T::GetNullVector();
+    T S1TOS2_POINT5 = T::GetNullVector();    T S2TOS1_POINT5 = T::GetNullVector();
+    T S1TOS2_POINT6 = T::GetNullVector();    T S2TOS1_POINT6 = T::GetNullVector();
+    T S1TOS2_POINT7 = T::GetNullVector();    T S2TOS1_POINT7 = T::GetNullVector();
+    T S1TOS2_POINT8 = T::GetNullVector();    T S2TOS1_POINT8 = T::GetNullVector();
+    T S1TOS2_POINT9 = T::GetNullVector();    T S2TOS1_POINT9 = T::GetNullVector();
+    T S1TOS2_POINT10 = T::GetNullVector();    T S2TOS1_POINT10 = T::GetNullVector();
+    T S1TOS2_POINT11 = T::GetNullVector();    T S2TOS1_POINT11 = T::GetNullVector();
+    T S1TOS2_POINT12 = T::GetNullVector();    T S2TOS1_POINT12 = T::GetNullVector();
+    T S1TOS2_POINT13 = T::GetNullVector();    T S2TOS1_POINT13 = T::GetNullVector();
+    T S1TOS2_POINT14 = T::GetNullVector();    T S2TOS1_POINT14 = T::GetNullVector();
+    T S1TOS2_POINT15 = T::GetNullVector();    T S2TOS1_POINT15 = T::GetNullVector();
+    T S1TOS2_POINT16 = T::GetNullVector();    T S2TOS1_POINT16 = T::GetNullVector();
+    T S1TOS2_POINT17 = T::GetNullVector();    T S2TOS1_POINT17 = T::GetNullVector();
+    T S1TOS2_POINT18 = T::GetNullVector();    T S2TOS1_POINT18 = T::GetNullVector();
+    T S1TOS2_POINT19 = T::GetNullVector();    T S2TOS1_POINT19 = T::GetNullVector();
+    T S1TOS2_POINT20 = T::GetNullVector();    T S2TOS1_POINT20 = T::GetNullVector();
+    T S1TOS2_POINT21 = T::GetNullVector();    T S2TOS1_POINT21 = T::GetNullVector();
+    T S1TOS2_POINT22 = T::GetNullVector();    T S2TOS1_POINT22 = T::GetNullVector();
+    T S1TOS2_POINT23 = T::GetNullVector();    T S2TOS1_POINT23 = T::GetNullVector();
+    T S1TOS2_POINT24 = T::GetNullVector();    T S2TOS1_POINT24 = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1); // I
@@ -5735,14 +5735,14 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
     float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_3, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
-    T S1TOS2_POINT1 = T::GetZeroVector();    T S2TOS1_POINT1 = T::GetZeroVector();
-    T S1TOS2_POINT2 = T::GetZeroVector();    T S2TOS1_POINT2 = T::GetZeroVector();
-    T S1TOS2_POINT3 = T::GetZeroVector();    T S2TOS1_POINT3 = T::GetZeroVector();
-    T S1TOS2_POINT4 = T::GetZeroVector();    T S2TOS1_POINT4 = T::GetZeroVector();
-    T S1TOS2_POINT5 = T::GetZeroVector();    T S2TOS1_POINT5 = T::GetZeroVector();
-    T S1TOS2_POINT6 = T::GetZeroVector();    T S2TOS1_POINT6 = T::GetZeroVector();
-    T S1TOS2_POINT7 = T::GetZeroVector();    T S2TOS1_POINT7 = T::GetZeroVector();
-    T S1TOS2_POINT8 = T::GetZeroVector();    T S2TOS1_POINT8 = T::GetZeroVector();
+    T S1TOS2_POINT1 = T::GetNullVector();    T S2TOS1_POINT1 = T::GetNullVector();
+    T S1TOS2_POINT2 = T::GetNullVector();    T S2TOS1_POINT2 = T::GetNullVector();
+    T S1TOS2_POINT3 = T::GetNullVector();    T S2TOS1_POINT3 = T::GetNullVector();
+    T S1TOS2_POINT4 = T::GetNullVector();    T S2TOS1_POINT4 = T::GetNullVector();
+    T S1TOS2_POINT5 = T::GetNullVector();    T S2TOS1_POINT5 = T::GetNullVector();
+    T S1TOS2_POINT6 = T::GetNullVector();    T S2TOS1_POINT6 = T::GetNullVector();
+    T S1TOS2_POINT7 = T::GetNullVector();    T S2TOS1_POINT7 = T::GetNullVector();
+    T S1TOS2_POINT8 = T::GetNullVector();    T S2TOS1_POINT8 = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1); // I
@@ -5810,16 +5810,16 @@ QTEST_CASE_TEMPLATE ( GetClosestPoints_BothPointsAreTheClosestToAInsideTheOtherL
     float_q VECTOR_COMPONENTS_EXPECTED2[] = { SQFloat::_4, SQFloat::_2, SQFloat::_3, SQFloat::_1 };
     const T EXPECTED_POINT1 = T(VECTOR_COMPONENTS_EXPECTED1);
     const T EXPECTED_POINT2 = T(VECTOR_COMPONENTS_EXPECTED2);
-    T S1TOS2_POINT1 = T::GetZeroVector();    T S2TOS1_POINT1 = T::GetZeroVector();
-    T S1TOS2_POINT2 = T::GetZeroVector();    T S2TOS1_POINT2 = T::GetZeroVector();
-    T S1TOS2_POINT3 = T::GetZeroVector();    T S2TOS1_POINT3 = T::GetZeroVector();
-    T S1TOS2_POINT4 = T::GetZeroVector();    T S2TOS1_POINT4 = T::GetZeroVector();
-    T S1TOS2_POINT5 = T::GetZeroVector();    T S2TOS1_POINT5 = T::GetZeroVector();
-    T S1TOS2_POINT6 = T::GetZeroVector();    T S2TOS1_POINT6 = T::GetZeroVector();
-    T S1TOS2_POINT7 = T::GetZeroVector();    T S2TOS1_POINT7 = T::GetZeroVector();
-    T S1TOS2_POINT8 = T::GetZeroVector();    T S2TOS1_POINT8 = T::GetZeroVector();
-    T S1TOS2_POINT9 = T::GetZeroVector();    T S2TOS1_POINT9 = T::GetZeroVector();
-    T S1TOS2_POINT10 = T::GetZeroVector();   T S2TOS1_POINT10 = T::GetZeroVector();
+    T S1TOS2_POINT1 = T::GetNullVector();    T S2TOS1_POINT1 = T::GetNullVector();
+    T S1TOS2_POINT2 = T::GetNullVector();    T S2TOS1_POINT2 = T::GetNullVector();
+    T S1TOS2_POINT3 = T::GetNullVector();    T S2TOS1_POINT3 = T::GetNullVector();
+    T S1TOS2_POINT4 = T::GetNullVector();    T S2TOS1_POINT4 = T::GetNullVector();
+    T S1TOS2_POINT5 = T::GetNullVector();    T S2TOS1_POINT5 = T::GetNullVector();
+    T S1TOS2_POINT6 = T::GetNullVector();    T S2TOS1_POINT6 = T::GetNullVector();
+    T S1TOS2_POINT7 = T::GetNullVector();    T S2TOS1_POINT7 = T::GetNullVector();
+    T S1TOS2_POINT8 = T::GetNullVector();    T S2TOS1_POINT8 = T::GetNullVector();
+    T S1TOS2_POINT9 = T::GetNullVector();    T S2TOS1_POINT9 = T::GetNullVector();
+    T S1TOS2_POINT10 = T::GetNullVector();   T S2TOS1_POINT10 = T::GetNullVector();
 
 	// [Execution]
     LINE_SEGMENT1.GetClosestPoints(LINE_SEGMENT2, S1TOS2_POINT1, S2TOS1_POINT1);// I

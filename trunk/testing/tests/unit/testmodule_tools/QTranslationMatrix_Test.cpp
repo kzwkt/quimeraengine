@@ -278,7 +278,7 @@ QTEST_CASE_TEMPLATE ( Constructor4_IdentityMatrixObtainedWhen3DVectorIsZeroVecto
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector3;
 
-    const QVector3 ZERO_VECTOR = QVector3::GetZeroVector();
+    const QVector3 ZERO_VECTOR = QVector3::GetNullVector();
 	const T EXPECTED_VALUE = T::GetIdentity();
 
     // [Execution]
@@ -352,7 +352,7 @@ QTEST_CASE_TEMPLATE ( Constructor5_IdentityMatrixObtainedWhen4DVectorIsZeroVecto
     // [Preparation]
     using Kinesis::QuimeraEngine::Tools::Math::QVector4;
 
-    const QVector4 ZERO_VECTOR = QVector4::GetZeroVector();
+    const QVector4 ZERO_VECTOR = QVector4::GetNullVector();
 	const T EXPECTED_VALUE = T::GetIdentity();
 
     // [Execution]

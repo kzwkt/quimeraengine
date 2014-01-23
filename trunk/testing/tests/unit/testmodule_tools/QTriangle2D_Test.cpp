@@ -50,9 +50,9 @@ QTEST_SUITE_BEGIN( QTriangle2D_TestSuite )
 QTEST_CASE ( Constructor1_DefaultValuesHaveNotChanged_Test )
 {
     // [Preparation]
-    const QVector2 EXPECTED_VALUE_FOR_A = QVector2::GetZeroVector();
-    const QVector2 EXPECTED_VALUE_FOR_B = QVector2::GetZeroVector();
-    const QVector2 EXPECTED_VALUE_FOR_C = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_VALUE_FOR_A = QVector2::GetNullVector();
+    const QVector2 EXPECTED_VALUE_FOR_B = QVector2::GetNullVector();
+    const QVector2 EXPECTED_VALUE_FOR_C = QVector2::GetNullVector();
 
 	// [Execution]
     QTriangle2D triangleUT;
@@ -341,11 +341,11 @@ QTEST_CASE ( Transform_AllVerticesAreMovedToCoordinateOriginWhenTransfomedByZero
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     // [Preparation]
-    const QVector2 EXPECTED_VALUE_FOR_A = QVector2::GetZeroVector();
-    const QVector2 EXPECTED_VALUE_FOR_B = QVector2::GetZeroVector();
-    const QVector2 EXPECTED_VALUE_FOR_C = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_VALUE_FOR_A = QVector2::GetNullVector();
+    const QVector2 EXPECTED_VALUE_FOR_B = QVector2::GetNullVector();
+    const QVector2 EXPECTED_VALUE_FOR_C = QVector2::GetNullVector();
 
-    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetZeroMatrix();
+    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetNullMatrix();
 
 	// [Execution]
     QTriangle2D triangleUT = QTriangle2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
@@ -437,7 +437,7 @@ QTEST_CASE ( TransformWithPivot_AllVerticesAreMovedToPivotPointWhenTransformedBy
     const QVector2 VALUE_FOR_B = QVector2(-SQFloat::_1, SQFloat::_9);
     const QVector2 VALUE_FOR_C = QVector2(-SQFloat::_2, SQFloat::_7);
 
-    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetZeroMatrix();
+    const QTransformationMatrix3x3 TRANSFORMATION = QMatrix3x3::GetNullMatrix();
 
     const QVector2 PIVOT_POINT = QVector2(SQFloat::_3, SQFloat::_6);
 
@@ -591,7 +591,7 @@ QTEST_CASE ( Translate1_TriangleIsNotTranslatedWhenTranslationIsZero_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_1, SQFloat::_6);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_9);
 
-    const QVector2 TRANSLATION_VECTOR = QVector2::GetZeroVector();
+    const QVector2 TRANSLATION_VECTOR = QVector2::GetNullVector();
 
 	// [Execution]
     QTriangle2D triangleUT = QTriangle2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);
@@ -639,7 +639,7 @@ QTEST_CASE ( Translate2_TriangleIsNotTranslatedWhenTranslationIsZero_Test )
     const QVector2 EXPECTED_VALUE_FOR_B = QVector2(SQFloat::_1, SQFloat::_6);
     const QVector2 EXPECTED_VALUE_FOR_C = QVector2(SQFloat::_7, SQFloat::_9);
 
-    const QVector2 TRANSLATION_VECTOR = QVector2::GetZeroVector();
+    const QVector2 TRANSLATION_VECTOR = QVector2::GetNullVector();
 
 	// [Execution]
     QTriangle2D triangleUT = QTriangle2D(EXPECTED_VALUE_FOR_A, EXPECTED_VALUE_FOR_B, EXPECTED_VALUE_FOR_C);

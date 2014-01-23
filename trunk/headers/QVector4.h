@@ -191,7 +191,7 @@ public:
 	/// <returns>
 	/// A null vector.
 	/// </returns>
-    static const QVector4& GetZeroVector();
+    static const QVector4& GetNullVector();
 
     /// <summary>
 	/// Gets a vector whose components equal one.

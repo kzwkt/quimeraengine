@@ -116,7 +116,7 @@ public:
 	/// </returns>
     static const QOrb<VectorType>& GetUnitOrb()
     {
-        static const QOrb<VectorType> UNITORB(VectorType::GetZeroVector(), SQFloat::_1);
+        static const QOrb<VectorType> UNITORB(VectorType::GetNullVector(), SQFloat::_1);
         return UNITORB;
     }
 

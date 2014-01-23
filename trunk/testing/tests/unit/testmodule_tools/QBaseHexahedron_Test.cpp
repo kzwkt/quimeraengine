@@ -323,12 +323,12 @@ QTEST_CASE_TEMPLATE ( Constructor5_AllPointsCoincideWithCoordinateOriginWhenLeng
     //  H --- G
 
     // [Preparation]
-    const T EXPECTED_VALUE_FOR_ALL_POINTS = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_ALL_POINTS = T::GetNullVector();
 
     const float_q INPUT_X = SQFloat::_0;
     const float_q INPUT_Y = SQFloat::_0;
     const float_q INPUT_Z = SQFloat::_0;
-    const T INPUT_CENTER = T::GetZeroVector();
+    const T INPUT_CENTER = T::GetNullVector();
 
 	// [Execution]
     QBaseHexahedron<T> hexahedronUT(INPUT_CENTER, INPUT_X, INPUT_Y, INPUT_Z);
@@ -350,8 +350,8 @@ QTEST_CASE_TEMPLATE ( Constructor5_AllPointsCoincideWithCoordinateOriginWhenLeng
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QBaseHexahedron<T> LEFT_OPERAND = QBaseHexahedron<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
-    const QBaseHexahedron<T> RIGHT_OPERAND = QBaseHexahedron<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseHexahedron<T> LEFT_OPERAND = QBaseHexahedron<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
+    const QBaseHexahedron<T> RIGHT_OPERAND = QBaseHexahedron<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
@@ -371,7 +371,7 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_T
                                                                 T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), 
                                                                 T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), 
                                                                 T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5) );
-    const QBaseHexahedron<T> RIGHT_OPERAND = QBaseHexahedron<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseHexahedron<T> RIGHT_OPERAND = QBaseHexahedron<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
@@ -391,7 +391,7 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanToleran
                                                                 T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), 
                                                                 T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), 
                                                                 T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
-    const QBaseHexahedron<T> RIGHT_OPERAND = QBaseHexahedron<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseHexahedron<T> RIGHT_OPERAND = QBaseHexahedron<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
@@ -457,7 +457,7 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolera
                                                                 T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), 
                                                                 T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), 
                                                                 T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
-    const QBaseHexahedron<T> RIGHT_OPERAND = QBaseHexahedron<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseHexahedron<T> RIGHT_OPERAND = QBaseHexahedron<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);

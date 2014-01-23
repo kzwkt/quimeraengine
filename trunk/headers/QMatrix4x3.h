@@ -160,7 +160,7 @@ public:
     /// <returns>
     /// A matrix with all components set to 0.
     /// </returns>
-    static const QMatrix4x3& GetZeroMatrix();
+    static const QMatrix4x3& GetNullMatrix();
 
 	/// <summary>
 	/// Gets a pseudo-identity matrix.
