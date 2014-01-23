@@ -398,7 +398,7 @@ QTEST_CASE ( Constructor5_NeutralRotationIsObtainedWhenUsingNullVectorAndAngleEq
     // D3DXMATRIX rotm;
     // D3DXMatrixRotationAxis(&rotm, &vAxis, 0);
     const float_q ANGLE = SQFloat::_0;
-    const QVector3 AXIS = QVector3::GetZeroVector();
+    const QVector3 AXIS = QVector3::GetNullVector();
     const QRotationMatrix3x3 EXPECTED_VALUE = QRotationMatrix3x3::GetIdentity();
 
     // [Execution]
@@ -1296,7 +1296,7 @@ QTEST_CASE ( GetRotation3_NullVectorIsReturnedWhenRotationAngleEqualsZero_Test )
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
     const float_q EXPECTED_ANGLE = SQFloat::_0;
-    const QVector3 EXPECTED_AXIS = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_AXIS = QVector3::GetNullVector();
 
     const QRotationMatrix3x3 ROTATION = QRotationMatrix3x3::GetIdentity(); // Identity is obtained when using zero as angle, it has nothing to do with the value of the axis
 

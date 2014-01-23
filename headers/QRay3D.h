@@ -118,10 +118,10 @@ public:
 	/// <returns>
     /// The null ray.
     /// </returns>
-    static const QRay3D<VectorType>& GetRayZero()
+    static const QRay3D<VectorType>& GetNullRay()
     {
-        static const QRay3D<VectorType> RAY_ZERO(VectorType::GetZeroVector(), QVector3::GetZeroVector());
-        return RAY_ZERO;
+        static const QRay3D<VectorType> NULL_RAY(VectorType::GetNullVector(), QVector3::GetNullVector());
+        return NULL_RAY;
     }
 
     /// <summary>
@@ -132,7 +132,7 @@ public:
     /// </returns>
     static const QRay3D<VectorType>& GetRayX()
     {
-        static const QRay3D<VectorType> RAY_X(VectorType::GetZeroVector(), QVector3::GetUnitVectorX());
+        static const QRay3D<VectorType> RAY_X(VectorType::GetNullVector(), QVector3::GetUnitVectorX());
         return RAY_X;
     }
 
@@ -144,7 +144,7 @@ public:
     /// </returns>
     static const QRay3D<VectorType>& GetRayY()
     {
-        static const QRay3D<VectorType> RAY_Y(VectorType::GetZeroVector(), QVector3::GetUnitVectorY());
+        static const QRay3D<VectorType> RAY_Y(VectorType::GetNullVector(), QVector3::GetUnitVectorY());
         return RAY_Y;
     }
 
@@ -156,7 +156,7 @@ public:
     /// </returns>
     static const QRay3D<VectorType>& GetRayZ()
     {
-        static const QRay3D<VectorType> RAY_Z(VectorType::GetZeroVector(), QVector3::GetUnitVectorZ());
+        static const QRay3D<VectorType> RAY_Z(VectorType::GetNullVector(), QVector3::GetUnitVectorZ());
         return RAY_Z;
     }
 
@@ -574,7 +574,7 @@ public:
         {
             if (this->Origin == ray.Origin)
             {
-                if ( (this->Direction + ray.Direction) == QVector3::GetZeroVector() ) // Directions are opposite (are supossed normalized)
+                if ( (this->Direction + ray.Direction) == QVector3::GetNullVector() ) // Directions are opposite (are supossed normalized)
                 {
                     vIntersection.x = this->Origin.x;
                     vIntersection.y = this->Origin.y;
@@ -2211,7 +2211,7 @@ protected:
 
         QVector3 vCross = vAux.CrossProduct(this->Direction); // Calculates cross product to check if both vectors are parallel
 
-        if (vCross != QVector3::GetZeroVector()) // Vectors are not parallel
+        if (vCross != QVector3::GetNullVector()) // Vectors are not parallel
             return false;
         else // Vectors are parallel. It checks if they are opposite or not.
             return ( SQFloat::IsNegative(vAux.x) == SQFloat::IsNegative(this->Direction.x) ) &&

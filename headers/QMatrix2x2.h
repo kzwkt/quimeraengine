@@ -139,7 +139,7 @@ public:
     /// <returns>
     /// A matrix with all components set to 0.
     /// </returns>
-    static const QMatrix2x2& GetZeroMatrix();
+    static const QMatrix2x2& GetNullMatrix();
 
     /// <summary>
     /// Gets an identity matrix.

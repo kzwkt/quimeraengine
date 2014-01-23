@@ -108,10 +108,10 @@ public:
 	/// <returns>
     /// The null ray.
     /// </returns>
-    static const QRay<VectorTypeOrigin, VectorTypeDirection>& GetRayZero()
+    static const QRay<VectorTypeOrigin, VectorTypeDirection>& GetNullRay()
     {
-        static const QRay<VectorTypeOrigin, VectorTypeDirection> RAYZERO(VectorTypeOrigin::GetZeroVector(), VectorTypeDirection::GetZeroVector());
-        return RAYZERO;
+        static const QRay<VectorTypeOrigin, VectorTypeDirection> NULLRAY(VectorTypeOrigin::GetNullVector(), VectorTypeDirection::GetNullVector());
+        return NULLRAY;
     }
 
 

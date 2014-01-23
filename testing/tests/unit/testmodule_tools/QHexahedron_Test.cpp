@@ -327,12 +327,12 @@ QTEST_CASE_TEMPLATE ( Constructor6_AllPointsCoincideWithCoordinateOriginWhenLeng
     //  H --- G
 
     // [Preparation]
-    const T EXPECTED_VALUE_FOR_ALL_POINTS = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_ALL_POINTS = T::GetNullVector();
 
     const float_q INPUT_X = SQFloat::_0;
     const float_q INPUT_Y = SQFloat::_0;
     const float_q INPUT_Z = SQFloat::_0;
-    const T INPUT_CENTER = T::GetZeroVector();
+    const T INPUT_CENTER = T::GetNullVector();
 
 	// [Execution]
     QHexahedron<T> hexahedronUT(INPUT_CENTER, INPUT_X, INPUT_Y, INPUT_Z);
@@ -769,7 +769,7 @@ QTEST_CASE_TEMPLATE ( Translate1_HexahedronIsNotTranslatedWhenTranslationIsZero_
     const T EXPECTED_VALUE_FOR_G = HEXAHEDRON.G;
     const T EXPECTED_VALUE_FOR_H = HEXAHEDRON.H;
 
-    const QVector3 TRANSLATION = QVector3::GetZeroVector();
+    const QVector3 TRANSLATION = QVector3::GetNullVector();
 
 	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION);
@@ -982,7 +982,7 @@ QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_
     const float_q NULL_VECTOR_COMPONENTS[] = {SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_1};
     const T COORDINATE_ORIGIN = T(NULL_VECTOR_COMPONENTS);
 
-    const QVector3 SCALE = QVector3::GetZeroVector();
+    const QVector3 SCALE = QVector3::GetNullVector();
 
 	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Scale(SCALE);
@@ -1230,7 +1230,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_VerticesAreMovedToCoordinateOriginWhenVect
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-    const QVector3 SCALE = QVector3::GetZeroVector();
+    const QVector3 SCALE = QVector3::GetNullVector();
 
 	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE, PIVOT_POINT);
@@ -2239,7 +2239,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEquals
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QRotationMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
+    const QRotationMatrix3x3 ROTATION = QMatrix3x3::GetNullMatrix();
 
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
@@ -2376,7 +2376,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_VerticesAreMovedToPivotPointWhenMatrixEqu
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
 
-    const QRotationMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
+    const QRotationMatrix3x3 ROTATION = QMatrix3x3::GetNullMatrix();
 
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
@@ -2503,7 +2503,7 @@ void Translate3_HexahedronIsNotTranslatedWhenTranslationIsZero_Template()
     const T EXPECTED_VALUE_FOR_G = HEXAHEDRON.G;
     const T EXPECTED_VALUE_FOR_H = HEXAHEDRON.H;
 
-    const QTranslationMatrix<MatrixType> TRANSLATION = MatrixType::GetZeroMatrix();
+    const QTranslationMatrix<MatrixType> TRANSLATION = MatrixType::GetNullMatrix();
 
 	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Translate(TRANSLATION);
@@ -2689,7 +2689,7 @@ QTEST_CASE_TEMPLATE ( Scale3_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZ
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
-    const QScalingMatrix3x3 SCALE = QMatrix3x3::GetZeroMatrix();
+    const QScalingMatrix3x3 SCALE = QMatrix3x3::GetNullMatrix();
 
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
@@ -2824,7 +2824,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_VerticesAreMovedToCoordinateOriginWhenVect
     const float_q PIVOT_COMPONENTS[] = {SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_1};
     const T PIVOT_POINT = T(PIVOT_COMPONENTS);
 
-    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3::GetZeroMatrix();
+    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3::GetNullMatrix();
 
 	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.ScaleWithPivot(SCALE, PIVOT_POINT);
@@ -2941,7 +2941,7 @@ void Transform1_HexahedronVerticesAreMovedToCoordinateOriginWhenTransformationIs
     const T EXPECTED_VALUE_FOR_G = T(NULL_VECTOR_COMPONENTS);
     const T EXPECTED_VALUE_FOR_H = T(NULL_VECTOR_COMPONENTS);
 
-    const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetZeroMatrix();
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetNullMatrix();
 
 	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.Transform(TRANSFORMATION);
@@ -3102,14 +3102,14 @@ QTEST_CASE_TEMPLATE ( Transform2_EndpointsAreNullifiedWhenMatrixIsZero_Test, TQT
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     // [Preparation]
-    const QSpaceConversionMatrix ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
+    const QSpaceConversionMatrix NULL_MATRIX = QMatrix4x4::GetNullMatrix();
 
     const QHexahedron<T> HEXAHEDRON = QHexahedron<T>::GetUnitCube();
 
-    const QHexahedron<T> EXPECTED_HEXAHEDRON = QHexahedron<T>(T::GetZeroVector(), T::GetZeroVector());
+    const QHexahedron<T> EXPECTED_HEXAHEDRON = QHexahedron<T>(T::GetNullVector(), T::GetNullVector());
 
 	// [Execution]
-    QHexahedron<T> hexahedron = HEXAHEDRON.Transform(ZERO_MATRIX);
+    QHexahedron<T> hexahedron = HEXAHEDRON.Transform(NULL_MATRIX);
 
     // [Verification]
     BOOST_CHECK(hexahedron == EXPECTED_HEXAHEDRON);
@@ -3220,7 +3220,7 @@ void TransformWithPivot_HexahedronVerticesAreMovedToCoordinateOriginWhenTransfor
     const T EXPECTED_VALUE_FOR_G = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_H = PIVOT_POINT;
 
-    const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetZeroMatrix();
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetNullMatrix();
 
 	// [Execution]
     QHexahedron<T> returnedHexahedron = HEXAHEDRON.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);

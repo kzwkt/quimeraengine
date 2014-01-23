@@ -354,7 +354,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 
     if( SQFloat::AreEqual(COS_AUX, SQFloat::_1) ) // Singularity 1: Angle == 0 -> we choose arbitrary axis.
     {
-        vRotationAxis = QVector3::GetZeroVector();
+        vRotationAxis = QVector3::GetNullVector();
     }
     else if( SQFloat::AreEqual(COS_AUX, -SQFloat::_1) ) // Singularity 2: Angle == PI -> we calculate axis.
     {

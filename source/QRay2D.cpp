@@ -146,7 +146,7 @@ EQIntersections QRay2D::IntersectionPoint(const QRay2D &ray, QBaseVector2 &vInte
     {
         if (this->Origin == ray.Origin)
         {
-            if ( (this->Direction + ray.Direction) == QVector2::GetZeroVector() ) // Directions are opposite (are supossed normalized)
+            if ( (this->Direction + ray.Direction) == QVector2::GetNullVector() ) // Directions are opposite (are supossed normalized)
             {
                 vIntersection = this->Origin;
                 return EQIntersections::E_One;
@@ -1268,21 +1268,21 @@ bool QRay2D::PointInsideQuadrilateral(const QBaseQuadrilateral& quad, const QVec
 //##################													   ##################
 //##################=======================================================##################
 
-const QRay2D& QRay2D::GetRayZero()
+const QRay2D& QRay2D::GetNullRay()
 {
-    static const QRay2D RAYZERO(QVector2::GetZeroVector(), QVector2::GetZeroVector());
-    return RAYZERO;
+    static const QRay2D NULLRAY(QVector2::GetNullVector(), QVector2::GetNullVector());
+    return NULLRAY;
 }
 
 const QRay2D& QRay2D::GetRayX()
 {
-    static const QRay2D RAYX(QVector2::GetZeroVector(), QVector2::GetUnitVectorX());
+    static const QRay2D RAYX(QVector2::GetNullVector(), QVector2::GetUnitVectorX());
     return RAYX;
 }
 
 const QRay2D& QRay2D::GetRayY()
 {
-    static const QRay2D RAYY(QVector2::GetZeroVector(), QVector2::GetUnitVectorY());
+    static const QRay2D RAYY(QVector2::GetNullVector(), QVector2::GetUnitVectorY());
     return RAYY;
 }
 

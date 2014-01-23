@@ -247,8 +247,8 @@ QTEST_CASE_TEMPLATE ( Constructor5_ValuesAreSetProperly_Test, TQTemplateTypes )
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
-    const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
+    const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
@@ -261,7 +261,7 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_T
 {
     // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5));
-    const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
@@ -274,7 +274,7 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanToleran
 {
     // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
-    const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
@@ -326,7 +326,7 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolera
 {
     // [Preparation]
     const QBaseTriangle<T> LEFT_OPERAND = QBaseTriangle<T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
-    const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseTriangle<T> RIGHT_OPERAND = QBaseTriangle<T>( T::GetNullVector(), T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);

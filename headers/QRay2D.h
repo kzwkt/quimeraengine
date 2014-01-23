@@ -110,7 +110,7 @@ public:
 	/// <returns>
     /// The null ray.
     /// </returns>
-    static const QRay2D& GetRayZero();
+    static const QRay2D& GetNullRay();
 
     /// <summary>
 	/// Gets a ray placed at the coordinate origin and whose direction vector is in X growing direction.

@@ -304,10 +304,10 @@ string_q QMatrix2x2::ToString() const
 //##################													   ##################
 //##################=======================================================##################
 
-const QMatrix2x2& QMatrix2x2::GetZeroMatrix()
+const QMatrix2x2& QMatrix2x2::GetNullMatrix()
 {
-    static const QMatrix2x2 ZEROMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    return ZEROMATRIX;
+    static const QMatrix2x2 NULLMATRIX(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    return NULLMATRIX;
 }
 
 const QMatrix2x2& QMatrix2x2::GetIdentity()

@@ -660,7 +660,7 @@ QTEST_CASE_TEMPLATE ( Translate1_TriangleIsNotTranslatedWhenTranslationIsZero_Te
     const T EXPECTED_VALUE_FOR_B = TRIANGLE.B;
     const T EXPECTED_VALUE_FOR_C = TRIANGLE.C;
 
-    const QVector3 TRANSLATION = QVector3::GetZeroVector();
+    const QVector3 TRANSLATION = QVector3::GetNullVector();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION);
@@ -802,7 +802,7 @@ void Translate3_TriangleIsNotTranslatedWhenTranslationIsZero_Template()
     const T EXPECTED_VALUE_FOR_B = TRIANGLE.B;
     const T EXPECTED_VALUE_FOR_C = TRIANGLE.C;
 
-    const QTranslationMatrix<MatrixType> TRANSLATION = MatrixType::GetZeroMatrix();
+    const QTranslationMatrix<MatrixType> TRANSLATION = MatrixType::GetNullMatrix();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Translate(TRANSLATION);
@@ -963,9 +963,9 @@ QTEST_CASE_TEMPLATE ( Rotate1_VerticesAreMovedToCoordinateOriginWhenQuaternionIs
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_A = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_B = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_C = T::GetNullVector();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Rotate(ROTATION);
@@ -1067,7 +1067,7 @@ QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEquals
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::SQAngle;
     
-    const QRotationMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
+    const QRotationMatrix3x3 ROTATION = QMatrix3x3::GetNullMatrix();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_0 };
@@ -1075,9 +1075,9 @@ QTEST_CASE_TEMPLATE ( Rotate2_VerticesAreMovedToCoordinateOriginWhenMatrixEquals
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_A = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_B = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_C = T::GetNullVector();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Rotate(ROTATION);
@@ -1265,7 +1265,7 @@ QTEST_CASE_TEMPLATE ( Scale1_TriangleIsNotScaledWhenVectorComponentsEqualOne_Tes
 QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QVector3 SCALE = QVector3::GetZeroVector();
+    const QVector3 SCALE = QVector3::GetNullVector();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_0 };
@@ -1273,9 +1273,9 @@ QTEST_CASE_TEMPLATE ( Scale1_VerticesAreMovedToCoordinateOriginWhenVectorIsNull_
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_A = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_B = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_C = T::GetNullVector();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE);
@@ -1364,9 +1364,9 @@ QTEST_CASE_TEMPLATE ( Scale2_VerticesAreMovedToCoordinateOriginWhenValuesEqualZe
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_A = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_B = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_C = T::GetNullVector();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE_X, SCALE_Y, SCALE_Z);
@@ -1449,7 +1449,7 @@ QTEST_CASE_TEMPLATE ( Scale3_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZ
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
     
-    const QScalingMatrix3x3 SCALE = QMatrix3x3::GetZeroMatrix();
+    const QScalingMatrix3x3 SCALE = QMatrix3x3::GetNullMatrix();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_0 };
@@ -1457,9 +1457,9 @@ QTEST_CASE_TEMPLATE ( Scale3_VerticesAreMovedToCoordinateOriginWhenMatrixEqualsZ
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_A = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_B = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_C = T::GetNullVector();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Scale(SCALE);
@@ -1540,7 +1540,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_TriangleIsNotTranslatedWhenVectorComponent
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_VerticesAreMovedToPivotPositionWhenVectorIsNull_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QVector3 SCALE = QVector3::GetZeroVector();
+    const QVector3 SCALE = QVector3::GetNullVector();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_0 };
@@ -1747,11 +1747,11 @@ void Transform1_TriangleVerticesAreMovedToCoordinateOriginWhenTransformationIsZe
 
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(VECTOR_COMPONENTS_A, VECTOR_COMPONENTS_B, VECTOR_COMPONENTS_C);
 
-    const T EXPECTED_VALUE_FOR_A = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_B = T::GetZeroVector();
-    const T EXPECTED_VALUE_FOR_C = T::GetZeroVector();
+    const T EXPECTED_VALUE_FOR_A = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_B = T::GetNullVector();
+    const T EXPECTED_VALUE_FOR_C = T::GetNullVector();
 
-    const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetZeroMatrix();
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetNullMatrix();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.Transform(TRANSFORMATION);
@@ -1910,7 +1910,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_VerticesAreMovedToPivotPositionWhenMatrix
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
     using Kinesis::QuimeraEngine::Tools::Math::QRotationMatrix3x3;
     
-    const QRotationMatrix3x3 ROTATION = QMatrix3x3::GetZeroMatrix();
+    const QRotationMatrix3x3 ROTATION = QMatrix3x3::GetNullMatrix();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_0 };
@@ -2010,7 +2010,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_VerticesAreMovedToPivotPositionWhenMatrixE
     using Kinesis::QuimeraEngine::Tools::Math::QScalingMatrix3x3;
 
     // [Preparation]
-    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3::GetZeroMatrix();
+    const QScalingMatrix3x3 SCALE = QScalingMatrix3x3::GetNullMatrix();
     
     const float_q VECTOR_COMPONENTS_A[] = { SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_0 };
     const float_q VECTOR_COMPONENTS_B[] = { SQFloat::_3, SQFloat::_1, SQFloat::_4, SQFloat::_0 };
@@ -2127,7 +2127,7 @@ void TransformWithPivot_TriangleVerticesAreMovedPivotPositionWhenTransformationI
     const T EXPECTED_VALUE_FOR_B = PIVOT_POINT;
     const T EXPECTED_VALUE_FOR_C = PIVOT_POINT;
 
-    const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetZeroMatrix();
+    const QTransformationMatrix<MatrixType> TRANSFORMATION = MatrixType::GetNullMatrix();
 
 	// [Execution]
     QTriangle3D<T> returnedTriangle = TRIANGLE.TransformWithPivot(TRANSFORMATION, PIVOT_POINT);
@@ -2274,7 +2274,7 @@ QTEST_CASE_TEMPLATE ( Transform2_EndpointsAreNullifiedWhenMatrixIsZero_Test, TQT
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4;
 
     // [Preparation]
-    const QSpaceConversionMatrix ZERO_MATRIX = QMatrix4x4::GetZeroMatrix();
+    const QSpaceConversionMatrix NULL_MATRIX = QMatrix4x4::GetNullMatrix();
 
     const float_q POINT_COMPONENTS_A[] = {-SQFloat::_0_5,  SQFloat::_0_5,  SQFloat::_0_5, SQFloat::_1 };
     const float_q POINT_COMPONENTS_B[] = {-SQFloat::_0_5,  SQFloat::_0_5, -SQFloat::_0_5, SQFloat::_1 };
@@ -2284,10 +2284,10 @@ QTEST_CASE_TEMPLATE ( Transform2_EndpointsAreNullifiedWhenMatrixIsZero_Test, TQT
     const T POINT_C(POINT_COMPONENTS_C);
     const QTriangle3D<T> TRIANGLE = QTriangle3D<T>(POINT_A, POINT_B, POINT_C);
 
-    const QTriangle3D<T> EXPECTED_TRIANGLE = QTriangle3D<T>(T::GetZeroVector(), T::GetZeroVector(), T::GetZeroVector());
+    const QTriangle3D<T> EXPECTED_TRIANGLE = QTriangle3D<T>(T::GetNullVector(), T::GetNullVector(), T::GetNullVector());
 
 	// [Execution]
-    QTriangle3D<T> triangle = TRIANGLE.Transform(ZERO_MATRIX);
+    QTriangle3D<T> triangle = TRIANGLE.Transform(NULL_MATRIX);
 
     // [Verification]
     BOOST_CHECK(triangle == EXPECTED_TRIANGLE);

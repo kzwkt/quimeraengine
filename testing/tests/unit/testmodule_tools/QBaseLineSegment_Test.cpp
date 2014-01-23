@@ -121,8 +121,8 @@ QTEST_CASE_TEMPLATE ( Constructor3_ValuesAreSetProperly_Test, TQTemplateTypes )
 QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferTolerance_Test, TQTemplateTypes )
 {
     // [Preparation]
-    const QBaseLineSegment<T> LEFT_OPERAND = QBaseLineSegment<T>( T::GetZeroVector(), T::GetZeroVector() );
-    const QBaseLineSegment<T> RIGHT_OPERAND = QBaseLineSegment<T>( T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseLineSegment<T> LEFT_OPERAND = QBaseLineSegment<T>( T::GetNullVector(), T::GetNullVector() );
+    const QBaseLineSegment<T> RIGHT_OPERAND = QBaseLineSegment<T>( T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
@@ -135,7 +135,7 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_TrueWhenOperandsDifferLessThanTolerance_T
 {
     // [Preparation]
     const QBaseLineSegment<T> LEFT_OPERAND = QBaseLineSegment<T>( T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon - SQFloat::Epsilon * SQFloat::_0_5));
-    const QBaseLineSegment<T> RIGHT_OPERAND = QBaseLineSegment<T>( T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseLineSegment<T> RIGHT_OPERAND = QBaseLineSegment<T>( T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND == RIGHT_OPERAND);
@@ -148,7 +148,7 @@ QTEST_CASE_TEMPLATE ( OperatorEquality_FalseWhenOperandsDifferGreaterThanToleran
 {
     // [Preparation]
     const QBaseLineSegment<T> LEFT_OPERAND = QBaseLineSegment<T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
-    const QBaseLineSegment<T> RIGHT_OPERAND = QBaseLineSegment<T>( T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseLineSegment<T> RIGHT_OPERAND = QBaseLineSegment<T>( T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(!( LEFT_OPERAND == RIGHT_OPERAND ));
@@ -200,7 +200,7 @@ QTEST_CASE_TEMPLATE ( OperatorInequality_TrueWhenOperandsDifferGreaterThanTolera
 {
     // [Preparation]
     const QBaseLineSegment<T> LEFT_OPERAND = QBaseLineSegment<T>( T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5), T(SQFloat::Epsilon + SQFloat::Epsilon * SQFloat::_0_5) );
-    const QBaseLineSegment<T> RIGHT_OPERAND = QBaseLineSegment<T>( T::GetZeroVector(), T::GetZeroVector() );
+    const QBaseLineSegment<T> RIGHT_OPERAND = QBaseLineSegment<T>( T::GetNullVector(), T::GetNullVector() );
 
 	// [Execution] / Verification
     BOOST_CHECK(LEFT_OPERAND != RIGHT_OPERAND);

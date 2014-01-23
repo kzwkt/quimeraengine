@@ -175,7 +175,7 @@ public:
 	/// <returns>
 	/// A null vector.
 	/// </returns>
-    static const QVector3& GetZeroVector();
+    static const QVector3& GetNullVector();
 
     /// <summary>
 	/// Gets a vector whose components equal one.

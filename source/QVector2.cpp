@@ -353,10 +353,10 @@ QVector2 QVector2::Transform(const float_q &fRotationAngle) const
 //##################													   ##################
 //##################=======================================================##################
 
-const QVector2& QVector2::GetZeroVector()
+const QVector2& QVector2::GetNullVector()
 {
-	static const QVector2 ZEROVECTOR(SQFloat::_0,  SQFloat::_0);
-	return ZEROVECTOR;
+	static const QVector2 NULLVECTOR(SQFloat::_0,  SQFloat::_0);
+	return NULLVECTOR;
 }
 
 const QVector2& QVector2::GetVectorOfOnes()

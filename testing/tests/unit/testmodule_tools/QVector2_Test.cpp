@@ -232,14 +232,14 @@ QTEST_CASE ( Constructor7_VectorComponentsAreSetToValidVF32PackedValues_Test )
 /// <summary>
 /// Checks if it returns a vector with all components set to zero.
 /// </summary>
-QTEST_CASE ( GetZeroVector_ReturnsANullVector_Test )
+QTEST_CASE ( GetNullVector_ReturnsANullVector_Test )
 {
     // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
     const float_q EXPECTED_VALUE_FOR_Y = SQFloat::_0;
 
 	// [Execution]
-    QVector2 vVectorUT = QVector2::GetZeroVector();
+    QVector2 vVectorUT = QVector2::GetNullVector();
 
     // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -1737,7 +1737,7 @@ QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfTwoOppositeVectorsGivesNullVector_Te
     // [Preparation]
     const QVector2 OPERAND1 = QVector2(SQFloat::_1, SQFloat::_2);
     const QVector2 OPERAND2 = -OPERAND1;
-    const QVector2 EXPECTED_RESULT = QVector2::GetZeroVector();
+    const QVector2 EXPECTED_RESULT = QVector2::GetNullVector();
 
 	// [Execution]
     QVector2 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
@@ -1754,7 +1754,7 @@ QTEST_CASE ( Lerp_WhenUsedNonNullVectorAndNullVectorTheResultIsAScaledNonNullVec
 {
     // [Preparation]
     const QVector2 OPERAND1 = QVector2(SQFloat::_1, SQFloat::_2);
-    const QVector2 OPERAND2 = QVector2::GetZeroVector();
+    const QVector2 OPERAND2 = QVector2::GetNullVector();
     const QVector2 EXPECTED_RESULT = OPERAND1 * (SQFloat::_1 - SQFloat::_0_25);
 
 	// [Execution]
@@ -1985,8 +1985,8 @@ QTEST_CASE ( Transform2_VectorIsNullWhenTransformationMatrixIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     const QVector2 VECTOR = QVector2(SQFloat::_1, SQFloat::_2);
-    const QTransformationMatrix3x3 NULL_MATRIX = reinterpret_cast<const QTransformationMatrix3x3 &> (QMatrix3x3::GetZeroMatrix());
-    const QVector2 EXPECTED_RESULT = QVector2::GetZeroVector();
+    const QTransformationMatrix3x3 NULL_MATRIX = reinterpret_cast<const QTransformationMatrix3x3 &> (QMatrix3x3::GetNullMatrix());
+    const QVector2 EXPECTED_RESULT = QVector2::GetNullVector();
 
 	// [Execution]
     QVector2 vVectorUT = VECTOR.Transform(NULL_MATRIX);

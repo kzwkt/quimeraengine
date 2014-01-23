@@ -235,7 +235,7 @@ EQIntersections QCircle::IntersectionPoint(const QBaseOrb<QVector2> &circle, QBa
 
 const QCircle& QCircle::GetUnitCircle()
 {
-    static const QCircle UNITCIRCLE(QVector2::GetZeroVector(), SQFloat::_1);
+    static const QCircle UNITCIRCLE(QVector2::GetNullVector(), SQFloat::_1);
     return UNITCIRCLE;
 }
 

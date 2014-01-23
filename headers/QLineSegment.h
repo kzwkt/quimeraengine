@@ -118,7 +118,7 @@ public:
 	/// </returns>
 	static const QLineSegment<VectorType>& GetUnitLine()
 	{
-	    static const QLineSegment<VectorType> UNITLINE(VectorType::GetZeroVector(), VectorType::GetUnitVectorX());
+	    static const QLineSegment<VectorType> UNITLINE(VectorType::GetNullVector(), VectorType::GetUnitVectorX());
 	    return UNITLINE;
 	}
 
@@ -131,7 +131,7 @@ public:
 	/// </returns>
 	static const QLineSegment<VectorType>& GetLineZero()
 	{
-	    static const QLineSegment<VectorType> LINEZERO(VectorType::GetZeroVector(), VectorType::GetZeroVector());
+	    static const QLineSegment<VectorType> LINEZERO(VectorType::GetNullVector(), VectorType::GetNullVector());
 	    return LINEZERO;
 	}
 

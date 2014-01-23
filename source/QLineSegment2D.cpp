@@ -1883,13 +1883,13 @@ bool QLineSegment2D::PointInsideQuadrilateral(const QBaseQuadrilateral& quad, co
 
 const QLineSegment2D& QLineSegment2D::GetUnitLine()
 {
-	static const QLineSegment2D UNITLINE(QVector2::GetZeroVector(), QVector2::GetUnitVectorX());
+	static const QLineSegment2D UNITLINE(QVector2::GetNullVector(), QVector2::GetUnitVectorX());
 	return UNITLINE;
 }
 
 const QLineSegment2D& QLineSegment2D::GetLineZero()
 {
-	static const QLineSegment2D LINEZERO(QVector2::GetZeroVector(), QVector2::GetZeroVector());
+	static const QLineSegment2D LINEZERO(QVector2::GetNullVector(), QVector2::GetNullVector());
 	return LINEZERO;
 }
 

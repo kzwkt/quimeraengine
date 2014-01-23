@@ -337,7 +337,7 @@ QTEST_CASE ( Constructor10_VectorComponentsAreCopiedIntoCorrectComponents_Test )
 /// <summary>
 /// Checks if it returns a vector with all components set to zero.
 /// </summary>
-QTEST_CASE ( GetZeroVector_ReturnsANullVector_Test )
+QTEST_CASE ( GetNullVector_ReturnsANullVector_Test )
 {
     // [Preparation]
     const float_q EXPECTED_VALUE_FOR_X = SQFloat::_0;
@@ -345,7 +345,7 @@ QTEST_CASE ( GetZeroVector_ReturnsANullVector_Test )
     const float_q EXPECTED_VALUE_FOR_Z = SQFloat::_0;
 
 	// [Execution]
-    QVector3 vVectorUT = QVector3::GetZeroVector();
+    QVector3 vVectorUT = QVector3::GetNullVector();
 
     // [Verification]
     BOOST_CHECK_EQUAL(vVectorUT.x, EXPECTED_VALUE_FOR_X);
@@ -1677,7 +1677,7 @@ QTEST_CASE ( DotProduct_ReturnsZeroWhenAOperandIsNullVector_Test )
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NULL_VECTOR = QVector3::GetNullVector();
 
 	// [Execution]
     float_q fResult1UT = NONNULL_VECTOR.DotProduct(NULL_VECTOR);
@@ -1871,7 +1871,7 @@ QTEST_CASE ( CrossProduct_ResultIsNullWhenVectorsAreParallelAndSameDirection_Tes
     // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(SQFloat::_2, SQFloat::_4, SQFloat::_6);
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
@@ -1890,7 +1890,7 @@ QTEST_CASE ( CrossProduct_ResultIsNullWhenVectorsAreParallelAndOppositeDirection
     // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = QVector3(-SQFloat::_1, -SQFloat::_2, -SQFloat::_3);
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = OPERAND1.CrossProduct(OPERAND2);
@@ -1928,7 +1928,7 @@ QTEST_CASE ( CrossProduct_ReturnsNullVectorWhenAOperandIsNullVector_Test )
     // [Preparation]
     const float_q EXPECTED_RESULT_FOR_ALL = SQFloat::_0;
 
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NULL_VECTOR = QVector3::GetNullVector();
     const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
 
 	// [Execution]
@@ -1951,7 +1951,7 @@ QTEST_CASE ( CrossProduct_BehavesCorrectlyWhenSameInstanceIsUsedAsParameter_Test
 {
     // [Preparation]
     const QVector3 OPERAND = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = OPERAND.CrossProduct(OPERAND);
@@ -2006,7 +2006,7 @@ QTEST_CASE ( Lerp_InterpolatingInTheMiddleOfTwoOppositeVectorsGivesNullVector_Te
     // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
     const QVector3 OPERAND2 = -OPERAND1;
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = OPERAND1.Lerp(SQFloat::_0_5, OPERAND2);
@@ -2024,7 +2024,7 @@ QTEST_CASE ( Lerp_WhenUsedNonNullVectorAndNullVectorTheResultIsAScaledNonNullVec
 {
     // [Preparation]
     const QVector3 OPERAND1 = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QVector3 OPERAND2 = QVector3::GetZeroVector();
+    const QVector3 OPERAND2 = QVector3::GetNullVector();
     const QVector3 EXPECTED_RESULT = OPERAND1 * (SQFloat::_1 - SQFloat::_0_25);
 
 	// [Execution]
@@ -2201,7 +2201,7 @@ QTEST_CASE ( Transform1_VectorIsNullWhenQuaternionIsNull_Test )
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
     const QQuaternion NULL_QUATERNION = QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_QUATERNION);
@@ -2288,9 +2288,9 @@ QTEST_CASE ( Transform2_VectorIsNullWhenDualQuaternionIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QQuaternion;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QDualQuaternion NULL_DUALQUATERNION = QDualQuaternion(QVector3::GetZeroVector(), QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
+    const QDualQuaternion NULL_DUALQUATERNION = QDualQuaternion(QVector3::GetNullVector(), QQuaternion(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0));
 
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_DUALQUATERNION);
@@ -2376,9 +2376,9 @@ QTEST_CASE ( Transform3_VectorIsNullWhenRotationMatrixIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QRotationMatrix3x3 NULL_MATRIX = QRotationMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    const QRotationMatrix3x3 NULL_MATRIX = QRotationMatrix3x3(QMatrix3x3::GetNullMatrix());
 
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);
@@ -2484,9 +2484,9 @@ QTEST_CASE ( Transform4_VectorIsNullWhenScaleMatrixIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QMatrix3x3;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QScalingMatrix3x3 NULL_MATRIX = QScalingMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    const QScalingMatrix3x3 NULL_MATRIX = QScalingMatrix3x3(QMatrix3x3::GetNullMatrix());
 
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);
@@ -2583,7 +2583,7 @@ void Transform5_VectorDoesNotChangeWhenTranslationMatrixIsNull_Template()
     using Kinesis::QuimeraEngine::Tools::Math::QTranslationMatrix;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QTranslationMatrix<MatrixType> NULL_MATRIX = QTranslationMatrix<MatrixType>(MatrixType::GetZeroMatrix());
+    const QTranslationMatrix<MatrixType> NULL_MATRIX = QTranslationMatrix<MatrixType>(MatrixType::GetNullMatrix());
 
     const QVector3 EXPECTED_RESULT = VECTOR;
 
@@ -2726,9 +2726,9 @@ void Transform6_VectorIsNullWhenTransformationMatrixIsNull_Template()
     using Kinesis::QuimeraEngine::Tools::Math::QTransformationMatrix;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QTransformationMatrix<MatrixType> NULL_MATRIX = QTransformationMatrix<MatrixType>(MatrixType::GetZeroMatrix());
+    const QTransformationMatrix<MatrixType> NULL_MATRIX = QTransformationMatrix<MatrixType>(MatrixType::GetNullMatrix());
 
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);
@@ -2820,9 +2820,9 @@ QTEST_CASE ( Transform7_VectorIsNullWhenSpaceConversionMatrixIsNull_Test )
     using Kinesis::QuimeraEngine::Tools::Math::QSpaceConversionMatrix;
 
     const QVector3 VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_4);
-    const QSpaceConversionMatrix NULL_MATRIX = QSpaceConversionMatrix(QMatrix4x4::GetZeroMatrix());
+    const QSpaceConversionMatrix NULL_MATRIX = QSpaceConversionMatrix(QMatrix4x4::GetNullMatrix());
 
-    const QVector3 EXPECTED_RESULT = QVector3::GetZeroVector();
+    const QVector3 EXPECTED_RESULT = QVector3::GetNullVector();
 
 	// [Execution]
     QVector3 vVectorUT = VECTOR.Transform(NULL_MATRIX);

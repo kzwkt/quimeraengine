@@ -541,10 +541,10 @@ const QVector4& QVector4::GetZeroPoint()
     return ZEROPOINT;
 }
 
-const QVector4& QVector4::GetZeroVector()
+const QVector4& QVector4::GetNullVector()
 {
-    static const QVector4 ZEROVECTOR(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
-    return ZEROVECTOR;
+    static const QVector4 NULLVECTOR(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_0);
+    return NULLVECTOR;
 }
 
 const QVector4& QVector4::GetVectorOfOnes()

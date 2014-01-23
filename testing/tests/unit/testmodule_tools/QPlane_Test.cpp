@@ -643,7 +643,7 @@ QTEST_CASE ( Constructor9_OrderOfPointsAffectsResult_Test )
 /// <summary>
 /// Checks that the expected value is returned.
 /// </summary>
-QTEST_CASE_TEMPLATE ( GetZeroPlane_ExpectedValueIsReturned_Test, TQVectorTypes )
+QTEST_CASE_TEMPLATE ( GetNullPlane_ExpectedValueIsReturned_Test, TQVectorTypes )
 {
     // [Preparation]
     const float_q EXPECTED_VALUE_FOR_A = SQFloat::_0;
@@ -652,7 +652,7 @@ QTEST_CASE_TEMPLATE ( GetZeroPlane_ExpectedValueIsReturned_Test, TQVectorTypes )
     const float_q EXPECTED_VALUE_FOR_D = SQFloat::_0;
 
 	// [Execution]
-    QPlane planeUT = QPlane::GetZeroPlane();
+    QPlane planeUT = QPlane::GetNullPlane();
 
     // [Verification]
     BOOST_CHECK( SQFloat::AreEqual(planeUT.a, EXPECTED_VALUE_FOR_A) );
@@ -968,10 +968,10 @@ QTEST_CASE ( DotProduct1_ReturnsZeroWhenAOperandIsNull_Test )
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane NONNULL_PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
 
     const QVector3 NONNULL_VECTOR = QVector3(SQFloat::_1, SQFloat::_2, SQFloat::_3);
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NULL_VECTOR = QVector3::GetNullVector();
 
 	// [Execution]
     float_q fResult1UT = NONNULL_PLANE.DotProduct(NULL_VECTOR);
@@ -1031,10 +1031,10 @@ QTEST_CASE ( DotProduct2_ReturnsZeroWhenAOperandIsNull_Test )
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane NONNULL_PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
 
     const QVector4 NONNULL_VECTOR = QVector4(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const QVector4 NULL_VECTOR = QVector4::GetZeroVector();
+    const QVector4 NULL_VECTOR = QVector4::GetNullVector();
 
 	// [Execution]
     float_q fResult1UT = NONNULL_PLANE.DotProduct(NULL_VECTOR);
@@ -1130,7 +1130,7 @@ QTEST_CASE ( DotProduct3_ReturnsZeroWhenAOperandIsNullplane_Test )
     const float_q EXPECTED_RESULT = SQFloat::_0;
 
     const QPlane NONNULL_PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
 
 	// [Execution]
     float_q fResult1UT = NONNULL_PLANE.DotProduct(NULL_PLANE);
@@ -1908,7 +1908,7 @@ QTEST_CASE_TEMPLATE ( PointProjection_PointsBehindThePlaneAreCorrectlyProjected_
 QTEST_CASE_TEMPLATE ( PointProjection_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes )
 {
     // [Preparation]
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
     const T POINT;
     const bool ASSERTION_FAILED = true;
 
@@ -2053,7 +2053,7 @@ QTEST_CASE_TEMPLATE ( Contains_PlaneNormalizationDoesNotAffectResult_Test, TQVec
 QTEST_CASE_TEMPLATE ( Contains_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes )
 {
     // [Preparation]
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
     const T POINT;
     const bool ASSERTION_FAILED = true;
 
@@ -2131,7 +2131,7 @@ QTEST_CASE ( GetLength_ReturnsOneWhenPlaneIsNormalized_Test )
 QTEST_CASE ( GetLength_ReturnsZeroWhenPlaneIsNull_Test )
 {
     // [Preparation]
-    const QPlane PLANE = QPlane::GetZeroPlane();
+    const QPlane PLANE = QPlane::GetNullPlane();
     const float_q EXPECTED_LENGTH = SQFloat::_0;
 
 	// [Execution]
@@ -2196,7 +2196,7 @@ QTEST_CASE ( GetSquaredLength_ReturnsOneWhenPlaneIsNormalized_Test )
 QTEST_CASE ( GetSquaredLength_ReturnsZeroWhenPlaneIsNull_Test )
 {
     // [Preparation]
-    const QPlane PLANE = QPlane::GetZeroPlane();
+    const QPlane PLANE = QPlane::GetNullPlane();
     const float_q EXPECTED_LENGTH = SQFloat::_0;
 
 	// [Execution]
@@ -2354,7 +2354,7 @@ QTEST_CASE_TEMPLATE ( PointDistance_ResultIsTheSameWhenPlaneIsNotNormalized_Test
 QTEST_CASE_TEMPLATE ( PointDistance_AssertionFailsWhenPlaneIsNull_Test, TQVectorTypes )
 {
     // [Preparation]
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
     const T POINT;
     const bool ASSERTION_FAILED = true;
 
@@ -2410,7 +2410,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenThreePlanesC
     //
 
     // [Preparation]
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = PLANE1;
@@ -2466,7 +2466,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesCoi
     //
 
     // [Preparation]
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = QPlane(SQFloat::_3, SQFloat::_2, SQFloat::_1, SQFloat::_4).Normalize();
@@ -2547,7 +2547,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesCoi
     //
 
     // [Preparation]
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = PLANE1;
     const QPlane PLANE3 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_5).Normalize();
@@ -2628,7 +2628,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     //
 
     // [Preparation]
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_5).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_6).Normalize();
@@ -2709,7 +2709,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     //
 
     // [Preparation]
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const QPlane PLANE1 = QPlane(-SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_0).Normalize();
@@ -2790,7 +2790,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTwoPlanesAre
     //
 
     // [Preparation]
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_0, SQFloat::_0, SQFloat::_2).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_0, SQFloat::_1, SQFloat::_0, SQFloat::_3).Normalize();
@@ -2953,7 +2953,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_OutputPointDoesNotChangeWhenTheThreePlan
     //
 
     // [Preparation]
-    const T EXPECTED_POINT = T::GetZeroVector();
+    const T EXPECTED_POINT = T::GetNullVector();
     const QPlane PLANE1 = QPlane(SQFloat::_1, -SQFloat::_1, SQFloat::_4, -SQFloat::_5).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_3, SQFloat::_1, SQFloat::_1, -SQFloat::_3).Normalize();
     const QPlane PLANE3 = QPlane(SQFloat::_5, -SQFloat::_1, SQFloat::_9, (float_q)-13.0).Normalize();
@@ -3118,7 +3118,7 @@ QTEST_CASE_TEMPLATE ( IntersectionPoint_AssertionFailsWhenOnePlaneIsNull_Test, T
     // [Preparation]
     const QPlane PLANE1 = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
     const QPlane PLANE2 = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, -SQFloat::_3).Normalize();
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
     T POINT;
     const bool ASSERTION_FAILED = true;
 
@@ -3294,7 +3294,7 @@ QTEST_CASE( SpaceRelation_AssertionFailsWhenOnePlaneIsNull_Test )
 {
     // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_1, SQFloat::_1, -SQFloat::_1).Normalize();
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
 
     const bool ASSERTION_FAILED = true;
 
@@ -3407,7 +3407,7 @@ QTEST_CASE ( Rotate1_PlaneIsNullWhenRotationMatrixIsNull_Test )
 
     // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const QRotationMatrix3x3 NULL_MATRIX = QRotationMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    const QRotationMatrix3x3 NULL_MATRIX = QRotationMatrix3x3(QMatrix3x3::GetNullMatrix());
 
     const QPlane EXPECTED_RESULT = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, PLANE.d);
 
@@ -3604,7 +3604,7 @@ QTEST_CASE ( Scale1_AssertionFailsWhenScaleMatrixIsNull_Test )
 
     // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QScalingMatrix3x3 NULL_MATRIX = QScalingMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    const QScalingMatrix3x3 NULL_MATRIX = QScalingMatrix3x3(QMatrix3x3::GetNullMatrix());
 
     const bool ASSERTION_FAILED = true;
 
@@ -3675,7 +3675,7 @@ QTEST_CASE ( Scale2_PlaneDoesNotChangeWhenScaledByAVectorOfOnes_Test )
 QTEST_CASE ( Scale2_AssertionFailsWhenPlaneIsNull_Test )
 {
     // [Preparation]
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
     const QVector3 TRANSFORMATION = QVector3::GetVectorOfOnes();
 
     const bool ASSERTION_FAILED = true;
@@ -3703,7 +3703,7 @@ QTEST_CASE ( Scale2_AssertionFailsWhenVectorIsNull_Test )
 {
     // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NULL_VECTOR = QVector3::GetNullVector();
 
     const bool ASSERTION_FAILED = true;
 
@@ -3778,7 +3778,7 @@ QTEST_CASE ( Scale3_PlaneDoesntChangeWhenScaleValuesEqualOne_Test )
 QTEST_CASE ( Scale3_AssertionFailsWhenPlaneIsNull_Test )
 {
     // [Preparation]
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
     const float_q SCALE_X = SQFloat::_1;
     const float_q SCALE_Y = SQFloat::_1;
     const float_q SCALE_Z = SQFloat::_1;
@@ -3886,7 +3886,7 @@ QTEST_CASE_TEMPLATE ( Translate1_PlaneDoesNotChangeWhenTranslationMatrixIsNull_T
 
     // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
-    const QTranslationMatrix<T> NULL_MATRIX = QTranslationMatrix<T>(T::GetZeroMatrix());
+    const QTranslationMatrix<T> NULL_MATRIX = QTranslationMatrix<T>(T::GetNullMatrix());
 
     const QPlane EXPECTED_RESULT = PLANE;
 
@@ -3952,7 +3952,7 @@ QTEST_CASE_TEMPLATE ( Translate2_PlaneDoesNotChangeWhenTranslationVectorIsNull_T
 {
     // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
-    const T NULL_VECTOR = T::GetZeroVector();
+    const T NULL_VECTOR = T::GetNullVector();
 
     const QPlane EXPECTED_RESULT = PLANE;
 
@@ -4153,7 +4153,7 @@ QTEST_CASE_TEMPLATE ( Transform1_AssertionFailsWhenTransformationMatrixIsNull_Te
 
     // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QTransformationMatrix<T> NULL_TRANSFORMATION = T::GetZeroMatrix();
+    const QTransformationMatrix<T> NULL_TRANSFORMATION = T::GetNullMatrix();
 
     const bool ASSERTION_FAILED = true;
 
@@ -4251,7 +4251,7 @@ QTEST_CASE( Transform2_AssertionFailsWhenMatrixIsNull_Test )
 
     // [Preparation]
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QSpaceConversionMatrix NULL_TRANSFORMATION = QSpaceConversionMatrix::GetZeroMatrix();
+    const QSpaceConversionMatrix NULL_TRANSFORMATION = QSpaceConversionMatrix::GetNullMatrix();
 
     const bool ASSERTION_FAILED = true;
 
@@ -4380,7 +4380,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot1_ReturnsSameValueAsWithoutPivotWhenPivotIs
 #endif
 
     const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
-    const T POINT = T::GetZeroVector();
+    const T POINT = T::GetNullVector();
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QPlane EXPECTED_RESULT = PLANE.Rotate(TRANSFORMATION);
@@ -4469,7 +4469,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_PlaneIsNullWhenRotationMatrixIsNull_Test,
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_3, SQFloat::_4);
-    const QRotationMatrix3x3 NULL_MATRIX = QRotationMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    const QRotationMatrix3x3 NULL_MATRIX = QRotationMatrix3x3(QMatrix3x3::GetNullMatrix());
 
     const QPlane EXPECTED_RESULT = QPlane(SQFloat::_0, SQFloat::_0, SQFloat::_0, SQFloat::_9);
 
@@ -4503,7 +4503,7 @@ QTEST_CASE_TEMPLATE ( RotateWithPivot2_ReturnsSameValueAsWithoutPivotWhenPivotIs
 #endif
 
     const QRotationMatrix3x3 TRANSFORMATION = QRotationMatrix3x3(EULER_ANGLE_X, EULER_ANGLE_Y, EULER_ANGLE_Z);
-    const T POINT = T::GetZeroVector();
+    const T POINT = T::GetNullVector();
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QPlane EXPECTED_RESULT = PLANE.Rotate(TRANSFORMATION);
@@ -4575,7 +4575,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenPlaneIsNull_Test, TQVect
     // [Preparation]
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
-    const QPlane NULL_PLANE = QPlane::GetZeroPlane();
+    const QPlane NULL_PLANE = QPlane::GetNullPlane();
     const QVector3 TRANSFORMATION = QVector3::GetVectorOfOnes();
 
     const bool ASSERTION_FAILED = true;
@@ -4605,7 +4605,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenVectorIsNull_Test, TQVec
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QVector3 NULL_VECTOR = QVector3::GetZeroVector();
+    const QVector3 NULL_VECTOR = QVector3::GetNullVector();
 
     const bool ASSERTION_FAILED = true;
 
@@ -4633,7 +4633,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot1_AssertionFailsWhenVectorIsNull_Test, TQVec
 QTEST_CASE_TEMPLATE ( ScaleWithPivot1_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test, TQVectorTypes )
 {
     // [Preparation]
-    const T POINT = T::GetZeroVector();
+    const T POINT = T::GetNullVector();
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
@@ -4772,7 +4772,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot2_AssertionFailsWhenScaleValuesEqualZero_Tes
 QTEST_CASE_TEMPLATE ( ScaleWithPivot2_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test, TQVectorTypes )
 {
     // [Preparation]
-    const T POINT = T::GetZeroVector();
+    const T POINT = T::GetNullVector();
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
@@ -4884,7 +4884,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_AssertionFailsWhenVectorIsNull_Test, TQVec
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const T POINT = T(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QScalingMatrix3x3 NULL_MATRIX = QScalingMatrix3x3(QMatrix3x3::GetZeroMatrix());
+    const QScalingMatrix3x3 NULL_MATRIX = QScalingMatrix3x3(QMatrix3x3::GetNullMatrix());
 
     const bool ASSERTION_FAILED = true;
 
@@ -4939,7 +4939,7 @@ QTEST_CASE_TEMPLATE ( ScaleWithPivot3_PlaneIsCorrectlyScaledByCommonVector_Test,
 QTEST_CASE_TEMPLATE ( ScaleWithPivot3_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Test, TQVectorTypes )
 {
     // [Preparation]
-    const T POINT = T::GetZeroVector();
+    const T POINT = T::GetNullVector();
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QVector3 TRANSFORMATION = QVector3(SQFloat::_0_25, SQFloat::_3, -SQFloat::_1);
 
@@ -5065,7 +5065,7 @@ void TransformWithPivot_AssertionFailsWhenTransformationMatrixIsNull_Template()
     const float_q POINT_COMPONENTS[] = {-SQFloat::_3, SQFloat::_1, SQFloat::_2, SQFloat::_1};
     const VectorType POINT = VectorType(POINT_COMPONENTS);
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5);
-    const QTransformationMatrix<T> NULL_TRANSFORMATION = T::GetZeroMatrix();
+    const QTransformationMatrix<T> NULL_TRANSFORMATION = T::GetNullMatrix();
 
     const bool ASSERTION_FAILED = true;
 
@@ -5122,7 +5122,7 @@ void TransformWithPivot_ReturnsSameValueAsWithoutPivotWhenPivotIsNull_Template()
     const float_q EULER_ANGLE_Z = SQAngle::_45;
 #endif
 
-    const VectorType POINT = VectorType::GetZeroVector();
+    const VectorType POINT = VectorType::GetNullVector();
 
     const QPlane PLANE = QPlane(SQFloat::_1, SQFloat::_2, SQFloat::_4, SQFloat::_5).Normalize();
     const QTranslationMatrix<T> TRANSLATION = QTranslationMatrix<T>(SQFloat::_2, SQFloat::_4, -SQFloat::_6);
