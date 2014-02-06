@@ -93,6 +93,9 @@
     <ClCompile Include="..\..\..\..\testsystem\TATSimpleConfigLoader.cpp">
       <Filter>TestSystem</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResults_Tests.cpp">
+      <Filter>Tests</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -172,6 +175,12 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\testsystem\TATUnitTestModuleBase.h">
       <Filter>TestSystem</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResultsWhiteBox.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResultsMock.h">
+      <Filter>Tests</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -35,15 +35,15 @@
 #include "TestExecution/TATMessageFormat.h"
 #include "ExternalDefinitions.h"
 #include "STATFileSystemHelper.h"
+#include "TestResults/TATTestResultInfo.h"
 
 // Defines the events related to multithread test execution
 wxDEFINE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_COMPLETED, wxThreadEvent);
 wxDEFINE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_LOG_UPDATE, wxThreadEvent);
-wxDEFINE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE, wxThreadEvent);
 wxDEFINE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_NOTIFICATION, wxThreadEvent);
 // Defines the events related to the test execution process
 wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_FINISHED, wxCommandEvent);
-wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEvent);
+wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_PARSE_TESTRESULTS, wxCommandEvent);
 wxDEFINE_EVENT(wxEVT_COMMAND_TESTEXECUTION_NOTIFICATION, wxCommandEvent);
 
 namespace Kinesis
@@ -76,12 +76,10 @@ const wxString TATTestAutomationToolExecution::BACKUP_SUFFIX = wxT(".bak");
 
 TATTestAutomationToolExecution::TATTestAutomationToolExecution() : m_pExecutionThread(NULL),
                                                                    m_pLogger(NULL),
-                                                                   m_pTestResultLoader(NULL),
                                                                    m_pTestExecutionEventListener(NULL)
 {
     // Subscribes to thread events
     this->Connect( wxEVT_COMMAND_EXECUTIONTHREAD_LOG_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadLogUpdate) );
-    this->Connect( wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadResultUpdate) );
     this->Connect( wxEVT_COMMAND_EXECUTIONTHREAD_COMPLETED, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadCompletion) );
     this->Connect( wxEVT_COMMAND_EXECUTIONTHREAD_NOTIFICATION, wxThreadEventHandler(TATTestAutomationToolExecution::OnTestExecutionThreadNotification) );
 }
@@ -134,12 +132,6 @@ void TATTestAutomationToolExecution::Destroy()
         delete m_pLogger;
         m_pLogger = NULL;
     }
-
-    if(m_pTestResultLoader != NULL)
-    {
-        delete m_pTestResultLoader;
-        m_pTestResultLoader = NULL;
-    }
 }
 
 void TATTestAutomationToolExecution::ExecuteTests()
@@ -168,6 +160,26 @@ void TATTestAutomationToolExecution::ExecuteTests()
 void TATTestAutomationToolExecution::StopTestExecution()
 {
     m_pExecutionThread->Delete();
+}
+
+void TATTestAutomationToolExecution::ParseTestResultFile(const wxString& strTestResultFilePath, 
+                                                         const wxString& strCompilationConfig,
+                                                         const wxString& strCompilerName,
+                                                         const wxString& strFlagCombinationName,
+                                                         const wxString& strFlagCombinationValues)
+{
+    TATTestResultInfo* info = new TATTestResultInfo();
+    info->SetCompilationConfiguration(strCompilationConfig);
+    info->SetCompilerName(strCompilerName);
+    info->SetFlagCombinationName(strFlagCombinationName);
+    info->SetFlagCombinationValues(strFlagCombinationValues);
+
+    wxCommandEvent* pEventData = new wxCommandEvent(wxEVT_COMMAND_TESTEXECUTION_PARSE_TESTRESULTS);
+    pEventData->SetClientData((void*)(info));
+    pEventData->SetString(strTestResultFilePath);
+
+    // Raises the event
+    wxQueueEvent(m_pTestExecutionEventListener, pEventData);
 }
 
 bool TATTestAutomationToolExecution::TATTestExecutionThread::CreateConfigurationFileBackup(const wxString& strConfigurationFilePath) const
@@ -332,9 +344,6 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
         this->Log(TATFormattedMessage(wxT("Current working directory: '"), LOG_FORMAT_NORMAL).
                                Append(wxGetCwd(), LOG_FORMAT_DATA_HIGHLIGHT).
                                Append(wxT("'."), LOG_FORMAT_NORMAL));
-
-        // Removes previous test results from the loader
-        m_pHandler->GetTestResultLoader()->Clear();
 
         // 1. Creates a backup of the configuration file
         this->Log(TATFormattedMessage(wxT("Creating a back-up copy of the configuration file at '"), LOG_FORMAT_NORMAL).
@@ -570,7 +579,11 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
                                         try
                                         {
-                                            this->ParseTestResultFile(iTestModuleInfo->GetResultsPath() + *iResultFilePath);
+                                            m_pHandler->ParseTestResultFile(iTestModuleInfo->GetResultsPath() + *iResultFilePath, 
+                                                                            *iCompilationConfig, 
+                                                                            iCompilerInfo->second.GetName(), 
+                                                                            iFlagCombination->first, 
+                                                                            strFlagValues);
                                         }
                                         catch(const boost::property_tree::xml_parser::xml_parser_error &ex)
                                         {
@@ -581,28 +594,6 @@ wxThread::ExitCode TATTestAutomationToolExecution::TATTestExecutionThread::Entry
 
                                         if(!bResultFileParsingFailed)
                                         {
-                                            // Notifies that there is new content in the test result tree
-                                            TATTestResultInfo resultInfo;
-                                            resultInfo.SetCompilationConfiguration(*iCompilationConfig);
-                                            resultInfo.SetCompilerName(iCompilerInfo->second.GetName());
-                                            resultInfo.SetFlagCombinationName(iFlagCombination->first);
-                                            resultInfo.SetFlagCombinationValues(strFlagValues);
-
-                                            if(m_pHandler->GetTestResultLoader()->GetTestResultTree() && m_pHandler->GetTestResultLoader()->GetTestResultTree()->HasChildren())
-                                            {
-                                                // Gets the last added result tree and stores it into the event argument
-                                                // It's assumed that the result tree contains, at least, the last added tree
-                                                TATTestResultNode* pNewTestResultTree = dynamic_cast<TATTestResultNode*>(m_pHandler->GetTestResultLoader()->GetTestResultTree()->GetChildren().rbegin()->second);
-                                                resultInfo.SetResultTree(pNewTestResultTree);
-
-                                                this->NotifyTestResult(resultInfo);
-                                            }
-                                            else
-                                            {
-                                                this->Log(TATFormattedMessage(wxString(wxT("Failed to create the result tree.")), LOG_FORMAT_ERROR));
-                                                this->NotifyEvent(ERROR_NOTIFICATION + wxT("Result tree creation failed"));
-                                            }
-
                                             this->Log(TATFormattedMessage(wxT("Test result file parsed."), LOG_FORMAT_NORMAL));
                                         }
 
@@ -664,19 +655,6 @@ void TATTestAutomationToolExecution::TATTestExecutionThread::Log(TATFormattedMes
     this->Sleep(10); // To let the UI refresh
 }
 
-void TATTestAutomationToolExecution::TATTestExecutionThread::ParseTestResultFile(const wxString &strTestResultFilePath)
-{
-    m_pHandler->GetTestResultLoader()->Load(strTestResultFilePath);
-}
-
-void TATTestAutomationToolExecution::TATTestExecutionThread::NotifyTestResult(const TATTestResultInfo &testResultInfo)
-{
-    wxThreadEvent* pEventData = new wxThreadEvent(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE);
-    pEventData->SetPayload<TATTestResultInfo>(testResultInfo);
-    wxQueueEvent(m_pHandler, pEventData);
-    this->Sleep(500); // To let the UI refresh
-}
-
 bool TATTestAutomationToolExecution::TATTestExecutionThread::DeletePreviousResultFiles(const wxString &strTestResultFilePath)
 {
     bool bResult = false;
@@ -713,15 +691,6 @@ void TATTestAutomationToolExecution::TATTestExecutionThread::NotifyEvent(const w
 void TATTestAutomationToolExecution::OnTestExecutionThreadLogUpdate(wxThreadEvent& event)
 {
     m_pLogger->Flush();
-}
-
-void TATTestAutomationToolExecution::OnTestExecutionThreadResultUpdate(wxThreadEvent& event)
-{
-    wxCommandEvent* pEventData = new wxCommandEvent(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED);
-    pEventData->SetClientData((void*)new TATTestResultInfo(event.GetPayload<TATTestResultInfo>()));
-
-    // Raises the event
-    wxQueueEvent(m_pTestExecutionEventListener, pEventData);
 }
 
 void TATTestAutomationToolExecution::OnTestExecutionThreadCompletion(wxThreadEvent& event)
@@ -808,16 +777,6 @@ ITATLogger* TATTestAutomationToolExecution::GetLogger() const
 void TATTestAutomationToolExecution::SetLogger(ITATLogger* pLogger)
 {
     m_pLogger = pLogger;
-}
-
-ITATTestResultLoader* TATTestAutomationToolExecution::GetTestResultLoader() const
-{
-    return m_pTestResultLoader;
-}
-
-void TATTestAutomationToolExecution::SetTestResultLoader(ITATTestResultLoader* pTestResultLoader)
-{
-    m_pTestResultLoader = pTestResultLoader;
 }
 
 void TATTestAutomationToolExecution::SetTestExecutionEventListener(wxEvtHandler* pListener)

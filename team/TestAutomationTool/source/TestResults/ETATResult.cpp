@@ -24,7 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "TestExecution/ETATTestResultNodeType.h"
+#include "TestResults/ETATResult.h"
 
 namespace Kinesis
 {
@@ -42,18 +42,17 @@ namespace Backend
 //##################													   ##################
 //##################=======================================================##################
 
-ETATTestResultNodeType::TNameValuePair ETATTestResultNodeType::sm_arValueName[] =
+ETATResult::TNameValuePair ETATResult::sm_arValueName[] =
     {
-        std::pair<wxString, ETATTestResultNodeType::EnumType>(wxT("E_Result"), ETATTestResultNodeType::E_Result),
-        std::pair<wxString, ETATTestResultNodeType::EnumType>(wxT("E_Case"),   ETATTestResultNodeType::E_Case),
-        std::pair<wxString, ETATTestResultNodeType::EnumType>(wxT("E_Suite"),  ETATTestResultNodeType::E_Suite),
-        std::pair<wxString, ETATTestResultNodeType::EnumType>(wxT("E_Module"), ETATTestResultNodeType::E_Module),
-        std::pair<wxString, ETATTestResultNodeType::EnumType>(wxT("E_Root"),   ETATTestResultNodeType::E_Root),
+        std::pair<wxString, ETATResult::EnumType>(wxT("E_Success"),  ETATResult::E_Success),
+        std::pair<wxString, ETATResult::EnumType>(wxT("E_Fail"),     ETATResult::E_Fail),
+        std::pair<wxString, ETATResult::EnumType>(wxT("E_Error"),    ETATResult::E_Error),
+        std::pair<wxString, ETATResult::EnumType>(wxT("E_NoResult"), ETATResult::E_NoResult),
     };
 
-ETATTestResultNodeType::TNameValueMap ETATTestResultNodeType::sm_mapValueName(
-        ETATTestResultNodeType::sm_arValueName ,
-        &ETATTestResultNodeType::sm_arValueName[0] + sizeof(ETATTestResultNodeType::sm_arValueName) / sizeof(ETATTestResultNodeType::sm_arValueName[0])
+ETATResult::TNameValueMap ETATResult::sm_mapValueName(
+        ETATResult::sm_arValueName ,
+        &ETATResult::sm_arValueName[0] + sizeof(ETATResult::sm_arValueName) / sizeof(ETATResult::sm_arValueName[0])
     );
 
 } //namespace Backend

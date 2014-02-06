@@ -128,6 +128,7 @@ xcopy "$(TargetDir)..\..\TestFile.xml" "$(TargetDir)TestArtifacts\" /I /Y</Comma
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATShellProcess_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfiguration_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecution_Tests.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResults_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestExecutionThread_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestModulesExecutionInfo_Tests.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultConsultant_Tests.cpp" />
@@ -162,6 +163,8 @@ xcopy "$(TargetDir)..\..\TestFile.xml" "$(TargetDir)TestArtifacts\" /I /Y</Comma
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolConfigurationWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionMock.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolExecutionWhiteBox.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResultsMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestAutomationToolResultsWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestExecutionThreadWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderFactoryWhiteBox.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_testautomationtool\TATTestResultLoaderWhiteBox.h" />

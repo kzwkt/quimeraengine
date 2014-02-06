@@ -24,7 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "TestExecution/TATTestResultNode.h"
+#include "TestResults/TATTestResultNode.h"
 
 
 namespace Kinesis

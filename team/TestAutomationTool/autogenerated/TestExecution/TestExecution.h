@@ -18,9 +18,8 @@
 #include <wx/colour.h>
 #include <wx/settings.h>
 #include <wx/richtext/richtextctrl.h>
-#include <wx/listctrl.h>
 #include <wx/sizer.h>
-#include <wx/treectrl.h>
+#include <wx/listctrl.h>
 #include <wx/button.h>
 #include <wx/dialog.h>
 
@@ -45,9 +44,6 @@ namespace Kinesis
 					wxStaticText* m_txtLog;
 					wxRichTextCtrl* m_rtbLog;
 					wxListCtrl* m_lstLogEvents;
-					wxStaticText* m_txtResultsTitle;
-					wxTreeCtrl* m_treeResults;
-					wxRichTextCtrl* m_rtbResultInfo;
 					wxButton* m_btnStop;
 					wxButton* m_btnRestart;
 					

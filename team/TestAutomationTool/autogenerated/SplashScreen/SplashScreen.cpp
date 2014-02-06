@@ -25,7 +25,7 @@ SplashScreenBase::SplashScreenBase( wxWindow* parent, wxWindowID id, const wxStr
 	wxBoxSizer* bSizer3;
 	bSizer3 = new wxBoxSizer( wxVERTICAL );
 	
-	m_staticText1 = new wxStaticText( this, wxID_ANY, _("v0.1"), wxDefaultPosition, wxSize( -1,40 ), 0 );
+	m_staticText1 = new wxStaticText( this, wxID_ANY, _("v0.2"), wxDefaultPosition, wxSize( -1,40 ), 0 );
 	m_staticText1->Wrap( -1 );
 	bSizer3->Add( m_staticText1, 0, wxALIGN_RIGHT|wxALL, 5 );
 	

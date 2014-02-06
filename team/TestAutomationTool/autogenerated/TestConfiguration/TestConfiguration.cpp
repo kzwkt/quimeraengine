@@ -84,20 +84,28 @@ TestConfigurationBaseForm::TestConfigurationBaseForm( wxWindow* parent, wxWindow
 	
 	bSizer2->SetMinSize( wxSize( -1,30 ) ); 
 	wxBoxSizer* bSizer3;
-	bSizer3 = new wxBoxSizer( wxVERTICAL );
+	bSizer3 = new wxBoxSizer( wxHORIZONTAL );
 	
 	m_btnEditor = new wxButton( this, ID_BUTTON_EDITOR, _("EditorButton"), wxDefaultPosition, wxDefaultSize, 0 );
 	bSizer3->Add( m_btnEditor, 0, wxALL, 5 );
 	
 	bSizer2->Add( bSizer3, 0, 0, 5 );
 	
+	wxBoxSizer* bSizer5;
+	bSizer5 = new wxBoxSizer( wxVERTICAL );
+	
+	bSizer2->Add( bSizer5, 1, wxEXPAND, 5 );
+	
 	wxBoxSizer* bSizer4;
-	bSizer4 = new wxBoxSizer( wxVERTICAL );
+	bSizer4 = new wxBoxSizer( wxHORIZONTAL );
+	
+	m_btnViewResults = new wxButton( this, ID_BUTTON_VIEWRESULTS, _("ViewResultsButton"), wxDefaultPosition, wxDefaultSize, 0 );
+	bSizer4->Add( m_btnViewResults, 0, wxALIGN_TOP|wxALL, 5 );
 	
 	m_btnLaunch = new wxButton( this, ID_BUTTON_LAUNCH, _("LaunchButton"), wxDefaultPosition, wxDefaultSize, 0 );
-	bSizer4->Add( m_btnLaunch, 0, wxALL|wxALIGN_RIGHT, 5 );
+	bSizer4->Add( m_btnLaunch, 0, wxALIGN_RIGHT|wxALL, 5 );
 	
-	bSizer2->Add( bSizer4, 1, 0, 5 );
+	bSizer2->Add( bSizer4, 0, 0, 5 );
 	
 	bSizer1->Add( bSizer2, 0, wxEXPAND, 5 );
 	
@@ -113,6 +121,7 @@ TestConfigurationBaseForm::TestConfigurationBaseForm( wxWindow* parent, wxWindow
 	m_clFlagCombinations->Connect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( TestConfigurationBaseForm::OnFlagCombinationsCheckListBoxSelected ), NULL, this );
 	m_clFlagCombinations->Connect( wxEVT_COMMAND_CHECKLISTBOX_TOGGLED, wxCommandEventHandler( TestConfigurationBaseForm::OnFlagCombinationsCheckListBoxToggled ), NULL, this );
 	m_btnEditor->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnEditorButtonClick ), NULL, this );
+	m_btnViewResults->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnViewResultsButtonClick ), NULL, this );
 	m_btnLaunch->Connect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnLaunchButtonClick ), NULL, this );
 }
 
@@ -125,6 +134,7 @@ TestConfigurationBaseForm::~TestConfigurationBaseForm()
 	m_clFlagCombinations->Disconnect( wxEVT_COMMAND_LISTBOX_SELECTED, wxCommandEventHandler( TestConfigurationBaseForm::OnFlagCombinationsCheckListBoxSelected ), NULL, this );
 	m_clFlagCombinations->Disconnect( wxEVT_COMMAND_CHECKLISTBOX_TOGGLED, wxCommandEventHandler( TestConfigurationBaseForm::OnFlagCombinationsCheckListBoxToggled ), NULL, this );
 	m_btnEditor->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnEditorButtonClick ), NULL, this );
+	m_btnViewResults->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnViewResultsButtonClick ), NULL, this );
 	m_btnLaunch->Disconnect( wxEVT_COMMAND_BUTTON_CLICKED, wxCommandEventHandler( TestConfigurationBaseForm::OnLaunchButtonClick ), NULL, this );
 	
 }

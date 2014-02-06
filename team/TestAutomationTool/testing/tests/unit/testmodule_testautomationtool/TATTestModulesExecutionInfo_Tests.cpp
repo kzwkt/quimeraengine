@@ -60,6 +60,126 @@ QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
 }
 
 /// <summary>
+/// Checks that it returns true when objects are equal.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsTrueWhenObjectsAreEqual_Test )
+{
+    // Preparation
+    const wxString EXPECTED_TESTMODULESPATH = wxT("A");
+    const wxString EXPECTED_RESULTSPATH = wxT("B");
+    const wxString EXPECTED_TESTPROJECTPATH = wxT("C");
+
+    TATTestModulesExecutionInfo executionInfoA;
+    executionInfoA.SetResultsPath(EXPECTED_TESTMODULESPATH);
+    executionInfoA.SetTestModulesPath(EXPECTED_RESULTSPATH);
+    executionInfoA.SetTestProjectPath(EXPECTED_TESTPROJECTPATH);
+
+    TATTestModulesExecutionInfo executionInfoB;
+    executionInfoB.SetResultsPath(EXPECTED_TESTMODULESPATH);
+    executionInfoB.SetTestModulesPath(EXPECTED_RESULTSPATH);
+    executionInfoB.SetTestProjectPath(EXPECTED_TESTPROJECTPATH);
+
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    bool bResult = executionInfoA == executionInfoB;
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns false when objects are not equal.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenObjectsAreNotEqual_Test )
+{
+    // Preparation
+    const wxString EXPECTED_TESTMODULESPATH = wxT("A");
+    const wxString EXPECTED_RESULTSPATH = wxT("DIFFERENT");
+    const wxString EXPECTED_TESTPROJECTPATH = wxT("C");
+    
+    const wxString DIFFERENT_VALUE("X");
+
+    TATTestModulesExecutionInfo executionInfoA;
+    executionInfoA.SetResultsPath(DIFFERENT_VALUE);
+    executionInfoA.SetTestModulesPath(EXPECTED_RESULTSPATH);
+    executionInfoA.SetTestProjectPath(EXPECTED_TESTPROJECTPATH);
+
+    TATTestModulesExecutionInfo executionInfoB;
+    executionInfoB.SetResultsPath(EXPECTED_TESTMODULESPATH);
+    executionInfoB.SetTestModulesPath(EXPECTED_RESULTSPATH);
+    executionInfoB.SetTestProjectPath(EXPECTED_TESTPROJECTPATH);
+
+    const bool EXPECTED_RESULT = false;
+
+	// Execution
+    bool bResult = executionInfoA == executionInfoB;
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns false when objects are equal.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsFalseWhenObjectsAreEqual_Test )
+{
+    // Preparation
+    const wxString EXPECTED_TESTMODULESPATH = wxT("A");
+    const wxString EXPECTED_RESULTSPATH = wxT("B");
+    const wxString EXPECTED_TESTPROJECTPATH = wxT("C");
+
+    TATTestModulesExecutionInfo executionInfoA;
+    executionInfoA.SetResultsPath(EXPECTED_TESTMODULESPATH);
+    executionInfoA.SetTestModulesPath(EXPECTED_RESULTSPATH);
+    executionInfoA.SetTestProjectPath(EXPECTED_TESTPROJECTPATH);
+
+    TATTestModulesExecutionInfo executionInfoB;
+    executionInfoB.SetResultsPath(EXPECTED_TESTMODULESPATH);
+    executionInfoB.SetTestModulesPath(EXPECTED_RESULTSPATH);
+    executionInfoB.SetTestProjectPath(EXPECTED_TESTPROJECTPATH);
+
+    const bool EXPECTED_RESULT = false;
+
+	// Execution
+    bool bResult = executionInfoA != executionInfoB;
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns true when objects are not equal.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenObjectsAreNotEqual_Test )
+{
+    // Preparation
+    const wxString EXPECTED_TESTMODULESPATH = wxT("A");
+    const wxString EXPECTED_RESULTSPATH = wxT("B");
+    const wxString EXPECTED_TESTPROJECTPATH = wxT("C");
+    
+    const wxString DIFFERENT_VALUE("X");
+
+    TATTestModulesExecutionInfo executionInfoA;
+    executionInfoA.SetResultsPath(DIFFERENT_VALUE);
+    executionInfoA.SetTestModulesPath(EXPECTED_RESULTSPATH);
+    executionInfoA.SetTestProjectPath(EXPECTED_TESTPROJECTPATH);
+
+    TATTestModulesExecutionInfo executionInfoB;
+    executionInfoB.SetResultsPath(EXPECTED_TESTMODULESPATH);
+    executionInfoB.SetTestModulesPath(EXPECTED_RESULTSPATH);
+    executionInfoB.SetTestProjectPath(EXPECTED_TESTPROJECTPATH);
+
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    bool bResult = executionInfoA != executionInfoB;
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
 /// Checks that the test modules' path is correctly retrieved.
 /// </summary>
 QTEST_CASE ( GetTestModulesPath_TestModulesPathIsCorrectlyRetrieved_Test )

@@ -56,6 +56,7 @@ namespace UI
 
 // Forward declarations
 class TestExecutionBaseForm;
+class TestResultsBaseForm;
 class EditorBaseForm;
 
 /// <summary>
@@ -111,6 +112,11 @@ protected:
 	/// Shows the editor window.
 	/// </summary>
     void ShowEditorWindow();
+
+    /// <summary>
+	/// Shows the test results window.
+	/// </summary>
+    void ShowResultsWindow();
 
     /// <summary>
     /// Checks that there are, at least, one compilation configuration and one flag combination selected and,
@@ -192,6 +198,12 @@ public:
 	/// </summary>
     /// <param name="event">The event argument.</param>
 	virtual void OnLaunchButtonClick( wxCommandEvent& event );
+    
+    /// <summary>
+	/// Event handler called when the user clicks on the button that navigates to the Test Results dialog.
+	/// </summary>
+    /// <param name="event">The event argument.</param>
+	virtual void OnViewResultsButtonClick( wxCommandEvent& event );
 
 
 	// PROPERTIES
@@ -212,6 +224,11 @@ protected:
 	/// The form created when navigating to the test execution functional group.
 	/// </summary>
     TestExecutionBaseForm* m_pExecutionForm;
+    
+    /// <summary>
+	/// The form created when navigating to the test results functional group.
+	/// </summary>
+    TestResultsBaseForm* m_pTestResultsForm;
 
     /// <summary>
     /// The form created when navigating to the editor functional group.

@@ -39,8 +39,8 @@ using namespace boost::unit_test;
 #include "TATTestAutomationToolExecutionMock.h"
 #include "TATLoggerMock.h"
 #include "InternalDefinitions.h"
-#include "TestExecution/TATTestResultLoaderFactory.h"
-#include "TestExecution/TATTestResultNode.h"
+#include "TestResults/TATTestResultLoaderFactory.h"
+#include "TestResults/TATTestResultNode.h"
 
 using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolExecution;
 using Kinesis::TestAutomationTool::Backend::Test::TATTestAutomationToolExecutionWhiteBox;
@@ -53,103 +53,18 @@ using Kinesis::TestAutomationTool::Backend::TATTestResultNode;
 
 QTEST_SUITE_BEGIN( TATTestExecutionThread_TestSuite )
 
-
+    
 /// <summary>
-/// Utility method for testing purposes. Checks whether 2 test result nodes are equal or not.
+/// Utility method for testing purposes. Path to the prerequired test result xml file used by many unit tests.
 /// </summary>
-/// <param name="pNodeA">First node to compare.</param>
-/// <param name="pNodeB">Second node to compare.</param>
-void CheckTestResultNodeEquality_UtilityMethod(TATTestResultNode* pNodeA, TATTestResultNode* pNodeB)
+/// <returns>
+/// The path to the prerequired text file used by many unit tests.
+/// </returns>
+wxString GetPathToTestResultFile_UtilityMethod()
 {
-    BOOST_CHECK_EQUAL(pNodeA->GetName(), pNodeB->GetName());
-    BOOST_CHECK_EQUAL(pNodeA->GetMessage(), pNodeB->GetMessage());
-    BOOST_CHECK_EQUAL(pNodeA->GetTime(), pNodeB->GetTime());
-    BOOST_CHECK_EQUAL(pNodeA->GetResult().ToString(), pNodeB->GetResult().ToString());
-}
+    const wxString PATH_TO_TESTRESULT_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile.xml");
 
-/// <summary>
-/// Utility method for testing purposes. Checks whether 2 test result trees are equal or not.
-/// </summary>
-/// <param name="pNodeA">First tree to compare.</param>
-/// <param name="pNodeB">Second tree to compare.</param>
-void CheckTestResultTreeEquality_UtilityMethod(TATTestResultNode* pNodeA, TATTestResultNode* pNodeB)
-{
-    typedef TATTestResultNode::TNodeCollection::const_iterator node_iterator;
-
-    // Same number of test result roots?
-    BOOST_CHECK_EQUAL(pNodeA->GetChildren().size(), pNodeB->GetChildren().size());
-
-    node_iterator iTestRootA = pNodeA->GetChildren().begin();
-    node_iterator iTestRootB = pNodeB->GetChildren().begin();
-
-    for(; iTestRootA != pNodeA->GetChildren().end() && iTestRootB != pNodeB->GetChildren().end(); ++iTestRootA, ++iTestRootB)
-    {
-        TATTestResultNode* pTestRootA = dynamic_cast<TATTestResultNode*>(iTestRootA->second);
-        TATTestResultNode* pTestRootB = dynamic_cast<TATTestResultNode*>(iTestRootB->second);
-
-        // Test result roots are equal?
-        CheckTestResultNodeEquality_UtilityMethod(pTestRootA, pTestRootB);
-
-        // Same number of test modules?
-        BOOST_CHECK_EQUAL(pTestRootA->GetChildren().size(), pTestRootB->GetChildren().size());
-
-        node_iterator iTestModuleA = pTestRootA->GetChildren().begin();
-        node_iterator iTestModuleB = pTestRootB->GetChildren().begin();
-
-        for(; iTestModuleA != pTestRootA->GetChildren().end() && iTestModuleB != pTestRootB->GetChildren().end(); ++iTestModuleA, ++iTestModuleB)
-        {
-            TATTestResultNode* pTestModuleA = dynamic_cast<TATTestResultNode*>(iTestModuleA->second);
-            TATTestResultNode* pTestModuleB = dynamic_cast<TATTestResultNode*>(iTestModuleB->second);
-
-            // Test modules are equal?
-            CheckTestResultNodeEquality_UtilityMethod(pTestModuleA, pTestModuleB);
-
-            // Same number of test suites?
-            BOOST_CHECK_EQUAL(pTestModuleA->GetChildren().size(), pTestModuleB->GetChildren().size());
-
-            node_iterator iTestSuiteA = pTestModuleA->GetChildren().begin();
-            node_iterator iTestSuiteB = pTestModuleB->GetChildren().begin();
-
-            for(; iTestSuiteA != pTestModuleA->GetChildren().end() && iTestSuiteB != pTestModuleB->GetChildren().end(); ++iTestSuiteA, ++iTestSuiteB)
-            {
-                TATTestResultNode* pTestSuiteA = dynamic_cast<TATTestResultNode*>(iTestSuiteA->second);
-                TATTestResultNode* pTestSuiteB = dynamic_cast<TATTestResultNode*>(iTestSuiteB->second);
-
-                // Test suites are equal?
-                CheckTestResultNodeEquality_UtilityMethod(pTestSuiteA, pTestSuiteB);
-
-                // Same number of test cases?
-                BOOST_CHECK_EQUAL(pTestSuiteA->GetChildren().size(), pTestSuiteB->GetChildren().size());
-
-                node_iterator iTestCaseA = pTestSuiteA->GetChildren().begin();
-                node_iterator iTestCaseB = pTestSuiteB->GetChildren().begin();
-
-                for(; iTestCaseA != pTestSuiteA->GetChildren().end() && iTestCaseB != pTestSuiteB->GetChildren().end(); ++iTestCaseA, ++iTestCaseB)
-                {
-                    TATTestResultNode* pTestCaseA = dynamic_cast<TATTestResultNode*>(iTestCaseA->second);
-                    TATTestResultNode* pTestCaseB = dynamic_cast<TATTestResultNode*>(iTestCaseB->second);
-
-                    // Test cases are equal?
-                    CheckTestResultNodeEquality_UtilityMethod(pTestCaseA, pTestCaseB);
-
-                    // Same number of test results?
-                    BOOST_CHECK_EQUAL(pTestCaseA->GetChildren().size(), pTestCaseB->GetChildren().size());
-
-                    node_iterator iTestResultA = pTestCaseA->GetChildren().begin();
-                    node_iterator iTestResultB = pTestCaseB->GetChildren().begin();
-
-                    for(; iTestResultA != pTestCaseA->GetChildren().end() && iTestResultB != pTestCaseB->GetChildren().end(); ++iTestResultA, ++iTestResultB)
-                    {
-                        TATTestResultNode* pTestResultA = dynamic_cast<TATTestResultNode*>(iTestResultA->second);
-                        TATTestResultNode* pTestResultB = dynamic_cast<TATTestResultNode*>(iTestResultB->second);
-
-                        // Test cases are equal?
-                        CheckTestResultNodeEquality_UtilityMethod(pTestResultA, pTestResultB);
-                    }
-                }
-            }
-        }
-    }
+    return PATH_TO_TESTRESULT_FILE;
 }
 
 /// <summary>
@@ -169,19 +84,6 @@ wxString GetPathToExecutableFile_UtilityMethod()
 #endif
 
     return PATH_TO_EXECUTABLE_FILE;
-}
-
-/// <summary>
-/// Utility method for testing purposes. Path to the prerequired test result xml file used by many unit tests.
-/// </summary>
-/// <returns>
-/// The path to the prerequired text file used by many unit tests.
-/// </returns>
-wxString GetPathToTestResultFile_UtilityMethod()
-{
-    const wxString PATH_TO_TESTRESULT_FILE = wxGetCwd() + wxT("/") + TAT_ARTIFACTS_DIRECTORY + wxT("/TestFile.xml");
-
-    return PATH_TO_TESTRESULT_FILE;
 }
 
 /// <summary>
@@ -527,70 +429,6 @@ QTEST_CASE ( Log_LoggerOfHandlerReceivesMessages_Test )
 
     // [Verification]
     BOOST_CHECK_EQUAL(LOGGER->GetLog(), MESSAGE.GetFullMessage());
-#endif
-}
-
-/// <summary>
-/// Checks that the expected test result tree is generated from the test result file.
-/// </summary>
-QTEST_CASE ( ParseTestResultFile_TestResultTreeIsCreatedFromTestResultFile_Test )
-{
-#ifdef TAT_OS_LINUX
-    BOOST_CHECK_MESSAGE(false, "This test fails for Linux only. It has to be fixed as soon as possible.");
-#else
-    using Kinesis::TestAutomationTool::Backend::ITATTestResultLoader;
-    using Kinesis::TestAutomationTool::Backend::TATTestResultLoaderFactory;
-    using Kinesis::TestAutomationTool::Backend::ETATResultSource;
-    using Kinesis::TestAutomationTool::Backend::ETATResult;
-    using Kinesis::TestAutomationTool::Backend::ETATTestResultNodeType;
-
-    // [Preparation]
-    const wxString EXISTING_TESTRESULT_FILE = GetPathToTestResultFile_UtilityMethod();
-    TATTestResultLoaderFactory TESTRESULTLOADER_FACTORY;
-    ITATTestResultLoader* TESTRESULT_LOADER = TESTRESULTLOADER_FACTORY.CreateConfigLoader(ETATResultSource::E_XmlFile);
-    TATTestAutomationToolExecutionMock testExecutionMock(TESTRESULT_LOADER);
-    TATTestExecutionThreadWhiteBox executionThreadUT(&testExecutionMock);
-
-    TATTestResultNode EXPECTED_TESTRESULT_TREE("ROOT");
-    TATTestResultNode* TESTLOG1 = new TATTestResultNode(wxT("ROOT"), ETATResult::E_NoResult, GetPathToTestResultFile_UtilityMethod(), 10, ETATTestResultNodeType::E_Root);
-        TATTestResultNode* TESTMODULE1 = new TATTestResultNode(wxT("TestModule1"), ETATResult::E_NoResult, wxT(""), 6, ETATTestResultNodeType::E_Module);
-            TATTestResultNode* TESTSUITE1 = new TATTestResultNode(wxT("TestSuite1"), ETATResult::E_NoResult, wxT("file1"), 1, ETATTestResultNodeType::E_Suite);
-                TATTestResultNode* TESTCASE1 = new TATTestResultNode(wxT("TestCase1"), ETATResult::E_NoResult, wxT(""), 1, ETATTestResultNodeType::E_Case);
-                    TATTestResultNode* TESTRESULT1 = new TATTestResultNode(wxT("Info"), ETATResult::E_Success, wxT("Message1"), 0, ETATTestResultNodeType::E_Result);
-            TATTestResultNode* TESTSUITE2 = new TATTestResultNode(wxT("TestSuite2"), ETATResult::E_NoResult, wxT("file2"), 5, ETATTestResultNodeType::E_Suite);
-                TATTestResultNode* TESTCASE1_2 = new TATTestResultNode(wxT("TestCase1"), ETATResult::E_NoResult, wxT(""), 2, ETATTestResultNodeType::E_Case);
-                    TATTestResultNode* TESTRESULT2 = new TATTestResultNode(wxT("Error"), ETATResult::E_Fail, wxT("Message1"), 0, ETATTestResultNodeType::E_Result);
-                    TATTestResultNode* TESTRESULT3 = new TATTestResultNode(wxT("Exception"), ETATResult::E_Error, wxT("Message2"), 0, ETATTestResultNodeType::E_Result);
-                TATTestResultNode* TESTCASE2_2 = new TATTestResultNode(wxT("TestCase2"), ETATResult::E_NoResult, wxT(""), 3, ETATTestResultNodeType::E_Case);
-                    TATTestResultNode* TESTRESULT4 = new TATTestResultNode(wxT("Info"), ETATResult::E_Success, wxT("Message1"), 0, ETATTestResultNodeType::E_Result);
-                    TATTestResultNode* TESTRESULT5 = new TATTestResultNode(wxT("Message"), ETATResult::E_NoResult, wxT("Message2"), 0, ETATTestResultNodeType::E_Result);
-        TATTestResultNode* TESTMODULE2 = new TATTestResultNode(wxT("TestModule2"), ETATResult::E_NoResult, wxT(""), 4, ETATTestResultNodeType::E_Module);
-            TATTestResultNode* TESTSUITE1_2 = new TATTestResultNode(wxT("TestSuite1"), ETATResult::E_NoResult, wxT("file3"), 4, ETATTestResultNodeType::E_Suite);
-                TATTestResultNode* TESTCASE1_2_2 = new TATTestResultNode(wxT("TestCase1"), ETATResult::E_NoResult, wxT(""), 4, ETATTestResultNodeType::E_Case);
-                    TATTestResultNode* TESTRESULT6 = new TATTestResultNode(wxT("Info"), ETATResult::E_Success, wxT("Message1"), 0, ETATTestResultNodeType::E_Result);
-
-    EXPECTED_TESTRESULT_TREE.AddChild(TESTLOG1);
-        TESTLOG1->AddChild(TESTMODULE1);
-            TESTMODULE1->AddChild(TESTSUITE1);
-                TESTSUITE1->AddChild(TESTCASE1);
-                    TESTCASE1->AddChild(TESTRESULT1);
-            TESTMODULE1->AddChild(TESTSUITE2);
-                TESTSUITE2->AddChild(TESTCASE1_2);
-                    TESTCASE1_2->AddChild(TESTRESULT2);
-                    TESTCASE1_2->AddChild(TESTRESULT3);
-                TESTSUITE2->AddChild(TESTCASE2_2);
-                    TESTCASE2_2->AddChild(TESTRESULT4);
-                    TESTCASE2_2->AddChild(TESTRESULT5);
-        TESTLOG1->AddChild(TESTMODULE2);
-            TESTMODULE2->AddChild(TESTSUITE1_2);
-                TESTSUITE1_2->AddChild(TESTCASE1_2_2);
-                    TESTCASE1_2_2->AddChild(TESTRESULT6);
-
-	// [Execution]
-    executionThreadUT.ParseTestResultFile(EXISTING_TESTRESULT_FILE);
-
-    // [Verification]
-    CheckTestResultTreeEquality_UtilityMethod(testExecutionMock.GetTestResultLoader()->GetTestResultTree(), &EXPECTED_TESTRESULT_TREE);
 #endif
 }
 

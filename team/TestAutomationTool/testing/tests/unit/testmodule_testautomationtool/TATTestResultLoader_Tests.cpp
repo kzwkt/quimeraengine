@@ -30,13 +30,13 @@ using namespace boost::unit_test;
 
 #include "../../../testsystem/TestingExternalDefinitions.h"
 
-#include "TestExecution/TATTestResultLoader.h"
+#include "TestResults/TATTestResultLoader.h"
 
 #include <wx/filefn.h>
 
-#include "TestExecution/TATTestResultNode.h"
+#include "TestResults/TATTestResultNode.h"
 #include "TATTestResultLoaderWhiteBox.h"
-#include "TestExecution/TATXmlReader.h"
+#include "TestResults/TATXmlReader.h"
 
 using Kinesis::TestAutomationTool::Backend::TATTestResultLoader;
 using Kinesis::TestAutomationTool::Backend::Test::TATTestResultLoaderWhiteBox;

@@ -24,11 +24,11 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "TestExecution/TATTestResultLoader.h"
+#include "TestResults/TATTestResultLoader.h"
 
-#include "TestExecution/TATXmlReader.h"
-#include "TestExecution/ETATResult.h"
-#include "TestExecution/TATTestResultNode.h"
+#include "TestResults/TATXmlReader.h"
+#include "TestResults/ETATResult.h"
+#include "TestResults/TATTestResultNode.h"
 #include "STATFileSystemHelper.h"
 
 namespace Kinesis

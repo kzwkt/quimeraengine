@@ -30,8 +30,8 @@ using namespace boost::unit_test;
 
 #include "../../../testsystem/TestingExternalDefinitions.h"
 
-#include "TestExecution/TATTestResultInfo.h"
-#include "TestExecution/TATTestResultNode.h"
+#include "TestResults/TATTestResultInfo.h"
+#include "TestResults/TATTestResultNode.h"
 
 using Kinesis::TestAutomationTool::Backend::TATTestResultInfo;
 

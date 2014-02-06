@@ -76,6 +76,7 @@ void TestAutomationToolUIApp::InitializeI18n(wxLanguage currentLang)
     // - Adds translation dictionaries
     m_locale.AddCatalog(wxT("TestConfiguration"));
     m_locale.AddCatalog(wxT("TestExecution"));
+    m_locale.AddCatalog(wxT("TestResult"));
     m_locale.AddCatalog(wxT("Editor"));
 }
 

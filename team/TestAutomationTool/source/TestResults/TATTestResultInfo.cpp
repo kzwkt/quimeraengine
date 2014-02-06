@@ -24,7 +24,9 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "TestExecution/ETATResult.h"
+#include "TestResults/TATTestResultInfo.h"
+
+#include "TestResults/TATTestResultNode.h"
 
 namespace Kinesis
 {
@@ -32,28 +34,83 @@ namespace TestAutomationTool
 {
 namespace Backend
 {
-
+    
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
 //##################			|							 |			   ##################
-//##################		    |  ATTRIBUTES INITIALIZATION |			   ##################
+//##################		    |        CONSTRUCTORS		 |			   ##################
 //##################		   /|							 |\			   ##################
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
 
-ETATResult::TNameValuePair ETATResult::sm_arValueName[] =
-    {
-        std::pair<wxString, ETATResult::EnumType>(wxT("E_Success"),  ETATResult::E_Success),
-        std::pair<wxString, ETATResult::EnumType>(wxT("E_Fail"),     ETATResult::E_Fail),
-        std::pair<wxString, ETATResult::EnumType>(wxT("E_Error"),    ETATResult::E_Error),
-        std::pair<wxString, ETATResult::EnumType>(wxT("E_NoResult"), ETATResult::E_NoResult),
-    };
+TATTestResultInfo::TATTestResultInfo() : m_pResultTree(NULL),
+                                         m_strFlagCombinationName(wxT("")),
+                                         m_strFlagCombinationValues(wxT("")),
+                                         m_strCompilationConfiguration(wxT("")),
+                                         m_strCompilerName(wxT(""))
+{
+}
 
-ETATResult::TNameValueMap ETATResult::sm_mapValueName(
-        ETATResult::sm_arValueName ,
-        &ETATResult::sm_arValueName[0] + sizeof(ETATResult::sm_arValueName) / sizeof(ETATResult::sm_arValueName[0])
-    );
+
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |         PROPERTIES		 |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
+
+wxString TATTestResultInfo::GetFlagCombinationName() const
+{
+    return m_strFlagCombinationName;
+}
+
+void TATTestResultInfo::SetFlagCombinationName(const wxString &strName)
+{
+    m_strFlagCombinationName = strName;
+}
+
+wxString TATTestResultInfo::GetFlagCombinationValues() const
+{
+    return m_strFlagCombinationValues;
+}
+
+void TATTestResultInfo::SetFlagCombinationValues(const wxString &strValues)
+{
+    m_strFlagCombinationValues = strValues;
+}
+
+wxString TATTestResultInfo::GetCompilationConfiguration() const
+{
+    return m_strCompilationConfiguration;
+}
+
+void TATTestResultInfo::SetCompilationConfiguration(const wxString &strConfiguration)
+{
+    m_strCompilationConfiguration = strConfiguration;
+}
+
+wxString TATTestResultInfo::GetCompilerName() const
+{
+    return m_strCompilerName;
+}
+
+void TATTestResultInfo::SetCompilerName(const wxString &strName)
+{
+    m_strCompilerName = strName;
+}
+
+TATTestResultNode* TATTestResultInfo::GetResultTree() const
+{
+    return m_pResultTree;
+}
+
+void TATTestResultInfo::SetResultTree(TATTestResultNode* pResultTree)
+{
+    m_pResultTree = pResultTree;
+}
 
 } //namespace Backend
 } //namespace TestAutomationTool

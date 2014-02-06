@@ -65,6 +65,24 @@ public:
 	// ---------------
 public:
 
+    /// <summary>
+    /// Checks if two instances are equal or not.
+    /// </summary>
+    /// <param name="compilerInfo">The other instance to compare to.</param>
+    /// <returns>
+    /// Returns true when instances are equal and false otherwise.
+    /// </returns>
+    bool operator==(const TATTestModulesExecutionInfo& executionInfo) const;
+
+        /// <summary>
+    /// Checks if two instances are different or not.
+    /// </summary>
+    /// <param name="compilerInfo">The other instance to compare to.</param>
+    /// <returns>
+    /// Returns true when instances are different and false otherwise.
+    /// </returns>
+    bool operator!=(const TATTestModulesExecutionInfo& executionInfo) const;
+
 
 	// PROPERTIES
 	// ---------------

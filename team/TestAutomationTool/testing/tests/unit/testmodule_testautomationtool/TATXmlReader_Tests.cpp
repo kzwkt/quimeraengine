@@ -30,7 +30,7 @@ using namespace boost::unit_test;
 
 #include "../../../testsystem/TestingExternalDefinitions.h"
 
-#include "TestExecution/TATXmlReader.h"
+#include "TestResults/TATXmlReader.h"
 
 using Kinesis::TestAutomationTool::Backend::TATXmlReader;
 

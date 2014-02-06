@@ -127,10 +127,3 @@ public:
 } //namespace Kinesis
 
 #endif // __TATTESTRESULTCONSULTANT__
-
-
-
-
-/*int GetResultCount() const;
-
-    int GetResultCountOfType(ETATResult eResultType) const;*/

@@ -35,7 +35,8 @@ namespace Kinesis
 			#define ID_CHECKLIST_COMPILATION_CONFIG 1001
 			#define ID_CHECKLIST_FLAG_COMBINATION 1002
 			#define ID_BUTTON_EDITOR 1003
-			#define ID_BUTTON_LAUNCH 1004
+			#define ID_BUTTON_VIEWRESULTS 1004
+			#define ID_BUTTON_LAUNCH 1005
 			
 			///////////////////////////////////////////////////////////////////////////////
 			/// Class TestConfigurationBaseForm
@@ -53,6 +54,7 @@ namespace Kinesis
 					wxStaticText* m_txtFlagValuesTitle;
 					wxGrid* m_gridFlagValues;
 					wxButton* m_btnEditor;
+					wxButton* m_btnViewResults;
 					wxButton* m_btnLaunch;
 					
 					// Virtual event handlers, overide them in your derived class
@@ -62,6 +64,7 @@ namespace Kinesis
 					virtual void OnFlagCombinationsCheckListBoxSelected( wxCommandEvent& event ) { event.Skip(); }
 					virtual void OnFlagCombinationsCheckListBoxToggled( wxCommandEvent& event ) { event.Skip(); }
 					virtual void OnEditorButtonClick( wxCommandEvent& event ) { event.Skip(); }
+					virtual void OnViewResultsButtonClick( wxCommandEvent& event ) { event.Skip(); }
 					virtual void OnLaunchButtonClick( wxCommandEvent& event ) { event.Skip(); }
 					
 				

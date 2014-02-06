@@ -29,11 +29,11 @@
 #include <map>
 #include <wx/msgdlg.h>
 
-#include "TestExecution/TestExecution.h"
 #include "Editor/TATEditorForm.h"
 #include "TestConfiguration/STATAppSettings.h"
 #include "TestConfiguration/TATValidationException.h"
 #include "TestExecution/TATTestExecutionForm.h"
+#include "TestResults/TATTestResultsForm.h"
 #include "TestConfiguration/ITATConfigLoader.h"
 #include "TestConfiguration/TATKeyValueNode.h"
 
@@ -148,6 +148,8 @@ void TATTestConfigurationForm::ResetConfiguration()
 
 void TATTestConfigurationForm::ShowExecutionWindow()
 {
+    // Test execution window
+    // ----------------------------
     wxString strConfigurationFilePath;
     std::map<wxString, TATCompilerInfo> compilerInfos;
     std::map< wxString, std::map<wxString, wxString> > filteredFlagCombinations;
@@ -177,6 +179,21 @@ void TATTestConfigurationForm::ShowExecutionWindow()
                                                 compilationConfigurations,
                                                 compilerInfos);
     m_pExecutionForm->Show();
+}
+
+void TATTestConfigurationForm::ShowResultsWindow()
+{
+    wxString strTestResultsPath;
+
+    // Gets the configuration file path
+    TATKeyValueNode* pValueTree = m_backend.GetConfigLoader()->GetValueTree();
+    TATNode* pTestNode = pValueTree->GetChild(wxT("T")).begin()->second; // [TODO] Thund: Currently, all the paths have the same value for every test configuration
+    TATNode* pTestResultsPathNode = pTestNode->GetChild(wxT("ResultsPath")).begin()->second;
+    strTestResultsPath = dynamic_cast<TATKeyValueNode*>(pTestResultsPathNode)->GetValue();
+
+    // Creates the test execution forms, using the calculated values
+    m_pTestResultsForm = new TATTestResultsForm(this, strTestResultsPath, true);
+    m_pTestResultsForm->Show();
 }
 
 void TATTestConfigurationForm::ShowEditorWindow()
@@ -431,6 +448,10 @@ void TATTestConfigurationForm::OnLaunchButtonClick( wxCommandEvent& event )
     ShowExecutionWindow();
 }
 
+void TATTestConfigurationForm::OnViewResultsButtonClick( wxCommandEvent& event )
+{
+    ShowResultsWindow();
+}
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

@@ -28,8 +28,8 @@
 #define __TATTESTRESULTNODE__
 
 #include "TATNode.h"
-#include "TestExecution/ETATResult.h"
-#include "TestExecution/ETATTestResultNodeType.h"
+#include "TestResults/ETATResult.h"
+#include "TestResults/ETATTestResultNodeType.h"
 
 namespace Kinesis
 {

@@ -27,7 +27,7 @@
 #ifndef __TATTESTRESULTLOADERFACTORYWHITEBOX__
 #define __TATTESTRESULTLOADERFACTORYWHITEBOX__
 
-#include "TestExecution/TATTestResultLoaderFactory.h"
+#include "TestResults/TATTestResultLoaderFactory.h"
 
 
 namespace Kinesis

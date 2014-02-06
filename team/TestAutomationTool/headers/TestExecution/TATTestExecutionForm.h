@@ -32,32 +32,14 @@
 
 #include "TestExecution/TestExecution.h"
 #include "TestExecution/TATTestAutomationToolExecution.h"
-#include "TestExecution/ETATResult.h"
-#include "TestExecution/ETATTestResultNodeType.h"
+#include "wx/treectrl.h"
 
 using Kinesis::TestAutomationTool::Backend::TATTestAutomationToolExecution;
 using Kinesis::TestAutomationTool::Backend::TATCompilerInfo;
-using Kinesis::TestAutomationTool::Backend::ETATResult;
 
-namespace Kinesis
-{
-    namespace TestAutomationTool
-    {
-        namespace Backend
-        {
-            class TATKeyValueNode;
-            class TATTestResultNode;
-            class TATTestResultInfo;
-        }
-    }
-}
 
 class wxImageList;
 
-using Kinesis::TestAutomationTool::Backend::TATKeyValueNode;
-using Kinesis::TestAutomationTool::Backend::TATTestResultNode;
-using Kinesis::TestAutomationTool::Backend::TATTestResultInfo;
-using Kinesis::TestAutomationTool::Backend::ETATTestResultNodeType;
 
 namespace Kinesis
 {
@@ -66,74 +48,15 @@ namespace TestAutomationTool
 namespace UI
 {
 
+// Forward declaration
+class TATTestResultsForm;
+
+
 /// <summary>
 /// Dialog that lets the user control the execution of the tests.
 /// </summary>
 class TATTestExecutionForm : public TestExecutionBaseForm
 {
-    // INTERNAL CLASSES
-	// ----------------
-protected:
-
-    /// <summary>
-    /// Data associated to every item in the test result tree.
-    /// </summary>
-    class TATResultTreeItemData : public wxTreeItemData
-    {
-    public:
-
-        /// <summary>
-        /// Constructor that receives the test result associated to the item.
-        /// </summary>
-        /// <remarks>
-        /// The test result will be deleted when this object is destroyed.
-        /// </remarks>
-        /// <param name="result">Test result information structure.</param>
-        /// <param name="pNode">A node of a test result tree.</param>
-        /// <param name="bIsMethod">Optional. Indicates whether the item represents a method (true) or a use case of a method (false).</param>
-        TATResultTreeItemData(const TATTestResultInfo result, TATTestResultNode* pNode, const bool &bIsMethod=true);
-
-        /// <summary>
-        /// Gets the test result associated to the item.
-        /// </summary>
-        /// <returns>
-        /// A test result information structure.
-        /// </returns>
-        TATTestResultInfo GetTestResult() const;
-
-        /// <summary>
-        /// Gets the test result node associated to the item.
-        /// </summary>
-        /// <returns>
-        /// A test result node.
-        /// </returns>
-        TATTestResultNode* GetTestResultNode() const;
-
-        /// <summary>
-        /// Indicates whether the item represents a method (true) or a use case of a method (false).
-        /// </summary>
-        /// <returns>
-        /// True if the item is a method, flse otherwise.
-        /// </returns>
-        bool IsMethod() const;
-
-        /// <summary>
-        /// The test result associated to the item.
-        /// </summary>
-        TATTestResultInfo m_testResult;
-
-        /// <summary>
-        /// The test result node associated to the item.
-        /// </summary>
-        TATTestResultNode* m_pTestResultNode;
-
-        /// <summary>
-        /// Flag that indicates whether the item represents a method (true) or a use case of a method (false).
-        /// </summary>
-        bool m_bIsMethod;
-    };
-
-
     // CONSTANTS
 	// ---------------
 protected:
@@ -225,30 +148,6 @@ protected:
     void SwitchStopButtonText(const bool &bStopped);
 
     /// <summary>
-    /// Creates the visual representation of the test result tree on a tree control.
-    /// </summary>
-    /// <param name="pTreeControl">The tree control that will represent the test results.</param>
-    /// <param name="pResult">The test results to be painted.</param>
-    virtual void BuildResultTree(wxTreeCtrl* pTreeControl, TATTestResultInfo* pResult);
-    
-    /// <summary>
-    /// Selects the index of an image that represents the status of a test result (has errors or not).
-    /// </summary>
-    /// <param name="pNode">The test result node to be evaluated.</param>
-    /// <returns>
-    /// The index of the image in the internal image list.
-    /// </returns>
-    int SelectImageIndexForResult(TATTestResultNode* pNode);
-
-    /// <summary>
-    /// Shows information about a test result into a rich text control.
-    /// </summary>
-    /// <param name="pTreeControl">The tree control that will represent the test results.</param>
-    /// <param name="itemId">The ID of the item that holds the data about the test result.</param>
-    /// <param name="pInformationPanel">The control where the information will be displayed.</param>
-    void ShowAdditionalInformation(wxTreeCtrl* pTreeControl, const wxTreeItemId& itemId, wxRichTextCtrl* pInformationPanel);
-
-    /// <summary>
     /// Adds a new item to the log event list.
     /// </summary>
     /// <remarks>
@@ -263,28 +162,6 @@ protected:
     /// </summary>
     /// <param name="bExecuting">True when the tests are being executed, false if they are not.</param>
     void EnableLogEventListDependingOnExecution(bool bExecuting);
-
-    /// <summary>
-    /// Obtains the corresponding title for a test result to be displayed in the result tree.
-    /// </summary>
-    /// <param name="eResult">The result represented by the tree node.</param>
-    /// <returns>
-    /// A title for the result node.
-    /// </returns>
-    wxString GetLocalizedTitleForResult(const ETATResult &eResult) const;
-
-    /// <summary>
-    /// Generates a more friendly or readable name for an item. The way to transform the input name
-    /// depends on the type of the test result node.
-    /// </summary>
-    /// <param name="strNodeName">Original name of the test result node.</param>
-    /// <param name="eType">The type of the test result node.</param>
-    /// <param name="bMethodOrCase">Optional. Indicates whether the item represents a method (true) or a use case of 
-    /// a method (false). Should be used for test cases only.</param>
-    /// <returns>
-    /// The transformed name that is intended to be more friendly.
-    /// </returns>
-    wxString GetCleanTestNodeName(const wxString &strNodeName, const ETATTestResultNodeType &eType, const bool &bMethodOrCase=true) const;
 
 
     // EVENT HANDLERS
@@ -316,22 +193,16 @@ public:
 	virtual void OnRestartButtonClick( wxCommandEvent& event );
 
     /// <summary>
-    /// Event handler called when the backend notifies about a new available test result tree.
+    /// Event handler called when the backend notifies about the necessity of parsing new test result files.
     /// </summary>
     /// <param name="event">The event argument that contains the new tree.</param>
-    virtual void OnResultUpdate(wxCommandEvent& event);
+    virtual void OnParseTestResults(wxCommandEvent& event);
 
     /// <summary>
     /// Event handler called when the backend notifies about the end of the execution process.
     /// </summary>
     /// <param name="event">The event argument.</param>
     virtual void OnTestExecutionFinished(wxCommandEvent& event);
-
-    /// <summary>
-    /// Event handler called when an item of the tree control is selected.
-    /// </summary>
-    /// <param name="event">The event argument that holds the ID of the selected item.</param>
-    virtual void OnTreeItemSelected(wxTreeEvent& event);
 
     /// <summary>
     /// Event handler called when a notification of the backend regarding the test execution "events" are received.
@@ -370,6 +241,10 @@ protected:
     /// </summary>
     bool m_bStoppedByUser;
 
+    /// <summary>
+    /// The from where the test results are shown.
+    /// </summary>
+    TATTestResultsForm* m_pTestResultsForm;
 };
 
 } //namespace UI

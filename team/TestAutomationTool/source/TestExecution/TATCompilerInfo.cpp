@@ -82,6 +82,31 @@ TATCompilerInfo::~TATCompilerInfo()
 //##################													   ##################
 //##################=======================================================##################
 
+bool TATCompilerInfo::operator==(const TATCompilerInfo& compilerInfo) const
+{
+    return  (m_strBuildCommand == compilerInfo.m_strBuildCommand) &&
+            (m_strBuildParams == compilerInfo.m_strBuildParams) &&
+            (m_strCleanCommand == compilerInfo.m_strCleanCommand) &&
+            (m_strCleanParams == compilerInfo.m_strCleanParams) &&
+            (m_strCompilerPath == compilerInfo.m_strCompilerPath) &&
+            (m_strFileSpecifier == compilerInfo.m_strFileSpecifier) &&
+            (m_strName == compilerInfo.m_strName) &&
+            (m_sutProjectsToCompile == compilerInfo.m_sutProjectsToCompile) &&
+            (m_testModulesExecutionInfos == compilerInfo.m_testModulesExecutionInfos);
+}
+
+bool TATCompilerInfo::operator!=(const TATCompilerInfo& compilerInfo) const
+{
+    return !((m_strBuildCommand == compilerInfo.m_strBuildCommand) &&
+             (m_strBuildParams == compilerInfo.m_strBuildParams) &&
+             (m_strCleanCommand == compilerInfo.m_strCleanCommand) &&
+             (m_strCleanParams == compilerInfo.m_strCleanParams) &&
+             (m_strCompilerPath == compilerInfo.m_strCompilerPath) &&
+             (m_strFileSpecifier == compilerInfo.m_strFileSpecifier) &&
+             (m_strName == compilerInfo.m_strName) &&
+             (m_sutProjectsToCompile == compilerInfo.m_sutProjectsToCompile) &&
+             (m_testModulesExecutionInfos == compilerInfo.m_testModulesExecutionInfos));
+}
 
 
 //##################=======================================================##################

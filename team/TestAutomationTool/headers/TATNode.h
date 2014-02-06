@@ -39,7 +39,7 @@ namespace Backend
 {
 
 /// <summary>
-/// Represents a N-ary tree node. A node is identified by its name. A node can have more than 
+/// Represents a N-ary tree node. A node is identified by its name. A node can have more than
 /// one child with the same name.
 /// </summary>
 class TATNode
@@ -53,7 +53,7 @@ public:
     typedef std::list<wxString> TNodeNameList;
     typedef std::pair<TNodeCollection::const_iterator, TNodeCollection::const_iterator> TNodeRange;
 
-    
+
 	// CONSTRUCTORS
 	// ---------------
 public:
@@ -76,7 +76,7 @@ public:
 
 	/// <summary>
 	/// Destructor.
-	/// </summary>		
+	/// </summary>
 	virtual ~TATNode();
 
 
@@ -162,7 +162,7 @@ public:
     /// A collection of child nodes.
     /// </returns>
     const TNodeCollection& GetChildren() const;
-    
+
     /// <summary>
     /// Checks if the node has children.
     /// </summary>
@@ -185,7 +185,7 @@ protected:
     /// The collection of child nodes.
     /// </summary>
     TNodeCollection m_children;
-    
+
 };
 
 } //namespace Backend

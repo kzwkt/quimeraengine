@@ -34,17 +34,14 @@
 #include "TestExecution/TATCompilerInfo.h"
 #include "TestExecution/TATFormattedMessage.h"
 #include "TATShellProcess.h"
-#include "TestExecution/ITATTestResultLoader.h"
-#include "TestExecution/TATTestResultInfo.h"
 
 // Events for multithreading tasks
 wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_COMPLETED, wxThreadEvent);
 wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_LOG_UPDATE, wxThreadEvent);
-wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_RESULT_UPDATE, wxThreadEvent);
 wxDECLARE_EVENT(wxEVT_COMMAND_EXECUTIONTHREAD_NOTIFICATION, wxThreadEvent);
 // Events for test execution process
 wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_FINISHED, wxCommandEvent);
-wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_TESTRESULTS_UPDATED, wxCommandEvent);
+wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_PARSE_TESTRESULTS, wxCommandEvent);
 wxDECLARE_EVENT(wxEVT_COMMAND_TESTEXECUTION_NOTIFICATION, wxCommandEvent);
 
 
@@ -172,7 +169,7 @@ protected:
         /// A list of the paths to every test module.
         /// </returns>
         std::list<wxString> ReadTestModuleFiles(const wxString& strFolderPath) const;
-
+        
         /// <summary>
         /// Makes a list of all the test result files inside a given directory.
         /// </summary>
@@ -192,12 +189,6 @@ protected:
         void Log(TATFormattedMessage message);
 
         /// <summary>
-        /// Parses the test result file using the test result loader.
-        /// </summary>
-        /// <param name="strTestResultFilePath">The path to the test result file.</param>
-        void ParseTestResultFile(const wxString &strTestResultFilePath);
-
-        /// <summary>
         /// Deletes the test result files allocated into a given folder.
         /// </summary>
         /// <param name="strTestResultFilePath">The path to the test result files.</param>
@@ -211,12 +202,6 @@ protected:
         /// </summary>
         /// <param name="strMessage">Notification message.</param>
         void NotifyEvent(const wxString &strMessage);
-
-        /// <summary>
-        /// Notifies that the test result tree has been updated with new content.
-        /// </summary>
-        /// <param name="testResultInfo">Test result information.</param>
-        void NotifyTestResult(const TATTestResultInfo &testResultInfo);
 
     protected:
 
@@ -292,6 +277,19 @@ public:
     /// </remarks>
     void StopTestExecution();
 
+    /// <summary>
+    /// Raises an event to notify that new test result files have to be parsed.
+    /// </summary>
+    /// <param name="strTestResultFilePath">The path to the test result files.</param>
+    /// <param name="strCompilationConfig">The name of the compilation configuration.</param>
+    /// <param name="strCompilerName">The name of the compiler.</param>
+    /// <param name="strFlagCombinationName">The flag combination name.</param>
+    /// <param name="strFlagCombinationValues">The values of the flag combination.</param>
+    void ParseTestResultFile(const wxString& strTestResultFilePath, 
+                             const wxString& strCompilationConfig,
+                             const wxString& strCompilerName,
+                             const wxString& strFlagCombinationName,
+                             const wxString& strFlagCombinationValues);
 
     // EVENT HANDLERS
     // ---------------
@@ -302,12 +300,6 @@ public:
     /// </summary>
     /// <param name="wxThreadEvent">The event arguments.</param>
     virtual void OnTestExecutionThreadLogUpdate( wxThreadEvent& event );
-
-    /// <summary>
-    /// Event handler for catching thread update signals when the results can be updated.
-    /// </summary>
-    /// <param name="wxThreadEvent">The event arguments.</param>
-    virtual void OnTestExecutionThreadResultUpdate( wxThreadEvent& event );
 
     /// <summary>
     /// Event handler for catching the thread completed signal.
@@ -397,20 +389,6 @@ public:
     void SetLogger(ITATLogger* pLogger);
     
     /// <summary>
-    /// Gets the test result loader that will transform test result files into insternal structures.
-    /// </summary>
-    /// <returns>
-    /// A test result loader to parse test result files.
-    /// </returns>
-    ITATTestResultLoader* GetTestResultLoader() const;
-
-    /// <summary>
-    /// Sets the test result loader that will transform test result files into insternal structures.
-    /// </summary>
-    /// <param name="pTestResultLoader">A test result loader to parse test result files.</param>
-    void SetTestResultLoader(ITATTestResultLoader* pTestResultLoader);
-
-    /// <summary>
     /// Sets the component that will react to some events.
     /// </summary>
     /// <param name="pListener">A component that will react to some events.</param>
@@ -450,11 +428,6 @@ protected:
     /// The thread which will execute the tests.
     /// </summary>
     TATTestExecutionThread* m_pExecutionThread;
-
-    /// <summary>
-    /// The component that loads test result files and convertes them into internal structures.
-    /// </summary>
-    ITATTestResultLoader* m_pTestResultLoader;
 
     /// <summary>
     /// A component that will react to some events.

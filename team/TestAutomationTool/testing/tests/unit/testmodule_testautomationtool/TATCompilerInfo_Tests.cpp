@@ -49,7 +49,9 @@ QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
     const wxString EXPECTED_BUILDCOMMAND = wxT("");
     const wxString EXPECTED_BUILDPARAMS = wxT("");
     const wxString EXPECTED_CLEANCOMMAND = wxT("");
+    const wxString EXPECTED_CLEANPARAMS = wxT("");
     const wxString EXPECTED_COMPILERPATH = wxT("");
+    const wxString EXPECTED_FILESPECIFIER = wxT("");
     const wxString EXPECTED_NAME = wxT("");
     const std::list<wxString> EXPECTED_SUTPROJECTS;
     const std::list<TATTestModulesExecutionInfo> EXPECTED_TESTMODULESEXECUTIONINFO;
@@ -60,7 +62,9 @@ QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
     wxString strBuildCommand = compilerInfoUT.GetBuildCommand();
     wxString strBuildParams = compilerInfoUT.GetBuildParams();
     wxString strClearCommand = compilerInfoUT.GetCleanCommand();
+    wxString strClearParams = compilerInfoUT.GetCleanParams();
     wxString strCompilerPath = compilerInfoUT.GetCompilerPath();
+    wxString strFileSpecifier = compilerInfoUT.GetFileSpecifier();
     wxString strName = compilerInfoUT.GetName();
     std::list<wxString> sutProjects = compilerInfoUT.GetSUTProjects();
     std::list<TATTestModulesExecutionInfo> testModulesExecutionInfo = compilerInfoUT.GetTestModulesExecutionInfo();
@@ -69,10 +73,212 @@ QTEST_CASE ( Constructor_DefaultValuesHaveNotChanged_Test )
     BOOST_CHECK_EQUAL(strBuildCommand, EXPECTED_BUILDCOMMAND);
     BOOST_CHECK_EQUAL(strBuildParams, EXPECTED_BUILDPARAMS);
     BOOST_CHECK_EQUAL(strClearCommand, EXPECTED_CLEANCOMMAND);
+    BOOST_CHECK_EQUAL(strClearParams, EXPECTED_CLEANPARAMS);
     BOOST_CHECK_EQUAL(strCompilerPath, EXPECTED_COMPILERPATH);
+    BOOST_CHECK_EQUAL(strFileSpecifier, EXPECTED_FILESPECIFIER);
     BOOST_CHECK_EQUAL(strName, EXPECTED_NAME);
     BOOST_CHECK_EQUAL(sutProjects.size(), EXPECTED_SUTPROJECTS.size());
     BOOST_CHECK_EQUAL(testModulesExecutionInfo.size(), EXPECTED_TESTMODULESEXECUTIONINFO.size());
+}
+
+/// <summary>
+/// Checks that it returns true when objects are equal.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsTrueWhenObjectsAreEqual_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::TATTestModulesExecutionInfo;
+
+    // Preparation
+    const wxString EXPECTED_BUILDCOMMAND = wxT("A");
+    const wxString EXPECTED_BUILDPARAMS = wxT("B");
+    const wxString EXPECTED_CLEANCOMMAND = wxT("C");
+    const wxString EXPECTED_CLEANPARAMS = wxT("D");
+    const wxString EXPECTED_COMPILERPATH = wxT("E");
+    const wxString EXPECTED_FILESPECIFIER = wxT("F");
+    const wxString EXPECTED_NAME = wxT("G");
+    const std::list<wxString> EXPECTED_SUTPROJECTS;
+    const std::list<TATTestModulesExecutionInfo> EXPECTED_TESTMODULESEXECUTIONINFO;
+
+    TATCompilerInfo compilerInfoA;
+    compilerInfoA.SetBuildCommand(EXPECTED_BUILDCOMMAND);
+    compilerInfoA.SetBuildParams(EXPECTED_BUILDPARAMS);
+    compilerInfoA.SetCleanCommand(EXPECTED_CLEANCOMMAND);
+    compilerInfoA.SetCleanParams(EXPECTED_CLEANPARAMS);
+    compilerInfoA.SetCompilerPath(EXPECTED_COMPILERPATH);
+    compilerInfoA.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    compilerInfoA.SetName(EXPECTED_NAME);
+    compilerInfoA.SetSUTProjects(EXPECTED_SUTPROJECTS);
+    compilerInfoA.SetTestModulesExecutionInfo(EXPECTED_TESTMODULESEXECUTIONINFO);
+
+    TATCompilerInfo compilerInfoB;
+    compilerInfoB.SetBuildCommand(EXPECTED_BUILDCOMMAND);
+    compilerInfoB.SetBuildParams(EXPECTED_BUILDPARAMS);
+    compilerInfoB.SetCleanCommand(EXPECTED_CLEANCOMMAND);
+    compilerInfoB.SetCleanParams(EXPECTED_CLEANPARAMS);
+    compilerInfoB.SetCompilerPath(EXPECTED_COMPILERPATH);
+    compilerInfoB.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    compilerInfoB.SetName(EXPECTED_NAME);
+    compilerInfoB.SetSUTProjects(EXPECTED_SUTPROJECTS);
+    compilerInfoB.SetTestModulesExecutionInfo(EXPECTED_TESTMODULESEXECUTIONINFO);
+
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    bool bResult = compilerInfoA == compilerInfoB;
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns false when objects are not equal.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenObjectsAreNotEqual_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::TATTestModulesExecutionInfo;
+
+    // Preparation
+    const wxString EXPECTED_BUILDCOMMAND = wxT("A");
+    const wxString EXPECTED_BUILDPARAMS = wxT("B");
+    const wxString EXPECTED_CLEANCOMMAND = wxT("C");
+    const wxString EXPECTED_CLEANPARAMS = wxT("D");
+    const wxString EXPECTED_COMPILERPATH = wxT("E");
+    const wxString EXPECTED_FILESPECIFIER = wxT("F");
+    const wxString EXPECTED_NAME = wxT("G");
+    const std::list<wxString> EXPECTED_SUTPROJECTS;
+    const std::list<TATTestModulesExecutionInfo> EXPECTED_TESTMODULESEXECUTIONINFO;
+
+    const wxString DIFFERENT_VALUE("X");
+
+    TATCompilerInfo compilerInfoA;
+    compilerInfoA.SetBuildCommand(DIFFERENT_VALUE);
+    compilerInfoA.SetBuildParams(EXPECTED_BUILDPARAMS);
+    compilerInfoA.SetCleanCommand(EXPECTED_CLEANCOMMAND);
+    compilerInfoA.SetCleanParams(EXPECTED_CLEANPARAMS);
+    compilerInfoA.SetCompilerPath(EXPECTED_COMPILERPATH);
+    compilerInfoA.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    compilerInfoA.SetName(EXPECTED_NAME);
+    compilerInfoA.SetSUTProjects(EXPECTED_SUTPROJECTS);
+    compilerInfoA.SetTestModulesExecutionInfo(EXPECTED_TESTMODULESEXECUTIONINFO);
+
+    TATCompilerInfo compilerInfoB;
+    compilerInfoB.SetBuildCommand(EXPECTED_BUILDCOMMAND);
+    compilerInfoB.SetBuildParams(EXPECTED_BUILDPARAMS);
+    compilerInfoB.SetCleanCommand(EXPECTED_CLEANCOMMAND);
+    compilerInfoB.SetCleanParams(EXPECTED_CLEANPARAMS);
+    compilerInfoB.SetCompilerPath(EXPECTED_COMPILERPATH);
+    compilerInfoB.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    compilerInfoB.SetName(EXPECTED_NAME);
+    compilerInfoB.SetSUTProjects(EXPECTED_SUTPROJECTS);
+    compilerInfoB.SetTestModulesExecutionInfo(EXPECTED_TESTMODULESEXECUTIONINFO);
+
+    const bool EXPECTED_RESULT = false;
+
+	// Execution
+    bool bResult = compilerInfoA == compilerInfoB;
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns false when objects are equal.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsFalseWhenObjectsAreEqual_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::TATTestModulesExecutionInfo;
+
+    // Preparation
+    const wxString EXPECTED_BUILDCOMMAND = wxT("A");
+    const wxString EXPECTED_BUILDPARAMS = wxT("B");
+    const wxString EXPECTED_CLEANCOMMAND = wxT("C");
+    const wxString EXPECTED_CLEANPARAMS = wxT("D");
+    const wxString EXPECTED_COMPILERPATH = wxT("E");
+    const wxString EXPECTED_FILESPECIFIER = wxT("F");
+    const wxString EXPECTED_NAME = wxT("G");
+    const std::list<wxString> EXPECTED_SUTPROJECTS;
+    const std::list<TATTestModulesExecutionInfo> EXPECTED_TESTMODULESEXECUTIONINFO;
+
+    TATCompilerInfo compilerInfoA;
+    compilerInfoA.SetBuildCommand(EXPECTED_BUILDCOMMAND);
+    compilerInfoA.SetBuildParams(EXPECTED_BUILDPARAMS);
+    compilerInfoA.SetCleanCommand(EXPECTED_CLEANCOMMAND);
+    compilerInfoA.SetCleanParams(EXPECTED_CLEANPARAMS);
+    compilerInfoA.SetCompilerPath(EXPECTED_COMPILERPATH);
+    compilerInfoA.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    compilerInfoA.SetName(EXPECTED_NAME);
+    compilerInfoA.SetSUTProjects(EXPECTED_SUTPROJECTS);
+    compilerInfoA.SetTestModulesExecutionInfo(EXPECTED_TESTMODULESEXECUTIONINFO);
+
+    TATCompilerInfo compilerInfoB;
+    compilerInfoB.SetBuildCommand(EXPECTED_BUILDCOMMAND);
+    compilerInfoB.SetBuildParams(EXPECTED_BUILDPARAMS);
+    compilerInfoB.SetCleanCommand(EXPECTED_CLEANCOMMAND);
+    compilerInfoB.SetCleanParams(EXPECTED_CLEANPARAMS);
+    compilerInfoB.SetCompilerPath(EXPECTED_COMPILERPATH);
+    compilerInfoB.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    compilerInfoB.SetName(EXPECTED_NAME);
+    compilerInfoB.SetSUTProjects(EXPECTED_SUTPROJECTS);
+    compilerInfoB.SetTestModulesExecutionInfo(EXPECTED_TESTMODULESEXECUTIONINFO);
+
+    const bool EXPECTED_RESULT = false;
+
+	// Execution
+    bool bResult = compilerInfoA != compilerInfoB;
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
+}
+
+/// <summary>
+/// Checks that it returns true when objects are not equal.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenObjectsAreNotEqual_Test )
+{
+    using Kinesis::TestAutomationTool::Backend::TATTestModulesExecutionInfo;
+
+    // Preparation
+    const wxString EXPECTED_BUILDCOMMAND = wxT("A");
+    const wxString EXPECTED_BUILDPARAMS = wxT("B");
+    const wxString EXPECTED_CLEANCOMMAND = wxT("C");
+    const wxString EXPECTED_CLEANPARAMS = wxT("D");
+    const wxString EXPECTED_COMPILERPATH = wxT("E");
+    const wxString EXPECTED_FILESPECIFIER = wxT("F");
+    const wxString EXPECTED_NAME = wxT("G");
+    const std::list<wxString> EXPECTED_SUTPROJECTS;
+    const std::list<TATTestModulesExecutionInfo> EXPECTED_TESTMODULESEXECUTIONINFO;
+        
+    const wxString DIFFERENT_VALUE("X");
+
+    TATCompilerInfo compilerInfoA;
+    compilerInfoA.SetBuildCommand(DIFFERENT_VALUE);
+    compilerInfoA.SetBuildParams(EXPECTED_BUILDPARAMS);
+    compilerInfoA.SetCleanCommand(EXPECTED_CLEANCOMMAND);
+    compilerInfoA.SetCleanParams(EXPECTED_CLEANPARAMS);
+    compilerInfoA.SetCompilerPath(EXPECTED_COMPILERPATH);
+    compilerInfoA.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    compilerInfoA.SetName(EXPECTED_NAME);
+    compilerInfoA.SetSUTProjects(EXPECTED_SUTPROJECTS);
+    compilerInfoA.SetTestModulesExecutionInfo(EXPECTED_TESTMODULESEXECUTIONINFO);
+
+    TATCompilerInfo compilerInfoB;
+    compilerInfoB.SetBuildCommand(EXPECTED_BUILDCOMMAND);
+    compilerInfoB.SetBuildParams(EXPECTED_BUILDPARAMS);
+    compilerInfoB.SetCleanCommand(EXPECTED_CLEANCOMMAND);
+    compilerInfoB.SetCleanParams(EXPECTED_CLEANPARAMS);
+    compilerInfoB.SetCompilerPath(EXPECTED_COMPILERPATH);
+    compilerInfoB.SetFileSpecifier(EXPECTED_FILESPECIFIER);
+    compilerInfoB.SetName(EXPECTED_NAME);
+    compilerInfoB.SetSUTProjects(EXPECTED_SUTPROJECTS);
+    compilerInfoB.SetTestModulesExecutionInfo(EXPECTED_TESTMODULESEXECUTIONINFO);
+
+    const bool EXPECTED_RESULT = true;
+
+	// Execution
+    bool bResult = compilerInfoA != compilerInfoB;
+    
+    // Verification
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
 
 /// <summary>

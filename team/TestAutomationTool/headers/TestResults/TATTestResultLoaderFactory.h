@@ -24,7 +24,12 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "TestExecution/ETATResultSource.h"
+#ifndef __TATTESTRESULTLOADERFACTORY__
+#define __TATTESTRESULTLOADERFACTORY__
+
+#include "TestResults/ETATResultSource.h"
+#include "TestResults/ITATTestResultLoader.h"
+#include "TestResults/TATTestResultLoader.h"
 
 namespace Kinesis
 {
@@ -33,25 +38,38 @@ namespace TestAutomationTool
 namespace Backend
 {
 
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |  ATTRIBUTES INITIALIZATION |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
+/// <summary>
+/// Creates test result loader implementations.
+/// </summary>
+class TATTestResultLoaderFactory
+{
+	// METHODS
+	// ---------------
+public:
 
-ETATResultSource::TNameValuePair ETATResultSource::sm_arValueName[] =
-    {
-        std::pair<wxString, ETATResultSource::EnumType>(wxT("E_XmlFile"), ETATResultSource::E_XmlFile),
-    };
+    /// <summary>
+	/// Creates a test result loader whose implementation depends on the source of the result.
+	/// </summary>
+    /// <param name="eSource">The source of the result (a file, a database, a web service, or whatever is allowed).</param>
+    /// <returns>
+    /// The implementation for the test result loader.
+    /// </returns>
+    ITATTestResultLoader* CreateConfigLoader(const ETATResultSource& eSource) const;
 
-ETATResultSource::TNameValueMap ETATResultSource::sm_mapValueName(
-        ETATResultSource::sm_arValueName ,
-        &ETATResultSource::sm_arValueName[0] + sizeof(ETATResultSource::sm_arValueName) / sizeof(ETATResultSource::sm_arValueName[0])
-    );
+protected:
+
+    /// <summary>
+	/// Creates a test result loader whose source is an XML file.
+	/// </summary>
+    /// <returns>
+    /// The implementation for the test result loader.
+    /// </returns>
+    ITATTestResultLoader* CreateTestResultLoaderFromXmlFile() const;
+
+};
 
 } //namespace Backend
 } //namespace TestAutomationTool
 } //namespace Kinesis
+
+#endif // __TATTESTRESULTLOADERFACTORY__

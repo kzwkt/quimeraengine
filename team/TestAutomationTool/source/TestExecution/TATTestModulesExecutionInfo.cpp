@@ -82,6 +82,19 @@ TATTestModulesExecutionInfo::~TATTestModulesExecutionInfo()
 //##################													   ##################
 //##################=======================================================##################
 
+bool TATTestModulesExecutionInfo::operator==(const TATTestModulesExecutionInfo& executionInfo) const
+{
+    return (m_strResultsPath == executionInfo.m_strResultsPath) &&
+           (m_strTestModulesPath == executionInfo.m_strTestModulesPath) &&
+           (m_strTestProjectPath == executionInfo.m_strTestProjectPath);
+}
+
+bool TATTestModulesExecutionInfo::operator!=(const TATTestModulesExecutionInfo& executionInfo) const
+{
+    return !((m_strResultsPath == executionInfo.m_strResultsPath) &&
+             (m_strTestModulesPath == executionInfo.m_strTestModulesPath) &&
+             (m_strTestProjectPath == executionInfo.m_strTestProjectPath));
+}
 
 
 //##################=======================================================##################
