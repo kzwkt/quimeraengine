@@ -158,7 +158,7 @@ TATTestResultInfo TATTestAutomationToolResults::ParseTestResultFile(const wxStri
     {
         // Notifies that there is new content in the test result tree
         resultInfo.SetCompilationConfiguration(strCompilationConfig);
-        resultInfo.SetCompilerName(strCompilationConfig);
+        resultInfo.SetCompilerName(strCompilerName);
         resultInfo.SetFlagCombinationName(strFlagCombinationName);
         resultInfo.SetFlagCombinationValues(strFlagCombinationValues);
 
