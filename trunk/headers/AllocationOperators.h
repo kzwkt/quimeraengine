@@ -33,6 +33,7 @@
 
 #ifdef QE_COMPILER_GCC
     #include "malloc.h" // __mingw_aligned_malloc, __mingw_aligned_free
+                        //
                         // [REVIEW]: __mingw_aligned_alloc and __mingw_aligned_free may be unsafe, and break the code
                         //           after time; there must be replaced by two stable and standard functions compatible
                         //           as well with MinGW.
