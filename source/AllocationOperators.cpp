@@ -35,6 +35,7 @@ void* operator new(const pointer_uint_q uSize, const QAlignment& alignment)
     // or class will be 1 byte, in order to avoid two objects to be addressed at the same memory address.
     // In C, a struct cannot be empty because the syntax forbids it. However, there may be compilers (such as gcc)
     // that allow this feature in C as an extension, having zero as size, so the following check becomes necessary.
+    //
     // More info in:
     // http://isocpp.org/wiki/faq/classes-and-objects#sizeof-empty
     // http://gcc.gnu.org/onlinedocs/gcc/Empty-Structures.html
@@ -56,6 +57,7 @@ void* operator new[](const pointer_uint_q uSize, const QAlignment& alignment)
     // or class will be 1 byte, in order to avoid two objects to be addressed at the same memory address.
     // In C, a struct cannot be empty because the syntax forbids it. However, there may be compilers (such as gcc)
     // that allow this feature in C as an extension, having zero as size, so the following check becomes necessary.
+    //
     // More info in:
     // http://isocpp.org/wiki/faq/classes-and-objects#sizeof-empty
     // http://gcc.gnu.org/onlinedocs/gcc/Empty-Structures.html
