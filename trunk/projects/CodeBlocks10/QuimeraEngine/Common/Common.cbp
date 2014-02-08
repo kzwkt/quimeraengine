@@ -12,7 +12,7 @@
 				<Option platforms="Unix;" />
 				<Option output="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic/libQuimeraEngineCommon.a" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugLinux32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -23,14 +23,14 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add directory="..\..\..\..\3rdparty\Boost\bin\Linux32\DebugSharedrtStatic" />
+					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtStatic" />
 				</Linker>
 			</Target>
 			<Target title="DebugWin32SharedrtStatic">
 				<Option platforms="Windows;" />
-				<Option output="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" prefix_auto="0" extension_auto="0" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" prefix_auto="0" extension_auto="0" />
 				<Option working_dir="" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugWin32SharedrtStatic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtStatic" />
 				<Option type="2" />
 				<Option compiler="gcc" />
 				<Option createDefFile="1" />
@@ -39,14 +39,14 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add directory="..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic" />
+					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
 				</Linker>
 			</Target>
 			<Target title="DebugWin32SharedrtDynamic">
 				<Option platforms="Windows;" />
-				<Option output="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" prefix_auto="0" extension_auto="0" />
-				<Option working_dir="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic" />
-				<Option object_output="..\..\..\..\garbage\CodeBlocks10\DebugWin32SharedrtDynamic" />
+				<Option output="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" prefix_auto="0" extension_auto="0" />
+				<Option working_dir="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
+				<Option object_output="../../../../garbage/CodeBlocks10/DebugWin32SharedrtDynamic" />
 				<Option type="3" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -55,7 +55,7 @@
 					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
-					<Add directory="..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic" />
+					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
 				</Linker>
 			</Target>
 			<Target title="DebugLinux32SharedrtDynamic">
@@ -74,7 +74,7 @@
 				</Compiler>
 				<Linker>
 					<Add option="-m32" />
-					<Add directory="..\..\..\..\3rdparty\Boost\bin\Linux32\DebugSharedrtDynamic" />
+					<Add directory="../../../../3rdparty/Boost/bin/Linux32/DebugSharedrtDynamic" />
 				</Linker>
 			</Target>
 		</Build>
@@ -86,47 +86,53 @@
 			<Add option="-Wmissing-include-dirs" />
 			<Add option="-Wswitch-default" />
 			<Add option="-Wall" />
-			<Add directory="..\..\..\..\headers" />
-			<Add directory="..\..\..\..\3rdparty\Boost\include" />
+			<Add directory="../../../../headers" />
+			<Add directory="../../../../3rdparty/Boost/include" />
 		</Compiler>
-		<Unit filename="..\..\..\..\headers\Assertions.h" />
-		<Unit filename="..\..\..\..\headers\CommonDefinitions.h" />
-		<Unit filename="..\..\..\..\headers\Configuration.h" />
-		<Unit filename="..\..\..\..\headers\DataTypesDefinitions.h">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../headers/AllocationOperators.h">
+			<Option virtualFolder="Memory/" />
 		</Unit>
-		<Unit filename="..\..\..\..\headers\ExternalDefinitions.h" />
-		<Unit filename="..\..\..\..\headers\InternalDefinitions.h" />
-		<Unit filename="..\..\..\..\headers\QAlignment.h">
-			<Option virtualFolder="Memory\" />
+		<Unit filename="../../../../headers/Assertions.h" />
+		<Unit filename="../../../../headers/CommonDefinitions.h" />
+		<Unit filename="../../../../headers/Configuration.h" />
+		<Unit filename="../../../../headers/DataTypesDefinitions.h">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\headers\SQBoolean.h">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../headers/ExternalDefinitions.h" />
+		<Unit filename="../../../../headers/InternalDefinitions.h" />
+		<Unit filename="../../../../headers/QAlignment.h">
+			<Option virtualFolder="Memory/" />
 		</Unit>
-		<Unit filename="..\..\..\..\headers\SQFloat.h">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../headers/SQBoolean.h">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\headers\SQInteger.h">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../headers/SQFloat.h">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\headers\SQVF32.h">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../headers/SQInteger.h">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\source\Assertions.cpp" />
-		<Unit filename="..\..\..\..\source\QAlignment.cpp">
-			<Option virtualFolder="Memory\" />
+		<Unit filename="../../../../headers/SQVF32.h">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\source\SQBoolean.cpp">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../source/AllocationOperators.cpp">
+			<Option virtualFolder="Memory/" />
 		</Unit>
-		<Unit filename="..\..\..\..\source\SQFloat.cpp">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../source/Assertions.cpp" />
+		<Unit filename="../../../../source/QAlignment.cpp">
+			<Option virtualFolder="Memory/" />
 		</Unit>
-		<Unit filename="..\..\..\..\source\SQInteger.cpp">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../source/SQBoolean.cpp">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
-		<Unit filename="..\..\..\..\source\SQVF32.cpp">
-			<Option virtualFolder="DataTypes\" />
+		<Unit filename="../../../../source/SQFloat.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/SQInteger.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/SQVF32.cpp">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
 		<Extensions>
 			<code_completion />

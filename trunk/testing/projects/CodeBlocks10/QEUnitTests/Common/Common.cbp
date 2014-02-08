@@ -44,7 +44,7 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
@@ -68,7 +68,7 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
 				</Linker>
 				<ExtraCommands>
@@ -121,10 +121,7 @@
 			<Add directory="../../../../../3rdparty/Boost/include" />
 			<Add directory="../../../../tests/unit" />
 		</Compiler>
-		<Unit filename="../../../../../headers/QAlignment.h">
-			<Option virtualFolder="Tests/Memory/" />
-		</Unit>
-		<Unit filename="../../../../../source/QAlignment.cpp">
+		<Unit filename="../../../../tests/unit/testmodule_common/AllocationOperators_Test.cpp">
 			<Option virtualFolder="Tests/Memory/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/EQEnumerationMock.h">
@@ -132,6 +129,9 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/EQEnumeration_Test.cpp">
 			<Option virtualFolder="Tests/General/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/QAlignment_Test.cpp">
+			<Option virtualFolder="Tests/Memory/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/SQBoolean_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />
