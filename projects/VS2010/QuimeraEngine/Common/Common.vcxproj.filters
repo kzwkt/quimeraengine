@@ -32,6 +32,9 @@
     <ClInclude Include="..\..\..\..\headers\QAlignment.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\AllocationOperators.h">
+      <Filter>Memory</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -48,6 +51,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
     <ClCompile Include="..\..\..\..\source\QAlignment.cpp">
+      <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
   </ItemGroup>
