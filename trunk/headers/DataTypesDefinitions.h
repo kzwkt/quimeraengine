@@ -231,6 +231,13 @@ namespace DataTypes
 
 
 // --------------------------------------------------------------------------------------------------------
+// Unicode type definitions: Defines some alias for certain components of the Unicode's implementation.
+// --------------------------------------------------------------------------------------------------------
+typedef u16_q codeunit_q;  // A code unit (its size is 16 bits because we are using UTF16 encoding at the moment)
+typedef u32_q codepoint_q; // A code point, which is represented by a 32 bits unsigned integer
+
+
+// --------------------------------------------------------------------------------------------------------
 // Literals prefix: Specifies if character string literals must be prefixed with the wide-char token, depending
 // on the selected character set.
 // --------------------------------------------------------------------------------------------------------

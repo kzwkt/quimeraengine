@@ -55,7 +55,10 @@
 					<Add option="-DQE_PREPROCESSOR_EXPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
+					<Add library="libicuuc.dll.a" />
+					<Add library="libicudt.dll.a" />
 					<Add directory="../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 				</Linker>
 			</Target>
 			<Target title="DebugLinux32SharedrtDynamic">
@@ -88,6 +91,7 @@
 			<Add option="-Wall" />
 			<Add directory="../../../../headers" />
 			<Add directory="../../../../3rdparty/Boost/include" />
+			<Add directory="../../../../3rdparty/ICU/include" />
 		</Compiler>
 		<Unit filename="../../../../headers/AllocationOperators.h">
 			<Option virtualFolder="Memory/" />
@@ -102,6 +106,12 @@
 		<Unit filename="../../../../headers/InternalDefinitions.h" />
 		<Unit filename="../../../../headers/QAlignment.h">
 			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../headers/QCharUnicode.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../headers/QStringUnicode.h">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
 		<Unit filename="../../../../headers/SQBoolean.h">
 			<Option virtualFolder="DataTypes/" />
@@ -121,6 +131,12 @@
 		<Unit filename="../../../../source/Assertions.cpp" />
 		<Unit filename="../../../../source/QAlignment.cpp">
 			<Option virtualFolder="Memory/" />
+		</Unit>
+		<Unit filename="../../../../source/QCharUnicode.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../source/QStringUnicode.cpp">
+			<Option virtualFolder="DataTypes/" />
 		</Unit>
 		<Unit filename="../../../../source/SQBoolean.cpp">
 			<Option virtualFolder="DataTypes/" />

@@ -51,6 +51,13 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\AllocationOperators_Test.cpp">
       <Filter>Tests\Memory</Filter>
     </ClCompile>
+
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStringUnicode_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharUnicode_Test.cpp">
+      <Filter>Tests\DataTypes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
