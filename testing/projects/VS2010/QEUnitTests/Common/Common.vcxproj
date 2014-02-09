@@ -17,6 +17,8 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\AllocationOperators_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\EQEnumeration_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAlignment_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharUnicode_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStringUnicode_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQBoolean_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQFloat_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQInteger_Test.cpp" />
@@ -90,14 +92,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\tests\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\tests\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libboost_unit_test_framework-mt-gd.lib;QuimeraEngineCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_unit_test_framework-mt-gd.lib;QuimeraEngineCommon.lib;icuuc.lib;icudt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <ShowProgress>NotSet</ShowProgress>
@@ -106,8 +108,7 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <PreBuildEvent>
-      <Command>
-      </Command>
+      <Command>copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir)</Command>
@@ -122,14 +123,14 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>_DLL;WIN32;_DEBUG;_CONSOLE;QE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\tests\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\..\headers;$(SolutionDir)..\..\..\tests\unit;$(SolutionDir)..\..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>libboost_unit_test_framework-mt-gd.lib;QuimeraEngineCommon.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>libboost_unit_test_framework-mt-gd.lib;QuimeraEngineCommon.lib;icuuc.lib;icudt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <EntryPointSymbol>
       </EntryPointSymbol>
       <ShowProgress>NotSet</ShowProgress>
@@ -138,7 +139,8 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <PreBuildEvent>
-      <Command>copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineCommon.dll $(TargetDir)</Command>
+      <Command>copy $(TargetDir)..\..\..\..\bin\VS2010\$(Configuration)\QuimeraEngineCommon.dll $(TargetDir)
+copy $(TargetDir)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
     </PreBuildEvent>
     <PostBuildEvent>
       <Command>copy $(TargetDir)..\..\TestConfig.txt $(TargetDir) /Y</Command>

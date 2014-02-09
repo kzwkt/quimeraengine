@@ -47,7 +47,7 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <WarningLevel>Level3</WarningLevel>
@@ -67,7 +67,7 @@
       <Path>$(SolutionDir)..\..\..\garbage\VS2010\$(Configuration)\$(TargetName).log</Path>
     </BuildLog>
     <ClCompile>
-      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(SolutionDir)..\..\..\headers;$(SolutionDir)..\..\..\3rdparty\Boost\include;$(SolutionDir)..\..\..\3rdparty\ICU\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <DebugInformationFormat>EditAndContinue</DebugInformationFormat>
       <CompileAsManaged>false</CompileAsManaged>
       <WarningLevel>Level3</WarningLevel>
@@ -87,6 +87,8 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <SubSystem>NotSet</SubSystem>
       <TurnOffAssemblyGeneration>true</TurnOffAssemblyGeneration>
+      <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>icudt.lib;icuuc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -98,6 +100,8 @@
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QAlignment.h" />
+    <ClInclude Include="..\..\..\..\headers\QCharUnicode.h" />
+    <ClInclude Include="..\..\..\..\headers\QStringUnicode.h" />
     <ClInclude Include="..\..\..\..\headers\SQBoolean.h" />
     <ClInclude Include="..\..\..\..\headers\SQFloat.h" />
     <ClInclude Include="..\..\..\..\headers\SQInteger.h" />
@@ -107,6 +111,8 @@
     <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp" />
     <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
     <ClCompile Include="..\..\..\..\source\QAlignment.cpp" />
+    <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp" />
+    <ClCompile Include="..\..\..\..\source\QStringUnicode.cpp" />
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
     <ClCompile Include="..\..\..\..\source\SQInteger.cpp" />

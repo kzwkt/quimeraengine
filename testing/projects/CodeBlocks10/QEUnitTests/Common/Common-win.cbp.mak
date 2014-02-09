@@ -12,30 +12,30 @@ LD = g++.exe
 WINDRES = windres.exe
 
 # DebugWin32SharedrtStatic
-INC_DEBUGWIN32SHAREDRTSTATIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/testing/tests/unit
+INC_DEBUGWIN32SHAREDRTSTATIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/testing/tests/unit -I$(MAKEPATH)trunk/3rdparty/ICU/include
 CFLAGS_DEBUGWIN32SHAREDRTSTATIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -D_DEBUG
 RESINC_DEBUGWIN32SHAREDRTSTATIC =  
-RCFLAGS_DEBUGWIN32SHAREDRTSTATIC =  
-LIBDIR_DEBUGWIN32SHAREDRTSTATIC =  -L$(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtStatic -L$(MAKEPATH)\\trunk\\3rdparty\Boost\bin\Win32\DebugSharedrtStatic
-LIB_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib -lboost_unit_test_framework-mt-d
+RCFLAGS_DEBUGWIN32SHAREDRTSTATIC = 
+LIBDIR_DEBUGWIN32SHAREDRTSTATIC =  -L$(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtStatic -L$(MAKEPATH)\\trunk\\3rdparty\Boost\bin\Win32\DebugSharedrtStatic -L$(MAKEPATH)\\trunk\\3rdparty\\ICU\\bin\\Win32\\ReleaseSharedrtDynamic\\MinGW
+LIB_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib -lboost_unit_test_framework-mt-d -licuuc.dll -licudt.dll 
 LDFLAGS_DEBUGWIN32SHAREDRTSTATIC =  
 OBJDIR_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)trunk\\testing\\garbage\\CodeBlocks10\\DebugWin32SharedrtStatic
 DEP_DEBUGWIN32SHAREDRTSTATIC = 
 OUT_DEBUGWIN32SHAREDRTSTATIC = $(MAKEPATH)trunk\\testing\\bin\\CodeBlocks10\\DebugWin32SharedrtStatic\\Unit_TestModule_Common.exe
-OBJ_DEBUGWIN32SHAREDRTSTATIC = $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQFloat_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQVF32_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\TestModule_Common.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\EQTestType.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QCommonTestConfig.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSimpleConfigLoader.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\EQEnumeration_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQInteger_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQBoolean_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QAlignment_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.o
+OBJ_DEBUGWIN32SHAREDRTSTATIC = $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQFloat_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQVF32_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\TestModule_Common.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\EQTestType.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QCommonTestConfig.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSimpleConfigLoader.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\EQEnumeration_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQInteger_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQBoolean_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QAlignment_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.o
 
 # DebugWin32SharedrtDynamic
-INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/testing/tests/unit
+INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)trunk/headers -I$(MAKEPATH)trunk/3rdparty/Boost/include -I$(MAKEPATH)trunk/testing/tests/unit -I$(MAKEPATH)trunk/3rdparty/ICU/include
 CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -D_DEBUG -DQE_PREPROCESSOR_IMPORTLIB_QUIMERAENGINE
 RESINC_DEBUGWIN32SHAREDRTDYNAMIC =  
 RCFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
-LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  -L$(MAKEPATH)\\trunk\\3rdparty\Boost\bin\Win32\DebugSharedrtStatic
-LIB_DEBUGWIN32SHAREDRTDYNAMIC = -lboost_unit_test_framework-mt-d $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll
+LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  -L$(MAKEPATH)\\trunk\\3rdparty\Boost\bin\Win32\DebugSharedrtStatic -L$(MAKEPATH)\\trunk\\3rdparty\\ICU\\bin\\Win32\\ReleaseSharedrtDynamic\\MinGW
+LIB_DEBUGWIN32SHAREDRTDYNAMIC = -lboost_unit_test_framework-mt-d $(MAKEPATH)\\trunk\\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll -licuuc.dll -licudt.dll
 LDFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
 OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)trunk\\testing\\garbage\\CodeBlocks10\\DebugWin32SharedrtDynamic
 DEP_DEBUGWIN32SHAREDRTDYNAMIC = 
 OUT_DEBUGWIN32SHAREDRTDYNAMIC = $(MAKEPATH)trunk\\testing\\bin\\CodeBlocks10\\DebugWin32SharedrtDynamic\\Unit_TestModule_Common.exe
-OBJ_DEBUGWIN32SHAREDRTDYNAMIC = $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQFloat_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQVF32_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\TestModule_Common.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\EQTestType.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QCommonTestConfig.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSimpleConfigLoader.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\EQEnumeration_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQInteger_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQBoolean_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QAlignment_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.o
+OBJ_DEBUGWIN32SHAREDRTDYNAMIC = $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQFloat_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQVF32_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\TestModule_Common.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\EQTestType.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QCommonTestConfig.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\testsystem\\QSimpleConfigLoader.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\EQEnumeration_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQInteger_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\SQBoolean_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QAlignment_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.o
 
 all: debugwin32sharedrtstatic debugwin32sharedrtdynamic
 
@@ -52,6 +52,7 @@ before_debugwin32sharedrtstatic:
 
 after_debugwin32sharedrtstatic: 
 	cmd /c copy "$(MAKEPATH)trunk\testing\bin\TestConfig.txt" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtStatic"
+	cmd /c copy "$(MAKEPATH)trunk\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtStatic" /Y
 
 debugwin32sharedrtstatic: before_debugwin32sharedrtstatic out_debugwin32sharedrtstatic after_debugwin32sharedrtstatic
 
@@ -91,6 +92,12 @@ $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\te
 $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.o
 
+$(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.o
+	
+$(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTSTATIC) $(INC_DEBUGWIN32SHAREDRTSTATIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.o
+	
 clean_debugwin32sharedrtstatic: 
 
 
@@ -106,6 +113,7 @@ before_debugwin32sharedrtdynamic:
 after_debugwin32sharedrtdynamic: 
 	cmd /c copy "$(MAKEPATH)trunk\testing\bin\TestConfig.txt" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtDynamic"
 	cmd /c copy "$(MAKEPATH)trunk\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtDynamic" /Y
+	cmd /c copy "$(MAKEPATH)trunk\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtDynamic" /Y
 
 debugwin32sharedrtdynamic: before_debugwin32sharedrtdynamic out_debugwin32sharedrtdynamic after_debugwin32sharedrtdynamic
 
@@ -145,6 +153,12 @@ $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\t
 $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\AllocationOperators_Test.o
 
+	
+$(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QStringUnicode_Test.o
+	
+$(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.o: $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.cpp
+	$(CXX) $(CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC) $(INC_DEBUGWIN32SHAREDRTDYNAMIC) -c $(MAKEPATH)trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.cpp -o $(OBJDIR_DEBUGWIN32SHAREDRTDYNAMIC)$(MAKEPATH__)\\trunk\\testing\\tests\\unit\\testmodule_common\\QCharUnicode_Test.o
 	
 clean_debugwin32sharedrtdynamic: 
 

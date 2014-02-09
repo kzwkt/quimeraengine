@@ -42,15 +42,20 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-D_DEBUG" />
+					<Add option="-DU_STATIC_IMPLEMENTATION" />
 				</Compiler>
 				<Linker>
 					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuuc.dll.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -69,11 +74,15 @@
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuuc.dll.a" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
+					<Add directory="../../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\TestConfig.txt&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCommon.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -116,10 +125,10 @@
 			<Add option="-Wmissing-include-dirs" />
 			<Add option="-Wswitch-default" />
 			<Add option="-Wall" />
-			<Add option="-DQE_ASSERT_THROWS_EXCEPTION" />
 			<Add directory="../../../../../headers" />
 			<Add directory="../../../../../3rdparty/Boost/include" />
 			<Add directory="../../../../tests/unit" />
+			<Add directory="../../../../../3rdparty/ICU/include" />
 		</Compiler>
 		<Unit filename="../../../../tests/unit/testmodule_common/AllocationOperators_Test.cpp">
 			<Option virtualFolder="Tests/Memory/" />
@@ -132,6 +141,12 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/QAlignment_Test.cpp">
 			<Option virtualFolder="Tests/Memory/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/QCharUnicode_Test.cpp">
+			<Option virtualFolder="Tests/DataTypes/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/QStringUnicode_Test.cpp">
+			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/SQBoolean_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />

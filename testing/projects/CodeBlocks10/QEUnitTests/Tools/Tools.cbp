@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)/;Tests/;Tests/Math/;" />
+		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -45,8 +45,8 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineCommon.lib" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic/QuimeraEngineTools.lib" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
@@ -70,8 +70,8 @@
 				</Compiler>
 				<Linker>
 					<Add library="libboost_unit_test_framework-mt-d.a" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
-					<Add library="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineTools.dll" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineTools.dll" />
 					<Add directory="../../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
 				</Linker>

@@ -402,6 +402,12 @@ QTEST_CASE_TEMPLATE ( SwapEndianess_IsCorrectlySwappedWhenUsingZeroAsInput_Test,
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_SignedValueIsCorrectlyConverted_Test, TQTemplateSignedTypes )
 {
+#ifdef QE_COMPILER_MSVC
+    // This silents the warning caused by the switch structure below due to a type overflow, which is known and deliberated
+    #pragma warning( push )
+    #pragma warning( disable : 4244)
+#endif
+
     using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
     // [Preparation]
@@ -443,6 +449,10 @@ QTEST_CASE_TEMPLATE ( ToString_SignedValueIsCorrectlyConverted_Test, TQTemplateS
 
     // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
+
+#ifdef QE_COMPILER_MSVC
+    #pragma warning( pop )
+#endif
 }
 
 /// <summary>
@@ -450,6 +460,12 @@ QTEST_CASE_TEMPLATE ( ToString_SignedValueIsCorrectlyConverted_Test, TQTemplateS
 /// </summary>
 QTEST_CASE_TEMPLATE ( ToString_UnsignedValueIsCorrectlyConverted_Test, TQTemplateUnsignedTypes )
 {
+#ifdef QE_COMPILER_MSVC
+    // This silents the warning caused by the switch structure below due to a type overflow, which is known and deliberated
+    #pragma warning( push )
+    #pragma warning( disable : 4244)
+#endif
+
     using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
     // [Preparation]
@@ -491,6 +507,11 @@ QTEST_CASE_TEMPLATE ( ToString_UnsignedValueIsCorrectlyConverted_Test, TQTemplat
 
     // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
+
+#ifdef QE_COMPILER_MSVC
+    #pragma warning( pop )
+#endif
+
 }
 
 /// <summary>
