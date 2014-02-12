@@ -37,6 +37,7 @@
                         // [REVIEW]: __mingw_aligned_alloc and __mingw_aligned_free may be unsafe, and break the code
                         //           after time; there must be replaced by two stable and standard functions compatible
                         //           as well with MinGW.
+    #include <stdlib.h>
 #endif
 
 
@@ -68,7 +69,7 @@ inline void* aligned_alloc_q (const pointer_uint_q& uSize, const QAlignment& ali
         pMemoryBlock = _aligned_malloc(uSize, alignment);
     #elif  QE_COMPILER_GC
         // __mingw_alligned_alloc will internally set the alignment to sizeof(void*) if the entry one is lesser than it.
-        // 
+        //
         // [REVIEW]: __mingw_aligned_alloc may be unsafe, and break the code after time;
         //           there must be replaced with two stable and standard functions compatible
         //           as well with MinGW.
