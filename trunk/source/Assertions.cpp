@@ -41,7 +41,7 @@
 
 void QE_ASSERT_FAILED()
 {
-    asm("int $3");
+    asm("int $3"); // This sentence makes GDB to stop at the failing line and continue the execution later
 }
 
 #endif

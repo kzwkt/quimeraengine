@@ -463,10 +463,10 @@ public:
 	EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
         // The plane should not be null
-        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)), "The plane should not be null" );
 
         // The radius should not equal zero
-        QE_ASSERT( SQFloat::IsNotZero(this->Radius) );
+        QE_ASSERT( SQFloat::IsNotZero(this->Radius), "The radius should not equal zero" );
 
         const float_q &DIST_P = plane.a * this->Center.x + plane.b * this->Center.y + plane.c * this->Center.z + plane.d;
 
@@ -501,7 +501,7 @@ public:
 	QSphere<VectorType> ProjectToPlane(const QPlane &plane) const
 	{
         // The plane should not be null
-        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)), "The input plane should not be null" );
 
         return QSphere<VectorType>(plane.PointProjection(this->Center), this->Radius);
 	}

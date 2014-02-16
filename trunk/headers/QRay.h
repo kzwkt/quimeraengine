@@ -167,7 +167,7 @@ public:
     VectorTypeOrigin GetPoint(const float_q &fDistance) const
     {
         // The direction vector must be normalized
-        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1) );
+        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1), "The direction vector must be normalized" );
 
         // It's assumed that the ray's direction vector is normalized
         return this->Origin + this->Direction * fDistance;
@@ -196,10 +196,11 @@ public:
     bool Intersection(const QBaseOrb<VectorTypeOrigin> &orb) const
     {
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
-        QE_ASSERT( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius) );
+        QE_ASSERT( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius), 
+                   "The direction vector shouldn't be null and the radius of the orb shouldn't equal zero" );
 
         // The direction vector must be normalized
-        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1) );
+        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1), "The direction vector must be normalized" );
 
         // Converts all vectors to VectorTypeDirection, that always will be QVector2 or QVector3
         VectorTypeDirection vNewRayOrigin(this->Origin - orb.Center);
@@ -307,10 +308,11 @@ public:
     EQIntersections IntersectionPoint(const QBaseOrb<VectorTypeOrigin> &orb, VectorTypeOrigin &vIntersection1, VectorTypeOrigin &vIntersection2) const
     {
         // The direction vector shouldn't be null and the radius of the orb shouldn't equal zero
-        QE_ASSERT( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius) );
+        QE_ASSERT( SQFloat::IsNotZero(this->Direction.GetLength()) && SQFloat::IsNotZero(orb.Radius), 
+                   "The direction vector shouldn't be null and the radius of the orb shouldn't equal zero" );
 
         // The direction vector must be normalized
-        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1) );
+        QE_ASSERT( SQFloat::AreEqual(this->Direction.GetLength(), SQFloat::_1), "The direction vector must be normalized" );
 
         // We set all vectors to the same type that output parameters to allow operations
         const VectorTypeDirection &DIRECTION(this->Direction);

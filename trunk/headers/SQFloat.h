@@ -404,7 +404,7 @@ public:
         IntegerType outInteger;
 
         // Checks whether both input types have the same size
-        QE_ASSERT( sizeof(fValue) == sizeof(outInteger) )
+        QE_ASSERT( sizeof(fValue) == sizeof(outInteger), "Input float and output integer must have the same size in memory" )
 
         #if   QE_CONFIG_PRECISION_DEFAULT == QE_CONFIG_PRECISION_SIMPLE
 
@@ -430,10 +430,10 @@ public:
             //               In that case, getting assertion failures would be very annoying.
 
             // Checks whether the value is too big to be converted this way
-            QE_ASSERT( fValue <= MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED )
+            QE_ASSERT( fValue <= MAXIMUM_POSITIVE_CONVERTIBLE_VALUE_ALLOWED, "Input value is too big to be converted this way" )
 
             // Checks whether the value is too big (when it's negative) to be converted this way
-            QE_ASSERT( fValue >= MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED )
+            QE_ASSERT( fValue >= MAXIMUM_NEGATIVE_CONVERTIBLE_VALUE_ALLOWED, "Input value is too big to be converted this way" )
 
             // When the value is out of the convertible bounds (using fast conversion), standard conversion is used
             outInteger = scast_q(fValue, IntegerType);

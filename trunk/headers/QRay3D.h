@@ -222,7 +222,7 @@ public:
     bool Intersection(const QRay3D<VectorType> &ray) const
     {
         // Direction vector of rays should not be null
-        QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero() );
+        QE_ASSERT( !ray.Direction.IsZero() && !this->Direction.IsZero(), "Direction vector of rays should not be null" );
 
         const QVector3& vP = QVector3(ray.Origin - this->Origin); // Difference of positions
         QVector3 vCross = this->Direction.CrossProduct(ray.Direction); // Cross product of directions
@@ -310,8 +310,8 @@ public:
 	/// </returns>
     bool Intersection(const QBaseLineSegment<VectorType> &segment) const
     {
-        // Direction vector of ray should not be null and the length of the segment should be greater than zero
-        QE_ASSERT( segment.A != segment.B && !this->Direction.IsZero() );
+        // Direction vector belonging to the ray cannot be null and the length of the segment should be greater than zero (either or both of this rules may have failed)
+        QE_ASSERT( segment.A != segment.B && !this->Direction.IsZero(), "Direction vector belonging to the ray cannot be null and the length of the segment should be greater than zero (either or both of this rules may have failed)" );
 
         // Same method that intersection with other ray. A ray with Position in A and direction B-A is created.
         // After intersection method, the ray parameter is forced to be in [0, 1] interval.
@@ -398,10 +398,10 @@ public:
     bool Intersection(const QBasePlane &plane) const
     {
         // The plane shouldn't be null
-        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)), "The input plane shouldn't be null" );
 
         // The direction vector of the ray mustn't be null
-        QE_ASSERT( !this->Direction.IsZero() );
+        QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray mustn't be null" );
 
         const QVector3 vN(plane.a, plane.b, plane.c); // Normal to plane (Normalize not necessary)
         const QVector3 vP(this->Origin); // Homogeinizing vector types
@@ -444,10 +444,10 @@ public:
         // Vertices of the triangle must not coincide
         QE_ASSERT( triangle.A != triangle.B && 
                    triangle.B != triangle.C &&
-                   triangle.C != triangle.A );
+                   triangle.C != triangle.A, "Vertices of the triangle must not coincide" );
 
         // The direction vector of the ray shouldn't be null
-        QE_ASSERT( !this->Direction.IsZero() );
+        QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
 
         // Plane that contains triangle
         QPlane auxPlane(triangle.A, triangle.B, triangle.C);
@@ -497,7 +497,7 @@ public:
     bool Intersection(const QBaseHexahedron<VectorType> &hexahedron) const
     {
         // The direction vector of the ray mustn't be null
-        QE_ASSERT( !this->Direction.IsZero() );
+        QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray mustn't be null" );
 
          // Checks if there is an intersection with any face.
         return (this->Intersection(hexahedron.A, hexahedron.B, hexahedron.C, hexahedron.D) ||
@@ -563,7 +563,7 @@ public:
     EQIntersections IntersectionPoint(const QRay3D<VectorType> &ray, VectorType &vIntersection) const
     {
         // The direction vector of the ray shouldn't be null
-        QE_ASSERT( !this->Direction.IsZero() && !ray.Direction.IsZero() );
+        QE_ASSERT( !this->Direction.IsZero() && !ray.Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
 
         const VectorType &vP(ray.Origin - this->Origin); // Difference of positions
         QVector3 vCross = this->Direction.CrossProduct(ray.Direction); // Cross product of directions
@@ -698,10 +698,10 @@ public:
     EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection) const
     {
         // The direction vector of the ray shouldn't be null
-        QE_ASSERT( !this->Direction.IsZero() );
+        QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
 
-        // The legth of the line shouldn't equal zero
-        QE_ASSERT( segment.A != segment.B );
+        // The length of the segment shouldn't equal zero
+        QE_ASSERT( segment.A != segment.B, "The length of the segment shouldn't equal zero" );
 
         // Same method that intersection with other ray. A ray with Position in A and direction B-A is created.
         // After intersection method, the ray parameter is forced to be in [0, 1] interval.
@@ -869,10 +869,10 @@ public:
     EQIntersections IntersectionPoint(const QBaseLineSegment<VectorType> &segment, VectorType &vIntersection1, VectorType &vIntersection2) const
     {
         // The direction vector of the ray shouldn't be null
-        QE_ASSERT( !this->Direction.IsZero() );
+        QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
 
-        // The legth of the line shouldn't equal zero
-        QE_ASSERT( segment.A != segment.B );
+        // The length of the line shouldn't equal zero
+        QE_ASSERT( segment.A != segment.B, "The length of the line shouldn't equal zero" );
 
         // Same method that intersection with other ray. A ray with Position in A and direction B-A is created.
         // After intersection method, the ray parameter is forced to be in [0, 1] interval.
@@ -1049,10 +1049,10 @@ public:
     EQIntersections IntersectionPoint(const QBasePlane &plane, VectorType &vIntersection) const
     {
         // The direction vector of the ray shouldn't be null
-        QE_ASSERT( !this->Direction.IsZero() );
+        QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray shouldn't be null" );
 
         // The plane shouldn't be null
-        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)), "The input plane shouldn't be null" );
 
         const VectorType vN( QVector3(plane.a, plane.b, plane.c) );
 
@@ -1287,7 +1287,7 @@ public:
                         vIntersection1.z = vAux.z;
                     }
                     else
-                        QE_ASSERT(false)  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
                     return EQIntersections::E_One;
                 }
@@ -1447,7 +1447,7 @@ public:
                         }
                     }
                     else
-                        QE_ASSERT(false)  // Something is wrong, there is ONE intersection and is not a vertex
+                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")  // Something is wrong, there is ONE intersection and is not a vertex
                 }
 
                 if (bPrevInt)
@@ -1818,10 +1818,10 @@ public:
     EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
     {
         // The plane shouldn't be null
-        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)), "The input plane shouldn't be null" );
 
         // The direction vector of the ray mustn't be null
-        QE_ASSERT( !this->Direction.IsZero() );
+        QE_ASSERT( !this->Direction.IsZero(), "The direction vector of the ray mustn't be null" );
 
         // We take as auxiliar point the head of the direction vector, as if it was positioned in the origin point of the ray
         QVector3 vAux(QVector3(this->Origin) + this->Direction);
@@ -2246,7 +2246,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(DENOM != SQFloat::_0)
+        QE_ASSERT(DENOM != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero")
 
         const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
@@ -2294,7 +2294,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(DENOM != SQFloat::_0)
+        QE_ASSERT(DENOM != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero")
 
         const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
@@ -2318,7 +2318,7 @@ protected:
         // Compute new barycentric coordinates
         const float_q &DENOM2 = DOT_00 * DOT_33 - DOT_03 * DOT_03;
 
-        QE_ASSERT(DENOM2 != SQFloat::_0)
+        QE_ASSERT(DENOM2 != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero")
 
         const float_q &INV_DENOM2 = SQFloat::_1 / DENOM2;
 
@@ -2583,7 +2583,7 @@ protected:
                     else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAux) == EQIntersections::E_One)
                         vIntersection2 = vAux;
                     else
-                        QE_ASSERT(false)  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
                     return EQIntersections::E_Two;
                 }
@@ -2746,7 +2746,7 @@ protected:
                         }
                     }
                     else // It's the first intersection found
-                        QE_ASSERT(false)  // Something is wrong
+                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")  // Something is wrong
                 }
 
                 if (bPrevInt)

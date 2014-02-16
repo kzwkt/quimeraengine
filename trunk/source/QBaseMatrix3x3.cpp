@@ -88,7 +88,7 @@ QBaseMatrix3x3::QBaseMatrix3x3(const float_q &f00, const float_q &f01, const flo
 
 QBaseMatrix3x3::QBaseMatrix3x3(const float_q* arValues)
 {
-	QE_ASSERT(arValues != null_q)
+	QE_ASSERT(arValues != null_q, "The input array must not be null")
 
 	ij[0][0] = arValues[0];
 	ij[0][1] = arValues[1];
