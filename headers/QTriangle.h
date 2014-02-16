@@ -160,7 +160,7 @@ public:
 	float_q GetSurface() const
 	{
         // The triangle's points should not coincide, otherwise it would not exist
-        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+        QE_ASSERT( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
 		VectorType u = B - A;
 		VectorType v = C - A;
@@ -187,7 +187,7 @@ public:
 	float_q GetAngleA() const
 	{
         // The triangle's points should not coincide, otherwise it would not exist
-        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+        QE_ASSERT( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
 		VectorType u = B - A;
 		VectorType v = C - A;
@@ -209,7 +209,7 @@ public:
 	float_q GetAngleB() const
 	{
         // The triangle's points should not coincide, otherwise it would not exist
-        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+        QE_ASSERT( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
 		VectorType u = A - B;
 		VectorType v = C - B;
@@ -231,7 +231,7 @@ public:
 	float_q GetAngleC() const
 	{
         // The triangle's points should not coincide, otherwise it would not exist
-        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+        QE_ASSERT( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
 		const VectorType u = A - C;
 		const VectorType v = B - C;
@@ -253,7 +253,7 @@ public:
 	VectorType GetIncenter() const
 	{
         // The triangle's points should not coincide, otherwise it would not exist
-        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+        QE_ASSERT( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
 		const VectorType vtSideA = C - B;
 		const VectorType vtSideB = A - C;
@@ -264,9 +264,6 @@ public:
 		const float_q fLengthC = vtSideC.GetLength();
 
 		const float_q fP = SQFloat::_1 / (fLengthA + fLengthB + fLengthC);
-
-		// Checkout to avoid division by zero.
-		QE_ASSERT(fP != SQFloat::_0)
 
 		return (fLengthA * A + fLengthB * B + fLengthC * C) * fP;
 	}
@@ -286,7 +283,7 @@ public:
 	VectorType GetCentroid() const
 	{
         // The triangle's points should not coincide, otherwise it would not exist
-        QE_ASSERT( !(this->A == this->B && this->A == this->C) );
+        QE_ASSERT( !(this->A == this->B && this->A == this->C), "Triangle's points should not coincide, otherwise it would not exist" );
 
 		return (A + B + C) / SQFloat::_3;
 	}

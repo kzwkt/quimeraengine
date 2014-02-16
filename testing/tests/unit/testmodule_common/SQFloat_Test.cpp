@@ -75,11 +75,11 @@ QTEST_CASE ( IsNaN_ReturnsFalseWhenValueIsANumber_Test )
 QTEST_CASE ( IsNaN_ReturnsFalseWhenValueIsInfinite_Test )
 {
     // [Preparation]
-    const float_q INFINITE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
+    const float_q INFINITE_VALUE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
     const bool EXPECTED_RESULT = false;
 
 	// [Execution]
-    bool bResultUT = SQFloat::IsNaN(INFINITE);
+    bool bResultUT = SQFloat::IsNaN(INFINITE_VALUE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
@@ -91,11 +91,11 @@ QTEST_CASE ( IsNaN_ReturnsFalseWhenValueIsInfinite_Test )
 QTEST_CASE ( IsInfinite_ReturnsTrueWhenValueIsInfinite_Test )
 {
     // [Preparation]
-    const float_q INFINITE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
+    const float_q INFINITE_VALUE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
-    bool bResultUT = SQFloat::IsInfinite(INFINITE);
+    bool bResultUT = SQFloat::IsInfinite(INFINITE_VALUE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);
@@ -171,11 +171,11 @@ QTEST_CASE ( IsNanOrInfinite_ReturnsFalseWhenValueIsACommonNumber_Test )
 QTEST_CASE ( IsNanOrInfinite_ReturnsTrueWhenValueIsInfinite_Test )
 {
     // [Preparation]
-    const float_q INFINITE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
+    const float_q INFINITE_VALUE = SQFloat::MaxFloat_Q * SQFloat::MaxFloat_Q;
     const bool EXPECTED_RESULT = true;
 
 	// [Execution]
-    bool bResultUT = SQFloat::IsNanOrInfinite(INFINITE);
+    bool bResultUT = SQFloat::IsNanOrInfinite(INFINITE_VALUE);
 
     // [Verification]
     BOOST_CHECK_EQUAL(bResultUT, EXPECTED_RESULT);

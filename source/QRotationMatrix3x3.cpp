@@ -305,9 +305,9 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngleX, float_q &fRotatio
         fRotationAngleZ = atan2_q(-this->ij[1][0], this->ij[0][0]);
         fRotationAngleY = SQFloat::_0;
     }
-
+    
     // Checkout to avoid NaN values
-    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleX) && !SQFloat::IsNaN(fRotationAngleY) && !SQFloat::IsNaN(fRotationAngleZ) )
+    QE_ASSERT( !SQFloat::IsNaN(fRotationAngleX) && !SQFloat::IsNaN(fRotationAngleY) && !SQFloat::IsNaN(fRotationAngleZ), "One or more calculated angle are NAN" )
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // Since angles are specified in radians, we convert it to degrees
@@ -322,13 +322,13 @@ void QRotationMatrix3x3::GetRotation(QBaseQuaternion &qRotation) const
     // Source: http://www.euclideanspace.com/maths/geometry/rotations/conversions/matrixToQuaternion/christian.htm
 
     // If the main diagonal is zero, the rotation matrix is not well-formed
-    QE_ASSERT( SQFloat::IsNotZero(this->ij[0][0] + this->ij[1][1] + this->ij[2][2]) )
-
+    QE_ASSERT( SQFloat::IsNotZero(this->ij[0][0] + this->ij[1][1] + this->ij[2][2]), "The main diagonal is zero, the rotation matrix is not well-formed" )
+    
     qRotation.w = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] + this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
     qRotation.x = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 + this->ij[0][0] - this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
     qRotation.y = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] + this->ij[1][1] - this->ij[2][2]) ) * SQFloat::_0_5;
     qRotation.z = sqrt_q( std::max(SQFloat::_0, SQFloat::_1 - this->ij[0][0] - this->ij[1][1] + this->ij[2][2]) ) * SQFloat::_0_5;
-
+    
     // This sing depends on hand convention
     SQFloat::CopySign(this->ij[1][2] - this->ij[2][1], qRotation.x);
     SQFloat::CopySign(this->ij[2][0] - this->ij[0][2], qRotation.y);
@@ -350,7 +350,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 
     fRotationAngle = acos_q(COS_AUX);
 
-    QE_ASSERT( !SQFloat::IsNaN(fRotationAngle) );
+    QE_ASSERT( !SQFloat::IsNaN(fRotationAngle), "The resultant angle \"fRotationAngle\" is NAN" );
 
     if( SQFloat::AreEqual(COS_AUX, SQFloat::_1) ) // Singularity 1: Angle == 0 -> we choose arbitrary axis.
     {
@@ -374,7 +374,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 			}
             else
             {
-                QE_ASSERT( SQFloat::IsGreaterThan(XX, SQFloat::_0) )
+                QE_ASSERT( SQFloat::IsGreaterThan(XX, SQFloat::_0), "The variable \"XX\" must be greater than zero (matrix element [0,0] is negative, maybe)" )
 
                 vRotationAxis.x = sqrt_q(XX);
 
@@ -396,7 +396,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 			}
             else
             {
-                QE_ASSERT( SQFloat::IsGreaterThan(YY, SQFloat::_0) )
+                QE_ASSERT( SQFloat::IsGreaterThan(YY, SQFloat::_0), "The variable \"YY\" must be greater than zero (matrix element [1,1] is negative, maybe)" )
 
 				vRotationAxis.y = sqrt_q(YY);
 
@@ -418,7 +418,7 @@ void QRotationMatrix3x3::GetRotation(float_q &fRotationAngle, QBaseVector3 &vRot
 			}
             else
             {
-                QE_ASSERT( SQFloat::IsGreaterThan(ZZ, SQFloat::_0) )
+                QE_ASSERT( SQFloat::IsGreaterThan(ZZ, SQFloat::_0), "The variable \"ZZ\" must be greater than zero (matrix element [2,2] is negative, maybe)" )
 
 				vRotationAxis.z = sqrt_q(ZZ);
 

@@ -140,7 +140,7 @@ bool SQFloat::AreEqual(const float_q &fValueA, const float_q &fValueB)
 bool SQFloat::AreEqual(const float_q &fValueA, const float_q &fValueB, const float_q &fTolerance)
 {
     // The tolerance provided must be equal to or greater than the system tolerance. If the tolerance is too small it could become useless.
-    QE_ASSERT(fTolerance >= SQFloat::Epsilon);
+    QE_ASSERT(fTolerance >= SQFloat::Epsilon, "The tolerance provided must be equal to or greater than the system tolerance. If the tolerance is too small it could become useless");
 
     return SQFloat::Abs(fValueA - fValueB) <= fTolerance;
 }

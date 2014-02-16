@@ -50,8 +50,8 @@ namespace Memory
 
 QAlignment::QAlignment(const u32_q &uAlignment)
 {
-    // Checking first if the alignment value is whether a power of 2.
-    QE_ASSERT( !(0 == uAlignment) && !(uAlignment & (uAlignment - 1)) );
+    // Checking first if the alignment value is a power of 2.
+    QE_ASSERT( !(0 == uAlignment) && !(uAlignment & (uAlignment - 1)) , "The input alignment value must be a power of 2");
 
     m_uAlignment = uAlignment;
 }

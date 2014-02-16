@@ -213,7 +213,7 @@ bool QQuadrilateral::IsConcave() const
 float_q QQuadrilateral::GetAngleA() const
 {
     // Contiguous vertices shouldn't coincide
-    QE_ASSERT(this->A != this->B && this->A != this->D);
+    QE_ASSERT(this->A != this->B && this->A != this->D, "Contiguous vertices shouldn't coincide");
 
     const float_q &ANGLE = (this->D - this->A).AngleBetween(this->B - this->A);
 
@@ -232,7 +232,7 @@ float_q QQuadrilateral::GetAngleA() const
 float_q QQuadrilateral::GetAngleB() const
 {
     // Contiguous vertices shouldn't coincide
-    QE_ASSERT(this->B != this->A && this->B != this->C);
+    QE_ASSERT(this->B != this->A && this->B != this->C, "Contiguous vertices shouldn't coincide");
 
     const float_q &ANGLE = (this->A - this->B).AngleBetween(this->C - this->B);
 
@@ -251,7 +251,7 @@ float_q QQuadrilateral::GetAngleB() const
 float_q QQuadrilateral::GetAngleC() const
 {
     // Contiguous vertices shouldn't coincide
-    QE_ASSERT(this->C != this->B && this->C != this->D);
+    QE_ASSERT(this->C != this->B && this->C != this->D, "Contiguous vertices shouldn't coincide");
 
     const float_q &ANGLE = (this->B - this->C).AngleBetween(this->D - this->C);
 
@@ -270,7 +270,7 @@ float_q QQuadrilateral::GetAngleC() const
 float_q QQuadrilateral::GetAngleD() const
 {
     // Contiguous vertices shouldn't coincide
-    QE_ASSERT(this->D != this->A && this->D != this->C);
+    QE_ASSERT(this->D != this->A && this->D != this->C, "Contiguous vertices shouldn't coincide");
 
     const float_q &ANGLE = (this->C - this->D).AngleBetween(this->A - this->D);
 

@@ -246,7 +246,7 @@ public:
             const size_t ENUM_ARRAY_COUNT = EQIntersections::sm_mapValueName.size();
 
             // An empty enumeration makes no sense
-            QE_ASSERT(ENUM_ARRAY_COUNT > 0);
+            QE_ASSERT(ENUM_ARRAY_COUNT > 0, "An empty enumeration makes no sense");
 
             for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
                 arValues.push_back(EQIntersections::sm_arValueName[i].second);

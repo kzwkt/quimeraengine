@@ -29,11 +29,37 @@
 
 #include "CommonDefinitions.h"
 
+// Depending on the compiler, a different function is used to print the error message to the console
+#if   defined(QE_COMPILER_MSVC)
+    #define NOMINMAX // This definition is necessary to bypass the min and max macros defined in Windows headers
+    #include "windows.h"
+
+    #if QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_UNICODE
+        #define QE_CONSOLE_PRINT(strMessage) ::OutputDebugStringW(strMessage)
+    #elif QE_CONFIG_CHARACTERSET_DEFAULT == QE_CONFIG_CHARACTERSET_SBCS
+        #define QE_CONSOLE_PRINT(strMessage) ::OutputDebugStringA(strMessage)
+    #endif
+
+#elif defined(QE_COMPILER_GCC)
+    #include <iostream>
+    #define QE_CONSOLE_PRINT(strMessage) std::cout << strMessage
+#endif
+
 #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT != QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
 
     #if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS // This is used for testing purposes
         #include <exception>
-        #define QE_ASSERT(expr) { if(!(expr)) throw new std::exception(); } // TODO [Thund]: Create an special exception class for this
+        // TODO [Thund]: Create an special exception class for this
+        #define QE_ASSERT(expression, strErrorMessage)                          \
+                {                                                               \
+                    if(!(expression))                                           \
+                    {                                                           \
+                        QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: "));  \
+                        QE_CONSOLE_PRINT(QE_L(strErrorMessage));                \
+                        QE_CONSOLE_PRINT(QE_L("\n"));                           \
+                        throw new std::exception();                             \
+                    }                                                           \
+                }
     #else
 
         #ifdef QE_COMPILER_GCC
@@ -44,21 +70,40 @@
             /// </summary>
             QE_LAYER_COMMON_SYMBOLS void QE_ASSERT_FAILED();
 
-            #define QE_ASSERT(expr) (expr) ? (void(0)) : QE_ASSERT_FAILED(); // This sentence makes GDB to stop at the failing line and continue the execution later
+            #define QE_ASSERT(expression, strErrorMessage)                                  \
+                             {                                                              \
+                                 if(!(expression))                                          \
+                                 {                                                          \
+                                     QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: ")); \
+                                     QE_CONSOLE_PRINT(QE_L(strErrorMessage));               \
+                                     QE_CONSOLE_PRINT(QE_L("\n"));                          \
+                                     QE_ASSERT_FAILED();                                    \
+                                 }                                                          \
+                             }
         #else
             #include <boost/assert.hpp>
 
             #ifdef BOOST_ASSERT
-                #define QE_ASSERT(expr) BOOST_ASSERT(expr);
+
+                #define QE_ASSERT(expression, strErrorMessage)                          \
+                        {                                                               \
+                            if(!(expression))                                           \
+                            {                                                           \
+                                QE_CONSOLE_PRINT(QE_L("!! QE ASSERTION FAILED !!: "));  \
+                                QE_CONSOLE_PRINT(QE_L(strErrorMessage));                \
+                                QE_CONSOLE_PRINT(QE_L("\n"));                           \
+                                BOOST_ASSERT(expression);                               \
+                            }                                                           \
+                        }
             #else
-                #define QE_ASSERT(expr) ;
+                #define QE_ASSERT(expression, strErrorMessage) ;
             #endif
         #endif
     #endif
 
 #else
 
-    #define QE_ASSERT(expr) ;
+    #define QE_ASSERT(expression, strErrorMessage) ;
 
 #endif
 

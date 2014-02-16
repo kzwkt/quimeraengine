@@ -330,7 +330,7 @@ public:
     void GetPlanes(QPlane *arPlanes) const
     {
         // The parameter shouldn't be null
-        QE_ASSERT(arPlanes != null_q);
+        QE_ASSERT(arPlanes != null_q, "Input array must not be null");
 
         arPlanes[0] = QPlane(this->A, this->D, this->C); // ABCD face
         arPlanes[1] = QPlane(this->E, this->H, this->G); // EFGH face
@@ -394,10 +394,10 @@ public:
                   this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->G || this->D != this->H ||
                   this->E != this->F || this->E != this->G || this->E != this->G || this->E != this->H ||
                   this->F != this->G || this->F != this->H ||
-                  this->G != this->H);
+                  this->G != this->H, "All the vertices of the hexahedron coincide, it might be an erroneous figure");
 
         // The plane must not be null
-        QE_ASSERT(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c));
+        QE_ASSERT(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "The input plane should not be null");
 
         const float_q& DIST_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
         const float_q& DIST_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
@@ -623,14 +623,14 @@ public:
                   this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->H ||
                   this->E != this->F || this->E != this->G || this->E != this->H ||
                   this->F != this->G || this->F != this->H ||
-                  this->G != this->H);
+                  this->G != this->H, "All the vertices of the hexahedron coincide, it might be an erroneous figure");
         QE_ASSERT(hexahedron.A != hexahedron.B || hexahedron.A != hexahedron.C || hexahedron.A != hexahedron.D || hexahedron.A != hexahedron.E || hexahedron.A != hexahedron.F || hexahedron.A != hexahedron.G || hexahedron.A != hexahedron.H ||
                   hexahedron.B != hexahedron.C || hexahedron.B != hexahedron.D || hexahedron.B != hexahedron.E || hexahedron.B != hexahedron.F || hexahedron.B != hexahedron.G || hexahedron.B != hexahedron.H ||
                   hexahedron.C != hexahedron.D || hexahedron.C != hexahedron.E || hexahedron.C != hexahedron.F || hexahedron.C != hexahedron.G || hexahedron.C != hexahedron.H ||
                   hexahedron.D != hexahedron.E || hexahedron.D != hexahedron.F || hexahedron.D != hexahedron.G || hexahedron.D != hexahedron.H ||
                   hexahedron.E != hexahedron.F || hexahedron.E != hexahedron.G || hexahedron.E != hexahedron.H ||
                   hexahedron.F != hexahedron.G || hexahedron.F != hexahedron.H ||
-                  hexahedron.G != hexahedron.H);
+                  hexahedron.G != hexahedron.H, "All the vertices of the input hexahedron coincide, it might be an erroneous figure");
 
 	    return ( this->Contains(hexahedron.A) || this->Contains(hexahedron.B) || this->Contains(hexahedron.C) || this->Contains(hexahedron.D) ||
                  this->Contains(hexahedron.E) || this->Contains(hexahedron.F) || this->Contains(hexahedron.G) || this->Contains(hexahedron.H) ||
@@ -665,10 +665,10 @@ public:
                   this->D != this->E || this->D != this->F || this->D != this->G || this->D != this->H ||
                   this->E != this->F || this->E != this->G || this->E != this->H ||
                   this->F != this->G || this->F != this->H ||
-                  this->G != this->H);
+                  this->G != this->H, "All the vertices of the hexahedron coincide, it might be an erroneous figure");
 
         // The plane must not be null
-        QE_ASSERT(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c));
+        QE_ASSERT(SQFloat::IsNotZero(plane.a) || SQFloat::IsNotZero(plane.b) || SQFloat::IsNotZero(plane.c), "Input plane should not be null");
 
         return QHexahedron<VectorType>(plane.PointProjection(this->A),
                                        plane.PointProjection(this->B),

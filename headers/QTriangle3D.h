@@ -168,7 +168,7 @@ public:
 	VectorType GetCircumcenter() const
 	{
         // Vertices shouldn't coincide
-        QE_ASSERT( this->A != this->B && this->B != this->C && this->C != this->A );
+        QE_ASSERT( this->A != this->B && this->B != this->C && this->C != this->A, "Vertices shouldn't coincide, this may cause a division by zero" );
 
         // More information: https://www.box.net/shared/9736bjiyq1
 
@@ -502,7 +502,7 @@ public:
 	EQSpaceRelation SpaceRelation(const QBasePlane &plane) const
 	{
         // The plane should not be null
-        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+        QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)), "Input plane should not be null" );
 
 		const float_q &DIST_TO_A = plane.a * this->A.x + plane.b * this->A.y + plane.c * this->A.z + plane.d;
 		const float_q &DIST_TO_B = plane.a * this->B.x + plane.b * this->B.y + plane.c * this->B.z + plane.d;
@@ -563,7 +563,7 @@ public:
         // NORMAL_TO_BC and AB can't be perpendicular, but we ensure it:
         const float_q &DOT = NORMAL_TO_BC.DotProduct(AB);
 
-        QE_ASSERT(DOT != SQFloat::_0)
+        QE_ASSERT(DOT != SQFloat::_0, "\"NORMAL_TO_BC\" and \"AB\" can't be perpendicular")
 
 	    return this->A - ( CA.DotProduct(AB) / DOT ) * NORMAL_TO_BC;
 	}

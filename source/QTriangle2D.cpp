@@ -110,7 +110,7 @@ QTriangle2D QTriangle2D::TransformWithPivot(const QTransformationMatrix3x3 &tran
 QVector2 QTriangle2D::GetCircumcenter() const
 {
     // All the vertices shouldn't coincide
-    QE_ASSERT( !(this->A == this->B && this->B == this->C) );
+    QE_ASSERT( !(this->A == this->B && this->B == this->C), "All the vertices shouldn't coincide" );
 
 	//STEP 1: Obtain the gradient of height A.
 	//
@@ -153,7 +153,7 @@ QVector2 QTriangle2D::GetCircumcenter() const
 QVector2 QTriangle2D::GetOrthocenter() const
 {
     // All the vertices shouldn't coincide
-    QE_ASSERT( !(this->A == this->B && this->B == this->C) );
+    QE_ASSERT( !(this->A == this->B && this->B == this->C), "All the vertices shouldn't coincide" );
 
 	//STEP 1: Obtain the gradient of height A.
 	//

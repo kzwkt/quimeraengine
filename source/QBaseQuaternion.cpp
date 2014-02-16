@@ -76,7 +76,7 @@ QBaseQuaternion::QBaseQuaternion(const float_q* arValues)
     const int QE_Z_INDEX_IN_FLOATTYPE_ARRAY = 2;
     const int QE_W_INDEX_IN_FLOATTYPE_ARRAY = 3;
 
-    QE_ASSERT(arValues != null_q)
+    QE_ASSERT(arValues != null_q, "Input array must not be null")
 
     this->x = arValues[QE_X_INDEX_IN_FLOATTYPE_ARRAY];
     this->y = arValues[QE_Y_INDEX_IN_FLOATTYPE_ARRAY];

@@ -99,13 +99,13 @@ template <class VectorType>
 void QPlane::QPlaneImp(const VectorType &vPoint1, const VectorType &vPoint2, const VectorType &vPoint3)
 {
     // If points coincide, the plane can't be determined
-    QE_ASSERT( vPoint1 != vPoint2 && vPoint2 != vPoint3 && vPoint3 != vPoint1);
+    QE_ASSERT( vPoint1 != vPoint2 && vPoint2 != vPoint3 && vPoint3 != vPoint1, "Input points must not coincide");
 
     // Creates two vectors, to obtain the direction vector of the plane via cross product
     VectorType vAux1 = ( vPoint1 - vPoint2 ).CrossProduct( vPoint1 - vPoint3 );;
 
     // Checkout to avoid the possibility of tree colinear points.
-    QE_ASSERT(!vAux1.IsZero())
+    QE_ASSERT(!vAux1.IsZero(), "Input points must not be colinear")
 
     // Plane equation
     *this = QPlane( vAux1.x, vAux1.y, vAux1.z, -vAux1.DotProduct(vPoint1) ).Normalize();
@@ -134,7 +134,7 @@ QPlane operator*(const float_q &fScalar, const QPlane &plane)
 
 QPlane QPlane::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar != SQFloat::_0)
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -154,7 +154,7 @@ QPlane& QPlane::operator*=(const float_q fScalar)
 QPlane& QPlane::operator/=(const float_q &fScalar)
 {
     // Checkout to avoid division by 0
-    QE_ASSERT(fScalar != SQFloat::_0)
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -180,7 +180,7 @@ QPlane& QPlane::operator=(const QBasePlane &plane)
 QPlane QPlane::Normalize() const
 {
     // Checkout to avoid division by zero.
-    QE_ASSERT(this->GetLength() != SQFloat::_0);
+    QE_ASSERT(this->GetLength() != SQFloat::_0, "A plane whose length equals zero cannot be normalized, this will produce a division by zero");
 
     float_q fInvDivisor = SQFloat::_1 / this->GetLength();
 
@@ -215,7 +215,8 @@ float_q QPlane::AngleBetween(const QVector4 &vVector) const
 float_q QPlane::AngleBetween(const QBasePlane &plane) const
 {
     // When the length of a plane equals zero, the calculated angle is not correct
-    QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+    QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)), 
+               "When the length of a plane equals zero, the calculated angle is not correct" );
 
     float_q DOT = this->DotProduct(plane);
 
@@ -227,7 +228,7 @@ float_q QPlane::AngleBetween(const QBasePlane &plane) const
 
     float_q fAngle = acos_q(DOT);
 
-    QE_ASSERT( !SQFloat::IsNaN(fAngle) )
+    QE_ASSERT( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" )
     
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
@@ -298,8 +299,8 @@ EQIntersections QPlane::IntersectionPoint(const QBasePlane &plane1, const QBaseP
 EQSpaceRelation QPlane::SpaceRelation(const QBasePlane &plane) const
 {
     // It's impossible to calculate the spacial relation for a null plane
-    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
-    QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)) );
+    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)), "It's impossible to calculate the spacial relation for a null plane" );
+    QE_ASSERT( !(SQFloat::IsZero(plane.a) && SQFloat::IsZero(plane.b) && SQFloat::IsZero(plane.c)), "It's impossible to calculate the spacial relation for a null plane" );
 
     // Cross product: checks if planes are parallel or coincident
     if (SQFloat::IsZero(plane.b * this->c - plane.c * this->b) &&
@@ -334,7 +335,7 @@ QPlane QPlane::Rotate(const QQuaternion &qRotation) const
 QPlane QPlane::Scale(const QScalingMatrix3x3 &scale) const
 {
     // None of the scale values should equal zero
-    QE_ASSERT( scale.ij[0][0] != SQFloat::_0 && scale.ij[1][1] != SQFloat::_0 && scale.ij[2][2] != SQFloat::_0 );
+    QE_ASSERT( scale.ij[0][0] != SQFloat::_0 && scale.ij[1][1] != SQFloat::_0 && scale.ij[2][2] != SQFloat::_0, "None of the scale values should equal zero, this will cause a division by zero" );
 
     return QPlane(this->a / scale.ij[0][0], this->b / scale.ij[1][1], this->c / scale.ij[2][2], this->d)
             .Normalize();
@@ -343,7 +344,7 @@ QPlane QPlane::Scale(const QScalingMatrix3x3 &scale) const
 QPlane QPlane::Scale(const QBaseVector3 &vScale) const
 {
     // None of the scale values should equal zero
-    QE_ASSERT( vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0 );
+    QE_ASSERT( vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0, "None of the scale values should equal zero, this will cause a division by zero" );
 
     return QPlane(this->a / vScale.x, this->b / vScale.y, this->c / vScale.z, this->d)
             .Normalize();
@@ -352,7 +353,7 @@ QPlane QPlane::Scale(const QBaseVector3 &vScale) const
 QPlane QPlane::Scale(const float_q &fScaleX, const float_q &fScaleY, const float_q &fScaleZ) const
 {
     // None of the scale values should equal zero
-    QE_ASSERT( fScaleX != SQFloat::_0 && fScaleY != SQFloat::_0 && fScaleZ != SQFloat::_0 );
+    QE_ASSERT( fScaleX != SQFloat::_0 && fScaleY != SQFloat::_0 && fScaleZ != SQFloat::_0, "None of the scale values should equal zero, this will cause a division by zero" );
 
     return QPlane(this->a / fScaleX, this->b / fScaleY, this->c / fScaleZ, this->d)
             .Normalize();
@@ -584,13 +585,14 @@ template <class VectorType>
 float_q QPlane::AngleBetweenImp(const VectorType &vVector) const
 {
     // When the length of either the plane or the vector equals zero, the calculated angle is not correct
-    QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(vVector.x) && SQFloat::IsZero(vVector.y) && SQFloat::IsZero(vVector.z)) );
+    QE_ASSERT( SQFloat::IsNotZero(this->GetSquaredLength()) && !(SQFloat::IsZero(vVector.x) && SQFloat::IsZero(vVector.y) && SQFloat::IsZero(vVector.z)), 
+               "When the length of either the plane or the vector equals zero, the calculated angle is not correct" );
 
-    // Length of plane equals due to plane is supposed to be normalized.
+    // Length of plane equals one due to plane is supposed to be normalized.
     const float_q &DOT_LENGTH = sqrt_q(vVector.x*vVector.x + vVector.y*vVector.y + vVector.z*vVector.z);
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(DOT_LENGTH != SQFloat::_0)
+    QE_ASSERT(DOT_LENGTH != SQFloat::_0, "Input vector must not be null, this will produce a division by zero")
 
     float_q DOT = this->DotProduct(vVector)/DOT_LENGTH;
 
@@ -602,7 +604,7 @@ float_q QPlane::AngleBetweenImp(const VectorType &vVector) const
 
     float_q fAngle = acos_q(DOT);
 
-    QE_ASSERT( !SQFloat::IsNaN(fAngle) )
+    QE_ASSERT( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" )
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
@@ -664,7 +666,7 @@ template <class VectorType>
 VectorType QPlane::PointProjectionImp(const VectorType &vPoint) const
 {
     // The plane shouldn't be null
-    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
+    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)), "The plane should not be null, the result will be incorrect" );
         
     // [SMELL] Thund: Can this line be replaced with a dot product + d?
     const float_q &PROJ = -(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
@@ -682,7 +684,7 @@ template <class VectorType>
 bool QPlane::ContainsImp(const VectorType &vPoint) const
 {
     // The plane should not be null
-    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
+    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)), "The plane should not be null, the result will be incorrect" );
 
     return SQFloat::IsZero(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
 }
@@ -691,7 +693,7 @@ template <class VectorType>
 float_q QPlane::PointDistanceImp(const VectorType &vPoint) const
 {
     // The plane should not be null
-    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
+    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)), "The plane should not be null, the result will be incorrect" );
 
     return SQFloat::Abs(this->a * vPoint.x + this->b * vPoint.y + this->c * vPoint.z + this->d);
 }
@@ -700,9 +702,9 @@ template <class VectorType>
 EQIntersections QPlane::IntersectionPointImp(const QBasePlane &plane1, const QBasePlane &plane2, VectorType &vIntersection) const
 {
     // None of the planes should be null
-    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)) );
-    QE_ASSERT( !(SQFloat::IsZero(plane1.a) && SQFloat::IsZero(plane1.b) && SQFloat::IsZero(plane1.c)) );
-    QE_ASSERT( !(SQFloat::IsZero(plane2.a) && SQFloat::IsZero(plane2.b) && SQFloat::IsZero(plane2.c)) );
+    QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)), "The plane should not be null, the result will be incorrect" );
+    QE_ASSERT( !(SQFloat::IsZero(plane1.a) && SQFloat::IsZero(plane1.b) && SQFloat::IsZero(plane1.c)), "Input planes should not be null, the result will be incorrect" );;
+    QE_ASSERT( !(SQFloat::IsZero(plane2.a) && SQFloat::IsZero(plane2.b) && SQFloat::IsZero(plane2.c)), "Input planes should not be null, the result will be incorrect" );
 
     // Solved by Cramer method.
     const float_q &DET_C = this->a * plane1.b * plane2.c + this->b * plane1.c * plane2.a + this->c * plane1.a * plane2.b -
