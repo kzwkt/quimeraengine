@@ -39,14 +39,14 @@ void* operator new(const pointer_uint_q uSize, const QAlignment& alignment)
     // More info in:
     // http://isocpp.org/wiki/faq/classes-and-objects#sizeof-empty
     // http://gcc.gnu.org/onlinedocs/gcc/Empty-Structures.html
-    QE_ASSERT (uSize > 0);
+    QE_ASSERT (uSize > 0, "The size of the memory block to reserve cannot be zero");
 
     // If failed, a null pointer is returned from the allocation function.
     void* p = aligned_alloc_q(uSize, alignment);
-    QE_ASSERT (null_q != p);
+    QE_ASSERT (null_q != p, "It was not possible to reserve memory with such alignment");
 
      // If passed, the memory block is aligned according to its regarding alignment value.
-    QE_ASSERT ( 0 == ( (rcast_q(p, pointer_uint_q)) & (alignment - 1) ) );
+    QE_ASSERT ( 0 == ( (rcast_q(p, pointer_uint_q)) & (alignment - 1) ), "An error occurred, the obtained memory address is not aligned" );
 
     return p;
 }
@@ -61,14 +61,14 @@ void* operator new[](const pointer_uint_q uSize, const QAlignment& alignment)
     // More info in:
     // http://isocpp.org/wiki/faq/classes-and-objects#sizeof-empty
     // http://gcc.gnu.org/onlinedocs/gcc/Empty-Structures.html
-    QE_ASSERT (uSize > 0);
+    QE_ASSERT (uSize > 0, "The size of the memory block to reserve cannot be zero");
 
     // If failed, a null pointer is returned from the allocation function.
     void* p = aligned_alloc_q(uSize, alignment);
-    QE_ASSERT (null_q != p);
+    QE_ASSERT (null_q != p, "It was not possible to reserve memory with such alignment");
 
     // If passed, the memory block is aligned according to its regarding alignment value.
-    QE_ASSERT ( 0 == ( (rcast_q(p, pointer_uint_q)) & (alignment - 1) ) ); 
+    QE_ASSERT ( 0 == ( (rcast_q(p, pointer_uint_q)) & (alignment - 1) ), "An error occurred, the obtained memory address is not aligned" ); 
 
     return p;
 }
@@ -76,20 +76,20 @@ void* operator new[](const pointer_uint_q uSize, const QAlignment& alignment)
 
 void operator delete(void* pMemoryBlock, const QAlignment& alignment)
 {
-    QE_ASSERT (null_q != pMemoryBlock);
+    QE_ASSERT (null_q != pMemoryBlock, "Invalid memory address (null)");
 
     // If failed, the memory block was not aligned according to its corresponding alignment value.
-    QE_ASSERT ( 0 == ( (rcast_q(pMemoryBlock, pointer_uint_q)) & (alignment - 1) ) );
+    QE_ASSERT ( 0 == ( (rcast_q(pMemoryBlock, pointer_uint_q)) & (alignment - 1) ), "The memory address must be aligned to call this operator" );
 
     aligned_free_q(pMemoryBlock);
 }
 
 void operator delete[](void* pMemoryBlock, const QAlignment& alignment)
 {
-    QE_ASSERT (null_q != pMemoryBlock)
+    QE_ASSERT (null_q != pMemoryBlock, "Invalid memory address (null)")
 
     // If failed, the memory block was not aligned according to its corresponding alignment value.
-    QE_ASSERT ( 0 == ( (rcast_q(pMemoryBlock, pointer_uint_q)) & (alignment - 1) ) );
+    QE_ASSERT ( 0 == ( (rcast_q(pMemoryBlock, pointer_uint_q)) & (alignment - 1) ), "The memory address must be aligned to call this operator" );
 
     aligned_free_q(pMemoryBlock);
 }
