@@ -101,4 +101,15 @@ const unsigned int QE_VERSION_REVISION = 0;
 #define ccast_q(object, type) const_cast<type>(object)
 
 
+// --------------------------------------------------------------------------------------------------------
+// Alignment calculation functions: Alias for every compiler's alignment calculation function.
+// Note: There is a difference between GCC and MSVC functions, it is not possible to use objects in MSVC's version.
+// --------------------------------------------------------------------------------------------------------
+#if   defined(QE_COMPILER_MSVC)
+    #define alignof_q( type ) __alignof(type)
+#elif defined(QE_COMPILER_GCC)
+    #define alignof_q( type ) __alignof__(type)
+#endif
+
+
 #endif // __INTERNALDEFINITIONS__
