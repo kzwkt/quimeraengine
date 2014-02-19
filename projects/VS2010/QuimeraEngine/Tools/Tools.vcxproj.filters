@@ -5,6 +5,9 @@
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
+    <Filter Include="Time">
+      <UniqueIdentifier>{ed45e226-6ce1-4504-a762-9e88468a82a8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h">
@@ -168,6 +171,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\headers\ToolsExports.h" />
     <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
+    <ClInclude Include="..\..\..\..\headers\QTimeSpan.h">
+      <Filter>Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">
@@ -278,6 +284,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\SQPoint.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QTimeSpan.cpp">
+      <Filter>Time</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Math/;" />
+		<Option virtualFolders="Math\;Time\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -54,7 +54,7 @@
 					<Add option="-DQE_PREPROCESSOR_IMPORTLIB_COMMON" />
 				</Compiler>
 				<Linker>
-					<Add library="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic/QuimeraEngineCommon.dll" />
+					<Add library="..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 				</Linker>
 			</Target>
@@ -218,6 +218,9 @@
 		<Unit filename="../../../../headers/QSphere.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../headers/QTimeSpan.h">
+			<Option virtualFolder="Time/" />
+		</Unit>
 		<Unit filename="../../../../headers/QTransformationMatrix.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -339,6 +342,9 @@
 		</Unit>
 		<Unit filename="../../../../source/QSpaceConversionMatrix.cpp">
 			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTimeSpan.cpp">
+			<Option virtualFolder="Time/" />
 		</Unit>
 		<Unit filename="../../../../source/QTransformationMatrix3x3.cpp">
 			<Option virtualFolder="Math/" />

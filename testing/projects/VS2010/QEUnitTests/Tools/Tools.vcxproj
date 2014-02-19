@@ -55,6 +55,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QScalingMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QSpaceConversionMatrix_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QSphere_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTimeSpan_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix3x3_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTransformationMatrix_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTranslationMatrix_Test.cpp" />
