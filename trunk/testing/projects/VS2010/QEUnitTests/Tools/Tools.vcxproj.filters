@@ -10,6 +10,9 @@
     <Filter Include="Tests\Math">
       <UniqueIdentifier>{c3aa2ece-6001-499f-9db7-bc124b1e8328}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Time">
+      <UniqueIdentifier>{d117c55a-2de6-49f4-9bc9-0ebf930a49f7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -179,6 +182,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QSphere_Test.cpp">
       <Filter>Tests\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTimeSpan_Test.cpp">
+      <Filter>Tests\Time</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
