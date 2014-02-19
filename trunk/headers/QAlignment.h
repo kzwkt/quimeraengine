@@ -31,7 +31,7 @@
 #include "CommonDefinitions.h"
 
 
-using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
 
 
 namespace Kinesis
@@ -60,7 +60,7 @@ public:
     /// Constructor from a value.
     /// </summary>
     /// <param name="uAlignment">[IN] Unsigned integer value to define alignment. It MUST be a power of 2.</param>
-    explicit QAlignment(const u32_q &uAlignment);
+    explicit QAlignment(const pointer_uint_q &uAlignment);
 
 
 	// METHODS
@@ -86,7 +86,7 @@ protected:
     /// <remarks>
     /// This value MUST be always a power of 2.
     /// </remarks>
-    u32_q m_uAlignment;
+    pointer_uint_q m_uAlignment;
 
 };
 
