@@ -35,7 +35,6 @@
     <ClInclude Include="..\..\..\..\headers\AllocationOperators.h">
       <Filter>Memory</Filter>
     </ClInclude>
-
     <ClInclude Include="..\..\..\..\headers\QStringUnicode.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
@@ -63,11 +62,13 @@
     <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp">
       <Filter>Memory</Filter>
     </ClCompile>
-
     <ClCompile Include="..\..\..\..\source\QStringUnicode.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QConstCharIterator.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>

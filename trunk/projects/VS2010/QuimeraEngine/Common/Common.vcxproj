@@ -112,6 +112,7 @@
     <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
     <ClCompile Include="..\..\..\..\source\QAlignment.cpp" />
     <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp" />
+    <ClCompile Include="..\..\..\..\source\QConstCharIterator.cpp" />
     <ClCompile Include="..\..\..\..\source\QStringUnicode.cpp" />
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp" />
     <ClCompile Include="..\..\..\..\source\SQFloat.cpp" />
