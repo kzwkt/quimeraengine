@@ -149,6 +149,9 @@
 		<Unit filename="../../../../tests/unit/testmodule_common/QCharUnicode_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/QConstCharIterator_Test.cpp">
+			<Option virtualFolder="Tests/DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/QStringUnicode_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>

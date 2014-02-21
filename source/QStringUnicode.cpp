@@ -26,6 +26,8 @@
 
 #include "QStringUnicode.h"
 
+#include "Assertions.h"
+
 
 namespace Kinesis
 {
@@ -84,6 +86,22 @@ QStringUnicode& QStringUnicode::operator=(const QStringUnicode &strString)
     return *this;
 }
 
+QStringUnicode QStringUnicode::Substring(const unsigned int &uStartPosition, const unsigned int &uLastPosition) const
+{
+    // The start position index must be lower or equal than the last position index
+    QE_ASSERT(uStartPosition <= uLastPosition, "The start position index must be lower or equal than the last position index");
+
+    QStringUnicode strResult;
+    m_strString.extract(uStartPosition, uLastPosition - uStartPosition, strResult.m_strString);
+
+    return strResult;
+}
+
+QStringUnicode::QConstCharIterator QStringUnicode::GetConstCharIterator() const
+{
+    return QStringUnicode::QConstCharIterator(*this);
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -93,6 +111,11 @@ QStringUnicode& QStringUnicode::operator=(const QStringUnicode &strString)
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
+
+unsigned int QStringUnicode::GetLength() const
+{
+    return scast_q(m_strString.countChar32(), unsigned int);
+}
 
 
 } //namespace DataTypes

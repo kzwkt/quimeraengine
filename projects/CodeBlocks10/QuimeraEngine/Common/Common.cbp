@@ -137,6 +137,9 @@
 		<Unit filename="../../../../source/QCharUnicode.cpp">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../source/QConstCharIterator.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../source/QStringUnicode.cpp">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
