@@ -187,6 +187,7 @@
     <ClInclude Include="..\..\..\..\headers\QBaseVector2.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QCircle.h" />
+    <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h" />
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QHexahedron.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
