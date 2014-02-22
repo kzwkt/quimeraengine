@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;Tests\Time\;" />
+		<Option virtualFolders="TestSystem (shared)\;Tests\;Tests\Math\;Tests\Containers\;Tests\Time\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -185,6 +185,9 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QCircle_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QComparatorDefault_Test.cpp">
+			<Option virtualFolder="Tests/Containers/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />

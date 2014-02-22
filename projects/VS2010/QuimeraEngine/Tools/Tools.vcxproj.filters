@@ -8,6 +8,9 @@
     <Filter Include="Time">
       <UniqueIdentifier>{ed45e226-6ce1-4504-a762-9e88468a82a8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Containers">
+      <UniqueIdentifier>{5ee106a1-e086-4aca-b72c-19039f9cb1f6}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h">
@@ -173,6 +176,9 @@
     <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QTimeSpan.h">
       <Filter>Time</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h">
+      <Filter>Containers</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

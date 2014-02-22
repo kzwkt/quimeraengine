@@ -13,6 +13,9 @@
     <Filter Include="Tests\Time">
       <UniqueIdentifier>{d117c55a-2de6-49f4-9bc9-0ebf930a49f7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Tests\Containers">
+      <UniqueIdentifier>{b9c8227d-e3b9-4435-9e48-6e79d4dd9f4f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\testsystem\EQTestType.cpp">
@@ -185,6 +188,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QTimeSpan_Test.cpp">
       <Filter>Tests\Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_tools\QComparatorDefault_Test.cpp">
+      <Filter>Tests\Containers</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

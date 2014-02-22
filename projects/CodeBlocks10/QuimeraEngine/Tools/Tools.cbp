@@ -5,7 +5,7 @@
 		<Option title="Tools" />
 		<Option pch_mode="2" />
 		<Option compiler="gcc" />
-		<Option virtualFolders="Math\;Time\;" />
+		<Option virtualFolders="Math\;Containers\;Time\;" />
 		<Build>
 			<Target title="DebugLinux32SharedrtStatic">
 				<Option platforms="Unix;" />
@@ -154,6 +154,9 @@
 		</Unit>
 		<Unit filename="../../../../headers/QCircle.h">
 			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../headers/QComparatorDefault.h">
+			<Option virtualFolder="Containers/" />
 		</Unit>
 		<Unit filename="../../../../headers/QDualQuaternion.h">
 			<Option virtualFolder="Math/" />
