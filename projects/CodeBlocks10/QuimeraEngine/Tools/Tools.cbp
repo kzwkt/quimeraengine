@@ -98,6 +98,9 @@
 		<Unit filename="../../../../headers/EQSpaceRelation.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../headers/EQTreeTraversalOrder.h">
+			<Option virtualFolder="Containers/" />
+		</Unit>
 		<Unit filename="../../../../headers/MathDefinitions.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -264,6 +267,9 @@
 		</Unit>
 		<Unit filename="../../../../source/EQSpaceRelation.cpp">
 			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/EQTreeTraversalOrder.cpp">
+			<Option virtualFolder="Containers/" />
 		</Unit>
 		<Unit filename="../../../../source/QBaseDualQuaternion.cpp">
 			<Option virtualFolder="Math/" />
