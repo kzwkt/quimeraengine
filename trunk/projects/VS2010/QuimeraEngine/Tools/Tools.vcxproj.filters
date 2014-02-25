@@ -180,6 +180,9 @@
     <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQTreeTraversalOrder.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">
@@ -293,6 +296,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QTimeSpan.cpp">
       <Filter>Time</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQTreeTraversalOrder.cpp">
+      <Filter>Containers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

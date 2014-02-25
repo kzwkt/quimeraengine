@@ -169,6 +169,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\..\headers\EQIntersections.h" />
     <ClInclude Include="..\..\..\..\headers\EQSpaceRelation.h" />
+    <ClInclude Include="..\..\..\..\headers\EQTreeTraversalOrder.h" />
     <ClInclude Include="..\..\..\..\headers\MathDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QBaseHexahedron.h" />
@@ -228,6 +229,7 @@
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\EQIntersections.cpp" />
     <ClCompile Include="..\..\..\..\source\EQSpaceRelation.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQTreeTraversalOrder.cpp" />
     <ClCompile Include="..\..\..\..\source\QBaseDualQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QBaseMatrix2x2.cpp" />
     <ClCompile Include="..\..\..\..\source\QBaseMatrix3x3.cpp" />
