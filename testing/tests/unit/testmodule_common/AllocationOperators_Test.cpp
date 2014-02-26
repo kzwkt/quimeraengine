@@ -65,11 +65,11 @@ QTEST_CASE ( OperatorDelete_AssertionFailsWhenReceivedANonAlignedMemoryBlock_Tes
 {
     // [Preparation]
 
-    const bool          ASSERTION_FAILED             = true;
-    bool                bAssertionFailed01           = false;
+    const bool           ASSERTION_FAILED             = true;
+    bool                 bAssertionFailed01           = false;
 
-    const u32_q         ALIGNMENT_VALUE_POWER_OF_TWO = 8;
-    QAlignment          align_001(ALIGNMENT_VALUE_POWER_OF_TWO);
+    const pointer_uint_q ALIGNMENT_VALUE_POWER_OF_TWO = 8;
+    QAlignment           align_001(ALIGNMENT_VALUE_POWER_OF_TWO);
 
     TFooEightBytesSize* pFoo001                      = null_q;
 
@@ -112,14 +112,14 @@ QTEST_CASE ( OperatorDeleteArray_AssertionFailsWhenReceivedANonAlignedMemoryBloc
 {
     // [Preparation]
 
-    const bool          ASSERTION_FAILED             = true;
-    bool                bAssertionFailed02           = false;
+    const bool           ASSERTION_FAILED             = true;
+    bool                 bAssertionFailed02           = false;
 
-    const u32_q         ARRAY_SIZE                   = 5;
-    const u32_q         ALIGNMENT_VALUE_POWER_OF_TWO = 8;
-    QAlignment          align_002(ALIGNMENT_VALUE_POWER_OF_TWO);
+    const pointer_uint_q ARRAY_SIZE                   = 5;
+    const pointer_uint_q ALIGNMENT_VALUE_POWER_OF_TWO = 8;
+    QAlignment           align_002(ALIGNMENT_VALUE_POWER_OF_TWO);
 
-    TFooEightBytesSize* pFoo002                      = null_q;
+    TFooEightBytesSize*  pFoo002                      = null_q;
 
 
 	// [Execution]
@@ -159,13 +159,13 @@ QTEST_CASE ( OperatorDelete_AssertionFailsWhenReceivedANullPointer_Test )
 {
     // [Preparation]
 
-    const bool   ASSERTION_FAILED                   = true;
-    bool         bAssertionFailed01                 = false;
+    const bool           ASSERTION_FAILED                   = true;
+    bool                 bAssertionFailed01                 = false;
 
-    const u32_q  ALIGNMENT_VALUE_POWER_OF_TWO       = 4;
-    QAlignment   align_001(ALIGNMENT_VALUE_POWER_OF_TWO);
+    const pointer_uint_q ALIGNMENT_VALUE_POWER_OF_TWO       = 4;
+    QAlignment           align_001(ALIGNMENT_VALUE_POWER_OF_TWO);
 
-    void*        p                                  = NULL;
+    void*                p                                  = NULL;
 
 
 	// [Execution]
@@ -191,13 +191,13 @@ QTEST_CASE ( OperatorDeleteArray_AssertionFailsWhenReceivedANullPointer_Test )
 {
     // [Preparation]
 
-    const bool   ASSERTION_FAILED                   = true;
-    bool         bAssertionFailed02                 = false;
+    const bool           ASSERTION_FAILED                   = true;
+    bool                 bAssertionFailed02                 = false;
 
-    const u32_q  ALIGNMENT_VALUE_POWER_OF_TWO       = 4;
-    QAlignment   align_002(ALIGNMENT_VALUE_POWER_OF_TWO);
+    const pointer_uint_q ALIGNMENT_VALUE_POWER_OF_TWO       = 4;
+    QAlignment           align_002(ALIGNMENT_VALUE_POWER_OF_TWO);
 
-    void*        p                                  = NULL;
+    void*                p                                  = NULL;
 
 
 	// [Execution]

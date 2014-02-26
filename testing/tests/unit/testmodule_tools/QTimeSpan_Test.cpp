@@ -120,7 +120,7 @@ QTEST_CASE ( Constructor3_MaximumValueIsAssignedWhenParametersProduceOverflow_Te
     const u64_q VALUE_FOR_MSECONDS = 1;
     const u64_q VALUE_FOR_MICROSECONDS = 1;
     const u64_q VALUE_FOR_HUNDREDSNANOSECS = 1;
-    const u64_q EXPECTED_VALUE_FOR_TIMESPAN = std::numeric_limits<u64_q>::max();
+    const u64_q EXPECTED_VALUE_FOR_TIMESPAN = -1;
 
 	// [Execution]
     QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS, 
@@ -149,7 +149,7 @@ QTEST_CASE ( Constructor3_MaximumValueIsAssignedWhenAdditionOfParametersProduceO
     const u64_q VALUE_FOR_MSECONDS = 1844674407370954;
     const u64_q VALUE_FOR_MICROSECONDS = 1844674407370955160;
     const u64_q VALUE_FOR_HUNDREDSNANOSECS = 1000000000000000000;
-    const u64_q EXPECTED_VALUE_FOR_TIMESPAN = std::numeric_limits<u64_q>::max();
+    const u64_q EXPECTED_VALUE_FOR_TIMESPAN = -1;
 
 	// [Execution]
     QTimeSpan timeSpan(VALUE_FOR_DAYS, VALUE_FOR_HOURS, VALUE_FOR_MINUTES, VALUE_FOR_SECONDS, 

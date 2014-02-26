@@ -73,12 +73,18 @@ private:
     /// <summary>
     /// Constant representing the factor to convert from seconds to milliseconds.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MSECONDS_PER_SECOND;
+    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MILLISECONDS_PER_SECOND;
 
     /// <summary>
     /// Constant representing the factor to convert from milliseconds to nanoseconds.
     /// </summary>
     static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MICROSECONDS_PER_MSECOND;
+
+    /// <summary>
+    /// The maximum value allowed for the type used to store the time value.
+    /// </summary>
+    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MAXIMUM_VALUE;
+
 
     // CONSTRUCTORS
 	// ---------------
