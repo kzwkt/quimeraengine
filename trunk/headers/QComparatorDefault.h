@@ -24,8 +24,8 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QCOMPARATOR_DEFAULT__
-#define __QCOMPARATOR_DEFAULT__
+#ifndef __QCOMPARATORDEFAULT__
+#define __QCOMPARATORDEFAULT__
 
 #include "DataTypesDefinitions.h"
 #include "ToolsDefinitions.h"
@@ -82,4 +82,4 @@ public:
 } // namespace QuimeraEngine
 } // namespace Kinesis
 
-#endif // __QCOMPARATOR_DEFAULT__
+#endif // __QCOMPARATORDEFAULT__

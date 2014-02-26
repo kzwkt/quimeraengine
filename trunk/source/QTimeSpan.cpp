@@ -24,8 +24,6 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include <limits>
-
 #include "QTimeSpan.h"
 #include "Assertions.h"
 
@@ -55,8 +53,10 @@ const u64_q QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND = 10;
 const u64_q QTimeSpan::HOURS_PER_DAY = 24;
 const u64_q QTimeSpan::MINUTES_PER_HOUR = 60;
 const u64_q QTimeSpan::SECONDS_PER_MINUTE = 60;
-const u64_q QTimeSpan::MSECONDS_PER_SECOND = 1000;
+const u64_q QTimeSpan::MILLISECONDS_PER_SECOND = 1000;
 const u64_q QTimeSpan::MICROSECONDS_PER_MSECOND = 1000;
+const u64_q QTimeSpan::MAXIMUM_VALUE = -1;
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################
@@ -68,26 +68,24 @@ const u64_q QTimeSpan::MICROSECONDS_PER_MSECOND = 1000;
 //##################=======================================================##################
 
        
-QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes, const u64_q uSeconds, const u64_q uMiliseconds, const u64_q uMicroseconds, const u64_q uHundredsNanoseconds)
+QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes, const u64_q uSeconds, const u64_q uMilliseconds, const u64_q uMicroseconds, const u64_q uHundredsNanoseconds)
 {
-   
-   
     // Constants containing the max value for each parameter.
     // Remember we have to convert them to hundreds of nanoseconds.
-    const u64_q MAX_MICROSECONDS = std::numeric_limits<u64_q>::max() / HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND;
-    const u64_q MAX_MSECONDS = std::numeric_limits<u64_q>::max() / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_MSECOND );
-    const u64_q MAX_SECONDS = std::numeric_limits<u64_q>::max() / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MSECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
-    const u64_q MAX_MINUTES = std::numeric_limits<u64_q>::max() / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * SECONDS_PER_MINUTE * MSECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
-    const u64_q MAX_HOURS = std::numeric_limits<u64_q>::max() / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MSECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
-    const u64_q MAX_DAYS = std::numeric_limits<u64_q>::max() / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MSECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
+    const u64_q MAX_MICROSECONDS = MAXIMUM_VALUE / HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND;
+    const u64_q MAX_MILLISECONDS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_MSECOND );
+    const u64_q MAX_SECONDS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
+    const u64_q MAX_MINUTES = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
+    const u64_q MAX_HOURS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
+    const u64_q MAX_DAYS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
 
     bool bNotGreaterThanMaxValue = (uDays <= MAX_DAYS                && 
-                                   uHours <= MAX_HOURS              && 
-                                   uMinutes <= MAX_MINUTES          && 
-                                   uSeconds <= MAX_SECONDS          && 
-                                   uMiliseconds <= MAX_MSECONDS     &&  
+                                   uHours <= MAX_HOURS               && 
+                                   uMinutes <= MAX_MINUTES           && 
+                                   uSeconds <= MAX_SECONDS           && 
+                                   uMilliseconds <= MAX_MILLISECONDS &&  
                                    uMicroseconds <= MAX_MICROSECONDS && 
-                                   uHundredsNanoseconds <= std::numeric_limits<u64_q>::max());
+                                   uHundredsNanoseconds <= MAXIMUM_VALUE);
 
     // Assertion to verify that we will not get overflow while calculating the time span
     QE_ASSERT(bNotGreaterThanMaxValue == true, "Parameters must be lower than maximum values"); 
@@ -95,37 +93,37 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
     // To avoid overflow if it happens return max value allowed
     if (!bNotGreaterThanMaxValue)
     {
-          m_uTimeSpan = std::numeric_limits<u64_q>::max();
+          m_uTimeSpan = MAXIMUM_VALUE;
     }
     else
     {
         u64_q uMicrosecondsToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * uMicroseconds;
-        u64_q uMsecondsToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_MSECOND * uMiliseconds;
-        u64_q uSecondsToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MSECONDS_PER_SECOND * uSeconds * MICROSECONDS_PER_MSECOND;
-        u64_q uMinutesToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * SECONDS_PER_MINUTE * uMinutes * MSECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
-        u64_q uHoursToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MINUTES_PER_HOUR * uHours * SECONDS_PER_MINUTE * MSECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
-        u64_q uDaysToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * HOURS_PER_DAY * uDays * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MSECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
+        u64_q uMillisecondsToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_MSECOND * uMilliseconds;
+        u64_q uSecondsToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MILLISECONDS_PER_SECOND * uSeconds * MICROSECONDS_PER_MSECOND;
+        u64_q uMinutesToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * SECONDS_PER_MINUTE * uMinutes * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
+        u64_q uHoursToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MINUTES_PER_HOUR * uHours * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
+        u64_q uDaysToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * HOURS_PER_DAY * uDays * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
     
         // Now check that we will not have overflow with the addition either
-        bNotGreaterThanMaxValue = uMicrosecondsToHundreds <= (std::numeric_limits<u64_q>::max() - uHundredsNanoseconds ) &&
-                                 uMsecondsToHundreds <= (std::numeric_limits<u64_q>::max() - (uHundredsNanoseconds + uMicrosecondsToHundreds)) &&
-                                 uSecondsToHundreds <= (std::numeric_limits<u64_q>::max() - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMsecondsToHundreds)) &&
-                                 uMinutesToHundreds <= (std::numeric_limits<u64_q>::max() - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMsecondsToHundreds + uSecondsToHundreds)) &&
-                                 uHoursToHundreds <= (std::numeric_limits<u64_q>::max() - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMsecondsToHundreds + uSecondsToHundreds + uMinutesToHundreds)) &&
-                                 uDaysToHundreds <= (std::numeric_limits<u64_q>::max() - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMsecondsToHundreds + uSecondsToHundreds + uMinutesToHundreds + uHoursToHundreds));
+        bNotGreaterThanMaxValue = uMicrosecondsToHundreds <= (MAXIMUM_VALUE - uHundredsNanoseconds ) &&
+                                  uMillisecondsToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds)) &&
+                                  uSecondsToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds)) &&
+                                  uMinutesToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds + uSecondsToHundreds)) &&
+                                  uHoursToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds + uSecondsToHundreds + uMinutesToHundreds)) &&
+                                  uDaysToHundreds <= (MAXIMUM_VALUE - (uHundredsNanoseconds + uMicrosecondsToHundreds + uMillisecondsToHundreds + uSecondsToHundreds + uMinutesToHundreds + uHoursToHundreds));
     
         QE_ASSERT(bNotGreaterThanMaxValue == true, "The converted values must be low enough to avoid overflow");
 
         // To avoid overflow if it happens return max value allowed
         if (!bNotGreaterThanMaxValue)
         {
-           m_uTimeSpan = std::numeric_limits<u64_q>::max();
+           m_uTimeSpan = MAXIMUM_VALUE;
         }
         else
         {
            // Add all the parameters 
            m_uTimeSpan = uHundredsNanoseconds + uMicrosecondsToHundreds +
-                         uMsecondsToHundreds + uSecondsToHundreds +
+                         uMillisecondsToHundreds + uSecondsToHundreds +
                          uMinutesToHundreds + uHoursToHundreds + uDaysToHundreds;
         }
     }
