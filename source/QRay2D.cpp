@@ -312,7 +312,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangl
             else if (this->IntersectionPoint(QBaseLineSegment<QVector2>(triangle.C, triangle.A), vAux) == EQIntersections::E_One)
                 vIntersection1 = vAux;
             else
-                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached")  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
             return EQIntersections::E_One;
         }
@@ -430,7 +430,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseTriangle<QVector2> &triangl
                 }
             }
             else
-                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached")  // Something is wrong, there is ONE intersection and is not a vertex
+                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, there is ONE intersection and is not a vertex
         }
 
         if (bPrevInt)
@@ -654,7 +654,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseV
             else if (this->IntersectionPoint(QBaseLineSegment<QVector2>(quad.D, quad.A), vAux) == EQIntersections::E_One)
                 vIntersection1 = vAux;
             else
-                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached")  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
             return EQIntersections::E_One;
         }
@@ -817,7 +817,7 @@ EQIntersections QRay2D::IntersectionPoint(const QBaseQuadrilateral &quad, QBaseV
                 }
             }
             else // Its the first intersection found
-                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached")  // Something is wrong
+                QE_ASSERT(false, "Something went very wrong, this code branch must never be reached");  // Something is wrong
         }
 
         if (bPrevInt)

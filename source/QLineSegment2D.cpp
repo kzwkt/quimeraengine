@@ -510,7 +510,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 }
             }
             else                                                                                                   // Something is wrong: if end points of line segment are outside triangle,
-                QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached")  // line segment must intersects none or two edges, never only one.
+                QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");  // line segment must intersects none or two edges, never only one.
         }
         else if (value2BC ==EQIntersections::E_One) // Line segment intersects BC edge of triangle
         {
@@ -539,7 +539,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                 }
             }
             else                                                                                                    // Something is wrong: if end points of line segment are outside triangle,
-                QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached")  // line segment must intersects none or two, never only one.
+                QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");  // line segment must intersects none or two, never only one.
         }
 
         // Line segment don't intersects triangle
@@ -675,8 +675,8 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                     vIntersection1 = vAux;
                 else if ((value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
                     vIntersection1 = vAux;
-                else                                                                                                   // Something is wrong, if one point is inside and the other is outside,
-                    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached")  // there must be intersections.
+                else                                                                                                    // Something is wrong, if one point is inside and the other is outside,
+                    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");  // there must be intersections.
 
                 return EQIntersections::E_One;
             }
@@ -824,8 +824,8 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseTriangle<QVector2>&
                     vIntersection1 = vAux;
                 else if ((value2 = this->IntersectionPoint(QLineSegment2D(triangle.C, triangle.A), vAux)) == EQIntersections::E_One)
                     vIntersection1 = vAux;
-                else                                                                                                   // Something is wrong, if one point is inside and the other is outside,
-                    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached")  // there must be intersections.
+                else                                                                                                    // Something is wrong, if one point is inside and the other is outside,
+                    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");  // there must be intersections.
 
                 return EQIntersections::E_One;
             }
@@ -1833,7 +1833,7 @@ EQIntersections QLineSegment2D::IntersectionPoint(const QBaseQuadrilateral& quad
     }
 
     // Something went wrong, this line should never be reached
-    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached")
+    QE_ASSERT(false, "Something really wrong is happening, this code branch should never be reached");
 
     return EQIntersections::E_None;
 }

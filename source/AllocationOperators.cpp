@@ -86,7 +86,7 @@ void operator delete(void* pMemoryBlock, const QAlignment& alignment)
 
 void operator delete[](void* pMemoryBlock, const QAlignment& alignment)
 {
-    QE_ASSERT (null_q != pMemoryBlock, "Invalid memory address (null)")
+    QE_ASSERT (null_q != pMemoryBlock, "Invalid memory address (null)");
 
     // If failed, the memory block was not aligned according to its corresponding alignment value.
     QE_ASSERT ( 0 == ( (rcast_q(pMemoryBlock, pointer_uint_q)) & (alignment - 1) ), "The memory address must be aligned to call this operator" );

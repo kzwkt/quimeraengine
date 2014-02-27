@@ -769,7 +769,7 @@ public:
         QVector3 vScale;
         this->GetScale(vScale);
 
-        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0, "The scale must not be null, this will produce a division by zero")
+        QE_ASSERT(vScale.x != SQFloat::_0 && vScale.y != SQFloat::_0 && vScale.z != SQFloat::_0, "The scale must not be null, this will produce a division by zero");
 
         QVector3 vInvScale = QVector3::GetVectorOfOnes() / vScale;
 
@@ -816,7 +816,7 @@ protected:
         QVector3 vScale;
         this->GetScale(vScale);
 
-        QE_ASSERT( !vScale.IsZero(), "The scale must not be null, this will produce a division by zero" )
+        QE_ASSERT( !vScale.IsZero(), "The scale must not be null, this will produce a division by zero" );
 
         QVector3 vInvScale = QVector3::GetVectorOfOnes() / vScale;
 

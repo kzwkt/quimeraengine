@@ -167,7 +167,7 @@ QBaseVector3 QVector4::operator*(const QBaseMatrix4x3 &matrix) const
 QVector4 QVector4::operator/(const float_q &fScalar) const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1 / fScalar;
 
@@ -256,7 +256,7 @@ QVector4& QVector4::operator*=(const QBaseMatrix4x4 &matrix)
 QVector4& QVector4::operator/=(const float_q &fScalar)
 {
     // Checkout to avoid division by 0
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1 / fScalar;
 
@@ -312,7 +312,7 @@ float_q QVector4::GetSquaredLength() const
 QVector4 QVector4::Normalize() const
 {
     // Checkout to avoid division by 0
-    QE_ASSERT(this->GetLength() != SQFloat::_0, "The vector is null so it cannot be normalized, this will cause a division by zero")
+    QE_ASSERT(this->GetLength() != SQFloat::_0, "The vector is null so it cannot be normalized, this will cause a division by zero");
 
     // Gets inverse of the vector length
     float_q fInvLength = SQFloat::_1 / this->GetLength();
@@ -367,7 +367,7 @@ float_q QVector4::AngleBetween(const QBaseVector4 &vVector) const
     float_q fLength = sqrt_q( (this->x*this->x + this->y*this->y + this->z*this->z) * (vVector.x*vVector.x + vVector.y*vVector.y + vVector.z*vVector.z) );
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(fLength != SQFloat::_0, "Vectors must not be null, this will cause a division by zero")
+    QE_ASSERT(fLength != SQFloat::_0, "Vectors must not be null, this will cause a division by zero");
 
     float_q fDot = (this->x*vVector.x + this->y*vVector.y + this->z*vVector.z) / fLength;
 

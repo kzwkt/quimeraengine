@@ -126,7 +126,7 @@ QVector2 QVector2::operator*(const QBaseMatrix2x2 &matrix) const
 QVector2 QVector2::operator/(const float_q &fScalar) const
 {
 	// Checkout to avoid division by 0
-	QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+	QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
 	const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -136,7 +136,7 @@ QVector2 QVector2::operator/(const float_q &fScalar) const
 QVector2 QVector2::operator/(const QBaseVector2 &vVector) const
 {
 	// Checkout to avoid division by 0
-    QE_ASSERT(vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0, "Input vector must not be null")
+    QE_ASSERT(vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0, "Input vector must not be null");
 
 	return QVector2(this->x / vVector.x, this->y / vVector.y);
 }
@@ -187,7 +187,7 @@ QVector2& QVector2::operator*=(const QBaseVector2 &vVector)
 QVector2& QVector2::operator/=(const float_q &fScalar)
 {
 	// Checkout to avoid division by 0
-	QE_ASSERT(fScalar != SQFloat::_0, "Input value must no equal zero")
+	QE_ASSERT(fScalar != SQFloat::_0, "Input value must no equal zero");
 
 	const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -200,7 +200,7 @@ QVector2& QVector2::operator/=(const float_q &fScalar)
 QVector2& QVector2::operator/=(const QBaseVector2 &vVector)
 {
 	// Checkout to avoid division by 0
-	QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0, "Input vector must not be null")
+	QE_ASSERT (vVector.x != SQFloat::_0 && vVector.y != SQFloat::_0, "Input vector must not be null");
 
 	this->x /= vVector.x;
 	this->y /= vVector.y;
@@ -242,7 +242,7 @@ QVector2 QVector2::Normalize() const
 	const float_q fLength = this->GetLength();
 
 	// Checkout to avoid division by 0
-	QE_ASSERT(fLength != SQFloat::_0, "The vector is null so it cannot be normalized, this will cause a division by zero")
+	QE_ASSERT(fLength != SQFloat::_0, "The vector is null so it cannot be normalized, this will cause a division by zero");
 
 	//Normalize
     return QVector2(this->x / fLength, this->y / fLength);

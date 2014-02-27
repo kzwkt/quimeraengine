@@ -275,7 +275,7 @@ public:
                 return PointInsideTriangle(triangle, this->A);
         }
 
-        QE_ASSERT(SQFloat::IsNotZero(DOT2 - DOT1), "The variables \"DOT2\" and \"DOT1\" should not be equal (maybe line endpoints coincide)")
+        QE_ASSERT(SQFloat::IsNotZero(DOT2 - DOT1), "The variables \"DOT2\" and \"DOT1\" should not be equal (maybe line endpoints coincide)");
 
         // The point which satisfies both line and plane equations.
         VectorType vAux = this->A + (this->B - this->A) * DOT2/(DOT2 - DOT1);
@@ -393,7 +393,7 @@ public:
 
             const float_q &DENOM = DIST_A - DIST_B;
 
-            QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero")
+            QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
 
             vIntersection = this->A + DIST_A * (this->B - this->A) / DENOM;
 
@@ -1114,7 +1114,7 @@ public:
         }
 
         // Something was wrong, this line should be never reached
-		QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")
+		QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");
 
         return EQIntersections::E_None;
     }
@@ -1348,7 +1348,7 @@ public:
         }
 
         // Something was wrong, this line should be never reached
-		QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")
+		QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");
 
         return EQIntersections::E_None;
     }
@@ -1625,7 +1625,7 @@ public:
         }
 
         // Something was wrong, this line should be never reached
-		QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")
+		QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");
 
         return EQIntersections::E_None;
     }
@@ -2056,7 +2056,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero")
+        QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
 
         const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
@@ -2101,7 +2101,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero")
+        QE_ASSERT(DENOM != SQFloat::_0, "The variable \"DENOM\" must not equal zero, this will cause a division by zero");
 
         const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
@@ -2125,7 +2125,7 @@ protected:
         // Compute new barycentric coordinates
         const float_q &DENOM2 = DOT_00 * DOT_33 - DOT_03 * DOT_03;
 
-        QE_ASSERT(DENOM2 != SQFloat::_0, "The variable \"DENOM2\" must not equal zero, this will cause a division by zero")
+        QE_ASSERT(DENOM2 != SQFloat::_0, "The variable \"DENOM2\" must not equal zero, this will cause a division by zero");
 
         const float_q &INV_DENOM2 = SQFloat::_1 / DENOM2;
 
@@ -2243,7 +2243,7 @@ protected:
                 return false;
         }
 
-        QE_ASSERT(SQFloat::IsNotZero(DOT2 - DOT1), "The variables \"DOT1\" and \"DOT2\" must not be equal (maybe segment endpoints coincide), this will cause a division by zero")
+        QE_ASSERT(SQFloat::IsNotZero(DOT2 - DOT1), "The variables \"DOT1\" and \"DOT2\" must not be equal (maybe segment endpoints coincide), this will cause a division by zero");
 
         // The point which satisfies both line and plane equations.
         VectorTypeParam vAux = segment.A + (segment.B - segment.A) * DOT2/(DOT2 - DOT1);
@@ -3371,7 +3371,7 @@ protected:
         }
 
         // Something was wrong, this line should be never reached
-		QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")
+		QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");
 
         return EQIntersections::E_None;
     }

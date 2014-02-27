@@ -229,7 +229,7 @@ QMatrix4x3& QMatrix4x3::operator*=(const QBaseMatrix3x3& matrix)
 
 QMatrix4x3 QMatrix4x3::operator/(const float_q &fScalar) const
 {
-	QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+	QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
 	const float_q &fDivisor = SQFloat::_1/fScalar;
 
@@ -293,7 +293,7 @@ QMatrix4x3 QMatrix4x3::operator-(const QBaseMatrix4x3 &matrix) const
 
 QMatrix4x3& QMatrix4x3::operator/=(const float_q &fScalar)
 {
-	QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+	QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
 	const float_q &fDivisor = SQFloat::_1/fScalar;
 
