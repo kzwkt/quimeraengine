@@ -155,7 +155,7 @@ QScalingMatrix3x3& QScalingMatrix3x3::operator=(const QBaseMatrix3x3 &matrix)
 QScalingMatrix3x3 QScalingMatrix3x3::Invert() const
 {
     // If one of the diagonal elements is 0, the matrix has not inverse.
-    QE_ASSERT(this->ij[0][0] != SQFloat::_0 && this->ij[1][1] != SQFloat::_0 && this->ij[2][2] != SQFloat::_0, "One of the diagonal elements equals zero, so the matrix has not inverse")
+    QE_ASSERT(this->ij[0][0] != SQFloat::_0 && this->ij[1][1] != SQFloat::_0 && this->ij[2][2] != SQFloat::_0, "One of the diagonal elements equals zero, so the matrix has not inverse");
 
     return QScalingMatrix3x3(SQFloat::_1 / this->ij[0][0], SQFloat::_1 / this->ij[1][1], SQFloat::_1 / this->ij[2][2]);
 }

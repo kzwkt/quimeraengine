@@ -233,7 +233,7 @@ QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
     //       rcast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
     const float_q& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
 
-    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0, "Input quaternion must not be null, this will cause a division by zero")
+    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0, "Input quaternion must not be null, this will cause a division by zero");
 
     const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
 
@@ -242,7 +242,7 @@ QQuaternion QQuaternion::operator/(const QBaseQuaternion &qQuat) const
 
 QQuaternion QQuaternion::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -320,7 +320,7 @@ QQuaternion& QQuaternion::operator/=(const QBaseQuaternion &qQuat)
     //       rcast_q was used, then the call to Invert couldn't be inlined here. So, we "inline" it manually.
     const float_q& SQUARED_LENGTH = (qQuat.x * qQuat.x) + (qQuat.y * qQuat.y) + (qQuat.z * qQuat.z) + (qQuat.w * qQuat.w);
 
-    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0, "Input quaternion must not be null, this will cause a division by zero")
+    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0, "Input quaternion must not be null, this will cause a division by zero");
 
     const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
 
@@ -331,7 +331,7 @@ QQuaternion& QQuaternion::operator/=(const QBaseQuaternion &qQuat)
 
 QQuaternion& QQuaternion::operator/=(const float_q &fScalar)
 {
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -356,7 +356,7 @@ QQuaternion QQuaternion::operator-() const
 
 QQuaternion QQuaternion::Normalize() const
 {
-    QE_ASSERT(this->GetLength(), "Null quaternions cannot be normalized, this will produce a division by zero")
+    QE_ASSERT(this->GetLength(), "Null quaternions cannot be normalized, this will produce a division by zero");
 
     const float_q& INV_LENGTH = SQFloat::_1 / this->GetLength();
 
@@ -368,7 +368,7 @@ QQuaternion QQuaternion::Invert() const
     // [TODO] Thund: DirectX implementation uses ln(Q) = (0, theta * v), is it faster?
     const float_q& SQUARED_LENGTH = this->GetSquaredLength();
 
-    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0, "Null quaternions cannot be inverted, this will produce a division by zero")
+    QE_ASSERT(SQUARED_LENGTH != SQFloat::_0, "Null quaternions cannot be inverted, this will produce a division by zero");
 
     const float_q& NEG_INV_LENGTH = -SQFloat::_1/SQUARED_LENGTH;
 
@@ -410,12 +410,12 @@ float_q QQuaternion::AngleBetween(const QQuaternion &qQuat) const
     const float_q fLengths = fThisLength * fInputLength;
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(fLengths != SQFloat::_0, "Quaternions must not be null, this will produce a division by zero")
+    QE_ASSERT(fLengths != SQFloat::_0, "Quaternions must not be null, this will produce a division by zero");
 
     float_q fDot = (this->x*qQuat.x + this->y*qQuat.y + this->z*qQuat.z + this->w*qQuat.w)/fLengths;
 
     // Checkout to avoid undefined values of acos. Remember that -1 <= cos(angle) <= 1.
-    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1, "The value of \"fDor\" must be between -1 and +1")
+    QE_ASSERT(SQFloat::Abs(fDot) <= SQFloat::_1, "The value of \"fDor\" must be between -1 and +1");
 
     float_q fAngle = acos(fDot) * SQFloat::_2;
 
@@ -443,7 +443,7 @@ QQuaternion QQuaternion::Lerp(const float_q &fProportion, const QQuaternion &qQu
     // Separated from the equation to check for "division by zero"
     float_q fDivisor = ( qAuxSum ).GetLength();
 
-    QE_ASSERT(fDivisor != SQFloat::_0, "Quaternion must not be null and the input proportion must not equal zero, this will produce a division by zero")
+    QE_ASSERT(fDivisor != SQFloat::_0, "Quaternion must not be null and the input proportion must not equal zero, this will produce a division by zero");
 
     return qAuxSum / fDivisor;
 }
@@ -466,7 +466,7 @@ QQuaternion QQuaternion::Slerp(const float_q &fProportion, const QQuaternion &qQ
 
     const float_q ANGLE_B = acos_q(DOT_PRODUCT);
 
-    QE_ASSERT( !SQFloat::IsNaN(ANGLE_B), "The resultant angle \"ANGLE_B\" is NAN" )
+    QE_ASSERT( !SQFloat::IsNaN(ANGLE_B), "The resultant angle \"ANGLE_B\" is NAN" );
 
     if( ANGLE_B != SQFloat::_0 && SQFloat::AreNotEqual(ANGLE_B, PI_Q) )
     {
@@ -481,7 +481,7 @@ QQuaternion QQuaternion::Slerp(const float_q &fProportion, const QQuaternion &qQ
         // Separated from the equation to check for "division by zero"
         const float_q DIVISOR = AUX_SUM.GetLength();
 
-        QE_ASSERT(DIVISOR != SQFloat::_0, "The variable \"DIVISOR\" must not equal zero, this will cause a division by zero")
+        QE_ASSERT(DIVISOR != SQFloat::_0, "The variable \"DIVISOR\" must not equal zero, this will cause a division by zero");
 
         qReturnValue = AUX_SUM / DIVISOR;
     }
@@ -505,7 +505,7 @@ QQuaternion QQuaternion::UnitSlerp(const float_q &fProportion, const QQuaternion
 
     const float_q& ANGLE_B = acos_q(fDot);
 
-    QE_ASSERT( !SQFloat::IsNaN(ANGLE_B), "The resultant angle \"ANGLE_B\" is NAN" )
+    QE_ASSERT( !SQFloat::IsNaN(ANGLE_B), "The resultant angle \"ANGLE_B\" is NAN" );
 
     // If angle B is equal to 0 or Pi, then sin will be zero and the following divisions will crash
     if(ANGLE_B != SQFloat::_0 && SQFloat::AreNotEqual(ANGLE_B, PI_Q))
@@ -521,7 +521,7 @@ QQuaternion QQuaternion::UnitSlerp(const float_q &fProportion, const QQuaternion
         // Separated from the equation to check for "division by zero"
         const float_q DIVISOR = AUX_SUM.GetLength();
 
-        QE_ASSERT(DIVISOR != SQFloat::_0, "The variable \"DIVISOR\" must not equal zero, this will cause a division by zero")
+        QE_ASSERT(DIVISOR != SQFloat::_0, "The variable \"DIVISOR\" must not equal zero, this will cause a division by zero");
 
         qReturnValue = AUX_SUM / DIVISOR;
     }

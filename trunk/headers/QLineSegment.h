@@ -1163,7 +1163,7 @@ public:
 			return EQIntersections::E_None;
 		else if (SQFloat::IsZero(D)) // D = b^2 - 4ac = 0 => 1 intersection
 		{
-			QE_ASSERT(SQFloat::IsNotZero(a), "The variable \"a\" should not equal zero, this will produce a division by zero")
+			QE_ASSERT(SQFloat::IsNotZero(a), "The variable \"a\" should not equal zero, this will produce a division by zero");
 
 			const float_q &t = -(b*SQFloat::_0_5 / a);
 
@@ -1204,7 +1204,7 @@ public:
 		}
 		else // D = b^2 - 4ac > 0 => 2 intersections
 		{
-			QE_ASSERT(SQFloat::IsNotZero(a), "The variable \"a\" should not equal zero, this will produce a division by zero")
+			QE_ASSERT(SQFloat::IsNotZero(a), "The variable \"a\" should not equal zero, this will produce a division by zero");
 
 			const float_q &fAux1 = sqrt_q(D);
 			const float_q &fAux2 = SQFloat::_0_5 / a;
@@ -1363,7 +1363,7 @@ public:
 				else
 				{
 					// Checkout to avoid division by 0
-					QE_ASSERT (fDotProductv1v1 != SQFloat::_0, "The variable \"fDotProductv1v1\" should not equal zero, this will produce a division by zero")
+					QE_ASSERT (fDotProductv1v1 != SQFloat::_0, "The variable \"fDotProductv1v1\" should not equal zero, this will produce a division by zero");
 
 					return ((A + ((fDotProductv1v2 / fDotProductv1v1) * v1)) - vPoint).GetLength();
 				}
@@ -1527,7 +1527,7 @@ protected:
 				// fSFactor1 = 0 --> fSFactor2 = (((fDotProdv1v2 * fSFactor1) + fDotProdv2vTails) / fSqrLengthv2) = (fDotProdv2vTails / fSqrLengthv2)
 
 				// Checkout to avoid division by 0
-				QE_ASSERT(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero")
+				QE_ASSERT(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
 				fSFactor2 = SQFloat::Clamp( (fDotProdv2vTails / fSqrLengthv2), SQFloat::_0, SQFloat::_1);
 		    }
@@ -1541,7 +1541,7 @@ protected:
 					// fSFactor2 = 0 --> fSFactor1 = (((fDotProdv1v2 * fSFactor2) - fDotProdv1vTails) / fSqrLengthv1) = (-fDotProdv1vTails / fSqrLengthv1)
 
 					// Checkout to avoid division by 0
-					QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero")
+					QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
 					fSFactor1 = SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
 
@@ -1584,7 +1584,7 @@ protected:
 						fSFactor2 = SQFloat::_0;
 
 						// Checkout to avoid division by 0
-						QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero")
+						QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
 						fSFactor1 = SQFloat::Clamp( (-fDotProdv1vTails / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
 					}
@@ -1593,7 +1593,7 @@ protected:
 						fSFactor2 = SQFloat::_1;
 
 						// Checkout to avoid division by 0
-						QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero")
+						QE_ASSERT(fSqrLengthv1 != SQFloat::_0, "The variable \"fSqrLengthv1\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
 						fSFactor1 = SQFloat::Clamp( ((fDotProdv1v2 - fDotProdv1vTails) / fSqrLengthv1), SQFloat::_0, SQFloat::_1 );
 
@@ -1601,10 +1601,9 @@ protected:
 					else // fNom in range [0..1]
 					{
 						// Checkout to avoid division by 0
-						QE_ASSERT(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero")
+						QE_ASSERT(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
 						fSFactor2 = fNom / fSqrLengthv2;
-					}
 		        }
 		    }
 

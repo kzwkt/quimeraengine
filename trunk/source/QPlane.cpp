@@ -105,7 +105,7 @@ void QPlane::QPlaneImp(const VectorType &vPoint1, const VectorType &vPoint2, con
     VectorType vAux1 = ( vPoint1 - vPoint2 ).CrossProduct( vPoint1 - vPoint3 );;
 
     // Checkout to avoid the possibility of tree colinear points.
-    QE_ASSERT(!vAux1.IsZero(), "Input points must not be colinear")
+    QE_ASSERT(!vAux1.IsZero(), "Input points must not be colinear");
 
     // Plane equation
     *this = QPlane( vAux1.x, vAux1.y, vAux1.z, -vAux1.DotProduct(vPoint1) ).Normalize();
@@ -134,7 +134,7 @@ QPlane operator*(const float_q &fScalar, const QPlane &plane)
 
 QPlane QPlane::operator/(const float_q &fScalar) const
 {
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -154,7 +154,7 @@ QPlane& QPlane::operator*=(const float_q fScalar)
 QPlane& QPlane::operator/=(const float_q &fScalar)
 {
     // Checkout to avoid division by 0
-    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero")
+    QE_ASSERT(fScalar != SQFloat::_0, "Input value must not equal zero");
 
     const float_q &DIVISOR = SQFloat::_1/fScalar;
 
@@ -228,7 +228,7 @@ float_q QPlane::AngleBetween(const QBasePlane &plane) const
 
     float_q fAngle = acos_q(DOT);
 
-    QE_ASSERT( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" )
+    QE_ASSERT( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" );
     
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
@@ -592,7 +592,7 @@ float_q QPlane::AngleBetweenImp(const VectorType &vVector) const
     const float_q &DOT_LENGTH = sqrt_q(vVector.x*vVector.x + vVector.y*vVector.y + vVector.z*vVector.z);
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(DOT_LENGTH != SQFloat::_0, "Input vector must not be null, this will produce a division by zero")
+    QE_ASSERT(DOT_LENGTH != SQFloat::_0, "Input vector must not be null, this will produce a division by zero");
 
     float_q DOT = this->DotProduct(vVector)/DOT_LENGTH;
 
@@ -604,7 +604,7 @@ float_q QPlane::AngleBetweenImp(const VectorType &vVector) const
 
     float_q fAngle = acos_q(DOT);
 
-    QE_ASSERT( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" )
+    QE_ASSERT( !SQFloat::IsNaN(fAngle), "The resultant angle is NAN" );
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts angle to degrees
@@ -703,7 +703,7 @@ EQIntersections QPlane::IntersectionPointImp(const QBasePlane &plane1, const QBa
 {
     // None of the planes should be null
     QE_ASSERT( !(SQFloat::IsZero(this->a) && SQFloat::IsZero(this->b) && SQFloat::IsZero(this->c)), "The plane should not be null, the result will be incorrect" );
-    QE_ASSERT( !(SQFloat::IsZero(plane1.a) && SQFloat::IsZero(plane1.b) && SQFloat::IsZero(plane1.c)), "Input planes should not be null, the result will be incorrect" );;
+    QE_ASSERT( !(SQFloat::IsZero(plane1.a) && SQFloat::IsZero(plane1.b) && SQFloat::IsZero(plane1.c)), "Input planes should not be null, the result will be incorrect" );
     QE_ASSERT( !(SQFloat::IsZero(plane2.a) && SQFloat::IsZero(plane2.b) && SQFloat::IsZero(plane2.c)), "Input planes should not be null, the result will be incorrect" );
 
     // Solved by Cramer method.

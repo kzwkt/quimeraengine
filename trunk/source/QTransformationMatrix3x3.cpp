@@ -118,7 +118,7 @@ void QTransformationMatrix3x3::Decompose(QBaseVector2 &vOutDisp, float_q &fOutRo
     vOutScale.y = hypot_q(this->ij[1][0], this->ij[1][1]);
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(vOutScale.x != SQFloat::_0, "The scale in the X axis must not equal zero, this will cause a division by zero")
+    QE_ASSERT(vOutScale.x != SQFloat::_0, "The scale in the X axis must not equal zero, this will cause a division by zero");
 
     float_q COS_ROT = this->ij[0][0] / vOutScale.x;
 
@@ -149,7 +149,7 @@ void QTransformationMatrix3x3::GetRotation(float_q &fRotationAngle) const
     const float_q &SCALE = hypot_q(this->ij[0][0], this->ij[0][1]);
 
     // Checkout to avoid division by zero.
-    QE_ASSERT(SCALE != SQFloat::_0, "The scale must not be null, this will produce a division by zero")
+    QE_ASSERT(SCALE != SQFloat::_0, "The scale must not be null, this will produce a division by zero");
 
     float_q COS_ROT = this->ij[0][0] / SCALE;
 

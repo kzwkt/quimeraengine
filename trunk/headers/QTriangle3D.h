@@ -563,7 +563,7 @@ public:
         // NORMAL_TO_BC and AB can't be perpendicular, but we ensure it:
         const float_q &DOT = NORMAL_TO_BC.DotProduct(AB);
 
-        QE_ASSERT(DOT != SQFloat::_0, "\"NORMAL_TO_BC\" and \"AB\" can't be perpendicular")
+        QE_ASSERT(DOT != SQFloat::_0, "\"NORMAL_TO_BC\" and \"AB\" can't be perpendicular");
 
 	    return this->A - ( CA.DotProduct(AB) / DOT ) * NORMAL_TO_BC;
 	}

@@ -179,13 +179,13 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
                                                       const float_q &fAspectRatio, const float_q &fVerticalFOV)
 {
     // The clipping planes should not coincide
-    QE_ASSERT(SQFloat::AreNotEqual(fNearClipPlane, fFarClipPlane), "The clipping planes should not coincide")
+    QE_ASSERT(SQFloat::AreNotEqual(fNearClipPlane, fFarClipPlane), "The clipping planes should not coincide");
 
     // The aspect ratio must be positive and not equal zero
-    QE_ASSERT(SQFloat::IsGreaterThan(fAspectRatio, SQFloat::_0), "The aspect ratio must be positive and not equal zero")
+    QE_ASSERT(SQFloat::IsGreaterThan(fAspectRatio, SQFloat::_0), "The aspect ratio must be positive and not equal zero");
 
     // The vertical field of view must be positive and not equal zero
-    QE_ASSERT(SQFloat::IsGreaterThan(fVerticalFOV, SQFloat::_0), "The vertical field of view must be positive and not equal zero")
+    QE_ASSERT(SQFloat::IsGreaterThan(fVerticalFOV, SQFloat::_0), "The vertical field of view must be positive and not equal zero");
 
     #if QE_CONFIG_ANGLENOTATION_DEFAULT == QE_CONFIG_ANGLENOTATION_DEGREES
         // If angles are specified in degrees, then converts it to radians
@@ -194,7 +194,7 @@ void QSpaceConversionMatrix::SetProjectionSpaceMatrix(const float_q &fNearClipPl
         const float_q& HALF_VERT_FOV = fVerticalFOV * SQFloat::_0_5;
     #endif
 
-    QE_ASSERT( SQFloat::AreNotEqual(HALF_VERT_FOV, SQAngle::_HalfPi), "Input vertical FOV must not equal a plain angle" )
+    QE_ASSERT( SQFloat::AreNotEqual(HALF_VERT_FOV, SQAngle::_HalfPi), "Input vertical FOV must not equal a plain angle" );
 
     const float_q& SCALE_Y  = float_q((double)SQFloat::_1 / tan_q((double)HALF_VERT_FOV));
     const float_q& SCALE_X  = float_q((double)SCALE_Y / (double)fAspectRatio);

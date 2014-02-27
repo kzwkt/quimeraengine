@@ -1287,7 +1287,7 @@ public:
                         vIntersection1.z = vAux.z;
                     }
                     else
-                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
                     return EQIntersections::E_One;
                 }
@@ -1447,7 +1447,7 @@ public:
                         }
                     }
                     else
-                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")  // Something is wrong, there is ONE intersection and is not a vertex
+                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");  // Something is wrong, there is ONE intersection and is not a vertex
                 }
 
                 if (bPrevInt)
@@ -2246,7 +2246,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(DENOM != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero")
+        QE_ASSERT(DENOM != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero");
 
         const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
@@ -2294,7 +2294,7 @@ protected:
         // Compute barycentric coordinates
         const float_q &DENOM = DOT_00 * DOT_11 - DOT_01 * DOT_01;
 
-        QE_ASSERT(DENOM != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero")
+        QE_ASSERT(DENOM != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero");
 
         const float_q &INV_DENOM = SQFloat::_1 / DENOM;
 
@@ -2318,7 +2318,7 @@ protected:
         // Compute new barycentric coordinates
         const float_q &DENOM2 = DOT_00 * DOT_33 - DOT_03 * DOT_03;
 
-        QE_ASSERT(DENOM2 != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero")
+        QE_ASSERT(DENOM2 != SQFloat::_0, "The constant value DENOM must not be zero, this will cause a division by zero");
 
         const float_q &INV_DENOM2 = SQFloat::_1 / DENOM2;
 
@@ -2583,7 +2583,7 @@ protected:
                     else if (this->IntersectionPoint(QBaseLineSegment<VectorType>(vVertexD, vVertexA), vAux) == EQIntersections::E_One)
                         vIntersection2 = vAux;
                     else
-                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
+                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");  // Something is wrong, if ray point is interior, it must be ONE intersection with a edge.
 
                     return EQIntersections::E_Two;
                 }
@@ -2746,7 +2746,7 @@ protected:
                         }
                     }
                     else // It's the first intersection found
-                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached")  // Something is wrong
+                        QE_ASSERT(false, "Something went really wrong, this code branch must never be reached");  // Something is wrong
                 }
 
                 if (bPrevInt)
