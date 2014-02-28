@@ -34,6 +34,7 @@ using namespace boost::unit_test;
 #include "QAlignment.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::pointer_uint_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::char_q;
 using Kinesis::QuimeraEngine::Common::Memory::QAlignment;
 
 // --------------------------------------------------------------------------------------------------------
@@ -71,21 +72,31 @@ QTEST_CASE ( OperatorDelete_AssertionFailsWhenReceivedANonAlignedMemoryBlock_Tes
     const pointer_uint_q ALIGNMENT_VALUE_POWER_OF_TWO = 8;
     QAlignment           align_001(ALIGNMENT_VALUE_POWER_OF_TWO);
 
-    TFooEightBytesSize* pFoo001                      = null_q;
+    TFooEightBytesSize* pFoo001                       = null_q;
 
 
 	// [Execution]
 
     try
     {
-        // Memory block probably not aligned in memory.
-        char  arMemoryBuffer[sizeof(TFooEightBytesSize) + 1];
+        // Memory block probably not aligned in memory. However, note that the size
+        // of the memory block is 1 byte bigger, that's because maybe it's necessary
+        // to provide manually a non-aligned addrees (se below).
+        char_q  arMemoryBuffer[sizeof(TFooEightBytesSize) + 1];
+        arMemoryBuffer[sizeof(TFooEightBytesSize)] = '\0';
+        char_q* p                                  = arMemoryBuffer;
 
-        // The pointer is pointing to a definitively not aligned memory address.
-        void* p = arMemoryBuffer + 1;
+        // If true, the pointer is pointing to an aligned address, so it's necessary
+        // to modify the pointer manually in order to provide a non-aligned address.
+        if ( 0 == ((rcast_q(p, pointer_uint_q)) & (align_001 - 1)) )
+        {
+            // Now it's pointing to a definitively not aligned memory address.
+            ++p;
+        }
 
-        // The dynamically allocated memory block is NOT aligned according to it's regarding alignment.
-        pFoo001 = new (p) TFooEightBytesSize();
+        // Finally, the struct is created in the NON-aligned memory block.
+        void*   q = p;
+        pFoo001   = new (q) TFooEightBytesSize();
 
         if (null_q != pFoo001)
         {
@@ -126,14 +137,24 @@ QTEST_CASE ( OperatorDeleteArray_AssertionFailsWhenReceivedANonAlignedMemoryBloc
 
     try
     {
-        // Memory block probably not aligned in memory.
-        char  arMemoryBuffer[sizeof(TFooEightBytesSize) + 1];
+        // Memory block probably not aligned in memory. However, note that the size
+        // of the memory block is 1 byte bigger, that's because maybe it's necessary
+        // to provide manually a non-aligned addrees (se below).
+        char_q  arMemoryBuffer[sizeof(TFooEightBytesSize) + 1];
+        arMemoryBuffer[sizeof(TFooEightBytesSize)] = '\0';
+        char_q* p                                  = arMemoryBuffer;
 
-        // The pointer is pointing to a definitively not aligned memory address.
-        void* p = arMemoryBuffer + 1;
+        // If true, the pointer is pointing to an aligned address, so it's necessary
+        // to modify the pointer manually in order to provide a non-aligned address.
+        if ( 0 == ((rcast_q(p, pointer_uint_q)) & (align_002 - 1)) )
+        {
+            // Now it's pointing to a definitively not aligned memory address.
+            ++p;
+        }
 
-        // The dynamically allocated memory block is NOT aligned according to to it's regarding alignment.
-        pFoo002 = new (p) TFooEightBytesSize();
+        // Finally, the struct is created in the NON-aligned memory block.
+        void*   q = p;
+        pFoo002   = new (q) TFooEightBytesSize();
 
         if (null_q != pFoo002)
         {
