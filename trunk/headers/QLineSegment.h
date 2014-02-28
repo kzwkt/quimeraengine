@@ -1604,6 +1604,7 @@ protected:
 						QE_ASSERT(fSqrLengthv2 != SQFloat::_0, "The variable \"fSqrLengthv2\" should not equal zero (line endpoints should not coincide), this will produce a division by zero");
 
 						fSFactor2 = fNom / fSqrLengthv2;
+                    };
 		        }
 		    }
 
