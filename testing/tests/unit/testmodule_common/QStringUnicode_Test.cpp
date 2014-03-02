@@ -92,6 +92,252 @@ QTEST_CASE ( OperatorAssignation_CopiedStringIsEqualToOriginal_Test )
 }
 
 /// <summary>
+/// Checks that it returns True when strings are exactly the same.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsTrueWhenStringsAreEqual_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    // [Preparation]
+    /*const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("ABCDE");
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING1 == STRING2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns False when strings are not the same.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenStringsAreNotEqual_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    // [Preparation]
+    /*const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING1 == STRING2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns False when strings are equivalent but not exactly the same.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenStringsAreEquivalentButNotTheSame_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+
+    // [Preparation]
+    // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
+    // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
+    /*wchar_t CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
+    wchar_t CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
+    const QStringUnicode STRING1(CHAR_STRING1);
+    const QStringUnicode STRING2(CHAR_STRING2);
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING1 == STRING2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns False when strings are exactly the same.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsFalseWhenStringsAreEqual_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    // [Preparation]
+    /*const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("ABCDE");
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = STRING1 != STRING2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns True when strings are not the same.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenStringsAreNotEqual_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    // [Preparation]
+    /*const QStringUnicode STRING1("ABCDE");
+    const QStringUnicode STRING2("FGHIJ");
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING1 != STRING2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns True when strings are equivalent but not exactly the same.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenStringsAreEquivalentButNotTheSame_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+
+    // [Preparation]
+    // Both characters are represented graphically the same way but have different code points. If they were decomposed canonically,
+    // they would be exactly the same: U+0041 LATIN CAPITAL LETTER A + U+030A COMBINING RING ABOVE
+    /*wchar_t CHAR_STRING1[] = { 0x212B, 0 }; // Å -> U+212B
+    wchar_t CHAR_STRING2[] = { 0x00C5, 0 }; // Å -> U+00C5
+    const QStringUnicode STRING1(CHAR_STRING1);
+    const QStringUnicode STRING2(CHAR_STRING2);
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = STRING1 != STRING2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it concatenates both strings, the left one before the right one.
+/// </summary>
+QTEST_CASE ( OperatorAddition_ConcatenatesBothStrings_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    // [Preparation]
+    /*const QStringUnicode STRING1("ABC");
+    const QStringUnicode STRING2("DEF");
+    const QStringUnicode EXPECTED_RESULT("ABCDEF");
+
+	// [Execution]
+    QStringUnicode strResult = STRING1 + STRING2;
+    
+    // [Verification]
+    BOOST_CHECK(strResult == EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns the expected character when using a common index.
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_ReturnsExpectedCharacterWhenUsingCommonIndex_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    const QStringUnicode STRING1("ABC");
+    const unsigned int COMMON_INDEX = 1;
+    const QCharUnicode EXPECTED_RESULT(0x0042); // B
+
+	// [Execution]
+    QCharUnicode charResult = STRING1[COMMON_INDEX];
+    
+    // [Verification]
+    BOOST_CHECK(charResult == EXPECTED_RESULT);*/
+}
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_DISABLED
+
+/// <summary>
+/// Checks that it returns the expected character when using a common index.
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_ReturnsNonCharacterWhenStringIsEmpty_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    const QStringUnicode EMPTY_STRING("");
+    const unsigned int COMMON_INDEX = 1;
+    const QCharUnicode EXPECTED_RESULT(0xFFFF); // Not a character
+
+	// [Execution]
+    QCharUnicode charResult = EMPTY_STRING[COMMON_INDEX];
+    
+    // [Verification]
+    BOOST_CHECK(charResult == EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns the expected character when using a common index.
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_ReturnsNonCharacterWhenIndexIsOutOfBounds_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    const QStringUnicode STRING1("ABC");
+    const unsigned int OUTOFBOUNDS_INDEX = 3;
+    const QCharUnicode EXPECTED_RESULT(0xFFFF); // Not a character
+
+	// [Execution]
+    QCharUnicode charResult = STRING1[OUTOFBOUNDS_INDEX];
+    
+    // [Verification]
+    BOOST_CHECK(charResult == EXPECTED_RESULT);*/
+}
+
+#elif QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when the index is out of bounds.
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenIndexIsOutOfBounds_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    // [Preparation]
+    /*const QStringUnicode STRING1("ABC");
+    const unsigned int OUTOFBOUNDS_INDEX = 3;
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        STRING1[OUTOFBOUNDS_INDEX];
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+}
+
+/// <summary>
+/// Checks that an assertion fails when the string is empty.
+/// </summary>
+QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenStringIsEmpty_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    /*using Kinesis::QuimeraEngine::Common::DataTypes::QCharUnicode;
+
+    // [Preparation]
+    const QStringUnicode EMPTY_STRING("");
+    const unsigned int COMMON_INDEX = 1;
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed = false;
+
+    try
+    {
+        EMPTY_STRING[COMMON_INDEX];
+    }
+    catch(...)
+    {
+        bAssertionFailed = true;
+    }
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);*/
+}
+
+#endif
+
+/// <summary>
 /// Checks that it returns the expected result when using common input positions.
 /// </summary>
 QTEST_CASE ( Substring_ReturnsExpectedResultWhenUsingCommonInputPositions_Test )
@@ -299,6 +545,38 @@ QTEST_CASE ( GetLength_ReturnsCorrectValueWhenUsingCommonString_Test )
     
     // [Verification]
     BOOST_CHECK_EQUAL(nLength, EXPECTED_LENGTH);*/
+}
+
+/// <summary>
+/// Checks that it returns True when the string is empty.
+/// </summary>
+QTEST_CASE ( IsEmpty_ReturnsTrueWhenStringIsEmpty_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    // [Preparation]
+    /*const QStringUnicode SOURCE_STRING("");
+    const bool EXPECTED_RESULT = true;
+
+	// [Execution]
+    bool bResult = SOURCE_STRING.IsEmpty();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
+}
+
+/// <summary>
+/// Checks that it returns False when the string is not empty.
+/// </summary>
+QTEST_CASE ( IsEmpty_ReturnsFalseWhenStringIsNotEmpty_Test )
+{// [TODO] Thund: Uncomment when a constructor that receives a character array or another initialization mechanism is implemented
+    // [Preparation]
+    /*const QStringUnicode SOURCE_STRING("ABC");
+    const bool EXPECTED_RESULT = false;
+
+	// [Execution]
+    bool bResult = SOURCE_STRING.IsEmpty();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);*/
 }
 
 // End - Test Suite: QStringUnicode

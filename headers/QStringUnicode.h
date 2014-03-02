@@ -247,7 +247,7 @@ public:
         /// <summary>
         /// Makes the iterator point to the last position.
         /// </summary>
-		/// <remarks>
+        /// <remarks>
         /// If the string is empty, the iterator will point to the end position.
         /// </remarks>
         void MoveLast();
@@ -323,6 +323,46 @@ public:
     QStringUnicode& operator=(const QStringUnicode &strString);
 
     /// <summary>
+    /// Equality operator that performs a bitwise comparison of two strings to know if they are equal.
+    /// </summary>
+    /// <param name="strString">[IN] The input string to compare to.</param>
+    /// <returns>
+    /// True if strings are equal; False otherwise.
+    /// </returns>
+    bool operator==(const QStringUnicode &strString) const;
+
+    /// <summary>
+    /// Inequality operator that performs a bitwise comparison of two strings to know if they are different.
+    /// </summary>
+    /// <param name="strString">[IN] The input string to compare to.</param>
+    /// <returns>
+    /// True if strings are not equal; False otherwise.
+    /// </returns>
+    bool operator!=(const QStringUnicode &strString) const;
+
+    /// <summary>
+    /// Addition operator that generates a new string by concatenating two others.
+    /// </summary>
+    /// <param name="strString">[IN] The input string to append to the resident string.</param>
+    /// <returns>
+    /// A new string where the resident string appears in first place followed by the input string.
+    /// </returns>
+    QStringUnicode operator+(const QStringUnicode &strString) const;
+    
+    /// <summary>
+    /// Array subscripting operator that returns a Unicode character located at a given position.
+    /// </summary>
+    /// <remarks>
+    /// If the string is empty, a non-character value will be returned (U+FFFF).
+    /// </remarks>
+    /// <param name="uIndex">[IN] The zero-based index of the character to retrieve. It must be lower than the lenght of the string or 
+    /// a non-character value (U+FFFF) will be returned.</param>
+    /// <returns>
+    /// True if strings are not equal; False otherwise.
+    /// </returns>
+    QCharUnicode operator[](const unsigned int uIndex) const;
+
+    /// <summary>
     /// Obtains a new string from a subset of characters of the resident string, limited by a given range of positions.
     /// </summary>
     /// <param name="uStartPosition">[IN] The position (zero-based index) of the first character of the resultant substring.</param>
@@ -330,7 +370,7 @@ public:
     /// <returns>
     /// A subset of the resident string.
     /// </returns>
-    QStringUnicode Substring(const unsigned int &uStartPosition, const unsigned int &uLastPosition) const;
+    QStringUnicode Substring(const unsigned int uStartPosition, const unsigned int uLastPosition) const;
 
     /// <summary>
     /// Obtains a constant iterator pointing to the first position.
@@ -352,6 +392,14 @@ public:
     /// The number of characters.
     /// </returns>
     unsigned int GetLength() const;
+
+    /// <summary>
+    /// Indicates whether the string is empty or not.
+    /// </summary>
+    /// <returns>
+    /// True if the string is empty; False otherwise.
+    /// </returns>
+    bool IsEmpty() const;
 
 
 	// ATTRIBUTES
