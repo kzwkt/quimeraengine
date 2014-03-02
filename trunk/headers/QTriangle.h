@@ -31,6 +31,9 @@
 
 #include "Assertions.h"
 #include "MathDefinitions.h"
+#include "QVector2.h"
+#include "QVector3.h"
+#include "QVector4.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -304,6 +307,17 @@ public:
 		return QE_L("T(a(") + A.ToString() + QE_L("),b(") + B.ToString() + QE_L("),c(") + C.ToString() + QE_L("))");
 	}
 };
+
+
+// SPECIALIZATION EXPORTATIONS
+// -----------------------------
+#ifdef QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
+
+template class QE_LAYER_TOOLS_SYMBOLS QTriangle<Kinesis::QuimeraEngine::Tools::Math::QVector2>;
+template class QE_LAYER_TOOLS_SYMBOLS QTriangle<Kinesis::QuimeraEngine::Tools::Math::QVector3>;
+template class QE_LAYER_TOOLS_SYMBOLS QTriangle<Kinesis::QuimeraEngine::Tools::Math::QVector4>;
+
+#endif // QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
 
 } //namespace Math
 } //namespace Tools

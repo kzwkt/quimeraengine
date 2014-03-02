@@ -29,7 +29,7 @@
 
 #include "QBaseVector3.h"
 
-using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
+
 using Kinesis::QuimeraEngine::Common::DataTypes::vf32_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 
@@ -42,7 +42,7 @@ namespace Tools
 {
 namespace Math
 {
-
+    
 // Forward declarations
 // ---------------------
 class QBaseMatrix3x3;

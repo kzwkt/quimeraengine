@@ -27,8 +27,6 @@
 #ifndef __QBASEMATRIX2X2__
 #define __QBASEMATRIX2X2__
 
-#include <memory>
-
 #include "DataTypesDefinitions.h"
 #include "ToolsDefinitions.h"
 

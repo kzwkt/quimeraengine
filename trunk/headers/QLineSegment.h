@@ -27,12 +27,14 @@
 #ifndef __QLINESEGMENT__
 #define __QLINESEGMENT__
 
-//#include "MathDefinitions.h"
 #include "EQIntersections.h"
 #include "QBaseLineSegment.h"
 #include "QBaseOrb.h"
 #include "SQAngle.h"
 #include "MathDefinitions.h"
+#include "QVector2.h"
+#include "QVector3.h"
+#include "QVector4.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -1618,6 +1620,16 @@ protected:
 
 };
 
+
+// SPECIALIZATION EXPORTATIONS
+// -----------------------------
+#ifdef QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
+
+template class QE_LAYER_TOOLS_SYMBOLS QLineSegment<Kinesis::QuimeraEngine::Tools::Math::QVector2>;
+template class QE_LAYER_TOOLS_SYMBOLS QLineSegment<Kinesis::QuimeraEngine::Tools::Math::QVector3>;
+template class QE_LAYER_TOOLS_SYMBOLS QLineSegment<Kinesis::QuimeraEngine::Tools::Math::QVector4>;
+
+#endif // QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
 
 } //namespace Math
 } //namespace Tools

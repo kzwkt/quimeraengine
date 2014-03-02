@@ -42,13 +42,13 @@ const unsigned int QE_VERSION_REVISION = 0;
 // --------------------------------------------------------------------------------------------------------
 // Null Pointer: Defines the value that identifies a null pointer, depending on the compiler.
 // --------------------------------------------------------------------------------------------------------
-#ifdef QE_COMPILER_MSVC
+#if defined(QE_COMPILER_MSVC)
     #if QE_COMPILER_MSVC >= 10
         #define null_q 0
     #else
         #define null_q 0
     #endif
-#elif QE_COMPILER_GCC
+#elif defined(QE_COMPILER_GCC)
     #define null_q 0
 #endif
 
@@ -56,13 +56,13 @@ const unsigned int QE_VERSION_REVISION = 0;
 // Warning disabler: Defines the compiler proprocessor #pragma instruction that disables a warning.
 //                   Note that it is not cross-platform since every compiler uses very different syntaxes.
 // --------------------------------------------------------------------------------------------------------
-#ifdef QE_COMPILER_MSVC
+#if defined(QE_COMPILER_MSVC)
     #if QE_COMPILER_MSVC >= 10
         #define QE_DISABLE_WARNING(number) warning (disable : number )
     #else
         #define QE_DISABLE_WARNING(number) warning (disable : number )
     #endif
-#elif QE_COMPILER_GCC
+#elif defined(QE_COMPILER_GCC)
     #define QE_DISABLE_WARNING(flag) GCC diagnostic ignored flag
 #endif
 
@@ -70,20 +70,20 @@ const unsigned int QE_VERSION_REVISION = 0;
 // Dll exportation / importation aliases: Defines which compiler keywords will be used to export and import
 // symbols when compiling as a DLL, depending on the operative system and the compiler.
 // --------------------------------------------------------------------------------------------------------
-#ifdef QE_OS_WINDOWS
-    #ifdef QE_COMPILER_MSVC
+#if defined(QE_OS_WINDOWS)
+    #if defined(QE_COMPILER_MSVC)
         #define QE_EXPORT_SYMBOLS __declspec( dllexport )
         #define QE_EXPORT_SYMBOLS_EXTERN
         #define QE_IMPORT_SYMBOLS __declspec( dllimport )
         #define QE_IMPORT_SYMBOLS_EXTERN extern
-    #elif QE_COMPILER_GCC
+    #elif defined(QE_COMPILER_GCC)
         #define QE_EXPORT_SYMBOLS __attribute__(( dllexport ))
         #define QE_EXPORT_SYMBOLS_EXTERN
         #define QE_IMPORT_SYMBOLS __attribute__(( dllimport ))
         #define QE_IMPORT_SYMBOLS_EXTERN extern
     #endif
 #elif defined(QE_OS_LINUX)
-    #if QE_COMPILER_GCC
+    #if defined(QE_COMPILER_GCC)
         #define QE_EXPORT_SYMBOLS __attribute__ ((visibility ("default")))
         #define QE_EXPORT_SYMBOLS_EXTERN
         #define QE_IMPORT_SYMBOLS

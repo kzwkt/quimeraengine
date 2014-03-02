@@ -35,8 +35,6 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "ToolsExports.h"
-
 #include "QBaseRay.h"
 #include "QVector4.h"
 #include "QVector3.h"

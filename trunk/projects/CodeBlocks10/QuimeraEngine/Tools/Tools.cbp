@@ -261,7 +261,6 @@
 			<Option virtualFolder="Math/" />
 		</Unit>
 		<Unit filename="../../../../headers/ToolsDefinitions.h" />
-		<Unit filename="../../../../headers/ToolsExports.h" />
 		<Unit filename="../../../../source/EQIntersections.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -272,6 +271,12 @@
 			<Option virtualFolder="Containers/" />
 		</Unit>
 		<Unit filename="../../../../source/QBaseDualQuaternion.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseHexahedron.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseLineSegment.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
 		<Unit filename="../../../../source/QBaseMatrix2x2.cpp">
@@ -289,6 +294,9 @@
 		<Unit filename="../../../../source/QBaseMatrix4x4.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../source/QBaseOrb.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
 		<Unit filename="../../../../source/QBasePlane.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -296,6 +304,12 @@
 			<Option virtualFolder="Math/" />
 		</Unit>
 		<Unit filename="../../../../source/QBaseQuaternion.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseRay.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QBaseTriangle.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
 		<Unit filename="../../../../source/QBaseVector2.cpp">
@@ -313,7 +327,16 @@
 		<Unit filename="../../../../source/QDualQuaternion.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../source/QHexahedron.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QLineSegment.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
 		<Unit filename="../../../../source/QLineSegment2D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QLineSegment3D.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
 		<Unit filename="../../../../source/QMatrix2x2.cpp">
@@ -331,6 +354,9 @@
 		<Unit filename="../../../../source/QMatrix4x4.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../source/QOrb.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
 		<Unit filename="../../../../source/QPlane.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -340,7 +366,13 @@
 		<Unit filename="../../../../source/QQuaternion.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../source/QRay.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
 		<Unit filename="../../../../source/QRay2D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QRay3D.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
 		<Unit filename="../../../../source/QRotationMatrix3x3.cpp">
@@ -355,10 +387,25 @@
 		<Unit filename="../../../../source/QTimeSpan.cpp">
 			<Option virtualFolder="Time/" />
 		</Unit>
+		<Unit filename="../../../../source/QSphere.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTransformationMatrix.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
 		<Unit filename="../../../../source/QTransformationMatrix3x3.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../source/QTranslationMatrix.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTriangle.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
 		<Unit filename="../../../../source/QTriangle2D.cpp">
+			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QTriangle3D.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
 		<Unit filename="../../../../source/QVector2.cpp">
@@ -376,7 +423,6 @@
 		<Unit filename="../../../../source/SQPoint.cpp">
 			<Option virtualFolder="Math/" />
 		</Unit>
-		<Unit filename="../../../../source/ToolsExports.cpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

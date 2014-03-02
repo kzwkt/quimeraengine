@@ -27,6 +27,7 @@
 #ifndef __ASSERTIONS__
 #define __ASSERTIONS__
 
+#include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
 
 // Depending on the compiler, a different function is used to print the error message to the console
