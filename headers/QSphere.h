@@ -508,6 +508,15 @@ public:
 };
 
 
+// SPECIALIZATION EXPORTATIONS
+// -----------------------------
+#ifdef QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
+
+template class QE_LAYER_TOOLS_SYMBOLS QSphere<Kinesis::QuimeraEngine::Tools::Math::QVector3>;
+template class QE_LAYER_TOOLS_SYMBOLS QSphere<Kinesis::QuimeraEngine::Tools::Math::QVector4>;
+
+#endif // QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
+
 } //namespace Math
 } //namespace Tools
 } //namespace QuimeraEngine

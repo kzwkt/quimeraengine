@@ -172,7 +172,6 @@
     <ClInclude Include="..\..\..\..\headers\QScalingMatrix3x3.h">
       <Filter>Math</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\..\..\headers\ToolsExports.h" />
     <ClInclude Include="..\..\..\..\headers\ToolsDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QTimeSpan.h">
       <Filter>Time</Filter>
@@ -254,7 +253,6 @@
     <ClCompile Include="..\..\..\..\source\QTriangle2D.cpp">
       <Filter>Math</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\..\source\ToolsExports.cpp" />
     <ClCompile Include="..\..\..\..\source\QBaseMatrix3x3.cpp">
       <Filter>Math</Filter>
     </ClCompile>
@@ -299,6 +297,54 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQTreeTraversalOrder.cpp">
       <Filter>Containers</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QBaseOrb.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QOrb.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QSphere.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QBaseLineSegment.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QLineSegment.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QLineSegment3D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QBaseRay.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QRay.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QRay3D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QBaseTriangle.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QTriangle.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QTriangle3D.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QBaseHexahedron.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QHexahedron.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QTransformationMatrix.cpp">
+      <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QTranslationMatrix.cpp">
+      <Filter>Math</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

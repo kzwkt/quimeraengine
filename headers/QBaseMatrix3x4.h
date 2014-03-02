@@ -27,8 +27,6 @@
 #ifndef __QBASEMATRIX3X4__
 #define __QBASEMATRIX3X4__
 
-#include <memory>
-
 #include "DataTypesDefinitions.h"
 #include "ToolsDefinitions.h"
 

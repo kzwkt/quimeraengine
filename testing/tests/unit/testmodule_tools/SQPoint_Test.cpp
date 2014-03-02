@@ -30,8 +30,6 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "ToolsExports.h"
-
 #include "SQPoint.h"
 #include "QTransformationMatrix3x3.h"
 #include "SQFloat.h"

@@ -30,7 +30,6 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "ToolsExports.h"
 #include "QTimeSpan.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;

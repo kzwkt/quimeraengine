@@ -33,6 +33,9 @@
 #include "QRotationMatrix3x3.h"
 #include "QVector3.h"
 #include "QBaseVector4.h"
+#include "QMatrix4x3.h"
+#include "QMatrix4x4.h"
+#include "QTranslationMatrix.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -46,10 +49,6 @@ namespace Tools
 {
 namespace Math
 {
-
-// Forward declarations
-// --------------------
-template<class MatrixType> class QTranslationMatrix;
 
 
 /// <summary>
@@ -1035,6 +1034,15 @@ private:
 
 };
 
+
+// SPECIALIZATION EXPORTATIONS
+// -----------------------------
+#ifdef QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
+
+template class QE_LAYER_TOOLS_SYMBOLS QTransformationMatrix<Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3>;
+template class QE_LAYER_TOOLS_SYMBOLS QTransformationMatrix<Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4>;
+
+#endif // QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
 
 } //namespace Math
 } //namespace Tools

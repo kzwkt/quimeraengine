@@ -26,6 +26,8 @@
 
 #include "QBaseMatrix3x4.h"
 
+#include <memory>
+
 #include "Assertions.h"
 #include "SQFloat.h"
 #include "SQVF32.h"

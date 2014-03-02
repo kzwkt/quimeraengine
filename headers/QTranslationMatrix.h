@@ -33,6 +33,8 @@
 #include "QScalingMatrix3x3.h"
 #include "SQFloat.h"
 #include "QTransformationMatrix.h"
+#include "QMatrix4x3.h"
+#include "QMatrix4x4.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -491,6 +493,15 @@ private:
     void ResetToZero(){}
 };
 
+
+// SPECIALIZATION EXPORTATIONS
+// -----------------------------
+#ifdef QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
+
+template class QE_LAYER_TOOLS_SYMBOLS QTranslationMatrix<Kinesis::QuimeraEngine::Tools::Math::QMatrix4x3>;
+template class QE_LAYER_TOOLS_SYMBOLS QTranslationMatrix<Kinesis::QuimeraEngine::Tools::Math::QMatrix4x4>;
+
+#endif // QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
 
 } //namespace Math
 } //namespace Tools

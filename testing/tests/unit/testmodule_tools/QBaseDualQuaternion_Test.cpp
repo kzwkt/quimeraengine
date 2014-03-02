@@ -31,8 +31,6 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "ToolsExports.h"
-
 #include "QBaseDualQuaternion.h"
 
 #include "SQFloat.h"

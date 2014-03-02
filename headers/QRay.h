@@ -31,6 +31,9 @@
 #include "QBaseRay.h"
 #include "QBaseOrb.h"
 #include "EQIntersections.h"
+#include "QVector2.h"
+#include "QVector3.h"
+#include "QVector4.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -407,6 +410,16 @@ public:
 
 };
 
+
+// SPECIALIZATION EXPORTATIONS
+// -----------------------------
+#ifdef QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
+
+template class QE_LAYER_TOOLS_SYMBOLS QRay<Kinesis::QuimeraEngine::Tools::Math::QVector2, Kinesis::QuimeraEngine::Tools::Math::QVector2>;
+template class QE_LAYER_TOOLS_SYMBOLS QRay<Kinesis::QuimeraEngine::Tools::Math::QVector3, Kinesis::QuimeraEngine::Tools::Math::QVector3>;
+template class QE_LAYER_TOOLS_SYMBOLS QRay<Kinesis::QuimeraEngine::Tools::Math::QVector4, Kinesis::QuimeraEngine::Tools::Math::QVector3>;
+
+#endif // QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
 
 } //namespace Math
 } //namespace Tools

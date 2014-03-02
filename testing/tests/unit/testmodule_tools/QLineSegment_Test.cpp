@@ -31,8 +31,6 @@ using namespace boost::unit_test;
 
 #include "../../testsystem/TestingExternalDefinitions.h"
 
-#include "ToolsExports.h"
-
 #include "QLineSegment.h"
 #include "QLineSegmentWhiteBox.h"
 #include "QVector2.h"

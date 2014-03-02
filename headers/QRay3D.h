@@ -36,6 +36,9 @@
 #include "QBaseTriangle.h"
 #include "QBaseHexahedron.h"
 #include "SQPoint.h"
+#include "QVector3.h"
+#include "QVector4.h"
+#include "QTransformationMatrix.h"
 
 using Kinesis::QuimeraEngine::Common::DataTypes::SQFloat;
 using Kinesis::QuimeraEngine::Common::DataTypes::float_q;
@@ -2828,6 +2831,16 @@ private:
         return auxRay;
 	}
 };
+
+
+// SPECIALIZATION EXPORTATIONS
+// -----------------------------
+#ifdef QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
+
+template class QE_LAYER_TOOLS_SYMBOLS QRay3D<Kinesis::QuimeraEngine::Tools::Math::QVector3>;
+template class QE_LAYER_TOOLS_SYMBOLS QRay3D<Kinesis::QuimeraEngine::Tools::Math::QVector4>;
+
+#endif // QE_EXPORT_TOOLS_TEMPLATE_SPECIALIZATION
 
 } //namespace Math
 } //namespace Tools
