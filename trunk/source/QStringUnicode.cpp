@@ -86,7 +86,37 @@ QStringUnicode& QStringUnicode::operator=(const QStringUnicode &strString)
     return *this;
 }
 
-QStringUnicode QStringUnicode::Substring(const unsigned int &uStartPosition, const unsigned int &uLastPosition) const
+bool QStringUnicode::operator==(const QStringUnicode &strString) const
+{
+    return (m_strString == strString.m_strString) != FALSE;
+}
+
+bool QStringUnicode::operator!=(const QStringUnicode &strString) const
+{
+    return (m_strString != strString.m_strString) != FALSE;
+}
+
+QStringUnicode QStringUnicode::operator+(const QStringUnicode &strString) const
+{
+    QStringUnicode strNewString;
+    strNewString.m_strString =  m_strString;
+    strNewString.m_strString += strString.m_strString;
+    return strNewString;
+}
+    
+QCharUnicode QStringUnicode::operator[](const unsigned int uIndex) const
+{
+    // It is not possible to retrieve any character if the string is empty
+    QE_ASSERT(!this->IsEmpty(), "It is not possible to retrieve any character if the string is empty");
+
+    // Index out of bounds: The index must be lower than the length of the string
+    QE_ASSERT(!this->IsEmpty() && uIndex < this->GetLength(), "Index out of bounds: The index must be lower than the length of the string");
+
+    QCharUnicode charUnicode = m_strString.char32At(uIndex);
+    return charUnicode;
+}
+
+QStringUnicode QStringUnicode::Substring(const unsigned int uStartPosition, const unsigned int uLastPosition) const
 {
     // The start position index must be lower or equal than the last position index
     QE_ASSERT(uStartPosition <= uLastPosition, "The start position index must be lower or equal than the last position index");
@@ -117,6 +147,10 @@ unsigned int QStringUnicode::GetLength() const
     return scast_q(m_strString.countChar32(), unsigned int);
 }
 
+bool QStringUnicode::IsEmpty() const
+{
+    return m_strString.isEmpty() != FALSE;
+}
 
 } //namespace DataTypes
 } //namespace Common

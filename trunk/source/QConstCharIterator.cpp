@@ -240,7 +240,7 @@ bool QStringUnicode::QConstCharIterator::operator>=(const QConstCharIterator &it
 bool QStringUnicode::QConstCharIterator::operator<=(const QConstCharIterator &iterator) const
 {
     // Iterators must be valid to get a correct result
-    QE_ASSERT(this->IsValid() && iterator.IsValid(), "The iterator must be valid to get a correct result");
+    QE_ASSERT(this->IsValid() && iterator.IsValid(), "Iterators must be valid to get a correct result");
 
     // Both iterators must refer to the same string
     QE_ASSERT(m_pString == iterator.m_pString, "Both iterators must refer to the same string");
