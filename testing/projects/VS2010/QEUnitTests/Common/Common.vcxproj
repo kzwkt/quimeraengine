@@ -19,6 +19,7 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QAlignment_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QCharUnicode_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QConstCharIterator_Test.cpp" />
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocator_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QStringUnicode_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQBoolean_Test.cpp" />
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\SQFloat_Test.cpp" />
@@ -37,6 +38,7 @@
     <ClInclude Include="..\..\..\..\testsystem\TestingExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\testsystem\TestingHelperDefinitions.h" />
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\EQEnumerationMock.h" />
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocatorWhiteBox.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt" />
