@@ -232,7 +232,7 @@ $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmo
 $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_tools/QTimeSpan_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_tools/QTimeSpan_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTSTATIC) $(INC_DEBUGLINUX32SHAREDRTSTATIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_tools/QTimeSpan_Test.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_tools/QTimeSpan_Test.o	
 	
-	$(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_tools/QComparatorDefault_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_tools/QComparatorDefault_Test.cpp
+$(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_tools/QComparatorDefault_Test.o: $(MAKEPATH)trunk/testing/tests/unit/testmodule_tools/QComparatorDefault_Test.cpp
 	$(CXX) $(CFLAGS_DEBUGLINUX32SHAREDRTSTATIC) $(INC_DEBUGLINUX32SHAREDRTSTATIC) -c $(MAKEPATH)trunk/testing/tests/unit/testmodule_tools/QComparatorDefault_Test.cpp -o $(OBJDIR_DEBUGLINUX32SHAREDRTSTATIC)$(MAKEPATH__)trunk/testing/tests/unit/testmodule_tools/QComparatorDefault_Test.o
 
 
