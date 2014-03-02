@@ -152,6 +152,12 @@
 		<Unit filename="../../../../tests/unit/testmodule_common/QConstCharIterator_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/QPoolAllocatorWhiteBox.h">
+			<Option virtualFolder="Tests/Memory/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_common/QPoolAllocator_Test.cpp">
+			<Option virtualFolder="Tests/Memory/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_common/QStringUnicode_Test.cpp">
 			<Option virtualFolder="Tests/DataTypes/" />
 		</Unit>

@@ -67,7 +67,7 @@ inline void* aligned_alloc_q (const pointer_uint_q& uSize, const QAlignment& ali
 #ifdef QE_OS_WINDOWS
     #ifdef QE_COMPILER_MSVC
         pMemoryBlock = _aligned_malloc(uSize, alignment);
-    #elif  QE_COMPILER_GC
+    #elif  QE_COMPILER_GCC
         // __mingw_alligned_alloc will internally set the alignment to sizeof(void*) if the entry one is lesser than it.
         //
         // [REVIEW]: __mingw_aligned_alloc may be unsafe, and break the code after time;

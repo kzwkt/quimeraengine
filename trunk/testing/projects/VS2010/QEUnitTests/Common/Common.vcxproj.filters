@@ -60,6 +60,9 @@
     <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QConstCharIterator_Test.cpp">
       <Filter>Tests\DataTypes</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocator_Test.cpp">
+      <Filter>Tests\Memory</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\..\testsystem\CommonConfigDefinitions.h">
@@ -91,6 +94,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\EQEnumerationMock.h">
       <Filter>Tests\General</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocatorWhiteBox.h">
+      <Filter>Tests\Memory</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
