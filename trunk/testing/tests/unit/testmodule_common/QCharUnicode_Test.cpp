@@ -41,9 +41,7 @@ QTEST_SUITE_BEGIN( QCharUnicode_TestSuite )
 /// </summary>
 QTEST_CASE ( Constructor1_CharacterIsProperlyInitialized_Test )
 {
-    // [TODO] Thund: Uncomment when the operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
 
     // [Preparation]
     codepoint_q INPUT_CODEPOINT = 159; // arbitrary value
@@ -53,7 +51,7 @@ QTEST_CASE ( Constructor1_CharacterIsProperlyInitialized_Test )
     QCharUnicode character(INPUT_CODEPOINT);
     
     // [Verification]
-    BOOST_CHECK(character == EXPECTED_RESULT);*/
+    BOOST_CHECK(character == EXPECTED_RESULT);
 }
 
 /// <summary>
@@ -61,9 +59,7 @@ QTEST_CASE ( Constructor1_CharacterIsProperlyInitialized_Test )
 /// </summary>
 QTEST_CASE ( Constructor2_CopiedCharacterIsEqualToOriginal_Test )
 {
-    // [TODO] Thund: Uncomment when the operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
 
     // [Preparation]
     codepoint_q INPUT_CODEPOINT = 159; // arbitrary value
@@ -73,30 +69,127 @@ QTEST_CASE ( Constructor2_CopiedCharacterIsEqualToOriginal_Test )
     QCharUnicode character(EXPECTED_RESULT);
     
     // [Verification]
-    BOOST_CHECK(character == EXPECTED_RESULT);*/
+    BOOST_CHECK(character == EXPECTED_RESULT);
 }
 
 /// <summary>
 /// Checks that the assigned character is equal to the copied character.
 /// </summary>
-QTEST_CASE ( OperatorAssignation_CopiedCharacterIsEqualToOriginal_Test )
+QTEST_CASE ( OperatorAssignment_CopiedCharacterIsEqualToOriginal_Test )
 {
-    // [TODO] Thund: Uncomment when the operator== is implemented
-
-    /*using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
 
     // [Preparation]
     codepoint_q INPUT_CODEPOINT = 159; // arbitrary value
     QCharUnicode EXPECTED_RESULT(INPUT_CODEPOINT);
 
 	// [Execution]
-    QCharUnicode character;
+    QCharUnicode character(0);
     character = EXPECTED_RESULT;
     
     // [Verification]
-    BOOST_CHECK(character == EXPECTED_RESULT);*/
+    BOOST_CHECK(character == EXPECTED_RESULT);
 }
 
+/// <summary>
+/// Checks that it returns True when characters have the same code point.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsTrueWhenCharactersHaveSameCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+
+    // [Preparation]
+    const codepoint_q INPUT_CODEPOINT = 159; // arbitrary value
+    const QCharUnicode CHARACTER1(INPUT_CODEPOINT);
+    const QCharUnicode CHARACTER2(INPUT_CODEPOINT);
+    const bool EXPECTED_VALUE = true;
+
+	// [Execution]
+    bool bResult = CHARACTER1 == CHARACTER2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns False when characters have a different code point.
+/// </summary>
+QTEST_CASE ( OperatorEquality_ReturnsFalseWhenCharactersHaveDifferentCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+
+    // [Preparation]
+    const codepoint_q INPUT_CODEPOINT1 = 159; // arbitrary value
+    const codepoint_q INPUT_CODEPOINT2 = 200; // arbitrary value
+    const QCharUnicode CHARACTER1(INPUT_CODEPOINT1);
+    const QCharUnicode CHARACTER2(INPUT_CODEPOINT2);
+    const bool EXPECTED_VALUE = false;
+
+	// [Execution]
+    bool bResult = CHARACTER1 == CHARACTER2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns False when characters have the same code point.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsFalseWhenCharactersHaveSameCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+
+    // [Preparation]
+    const codepoint_q INPUT_CODEPOINT = 159; // arbitrary value
+    const QCharUnicode CHARACTER1(INPUT_CODEPOINT);
+    const QCharUnicode CHARACTER2(INPUT_CODEPOINT);
+    const bool EXPECTED_VALUE = false;
+
+	// [Execution]
+    bool bResult = CHARACTER1 != CHARACTER2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns True when characters have a different code point.
+/// </summary>
+QTEST_CASE ( OperatorInequality_ReturnsTrueWhenCharactersHaveDifferentCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+
+    // [Preparation]
+    const codepoint_q INPUT_CODEPOINT1 = 159; // arbitrary value
+    const codepoint_q INPUT_CODEPOINT2 = 200; // arbitrary value
+    const QCharUnicode CHARACTER1(INPUT_CODEPOINT1);
+    const QCharUnicode CHARACTER2(INPUT_CODEPOINT2);
+    const bool EXPECTED_VALUE = true;
+
+	// [Execution]
+    bool bResult = CHARACTER1 != CHARACTER2;
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(bResult, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected code point.
+/// </summary>
+QTEST_CASE ( GetCodePoint_ReturnsExpectedCodePoint_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::codepoint_q;
+
+    // [Preparation]
+    const codepoint_q EXPECTED_CODEPOINT = 159; // arbitrary value
+    const QCharUnicode CHARACTER(EXPECTED_CODEPOINT);
+
+	// [Execution]
+    codepoint_q codepoint = CHARACTER.GetCodePoint();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(codepoint, EXPECTED_CODEPOINT);
+}
 
 // End - Test Suite: QCharUnicode
 QTEST_SUITE_END()

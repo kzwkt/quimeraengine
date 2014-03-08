@@ -104,6 +104,9 @@
 		<Unit filename="../../../../headers/DataTypesDefinitions.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../headers/EQTextEncoding.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../headers/ExternalDefinitions.h" />
 		<Unit filename="../../../../headers/InternalDefinitions.h" />
 		<Unit filename="../../../../headers/QAlignment.h">
@@ -134,6 +137,9 @@
 			<Option virtualFolder="Memory/" />
 		</Unit>
 		<Unit filename="../../../../source/Assertions.cpp" />
+		<Unit filename="../../../../source/EQTextEncoding.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../source/QAlignment.cpp">
 			<Option virtualFolder="Memory/" />
 		</Unit>

@@ -44,6 +44,9 @@
     <ClInclude Include="..\..\..\..\headers\QPoolAllocator.h">
       <Filter>Memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -76,6 +79,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QPoolAllocator.cpp">
       <Filter>Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp">
+      <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
