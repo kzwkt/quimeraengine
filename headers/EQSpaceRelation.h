@@ -35,7 +35,9 @@
 #include "ToolsDefinitions.h"
 
 #ifdef QE_COMPILER_MSVC
-#pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
+    // This warning appears when instancing a template to create a data member and that template instance is not exported.
+    // In this case, it is not important since the data member is not accessible.
+    #pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
 #endif
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
@@ -290,7 +292,7 @@ public:
     /// Converts the enumerated type value into its corresponding name.
     /// </summary>
     /// <returns>
-    /// The contained enumeration value name. If the enumeration value is not valid, the returns an empty string.
+    /// The contained enumeration value name. If the enumeration value is not valid, then returns an empty string.
     /// </returns>
     const string_q ToString()
     {
@@ -324,7 +326,9 @@ private:
         if(itValueName != itValueNameEnd)
             return itValueName->first;
         else
-            { static const string_q EMPTY_STRING; return EMPTY_STRING; }// [TODO] Thund: This must be replaced by a QString constant.
+        { 
+            static const string_q EMPTY_STRING; return EMPTY_STRING; // [TODO] Thund: This must be replaced by a QString constant.
+        }
     }
 
     /// <summary>

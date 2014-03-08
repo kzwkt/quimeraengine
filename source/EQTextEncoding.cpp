@@ -24,8 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#include "QCharUnicode.h"
-
+#include "EQTextEncoding.h"
 
 namespace Kinesis
 {
@@ -44,66 +43,23 @@ namespace DataTypes
 //##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
 //##################													   ##################
 //##################=======================================================##################
+EQTextEncoding::TNameValuePair EQTextEncoding::sm_arValueName[] =
+    {
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("ASCII"),         EQTextEncoding::E_ASCII),
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("ISO 8859-1"),    EQTextEncoding::E_ISO88591),
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-8"),         EQTextEncoding::E_UTF8),
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-16"),        EQTextEncoding::E_UTF16),
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-32"),        EQTextEncoding::E_UTF32),
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-16 BE"),     EQTextEncoding::E_UTF16BE),
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-16 LE"),     EQTextEncoding::E_UTF16LE),
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-32 BE"),     EQTextEncoding::E_UTF32BE),
+        std::pair<string_q, EQTextEncoding::EnumType>(QE_L("UTF-32 LE"),     EQTextEncoding::E_UTF32LE),
+    };
 
-
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |       CONSTRUCTORS		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-QCharUnicode::QCharUnicode(const codepoint_q &codepoint) : m_value(codepoint)
-{
-}
-
-QCharUnicode::QCharUnicode(const QCharUnicode &character) : m_value(character.m_value)
-{
-}
-
-
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |		    METHODS			 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-QCharUnicode& QCharUnicode::operator=(const QCharUnicode &character)
-{
-    m_value = character.m_value;
-    return *this;
-}
-
-bool QCharUnicode::operator==(const QCharUnicode &character) const
-{
-    return m_value == character.m_value;
-}
-
-bool QCharUnicode::operator!=(const QCharUnicode &character) const
-{
-    return m_value != character.m_value;
-}
-
-    
-//##################=======================================================##################
-//##################			 ____________________________			   ##################
-//##################			|							 |			   ##################
-//##################		    |         PROPERTIES		 |			   ##################
-//##################		   /|							 |\			   ##################
-//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
-//##################													   ##################
-//##################=======================================================##################
-
-codepoint_q QCharUnicode::GetCodePoint() const
-{
-    return m_value;
-}
+EQTextEncoding::TNameValueMap EQTextEncoding::sm_mapValueName(
+        EQTextEncoding::sm_arValueName ,
+        &EQTextEncoding::sm_arValueName[0] + sizeof(EQTextEncoding::sm_arValueName) / sizeof(EQTextEncoding::sm_arValueName[0])
+    );
 
 
 } //namespace DataTypes

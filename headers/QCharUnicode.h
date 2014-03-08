@@ -68,15 +68,41 @@ public:
 public:
 
     /// <summary>
-    /// Assignation operator that makes a copy of the input character.
+    /// Assignment operator that makes a copy of the input character.
     /// </summary>
     /// <param name="character">[IN] The input character to be copied.</param>
     QCharUnicode& operator=(const QCharUnicode &character);
+
+    /// <summary>
+    /// Equality operator that indicates whether Unicode characters are the same or not.
+    /// </summary>
+    /// <param name="character">[IN] The input character to be compared.</param>
+    /// <returns>
+    /// True if characters are equal; False otherwise.
+    /// </returns>
+    bool operator==(const QCharUnicode &character) const;
+
+    /// <summary>
+    /// Inequality operator that indicates whether Unicode characters are the same or not.
+    /// </summary>
+    /// <param name="character">[IN] The input character to be compared.</param>
+    /// <returns>
+    /// True if characters are not equal; False otherwise.
+    /// </returns>
+    bool operator!=(const QCharUnicode &character) const;
 
 
 	// PROPERTIES
 	// ---------------
 public:
+
+    /// <summary>
+    /// Gets the code point that corresponds to the character.
+    /// </summary>
+    /// <returns>
+    /// A code point.
+    /// </returns>
+    codepoint_q GetCodePoint() const;
 
 
 	// ATTRIBUTES

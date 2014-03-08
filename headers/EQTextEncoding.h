@@ -24,22 +24,21 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __EQTREETRAVERSALORDER__
-#define __EQTREETRAVERSALORDER__
+#ifndef __EQTEXTENCODING__
+#define __EQTEXTENCODING__
 
 #include <map>
 #include <vector>
 
 #include "Assertions.h"
 #include "DataTypesDefinitions.h"
-#include "ToolsDefinitions.h"
+#include "CommonDefinitions.h"
 
 #ifdef QE_COMPILER_MSVC
     // This warning appears when instancing a template to create a data member and that template instance is not exported.
     // In this case, it is not important since the data member is not accessible.
     #pragma warning( disable : 4251 ) // http://msdn.microsoft.com/en-us/library/esew7y1w.aspx
 #endif
-
 
 using Kinesis::QuimeraEngine::Common::DataTypes::string_q;
 using Kinesis::QuimeraEngine::Common::DataTypes::enum_int_q;
@@ -49,15 +48,15 @@ namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
-namespace Containers
+namespace DataTypes
 {
 
 /// <summary>
-/// Enumerates the different supported algorithms to traverse across a tree data structure.
+/// Enumeration of all the text encodings supported by the string management classes.
 /// </summary>
-class QE_LAYER_TOOLS_SYMBOLS EQTreeTraversalOrder
+class QE_LAYER_COMMON_SYMBOLS EQTextEncoding
 {
     // ENUMERATIONS
     // ---------------
@@ -68,23 +67,25 @@ public:
     /// </summary>
     enum EnumType
     {
-        // For more info about the different searchs, please visit:
-        // http://en.wikipedia.org/wiki/Tree_traversal
-        // http://en.wikipedia.org/wiki/Breadth-first_search
-        // 
-        E_DepthFirstInOrder    = QE_ENUMERATION_MIN_VALUE, /*!< First in-order search. */
-        E_DepthFirstPreOrder,                              /*!< First in pre-order search. */
-        E_DepthFirstPostOrder,                             /*!< First in post-order search. */
-        E_BreadthFirst,                                    /*!< Breadth-first search (BFS). */
-        _NotEnumValue          = QE_ENUMERATION_MAX_VALUE  /*!< Not valid value. */
+        E_ASCII = QE_ENUMERATION_MIN_VALUE, /*!< ASCII encoding, 7 bits per character (stored in 8 bits blocks). */
+        E_ISO88591,     /*!< ISO 8859-1 encoding, 8 bits per character. */
+        E_UTF8,         /*!< UTF-8 encoding, 8 bits per code unit, up to 32 bits per character. */
+        E_UTF16,        /*!< UTF-16 encoding, 16 bits per code unit, up to 32 bits per character. */
+        E_UTF32,        /*!< UTF-32 encoding, 32 bits per code unit, 32 bits per character. */
+        E_UTF16BE,      /*!< UTF-16 encoding, 16 bits per code unit, up to 32 bits per character. Big-endian data arrangement. */
+        E_UTF16LE,      /*!< UTF-16 encoding, 16 bits per code unit, up to 32 bits per character. Little-endian data arrangement. */
+        E_UTF32BE,      /*!< UTF-32 encoding, 32 bits per code unit, 32 bits per character. Big-endian data arrangement. */
+        E_UTF32LE,      /*!< UTF-32 encoding, 32 bits per code unit, 32 bits per character. Little-endian data arrangement. */
+
+        _NotEnumValue = QE_ENUMERATION_MAX_VALUE /*!< Not valid value. */
     };
 
     // TYPEDEFS
     // ---------------
 public:
 
-    typedef std::map<string_q,  EQTreeTraversalOrder::EnumType> TNameValueMap;
-    typedef std::pair<string_q, EQTreeTraversalOrder::EnumType> TNameValuePair;
+    typedef std::map<string_q, EQTextEncoding::EnumType> TNameValueMap;
+    typedef std::pair<string_q, EQTextEncoding::EnumType> TNameValuePair;
 
 
 	// CONSTRUCTORS
@@ -95,7 +96,7 @@ public:
     /// Constructor that receives a valid enumeration value.
     /// </summary>
     /// <param name="eValue">[IN] A valid enumeration value.</param>
-    inline EQTreeTraversalOrder(const EQTreeTraversalOrder::EnumType &eValue) : m_value(eValue)
+    inline EQTextEncoding(const EQTextEncoding::EnumType &eValue) : m_value(eValue)
     {
     }
 
@@ -103,7 +104,7 @@ public:
     /// Constructor that receives an integer number which must correspond to a valid enumeration value.
     /// </summary>
     /// <param name="nValue">[IN] An integer number.</param>
-    inline EQTreeTraversalOrder(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQTreeTraversalOrder::EnumType))
+    inline EQTextEncoding(const enum_int_q &nValue) : m_value(scast_q(nValue, const EQTextEncoding::EnumType))
     {
     }
 
@@ -112,7 +113,7 @@ public:
     /// the enumeration prefix.
     /// </summary>
     /// <param name="strValueName">[IN] The name of a valid enumeration value.</param>
-    inline explicit EQTreeTraversalOrder(const string_q &strValueName)
+    inline explicit EQTextEncoding(const string_q &strValueName)
     {
         *this = strValueName;
     }
@@ -121,7 +122,7 @@ public:
     /// Copy constructor.
     /// </summary>
     /// <param name="eValue">[IN] Another enumeration.</param>
-    inline EQTreeTraversalOrder(const EQTreeTraversalOrder &eValue) : m_value(eValue.m_value)
+    inline EQTextEncoding(const EQTextEncoding &eValue) : m_value(eValue.m_value)
     {
     }
 
@@ -137,9 +138,9 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQTreeTraversalOrder& operator=(const enum_int_q &nValue)
+    inline EQTextEncoding& operator=(const enum_int_q &nValue)
     {
-        m_value = scast_q(nValue, const EQTreeTraversalOrder::EnumType);
+        m_value = scast_q(nValue, const EQTextEncoding::EnumType);
         return *this;
     }
 
@@ -150,12 +151,12 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQTreeTraversalOrder& operator=(const string_q &strValueName)
+    inline EQTextEncoding& operator=(const string_q &strValueName)
     {
-        if(EQTreeTraversalOrder::sm_mapValueName.find(strValueName) != EQTreeTraversalOrder::sm_mapValueName.end())
+        if(EQTextEncoding::sm_mapValueName.find(strValueName) != EQTextEncoding::sm_mapValueName.end())
             m_value = sm_mapValueName[strValueName];
         else
-            m_value = EQTreeTraversalOrder::_NotEnumValue;
+            m_value = EQTextEncoding::_NotEnumValue;
 
         return *this;
     }
@@ -167,7 +168,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQTreeTraversalOrder& operator=(const EQTreeTraversalOrder::EnumType &eValue)
+    inline EQTextEncoding& operator=(const EQTextEncoding::EnumType &eValue)
     {
         m_value = eValue;
         return *this;
@@ -180,7 +181,7 @@ public:
     /// <returns>
     /// The enumerated type itself.
     /// </returns>
-    inline EQTreeTraversalOrder& operator=(const EQTreeTraversalOrder &eValue)
+    inline EQTextEncoding& operator=(const EQTextEncoding &eValue)
     {
         m_value = eValue.m_value;
         return *this;
@@ -193,7 +194,7 @@ public:
     /// <returns>
     /// True if it equals the enumeration value. False otherwise.
     /// </returns>
-    bool operator==(const EQTreeTraversalOrder &eValue) const
+    bool operator==(const EQTextEncoding &eValue) const
     {
         return m_value == eValue.m_value;
     }
@@ -208,7 +209,7 @@ public:
     /// </returns>
     inline bool operator==(const string_q &strValueName) const
     {
-        if(EQTreeTraversalOrder::sm_mapValueName.find(strValueName) != EQTreeTraversalOrder::sm_mapValueName.end())
+        if(EQTextEncoding::sm_mapValueName.find(strValueName) != EQTextEncoding::sm_mapValueName.end())
             return m_value == sm_mapValueName[strValueName];
         else
             return false;
@@ -223,7 +224,7 @@ public:
     /// </returns>
     inline bool operator==(const enum_int_q &nValue) const
     {
-        return m_value == scast_q(nValue, const EQTreeTraversalOrder::EnumType);
+        return m_value == scast_q(nValue, const EQTextEncoding::EnumType);
     }
 
     /// <summary>
@@ -233,7 +234,7 @@ public:
     /// <returns>
     /// True if it equals the contained value. False otherwise.
     /// </returns>
-    bool operator==(const EQTreeTraversalOrder::EnumType &eValue) const
+    bool operator==(const EQTextEncoding::EnumType &eValue) const
     {
         return m_value == eValue;
     }
@@ -251,13 +252,13 @@ public:
         // If it's not been initialized yet...
         if(arValues.empty())
         {
-            const size_t ENUM_ARRAY_COUNT = EQTreeTraversalOrder::sm_mapValueName.size();
+            const size_t ENUM_ARRAY_COUNT = EQTextEncoding::sm_mapValueName.size();
 
             // An empty enumeration makes no sense
             QE_ASSERT(ENUM_ARRAY_COUNT > 0, "An empty enumeration makes no sense");
 
             for(size_t i = 0; i < ENUM_ARRAY_COUNT; ++i)
-                arValues.push_back(EQTreeTraversalOrder::sm_arValueName[i].second);
+                arValues.push_back(EQTextEncoding::sm_arValueName[i].second);
         }
 
         return arValues;
@@ -269,7 +270,7 @@ public:
     /// <returns>
     /// The contained enumeration value.
     /// </returns>
-    inline operator EQTreeTraversalOrder::EnumType() const
+    inline operator EQTextEncoding::EnumType() const
     {
         return m_value;
     }
@@ -282,7 +283,7 @@ public:
     /// </returns>
     operator const string_q() const
     {
-        return ConvertToString(m_value, EQTreeTraversalOrder::sm_mapValueName);
+        return ConvertToString(m_value, EQTextEncoding::sm_mapValueName);
     }
     
     /// <summary>
@@ -304,7 +305,7 @@ public:
     /// </returns>
     const string_q ToString() const
     {
-        return ConvertToString(m_value, EQTreeTraversalOrder::sm_mapValueName);
+        return ConvertToString(m_value, EQTextEncoding::sm_mapValueName);
     }
 
 private:
@@ -317,7 +318,7 @@ private:
     // <returns>
     // The enumerated value's string representation.
     // </returns>
-    const string_q& ConvertToString(const EQTreeTraversalOrder::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
+    const string_q& ConvertToString(const EQTextEncoding::EnumType& eValue, const TNameValueMap& nameValueDictionary) const
     {
         TNameValueMap::const_iterator itValueName = nameValueDictionary.begin();
         TNameValueMap::const_iterator itValueNameEnd = nameValueDictionary.end();
@@ -351,13 +352,14 @@ private:
     /// <summary>
     /// The contained enumeration value.
     /// </summary>
-    EQTreeTraversalOrder::EnumType m_value;
+    EQTextEncoding::EnumType m_value;
+
 };
 
 
-} //namespace Containers
-} //namespace Tools
+} //namespace DataTypes
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
 
-#endif // __EQTREETRAVERSALORDER__
+#endif // __EQTEXTENCODING__

@@ -34,6 +34,7 @@
 #include "unicode/schriter.h"
 
 #include "QCharUnicode.h"
+#include "EQTextEncoding.h"
 
 namespace Kinesis
 {
@@ -129,7 +130,7 @@ public:
         QConstCharIterator& operator--();
 
         /// <summary>
-        /// Assignation operator that makes a copy of another iterator.
+        /// Assignment operator that makes a copy of another iterator.
         /// </summary>
         /// <param name="iterator">[IN] The other iterator to be copied.</param>
         /// <returns>
@@ -292,6 +293,27 @@ public:
     
     }; // QConstCharIterator
     
+    
+
+    // CONSTANTS
+	// ---------------
+public:
+
+    /// <summary>
+	/// Value to be used when the length of a string is unknown but can be calculated by checking for a null terminator.
+	/// </summary>
+    static const int LENGTH_NULL_TERMINATED;
+
+    /// <summary>
+    /// The Byte Order Mark, used in Unicode-encoded streams to indicate that it follows a Little Endian order.
+    /// </summary>
+    static const QCharUnicode CHAR_BOM_LE;
+
+    /// <summary>
+    /// The Byte Order Mark, used in Unicode-encoded streams to indicate that it follows a Big Endian order.
+    /// </summary>
+    static const QCharUnicode CHAR_BOM_BE;
+
 
 	// CONSTRUCTORS
 	// ---------------
@@ -308,13 +330,42 @@ public:
     /// <param name="strString">[IN] The input string to be copied.</param>
     QStringUnicode(const QStringUnicode &strString);
 
+    /// <summary>
+    /// Constructor that builds a string from an encoded input stream.
+    /// </summary>
+    /// <remarks>
+    /// The null-terminated option can only be used along with the encodings ASCII and ISO 8859-1, otherwise the result is undefined.<br/>
+    /// When passing texts encoded in Unicode, corrupted or ill-formed sequences will be repaired by replacing the erroneous characters by U+FFFD REPLACEMENT CHARACTER.<br/>
+    /// When the encoding is UTF-16 or UTF-32 (without endianness), if the input stream begins with a U+FFFE or U+FEFF BYTE ORDER CHARACTERs, the bytes
+    /// will be reordered depending on both the local machine architecture and which of both BOMs was specified. The BOM character will not be part of the resultant string.<br/>
+    /// When the encoding is UTF-16 or UTF-32 (without endianness) and the input stream does not includes a BOM character, it is treated as if the encoding was big endian.<br/>
+    /// When the encoding is UTF-16 LE, UTF-16 BE, UTF-32 LE or UTF-32 BE, the bytes in the stream will be reordered depending on both the endianness specified and the
+    /// local machine's architecture. If the stream includes a BOM character, it does not affect the result and will be included in the resultant string.<br/>
+    /// If the stream is a null-terminated string (ASCII or ISO 8859-1) and the length is not provided, the final null character will not be added to the resultant string.
+    /// </remarks>
+    /// <param name="arBytes">[IN] The input stream as an array of bytes. It should not be null. If it is null and the 
+    /// input length equals zero, an empty string will be created. If is null and the specified length is greater than zero, the behavior is undefined.</param>
+    /// <param name="nLength">[Optional][IN] The length, in number of bytes, of the input byte stream. If it equals zero, an empty string will be created.
+    /// When the encoding is ASCII or ISO 8859-1 and the input byte stream contains a null-terminated string, the constant LENGTH_NULL_TERMINATED can
+    /// be used instead. By default it is set to LENGTH_NULL_TERMINATED.</param>
+    /// <param name="eEncoding">[Optional][IN] The text encoding of the input byte stream. By default it is set to ISO 8859-1.</param>
+    QStringUnicode(const i8_q* arBytes, 
+                   const int nLength = QStringUnicode::LENGTH_NULL_TERMINATED, 
+                   const EQTextEncoding eEncoding = EQTextEncoding::E_ISO88591);
+
+    /// <summary>
+    /// Constructor that builds a string from only one character.
+    /// </summary>
+    /// <param name="arBytes">[IN] The character that will form the new string.</param>
+    QStringUnicode(const QCharUnicode &character);
+
 
 	// METHODS
 	// ---------------
 public:
 
     /// <summary>
-    /// Assignation operator that copies the value of another string.
+    /// Assignment operator that copies the value of another string.
     /// </summary>
     /// <param name="strString">[IN] The input string to be copied.</param>
     /// <returns>
@@ -379,6 +430,40 @@ public:
     /// A constant iterator.
     /// </returns>
     QConstCharIterator GetConstCharIterator() const;
+    
+    /// <summary>
+    /// Converts the string to an array of bytes encoded in certain text encoding.
+    /// </summary>
+    /// <remarks>
+    /// The output stream will always add a null terminator if the string does not have one.<br/>
+    /// Since it is not possible to predict the length of the UTF-8 representation of the string (internally encoded in UTF-16), the
+    /// amount of memory reserved to allocate the result may be bigger than necessary when using that encoding. However, the output length
+    /// will contain only the size of the occupied memory.<br/>
+    /// When the encoding is UTF-16 or UTF-32 (without endianness), the U+FFFE or U+FEFF BYTE ORDER CHARACTER is added at the beginning of the sequence. 
+    /// Which of both depends on the local machine's endianness.<br/>
+    /// When using UTF-16 LE, UTF-16 BE, UTF-32 LE or UTF-32 BE encodings, the bytes of the output steam will be reordered depending on the
+    /// local machine's endianness.<br/>
+    /// When using the ASCII or ISO 8859-1 encodings, if there are characters that cannot be translated to such encodings, they will be
+    /// replaced by Substitution characters (#26 in ASCII table).
+    /// </remarks>
+    /// <param name="eEncoding">[IN] The encoding of the resultant text.</param>
+    /// <param name="uOutputLength">[OUT] The length, in number of bytes, of the output byte stream, counting the null terminator. 
+    /// If the string is empty, it will be set to zero.</param>
+    /// <returns>
+    /// An array of bytes that contains the encoded text. If the string is empty, null will be returned.
+    /// </returns>
+    i8_q* ToBytes(const EQTextEncoding eEncoding, unsigned int &uOutputLength) const;
+
+protected:
+
+    /// <summary>
+    /// Gets an ICU converter for a given text encoding.
+    /// </summary>
+    /// <param name="eEncoding">[IN] The text encoding to which the converter will convert.</param>
+    /// <returns>
+    /// A converter ready to be used.
+    /// </returns>
+    static UConverter* GetConverter(const EQTextEncoding eEncoding);
 
 
 	// PROPERTIES
@@ -389,7 +474,7 @@ public:
     /// Gets the length of the string, this means, the number of characters that compose the sequence.
     /// </summary>
     /// <returns>
-    /// The number of characters.
+    /// The number of characters, not including the final null character.
     /// </returns>
     unsigned int GetLength() const;
 
@@ -400,6 +485,14 @@ public:
     /// True if the string is empty; False otherwise.
     /// </returns>
     bool IsEmpty() const;
+
+    /// <summary>
+    /// Obtains a constant empty string.
+    /// </summary>
+    /// <returns>
+    /// An empty string.
+    /// </returns>
+    static const QStringUnicode& GetEmpty();
 
 
 	// ATTRIBUTES
