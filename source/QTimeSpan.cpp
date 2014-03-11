@@ -24,6 +24,7 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
+
 #include "QTimeSpan.h"
 #include "Assertions.h"
 
@@ -149,6 +150,60 @@ QTimeSpan& QTimeSpan::operator= (const QTimeSpan& timeSpan)
 {
     m_uTimeSpan = timeSpan.m_uTimeSpan;
     return *this;
+}
+
+QTimeSpan QTimeSpan::operator+ (const QTimeSpan& timeSpan) const
+{
+    return QTimeSpan(*this) += timeSpan; 
+}
+
+QTimeSpan& QTimeSpan::operator+= (const QTimeSpan& timeSpan)
+{
+    bool bNotGreaterThanMaxValue = ((QTimeSpan::MAXIMUM_VALUE  - this->m_uTimeSpan) >= timeSpan.m_uTimeSpan);
+    // Assertion to verify that we will not get overflow while calculating the time span
+    QE_ASSERT(bNotGreaterThanMaxValue == true, "The addition of the two timespan objects can not be higher than maximum value"); 
+    
+    if (bNotGreaterThanMaxValue)
+    {
+        this->m_uTimeSpan += timeSpan.m_uTimeSpan;        
+    }
+    else
+    {
+        this->m_uTimeSpan = QTimeSpan::MAXIMUM_VALUE;
+    }
+     
+    return *this;
+}
+
+QTimeSpan& QTimeSpan::operator-= (const QTimeSpan& timeSpan)
+{    
+    this->m_uTimeSpan = (this->m_uTimeSpan < timeSpan.m_uTimeSpan) ? (timeSpan.m_uTimeSpan - this->m_uTimeSpan) : (this->m_uTimeSpan - timeSpan.m_uTimeSpan);
+    return *this;
+}
+
+QTimeSpan QTimeSpan::operator- (const QTimeSpan& timeSpan) const
+{
+    return QTimeSpan(*this) -= timeSpan;
+}
+
+bool QTimeSpan::operator> (const QTimeSpan& timeSpan) const
+{
+    return (this->m_uTimeSpan > timeSpan.m_uTimeSpan);
+}
+
+bool QTimeSpan::operator>= (const QTimeSpan& timeSpan) const 
+{
+    return (this->m_uTimeSpan >= timeSpan.m_uTimeSpan);
+}
+
+bool QTimeSpan::operator< (const QTimeSpan& timeSpan) const
+{
+    return (this->m_uTimeSpan < timeSpan.m_uTimeSpan);
+}
+
+bool QTimeSpan::operator<= (const QTimeSpan& timeSpan) const
+{
+    return (this->m_uTimeSpan <= timeSpan.m_uTimeSpan);
 }
 
 } //namespace Time
