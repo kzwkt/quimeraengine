@@ -195,7 +195,7 @@ TATTestResultNode* TATTestResultLoader::ParseXmlToTree(const wxString &strXmlDat
                                 // Time
                                 if(iTestResult->first == TIME_TAG)
                                 {
-                                    int nTestingTime = xmlReader.GetContent<int>(iTestResult->second);
+                                    unsigned int nTestingTime = xmlReader.GetContent<unsigned int>(iTestResult->second);
 
                                     // The time is calculated for the full test case
                                     pTestCaseNode->SetTime(nTestingTime);

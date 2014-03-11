@@ -111,12 +111,12 @@ void TATTestResultNode::SetMessage(const wxString &strMessage)
     m_strMessage = strMessage;
 }
 
-int TATTestResultNode::GetTime() const
+unsigned int TATTestResultNode::GetTime() const
 {
     return m_nTime;
 }
 
-void TATTestResultNode::SetTime(const int &nTime)
+void TATTestResultNode::SetTime(const unsigned int &nTime)
 {
     m_nTime = nTime;
 }

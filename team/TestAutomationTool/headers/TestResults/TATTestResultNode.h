@@ -113,13 +113,13 @@ public:
     /// <returns>
     /// The ammout of time the test took, in microseconds.
     /// </returns>
-    int GetTime() const;
+    unsigned int GetTime() const;
 
     /// <summary>
     /// Sets the ammout of time the test took, in microseconds.
     /// </summary>
     /// <param name="nTime">The ammout of time the test took, in microseconds.</param>
-    void SetTime(const int &nTime);
+    void SetTime(const unsigned int &nTime);
     
     /// <summary>
     /// Gets the type of the node (the level in the result tree).
@@ -161,7 +161,7 @@ protected:
     /// <summary>
     /// The time the test took.
     /// </summary>
-    int m_nTime;
+    unsigned int m_nTime;
 
     /// <summary>
     /// The type of the node (regarding the level in the tree).
