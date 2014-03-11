@@ -85,9 +85,8 @@ private:
     /// </summary>
     static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MAXIMUM_VALUE;
 
-
-    // CONSTRUCTORS
-	// ---------------
+	// CONSTRUCTORS
+ 	// ---------------
 public:
         
     /// <summary>
@@ -137,13 +136,126 @@ public:
 public:
 
     /// <summary>
-    /// Assignment operator. Assigns the provided timeSpan object to the resident time span.
+    /// Assignment operator. Assigns the provided time span object to the resident time span.
     /// </summary>
     /// <param name="timeSpan">[IN] Time span instance to be copied from.</param>
     /// <returns>
     /// Reference to the assigned time span.
     /// </returns>
     QTimeSpan& operator= (const QTimeSpan& timeSpan);
+
+    /// <summary>
+    /// Addition operator. Adds two time span objects.
+    /// </summary>
+    /// <param name="timeSpan">[IN] Time span instance to add.</param>
+    /// <remarks> 
+    /// If the result of the addition exceeds the maximum quantity of time that a QTimeSpan can represent, then it will be set to the maximum value possible. 
+    /// </remarks>
+    /// <returns>
+    /// Time span object containing the result of the adition.
+    /// </returns>
+    QTimeSpan operator+ (const QTimeSpan& timeSpan) const;
+
+    /// <summary>
+    /// Addition and assignment operator.
+    /// </summary>
+    /// <remarks>
+    /// Resident time span stores the result of the addition. If the result of the addition exceeds the maximum quantity of time that a QTimeSpan can represent, 
+    /// then it will be set to the maximum value possible. 
+    /// </remarks>
+    /// <param name="timeSpan">[IN] The time span to be added.</param>
+    /// <returns>
+    /// The modified QTimeSpan object.
+    /// </returns>    
+    QTimeSpan& operator+= (const QTimeSpan& timeSpan);
+
+    /// <summary>
+    /// Subtraction and assignment operator.
+    /// </summary>
+    /// <remarks> 
+    /// The result of the subtraction will be always positive.
+    /// When one time span is bigger than the other, and the bigger is subtracted to the smaller one, the result will be the difference, which is positive. 
+    /// This means that it cannot be used in complex arithmetic operations, for example: 3 - 5 - 6 == 4 instead of -4, -8 or 8, because 3 - 5 == +2, and then 2 - 6 == +4.
+    /// </remarks>
+    /// <param name="timeSpan">[IN] The time span to be subtracted.</param>
+    /// <returns>
+    /// The modified QTimeSpan object.
+    /// </returns>    
+    QTimeSpan& operator-= (const QTimeSpan& timeSpan);
+
+    /// <summary>
+    /// Subtraction operator. Subtracts two time span objects.
+    /// </summary>
+    /// <remarks> 
+    /// The result of the subtraction will be always positive.
+    /// When one time span is bigger than the other, and the bigger is subtracted to the smaller one, the result will be the difference, which is positive. 
+    /// This means that it cannot be used in complex arithmetic operations, for example: 3 - 5 - 6 == 4 instead of -4, -8 or 8, because 3 - 5 == +2, and then 2 - 6 == +4.
+    /// </remarks>
+    /// <param name="timeSpan">[IN] Time span instance to subtract.</param>
+    /// <returns>
+    /// Time span object containing the result of the subtraction.
+    /// </returns>
+    QTimeSpan operator- (const QTimeSpan& timeSpan) const;
+
+    /// <summary>
+    /// Equality operator. Indicates whether the value of the left time span is equal to the value of the right time span.
+    /// </summary>
+    /// <param name="timeSpan">[IN] Time span instance to compare.</param>
+    /// <returns>
+    /// True if the objects are equal. False otherwise.
+    /// </returns>
+    inline bool operator== (const QTimeSpan& timeSpan) const 
+    {
+        return (this->m_uTimeSpan == timeSpan.m_uTimeSpan);
+    }
+
+    /// <summary>
+    /// Inequality operator. Indicates whether the value of the left time span is not equal to the value of the right time span.
+    /// </summary>
+    /// <param name="timeSpan">[IN] Time span instance to compare.</param>
+    /// <returns>
+    /// True if the objects are NOT equal. False otherwise.
+    /// </returns>
+    inline bool operator!= (const QTimeSpan& timeSpan) const 
+    {
+        return (this->m_uTimeSpan != timeSpan.m_uTimeSpan);
+    }
+
+    /// <summary>
+    /// Greater than operator. Indicates whether the value of the left time span is greater than the value of the right time span.
+    /// </summary>
+    /// <param name="timeSpan">[IN] Time span instance to compare.</param>
+    /// <returns>
+    /// True if the first time span is greater than the second one. False otherwise.
+    /// </returns>
+    bool operator> (const QTimeSpan& timeSpan) const;
+
+    /// <summary>
+    /// Greater than or equal to operator. Indicates whether the value of the left time span is greater than or equal to the value of the right time span.
+    /// </summary>
+    /// <param name="timeSpan">[IN] Time span instance to compare.</param>
+    /// <returns>
+    /// True if the first time span is greater than or equal to the second one. False otherwise.
+    /// </returns>
+    bool operator>= (const QTimeSpan& timeSpan) const;
+
+    /// <summary>
+    /// Less than operator. Indicates whether the value of the left time span is shorter than the value of the right time span.
+    /// </summary>
+    /// <param name="timeSpan">[IN] Time span instance to compare.</param>
+    /// <returns>
+    /// True if the first time span is shorter than the second one. False otherwise.
+    /// </returns>
+    bool operator< (const QTimeSpan& timeSpan) const;
+
+    /// <summary>
+    /// Less than or equal to operator. Indicates whether the value of the left time span is shorter than or equal to the value of the right time span.
+    /// </summary>
+    /// <param name="timeSpan">[IN] Time span instance to compare.</param>
+    /// <returns>
+    /// True if the first time span is shorter than or equal to the second one. False otherwise.
+    /// </returns>
+    bool operator<= (const QTimeSpan& timeSpan) const;
 
 
     // ATTRIBUTES
@@ -163,3 +275,4 @@ private:
 } //namespace Kinesis
 
 #endif // __QTIMESPAN__
+
