@@ -781,5 +781,341 @@ QTEST_CASE ( LowerThanOrEqualsOperator_ReturnsFalseWhenFirstValueGreaterThanSeCo
     BOOST_CHECK_EQUAL(bComparisonResult, EXPECTED_VALUE);
 }
 
+/// <summary>
+/// Checks that it returns zero when the time span has its minimum value.
+/// </summary>
+QTEST_CASE ( GetDays_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 0;
+    const QTimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+
+	// [Execution]
+    u32_q uDays = MINIMUM_TIMESPAN.GetDays();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDays, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a common time span.
+/// </summary>
+QTEST_CASE ( GetDays_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 1428;
+    const QTimeSpan COMMON_TIMESPAN(1234567890123456LL);
+
+	// [Execution]
+    u32_q uDays = COMMON_TIMESPAN.GetDays();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDays, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using the maximum time span.
+/// </summary>
+QTEST_CASE ( GetDays_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 21350398;
+    const QTimeSpan MAXIMUM_TIMESPAN(-1);
+
+	// [Execution]
+    u32_q uDays = MAXIMUM_TIMESPAN.GetDays();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uDays, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns zero when the time span has its minimum value.
+/// </summary>
+QTEST_CASE ( GetHours_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 0;
+    const QTimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+
+	// [Execution]
+    u32_q uHours = MINIMUM_TIMESPAN.GetHours();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHours, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a common time span.
+/// </summary>
+QTEST_CASE ( GetHours_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 342;
+    const QTimeSpan COMMON_TIMESPAN(12345678912345LL);
+
+	// [Execution]
+    u32_q uHours = COMMON_TIMESPAN.GetHours();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHours, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using the maximum time span.
+/// </summary>
+QTEST_CASE ( GetHours_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 512409557;
+    const QTimeSpan MAXIMUM_TIMESPAN(-1);
+    
+	// [Execution]
+    u32_q uHours = MAXIMUM_TIMESPAN.GetHours();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHours, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns zero when the time span has its minimum value.
+/// </summary>
+QTEST_CASE ( GetMinutes_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 0;
+    const QTimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+
+	// [Execution]
+    u32_q uMinutes = MINIMUM_TIMESPAN.GetMinutes();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinutes, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a common time span.
+/// </summary>
+QTEST_CASE ( GetMinutes_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 20576;
+    const QTimeSpan COMMON_TIMESPAN(12345678912345LL);
+
+	// [Execution]
+    u32_q uMinutes = COMMON_TIMESPAN.GetMinutes();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinutes, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using the maximum time span.
+/// </summary>
+QTEST_CASE ( GetMinutes_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
+{
+    // [Preparation]
+    const u32_q EXPECTED_VALUE = 679802384;
+    const QTimeSpan MAXIMUM_TIMESPAN(-1);
+    
+	// [Execution]
+    u32_q uMinutes = MAXIMUM_TIMESPAN.GetMinutes();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMinutes, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns zero when the time span has its minimum value.
+/// </summary>
+QTEST_CASE ( GetSeconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 0LL;
+    const QTimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+
+	// [Execution]
+    u64_q uSeconds = MINIMUM_TIMESPAN.GetSeconds();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSeconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a common time span.
+/// </summary>
+QTEST_CASE ( GetSeconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 1234567LL;
+    const QTimeSpan COMMON_TIMESPAN(12345678912345LL);
+
+	// [Execution]
+    u64_q uSeconds = COMMON_TIMESPAN.GetSeconds();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSeconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using the maximum time span.
+/// </summary>
+QTEST_CASE ( GetSeconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 1844674407370LL;
+    const QTimeSpan MAXIMUM_TIMESPAN(-1);
+    
+	// [Execution]
+    u64_q uSeconds = MAXIMUM_TIMESPAN.GetSeconds();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uSeconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns zero when the time span has its minimum value.
+/// </summary>
+QTEST_CASE ( GetMilliseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 0LL;
+    const QTimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+
+	// [Execution]
+    u64_q uMilliseconds = MINIMUM_TIMESPAN.GetMilliseconds();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMilliseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a common time span.
+/// </summary>
+QTEST_CASE ( GetMilliseconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 1234567891LL;
+    const QTimeSpan COMMON_TIMESPAN(12345678912345LL);
+
+	// [Execution]
+    u64_q uMilliseconds = COMMON_TIMESPAN.GetMilliseconds();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMilliseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using the maximum time span.
+/// </summary>
+QTEST_CASE ( GetMilliseconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 1844674407370955LL;
+    const QTimeSpan MAXIMUM_TIMESPAN(-1);
+    
+	// [Execution]
+    u64_q uMilliseconds = MAXIMUM_TIMESPAN.GetMilliseconds();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMilliseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns zero when the time span has its minimum value.
+/// </summary>
+QTEST_CASE ( GetMicroseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 0LL;
+    const QTimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+
+	// [Execution]
+    u64_q uMicroseconds = MINIMUM_TIMESPAN.GetMicroseconds();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicroseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a common time span.
+/// </summary>
+QTEST_CASE ( GetMicroseconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 1234567891234LL;
+    const QTimeSpan COMMON_TIMESPAN(12345678912345LL);
+
+	// [Execution]
+    u64_q uMicroseconds = COMMON_TIMESPAN.GetMicroseconds();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicroseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using the maximum time span.
+/// </summary>
+QTEST_CASE ( GetMicroseconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 1844674407370955161LL;
+    const QTimeSpan MAXIMUM_TIMESPAN(-1);
+    
+	// [Execution]
+    u64_q uMicroseconds = MAXIMUM_TIMESPAN.GetMicroseconds();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uMicroseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns zero when the time span has its minimum value.
+/// </summary>
+QTEST_CASE ( GetHundredsOfNanoseconds_ReturnsZeroWhenUsingMinimumTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 0LL;
+    const QTimeSpan MINIMUM_TIMESPAN(EXPECTED_VALUE);
+
+	// [Execution]
+    u64_q uHundredsOfNanoseconds = MINIMUM_TIMESPAN.GetHundredsOfNanoseconds();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredsOfNanoseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using a common time span.
+/// </summary>
+QTEST_CASE ( GetHundredsOfNanoseconds_ReturnsExpectedValueWhenUsingCommonTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 12345678912345LL;
+    const QTimeSpan COMMON_TIMESPAN(12345678912345LL);
+
+	// [Execution]
+    u64_q uHundredsOfNanoseconds = COMMON_TIMESPAN.GetHundredsOfNanoseconds();
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredsOfNanoseconds, EXPECTED_VALUE);
+}
+
+/// <summary>
+/// Checks that it returns the expected value when using the maximum time span.
+/// </summary>
+QTEST_CASE ( GetHundredsOfNanoseconds_ReturnsExpectedValueWhenUsingMaximumTimeSpan_Test )
+{
+    // [Preparation]
+    const u64_q EXPECTED_VALUE = 18446744073709551615LL;
+    const QTimeSpan MAXIMUM_TIMESPAN(-1);
+    
+	// [Execution]
+    u64_q uHundredsOfNanoseconds = MAXIMUM_TIMESPAN.GetHundredsOfNanoseconds();
+    
+    // [Verification]
+    BOOST_CHECK_EQUAL(uHundredsOfNanoseconds, EXPECTED_VALUE);
+}
+
 // End - Test Suite: QTimeSpan
 QTEST_SUITE_END()

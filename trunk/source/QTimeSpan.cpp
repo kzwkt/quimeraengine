@@ -55,7 +55,7 @@ const u64_q QTimeSpan::HOURS_PER_DAY = 24;
 const u64_q QTimeSpan::MINUTES_PER_HOUR = 60;
 const u64_q QTimeSpan::SECONDS_PER_MINUTE = 60;
 const u64_q QTimeSpan::MILLISECONDS_PER_SECOND = 1000;
-const u64_q QTimeSpan::MICROSECONDS_PER_MSECOND = 1000;
+const u64_q QTimeSpan::MICROSECONDS_PER_MILLISECOND = 1000;
 const u64_q QTimeSpan::MAXIMUM_VALUE = -1;
 
 
@@ -74,11 +74,11 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
     // Constants containing the max value for each parameter.
     // Remember we have to convert them to hundreds of nanoseconds.
     const u64_q MAX_MICROSECONDS = MAXIMUM_VALUE / HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND;
-    const u64_q MAX_MILLISECONDS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_MSECOND );
-    const u64_q MAX_SECONDS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
-    const u64_q MAX_MINUTES = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
-    const u64_q MAX_HOURS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
-    const u64_q MAX_DAYS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND);
+    const u64_q MAX_MILLISECONDS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_MILLISECOND );
+    const u64_q MAX_SECONDS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MILLISECOND);
+    const u64_q MAX_MINUTES = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MILLISECOND);
+    const u64_q MAX_HOURS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MILLISECOND);
+    const u64_q MAX_DAYS = MAXIMUM_VALUE / (HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * HOURS_PER_DAY * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MILLISECOND);
 
     bool bNotGreaterThanMaxValue = (uDays <= MAX_DAYS                && 
                                    uHours <= MAX_HOURS               && 
@@ -98,12 +98,12 @@ QTimeSpan::QTimeSpan(const u64_q uDays, const u64_q uHours, const u64_q uMinutes
     }
     else
     {
-        u64_q uMicrosecondsToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * uMicroseconds;
-        u64_q uMillisecondsToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MICROSECONDS_PER_MSECOND * uMilliseconds;
-        u64_q uSecondsToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MILLISECONDS_PER_SECOND * uSeconds * MICROSECONDS_PER_MSECOND;
-        u64_q uMinutesToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * SECONDS_PER_MINUTE * uMinutes * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
-        u64_q uHoursToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * MINUTES_PER_HOUR * uHours * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
-        u64_q uDaysToHundreds = HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * HOURS_PER_DAY * uDays * MINUTES_PER_HOUR * SECONDS_PER_MINUTE * MILLISECONDS_PER_SECOND * MICROSECONDS_PER_MSECOND;
+        u64_q uMicrosecondsToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * uMicroseconds;
+        u64_q uMillisecondsToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * QTimeSpan::MICROSECONDS_PER_MILLISECOND * uMilliseconds;
+        u64_q uSecondsToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * QTimeSpan::MILLISECONDS_PER_SECOND * uSeconds * QTimeSpan::MICROSECONDS_PER_MILLISECOND;
+        u64_q uMinutesToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * QTimeSpan::SECONDS_PER_MINUTE * uMinutes * QTimeSpan::MILLISECONDS_PER_SECOND * QTimeSpan::MICROSECONDS_PER_MILLISECOND;
+        u64_q uHoursToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * QTimeSpan::MINUTES_PER_HOUR * uHours * QTimeSpan::SECONDS_PER_MINUTE * QTimeSpan::MILLISECONDS_PER_SECOND * QTimeSpan::MICROSECONDS_PER_MILLISECOND;
+        u64_q uDaysToHundreds = QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND * QTimeSpan::HOURS_PER_DAY * uDays * QTimeSpan::MINUTES_PER_HOUR * QTimeSpan::SECONDS_PER_MINUTE * QTimeSpan::MILLISECONDS_PER_SECOND * QTimeSpan::MICROSECONDS_PER_MILLISECOND;
     
         // Now check that we will not have overflow with the addition either
         bNotGreaterThanMaxValue = uMicrosecondsToHundreds <= (MAXIMUM_VALUE - uHundredsNanoseconds ) &&
@@ -204,6 +204,56 @@ bool QTimeSpan::operator< (const QTimeSpan& timeSpan) const
 bool QTimeSpan::operator<= (const QTimeSpan& timeSpan) const
 {
     return (this->m_uTimeSpan <= timeSpan.m_uTimeSpan);
+}
+
+u32_q QTimeSpan::GetDays() const
+{
+    return scast_q(m_uTimeSpan / (QTimeSpan::HOURS_PER_DAY * 
+                                  QTimeSpan::MINUTES_PER_HOUR * 
+                                  QTimeSpan::SECONDS_PER_MINUTE * 
+                                  QTimeSpan::MILLISECONDS_PER_SECOND * 
+                                  QTimeSpan::MICROSECONDS_PER_MILLISECOND *
+                                  QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND), u32_q);
+}
+
+u32_q QTimeSpan::GetHours() const
+{
+    return scast_q(m_uTimeSpan / (QTimeSpan::MINUTES_PER_HOUR * 
+                                  QTimeSpan::SECONDS_PER_MINUTE * 
+                                  QTimeSpan::MILLISECONDS_PER_SECOND * 
+                                  QTimeSpan::MICROSECONDS_PER_MILLISECOND *
+                                  QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND), u32_q);
+}
+
+u32_q QTimeSpan::GetMinutes() const
+{
+    return scast_q(m_uTimeSpan / (QTimeSpan::SECONDS_PER_MINUTE * 
+                                  QTimeSpan::MILLISECONDS_PER_SECOND * 
+                                  QTimeSpan::MICROSECONDS_PER_MILLISECOND *
+                                  QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND), u32_q);
+}
+
+u64_q QTimeSpan::GetSeconds() const
+{
+    return m_uTimeSpan / (QTimeSpan::MILLISECONDS_PER_SECOND * 
+                          QTimeSpan::MICROSECONDS_PER_MILLISECOND *
+                          QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND);
+}
+
+u64_q QTimeSpan::GetMilliseconds() const
+{
+    return m_uTimeSpan / (QTimeSpan::MICROSECONDS_PER_MILLISECOND *
+                          QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND);
+}
+
+u64_q QTimeSpan::GetMicroseconds() const
+{
+    return m_uTimeSpan / QTimeSpan::HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND;
+}
+
+u64_q QTimeSpan::GetHundredsOfNanoseconds() const
+{
+    return m_uTimeSpan;
 }
 
 } //namespace Time
