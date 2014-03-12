@@ -30,6 +30,10 @@
 #include "DataTypesDefinitions.h"
 #include "ToolsDefinitions.h"
 
+using Kinesis::QuimeraEngine::Common::DataTypes::u32_q;
+using Kinesis::QuimeraEngine::Common::DataTypes::u64_q;
+
+
 namespace Kinesis
 {
 namespace QuimeraEngine
@@ -53,37 +57,37 @@ private:
     /// <summary>
     /// Constant representing the factor to convert from microseconds to hundreds of nanoseconds.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND;
+    static const u64_q HUNDREDS_OF_NANOSECONDS_PER_MICROSECOND;
 
     /// <summary>
     /// Constant representing the factor to convert from days to hours.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q HOURS_PER_DAY;
+    static const u64_q HOURS_PER_DAY;
 
     /// <summary>
     /// Constant representing the factor to convert from hours to minutes.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MINUTES_PER_HOUR;
+    static const u64_q MINUTES_PER_HOUR;
 
     /// <summary>
     /// Constant representing the factor to convert from minutes to seconds.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q SECONDS_PER_MINUTE;
+    static const u64_q SECONDS_PER_MINUTE;
 
     /// <summary>
     /// Constant representing the factor to convert from seconds to milliseconds.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MILLISECONDS_PER_SECOND;
+    static const u64_q MILLISECONDS_PER_SECOND;
 
     /// <summary>
     /// Constant representing the factor to convert from milliseconds to nanoseconds.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MICROSECONDS_PER_MSECOND;
+    static const u64_q MICROSECONDS_PER_MILLISECOND;
 
     /// <summary>
     /// The maximum value allowed for the type used to store the time value.
     /// </summary>
-    static const Kinesis::QuimeraEngine::Common::DataTypes::u64_q MAXIMUM_VALUE;
+    static const u64_q MAXIMUM_VALUE;
 
 	// CONSTRUCTORS
  	// ---------------
@@ -100,7 +104,7 @@ public:
 	/// Constructor that receives a value containing a time span.
 	/// </summary>
 	/// <param name="uTimeValue">[IN] Value containing a time span in hundreds of nanoseconds.</param>
-    explicit inline QTimeSpan(const Kinesis::QuimeraEngine::Common::DataTypes::u64_q &uTimeValue) : m_uTimeSpan(uTimeValue)
+    explicit inline QTimeSpan(const u64_q &uTimeValue) : m_uTimeSpan(uTimeValue)
     {
     }
 
@@ -117,13 +121,13 @@ public:
     /// <param name="uMilliseconds">[IN] Number of milliseconds.</param>
     /// <param name="uMicroseconds">[IN] Number of microseconds.</param>
     /// <param name="uHundredsNanoseconds">[IN] Number of hundreds of nanoseconds.</param>
-    QTimeSpan(const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uDays, 
-              const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uHours, 
-              const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uMinutes, 
-              const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uSeconds, 
-              const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uMilliseconds, 
-              const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uMicroseconds, 
-              const Kinesis::QuimeraEngine::Common::DataTypes::u64_q uHundredsNanoseconds);
+    QTimeSpan(const u64_q uDays, 
+              const u64_q uHours, 
+              const u64_q uMinutes, 
+              const u64_q uSeconds, 
+              const u64_q uMilliseconds, 
+              const u64_q uMicroseconds, 
+              const u64_q uHundredsNanoseconds);
        
     /// <summary>
 	/// Copy constructor. Copies the content of the given time span.
@@ -131,6 +135,7 @@ public:
 	/// <param name="timeSpan">[IN] Time span instance that will be used to copy from.</param>
     QTimeSpan(const QTimeSpan& timeSpan);
       
+
     // METHODS
     // --------------
 public:
@@ -257,6 +262,61 @@ public:
     /// </returns>
     bool operator<= (const QTimeSpan& timeSpan) const;
 
+    /// <summary>
+    /// Gets the length of the time span, in days.
+    /// </summary>
+    /// <returns>
+    /// The number of complete days.
+    /// </returns>
+    u32_q GetDays() const;
+
+    /// <summary>
+    /// Gets the length of the time span, in hours.
+    /// </summary>
+    /// <returns>
+    /// The number of complete hours.
+    /// </returns>
+    u32_q GetHours() const;
+
+    /// <summary>
+    /// Gets the length of the time span, in minutes.
+    /// </summary>
+    /// <returns>
+    /// The number of complete minutes.
+    /// </returns>
+    u32_q GetMinutes() const;
+
+    /// <summary>
+    /// Gets the length of the time span, in seconds.
+    /// </summary>
+    /// <returns>
+    /// The number of complete seconds.
+    /// </returns>
+    u64_q GetSeconds() const;
+
+    /// <summary>
+    /// Gets the length of the time span, in milliseconds.
+    /// </summary>
+    /// <returns>
+    /// The number of complete milliseconds.
+    /// </returns>
+    u64_q GetMilliseconds() const;
+
+    /// <summary>
+    /// Gets the length of the time span, in microseconds.
+    /// </summary>
+    /// <returns>
+    /// The number of complete microseconds.
+    /// </returns>
+    u64_q GetMicroseconds() const;
+
+    /// <summary>
+    /// Gets the length of the time span, in hundreds of nanoseconds.
+    /// </summary>
+    /// <returns>
+    /// The number of hundreds of nanoseconds.
+    /// </returns>
+    u64_q GetHundredsOfNanoseconds() const;
 
     // ATTRIBUTES
 	// ---------------
@@ -265,7 +325,7 @@ private:
     /// <summary>
     /// Variable representing a time span in hundreds of nanoseconds. Using unsigned long long(64 bits).
     /// </summary>
-    Kinesis::QuimeraEngine::Common::DataTypes::u64_q m_uTimeSpan;
+    u64_q m_uTimeSpan;
 
 };
 
@@ -275,4 +335,3 @@ private:
 } //namespace Kinesis
 
 #endif // __QTIMESPAN__
-
