@@ -189,6 +189,7 @@
     <ClInclude Include="..\..\..\..\headers\QBaseVector3.h" />
     <ClInclude Include="..\..\..\..\headers\QCircle.h" />
     <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h" />
+    <ClInclude Include="..\..\..\..\headers\QDateTime.h" />
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
     <ClInclude Include="..\..\..\..\headers\QHexahedron.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
@@ -247,6 +248,7 @@
     <ClCompile Include="..\..\..\..\source\QBaseVector3.cpp" />
     <ClCompile Include="..\..\..\..\source\QBaseVector4.cpp" />
     <ClCompile Include="..\..\..\..\source\QCircle.cpp" />
+    <ClCompile Include="..\..\..\..\source\QDateTime.cpp" />
     <ClCompile Include="..\..\..\..\source\QDualQuaternion.cpp" />
     <ClCompile Include="..\..\..\..\source\QHexahedron.cpp" />
     <ClCompile Include="..\..\..\..\source\QLineSegment.cpp" />

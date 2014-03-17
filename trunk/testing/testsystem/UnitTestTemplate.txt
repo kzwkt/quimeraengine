@@ -47,7 +47,7 @@ QTEST_CASE ( <FuncName>_<TestDescription>_Test )
     
     // [Verification]
 
-	// Cleaning
+	// [Cleaning]
 }
 
 // End - Test Suite: ClassToTest

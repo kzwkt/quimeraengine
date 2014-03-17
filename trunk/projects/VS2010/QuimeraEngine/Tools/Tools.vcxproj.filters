@@ -182,6 +182,9 @@
     <ClInclude Include="..\..\..\..\headers\EQTreeTraversalOrder.h">
       <Filter>Containers</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QDateTime.h">
+      <Filter>Time</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">
@@ -345,6 +348,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\QTranslationMatrix.cpp">
       <Filter>Math</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\QDateTime.cpp">
+      <Filter>Time</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
