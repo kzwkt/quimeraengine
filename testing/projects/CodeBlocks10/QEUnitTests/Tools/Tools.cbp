@@ -45,8 +45,8 @@
 					<Add option="-D_DEBUG" />
 				</Compiler>
 				<Linker>
-					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
 					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
+					<Add library="..\..\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCommon.lib" />
 					<Add library="libboost_unit_test_framework-mt-d.a" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
 					<Add directory="../../../../../3rdparty/Boost/bin/Win32/DebugSharedrtStatic" />
@@ -188,6 +188,9 @@
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QComparatorDefault_Test.cpp">
 			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QDateTime_Test.cpp">
+			<Option virtualFolder="Tests/Time/" />
 		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />

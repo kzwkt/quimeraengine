@@ -161,6 +161,9 @@
 		<Unit filename="../../../../headers/QComparatorDefault.h">
 			<Option virtualFolder="Containers/" />
 		</Unit>
+		<Unit filename="../../../../headers/QDateTime.h">
+			<Option virtualFolder="Time/" />
+		</Unit>
 		<Unit filename="../../../../headers/QDualQuaternion.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
@@ -323,6 +326,9 @@
 		</Unit>
 		<Unit filename="../../../../source/QCircle.cpp">
 			<Option virtualFolder="Math/" />
+		</Unit>
+		<Unit filename="../../../../source/QDateTime.cpp">
+			<Option virtualFolder="Time/" />
 		</Unit>
 		<Unit filename="../../../../source/QDualQuaternion.cpp">
 			<Option virtualFolder="Math/" />
