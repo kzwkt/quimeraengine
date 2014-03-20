@@ -13,7 +13,7 @@ WINDRES = windres.exe
 
 #DebugWin32SharedrtStatic
 INC_DEBUGWIN32SHAREDRTSTATIC =  -I$(MAKEPATH)\\trunk\\headers -I$(MAKEPATH)\\trunk\\3rdparty\\Boost\\include
-CFLAGS_DEBUGWIN32SHAREDRTSTATIC =  -march=pentium4 -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -fpermissive -g -fpermissive -D_DEBUG
+CFLAGS_DEBUGWIN32SHAREDRTSTATIC =  -march=pentium4 -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -D_DEBUG
 RESINC_DEBUGWIN32SHAREDRTSTATIC =  
 RCFLAGS_DEBUGWIN32SHAREDRTSTATIC =  
 LIBDIR_DEBUGWIN32SHAREDRTSTATIC =  
@@ -26,7 +26,7 @@ OBJ_DEBUGWIN32SHAREDRTSTATIC = $(OBJDIR_DEBUGWIN32SHAREDRTSTATIC)$(MAKEPATH__)\\
 
 #DebugWin32SharedrtDynamic
 INC_DEBUGWIN32SHAREDRTDYNAMIC =  -I$(MAKEPATH)\\trunk\\headers -I$(MAKEPATH)\\trunk\\3rdparty\\Boost\\include
-CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  -march=pentium4 -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -fpermissive -g -fpermissive -D_DEBUG -DQE_PREPROCESSOR_IMPORTLIB_COMMON -DQE_PREPROCESSOR_EXPORTLIB_TOOLS
+CFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  -march=pentium4 -Wshadow -Wredundant-decls -Wcast-align -Winline -Wmissing-include-dirs -Wswitch-default -Wall -g -D_DEBUG -DQE_PREPROCESSOR_IMPORTLIB_COMMON -DQE_PREPROCESSOR_EXPORTLIB_TOOLS
 RESINC_DEBUGWIN32SHAREDRTDYNAMIC =  
 RCFLAGS_DEBUGWIN32SHAREDRTDYNAMIC =  
 LIBDIR_DEBUGWIN32SHAREDRTDYNAMIC =  
