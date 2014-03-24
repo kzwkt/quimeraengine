@@ -191,6 +191,7 @@
     <ClInclude Include="..\..\..\..\headers\QComparatorDefault.h" />
     <ClInclude Include="..\..\..\..\headers\QDateTime.h" />
     <ClInclude Include="..\..\..\..\headers\QDualQuaternion.h" />
+    <ClInclude Include="..\..\..\..\headers\QFixedArray.h" />
     <ClInclude Include="..\..\..\..\headers\QHexahedron.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment.h" />
     <ClInclude Include="..\..\..\..\headers\QLineSegment2D.h" />
