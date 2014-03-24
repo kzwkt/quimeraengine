@@ -164,6 +164,12 @@
 		<Unit filename="../../../../headers/QDualQuaternion.h">
 			<Option virtualFolder="Math/" />
 		</Unit>
+		<Unit filename="../../../../headers/QFixedArray.h">
+			<Option virtualFolder="Containers/" />
+		</Unit>
+		<Unit filename="../../../../headers/QFixedArray.h">
+			<Option virtualFolder="Containers/" />
+		</Unit>
 		<Unit filename="../../../../headers/QHexahedron.h">
 			<Option virtualFolder="Math/" />
 		</Unit>

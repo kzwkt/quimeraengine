@@ -185,6 +185,9 @@
     <ClInclude Include="..\..\..\..\headers\QDateTime.h">
       <Filter>Time</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\QFixedArray.h">
+      <Filter>Containers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQAngle.cpp">

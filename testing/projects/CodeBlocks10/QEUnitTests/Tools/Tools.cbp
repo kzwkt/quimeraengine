@@ -195,6 +195,12 @@
 		<Unit filename="../../../../tests/unit/testmodule_tools/QDualQuaternion_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
 		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArrayWhiteBox.h">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
+		<Unit filename="../../../../tests/unit/testmodule_tools/QFixedArray_test.cpp">
+			<Option virtualFolder="Tests/Containers/" />
+		</Unit>
 		<Unit filename="../../../../tests/unit/testmodule_tools/QHexahedron_Test.cpp">
 			<Option virtualFolder="Tests/Math/" />
 		</Unit>
