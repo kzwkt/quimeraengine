@@ -30,11 +30,14 @@
 #include "DataTypesDefinitions.h"
 #include "CommonDefinitions.h"
 
-#include "unicode/unistr.h"
-#include "unicode/schriter.h"
+#include <unicode/unistr.h>
+#include <unicode/schriter.h>
+#include <unicode/normalizer2.h>
 
 #include "QCharUnicode.h"
 #include "EQTextEncoding.h"
+#include "EQNormalizationForm.h"
+
 
 namespace Kinesis
 {
@@ -336,7 +339,7 @@ public:
     /// <remarks>
     /// The null-terminated option can only be used along with the encodings ASCII and ISO 8859-1, otherwise the result is undefined.<br/>
     /// When passing texts encoded in Unicode, corrupted or ill-formed sequences will be repaired by replacing the erroneous characters by U+FFFD REPLACEMENT CHARACTER.<br/>
-    /// When the encoding is UTF-16 or UTF-32 (without endianness), if the input stream begins with a U+FFFE or U+FEFF BYTE ORDER CHARACTERs, the bytes
+    /// When the encoding is UTF-16 or UTF-32 (without endianness), if the input stream begins with a U+FFFE or U+FEFF BYTE ORDER MARK CHARACTERs, the bytes
     /// will be reordered depending on both the local machine architecture and which of both BOMs was specified. The BOM character will not be part of the resultant string.<br/>
     /// When the encoding is UTF-16 or UTF-32 (without endianness) and the input stream does not includes a BOM character, it is treated as if the encoding was big endian.<br/>
     /// When the encoding is UTF-16 LE, UTF-16 BE, UTF-32 LE or UTF-32 BE, the bytes in the stream will be reordered depending on both the endianness specified and the
@@ -450,10 +453,24 @@ public:
     /// <param name="uOutputLength">[OUT] The length, in number of bytes, of the output byte stream, counting the null terminator. 
     /// If the string is empty, it will be set to zero.</param>
     /// <returns>
-    /// An array of bytes that contains the encoded text. If the string is empty, null will be returned.
+    /// An array of bytes that contains the encoded text. If the string is empty, null will be returned. Remember to delete the array when
+    /// do not need it anymore.
     /// </returns>
     i8_q* ToBytes(const EQTextEncoding eEncoding, unsigned int &uOutputLength) const;
 
+    /// <summary>
+    /// Applies a Unicode text normalization form algorithm to the string.
+    /// </summary>
+    /// <remarks>
+    /// Normalization algorithms are described in the Unicode Standard Annex #15 (http://www.unicode.org/reports/tr15/).<br/>
+    /// Currently, the only normalization forms supported are Canonical Decomposition (NFD) and Canonical Decomposition followed
+    /// by a Canonical Composition (NFC).<br/>
+    /// Normalization allows to compare two strings that are equivalent, i. e. they are compound of different characters
+    /// or in a different order but represent the same glyphs or compatibles.
+    /// </remarks>
+    /// <param name="eNormalizationForm">[IN] The normalization form on which the algorithm will be based. Only NFC and NFD are supported.</param>
+    void Normalize(const EQNormalizationForm &eNormalizationForm);
+    
 protected:
 
     /// <summary>
@@ -464,6 +481,16 @@ protected:
     /// A converter ready to be used.
     /// </returns>
     static UConverter* GetConverter(const EQTextEncoding eEncoding);
+
+    /// <summary>
+    /// Gets an ICU normalizer instance for a normalization form.
+    /// </summary>
+    /// <param name="eNormalizationForm">[IN] The normalization form on which the algorithm will be based.</param>
+    /// <returns>
+    /// A normalizer ready to be used.
+    /// </returns>
+    static const icu::Normalizer2* GetNormalilzer(const EQNormalizationForm &eNormalizationForm);
+
 
 
 	// PROPERTIES

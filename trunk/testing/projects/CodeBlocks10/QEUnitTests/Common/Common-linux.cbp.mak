@@ -54,6 +54,7 @@ before_debuglinux32sharedrtstatic:
 
 after_debuglinux32sharedrtstatic: 
 	cp "$(MAKEPATH)trunk/testing/bin/TestConfig.txt" "$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic"
+	cp "$(MAKEPATH)trunk/testing/bin/NormalizationTest.txt" "$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtStatic"
 
 debuglinux32sharedrtstatic: before_debuglinux32sharedrtstatic out_debuglinux32sharedrtstatic after_debuglinux32sharedrtstatic
 
@@ -122,6 +123,7 @@ before_debuglinux32sharedrtdynamic:
 
 after_debuglinux32sharedrtdynamic: 
 	cp "$(MAKEPATH)trunk/testing/bin/TestConfig.txt" "$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtDynamic"
+	cp "$(MAKEPATH)trunk/testing/bin/NormalizationTest.txt" "$(MAKEPATH)trunk/testing/bin/CodeBlocks10/DebugLinux32SharedrtDynamic"
 	rm *.so
 
 debuglinux32sharedrtdynamic: before_debuglinux32sharedrtdynamic out_debuglinux32sharedrtdynamic after_debuglinux32sharedrtdynamic

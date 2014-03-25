@@ -60,8 +60,8 @@ public:
     /// Pre-allocates uSize bytes plus a maximum of (uSize/uBlockSize)*sizeof(void**) bytes for internals.<br\>
     /// Invalid values of the parameters may cause an unexpected behaviour.
 	/// </remarks>
-	/// <param name="uSize">[IN] Size of the pool. It must be greater than zero.</param>
-    /// <param name="uBlockSize">[IN] Size of each block to allocate. It must be greater than zero.</param>
+	/// <param name="uSize">[IN] Size of the pool, in bytes. It must be greater than zero.</param>
+    /// <param name="uBlockSize">[IN] Size of each block to allocate, in bytes. It must be greater than zero.</param>
     /// <param name="alignment">[IN] Multiple of which must be the memory address. All the blocks will have the same alignment.</param>
     QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q uBlockSize, const QAlignment &alignment); 
 
@@ -73,8 +73,8 @@ public:
     /// Destructor will not free the buffer passed to be used by the pool.
     /// Invalid values of the parameters may cause an unexpected behaviour.
 	/// </remarks>
-    /// <param name="uSize">[IN] Size of the pool. It must be greater than zero.</param>
-    /// <param name="uBlockSize">[IN] Size of each block to allocate. It must be greater than zero.</param>
+    /// <param name="uSize">[IN] Size of the pool, in bytes. It must be greater than zero.</param>
+    /// <param name="uBlockSize">[IN] Size of each block to allocate, in bytes. It must be greater than zero.</param>
     /// <param name="pBuffer">[IN] Pointer to an allocated buffer of size greater or equal than size passed in the parameter.</param>
     QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q uBlockSize, const void *pBuffer); 
 
@@ -87,9 +87,9 @@ public:
     /// Destructor will not free the buffer passed for the pool.
     /// Invalid values of the parameters may cause an unexpected behaviour.
 	/// </remarks>
-    /// <param name="uSize">[IN] Size of the pool. It must be greater than zero.</param>
-    /// <param name="uBlockSize">[IN] Size of each block to allocate. It must be greater than zero.</param>
-    /// <param name="pBuffer">[IN] Pointer to an allocated buffer of size greater or equal than the size passed in the parameter.</param>
+    /// <param name="uSize">[IN] Size of the pool, in bytes. It must be greater than zero.</param>
+    /// <param name="uBlockSize">[IN] Size of each block to allocate, in bytes. It must be greater than zero.</param>
+    /// <param name="pBuffer">[IN] Pointer to an allocated buffer of size greater than or equal to the size passed in the parameter.</param>
     /// <param name="alignment">[IN] Multiple of which must be the memory address. All the blocks will have the same alignment.</param>
     QPoolAllocator(const pointer_uint_q uSize, const pointer_uint_q uBlockSize, const void *pBuffer, const QAlignment &alignment); 
 

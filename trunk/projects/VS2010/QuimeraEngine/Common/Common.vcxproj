@@ -98,6 +98,7 @@
     <ClInclude Include="..\..\..\..\headers\Configuration.h" />
     <ClInclude Include="..\..\..\..\headers\DataTypesDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h" />
+    <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h" />
     <ClInclude Include="..\..\..\..\headers\ExternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\InternalDefinitions.h" />
     <ClInclude Include="..\..\..\..\headers\QAlignment.h" />
@@ -113,6 +114,7 @@
     <ClCompile Include="..\..\..\..\source\AllocationOperators.cpp" />
     <ClCompile Include="..\..\..\..\source\Assertions.cpp" />
     <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp" />
+    <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp" />
     <ClCompile Include="..\..\..\..\source\QAlignment.cpp" />
     <ClCompile Include="..\..\..\..\source\QCharUnicode.cpp" />
     <ClCompile Include="..\..\..\..\source\QConstCharIterator.cpp" />

@@ -24,74 +24,16 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QFIXEDARRAYWHITEBOX__
-#define __QFIXEDARRAYWHITEBOX__
+#ifndef __COMMONTESTDEFINITIONS__
+#define __COMMONTESTDEFINITIONS__
 
-#include "QFixedArray.h"
-#include "QPoolAllocator.h"
+// --------------------------------------------------------------------------------------------------------
+// QStringUnicode::Normalization test switch: This switch enables or disables the tests of the Normalize
+// method of the class QStringUnicode, which takes a lot of time.
+// --------------------------------------------------------------------------------------------------------
+#define QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST_ENABLED 0x0
+#define QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST_DISABLED 0x1
 
-using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+#define QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST_DISABLED
 
-namespace Kinesis
-{
-namespace QuimeraEngine
-{
-namespace Tools
-{
-namespace Containers
-{
-namespace Test
-{
-
-/// <summary>
-/// Class intended to be used to expose protected methods of QFixedArray for testing purposes.
-/// </summary>
-template <class T, class Allocator = QPoolAllocator>
-class QFixedArrayWhiteBox : public QFixedArray<T>
-{
-    using QFixedArray<T>::m_pAllocator;
-
-    static const pointer_uint_q DEFAULT_NUMBER_OF_ELEMENTS = 1;
-
-	// CONSTRUCTORS
-	// ---------------
-public:
-
-	// Necessary for testing
-    QFixedArrayWhiteBox() : QFixedArray<T>()
-    {
-        // To avoid that the destructor tries to delete a null pointer.
-        if( null_q == m_pAllocator )
-            m_pAllocator = new Allocator(QFixedArrayWhiteBox::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
-    }
-
-	// PROPERTIES
-	// ---------------
-public:
-
-    // Necessary for testing
-    pointer_uint_q GetFirst() const
-    {
-        return QFixedArray<T, Allocator>::m_uFirst;
-    }
-
-    // Necessary for testing
-    pointer_uint_q GetLast() const
-    {
-        return QFixedArray<T, Allocator>::m_uLast;
-    }
-
-    // Necessary for testing
-    QPoolAllocator *GetpAllocator() const
-    {
-        return QFixedArray<T, Allocator>::m_pAllocator;
-    }
-};
-
-} //namespace Test
-} //namespace Containers
-} //namespace Tools
-} //namespace QuimeraEngine
-} //namespace Kinesis
-
-#endif // __QFIXEDARRAYWHITEBOX__
+#endif // __COMMONTESTDEFINITIONS__

@@ -98,6 +98,12 @@
     <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\QPoolAllocatorWhiteBox.h">
       <Filter>Tests\Memory</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\UnicodeNormalizationTestData.h">
+      <Filter>Tests\DataTypes</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\..\tests\unit\testmodule_common\CommonTestDefinitions.h">
+      <Filter>Tests</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="..\..\..\..\testsystem\UnitTestTemplate.txt">

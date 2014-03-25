@@ -32,6 +32,9 @@ using namespace boost::unit_test;
 
 #include "QStringUnicode.h"
 
+#include "CommonTestDefinitions.h"
+#include "UnicodeNormalizationTestData.h"
+
 using Kinesis::QuimeraEngine::Common::DataTypes::QStringUnicode;
 using Kinesis::QuimeraEngine::Common::DataTypes::i8_q;
 
@@ -79,7 +82,7 @@ QTEST_CASE ( Constructor1_DefaultConstructorCreatesEmptyString_Test )
 
 	// [Execution]
     QStringUnicode strString;
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -94,7 +97,7 @@ QTEST_CASE ( Constructor2_CopiedStringIsEqualToOriginal_Test )
 
 	// [Execution]
     QStringUnicode strString(EXPECTED_RESULT);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -120,7 +123,7 @@ QTEST_CASE ( Constructor3_AsciiStringIsCorrectlyConverted_Test )
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -139,14 +142,14 @@ QTEST_CASE ( Constructor3_Iso88591StringIsCorrectlyConverted_Test )
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_ISO88591;
 
-    //                                             
+    //
     const u16_q EXPECTED_STRING_CODE_UNITS[]   = { 0x00F1, 0x0042, 0x00E1, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -167,13 +170,13 @@ QTEST_CASE ( Constructor3_Utf8StringIsCorrectlyConverted_Test )
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -195,13 +198,13 @@ QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMLittleEndian_Tes
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -223,13 +226,13 @@ QTEST_CASE ( Constructor3_Utf16StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -259,7 +262,7 @@ QTEST_CASE ( Constructor3_Utf16StringIsTreatedAsBigEndianWhenNoBOM_Test )
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -281,13 +284,13 @@ QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMLittleEndian_Tes
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -310,13 +313,13 @@ QTEST_CASE ( Constructor3_Utf32StringIsCorrectlyConvertedWhenBOMBigEndian_Test )
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -346,7 +349,7 @@ QTEST_CASE ( Constructor3_Utf32StringIsTreatedAsBigEndianWhenNoBOM_Test )
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -367,16 +370,16 @@ QTEST_CASE ( Constructor3_Utf16BEStringIsCorrectlyConverted_Test )
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_BYTES);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16BE;
 
-    // [TODO] Thund: Change the expected result so it depends on the endianess of the machine where the tests are being executed. 
+    // [TODO] Thund: Change the expected result so it depends on the endianess of the machine where the tests are being executed.
     //               It is necessary to implement a way to know that endianess.
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -398,13 +401,13 @@ QTEST_CASE ( Constructor3_Utf16LEStringIsCorrectlyConverted_Test )
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16LE;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -420,18 +423,18 @@ QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf16Encoding_Test )
 
     // [Preparation]
     //                                        BOM     ©       ?       ?       ?      \0
-    const u16_q INPUT_STRING_CODE_UNITS[] = { 0xFFFE, 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q INPUT_STRING_CODE_UNITS[] = { 0xFFFE, 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_CODE_UNITS);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(rcast_q(INPUT_STRING_CODE_UNITS, const i8_q*), INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(strString.GetLength(), EXPECTED_RESULT.GetLength());
     BOOST_CHECK(strString[0] != QStringUnicode::CHAR_BOM_LE);
@@ -449,18 +452,18 @@ QTEST_CASE ( Constructor3_BOMIsRemovedFromStringWhenUsingUtf32Encoding_Test )
 
     // [Preparation]
     //                                        BOM         ©           ?           ?           ?          \0
-    const u32_q INPUT_STRING_CODE_UNITS[] = { 0x0000FEFF, 0x000000A9, 0x000016A1, 0x00000634, 0x00000416, 0x00000000 }; 
+    const u32_q INPUT_STRING_CODE_UNITS[] = { 0x0000FEFF, 0x000000A9, 0x000016A1, 0x00000634, 0x00000416, 0x00000000 };
     const unsigned int INPUT_STRING_LENGTH = sizeof(INPUT_STRING_CODE_UNITS);
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(rcast_q(INPUT_STRING_CODE_UNITS, const i8_q*), INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(strString.GetLength(), EXPECTED_RESULT.GetLength());
     BOOST_CHECK(strString[0] != QStringUnicode::CHAR_BOM_LE);
@@ -482,13 +485,13 @@ QTEST_CASE ( Constructor3_IllFormedSequencesAreRepairedUsingReplacementCharacter
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
     //                                           A       REPLAC. ñ       B      \0
-    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x0041, 0xFFFD, 0x00F1, 0x0042, 0x0000 }; 
+    const u16_q EXPECTED_STRING_CODE_UNITS[] = { 0x0041, 0xFFFD, 0x00F1, 0x0042, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     const QStringUnicode EXPECTED_RESULT(rcast_q(EXPECTED_STRING_CODE_UNITS, const i8_q*), sizeof(EXPECTED_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, INPUT_STRING_LENGTH, INPUT_ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -512,7 +515,7 @@ QTEST_CASE ( Constructor3_OptionalParametersDefaultToNullTerminatedIso88591_Test
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -534,7 +537,7 @@ QTEST_CASE ( Constructor3_CreatesEmptyStringWhenInputLengthEqualsZero_Test )
 
 	// [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, ZERO_LENGTH, ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -567,7 +570,7 @@ QTEST_CASE ( Constructor3_AssertionFailsWhenUsingIncorrectParameterValueCombinat
     {
         bAssertionFailed = true;
     }
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -595,7 +598,7 @@ QTEST_CASE ( Constructor3_StringIsCorrectlyBuiltWhenInputLengthIsUnknown_Test )
 
     // [Execution]
     QStringUnicode strString(INPUT_STRING_BYTES, UNKNOWN_LENGTH, ENCODING);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -612,13 +615,13 @@ QTEST_CASE ( Constructor4_ResultContainsInputCharacter_Test )
 
     // [Preparation]
     const QCharUnicode INPUT_CHARACTER(0x1234);
-    const u16_q EXPECTED_STRING_BYTES[] = { INPUT_CHARACTER.GetCodePoint() };
+    const u16_q EXPECTED_STRING_BYTES[] = { scast_q(INPUT_CHARACTER.GetCodePoint(), u16_q) };
     // [TODO] Thund: Make this dependent on the architecture
-    const QStringUnicode EXPECTED_RESULT = QStringUnicode(rcast_q(EXPECTED_STRING_BYTES, const i8_q*), sizeof(EXPECTED_STRING_BYTES), EQTextEncoding::E_UTF16LE); 
+    const QStringUnicode EXPECTED_RESULT = QStringUnicode(rcast_q(EXPECTED_STRING_BYTES, const i8_q*), sizeof(EXPECTED_STRING_BYTES), EQTextEncoding::E_UTF16LE);
 
 	// [Execution]
     QStringUnicode strString(INPUT_CHARACTER);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -634,7 +637,7 @@ QTEST_CASE ( OperatorAssignment_CopiedStringIsEqualToOriginal_Test )
 	// [Execution]
     QStringUnicode strString;
     strString = EXPECTED_RESULT;
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -651,7 +654,7 @@ QTEST_CASE ( OperatorEquality_ReturnsTrueWhenStringsAreEqual_Test )
 
 	// [Execution]
     bool bResult = STRING1 == STRING2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -668,7 +671,7 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenStringsAreNotEqual_Test )
 
 	// [Execution]
     bool bResult = STRING1 == STRING2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -692,7 +695,7 @@ QTEST_CASE ( OperatorEquality_ReturnsFalseWhenStringsAreEquivalentButNotTheSame_
 
 	// [Execution]
     bool bResult = STRING1 == STRING2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -709,7 +712,7 @@ QTEST_CASE ( OperatorInequality_ReturnsFalseWhenStringsAreEqual_Test )
 
 	// [Execution]
     bool bResult = STRING1 != STRING2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -726,7 +729,7 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenStringsAreNotEqual_Test )
 
 	// [Execution]
     bool bResult = STRING1 != STRING2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -750,7 +753,7 @@ QTEST_CASE ( OperatorInequality_ReturnsTrueWhenStringsAreEquivalentButNotTheSame
 
 	// [Execution]
     bool bResult = STRING1 != STRING2;
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -767,7 +770,7 @@ QTEST_CASE ( OperatorAddition_ConcatenatesBothStrings_Test )
 
 	// [Execution]
     QStringUnicode strResult = STRING1 + STRING2;
-    
+
     // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
@@ -786,7 +789,7 @@ QTEST_CASE ( OperatorArraySubscript_ReturnsExpectedCharacterWhenUsingCommonIndex
 
 	// [Execution]
     QCharUnicode charResult = STRING1[COMMON_INDEX];
-    
+
     // [Verification]
     BOOST_CHECK(charResult == EXPECTED_RESULT);
 }
@@ -807,7 +810,7 @@ QTEST_CASE ( OperatorArraySubscript_ReturnsNonCharacterWhenStringIsEmpty_Test )
 
 	// [Execution]
     QCharUnicode charResult = EMPTY_STRING[COMMON_INDEX];
-    
+
     // [Verification]
     BOOST_CHECK(charResult == EXPECTED_RESULT);
 }
@@ -826,7 +829,7 @@ QTEST_CASE ( OperatorArraySubscript_ReturnsNonCharacterWhenIndexIsOutOfBounds_Te
 
 	// [Execution]
     QCharUnicode charResult = STRING1[OUTOFBOUNDS_INDEX];
-    
+
     // [Verification]
     BOOST_CHECK(charResult == EXPECTED_RESULT);
 }
@@ -854,7 +857,7 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenIndexIsOutOfBounds_Test )
     {
         bAssertionFailed = true;
     }
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -882,7 +885,7 @@ QTEST_CASE ( OperatorArraySubscript_AssertionFailsWhenStringIsEmpty_Test )
     {
         bAssertionFailed = true;
     }
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -902,7 +905,7 @@ QTEST_CASE ( Substring_ReturnsExpectedResultWhenUsingCommonInputPositions_Test )
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -931,7 +934,7 @@ QTEST_CASE ( Substring_AssertionFailsWhenStartPositionIsGreaterThanLastPosition_
     {
         bAssertionFailed = true;
     }
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bAssertionFailed, ASSERTION_FAILED);
 }
@@ -951,7 +954,7 @@ QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionIsGreaterThanLastPosit
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -971,7 +974,7 @@ QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionEqualsLastPosition_Tes
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -989,7 +992,7 @@ QTEST_CASE ( Substring_ReturnsEmptyStringWhenSourceStringIsEmpty_Test )
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -1007,7 +1010,7 @@ QTEST_CASE ( Substring_ReturnsTheRestOfTheStringWhenLastPositionIsOutOfBounds_Te
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -1025,7 +1028,7 @@ QTEST_CASE ( Substring_ReturnsEmptyStringWhenStartPositionIsOutOfBounds_Test )
 
 	// [Execution]
     QStringUnicode strString = SOURCE_STRING.Substring(START_POSITION, LAST_POSITION);
-    
+
     // [Verification]
     BOOST_CHECK(strString == EXPECTED_RESULT);
 }
@@ -1042,7 +1045,7 @@ QTEST_CASE ( GetConstCharIterator_IteratorPointsToFirstPositionWhenStringIsNotEm
 
 	// [Execution]
     QStringUnicode::QConstCharIterator iterator = SOURCE_STRING.GetConstCharIterator();
-    
+
     // [Verification]
     BOOST_CHECK(iterator == EXPECTED_ITERATOR);
 }
@@ -1059,7 +1062,7 @@ QTEST_CASE ( GetConstCharIterator_IteratorPointsToEndPositionWhenStringIsEmpty_T
 
 	// [Execution]
     QStringUnicode::QConstCharIterator iterator = SOURCE_STRING.GetConstCharIterator();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(iterator.IsEnd(), IS_END);
 }
@@ -1086,7 +1089,7 @@ QTEST_CASE ( ToBytes_ConvertsToAsciiCorrectly_Test )
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1117,7 +1120,7 @@ QTEST_CASE ( ToBytes_NonConvertibleCharactersAreReplacedByAsciiSubstitutionChara
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1147,7 +1150,7 @@ QTEST_CASE ( ToBytes_AsciiNullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1178,7 +1181,7 @@ QTEST_CASE ( ToBytes_ConvertsToISO88591Correctly_Test )
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1209,7 +1212,7 @@ QTEST_CASE ( ToBytes_NonConvertibleCharactersAreReplacedByISO88591SubstitutionCh
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1239,7 +1242,7 @@ QTEST_CASE ( ToBytes_ISO88591NullTerminatorAddedWhenSourceStringDoesNotTerminate
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1263,14 +1266,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF8Correctly_Test )
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
     //                                           ©       ?       ?       ?      \0
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1293,14 +1296,14 @@ QTEST_CASE ( ToBytes_UTF8NullTerminatorAddedWhenSourceStringDoesNotTerminatesWit
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF8;
 
     //                                           ©       ?       ?       ?
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1329,14 +1332,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16CorrectlyAddingBOM_Test )
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16;
 
     //                                         ©       ?       ?       ?      \0
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1359,14 +1362,14 @@ QTEST_CASE ( ToBytes_UTF16NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16;
 
     //                                         ©       ?       ?       ?
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1395,14 +1398,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32CorrectlyAddingBOM_Test )
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32;
 
     //                                         ©       ?       ?       ?      \0
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1425,14 +1428,14 @@ QTEST_CASE ( ToBytes_UTF32NullTerminatorAddedWhenSourceStringDoesNotTerminatesWi
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32;
 
     //                                         ©       ?       ?       ?
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1461,14 +1464,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16LECorrectlyNotAddingBOM_Test )
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16LE;
 
     //                                         ©       ?       ?       ?      \0
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1491,14 +1494,14 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16LE;
 
     //                                         ©       ?       ?       ?
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1527,14 +1530,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF16BECorrectlyNotAddingBOM_Test )
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF16BE;
 
     //                                         ©       ?       ?       ?      \0
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1557,14 +1560,14 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF16BE;
 
     //                                         ©       ?       ?       ?
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1593,14 +1596,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32LECorrectlyNotAddingBOM_Test )
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32LE;
 
     //                                         ©       ?       ?       ?      \0
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1623,14 +1626,14 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32LE;
 
     //                                         ©       ?       ?       ?
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1659,14 +1662,14 @@ QTEST_CASE ( ToBytes_ConvertsToUTF32BECorrectlyNotAddingBOM_Test )
     const EQTextEncoding INPUT_ENCODING       = EQTextEncoding::E_UTF32BE;
 
     //                                         ©       ?       ?       ?      \0
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416, 0x0000 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
 
@@ -1689,14 +1692,14 @@ QTEST_CASE ( ToBytes_NullTerminatorAddedWhenSourceStringDoesNotTerminatesWithNul
     const EQTextEncoding INPUT_ENCODING    = EQTextEncoding::E_UTF32BE;
 
     //                                         ©       ?       ?       ?
-    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 }; 
+    const u16_q SOURCE_STRING_CODE_UNITS[] = { 0x00A9, 0x16A1, 0x0634, 0x0416 };
     const EQTextEncoding NATIVE_ENCODING = EQTextEncoding::E_UTF16LE; // [TODO] Thund: Change this so it depends on the endianess of the machine
     QStringUnicode SOURCE_STRING(rcast_q(SOURCE_STRING_CODE_UNITS, const char*), sizeof(SOURCE_STRING_CODE_UNITS), NATIVE_ENCODING);
 
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_NE(uResultSize, sizeof(SOURCE_STRING_CODE_UNITS));
     BOOST_CHECK(CheckByteArraysAreEqual_UtilityMethod(pByteArray, uResultSize, EXPECTED_STRING_BYTES, EXPECTED_STRING_LENGTH));
@@ -1724,7 +1727,7 @@ QTEST_CASE ( ToBytes_ReturnsNullPointerWhenStringIsEmpty_Test )
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = EMPTY_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uResultSize, EXPECTED_STRING_LENGTH);
     BOOST_CHECK(pByteArray == EXPECTED_STRING_BYTES);
@@ -1751,13 +1754,205 @@ QTEST_CASE ( ToBytes_FinalNullCharacterIsCountedForOutputLength_Test )
 	// [Execution]
     unsigned int uResultSize = 0;
     char* pByteArray = SOURCE_STRING.ToBytes(INPUT_ENCODING, uResultSize);
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(uResultSize, EXPECTED_STRING_LENGTH);
 
     // [Cleaning]
     delete[] pByteArray;
 }
+
+#if QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST == QE_TEST_CONFIG_QSTRINGUNICODE_NORMALIZE_TEST_ENABLED
+
+/// <summary>
+/// Checks that the result of the normalization process is what expected. This test uses the NormalizationTest.txt file,
+/// provided by the Unicode Standard, which has been modified to neither include comments nor CJK characteres. See the file UnicodeNormalizationTestData.h.
+/// </summary>
+QTEST_CASE ( Normalize_StringIsNormalizedAsExpected_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQNormalizationForm;
+    using namespace Kinesis::QuimeraEngine::Test::Normalization;
+
+    // [Preparation]
+    QNormalizationTestFileParser parser;
+    parser.ParseFile("NormalizationTest.txt");
+    const std::vector<QNormalizationTest>& arSpecificCases        = parser.GetSpecificCases();
+    const std::vector<QNormalizationTest>& arCanonicalOrder       = parser.GetCanonicalOrder();
+    const std::vector<QNormalizationTest>& arCharacterByCharacter = parser.GetCharacterByCharacter();
+    const std::vector<QNormalizationTest>& arPublicReviewIssues   = parser.GetPublicReviewIssues();
+
+    const EQTextEncoding ENCODING = EQTextEncoding::E_UTF32LE;
+    const unsigned int CODEPOINT_SIZE = 4;
+    
+    for(unsigned int i = 0; i < arSpecificCases.size(); ++i)
+    {
+        QStringUnicode strOriginal((const char*)arSpecificCases[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].CodePoints,
+                                   arSpecificCases[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                   ENCODING);
+        QStringUnicode strExpectedNFC((const char*)arSpecificCases[i].CharacterSequences[QNormalizationTest::NFC_SEQUENCE].CodePoints,
+                                      arSpecificCases[i].CharacterSequences[QNormalizationTest::NFC_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                      ENCODING);
+        QStringUnicode strExpectedNFD((const char*)arSpecificCases[i].CharacterSequences[QNormalizationTest::NFD_SEQUENCE].CodePoints,
+                                      arSpecificCases[i].CharacterSequences[QNormalizationTest::NFD_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                      ENCODING);
+
+        // [Execution]
+        QStringUnicode strResultNFC(strOriginal);
+        QStringUnicode strResultNFD(strOriginal);
+        strResultNFC.Normalize(EQNormalizationForm::E_C);
+        strResultNFD.Normalize(EQNormalizationForm::E_D);
+
+        // [Verification]
+        // Only prints when there is a failed case in order not to saturate the result file
+        if(strResultNFC != strExpectedNFC)
+        {
+            BOOST_CHECK(strResultNFC == strExpectedNFC);
+        }
+        if(strResultNFD != strExpectedNFD)
+        {
+            BOOST_CHECK(strResultNFD == strExpectedNFD);
+        }
+    }
+
+    for(unsigned int i = 0; i < arCanonicalOrder.size(); ++i)
+    {
+        QStringUnicode strOriginal((const char*)arCanonicalOrder[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].CodePoints,
+                                   arCanonicalOrder[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                   ENCODING);
+        QStringUnicode strExpectedNFC((const char*)arCanonicalOrder[i].CharacterSequences[QNormalizationTest::NFC_SEQUENCE].CodePoints,
+                                      arCanonicalOrder[i].CharacterSequences[QNormalizationTest::NFC_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                      ENCODING);
+        QStringUnicode strExpectedNFD((const char*)arCanonicalOrder[i].CharacterSequences[QNormalizationTest::NFD_SEQUENCE].CodePoints,
+                                      arCanonicalOrder[i].CharacterSequences[QNormalizationTest::NFD_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                      ENCODING);
+
+        // [Execution]
+        QStringUnicode strResultNFC(strOriginal);
+        QStringUnicode strResultNFD(strOriginal);
+        strResultNFC.Normalize(EQNormalizationForm::E_C);
+        strResultNFD.Normalize(EQNormalizationForm::E_D);
+
+        // [Verification]
+        // Only prints when there is a failed case in order not to saturate the result file
+        if(strResultNFC != strExpectedNFC)
+        {
+            BOOST_CHECK(strResultNFC == strExpectedNFC);
+        }
+        if(strResultNFD != strExpectedNFD)
+        {
+            BOOST_CHECK(strResultNFD == strExpectedNFD);
+        }
+    }
+
+    for(unsigned int i = 0; i < arCharacterByCharacter.size(); ++i)
+    {
+        QStringUnicode strOriginal((const char*)arCharacterByCharacter[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].CodePoints,
+                                   arCharacterByCharacter[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                   ENCODING);
+        QStringUnicode strExpectedNFC((const char*)arCharacterByCharacter[i].CharacterSequences[QNormalizationTest::NFC_SEQUENCE].CodePoints,
+                                      arCharacterByCharacter[i].CharacterSequences[QNormalizationTest::NFC_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                      ENCODING);
+        QStringUnicode strExpectedNFD((const char*)arCharacterByCharacter[i].CharacterSequences[QNormalizationTest::NFD_SEQUENCE].CodePoints,
+                                      arCharacterByCharacter[i].CharacterSequences[QNormalizationTest::NFD_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                      ENCODING);
+
+        // [Execution]
+        QStringUnicode strResultNFC(strOriginal);
+        QStringUnicode strResultNFD(strOriginal);
+        strResultNFC.Normalize(EQNormalizationForm::E_C);
+        strResultNFD.Normalize(EQNormalizationForm::E_D);
+
+        // [Verification]
+        // Only prints when there is a failed case in order not to saturate the result file
+        if(strResultNFC != strExpectedNFC)
+        {
+            BOOST_CHECK(strResultNFC == strExpectedNFC);
+        }
+        if(strResultNFD != strExpectedNFD)
+        {
+            BOOST_CHECK(strResultNFD == strExpectedNFD);
+        }
+    }
+
+    for(unsigned int i = 0; i < arPublicReviewIssues.size(); ++i)
+    {
+        QStringUnicode strOriginal((const char*)arPublicReviewIssues[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].CodePoints,
+                                   arPublicReviewIssues[i].CharacterSequences[QNormalizationTest::ORIGINAL_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                   ENCODING);
+        QStringUnicode strExpectedNFC((const char*)arPublicReviewIssues[i].CharacterSequences[QNormalizationTest::NFC_SEQUENCE].CodePoints,
+                                      arPublicReviewIssues[i].CharacterSequences[QNormalizationTest::NFC_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                      ENCODING);
+        QStringUnicode strExpectedNFD((const char*)arPublicReviewIssues[i].CharacterSequences[QNormalizationTest::NFD_SEQUENCE].CodePoints,
+                                      arPublicReviewIssues[i].CharacterSequences[QNormalizationTest::NFD_SEQUENCE].ArraySize * CODEPOINT_SIZE,
+                                      ENCODING);
+
+        // [Execution]
+        QStringUnicode strResultNFC(strOriginal);
+        QStringUnicode strResultNFD(strOriginal);
+        strResultNFC.Normalize(EQNormalizationForm::E_C);
+        strResultNFD.Normalize(EQNormalizationForm::E_D);
+
+        // [Verification]
+        // Only prints when there is a failed case in order not to saturate the result file
+        if(strResultNFC != strExpectedNFC)
+        {
+            BOOST_CHECK(strResultNFC == strExpectedNFC);
+        }
+        if(strResultNFD != strExpectedNFD)
+        {
+            BOOST_CHECK(strResultNFD == strExpectedNFD);
+        }
+    }
+    
+    BOOST_MESSAGE("Normalization test finished");
+}
+
+#endif
+
+#if QE_CONFIG_ASSERTSBEHAVIOR_DEFAULT == QE_CONFIG_ASSERTSBEHAVIOR_THROWEXCEPTIONS
+
+/// <summary>
+/// Checks that an assertion fails when using a normalization form that is not supported.
+/// </summary>
+QTEST_CASE ( Normalize_AssertionFailsWhenUsingUnsupportedNormalizationForms_Test )
+{
+    using Kinesis::QuimeraEngine::Common::DataTypes::EQNormalizationForm;
+
+    // [Preparation]
+    QStringUnicode SOURCE_STRING("ABCDEFGHIJKLMN");
+    const EQNormalizationForm NOT_SUPPORTED_NF1 = EQNormalizationForm::E_KC;
+    const EQNormalizationForm NOT_SUPPORTED_NF2 = EQNormalizationForm::E_KD;
+    const bool ASSERTION_FAILED = true;
+
+	// [Execution]
+    bool bAssertionFailed1 = false;
+
+    try
+    {
+        SOURCE_STRING.Normalize(NOT_SUPPORTED_NF1);
+    }
+    catch(...)
+    {
+        bAssertionFailed1 = true;
+    }
+
+    bool bAssertionFailed2 = false;
+
+    try
+    {
+        SOURCE_STRING.Normalize(NOT_SUPPORTED_NF2);
+    }
+    catch(...)
+    {
+        bAssertionFailed2 = true;
+    }
+
+    // [Verification]
+    BOOST_CHECK_EQUAL(bAssertionFailed1, ASSERTION_FAILED);
+    BOOST_CHECK_EQUAL(bAssertionFailed2, ASSERTION_FAILED);
+}
+
+#endif
 
 /// <summary>
 /// Checks that it returns zero when the string is empty.
@@ -1771,7 +1966,7 @@ QTEST_CASE ( GetLength_ReturnsZeroWhenStringIsEmpty_Test )
 
 	// [Execution]
     QStringUnicode::QConstCharIterator iterator = SOURCE_STRING.GetConstCharIterator();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(iterator.IsEnd(), IS_END);
 }
@@ -1787,7 +1982,7 @@ QTEST_CASE ( GetLength_ReturnsCorrectValueWhenUsingCommonString_Test )
 
 	// [Execution]
     unsigned int nLength = SOURCE_STRING.GetLength();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(nLength, EXPECTED_LENGTH);
 }
@@ -1803,7 +1998,7 @@ QTEST_CASE ( IsEmpty_ReturnsTrueWhenStringIsEmpty_Test )
 
 	// [Execution]
     bool bResult = SOURCE_STRING.IsEmpty();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -1819,7 +2014,7 @@ QTEST_CASE ( IsEmpty_ReturnsFalseWhenStringIsNotEmpty_Test )
 
 	// [Execution]
     bool bResult = SOURCE_STRING.IsEmpty();
-    
+
     // [Verification]
     BOOST_CHECK_EQUAL(bResult, EXPECTED_RESULT);
 }
@@ -1834,7 +2029,7 @@ QTEST_CASE ( GetEmpty_ReturnsZeroLengthString_Test )
 
 	// [Execution]
     QStringUnicode strResult = QStringUnicode::GetEmpty();
-    
+
     // [Verification]
     BOOST_CHECK(strResult == EXPECTED_RESULT);
 }
