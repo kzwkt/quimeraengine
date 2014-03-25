@@ -299,6 +299,51 @@ UConverter* QStringUnicode::GetConverter(const EQTextEncoding eEncoding)
     return pConverter;
 }
 
+void QStringUnicode::Normalize(const EQNormalizationForm &eNormalizationForm)
+{
+    const icu::Normalizer2* pNormalizer = QStringUnicode::GetNormalilzer(eNormalizationForm);
+    UErrorCode eErrorCode = U_ZERO_ERROR;
+    
+    UBool bIsNormalized = pNormalizer->isNormalized(m_strString, eErrorCode); // [TODO] Thund: Change this by a call to this->IsNormalized when implemented
+
+    QE_ASSERT(U_SUCCESS(eErrorCode), "An error occurred when checking if the string was normalized"); // And this also.
+
+    if(!bIsNormalized && U_SUCCESS(eErrorCode) != FALSE)
+    {
+        icu::UnicodeString strNormalized;
+        pNormalizer->normalize(m_strString, strNormalized, eErrorCode);
+
+        QE_ASSERT(U_SUCCESS(eErrorCode), "An error occurred when normalizing the string");
+
+        if(U_SUCCESS(eErrorCode) != FALSE)
+            m_strString = strNormalized;
+    }
+}
+
+const icu::Normalizer2* QStringUnicode::GetNormalilzer(const EQNormalizationForm &eNormalizationForm)
+{
+    const icu::Normalizer2* pNormalizer = null_q;
+    UErrorCode eErrorCode = U_ZERO_ERROR;
+
+    switch(eNormalizationForm)
+    {
+    case EQNormalizationForm::E_C:
+        pNormalizer = icu::Normalizer2::getNFCInstance(eErrorCode);
+        break;
+    case EQNormalizationForm::E_D:
+        pNormalizer = icu::Normalizer2::getNFDInstance(eErrorCode);
+        break;
+    case EQNormalizationForm::E_KC:
+    case EQNormalizationForm::E_KD:
+        QE_ASSERT(false, "Normalization forms KC and KD are not supported currently");
+        break;
+    }
+
+    QE_ASSERT(!U_FAILURE(eErrorCode), "An error ocurred when attempting to get a normalizer");
+
+    return pNormalizer;
+}
+
 
 //##################=======================================================##################
 //##################			 ____________________________			   ##################

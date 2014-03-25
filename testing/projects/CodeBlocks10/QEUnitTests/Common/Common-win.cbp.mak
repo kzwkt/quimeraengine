@@ -52,6 +52,7 @@ before_debugwin32sharedrtstatic:
 
 after_debugwin32sharedrtstatic: 
 	cmd /c copy "$(MAKEPATH)trunk\testing\bin\TestConfig.txt" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtStatic"
+	cmd /c copy "$(MAKEPATH)trunk\testing\bin\NormalizationTest.txt" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtStatic"
 	cmd /c copy "$(MAKEPATH)trunk\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtStatic" /Y
 
 debugwin32sharedrtstatic: before_debugwin32sharedrtstatic out_debugwin32sharedrtstatic after_debugwin32sharedrtstatic
@@ -118,6 +119,7 @@ before_debugwin32sharedrtdynamic:
 
 after_debugwin32sharedrtdynamic: 
 	cmd /c copy "$(MAKEPATH)trunk\testing\bin\TestConfig.txt" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtDynamic"
+	cmd /c copy "$(MAKEPATH)trunk\testing\bin\NormalizationTest.txt" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtDynamic"
 	cmd /c copy "$(MAKEPATH)trunk\bin\CodeBlocks10\DebugWin32SharedrtDynamic\QuimeraEngineCommon.dll" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtDynamic" /Y
 	cmd /c copy "$(MAKEPATH)trunk\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll" "$(MAKEPATH)trunk\testing\bin\CodeBlocks10\DebugWin32SharedrtDynamic" /Y
 

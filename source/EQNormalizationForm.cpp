@@ -24,74 +24,40 @@
 // Kinesis Team                                                                  //
 //-------------------------------------------------------------------------------//
 
-#ifndef __QFIXEDARRAYWHITEBOX__
-#define __QFIXEDARRAYWHITEBOX__
-
-#include "QFixedArray.h"
-#include "QPoolAllocator.h"
-
-using Kinesis::QuimeraEngine::Tools::Containers::QFixedArray;
+#include "EQNormalizationForm.h"
 
 namespace Kinesis
 {
 namespace QuimeraEngine
 {
-namespace Tools
+namespace Common
 {
-namespace Containers
-{
-namespace Test
+namespace DataTypes
 {
 
-/// <summary>
-/// Class intended to be used to expose protected methods of QFixedArray for testing purposes.
-/// </summary>
-template <class T, class Allocator = QPoolAllocator>
-class QFixedArrayWhiteBox : public QFixedArray<T>
-{
-    using QFixedArray<T>::m_pAllocator;
+//##################=======================================================##################
+//##################			 ____________________________			   ##################
+//##################			|							 |			   ##################
+//##################		    |  ATTRIBUTES INITIALIZATION |			   ##################
+//##################		   /|							 |\			   ##################
+//##################			 \/\/\/\/\/\/\/\/\/\/\/\/\/\/			   ##################
+//##################													   ##################
+//##################=======================================================##################
 
-    static const pointer_uint_q DEFAULT_NUMBER_OF_ELEMENTS = 1;
-
-	// CONSTRUCTORS
-	// ---------------
-public:
-
-	// Necessary for testing
-    QFixedArrayWhiteBox() : QFixedArray<T>()
+EQNormalizationForm::TNameValuePair EQNormalizationForm::sm_arValueName[] =
     {
-        // To avoid that the destructor tries to delete a null pointer.
-        if( null_q == m_pAllocator )
-            m_pAllocator = new Allocator(QFixedArrayWhiteBox::DEFAULT_NUMBER_OF_ELEMENTS * sizeof(T), sizeof(T), QAlignment(alignof_q(T)));
-    }
+        std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("C"),    EQNormalizationForm::E_C),
+        std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("D"),    EQNormalizationForm::E_D),
+        std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("KC"),    EQNormalizationForm::E_KC),
+        std::pair<string_q, EQNormalizationForm::EnumType>(QE_L("KD"),    EQNormalizationForm::E_KD),
+    };
 
-	// PROPERTIES
-	// ---------------
-public:
+EQNormalizationForm::TNameValueMap EQNormalizationForm::sm_mapValueName(
+        EQNormalizationForm::sm_arValueName ,
+        &EQNormalizationForm::sm_arValueName[0] + sizeof(EQNormalizationForm::sm_arValueName) / sizeof(EQNormalizationForm::sm_arValueName[0])
+    );
 
-    // Necessary for testing
-    pointer_uint_q GetFirst() const
-    {
-        return QFixedArray<T, Allocator>::m_uFirst;
-    }
-
-    // Necessary for testing
-    pointer_uint_q GetLast() const
-    {
-        return QFixedArray<T, Allocator>::m_uLast;
-    }
-
-    // Necessary for testing
-    QPoolAllocator *GetpAllocator() const
-    {
-        return QFixedArray<T, Allocator>::m_pAllocator;
-    }
-};
-
-} //namespace Test
-} //namespace Containers
-} //namespace Tools
+} //namespace DataTypes
+} //namespace Common
 } //namespace QuimeraEngine
 } //namespace Kinesis
-
-#endif // __QFIXEDARRAYWHITEBOX__

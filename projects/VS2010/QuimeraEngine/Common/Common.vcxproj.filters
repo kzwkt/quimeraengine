@@ -47,6 +47,9 @@
     <ClInclude Include="..\..\..\..\headers\EQTextEncoding.h">
       <Filter>DataTypes</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\headers\EQNormalizationForm.h">
+      <Filter>DataTypes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\..\source\SQBoolean.cpp">
@@ -81,6 +84,9 @@
       <Filter>Memory</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\source\EQTextEncoding.cpp">
+      <Filter>DataTypes</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\source\EQNormalizationForm.cpp">
       <Filter>DataTypes</Filter>
     </ClCompile>
   </ItemGroup>

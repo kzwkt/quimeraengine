@@ -104,6 +104,9 @@
 		<Unit filename="../../../../headers/DataTypesDefinitions.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
+		<Unit filename="../../../../headers/EQNormalizationForm.h">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../headers/EQTextEncoding.h">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
@@ -137,6 +140,9 @@
 			<Option virtualFolder="Memory/" />
 		</Unit>
 		<Unit filename="../../../../source/Assertions.cpp" />
+		<Unit filename="../../../../source/EQNormalizationForm.cpp">
+			<Option virtualFolder="DataTypes/" />
+		</Unit>
 		<Unit filename="../../../../source/EQTextEncoding.cpp">
 			<Option virtualFolder="DataTypes/" />
 		</Unit>
