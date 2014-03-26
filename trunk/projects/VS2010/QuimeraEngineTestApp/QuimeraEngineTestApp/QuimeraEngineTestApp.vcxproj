@@ -64,7 +64,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;icuuc.lib;icudt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;icuuc.lib;icudt.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreLinkEvent>
       <Command>copy $(TargetDir)\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010\*.dll $(TargetDir)</Command>
@@ -90,7 +90,7 @@
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
       <AdditionalLibraryDirectories>$(SolutionDir)..\..\..\3rdparty\Boost\bin\Win32\DebugSharedrtStatic;$(SolutionDir)..\..\..\bin\VS2010\$(Configuration);$(SolutionDir)..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\VS2010;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;icuuc.lib;icudt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>QuimeraEngineCommon.lib;QuimeraEngineTools.lib;QuimeraEngineSystem.lib;QuimeraEngineCore.lib;icuuc.lib;icudt.lib;icuin.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreLinkEvent>
       <Command>copy $(TargetDir)\..\..\..\..\bin\VS2010\$(Configuration) $(TargetDir)

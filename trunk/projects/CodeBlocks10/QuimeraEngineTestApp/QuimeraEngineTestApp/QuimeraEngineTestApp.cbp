@@ -22,6 +22,9 @@
 					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineTools.a" />
 					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineSystem.a" />
 					<Add library="..\..\..\..\bin\CodeBlocks10\DebugLinux32SharedrtStatic\QuimeraEngineCore.a" />
+					<Add library="icuuc" />
+					<Add library="icudt" />
+					<Add library="icuin" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugLinux32SharedrtStatic" />
 				</Linker>
 			</Target>
@@ -41,11 +44,15 @@
 					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineTools.lib" />
 					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineSystem.lib" />
 					<Add library="$(WORKSPACEDIR)\..\..\..\bin\CodeBlocks10\DebugWin32SharedrtStatic\QuimeraEngineCore.lib" />
-					<Add library="sicuuc" />
-					<Add library="ssicudt" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicudt.dll.a" />
+					<Add library="libicuin.dll.a" />
+					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
 					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtStatic" />
-					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtStatic/MinGW" />
 				</Linker>
+				<ExtraCommands>
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+				</ExtraCommands>
 			</Target>
 			<Target title="DebugWin32SharedrtDynamic">
 				<Option platforms="Windows;" />
@@ -65,14 +72,16 @@
 					<Add library="libQuimeraEngineCore.a" />
 					<Add library="libicudt.dll.a" />
 					<Add library="libicuuc.dll.a" />
-					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
+					<Add library="libicuin.dll.a" />
 					<Add directory="../../../../3rdparty/ICU/bin/Win32/ReleaseSharedrtDynamic/MinGW" />
+					<Add directory="../../../../bin/CodeBlocks10/DebugWin32SharedrtDynamic" />
 				</Linker>
 				<ExtraCommands>
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCore.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineSystem.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineTools.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\bin\CodeBlocks10\$(TARGET_NAME)\QuimeraEngineCommon.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
+					<Add after='cmd /c copy &quot;$(TARGET_OUTPUT_DIR)..\..\..\..\..\3rdparty\ICU\bin\Win32\ReleaseSharedrtDynamic\MinGW\*.dll&quot; &quot;$(TARGET_OUTPUT_DIR)&quot; /Y' />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -93,6 +102,9 @@
 					<Add library=".\QuimeraEngineTools.so" />
 					<Add library=".\QuimeraEngineSystem.so" />
 					<Add library=".\QuimeraEngineCore.so" />
+					<Add library="icuuc" />
+					<Add library="icudt" />
+					<Add library="icuin" />
 				</Linker>
 				<ExtraCommands>
 					<Add before="mkdir -p $(TARGET_OUTPUT_DIR)" />
