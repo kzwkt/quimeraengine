@@ -115,6 +115,11 @@ private:
 	/// </summary>
     static const u64_q HNS_PER_4_CONSECUTIVE_YEARS;
 
+    /// <summary>
+	/// The internal value for the instant stored in an undefined date/time object.
+	/// </summary>
+    static const QTimeSpan UNDEFINED_VALUE;
+
 
 	// CONSTRUCTORS
 	// ---------------
@@ -218,6 +223,13 @@ public:
     /// is null, which means no time zone offset (UTC).</param>
     QDateTime(const u64_q uHour, const u64_q uMinute, const u64_q uSecond, const u64_q uMillisecond,
               const QTimeZone* pTimeZone = null_q);
+    
+    /// <summary>
+    /// Constructor that copies a date and time, using a different time zone.
+    /// </summary>
+    /// <param name="dateTime">[IN] The date and time to be copied.</param>
+    /// <param name="pTimeZone">[IN] The information about the time zone on which the time is based. Null means no time zone offset (UTC).</param>
+    QDateTime(const QDateTime &dateTime, const QTimeZone* pTimeZone);
 
 
 	// METHODS
@@ -232,6 +244,151 @@ public:
     /// A reference to the resident value.
     /// </returns>
     QDateTime& operator=(const QDateTime& dateTime);
+
+    /// <summary>
+    /// Moves forward the current instant, adding a time span.
+    /// </summary>
+    /// <remarks>
+    /// It is not possible to operate with undefined dates; the date/time will not be changed.<br/>
+    /// If the result is posterior to the maximum, it will be set to the maximum.<br/>
+    /// The result will be stored in this instance.
+    /// </remarks>
+    /// <param name="timeToAdd">[IN] The amount of time to move the current date/time.</param>
+    /// <returns>
+    /// A reference to the resident value.
+    /// </returns>
+    QDateTime& operator+=(const QTimeSpan &timeToAdd);
+
+    /// <summary>
+    /// Moves backward the current instant, subtracting a time span.
+    /// </summary>
+    /// <remarks>
+    /// It is not possible to operate with undefined dates; the date/time will not be changed.<br/>
+    /// If the result is prior to the minimum, it will be set to the minimum.<br/>
+    /// The result will be stored in this instance.
+    /// </remarks>
+    /// <param name="timeToSubtract">[IN] The amount of time to move the current date/time.</param>
+    /// <returns>
+    /// A reference to the resident value.
+    /// </returns>
+    QDateTime& operator-=(const QTimeSpan &timeToSubtract);
+
+    /// <summary>
+    /// Moves forward the current instant, adding a time span and returning the result.
+    /// </summary>
+    /// <remarks>
+    /// It is not possible to operate with undefined dates; the date/time will not be changed.<br/>
+    /// If the result is posterior to the maximum, it will be set to the maximum.
+    /// </remarks>
+    /// <param name="timeToAdd">[IN] The amount of time to move the current date/time.</param>
+    /// <returns>
+    /// The displaced date/time.
+    /// </returns>
+    QDateTime operator+(const QTimeSpan &timeToAdd) const;
+
+    /// <summary>
+    /// Moves backward the current instant, subtracting a time span and returning the result.
+    /// </summary>
+    /// <remarks>
+    /// It is not possible to operate with undefined dates; the date/time will not be changed.<br/>
+    /// If the result is prior to the minimum, it will be set to the minimum.
+    /// </remarks>
+    /// <param name="timeToSubtract">[IN] The amount of time to move the current date/time.</param>
+    /// <returns>
+    /// The displaced date/time.
+    /// </returns>
+    QDateTime operator-(const QTimeSpan &timeToSubtract) const;
+
+    /// <summary>
+    /// Calculates the difference between two dates/times.
+    /// </summary>
+    /// <remarks>
+    /// It is not possible to operate with undefined dates; the result will be zero time.<br/>
+    /// The result will be always a positive value, the order of the operands does not matter.
+    /// </remarks>
+    /// <param name="dateTime">[IN] The other date/time with which to calculate the difference.</param>
+    /// <returns>
+    /// The difference between both dates/times, as a time span.
+    /// </returns>
+    QTimeSpan operator-(const QDateTime &dateTime) const;
+
+    /// <summary>
+    /// Checks whether two dates/times are equal.
+    /// </summary>
+    /// <remarks>
+    /// The time zone is ignored when comparing the date and the time, it means, comparisons are performed using UTC time.
+    /// </remarks>
+    /// <param name="dateTime">[IN] The date/time to compare to.</param>
+    /// <returns>
+    /// True if date/times are equal; False otherwise. If only one of the operands is undefined, the result will be False;
+    /// if both operads are undefined, the result will be True.
+    /// </returns>
+    bool operator==(const QDateTime &dateTime) const;
+
+    /// <summary>
+    /// Checks whether two dates/times are different.
+    /// </summary>
+    /// <remarks>
+    /// The time zone is ignored when comparing the date and the time, it means, comparisons are performed using UTC time.
+    /// </remarks>
+    /// <param name="dateTime">[IN] The date/time to compare to.</param>
+    /// <returns>
+    /// True if date/times are different; False otherwise. If only one of the operands is undefined, the result will be True;
+    /// if both operads are undefined, the result will be False.
+    /// </returns>
+    bool operator!=(const QDateTime &dateTime) const;
+
+    /// <summary>
+    /// Checks whether a date/time is prior to other.
+    /// </summary>
+    /// <remarks>
+    /// The time zone is ignored when comparing the date and the time, it means, comparisons are performed using UTC time.
+    /// </remarks>
+    /// <param name="dateTime">[IN] The date/time to compare to.</param>
+    /// <returns>
+    /// True if the resident date/time (left operand) is prior to input date/time (right operand); False otherwise. If any of the operands is 
+    /// undefined, the result will be False.
+    /// </returns>
+    bool operator<(const QDateTime &dateTime) const;
+
+    /// <summary>
+    /// Checks whether a date/time is posterior to other.
+    /// </summary>
+    /// <remarks>
+    /// The time zone is ignored when comparing the date and the time, it means, comparisons are performed using UTC time.
+    /// </remarks>
+    /// <param name="dateTime">[IN] The date/time to compare to.</param>
+    /// <returns>
+    /// True if the resident date/time (left operand) is posterior to input date/time (right operand); False otherwise. If any of the operands is 
+    /// undefined, the result will be False.
+    /// </returns>
+    bool operator>(const QDateTime &dateTime) const;
+
+    /// <summary>
+    /// Checks whether a date/time is prior or equal to other.
+    /// </summary>
+    /// <remarks>
+    /// The time zone is ignored when comparing the date and the time, it means, comparisons are performed using UTC time.
+    /// </remarks>
+    /// <param name="dateTime">[IN] The date/time to compare to.</param>
+    /// <returns>
+    /// True if the resident date/time (left operand) is prior or equal to input date/time (right operand); False otherwise.
+    /// If only one of the operands is undefined, the result will be False; if both operads are undefined, the result will be True.
+    /// </returns>
+    bool operator<=(const QDateTime &dateTime) const;
+
+    /// <summary>
+    /// Checks whether a date/time is posterior or equal to other.
+    /// </summary>
+    /// <remarks>
+    /// The time zone is ignored when comparing the date and the time, it means, comparisons are performed using UTC time.
+    /// </remarks>
+    /// <param name="dateTime">[IN] The date/time to compare to.</param>
+    /// <returns>
+    /// True if the resident date/time (left operand) is posterior or equal to input date/time (right operand); False otherwise.
+    /// If only one of the operands is undefined, the result will be False; if both operads are undefined, the result will be True.
+    /// </returns>
+    bool operator>=(const QDateTime &dateTime) const;
 
     /// <summary>
     /// Gets the number of days in a given month, taking into account leap years.
@@ -255,7 +412,7 @@ public:
     /// </returns>
     static const QDateTime& GetUndefinedDate();
 
-protected:
+private:
 
     /// <summary>
     /// Calculates whether a year is a leap year or not.
@@ -270,7 +427,7 @@ protected:
     /// Applies the offset of the time zone and the DST to the internal time data so it becomes UTC.
     /// </summary>
     void SubtractTimeZoneOffset();
-
+    
 
 	// PROPERTIES
 	// ---------------
@@ -291,6 +448,16 @@ public:
     /// A time zone instance.
     /// </returns>
     const QTimeZone* GetTimeZone() const;
+
+private:
+
+    /// <summary>
+    /// Checks whether the date / time instance is undefined.
+    /// </summary>
+    /// <returns>
+    /// True if it is undefined; False otherwise.
+    /// </returns>
+    bool IsUndefined() const;
 
 
 	// ATTRIBUTES
